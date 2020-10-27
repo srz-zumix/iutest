@@ -6,6 +6,9 @@ trigger:
     - master
     - develop
 
+image_pull_secrets:
+  - dockerconfig
+
 steps:
   - &gcc
     name: 10
@@ -109,6 +112,9 @@ trigger:
     - master
     - develop
 
+image_pull_secrets:
+  - dockerconfig
+
 steps:
   - &clang
     name: 11
@@ -161,6 +167,9 @@ trigger:
   branch:
     - master
     - develop
+
+image_pull_secrets:
+  - dockerconfig
 
 steps:
   - &clang
@@ -240,6 +249,9 @@ trigger:
   branch:
     - master
     - develop
+
+image_pull_secrets:
+  - dockerconfig
 
 steps:
   - &gcc
