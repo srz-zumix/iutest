@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "internal/iutest_compiler.hpp"
+#include "internal/iutest_compiler.hpp" // IWYU pragma: keep
 #include <stdarg.h>
 
 //======================================================================
@@ -29,7 +29,7 @@ void test_vprintf(const char* fmt, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1,
 //======================================================================
 // include
 #include "iutest.hpp"
-#include "../include/gtest/iutest_assertion_only.hpp"
+#include "../include/gtest/iutest_assertion_only.hpp"  // IWYU pragma: keep
 #include <iostream>
 
 #ifdef IUTEST_USE_GTEST

@@ -208,7 +208,7 @@ function(cxx_executable_test_with_main name)
 endfunction()
 
 
-function(cxx_namespace_test name)
+function(cxx_executable_test_ns name)
   set(SRCS ${IUTEST_ROOT_DIR}/test/main.cpp)
   message(STATUS "create namespace test source:")
   file(RELATIVE_PATH test_relative_include_path ${IUTEST_ROOT_DIR}/test ${IUTEST_INCLUDE_DIR})

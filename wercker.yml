@@ -21,6 +21,14 @@ build:
           cd tools/wandbox
           python iuwandbox.py --list-compiler --verbose
 
+cmake-check:
+  steps:
+    - script:
+        name: CMake tests check
+        code: |
+          cd test
+          make cmake-sync-check
+
 gtest-compat:
   box: alpine
   docker: true
@@ -64,7 +72,7 @@ wandbox:
         code: |
           export PYTHONDONTWRITEBYTECODE=1
           export IUWANDBOX_COMMANDLINE_OPTION="-f"-Werror" --encoding utf-8-sig --expand-include --verbose --check-config --retry-wait 180 --iutest-use-main"
-          if [ "${IUWANDBOX_TARGET_SRC+x}" ]; then export IUWANDBOX_TARGET_SRC="../../test/syntax_tests.cpp"; fi
+          if [ -z "${IUWANDBOX_TARGET_SRC+x}" ]; then export IUWANDBOX_TARGET_SRC="../../test/syntax_tests.cpp"; fi
 
     - script: &experimental
         name: experimental setup
@@ -77,6 +85,7 @@ wandbox:
           cd tools/wandbox
           for compiler in ${IUWANDBOX_COMPILER}
           do
+              echo ./iuwandbox.py ${IUWANDBOX_EXPERIMENTAL_OPTION} ${IUWANDBOX_COMMANDLINE_OPTION} -c $compiler --std "c++${IUWANDBOX_CPPVER}" ${IUWANDBOX_TARGET_SRC} ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_STDC_ADD_OPTION};
               python ./iuwandbox.py ${IUWANDBOX_EXPERIMENTAL_OPTION} ${IUWANDBOX_COMMANDLINE_OPTION} -c $compiler --std "c++${IUWANDBOX_CPPVER}" ${IUWANDBOX_TARGET_SRC} ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_STDC_ADD_OPTION};
           done
 

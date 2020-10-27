@@ -17,8 +17,10 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_port.hpp"
 #include "iutest_constant.hpp"
+// IWYU pragma: end_exports
 
 #if IUTEST_HAS_CXX_HDR_CODECVT
 #  include <locale>
@@ -42,7 +44,7 @@ namespace detail
 */
 inline ::std::string AnyStringToMultiByteString(const char* str, int num = -1)
 {
-    return num < 0 ? str : ::std::string(str, num);
+    return num < 0 ? str : ::std::string(str, static_cast<size_t>(num));
 }
 
 /**
@@ -103,7 +105,7 @@ inline ::std::string AnyStringToMultiByteString(const char* str, int num = -1)
 
 /**
  * @brief   文字列から ::std::wstring へ変換
- * @param [in]  c_str   = 入力
+ * @param [in]  str = 入力
  * @return  wstring
 */
 ::std::wstring MultiByteStringToWideString(const char* str);
@@ -114,7 +116,7 @@ inline ::std::string AnyStringToMultiByteString(const char* str, int num = -1)
  * @param [in]  num = 入力バッファサイズ
  * @return  UTF8 文字列
 */
-::std::string MultiByteStringToUTF8(const char* src, int num=-1);
+::std::string MultiByteStringToUTF8(const char* str, int num=-1);
 
 /**
  * @brief   ワイド文字列から ::std::string へ変換
@@ -219,7 +221,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "../impl/iutest_charcode.ipp"
+#  include "../impl/iutest_charcode.ipp" // IWYU pragma: export
 #endif
 
 #endif // INCG_IRIS_IUTEST_CHARCODE_HPP_D444FB3E_3AFA_46D0_AD69_33FAAF5615E3_

@@ -17,7 +17,9 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_util_tests.hpp"
+// IWYU pragma: end_exports
 
 #if defined(IUTEST_OS_WINDOWS)
 #include <windows.h>

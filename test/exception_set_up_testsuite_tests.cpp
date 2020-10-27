@@ -1,7 +1,7 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file        exception_setup_testsuite_tests.cpp
+ * @file        exception_set_up_testsuite_tests.cpp
  * @brief       iutest exception at SetUpTestSuite
  *
  * @author      t.shirayanagi
@@ -36,7 +36,7 @@
 class ExceptionSetUpTest : public ::iuutil::backward::Test<ExceptionSetUpTest>
 {
 public:
-    static void SetUpTestSuite()
+    IUTEST_ATTRIBUTE_NORETURN_ static void SetUpTestSuite()
     {
         throw "ExceptionSetUpTest";
     }
@@ -62,7 +62,20 @@ int main(int argc, char* argv[])
     // 失敗テストを含むので xml 出力しない
     ::iutest::IUTEST_FLAG(output) = NULL;
 #endif
-    if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
+#if defined(IUTEST_USE_GTEST) && GTEST_VER == 0x01080100
+    // bug?
+    if( IUTEST_RUN_ALL_TESTS() != 0 )
+    {
+        printf("Test expect success.\n");
+        return 1;
+    }
+#else
+    if( IUTEST_RUN_ALL_TESTS() == 0 )
+    {
+        printf("Test expect fail.\n");
+        return 1;
+    }
+#endif
 #if IUTEST_HAS_ASSERTION_RETURN
     IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->failed_test_count())
         << ::iutest::AssertionReturn<int>(1);

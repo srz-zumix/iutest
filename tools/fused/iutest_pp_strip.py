@@ -296,12 +296,11 @@ class IutestPreprocessor:
                     expand = re.sub(r'\s*or\s*\(0\)\s*', '', expand)
                     expand = re.sub(r'\s*\(1\)\s*and\s*', '', expand)
                     expand = re.sub(r'\s*and\s*\(1\)\s*', '', expand)
-                    expand = expand.replace('and', '&&')
-                    expand = expand.replace('or',  '||')
-                    expand = expand.replace('not',  '!')
-                    expand = expand.replace('(0)',  '0')
-                    expand = expand.replace('(1)',  '1')
-                    expand = expand.replace(' ', '')
+                    expand = expand.replace(' and ', '&&')
+                    expand = expand.replace(' or ' , '||')
+                    expand = expand.replace(' not ', '!')
+                    expand = expand.replace('(0)', '0')
+                    expand = expand.replace('(1)', '1')
                     return (r, expand)
             return (r, None)
 
@@ -528,7 +527,7 @@ class IutestPreprocessor:
         line = line.replace('generator_', 'gen_')
         line = line.replace('dummy', 'dmy')
         # line = line.replace('value', 'val')
-        line = line.replace('macro', 'mcr')
+        # line = line.replace('macro', 'mcr')
         line = line.replace('EXTEND_POINT_', 'EX_P_')
         for k,v in reduction_macros.items():
             if collections.Counter(reduction_macros.values())[v] > 1:
@@ -662,4 +661,23 @@ class IutestPreprocessor:
                 dst += line
             prev = t
         dst += cach_clear()
+        return dst
+
+    def trancate_line(self, code):
+        dst = ""
+        limit = 6000
+        for line in code.splitlines():
+            found = True
+            while len(line) >= limit and found:
+                found = False
+                for sep in ['}}', '};', '";']:
+                    idx = line.rfind(sep, 0, limit)
+                    if idx >= 0:
+                        idx += len(sep)
+                        dst += line[:idx] + '\n'
+                        line = line[idx:]
+                        found = True
+                        break
+            line += "\n"
+            dst += line
         return dst

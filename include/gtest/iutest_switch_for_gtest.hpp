@@ -57,7 +57,9 @@ using ::std::get;
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "../iutest_ver.hpp"
+// IWYU pragma: end_exports
 
 // gtest 1.5 or less compatible
 #if !defined(IUTEST_HAS_CONCEPTS)
@@ -83,6 +85,10 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 
 //======================================================================
 // define
+
+#if !defined(GTEST_HAS_PARAM_TEST)
+#  define GTEST_HAS_PARAM_TEST  1
+#endif
 
 #if defined(INCG_IRIS_IUTEST_HPP_)
 #undef IUTEST_SUCCEED
@@ -240,6 +246,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #  define IUTEST_NO_AD_HOC_TEST_RESULT
 #endif
 
+// IWYU pragma: begin_exports
 #include "../internal/iutest_compiler.hpp"
 #include "../internal/iutest_stdlib_defs.hpp"
 #include "../internal/iutest_type_traits.hpp"
@@ -267,6 +274,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #include "switch/iutest_switch_filepath.hpp"
 
 #include "switch/iutest_switch_cmphelper.hpp"
+// IWYU pragma: end_exports
 
 #ifndef IUTEST_STATIC_ASSERT_MSG
 #  define IUTEST_STATIC_ASSERT_MSG(B, Msg)  typedef ::testing::iusupport::StaticAssertionTest<  \
@@ -553,6 +561,14 @@ inline void GTestStreamTo(std::ostream* os, const char val)
 {
     *os << val;
 }
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+template<typename CharT, typename Traits>
+inline void GTestStreamTo(std::ostream* os, const ::std::basic_string_view<CharT, Traits>& val)
+{
+    const ::std::basic_string<CharT, Traits> str{ val };
+    *os << str.c_str();
+}
+#endif
 
 }   // end of namespace printer_internal2
 }   // end of namespace testing

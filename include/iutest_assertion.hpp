@@ -17,9 +17,11 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_result.hpp"
 #include "iutest_printers.hpp"
 #include "internal/iutest_list.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest
 {
@@ -330,6 +332,8 @@ public:
         OnFixed(fixed);
 #if IUTEST_HAS_EXCEPTIONS && IUTEST_USE_THROW_ON_ASSERTION_FAILURE
         {
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_SWITCH_ENUM()
             switch( m_part_result.type() )
             {
             case TestPartResult::kSkip:
@@ -339,6 +343,7 @@ public:
             default:
                 break;
             }
+IUTEST_PRAGMA_WARN_POP()
         }
 #endif
     }
@@ -482,7 +487,10 @@ inline AssertionResult CmpHelperOpFailure(const char* expr1, const char* expr2, 
 #define IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_BASE_(op_name, op)    \
     template<typename T1, typename T2>                              \
     bool iuOperator##op_name(const T1& v1, const T2& v2) {          \
+        IUTEST_PRAGMA_WARN_PUSH()                                   \
+        IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_INT_FLOAT_CONVERSION()          \
         return v1 op v2;                                            \
+        IUTEST_PRAGMA_WARN_POP()                                    \
     }
 
 #if IUTEST_HAS_CXX_HDR_VARIANT && IUTEST_HAS_VARIADIC_TEMPLATES
@@ -538,6 +546,7 @@ bool iuOperatorEQ(const T1& v1, const T2& v2)
 {
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
+IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_INT_FLOAT_CONVERSION()
     return v1 == v2;
 IUTEST_PRAGMA_WARN_POP()
 }
