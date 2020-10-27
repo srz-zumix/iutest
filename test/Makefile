@@ -76,8 +76,7 @@ showcxxversion:
 	-$(CXX)
 
 showcxxmacros: ## show compiler predefined macros
-	python --version
-	$(CXX) /Bxcl-dME.py main.cpp
+	$(CXX) /Bxcl-dME.bat main.cpp
 
 $(RUNNER) : $(@:_tests_run=_tests)
 	@echo $@
