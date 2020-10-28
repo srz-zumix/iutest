@@ -81,9 +81,10 @@ resources:
   containers:
   - container: gcc_10
     image: rikorose/gcc-cmake:gcc-10
+    options: "--name ci-container"
   - container: wine_msvc
     image: madduci/docker-wine
-    options: "-u root"
+    options: "-u root --name ci-container"
 
 stages:
   - stage: Precheck
