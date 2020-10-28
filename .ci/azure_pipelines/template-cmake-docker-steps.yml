@@ -1,0 +1,39 @@
+# optional cmake test steps template
+
+parameters:
+  container_target: 'gcc_10'
+  cmake_options: ''
+  ctest_options: ''
+  apt_get: false
+
+steps:
+- ${{ if eq(parameters.apt_get, 'true') }}:
+  # https://github.com/microsoft/azure-pipelines-agent/issues/2043#issuecomment-687983301
+  - script: |
+      /usr/bin/docker exec -t -u 0 ci-container \
+        sh -c "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confold" -y install cmake"
+    displayName: 'setup'
+
+- script: |
+    mkdir build && cd build
+    cmake ../projects/cmake ${{ parameters.cmake_options }}
+  target:
+    container: ${{ parameters.container_target }}
+  displayName: 'generate'
+
+- script: |
+    cd build && cmake --build .
+  target:
+    container: ${{ parameters.container_target }}
+  displayName: 'build'
+
+- script: |
+    cd build && ctest ${{ parameters.ctest_options }} -V --output-on-failure
+  target:
+    container: ${{ parameters.container_target }}
+  displayName: 'test'
+
+- task: Docker@2
+  inputs:
+    command: stop
+    container: ${{ parameters.container_target }}
