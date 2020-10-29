@@ -1,0 +1,35 @@
+# https://github.blog/2020-10-27-code-scanning-a-github-repository-using-github-advanced-security-within-an-azure-devops-pipeline/
+
+parameters:
+  github_access_token: ''
+
+jobs:
+  - job: CodeQL
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '10.x'
+      displayName: 'Install Node.js'
+
+    - script: make -C test -j4
+      displayName: 'build'
+
+    - script: |
+        npm install
+        npm test
+      displayName: 'npm install and test'
+
+    - script: |
+        wget https://github.com/github/codeql-action/releases/download/codeql-bundle-20200826/codeql-runner-linux
+        chmod +x codeql-runner-linux
+      displayName: 'Get latest CodeQL package. Install on Agent.'
+
+    - script: |
+        ./codeql-runner-linux init --repository $(Build.Repository.Name) --github-url https://github.com --github-auth ${{ parameters.github_access_token }}
+      displayName: 'Initialize CodeQ Executable and create a CodeQL database'
+
+    - script: |
+        ./codeql-runner-linux analyze --repository $(Build.Repository.Name) --github-url https://github.com --github-auth ${{ parameters.github_access_token }} --commit $(Build.SourceVersion) --ref $(Build.SourceBranch)
+      displayName: 'Populate the CodeQL runner databases, analyze them, and upload the results to GitHub.'
