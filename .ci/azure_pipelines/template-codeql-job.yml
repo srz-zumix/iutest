@@ -13,6 +13,9 @@ jobs:
         versionSpec: '10.x'
       displayName: 'Install Node.js'
 
+    - script: make -C test -j4
+      displayName: 'build'
+
     - script: |
         npm install
         npm test
