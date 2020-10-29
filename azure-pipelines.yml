@@ -134,7 +134,7 @@ stages:
     jobs:
       - template: .ci/azure_pipelines/template-codeql-job.yml
         parameters:
-          github_access_token: "${GITHUB_AUTH_TOKEN}"
+          github_access_token: "$(GITHUB_AUTH_TOKEN)"
 # - stage: Publish
   #   dependsOn:
   #     Test
