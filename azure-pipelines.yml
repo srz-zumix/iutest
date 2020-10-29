@@ -130,10 +130,10 @@ stages:
   - stage: CodeQL
     dependsOn: Precheck
     variables:
-      GITHUB_PAT: ${GITHUB_PAT}
+      GITHUB_PAT: $(GITHUB_PAT)
     jobs:
       - template: .ci/azure_pipelines/template-codeql-job.yml
-  # - stage: Publish
+# - stage: Publish
   #   dependsOn:
   #     Test
   #     ConfigDisabledTest
