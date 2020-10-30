@@ -127,14 +127,14 @@ stages:
             generator_name: Visual Studio 16 2019
             platform: x64
             cmake_options: "${CMAKE_OPTIONS}"
-  - stage: CodeQL
-    dependsOn: Precheck
-    variables:
-      GITHUB_AUTH_TOKEN: $(GITHUB_PAT)
-    jobs:
-      - template: .ci/azure_pipelines/template-codeql-job.yml
-        parameters:
-          github_access_token: "$(GITHUB_AUTH_TOKEN)"
+  # - stage: CodeQL
+  #   dependsOn: Precheck
+  #   variables:
+  #     GITHUB_AUTH_TOKEN: $(GITHUB_PAT)
+  #   jobs:
+  #     - template: .ci/azure_pipelines/template-codeql-job.yml
+  #       parameters:
+  #         github_access_token: "$(GITHUB_AUTH_TOKEN)"
 # - stage: Publish
   #   dependsOn:
   #     Test
