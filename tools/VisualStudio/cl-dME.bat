@@ -1,4 +1,4 @@
 @echo off
 
 python --version
-python cl-dME.py %*
+python %~dp0\cl-dME.py %*
