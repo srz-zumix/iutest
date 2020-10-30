@@ -3,8 +3,8 @@
 # cl-dME.py
 #
 # usage:
-#   cl /B1cl-dME.py main.cpp
-#   cl /BXcl-dME.py main.cpp
+#   cl /B1cl-dME.bat main.cpp
+#   cl /BXcl-dME.bat main.cpp
 
 import os
 
