@@ -11,7 +11,7 @@ steps:
   # https://github.com/microsoft/azure-pipelines-agent/issues/2043#issuecomment-687983301
   - script: |
       /usr/bin/docker exec -t -u 0 ci-container \
-        sh -c "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confold" -y install cmake"
+        sh -c "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install cmake"
     displayName: 'setup'
 
 - script: |
