@@ -13,9 +13,6 @@ jobs:
         versionSpec: '10.x'
       displayName: 'Install Node.js'
 
-    - script: make -C test -j4
-      displayName: 'build'
-
     - script: |
         npm install
         npm test
@@ -29,6 +26,9 @@ jobs:
     - script: |
         ./codeql-runner-linux init --repository $(Build.Repository.Name) --github-url https://github.com --github-auth ${{ parameters.github_access_token }}
       displayName: 'Initialize CodeQ Executable and create a CodeQL database'
+
+    - script: make -C test -j4
+      displayName: 'build'
 
     - script: |
         ./codeql-runner-linux analyze --repository $(Build.Repository.Name) --github-url https://github.com --github-auth ${{ parameters.github_access_token }} --commit $(Build.SourceVersion) --ref $(Build.SourceBranch)
