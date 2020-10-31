@@ -83,7 +83,7 @@ resources:
     image: rikorose/gcc-cmake:gcc-10
     options: "--name ci-container"
   - container: wine_msvc
-    image: madduci/docker-wine-msvc
+    image: madduci/docker-wine-msvc:16.7-2019
     options: "-u root --name ci-container"
 
 stages:
