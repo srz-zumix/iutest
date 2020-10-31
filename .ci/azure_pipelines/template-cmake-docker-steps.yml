@@ -7,16 +7,8 @@ parameters:
   apt_get: false
 
 steps:
-- ${{ if eq(parameters.apt_get, 'true') }}:
-  # https://github.com/microsoft/azure-pipelines-agent/issues/2043#issuecomment-687983301
-  - script: |
-      /usr/bin/docker exec -t -u 0 ci-container apt-get update
-      /usr/bin/docker exec -t -u 0 ci-container DEBIAN_FRONTEND=noninteractive apt-get -y install cmake
-    displayName: 'setup'
-
 - script: |
-    mkdir build && cd build
-    cmake ../projects/cmake ${{ parameters.cmake_options }}
+    mkdir build && cd build && cmake ../projects/cmake ${{ parameters.cmake_options }}
   target:
     container: ${{ parameters.container_target }}
   displayName: 'generate'

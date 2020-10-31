@@ -160,9 +160,11 @@ stages:
         pool:
           vmImage: ubuntu-latest
         steps:
-        - template: .ci/azure_pipelines/template-cmake-docker-steps.yml
-          parameters:
-            container_target: wine_msvc
+        - script: |
+            /usr/local/bin/wine64-entrypoint ./.ci/cmake-test.bat
+          target:
+            container: ${{ parameters.container_target }}
+          displayName: 'cmake test'
       - job: logout
         pool:
           vmImage: ubuntu-latest
