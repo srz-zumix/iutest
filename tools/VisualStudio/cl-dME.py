@@ -12,7 +12,7 @@ from argparse import SUPPRESS
 
 
 class DefinePrinter:
-    def __init__():
+    def __init__(self):
         self.parser = ArgumentParser(add_help=False)
         self.parser.add_argument(
             '-D',
