@@ -161,9 +161,7 @@ stages:
           vmImage: ubuntu-latest
         steps:
         - script: |
-            /usr/local/bin/wine64-entrypoint ./.ci/cmake-test.bat
-          target:
-            container: wine_msvc
+            /usr/bin/docker exec -t -u wine ci-container /usr/local/bin/wine64-entrypoint ./.ci/cmake-test.bat
           displayName: 'cmake test'
       - job: logout
         pool:
