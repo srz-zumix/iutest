@@ -83,7 +83,7 @@ resources:
     image: rikorose/gcc-cmake:gcc-10
     options: "--name ci-container"
   - container: wine_msvc
-    image: madduci/docker-wine
+    image: madduci/docker-wine-msvc
     options: "-u root --name ci-container"
 
 stages:
@@ -163,7 +163,6 @@ stages:
         - template: .ci/azure_pipelines/template-cmake-docker-steps.yml
           parameters:
             container_target: wine_msvc
-            apt_get: true
       - job: logout
         pool:
           vmImage: ubuntu-latest
