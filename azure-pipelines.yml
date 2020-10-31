@@ -163,7 +163,7 @@ stages:
         - script: |
             /usr/local/bin/wine64-entrypoint ./.ci/cmake-test.bat
           target:
-            container: ${{ parameters.container_target }}
+            container: wine_msvc
           displayName: 'cmake test'
       - job: logout
         pool:
