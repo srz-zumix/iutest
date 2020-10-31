@@ -17,7 +17,9 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_any.hpp"
+// IWYU pragma: end_exports
 
 #if IUTEST_HAS_PARAM_TEST
 

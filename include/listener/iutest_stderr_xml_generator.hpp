@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2016-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2016-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,7 +17,9 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_junit_xml_generator.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest
 {

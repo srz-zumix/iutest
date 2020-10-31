@@ -17,8 +17,10 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "../iutest_pred.hpp"
 #include "../iutest_package.hpp"
+// IWYU pragma: end_exports
 
 #if defined(__clang_analyzer__)
 #  include <assert.h>

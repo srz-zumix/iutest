@@ -17,7 +17,9 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_assertion.hpp"
+// IWYU pragma: end_exports
 
 //======================================================================
 // define
