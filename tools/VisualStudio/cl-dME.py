@@ -16,7 +16,7 @@ class DefinePrinter:
         self.parser = ArgumentParser(add_help=False)
         self.parser.add_argument(
             '-D',
-            dest='defs'
+            dest='defs',
             action='append',
             default=[],
             help=SUPPRESS
