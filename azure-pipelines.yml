@@ -161,7 +161,7 @@ stages:
           vmImage: ubuntu-latest
         steps:
         - script: |
-            /usr/bin/docker run --rm -t -v $(Build.SourcesDirectory)/iutest:home/wine/.wine/drive_c/iutest/ madduci/docker-wine-msvc:16.7-2019 ./iutest/.ci/cmake-test.bat
+            /usr/bin/docker run --rm -t -v $(Build.SourcesDirectory)/iutest:/home/wine/.wine/drive_c/iutest/ madduci/docker-wine-msvc:16.7-2019 ./iutest/.ci/cmake-test.bat
           displayName: 'cmake test'
       - job: logout
         pool:
