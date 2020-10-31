@@ -166,6 +166,7 @@ stages:
             container: wine_msvc
           displayName: 'launch'
         - script: |
+            /usr/bin/docker exec -t -u wine ci-container wine64 dir
             /usr/bin/docker exec -t -u wine ci-container wine64 ./.ci/azure_pipelines/cmake-test.bat
           displayName: 'cmake test'
       - job: logout
