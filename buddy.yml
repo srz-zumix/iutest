@@ -10,6 +10,8 @@
   - action: "Execute: sample run"
     type: "BUILD"
     working_directory: "/buddy/iutest"
+    login: "srzzumix"
+    password: "secure!Ni4QuDa4mUt/ypKs5YyEVwa8F2FiDqkIQIf8DYNsoXRLNWymxgpy8JthX0DeVKHt.0gDfE0ETdFk6vGc93v7lag=="
     docker_image_name: "library/gcc"
     docker_image_tag: "7"
     execute_commands:
