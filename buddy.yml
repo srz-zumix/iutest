@@ -13,7 +13,7 @@
     login: "srzzumix"
     password: "secure!Ni4QuDa4mUt/ypKs5YyEVwa8F2FiDqkIQIf8DYNsoXRLNWymxgpy8JthX0DeVKHt.0gDfE0ETdFk6vGc93v7lag=="
     docker_image_name: "library/gcc"
-    docker_image_tag: "7"
+    docker_image_tag: "10"
     execute_commands:
     - "cd projects/make && make run"
     mount_filesystem_path: "/buddy/iutest"
