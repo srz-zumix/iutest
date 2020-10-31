@@ -1,5 +1,9 @@
 @echo off
 
+C:\x64.bat
+
+dir
+
 mkdir build
 cd build
 

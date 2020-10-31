@@ -161,8 +161,12 @@ stages:
           vmImage: ubuntu-latest
         steps:
         - script: |
-            /usr/bin/docker run --rm -t -v $(Build.SourcesDirectory)/iutest:/home/wine/.wine/drive_c/iutest/ madduci/docker-wine-msvc:16.7-2019 cmake --version
-            /usr/bin/docker run --rm -t -v $(Build.SourcesDirectory)/iutest:/home/wine/.wine/drive_c/iutest/ madduci/docker-wine-msvc:16.7-2019 call ./iutest/.ci/cmake-test.bat
+            echo launch
+          target:
+            container: wine_msvc
+          displayName: 'launch'
+        - script: |
+            /usr/bin/docker run --rm -t ci-container wine64 cmd /k ./.ci/azure_pipelines/cmake-test.bat
           displayName: 'cmake test'
       - job: logout
         pool:
