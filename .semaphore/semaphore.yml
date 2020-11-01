@@ -21,6 +21,9 @@ global_job_config:
     commands:
       # - checkout --use-cache
       - checkout
+  # Connect secret to all jobs in the pipeline
+  secrets:
+    - name: dockerhub_login
 
 blocks:
   # - name: install
@@ -44,6 +47,7 @@ blocks:
       prologue:
         commands:
           # - cache restore
+          - echo ${DOCKER_PASSWORD} ./.ci/login-dockerhub.sh ${DOCKER_USERNAME}
           - ./.ci/linux/install-clang.sh
           - ./.ci/linux/install-gcc.sh
       jobs:

@@ -12,6 +12,7 @@ cirrus_gcc_test_task:
       - STDFLAG: -std=c++14
       - STDFLAG: -std=c++17
       - STDFLAG: -std=c++2a
+  docker_login_check_script: echo a | docker login
   version_script: make -C test showcxxversion
   # NOTE: -j$((`nproc`)): Container errored with 'OOMKilled'
   build_script: make -C test -j4
