@@ -21,6 +21,9 @@ aliases:
           MAKE_RUN_TARGET: test
           # MAKE_TARGET: all_tests
           # MAKE_RUN_TARGET: run_all_tests
+        auth:
+          username: srzzumix
+          password: $DOCKERHUB_TOKEN
   - &restore_cache
       keys:
       # This branch if available
@@ -158,6 +161,16 @@ jobs:
           command: .circleci\vcperf_build.bat
       - store_artifacts:
           path: .\iutest.etl
+  docker:
+    machine: true
+    steps:
+      - docker/check:
+      - run:
+        name: login check
+        command: |
+          echo a | docker login
+      - docker/pull:
+          images: 'madduci/docker-wine-msvc:16.7-2019'
 
 workflows:
   version: 2.1
@@ -168,3 +181,4 @@ workflows:
       - clang_optimize_test:
           filters: *branch-filter
       - vcperf
+      - docker
