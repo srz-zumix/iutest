@@ -93,9 +93,9 @@ stages:
         pool:
           vmImage: ubuntu-latest
         steps:
-          - script: |
-              echo test | docker login
-            displayName: 'docker login check'
+          # - script: |
+          #     echo test | docker login
+          #   displayName: 'docker login check'
           - script: make -C test -j4 syntax_tests_run
             displayName: 'syntax test'
   - stage: Test
@@ -143,15 +143,6 @@ stages:
   - stage: DockerContaierTest
     dependsOn: Precheck
     jobs:
-      - job: login
-        pool:
-          vmImage: ubuntu-latest
-        steps:
-          - task: Docker@2
-            displayName: Login to Docker Hub
-            inputs:
-              command: login
-              containerRegistry: DockerHub
       - job: gcc
         pool:
           vmImage: ubuntu-latest
@@ -169,18 +160,9 @@ stages:
             container: wine_msvc
           displayName: 'launch'
         - script: |
-            /usr/bin/docker exec -t -u wine ci-container -C wine64 dir
-            /usr/bin/docker exec -t -u wine ci-container -C wine64 ./.ci/azure_pipelines/cmake-test.bat
+            /usr/bin/docker exec -t -u wine ci-container sh -C wine64 dir
+            /usr/bin/docker exec -t -u wine ci-container sh -C wine64 ./.ci/azure_pipelines/cmake-test.bat
           displayName: 'cmake test'
-      - job: logout
-        pool:
-          vmImage: ubuntu-latest
-        steps:
-          - task: Docker@2
-            displayName: Logout of Docker Hub
-            inputs:
-              command: logout
-              containerRegistry: DockerHub
   # - stage: CodeQL
   #   dependsOn: Precheck
   #   variables:
