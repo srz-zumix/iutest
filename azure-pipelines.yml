@@ -84,9 +84,7 @@ resources:
     options: "--name ci-container"
   - container: wine_msvc
     image: madduci/docker-wine-msvc:16.7-2019
-    options: "-u root --name ci-container"
-    volumes:
-      - $(Build.SourcesDirectory)/iutet:/home/wine/.wine/drive_c/iutest
+    options: "-u root --name ci-container -v $(Build.SourcesDirectory)/iutet:/home/wine/.wine/drive_c/iutest"
 
 stages:
   - stage: Precheck
