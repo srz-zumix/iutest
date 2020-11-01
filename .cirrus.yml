@@ -12,7 +12,6 @@ cirrus_gcc_test_task:
       - STDFLAG: -std=c++14
       - STDFLAG: -std=c++17
       - STDFLAG: -std=c++2a
-  docker_login_check_script: echo a | docker login
   version_script: make -C test showcxxversion
   # NOTE: -j$((`nproc`)): Container errored with 'OOMKilled'
   build_script: make -C test -j4
@@ -68,3 +67,7 @@ cirrus_freebsd_clang_test_task:
   test_script : gmake -C test test
   report_script: gmake -C test report
 
+
+cirrus_docker_login_test_task:
+  only_if: *default-condition
+  docker_login_check_script: echo a | docker login
