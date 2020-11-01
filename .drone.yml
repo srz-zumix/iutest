@@ -55,6 +55,9 @@ trigger:
     - develop
 
 steps:
+  - name: docker login test
+    commands:
+      - echo a | docker login
   - &gcc
     name: 5.5
     image: gcc:5.5
@@ -116,6 +119,9 @@ image_pull_secrets:
   - dockerconfig
 
 steps:
+  - name: docker login test
+    commands:
+      - echo a | docker login
   - &clang
     name: 11
     image: teeks99/clang-ubuntu:11
