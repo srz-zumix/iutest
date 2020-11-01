@@ -67,3 +67,7 @@ cirrus_freebsd_clang_test_task:
   test_script : gmake -C test test
   report_script: gmake -C test report
 
+
+cirrus_docker_login_test_task:
+  only_if: *default-condition
+  docker_login_check_script: echo a | docker login
