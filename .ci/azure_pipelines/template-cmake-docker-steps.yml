@@ -8,6 +8,10 @@ parameters:
 
 steps:
 - script: |
+    echo test | docker login
+  displayName: 'docker login check'
+
+- script: |
     mkdir build && cd build && cmake ../projects/cmake ${{ parameters.cmake_options }}
   target:
     container: ${{ parameters.container_target }}
