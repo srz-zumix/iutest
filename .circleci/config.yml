@@ -161,7 +161,7 @@ jobs:
           command: .circleci\vcperf_build.bat
       - store_artifacts:
           path: .\iutest.etl
-  docker:
+  docker_tests:
     machine: true
     steps:
       - docker/check:
@@ -181,4 +181,4 @@ workflows:
       - clang_optimize_test:
           filters: *branch-filter
       - vcperf
-      - docker
+      - docker_tests
