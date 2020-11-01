@@ -44,6 +44,7 @@ pr:
       - develop
       - azure-pipelines/*
       - azurepipelines/*
+      - azp/*
   paths:
     exclude:
       - "*.md"
@@ -76,13 +77,25 @@ pr:
       - .travis.yml
       - wercker.yml
 
+resources:
+  containers:
+  - container: gcc_10
+    image: rikorose/gcc-cmake:gcc-10
+    options: "--name ci-container"
+  - container: wine_msvc
+    image: madduci/docker-wine-msvc:16.7-2019
+    options: "-u root --name ci-container"
+
 stages:
   - stage: Precheck
     jobs:
       - job: syntax_test
         pool:
-          vmImage: ubuntu-16.04
+          vmImage: ubuntu-latest
         steps:
+          # - script: |
+          #     echo test | docker login
+          #   displayName: 'docker login check'
           - script: make -C test -j4 syntax_tests_run
             displayName: 'syntax test'
   - stage: Test
@@ -127,6 +140,29 @@ stages:
             generator_name: Visual Studio 16 2019
             platform: x64
             cmake_options: "${CMAKE_OPTIONS}"
+  - stage: DockerContaierTest
+    dependsOn: Precheck
+    jobs:
+      - job: gcc
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+        - template: .ci/azure_pipelines/template-cmake-docker-steps.yml
+          parameters:
+            container_target: gcc_10
+      - job: wine_msvc
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+        - script: |
+            echo launch
+          target:
+            container: wine_msvc
+          displayName: 'launch'
+        - script: |
+            /usr/bin/docker exec -t ci-container sh -C /usr/bin/wine64 dir
+            /usr/bin/docker exec -t ci-container sh -C /usr/bin/wine64 ./.ci/azure_pipelines/cmake-test.bat
+          displayName: 'cmake test'
   # - stage: CodeQL
   #   dependsOn: Precheck
   #   variables:
@@ -135,7 +171,7 @@ stages:
   #     - template: .ci/azure_pipelines/template-codeql-job.yml
   #       parameters:
   #         github_access_token: "$(GITHUB_AUTH_TOKEN)"
-# - stage: Publish
+  # - stage: Publish
   #   dependsOn:
   #     Test
   #     ConfigDisabledTest
