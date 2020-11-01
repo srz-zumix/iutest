@@ -140,15 +140,15 @@ stages:
   - stage: DockerContaierTest
     dependsOn: Precheck
     jobs:
-      - job: login
-        pool:
-          vmImage: ubuntu-latest
-        steps:
-          - task: Docker@2
-            displayName: Login to Docker Hub
-            inputs:
-              command: login
-              containerRegistry: DockerHub
+      # - job: login
+      #   pool:
+      #     vmImage: ubuntu-latest
+      #   steps:
+      #     - task: Docker@2
+      #       displayName: Login to Docker Hub
+      #       inputs:
+      #         command: login
+      #         containerRegistry: DockerHub
       - job: gcc
         pool:
           vmImage: ubuntu-latest
@@ -166,7 +166,7 @@ stages:
             container: wine_msvc
           displayName: 'launch'
         - script: |
-            /usr/bin/docker exec -u wine ci-container wine64 dir
+            /usr/bin/docker exec -u wine ci-container bash -C wine64 dir
             # /usr/bin/docker exec -u wine ci-container wine64 ./.ci/azure_pipelines/cmake-test.bat
           displayName: 'cmake test'
       - job: logout
