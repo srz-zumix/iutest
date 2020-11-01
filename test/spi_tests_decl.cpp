@@ -137,11 +137,8 @@
 #endif
 
 #if IUTEST_HAS_CXX_HDR_VARIANT
-    {
-        ::std::variant<int, float, ::std::string> v = 1;
-        FAILURE_MACRO( FLAVOR(_EQ)(v, 0), "Which is: 1" );
-        FAILURE_MACRO( FLAVOR(_EQ)(0.1f, v), "Actual: 1" );
-    }
+    FAILURE_MACRO( FLAVOR(_EQ)(v, 0), "Which is: 1" );
+    FAILURE_MACRO( FLAVOR(_EQ)(0.1f, v), "Actual: 1" );
 #endif
 
 #undef FLAVOR
