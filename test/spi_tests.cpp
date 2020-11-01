@@ -47,6 +47,9 @@ public:
     const ::std::string sa2;
     TestObjectX ox;
     TestObjectX oy;
+#if IUTEST_HAS_CXX_HDR_VARIANT
+    const ::std::variant<int, float, ::std::string> v;
+#endif
 
     SPITest()
         : null_str(NULL)
@@ -57,6 +60,9 @@ public:
         , sb("b")
         , ox(0, 1, 2)
         , oy(0, 0, 0)
+#if IUTEST_HAS_CXX_HDR_VARIANT
+        , v(1)
+#endif
     {
         const char ac_[5] = { 0, 0, 2, 3, 5 };
         for( int i=0; i < 5; ++i )
@@ -86,6 +92,9 @@ const float fa = static_cast<float>(a);
 const double da = static_cast<double>(a);
 const TestObjectX ox(0, 1, 2);
 const TestObjectX oy(0, 0, 0);
+#if IUTEST_HAS_CXX_HDR_VARIANT
+const ::std::variant<int, float, ::std::string> v = 1;
+#endif
 #endif
 
 void SPITest::FatalFailure_Sub(int& count)
