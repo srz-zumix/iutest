@@ -161,7 +161,8 @@ stages:
           displayName: 'launch'
         - script: |
             /usr/bin/docker exec -t -u wine ci-container bash -c "ln -sf $(Build.SourcesDirectory)/iutet /home/wine/.wine/drive_c/iutest"
-            /usr/bin/docker exec -t -u wine ci-container bash -c "wine64 dir"
+            /usr/bin/docker exec -t -u wine ci-container bash -c "wine64 dir >> dir.txt"
+            ls /home/wine/.wine/drive_c/
             /usr/bin/docker exec -t -u wine ci-container bash -c "wine64 /home/wine/.wine/drive_c/iutest/.ci/azure_pipelines/cmake-test.bat"
           displayName: 'cmake test'
   # - stage: CodeQL
