@@ -161,6 +161,16 @@ jobs:
           command: .circleci\vcperf_build.bat
       - store_artifacts:
           path: .\iutest.etl
+  docker:
+    machine: true
+    steps:
+      - docker/check:
+      - run:
+        name: login check
+        command: |
+          echo a | docker login
+      - docker/pull:
+          images: 'madduci/docker-wine-msvc:16.7-2019'
 
 workflows:
   version: 2.1

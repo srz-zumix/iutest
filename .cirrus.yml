@@ -66,10 +66,3 @@ cirrus_freebsd_clang_test_task:
   build_script: gmake -C test -j4
   test_script : gmake -C test test
   report_script: gmake -C test report
-
-
-cirrus_docker_login_test_task:
-  only_if: *default-condition
-  freebsd_instance:
-    image_family: freebsd-12-1-snap
-  docker_login_check_script: echo a | docker login
