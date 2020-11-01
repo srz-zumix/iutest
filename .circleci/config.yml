@@ -181,3 +181,4 @@ workflows:
       - clang_optimize_test:
           filters: *branch-filter
       - vcperf
+      - docker
