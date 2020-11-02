@@ -158,6 +158,20 @@ jobs:
           command: .circleci\vcperf_build.bat
       - store_artifacts:
           path: .\iutest.etl
+  win_msvc_tests:
+    docker:
+      - image: madduci/docker-wine-msvc:16.7-2019
+        auth:
+          username: $DOCKERHUB_LOGIN
+          password: $DOCKERHUB_TOKEN
+    steps:
+      - docker/check:
+          docker-username: DOCKERHUB_LOGIN   # DOCKER_LOGIN がデフォルト値となっており、この値が存在する場合自動で値がセットされます
+          docker-password: DOCKERHUB_TOKEN   # DOCKER_PASSWORD がデフォルト値になっております
+      - run:
+          name: cmake
+          command: |
+            mkdir build && cd build && ${CMAKE} ../projects/cmake
 
 workflows:
   version: 2.1
@@ -168,3 +182,4 @@ workflows:
       - clang_optimize_test:
           filters: *branch-filter
       - vcperf
+      - win_msvc_tests
