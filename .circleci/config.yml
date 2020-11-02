@@ -116,6 +116,7 @@ aliases:
 
 orbs:
   win: circleci/windows@2.2.0
+  docker: circleci/docker@1.4.0
 
 jobs:
   gcc_optimize_test:
@@ -164,11 +165,11 @@ jobs:
   docker_tests:
     machine: true
     steps:
-      - docker/check:
+      # - docker/check
       - run:
-        name: login check
-        command: |
-          echo a | docker login
+          name: login check
+          command: |
+            echo a | docker login
       - docker/pull:
           images: 'madduci/docker-wine-msvc:16.7-2019'
 
