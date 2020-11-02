@@ -23,10 +23,13 @@ class DefinePrinter:
         )
 
     def printto(self, key):
-        if key in os.environ:
+        print(key)
+        if os.environ.has_key(key):
             opts, args = self.parser.parse_known_args(os.environ[key])
             for d in opts.defs:
                 print(d)
+            print(opts)
+            print(args)
 
 
 def main():
