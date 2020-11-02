@@ -1,15 +1,22 @@
 cirrus_gcc_test_task:
-  only_if: &default-condition $CIRRUS_BRANCH == 'master' || $CIRRUS_BRANCH == 'develop' || $CIRRUS_BRANCH =~ 'feature/.*' || $CIRRUS_BRANCH =~ 'cirrusci/.*' || $CIRRUS_BASE_BRANCH != ''
+  only_if: &default-condition >
+    $CIRRUS_BRANCH == 'master' ||
+    $CIRRUS_BRANCH == 'develop' ||
+    $CIRRUS_BRANCH =~ 'feature/.*' ||
+    $CIRRUS_BRANCH =~ 'cirrusci/.*'
   auto_cancellation: true
   container:
     image: gcc:latest
   env:
     matrix:
-      STDFLAG: -std=c++14
-      STDFLAG: -std=c++17
-      STDFLAG: -std=c++2a
+      - STDFLAG: -std=c++14
+      - STDFLAG: -std=c++17
+      - STDFLAG: -std=c++2a
   version_script: make -C test showcxxversion
-  test_script: cd test && make -j4 && make test
+  # NOTE: -j$((`nproc`)): Container errored with 'OOMKilled'
+  build_script: make -C test -j4
+  test_script: make -C test test
+  report_script: make -C test report
 
 #cirrus_use_gtest_task:
 #  env:
@@ -22,17 +29,21 @@ cirrus_osx_14_test_task: &osx_task
   only_if: *default-condition
   auto_cancellation: true
   osx_instance:
-    image: mojave-xcode-10.1
-    # image: high-sierra-xcode-9.4.1
+    image: catalina-xcode
   env:
-    STDFLAG: -std=c++14
+    - STDFLAG: -std=c++14
   version_script: make -C test showcxxversion
-  test_script: cd test && make -j4 && make test
+  build_script: make -C test -j$((`getconf _NPROCESSORS_ONLN`))
+  test_script : make -C test test
+  report_script: make -C test report
 
 cirrus_osx_17_test_task:
   <<: *osx_task
   env:
-    STDFLAG: -std=c++17
+    - STDFLAG: -std=c++17
+    # https://stackoverflow.com/questions/56924853/why-xcode-11-beta-cant-use-c17s-filesystem-header
+    # ** Comment out because the image is mojave **
+    # CXXFLAGS: -mmacosx-version-min=10.15
   depends_on:
     - cirrus_osx_14_test
 
@@ -42,14 +53,17 @@ cirrus_osx_17_test_task:
 #   test_script: env
 
 cirrus_freebsd_clang_test_task:
+  only_if: *default-condition
   freebsd_instance:
-    image: freebsd-11-2-release-amd64
+    image_family: freebsd-12-1-snap
   env:
     matrix:
-      STDFLAG: -std=c++14
-      STDFLAG: -std=c++17
-      #STDFLAG: -std=c++2a
+      - STDFLAG: -std=c++14
+      - STDFLAG: -std=c++17
+      #- STDFLAG: -std=c++2a
   install_script: pkg install -y gmake
   version_script: gmake --version && gmake -C test showcxxversion
-  test_script: cd test && gmake -j4 && gmake test
+  build_script: gmake -C test -j4
+  test_script : gmake -C test test
+  report_script: gmake -C test report
 

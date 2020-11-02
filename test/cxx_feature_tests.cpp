@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2018-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2018-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -71,13 +71,6 @@ IUTEST(StringView, Compare)
     IUTEST_ASSERT_EQ("Hello", view);
 }
 
-IUTEST(StringView, PrintTo)
-{
-    PrintToLogChecker ck("Hello");
-    ::std::string_view view = "Hello";
-    IUTEST_SUCCEED() << ::iutest::PrintToString(view);
-}
-
 #endif
 
 #if IUTEST_HAS_CXX_HDR_OPTIONAL
@@ -127,26 +120,43 @@ IUTEST(Variant, Compare)
     }
 }
 
+IUTEST(Variant, CompareRawType)
+{
+    ::std::variant<int, float, ::std::string> v = 1;
+    IUTEST_EXPECT_EQ(1, v);
+    IUTEST_EXPECT_EQ(v, 1);
+    IUTEST_EXPECT_NE(0, v);
+    IUTEST_EXPECT_NE(v, 0);
+    IUTEST_EXPECT_LE(1, v);
+    IUTEST_EXPECT_LE(v, 1);
+    IUTEST_EXPECT_LT(0, v);
+    IUTEST_EXPECT_LT(v, 2);
+    IUTEST_EXPECT_GE(1, v);
+    IUTEST_EXPECT_GE(v, 1);
+    IUTEST_EXPECT_GT(2, v);
+    IUTEST_EXPECT_GT(v, 0);
+}
+
 #if IUTEST_HAS_EXCEPTIONS
 struct AlwaysThrow
 {
-  AlwaysThrow() = default;
-  AlwaysThrow(const AlwaysThrow&)
-  {
-    throw std::exception();
-  }
-  AlwaysThrow(AlwaysThrow&&)
-  {
-    throw std::exception();
-  }
-  AlwaysThrow& operator=(const AlwaysThrow&)
-  {
-    throw std::exception();
-  }
-  AlwaysThrow& operator=(AlwaysThrow&&)
-  {
-    throw std::exception();
-  }
+    AlwaysThrow() = default;
+    IUTEST_ATTRIBUTE_NORETURN_ AlwaysThrow(const AlwaysThrow &)
+    {
+        throw std::exception();
+    }
+    IUTEST_ATTRIBUTE_NORETURN_ AlwaysThrow(AlwaysThrow &&)
+    {
+        throw std::exception();
+    }
+    IUTEST_ATTRIBUTE_NORETURN_ AlwaysThrow &operator=(const AlwaysThrow &)
+    {
+        throw std::exception();
+    }
+    IUTEST_ATTRIBUTE_NORETURN_ AlwaysThrow &operator=(AlwaysThrow &&)
+    {
+        throw std::exception();
+    }
 };
 #endif
 

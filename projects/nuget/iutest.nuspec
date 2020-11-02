@@ -3,9 +3,9 @@
   <metadata>
     <id>iutest</id>
     <title>iutest</title>
-    <version>1.16.99</version>
+    <version>1.17.99</version>
     <authors>Takazumi Shirayanagi</authors>
-    <copyright>Copyright (c) 2011-2018</copyright>
+    <copyright>Copyright (c) 2011-2020</copyright>
     <summary>C++ testing framework.</summary>
     <description>iutest is framework for writing C++ tests.
     Supports automatic tests discovery, include only, value- and type- parameterized tests,
@@ -20,7 +20,6 @@
     <file src="..\..\README.md" target="\build\native\README.md" />
     <file src="..\..\LICENSE" target="\build\native\LICENSE" />
     <file src="..\..\CHANGES.md" target="\build\native\CHANGES.md" />
-    <file src="..\..\COPYING" target="\build\native\COPYING" />
     <file src="..\..\.editorconfig" target="\build\native\.editorconfig" />
     <file src="..\..\include\**\*.*" target="\build\native\include" />
     <file src="..\..\tools\**\*.*" target="\build\native\tools" />

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -61,6 +61,13 @@
     if( !::iutest::detail::IsTrue(condition) )  \
         IUTEST_LOG_(FATAL) << "Condition " #condition " failed. "
 
+/**
+ * @brief   Abort
+*/
+#if !defined(IUTEST_ABORT)
+#  define IUTEST_ABORT()  ::iutest::internal::posix::Abort()
+#endif
+
 namespace iutest {
 
 #ifdef IUTEST_OS_NACL
@@ -89,10 +96,8 @@ const char* GetCWD(char* buf, size_t length);
 
 void SleepMillisec(unsigned int millisec);
 
-#if defined(IUTEST_OS_WINDOWS_MOBILE)
-void Abort();
-#else
 IUTEST_ATTRIBUTE_NORETURN_ void Abort();
+#if !defined(IUTEST_OS_WINDOWS_MOBILE)
 inline void Abort() { abort(); }
 #endif
 
@@ -318,7 +323,7 @@ private:
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "../impl/iutest_port.ipp"
+#  include "../impl/iutest_port.ipp" // IWYU pragma: export
 #endif
 
 #endif // INCG_IRIS_IUTEST_PORT_HPP_7893F685_A1A9_477A_82E8_BF06237697FF_

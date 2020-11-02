@@ -1,9 +1,0 @@
-# for gh-pages
-inspecode:
-  tidy:
-    #auto-fix: true
-    ignore:
-      - html/*
-    options:
-      --indent: y
-      -wrap: 0

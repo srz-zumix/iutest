@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -86,7 +86,7 @@ private:
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "../impl/iutest_debug.ipp"
+#  include "../impl/iutest_debug.ipp" // IWYU pragma: export
 #endif
 
 #endif // INCG_IRIS_IUTEST_DEBUG_HPP_A63366D4_2112_4269_9BAF_BD30A5F2C7F2_

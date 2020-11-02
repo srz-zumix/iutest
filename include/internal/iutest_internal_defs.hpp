@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,12 +17,14 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "../iutest_defs.hpp"
-#include "iutest_string.hpp"
+#include "iutest_string_stream.hpp"
 #include "iutest_string_view.hpp"
 #include "iutest_type_traits.hpp"
 #include "iutest_compatible_defs.hpp"
 #include "iutest_exception.hpp"
+// IWYU pragma: end_exports
 
 #if IUTEST_HAS_HDR_CXXABI
 #  include <cxxabi.h>
@@ -73,7 +75,7 @@
 #      define IUTEST_BREAK()    DebugBreak()
 #    endif
 #  elif defined(IUTEST_OS_MAC)
-// http://www.cocoawithlove.com/2008/03/break-into-debugger.html
+// https://www.cocoawithlove.com/2008/03/break-into-debugger.html
 #    if defined(__ppc64__) || defined(__ppc__)
 #      define IUTEST_BREAK()    __asm__("li r0, 20\nsc\nnop\nli r0, 37\nli r4, 2\nsc\nnop\n" : : : "memory", "r0", "r3", "r4" )
 #    else
@@ -122,7 +124,7 @@ namespace detail
 
 //======================================================================
 // types
-#if IUTEST_HAS_NULLPTR
+#if IUTEST_HAS_NULLPTR && !defined(IUTEST_NO_NULL_TO_NULLPTR_T)
 typedef ::std::nullptr_t iu_nullptr_convertible_t;
 #else
 typedef ::iutest_compatible::IsNullLiteralHelper::Object* iu_nullptr_convertible_t;
@@ -361,6 +363,15 @@ IIUT_GeTypeNameSpecialization(bool)     // NOLINT
 #undef IIUT_GeTypeNameSpecialization2
 
 #endif
+
+/**
+ * @brief   型名の取得
+*/
+template<typename T>
+struct GetTypeNameProxy
+{
+    static ::std::string    GetTypeName() { return detail::GetTypeName<T>(); }
+};
 
 }   // end of namespace detail
 }   // end of namespace iutest

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -66,7 +66,8 @@ IUTEST_IPP_INLINE void TestInfo::RunImpl()
         catch (const ::std::exception& e)
         {
             elapsedmsec = sw.stop();
-            iutest::AssertionHelper(NULL, -1, detail::FormatCxxException(e.what()), TestPartResult::kFatalFailure).OnFixed(AssertionHelper::Fixed());
+            iutest::AssertionHelper(NULL, -1, detail::FormatCxxException(e.what())
+                , TestPartResult::kFatalFailure).OnFixed(AssertionHelper::Fixed(), true);
             if( TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
             {
                 throw;
@@ -83,7 +84,8 @@ IUTEST_IPP_INLINE void TestInfo::RunImpl()
         catch (...)
         {
             elapsedmsec = sw.stop();
-            iutest::AssertionHelper(NULL, -1, detail::FormatCxxException(NULL), TestPartResult::kFatalFailure).OnFixed(AssertionHelper::Fixed());
+            iutest::AssertionHelper(NULL, -1, detail::FormatCxxException(NULL)
+                , TestPartResult::kFatalFailure).OnFixed(AssertionHelper::Fixed(), true);
             if( TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
             {
                 throw;
@@ -119,7 +121,7 @@ IUTEST_IPP_INLINE void TestInfo::MiniDump(_EXCEPTION_POINTERS* ep)
 #if defined(_MSC_VER)
     char path[IUTEST_MAX_PATH];
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
-    _snprintf(path, sizeof(path), "%s_%s.dump", test_case_name(), name());
+    _snprintf(path, sizeof(path), "%s_%s.dump", test_suite_name(), name());
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     detail::MiniDump::Create(path, ep);
 #endif
@@ -150,6 +152,7 @@ IUTEST_IPP_INLINE void TestInfo::clear()
     m_ran = false;
     m_skip = false;
     m_test_result.Clear();
+    m_uncaught_messages.clear();
 }
 
 IUTEST_IPP_INLINE bool TestInfo::filter()

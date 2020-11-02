@@ -161,14 +161,12 @@ def run(options):
         run_impl(code, options)
     except paizaio.TooLongException as e:
         print(e)
-        output = options.output
         if not options.output:
             output = "paizaio-toolong-sourcecode.cpp"
             output_code(output, code, options.encoding)
             print("source code -> " + output)
         try:
             pp = PaizaPreprocessor()
-            output = os.path.basename(filepath) + ".p"
             macros = {}
             if options.use_main:
                 macros['IUTEST_USE_MAIN'] = '1'

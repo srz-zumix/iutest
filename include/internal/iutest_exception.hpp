@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -20,7 +20,6 @@
 
 #if IUTEST_HAS_EXCEPTIONS
 #include <exception>
-//#include <stdexcept>  // ::std::invalid_argment
 
 namespace iutest {
 namespace detail
@@ -48,7 +47,7 @@ inline ::std::string FormatCxxException(const char* description)
 }   // end of namespace detail
 }   // end of namespace iutest
 
-#if IUTEST_HAS_SEH && IUTEST_HAS_EXCEPTIONS
+#if IUTEST_HAS_SEH
 #include <iomanip>
 
 namespace iutest {
@@ -62,7 +61,7 @@ class seh_exception : public ::std::exception
 {
 public:
     seh_exception() : ::std::exception() {}
-    explicit seh_exception(const char *const& _What) : ::std::exception(_What) {}
+    explicit seh_exception(const char *const& what) : ::std::exception(what) {}
 public:
     static void translator(DWORD code, _EXCEPTION_POINTERS* ep)
     {

@@ -1,0 +1,65 @@
+name: GitHub Actions - metrics
+on:
+  push:
+    branches:
+      - master
+      - develop
+    paths-ignore:
+      - '*.ini'
+      - '*.md'
+      - '*.yml'
+      - '*.yaml'
+      - '.circleci/**'
+      - '.semaphore/**'
+      - 'docs/**'
+      - 'projects/**'
+      - 'samples/**'
+      - 'src/**'
+      - 'test/**'
+      - 'tools/**'
+      - 'utils/**'
+
+jobs:
+  prepare:
+    runs-on: ubuntu-18.04
+    if: "! contains(github.event.head_commit.message, '[ci skip]') && ! contains(github.event.head_commit.message, '[skip ci]') "
+    steps:
+      - run: |
+          echo "${{ github.event.head_commit.message }}"
+
+  fused:
+    runs-on: ubuntu-18.04
+    needs: prepare
+    steps:
+    - uses: actions/checkout@v2
+    - name: fused
+      id: fused
+      run: |
+        make -C tools/fused
+        echo "##[set-output name=size;]$(wc -c < fused-src/iutest.hpp)"
+        echo "##[set-output name=min_size;]$(wc -c < fused-src/iutest.min.hpp)"
+        echo "##[set-output name=wandbox_min_size;]$(wc -c < fused-src/iutest.wandbox.min.hpp)"
+    - name: send metrics
+      run: |
+        curl \
+          -H "Content-Type: application/json" \
+          -X POST \
+          -d "{\"branch\": \"${GITHUB_REF#refs/heads/}\", \"commit\": \"${GITHUB_SHA}\", \"size\": \"${{ steps.fused.outputs.size }}\", \"min\": \"${{ steps.fused.outputs.min_size }}\", \"wandbox\": \"${{ steps.fused.outputs.wandbox_min_size }}\"}" \
+          ${{ secrets.FUSED_METRICS_WEBHOOK }}
+
+  lizard:
+    runs-on: ubuntu-18.04
+    needs: prepare
+    steps:
+    - uses: actions/checkout@v2
+    - name: Lizard
+      uses: docker://srzzumix/lizard
+      with:
+        args: -o lizard.html --html ./include
+    - name: Archive code metrics results
+      uses: actions/upload-artifact@v1
+      with:
+        name: lizard.html
+        path: lizard.html
+
+

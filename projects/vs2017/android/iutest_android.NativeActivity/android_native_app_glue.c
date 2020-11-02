@@ -1,24 +1,24 @@
-/*
+ï»¿/*
  * Copyright (C) 2010 The Android Open Source Project
  *
- * Apache License Version 2.0 (u–{ƒ‰ƒCƒZƒ“ƒXv) ‚ÉŠî‚Ã‚¢‚Äƒ‰ƒCƒZƒ“ƒX‚³‚ê‚Ü‚·B;
- * –{ƒ‰ƒCƒZƒ“ƒX‚É€‹’‚µ‚È‚¢ê‡‚Í‚±‚Ìƒtƒ@ƒCƒ‹‚ðŽg—p‚Å‚«‚Ü‚¹‚ñB
- * –{ƒ‰ƒCƒZƒ“ƒX‚ÌƒRƒs[‚ÍAˆÈ‰º‚ÌêŠ‚©‚ç“üŽè‚Å‚«‚Ü‚·B
+ * Apache License Version 2.0 (ã€Œæœ¬ãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã€) ã«åŸºã¥ã„ã¦ãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã•ã‚Œã¾ã™ã€‚;
+ * æœ¬ãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã«æº–æ‹ ã—ãªã„å ´åˆã¯ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½¿ç”¨ã§ãã¾ã›ã‚“ã€‚
+ * æœ¬ãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã®ã‚³ãƒ”ãƒ¼ã¯ã€ä»¥ä¸‹ã®å ´æ‰€ã‹ã‚‰å…¥æ‰‹ã§ãã¾ã™ã€‚
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
- * “K—p‚³‚ê‚é–@—ß‚Ü‚½‚Í‘–Ê‚Å‚Ì‡ˆÓ‚É‚æ‚è•Ê’i‚Ì’è‚ß‚ª‚È‚¢ŒÀ‚èA–{ƒ‰ƒCƒZƒ“ƒX‚ÉŠî‚Ã‚¢‚Ä”Ð•z‚³‚ê‚éƒ\ƒtƒgƒEƒFƒA‚ÍA
- * –¾Ž¦–ÙŽ¦‚ð–â‚í‚¸A‚¢‚©‚È‚é•ÛØ‚àðŒ‚à‚È‚µ‚ÉŒ»ó‚Ì‚Ü‚Ü
- * ”Ð•z‚³‚ê‚Ü‚·B
- * –{ƒ‰ƒCƒZƒ“ƒX‚Å‚ÌŒ —˜‚Æ
- * §ŒÀ‚ð‹K’è‚µ‚½•¶Œ¾‚É‚Â‚¢‚Ä‚ÍA–{ƒ‰ƒCƒZƒ“ƒX‚ðŽQÆ‚µ‚Ä‚­‚¾‚³‚¢B
+ * é©ç”¨ã•ã‚Œã‚‹æ³•ä»¤ã¾ãŸã¯æ›¸é¢ã§ã®åˆæ„ã«ã‚ˆã‚Šåˆ¥æ®µã®å®šã‚ãŒãªã„é™ã‚Šã€æœ¬ãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã«åŸºã¥ã„ã¦é ’å¸ƒã•ã‚Œã‚‹ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã¯ã€
+ * æ˜Žç¤ºé»™ç¤ºã‚’å•ã‚ãšã€ã„ã‹ãªã‚‹ä¿è¨¼ã‚‚æ¡ä»¶ã‚‚ãªã—ã«ç¾çŠ¶ã®ã¾ã¾
+ * é ’å¸ƒã•ã‚Œã¾ã™ã€‚
+ * æœ¬ãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã§ã®æ¨©åˆ©ã¨
+ * åˆ¶é™ã‚’è¦å®šã—ãŸæ–‡è¨€ã«ã¤ã„ã¦ã¯ã€æœ¬ãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã‚’å‚ç…§ã—ã¦ãã ã•ã„ã€‚
  *
 */
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "threaded_app", __VA_ARGS__))
 #define LOGE(...) ((void)__android_log_print(ANDROID_LOG_ERROR, "threaded_app", __VA_ARGS__))
 
-/*ƒfƒoƒbƒO ƒrƒ‹ƒh‚Ìê‡‚ÍA‚±‚Ìƒ‰ƒCƒuƒ‰ƒŠ‚ÅƒfƒoƒbƒO ƒgƒŒ[ƒX‚ðí‚É—LŒø‚É‚µ‚Ä‚­‚¾‚³‚¢B*/
+/*ãƒ‡ãƒãƒƒã‚° ãƒ“ãƒ«ãƒ‰ã®å ´åˆã¯ã€ã“ã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã§ãƒ‡ãƒãƒƒã‚° ãƒˆãƒ¬ãƒ¼ã‚¹ã‚’å¸¸ã«æœ‰åŠ¹ã«ã—ã¦ãã ã•ã„ã€‚*/
 #ifndef NDEBUG
 #  define LOGV(...)  ((void)__android_log_print(ANDROID_LOG_VERBOSE, "threaded_app", __VA_ARGS__))
 #else
@@ -167,7 +167,7 @@ static void android_app_destroy(struct android_app* android_app) {
     android_app->destroyed = 1;
     pthread_cond_broadcast(&android_app->cond);
     pthread_mutex_unlock(&android_app->mutex);
-    //‚±‚ÌŒã‚É android_app ƒIƒuƒWƒFƒNƒg‚ð•ÏX‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB
+    //ã“ã®å¾Œã« android_app ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å¤‰æ›´ã™ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“ã€‚
 }
 
 static void process_input(struct android_app* app, struct android_poll_source* source) {
@@ -222,7 +222,7 @@ static void* android_app_entry(void* param) {
 }
 
 // --------------------------------------------------------------------
-//ƒlƒCƒeƒBƒu ƒAƒNƒeƒBƒrƒeƒB‚Ì‘ŠŒÝì—p (ƒƒCƒ“ƒXƒŒƒbƒh‚©‚ç‚ÌŒÄ‚Ño‚µ)
+//ãƒã‚¤ãƒ†ã‚£ãƒ– ã‚¢ã‚¯ãƒ†ã‚£ãƒ“ãƒ†ã‚£ã®ç›¸äº’ä½œç”¨ (ãƒ¡ã‚¤ãƒ³ã‚¹ãƒ¬ãƒƒãƒ‰ã‹ã‚‰ã®å‘¼ã³å‡ºã—)
 // --------------------------------------------------------------------
 
 static struct android_app* android_app_create(ANativeActivity* activity,
@@ -253,7 +253,7 @@ static struct android_app* android_app_create(ANativeActivity* activity,
     pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
     pthread_create(&android_app->thread, &attr, android_app_entry, android_app);
 
-    //ƒXƒŒƒbƒh‚ÌŠJŽn‚ð‘Ò‹@‚µ‚Ü‚·B
+    //ã‚¹ãƒ¬ãƒƒãƒ‰ã®é–‹å§‹ã‚’å¾…æ©Ÿã—ã¾ã™ã€‚
     pthread_mutex_lock(&android_app->mutex);
     while (!android_app->running) {
         pthread_cond_wait(&android_app->cond, &android_app->mutex);

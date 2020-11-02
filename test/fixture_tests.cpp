@@ -17,12 +17,12 @@
 // include
 #include "iutest.hpp"
 
-class TestSetUpEachCall : public ::iutest::Test
+class TestSetUpEachCall : public ::iuutil::backward::Test<TestSetUpEachCall>
 {
 protected:
     static int x;
 public:
-    virtual void SetUp(void)
+    virtual void SetUp(void) IUTEST_CXX_OVERRIDE
     {
         ++x;
     }
@@ -43,7 +43,7 @@ IUTEST_F(TestSetUpEachCall, Test2)
     IUTEST_ASSERT_EQ(2, x);
 }
 
-class TestFixture : public ::iutest::Test
+class TestFixture : public ::iuutil::backward::Test<TestFixture>
 {
 public:
     static int x;
@@ -53,12 +53,12 @@ public:
         IUTEST_ASSERT_EQ(-1, x);
         x = 0;
     }
-    virtual void SetUp(void)
+    virtual void SetUp(void) IUTEST_CXX_OVERRIDE
     {
         IUTEST_ASSERT_EQ(0, x);
         ++x;
     }
-    virtual void TearDown(void)
+    virtual void TearDown(void) IUTEST_CXX_OVERRIDE
     {
         IUTEST_ASSERT_EQ(2, x);
         ++x;

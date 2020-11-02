@@ -45,6 +45,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\samples\csvparams.csv" />
+    <CustomBuild Include="..\..\tools\VisualStudio\Visualizers\iutest.natstepfilter">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">xcopy /I /Y "%(FullPath)" "$(VisualStudioDir)\Visualizers\"</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(VisualStudioDir)\Visualizers\%(Filename)%(Extension);%(Outputs)</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\..\tools\VisualStudio\Visualizers\iutest.natvis" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{13851977-F039-448D-A853-A98325BDA088}</ProjectGuid>

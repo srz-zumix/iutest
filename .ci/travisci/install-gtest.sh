@@ -5,18 +5,22 @@ set -e
 if [ "${USE_GTEST_HEAD}" = '1' ]; then
   git clone https://github.com/google/googletest.git googletest
 else
-  mkdir googletest
-  if [ -e /usr/src/gtest ]; then
-    cp -r /usr/src/gtest googletest
-  elif [ -e /usr/src/gmock/gtest ]; then
-    cp -r /usr/src/gmock/gtest googletest
+  if [ -e /usr/src/googletest ]; then
+    cp -r /usr/src/googletest googletest
   else
-    exit 1
+    mkdir googletest
+    if [ -e /usr/src/gtest ]; then
+      cp -r /usr/src/gtest googletest
+    elif [ -e /usr/src/gmock/gtest ]; then
+      cp -r /usr/src/gmock/gtest googletest
+    else
+      exit 1
+    fi
+    mv googletest/gtest googletest/googletest
+    cd googletest
+    ln -s googletest gtest
+    cd -
   fi
-  mv googletest/gtest googletest/googletest
-  cd googletest
-  ln -s googletest gtest
-  cd -
 fi
 
 cd googletest/googletest

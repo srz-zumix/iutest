@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -33,14 +33,14 @@ public:
     }
 
 private:
-    virtual void SetUp(void)
+    virtual void SetUp(void) IUTEST_CXX_OVERRIDE
     {
         setup = true;
         ++test_counter;
         Environment::SetUp();
     }
 
-    virtual void TearDown(void)
+    virtual void TearDown(void) IUTEST_CXX_OVERRIDE
     {
         teardown = true;
         --test_counter;
@@ -51,13 +51,13 @@ private:
 class MyEnvironment2 : public ::iutest::Environment
 {
 private:
-    virtual void SetUp(void)
+    virtual void SetUp(void) IUTEST_CXX_OVERRIDE
     {
         IUTEST_ASSERT_EQ(1, test_counter);
         ++test_counter;
     }
 
-    virtual void TearDown(void)
+    virtual void TearDown(void) IUTEST_CXX_OVERRIDE
     {
         IUTEST_ASSERT_EQ(2, test_counter);
         --test_counter;
@@ -67,7 +67,7 @@ private:
 bool MyEnvironment::setup = false;
 bool MyEnvironment::teardown = false;
 
-IUTEST(FlagTest, Check)
+IUTEST(EnvironmentTest, FlagCheck)
 {
     IUTEST_ASSERT_TRUE(MyEnvironment::setup);
     IUTEST_ASSERT_FALSE(MyEnvironment::teardown);

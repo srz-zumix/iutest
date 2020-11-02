@@ -1,4 +1,4 @@
-// iutest_mfc_sample.cpp : ƒRƒ“ƒ\[ƒ‹ ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ÌƒGƒ“ƒgƒŠ ƒ|ƒCƒ“ƒg‚ğ’è‹`‚µ‚Ü‚·B
+ï»¿// iutest_mfc_sample.cpp : ã‚³ãƒ³ã‚½ãƒ¼ãƒ« ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚¨ãƒ³ãƒˆãƒª ãƒã‚¤ãƒ³ãƒˆã‚’å®šç¾©ã—ã¾ã™ã€‚
 //
 
 #include "stdafx.h"
@@ -11,7 +11,7 @@
 #endif
 
 
-// —Bˆê‚ÌƒAƒvƒŠƒP[ƒVƒ‡ƒ“ ƒIƒuƒWƒFƒNƒg‚Å‚·B
+// å”¯ä¸€ã®ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§ã™ã€‚
 
 CWinApp theApp;
 
@@ -19,135 +19,135 @@ using namespace std;
 
 int _tmain(int argc, TCHAR* argv[], TCHAR* envp[])
 {
-	int nRetCode = 0;
+    int nRetCode = 0;
 
-	HMODULE hModule = ::GetModuleHandle(NULL);
+    HMODULE hModule = ::GetModuleHandle(NULL);
 
-	if (hModule != NULL)
-	{
-		// MFC ‚ğ‰Šú‰»‚µ‚ÄAƒGƒ‰[‚Ìê‡‚ÍŒ‹‰Ê‚ğˆóü‚µ‚Ü‚·B
-		if (!AfxWinInit(hModule, NULL, ::GetCommandLine(), 0))
-		{
-			// TODO: •K—v‚É‰‚¶‚ÄƒGƒ‰[ ƒR[ƒh‚ğ•ÏX‚µ‚Ä‚­‚¾‚³‚¢B
-			_tprintf(_T("’v–½“I‚ÈƒGƒ‰[: MFC ‚Ì‰Šú‰»‚ª‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B\n"));
-			nRetCode = 1;
-		}
-		else
-		{
-			// TODO: ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Ì“®ì‚ğ‹Lq‚·‚éƒR[ƒh‚ğ‚±‚±‚É‘}“ü‚µ‚Ä‚­‚¾‚³‚¢B
-			IUTEST_INIT(&argc, argv);
-			nRetCode = IUTEST_RUN_ALL_TESTS();
-		}
-	}
-	else
-	{
-		// TODO: •K—v‚É‰‚¶‚ÄƒGƒ‰[ ƒR[ƒh‚ğ•ÏX‚µ‚Ä‚­‚¾‚³‚¢B
-		_tprintf(_T("’v–½“I‚ÈƒGƒ‰[: GetModuleHandle ‚ª¸”s‚µ‚Ü‚µ‚½\n"));
-		nRetCode = 1;
-	}
+    if (hModule != NULL)
+    {
+        // MFC ã‚’åˆæœŸåŒ–ã—ã¦ã€ã‚¨ãƒ©ãƒ¼ã®å ´åˆã¯çµæœã‚’å°åˆ·ã—ã¾ã™ã€‚
+        if (!AfxWinInit(hModule, NULL, ::GetCommandLine(), 0))
+        {
+            // TODO: å¿…è¦ã«å¿œã˜ã¦ã‚¨ãƒ©ãƒ¼ ã‚³ãƒ¼ãƒ‰ã‚’å¤‰æ›´ã—ã¦ãã ã•ã„ã€‚
+            _tprintf(_T("è‡´å‘½çš„ãªã‚¨ãƒ©ãƒ¼: MFC ã®åˆæœŸåŒ–ãŒã§ãã¾ã›ã‚“ã§ã—ãŸã€‚\n"));
+            nRetCode = 1;
+        }
+        else
+        {
+            // TODO: ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®å‹•ä½œã‚’è¨˜è¿°ã™ã‚‹ã‚³ãƒ¼ãƒ‰ã‚’ã“ã“ã«æŒ¿å…¥ã—ã¦ãã ã•ã„ã€‚
+            IUTEST_INIT(&argc, argv);
+            nRetCode = IUTEST_RUN_ALL_TESTS();
+        }
+    }
+    else
+    {
+        // TODO: å¿…è¦ã«å¿œã˜ã¦ã‚¨ãƒ©ãƒ¼ ã‚³ãƒ¼ãƒ‰ã‚’å¤‰æ›´ã—ã¦ãã ã•ã„ã€‚
+        _tprintf(_T("è‡´å‘½çš„ãªã‚¨ãƒ©ãƒ¼: GetModuleHandle ãŒå¤±æ•—ã—ã¾ã—ãŸ\n"));
+        nRetCode = 1;
+    }
 
-	return nRetCode;
+    return nRetCode;
 }
 
 IUTEST(MFC, String)
 {
-	CString str = _T("Test");
-	IUTEST_ASSERT_EQ(_T("Test"), str);
-	IUTEST_ASSERT_STREQ(_T("Test"), str);
-	IUTEST_ASSERT_STREQ(str, str);
+    CString str = _T("Test");
+    IUTEST_ASSERT_EQ(_T("Test"), str);
+    IUTEST_ASSERT_STREQ(_T("Test"), str);
+    IUTEST_ASSERT_STREQ(str, str);
 
-	IUTEST_ASSERT_STRIN(str, _T("Test"));
+    IUTEST_ASSERT_STRIN(str, _T("Test"));
 }
 
 IUTEST(MFC, Rect)
 {
-	CRect r = { 0, 0, 100, 100 };
-	IUTEST_ASSERT_EQ(r, r);
+    CRect r = { 0, 0, 100, 100 };
+    IUTEST_ASSERT_EQ(r, r);
 }
 
 template<typename T>
 struct test_value
 {
-	static T get(int index) { return index; }
+    static T get(int index) { return index; }
 };
 template<typename T>
 struct test_value< T* >
 {
-	static T* get(int index) { return NULL; }
+    static T* get(int index) { return NULL; }
 };
 template<>
 struct test_value < CString >
 {
-	static CString get(int index) { CString s; s.Format(_T("%d"), index); return s; }
+    static CString get(int index) { CString s; s.Format(_T("%d"), index); return s; }
 };
 
 template<typename T>
 class MFCArrayTypedTest : public ::iutest::Test {};
-IUTEST_TYPED_TEST_CASE(MFCArrayTypedTest, ::iutest::Types<CArray<int>, CTypedPtrArray<CPtrArray, int*>
-	, CByteArray, CWordArray, CDWordArray, CUIntArray, CStringArray, CPtrArray, CObArray>);
+IUTEST_TYPED_TEST_SUITE(MFCArrayTypedTest, ::iutest::Types<CArray<int>, CTypedPtrArray<CPtrArray, int*>
+    , CByteArray, CWordArray, CDWordArray, CUIntArray, CStringArray, CPtrArray, CObArray>);
 
 IUTEST_TYPED_TEST(MFCArrayTypedTest, EqCollections)
 {
-	typename iutest::mfc::CContainer<TypeParam>::BASE_TYPE a[10];
-	TypeParam ar;
-	ar.SetSize(IUTEST_PP_COUNTOF(a));
-	for(int i = 0; i < IUTEST_PP_COUNTOF(a); ++i)
-	{
-		a[i] = test_value<iutest::mfc::CContainer<TypeParam>::BASE_TYPE>::get(i);
-		ar[i] = test_value<iutest::mfc::CContainer<TypeParam>::BASE_TYPE>::get(i);
-	}
-	IUTEST_ASSERT_EQ_COLLECTIONS(
-		  ::iutest::mfc::begin(ar)
-		, ::iutest::mfc::end(ar)
-		, ::std::begin(a)
-		, ::std::end(a)
-		);
+    typename iutest::mfc::CContainer<TypeParam>::BASE_TYPE a[10];
+    TypeParam ar;
+    ar.SetSize(IUTEST_PP_COUNTOF(a));
+    for(int i = 0; i < IUTEST_PP_COUNTOF(a); ++i)
+    {
+        a[i] = test_value<iutest::mfc::CContainer<TypeParam>::BASE_TYPE>::get(i);
+        ar[i] = test_value<iutest::mfc::CContainer<TypeParam>::BASE_TYPE>::get(i);
+    }
+    IUTEST_ASSERT_EQ_COLLECTIONS(
+          ::iutest::mfc::begin(ar)
+        , ::iutest::mfc::end(ar)
+        , ::std::begin(a)
+        , ::std::end(a)
+        );
 }
 
 template<typename T>
 class MFCListTypedTest : public ::iutest::Test {};
-IUTEST_TYPED_TEST_CASE(MFCListTypedTest, ::iutest::Types<CList<int>, CTypedPtrList<CPtrList, int*>
-	, CStringList, CPtrList, CObList>);
+IUTEST_TYPED_TEST_SUITE(MFCListTypedTest, ::iutest::Types<CList<int>, CTypedPtrList<CPtrList, int*>
+    , CStringList, CPtrList, CObList>);
 
 IUTEST_TYPED_TEST(MFCListTypedTest, EqCollections)
 {
-	typename iutest::mfc::CContainer<TypeParam>::BASE_TYPE a[10];
-	TypeParam list;
-	for(int i = 0; i < IUTEST_PP_COUNTOF(a); ++i)
-	{
-		a[i] = test_value<iutest::mfc::CContainer<TypeParam>::BASE_TYPE>::get(i);
-		list.AddTail(test_value<iutest::mfc::CContainer<TypeParam>::BASE_TYPE>::get(i));
-	}
-	IUTEST_ASSERT_EQ_COLLECTIONS(
-		  ::iutest::mfc::begin(list)
-		, ::iutest::mfc::end(list)
-		, ::std::begin(a)
-		, ::std::end(a)
-		);
+    typename iutest::mfc::CContainer<TypeParam>::BASE_TYPE a[10];
+    TypeParam list;
+    for(int i = 0; i < IUTEST_PP_COUNTOF(a); ++i)
+    {
+        a[i] = test_value<iutest::mfc::CContainer<TypeParam>::BASE_TYPE>::get(i);
+        list.AddTail(test_value<iutest::mfc::CContainer<TypeParam>::BASE_TYPE>::get(i));
+    }
+    IUTEST_ASSERT_EQ_COLLECTIONS(
+          ::iutest::mfc::begin(list)
+        , ::iutest::mfc::end(list)
+        , ::std::begin(a)
+        , ::std::end(a)
+        );
 }
 
 template<typename T>
 class MFCMapTypedTest : public ::iutest::Test {};
-IUTEST_TYPED_TEST_CASE(MFCMapTypedTest, ::iutest::Types< CMap<int, int, int, int>
-	, CTypedPtrMap<CMapPtrToPtr, int*, int*>, CTypedPtrMap<CMapPtrToWord, int*, WORD>
-	, CTypedPtrMap<CMapWordToPtr, WORD, int*>, CTypedPtrMap<CMapStringToPtr, CString, int*>
-	, CMapWordToPtr, CMapWordToOb, CMapPtrToPtr, CMapPtrToWord
-	, CMapStringToPtr, CMapStringToOb, CMapStringToString >);
+IUTEST_TYPED_TEST_SUITE(MFCMapTypedTest, ::iutest::Types< CMap<int, int, int, int>
+    , CTypedPtrMap<CMapPtrToPtr, int*, int*>, CTypedPtrMap<CMapPtrToWord, int*, WORD>
+    , CTypedPtrMap<CMapWordToPtr, WORD, int*>, CTypedPtrMap<CMapStringToPtr, CString, int*>
+    , CMapWordToPtr, CMapWordToOb, CMapPtrToPtr, CMapPtrToWord
+    , CMapStringToPtr, CMapStringToOb, CMapStringToString >);
 
 IUTEST_TYPED_TEST(MFCMapTypedTest, EqCollections)
 {
-	TypeParam map;
-	for(int i = 0; i < 10; ++i)
-	{
-		map.SetAt(test_value<iutest::mfc::CContainer<TypeParam>::BASE_KEY>::get(i)
-			, test_value<iutest::mfc::CContainer<TypeParam>::BASE_VALUE>::get(i) );
-	}
-	IUTEST_ASSERT_EQ_COLLECTIONS(
-		  ::iutest::mfc::begin(map)
-		, ::iutest::mfc::end(map)
-		, ::iutest::mfc::begin(map)
-		, ::iutest::mfc::end(map)
-		);
+    TypeParam map;
+    for(int i = 0; i < 10; ++i)
+    {
+        map.SetAt(test_value<iutest::mfc::CContainer<TypeParam>::BASE_KEY>::get(i)
+            , test_value<iutest::mfc::CContainer<TypeParam>::BASE_VALUE>::get(i) );
+    }
+    IUTEST_ASSERT_EQ_COLLECTIONS(
+          ::iutest::mfc::begin(map)
+        , ::iutest::mfc::end(map)
+        , ::iutest::mfc::begin(map)
+        , ::iutest::mfc::end(map)
+        );
 }
 
 
@@ -157,34 +157,34 @@ using namespace ::iutest::matchers;
 
 IUTEST_TYPED_TEST(MFCArrayTypedTest, Matcher)
 {
-	TypeParam ar;
-	ar.SetSize(10);
-	for(int i = 0; i < 10; ++i)
-	{
-		ar[i] = test_value<iutest::mfc::CContainer<TypeParam>::BASE_TYPE>::get(i);
-	}
-	IUTEST_EXPECT_THAT(::iutest::mfc::make_container(ar), Each(_));
+    TypeParam ar;
+    ar.SetSize(10);
+    for(int i = 0; i < 10; ++i)
+    {
+        ar[i] = test_value<iutest::mfc::CContainer<TypeParam>::BASE_TYPE>::get(i);
+    }
+    IUTEST_EXPECT_THAT(::iutest::mfc::make_container(ar), Each(_));
 }
 
 IUTEST_TYPED_TEST(MFCListTypedTest, Matcher)
 {
-	TypeParam list;
-	for(int i = 0; i < 10; ++i)
-	{
-		list.AddTail(test_value<iutest::mfc::CContainer<TypeParam>::BASE_TYPE>::get(i));
-	}
-	IUTEST_EXPECT_THAT(::iutest::mfc::make_container(list), Each(_));
+    TypeParam list;
+    for(int i = 0; i < 10; ++i)
+    {
+        list.AddTail(test_value<iutest::mfc::CContainer<TypeParam>::BASE_TYPE>::get(i));
+    }
+    IUTEST_EXPECT_THAT(::iutest::mfc::make_container(list), Each(_));
 }
 
 IUTEST_TYPED_TEST(MFCMapTypedTest, Matcher)
 {
-	TypeParam map;
-	for(int i = 0; i < 10; ++i) {
-		map.SetAt(test_value<iutest::mfc::CContainer<TypeParam>::BASE_KEY>::get(i)
-			, test_value<iutest::mfc::CContainer<TypeParam>::BASE_VALUE>::get(i));
-	}
-	IUTEST_EXPECT_THAT(::iutest::mfc::make_container(map), Each(Key(_)));
-	IUTEST_EXPECT_THAT(::iutest::mfc::make_container(map), Each(Pair(_, _)));
+    TypeParam map;
+    for(int i = 0; i < 10; ++i) {
+        map.SetAt(test_value<iutest::mfc::CContainer<TypeParam>::BASE_KEY>::get(i)
+            , test_value<iutest::mfc::CContainer<TypeParam>::BASE_VALUE>::get(i));
+    }
+    IUTEST_EXPECT_THAT(::iutest::mfc::make_container(map), Each(Key(_)));
+    IUTEST_EXPECT_THAT(::iutest::mfc::make_container(map), Each(Pair(_, _)));
 }
 
 #endif

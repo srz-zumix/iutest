@@ -17,11 +17,14 @@ assignees: ''
 * [ ] Cirrus CI
 * [ ] Codefresh
 * [ ] Codeship
+* [ ] Drone
 * [ ] GitHub Actions
 * [ ] GitLab CI
-* [ ] INSPECODE
+* [ ] Peakflow
+* [ ] Razorops
 * [ ] Scrutinizer
 * [ ] Semaphore
 * [ ] Shippable
+* [ ] TeamCity Cloud
 * [ ] Travis CI
 * [ ] Wercker

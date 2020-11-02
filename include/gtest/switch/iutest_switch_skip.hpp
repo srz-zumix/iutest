@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -19,22 +19,25 @@
 
 //======================================================================
 // define
+#define GTEST_SKIP  IUTEST_SKIP
 
 #else // !defined(IUTEST_USE_GTEST)
 
 //======================================================================
 // undef
-#if defined(INCG_IRIS_IUTEST_HPP_)
-
+#if defined(IUTEST_SKIP)
 #undef IUTEST_SKIP
-
 #endif
 
 //======================================================================
 // define
-#define IUTEST_SKIP()           GTEST_AMBIGUOUS_ELSE_BLOCKER_   \
-                                if( ::testing::internal::AlwaysTrue() ) return GTEST_MESSAGE_("Skipped. ", ::testing::TestPartResult::kSuccess)
 
+#if !defined(GTEST_SKIP)
+#  define GTEST_SKIP()      GTEST_AMBIGUOUS_ELSE_BLOCKER_   \
+                            if( ::testing::internal::AlwaysTrue() ) return GTEST_MESSAGE_("Skipped. ", ::testing::TestPartResult::kSuccess)
+#endif
+
+#define IUTEST_SKIP         GTEST_SKIP
 
 #endif // !defined(IUTEST_USE_GTEST)
 

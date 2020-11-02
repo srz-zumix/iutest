@@ -1,0 +1,9 @@
+before_script:
+  - cat /proc/cpuinfo || true
+  - cat /proc/meminfo || true
+  - gcc --version || true
+  - clang --version || true
+script:
+  - make -C test -j4 CXXFLAGS=-ftime-report
+  - make -C test test
+  - make -C test report

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "internal/iutest_compiler.hpp"
+#include "internal/iutest_compiler.hpp" // IWYU pragma: keep
 #include <stdarg.h>
 
 //======================================================================
@@ -29,7 +29,7 @@ void test_vprintf(const char* fmt, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1,
 //======================================================================
 // include
 #include "iutest.hpp"
-#include "../include/gtest/iutest_assertion_only.hpp"
+#include "../include/gtest/iutest_assertion_only.hpp"  // IWYU pragma: keep
 #include <iostream>
 
 #ifdef IUTEST_USE_GTEST
@@ -40,9 +40,11 @@ static ::iutest::iu_stringstream s_outstream;
 
 void test_vprintf(const char* fmt, va_list va)
 {
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
     char buf[4096];
     vsprintf(buf, fmt, va);
     s_outstream << buf;
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 }
 
 #ifdef UNICODE

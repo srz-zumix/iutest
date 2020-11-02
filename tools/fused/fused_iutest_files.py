@@ -36,6 +36,7 @@ class IutestFused:
     INCG_REGEX = re.compile(r'^\s*#\s*(ifndef|define|endif)[/\s]*(INCG_\S*)\s*\Z')
     c_comment = False
     store_line = ""
+    line_buffer = ""
 
     def IsUnnecessaryIncludeGuard(self, line):
         m = self.INCG_REGEX.match(line)
@@ -162,8 +163,8 @@ class IutestFused:
 
     def Flush(self, output_file):
         if len(self.store_line) > 0:
-            output_file.write(self.store_line.strip())
-            output_file.write('\n')
+            line = self.store_line.strip()
+            self.Write(output_file, line + '\n')
             self.store_line = ""
 
     def Translate(self, root, filename, output, output_dir, minimum):
@@ -213,7 +214,7 @@ class IutestFused:
                                 if line.strip().endswith('\\'):
                                     self.StoreMinimze(line.strip().rstrip(r'\\'))
                                 else:
-                                    output_file.write(line)
+                                    self.Write(output_file, line)
                             else:
                                 strip_line = line.strip()
                                 self.StoreMinimze(strip_line)
@@ -222,12 +223,20 @@ class IutestFused:
                                 if re.match('.*(:|IUTEST_CXX_DEFAULT_FUNCTION)$', strip_line):
                                     self.store_line += " "
                     else:
-                        output_file.write(line)
+                        self.Write(output_file, line)
             self.Flush(output_file)
 
         ProcessFile(root, filename, processed_files, minimum)
         output_file.close()
 
+    def Write(self, output_file, line):
+        if len(line) > 10000:
+            idx = line.rfind('}', 0, 10000)
+            if idx > 0:
+                output_file.write(line[0:idx])
+                output_file.write('\n')
+                line = line[idx:]
+        output_file.write(line)
 
 def FusedSrc(root, filename, output, output_dir, minimum):
     f = IutestFused()

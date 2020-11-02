@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,7 +17,10 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "../iutest_env.hpp"
+#include "../iutest_printers.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest {
 namespace detail
@@ -52,54 +55,29 @@ public:
     template<typename T>
     iuStreamMessage& operator << (const T& value)
     {
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+        m_stream << PrintToString(value);
+#else
         m_stream << value;
-        return *this;
-    }
-#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
-    template<typename T>
-    iuStreamMessage& operator << (T* const& value)
-    {
-        if( value == NULL )
-        {
-            m_stream << kStrings::Null;
-        }
-        else
-        {
-            m_stream << value;
-        }
-        return *this;
-    }
 #endif
+        return *this;
+    }
+
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+    template<typename T, size_t SIZE>
+    iuStreamMessage& operator << (const T(&value)[SIZE])
+    {
+        m_stream << PrintToString(value);
+        return *this;
+    }
+#else
     iuStreamMessage& operator << (bool b)
     {
         m_stream << (b ? "true" : "false");
         return *this;
     }
-    iuStreamMessage& operator << (char* str)
-    {
-        append(str);
-        return *this;
-    }
-    iuStreamMessage& operator << (const char* str)
-    {
-        append(str);
-        return *this;
-    }
-    iuStreamMessage& operator << (wchar_t* str)
-    {
-        m_stream << ShowWideCString(str);
-        return *this;
-    }
-    iuStreamMessage& operator << (const wchar_t* str)
-    {
-        m_stream << ShowWideCString(str);
-        return *this;
-    }
-    iuStreamMessage& operator << (const iuStreamMessage& message)
-    {
-        m_stream << message.GetString();
-        return *this;
-    }
+#endif
+
 #if IUTEST_HAS_IOMANIP
     iuStreamMessage& operator << (iu_basic_iomanip val)
     {
@@ -180,7 +158,7 @@ public:
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "../impl/iutest_message.ipp"
+#  include "../impl/iutest_message.ipp" // IWYU pragma: export
 #endif
 
 #endif // INCG_IRIS_IUTEST_MESSAGE_HPP_0A05C876_F204_41F5_895F_F8454AB283B1_

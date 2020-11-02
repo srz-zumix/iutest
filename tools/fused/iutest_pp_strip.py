@@ -23,6 +23,7 @@ RE_PPIF = re.compile('#\s*(ifdef|ifndef|if)\s*(.*)$')
 RE_PPELIF = re.compile('#\s*elif\s*(.*)$')
 RE_PPELSE = re.compile('#\s*else\s*$')
 RE_PPENDIF = re.compile('#\s*endif')
+RE_AND = re.compile('and')
 RE_CPP_COMMENT = re.compile('^//.*')
 RE_SYSTEM_INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*<(.*)>')
 
@@ -30,21 +31,17 @@ RE_STRIP_INCG_REGEX = re.compile(r'^INCG_\S*_[IH]PP_\S+\Z')
 
 RE_EVAL_UNDEFINED_EXCEPTION = re.compile(r'^name \'(defined_.*)\' is not defined\Z')
 
+UNUSED_ = "unused"
+
 
 class IutestPreprocessor:
     macros = {}
-    depth_macros = [ {} ]
     expands_macros = []
     expand_function_macros = []
     iutest_config_macro = []
-    included_path = [ [] ]
     has_include = {}
     has_features = {}
-    unknowns = []
-    depth = []
-    brothers = []
     debug = False
-    prev_line = None
 
     def __init__(self
             , predefined_macros
@@ -59,6 +56,13 @@ class IutestPreprocessor:
         self.set_expands_macros(expands_macros)
         self.set_has_features(has_features)
         self.set_has_include(has_include)
+        self.unknowns = []
+        self.included_path = [[]]
+        self.depth_macros = [{}]
+        self.depth = []
+        self.brothers = []
+        self.prev_line = None
+
 
     def set_predefined_macros(self, predefined_macros):
         self.macros = predefined_macros
@@ -81,6 +85,11 @@ class IutestPreprocessor:
 
     def set_debug_flag(self, flag):
         self.debug = flag
+
+    def __none_or_unused(self, v):
+        if v is None or v == UNUSED_:
+            return True
+        return False
 
     def __expand_macro(self, line):
         dst = ""
@@ -107,7 +116,7 @@ class IutestPreprocessor:
                 for m in RE_FUNC_MACRO.finditer(ss):
                     d = m.group(1)
                     if d in self.expand_function_macros:
-                        if d not in self.macros or self.macros[d] is None:
+                        if d not in self.macros or self.__none_or_unused(self.macros[d]):
                             ss = ss.replace(m.group(0), '')
                 if len(tokens) > 0:
                     tokens[-1] += ss
@@ -245,15 +254,33 @@ class IutestPreprocessor:
                 return r0
         return -1
 
-    def __eval_ppif(self, expr):
-        expand = self.__expand_ppif_macro(expr)
-        expand_expr = re.sub(r'([0-9])+L', r'\1', expand)
+    def __eval_expanded_expr(self, expand_expr):
+        error = None
         try:
             r = eval(expand_expr)
             if r:
                 return (1, '1')
             else:
                 return (0, '0')
+        except Exception as e:
+            error = e
+
+        expand = expand_expr
+        if 'or' not in expand:
+            for expr in RE_AND.split(expand):
+                try:
+                    r = eval(expr)
+                    if not r:
+                        return (0, '0')
+                except Exception as e:
+                    error = e
+        raise error
+
+    def __eval_ppif(self, expr):
+        expand = self.__expand_ppif_macro(expr)
+        expand_expr = re.sub(r'([0-9])+L', r'\1', expand)
+        try:
+            return self.__eval_expanded_expr(expand_expr)
         except Exception as e:
             r = -1
             if len(expand.split()) > 1:
@@ -269,12 +296,11 @@ class IutestPreprocessor:
                     expand = re.sub(r'\s*or\s*\(0\)\s*', '', expand)
                     expand = re.sub(r'\s*\(1\)\s*and\s*', '', expand)
                     expand = re.sub(r'\s*and\s*\(1\)\s*', '', expand)
-                    expand = expand.replace('and', '&&')
-                    expand = expand.replace('or',  '||')
-                    expand = expand.replace('not',  '!')
-                    expand = expand.replace('(0)',  '0')
-                    expand = expand.replace('(1)',  '1')
-                    expand = expand.replace(' ', '')
+                    expand = expand.replace(' and ', '&&')
+                    expand = expand.replace(' or ' , '||')
+                    expand = expand.replace(' not ', '!')
+                    expand = expand.replace('(0)', '0')
+                    expand = expand.replace('(1)', '1')
                     return (r, expand)
             return (r, None)
 
@@ -348,7 +374,7 @@ class IutestPreprocessor:
             brother = self.brothers[-1]
             brother.append(self.depth[-1])
             f = -1
-            if f == 1 or any(x == 1 for x in brother):
+            if any(x == 1 for x in brother):
                 f = 0
             elif all(x == 0 for x in brother):
                 f = 1
@@ -375,10 +401,10 @@ class IutestPreprocessor:
         m = RE_SYSTEM_INCLUDE_REGEX.match(line)
         if m:
             path = m.group(1)
-            if path in self.included_path[-1]:
-                return False
-            else:
-                self.included_path[-1].append(path)
+            for include_paths in self.included_path:
+                if path in include_paths:
+                    return False
+            self.included_path[-1].append(path)
         return True
 
     def __reduction(self, line):
@@ -417,11 +443,11 @@ class IutestPreprocessor:
             'II_DECL_TUPLE_PRINTTO': 'II_D_T_PT',
             'II_DECL_ANYOF_AND_ALLOF': 'II_D_AAA',
             'II_DECL_COMPARE_HELPER_': 'II_D_C_H_',
-            'II_DECL_COMBINE_':   'II_D_C_',
-            'II_DECL_VALUES_':    'II_D_V_',
-            'II_DECL_TYPES_':     'II_D_T_',
+            'II_DECL_COMBINE_': 'II_D_C_',
+            'II_DECL_VALUES_': 'II_D_V_',
+            'II_DECL_TYPES_': 'II_D_T_',
             'II_DECL_TEMPLATES_': 'II_D_TPL_',
-            'II_DECL_TYPELIST_':  'II_D_TL_',
+            'II_DECL_TYPELIST_': 'II_D_TL_',
             'II_DECL_TEMPLATETYPELIST_': 'II_D_TTL_',
             'II_DECL_PEEP_MEMBER_FUNC_': 'II_D_PE_M_F_',
             'II_DECL_COMPARE_MATCHER': 'II_D_COMP_M',
@@ -441,7 +467,7 @@ class IutestPreprocessor:
             'II_CONCAT_PACKAGE': 'II_CC_PKG',
             'II_PACKAGE_': 'II_PKG_',
             'II_PKG_CURRENT_NAMESPACE_': 'II_PKG_C_NS_',
-            'II_PKG_PARENT_NAMESPACE_':  'II_PKG_P_NS_',
+            'II_PKG_PARENT_NAMESPACE_': 'II_PKG_P_NS_',
             'II_TEST_CLASS_NAME_': 'II_T_C_N_',
             'II_TEST_INSTANCE_NAME_': 'II_T_INST_N_',
             'II_TO_VARNAME_': 'II_TO_VN_',
@@ -450,8 +476,8 @@ class IutestPreprocessor:
             'II_PMZ_TEST_CLASS_NAME_': 'II_PMZ_T_C_N_',
             'II_GETTESTCASEPATTERNHOLDER': 'II_GTCPH',
             'II_INSTANTIATE_TEST_CASE_P_': 'II_INST_TC_P_',
-            'II_TEST_P_EVALGENERATOR_NAME_':    'II_T_P_EGEN_N_',
-            'II_TEST_P_PARAMGENERATOR_NAME_':   'II_T_P_PGEN_N_',
+            'II_TEST_P_EVALGENERATOR_NAME_': 'II_T_P_EGEN_N_',
+            'II_TEST_P_PARAMGENERATOR_NAME_': 'II_T_P_PGEN_N_',
             'II_TEST_P_INSTANTIATIONREGISTER_': 'II_T_P_INST_R_',
             'II_TEST_P_FIXTURE_DECL_': 'II_T_P_FX_D_',
             'II_TEST_P_BASE_FIXTURE': 'II_T_P_B_FX',
@@ -467,12 +493,13 @@ class IutestPreprocessor:
             'II_T_T_P_NAMESPACE_': 'II_T_T_P_NS_',
             'II_T_T_P_ADDTESTNAME': 'II_T_T_P_ADD_TN',
             'II_T_T_PARAMS_': 'II_T_T_PRMS_',
-            'II_REGISTER_TYPED_TEST_CASE_P_':    'II_R_T_TC_P_',
+            'II_REGISTER_TYPED_TEST_CASE_P_': 'II_R_T_TC_P_',
             'II_INSTANTIATE_TYPED_TEST_CASE_P_': 'II_INST_T_TC_P_',
-            'II_PEEP_TAG_NAME_':    'II_PE_T_N_',
+            'II_PEEP_TAG_NAME_': 'II_PE_T_N_',
             'II_PEEP_SETTER_NAME_': 'II_PE_S_N_',
             'II_GeTypeNameSpecialization': 'II_GTNS',
             'II_WORKAROUND_GENRAND': 'II_WA_GENRAND',
+            'II_FILESYSTEM_INSTANTIATE_': 'II_FS_I_',
         }
         line = line.replace('IIUT_', 'II_')
         line = line.replace('II_PP_', 'IP_')
@@ -480,15 +507,28 @@ class IutestPreprocessor:
         line = line.replace('statement', 'st')
         line = line.replace('expected_exception', 'exp_e')
         line = line.replace('exp_e_value', 'exp_e_v')
-        line = line.replace('expected_str',   'exp_s')
+        line = line.replace('expected_str', 'exp_s')
         line = line.replace('expected_value', 'exp_v')
-        line = line.replace('actual_str',  'act_s')
-        line = line.replace('regex_str',  'regex_s')
-        line = line.replace('pred_formatter',  'pd_fmt')
-        line = line.replace('on_failure',  'on_f')
-        line = line.replace('testcasename_',  'tcn_')
-        line = line.replace('testname_',  'tn_')
-        line = line.replace('testfixture_',  'tf_')
+        line = line.replace('actual_str', 'act_s')
+        line = line.replace('regex_str', 'regex_s')
+        line = line.replace('pred_formatter', 'pd_fmt')
+        line = line.replace('on_failure', 'on_f')
+        line = line.replace('testcasename_', 'tcn_')
+        line = line.replace('testcase_', 't_c_')
+        line = line.replace('testname_', 'tn_')
+        line = line.replace('testfixture_', 'tf_')
+        line = line.replace('result_type_', 'rt_')
+        line = line.replace('parent_class_', 'p_c_')
+        line = line.replace('type_id_', 'tid_')
+        line = line.replace('methodName', 'mN_')
+        line = line.replace('method_', 'mtd_')
+        line = line.replace('prefix_', 'pfx_')
+        line = line.replace('paramname_generator_', 'pn_gen_')
+        line = line.replace('generator_', 'gen_')
+        line = line.replace('dummy', 'dmy')
+        # line = line.replace('value', 'val')
+        # line = line.replace('macro', 'mcr')
+        line = line.replace('EXTEND_POINT_', 'EX_P_')
         for k,v in reduction_macros.items():
             if collections.Counter(reduction_macros.values())[v] > 1:
                 print('error: duplicated ' + v)
@@ -502,10 +542,9 @@ class IutestPreprocessor:
 
     def __strip_namespace(self, line, ns):
         s = ""
-        for n in ns:
-            s += "namespace " + n + "{"
         e = ""
         for n in ns:
+            s += "namespace " + n + "{"
             e += "}"
         def __is_namespace_open_close_line(x):
             return x.startswith(s) and x.endswith(e)
@@ -561,9 +600,9 @@ class IutestPreprocessor:
                     if self.prev_line is not None:
                         line = self.__strip_namespaces(line)
                         if self.prev_line.startswith('#'):
-                             self.prev_line += '\n'
+                            self.prev_line += '\n'
                         elif line.startswith('#'):
-                             self.prev_line += '\n'
+                            self.prev_line += '\n'
                         dst += self.prev_line
                     self.prev_line = line
         dst += self.prev_line + '\n'
@@ -622,4 +661,23 @@ class IutestPreprocessor:
                 dst += line
             prev = t
         dst += cach_clear()
+        return dst
+
+    def trancate_line(self, code):
+        dst = ""
+        limit = 6000
+        for line in code.splitlines():
+            found = True
+            while len(line) >= limit and found:
+                found = False
+                for sep in ['}}', '};', '";']:
+                    idx = line.rfind(sep, 0, limit)
+                    if idx >= 0:
+                        idx += len(sep)
+                        dst += line[:idx] + '\n'
+                        line = line[idx:]
+                        found = True
+                        break
+            line += "\n"
+            dst += line
         return dst

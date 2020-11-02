@@ -1,4 +1,4 @@
-# ƒTƒ“ƒvƒ‹ Makefile
+# AVR Sample Makefile
 #
 # SYNOPSIS:
 #
@@ -43,16 +43,16 @@ endif
 # sample code
 SAMPLE_DIR = $(IUTEST_DIR)/samples
 SAMPLE_SRCS = main.cpp \
-              assertion.cpp \
-              disabledtest.cpp \
-              exception.cpp \
-              fixture.cpp \
-              matcher.cpp \
-              parameterized.cpp \
-              printto.cpp \
-              simple.cpp \
-              typed.cpp
-              
+			assertion.cpp \
+			disabledtest.cpp \
+			exception.cpp \
+			fixture.cpp \
+			matcher.cpp \
+			parameterized.cpp \
+			printto.cpp \
+			simple.cpp \
+			typed.cpp
+
 SAMPLE_OBJS = $(SAMPLE_SRCS:%.cpp=%.o)
 
 # Flags passed to the preprocessor.
@@ -87,15 +87,15 @@ LIBRARYS  = $(LIBRARYS_:%=$(LIBRARY_INSTALL_PATH)/lib%)
 
 # All iutest headers.  Usually you shouldn't change this
 # definition.
-IUTEST_HEADERS = $(IUTEST_DIR)/include/*.hpp \
-                 $(IUTEST_DIR)/include/impl/*.ipp \
-                 $(IUTEST_DIR)/include/internal/*.hpp \
-                 $(IUTEST_DIR)/include/listener/*.hpp \
-                 $(IUTEST_DIR)/include/util/*.hpp \
-                 $(IUTEST_DIR)/include/gtest/*.hpp
-                 
-IUTEST_SRCS    = $(IUTEST_DIR)/src/*.cpp \
-                 $(IUTEST_HEADERS)
+IUTEST_HEADERS =$(IUTEST_DIR)/include/*.hpp \
+				$(IUTEST_DIR)/include/impl/*.ipp \
+				$(IUTEST_DIR)/include/internal/*.hpp \
+				$(IUTEST_DIR)/include/listener/*.hpp \
+				$(IUTEST_DIR)/include/util/*.hpp \
+				$(IUTEST_DIR)/include/gtest/*.hpp
+
+IUTEST_SRCS    =$(IUTEST_DIR)/src/*.cpp \
+				$(IUTEST_HEADERS)
 
 # House-keeping build targets.
 
@@ -108,7 +108,7 @@ clean :
 ifdef CHANGE_ENCODING
 	rm -rf $(IUTEST_DIR)
 endif
-	
+
 run : $(TESTS)
 	./$(TESTS)
 
@@ -132,7 +132,7 @@ $(LIBRARY_INSTALL_PATH):
 
 $(LIBRARYS) : $(LIBRARY_INSTALL_PATH) $(LIBRARYS_)
 
-# Builds a sample test.  
+# Builds a sample test.
 
 %.o : $(SAMPLE_DIR)/%.cpp $(IUTEST_HEADERS) Makefile
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $<
@@ -152,7 +152,7 @@ $(IUTEST_DIR)/src/*.cpp: preset
 #  avr-gcc not support utf8 ?
 #
 ifdef CHANGE_ENCODING
-preset: 
+preset:
 	rm -rf $(IUTEST_DIR)
 	mkdir -p $(IUTEST_DIR)
 	mkdir -p $(IUTEST_DIR)/samples

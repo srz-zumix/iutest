@@ -1,4 +1,4 @@
-# ƒTƒ“ƒvƒ‹ Makefile
+# Cuda Sample Makefile
 #
 # SYNOPSIS:
 #
@@ -22,7 +22,7 @@ ifdef TARGET_X86
 CPPFLAGS += --machine 32
 endif
 
-CXXFLAGS += 
+CXXFLAGS +=
 #CXXFLAGS += -DSHOW_FAILURE
 
 CXXFLAGS += $(DEFS)
@@ -36,13 +36,13 @@ BIN = $(TESTS)
 
 # All iutest headers.  Usually you shouldn't change this
 # definition.
-IUTEST_HEADERS = $(IUTEST_DIR)/include/*.hpp \
-                 $(IUTEST_DIR)/include/impl/*.ipp \
-                 $(IUTEST_DIR)/include/internal/*.hpp \
-                 $(IUTEST_DIR)/include/listener/*.hpp \
-                 $(IUTEST_DIR)/include/util/*.hpp \
-                 $(IUTEST_DIR)/include/gtest/*.hpp \
-                 $(IUTEST_DIR)/include/gtest/switch/*.hpp
+IUTEST_HEADERS =$(IUTEST_DIR)/include/*.hpp \
+				$(IUTEST_DIR)/include/impl/*.ipp \
+				$(IUTEST_DIR)/include/internal/*.hpp \
+				$(IUTEST_DIR)/include/listener/*.hpp \
+				$(IUTEST_DIR)/include/util/*.hpp \
+				$(IUTEST_DIR)/include/gtest/*.hpp \
+				$(IUTEST_DIR)/include/gtest/switch/*.hpp
 
 # House-keeping build targets.
 
@@ -53,19 +53,19 @@ all : $(TESTS)
 clean :
 	rm -f $(TESTS) *.obj
 
-# Builds a sample test.  
+# Builds a sample test.
 
 # compilers
-NVCC              := nvcc
+NVCC := nvcc
 
-# Builds a sample test.  
+# Builds a sample test.
 
 main.obj : $(SAMPLE_DIR)/main.cpp $(IUTEST_HEADERS) Makefile
 	$(NVCC) $(CPPFLAGS) $(CXXFLAGS) -c $(SAMPLE_DIR)/main.cu -o main.obj
 
 $(TESTS) : main.obj
 	$(NVCC) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
-	
+
 run: $(TESTS)
 	./$(BIN)
 

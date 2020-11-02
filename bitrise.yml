@@ -4,16 +4,39 @@ default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 project_type: other
 trigger_map:
 - push_branch: master
-  workflow: iOS
+  workflow: ci
 - push_branch: develop
-  workflow: iOS
+  workflow: ci
 - pull_request_source_branch: "*"
   pull_request_target_branch: develop
-  workflow: iOS
+  workflow: ci
 - pull_request_source_branch: "*"
-  workflow: iOS
+  workflow: ci
   pull_request_target_branch: master
 workflows:
+  ci:
+    after_run:
+    - run_from_repo
+  run_from_repo:
+    steps:
+    - activate-ssh-key:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone: {}
+    - script:
+        title: continue from repo
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -ex
+            git remote rm fork || true
+            bitrise run ${BITRISE_APP_TITLE}-${BITRISE_TRIGGERED_WORKFLOW_ID}
+  iutest-ci:
+    after_run:
+    - iOS
+  iutest-android-ci:
+    after_run:
+    - Android
+
   iOS:
     steps:
     - activate-ssh-key:
@@ -29,31 +52,32 @@ workflows:
             envman add --key BREW_CMAKE --value "$(brew --cellar)/cmake"
             envman add --key BREW_OPT_CMAKE --value "/usr/local/opt/cmake"
             #envman add --key BREW_CACHE_CMAKE --value "$(brew --cache)/cmake"
-    - cache-pull@2.0.1: {}
+    - cache-pull: {}
     - script:
         title: gem install
         inputs:
         - content: |-
             system_profiler SPHardwareDataType
             gem install xcpretty
-    - script@1.1.5:
+    - script:
         title: brew install
         inputs:
         - content: |
             #!/usr/bin/env bash
-            # fail if any commands fails
-            set -e
-            # debug log
-            set -x
-
+            set -ex
             brew install cmake
             brew link cmake
     - script:
         title: CMake
         inputs:
-        - content: "#!/bin/bash\n# fail if any commands fails\nset -ex\ncmake --version\nmkdir
-            xcode\ncd xcode\ncmake ../projects/cmake -G \"Xcode\" -DCMAKE_XCODE_GENERATE_SCHEME=TRUE
-            -Dbuild_use_gtest_configuration=OFF \nls"
+        - content: |-
+            #!/bin/bash
+            # fail if any commands fails
+            set -ex
+            cmake --version
+            mkdir xcode
+            cd xcode
+            cmake ../projects/cmake -G "Xcode" -DCMAKE_XCODE_GENERATE_SCHEME=TRUE -Dbuild_use_gtest_configuration=OFF
     - script:
         title: Xcodebuild
         inputs:
@@ -69,26 +93,23 @@ workflows:
             #xcodebuild -project xcode/iutest.xcodeproj -scheme all_tests -destination 'platform=iOS' test
             cd xcode
             ctest -C Debug -V
-    - cache-push@2.0.5:
+    - cache-push:
         inputs:
         - cache_paths: |
             $BITRISE_CACHE_DIR
             $GEM_HOME
             $BREW_CMAKE
             $BREW_OPT_CMAKE
-    meta:
-      bitrise.io:
-        stack: osx-xcode-10.1.x
   Android:
     steps:
-    - script@1.1.5:
+    - script:
         inputs:
         - content: cat /etc/lsb-release || sw_vers || true
         title: Check Stack
     - activate-ssh-key:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
     - git-clone: {}
-    - script@1.1.5:
+    - script:
         title: Set cache directory
         inputs:
         - content: |-
@@ -96,30 +117,23 @@ workflows:
             eval $(apt-config shell ARCHIVES Dir::Cache::archives)
             echo /${CACHE}${ARCHIVES}
             envman add --key APT_CACHE_DIR --value $CACHE
-    - cache-pull@2.0.1: {}
-    - script@1.1.5:
+    - cache-pull: {}
+    - script:
         title: SetUp Environments
         inputs:
         - content: |
             #!/usr/bin/env bash
-            # fail if any commands fails
-            set -e
-            # debug log
-            set -x
-
+            set -ex
             env
             ls /opt/android-ndk
             envman add --key ANDROID_NDK_ROOT --value /opt/android-ndk
             envman add --key ANDROID_NDK_HOME --value /opt/android-ndk
-    - script@1.1.5:
+    - script:
         title: CMake
         inputs:
         - content: |-
             #!/bin/bash
-            # fail if any commands fails
             set -ex
-            #apt-get update
-            #apt-get install -qq cmake
             python -m pip install --upgrade pip
             python -m pip install --upgrade cmake
             cmake --version
@@ -131,23 +145,14 @@ workflows:
               -DANDROID_NATIVE_API_LEVEL=24 \
               -DANDROID_STL=c++_static \
               -DCMAKE_FIND_DEBUG_MODE=1
-            ls
     - script:
         title: Build
         inputs:
         - content: |
             #!/bin/bash
-            # fail if any commands fails
-            set -e
-            # debug log
-            set -x
-
-
-            #cd projects/android/iutest_sample
-            #ndk-build
-
+            set -ex
             cmake --build ./android-build
-    - cache-push@2.0.5:
+    - cache-push:
         inputs:
         - cache_paths: |
             $BITRISE_CACHE_DIR
@@ -157,7 +162,7 @@ workflows:
         stack: linux-docker-android
   primary:
     steps:
-    - trigger-bitrise-workflow@0.0.6:
+    - trigger-bitrise-workflow:
         inputs:
         - workflow_id: Android
         - api_token: "$IUTEST_RPIMARY_TRIGGER_KEY"

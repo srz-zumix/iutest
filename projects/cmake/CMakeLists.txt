@@ -3,7 +3,7 @@
 #
 
 # CMake バージョン
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.2)
 
 # option
 option(build_gtest_samples "gtest sample build." OFF)
@@ -24,6 +24,7 @@ endif()
 
 # プロジェクト名
 project(iutest CXX C)
+set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE NEVER)
@@ -76,17 +77,17 @@ cxx_library(iutest_main "${cxx_strict}" ${IUTEST_ROOT_DIR}/src/iutest_main.cpp)
 # サンプル
 #
 cxx_executable_sample(iutest_sample
- ${IUTEST_ROOT_DIR}/samples/main.cpp
- ${IUTEST_ROOT_DIR}/samples/assertion.cpp
- ${IUTEST_ROOT_DIR}/samples/disabledtest.cpp
- ${IUTEST_ROOT_DIR}/samples/exception.cpp
- ${IUTEST_ROOT_DIR}/samples/fixture.cpp
- ${IUTEST_ROOT_DIR}/samples/japanese.cpp
- ${IUTEST_ROOT_DIR}/samples/matcher.cpp
- ${IUTEST_ROOT_DIR}/samples/parameterized.cpp
- ${IUTEST_ROOT_DIR}/samples/printto.cpp
- ${IUTEST_ROOT_DIR}/samples/simple.cpp
- ${IUTEST_ROOT_DIR}/samples/typed.cpp
+  ${IUTEST_ROOT_DIR}/samples/main.cpp
+  ${IUTEST_ROOT_DIR}/samples/assertion.cpp
+  ${IUTEST_ROOT_DIR}/samples/disabledtest.cpp
+  ${IUTEST_ROOT_DIR}/samples/exception.cpp
+  ${IUTEST_ROOT_DIR}/samples/fixture.cpp
+  ${IUTEST_ROOT_DIR}/samples/japanese.cpp
+  ${IUTEST_ROOT_DIR}/samples/matcher.cpp
+  ${IUTEST_ROOT_DIR}/samples/parameterized.cpp
+  ${IUTEST_ROOT_DIR}/samples/printto.cpp
+  ${IUTEST_ROOT_DIR}/samples/simple.cpp
+  ${IUTEST_ROOT_DIR}/samples/typed.cpp
 )
 
 ########################################################################
@@ -113,43 +114,48 @@ endif()
 #
 if (build_tests)
   cxx_executable_test_with_main(all_tests
-   assertion_tests.cpp
-   basic_tests.cpp
-   combine_tests.cpp
-   compatibility_tests.cpp
-   filepath_tests.cpp
-   fixture_tests.cpp
-   floatingpoint_tests.cpp
-   no_failure_tests.cpp
-   nullptr_tests.cpp
-   param_test_tests1.cpp
-   param_test_tests2.cpp
-   pred_tests.cpp
-   prod_tests1.cpp
-   prod_tests2.cpp
-   spi_tests.cpp
-   static_assertion_tests.cpp
-   string_assertion_tests.cpp
-   syntax_tests.cpp
-   syntax_gtest_tests.cpp
-   type_param_tests1.cpp
-   type_param_tests2.cpp
-   type_param_tests3.cpp
-   typed_test_tests.cpp
-   values_tests.cpp
+    assertion_tests.cpp
+    basic_tests.cpp
+    combine_tests.cpp
+    compatibility_tests.cpp
+    filepath_tests.cpp
+    fixture_tests.cpp
+    floatingpoint_tests.cpp
+    no_failure_tests.cpp
+    nullptr_tests.cpp
+    param_test_tests1.cpp
+    param_test_tests2.cpp
+    pred_tests.cpp
+    prod_tests1.cpp
+    prod_tests2.cpp
+    spi_tests.cpp
+    static_assertion_tests.cpp
+    string_assertion_tests.cpp
+    syntax_tests.cpp
+    syntax_gtest_tests.cpp
+    type_param_tests1.cpp
+    type_param_tests2.cpp
+    type_param_tests3.cpp
+    typed_test_tests.cpp
+    values_tests.cpp
   )
+  cxx_executable_test(also_run_disabled_tests)
+  cxx_executable_test(assertion_only_tests)
   cxx_executable_test(assertion_return_tests)
   cxx_executable_test(assume_tests)
   cxx_executable_test(break_on_failure_nobreak_tests)
   cxx_executable_test(catch_exceptions_tests)
   cxx_executable_test(charcode_tests)
+  cxx_executable_test(csvparams_invalid_file_tests)
   cxx_executable_test(commandline_tests)
   cxx_executable_test(csvparams_tests)
   cxx_executable_test(cxx_feature_tests)
   cxx_executable_test(disabled_tests)
+  cxx_executable_test(empty_testname_tests)
   cxx_executable_test(env_var_gtest_tests)
   cxx_executable_test(environment_tests)
   cxx_executable_test(exception_assertion_tests)
+  cxx_executable_test(exception_set_up_testsuite_tests)
   cxx_executable_test(exception_tests)
   cxx_executable_test(expression_assertion_tests)
   cxx_executable_test_with_main(extension_tests
@@ -166,14 +172,16 @@ if (build_tests)
     values_gen_tests.cpp
     variadic_templates_tests.cpp
   )
-  cxx_executable_test(feature_spec_tests)
   cxx_executable_test(file_system_tests)
   cxx_executable_test(filter_tests)
   cxx_executable_test(flagfile_gtest_tests)
   cxx_executable_test(gtest_version_tests)
   cxx_executable_test(help_tests)
+  cxx_executable_test(inform_tests)
+  cxx_executable_test(internal_log_tests)
   cxx_executable_test(invalid_commandline_tests)
   cxx_executable_test(japanese_tests)
+  cxx_executable_test(legacy_testcase_api_tests)
   cxx_executable_test(list_test_tests)
   cxx_executable_test(listener_tests)
   cxx_executable_test(matcher_tests)
@@ -181,6 +189,7 @@ if (build_tests)
   cxx_executable_test(no_failure_fail_tests)
   cxx_executable_test(no_fatalfailure_tests)
   cxx_executable_test(no_test_tests)
+  cxx_executable_test(output_env_var_tests)
   cxx_executable_test(output_junit_xml_tests)
   cxx_executable_test(output_xml_tests)
   cxx_executable_test(port_tests)
@@ -204,7 +213,7 @@ if (build_tests)
   cxx_executable_test(uninitialize_tests)
   cxx_executable_test(util_tests)
   if (build_namespace_tests)
-    cxx_namespace_test(namespace_tests
+    cxx_executable_test_ns(namespace_tests
       assertion_tests.cpp
       basic_tests.cpp
       combine_tests.cpp
@@ -236,13 +245,18 @@ if (build_tests)
   cxx_executable_test(default_printer_listener_tests)
   cxx_executable_test(env_var_tests)
   cxx_executable_test(exit_tests)
+  cxx_executable_test(feature_spec_tests)
   cxx_executable_test(filter_file_invalid_path_tests)
   cxx_executable_test(filter_file_syntax_tests)
   cxx_executable_test(filter_file_tests)
   cxx_executable_test(flagfile_env_var_tests)
   cxx_executable_test(flagfile_invalid_path_tests)
   cxx_executable_test(flagfile_tests)
+  cxx_executable_test(invalid_both_suite_and_case_set_up_tests)
+  cxx_executable_test(invalid_both_suite_and_case_teardown_tests)
+  cxx_executable_test(invalid_locale_ctype_tests)
   cxx_executable_test(ostream_formatter_tests)
+  cxx_executable_test(output_long_type_param_tests)
   cxx_executable_test(output_tests)
   cxx_executable_test(output_xml_invalid_path_tests)
   cxx_executable_test(output_xml_repeat_tests)
@@ -250,6 +264,8 @@ if (build_tests)
   cxx_executable_test(param_test_name_invalid_tests)
   cxx_executable_test(param_test_name_tests)
   cxx_executable_test(no_yoda_tests)
+  cxx_executable_test(scoped_trace_exception_tests)
+  cxx_executable_test(spec_tests)
   cxx_executable_test(tap_file_generator_listener_tests)
   cxx_executable_test(tap_printer_listener_tests)
   cxx_executable_test(type_param_strict_tests)
@@ -271,17 +287,23 @@ enable_testing()
 
 if (build_tests)
   cxx_add_test(all_tests)
+  cxx_add_test(also_run_disabled_tests)
+  cxx_add_test(assertion_only_tests)
   cxx_add_test(assertion_return_tests)
   cxx_add_test(assume_tests)
   cxx_add_test(break_on_failure_nobreak_tests)
   cxx_add_test(catch_exceptions_tests)
   cxx_add_test(charcode_tests)
   cxx_add_test(commandline_tests)
+  cxx_add_test(csvparams_invalid_file_tests)
   cxx_add_test(csvparams_tests)
+  cxx_add_test(cxx_feature_tests)
   cxx_add_test(disabled_tests)
+  cxx_add_test(empty_testname_tests)
   cxx_add_test(env_var_gtest_tests)
   cxx_add_test(environment_tests)
   cxx_add_test(exception_assertion_tests)
+  cxx_add_test(exception_set_up_testsuite_tests)
   cxx_add_test(exception_tests)
   cxx_add_test(expression_assertion_tests)
   cxx_add_test(extension_tests)
@@ -290,8 +312,11 @@ if (build_tests)
   cxx_add_test(flagfile_gtest_tests)
   cxx_add_test(gtest_version_tests)
   cxx_add_test(help_tests)
+  cxx_add_test(inform_tests)
+  cxx_add_test(internal_log_tests)
   cxx_add_test(invalid_commandline_tests)
   cxx_add_test(japanese_tests)
+  cxx_add_test(legacy_testcase_api_tests)
   cxx_add_test(list_test_tests)
   cxx_add_test(listener_tests)
   cxx_add_test(matcher_tests)
@@ -299,6 +324,7 @@ if (build_tests)
   cxx_add_test(no_failure_fail_tests)
   cxx_add_test(no_fatalfailure_tests)
   cxx_add_test(no_test_tests)
+  cxx_add_test(output_env_var_tests)
   cxx_add_test(output_junit_xml_tests)
   cxx_add_test(output_xml_tests)
   cxx_add_test(port_tests)
@@ -322,26 +348,34 @@ if (build_tests)
   cxx_add_test(uninitialize_tests)
   cxx_add_test(util_tests)
   if (build_namespace_tests)
-      cxx_add_test(namespace_tests)
+    cxx_add_test(namespace_tests)
   endif()
   # iutest only
   cxx_add_test(default_main_tests)
   cxx_add_test(default_printer_listener_tests)
   cxx_add_test(env_var_tests)
   cxx_add_test(exit_tests)
+  cxx_add_test(feature_spec_tests)
   cxx_add_test(filter_file_invalid_path_tests)
   cxx_add_test(filter_file_syntax_tests)
   cxx_add_test(filter_file_tests)
   cxx_add_test(flagfile_env_var_tests)
   cxx_add_test(flagfile_invalid_path_tests)
   cxx_add_test(flagfile_tests)
+  cxx_add_test(invalid_both_suite_and_case_set_up_tests)
+  cxx_add_test(invalid_both_suite_and_case_teardown_tests)
+  cxx_add_test(invalid_locale_ctype_tests)
   cxx_add_test(ostream_formatter_tests)
+  cxx_add_test(output_long_type_param_tests)
   cxx_add_test(output_tests)
   cxx_add_test(output_xml_invalid_path_tests)
   cxx_add_test(output_xml_repeat_tests)
+  cxx_add_test(own_string_view_tests)
   cxx_add_test(param_test_name_invalid_tests)
   cxx_add_test(param_test_name_tests)
   cxx_add_test(no_yoda_tests)
+  cxx_add_test(scoped_trace_exception_tests)
+  cxx_add_test(spec_tests)
   cxx_add_test(tap_file_generator_listener_tests)
   cxx_add_test(tap_printer_listener_tests)
   cxx_add_test(type_param_strict_tests)
@@ -351,20 +385,20 @@ if (build_tests)
 endif()
 
 install(TARGETS iutest
-    EXPORT iutest-export
-    ARCHIVE  DESTINATION lib
-    LIBRARY  DESTINATION lib
-    COMPONENT   library
-    )
+  EXPORT iutest-export
+  ARCHIVE   DESTINATION lib
+  LIBRARY   DESTINATION lib
+  COMPONENT library
+)
 install(TARGETS iutest_main
-    ARCHIVE  DESTINATION lib
-    LIBRARY  DESTINATION lib
-    COMPONENT   library
-    )
+  ARCHIVE   DESTINATION lib
+  LIBRARY   DESTINATION lib
+  COMPONENT library
+)
 install(DIRECTORY ${IUTEST_ROOT_DIR}/include/
-    DESTINATION include/iutest
-    )
+  DESTINATION include/iutest
+)
 install(EXPORT iutest-export
-    FILE IUTEST-config.cmake
-    DESTINATION share/cmake/iutest/
-    )
+  FILE IUTEST-config.cmake
+  DESTINATION share/cmake/iutest/
+)

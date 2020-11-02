@@ -1,0 +1,31 @@
+build:
+    environment:
+        python: 3.6.0
+#    dependencies:
+#        before:
+#            - pip install tox
+    tests:
+        before:
+            - make -C tools/fused
+        override:
+            - command: tox
+              idle_timeout: 900
+    nodes:
+        tests: true
+        analysis:
+            tests:
+                override:
+                    -
+                        command: pylint-run
+                        use_website_config: true
+                    - py-scrutinizer-run
+
+filter:
+    excluded_paths:
+        - '*/test/*'
+
+checks:
+    python:
+        code_rating: true
+        duplicate_code: false
+        classes_valid_slots: true

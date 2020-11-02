@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -45,10 +45,12 @@ namespace detail
 
 using ::iutest::detail::peep_tag;
 
+namespace peep
+{
+using ::iutest::detail::peep::Peep;
+}
+
 }   // end of namespace detail
-
-using ::iutest::Peep;
-
 }   // end of namespace testing
 
 #endif

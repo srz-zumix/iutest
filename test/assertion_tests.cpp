@@ -93,7 +93,7 @@ IUTEST(AssertionTest, EQ)
     }
 #endif
 
-#if IUTEST_HAS_STRONG_ENUMS
+#if IUTEST_HAS_STRONG_ENUMS && IUTEST_HAS_PRINT_TO
     {
         enum class eTest { Var1=1, Var2=1 };
         IUTEST_ASSERT_EQ(eTest::Var1, eTest::Var2);
@@ -219,10 +219,10 @@ IUTEST(AssertionTest, DoubleLE)
 
 IUTEST(AssertionTest, LongDouble)
 {
-    long double d0=0.0, d1=1.0;
-    IUTEST_ASSERT_LONG_DOUBLE_EQ(1.0, d1);
-    IUTEST_EXPECT_LONG_DOUBLE_EQ(0.0, d0);
-    IUTEST_INFORM_LONG_DOUBLE_EQ(-1.0, -2.0/2.0);
+    long double d0=0.0l, d1=1.0l;
+    IUTEST_ASSERT_LONG_DOUBLE_EQ(1.0l, d1);
+    IUTEST_EXPECT_LONG_DOUBLE_EQ(0.0l, d0);
+    IUTEST_INFORM_LONG_DOUBLE_EQ(-1.0l, -2.0l/2.0l);
 }
 
 #endif

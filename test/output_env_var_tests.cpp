@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        output_env_var_tests.cpp
-* @brief       environment variable (output setting) test
+ * @brief       environment variable (output setting) test
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2017-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -43,10 +43,14 @@ static volatile SetUpResult g_result IUTEST_ATTRIBUTE_INIT_PRIORITY_(101) = SetU
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
-IUTEST(FlagTest, Check)
+IUTEST(OutputEnvVarTest, FlagCheck)
 {
     IUTEST_ASSUME_EQ(0, g_result.setup_environment) << lasterror << ": " << strerror(lasterror);  // putenv に失敗した場合はテストしない
+#if !defined(IUTEST_NO_ENV_XML_OUTPUT_FILE)
     IUTEST_EXPECT_STREQ( "xml:test:invalid_file_path", ::iutest::IUTEST_FLAG(output).c_str() );
+#else
+    IUTEST_EXPECT_STREQ( "", ::iutest::IUTEST_FLAG(output).c_str() );
+#endif
 }
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()

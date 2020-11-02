@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_core_impl.hpp
- * @brief       iris unit test UnitTest 実装 ファイル
+ * @brief       iris unit test UnitTest core
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,9 +17,11 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_internal.hpp"
 #include "iutest_option_message.hpp"
-#include "../iutest_case.hpp"
+#include "../iutest_suite.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest
 {
@@ -31,14 +33,14 @@ class UnitTestImpl
 {
 protected:
 #if IUTEST_USE_OWN_LIST
-    typedef detail::iu_list<TestCase>   iuTestCases;
+    typedef detail::iu_list<TestSuite>  iuTestSuites;
 #else
-    typedef ::std::vector<TestCase*>    iuTestCases;
+    typedef ::std::vector<TestSuite*>   iuTestSuites;
 #endif
     typedef ::std::vector<Environment*> iuEnvironmentList;
 protected:
     UnitTestImpl() : m_total_test_num(0), m_disable_num(0), m_should_run_num(0)
-        , m_current_testcase(NULL), m_elapsedmsec(0)
+        , m_current_testsuite(NULL), m_elapsedmsec(0)
     {
         ptr() = this;
     }
@@ -72,19 +74,19 @@ public:
 public:
     /** @private */
     template<typename T>
-    TestCase* AddTestCase(const ::std::string& testcase_name, TestTypeId id
+    TestSuite* AddTestSuite(const ::std::string& testsuite_name, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
     {
-        TestCase* p = FindTestCase(testcase_name, id);
+        TestSuite* p = FindTestSuite(testsuite_name, id);
         if( p == NULL )
         {
-            p = new T (testcase_name, id, setup, teardown);
-            m_testcases.push_back(p);
+            p = new T (testsuite_name, id, setup, teardown);
+            m_testsuites.push_back(p);
         }
         return p;
     }
     /** @private */
-    void AddTestInfo(TestCase* pCase, TestInfo* pInfo);
+    void AddTestInfo(TestSuite* pCase, TestInfo* pInfo);
     /** @private */
     static bool SkipTest();
 
@@ -124,9 +126,9 @@ private:
     static void RecordProperty(const TestProperty& prop);
 
     /**
-     * @brief   FindTestCase
+     * @brief   FindTestSuite
     */
-    TestCase* FindTestCase(const ::std::string& testcase_name, TestTypeId id);
+    TestSuite* FindTestSuite(const ::std::string& testsuite_name, TestTypeId id);
 
     /**
      * @brief   Do information options
@@ -149,7 +151,7 @@ private:
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
     // _invalid_parameter_handler
-    static void OnInvalidParameter(const wchar_t * expression, const wchar_t * function
+    IUTEST_ATTRIBUTE_NORETURN_ static void OnInvalidParameter(const wchar_t * expression, const wchar_t * function
         , const wchar_t * file, unsigned int line, uintptr_t pReserved);
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
@@ -169,10 +171,10 @@ protected:
     int             m_total_test_num;   //!< 登録されたテスト総数
     int             m_disable_num;      //!< 無視したテスト総数
     int             m_should_run_num;   //!< 実行すべきテスト総数
-    TestCase*       m_current_testcase; //!< 現在実行中のテストケース
+    TestSuite*      m_current_testsuite;//!< 現在実行中の TestSuite
     TimeInMillisec  m_elapsedmsec;      //!< テストの実行時間
-    iuTestCases     m_testcases;        //!< テストケースリスト
-    TestResult      m_ad_hoc_testresult;    //!< テストが実行中でないときのリザルト
+    iuTestSuites    m_testsuites;       //!< TestSuite リスト
+    TestResult      m_ad_hoc_testresult;//!< テストが実行中でないときのリザルト
 };
 
 namespace detail
@@ -209,7 +211,7 @@ template<typename T>
 #if IUTEST_HAS_RTTI
     ::std::string name = MakeIndexTestName(basename, index);
     name += "/";
-    name += GetTypeName<T>();
+    name += GetTypeNameProxy<T>::GetTypeNameProxy();
     return name;
 #else
     return MakeIndexTestName(basename, index);
@@ -251,7 +253,7 @@ template<typename T>
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "../impl/iutest_core_impl.ipp"
+#  include "../impl/iutest_core_impl.ipp" // IWYU pragma: export
 #endif
 
 #endif // INCG_IRIS_IUTEST_CORE_IMPL_HPP_D5ABC7DE_C751_4AC0_922F_547880163891_

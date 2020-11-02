@@ -1,0 +1,51 @@
+name: GitHub Actions - reviewdog
+on:
+  pull_request:
+    paths-ignore:
+      - '*.ini'
+      - '*.md'
+      - '*.yml'
+      - '*.yaml'
+      - '.circleci/**'
+      - '.semaphore/**'
+
+jobs:
+  cpplint:
+    name: runner / cpplint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: reviewdog/action-cpplint@master
+      with:
+        github_token: ${{ secrets.github_token }}
+        reporter: github-pr-review
+        flags: --extensions=h,hpp,c,cpp,cc,cu,ipp --linelength=150
+        filter: "-build/c++11\
+          ,-build/c++tr1\
+          ,-build/header_guard\
+          ,-build/include\
+          ,-build/include_what_you_use\
+          ,-readability/braces\
+          ,-readability/todo\
+          ,-runtime/int\
+          ,-runtime/references\
+          ,-runtime/string\
+          ,-whitespace/braces\
+          ,-whitespace/comments\
+          ,-whitespace/indent\
+          ,-whitespace/newline\
+          ,-whitespace/operators\
+          ,-whitespace/parens\
+          "
+  shellcheck:
+    name: runner / shellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: reviewdog/action-shellcheck@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          path: "."
+          pattern: "*.sh"
+          exclude: "./.git/*"

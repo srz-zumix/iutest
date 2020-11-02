@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -14,6 +14,12 @@
 //======================================================================
 #ifndef INCG_IRIS_IUTEST_STREAM_HPP_3A4AF139_9F24_4730_81D0_DADFCE6DCF99_
 #define INCG_IRIS_IUTEST_STREAM_HPP_3A4AF139_9F24_4730_81D0_DADFCE6DCF99_
+
+//======================================================================
+// include
+// IWYU pragma: begin_exports
+#include "iutest_string.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest {
 namespace detail
@@ -34,26 +40,13 @@ public:
 public:
     virtual int Printf(const char* fmt, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(2, 3)
     {
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
-
-        // TODO : Fixed buffer...
-        char buf[1024] = {0};
         va_list va;
         va_start(va, fmt);
-        const int len = iu_vsnprintf(buf, sizeof(buf)-1, fmt, va);
+        const ::std::string str = StringFormat(fmt, va);
         va_end(va);
-
-        if( len > 0 )
-        {
-            Write(buf, static_cast<size_t>(len), 1);
-        }
-        else
-        {
-            IUTEST_LOG_(WARNING) << "stream output trancated: " << fmt;
-        }
-        return len;
-
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+        const size_t len = str.length();
+        Write(str.c_str(), len, 1);
+        return static_cast<int>(len);
     }
 };
 

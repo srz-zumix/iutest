@@ -12,6 +12,15 @@
 		],
 		"files.associations": {
 			"*.ipp": "cpp",
+			"*.inl": "cpp",
+			"*.in": "makefile",
+			".ecrc": "json",
+			".nuspec": "xml",
+			".targets": "xml",
+			".props": "xml",
+			".nativs": "xml",
+			".natstepfilter": "xml",
+			".wsf": "xml",
 			"future": "cpp",
 			"system_error": "cpp",
 			"random": "cpp",
@@ -83,8 +92,33 @@
 			"xtr1common": "cpp",
 			"xtree": "cpp",
 			"xutility": "cpp",
-			"concepts": "cpp"
-		}
+			"concepts": "cpp",
+			"charconv": "cpp",
+			"__functional_base": "cpp",
+			"__functional_base_03": "cpp",
+			"__hash_table": "cpp",
+			"__tree": "cpp",
+			"__tuple": "cpp",
+			"__bit_reference": "cpp",
+			"__debug": "cpp",
+			"__errc": "cpp",
+			"__mutex_base": "cpp",
+			"__node_handle": "cpp",
+			"__split_buffer": "cpp",
+			"__threading_support": "cpp",
+			"atomic": "cpp",
+			"bit": "cpp",
+			"bitset": "cpp",
+			"complex": "cpp",
+			"cstdarg": "cpp",
+			"cwctype": "cpp",
+			"deque": "cpp",
+			"mutex": "cpp",
+			"numeric": "cpp",
+			"stack": "cpp",
+			"unordered_map": "cpp"
+		},
+		"bracketLens.minBracketScopeLines": 12
 	},
 	"launch": {
 		"configurations": [
@@ -101,5 +135,7 @@
 			}
 		],
 		"compounds": []
-	}
+	},
+	"C_Cpp.default.cppStandard": "c++17",
+	"C_Cpp.default.includePath": [ "${workspaceFolder}/include" ],
 }
