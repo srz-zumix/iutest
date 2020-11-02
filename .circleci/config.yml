@@ -165,7 +165,7 @@ jobs:
   docker_tests:
     machine: true
     steps:
-      # - docker/check
+      - docker/check
       - run:
           name: login check
           command: |
