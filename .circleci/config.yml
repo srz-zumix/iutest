@@ -22,7 +22,7 @@ aliases:
           # MAKE_TARGET: all_tests
           # MAKE_RUN_TARGET: run_all_tests
         auth:
-          username: srzzumix
+          username: $DOCKERHUB_LOGIN
           password: $DOCKERHUB_TOKEN
   - &restore_cache
       keys:
@@ -166,7 +166,7 @@ jobs:
     machine: true
     steps:
       - docker/check:
-          docker-username: srzzumix          # DOCKER_LOGIN がデフォルト値となっており、この値が存在する場合自動で値がセットされます
+          docker-username: DOCKERHUB_LOGIN   # DOCKER_LOGIN がデフォルト値となっており、この値が存在する場合自動で値がセットされます
           docker-password: DOCKERHUB_TOKEN   # DOCKER_PASSWORD がデフォルト値になっております
       - run:
           name: login check
