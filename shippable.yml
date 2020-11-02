@@ -1,22 +1,46 @@
-﻿language: c
-compiler:
-  - gcc
-  - clang
-cache: true
-parallelized_test: true
+﻿# language: c
+# compiler:
+#   - gcc
+#   - clang
+# cache: true
+# parallelized_test: true
 
-branches:
-  only:
-    - master
-    - develop
-    - feature/*
-    - fix/*
-    - shippable/*
+# branches:
+#   only:
+#     - master
+#     - develop
+#     - feature/*
+#     - fix/*
+#     - shippable/*
 
-build:
-  ci:
-    - cd test
-    - make showcxxversion
-    - make -j2
-    - make test
-    - make report
+# build:
+#   ci:
+#     - cd test
+#     - make showcxxversion
+#     - make -j2
+#     - make test
+#     - make report
+
+#### RESOURCES CONFIG (GLOBAL ACROSS SUBSCRIPTION)
+
+# resources:
+#   - name:               <string>
+#     type:               <resource type name>
+#     integration:        <string>
+#     versionTemplate:    <object>
+#     flags:              <array>
+
+#### END RESOURCES CONFIG
+
+#### JOBS CONFIG (GLOBAL ACROSS SUBSCRIPTION)
+
+jobs:
+  - name:
+    type:           centos test
+    steps:
+      - IN:         iutest_ciRepo
+        showBuildStatus: true
+      - TASK:
+        - script:   ehoc test
+
+#### END JOBS CONFIG
