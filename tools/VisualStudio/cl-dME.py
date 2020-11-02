@@ -22,7 +22,7 @@ class DefinePrinter:
             help=SUPPRESS
         )
 
-    def print(self, key):
+    def printto(self, key):
         if key in os.environ:
             opts, args = self.parser.parse_known_args(os.environ[key])
             for d in opts.defs:
@@ -31,8 +31,8 @@ class DefinePrinter:
 
 def main():
     printer = DefinePrinter()
-    printer.print('MSC_CMD_FLAGS')
-    printer.print('MSC_IDE_FLAGS')
+    printer.printto('MSC_CMD_FLAGS')
+    printer.printto('MSC_IDE_FLAGS')
 
 
 if __name__ == "__main__":
