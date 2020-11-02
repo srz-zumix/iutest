@@ -165,10 +165,12 @@ jobs:
           username: $DOCKERHUB_LOGIN
           password: $DOCKERHUB_TOKEN
     steps:
+      - checkout
       - run:
           name: cmake
           command: |
-            mkdir build && cd build && ${CMAKE} ../projects/cmake
+            ls
+            mkdir build && cd build && cmake ../projects/cmake
 
 workflows:
   version: 2.1
