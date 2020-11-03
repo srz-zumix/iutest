@@ -76,7 +76,8 @@ showcxxversion:
 	-$(CXX)
 
 showcxxmacros: ## show compiler predefined macros
-	$(CXX) /Bxcl-dME.bat main.cpp
+	$(CXX) /c /Bxcl-dME.bat main.cpp
+	$(CXX) /c /B1cl-dME.bat main.cpp
 
 $(RUNNER) : $(@:_tests_run=_tests)
 	@echo $@
