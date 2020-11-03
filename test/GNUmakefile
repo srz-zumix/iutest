@@ -47,7 +47,8 @@ STRICT_CXXFLAGS:= ${IUTEST_CXX_STRICT_FLAGS}
 # Necessary for peep class operator
 # STRICT_CXXFLAGS+= -Wconversion
 
-CXXFLAGS += -g -Wall -Wextra $(STRICT_CXXFLAGS) $(OPTIMIZE)
+CXXWARNFLAGS:= -Wall -Wextra $(STRICT_CXXFLAGS)
+CXXFLAGS += -g $(CXXWARNFLAGS) $(OPTIMIZE)
 
 ifdef _DEBUG
 CXXFLAGS += -ggdb
@@ -245,6 +246,14 @@ showcxxmacros: ## show compiler predefined macros
 
 showcxxflags: ## show cxxflags
 	@echo $(CXXFLAGS)
+
+showcxxwarn:
+ifdef GCCMAJOR
+	$(CXX) -Q $(CXXWARNFLAGS) $(IUTEST_CXX_NOWARN_FLAGS) --help=c++
+endif
+ifdef CLANGMAJOR
+	$(CXX) -Q $(CXXWARNFLAGS) $(IUTEST_CXX_NOWARN_FLAGS)
+endif
 
 %_build: $(OUTDIR)/%
 	@echo $(OUTDIR)/$(<F)
