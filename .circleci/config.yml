@@ -158,6 +158,20 @@ jobs:
           command: .circleci\vcperf_build.bat
       - store_artifacts:
           path: .\iutest.etl
+  win_msvc_tests:
+    docker:
+      - image: madduci/docker-wine-msvc:16.7-2019
+        auth:
+          username: $DOCKERHUB_LOGIN
+          password: $DOCKERHUB_TOKEN
+    steps:
+      - checkout
+      - run:
+          name: cmake
+          command: |
+            ln -sf ${CIRCLE_WORKING_DIRECTORY} /home/wine/.wine/drive_c/iutest
+            wine64 dir
+            wine64 cmd /k "mkdir build && cd build && cmake ../projects/cmake"
 
 workflows:
   version: 2.1
@@ -168,3 +182,4 @@ workflows:
       - clang_optimize_test:
           filters: *branch-filter
       - vcperf
+      - win_msvc_tests
