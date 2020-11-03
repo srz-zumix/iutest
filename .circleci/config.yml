@@ -169,8 +169,9 @@ jobs:
       - run:
           name: cmake
           command: |
-            ls
-            mkdir build && cd build && cmake ../projects/cmake
+            ln -sf ${CIRCLE_WORKING_DIRECTORY} /home/wine/.wine/drive_c/iutest
+            wine64 dir
+            wine64 cmd /k "mkdir build && cd build && cmake ../projects/cmake"
 
 workflows:
   version: 2.1
