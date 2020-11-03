@@ -75,9 +75,10 @@ test : $(BUILD_ONLY) $(RUNNER)
 showcxxversion:
 	-$(CXX)
 
+# https://stackoverflow.com/questions/3665537/how-to-find-out-cl-exes-built-in-macros
 showcxxmacros: ## show compiler predefined macros
 	$(CXX) /c /Bxcl-dME.bat main.cpp
-	$(CXX) /c /B1cl-dME.bat main.cpp
+	# $(CXX) /c /B1cl-dME.bat main.cpp
 
 $(RUNNER) : $(@:_tests_run=_tests)
 	@echo $@
