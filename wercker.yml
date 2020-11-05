@@ -62,6 +62,7 @@ gtest-compat:
       name: Clean docker container
       code: |
         docker stop iutest-work
+        docker logout
 
 wandbox:
   steps:
