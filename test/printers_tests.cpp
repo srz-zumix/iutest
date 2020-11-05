@@ -23,7 +23,7 @@
 #define IUTEST_PRINTTOSTRING_EQ(expect, val)        \
     IUTEST_EXPECT_STREQ(static_cast<const char*>(expect), ::iutest::PrintToString(val))
 
-#define IUTEST_PRINTTOSTRING_CONTAINE(expect, val)  \
+#define IUTEST_PRINTTOSTRING_CONTAIN(expect, val)  \
     IUTEST_EXPECT_STRIN(static_cast<const char*>(expect), ::iutest::PrintToString(val))
 
 #else
@@ -32,9 +32,9 @@
     (void)(expect); \
     (void)(val)
 
-#define IUTEST_PRINTTOSTRING_CONTAINE(expect, val)  \
-    (void)(expect); \
-    (void)(val)
+// #define IUTEST_PRINTTOSTRING_CONTAIN(expect, val)  \
+//     (void)(expect); \
+//     (void)(val)
 
 #endif
 
@@ -99,7 +99,7 @@ IUTEST(PrintToTest, IutestAnyNotInitialized)
     IUTEST_PRINTTOSTRING_EQ(ck, a);
 #else
     LogChecker ck("-Byte object < 00 00 00 00 ");
-    IUTEST_PRINTTOSTRING_CONTAINE(ck, a);
+    IUTEST_PRINTTOSTRING_CONTAIN(ck, a);
 #endif
     IUTEST_STREAMOUT_CHECK(a);
 }
@@ -112,7 +112,7 @@ IUTEST(PrintToTest, IutestAnyString)
     IUTEST_PRINTTOSTRING_EQ(ck, a);
 #else
     LogChecker ck("-Byte object");
-    IUTEST_PRINTTOSTRING_CONTAINE(ck, a);
+    IUTEST_PRINTTOSTRING_CONTAIN(ck, a);
 #endif
     IUTEST_STREAMOUT_CHECK(a);
 }
@@ -272,7 +272,7 @@ IUTEST(PrintToTest, SurrogatePair)
         {
             // LogChecker ck("00020BB7000091CE00005BB6");
             LogChecker ck("00020BB7");
-            IUTEST_PRINTTOSTRING_CONTAINE(ck, s);
+            IUTEST_PRINTTOSTRING_CONTAIN(ck, s);
             IUTEST_STREAMOUT_CHECK(p);
         }
         else if( s[0] == '?' )
