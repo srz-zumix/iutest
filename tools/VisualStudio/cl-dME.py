@@ -6,7 +6,6 @@
 #   cl /B1cl-dME.bat main.cpp
 #   cl /BXcl-dME.bat main.cpp
 
-import os
 from argparse import ArgumentParser
 from argparse import SUPPRESS
 
