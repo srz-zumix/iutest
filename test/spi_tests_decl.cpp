@@ -52,8 +52,8 @@
 #else
     FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(0, 1), "" );
     FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(0, 1), "" );
-    FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(0.0f/fa, 0.0f/fa), "" );
-    FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(0.0/da, 0.0f/da), "" );
+    FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(Div(0.0f, fa), Div(0.0f, fa)), "" );
+    FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(Div(0.0, da), Div(0.0, da)), "" );
     FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::FloatLE , 2, 0), "" );
     FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::DoubleLE, 2, 0), "" );
 #endif

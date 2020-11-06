@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
     // 失敗テストを含むので xml 出力しない
     ::iutest::IUTEST_FLAG(output) = NULL;
 #endif
-#if defined(IUTEST_USE_GTEST) && GTEST_VER == 0x01080100
+#if defined(IUTEST_USE_GTEST) && (GTEST_VER == 0x01080100 || GTEST_VER == 0x01100000)
     // bug?
     if( IUTEST_RUN_ALL_TESTS() != 0 )
     {
