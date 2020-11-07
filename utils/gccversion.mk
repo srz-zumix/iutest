@@ -139,6 +139,11 @@ ifeq (1,$(shell expr \( $(GCCMAJOR) \> 6 \) ))
 IUTEST_CXX_STRICT_FLAGS+=-Wshadow-compatible-local
 endif
 
+# 6.0 later
+ifeq (1,$(shell expr \( $(GCCMAJOR) \> 5 \) ))
+IUTEST_CXX_NOWARN_FLAGS+=-Wduplicated-cond
+endif
+
 # 5.0 later
 ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) ))
 IUTEST_CXX_NOWARN_FLAGS+=-Wno-missing-field-initializers
@@ -165,7 +170,7 @@ endif
 
 endif
 
-IUTEST_CXX_STRICT_FLAGS+=-Wduplicated-cond -Wformat-nonliteral \
+IUTEST_CXX_STRICT_FLAGS+=-Wformat-nonliteral \
 	-Wformat-signedness -Winit-self -Wlogical-op -Woverlength-strings \
 	-Wsuggest-attribute=format -Wvariadic-macros
 
