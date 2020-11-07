@@ -87,7 +87,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTest(IFile* file, co
         );
     if( TestFlag::IsEnableFlag(TestFlag::SHUFFLE_TESTS) )
     {
-        file->Printf("random_seed=\"%d\" ", test.random_seed());
+        file->Printf("random_seed=\"%u\" ", test.random_seed());
     }
     file->Printf("name=\"AllTests\"");
 
