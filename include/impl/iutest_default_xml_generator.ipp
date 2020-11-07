@@ -371,7 +371,7 @@ IUTEST_IPP_INLINE ::std::string DefaultXmlGeneratorListener::EscapeXml(const cha
                         if( is_attribute && IsWhitespace(s) )
                         {
                             char tmp[8];
-                            detail::iu_snprintf(tmp, sizeof(tmp), "&#x%02X;", s);
+                            detail::iu_snprintf(tmp, sizeof(tmp), "&#x%02X;", static_cast<unsigned int>(s));
                             msg += tmp;
                         }
                         else
