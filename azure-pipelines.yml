@@ -150,22 +150,22 @@ stages:
         - template: .ci/azure_pipelines/template-cmake-docker-steps.yml
           parameters:
             container_target: gcc_10
-      - job: wine_msvc
-        pool:
-          vmImage: ubuntu-latest
-        steps:
-        - script: |
-            echo launch
-          target:
-            container: wine_msvc
-          displayName: 'launch'
-        - script: |
-            /usr/bin/docker exec -t -u wine ci-container bash -c "ln -sf $(Build.SourcesDirectory)/iutet /home/wine/.wine/drive_c/iutest"
-            /usr/bin/docker exec -t -u wine ci-container bash -c "wine64 dir >> dir.txt"
-            /usr/bin/docker exec -t -u wine ci-container bash -c "cat /home/wine/.wine/drive_c/dir.txt"
-            /usr/bin/docker exec -t -u wine ci-container bash -c "wine64 /home/wine/.wine/drive_c/iutest/.ci/azure_pipelines/cmake-test.bat >> build.log"
-            /usr/bin/docker exec -t -u wine ci-container bash -c "cat /home/wine/.wine/drive_c/build.log"
-          displayName: 'cmake test'
+      # - job: wine_msvc
+      #   pool:
+      #     vmImage: ubuntu-latest
+      #   steps:
+      #   - script: |
+      #       echo launch
+      #     target:
+      #       container: wine_msvc
+      #     displayName: 'launch'
+      #   - script: |
+      #       /usr/bin/docker exec -t -u wine ci-container bash -c "ln -sf $(Build.SourcesDirectory)/iutet /home/wine/.wine/drive_c/iutest"
+      #       /usr/bin/docker exec -t -u wine ci-container bash -c "wine64 dir >> dir.txt"
+      #       /usr/bin/docker exec -t -u wine ci-container bash -c "cat /home/wine/.wine/drive_c/dir.txt"
+      #       /usr/bin/docker exec -t -u wine ci-container bash -c "wine64 /home/wine/.wine/drive_c/iutest/.ci/azure_pipelines/cmake-test.bat >> build.log"
+      #       /usr/bin/docker exec -t -u wine ci-container bash -c "cat /home/wine/.wine/drive_c/build.log"
+      #     displayName: 'cmake test'
   # - stage: CodeQL
   #   dependsOn: Precheck
   #   variables:
