@@ -94,7 +94,7 @@ SYNTAXTESTS_TARGET=$(OUTDIR)/syntax_tests
 
 NAMESPACETESTS_TARGET=$(OUTDIR)/namespace_tests
 
-TARGETS1= \
+TEST_TARGETS= \
 		$(OUTDIR)/also_run_disabled_tests \
 		$(OUTDIR)/assertion_return_tests \
 		$(OUTDIR)/assume_tests \
@@ -155,7 +155,7 @@ TARGETS1= \
 		$(OUTDIR)/uninitialize_tests \
 		$(OUTDIR)/util_tests \
 
-TARGETS2= \
+ASSERTION_ONLY_TARGETS= \
 		$(OUTDIR)/assertion_only_tests \
 
 TARGETS_IUTEST_ONLY = \
