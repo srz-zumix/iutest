@@ -125,8 +125,7 @@ include $(UTILS_MAKEFILE_DIR)/stdcver.mk
 
 # until 4.6
 ifeq (1,$(shell expr \( $(GCCMAJOR) \< 4 \) \| \( $(GCCMAJOR) = 4 \& $(GCCMINOR) \< 6 \)))
-IUTEST_CXX_NOWARN_FLAGS+=-Wno-sign-compare
-IUTEST_CXX_NOWARN_FLAGS+=-Wno-conversion-null
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-sign-compare -Wno-conversion-null
 endif
 
 # arm
@@ -146,12 +145,8 @@ endif
 
 # 5.0 later
 ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) ))
+IUTEST_CXX_STRICT_FLAGS+=-Wfloat-conversion -Wformat-signedness
 IUTEST_CXX_NOWARN_FLAGS+=-Wno-missing-field-initializers
-endif
-
-# 4.9 later
-ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 9 \)))
-IUTEST_CXX_STRICT_FLAGS+=-Wfloat-conversion
 endif
 
 # 4.0 later
@@ -171,7 +166,7 @@ endif
 endif
 
 IUTEST_CXX_STRICT_FLAGS+=-Wformat-nonliteral \
-	-Wformat-signedness -Winit-self -Wlogical-op -Woverlength-strings \
+	-Winit-self -Wlogical-op -Woverlength-strings \
 	-Wsuggest-attribute=format -Wvariadic-macros
 
 endif
