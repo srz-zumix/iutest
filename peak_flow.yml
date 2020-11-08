@@ -5,9 +5,11 @@ before_script:
   - clang --version || true
 script:
   - make -C test fused
-  - make -C test -j4 CXXFLAGS=-ftime-report USE_FUSED=1
+  - make -C test -j4 USE_FUSED=1
   - make -C test test
   - make -C test clean
   - make -C test fused_min
-  - make -C test -j4 CXXFLAGS=-ftime-report USE_FUSED=1
+  - make -C test -j4 USE_FUSED=1
   - make -C test test
+
+# CXXFLAGS=-ftime-report
