@@ -43,11 +43,9 @@ include CommonMakefile.in
 #OPTIMIZE=-O2
 
 STRICT_CXXFLAGS:= ${IUTEST_CXX_STRICT_FLAGS}
-# STRICT_CXXFLAGS+= -Wfloat-equal
-# Necessary for peep class operator
-# STRICT_CXXFLAGS+= -Wconversion
 
-CXXFLAGS += -g -Wall -Wextra $(STRICT_CXXFLAGS) $(OPTIMIZE)
+CXXWARNFLAGS:= -Wall -Wextra $(STRICT_CXXFLAGS)
+CXXFLAGS += -g $(CXXWARNFLAGS) $(OPTIMIZE)
 
 ifdef _DEBUG
 CXXFLAGS += -ggdb
@@ -247,6 +245,20 @@ showcxxmacros: ## show compiler predefined macros
 
 showcxxflags: ## show cxxflags
 	@echo $(CXXFLAGS)
+
+showcxxwarn:
+ifdef GCCMAJOR
+	$(CXX) -Q $(CXXWARNFLAGS) $(IUTEST_CXX_NOWARN_FLAGS) --help=c++
+endif
+ifdef CLANGMAJOR
+endif
+
+showcxxwarn-disabled:
+ifdef GCCMAJOR
+	$(CXX) -Q $(CXXWARNFLAGS) $(IUTEST_CXX_NOWARN_FLAGS) --help=c++ | grep disabled
+endif
+ifdef CLANGMAJOR
+endif
 
 %_build: $(OUTDIR)/%
 	@echo $(OUTDIR)/$(<F)
