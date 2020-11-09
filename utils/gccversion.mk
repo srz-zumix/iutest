@@ -149,6 +149,11 @@ IUTEST_CXX_STRICT_FLAGS+=-Wfloat-conversion -Wformat-signedness
 IUTEST_CXX_NOWARN_FLAGS+=-Wno-missing-field-initializers
 endif
 
+# 4.8 later
+ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 8 \)))
+IUTEST_CXX_STRICT_FLAGS+=-Wsuggest-attribute=format
+endif
+
 # 4.0 later
 ifeq (1,$(shell expr \( $(GCCMAJOR) \> 3 \) ))
 IUTEST_CXX_STRICT_FLAGS+=-Wunreachable-code -Wdouble-promotion \
@@ -167,6 +172,6 @@ endif
 
 IUTEST_CXX_STRICT_FLAGS+=-Wformat-nonliteral \
 	-Winit-self -Wlogical-op -Woverlength-strings \
-	-Wsuggest-attribute=format -Wvariadic-macros
+	-Wvariadic-macros
 
 endif
