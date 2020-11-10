@@ -151,7 +151,7 @@ endif
 
 # 4.8 later
 ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 8 \)))
-IUTEST_CXX_STRICT_FLAGS+=-Wsuggest-attribute=format
+# IUTEST_CXX_STRICT_FLAGS+=-Wsuggest-attribute=format
 endif
 
 # 4.0 later
