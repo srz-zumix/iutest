@@ -11,7 +11,8 @@ tasks:
       branch =~ 'razorops.*'
 
   test:
-    image: iutest/razorops_test
+    containers:
+      - image: iutest/razorops_test
     commands:
       # - cd /iutest/test
       - cd test
@@ -20,6 +21,12 @@ tasks:
       - make report
       - make clean
     when: *condition
+
+workflows:
+  - name: centos-test
+    tasks:
+      - build-image
+      - test
 
   # build-gcc3-image:
   #   type: build
