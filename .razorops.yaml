@@ -21,6 +21,17 @@ tasks:
       - make clean
     when: *condition
 
+  # report:
+  #   type: build
+  #   - reports/junit:
+  #     paths: spec/*.xml
+
+workflows:
+  - name: centos-test
+    tasks:
+      - build-image
+      - test
+
   # build-gcc3-image:
   #   type: build
   #   image: iutest/razorops_gcc3

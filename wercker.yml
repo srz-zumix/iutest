@@ -37,6 +37,10 @@ gtest-compat:
         name: Install docker
         code: apk --no-cache add docker
     - script:
+        name: Login DockerHub
+        code: |
+          echo ${WERCKER_DOCKERHUB_PASSWORD} | docker login -u srzzumix --password-stdin
+    - script:
         name: Launch docker container
         # https://devcenter.wercker.com/development/pipelines/direct-docker-access/#volumes-and-mounts
         code: |
@@ -58,6 +62,7 @@ gtest-compat:
       name: Clean docker container
       code: |
         docker stop iutest-work
+        docker logout
 
 wandbox:
   steps:
