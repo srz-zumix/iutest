@@ -1,3 +1,5 @@
+version: v2
+
 tasks:
   build-image:
     type: build
@@ -6,7 +8,7 @@ tasks:
     - docker-build:
         image: iutest/razorops_test
         push: false
-        tags: ["${CI_COMMIT_SHA}", "latest"]
+        tags: "latest"
         dockerfile: .ci/docker/centos/Dockerfile
         context: .
     when: &condition >
