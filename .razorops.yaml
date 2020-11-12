@@ -1,5 +1,6 @@
 tasks:
   build-image:
+    type: build
     steps:
     - checkout
     - docker-build:
