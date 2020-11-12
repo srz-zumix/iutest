@@ -2,13 +2,12 @@ version: v2
 
 tasks:
   build-image:
-    type: build
     steps:
     - checkout
     - docker-build:
         image: iutest/razorops_test
         push: false
-        tags: "latest"
+        tags: [ "latest" ]
         dockerfile: .ci/docker/centos/Dockerfile
         context: .
     when: &condition >
@@ -16,7 +15,6 @@ tasks:
       branch =~ 'razorops.*'
 
   test:
-    image: iutest/razorops_test
     containers:
       - image: iutest/razorops_test
     steps:
