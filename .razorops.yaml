@@ -1,30 +1,32 @@
 tasks:
   build-image:
-    type: build
-    image: iutest/razorops_test
-    push: false
-    tags: ["latest"]
-    dockerfile: .ci/docker/centos/Dockerfile
-    context: .
+    steps:
+    - checkout
+    - docker-build:
+        image: iutest/razorops_test
+        push: false
+        tags: ["${CI_COMMIT_SHA}", "latest"]
+        dockerfile: .ci/docker/centos/Dockerfile
+        context: .
     when: &condition >
       branch in ('master', 'develop') ||
       branch =~ 'razorops.*'
 
   test:
-    image: iutest/razorops_test
-    commands:
-      # - cd /iutest/test
-      - cd test
-      - make
-      - make test
-      - make report
-      - make clean
+    containers:
+      - image: iutest/razorops_test
+    steps:
+      - checkout
+      - commands:
+          # - cd /iutest/test
+          - cd test
+          - make OUTPUTXML=junit
+          - make OUTPUTXML=junit test
+          - make report
+          - make clean
+      - reports/junit:
+          paths: test/*.xml
     when: *condition
-
-  # report:
-  #   type: build
-  #   - reports/junit:
-  #     paths: spec/*.xml
 
 workflows:
   - name: centos-test
