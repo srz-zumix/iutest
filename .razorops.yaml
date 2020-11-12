@@ -32,7 +32,7 @@ tasks:
           - make report
           - make clean
       - reports/junit:
-          paths: "test/*.xml"
+          paths: [ "test/*.xml" ]
     when: *condition
 
 workflows:
