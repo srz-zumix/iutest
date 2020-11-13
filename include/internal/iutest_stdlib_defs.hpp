@@ -323,6 +323,9 @@
 
 // apple(xcode) clang
 #if defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
+#  if !IUTEST_HAS_CXX17
+#    define IUTEST_HAS_CXX_HDR_FILESYSTEM   0
+#  endif
 #  if __MAC_OS_X_VERSION_MIN_REQUIRED < 101500
 #    define IUTEST_HAS_CXX_HDR_FILESYSTEM   0
 #  endif
