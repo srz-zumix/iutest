@@ -1,6 +1,6 @@
 ﻿
 #
-# MT, MD 設定
+# for compiler configs
 #
 macro(fix_default_compiler_settings_)
   if (MSVC)
@@ -46,6 +46,8 @@ macro(fix_default_compiler_settings_)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /experimental:preprocessor /Wv:18")
       endif()
     endif()
+  elseif (APPLE)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_LIBCPP_DISABLE_AVAILABILITY")
   endif()
   set(CMAKE_CXX_FLAGS_DEBUG_GTEST "${CMAKE_CXX_FLAGS_DEBUG} -DIUTEST_USE_GTEST")
   set(CMAKE_EXE_LINKER_FLAGS_DEBUG_GTEST ${CMAKE_EXE_LINKER_FLAGS_DEBUG})
@@ -53,7 +55,7 @@ endmacro()
 
 
 #
-# プロジェクト設定
+# project configs
 #
 macro(config_compiler_and_linker)
   fix_default_compiler_settings_()
@@ -135,7 +137,7 @@ function(cxx_library_with_type name type cxx_flags)
 endfunction()
 
 #
-# ターゲット設定
+# target configs
 #
 function(cxx_shared_library name cxx_flags)
   cxx_library_with_type(${name} SHARED "${cxx_flags}" ${ARGN})
@@ -154,21 +156,21 @@ endif()
 endfunction()
 
 function(cxx_executable_with_flags name cxx_flags libs)
-  # ソースコード
+  # sources
   iutest_add_executable(${name} ${ARGN})
   if (cxx_flags)
     set_target_properties(${name}
       PROPERTIES
       COMPILE_FLAGS "${cxx_flags}")
   endif()
-  # ライブラリリンク
+  # libraries
   foreach (lib "${libs}")
     target_link_libraries(${name} ${lib})
   endforeach()
 endfunction()
 
 #
-# サンプル用
+# for sample
 #
 function(cxx_executable_sample name)
 iutest_add_executable(${name} ${ARGN})
@@ -178,7 +180,7 @@ iutest_add_executable(${name} ${ARGN})
 endfunction()
 
 #
-# gtest サンプル用
+# for gtest sample
 #
 function(cxx_executable_gtest_sample name dir)
   set(SRCS ${dir}/${name}.cc)
@@ -189,7 +191,7 @@ function(cxx_executable_gtest_sample name dir)
 endfunction()
 
 #
-# test 用
+# for tests
 #
 function(cxx_executable_test name)
   set(SRCS ${IUTEST_ROOT_DIR}/test/${name}.cpp)
@@ -229,7 +231,7 @@ function(cxx_executable_test_ns name)
 endfunction()
 
 #
-# CTest 用
+# CTest
 #
 function(cxx_add_test name)
   add_test(
