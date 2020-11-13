@@ -16,9 +16,10 @@ tasks:
           context: .
     when: &condition >
       branch in ('master', 'develop') ||
-      branch =~ 'razorops.*'
+      branch =~ /razorops.*/
 
   test:
+    depends: [build-image]
     containers:
       - image: iutest/razorops_test
     steps:
@@ -34,6 +35,10 @@ tasks:
       - reports/junit:
           paths: [ "test/*.xml" ]
     when: *condition
+
+trigger:
+  ## triggers pipeline only on feature branches and on tags (mind the prefix)
+  if: branch in ('master', 'develop') || branch =~ /razorops.*/
 
 workflows:
   - name: centos-test
