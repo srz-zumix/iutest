@@ -16,7 +16,7 @@ tasks:
           context: .
     when: &condition >
       branch in ('master', 'develop') ||
-      branch =~ /razorops.*/
+      branch =~ 'razorops.*'
 
   test:
     depends: [build-image]
