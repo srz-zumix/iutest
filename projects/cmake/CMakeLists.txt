@@ -2,7 +2,7 @@
 # CMake build script for iutest.
 #
 
-# CMake バージョン
+# CMake version required
 cmake_minimum_required(VERSION 3.2)
 
 # option
@@ -18,11 +18,19 @@ if (COMMAND pre_project_set_up_hermetic_build)
   pre_project_set_up_hermetic_build()
 endif()
 
+# for apple
+if (APPLE)
+  if ("${CMAKE_OSX_ARCHITECTURES}" STREQUAL "")
+    set(CMAKE_OSX_ARCHITECTURES x86_64)
+    message(STATUS "CMAKE_OSX_ARCHITECTURES: x86_64")
+  endif()
+endif()
+
 ########################################################################
 #
 # Project-wide settings
 
-# プロジェクト名
+# project name
 project(iutest CXX C)
 set(CMAKE_CXX_STANDARD 17)
 
@@ -59,7 +67,7 @@ if (build_use_gtest_configuration)
   message(STATUS "configuration types: ${CMAKE_CONFIGURATION_TYPES}")
 endif()
 
-# インクルードパス
+# include path
 include_directories(${IUTEST_INCLUDE_DIR})
 if (NOT "$ENV{GTEST_ROOT}" STREQUAL "")
   include_directories($ENV{GTEST_ROOT}/include)
@@ -67,14 +75,14 @@ endif()
 
 ########################################################################
 #
-# ライブラリ
+# library
 #
 cxx_library(iutest "${cxx_strict}" ${IUTEST_ROOT_DIR}/src/iutest_all.cpp)
 cxx_library(iutest_main "${cxx_strict}" ${IUTEST_ROOT_DIR}/src/iutest_main.cpp)
 
 ########################################################################
 #
-# サンプル
+# Sample
 #
 cxx_executable_sample(iutest_sample
   ${IUTEST_ROOT_DIR}/samples/main.cpp
@@ -92,7 +100,7 @@ cxx_executable_sample(iutest_sample
 
 ########################################################################
 #
-# gtest サンプル
+# gtest sample
 #
 if (build_gtest_samples)
   message(STATUS "add gtest samples")
