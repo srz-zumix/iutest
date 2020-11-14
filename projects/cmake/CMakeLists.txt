@@ -25,6 +25,10 @@ if (CMAKE_VERSION VERSION_LESS 3.19)
             -T "${CMAKE_GENERATOR_TOOLSET}"
             -A "${CMAKE_GENERATOR_PLATFORM}" 
             -DRECURSIVE_GENERATE:BOOL=ON 
+            -Dbuild_gtest_samples:BOOL=${build_gtest_samples}
+            -Dbuild_use_gtest_configuration:BOOL=${build_use_gtest_configuration}
+            -Dbuild_tests:BOOL=${build_tests}
+            -Dbuild_namespace_tests:BOOL=${build_namespace_tests}
             ${CMAKE_SOURCE_DIR})
         message(STATUS "Recursive generate done")
     
@@ -71,6 +75,11 @@ if (COMMAND pre_project_set_up_hermetic_build)
   pre_project_set_up_hermetic_build()
 endif()
 
+set(default_build_type "Release")
+if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
+  set(default_build_type "Debug")
+endif()
+
 ########################################################################
 #
 # Project-wide settings
@@ -109,7 +118,7 @@ include(internal_utils.cmake)
 config_compiler_and_linker()  # Defined in internal_utils.cmake.
 
 if (build_use_gtest_configuration)
-  set(CMAKE_CONFIGURATION_TYPES "Debug_gtest;${CMAKE_CONFIGURATION_TYPES}")
+  set(CMAKE_CONFIGURATION_TYPES "${CMAKE_CONFIGURATION_TYPES};Debug_gtest")
   message(STATUS "configuration types: ${CMAKE_CONFIGURATION_TYPES}")
 endif()
 

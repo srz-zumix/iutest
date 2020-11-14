@@ -27,6 +27,53 @@
 #  endif
 #endif
 
+// for clang
+#if defined(__clang__)
+#  if !defined(IUTEST_CLANG_MAJOR)
+#    if defined(__APPLE__)
+#      if __clang_major__ > 11
+#        define IUTEST_CLANG_MAJOR      10
+#      elif __clang_major__ > 10
+#        if __clang_minor__ > 3
+#          define IUTEST_CLANG_MAJOR    9
+#        else
+#          define IUTEST_CLANG_MAJOR    8
+#        endif
+#      elif __clang_major__ > 9
+#        if __clang_minor__ > 1
+#          define IUTEST_CLANG_MAJOR    7
+#        else
+#          define IUTEST_CLANG_MAJOR    6
+#        endif
+#      elif __clang_major__ > 8
+#        if __clang_minor__ > 2
+#          define IUTEST_CLANG_MAJOR    5
+#        else
+#          define IUTEST_CLANG_MAJOR    4
+#        endif
+#      else
+#        define IUTEST_CLANG_MAJOR      3
+#        if __clang_major__ > 7
+#          define IUTEST_CLANG_MINOR    9
+#        elif __clang_major__ > 6
+#          if __clang_minor__ > 2
+#            define IUTEST_CLANG_MINOR  8
+#          else
+#            define IUTEST_CLANG_MINOR  7
+#          endif
+#        else
+#          define IUTEST_CLANG_MINOR    __clang_major__
+#        endif
+#      endif
+#    else
+#      define IUTEST_CLANG_MAJOR  __clang_major__
+#    endif
+#  endif
+#  if !defined(IUTEST_CLANG_MINOR)
+#    define IUTEST_CLANG_MINOR  __clang_minor__
+#  endif
+#endif
+
 // __cplusplus numbers
 #define IUTEST_CPLUSPLUS_CXX11 201103L
 #define IUTEST_CPLUSPLUS_CXX14 201402L
@@ -120,7 +167,7 @@
 #if   defined(__cpp_inline_variables) && __cpp_inline_variables >= 201606
 #  define IUTEST_HAS_INLINE_VARIABLE        1
 #elif defined(__clang__)
-#  if IUTEST_HAS_CXX1Z && (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 9))
+#  if IUTEST_HAS_CXX1Z && (IUTEST_CLANG_MAJOR > 3 || (IUTEST_CLANG_MAJOR == 3 && IUTEST_CLANG_MINOR >= 9))
 #    define IUTEST_HAS_INLINE_VARIABLE      1
 #  endif
 #endif
@@ -155,7 +202,7 @@
 #    if __has_feature(cxx_nullptr)
 #      define IUTEST_HAS_NULLPTR    1
 #    endif
-#    if  (__clang_major__ < 3 || (__clang_major__ == 3 && __clang_minor__ <= 2))
+#    if  (IUTEST_CLANG_MAJOR < 3 || (IUTEST_CLANG_MAJOR == 3 && IUTEST_CLANG_MINOR <= 2))
 #      define IUTEST_NO_NULL_TO_NULLPTR_T   1   // -Wnull-conversion
 #    endif
 #  elif defined(__GNUC__)
@@ -1100,7 +1147,7 @@
 //! has __if_exists
 #if !defined(IUTEST_HAS_IF_EXISTS)
 #  if defined(__clang__)
-#    if IUTEST_HAS_MS_EXTENSIONS && (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 5) )
+#    if IUTEST_HAS_MS_EXTENSIONS && (IUTEST_CLANG_MAJOR > 3 || (IUTEST_CLANG_MAJOR == 3 && IUTEST_CLANG_MINOR >= 5) )
 #      define IUTEST_HAS_IF_EXISTS          1
 #    endif
 #  elif defined(_MSC_VER) && _MSC_VER >= 1310
@@ -1249,7 +1296,7 @@
 #      define IUTEST_HAS_ATTRIBUTE_DEPRECATED   1
 #    endif
 #  elif   defined(__clang__)
-#    if __clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 4)
+#    if IUTEST_CLANG_MAJOR > 3 || (IUTEST_CLANG_MAJOR == 3 && IUTEST_CLANG_MINOR >= 4)
 #      define IUTEST_HAS_ATTRIBUTE_DEPRECATED   1
 #    endif
 #  elif   defined(_MSC_VER)
