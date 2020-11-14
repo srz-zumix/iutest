@@ -17,6 +17,7 @@
 
 //======================================================================
 // include
+#include "iutest_compiler.hpp"
 #define __STDC_FORMAT_MACROS    1
 #include <inttypes.h>
 
@@ -359,7 +360,7 @@
 
 #if !defined(IUTEST_HAS_CXX_HDR_VARIANT)
 #  if IUTEST_HAS_VARIADIC_TEMPLATES && defined(__has_include)
-#    if   defined(__clang__) && (__clang_major__ < 3 || (__clang_major__ == 3 && __clang_minor__ < 6))
+#    if   defined(__clang__) && (IUTEST_CLANG_MAJOR < 3 || (IUTEST_CLANG_MAJOR == 3 && IUTEST_CLANG_MINOR < 6))
 #      define IUTEST_HAS_CXX_HDR_VARIANT    0   // clang 3.5 + variant is not worked
 #    elif __has_include(<variant>)
 #      define IUTEST_HAS_CXX_HDR_VARIANT    1
@@ -544,7 +545,7 @@
 #endif
 #if !defined(IUTEST_HAS_VARIADIC_TUPLES) && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE && IUTEST_HAS_STD_TUPLE
 #  if defined(__clang__)
-#    if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ > 7))
+#    if (IUTEST_CLANG_MAJOR > 3 || (IUTEST_CLANG_MAJOR == 3 && IUTEST_CLANG_MINOR > 7))
 #      define IUTEST_HAS_VARIADIC_TUPLES    1
 #    endif
 #  else
