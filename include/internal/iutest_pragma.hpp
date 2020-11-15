@@ -209,7 +209,7 @@
 
 #if !defined(IUTEST_PRAGMA_WARN_DISABLE_DOUBLE_PROMOTION)
 #  if   defined(__clang__)
-#    if __clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 8)
+#    if IUTEST_CLANG_MAJOR > 3 || (IUTEST_CLANG_MAJOR == 3 && IUTEST_CLANG_MINOR >= 8)
 #      define IUTEST_PRAGMA_WARN_DISABLE_DOUBLE_PROMOTION() IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wdouble-promotion")
 #    endif
 #  elif defined(__GNUC__)
@@ -227,7 +227,7 @@
 
 #if !defined(IUTEST_PRAGMA_WARN_DISABLE_FLOAT_CONVERSION)
 #  if   defined(__clang__)
-#    if __clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 5)
+#    if IUTEST_CLANG_MAJOR > 3 || (IUTEST_CLANG_MAJOR == 3 && IUTEST_CLANG_MINOR >= 5)
 #      define IUTEST_PRAGMA_WARN_DISABLE_FLOAT_CONVERSION() IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wfloat-conversion")
 #    endif
 #  elif defined(__GNUC__)
@@ -245,7 +245,7 @@
 
 #if !defined(IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_FLOAT_CONVERSION)
 #  if   defined(__clang__)
-#    if __clang_major__ > 9
+#    if IUTEST_CLANG_MAJOR > 9
 #      define IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_FLOAT_CONVERSION()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wimplicit-float-conversion")
 #    endif
 #  endif
@@ -257,7 +257,7 @@
 
 #if !defined(IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_INT_FLOAT_CONVERSION)
 #  if   defined(__clang__)
-#    if __clang_major__ > 9
+#    if IUTEST_CLANG_MAJOR > 9
 #      define IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_INT_FLOAT_CONVERSION()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wimplicit-int-float-conversion")
 #    else
 #      define IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_INT_FLOAT_CONVERSION()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wconversion")
@@ -293,7 +293,7 @@
 
 #if !defined(IUTEST_PRAGMA_WARN_DISABLE_NARROWING)
 #  if   defined(__clang__)
-#    if __clang_major__ > 2
+#    if IUTEST_CLANG_MAJOR > 2
 #      define IUTEST_PRAGMA_WARN_DISABLE_NARROWING()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wc++11-narrowing")
 #    endif
 #  elif defined(__GNUC__)
@@ -365,7 +365,7 @@
 
 #if !defined(IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE)
 #  if   defined(__clang__)
-#    if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ > 0))
+#    if (IUTEST_CLANG_MAJOR > 3 || (IUTEST_CLANG_MAJOR == 3 && IUTEST_CLANG_MINOR > 0))
 #      define IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wdangling-else")
 #    endif
 #  elif defined(__GNUC__)
@@ -392,17 +392,17 @@
 #endif
 
 #if   defined(__clang__)
-#  if !defined(__APPLE_CC__) && __clang_major__ > 10
+#  if IUTEST_CLANG_MAJOR > 10
 #    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_11()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wsuggest-destructor-override")
 #  else
 #    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_11()
 #  endif
-#  if __clang_major__ > 4
+#  if IUTEST_CLANG_MAJOR > 4
 #    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_5()     IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wzero-as-null-pointer-constant")
 #  else
 #    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_5()
 #  endif
-#  if __clang_major__ > 2
+#  if IUTEST_CLANG_MAJOR > 2
 #    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_3()     IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wexit-time-destructors")
 #  else
 #    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_3()

@@ -11,6 +11,63 @@ option(build_use_gtest_configuration "use gtest build configuration." ON)
 option(build_tests "tests build." ON)
 option(build_namespace_tests "enable namespace test build." ON)
 
+include(xcode_version.cmake)
+# Xcode workarounds
+if (CMAKE_VERSION VERSION_LESS 3.19)
+  if (CMAKE_GENERATOR MATCHES Xcode)
+    if (${XCODE_VERSION} VERSION_GREATER 10.0)
+      option(RECURSIVE_GENERATE "Recursive call to cmake" OFF)
+
+      if (NOT RECURSIVE_GENERATE)
+        message(STATUS "Recursive generate started")
+        execute_process(COMMAND ${CMAKE_COMMAND}
+            -G "${CMAKE_GENERATOR}"
+            -T "${CMAKE_GENERATOR_TOOLSET}"
+            -A "${CMAKE_GENERATOR_PLATFORM}" 
+            -DRECURSIVE_GENERATE:BOOL=ON 
+            -Dbuild_gtest_samples:BOOL=${build_gtest_samples}
+            -Dbuild_use_gtest_configuration:BOOL=${build_use_gtest_configuration}
+            -Dbuild_tests:BOOL=${build_tests}
+            -Dbuild_namespace_tests:BOOL=${build_namespace_tests}
+            ${CMAKE_SOURCE_DIR})
+        message(STATUS "Recursive generate done")
+    
+        # use the new build system workaround
+        set(WORKSPACE_FILE iutest.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings)
+        message("Deleting workspace file: ${WORKSPACE_FILE}")
+        execute_process(COMMAND ${CMAKE_COMMAND} -E remove ${WORKSPACE_FILE}
+                      INPUT_FILE ${WORKSPACE_FILE})
+        return()
+      endif()
+    endif()
+  endif()
+endif()
+
+# for apple
+if (APPLE)
+	if(NOT OSX_ARCHITECTURES OR OSX_ARCHITECTURES STREQUAL "")
+		if(_CMAKE_OSX_MACHINE MATCHES "ppc")
+			set(OSX_ARCHITECTURES
+				"ppc;ppc64"
+				CACHE
+				STRING
+				"Build architectures for OS X"
+				FORCE)
+		else()
+			set(OSX_ARCHITECTURES
+				"x86_64"
+				CACHE
+				STRING
+				"Build architectures for OS X"
+				FORCE)
+		endif()
+  endif()
+	if(NOT CMAKE_OSX_ARCHITECTURES OR CMAKE_OSX_ARCHITECTURES STREQUAL "")
+    set(CMAKE_OSX_ARCHITECTURES ${OSX_ARCHITECTURES} CACHE STRING "Build architectures for OS X" FORCE)
+  endif()
+  message(STATUS "CMAKE_OSX_ARCHITECTURES: ${CMAKE_OSX_ARCHITECTURES}")
+endif()
+
 # Defines pre_project_set_up_hermetic_build() and set_up_hermetic_build().
 include(cmake/hermetic_build.cmake OPTIONAL)
 
@@ -18,12 +75,9 @@ if (COMMAND pre_project_set_up_hermetic_build)
   pre_project_set_up_hermetic_build()
 endif()
 
-# for apple
-if (APPLE)
-  if ("${CMAKE_OSX_ARCHITECTURES}" STREQUAL "")
-    set(CMAKE_OSX_ARCHITECTURES x86_64)
-    message(STATUS "CMAKE_OSX_ARCHITECTURES: x86_64")
-  endif()
+set(default_build_type "Release")
+if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
+  set(default_build_type "Debug")
 endif()
 
 ########################################################################
@@ -32,6 +86,7 @@ endif()
 
 # project name
 project(iutest CXX C)
+
 set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER)
@@ -63,7 +118,7 @@ include(internal_utils.cmake)
 config_compiler_and_linker()  # Defined in internal_utils.cmake.
 
 if (build_use_gtest_configuration)
-  set(CMAKE_CONFIGURATION_TYPES "Debug_gtest;${CMAKE_CONFIGURATION_TYPES}")
+  set(CMAKE_CONFIGURATION_TYPES "${CMAKE_CONFIGURATION_TYPES};Debug_gtest")
   message(STATUS "configuration types: ${CMAKE_CONFIGURATION_TYPES}")
 endif()
 
