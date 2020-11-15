@@ -43,31 +43,6 @@ if (CMAKE_VERSION VERSION_LESS 3.19)
   endif()
 endif()
 
-# for apple
-if (APPLE)
-	if(NOT OSX_ARCHITECTURES OR OSX_ARCHITECTURES STREQUAL "")
-		if(_CMAKE_OSX_MACHINE MATCHES "ppc")
-			set(OSX_ARCHITECTURES
-				"ppc;ppc64"
-				CACHE
-				STRING
-				"Build architectures for OS X"
-				FORCE)
-		else()
-			set(OSX_ARCHITECTURES
-				"x86_64"
-				CACHE
-				STRING
-				"Build architectures for OS X"
-				FORCE)
-		endif()
-  endif()
-	if(NOT CMAKE_OSX_ARCHITECTURES OR CMAKE_OSX_ARCHITECTURES STREQUAL "")
-    set(CMAKE_OSX_ARCHITECTURES ${OSX_ARCHITECTURES} CACHE STRING "Build architectures for OS X" FORCE)
-  endif()
-  message(STATUS "CMAKE_OSX_ARCHITECTURES: ${CMAKE_OSX_ARCHITECTURES}")
-endif()
-
 # Defines pre_project_set_up_hermetic_build() and set_up_hermetic_build().
 include(cmake/hermetic_build.cmake OPTIONAL)
 
@@ -79,6 +54,8 @@ set(default_build_type "Release")
 if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
   set(default_build_type "Debug")
 endif()
+
+include(apple.cmake)
 
 ########################################################################
 #
