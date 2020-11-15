@@ -16,7 +16,7 @@
 //======================================================================
 // include
 #include "iutest.hpp"
-#include "internal/iutest_log_stream.hpp"
+#include "../include/internal/iutest_log_stream.hpp"
 #include "logger_tests.hpp"
 
 TestLogger logger;

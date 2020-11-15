@@ -88,17 +88,19 @@
     IUTEST_VCUNIT_TEST_CLASS(className) {                               \
     public: TEST_METHOD(methodName) {                                   \
         IUTEST_VCUNIT_EXEC_(testsuite_, testname_); }                   \
-    IIUT_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName)                \
+        IIUT_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName)            \
     }
 
-//#define IUTEST_VCUNIT_F(testsuite_, testname_, className, methodName) \
-//  IUTEST_VCUNIT_TEST_CLASS(className) {                               \
-//  public: TEST_METHOD(methodName) {                                   \
-//      IUTEST_VCUNIT_EXEC_(testsuite_, testname_); }                   \
-//  IIUT_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName)                \
-//  TEST_CLASS_INITIALIZE(iuSetUp) { IUTEST_GET_SETUP_TESTSUITE(testsuite_, __FILE__, __LINE__)(); }      \
-//  TEST_CLASS_CLEANUP(iuTearDown) { IUTEST_GET_TEARDOWN_TESTSUITE(testsuite_, __FILE__, __LINE__)(); }   \
-//  }
+/*
+#define IUTEST_VCUNIT_F(testsuite_, testname_, className, methodName)   \
+    IUTEST_VCUNIT_TEST_CLASS(className) {                               \
+    public: TEST_METHOD(methodName) {                                   \
+        IUTEST_VCUNIT_EXEC_(testsuite_, testname_); }                   \
+        IIUT_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName)            \
+        TEST_CLASS_INITIALIZE(iuSetUp) { IUTEST_GET_SETUP_TESTSUITE(testsuite_, __FILE__, __LINE__)(); }      \
+        TEST_CLASS_CLEANUP(iuTearDown) { IUTEST_GET_TEARDOWN_TESTSUITE(testsuite_, __FILE__, __LINE__)(); }   \
+    }
+*/
 
 #define IIUT_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName)    \
     BEGIN_TEST_METHOD_ATTRIBUTE(methodName)                     \
