@@ -13,7 +13,7 @@ ios: ios-example ## ios example & build
 	cd tmp/ios && cmake --build ./
 
 ios-simu: ios-example ## ios simulator example & build
-	cd tmp/ios && xcodebuild -scheme "ALL_BUILD" BUILD_DIR="./tmp/ios/SimulatorBuildDir" -derivedDataPath "./SimulatorDerivedData" -configuration "Debug"  COMPILER_INDEX_STORE_ENABLE=NO -sdk iphonesimulator -arch x86_64 -project "iutest.xcodeproj"
+	cd tmp/ios && xcodebuild -scheme "ALL_BUILD" BUILD_DIR="./tmp/ios/SimulatorBuildDir" -derivedDataPath "./SimulatorDerivedData" -configuration "Debug" COMPILER_INDEX_STORE_ENABLE=NO -sdk iphonesimulator -arch x86_64 -project "iutest.xcodeproj"
 
 ios-cmake: tmp/ios-cmake
 tmp/ios-cmake:
@@ -33,6 +33,9 @@ mac-clean: ## mac example clean
 
 mac: mac-example ## mac example
 	cd tmp/mac && cmake --build ./
+
+mac-xcodebuild: mac-example ## mac example
+	cd tmp/mac && xcodebuild -scheme "ALL_BUILD" BUILD_DIR="./tmp/ios/MacDerivedData" -derivedDataPath "./MacDerivedData" -configuration "Debug" COMPILER_INDEX_STORE_ENABLE=NO -arch x86_64 -project "iutest.xcodeproj"
 
 mac-example: ## mac example
 	mkdir -p tmp/mac && cd tmp/mac \
