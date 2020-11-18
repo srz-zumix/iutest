@@ -23,6 +23,8 @@ tasks:
     containers:
       - image: iutest/razorops_test
     steps:
+      - commands:
+          - echo ${CI_REPO_BRANCH}
       - checkout
       - commands:
           # - cd /iutest/test
