@@ -168,10 +168,10 @@ jobs:
       - docker/check:
           docker-username: DOCKERHUB_LOGIN   # DOCKER_LOGIN がデフォルト値となっており、この値が存在する場合自動で値がセットされます
           docker-password: DOCKERHUB_TOKEN   # DOCKER_PASSWORD がデフォルト値になっております
-      - run:
-          name: login check
-          command: |
-            echo a | docker login
+      # - run:
+      #     name: login check
+      #     command: |
+      #       echo a | docker login
       - docker/pull:
           images: 'madduci/docker-wine-msvc:16.7-2019'
       - run:
