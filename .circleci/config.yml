@@ -178,6 +178,7 @@ jobs:
           name: test
           command: |
             echo $CIRCLE_WORKING_DIRECTORY
+            cd ${CIRCLE_WORKING_DIRECTORY}
             ls
             docker run --rm -it -v "$(pwd)":/work -w /work madduci/docker-wine-msvc:16.7-2019 ./.ci/msvc-wine-build.sh
 
