@@ -177,7 +177,7 @@ jobs:
       - run:
           name: test
           command: |
-            docker run --rm -it -v ${CIRCLE_WORKING_DIRECTORY}:/work -w /work madduci/docker-msvc-extended:16.7-2019 ./.ci/msvc-wine-build.sh
+            docker run --rm -it -v ${CIRCLE_WORKING_DIRECTORY}:/work -w /work madduci/docker-wine-msvc:16.7-2019 ./.ci/msvc-wine-build.sh
 
 
 workflows:
