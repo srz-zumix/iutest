@@ -1,9 +1,9 @@
 cmake --version
 rem cl.exe /?
 
-mkdir -p tmp/build
-cd tmp/build
+mkdir build
+cd build
 
-cmake ../../projects/cmake
+cmake ../projects/cmake
 cmake --build .
 ctest -V --output-on-failure
