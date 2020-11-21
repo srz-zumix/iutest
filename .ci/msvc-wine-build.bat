@@ -1,5 +1,5 @@
 cmake --version
-cl.exe /?
+rem cl.exe /?
 
 mkdir -p tmp/build
 cd tmp/build
