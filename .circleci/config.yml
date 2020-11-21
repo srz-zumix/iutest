@@ -179,7 +179,8 @@ jobs:
           name: test
           command: |
             ls -a
-            docker run --rm -it -v "$(pwd)":/work -w /work madduci/docker-wine-msvc:16.7-2019 ./.ci/msvc-wine-build.bat
+            mkdir build
+            docker run --rm -it -v "$(pwd)":/work -w /work/build madduci/docker-wine-msvc:16.7-2019 ./.ci/msvc-wine-build.bat
 
 
 workflows:
