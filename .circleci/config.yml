@@ -165,6 +165,7 @@ jobs:
   msvc_wine:
     machine: true
     steps:
+      - checkout
       - docker/check:
           docker-username: DOCKERHUB_LOGIN   # DOCKER_LOGIN がデフォルト値となっており、この値が存在する場合自動で値がセットされます
           docker-password: DOCKERHUB_TOKEN   # DOCKER_PASSWORD がデフォルト値になっております
@@ -177,8 +178,6 @@ jobs:
       - run:
           name: test
           command: |
-            echo $CIRCLE_WORKING_DIRECTORY
-            cd ${CIRCLE_WORKING_DIRECTORY}
             ls
             docker run --rm -it -v "$(pwd)":/work -w /work madduci/docker-wine-msvc:16.7-2019 ./.ci/msvc-wine-build.sh
 
