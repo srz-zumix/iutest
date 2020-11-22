@@ -176,11 +176,17 @@ jobs:
       - docker/pull:
           images: 'madduci/docker-wine-msvc:16.7-2019'
       - run:
+          name: volume
+          command: |
+            docker create -v /work --name work madduci/docker-wine-msvc:16.7-2019 /bin/true
+            docker cp $(pwd) work:/work
+
+      - run:
           name: test
           command: |
             ls -a
             mkdir build
-            docker run --rm -it -v "$(pwd)":/work -w /work/build madduci/docker-wine-msvc:16.7-2019 ../.ci/msvc-wine-build.bat
+            docker run --rm -it --volumes-from work -w /work/build madduci/docker-wine-msvc:16.7-2019 ../.ci/msvc-wine-build.bat
 
 
 workflows:
