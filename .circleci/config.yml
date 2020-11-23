@@ -178,11 +178,10 @@ jobs:
       - run:
           name: test
           command: |
-            ls -a
-            mkdir build
-            docker run --rm -d -i --name iutest-work -w /work/build madduci/docker-wine-msvc:16.7-2019
-            docker cp . iutest-work:/work
-            docker exec iutest-work ../.ci/msvc-wine-build.bat
+            docker run --rm -d -i --name iutest-work -w /home/wine/.wine/drive_c/ madduci/docker-wine-msvc:16.7-2019
+            docker cp . iutest-work:/home/wine/.wine/drive_c/iutest_
+            docker exec iutest-work /usr/local/bin/wine64-entrypoint xcopy /Y /I /H /S iutest_ iutest
+            docker exec iutest-work /usr/local/bin/wine64-entrypoint iutest/.ci/msvc-wine-build.bat
             docker stop iutest-work
 
 workflows:
