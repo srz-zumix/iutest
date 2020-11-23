@@ -182,7 +182,7 @@ jobs:
             mkdir build
             docker run --rm -d -i --name iutest-work -w /work/build madduci/docker-wine-msvc:16.7-2019
             docker cp . iutest-work:/work
-            docker exec iutest-work madduci/docker-wine-msvc:16.7-2019 ../.ci/msvc-wine-build.bat
+            docker exec iutest-work ../.ci/msvc-wine-build.bat
             docker stop iutest-work
 
 workflows:
