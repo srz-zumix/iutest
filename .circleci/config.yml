@@ -162,18 +162,27 @@ jobs:
           command: .circleci\vcperf_build.bat
       - store_artifacts:
           path: .\iutest.etl
-  # docker_tests:
-  #   machine: true
-  #   steps:
-  #     - docker/check:
-  #         docker-username: DOCKERHUB_LOGIN   # DOCKER_LOGIN がデフォルト値となっており、この値が存在する場合自動で値がセットされます
-  #         docker-password: DOCKERHUB_TOKEN   # DOCKER_PASSWORD がデフォルト値になっております
-  #     - run:
-  #         name: login check
-  #         command: |
-  #           echo a | docker login
-  #     - docker/pull:
-  #         images: 'madduci/docker-wine-msvc:16.7-2019'
+  msvc_wine:
+    machine: true
+    steps:
+      - checkout
+      - docker/check:
+          docker-username: DOCKERHUB_LOGIN   # DOCKER_LOGIN がデフォルト値となっており、この値が存在する場合自動で値がセットされます
+          docker-password: DOCKERHUB_TOKEN   # DOCKER_PASSWORD がデフォルト値になっております
+      # - run:
+      #     name: login check
+      #     command: |
+      #       echo a | docker login
+      - docker/pull:
+          images: 'madduci/docker-wine-msvc:16.7-2019'
+      - run:
+          name: test
+          command: |
+            docker run --rm -d -i --name iutest-work -w /home/wine/.wine/drive_c/ madduci/docker-wine-msvc:16.7-2019
+            docker cp . iutest-work:/home/wine/.wine/drive_c/iutest_
+            docker exec iutest-work wine64 cmd /C xcopy /Y /I /H /S /Q iutest_ iutest
+            docker exec iutest-work /home/wine/.wine/drive_c/iutest_/.ci/msvc-wine-entrypoint iutest/.ci/msvc-wine-build.bat
+            docker stop iutest-work
 
 workflows:
   version: 2.1
@@ -184,4 +193,4 @@ workflows:
       - clang_optimize_test:
           filters: *branch-filter
       - vcperf
-      # - docker_tests
+      - msvc_wine
