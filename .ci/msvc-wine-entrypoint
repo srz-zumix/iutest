@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+echo setup
+
+cat > /home/wine/.wine/drive_c/entrypoint.bat <<EOL
+@echo off
+C:\\x64.bat && %*
+EOL
+
+wine64 cmd /C C:\\entrypoint.bat "$@"
+
+echo teardown
+rm -f /home/wine/.wine/drive_c/entrypoint.bat
+exit 0
