@@ -182,6 +182,7 @@ jobs:
             docker cp . iutest-work:/home/wine/.wine/drive_c/iutest_
             docker exec iutest-work wine64 cmd /C xcopy /Y /I /H /S /Q iutest_ iutest
             docker exec iutest-work /home/wine/.wine/drive_c/iutest_/.ci/msvc-wine-entrypoint iutest/.ci/msvc-wine-build.bat
+            echo == test end ==
             docker stop iutest-work
 
 workflows:
