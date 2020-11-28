@@ -35,7 +35,7 @@ tasks:
           - make report
           - ls
       - reports/junit:
-          paths: "test/*.xml"
+          paths: [ "test/*.xml" ]
     when: *condition
 
 trigger:
