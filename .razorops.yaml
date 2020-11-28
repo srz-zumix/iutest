@@ -33,7 +33,7 @@ tasks:
           - make OUTPUTXML=junit
           - make OUTPUTXML=junit test
           - make report
-          - ls
+          - cd ..
       - reports/junit:
           paths: [ "test/*.xml" ]
     when: *condition
