@@ -42,8 +42,8 @@ trigger:
   ## triggers pipeline only on feature branches and on tags (mind the prefix)
   if: branch in ('master', 'develop') || branch =~ /razorops.*/
 
-# workflows:
-#   - name: centos-test
-#     tasks:
-#       - build-image
-#       - test
+workflows:
+  - name: centos-test
+    tasks:
+      - build-image
+      - test
