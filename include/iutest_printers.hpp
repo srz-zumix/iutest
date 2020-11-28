@@ -17,9 +17,11 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_defs.hpp"
 #include "internal/iutest_string_stream.hpp"
 #include "internal/iutest_string_view.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest
 {
@@ -453,8 +455,6 @@ inline ::std::string FileSystemFileTypeToString(const ::std::filesystem::file_ty
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MINGW)
     IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, junction);
 #endif
-    default:
-        break;
     }
     return PrintToString(static_cast<int>(value));
 }

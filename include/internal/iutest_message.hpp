@@ -17,8 +17,10 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "../iutest_env.hpp"
 #include "../iutest_printers.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest {
 namespace detail
@@ -156,7 +158,7 @@ public:
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "../impl/iutest_message.ipp"
+#  include "../impl/iutest_message.ipp" // IWYU pragma: export
 #endif
 
 #endif // INCG_IRIS_IUTEST_MESSAGE_HPP_0A05C876_F204_41F5_895F_F8454AB283B1_

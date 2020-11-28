@@ -17,7 +17,10 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_string.hpp"
+// IWYU pragma: end_exports
+
 #if   IUTEST_HAS_STRINGSTREAM
 #  include <sstream>
 #elif IUTEST_HAS_STRSTREAM
@@ -196,7 +199,7 @@ class iu_basic_ostream
         {
             va_list va;
             va_start(va, fmt);
-            int ret = vastring(dst, len, fmt, va);
+            const int ret = vastring(dst, len, fmt, va);
             va_end(va);
             return ret;
         }
@@ -307,7 +310,10 @@ public:
     inline _Myt& operator<< (float v)
     {
         _Elem a[64];
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DOUBLE_PROMOTION()
         impl::tostring(a, 64, IIUT_PP_XCS("%f"), v);
+IUTEST_PRAGMA_WARN_POP()
         s += a;
         return *this;
     }

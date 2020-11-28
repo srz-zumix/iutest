@@ -87,7 +87,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTest(IFile* file, co
         );
     if( TestFlag::IsEnableFlag(TestFlag::SHUFFLE_TESTS) )
     {
-        file->Printf("random_seed=\"%d\" ", test.random_seed());
+        file->Printf("random_seed=\"%u\" ", test.random_seed());
     }
     file->Printf("name=\"AllTests\"");
 
@@ -357,7 +357,7 @@ IUTEST_IPP_INLINE ::std::string DefaultXmlGeneratorListener::EscapeXml(const cha
                 {
 #if !defined(IUTEST_OS_WINDOWS_MOBILE)
                     wchar_t wc = 0;
-                    const int len = detail::iu_mbtowc(&wc, src, MB_CUR_MAX);
+                    const int len = detail::iu_mbtowc(&wc, src, static_cast<size_t>(MB_CUR_MAX));
                     if( len > 1 )
                     {
                         msg += detail::AnyStringToUTF8(&wc, 1);
@@ -371,7 +371,7 @@ IUTEST_IPP_INLINE ::std::string DefaultXmlGeneratorListener::EscapeXml(const cha
                         if( is_attribute && IsWhitespace(s) )
                         {
                             char tmp[8];
-                            detail::iu_snprintf(tmp, sizeof(tmp), "&#x%02X;", s);
+                            detail::iu_snprintf(tmp, sizeof(tmp), "&#x%02X;", static_cast<unsigned int>(s));
                             msg += tmp;
                         }
                         else

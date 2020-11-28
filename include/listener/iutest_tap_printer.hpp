@@ -17,9 +17,11 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "../iutest_core.hpp"
 #include "../internal/iutest_log_stream.hpp"
 #include "../internal/iutest_filepath.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest
 {

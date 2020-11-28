@@ -117,7 +117,8 @@
 			"numeric": "cpp",
 			"stack": "cpp",
 			"unordered_map": "cpp"
-		}
+		},
+		"bracketLens.minBracketScopeLines": 12
 	},
 	"launch": {
 		"configurations": [

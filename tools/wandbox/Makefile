@@ -9,6 +9,9 @@ TOOLS=wandbox.py iuwandbox.py
 
 #EXPAND_INCLUDE?=--expand-include
 
+# TEST_SRC=../../test/syntax_tests.cpp
+TEST_SRC=../../test/assertion_tests.cpp
+
 WANDBOX_COMPILER?=gcc-head
 
 help: $(TOOLS)
@@ -30,51 +33,51 @@ local:
 	g++ sample.cpp sample2.cpp -o sample
 	./sample
 
-test: ../../test/syntax_tests.cpp Makefile
+test: $(TEST_SRC) Makefile
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE)
 
-xml: ../../test/syntax_tests.cpp Makefile
+xml: $(TEST_SRC) Makefile
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --xml test_result.xml
 
-junit: ../../test/syntax_tests.cpp Makefile
+junit: $(TEST_SRC) Makefile
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --junit junit_test_result.xml
 
-experimental: ../../test/syntax_tests.cpp Makefile
+experimental: $(TEST_SRC) Makefile
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --iutest-use-wandbox-min
 
-full: ../../test/syntax_tests.cpp Makefile
+full: $(TEST_SRC) Makefile
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --no-iutest-use-wandbox-min
 
-test-gcc: ../../test/syntax_tests.cpp Makefile
+test-gcc: $(TEST_SRC) Makefile
 	python iuwandbox.py $< -c gcc-head -f"-DIUTEST_USE_MAIN" -x "warning,gnu++1y" -f"-Wsuggest-override" --encoding utf-8-sig $(EXPAND_INCLUDE)
 
-test-clang: ../../test/syntax_tests.cpp Makefile
+test-clang: $(TEST_SRC) Makefile
 	python iuwandbox.py $< -c clang-head -f"-DIUTEST_USE_MAIN" -x "warning,gnu++1y" --encoding utf-8-sig $(EXPAND_INCLUDE)
 
-test-gcc-98: ../../test/syntax_tests.cpp Makefile
+test-gcc-98: $(TEST_SRC) Makefile
 	python iuwandbox.py $< -c gcc-head -f"-DIUTEST_USE_MAIN" -x "warning,c++98" --encoding utf-8-sig $(EXPAND_INCLUDE)
 
-test-make: ../../test/syntax_tests.cpp Makefile
-	python iuwandbox.py $< -c gcc-head -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --make
+test-make: $(TEST_SRC) Makefile
+	python iuwandbox.py $< -c $(WANDBOX_COMPILER) -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --make
 
-save-make: ../../test/syntax_tests.cpp Makefile
+save-make: $(TEST_SRC) Makefile
 	python iuwandbox.py $< -c gcc-head -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --make -s
 
-test-no-min: ../../test/syntax_tests.cpp Makefile
+test-no-min: $(TEST_SRC) Makefile
 	python iuwandbox.py $< -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --no-iutest-use-wandbox-min
 
 sample-no-min: sample.cpp $(TOOLS) Makefile
 	python iuwandbox.py $< -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --no-iutest-use-wandbox-min
 
-boost: ../../test/syntax_tests.cpp Makefile
+boost: $(TEST_SRC) Makefile
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) --boost 1.60 -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --verbose --dryrun
 
-dryrun-test: ../../test/syntax_tests.cpp Makefile
+dryrun-test: $(TEST_SRC) Makefile
 	# boost option test
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) --boost 1.60 -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --verbose --dryrun
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) --default --boost 1.60 -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --verbose --dryrun
 
-test-all-compiler: ../../test/syntax_tests.cpp Makefile fused
+test-all-compiler: $(TEST_SRC) Makefile fused
 	@for compiler in $(shell python iuwandbox.py --list-compiler); do \
 		echo $${compiler}; \
 		python iuwandbox.py $< -c $${compiler} -f"-DIUTEST_USE_MAIN" -f"-Werror" --encoding utf-8-sig --verbose $(WANDBOX_ADD_OPTIONS) || exit 1; \
@@ -130,7 +133,7 @@ unittest:
 # profile
 #
 
-profile: ../../test/syntax_tests.cpp Makefile
+profile: $(TEST_SRC) Makefile
 	python -m cProfile -s time iuwandbox.py $< -c $(WANDBOX_COMPILER) -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE)
 
 clean:

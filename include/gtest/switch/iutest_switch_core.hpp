@@ -240,7 +240,8 @@
 
 #define IUTEST_THROUGH_ANALYSIS_ASSUME(expr, todo)                  \
     IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                  \
-    if( bool b = true ) {                                           \
+    if( bool iu_b_ = true ) {                                       \
+        (void)iu_b_;                                                \
         __analysis_assume(expr);                                    \
         goto IUTEST_PP_CAT(iutest_label_analysis_assume, __LINE__); \
     } else                                                          \
