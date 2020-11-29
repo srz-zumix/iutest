@@ -16,8 +16,7 @@
 //======================================================================
 // include
 #include "iutest.hpp"
-#include "internal/iutest_filepath.hpp"
-
+#include "../include/internal/iutest_filepath.hpp"
 
 #if IUTEST_HAS_FOPEN
 

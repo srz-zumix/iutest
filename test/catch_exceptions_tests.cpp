@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,20 +17,24 @@
 // include
 #include "iutest.hpp"
 
-
 #if IUTEST_HAS_EXCEPTIONS
+
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_MISSING_NORETURN()
 
 IUTEST(Foo, Bar)
 {
     throw "error";
 }
 
-void TerminateHandler(void)
+IUTEST_ATTRIBUTE_NORETURN_ void TerminateHandler(void)
 {
     printf("called as expected.\n");
     printf("*** Successful ***\n");
     exit(0);
 }
+
+IUTEST_PRAGMA_WARN_POP()
 
 #endif
 

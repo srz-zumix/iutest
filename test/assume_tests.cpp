@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/gtest/iutest_spi_switch.hpp"
+#include "../include/gtest/iutest_spi_switch.hpp"  // IWYU pragma: keep
 
 IUTEST_PRAGMA_UNREACHCODE_WARN_DISABLE_BEGIN()
 
@@ -96,7 +96,7 @@ IUTEST(AssumeTest, ANY_THROW)
     IUTEST_ASSERT_ANY_THROW((void)0);
 }
 
-void AssumeTest_NO_THROW_Test() { throw 1; }
+IUTEST_ATTRIBUTE_NORETURN_ void AssumeTest_NO_THROW_Test() { throw 1; }
 
 IUTEST(AssumeTest, NO_THROW)
 {

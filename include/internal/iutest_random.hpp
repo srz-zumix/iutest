@@ -105,7 +105,7 @@ public:
     static IUTEST_CXX_CONSTEXPR result_type (min)() { return (Engine::min)(); }
     static IUTEST_CXX_CONSTEXPR result_type (max)() { return (Engine::max)(); }
 
-#if defined(__clang__) && (__clang_major__ < 3 || (__clang_major__ == 3 && __clang_minor__ < 3))
+#if defined(__clang__) && (IUTEST_CLANG_MAJOR < 3 || (IUTEST_CLANG_MAJOR == 3 && IUTEST_CLANG_MINOR < 3))
     static IUTEST_CXX_CONSTEXPR_OR_CONST result_type _Min = Engine::_Min;
     static IUTEST_CXX_CONSTEXPR_OR_CONST result_type _Max = Engine::_Max;
 #endif

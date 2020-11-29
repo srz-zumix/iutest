@@ -1,3 +1,5 @@
+version: v1
+
 tasks:
   build-image:
     type: build

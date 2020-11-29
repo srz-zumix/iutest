@@ -125,21 +125,41 @@ include $(UTILS_MAKEFILE_DIR)/stdcver.mk
 
 # until 4.6
 ifeq (1,$(shell expr \( $(GCCMAJOR) \< 4 \) \| \( $(GCCMAJOR) = 4 \& $(GCCMINOR) \< 6 \)))
-IUTEST_CXX_WARN_FLAGS+=-Wno-sign-compare
-IUTEST_CXX_WARN_FLAGS+=-Wno-conversion-null
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-sign-compare -Wno-conversion-null
 endif
 
 # arm
 ifeq ($(findstring arm, $(CXX)), arm)
-IUTEST_CXX_WARN_FLAGS+=-Wno-psabi
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-psabi
 endif
 
+# 7.0 later
+ifeq (1,$(shell expr \( $(GCCMAJOR) \> 6 \) ))
+IUTEST_CXX_STRICT_FLAGS+=-Wshadow-compatible-local
+endif
+
+# 6.0 later
+ifeq (1,$(shell expr \( $(GCCMAJOR) \> 5 \) ))
+IUTEST_CXX_NOWARN_FLAGS+=-Wduplicated-cond
+endif
+
+# 5.0 later
 ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) ))
-IUTEST_CXX_WARN_FLAGS+=-Wno-missing-field-initializers
+IUTEST_CXX_STRICT_FLAGS+=-Wfloat-conversion -Wformat-signedness
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-missing-field-initializers
 endif
 
+# 4.8 later
+ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 8 \)))
+# IUTEST_CXX_STRICT_FLAGS+=-Wsuggest-attribute=format
+endif
+
+# 4.0 later
 ifeq (1,$(shell expr \( $(GCCMAJOR) \> 3 \) ))
-IUTEST_CXX_STRICT_FLAGS+=-Wunreachable-code
+IUTEST_CXX_STRICT_FLAGS+=-Wunreachable-code -Wdouble-promotion \
+	-Wmissing-noreturn -Wswitch-enum \
+	-Wlogical-op -Woverlength-strings \
+	-Wvariadic-macros
 endif
 
 # c++11 later
@@ -151,5 +171,7 @@ IUTEST_CXX_STRICT_FLAGS+=-Wsuggest-override
 endif
 
 endif
+
+IUTEST_CXX_STRICT_FLAGS+=-Wformat-nonliteral -Winit-self
 
 endif
