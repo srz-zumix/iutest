@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.3</span>
+   &#160;<span id="projectnumber">1.17.99.4</span>
    </div>
   </td>
  </tr>
@@ -85,7 +85,7 @@ $(function() {
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d3/d4c/iutest__internal__defs_8hpp.html">iutest_internal_defs.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#if defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN) || defined(IUTEST_OS_MAC) || defined(IUTEST_OS_FREEBSD)</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#if defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN) || defined(IUTEST_OS_MAC) || defined(IUTEST_OS_IOS) || defined(IUTEST_OS_FREEBSD)</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#  include &lt;unistd.h&gt;</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#  include &lt;locale.h&gt;</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#endif</span></div>
@@ -318,20 +318,20 @@ $(function() {
 <div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
 <div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160; </div>
 <div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;<span class="preprocessor">#if !IUTEST_HAS_LIB</span></div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;<span class="preprocessor">#  include &quot;../impl/iutest_port.ipp&quot;</span></div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;<span class="preprocessor">#  include &quot;../impl/iutest_port.ipp&quot;</span> <span class="comment">// IWYU pragma: export</span></div>
 <div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160; </div>
 <div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_PORT_HPP_7893F685_A1A9_477A_82E8_BF06237697FF_</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aiutest__compiler_8hpp_html_ae77bae4c5720c1d321484985bbfc763d"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae77bae4c5720c1d321484985bbfc763d">IUTEST_ATTRIBUTE_NORETURN_</a></div><div class="ttdeci">#define IUTEST_ATTRIBUTE_NORETURN_</div><div class="ttdoc">noreturn</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:1316</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_ae77bae4c5720c1d321484985bbfc763d"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae77bae4c5720c1d321484985bbfc763d">IUTEST_ATTRIBUTE_NORETURN_</a></div><div class="ttdeci">#define IUTEST_ATTRIBUTE_NORETURN_</div><div class="ttdoc">noreturn</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:1363</div></div>
 <div class="ttc" id="aiutest__internal__defs_8hpp_html"><div class="ttname"><a href="../../d3/d4c/iutest__internal__defs_8hpp.html">iutest_internal_defs.hpp</a></div><div class="ttdoc">internal definition</div></div>
 <div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:736</div></div>
-<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:31</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:783</div></div>
+<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
 <div class="ttc" id="aiutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義</div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:31</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年10月21日(水) 13時11分13秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年11月29日(日) 12時20分01秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

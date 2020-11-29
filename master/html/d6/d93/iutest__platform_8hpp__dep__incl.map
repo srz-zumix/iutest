@@ -1,36 +1,38 @@
 <map id="internal/iutest_platform.hpp" name="internal/iutest_platform.hpp">
-<area shape="rect" id="node1" title="iris unit test platform detection" alt="" coords="262,5,466,32"/>
-<area shape="rect" id="node2" href="$dc/d2f/iutest__compiler_8hpp.html" title="iris unit test compiler 依存の吸収 ファイル" alt="" coords="262,80,466,107"/>
-<area shape="rect" id="node3" href="$d1/d84/iutest__defs_8hpp.html" title="iris unit test definition" alt="" coords="253,155,376,181"/>
-<area shape="rect" id="node32" href="$d9/d0b/iutest__type__traits_8hpp_source.html" title="type traits" alt="" coords="411,229,560,271"/>
-<area shape="rect" id="node4" href="$d3/d4c/iutest__internal__defs_8hpp.html" title="internal definition" alt="" coords="331,319,501,360"/>
-<area shape="rect" id="node30" href="$d8/dc8/iutest__string__view_8hpp.html" title="string_view" alt="" coords="179,229,336,271"/>
-<area shape="rect" id="node31" href="$d2/d0b/iutest__printers_8hpp.html" title="iris unit test print 出力ヘルパー ファイル" alt="" coords="5,557,149,584"/>
-<area shape="rect" id="node5" href="$d1/d2a/iutest__port_8hpp.html" title="portable" alt="" coords="670,408,845,435"/>
-<area shape="rect" id="node24" href="$d9/d00/iutest__time_8hpp.html" title="time utility" alt="" coords="392,408,571,435"/>
-<area shape="rect" id="node26" href="$d3/d0a/iutest__file_8hpp.html" title="iris unit test ファイルクラス ファイル" alt="" coords="280,781,448,808"/>
-<area shape="rect" id="node27" href="$dd/de1/iutest__socket_8hpp.html" title="soket" alt="" coords="122,408,313,435"/>
-<area shape="rect" id="node28" href="$d4/d63/iutest__any_8hpp.html" title="iris unit test any object" alt="" coords="910,408,1026,435"/>
-<area shape="rect" id="node6" href="$d5/dd3/iutest__charcode_8hpp.html" title="iris unit test 文字コード対応 ファイル" alt="" coords="607,483,814,509"/>
-<area shape="rect" id="node22" href="$d5/d66/iutest__filepath_8hpp.html" title="iris unit test ファイルパスクラス ファイル" alt="" coords="547,1013,744,1039"/>
-<area shape="rect" id="node23" href="$d0/d23/iutest__legacy_8hpp.html" title="iris unit test legacy testcase support" alt="" coords="835,856,970,883"/>
-<area shape="rect" id="node7" href="$d0/dda/iutest__env_8hpp.html" title="iris unit test 環境 ファイル" alt="" coords="429,557,547,584"/>
-<area shape="rect" id="node8" href="$d3/d0c/iutest__message_8hpp.html" title="iris unit test メッセージ ファイル" alt="" coords="103,632,310,659"/>
-<area shape="rect" id="node21" href="$dc/d1c/iutest__log__stream_8hpp.html" title="iris unit test log io stream" alt="" coords="439,1095,579,1136"/>
-<area shape="rect" id="node9" href="$d5/dd2/iutest__result_8hpp.html" title="iris unit test result" alt="" coords="132,707,263,733"/>
-<area shape="rect" id="node10" href="$d0/d42/iutest__assertion_8hpp.html" title="iris unit test assertion 定義 ファイル" alt="" coords="101,781,256,808"/>
-<area shape="rect" id="node11" href="$de/dc7/iutest__pred_8hpp.html" title="iris unit test 述語 Assertion ファイル" alt="" coords="131,856,253,883"/>
-<area shape="rect" id="node12" href="$db/d32/iutest__internal_8hpp.html" title="iris unit test internal definition" alt="" coords="117,931,315,957"/>
-<area shape="rect" id="node13" href="$dc/d62/iutest__core__impl_8hpp.html" title="iris unit test UnitTest core" alt="" coords="154,1005,302,1047"/>
-<area shape="rect" id="node14" href="$d5/d65/iutest__result__reporter_8hpp.html" title="iris unit test TestPartResult リポーター ファイル" alt="" coords="159,1095,316,1136"/>
-<area shape="rect" id="node15" href="$d0/db5/iutest__core_8hpp.html" title="iris unit test core" alt="" coords="303,1184,425,1211"/>
-<area shape="rect" id="node16" href="$d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="857,1266,943,1293"/>
-<area shape="rect" id="node18" href="$dc/d5d/iutest__progress__printer_8hpp.html" title="iris unit test プログレス出力イベントリスナー ファイル" alt="" coords="91,1259,266,1300"/>
-<area shape="rect" id="node19" href="$d3/d80/iutest__sstp__notifier_8hpp.html" title="iris unit test SSTP 通知 ファイル" alt="" coords="291,1259,437,1300"/>
-<area shape="rect" id="node20" href="$d8/d0f/iutest__tap__printer_8hpp.html" title="iris unit test Test Anything Protocol 出力イベントリスナー ファイル" alt="" coords="462,1259,602,1300"/>
-<area shape="rect" id="node17" href="$d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="843,1348,957,1375"/>
-<area shape="rect" id="node25" href="$d7/d8c/iutest__random_8hpp.html" title="iris unit test 乱数生成器 定義 ファイル" alt="" coords="385,483,583,509"/>
-<area shape="rect" id="node29" href="$dc/df5/iutest__param__tests_8hpp.html" title="iris unit test parameter 定義 ファイル" alt="" coords="906,931,1081,957"/>
-<area shape="rect" id="node33" href="$dc/dbb/iutest__util__assertion_8hpp.html" title="iris unit test assertion 拡張 ファイル" alt="" coords="770,326,977,353"/>
-<area shape="rect" id="node34" href="$de/dd4/iutest__util_8hpp.html" title="iris unit test utility" alt="" coords="1053,707,1168,733"/>
+<area shape="rect" id="node1" title="iris unit test platform detection" alt="" coords="879,5,1083,32"/>
+<area shape="rect" id="node2" href="$dc/d2f/iutest__compiler_8hpp.html" title="iris unit test compiler 依存の吸収 ファイル" alt="" coords="879,80,1083,107"/>
+<area shape="rect" id="node3" href="$d1/d84/iutest__defs_8hpp.html" title="iris unit test definition" alt="" coords="684,319,806,345"/>
+<area shape="rect" id="node16" href="$d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="880,1430,967,1457"/>
+<area shape="rect" id="node32" href="$da/d92/iutest__stdlib__defs_8hpp.html" title="stdlib detect defines" alt="" coords="839,155,995,196"/>
+<area shape="rect" id="node34" href="$d9/d0b/iutest__type__traits_8hpp_source.html" title="type traits" alt="" coords="1080,393,1229,435"/>
+<area shape="rect" id="node4" href="$d3/d4c/iutest__internal__defs_8hpp.html" title="internal definition" alt="" coords="601,483,772,524"/>
+<area shape="rect" id="node30" href="$d8/dc8/iutest__string__view_8hpp.html" title="string_view" alt="" coords="550,393,708,435"/>
+<area shape="rect" id="node31" href="$d2/d0b/iutest__printers_8hpp.html" title="iris unit test print 出力ヘルパー ファイル" alt="" coords="54,721,198,748"/>
+<area shape="rect" id="node5" href="$d1/d2a/iutest__port_8hpp.html" title="portable" alt="" coords="696,572,871,599"/>
+<area shape="rect" id="node24" href="$d9/d00/iutest__time_8hpp.html" title="time utility" alt="" coords="493,572,672,599"/>
+<area shape="rect" id="node26" href="$d3/d0a/iutest__file_8hpp.html" title="iris unit test ファイルクラス ファイル" alt="" coords="197,945,365,972"/>
+<area shape="rect" id="node27" href="$dd/de1/iutest__socket_8hpp.html" title="soket" alt="" coords="278,572,468,599"/>
+<area shape="rect" id="node28" href="$d4/d63/iutest__any_8hpp.html" title="iris unit test any object" alt="" coords="895,572,1011,599"/>
+<area shape="rect" id="node6" href="$d5/dd3/iutest__charcode_8hpp.html" title="iris unit test 文字コード対応 ファイル" alt="" coords="499,647,706,673"/>
+<area shape="rect" id="node22" href="$d5/d66/iutest__filepath_8hpp.html" title="iris unit test ファイルパスクラス ファイル" alt="" coords="496,1177,693,1203"/>
+<area shape="rect" id="node23" href="$d0/d23/iutest__legacy_8hpp.html" title="iris unit test legacy testcase support" alt="" coords="780,1020,915,1047"/>
+<area shape="rect" id="node7" href="$d0/dda/iutest__env_8hpp.html" title="iris unit test 環境 ファイル" alt="" coords="318,721,436,748"/>
+<area shape="rect" id="node8" href="$d3/d0c/iutest__message_8hpp.html" title="iris unit test メッセージ ファイル" alt="" coords="23,796,230,823"/>
+<area shape="rect" id="node21" href="$dc/d1c/iutest__log__stream_8hpp.html" title="iris unit test log io stream" alt="" coords="362,1259,502,1300"/>
+<area shape="rect" id="node9" href="$d5/dd2/iutest__result_8hpp.html" title="iris unit test result" alt="" coords="42,871,173,897"/>
+<area shape="rect" id="node10" href="$d0/d42/iutest__assertion_8hpp.html" title="iris unit test assertion 定義 ファイル" alt="" coords="18,945,173,972"/>
+<area shape="rect" id="node11" href="$de/dc7/iutest__pred_8hpp.html" title="iris unit test 述語 Assertion ファイル" alt="" coords="48,1020,170,1047"/>
+<area shape="rect" id="node12" href="$db/d32/iutest__internal_8hpp.html" title="iris unit test internal definition" alt="" coords="34,1095,232,1121"/>
+<area shape="rect" id="node13" href="$dc/d62/iutest__core__impl_8hpp.html" title="iris unit test UnitTest core" alt="" coords="76,1169,224,1211"/>
+<area shape="rect" id="node14" href="$d5/d65/iutest__result__reporter_8hpp.html" title="iris unit test TestPartResult リポーター ファイル" alt="" coords="77,1259,234,1300"/>
+<area shape="rect" id="node15" href="$d0/db5/iutest__core_8hpp.html" title="iris unit test core" alt="" coords="220,1348,342,1375"/>
+<area shape="rect" id="node18" href="$dc/d5d/iutest__progress__printer_8hpp.html" title="iris unit test プログレス出力イベントリスナー ファイル" alt="" coords="8,1423,183,1464"/>
+<area shape="rect" id="node19" href="$d3/d80/iutest__sstp__notifier_8hpp.html" title="iris unit test SSTP 通知 ファイル" alt="" coords="208,1423,354,1464"/>
+<area shape="rect" id="node20" href="$d8/d0f/iutest__tap__printer_8hpp.html" title="iris unit test Test Anything Protocol 出力イベントリスナー ファイル" alt="" coords="379,1423,519,1464"/>
+<area shape="rect" id="node17" href="$d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="867,1512,980,1539"/>
+<area shape="rect" id="node25" href="$d7/d8c/iutest__random_8hpp.html" title="iris unit test 乱数生成器 定義 ファイル" alt="" coords="276,647,475,673"/>
+<area shape="rect" id="node29" href="$dc/df5/iutest__param__tests_8hpp.html" title="iris unit test parameter 定義 ファイル" alt="" coords="836,1095,1011,1121"/>
+<area shape="rect" id="node33" href="$d9/dad/iutest__stdlib_8hpp.html" title="stdlib" alt="" coords="816,244,1000,271"/>
+<area shape="rect" id="node35" href="$dc/dbb/iutest__util__assertion_8hpp.html" title="iris unit test assertion 拡張 ファイル" alt="" coords="1080,490,1287,517"/>
+<area shape="rect" id="node36" href="$de/dd4/iutest__util_8hpp.html" title="iris unit test utility" alt="" coords="1098,871,1213,897"/>
 </map>

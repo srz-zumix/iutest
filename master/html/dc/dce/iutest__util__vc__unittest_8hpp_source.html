@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.3</span>
+   &#160;<span id="projectnumber">1.17.99.4</span>
    </div>
   </td>
  </tr>
@@ -145,195 +145,197 @@ $(function() {
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">    IUTEST_VCUNIT_TEST_CLASS(className) {                               \</span></div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">    public: TEST_METHOD(methodName) {                                   \</span></div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">        IUTEST_VCUNIT_EXEC_(testsuite_, testname_); }                   \</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">    IIUT_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName)                \</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">        IIUT_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName)            \</span></div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">    }</span></div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">//#define IUTEST_VCUNIT_F(testsuite_, testname_, className, methodName) \</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">//  IUTEST_VCUNIT_TEST_CLASS(className) {                               \</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">//  public: TEST_METHOD(methodName) {                                   \</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">//      IUTEST_VCUNIT_EXEC_(testsuite_, testname_); }                   \</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">//  IIUT_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName)                \</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment">//  TEST_CLASS_INITIALIZE(iuSetUp) { IUTEST_GET_SETUP_TESTSUITE(testsuite_, __FILE__, __LINE__)(); }      \</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment">//  TEST_CLASS_CLEANUP(iuTearDown) { IUTEST_GET_TEARDOWN_TESTSUITE(testsuite_, __FILE__, __LINE__)(); }   \</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">//  }</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">#define IIUT_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName)    \</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor">    BEGIN_TEST_METHOD_ATTRIBUTE(methodName)                     \</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">        TEST_METHOD_ATTRIBUTE(L&quot;TestSuite&quot;, L#testsuite_)       \</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor">    END_TEST_METHOD_ATTRIBUTE()</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor">#define IUTEST_VCUNIT_EXEC_(testsuite_, testname_)   \</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="preprocessor">    Body( &quot;*&quot; #testsuite_ &quot;.&quot; #testname_ &quot;*&quot; )</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">#define IUTEST_VCUNIT_TEST_CLASS(className) \</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor">    ONLY_USED_AT_NAMESPACE_SCOPE class className : public ::iuutil::VisualStudio::TestClass&lt;className&gt;</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">//======================================================================</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">// class</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d8/dbf/namespaceiuutil.html">iuutil</a> {</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="keyword">namespace </span>VisualStudio</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;{</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="keyword">class </span>TestClass : <span class="keyword">public</span> ::Microsoft::VisualStudio::CppUnitTestFramework::TestClass&lt;T&gt;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;{</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    typedef ::Microsoft::VisualStudio::CppUnitTestFramework::Logger Logger;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordtype">void</span> Body(<span class="keyword">const</span> <span class="keywordtype">char</span>* filter)</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    {</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        SetUpCppUnitTest();</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75">::iutest::IUTEST_FLAG</a>(catch_exceptions) = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75">::iutest::IUTEST_FLAG</a>(filter) = filter;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75">::iutest::IUTEST_FLAG</a>(also_run_disabled_tests) = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga8a327cf27dd6c68be0943a4863197982">IUTEST_RUN_ALL_TESTS</a>();</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    }</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;};</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="keyword">class </span>VCCppUnitTestLogger : <span class="keyword">public</span> ::iutest::detail::iuLogger</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;{</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    typedef ::Microsoft::VisualStudio::CppUnitTestFramework::Logger Logger;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> voutput(<span class="keyword">const</span> <span class="keywordtype">char</span>* fmt, va_list va)</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    {</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <span class="keywordtype">int</span> length = _vscprintf(fmt, va);</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="keywordflow">if</span>( length &lt;= 0 )</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        {</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;            <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        }</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        length += 1;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <span class="keywordtype">char</span>* buf = <span class="keyword">new</span> <span class="keywordtype">char</span> [length];</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        vsprintf_s(buf, length, fmt, va);</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        m_log += buf;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        <span class="keyword">delete</span> [] buf;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <span class="keywordtype">int</span> pos = m_log.find(<span class="charliteral">&#39;\n&#39;</span>);</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        <span class="keywordflow">while</span>(pos &gt;= 0) {</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;            Logger::WriteMessage(m_log.substr(0, pos).c_str());</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            m_log = m_log.substr(pos+1);</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            pos = m_log.find(<span class="charliteral">&#39;\n&#39;</span>);</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        }</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    }</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    ::std::string m_log;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;};</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="keyword">class </span>VCCppUnitTestPartResultReporter : <span class="keyword">public</span> <a class="code" href="../../d6/d68/classiutest_1_1_empty_test_event_listener.html">::iutest::EmptyTestEventListener</a></div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;{</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    VCCppUnitTestPartResultReporter()</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    {</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        <a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html">::iutest::TestEventListeners</a>&amp; listeners = <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">::iutest::UnitTest::GetInstance</a>()-&gt;<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#ae09115bd12edb303535b0ab93ade6005">listeners</a>();</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        listeners.<a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a40d861fd66ce3f69d40e015dfbc4cbd3">Append</a>(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    }</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="keyword">virtual</span> ~VCCppUnitTestPartResultReporter()</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    {</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html">::iutest::TestEventListeners</a>&amp; listeners = <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">::iutest::UnitTest::GetInstance</a>()-&gt;<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#ae09115bd12edb303535b0ab93ade6005">listeners</a>();</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        listeners.<a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a1cfc2c7548e26395bd1be19928d6fe8c">Release</a>(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    }</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../d6/d68/classiutest_1_1_empty_test_event_listener.html#a9b347ec0fe2ea40e23edd5a849fbcb46">OnTestPartResult</a>(const ::iutest::TestPartResult&amp; result)</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    {</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <span class="comment">// VC にも送る</span></div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keywordflow">if</span>( result.failed() )</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        {</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;            <span class="keywordtype">size_t</span> size=0;</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            <span class="keywordtype">wchar_t</span> buf1[4096]; <span class="comment">// TODO: Fixed buffer...</span></div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            <span class="keywordtype">wchar_t</span> buf2[MAX_PATH];</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;            ::mbstowcs_s(&amp;size, buf1, <span class="keyword">sizeof</span>(buf1)/<span class="keyword">sizeof</span>(buf1[0]), result.message(), _TRUNCATE);</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;            ::mbstowcs_s(&amp;size, buf2, <span class="keyword">sizeof</span>(buf2)/<span class="keyword">sizeof</span>(buf2[0]), result.file_name(), _TRUNCATE);</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            ::Microsoft::VisualStudio::CppUnitTestFramework::Assert::Fail(buf1</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                , &amp;Microsoft::VisualStudio::CppUnitTestFramework::__LineInfo(buf2, <span class="stringliteral">&quot;&quot;</span>, result.line_number()) );</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        }</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    }</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;};</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="keyword">class </span>VCCppUnitResultPrinter : <span class="keyword">public</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html">::iutest::TestEventListener</a></div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;{</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keyword">explicit</span> VCCppUnitResultPrinter(::<a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html">iutest::TestEventListener</a>* default_printer)</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        : m_default_printer(default_printer)</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    {}</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keyword">virtual</span> ~VCCppUnitResultPrinter()</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    {</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        <span class="keyword">delete</span> m_default_printer;</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    }</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160; </div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#a61ace35095f019c107f164120b4b36e0">OnTestProgramStart</a>(const ::iutest::UnitTest&amp; ) {}</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160; </div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#aa978db4007d239ae961ca8ee0e340a67">OnTestIterationStart</a>(const ::iutest::UnitTest&amp; , <span class="keywordtype">int</span> ) {}</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">#define IUTEST_VCUNIT_F(testsuite_, testname_, className, methodName)   \</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">    IUTEST_VCUNIT_TEST_CLASS(className) {                               \</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">    public: TEST_METHOD(methodName) {                                   \</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">        IUTEST_VCUNIT_EXEC_(testsuite_, testname_); }                   \</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment">        IIUT_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName)            \</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment">        TEST_CLASS_INITIALIZE(iuSetUp) { IUTEST_GET_SETUP_TESTSUITE(testsuite_, __FILE__, __LINE__)(); }      \</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">        TEST_CLASS_CLEANUP(iuTearDown) { IUTEST_GET_TEARDOWN_TESTSUITE(testsuite_, __FILE__, __LINE__)(); }   \</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">    }</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">#define IIUT_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName)    \</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor">    BEGIN_TEST_METHOD_ATTRIBUTE(methodName)                     \</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor">        TEST_METHOD_ATTRIBUTE(L&quot;TestSuite&quot;, L#testsuite_)       \</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor">    END_TEST_METHOD_ATTRIBUTE()</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">#define IUTEST_VCUNIT_EXEC_(testsuite_, testname_)   \</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">    Body( &quot;*&quot; #testsuite_ &quot;.&quot; #testname_ &quot;*&quot; )</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">#define IUTEST_VCUNIT_TEST_CLASS(className) \</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor">    ONLY_USED_AT_NAMESPACE_SCOPE class className : public ::iuutil::VisualStudio::TestClass&lt;className&gt;</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">//======================================================================</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment">// class</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d8/dbf/namespaceiuutil.html">iuutil</a> {</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="keyword">namespace </span>VisualStudio</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;{</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="keyword">class </span>TestClass : <span class="keyword">public</span> ::Microsoft::VisualStudio::CppUnitTestFramework::TestClass&lt;T&gt;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;{</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    typedef ::Microsoft::VisualStudio::CppUnitTestFramework::Logger Logger;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordtype">void</span> Body(<span class="keyword">const</span> <span class="keywordtype">char</span>* filter)</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    {</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        SetUpCppUnitTest();</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75">::iutest::IUTEST_FLAG</a>(catch_exceptions) = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75">::iutest::IUTEST_FLAG</a>(filter) = filter;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75">::iutest::IUTEST_FLAG</a>(also_run_disabled_tests) = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga8a327cf27dd6c68be0943a4863197982">IUTEST_RUN_ALL_TESTS</a>();</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    }</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;};</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="keyword">class </span>VCCppUnitTestLogger : <span class="keyword">public</span> ::iutest::detail::iuLogger</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;{</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    typedef ::Microsoft::VisualStudio::CppUnitTestFramework::Logger Logger;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> voutput(<span class="keyword">const</span> <span class="keywordtype">char</span>* fmt, va_list va)</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    {</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <span class="keywordtype">int</span> length = _vscprintf(fmt, va);</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keywordflow">if</span>( length &lt;= 0 )</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        {</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        }</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        length += 1;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        <span class="keywordtype">char</span>* buf = <span class="keyword">new</span> <span class="keywordtype">char</span> [length];</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        vsprintf_s(buf, length, fmt, va);</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        m_log += buf;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <span class="keyword">delete</span> [] buf;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="keywordtype">int</span> pos = m_log.find(<span class="charliteral">&#39;\n&#39;</span>);</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordflow">while</span>(pos &gt;= 0) {</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            Logger::WriteMessage(m_log.substr(0, pos).c_str());</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            m_log = m_log.substr(pos+1);</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            pos = m_log.find(<span class="charliteral">&#39;\n&#39;</span>);</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        }</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    }</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    ::std::string m_log;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;};</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="keyword">class </span>VCCppUnitTestPartResultReporter : <span class="keyword">public</span> <a class="code" href="../../d6/d68/classiutest_1_1_empty_test_event_listener.html">::iutest::EmptyTestEventListener</a></div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;{</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    VCCppUnitTestPartResultReporter()</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    {</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        <a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html">::iutest::TestEventListeners</a>&amp; listeners = <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">::iutest::UnitTest::GetInstance</a>()-&gt;<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#ae09115bd12edb303535b0ab93ade6005">listeners</a>();</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        listeners.<a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a40d861fd66ce3f69d40e015dfbc4cbd3">Append</a>(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    }</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keyword">virtual</span> ~VCCppUnitTestPartResultReporter()</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    {</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html">::iutest::TestEventListeners</a>&amp; listeners = <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">::iutest::UnitTest::GetInstance</a>()-&gt;<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#ae09115bd12edb303535b0ab93ade6005">listeners</a>();</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        listeners.<a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a1cfc2c7548e26395bd1be19928d6fe8c">Release</a>(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    }</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../d6/d68/classiutest_1_1_empty_test_event_listener.html#a9b347ec0fe2ea40e23edd5a849fbcb46">OnTestPartResult</a>(const ::iutest::TestPartResult&amp; result)</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    {</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        <span class="comment">// VC にも送る</span></div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        <span class="keywordflow">if</span>( result.failed() )</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        {</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            <span class="keywordtype">size_t</span> size=0;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;            <span class="keywordtype">wchar_t</span> buf1[4096]; <span class="comment">// TODO: Fixed buffer...</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;            <span class="keywordtype">wchar_t</span> buf2[MAX_PATH];</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            ::mbstowcs_s(&amp;size, buf1, <span class="keyword">sizeof</span>(buf1)/<span class="keyword">sizeof</span>(buf1[0]), result.message(), _TRUNCATE);</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;            ::mbstowcs_s(&amp;size, buf2, <span class="keyword">sizeof</span>(buf2)/<span class="keyword">sizeof</span>(buf2[0]), result.file_name(), _TRUNCATE);</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;            ::Microsoft::VisualStudio::CppUnitTestFramework::Assert::Fail(buf1</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                , &amp;Microsoft::VisualStudio::CppUnitTestFramework::__LineInfo(buf2, <span class="stringliteral">&quot;&quot;</span>, result.line_number()) );</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        }</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    }</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;};</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="keyword">class </span>VCCppUnitResultPrinter : <span class="keyword">public</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html">::iutest::TestEventListener</a></div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;{</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <span class="keyword">explicit</span> VCCppUnitResultPrinter(::<a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html">iutest::TestEventListener</a>* default_printer)</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        : m_default_printer(default_printer)</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    {}</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="keyword">virtual</span> ~VCCppUnitResultPrinter()</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    {</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="keyword">delete</span> m_default_printer;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    }</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#a61ace35095f019c107f164120b4b36e0">OnTestProgramStart</a>(const ::iutest::UnitTest&amp; ) {}</div>
 <div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#acba428b01c69baac5421bb72d2d31b1c">OnEnvironmentsSetUpStart</a>(const ::iutest::UnitTest&amp; ) {}</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#aa978db4007d239ae961ca8ee0e340a67">OnTestIterationStart</a>(const ::iutest::UnitTest&amp; , <span class="keywordtype">int</span> ) {}</div>
 <div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#aba002696b25a0c3f5ea0bea1a1521ea0">OnEnvironmentsSetUpEnd</a>(const ::iutest::UnitTest&amp; ) {}</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#acba428b01c69baac5421bb72d2d31b1c">OnEnvironmentsSetUpStart</a>(const ::iutest::UnitTest&amp; ) {}</div>
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTestSuiteStart(const ::iutest::TestSuite&amp; ) {}</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#aba002696b25a0c3f5ea0bea1a1521ea0">OnEnvironmentsSetUpEnd</a>(const ::iutest::UnitTest&amp; ) {}</div>
 <div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#aaf42e1561c98dfb75a4fe344bad55103">OnTestStart</a>(const ::iutest::TestInfo&amp; test_info)</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    {</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        m_default_printer-&gt;<a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#aaf42e1561c98dfb75a4fe344bad55103">OnTestStart</a>(test_info);</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    }</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#a54df6ee45fe317351615a7e43040229b">OnTestPartResult</a>(const ::iutest::TestPartResult&amp; test_part_result)</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    {</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        m_default_printer-&gt;<a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#a54df6ee45fe317351615a7e43040229b">OnTestPartResult</a>(test_part_result);</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    }</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#a06d31520f32847d3297b9ce3438f9f52">OnTestEnd</a>(const ::iutest::TestInfo&amp; test_info)</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    {</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        m_default_printer-&gt;<a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#a06d31520f32847d3297b9ce3438f9f52">OnTestEnd</a>(test_info);</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    }</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTestSuiteEnd(const ::iutest::TestSuite&amp; ) {}</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTestSuiteStart(const ::iutest::TestSuite&amp; ) {}</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#aaf42e1561c98dfb75a4fe344bad55103">OnTestStart</a>(const ::iutest::TestInfo&amp; test_info)</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    {</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        m_default_printer-&gt;<a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#aaf42e1561c98dfb75a4fe344bad55103">OnTestStart</a>(test_info);</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    }</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#a54df6ee45fe317351615a7e43040229b">OnTestPartResult</a>(const ::iutest::TestPartResult&amp; test_part_result)</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    {</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        m_default_printer-&gt;<a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#a54df6ee45fe317351615a7e43040229b">OnTestPartResult</a>(test_part_result);</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    }</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#a06d31520f32847d3297b9ce3438f9f52">OnTestEnd</a>(const ::iutest::TestInfo&amp; test_info)</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    {</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        m_default_printer-&gt;<a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#a06d31520f32847d3297b9ce3438f9f52">OnTestEnd</a>(test_info);</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    }</div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160; </div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#aec9999966cd8f4907a6ba006b606b1d0">OnEnvironmentsTearDownStart</a>(const ::iutest::UnitTest&amp; ) {}</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTestSuiteEnd(const ::iutest::TestSuite&amp; ) {}</div>
 <div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#a3fa87c8f3be5b08b7fb364507dda90ba">OnEnvironmentsTearDownEnd</a>(const ::iutest::UnitTest&amp; ) {}</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#aec9999966cd8f4907a6ba006b606b1d0">OnEnvironmentsTearDownStart</a>(const ::iutest::UnitTest&amp; ) {}</div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#a1bc7b7d3712bba690ece6ac29c671e20">OnTestIterationEnd</a>(const ::iutest::UnitTest&amp; , <span class="keywordtype">int</span> iteration) {}</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#a3fa87c8f3be5b08b7fb364507dda90ba">OnEnvironmentsTearDownEnd</a>(const ::iutest::UnitTest&amp; ) {}</div>
 <div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160; </div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#ab64ba395ab8eea50c8a401fe892156f6">OnTestProgramEnd</a>(const ::iutest::UnitTest&amp; ) {}</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html">::iutest::TestEventListener</a>* m_default_printer;</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160; </div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    static ::iutest::TestEventListener* SetUp()</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    {</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        static ::iutest::TestEventListener* p = NULL;</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        <span class="keywordflow">if</span>( p == NULL )</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        {</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;            <a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html">::iutest::TestEventListeners</a>&amp; listeners = <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">::iutest::UnitTest::GetInstance</a>()-&gt;<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#ae09115bd12edb303535b0ab93ade6005">listeners</a>();</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;            <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html">::iutest::TestEventListener</a>* default_printer = listeners.<a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a1cfc2c7548e26395bd1be19928d6fe8c">Release</a>(listeners.<a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a8fb5ced0c4ab6319f8845caf32b68ef6">default_result_printer</a>());</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;            <span class="keywordflow">if</span>( default_printer == NULL )</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;            {</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;                <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;            }</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;            p = <span class="keyword">new</span> VCCppUnitResultPrinter(default_printer);</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;            listeners.<a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a40d861fd66ce3f69d40e015dfbc4cbd3">Append</a>(p);</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        }</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        <span class="keywordflow">return</span> p;</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    }</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;};</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160; </div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> SetUpCppUnitTest()</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;{</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    {</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        <span class="keyword">static</span> VCCppUnitTestPartResultReporter fake;</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<span class="preprocessor">#ifndef IUTEST_USE_GTEST</span></div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        <span class="keyword">static</span> VCCppUnitTestLogger logger;</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        ::iutest::detail::iuConsole::SetLogger(&amp;logger);</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        ::iutest::UnitTestSource::GetInstance().Initialize();</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;        VCCppUnitResultPrinter::SetUp();</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    }</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;}</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160; </div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;}   <span class="comment">// end of namespace VisualStudio</span></div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;}   <span class="comment">// end of namespace iuutil</span></div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160; </div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;<span class="preprocessor">#endif  // INCG_IRIS_IUTEST_UTIL_VC_UNITTEST_HPP_5CA7C30C_2D2A_40A1_A9DE_83EAB4527787_</span></div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#a1bc7b7d3712bba690ece6ac29c671e20">OnTestIterationEnd</a>(const ::iutest::UnitTest&amp; , <span class="keywordtype">int</span> iteration) {}</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#ab64ba395ab8eea50c8a401fe892156f6">OnTestProgramEnd</a>(const ::iutest::UnitTest&amp; ) {}</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html">::iutest::TestEventListener</a>* m_default_printer;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160; </div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    static ::iutest::TestEventListener* SetUp()</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    {</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        static ::iutest::TestEventListener* p = NULL;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        <span class="keywordflow">if</span>( p == NULL )</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        {</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;            <a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html">::iutest::TestEventListeners</a>&amp; listeners = <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">::iutest::UnitTest::GetInstance</a>()-&gt;<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#ae09115bd12edb303535b0ab93ade6005">listeners</a>();</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;            <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html">::iutest::TestEventListener</a>* default_printer = listeners.<a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a1cfc2c7548e26395bd1be19928d6fe8c">Release</a>(listeners.<a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a8fb5ced0c4ab6319f8845caf32b68ef6">default_result_printer</a>());</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;            <span class="keywordflow">if</span>( default_printer == NULL )</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;            {</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;                <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;            }</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;            p = <span class="keyword">new</span> VCCppUnitResultPrinter(default_printer);</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;            listeners.<a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a40d861fd66ce3f69d40e015dfbc4cbd3">Append</a>(p);</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        }</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        <span class="keywordflow">return</span> p;</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    }</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;};</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160; </div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> SetUpCppUnitTest()</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;{</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    {</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        <span class="keyword">static</span> VCCppUnitTestPartResultReporter fake;</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;<span class="preprocessor">#ifndef IUTEST_USE_GTEST</span></div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        <span class="keyword">static</span> VCCppUnitTestLogger logger;</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;        ::iutest::detail::iuConsole::SetLogger(&amp;logger);</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;        ::iutest::UnitTestSource::GetInstance().Initialize();</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        VCCppUnitResultPrinter::SetUp();</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    }</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;}</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160; </div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;}   <span class="comment">// end of namespace VisualStudio</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;}   <span class="comment">// end of namespace iuutil</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160; </div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;<span class="preprocessor">#endif  // INCG_IRIS_IUTEST_UTIL_VC_UNITTEST_HPP_5CA7C30C_2D2A_40A1_A9DE_83EAB4527787_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassiutest_1_1_test_event_listener_html_acba428b01c69baac5421bb72d2d31b1c"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#acba428b01c69baac5421bb72d2d31b1c">iutest::TestEventListener::OnEnvironmentsSetUpStart</a></div><div class="ttdeci">virtual void OnEnvironmentsSetUpStart(const UnitTest &amp;test)=0</div><div class="ttdoc">グローバル環境設定 SetUp 前に呼ばれます</div></div>
 <div class="ttc" id="aclassiutest_1_1_empty_test_event_listener_html"><div class="ttname"><a href="../../d6/d68/classiutest_1_1_empty_test_event_listener.html">iutest::EmptyTestEventListener</a></div><div class="ttdoc">空のイベントリスナー</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:101</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listener_html"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html">iutest::TestEventListener</a></div><div class="ttdoc">イベントリスナー</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:63</div></div>
-<div class="ttc" id="aclassiutest_1_1_unit_test_html_a1154caf184eb447dd0fe5fbde60e1868"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">iutest::UnitTest::GetInstance</a></div><div class="ttdeci">static UnitTest * GetInstance()</div><div class="ttdoc">UnitTest インスタンスの取得</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:41</div></div>
+<div class="ttc" id="aclassiutest_1_1_unit_test_html_a1154caf184eb447dd0fe5fbde60e1868"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">iutest::UnitTest::GetInstance</a></div><div class="ttdeci">static UnitTest * GetInstance()</div><div class="ttdoc">UnitTest インスタンスの取得</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:43</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listener_html_a54df6ee45fe317351615a7e43040229b"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#a54df6ee45fe317351615a7e43040229b">iutest::TestEventListener::OnTestPartResult</a></div><div class="ttdeci">virtual void OnTestPartResult(const TestPartResult &amp;test_part_result)=0</div><div class="ttdoc">テスト失敗時に呼ばれます</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listener_html_a61ace35095f019c107f164120b4b36e0"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#a61ace35095f019c107f164120b4b36e0">iutest::TestEventListener::OnTestProgramStart</a></div><div class="ttdeci">virtual void OnTestProgramStart(const UnitTest &amp;test)=0</div><div class="ttdoc">テストプログラム開始時に呼ばれます</div></div>
 <div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
@@ -341,22 +343,22 @@ $(function() {
 <div class="ttc" id="aclassiutest_1_1_test_event_listener_html_aba002696b25a0c3f5ea0bea1a1521ea0"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#aba002696b25a0c3f5ea0bea1a1521ea0">iutest::TestEventListener::OnEnvironmentsSetUpEnd</a></div><div class="ttdeci">virtual void OnEnvironmentsSetUpEnd(const UnitTest &amp;test)=0</div><div class="ttdoc">グローバル環境設定 SetUp 後に呼ばれます</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listener_html_a06d31520f32847d3297b9ce3438f9f52"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#a06d31520f32847d3297b9ce3438f9f52">iutest::TestEventListener::OnTestEnd</a></div><div class="ttdeci">virtual void OnTestEnd(const TestInfo &amp;test_info)=0</div><div class="ttdoc">テスト終了時にに呼ばれます</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listener_html_aec9999966cd8f4907a6ba006b606b1d0"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#aec9999966cd8f4907a6ba006b606b1d0">iutest::TestEventListener::OnEnvironmentsTearDownStart</a></div><div class="ttdeci">virtual void OnEnvironmentsTearDownStart(const UnitTest &amp;test)=0</div><div class="ttdoc">グローバル環境設定 TearDown 前に呼ばれます</div></div>
-<div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga650662dc23cc31b5bee68981633a4a75"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75">IUTEST_FLAG</a></div><div class="ttdeci">#define IUTEST_FLAG(name)</div><div class="ttdoc">フラグセット</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:55</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga650662dc23cc31b5bee68981633a4a75"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75">IUTEST_FLAG</a></div><div class="ttdeci">#define IUTEST_FLAG(name)</div><div class="ttdoc">フラグセット</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:57</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listeners_html_a1cfc2c7548e26395bd1be19928d6fe8c"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a1cfc2c7548e26395bd1be19928d6fe8c">iutest::TestEventListeners::Release</a></div><div class="ttdeci">TestEventListener * Release(TestEventListener *listener)</div><div class="ttdoc">リスナーの解放</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:184</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listener_html_a3fa87c8f3be5b08b7fb364507dda90ba"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#a3fa87c8f3be5b08b7fb364507dda90ba">iutest::TestEventListener::OnEnvironmentsTearDownEnd</a></div><div class="ttdeci">virtual void OnEnvironmentsTearDownEnd(const UnitTest &amp;test)=0</div><div class="ttdoc">グローバル環境設定 TearDown 前に呼ばれます</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listener_html_aaf42e1561c98dfb75a4fe344bad55103"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#aaf42e1561c98dfb75a4fe344bad55103">iutest::TestEventListener::OnTestStart</a></div><div class="ttdeci">virtual void OnTestStart(const TestInfo &amp;test_info)=0</div><div class="ttdoc">テスト開始時に呼ばれます</div></div>
 <div class="ttc" id="aclassiutest_1_1_empty_test_event_listener_html_a9b347ec0fe2ea40e23edd5a849fbcb46"><div class="ttname"><a href="../../d6/d68/classiutest_1_1_empty_test_event_listener.html#a9b347ec0fe2ea40e23edd5a849fbcb46">iutest::EmptyTestEventListener::OnTestPartResult</a></div><div class="ttdeci">virtual void OnTestPartResult(const TestPartResult &amp;) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">テスト失敗時に呼ばれます</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:111</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listener_html_a1bc7b7d3712bba690ece6ac29c671e20"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#a1bc7b7d3712bba690ece6ac29c671e20">iutest::TestEventListener::OnTestIterationEnd</a></div><div class="ttdeci">virtual void OnTestIterationEnd(const UnitTest &amp;test, int iteration)=0</div><div class="ttdoc">単体テスト終了時に毎回呼ばれます</div></div>
-<div class="ttc" id="anamespaceiuutil_html"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html">iuutil</a></div><div class="ttdoc">iutest utility namespace</div><div class="ttdef"><b>Definition:</b> iutest_util.hpp:33</div></div>
+<div class="ttc" id="anamespaceiuutil_html"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html">iuutil</a></div><div class="ttdoc">iutest utility namespace</div><div class="ttdef"><b>Definition:</b> iutest_util.hpp:35</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listeners_html_a40d861fd66ce3f69d40e015dfbc4cbd3"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a40d861fd66ce3f69d40e015dfbc4cbd3">iutest::TestEventListeners::Append</a></div><div class="ttdeci">void Append(TestEventListener *listener)</div><div class="ttdoc">リスナーの追加</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:179</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listener_html_aa978db4007d239ae961ca8ee0e340a67"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#aa978db4007d239ae961ca8ee0e340a67">iutest::TestEventListener::OnTestIterationStart</a></div><div class="ttdeci">virtual void OnTestIterationStart(const UnitTest &amp;test, int iteration)=0</div><div class="ttdoc">単体テスト開始時に毎回呼ばれます</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listeners_html"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html">iutest::TestEventListeners</a></div><div class="ttdoc">イベントリスナーの管理クラス</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:168</div></div>
-<div class="ttc" id="aclassiutest_1_1_unit_test_html_ae09115bd12edb303535b0ab93ade6005"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#ae09115bd12edb303535b0ab93ade6005">iutest::UnitTest::listeners</a></div><div class="ttdeci">TestEventListeners &amp; listeners() const</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:121</div></div>
+<div class="ttc" id="aclassiutest_1_1_unit_test_html_ae09115bd12edb303535b0ab93ade6005"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#ae09115bd12edb303535b0ab93ade6005">iutest::UnitTest::listeners</a></div><div class="ttdeci">TestEventListeners &amp; listeners() const</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:123</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listeners_html_a8fb5ced0c4ab6319f8845caf32b68ef6"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a8fb5ced0c4ab6319f8845caf32b68ef6">iutest::TestEventListeners::default_result_printer</a></div><div class="ttdeci">TestEventListener * default_result_printer() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">デフォルト出力リスナーの取得</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:190</div></div>
-<div class="ttc" id="agroup___t_e_s_t_d_e_f_html_ga8a327cf27dd6c68be0943a4863197982"><div class="ttname"><a href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga8a327cf27dd6c68be0943a4863197982">IUTEST_RUN_ALL_TESTS</a></div><div class="ttdeci">#define IUTEST_RUN_ALL_TESTS()</div><div class="ttdoc">すべてのテストを実行する</div><div class="ttdef"><b>Definition:</b> iutest.hpp:155</div></div>
+<div class="ttc" id="agroup___t_e_s_t_d_e_f_html_ga8a327cf27dd6c68be0943a4863197982"><div class="ttname"><a href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga8a327cf27dd6c68be0943a4863197982">IUTEST_RUN_ALL_TESTS</a></div><div class="ttdeci">#define IUTEST_RUN_ALL_TESTS()</div><div class="ttdoc">すべてのテストを実行する</div><div class="ttdef"><b>Definition:</b> iutest.hpp:159</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年10月21日(水) 13時11分17秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年11月29日(日) 12時20分05秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.3</span>
+   &#160;<span id="projectnumber">1.17.99.4</span>
    </div>
   </td>
  </tr>
@@ -764,56 +764,57 @@ $(function() {
 <div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;<span class="preprocessor">#define IIUT_PP_IS_EMPTY_II(x)      IIUT_PP_IS_EMPTY_II_ x</span></div>
 <div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;<span class="preprocessor">#define IIUT_PP_IS_EMPTY_II_(a, b)  b</span></div>
 <div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160; </div>
-<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;<span class="preprocessor">#define IUTEST_PP_EMPTY()</span></div>
-<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;<span class="preprocessor">#define IIUT_PP_EMPTY_TAG() , 0</span></div>
-<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;<span class="preprocessor">#define IIUT_PP_EMPTY_TAG_IIUT_PP_EMPTY_TAG     1, 1 IUTEST_PP_EMPTY</span></div>
-<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160; </div>
-<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;<span class="comment">// IF EMPTY</span></div>
-<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;<span class="preprocessor">#define IUTEST_PP_IF_EMPTY(x, t, f) IUTEST_PP_IF(IUTEST_PP_IS_EMPTY(x), t, f)</span></div>
-<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160; </div>
-<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;<span class="comment">// IDENTITY</span></div>
-<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;<span class="preprocessor">#define IUTEST_PP_IDENTITY(x)       x IUTEST_PP_EMPTY</span></div>
-<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160; </div>
-<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;<span class="preprocessor">#if !defined(IUTEST_NO_VARIADIC_MACROS)</span></div>
-<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160; </div>
-<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;<span class="preprocessor">#if !defined(IUTEST_PP_VA_CAT)</span></div>
-<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160; </div>
-<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;<span class="preprocessor">#define IUTEST_PP_VA_CAT(a, ...)    IIUT_PP_VA_CAT_I(a, __VA_ARGS__)</span></div>
-<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;<span class="preprocessor">#define IIUT_PP_VA_CAT_I(a, ...)    a ## __VA_ARGS__</span></div>
-<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160; </div>
-<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160; </div>
-<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;<span class="preprocessor">#if defined(IUTEST_PP_MSVC_TRADITIONAL)</span></div>
-<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;<span class="preprocessor">#define IIUT_PP_VD_CAT(a, b)            IIUT_PP_VD_CAT_I(a, b)</span></div>
-<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;<span class="preprocessor">#define IIUT_PP_VD_CAT_I(a, b)          IIUT_PP_VD_CAT_II(a ## b)</span></div>
-<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;<span class="preprocessor">#define IIUT_PP_VD_CAT_II(res)          res</span></div>
-<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;<span class="preprocessor">#define IIUT_PP_SPLIT(i, ...)           IIUT_PP_VD_CAT(IIUT_PP_VA_CAT_I(IIUT_PP_SPLIT_, i)(__VA_ARGS__), IUTEST_PP_EMPTY())</span></div>
-<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;<span class="preprocessor">#define IIUT_PP_IS_BEGIN_PARENS_C(...)  1 1</span></div>
-<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;<span class="preprocessor">#define IIUT_PP_SPLIT(i, ...)           IIUT_PP_VA_CAT_I(IIUT_PP_SPLIT_, i)(__VA_ARGS__)</span></div>
-<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;<span class="preprocessor">#define IIUT_PP_IS_BEGIN_PARENS_C(...)  1</span></div>
-<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;<span class="preprocessor">#define IIUT_PP_SPLIT_0(a, ...) a</span></div>
-<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;<span class="preprocessor">#define IIUT_PP_SPLIT_1(a, ...) __VA_ARGS__</span></div>
-<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160; </div>
-<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;<span class="comment">// IS_BEGIN_PARENS</span></div>
-<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;<span class="preprocessor">#define IUTEST_PP_IS_BEGIN_PARENS(...)                  \</span></div>
-<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;<span class="preprocessor">    IIUT_PP_SPLIT(0,                                    \</span></div>
-<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;<span class="preprocessor">        IUTEST_PP_VA_CAT( IIUT_PP_IS_BEGIN_PARENS_R_    \</span></div>
-<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;<span class="preprocessor">            , IIUT_PP_IS_BEGIN_PARENS_C __VA_ARGS__ ) )</span></div>
-<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160; </div>
-<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;<span class="preprocessor">#define IIUT_PP_IS_BEGIN_PARENS_R_1     1,</span></div>
-<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160; </div>
-<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;<span class="preprocessor">#define IIUT_PP_IS_BEGIN_PARENS_R_IIUT_PP_IS_BEGIN_PARENS_C 0,</span></div>
-<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160; </div>
-<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160; </div>
-<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_PP_HPP_E8F72184_9C72_4E74_B581_A1F51F291F3A_</span></div>
+<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;<span class="preprocessor">#define IUTEST_PP_EMPTY()     IUTEST_PP_EMPTY_()</span></div>
+<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;<span class="preprocessor">#define IUTEST_PP_EMPTY_()</span></div>
+<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;<span class="preprocessor">#define IIUT_PP_EMPTY_TAG() , 0</span></div>
+<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;<span class="preprocessor">#define IIUT_PP_EMPTY_TAG_IIUT_PP_EMPTY_TAG     1, 1 IUTEST_PP_EMPTY</span></div>
+<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160; </div>
+<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;<span class="comment">// IF EMPTY</span></div>
+<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;<span class="preprocessor">#define IUTEST_PP_IF_EMPTY(x, t, f) IUTEST_PP_IF(IUTEST_PP_IS_EMPTY(x), t, f)</span></div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160; </div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;<span class="comment">// IDENTITY</span></div>
+<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;<span class="preprocessor">#define IUTEST_PP_IDENTITY(x)       x IUTEST_PP_EMPTY</span></div>
+<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160; </div>
+<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;<span class="preprocessor">#if !defined(IUTEST_NO_VARIADIC_MACROS)</span></div>
+<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160; </div>
+<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;<span class="preprocessor">#if !defined(IUTEST_PP_VA_CAT)</span></div>
+<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160; </div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;<span class="preprocessor">#define IUTEST_PP_VA_CAT(a, ...)    IIUT_PP_VA_CAT_I(a, __VA_ARGS__)</span></div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;<span class="preprocessor">#define IIUT_PP_VA_CAT_I(a, ...)    a ## __VA_ARGS__</span></div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160; </div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160; </div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;<span class="preprocessor">#if defined(IUTEST_PP_MSVC_TRADITIONAL)</span></div>
+<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;<span class="preprocessor">#define IIUT_PP_VD_CAT(a, b)            IIUT_PP_VD_CAT_I(a, b)</span></div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;<span class="preprocessor">#define IIUT_PP_VD_CAT_I(a, b)          IIUT_PP_VD_CAT_II(a ## b)</span></div>
+<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;<span class="preprocessor">#define IIUT_PP_VD_CAT_II(res)          res</span></div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;<span class="preprocessor">#define IIUT_PP_SPLIT(i, ...)           IIUT_PP_VD_CAT(IIUT_PP_VA_CAT_I(IIUT_PP_SPLIT_, i)(__VA_ARGS__), IUTEST_PP_EMPTY())</span></div>
+<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;<span class="preprocessor">#define IIUT_PP_IS_BEGIN_PARENS_C(...)  1 1</span></div>
+<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;<span class="preprocessor">#define IIUT_PP_SPLIT(i, ...)           IIUT_PP_VA_CAT_I(IIUT_PP_SPLIT_, i)(__VA_ARGS__)</span></div>
+<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;<span class="preprocessor">#define IIUT_PP_IS_BEGIN_PARENS_C(...)  1</span></div>
+<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;<span class="preprocessor">#define IIUT_PP_SPLIT_0(a, ...) a</span></div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;<span class="preprocessor">#define IIUT_PP_SPLIT_1(a, ...) __VA_ARGS__</span></div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160; </div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;<span class="comment">// IS_BEGIN_PARENS</span></div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;<span class="preprocessor">#define IUTEST_PP_IS_BEGIN_PARENS(...)                  \</span></div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;<span class="preprocessor">    IIUT_PP_SPLIT(0,                                    \</span></div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;<span class="preprocessor">        IUTEST_PP_VA_CAT( IIUT_PP_IS_BEGIN_PARENS_R_    \</span></div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;<span class="preprocessor">            , IIUT_PP_IS_BEGIN_PARENS_C __VA_ARGS__ ) )</span></div>
+<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160; </div>
+<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;<span class="preprocessor">#define IIUT_PP_IS_BEGIN_PARENS_R_1     1,</span></div>
+<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160; </div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;<span class="preprocessor">#define IIUT_PP_IS_BEGIN_PARENS_R_IIUT_PP_IS_BEGIN_PARENS_C 0,</span></div>
+<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160; </div>
+<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160; </div>
+<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_PP_HPP_E8F72184_9C72_4E74_B581_A1F51F291F3A_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年10月21日(水) 13時11分13秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年11月29日(日) 12時20分01秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

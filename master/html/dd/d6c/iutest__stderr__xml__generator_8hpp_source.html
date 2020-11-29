@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.3</span>
+   &#160;<span id="projectnumber">1.17.99.4</span>
    </div>
   </td>
  </tr>
@@ -79,77 +79,79 @@ $(function() {
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// include</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d5/d8e/iutest__junit__xml__generator_8hpp.html">iutest_junit_xml_generator.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d3/dda/namespaceiutest.html">iutest</a></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">//======================================================================</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">// class</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">namespace </span>detail</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> ::std::<span class="keywordtype">string</span> (*GetXmlPath)()&gt;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">class </span>StderrXmlGeneratorListenerBase : <span class="keyword">public</span> T</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">explicit</span> StderrXmlGeneratorListenerBase(const ::std::string&amp; path) : T(path) {}</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    ~StderrXmlGeneratorListenerBase() {}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">// IWYU pragma: begin_exports</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d5/d8e/iutest__junit__xml__generator_8hpp.html">iutest_junit_xml_generator.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">// IWYU pragma: end_exports</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d3/dda/namespaceiutest.html">iutest</a></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">//======================================================================</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">// class</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">namespace </span>detail</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;{</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> ::std::<span class="keywordtype">string</span> (*GetXmlPath)()&gt;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">class </span>StderrXmlGeneratorListenerBase : <span class="keyword">public</span> T</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;{</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">explicit</span> StderrXmlGeneratorListenerBase(const ::std::string&amp; path) : T(path) {}</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#if IUTEST_HAS_FOPEN</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    StdErrorFile m_stderr;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> FileOpen(<span class="keyword">const</span> <span class="keywordtype">char</span>* path)</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">if</span>( m_stderr.Open(path, <a class="code" href="../../d9/d57/classiutest_1_1_i_file.html#a6e0f77bd1fb9a4a386975f2c849a8381a7615d69233c676be957240e011843eea">IFile::OpenAppend</a>) )</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            this-&gt;m_fp = &amp;m_stderr;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> FileClose()</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        this-&gt;m_fp = NULL;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> SetUp()</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        ::std::string xmlpath = GetXmlPath();</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">if</span>( !xmlpath.empty() )</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            TestEnv::event_listeners().set_default_xml_generator(<span class="keyword">new</span> StderrXmlGeneratorListenerBase(xmlpath));</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        }</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;};</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    ~StderrXmlGeneratorListenerBase() {}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#if IUTEST_HAS_FOPEN</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    StdErrorFile m_stderr;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> FileOpen(<span class="keyword">const</span> <span class="keywordtype">char</span>* path)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">if</span>( m_stderr.Open(path, <a class="code" href="../../d9/d57/classiutest_1_1_i_file.html#a6e0f77bd1fb9a4a386975f2c849a8381a7615d69233c676be957240e011843eea">IFile::OpenAppend</a>) )</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            this-&gt;m_fp = &amp;m_stderr;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> FileClose()</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        this-&gt;m_fp = NULL;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> SetUp()</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        ::std::string xmlpath = GetXmlPath();</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">if</span>( !xmlpath.empty() )</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            TestEnv::event_listeners().set_default_xml_generator(<span class="keyword">new</span> StderrXmlGeneratorListenerBase(xmlpath));</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        }</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;};</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">typedef</span> detail::StderrXmlGeneratorListenerBase&lt;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    DefaultXmlGeneratorListener, <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#af1e05e9d523724f9210f149583226179">TestEnv::get_report_xml_filepath</a>&gt; StderrXmlGeneratorListener;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">typedef</span> detail::StderrXmlGeneratorListenerBase&lt;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    JunitXmlGeneratorListener, <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a4da536e15bf20b8e5d4a82f84c6fafe4">TestEnv::get_report_junit_xml_filepath</a>&gt; StderrJunitXmlGeneratorListener;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    DefaultXmlGeneratorListener, <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#af1e05e9d523724f9210f149583226179">TestEnv::get_report_xml_filepath</a>&gt; StderrXmlGeneratorListener;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keyword">typedef</span> detail::StderrXmlGeneratorListenerBase&lt;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    JunitXmlGeneratorListener, <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a4da536e15bf20b8e5d4a82f84c6fafe4">TestEnv::get_report_junit_xml_filepath</a>&gt; StderrJunitXmlGeneratorListener;</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_STDERR_XML_GENERATOR_HPP_44748A14_3446_49D5_8ECE_05ABED0FFF33_</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_STDERR_XML_GENERATOR_HPP_44748A14_3446_49D5_8ECE_05ABED0FFF33_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aiutest__junit__xml__generator_8hpp_html"><div class="ttname"><a href="../../d5/d8e/iutest__junit__xml__generator_8hpp.html">iutest_junit_xml_generator.hpp</a></div><div class="ttdoc">output junit xml event listener</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_env_html_a4da536e15bf20b8e5d4a82f84c6fafe4"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a4da536e15bf20b8e5d4a82f84c6fafe4">iutest::TestEnv::get_report_junit_xml_filepath</a></div><div class="ttdeci">::std::string get_report_junit_xml_filepath()</div><div class="ttdoc">junit xml 出力パスを取得</div></div>
 <div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
-<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:31</div></div>
+<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_env_html_af1e05e9d523724f9210f149583226179"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#af1e05e9d523724f9210f149583226179">iutest::TestEnv::get_report_xml_filepath</a></div><div class="ttdeci">::std::string get_report_xml_filepath()</div><div class="ttdoc">xml 出力パスを取得</div></div>
 <div class="ttc" id="aclassiutest_1_1_i_file_html_a6e0f77bd1fb9a4a386975f2c849a8381a7615d69233c676be957240e011843eea"><div class="ttname"><a href="../../d9/d57/classiutest_1_1_i_file.html#a6e0f77bd1fb9a4a386975f2c849a8381a7615d69233c676be957240e011843eea">iutest::IFile::OpenAppend</a></div><div class="ttdeci">@ OpenAppend</div><div class="ttdoc">追記</div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:40</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年10月21日(水) 13時11分16秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年11月29日(日) 12時20分04秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

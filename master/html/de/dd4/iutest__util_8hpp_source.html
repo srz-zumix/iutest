@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.3</span>
+   &#160;<span id="projectnumber">1.17.99.4</span>
    </div>
   </td>
  </tr>
@@ -75,34 +75,36 @@ $(function() {
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// include</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../dc/dbb/iutest__util__assertion_8hpp.html">util/iutest_util_assertion.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../df/de1/iutest__util__output_8hpp.html">util/iutest_util_output.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../df/d01/iutest__util__quiet__result__printer_8hpp.html">util/iutest_util_quiet_result_printer.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d8/def/iutest__util__tests_8hpp.html">util/iutest_util_tests.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#if defined(MS_CPP_UNITTESTFRAMEWORK)</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../dc/dce/iutest__util__vc__unittest_8hpp.html">util/iutest_util_vc_unittest.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d8/dbf/namespaceiuutil.html">iuutil</a> {}</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="../../d8/dbf/namespaceiuutil.html">   33</a></span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#define IUTEST_FILESYSTEM_INSTANTIATE(file_class_name)  IIUT_FILESYSTEM_INSTANTIATE_(file_class_name)</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga8ba399df1d5004bcfe85532ea984b5e7">   40</a></span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#define IIUT_FILESYSTEM_INSTANTIATE_(file_class_name)   \</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">    static ::iutest::FileSystem&lt; file_class_name &gt; IUTEST_ATTRIBUTE_UNUSED_ s_iutest_filesystem_</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_UTIL_HPP_EBAC3846_4D1E_4B32_A85F_6D6A7CCFAF75_</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">// IWYU pragma: begin_exports</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../dc/dbb/iutest__util__assertion_8hpp.html">util/iutest_util_assertion.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../df/de1/iutest__util__output_8hpp.html">util/iutest_util_output.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../df/d01/iutest__util__quiet__result__printer_8hpp.html">util/iutest_util_quiet_result_printer.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d8/def/iutest__util__tests_8hpp.html">util/iutest_util_tests.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">// IWYU pragma: end_exports</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#if defined(MS_CPP_UNITTESTFRAMEWORK)</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../dc/dce/iutest__util__vc__unittest_8hpp.html">util/iutest_util_vc_unittest.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d8/dbf/namespaceiuutil.html">iuutil</a> {}</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="../../d8/dbf/namespaceiuutil.html">   35</a></span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#define IUTEST_FILESYSTEM_INSTANTIATE(file_class_name)  IIUT_FILESYSTEM_INSTANTIATE_(file_class_name)</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga8ba399df1d5004bcfe85532ea984b5e7">   42</a></span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#define IIUT_FILESYSTEM_INSTANTIATE_(file_class_name)   \</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">    static ::iutest::FileSystem&lt; file_class_name &gt; IUTEST_ATTRIBUTE_UNUSED_ s_iutest_filesystem_</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_UTIL_HPP_EBAC3846_4D1E_4B32_A85F_6D6A7CCFAF75_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
 <div class="ttc" id="aiutest__util__assertion_8hpp_html"><div class="ttname"><a href="../../dc/dbb/iutest__util__assertion_8hpp.html">iutest_util_assertion.hpp</a></div><div class="ttdoc">iris unit test assertion 拡張 ファイル</div></div>
-<div class="ttc" id="anamespaceiuutil_html"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html">iuutil</a></div><div class="ttdoc">iutest utility namespace</div><div class="ttdef"><b>Definition:</b> iutest_util.hpp:33</div></div>
+<div class="ttc" id="anamespaceiuutil_html"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html">iuutil</a></div><div class="ttdoc">iutest utility namespace</div><div class="ttdef"><b>Definition:</b> iutest_util.hpp:35</div></div>
 <div class="ttc" id="aiutest__util__vc__unittest_8hpp_html"><div class="ttname"><a href="../../dc/dce/iutest__util__vc__unittest_8hpp.html">iutest_util_vc_unittest.hpp</a></div><div class="ttdoc">iris unit test, visual studio 11 C++ Unit Test Framework 対応 ファイル</div></div>
 <div class="ttc" id="aiutest__util__output_8hpp_html"><div class="ttname"><a href="../../df/de1/iutest__util__output_8hpp.html">iutest_util_output.hpp</a></div><div class="ttdoc">iris unit test print 出力 utility ファイル</div></div>
 <div class="ttc" id="aiutest__util__tests_8hpp_html"><div class="ttname"><a href="../../d8/def/iutest__util__tests_8hpp.html">iutest_util_tests.hpp</a></div><div class="ttdoc">iris unit test テスト情報 utility ファイル</div></div>
 <div class="ttc" id="aiutest__util__quiet__result__printer_8hpp_html"><div class="ttname"><a href="../../df/d01/iutest__util__quiet__result__printer_8hpp.html">iutest_util_quiet_result_printer.hpp</a></div><div class="ttdoc">iris unit test quiet result printer</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年10月21日(水) 13時11分16秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年11月29日(日) 12時20分04秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

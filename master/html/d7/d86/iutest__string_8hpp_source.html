@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.3</span>
+   &#160;<span id="projectnumber">1.17.99.4</span>
    </div>
   </td>
  </tr>
@@ -516,11 +516,11 @@ $(function() {
 <div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;    {</div>
 <div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;        va_list va2;</div>
 <div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;        iu_va_copy(va2, va);    <span class="comment">// cppcheck-suppress va_list_usedBeforeStarted</span></div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">size_t</span> ret = iu_vsnprintf(NULL, 0, format, va2);</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> ret = iu_vsnprintf(NULL, 0u, format, va2);</div>
 <div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;        va_end(va2);</div>
 <div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;        <span class="keywordflow">if</span>( ret &gt; 0 )</div>
 <div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;        {</div>
-<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;            n = ret + 1;</div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;            n = <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(ret + 1);</div>
 <div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;        }</div>
 <div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;    }</div>
 <div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;    <span class="keywordflow">for</span>( ;; )</div>
@@ -565,13 +565,13 @@ $(function() {
 <div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_STRING_HPP_E22B02D7_E9E7_412C_B609_DC3D9C66895D_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
-<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:31</div></div>
-<div class="ttc" id="anamespaceiutest_html_a62aa2996f3c0266896c334cfcd7b6c50"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a62aa2996f3c0266896c334cfcd7b6c50">iutest::UInt64</a></div><div class="ttdeci">detail::type_fit_t&lt; 8 &gt;::UInt UInt64</div><div class="ttdoc">64 bit 符号なし整数型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:426</div></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_a83b2e224dac8ea0f2f882dc07da5bd04"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a></div><div class="ttdeci">#define IUTEST_CXX_CONSTEXPR</div><div class="ttdoc">constexpr</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:300</div></div>
-<div class="ttc" id="anamespaceiutest_html_a5310e5fc6c9c1a8b16f75992fbc947ee"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a5310e5fc6c9c1a8b16f75992fbc947ee">iutest::UInt32</a></div><div class="ttdeci">detail::type_fit_t&lt; 4 &gt;::UInt UInt32</div><div class="ttdoc">32 bit 符号なし整数型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:424</div></div>
+<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
+<div class="ttc" id="anamespaceiutest_html_a62aa2996f3c0266896c334cfcd7b6c50"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a62aa2996f3c0266896c334cfcd7b6c50">iutest::UInt64</a></div><div class="ttdeci">detail::type_fit_t&lt; 8 &gt;::UInt UInt64</div><div class="ttdoc">64 bit 符号なし整数型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:428</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_a83b2e224dac8ea0f2f882dc07da5bd04"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a></div><div class="ttdeci">#define IUTEST_CXX_CONSTEXPR</div><div class="ttdoc">constexpr</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:347</div></div>
+<div class="ttc" id="anamespaceiutest_html_a5310e5fc6c9c1a8b16f75992fbc947ee"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a5310e5fc6c9c1a8b16f75992fbc947ee">iutest::UInt32</a></div><div class="ttdeci">detail::type_fit_t&lt; 4 &gt;::UInt UInt32</div><div class="ttdoc">32 bit 符号なし整数型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:426</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年10月21日(水) 13時11分14秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年11月29日(日) 12時20分01秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
