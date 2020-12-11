@@ -12,7 +12,8 @@ tasks:
 
   test:
     depends: [build-image]
-    runner: iutest/razorops_test
+    containers:
+      - image: iutest/razorops_test
     steps:
       - checkout
       - commands:
@@ -28,12 +29,14 @@ tasks:
   lint-editorconfig:
     steps:
     - checkout
-    - cache/pull: npm-editor-{{ checksum "package.json" }}
+    - cache/pull:
+        key: npm-cache-[[ checksum "package-lock.json" ]]
+        fallback_key: npm-cache-
     - commands:
       - npm install
       - npm run lint:editorconfig
     - cache/push:
-        key: npm-editor-{{ checksum "package.json" }}
+        key: npm-cache-[[ checksum "package-lock.json" ]]
         paths: [node_modules]
 
 trigger:
