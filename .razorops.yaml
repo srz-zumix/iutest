@@ -42,3 +42,12 @@ tasks:
 trigger:
   ## triggers pipeline only on feature branches and on tags (mind the prefix)
   when: branch in ('master', 'develop') || branch =~ 'razorops.*'
+
+workflows:
+  - name: centos-test
+    tasks:
+      - build-image
+      - test
+  - name: lint
+    tasks:
+      - lint-editorconfig
