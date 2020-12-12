@@ -29,15 +29,15 @@ tasks:
   lint-editorconfig:
     steps:
     - checkout
-    - cache/pull:
-        key: npm-cache-[[ checksum "package-lock.json" ]]
-        fallback_key: npm-cache-
+    # - cache/pull:
+    #     key: npm-cache-[[ checksum "package-lock.json" ]]
+    #     fallback_key: npm-cache-
     - commands:
       - npm install
       - npm run lint:editorconfig
-    - cache/push:
-        key: npm-cache-[[ checksum "package-lock.json" ]]
-        paths: [node_modules]
+    # - cache/push:
+    #     key: npm-cache-[[ checksum "package-lock.json" ]]
+    #     paths: [node_modules]
 
 trigger:
   ## triggers pipeline only on feature branches and on tags (mind the prefix)
