@@ -23,6 +23,9 @@ tasks:
           - make OUTPUTXML=junit test
           - make report
           - cd ..
+      # Note:
+      # Failed to check if bucket(throbbing-shape-1474) exists: Missing fields in request.
+      # bucket throbbing-shape-1474: Missing fields in request.
       # - reports/junit:
       #     paths: [ "test/*.xml" ]
 
@@ -43,11 +46,13 @@ trigger:
   ## triggers pipeline only on feature branches and on tags (mind the prefix)
   when: branch in ('master', 'develop') || branch =~ 'razorops.*'
 
-workflows:
-  - name: centos-test
-    tasks:
-      - build-image
-      - test
-  - name: lint
-    tasks:
-      - lint-editorconfig
+# Note:
+# workflows seems to be unsupported GitHub Checks
+# workflows:
+#   - name: centos-test
+#     tasks:
+#       - build-image
+#       - test
+#   - name: lint
+#     tasks:
+#       - lint-editorconfig
