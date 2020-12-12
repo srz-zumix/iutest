@@ -23,8 +23,8 @@ tasks:
           - make OUTPUTXML=junit test
           - make report
           - cd ..
-      - reports/junit:
-          paths: [ "test/*.xml" ]
+      # - reports/junit:
+      #     paths: [ "test/*.xml" ]
 
   lint-editorconfig:
     steps:
