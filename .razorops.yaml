@@ -12,7 +12,8 @@ tasks:
 
   test:
     depends: [build-image]
-    runner: iutest/razorops_test
+    containers:
+      - image: iutest/razorops_test
     steps:
       - checkout
       - commands:
@@ -22,20 +23,36 @@ tasks:
           - make OUTPUTXML=junit test
           - make report
           - cd ..
-      - reports/junit:
-          paths: [ "test/*.xml" ]
+      # Note:
+      # Failed to check if bucket(throbbing-shape-1474) exists: Missing fields in request.
+      # bucket throbbing-shape-1474: Missing fields in request.
+      # - reports/junit:
+      #     paths: [ "test/*.xml" ]
 
   lint-editorconfig:
     steps:
     - checkout
-    - cache/pull: npm-editor-{{ checksum "package.json" }}
+    # - cache/pull:
+    #     key: npm-cache-[[ checksum "package-lock.json" ]]
+    #     fallback_key: npm-cache-
     - commands:
       - npm install
       - npm run lint:editorconfig
-    - cache/push:
-        key: npm-editor-{{ checksum "package.json" }}
-        paths: [node_modules]
+    # - cache/push:
+    #     key: npm-cache-[[ checksum "package-lock.json" ]]
+    #     paths: [node_modules]
 
 trigger:
   ## triggers pipeline only on feature branches and on tags (mind the prefix)
   when: branch in ('master', 'develop') || branch =~ 'razorops.*'
+
+# Note:
+# workflows seems to be unsupported GitHub Checks
+# workflows:
+#   - name: centos-test
+#     tasks:
+#       - build-image
+#       - test
+#   - name: lint
+#     tasks:
+#       - lint-editorconfig
