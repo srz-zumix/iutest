@@ -1,9 +1,5 @@
 version: v2
 
-global:
-  runner:
-    os_image: ubuntu
-
 tasks:
   build-image:
     steps:
@@ -13,37 +9,50 @@ tasks:
           push: false
           tags: [ "latest" ]
           dockerfile: .ci/docker/centos/Dockerfile
-          context: .
-    when: &condition >
-      branch in ('master', 'develop') ||
-      branch =~ 'razorops.*'
 
   test:
     depends: [build-image]
     containers:
       - image: iutest/razorops_test
     steps:
-      - commands:
-          - echo ${CI_REPO_BRANCH}
       - checkout
       - commands:
-          # - cd /iutest/test
           - uname -a
           - cd test
           - make OUTPUTXML=junit
           - make OUTPUTXML=junit test
           - make report
           - cd ..
-      - reports/junit:
-          paths: [ "test/*.xml" ]
-    when: *condition
+      # Note:
+      # Failed to check if bucket(throbbing-shape-1474) exists: Missing fields in request.
+      # bucket throbbing-shape-1474: Missing fields in request.
+      # - reports/junit:
+      #     paths: [ "test/*.xml" ]
+
+  lint-editorconfig:
+    steps:
+    - checkout
+    # - cache/pull:
+    #     key: npm-cache-[[ checksum "package-lock.json" ]]
+    #     fallback_key: npm-cache-
+    - commands:
+      - npm install
+      - npm run lint:editorconfig
+    # - cache/push:
+    #     key: npm-cache-[[ checksum "package-lock.json" ]]
+    #     paths: [node_modules]
 
 trigger:
   ## triggers pipeline only on feature branches and on tags (mind the prefix)
-  if: branch in ('master', 'develop') || branch =~ /razorops.*/
+  when: branch in ('master', 'develop') || branch =~ 'razorops.*'
 
-workflows:
-  - name: centos-test
-    tasks:
-      - build-image
-      - test
+# Note:
+# workflows seems to be unsupported GitHub Checks
+# workflows:
+#   - name: centos-test
+#     tasks:
+#       - build-image
+#       - test
+#   - name: lint
+#     tasks:
+#       - lint-editorconfig
