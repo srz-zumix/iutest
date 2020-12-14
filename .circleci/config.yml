@@ -12,7 +12,7 @@ aliases:
     working_directory: ~/srz-zumix/iutest
     shell: /bin/bash --login
     docker:
-      - image: circleci/buildpack-deps:eoan-curl
+      - image: circleci/buildpack-deps:focal-curl
         environment:
           CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
           CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
