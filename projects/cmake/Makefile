@@ -9,11 +9,15 @@ help: ## show help
 ios-clean: ## ios example clean
 	rm -rf tmp/mac
 
-ios: ios-example ## ios example & build
+ios: ios-example ## ios example & cmake build
 	cd tmp/ios && cmake --build ./
 
+ios-xcodebuild: ios-example ## ios example & xcodebuild
+	cd tmp/ios && xcodebuild -scheme "ALL_BUILD" clean archive -archivePath "./tmp/build.xcarchive" -derivedDataPath "./DerivedData" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO COMPILER_INDEX_STORE_ENABLE=NO -project "iutest.xcodeproj"
+
 ios-simu: ios-example ## ios simulator example & build
-	cd tmp/ios && xcodebuild -scheme "ALL_BUILD" BUILD_DIR="./tmp/ios/SimulatorBuildDir" -derivedDataPath "./SimulatorDerivedData" -configuration "Debug" COMPILER_INDEX_STORE_ENABLE=NO -sdk iphonesimulator -arch x86_64 -project "iutest.xcodeproj"
+	cd tmp/ios && xcodebuild -scheme "ALL_BUILD" BUILD_DIR="./tmp/ios/SimulatorBuildDir" -derivedDataPath "./SimulatorDerivedData" -configuration "Debug" COMPILER_INDEX_STORE_ENABLE=NO  ONLY_ACTIVE_ARCH=NO -arch x86_64 -project "iutest.xcodeproj"
+	# cd tmp/ios && xcodebuild -scheme "ALL_BUILD" BUILD_DIR="./tmp/ios/SimulatorBuildDir" -derivedDataPath "./SimulatorDerivedData" -configuration "Debug" COMPILER_INDEX_STORE_ENABLE=NO -sdk iphonesimulator -arch x86_64 -project "iutest.xcodeproj"
 
 ios-cmake: tmp/ios-cmake
 tmp/ios-cmake:
