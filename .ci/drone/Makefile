@@ -5,6 +5,7 @@ help: ## show help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sed -e 's/^GNUmakefile://' | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 
+EMPTY_DOCKERCONFIG=Dockerconfig-empty.json
 SOURCE_DOCKERCONFIG=Dockerconfig.json
 # SOURCE_DOCKERCONFIG=test-Dockerconfig.json
 
@@ -32,3 +33,9 @@ setup: ${SOURCE_DOCKERCONFIG} ## setup drone.io configuration
 		--allow-pull-request \
 		--name dockerconfig \
 		--data @./${SOURCE_DOCKERCONFIG}
+
+empty:
+	drone secret update --repository srz-zumix/iutest \
+		--allow-pull-request \
+		--name dockerconfig \
+		--data @./${EMPTY_DOCKERCONFIG}
