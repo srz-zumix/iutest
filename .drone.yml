@@ -6,8 +6,8 @@ trigger:
     - master
     - develop
 
-image_pull_secrets:
-  - dockerconfig
+# image_pull_secrets:
+#   - dockerconfig
 
 steps:
   - &gcc
