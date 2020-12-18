@@ -1,9 +1,15 @@
 {
   "auths": {
+    "https://index.docker.io/v1/": {
+      "auth": "REPLACE_USER_AND_TOKEN_BASE64"
+    },
     "index.docker.io/v1/": {
       "auth": "REPLACE_USER_AND_TOKEN_BASE64"
     },
-    "registry-1.docker.io/v2": {
+    "https://registry-1.docker.io/v2/": {
+      "auth": "REPLACE_USER_AND_TOKEN_BASE64"
+    },
+    "registry-1.docker.io/v2/": {
       "auth": "REPLACE_USER_AND_TOKEN_BASE64"
     },
     "docker.io": {

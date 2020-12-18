@@ -8,11 +8,13 @@ help: ## show help
 SOURCE_DOCKERCONFIG=Dockerconfig.json
 # SOURCE_DOCKERCONFIG=test-Dockerconfig.json
 
-Dockerconfig.json:
+generate_json: Dockerconfig-sample.json
 	@if [ -z "${DOCKERHUB_DRONE_USER}" ]; then echo need DOCKERHUB_DRONE_USER; exit 1; fi
 	@if [ -z "${DOCKERHUB_DRONE_TOKEN}" ]; then echo need DOCKERHUB_DRONE_TOKEN; exit 1; fi
 	echo -n '${DOCKERHUB_DRONE_USER}:${DOCKERHUB_DRONE_TOKEN}' | base64 \
 		| xargs -I {} sed -e "s/REPLACE_USER_AND_TOKEN_BASE64/{}/g" Dockerconfig-sample.json > Dockerconfig.json
+
+Dockerconfig.json: generate_json
 
 #
 # Add Secrets
@@ -21,8 +23,10 @@ Dockerconfig.json:
 #
 setup: ${SOURCE_DOCKERCONFIG} ## setup drone.io configuration
 	drone secret update --repository srz-zumix/iutest \
+		--allow-pull-request \
 		--name dockerconfig \
 		--data @./${SOURCE_DOCKERCONFIG} || \
 	drone secret add --repository srz-zumix/iutest \
+		--allow-pull-request \
 		--name dockerconfig \
 		--data @./${SOURCE_DOCKERCONFIG}
