@@ -1,19 +1,19 @@
 {
   "auths": {
     "https://index.docker.io/v1/": {
-      "auth": "REPLACE_USER_AND_TOKEN_BASE64"
+      "auth": "REPLACE_USER_AND_TOKEN"
     },
     "index.docker.io/v1/": {
-      "auth": "REPLACE_USER_AND_TOKEN_BASE64"
+      "auth": "REPLACE_USER_AND_TOKEN"
     },
     "https://registry-1.docker.io/v2/": {
-      "auth": "REPLACE_USER_AND_TOKEN_BASE64"
+      "auth": "REPLACE_USER_AND_TOKEN"
     },
     "registry-1.docker.io/v2/": {
-      "auth": "REPLACE_USER_AND_TOKEN_BASE64"
+      "auth": "REPLACE_USER_AND_TOKEN"
     },
     "docker.io": {
-      "auth": "REPLACE_USER_AND_TOKEN_BASE64"
+      "auth": "REPLACE_USER_AND_TOKEN"
     }
   }
 }
