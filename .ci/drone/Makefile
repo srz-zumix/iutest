@@ -5,6 +5,9 @@ help: ## show help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sed -e 's/^GNUmakefile://' | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 
+SOURCE_DOCKERCONFIG=Dockerconfig.json
+# SOURCE_DOCKERCONFIG=test-Dockerconfig.json
+
 Dockerconfig.json:
 	@if [ -z "${DOCKERHUB_DRONE_USER}" ]; then echo need DOCKERHUB_DRONE_USER; exit 1; fi
 	@if [ -z "${DOCKERHUB_DRONE_TOKEN}" ]; then echo need DOCKERHUB_DRONE_TOKEN; exit 1; fi
@@ -16,10 +19,10 @@ Dockerconfig.json:
 #  Dockerconfig.json : Dockerhub login auth
 #                      https://docs.drone.io/pipeline/docker/syntax/images/#pulling-private-images
 #
-setup: Dockerconfig.json ## setup drone.io configuration
+setup: ${SOURCE_DOCKERCONFIG} ## setup drone.io configuration
 	drone secret update --repository srz-zumix/iutest \
 		--name dockerconfig \
-		--data @./Dockerconfig.json || \
+		--data @./${SOURCE_DOCKERCONFIG} || \
 	drone secret add --repository srz-zumix/iutest \
 		--name dockerconfig \
-		--data @./Dockerconfig.json
+		--data @./${SOURCE_DOCKERCONFIG}
