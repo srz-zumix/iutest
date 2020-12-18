@@ -13,7 +13,7 @@ steps:
   - &gcc
     name: 10
     image: gcc:10
-    pull: if-not-exists
+    # pull: if-not-exists
     commands:
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - make showcxxversion && make clean && make -j4 $${MAKE_OPTIONS}
@@ -62,7 +62,7 @@ steps:
   - &gcc
     name: 5.5
     image: gcc:5.5
-    pull: if-not-exists
+    # pull: if-not-exists
     commands:
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - make showcxxversion && make clean && make -j4 $${MAKE_OPTIONS}
@@ -124,7 +124,7 @@ steps:
   - &clang
     name: 11
     image: teeks99/clang-ubuntu:11
-    pull: if-not-exists
+    # pull: if-not-exists
     commands:
       - apt-get update && apt-get -qq -y install curl
       - export CC=clang-$${DRONE_STEP_NAME}
@@ -181,7 +181,7 @@ steps:
   - &clang
     name: 3.9
     image: teeks99/clang-ubuntu:3.9
-    pull: if-not-exists
+    # pull: if-not-exists
     commands:
       - apt-get update && apt-get -qq -y install curl
       - export CC=clang-$${DRONE_STEP_NAME}
@@ -264,7 +264,7 @@ steps:
   - &gcc
     name: gcc-10-c++98
     image: gcc:10
-    pull: if-not-exists
+    # pull: if-not-exists
     commands: &syntax-test-commands
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - make clean && make run_syntax_tests report $${MAKE_OPTIONS}
@@ -313,7 +313,7 @@ steps:
   - &clang
     name: 11
     image: teeks99/clang-ubuntu:11
-    pull: if-not-exists
+    # pull: if-not-exists
     commands:
       - apt-get update && apt-get -qq -y install curl
       - export CC=clang-$${DRONE_STEP_NAME}
