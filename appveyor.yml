@@ -3,72 +3,62 @@ version: 1.0.{build}
 environment:
   matrix:
     # Visual Studio
-    - job_name: VS2013
-      job_group: VisualStudio
+    - job_group: VisualStudio
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
       PROJECT_DIR: vs2013
       CMAKE_GENERATOR_NAME: Visual Studio 12 2013
-    - job_name: VS2015
-      job_group: VisualStudio
+    - job_group: VisualStudio
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       PROJECT_DIR: vs2015
       CMAKE_GENERATOR_NAME: Visual Studio 14 2015
-    - job_name: VS2017
-      job_group: VisualStudio
+    - job_group: VisualStudio
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       PROJECT_DIR: vs2017
       CMAKE_GENERATOR_NAME: Visual Studio 15 2017
-    - job_name: VS2019
-      job_group: VisualStudio
+    - job_group: VisualStudio
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       PROJECT_DIR: vs2019
       CMAKE_GENERATOR_NAME: Visual Studio 16 2019
     # Cygwin
-    - job_name: Cygwin
-      job_group: Cygwin
+    - job_group: Cygwin
       job_depends_on: VisualStudio
       BUILD_CYGWIN: yes
       USE_GNU_EXTENSION: 0
-    - BUILD_CYGWIN: yes
+    - job_group: Cygwin
+      job_depends_on: VisualStudio
+      BUILD_CYGWIN: yes
       USE_GNU_EXTENSION: 1
     # MINGW/MINGW64
-    - job_name: MINGW
-      job_group: MINGW
+    - job_group: MINGW
       job_depends_on: VisualStudio
       BUILD_MINGW: yes
       USE_GNU_EXTENSION: 0
     # MINGW/MINGW64 GNU EXTENSION
-    - job_name: MINGW-GNU
-      job_group: MINGW
+    - job_group: MINGW
       job_depends_on: VisualStudio
       BUILD_MINGW: yes
       USE_GNU_EXTENSION: 1
     # NMAKE
-    - job_name: NMAKE
-      job_group: VisualStudio
+    - job_group: VisualStudio
       job_depends_on: VS2017
       BUILD_NMAKE: yes
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     # Prefast
-    - job_name: Prefast
-      job_group: VisualStudio
+    - job_group: VisualStudio
       job_depends_on: VS2015
       BUILD_PREFAST: yes
       PROJECT_DIR: vs2015
     # Menu
-    - job_name: MenuUtil
-      job_group: VisualStudio
+    - job_group: VisualStudio
       BUILD_MENU: yes
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
     # Package Build
-    - job_name: PackageBuild
-      job_group: Package
+    - job_group: Package
       job_depends_on: VisualStudio
       BUILD_PACKAGE: yes
       APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
     # Nuget
-    - job_name: Nuget
-      job_group: Package
+    - job_group: Package
       job_depends_on: VisualStudio
       BUILD_NUGET: yes
 
