@@ -3,7 +3,7 @@ version: 1.0.{build}
 environment:
   matrix:
     # Visual Studio
-    - job_name: VS2013 - ${CONFIGURATION} - ${PLATFORM}
+    - job_name: VS2013 - %CONFIGURATION% - %PLATFORM%
       job_group: VisualStudio
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
       PROJECT_DIR: vs2013
