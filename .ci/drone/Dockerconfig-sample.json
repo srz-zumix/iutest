@@ -5,7 +5,7 @@
     },
     "registry-1.docker.io/v2/": {
       "auth": "REPLACE_USER_AND_TOKEN"
-    },
+    }
   }
 }
 
