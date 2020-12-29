@@ -3,7 +3,8 @@ version: 1.0.{build}
 environment:
   matrix:
     # Visual Studio
-    - job_group: VisualStudio
+    - job_name: VS2013 - ${CONFIGURATION} - ${PLATFORM}
+      job_group: VisualStudio
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
       PROJECT_DIR: vs2013
       CMAKE_GENERATOR_NAME: Visual Studio 12 2013
@@ -70,6 +71,8 @@ platform:
   - x64
 
 matrix:
+  # the first failed job cancels other jobs and fails entire build
+  fast_finish: true
   exclude:
     - configuration: Debug
       BUILD_CYGWIN: yes
