@@ -272,6 +272,8 @@ IUTEST(FileSystem, PathPrintTo)
     }
 }
 
+#if IUTEST_HAS_CXX2A
+
 IUTEST(FileSystem, StatusCompare)
 {
     {
@@ -280,6 +282,8 @@ IUTEST(FileSystem, StatusCompare)
         IUTEST_EXPECT_EQ(v1, v2);
     }
 }
+
+#endif
 
 IUTEST(FileSystem, StatusPrintTo)
 {
