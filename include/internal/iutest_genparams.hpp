@@ -762,7 +762,7 @@ private:
                 IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_STATICCAST_, T, m_g) );         \
         }                                                       \
         IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_CONCAT_()            \
-    private: _Myt& operator = (const _Myt&);                    \
+    private: _Myt& operator = (const _Myt&) IUTEST_CXX_DELETED_FUNCTION;    \
         IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_VARIABLE_, const Generator, m_g)      \
     }
 

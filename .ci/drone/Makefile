@@ -36,7 +36,7 @@ setup: ${SOURCE_DOCKERCONFIG} ## setup drone.io configuration
 		--name dockerconfig \
 		--data @./${SOURCE_DOCKERCONFIG}
 
-empty:
+empty: ## setup drone.io empty dockerconfig
 	drone secret update --repository srz-zumix/iutest \
 		--allow-pull-request \
 		--name dockerconfig \
