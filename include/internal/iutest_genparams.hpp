@@ -1304,7 +1304,7 @@ public:
     }
 
 private:
-    _Myt& operator = (const _Myt&);
+    _Myt& operator = (const _Myt&) IUTEST_CXX_DELETED_FUNCTION;
 private:
     const Generator1 m_g1;
     const Generator2 m_g2;
@@ -1336,7 +1336,7 @@ private:
                 IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_PAIRWISE_HOLDER_STATICCAST_, T, m_g) );          \
         }                                                       \
         IIUT_DECL_PAIRWISE_HOLDER_CONCAT_()                     \
-    private: _Myt& operator = (const _Myt&);                    \
+    private: _Myt& operator = (const _Myt&) IUTEST_CXX_DELETED_FUNCTION;    \
         IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_PAIRWISE_HOLDER_VARIABLE_, const Generator, m_g)       \
     }
 
