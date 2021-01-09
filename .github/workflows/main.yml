@@ -81,15 +81,15 @@ jobs:
     env:
       PYTHON_VERSION: 3.8
     steps:
+    - name: login check
+      run: |
+        echo a | docker login
     - uses: actions/checkout@master
     - uses: actions/setup-python@v2
       with:
         python-version: ${{ env.PYTHON_VERSION }}
     - name: Set Python environment variable
       run: echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> $GITHUB_ENV
-    - nmae: login check
-      run: |
-        echo a | docker login
     - name: zapcc test
       run: |
         make -C test clean
