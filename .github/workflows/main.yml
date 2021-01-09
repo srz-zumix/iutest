@@ -81,6 +81,9 @@ jobs:
     env:
       PYTHON_VERSION: 3.8
     steps:
+    - nmae: login check
+      run: |
+        echo a | docker login
     - uses: actions/checkout@master
     - uses: actions/setup-python@v2
       with:
