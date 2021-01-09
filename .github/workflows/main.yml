@@ -87,6 +87,9 @@ jobs:
         python-version: ${{ env.PYTHON_VERSION }}
     - name: Set Python environment variable
       run: echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> $GITHUB_ENV
+    - nmae: login check
+      run: |
+        echo a | docker login
     - name: zapcc test
       run: |
         make -C test clean
