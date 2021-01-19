@@ -167,6 +167,11 @@ build:
 test_script:
   cmd: cd build && ctest -C %Configuration% -V
 
+on_finish:
+  - sh: |
+      ls $APPVEYOR_BUILD_FOLDER/test
+      find "$APPVEYOR_BUILD_FOLDER/test" -type f -name '*.xml' -print0 | xargs -0 -I '{}' curl -F 'file=@{}' "https://ci.appveyor.com/api/testresults/junit/$APPVEYOR_JOB_ID"
+
 on_failure:
   # wait RDP connect
   ps: |
@@ -217,7 +222,7 @@ for:
       make showcxxmacros
       make -j4
   test_script:
-    cmd: make test && make report
+    cmd: make test OUTPUTXML=junit && make report
 # MINGW
 -
   matrix:
