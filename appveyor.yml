@@ -169,6 +169,7 @@ test_script:
 
 on_finish:
   - sh: |
+      ls $APPVEYOR_BUILD_FOLDER/test
       find "$APPVEYOR_BUILD_FOLDER/test" -type f -name '*.xml' -print0 | xargs -0 -I '{}' curl -F 'file=@{}' "https://ci.appveyor.com/api/testresults/junit/$APPVEYOR_JOB_ID"
 
 on_failure:
