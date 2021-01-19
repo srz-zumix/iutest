@@ -167,11 +167,6 @@ build:
 test_script:
   cmd: cd build && ctest -C %Configuration% -V
 
-on_finish:
-  - sh: |
-      ls $APPVEYOR_BUILD_FOLDER/test
-      find "$APPVEYOR_BUILD_FOLDER/test" -type f -name '*.xml' -print0 | xargs -0 -I '{}' curl -F 'file=@{}' "https://ci.appveyor.com/api/testresults/junit/$APPVEYOR_JOB_ID"
-
 on_failure:
   # wait RDP connect
   ps: |
@@ -179,6 +174,11 @@ on_failure:
     if($commit_message.Contains("[appveyor rdp]")) {
       $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
     }
+
+on_finish:
+  cmd: |
+      ls $APPVEYOR_BUILD_FOLDER/test
+      find "$APPVEYOR_BUILD_FOLDER/test" -type f -name '*.xml' -print0 | xargs -0 -I '{}' curl -F 'file=@{}' "https://ci.appveyor.com/api/testresults/junit/$APPVEYOR_JOB_ID"
 
 for:
 # Build .sln (no cmake)
