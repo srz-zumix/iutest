@@ -165,7 +165,7 @@ build:
   verbosity: minimal
 
 test_script:
-  cmd: cd build && ctest -C %Configuration% -V
+  cmd: cd build && ctest -C %Configuration% -V -T Test
 
 on_failure:
   # wait RDP connect
@@ -174,6 +174,22 @@ on_failure:
     if($commit_message.Contains("[appveyor rdp]")) {
       $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
     }
+
+on_finish:
+  # ps: |
+  #   $XSLInputElement = New-Object System.Xml.Xsl.XslCompiledTransform
+  #   $XSLInputElement.Load("https://raw.githubusercontent.com/rpavlik/jenkins-ctest-plugin/master/ctest-to-junit.xsl")
+  #   $TestXmlFile = Get-Childitem –Path "$($env:APPVEYOR_BUILD_FOLDER)" -Include *Test.xml* -File -Recurse -ErrorAction SilentlyContinue
+  #   $XSLInputElement.Transform($TestXmlFile, (Join-Path (Resolve-Path .) "ctest-to-junit-results.xml"))
+  #   $wc = New-Object 'System.Net.WebClient'
+  #   $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\ctest-to-junit-results.xml))
+  cmd: |
+      ls %APPVEYOR_BUILD_FOLDER%/build
+      ls %APPVEYOR_BUILD_FOLDER%/build/Testing/
+      cd "%APPVEYOR_BUILD_FOLDER%/build/Testing/"
+      find . -type f  -name *.xml
+      cd %APPVEYOR_BUILD_FOLDER%/test
+      find . -type f -name '*.xml' -print0 | xargs -0 -I '{}' curl -F 'file=@{}' "https://ci.appveyor.com/api/testresults/junit/%APPVEYOR_JOB_ID%"
 
 for:
 # Build .sln (no cmake)
@@ -217,7 +233,7 @@ for:
       make showcxxmacros
       make -j4
   test_script:
-    cmd: make test && make report
+    cmd: make test OUTPUTXML=junit && make report
 # MINGW
 -
   matrix:
@@ -250,7 +266,7 @@ for:
   build_script:
     cmd: cd test && nmake showcxxmacros && nmake minimum_tests && minimum_tests.exe --spec
   test_script:
-    cmd: nmake test
+    cmd: nmake test OUTPUTXML=junit
 # Prefast
 -
   matrix:
