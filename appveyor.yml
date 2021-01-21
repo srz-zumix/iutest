@@ -176,15 +176,15 @@ on_failure:
     }
 
 on_finish:
-  ps: |
-    $XSLInputElement = New-Object System.Xml.Xsl.XslCompiledTransform
-    $XSLInputElement.Load("https://raw.githubusercontent.com/rpavlik/jenkins-ctest-plugin/master/ctest-to-junit.xsl")
-    $TestXmlFile = Get-Childitem –Path "$($env:APPVEYOR_BUILD_FOLDER)" -Include *Test.xml* -File -Recurse -ErrorAction SilentlyContinue
-    $XSLInputElement.Transform($TestXmlFile, (Join-Path (Resolve-Path .) "ctest-to-junit-results.xml"))
-    $wc = New-Object 'System.Net.WebClient'
-    $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\ctest-to-junit-results.xml))
-
+  # ps: |
+  #   $XSLInputElement = New-Object System.Xml.Xsl.XslCompiledTransform
+  #   $XSLInputElement.Load("https://raw.githubusercontent.com/rpavlik/jenkins-ctest-plugin/master/ctest-to-junit.xsl")
+  #   $TestXmlFile = Get-Childitem –Path "$($env:APPVEYOR_BUILD_FOLDER)" -Include *Test.xml* -File -Recurse -ErrorAction SilentlyContinue
+  #   $XSLInputElement.Transform($TestXmlFile, (Join-Path (Resolve-Path .) "ctest-to-junit-results.xml"))
+  #   $wc = New-Object 'System.Net.WebClient'
+  #   $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\ctest-to-junit-results.xml))
   cmd: |
+      find %APPVEYOR_BUILD_FOLDER% -type f  -name *.xml
       ls %APPVEYOR_BUILD_FOLDER%/test
       find "%APPVEYOR_BUILD_FOLDER%/test" -type f -name '*.xml' -print0 | xargs -0 -I '{}' curl -F 'file=@{}' "https://ci.appveyor.com/api/testresults/junit/%APPVEYOR_JOB_ID%"
 
