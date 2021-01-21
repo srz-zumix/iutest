@@ -185,8 +185,8 @@ on_finish:
   #   $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\ctest-to-junit-results.xml))
   cmd: |
       ls %APPVEYOR_BUILD_FOLDER%/build
-      ls %APPVEYOR_BUILD_FOLDER%/build/Testing
-      find "%APPVEYOR_BUILD_FOLDER%/build/Testing" -type f  -name *.xml
+      ls %APPVEYOR_BUILD_FOLDER%/build/Testing/20210121-1111
+      find "%APPVEYOR_BUILD_FOLDER%/build/Testing/20210121-1111" -type f  -name *.xml
       ls %APPVEYOR_BUILD_FOLDER%/test
       find "%APPVEYOR_BUILD_FOLDER%/test" -type f -name '*.xml' -print0 | xargs -0 -I '{}' curl -F 'file=@{}' "https://ci.appveyor.com/api/testresults/junit/%APPVEYOR_JOB_ID%"
 
