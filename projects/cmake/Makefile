@@ -45,3 +45,11 @@ mac-example: ## mac example
 	mkdir -p tmp/mac && cd tmp/mac \
 	&& cmake ../../../../projects/cmake -G "Xcode" -DCMAKE_XCODE_GENERATE_SCHEME=TRUE -Dbuild_use_gtest_configuration=OFF \
 	&& xcodebuild -project iutest.xcodeproj -list
+
+#
+#
+default: ## cmake default
+	mkdir -p tmp/default && cd tmp/default \
+	&& cmake ../../../../projects/cmake -Dbuild_use_gtest_configuration=OFF \
+	&& cmake --build . \
+	&& ctest -T Test .
