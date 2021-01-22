@@ -31,12 +31,12 @@ void FileSystemCallTest()
 class TestFileSystem : public ::iutest::detail::IFileSystem
 {
 private:
-    virtual ::iutest::IFile* Create(void) IUTEST_CXX_OVERRIDE
+    virtual ::iutest::IFile* Create(void) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         is_call_create = true;
         return NULL;
     }
-    virtual void Delete(::iutest::IFile*) IUTEST_CXX_OVERRIDE
+    virtual void Delete(::iutest::IFile*) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         is_call_delete = true;
     }

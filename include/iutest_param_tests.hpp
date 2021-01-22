@@ -176,7 +176,7 @@
     IIUT_TEST_P_FIXTURE_DECL_(testsuite_)                                                   \
     class classname_ : public testsuite_ {                                                  \
         public: classname_() {}                                                             \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE;                                 \
+        protected: virtual void Body() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;                                 \
         private: static int AddRegister() {                                                 \
             static ::iutest::detail::ParamTestInstance< classname_ > testinfo(testname_);   \
             IIUT_GETTESTSUITEPATTERNHOLDER(testsuite_, testsuitename_                       \
@@ -193,7 +193,7 @@
 #define IIUT_TEST_P_I_IGNORE_(classname_, testsuite_, testsuitename_, testname_)            \
     class classname_ : public testsuite_ {                                                  \
         public: classname_() {}                                                             \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
+        protected: virtual void Body() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { IUTEST_SKIP() << "ignored test..."; }  \
         template<typename T>void Body();                                                    \
         private: static int AddRegister() {                                                 \
             static ::iutest::detail::ParamTestInstance< classname_ > testinfo(testname_);   \
@@ -304,7 +304,7 @@ class ParamTestInstance : public IParamTestInfoData
             UnitTest::instance().AddTestInfo(testsuite, &m_info);
         }
     private:
-        virtual void SetParam(const ParamType& param) IUTEST_CXX_OVERRIDE
+        virtual void SetParam(const ParamType& param) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
         {
             m_factory.SetParam(param);
             m_info.set_value_param(PrintToString(param).c_str());
@@ -321,7 +321,7 @@ public:
 private:
     // TestSuite の作成
     virtual TestSuite* MakeTestSuite(const ::std::string& testsuite_name, TestTypeId id
-        , SetUpMethod setup, TearDownMethod teardown) const IUTEST_CXX_OVERRIDE
+        , SetUpMethod setup, TearDownMethod teardown) const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
         return UnitTest::instance().AddTestSuite<TestSuite>(testsuite_name, id, setup, teardown);
@@ -333,7 +333,7 @@ private:
 
     // テストの作成登録
     virtual IParamTestInfoData::EachTestBase* RegisterTest(TestSuite* testsuite
-                                                        , const ::std::string& name) const IUTEST_CXX_OVERRIDE
+                                                        , const ::std::string& name) const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         EachTest* test = new EachTest(testsuite, name);
         // new オブジェクトを管理してもらう

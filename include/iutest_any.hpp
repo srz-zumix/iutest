@@ -134,15 +134,15 @@ private:
     public:
         explicit holder(const T& v) : held(v) {}
     public:
-        virtual type_id type() const IUTEST_CXX_OVERRIDE
+        virtual type_id type() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
         {
             return internal::GetTypeId<T>();
         }
-        virtual placeholder* clone() const IUTEST_CXX_OVERRIDE
+        virtual placeholder* clone() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
         {
             return new holder<T>(held);
         }
-        virtual ::std::string to_string() const IUTEST_CXX_OVERRIDE
+        virtual ::std::string to_string() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
         {
             return PrintToString(held);
         }

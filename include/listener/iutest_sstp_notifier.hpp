@@ -358,18 +358,18 @@ public:
     explicit SSTPNotifier(const char* host, int port=detail::SSTP::DEFAULT_PORT);
 
 public:
-    virtual void OnTestProgramStart(const UnitTest& test) IUTEST_CXX_OVERRIDE;
+    virtual void OnTestProgramStart(const UnitTest& test) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;
     virtual void OnTestIterationStart(const UnitTest& test
-                                    , int iteration) IUTEST_CXX_OVERRIDE;
-    virtual void OnTestSuiteStart(const TestSuite& test_suite) IUTEST_CXX_OVERRIDE;
-    virtual void OnTestStart(const TestInfo& test_info) IUTEST_CXX_OVERRIDE;
-    virtual void OnTestPartResult(const TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE;
-    virtual void OnTestRecordProperty(const TestProperty& test_property) IUTEST_CXX_OVERRIDE;
-    virtual void OnTestEnd(const TestInfo& test_info) IUTEST_CXX_OVERRIDE;
-    virtual void OnTestSuiteEnd(const TestSuite& test_suite) IUTEST_CXX_OVERRIDE;
+                                    , int iteration) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;
+    virtual void OnTestSuiteStart(const TestSuite& test_suite) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;
+    virtual void OnTestStart(const TestInfo& test_info) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;
+    virtual void OnTestPartResult(const TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;
+    virtual void OnTestRecordProperty(const TestProperty& test_property) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;
+    virtual void OnTestEnd(const TestInfo& test_info) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;
+    virtual void OnTestSuiteEnd(const TestSuite& test_suite) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;
     virtual void OnTestIterationEnd(const UnitTest& test
-                                    , int iteration) IUTEST_CXX_OVERRIDE;
-    virtual void OnTestProgramEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
+                                    , int iteration) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;
+    virtual void OnTestProgramEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;
 
 private:
     ::std::string FormatMessage(const ::std::string& path);

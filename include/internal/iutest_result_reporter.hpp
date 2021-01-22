@@ -138,7 +138,7 @@ public:
         {
             m_holder.Attach(this);
         }
-        virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
+        virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
         {
             if( m_cond(result) )
             {
@@ -166,7 +166,7 @@ public:
             m_holder.Attach(this);
         }
     public:
-        virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
+        virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
         {
             m_results.push_back(result);
             _Mybase::ReportTestPartResult(result);

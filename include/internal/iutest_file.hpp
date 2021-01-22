@@ -163,8 +163,8 @@ template<typename FILE>
 class FileSystem : public detail::IFileSystem
 {
 private:
-    virtual IFile*  Create() IUTEST_CXX_OVERRIDE        { return new FILE; }
-    virtual void    Delete(IFile* ptr) IUTEST_CXX_OVERRIDE  { detail::Delete<FILE>(static_cast<FILE*>(ptr)); }
+    virtual IFile*  Create() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return new FILE; }
+    virtual void    Delete(IFile* ptr) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { detail::Delete<FILE>(static_cast<FILE*>(ptr)); }
 };
 
 
@@ -303,12 +303,12 @@ public:
     /**
      * @brief   閉じる
     */
-    virtual void Close() IUTEST_CXX_OVERRIDE
+    virtual void Close() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         m_fp = NULL;
     }
 private:
-    virtual bool OpenImpl(const char* , int ) IUTEST_CXX_OVERRIDE
+    virtual bool OpenImpl(const char* , int ) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         m_fp = stderr;
         return true;
@@ -402,12 +402,12 @@ namespace detail
 class NoEffectFile : public IFile
 {
 public:
-    virtual void Close() IUTEST_CXX_OVERRIDE {}
-    virtual bool Write(const void*, size_t, size_t) IUTEST_CXX_OVERRIDE { return true;  }
-    virtual bool Read(void*, size_t, size_t) IUTEST_CXX_OVERRIDE { return true; }
-    virtual size_t GetSize() IUTEST_CXX_OVERRIDE { return 0; }
+    virtual void Close() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL {}
+    virtual bool Write(const void*, size_t, size_t) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return true;  }
+    virtual bool Read(void*, size_t, size_t) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return true; }
+    virtual size_t GetSize() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return 0; }
 private:
-    virtual bool OpenImpl(const char*, int) IUTEST_CXX_OVERRIDE { return true; }
+    virtual bool OpenImpl(const char*, int) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return true; }
 };
 
 }   // end of namespace detail
