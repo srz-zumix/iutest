@@ -101,11 +101,11 @@ private:
         }
     }
 public:
-    virtual void OnTestProgramStart(const UnitTest& test) IUTEST_CXX_OVERRIDE
+    virtual void OnTestProgramStart(const UnitTest& test) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         IUTEST_UNUSED_VAR(test);
     }
-    virtual void OnTestRecordProperty(const TestProperty& test_property) IUTEST_CXX_OVERRIDE
+    virtual void OnTestRecordProperty(const TestProperty& test_property) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         IUTEST_UNUSED_VAR(test_property);
     }

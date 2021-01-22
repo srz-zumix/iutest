@@ -258,7 +258,7 @@ namespace inform_support
 class DefaultPrinter : public ::testing::EmptyTestEventListener
 {
 private:
-    virtual void OnTestPartResult(const TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE
+    virtual void OnTestPartResult(const TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         if( ::testing::UnitTest::GetInstance()->listeners().default_result_printer() == NULL )
         {

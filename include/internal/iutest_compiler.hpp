@@ -715,7 +715,7 @@
 #  if IUTEST_HAS_OVERRIDE_AND_FINAL
 #    define IUTEST_CXX_OVERRIDE     override
 #  else
-#    define IUTEST_CXX_OVERRIDE
+#    define IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
 #  endif
 #endif
 

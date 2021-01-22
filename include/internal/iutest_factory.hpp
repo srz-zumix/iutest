@@ -49,7 +49,7 @@ template<class Tester>
 class iuFactory : public iuFactoryBase
 {
 public:
-    virtual auto_ptr<Test> Create() IUTEST_CXX_OVERRIDE
+    virtual auto_ptr<Test> Create() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         auto_ptr<Test> p( new Tester() );
         return p;
@@ -90,7 +90,7 @@ public:
     explicit iuParamTestFactory(ParamType param) : _Mybase(param) {}
 
 public:
-    virtual auto_ptr<Test> Create() IUTEST_CXX_OVERRIDE
+    virtual auto_ptr<Test> Create() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         Tester::SetParam(&this->m_param);
         auto_ptr<Test> p( new Tester() );

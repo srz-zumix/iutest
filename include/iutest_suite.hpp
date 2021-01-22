@@ -287,7 +287,7 @@ protected:
 
 public:
     /** type param 文字列の取得 */
-    virtual const char* type_param() const IUTEST_CXX_OVERRIDE
+    virtual const char* type_param() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         return m_type_param.empty() ? NULL : m_type_param.c_str();
     }

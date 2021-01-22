@@ -495,22 +495,22 @@ public:
     iuCartesianProductGenerator() {}
 
 public:
-    virtual void Begin() IUTEST_CXX_OVERRIDE
+    virtual void Begin() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         tuples::tuple_foreach(v, begin_func());
     }
-    virtual void Next() IUTEST_CXX_OVERRIDE
+    virtual void Next() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         if( !IsEnd() )
         {
             next_foreach<0, kCount>(v);
         }
     }
-    virtual bool IsEnd() const IUTEST_CXX_OVERRIDE
+    virtual bool IsEnd() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         return is_end_foreach<0, kCount>(v);
     }
-    virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE
+    virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         return current_foreach<0, kCount, Args...>();
     }
@@ -565,12 +565,12 @@ public:
         : m_g1(g1), m_g2(g2)
     {}
 public:
-    virtual void Begin() IUTEST_CXX_OVERRIDE
+    virtual void Begin() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         m_g1.Begin();
         m_g2.Begin();
     }
-    virtual void Next() IUTEST_CXX_OVERRIDE
+    virtual void Next() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         if( m_g2.IsEnd() )
         {
@@ -586,7 +586,7 @@ public:
             }
         }
     }
-    virtual bool IsEnd() const IUTEST_CXX_OVERRIDE
+    virtual bool IsEnd() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         return m_g1.IsEnd() && m_g2.IsEnd();
     }
@@ -612,7 +612,7 @@ public:
     {}
 
 public:
-    virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE
+    virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         return ParamType(this->m_g1.GetCurrent(), this->m_g2.GetCurrent());
     }
@@ -636,7 +636,7 @@ public:
     {}
 
 public:
-    virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE
+    virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         tuples::tuple<T2, T3> param(this->m_g2.GetCurrent());
         return ParamType(this->m_g1.GetCurrent(), tuples::get<0>(param), tuples::get<1>(param) );
@@ -1139,12 +1139,12 @@ public:
         return new iuPairwiseGenerator2<T1, T2>(g1, g2);
     }
 public:
-    virtual void Begin() IUTEST_CXX_OVERRIDE
+    virtual void Begin() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         m_g1.Begin();
         m_g2.Begin();
     }
-    virtual void Next() IUTEST_CXX_OVERRIDE
+    virtual void Next() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         if( m_g2.IsEnd() )
         {
@@ -1160,11 +1160,11 @@ public:
             }
         }
     }
-    virtual bool IsEnd() const IUTEST_CXX_OVERRIDE
+    virtual bool IsEnd() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         return m_g1.IsEnd() && m_g2.IsEnd();
     }
-    virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE
+    virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         return ParamType(this->m_g1.GetCurrent(), this->m_g2.GetCurrent());
     }
