@@ -219,19 +219,19 @@ private:
     public:
         explicit Mediator(TestInfo* p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : iuITestInfoMediator(p) {}
     public:
-        virtual bool HasFatalFailure() const IUTEST_CXX_OVERRIDE
+        virtual bool HasFatalFailure() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
         {
             return ptr()->HasFatalFailure();
         }
-        virtual bool HasNonfatalFailure() const IUTEST_CXX_OVERRIDE
+        virtual bool HasNonfatalFailure() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
         {
             return ptr()->HasNonfatalFailure();
         }
-        virtual bool HasFailure() const IUTEST_CXX_OVERRIDE
+        virtual bool HasFailure() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
         {
             return ptr()->HasFailure();
         }
-        virtual bool IsSkipped() const IUTEST_CXX_OVERRIDE
+        virtual bool IsSkipped() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
         {
             return ptr()->is_skipped();
         }

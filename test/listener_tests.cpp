@@ -54,64 +54,64 @@ public:
     {}
 
 public:
-    virtual void OnTestProgramStart(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE
+    virtual void OnTestProgramStart(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         called_OnTestProgramStart = true;
     }
     virtual void OnTestIterationStart(const ::iutest::UnitTest& /*test*/
-                                    , int /*iteration*/) IUTEST_CXX_OVERRIDE
+                                    , int /*iteration*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         called_OnTestIterationStart = true;
     }
-    virtual void OnEnvironmentsSetUpStart(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE
+    virtual void OnEnvironmentsSetUpStart(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         called_OnEnvironmentsSetUpStart = true;
     }
-    virtual void OnEnvironmentsSetUpEnd(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE
+    virtual void OnEnvironmentsSetUpEnd(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         called_OnEnvironmentsSetUpEnd = true;
     }
-    virtual void OnTestSuiteStart(const ::iutest::TestSuite& /*test_suite*/) IUTEST_CXX_OVERRIDE
+    virtual void OnTestSuiteStart(const ::iutest::TestSuite& /*test_suite*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         called_OnTestSuiteStart = true;
     }
-    virtual void OnTestStart(const ::iutest::TestInfo& /*test_info*/) IUTEST_CXX_OVERRIDE
+    virtual void OnTestStart(const ::iutest::TestInfo& /*test_info*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         called_OnTestStart = true;
     }
-    virtual void OnTestPartResult(const ::iutest::TestPartResult& /*test_part_result*/) IUTEST_CXX_OVERRIDE
+    virtual void OnTestPartResult(const ::iutest::TestPartResult& /*test_part_result*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         called_OnTestPartResult = true;
     }
 #if !defined(IUTEST_USE_GTEST)
-    virtual void OnTestRecordProperty(const ::iutest::TestProperty& test_property) IUTEST_CXX_OVERRIDE
+    virtual void OnTestRecordProperty(const ::iutest::TestProperty& test_property) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         called_OnTestRecordProperty = true;
         TestEventListener::OnTestRecordProperty(test_property);
     }
 #endif
-    virtual void OnTestEnd(const ::iutest::TestInfo& /*test_info*/) IUTEST_CXX_OVERRIDE
+    virtual void OnTestEnd(const ::iutest::TestInfo& /*test_info*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         called_OnTestEnd = true;
     }
-    virtual void OnTestSuiteEnd(const ::iutest::TestSuite& /*test_suite*/) IUTEST_CXX_OVERRIDE
+    virtual void OnTestSuiteEnd(const ::iutest::TestSuite& /*test_suite*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         called_OnTestSuiteEnd = true;
     }
-    virtual void OnEnvironmentsTearDownStart(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE
+    virtual void OnEnvironmentsTearDownStart(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         called_OnEnvironmentsTearDownStart = true;
     }
-    virtual void OnEnvironmentsTearDownEnd(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE
+    virtual void OnEnvironmentsTearDownEnd(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         called_OnEnvironmentsTearDownEnd = true;
     }
     virtual void OnTestIterationEnd(const ::iutest::UnitTest& /*test*/
-                                    , int /*iteration*/) IUTEST_CXX_OVERRIDE
+                                    , int /*iteration*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         called_OnTestIterationEnd = true;
     }
-    virtual void OnTestProgramEnd(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE
+    virtual void OnTestProgramEnd(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         if( called_OnTestProgramEnd ) exit(1);
         called_OnTestProgramEnd = true;

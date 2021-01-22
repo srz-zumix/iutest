@@ -21,7 +21,7 @@
 
 class ExitCheckEventListener : public ::iutest::EmptyTestEventListener
 {
-    virtual void OnTestProgramEnd(const ::iutest::UnitTest& test) IUTEST_CXX_OVERRIDE
+    virtual void OnTestProgramEnd(const ::iutest::UnitTest& test) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         if( test.current_test_info() == NULL ) throw "current_test_info() == NULL";
         if( iuutil::GetCurrentTestSuite(&test) == NULL ) throw "current_test_suite() == NULL";

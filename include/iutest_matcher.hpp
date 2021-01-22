@@ -180,7 +180,7 @@ public:
         }
         return AssertionFailure() << WhichIs();
     }
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         return "Is Null";
     }
@@ -202,7 +202,7 @@ public:
         return AssertionFailure() << WhichIs();
     }
 
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         return "Not Null";
     }
@@ -229,7 +229,7 @@ public:
         return AssertionFailure() << WhichIs();
     }
 
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "Eq: " << PrintToString(m_expected);
@@ -260,7 +260,7 @@ public:
         return AssertionFailure() << WhichIs();
     }
 
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "NanSensitive Eq: " << PrintToString(m_expected);
@@ -292,7 +292,7 @@ public:
         return AssertionFailure() << WhichIs();
     }
 
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "Near: " << PrintToString(m_expected) << "(abs error <= " << m_max_abs_error << ")";
@@ -325,7 +325,7 @@ public:
         return AssertionFailure() << WhichIs();
     }
 
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "NanSensitive Near: " << PrintToString(m_expected) << "(abs error <= " << m_max_abs_error << ")";
@@ -357,7 +357,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "StartsWith: " << m_expected;
@@ -407,7 +407,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "HasSubstr: " << m_expected;
@@ -459,7 +459,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "EndsWith: " << m_expected;
@@ -525,7 +525,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "Eq: " << PrintToString(m_expected);
@@ -630,7 +630,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "Contains: " << m_expected;
@@ -678,7 +678,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "Each: " << m_expected;
@@ -727,7 +727,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "ContainerEq: " << PrintToString(m_expected);
@@ -794,7 +794,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "Pointwise: " << m_matcher << ": " << PrintToString(m_expected);
@@ -880,7 +880,7 @@ private:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "Optional: " << PrintToString(m_expected);
@@ -912,7 +912,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         return "Is Empty";
     }
@@ -940,7 +940,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "Size is: " << m_expected;
@@ -985,7 +985,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "At " << m_index << ": " << m_expected;
@@ -1020,7 +1020,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         return WhichIs(PrintToString(m_expected));
     }
@@ -1175,7 +1175,7 @@ public:
     {
         return Check(m_matchers, actual);
     }
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         return ElementsAreMatcherBase::WhichIs<0>(m_matchers);
     }
@@ -1199,7 +1199,7 @@ public:
     {
         return Check(m_matchers, actual);
     }
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         return ElementsAreMatcherBase::WhichIs<0>(m_matchers);
     }
@@ -1259,7 +1259,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "Field: " << m_expected;
@@ -1314,7 +1314,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "Property: " << m_expected;
@@ -1369,7 +1369,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "Key: " << m_expected;
@@ -1405,7 +1405,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "Pair: (" << m_m1 << ", " << m_m2 << ")";
@@ -1444,7 +1444,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "Result of: " << m_expected;
@@ -1483,7 +1483,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "Points To: " << m_expected;
@@ -1520,7 +1520,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "Not: (" << m_unexpected << ")";
@@ -1546,7 +1546,7 @@ public:
     AssertionResult operator ()(const U&) const;
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         strm << "A: " << detail::GetTypeNameProxy<T>::GetTypeName();
@@ -1569,7 +1569,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         return "_";
     }
@@ -1597,7 +1597,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         iu_global_format_stringstream strm;
         if( m_full_match )
@@ -1698,7 +1698,7 @@ public:
     {
         return Check(m_matchers, actual);
     }
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         return AllOfMatcherBase::WhichIs<0>(m_matchers);
     }
@@ -1722,7 +1722,7 @@ public:
     {
         return Check(m_matchers, actual);
     }
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         return AllOfMatcherBase::WhichIs<0>(m_matchers);
     }
@@ -1825,7 +1825,7 @@ public:
     {
         return Check(m_matchers, actual);
     }
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         return AnyOfMatcherBase::WhichIs<0>(m_matchers);
     }
@@ -1849,7 +1849,7 @@ public:
     {
         return Check(m_matchers, actual);
     }
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         return AnyOfMatcherBase::WhichIs<0>(m_matchers);
     }

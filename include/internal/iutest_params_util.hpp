@@ -174,7 +174,7 @@ public:
     /**
      * @brief   テストの作成
     */
-    virtual void OnRegisterTests(IParamTestInfoData* infodata) const IUTEST_CXX_OVERRIDE
+    virtual void OnRegisterTests(IParamTestInfoData* infodata) const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         for( typename InstantiationContainer::const_iterator gen_it=m_instantiation.begin()
             , gen_end=m_instantiation.end(); gen_it != gen_end; ++gen_it )

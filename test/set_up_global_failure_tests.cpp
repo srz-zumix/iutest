@@ -22,7 +22,7 @@ static bool setup_failure=true;
 class SetUpFailureEnvironment : public ::iutest::Environment
 {
 private:
-    virtual void SetUp(void) IUTEST_CXX_OVERRIDE
+    virtual void SetUp(void) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         if( setup_failure )
         {
@@ -34,7 +34,7 @@ private:
 class TearDownFailureEnvironment : public ::iutest::Environment
 {
 private:
-    virtual void TearDown(void) IUTEST_CXX_OVERRIDE
+    virtual void TearDown(void) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         IUTEST_FAIL();
     }

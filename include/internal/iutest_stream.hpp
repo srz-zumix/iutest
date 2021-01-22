@@ -102,7 +102,7 @@ public:
      * @param [in]  size    = バッファサイズ
      * @param [in]  cnt     = 書き込み回数
     */
-    virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
+    virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         if( fwrite(buf, size, cnt, m_fp) < cnt )
         {
