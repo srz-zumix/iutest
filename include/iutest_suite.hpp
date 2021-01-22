@@ -309,8 +309,8 @@ class TestSuiteMediator IUTEST_CXX_FINAL : public detail::iuITestSuiteMediator
 public:
     explicit TestSuiteMediator(TestSuite* p) IUTEST_CXX_NOEXCEPT_SPEC : iuITestSuiteMediator(p) {}
 public:
-    virtual const char* test_suite_name() const IUTEST_CXX_OVERRIDE { return m_test_suite->name(); }
-    virtual const char* type_param()     const IUTEST_CXX_OVERRIDE { return m_test_suite->type_param(); }
+    virtual const char* test_suite_name() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return m_test_suite->name(); }
+    virtual const char* type_param()     const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return m_test_suite->type_param(); }
 };
 
 }   // end of namespace detail

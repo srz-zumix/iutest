@@ -95,7 +95,7 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& m)
 #define IIUT_DECL_COMPARE_MATCHER(name, op)  \
     template<typename T>class IUTEST_PP_CAT(name, Matcher): public IMatcher{    \
     public: explicit IUTEST_PP_CAT(name, Matcher)(const T& v) : m_expected(v) {}\
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                         \
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL {                         \
         iu_global_format_stringstream strm;                                     \
         strm << #name ": " << m_expected; return strm.str();                    \
     }                                                                           \
@@ -108,7 +108,7 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& m)
 
 #define IIUT_DECL_COMPARE_MATCHER2(name, op) \
     class IUTEST_PP_CAT(Twofold, IUTEST_PP_CAT(name, Matcher)): public IMatcher{        \
-    public: ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return #name; }         \
+    public: ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return #name; }         \
     template<typename T, typename U>AssertionResult operator ()                         \
         (const T& actual, const U& expected) const {                                    \
         if IUTEST_COND_LIKELY( actual op expected ) return AssertionSuccess();          \
@@ -146,7 +146,7 @@ IUTEST_PRAGMA_WARN_POP()
             actual, m_expected) ) { return AssertionSuccess(); }                \
         return AssertionFailure() << WhichIs();                                 \
     }                                                                           \
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                         \
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL {                         \
         iu_global_format_stringstream strm; strm << #name ": " << m_expected;   \
         return strm.str();                                                      \
     }                                                                           \
@@ -1215,7 +1215,7 @@ private:
         : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                    \
     template<typename U>AssertionResult operator ()(const U& actual) {                  \
         return Check(m_matchers, actual); }                                             \
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                                 \
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL {                                 \
         return ElementsAreMatcherBase::WhichIs<0>(m_matchers); }                        \
     private:                                                                            \
     tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > m_matchers;                            \
@@ -1738,7 +1738,7 @@ private:
         : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                \
     template<typename U>AssertionResult operator ()(const U& actual) {              \
         return Check(m_matchers, actual); }                                         \
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                             \
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL {                             \
         return AllOfMatcherBase::WhichIs<0>(m_matchers); }                          \
     private:                                                                        \
     tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > m_matchers;                        \
@@ -1865,7 +1865,7 @@ private:
         : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                \
     template<typename U>AssertionResult operator ()(const U& actual) {              \
         return Check(m_matchers, actual); }                                         \
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                             \
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL {                             \
         return AnyOfMatcherBase::WhichIs<0>(m_matchers); }                          \
     private:                                                                        \
     tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > m_matchers;                        \

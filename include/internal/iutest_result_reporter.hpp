@@ -34,7 +34,7 @@ class DefaultGlobalTestPartResultReporter : public TestPartResultReporterInterfa
 {
 public:
     virtual ~DefaultGlobalTestPartResultReporter() IUTEST_CXX_OVERRIDE {}
-    virtual void ReportTestPartResult(const TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void ReportTestPartResult(const TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE
     {
         DefaultReportTestPartResult(test_part_result);
     }
@@ -60,7 +60,7 @@ class NoTestPartResultReporter : public TestPartResultReporterInterface
 {
 public:
     virtual ~NoTestPartResultReporter() IUTEST_CXX_OVERRIDE {}
-    virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
     {
         IUTEST_UNUSED_VAR(result);
     }

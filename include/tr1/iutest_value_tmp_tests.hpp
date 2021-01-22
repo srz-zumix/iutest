@@ -48,7 +48,7 @@
     class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) : public testsuite_<iutest_ValueParam> { \
         typedef testsuite_<iutest_ValueParam> TestFixture;                              \
         static const iutest::BiggestInt ValueParam = iutest_ValueParam;                 \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE;                             \
+        protected: virtual void Body() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;                             \
     };                                                                                  \
     iutest::tr1::ValueTmpParamTestInstance<IUTEST_TEST_CLASS_NAME_(testsuite_, testname_), IIUT_TYPED_TEST_PARAMS_(testsuite_)>   \
     s_##testsuite_##_##testname_( #testsuite_, #testname_, __FILE__, __LINE__);         \

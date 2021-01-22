@@ -163,8 +163,8 @@ template<typename FILE>
 class FileSystem : public detail::IFileSystem
 {
 private:
-    virtual IFile*  Create() IUTEST_CXX_OVERRIDE        { return new FILE; }
-    virtual void    Delete(IFile* ptr) IUTEST_CXX_OVERRIDE  { detail::Delete<FILE>(static_cast<FILE*>(ptr)); }
+    virtual IFile*  Create() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return new FILE; }
+    virtual void    Delete(IFile* ptr) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { detail::Delete<FILE>(static_cast<FILE*>(ptr)); }
 };
 
 
@@ -184,7 +184,7 @@ public:
     /**
      * @brief   閉じる
     */
-    virtual void Close() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void Close() IUTEST_CXX_OVERRIDE
     {
         if( m_fp != NULL )
         {
@@ -198,7 +198,7 @@ public:
      * @param [in]  size    = バッファサイズ
      * @param [in]  cnt     = 書き込み回数
     */
-    virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
     {
         if( fwrite(buf, size, cnt, m_fp) < cnt )
         {
@@ -217,7 +217,7 @@ public:
      * @param [in]  size    = 読み込みデータサイズ
      * @param [in]  cnt     = 読み込み回数
     */
-    virtual bool Read(void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual bool Read(void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
     {
         if( fread(buf, size, cnt, m_fp) < cnt )
         {
@@ -227,7 +227,7 @@ public:
     }
 
     //! サイズ取得
-    virtual size_t GetSize() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual size_t GetSize() IUTEST_CXX_OVERRIDE
     {
 #if IUTEST_HAS_FILE_STAT
         return GetSize(m_fp);
@@ -271,7 +271,7 @@ public:
         return 0;
     }
 private:
-    virtual bool OpenImpl(const char* filename, int mode) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual bool OpenImpl(const char* filename, int mode) IUTEST_CXX_OVERRIDE
     {
         Close();
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
@@ -330,7 +330,7 @@ public:
     /**
      * @brief   閉じる
     */
-    virtual void Close() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void Close() IUTEST_CXX_OVERRIDE
     {
     }
 
@@ -340,7 +340,7 @@ public:
      * @param [in]  size    = バッファサイズ
      * @param [in]  cnt     = 書き込み回数
     */
-    virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
     {
         for( size_t i=0; i < cnt; ++i )
         {
@@ -355,7 +355,7 @@ public:
      * @param [in]  size    = 読み込みデータサイズ
      * @param [in]  cnt     = 読み込み回数
     */
-    virtual bool Read(void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual bool Read(void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
     {
         char* p = static_cast<char*>(buf);
         for( size_t i = 0; i < cnt; ++i )
@@ -367,7 +367,7 @@ public:
     }
 
     //! サイズ取得
-    virtual size_t GetSize() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual size_t GetSize() IUTEST_CXX_OVERRIDE
     {
         ::std::stringstream::pos_type pre = ss.tellg();
         ss.seekg(0, ::std::ios::end);
@@ -377,12 +377,12 @@ public:
     }
 
     //! 全読み込み
-    virtual ::std::string ReadAll() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual ::std::string ReadAll() IUTEST_CXX_OVERRIDE
     {
         return ss.str();
     }
 private:
-    virtual bool OpenImpl(const char* , int ) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual bool OpenImpl(const char* , int ) IUTEST_CXX_OVERRIDE
     {
         ss.clear();
         return true;
@@ -402,12 +402,12 @@ namespace detail
 class NoEffectFile : public IFile
 {
 public:
-    virtual void Close() IUTEST_CXX_OVERRIDE {}
-    virtual bool Write(const void*, size_t, size_t) IUTEST_CXX_OVERRIDE { return true;  }
-    virtual bool Read(void*, size_t, size_t) IUTEST_CXX_OVERRIDE { return true; }
-    virtual size_t GetSize() IUTEST_CXX_OVERRIDE { return 0; }
+    virtual void Close() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL {}
+    virtual bool Write(const void*, size_t, size_t) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return true;  }
+    virtual bool Read(void*, size_t, size_t) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return true; }
+    virtual size_t GetSize() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return 0; }
 private:
-    virtual bool OpenImpl(const char*, int) IUTEST_CXX_OVERRIDE { return true; }
+    virtual bool OpenImpl(const char*, int) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return true; }
 };
 
 }   // end of namespace detail

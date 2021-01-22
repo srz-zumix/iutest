@@ -65,7 +65,7 @@ public:
 #endif
 
 #if 0
-    virtual void OnTestStart(const ::iutest::TestInfo& test_info) IUTEST_CXX_OVERRIDE {}
+    virtual void OnTestStart(const ::iutest::TestInfo& test_info) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL {}
 
     virtual void OnTestPartResult(const ::iutest::TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {

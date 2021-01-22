@@ -176,7 +176,7 @@
     IIUT_TEST_P_FIXTURE_DECL_(testsuite_)                                                   \
     class classname_ : public testsuite_ {                                                  \
         public: classname_() {}                                                             \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE;                                 \
+        protected: virtual void Body() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;                                 \
         private: static int AddRegister() {                                                 \
             static ::iutest::detail::ParamTestInstance< classname_ > testinfo(testname_);   \
             IIUT_GETTESTSUITEPATTERNHOLDER(testsuite_, testsuitename_                       \
@@ -193,7 +193,7 @@
 #define IIUT_TEST_P_I_IGNORE_(classname_, testsuite_, testsuitename_, testname_)            \
     class classname_ : public testsuite_ {                                                  \
         public: classname_() {}                                                             \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
+        protected: virtual void Body() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { IUTEST_SKIP() << "ignored test..."; }  \
         template<typename T>void Body();                                                    \
         private: static int AddRegister() {                                                 \
             static ::iutest::detail::ParamTestInstance< classname_ > testinfo(testname_);   \

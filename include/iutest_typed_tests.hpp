@@ -95,7 +95,7 @@
     template<typename iutest_TypeParam> class classname_ : public testsuite_<iutest_TypeParam> {    \
         typedef testsuite_<iutest_TypeParam> TestFixture;                           \
         typedef iutest_TypeParam TypeParam;                                         \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE;                         \
+        protected: virtual void Body() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;                         \
     };                                                                              \
     ::iutest::detail::TypeParamTestInstance< classname_, IIUT_TYPED_TEST_PARAMS_(testsuite_) >      \
         IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_)(                          \
@@ -110,7 +110,7 @@
     template<typename iutest_TypeParam> class classname_ : public testsuite_<iutest_TypeParam> {    \
         typedef testsuite_<iutest_TypeParam> TestFixture;                           \
         typedef iutest_TypeParam TypeParam;                                         \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
+        protected: virtual void Body() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { IUTEST_SKIP() << "ignored test..."; }  \
         template<typename T>void Body();                                            \
     };                                                                              \
     ::iutest::detail::TypeParamTestInstance< classname_, IIUT_TYPED_TEST_PARAMS_(testsuite_) >      \
@@ -238,7 +238,7 @@
     class testname_ : public testsuite_<iutest_TypeParam> {     \
         typedef testsuite_<iutest_TypeParam> TestFixture;       \
         typedef iutest_TypeParam TypeParam;                     \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE;     \
+        protected: virtual void Body() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;     \
     }; IIUT_TYPED_TEST_P_ADDTESTNAME(testsuite_, testname_);    \
     }                                                           \
     template<typename iutest_TypeParam>                         \
@@ -252,7 +252,7 @@
     class testname_ : public testsuite_<iutest_TypeParam> {     \
         typedef testsuite_<iutest_TypeParam> TestFixture;       \
         typedef iutest_TypeParam TypeParam;                     \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
+        protected: virtual void Body() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { IUTEST_SKIP() << "ignored test..."; }  \
         template<typename T>void Body();                        \
     }; IIUT_TYPED_TEST_P_ADDTESTNAME(testsuite_, testname_);    \
     }                                                           \

@@ -32,10 +32,10 @@ class ProgressPrintListener : public EmptyTestEventListener
 public:
     ProgressPrintListener() : m_should_run_num(0), m_ran_num(0) {}
 public:
-    virtual void OnTestProgramStart(const UnitTest& test) IUTEST_CXX_OVERRIDE;
+    virtual void OnTestProgramStart(const UnitTest& test) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;
     virtual void OnTestIterationStart(const UnitTest& test
-                                    , int iteration) IUTEST_CXX_OVERRIDE;
-    virtual void OnTestEnd(const TestInfo& test_info) IUTEST_CXX_OVERRIDE;
+                                    , int iteration) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;
+    virtual void OnTestEnd(const TestInfo& test_info) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;
 
 private:
     int m_should_run_num;
