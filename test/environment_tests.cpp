@@ -19,7 +19,7 @@
 
 static int test_counter = 0;
 
-class MyEnvironment : public ::iutest::Environment
+class MyEnvironment IUTEST_CXX_FINAL : public ::iutest::Environment
 {
 public:
     static bool setup;
@@ -48,7 +48,7 @@ private:
     }
 };
 
-class MyEnvironment2 : public ::iutest::Environment
+class MyEnvironment2 IUTEST_CXX_FINAL : public ::iutest::Environment
 {
 private:
     virtual void SetUp(void) IUTEST_CXX_OVERRIDE

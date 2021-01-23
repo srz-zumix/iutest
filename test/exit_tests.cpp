@@ -19,7 +19,7 @@
 
 #if IUTEST_HAS_STD_QUICK_EXIT
 
-class ExitCheckEventListener : public ::iutest::EmptyTestEventListener
+class ExitCheckEventListener IUTEST_CXX_FINAL : public ::iutest::EmptyTestEventListener
 {
     virtual void OnTestProgramEnd(const ::iutest::UnitTest& test) IUTEST_CXX_OVERRIDE
     {

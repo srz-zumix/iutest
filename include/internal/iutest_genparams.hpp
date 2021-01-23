@@ -52,7 +52,7 @@ public:
  * @brief   パラメータ生成器保持クラス
 */
 template<typename T>
-class iuParamGenerator : public iuIParamGenerator<T>
+class iuParamGenerator IUTEST_CXX_FINAL : public iuIParamGenerator<T>
 {
     typedef iuIParamGenerator<T> _Interface;
     typedef iuParamGenerator<T>  _Myt;
@@ -87,7 +87,7 @@ private:
  * @tparam T    = パラメータ型
 */
 template<typename T>
-class iuRangeParamsGenerator : public iuIParamGenerator<T>
+class iuRangeParamsGenerator IUTEST_CXX_FINAL : public iuIParamGenerator<T>
 {
     T m_begin;
     T m_end;
@@ -118,7 +118,7 @@ public:
 /**
  * @brief   真偽値パラメータ生成器
 */
-class iuBoolParamsGenerator : public iuIParamGenerator<bool>
+class iuBoolParamsGenerator IUTEST_CXX_FINAL : public iuIParamGenerator<bool>
 {
     int m_n;
     bool m_cur;
@@ -430,7 +430,7 @@ IIUT_DECL_VALUEARRAY_(50);
 #if IUTEST_HAS_VARIADIC_COMBINE
 
 template<typename... Args>
-class iuCartesianProductGenerator : public iuIParamGenerator< tuples::tuple<Args...> >
+class iuCartesianProductGenerator IUTEST_CXX_FINAL : public iuIParamGenerator< tuples::tuple<Args...> >
 {
     typedef tuples::tuple< iuParamGenerator<Args>... > _MyTuple;
     static const int kCount = sizeof...(Args);
@@ -558,7 +558,7 @@ private:
 #else
 
 template<typename Generator1, typename Generator2, typename ParamType>
-class iuICartesianProductGeneratorBase : public iuIParamGenerator< ParamType >
+class iuICartesianProductGeneratorBase IUTEST_CXX_FINAL : public iuIParamGenerator< ParamType >
 {
 public:
     iuICartesianProductGeneratorBase(const Generator1& g1, const Generator2& g2)
@@ -597,7 +597,7 @@ protected:
 };
 
 template<typename T1, typename T2>
-class iuCartesianProductGenerator2
+class iuCartesianProductGenerator2 IUTEST_CXX_FINAL
     : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>, iuParamGenerator<T2>, tuples::tuple<T1, T2> >
 {
     typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>, iuParamGenerator<T2>, tuples::tuple<T1, T2> > _Mybase;
@@ -620,9 +620,10 @@ public:
 
 /*
 template<typename T1, typename T2, typename T3>
-class iuCartesianProductGenerator3 : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>
-                                                                            , iuCartesianProductGenerator2<T2, T3>
-                                                                            , tuples::tuple<T1, T2, T3> >
+class iuCartesianProductGenerator3 IUTEST_CXX_FINAL
+    : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>
+    , iuCartesianProductGenerator2<T2, T3>
+    , tuples::tuple<T1, T2, T3> >
 {
     typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>, iuCartesianProductGenerator2<T2, T3>, tuples::tuple<T1, T2, T3> >    _Mybase;
     typedef iuParamGenerator<T1> Generator1;
@@ -662,7 +663,7 @@ public:
 
 #define IIUT_DECL_CARTESIAN_PRODUCT_GENERATOR_(n)                           \
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                        \
-    class IUTEST_PP_CAT(iuCartesianProductGenerator, n)                     \
+    class IUTEST_PP_CAT(iuCartesianProductGenerator, n) IUTEST_CXX_FINAL    \
     : public IIUT_DECL_CARTESIAN_PRODUCT_GENERATOR_BASE_(n) {               \
         typedef IIUT_DECL_CARTESIAN_PRODUCT_GENERATOR_BASE_(n) _Mybase;     \
         IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_CARTESIAN_PRODUCT_GENERATOR_TYPEDEF_, T, Generator)            \
@@ -1122,7 +1123,7 @@ private:
 #else
 
 template<typename T1, typename T2>
-class iuPairwiseGenerator2 : public iuIParamGenerator< tuples::tuple<T1, T2> >
+class iuPairwiseGenerator2 IUTEST_CXX_FINAL : public iuIParamGenerator< tuples::tuple<T1, T2> >
 {
     typedef iuParamGenerator<T1> Generator1;
     typedef iuParamGenerator<T2> Generator2;

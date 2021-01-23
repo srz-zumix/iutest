@@ -255,7 +255,7 @@ namespace testing
 namespace inform_support
 {
 
-class DefaultPrinter : public ::testing::EmptyTestEventListener
+class DefaultPrinter IUTEST_CXX_FINAL : public ::testing::EmptyTestEventListener
 {
 private:
     virtual void OnTestPartResult(const TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE

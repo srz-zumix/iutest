@@ -160,11 +160,11 @@ namespace iutest
  * @brief   ファイル処理クラスインターフェイス
 */
 template<typename FILE>
-class FileSystem : public detail::IFileSystem
+class FileSystem IUTEST_CXX_FINAL : public detail::IFileSystem
 {
 private:
-    virtual IFile*  Create() IUTEST_CXX_OVERRIDE        { return new FILE; }
-    virtual void    Delete(IFile* ptr) IUTEST_CXX_OVERRIDE  { detail::Delete<FILE>(static_cast<FILE*>(ptr)); }
+    virtual IFile*  Create() IUTEST_CXX_OVERRIDE { return new FILE; }
+    virtual void    Delete(IFile* ptr) IUTEST_CXX_OVERRIDE { detail::Delete<FILE>(static_cast<FILE*>(ptr)); }
 };
 
 
@@ -399,7 +399,7 @@ namespace detail
 /**
  * @brief   何もしない IFile インターフェースクラス
 */
-class NoEffectFile : public IFile
+class NoEffectFile IUTEST_CXX_FINAL : public IFile
 {
 public:
     virtual void Close() IUTEST_CXX_OVERRIDE {}

@@ -17,7 +17,7 @@
 // include
 #include "iutest.hpp"
 
-class MyTestEventListener : public ::iuutil::backward::TestEventListener
+class MyTestEventListener IUTEST_CXX_FINAL : public ::iuutil::backward::TestEventListener
 {
 public:
     bool called_OnTestProgramStart;

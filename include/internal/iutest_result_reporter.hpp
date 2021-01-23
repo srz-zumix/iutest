@@ -130,7 +130,7 @@ public:
 
 public:
     template<typename COND, typename REPORTER=DefaultGlobalTestPartResultReporter>
-    class Counter : public REPORTER
+    class Counter IUTEST_CXX_FINAL : public REPORTER
     {
         typedef REPORTER _Mybase;
     public:

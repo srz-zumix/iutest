@@ -118,7 +118,7 @@ protected:
  * @tparam  T   = テストクラス
 */
 template<class T>
-class ParamTestSuiteInfo : public IParamTestSuiteInfo
+class ParamTestSuiteInfo IUTEST_CXX_FINAL : public IParamTestSuiteInfo
 {
     typedef T                                       Tester;
     typedef typename Tester::ParamType              ParamType;

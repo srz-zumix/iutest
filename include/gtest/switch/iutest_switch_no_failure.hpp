@@ -71,7 +71,7 @@ namespace testing
 namespace internal
 {
 
-class HasNewFailureHelper : public HasNewFatalFailureHelper
+class HasNewFailureHelper IUTEST_CXX_FINAL : public HasNewFatalFailureHelper
 {
 public:
     HasNewFailureHelper() : m_has_new_failure(false)

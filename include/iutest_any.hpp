@@ -129,7 +129,7 @@ private:
         virtual ::std::string to_string() const = 0;
     };
     template<typename T>
-    class holder : public placeholder
+    class holder IUTEST_CXX_FINAL : public placeholder
     {
     public:
         explicit holder(const T& v) : held(v) {}

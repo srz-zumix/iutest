@@ -25,7 +25,7 @@
 
 #if OUTPUT_JUNIT_XML_TEST
 
-class FileIO : public ::iutest::StringStreamFile
+class FileIO IUTEST_CXX_FINAL : public ::iutest::StringStreamFile
 {
 public:
     static ::std::string s_io;

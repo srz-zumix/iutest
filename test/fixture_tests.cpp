@@ -22,7 +22,7 @@ class TestSetUpEachCall : public ::iuutil::backward::Test<TestSetUpEachCall>
 protected:
     static int x;
 public:
-    virtual void SetUp(void) IUTEST_CXX_OVERRIDE
+    virtual void SetUp(void) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         ++x;
     }
@@ -53,12 +53,12 @@ public:
         IUTEST_ASSERT_EQ(-1, x);
         x = 0;
     }
-    virtual void SetUp(void) IUTEST_CXX_OVERRIDE
+    virtual void SetUp(void) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         IUTEST_ASSERT_EQ(0, x);
         ++x;
     }
-    virtual void TearDown(void) IUTEST_CXX_OVERRIDE
+    virtual void TearDown(void) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         IUTEST_ASSERT_EQ(2, x);
         ++x;

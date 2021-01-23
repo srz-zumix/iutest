@@ -25,7 +25,7 @@
 
 #if FILTER_FILE_TEST
 
-class FilterFile : public ::iutest::StringStreamFile
+class FilterFile IUTEST_CXX_FINAL : public ::iutest::StringStreamFile
 {
 public:
     static ::std::string filter;

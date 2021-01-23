@@ -21,7 +21,7 @@
 TestLogger logger;
 static ::std::string s_log_testcases;
 
-class LoggerClear : public ::iutest::Environment
+class LoggerClear IUTEST_CXX_FINAL : public ::iutest::Environment
 {
 private:
     virtual void SetUp(void) IUTEST_CXX_OVERRIDE

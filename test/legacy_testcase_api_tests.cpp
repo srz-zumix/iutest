@@ -120,7 +120,7 @@ IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(My1, TypeParamTest, TypeParamTestTypes);
 
 #if !defined(IUTEST_USE_GTEST)
 
-class MyTestEventListener : public ::iutest::TestEventListener
+class MyTestEventListener IUTEST_CXX_FINAL : public ::iutest::TestEventListener
 {
 public:
     bool called_OnTestCaseStart;
