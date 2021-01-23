@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -20,7 +20,7 @@
 static unsigned int seed = 0;
 static int shuffle_tests_count = 0;
 
-class MyEnvironment : public ::iutest::Environment
+class MyEnvironment IUTEST_CXX_FINAL : public ::iutest::Environment
 {
 private:
     virtual void SetUp(void)    IUTEST_CXX_OVERRIDE {}
