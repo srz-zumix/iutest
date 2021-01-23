@@ -254,7 +254,8 @@ for:
       mingw32-make showcxxmacros
       mingw32-make -j4 %MAKE_OPTIONS%
   test_script:
-    cmd: mingw32-make test %MAKE_OPTIONS% && mingw32-make report
+    cmd: mingw32-make test %MAKE_OPTIONS% OUTPUTXML=junit && mingw32-make report
+  on_finish: *junit_result
 # NAMKE
 -
   matrix:
@@ -266,6 +267,7 @@ for:
     cmd: cd test && nmake showcxxmacros && nmake minimum_tests && minimum_tests.exe --spec
   test_script:
     cmd: nmake test OUTPUTXML=junit
+  on_finish: *junit_result
 # Prefast
 -
   matrix:
@@ -278,6 +280,7 @@ for:
   build_script:
     cmd: msbuild "projects\%PROJECT_DIR%\iutest_sample.vcxproj" /m %MSBUILD_LOGGER_OPTION% %MSBUILD_PREFAST_OPTION%
   test: off
+  on_finish: *noop
 # Menu
 -
   matrix:
@@ -289,6 +292,7 @@ for:
     parallel: true
     verbosity: minimal
   test: off
+  on_finish: *noop
 # Package Build
 -
   matrix:
@@ -298,6 +302,7 @@ for:
   build_script:
     sh: bash ./.ci/make-package.sh
   test: off
+  on_finish: *noop
 # NuGet
 -
   matrix:
@@ -310,3 +315,4 @@ for:
       Write-Output "Building NuGet package"
       nuget pack $nuspecPath -OutputDirectory ".\"
   test: off
+  on_finish: *noop
