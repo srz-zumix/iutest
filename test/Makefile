@@ -84,7 +84,7 @@ showcxxmacros: ## show compiler predefined macros
 $(RUNNER) : $(@:_tests_run=_tests)
 	@echo $@
 !ifdef OUTPUTXML
-!if $(OUTPUTXML) == "junit"
+!if "$(OUTPUTXML)" == "junit"
 	$?.exe $(RUN_OPTION) --iutest_output=junit:$?.xml
 !else
 	$?.exe $(RUN_OPTION) --iutest_output=xml:$?.xml
