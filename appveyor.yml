@@ -229,7 +229,7 @@ for:
       make -j4
   test_script:
     cmd: make test OUTPUTXML=junit && make report
-  on_finish: &jnit_result
+  on_finish: &junit_result
     cmd: |
         cd %APPVEYOR_BUILD_FOLDER%/test
         find . -type f -name '*.xml' -print0 | xargs -0 -I '{}' curl -F 'file=@{}' "https://ci.appveyor.com/api/testresults/junit/%APPVEYOR_JOB_ID%"
