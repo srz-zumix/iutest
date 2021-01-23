@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        environment_tests.cpp
- * @brief       Environment 対応テスト
+ * @brief       Environment tests
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */

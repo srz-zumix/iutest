@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        exit_tests.cpp
- * @brief       exit 対応テスト
+ * @brief       quick_exit test
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2016-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2016-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */

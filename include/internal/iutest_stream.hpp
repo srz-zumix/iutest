@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -102,7 +102,7 @@ public:
      * @param [in]  size    = バッファサイズ
      * @param [in]  cnt     = 書き込み回数
     */
-    virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
     {
         if( fwrite(buf, size, cnt, m_fp) < cnt )
         {

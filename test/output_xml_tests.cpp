@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        output_xml_tests.cpp
- * @brief       xml 出力対応テスト
+ * @brief       xml output tests
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */

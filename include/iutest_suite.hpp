@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -266,7 +266,7 @@ private:
  * @brief   型つきTestSuite
 */
 template<typename T>
-class TypedTestSuite : public TestSuite
+class TypedTestSuite IUTEST_CXX_FINAL : public TestSuite
 {
 public:
     typedef T   TypeParam;  //!< 型
@@ -287,7 +287,7 @@ protected:
 
 public:
     /** type param 文字列の取得 */
-    virtual const char* type_param() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual const char* type_param() const IUTEST_CXX_OVERRIDE
     {
         return m_type_param.empty() ? NULL : m_type_param.c_str();
     }

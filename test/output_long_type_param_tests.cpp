@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        output_xml_long_type_param_tests.cpp
- * @brief       xml 出力対応テスト
+ * @brief       too long type param name tesst
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2020-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */

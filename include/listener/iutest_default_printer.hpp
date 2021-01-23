@@ -23,7 +23,7 @@ namespace iutest
 /**
  * @brief   デフォルト出力イベントリスナー
 */
-class DefaultResultPrintListener IUTEST_CXX_FINAL : public TestEventListener
+class DefaultResultPrintListener : public TestEventListener
 {
 public:
     DefaultResultPrintListener() {}
