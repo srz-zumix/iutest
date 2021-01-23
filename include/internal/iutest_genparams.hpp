@@ -558,7 +558,7 @@ private:
 #else
 
 template<typename Generator1, typename Generator2, typename ParamType>
-class iuICartesianProductGeneratorBase IUTEST_CXX_FINAL : public iuIParamGenerator< ParamType >
+class iuICartesianProductGeneratorBase : public iuIParamGenerator< ParamType >
 {
 public:
     iuICartesianProductGeneratorBase(const Generator1& g1, const Generator2& g2)
@@ -597,7 +597,7 @@ protected:
 };
 
 template<typename T1, typename T2>
-class iuCartesianProductGenerator2 IUTEST_CXX_FINAL
+class iuCartesianProductGenerator2
     : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>, iuParamGenerator<T2>, tuples::tuple<T1, T2> >
 {
     typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>, iuParamGenerator<T2>, tuples::tuple<T1, T2> > _Mybase;
@@ -663,7 +663,7 @@ public:
 
 #define IIUT_DECL_CARTESIAN_PRODUCT_GENERATOR_(n)                           \
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                        \
-    class IUTEST_PP_CAT(iuCartesianProductGenerator, n) IUTEST_CXX_FINAL    \
+    class IUTEST_PP_CAT(iuCartesianProductGenerator, n)                     \
     : public IIUT_DECL_CARTESIAN_PRODUCT_GENERATOR_BASE_(n) {               \
         typedef IIUT_DECL_CARTESIAN_PRODUCT_GENERATOR_BASE_(n) _Mybase;     \
         IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_CARTESIAN_PRODUCT_GENERATOR_TYPEDEF_, T, Generator)            \
@@ -1239,7 +1239,7 @@ public:
 
 #define IIUT_DECL_PAIRWISE_GENERATOR_(n)                \
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >    \
-    class IUTEST_PP_CAT(iuPairwiseGenerator, n) : public iuPairwiseGeneratorBase {  \
+    class IUTEST_PP_CAT(iuPairwiseGenerator, n) IUTEST_CXX_FINAL : public iuPairwiseGeneratorBase {     \
         IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_PAIRWISE_GENERATOR_TEMPLATE_T_, typedef iuParamGenerator, Generator)   \
         typedef ParamIndexes<n> _MyParamIndexes;                            \
         typedef ::std::vector< _MyParamIndexes > ParamIndexesList;          \
