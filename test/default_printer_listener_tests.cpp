@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -21,7 +21,7 @@
 TestLogger logger;
 static ::std::string s_log_testcases;
 
-class LoggerClear : public ::iutest::Environment
+class LoggerClear IUTEST_CXX_FINAL : public ::iutest::Environment
 {
 private:
     virtual void SetUp(void) IUTEST_CXX_OVERRIDE

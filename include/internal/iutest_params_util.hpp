@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -118,7 +118,7 @@ protected:
  * @tparam  T   = テストクラス
 */
 template<class T>
-class ParamTestSuiteInfo : public IParamTestSuiteInfo
+class ParamTestSuiteInfo IUTEST_CXX_FINAL : public IParamTestSuiteInfo
 {
     typedef T                                       Tester;
     typedef typename Tester::ParamType              ParamType;
