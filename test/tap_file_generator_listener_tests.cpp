@@ -26,12 +26,12 @@
 
 #if TAP_TEST
 
-class FileIO : public ::iutest::StringStreamFile
+class FileIO IUTEST_CXX_FINAL : public ::iutest::StringStreamFile
 {
 public:
     static ::std::string s_io;
 
-    virtual void Close() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void Close() IUTEST_CXX_OVERRIDE
     {
         s_io += ss.str();
     }

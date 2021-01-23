@@ -92,10 +92,11 @@
 #define IIUT_TYPED_TEST_I(classname_, testsuite_, testsuitename_, testname_)        \
     IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(testsuite_)) > 1, "testsuite_ must not be empty");   \
     IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(testname_)) > 1, "testname_ must not be empty");     \
-    template<typename iutest_TypeParam> class classname_ : public testsuite_<iutest_TypeParam> {    \
+    template<typename iutest_TypeParam>                                             \
+    class classname_ : public testsuite_<iutest_TypeParam> {                        \
         typedef testsuite_<iutest_TypeParam> TestFixture;                           \
         typedef iutest_TypeParam TypeParam;                                         \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;                         \
+        protected: virtual void Body() IUTEST_CXX_OVERRIDE;                         \
     };                                                                              \
     ::iutest::detail::TypeParamTestInstance< classname_, IIUT_TYPED_TEST_PARAMS_(testsuite_) >      \
         IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_)(                          \
@@ -107,10 +108,11 @@
 #if IUTEST_HAS_IGNORE_TEST
 
 #define IIUT_TYPED_TEST_I_IGNORE(classname_, testsuite_, testsuitename_, testname_) \
-    template<typename iutest_TypeParam> class classname_ : public testsuite_<iutest_TypeParam> {    \
+    template<typename iutest_TypeParam>                                             \
+    class classname_ : public testsuite_<iutest_TypeParam> {                        \
         typedef testsuite_<iutest_TypeParam> TestFixture;                           \
         typedef iutest_TypeParam TypeParam;                                         \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { IUTEST_SKIP() << "ignored test..."; }  \
+        protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
         template<typename T>void Body();                                            \
     };                                                                              \
     ::iutest::detail::TypeParamTestInstance< classname_, IIUT_TYPED_TEST_PARAMS_(testsuite_) >      \
@@ -235,10 +237,10 @@
     IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(testname_)) > 1, "testname_ must not be empty");     \
     namespace IIUT_TYPED_TEST_P_NAMESPACE_(testsuite_) {        \
     template<typename iutest_TypeParam>                         \
-    class testname_ : public testsuite_<iutest_TypeParam> {     \
+    class testname_ IUTEST_CXX_FINAL : public testsuite_<iutest_TypeParam> {     \
         typedef testsuite_<iutest_TypeParam> TestFixture;       \
         typedef iutest_TypeParam TypeParam;                     \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;     \
+        protected: virtual void Body() IUTEST_CXX_OVERRIDE;     \
     }; IIUT_TYPED_TEST_P_ADDTESTNAME(testsuite_, testname_);    \
     }                                                           \
     template<typename iutest_TypeParam>                         \
@@ -249,10 +251,10 @@
 #define IIUT_TYPED_TEST_P_IGNORE_(testsuite_, testname_)        \
     namespace IIUT_TYPED_TEST_P_NAMESPACE_(testsuite_) {        \
     template<typename iutest_TypeParam>                         \
-    class testname_ : public testsuite_<iutest_TypeParam> {     \
+    class testname_ IUTEST_CXX_FINAL : public testsuite_<iutest_TypeParam> {     \
         typedef testsuite_<iutest_TypeParam> TestFixture;       \
         typedef iutest_TypeParam TypeParam;                     \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { IUTEST_SKIP() << "ignored test..."; }  \
+        protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
         template<typename T>void Body();                        \
     }; IIUT_TYPED_TEST_P_ADDTESTNAME(testsuite_, testname_);    \
     }                                                           \

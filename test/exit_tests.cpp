@@ -19,9 +19,9 @@
 
 #if IUTEST_HAS_STD_QUICK_EXIT
 
-class ExitCheckEventListener : public ::iutest::EmptyTestEventListener
+class ExitCheckEventListener IUTEST_CXX_FINAL : public ::iutest::EmptyTestEventListener
 {
-    virtual void OnTestProgramEnd(const ::iutest::UnitTest& test) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnTestProgramEnd(const ::iutest::UnitTest& test) IUTEST_CXX_OVERRIDE
     {
         if( test.current_test_info() == NULL ) throw "current_test_info() == NULL";
         if( iuutil::GetCurrentTestSuite(&test) == NULL ) throw "current_test_suite() == NULL";

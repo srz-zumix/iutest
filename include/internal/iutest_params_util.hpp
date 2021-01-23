@@ -118,7 +118,7 @@ protected:
  * @tparam  T   = テストクラス
 */
 template<class T>
-class ParamTestSuiteInfo : public IParamTestSuiteInfo
+class ParamTestSuiteInfo IUTEST_CXX_FINAL : public IParamTestSuiteInfo
 {
     typedef T                                       Tester;
     typedef typename Tester::ParamType              ParamType;
@@ -174,7 +174,7 @@ public:
     /**
      * @brief   テストの作成
     */
-    virtual void OnRegisterTests(IParamTestInfoData* infodata) const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnRegisterTests(IParamTestInfoData* infodata) const IUTEST_CXX_OVERRIDE
     {
         for( typename InstantiationContainer::const_iterator gen_it=m_instantiation.begin()
             , gen_end=m_instantiation.end(); gen_it != gen_end; ++gen_it )

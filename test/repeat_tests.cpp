@@ -49,11 +49,11 @@ IUTEST_P(TestP, Bar)
 int g_environment_setup = 0;
 int g_environment_teardown = 0;
 
-class MyEnvironment : public ::iutest::Environment
+class MyEnvironment IUTEST_CXX_FINAL : public ::iutest::Environment
 {
 private:
-    virtual void SetUp(void)    IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { ++g_environment_setup; }
-    virtual void TearDown(void) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { ++g_environment_teardown; }
+    virtual void SetUp(void)    IUTEST_CXX_OVERRIDE { ++g_environment_setup; }
+    virtual void TearDown(void) IUTEST_CXX_OVERRIDE { ++g_environment_teardown; }
 };
 
 IUTEST(Repeat, Counter)

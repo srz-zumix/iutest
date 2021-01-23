@@ -44,8 +44,8 @@ public:
     {
     }
 public:
-    virtual bool IsReportable(const UnitTest& test) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;
-    virtual void OnReportTest(IFile* file, const UnitTest& test) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;
+    virtual bool IsReportable(const UnitTest& test) IUTEST_CXX_OVERRIDE;
+    virtual void OnReportTest(IFile* file, const UnitTest& test) IUTEST_CXX_OVERRIDE;
 
 private:
     static void OnReportTestSuite(IFile* file, const TestSuite& test_suite);

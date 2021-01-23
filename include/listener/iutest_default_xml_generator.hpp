@@ -76,8 +76,8 @@ private:
     }
 
 public:
-    virtual void OnTestIterationStart(const UnitTest& test, int iteration) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;
-    virtual void OnTestProgramEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL;
+    virtual void OnTestIterationStart(const UnitTest& test, int iteration) IUTEST_CXX_OVERRIDE;
+    virtual void OnTestProgramEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
 
 private:
     virtual bool IsReportable(const UnitTest& test) { IUTEST_UNUSED_VAR(test); return true; }

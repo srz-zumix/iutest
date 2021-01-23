@@ -52,7 +52,7 @@ public:
  * @brief   パラメータ生成器保持クラス
 */
 template<typename T>
-class iuParamGenerator : public iuIParamGenerator<T>
+class iuParamGenerator IUTEST_CXX_FINAL : public iuIParamGenerator<T>
 {
     typedef iuIParamGenerator<T> _Interface;
     typedef iuParamGenerator<T>  _Myt;
@@ -74,10 +74,10 @@ public:
 #endif
 
 public:
-    virtual void    Begin() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { m_pInterface->Begin(); }
-    virtual T       GetCurrent() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return m_pInterface->GetCurrent(); }
-    virtual void    Next() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { m_pInterface->Next(); }
-    virtual bool    IsEnd() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return m_pInterface->IsEnd(); }
+    virtual void    Begin() IUTEST_CXX_OVERRIDE { m_pInterface->Begin(); }
+    virtual T       GetCurrent() const IUTEST_CXX_OVERRIDE { return m_pInterface->GetCurrent(); }
+    virtual void    Next() IUTEST_CXX_OVERRIDE { m_pInterface->Next(); }
+    virtual bool    IsEnd() const IUTEST_CXX_OVERRIDE { return m_pInterface->IsEnd(); }
 private:
     _Interface* m_pInterface;
 };
@@ -87,7 +87,7 @@ private:
  * @tparam T    = パラメータ型
 */
 template<typename T>
-class iuRangeParamsGenerator : public iuIParamGenerator<T>
+class iuRangeParamsGenerator IUTEST_CXX_FINAL : public iuIParamGenerator<T>
 {
     T m_begin;
     T m_end;
@@ -109,16 +109,16 @@ public:
     }
 
 public:
-    virtual void    Begin() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { m_cur = m_begin; }
-    virtual T       GetCurrent() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return m_cur; }
-    virtual void    Next() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { m_cur = static_cast<T>(m_cur + m_step); }
-    virtual bool    IsEnd() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return !(m_cur < m_end); }
+    virtual void    Begin() IUTEST_CXX_OVERRIDE { m_cur = m_begin; }
+    virtual T       GetCurrent() const IUTEST_CXX_OVERRIDE { return m_cur; }
+    virtual void    Next() IUTEST_CXX_OVERRIDE { m_cur = static_cast<T>(m_cur + m_step); }
+    virtual bool    IsEnd() const IUTEST_CXX_OVERRIDE { return !(m_cur < m_end); }
 };
 
 /**
  * @brief   真偽値パラメータ生成器
 */
-class iuBoolParamsGenerator : public iuIParamGenerator<bool>
+class iuBoolParamsGenerator IUTEST_CXX_FINAL : public iuIParamGenerator<bool>
 {
     int m_n;
     bool m_cur;
@@ -129,10 +129,10 @@ public:
     {}
 
 public:
-    virtual void    Begin() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { m_cur = false; m_n = 0; }
-    virtual bool    GetCurrent() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return m_cur; }
-    virtual void    Next() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { ++m_n; m_cur = !m_cur; }
-    virtual bool    IsEnd() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return m_n >= 2; }
+    virtual void    Begin() IUTEST_CXX_OVERRIDE { m_cur = false; m_n = 0; }
+    virtual bool    GetCurrent() const IUTEST_CXX_OVERRIDE { return m_cur; }
+    virtual void    Next() IUTEST_CXX_OVERRIDE { ++m_n; m_cur = !m_cur; }
+    virtual bool    IsEnd() const IUTEST_CXX_OVERRIDE { return m_n >= 2; }
 };
 
 /**
@@ -175,10 +175,10 @@ public:
 #endif
 
 public:
-    virtual void    Begin() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { m_it = m_values.begin(); }
-    virtual T       GetCurrent() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return *m_it; }
-    virtual void    Next() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { ++m_it; }
-    virtual bool    IsEnd() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return (m_it == m_values.end()); }
+    virtual void    Begin() IUTEST_CXX_OVERRIDE { m_it = m_values.begin(); }
+    virtual T       GetCurrent() const IUTEST_CXX_OVERRIDE { return *m_it; }
+    virtual void    Next() IUTEST_CXX_OVERRIDE { ++m_it; }
+    virtual bool    IsEnd() const IUTEST_CXX_OVERRIDE { return (m_it == m_values.end()); }
 };
 
 
@@ -430,7 +430,7 @@ IIUT_DECL_VALUEARRAY_(50);
 #if IUTEST_HAS_VARIADIC_COMBINE
 
 template<typename... Args>
-class iuCartesianProductGenerator : public iuIParamGenerator< tuples::tuple<Args...> >
+class iuCartesianProductGenerator IUTEST_CXX_FINAL : public iuIParamGenerator< tuples::tuple<Args...> >
 {
     typedef tuples::tuple< iuParamGenerator<Args>... > _MyTuple;
     static const int kCount = sizeof...(Args);
@@ -495,22 +495,22 @@ public:
     iuCartesianProductGenerator() {}
 
 public:
-    virtual void Begin() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void Begin() IUTEST_CXX_OVERRIDE
     {
         tuples::tuple_foreach(v, begin_func());
     }
-    virtual void Next() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void Next() IUTEST_CXX_OVERRIDE
     {
         if( !IsEnd() )
         {
             next_foreach<0, kCount>(v);
         }
     }
-    virtual bool IsEnd() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual bool IsEnd() const IUTEST_CXX_OVERRIDE
     {
         return is_end_foreach<0, kCount>(v);
     }
-    virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE
     {
         return current_foreach<0, kCount, Args...>();
     }
@@ -558,19 +558,19 @@ private:
 #else
 
 template<typename Generator1, typename Generator2, typename ParamType>
-class iuICartesianProductGeneratorBase : public iuIParamGenerator< ParamType >
+class iuICartesianProductGeneratorBase IUTEST_CXX_FINAL : public iuIParamGenerator< ParamType >
 {
 public:
     iuICartesianProductGeneratorBase(const Generator1& g1, const Generator2& g2)
         : m_g1(g1), m_g2(g2)
     {}
 public:
-    virtual void Begin() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void Begin() IUTEST_CXX_OVERRIDE
     {
         m_g1.Begin();
         m_g2.Begin();
     }
-    virtual void Next() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void Next() IUTEST_CXX_OVERRIDE
     {
         if( m_g2.IsEnd() )
         {
@@ -586,7 +586,7 @@ public:
             }
         }
     }
-    virtual bool IsEnd() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual bool IsEnd() const IUTEST_CXX_OVERRIDE
     {
         return m_g1.IsEnd() && m_g2.IsEnd();
     }
@@ -597,7 +597,7 @@ protected:
 };
 
 template<typename T1, typename T2>
-class iuCartesianProductGenerator2
+class iuCartesianProductGenerator2 IUTEST_CXX_FINAL
     : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>, iuParamGenerator<T2>, tuples::tuple<T1, T2> >
 {
     typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>, iuParamGenerator<T2>, tuples::tuple<T1, T2> > _Mybase;
@@ -612,7 +612,7 @@ public:
     {}
 
 public:
-    virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE
     {
         return ParamType(this->m_g1.GetCurrent(), this->m_g2.GetCurrent());
     }
@@ -620,9 +620,10 @@ public:
 
 /*
 template<typename T1, typename T2, typename T3>
-class iuCartesianProductGenerator3 : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>
-                                                                            , iuCartesianProductGenerator2<T2, T3>
-                                                                            , tuples::tuple<T1, T2, T3> >
+class iuCartesianProductGenerator3 IUTEST_CXX_FINAL
+    : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>
+    , iuCartesianProductGenerator2<T2, T3>
+    , tuples::tuple<T1, T2, T3> >
 {
     typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>, iuCartesianProductGenerator2<T2, T3>, tuples::tuple<T1, T2, T3> >    _Mybase;
     typedef iuParamGenerator<T1> Generator1;
@@ -636,7 +637,7 @@ public:
     {}
 
 public:
-    virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE
     {
         tuples::tuple<T2, T3> param(this->m_g2.GetCurrent());
         return ParamType(this->m_g1.GetCurrent(), tuples::get<0>(param), tuples::get<1>(param) );
@@ -662,7 +663,7 @@ public:
 
 #define IIUT_DECL_CARTESIAN_PRODUCT_GENERATOR_(n)                           \
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                        \
-    class IUTEST_PP_CAT(iuCartesianProductGenerator, n)                     \
+    class IUTEST_PP_CAT(iuCartesianProductGenerator, n) IUTEST_CXX_FINAL    \
     : public IIUT_DECL_CARTESIAN_PRODUCT_GENERATOR_BASE_(n) {               \
         typedef IIUT_DECL_CARTESIAN_PRODUCT_GENERATOR_BASE_(n) _Mybase;     \
         IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_CARTESIAN_PRODUCT_GENERATOR_TYPEDEF_, T, Generator)            \
@@ -672,7 +673,7 @@ public:
         : _Mybase(g0, IUTEST_PP_CAT(iuCartesianProductGenerator, IUTEST_PP_DEC(n))<                         \
         IUTEST_PP_ENUM_SHIFTED_PARAMS(IUTEST_PP_DEC(n), T)>                 \
         ( IUTEST_PP_ENUM_SHIFTED_PARAMS(IUTEST_PP_DEC(n), g) ) ) {}         \
-        virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL {          \
+        virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE {          \
             tuples::tuple< IUTEST_PP_ENUM_SHIFTED_PARAMS(IUTEST_PP_DEC(n), T) > \
             params(this->m_g2.GetCurrent());                                \
             return ParamType(this->m_g1.GetCurrent(), IUTEST_PP_ENUM(IUTEST_PP_DEC(n)   \
@@ -1122,7 +1123,7 @@ private:
 #else
 
 template<typename T1, typename T2>
-class iuPairwiseGenerator2 : public iuIParamGenerator< tuples::tuple<T1, T2> >
+class iuPairwiseGenerator2 IUTEST_CXX_FINAL : public iuIParamGenerator< tuples::tuple<T1, T2> >
 {
     typedef iuParamGenerator<T1> Generator1;
     typedef iuParamGenerator<T2> Generator2;
@@ -1139,12 +1140,12 @@ public:
         return new iuPairwiseGenerator2<T1, T2>(g1, g2);
     }
 public:
-    virtual void Begin() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void Begin() IUTEST_CXX_OVERRIDE
     {
         m_g1.Begin();
         m_g2.Begin();
     }
-    virtual void Next() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void Next() IUTEST_CXX_OVERRIDE
     {
         if( m_g2.IsEnd() )
         {
@@ -1160,11 +1161,11 @@ public:
             }
         }
     }
-    virtual bool IsEnd() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual bool IsEnd() const IUTEST_CXX_OVERRIDE
     {
         return m_g1.IsEnd() && m_g2.IsEnd();
     }
-    virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE
     {
         return ParamType(this->m_g1.GetCurrent(), this->m_g2.GetCurrent());
     }

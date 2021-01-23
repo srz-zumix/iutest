@@ -120,7 +120,7 @@ IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(My1, TypeParamTest, TypeParamTestTypes);
 
 #if !defined(IUTEST_USE_GTEST)
 
-class MyTestEventListener : public ::iutest::TestEventListener
+class MyTestEventListener IUTEST_CXX_FINAL : public ::iutest::TestEventListener
 {
 public:
     bool called_OnTestCaseStart;
@@ -133,56 +133,56 @@ public:
     {}
 
 public:
-    virtual void OnTestProgramStart(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnTestProgramStart(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE
     {
     }
     virtual void OnTestIterationStart(const ::iutest::UnitTest& /*test*/
-                                    , int /*iteration*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+                                    , int /*iteration*/) IUTEST_CXX_OVERRIDE
     {
     }
-    virtual void OnEnvironmentsSetUpStart(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnEnvironmentsSetUpStart(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE
     {
     }
-    virtual void OnEnvironmentsSetUpEnd(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnEnvironmentsSetUpEnd(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE
     {
     }
-    virtual void OnTestCaseStart(const ::iutest::TestCase& test_case) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnTestCaseStart(const ::iutest::TestCase& test_case) IUTEST_CXX_OVERRIDE
     {
         if( ::iutest::detail::IsStringEqual(test_case.name(), "EventListenerTest") )
         {
             called_OnTestCaseStart = true;
         }
     }
-    virtual void OnTestStart(const ::iutest::TestInfo& /*test_info*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnTestStart(const ::iutest::TestInfo& /*test_info*/) IUTEST_CXX_OVERRIDE
     {
     }
-    virtual void OnTestPartResult(const ::iutest::TestPartResult& /*test_part_result*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnTestPartResult(const ::iutest::TestPartResult& /*test_part_result*/) IUTEST_CXX_OVERRIDE
     {
     }
-    virtual void OnTestRecordProperty(const ::iutest::TestProperty& /*test_property*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnTestRecordProperty(const ::iutest::TestProperty& /*test_property*/) IUTEST_CXX_OVERRIDE
     {
     }
-    virtual void OnTestEnd(const ::iutest::TestInfo& /*test_info*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnTestEnd(const ::iutest::TestInfo& /*test_info*/) IUTEST_CXX_OVERRIDE
     {
     }
-    virtual void OnTestCaseEnd(const ::iutest::TestCase& test_case) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnTestCaseEnd(const ::iutest::TestCase& test_case) IUTEST_CXX_OVERRIDE
     {
         if( ::iutest::detail::IsStringEqual(test_case.name(), "EventListenerTest") )
         {
             called_OnTestCaseEnd = true;
         }
     }
-    virtual void OnEnvironmentsTearDownStart(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnEnvironmentsTearDownStart(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE
     {
     }
-    virtual void OnEnvironmentsTearDownEnd(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnEnvironmentsTearDownEnd(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE
     {
     }
     virtual void OnTestIterationEnd(const ::iutest::UnitTest& /*test*/
-                                    , int /*iteration*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+                                    , int /*iteration*/) IUTEST_CXX_OVERRIDE
     {
     }
-    virtual void OnTestProgramEnd(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnTestProgramEnd(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE
     {
     }
 };

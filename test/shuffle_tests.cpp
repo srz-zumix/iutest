@@ -20,11 +20,11 @@
 static unsigned int seed = 0;
 static int shuffle_tests_count = 0;
 
-class MyEnvironment : public ::iutest::Environment
+class MyEnvironment IUTEST_CXX_FINAL : public ::iutest::Environment
 {
 private:
-    virtual void SetUp(void)    IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL {}
-    virtual void TearDown(void) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { seed = ::iutest::UnitTest::GetInstance()->random_seed(); ++shuffle_tests_count; }
+    virtual void SetUp(void)    IUTEST_CXX_OVERRIDE {}
+    virtual void TearDown(void) IUTEST_CXX_OVERRIDE { seed = ::iutest::UnitTest::GetInstance()->random_seed(); ++shuffle_tests_count; }
 };
 
 IUTEST(Foo, Bar)

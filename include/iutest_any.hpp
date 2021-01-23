@@ -129,20 +129,20 @@ private:
         virtual ::std::string to_string() const = 0;
     };
     template<typename T>
-    class holder : public placeholder
+    class holder IUTEST_CXX_FINAL : public placeholder
     {
     public:
         explicit holder(const T& v) : held(v) {}
     public:
-        virtual type_id type() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+        virtual type_id type() const IUTEST_CXX_OVERRIDE
         {
             return internal::GetTypeId<T>();
         }
-        virtual placeholder* clone() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+        virtual placeholder* clone() const IUTEST_CXX_OVERRIDE
         {
             return new holder<T>(held);
         }
-        virtual ::std::string to_string() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+        virtual ::std::string to_string() const IUTEST_CXX_OVERRIDE
         {
             return PrintToString(held);
         }

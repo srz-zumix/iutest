@@ -36,38 +36,38 @@ public:
     }
 
 public:
-    virtual void OnTestProgramStart(const ::iutest::UnitTest& unit_test) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnTestProgramStart(const ::iutest::UnitTest& unit_test) IUTEST_CXX_OVERRIDE
     {
         m_default_printer->OnTestProgramStart(unit_test);
     }
-    virtual void OnTestIterationStart(const ::iutest::UnitTest& unit_test, int iteration) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnTestIterationStart(const ::iutest::UnitTest& unit_test, int iteration) IUTEST_CXX_OVERRIDE
     {
         m_default_printer->OnTestIterationStart(unit_test, iteration);
     }
-    virtual void OnEnvironmentsSetUpStart(const ::iutest::UnitTest& unit_test) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnEnvironmentsSetUpStart(const ::iutest::UnitTest& unit_test) IUTEST_CXX_OVERRIDE
     {
         m_default_printer->OnEnvironmentsSetUpStart(unit_test);
     }
-    virtual void OnEnvironmentsSetUpEnd(const ::iutest::UnitTest& unit_test) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnEnvironmentsSetUpEnd(const ::iutest::UnitTest& unit_test) IUTEST_CXX_OVERRIDE
     {
         m_default_printer->OnEnvironmentsSetUpEnd(unit_test);
     }
 #if IUTEST_HAS_TESTSUITE
-    virtual void OnTestSuiteStart(const ::iutest::TestSuite& test_suite) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnTestSuiteStart(const ::iutest::TestSuite& test_suite) IUTEST_CXX_OVERRIDE
     {
         m_default_printer->OnTestSuiteStart(test_suite);
     }
 #else
-    virtual void OnTestCaseStart(const ::iutest::TestCase& test_case) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnTestCaseStart(const ::iutest::TestCase& test_case) IUTEST_CXX_OVERRIDE
     {
         m_default_printer->OnTestCaseStart(test_case);
     }
 #endif
 
 #if 0
-    virtual void OnTestStart(const ::iutest::TestInfo& test_info) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL {}
+    virtual void OnTestStart(const ::iutest::TestInfo& test_info) IUTEST_CXX_OVERRIDE {}
 
-    virtual void OnTestPartResult(const ::iutest::TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnTestPartResult(const ::iutest::TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE
     {
         if( ::iutest::UnitTest::GetInstance()->current_test_info() != NULL )
         {
@@ -81,17 +81,17 @@ public:
         m_default_printer->OnTestPartResult(test_part_result);
     }
 #else
-    virtual void OnTestStart(const ::iutest::TestInfo& test_info) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnTestStart(const ::iutest::TestInfo& test_info) IUTEST_CXX_OVERRIDE
     {
         m_default_printer->OnTestStart(test_info);
     }
-    virtual void OnTestPartResult(const ::iutest::TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnTestPartResult(const ::iutest::TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE
     {
         m_default_printer->OnTestPartResult(test_part_result);
     }
 #endif
 
-    virtual void OnTestEnd(const ::iutest::TestInfo& test_info) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnTestEnd(const ::iutest::TestInfo& test_info) IUTEST_CXX_OVERRIDE
     {
         if( test_info.result()->Failed() )
         {
@@ -100,29 +100,29 @@ public:
         }
     }
 #if IUTEST_HAS_TESTSUITE
-    virtual void OnTestSuiteEnd(const ::iutest::TestSuite& test_suite) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnTestSuiteEnd(const ::iutest::TestSuite& test_suite) IUTEST_CXX_OVERRIDE
     {
         m_default_printer->OnTestSuiteEnd(test_suite);
     }
 #else
-    virtual void OnTestCaseEnd(const ::iutest::TestCase& test_case) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnTestCaseEnd(const ::iutest::TestCase& test_case) IUTEST_CXX_OVERRIDE
     {
         m_default_printer->OnTestCaseEnd(test_case);
     }
 #endif
-    virtual void OnEnvironmentsTearDownStart(const ::iutest::UnitTest& unit_test) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnEnvironmentsTearDownStart(const ::iutest::UnitTest& unit_test) IUTEST_CXX_OVERRIDE
     {
         m_default_printer->OnEnvironmentsTearDownStart(unit_test);
     }
-    virtual void OnEnvironmentsTearDownEnd(const ::iutest::UnitTest& unit_test) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnEnvironmentsTearDownEnd(const ::iutest::UnitTest& unit_test) IUTEST_CXX_OVERRIDE
     {
         m_default_printer->OnEnvironmentsTearDownEnd(unit_test);
     }
-    virtual void OnTestIterationEnd(const ::iutest::UnitTest& unit_test, int iteration) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnTestIterationEnd(const ::iutest::UnitTest& unit_test, int iteration) IUTEST_CXX_OVERRIDE
     {
         m_default_printer->OnTestIterationEnd(unit_test, iteration);
     }
-    virtual void OnTestProgramEnd(const ::iutest::UnitTest& unit_test) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void OnTestProgramEnd(const ::iutest::UnitTest& unit_test) IUTEST_CXX_OVERRIDE
     {
         m_default_printer->OnTestProgramEnd(unit_test);
     }

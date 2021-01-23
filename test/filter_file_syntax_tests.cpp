@@ -25,12 +25,12 @@
 
 #if FILTER_FILE_TEST
 
-class FilterFile : public ::iutest::StringStreamFile
+class FilterFile IUTEST_CXX_FINAL : public ::iutest::StringStreamFile
 {
 public:
     static ::std::string filter;
 private:
-    virtual bool OpenImpl(const char* , int ) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual bool OpenImpl(const char* , int ) IUTEST_CXX_OVERRIDE
     {
         ss.clear();
         ss << filter;

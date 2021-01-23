@@ -71,7 +71,7 @@ namespace testing
 namespace internal
 {
 
-class HasNewFailureHelper : public HasNewFatalFailureHelper
+class HasNewFailureHelper IUTEST_CXX_FINAL : public HasNewFatalFailureHelper
 {
 public:
     HasNewFailureHelper() : m_has_new_failure(false)
@@ -81,7 +81,7 @@ public:
     {
     }
 public:
-    virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
     {
         if( result.failed() )
         {

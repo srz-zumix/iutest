@@ -46,10 +46,10 @@ public:
  * @tparam  Tester  = テストクラス
 */
 template<class Tester>
-class iuFactory : public iuFactoryBase
+class iuFactory IUTEST_CXX_FINAL : public iuFactoryBase
 {
 public:
-    virtual auto_ptr<Test> Create() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual auto_ptr<Test> Create() IUTEST_CXX_OVERRIDE
     {
         auto_ptr<Test> p( new Tester() );
         return p;
@@ -81,7 +81,7 @@ protected:
  * @tparam  Tester  = テストクラス
 */
 template<class Tester>
-class iuParamTestFactory : public iuParamTestFactoryBase<typename Tester::ParamType>
+class iuParamTestFactory IUTEST_CXX_FINAL : public iuParamTestFactoryBase<typename Tester::ParamType>
 {
     typedef typename Tester::ParamType ParamType;
     typedef iuParamTestFactoryBase<ParamType> _Mybase;
@@ -90,7 +90,7 @@ public:
     explicit iuParamTestFactory(ParamType param) : _Mybase(param) {}
 
 public:
-    virtual auto_ptr<Test> Create() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual auto_ptr<Test> Create() IUTEST_CXX_OVERRIDE
     {
         Tester::SetParam(&this->m_param);
         auto_ptr<Test> p( new Tester() );

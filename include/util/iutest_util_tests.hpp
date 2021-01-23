@@ -25,8 +25,8 @@
 #  define IUTEST_CLASS_CLEANUP(methodName)      static void TearDownTestCase() { methodName(); } static void methodName()
 #endif
 
-#define IUTEST_METHOD_INITIALIZE(methodName)    virtual void SetUp() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { methodName(); } void methodName()
-#define IUTEST_METHOD_CLEANUP(methodName)       virtual void TearDown() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { methodName(); } void methodName()
+#define IUTEST_METHOD_INITIALIZE(methodName)    virtual void SetUp() IUTEST_CXX_OVERRIDE { methodName(); } void methodName()
+#define IUTEST_METHOD_CLEANUP(methodName)       virtual void TearDown() IUTEST_CXX_OVERRIDE { methodName(); } void methodName()
 
 namespace iuutil
 {
@@ -61,16 +61,16 @@ class TestEventListener : public ::iutest::TestEventListener
 {
 #if IUTEST_HAS_TESTSUITE
 #if defined(IUTEST_REMOVE_LEGACY_TEST_CASEAPI_)
-    virtual void OnTestSuiteStart(const ::iutest::TestSuite& test_suite) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { OnTestCaseStart(test_suite); }
+    virtual void OnTestSuiteStart(const ::iutest::TestSuite& test_suite) IUTEST_CXX_OVERRIDE { OnTestCaseStart(test_suite); }
     virtual void OnTestCaseStart(const ::iutest::TestSuite& /*test_suite*/) {}
-    virtual void OnTestSuiteEnd(const ::iutest::TestSuite& test_suite) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL   { OnTestCaseEnd(test_suite); }
+    virtual void OnTestSuiteEnd(const ::iutest::TestSuite& test_suite) IUTEST_CXX_OVERRIDE   { OnTestCaseEnd(test_suite); }
     virtual void OnTestCaseEnd(const ::iutest::TestSuite& /*test_suite*/)   {}
 #endif
 #else
     virtual void OnTestSuiteStart(const ::iutest::TestCase& /*test_case*/) {}
-    virtual void OnTestCaseStart(const ::iutest::TestCase& test_case) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL    { OnTestSuiteStart(test_case); }
+    virtual void OnTestCaseStart(const ::iutest::TestCase& test_case) IUTEST_CXX_OVERRIDE    { OnTestSuiteStart(test_case); }
     virtual void OnTestSuiteEnd(const ::iutest::TestCase& /*test_case*/)   {}
-    virtual void OnTestCaseEnd(const ::iutest::TestCase& test_case) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL      { OnTestSuiteEnd(test_case); }
+    virtual void OnTestCaseEnd(const ::iutest::TestCase& test_case) IUTEST_CXX_OVERRIDE      { OnTestSuiteEnd(test_case); }
 #endif
 };
 

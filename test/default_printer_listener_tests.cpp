@@ -21,14 +21,14 @@
 TestLogger logger;
 static ::std::string s_log_testcases;
 
-class LoggerClear : public ::iutest::Environment
+class LoggerClear IUTEST_CXX_FINAL : public ::iutest::Environment
 {
 private:
-    virtual void SetUp(void) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void SetUp(void) IUTEST_CXX_OVERRIDE
     {
         logger.clear();
     }
-    virtual void TearDown(void) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    virtual void TearDown(void) IUTEST_CXX_OVERRIDE
     {
         s_log_testcases = logger.c_str();
         logger.clear();

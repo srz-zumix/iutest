@@ -130,7 +130,7 @@ public:
 
 public:
     template<typename COND, typename REPORTER=DefaultGlobalTestPartResultReporter>
-    class Counter : public REPORTER
+    class Counter IUTEST_CXX_FINAL : public REPORTER
     {
         typedef REPORTER _Mybase;
     public:
@@ -138,7 +138,7 @@ public:
         {
             m_holder.Attach(this);
         }
-        virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+        virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
         {
             if( m_cond(result) )
             {
@@ -166,7 +166,7 @@ public:
             m_holder.Attach(this);
         }
     public:
-        virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+        virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
         {
             m_results.push_back(result);
             _Mybase::ReportTestPartResult(result);

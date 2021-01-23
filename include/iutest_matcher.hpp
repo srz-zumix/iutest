@@ -93,9 +93,10 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& m)
  */
 
 #define IIUT_DECL_COMPARE_MATCHER(name, op)  \
-    template<typename T>class IUTEST_PP_CAT(name, Matcher): public IMatcher{    \
+    template<typename T>                                                        \
+    class IUTEST_PP_CAT(name, Matcher) IUTEST_CXX_FINAL : public IMatcher {     \
     public: explicit IUTEST_PP_CAT(name, Matcher)(const T& v) : m_expected(v) {}\
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL {                         \
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                         \
         iu_global_format_stringstream strm;                                     \
         strm << #name ": " << m_expected; return strm.str();                    \
     }                                                                           \
@@ -107,13 +108,13 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& m)
     }
 
 #define IIUT_DECL_COMPARE_MATCHER2(name, op) \
-    class IUTEST_PP_CAT(Twofold, IUTEST_PP_CAT(name, Matcher)): public IMatcher{        \
-    public: ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return #name; }         \
-    template<typename T, typename U>AssertionResult operator ()                         \
-        (const T& actual, const U& expected) const {                                    \
-        if IUTEST_COND_LIKELY( actual op expected ) return AssertionSuccess();          \
-        return AssertionFailure() << WhichIs() << ": " << actual << " vs " << expected; \
-    }                                                                                   \
+    class IUTEST_PP_CAT(Twofold, IUTEST_PP_CAT(name, Matcher)) IUTEST_CXX_FINAL : public IMatcher{  \
+    public: ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return #name; }                     \
+    template<typename T, typename U>AssertionResult operator ()                                     \
+        (const T& actual, const U& expected) const {                                                \
+        if IUTEST_COND_LIKELY( actual op expected ) return AssertionSuccess();                      \
+        return AssertionFailure() << WhichIs() << ": " << actual << " vs " << expected;             \
+    }                                                                                               \
     }
 
 
@@ -139,14 +140,15 @@ IUTEST_PRAGMA_WARN_POP()
 #undef IIUT_DECL_COMPARE_MATCHER2
 
 #define IIUT_DECL_STR_COMPARE_MATCHER(name)  \
-    template<typename T>class IUTEST_PP_CAT(name, Matcher): public IMatcher {   \
+    template<typename T>                                                        \
+    class IUTEST_PP_CAT(name, Matcher) IUTEST_CXX_FINAL : public IMatcher {     \
     public: IUTEST_PP_CAT(name, Matcher)(const T& value) : m_expected(value) {} \
     template<typename U>AssertionResult operator ()(const U& actual) const {    \
         if IUTEST_COND_LIKELY( internal::IUTEST_PP_CAT(name, Helper)::Compare(  \
             actual, m_expected) ) { return AssertionSuccess(); }                \
         return AssertionFailure() << WhichIs();                                 \
     }                                                                           \
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL {                         \
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                         \
         iu_global_format_stringstream strm; strm << #name ": " << m_expected;   \
         return strm.str();                                                      \
     }                                                                           \
@@ -168,7 +170,7 @@ IIUT_DECL_STR_COMPARE_MATCHER(StrCaseNe);
 /**
  * @brief   IsNull matcher
 */
-class IsNullMatcher : public IMatcher
+class IsNullMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     template<typename U>
@@ -180,7 +182,7 @@ public:
         }
         return AssertionFailure() << WhichIs();
     }
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         return "Is Null";
     }
@@ -189,7 +191,7 @@ public:
 /**
  * @brief   NotNull matcher
 */
-class NotNullMatcher : public IMatcher
+class NotNullMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     template<typename U>
@@ -202,7 +204,7 @@ public:
         return AssertionFailure() << WhichIs();
     }
 
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         return "Not Null";
     }
@@ -212,7 +214,7 @@ public:
  * @brief   Floating point Eq matcher
 */
 template<typename T>
-class FloatingPointEqMatcher : public IMatcher
+class FloatingPointEqMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit FloatingPointEqMatcher(const T& value) : m_expected(value) {}
@@ -229,7 +231,7 @@ public:
         return AssertionFailure() << WhichIs();
     }
 
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "Eq: " << PrintToString(m_expected);
@@ -243,7 +245,7 @@ private:
  * @brief   Floating point Eq matcher (NanSensitive)
 */
 template<typename T>
-class NanSensitiveFloatingPointEqMatcher : public IMatcher
+class NanSensitiveFloatingPointEqMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit NanSensitiveFloatingPointEqMatcher(const T& value) : m_expected(value) {}
@@ -260,7 +262,7 @@ public:
         return AssertionFailure() << WhichIs();
     }
 
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "NanSensitive Eq: " << PrintToString(m_expected);
@@ -274,7 +276,7 @@ private:
  * @brief   Floating point Near matcher
 */
 template<typename T>
-class FloatingPointNearMatcher : public IMatcher
+class FloatingPointNearMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit FloatingPointNearMatcher(const T& value, const T& abs_error)
@@ -292,7 +294,7 @@ public:
         return AssertionFailure() << WhichIs();
     }
 
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "Near: " << PrintToString(m_expected) << "(abs error <= " << m_max_abs_error << ")";
@@ -307,7 +309,7 @@ private:
  * @brief   Floating point Near matcher (NanSensitive)
 */
 template<typename T>
-class NanSensitiveFloatingPointNearMatcher : public IMatcher
+class NanSensitiveFloatingPointNearMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit NanSensitiveFloatingPointNearMatcher(const T& value, const T& abs_error)
@@ -325,7 +327,7 @@ public:
         return AssertionFailure() << WhichIs();
     }
 
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "NanSensitive Near: " << PrintToString(m_expected) << "(abs error <= " << m_max_abs_error << ")";
@@ -340,7 +342,7 @@ private:
  * @brief   StartsWith matcher
 */
 template<typename T>
-class StartsWithMatcher : public IMatcher
+class StartsWithMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit StartsWithMatcher(T str) : m_expected(str) {}
@@ -357,7 +359,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "StartsWith: " << m_expected;
@@ -391,7 +393,7 @@ private:
  * @brief   Has substr matcher
 */
 template<typename T>
-class HasSubstrMatcher : public IMatcher
+class HasSubstrMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit HasSubstrMatcher(T expected) : m_expected(expected) {}
@@ -407,7 +409,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "HasSubstr: " << m_expected;
@@ -442,7 +444,7 @@ private:
  * @brief   EndsWith matcher
 */
 template<typename T>
-class EndsWithMatcher : public IMatcher
+class EndsWithMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit EndsWithMatcher(T str) : m_expected(str) {}
@@ -459,7 +461,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "EndsWith: " << m_expected;
@@ -525,7 +527,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "Eq: " << PrintToString(m_expected);
@@ -562,7 +564,7 @@ private:
  * @brief   TypedEq matcher
 */
 template<typename T>
-class TypedEqMatcher : public EqMatcher<T>
+class TypedEqMatcher IUTEST_CXX_FINAL : public EqMatcher<T>
 {
 public:
     explicit TypedEqMatcher(T expected) : EqMatcher<T>(m_expected), m_expected(expected) {}
@@ -612,7 +614,7 @@ T& CastToMatcher(T& matcher)
  * @brief   Contains matcher
 */
 template<typename T>
-class ContainsMatcher : public IMatcher
+class ContainsMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit ContainsMatcher(const T& expected) : m_expected(expected) {}
@@ -630,7 +632,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "Contains: " << m_expected;
@@ -660,7 +662,7 @@ private:
  * @brief   Each matcher
 */
 template<typename T>
-class EachMatcher : public IMatcher
+class EachMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit EachMatcher(const T& expected) : m_expected(expected) {}
@@ -678,7 +680,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "Each: " << m_expected;
@@ -708,7 +710,7 @@ private:
  * @brief   ContainerEq matcher
 */
 template<typename T>
-class ContainerEqMatcher : public IMatcher
+class ContainerEqMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit ContainerEqMatcher(const T& expected) : m_expected(expected) {}
@@ -727,7 +729,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "ContainerEq: " << PrintToString(m_expected);
@@ -774,7 +776,7 @@ private:
  * @brief   Pointwise matcher
 */
 template<typename M, typename T>
-class PointwiseMatcher : public IMatcher
+class PointwiseMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     PointwiseMatcher(const M& matcher, const T& expected)
@@ -794,7 +796,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "Pointwise: " << m_matcher << ": " << PrintToString(m_expected);
@@ -842,7 +844,7 @@ private:
  * @brief   Optional matcher
 */
 template<typename T>
-class OptionalMatcher : public IMatcher
+class OptionalMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit OptionalMatcher(const T& expected)
@@ -880,7 +882,7 @@ private:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "Optional: " << PrintToString(m_expected);
@@ -898,7 +900,7 @@ private:
 /**
  * @brief   IsEmpty matcher
 */
-class IsEmptyMatcher : public IMatcher
+class IsEmptyMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     template<typename U>
@@ -912,7 +914,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         return "Is Empty";
     }
@@ -923,7 +925,7 @@ public:
  * @brief   SizeIs matcher
 */
 template<typename T>
-class SizeIsMatcher : public IMatcher
+class SizeIsMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit SizeIsMatcher(const T& expected) : m_expected(expected) {}
@@ -940,7 +942,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "Size is: " << m_expected;
@@ -968,7 +970,7 @@ private:
  * @brief   At matcher
 */
 template<typename T>
-class AtMatcher : public IMatcher
+class AtMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     AtMatcher(size_t index, const T& expected) : m_index(index), m_expected(expected) {}
@@ -985,7 +987,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "At " << m_index << ": " << m_expected;
@@ -1001,7 +1003,7 @@ private:
  * @brief   ElementsAreArray matcher
 */
 template<typename T>
-class ElementsAreArrayMatcher : public IMatcher
+class ElementsAreArrayMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     template<typename It>
@@ -1020,7 +1022,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         return WhichIs(PrintToString(m_expected));
     }
@@ -1164,7 +1166,7 @@ private:
 * @brief    ElementsAre matcher
 */
 template<typename ...T>
-class ElementsAreMatcher : public ElementsAreMatcherBase
+class ElementsAreMatcher IUTEST_CXX_FINAL : public ElementsAreMatcherBase
 {
 public:
     explicit ElementsAreMatcher(T... t) : m_matchers(t...) {}
@@ -1175,7 +1177,7 @@ public:
     {
         return Check(m_matchers, actual);
     }
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         return ElementsAreMatcherBase::WhichIs<0>(m_matchers);
     }
@@ -1188,7 +1190,7 @@ private:
 
 /*
 template<typename T0, typename T1>
-class ElementsAreMatcher : public ElementsAreMatcherBase
+class ElementsAreMatcher IUTEST_CXX_FINAL : public ElementsAreMatcherBase
 {
 public:
     ElementsAreMatcher(T0 m0, T1 m1) : m_matchers(m0, m1) {}
@@ -1199,7 +1201,7 @@ public:
     {
         return Check(m_matchers, actual);
     }
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         return ElementsAreMatcherBase::WhichIs<0>(m_matchers);
     }
@@ -1210,12 +1212,12 @@ private:
 
 #define IIUT_DECL_ELEMENTSARE_MATCHER(n)                                                \
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                                    \
-    class IUTEST_PP_CAT(ElementsAreMatcher, n) : public ElementsAreMatcherBase {        \
+    class IUTEST_PP_CAT(ElementsAreMatcher, n) IUTEST_CXX_FINAL : public ElementsAreMatcherBase {   \
     public: IUTEST_PP_CAT(ElementsAreMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, T, m)) \
         : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                    \
     template<typename U>AssertionResult operator ()(const U& actual) {                  \
         return Check(m_matchers, actual); }                                             \
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL {                                 \
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                                 \
         return ElementsAreMatcherBase::WhichIs<0>(m_matchers); }                        \
     private:                                                                            \
     tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > m_matchers;                            \
@@ -1242,7 +1244,7 @@ IIUT_DECL_ELEMENTSARE_MATCHER(10);
  * @brief   Field matcher
 */
 template<typename F, typename T>
-class FieldMatcher : public IMatcher
+class FieldMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     FieldMatcher(const F& field, const T& expected) : m_field(field), m_expected(expected) {}
@@ -1259,7 +1261,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "Field: " << m_expected;
@@ -1297,7 +1299,7 @@ private:
  * @brief   Property matcher
 */
 template<typename F, typename T>
-class PropertyMatcher : public IMatcher
+class PropertyMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     PropertyMatcher(const F& prop, const T& expected) : m_property(prop), m_expected(expected) {}
@@ -1314,7 +1316,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "Property: " << m_expected;
@@ -1352,7 +1354,7 @@ private:
  * @brief   Key matcher
 */
 template<typename T>
-class KeyMatcher : public IMatcher
+class KeyMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit KeyMatcher(const T& expected) : m_expected(expected) {}
@@ -1369,7 +1371,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "Key: " << m_expected;
@@ -1384,7 +1386,7 @@ private:
  * @brief   Pair matcher
 */
 template<typename T1, typename T2>
-class PairMatcher : public IMatcher
+class PairMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     PairMatcher(const T1& m1, const T2& m2) : m_m1(m1), m_m2(m2) {}
@@ -1405,7 +1407,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "Pair: (" << m_m1 << ", " << m_m2 << ")";
@@ -1427,7 +1429,7 @@ private:
  * @brief   ResultOf matcher
 */
 template<typename F, typename T>
-class ResultOfMatcher : public IMatcher
+class ResultOfMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     ResultOfMatcher(F& func, const T& expected) : m_func(func), m_expected(expected) {}
@@ -1444,7 +1446,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "Result of: " << m_expected;
@@ -1466,7 +1468,7 @@ private:
  * @brief   Pointee matcher
 */
 template<typename T>
-class PointeeMatcher : public IMatcher
+class PointeeMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit PointeeMatcher(const T& expected) : m_expected(expected) {}
@@ -1483,7 +1485,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "Points To: " << m_expected;
@@ -1503,7 +1505,7 @@ private:
  * @brief   Not matcher
 */
 template<typename T>
-class NotMatcher : public IMatcher
+class NotMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit NotMatcher(const T& unexpected) : m_unexpected(unexpected) {}
@@ -1520,7 +1522,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "Not: (" << m_unexpected << ")";
@@ -1535,7 +1537,7 @@ private:
  * @brief   Any matcher
 */
 template<typename T>
-class AnyMatcher : public IMatcher
+class AnyMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     AssertionResult operator ()(const T&) const
@@ -1546,7 +1548,7 @@ public:
     AssertionResult operator ()(const U&) const;
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         strm << "A: " << detail::GetTypeNameProxy<T>::GetTypeName();
@@ -1557,7 +1559,7 @@ public:
 /**
  * @brief   Anything matcher
 */
-class AnythingMatcher : public IMatcher
+class AnythingMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     AnythingMatcher() {}
@@ -1569,7 +1571,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         return "_";
     }
@@ -1580,7 +1582,7 @@ public:
 /**
  * @brief   Regex matcher
 */
-class RegexMatcher : public IMatcher
+class RegexMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     RegexMatcher(const detail::iuRegex& expected, bool full_match) : m_expected(expected), m_full_match(full_match) {}
@@ -1597,7 +1599,7 @@ public:
     }
 
 public:
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
         if( m_full_match )
@@ -1687,7 +1689,7 @@ private:
  * @brief   AllOf matcher
 */
 template<typename ...T>
-class AllOfMatcher : public AllOfMatcherBase
+class AllOfMatcher IUTEST_CXX_FINAL : public AllOfMatcherBase
 {
 public:
     explicit AllOfMatcher(T... t) : m_matchers(t...) {}
@@ -1698,7 +1700,7 @@ public:
     {
         return Check(m_matchers, actual);
     }
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         return AllOfMatcherBase::WhichIs<0>(m_matchers);
     }
@@ -1711,7 +1713,7 @@ private:
 
 /*
 template<typename T0, typename T1>
-class AllOfMatcher : public AllOfMatcherBase
+class AllOfMatcher IUTEST_CXX_FINAL : public AllOfMatcherBase
 {
 public:
     AllOfMatcher(T0 m0, T1 m1) : m_matchers(m0, m1) {}
@@ -1722,7 +1724,7 @@ public:
     {
         return Check(m_matchers, actual);
     }
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         return AllOfMatcherBase::WhichIs<0>(m_matchers);
     }
@@ -1733,12 +1735,12 @@ private:
 
 #define IIUT_DECL_ALLOF_MATCHER(n)                                                  \
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                                \
-    class IUTEST_PP_CAT(AllOfMatcher, n) : public AllOfMatcherBase {                \
+    class IUTEST_PP_CAT(AllOfMatcher, n) IUTEST_CXX_FINAL : public AllOfMatcherBase {   \
     public: IUTEST_PP_CAT(AllOfMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, T, m))   \
         : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                \
     template<typename U>AssertionResult operator ()(const U& actual) {              \
         return Check(m_matchers, actual); }                                         \
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL {                             \
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                             \
         return AllOfMatcherBase::WhichIs<0>(m_matchers); }                          \
     private:                                                                        \
     tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > m_matchers;                        \
@@ -1814,7 +1816,7 @@ private:
  * @brief   AnyOf matcher
 */
 template<typename ...T>
-class AnyOfMatcher : public AnyOfMatcherBase
+class AnyOfMatcher IUTEST_CXX_FINAL : public AnyOfMatcherBase
 {
 public:
     explicit AnyOfMatcher(T... t) : m_matchers(t...) {}
@@ -1825,7 +1827,7 @@ public:
     {
         return Check(m_matchers, actual);
     }
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         return AnyOfMatcherBase::WhichIs<0>(m_matchers);
     }
@@ -1838,7 +1840,7 @@ private:
 
 /*
 template<typename T0, typename T1>
-class AnyOfMatcher : public AnyOfMatcherBase
+class AnyOfMatcher IUTEST_CXX_FINAL : public AnyOfMatcherBase
 {
 public:
     AnyOfMatcher(T0 m0, T1 m1) : m_matchers(m0, m1) {}
@@ -1849,7 +1851,7 @@ public:
     {
         return Check(m_matchers, actual);
     }
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         return AnyOfMatcherBase::WhichIs<0>(m_matchers);
     }
@@ -1860,12 +1862,12 @@ private:
 
 #define IIUT_DECL_ANYOF_MATCHER(n)                                                  \
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                                \
-    class IUTEST_PP_CAT(AnyOfMatcher, n) : public AnyOfMatcherBase {                \
+    class IUTEST_PP_CAT(AnyOfMatcher, n) IUTEST_CXX_FINAL : public AnyOfMatcherBase {   \
     public: IUTEST_PP_CAT(AnyOfMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, T, m))   \
         : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                \
     template<typename U>AssertionResult operator ()(const U& actual) {              \
         return Check(m_matchers, actual); }                                         \
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL {                             \
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                             \
         return AnyOfMatcherBase::WhichIs<0>(m_matchers); }                          \
     private:                                                                        \
     tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > m_matchers;                        \
