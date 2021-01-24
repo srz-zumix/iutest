@@ -417,7 +417,7 @@ inline void PrintTo(const unsigned char value, iu_ostream* os)
 template<typename CharT, typename Traits>
 inline void PrintTo(const iu_basic_string_view<CharT, Traits>& value, iu_ostream* os)
 {
-    const ::std::basic_string<CharT, Traits> str{ value.data() };
+    const ::std::basic_string<CharT, Traits> str = value.data();
     UniversalTersePrint(str.c_str(), os);
 }
 #else
