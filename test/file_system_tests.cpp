@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,12 +31,12 @@ void FileSystemCallTest()
 class TestFileSystem : public ::iutest::detail::IFileSystem
 {
 private:
-    virtual ::iutest::IFile* Create(void) IUTEST_CXX_OVERRIDE
+    virtual ::iutest::IFile* Create(void) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         is_call_create = true;
         return NULL;
     }
-    virtual void Delete(::iutest::IFile*) IUTEST_CXX_OVERRIDE
+    virtual void Delete(::iutest::IFile*) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         is_call_delete = true;
     }
