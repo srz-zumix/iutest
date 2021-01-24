@@ -229,14 +229,10 @@ for:
       make -j4
   test_script:
     cmd: make test OUTPUTXML=xml && make report
-  # on_finish: &junit_result
-  #   cmd: |
-  #       cd %APPVEYOR_BUILD_FOLDER%/test
-  #       find . -type f -name '*.xml' -print0 | xargs -0 -I '{}' curl -F 'file=@{}' "https://ci.appveyor.com/api/testresults/junit/%APPVEYOR_JOB_ID%"
-  on_finish: &xunit_result
+  on_finish: &test_result
     cmd: |
         cd %APPVEYOR_BUILD_FOLDER%/test
-        find . -type f -name '*.xml' -print0 | xargs -0 -I '{}' curl -F 'file=@{}' "https://ci.appveyor.com/api/testresults/xunit/%APPVEYOR_JOB_ID%"
+        find . -type f -name '*.xml' -print0 | xargs -0 -I '{}' curl -F 'file=@{}' "https://ci.appveyor.com/api/testresults/junit/%APPVEYOR_JOB_ID%"
 # MINGW
 -
   matrix:
@@ -259,7 +255,7 @@ for:
       mingw32-make -j4 %MAKE_OPTIONS%
   test_script:
     cmd: mingw32-make test %MAKE_OPTIONS% OUTPUTXML=xml && mingw32-make report
-  on_finish: *xunit_result
+  on_finish: *test_result
 # NAMKE
 -
   matrix:
@@ -271,7 +267,7 @@ for:
     cmd: cd test && nmake showcxxmacros && nmake minimum_tests && minimum_tests.exe --spec
   test_script:
     cmd: nmake test OUTPUTXML=xml
-  on_finish: *xunit_result
+  on_finish: *test_result
 # Prefast
 -
   matrix:
