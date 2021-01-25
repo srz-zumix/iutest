@@ -76,8 +76,6 @@ IUTEST(UnitTest, StringView)
     //IUTEST_EXPECT_STRNE("Abc", sv1);
 }
 
-#if !IUTEST_USE_OWN_STRING_VIEW
-
 IUTEST(UnitTest, PrintStringView)
 {
     LogChecker ck("XYZ");
@@ -107,5 +105,3 @@ IUTEST(UnitTest, PrintStringViewConvertible)
     IUTEST_PRINTTOSTRING_EQ(ck, v);
     IUTEST_STREAMOUT_CHECK(v);
 }
-
-#endif
