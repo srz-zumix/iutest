@@ -219,7 +219,7 @@ inline void DefaultPrintNonContainerTo(const T& value, iu_ostream* os)
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     printer_internal2::DefaultPrintNonContainerTo(value, os);
 #else
-    printer_internal::formatter::Printer<false>::Print(value, os);
+    printer_internal::formatter::RawBytesPrinter::Print(value, os);
 #endif
 }
 /** @overload */
