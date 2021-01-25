@@ -185,8 +185,8 @@ on_finish:
     $wc = New-Object 'System.Net.WebClient'
     $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\ctest-to-junit-results.xml))
 
-artifacts:
-  - path: "**/*.xml"
+# artifacts:
+#   - path: "**/*.xml"
 
 
 for:
@@ -234,9 +234,16 @@ for:
   test_script:
     cmd: make test OUTPUTXML=xml && make report
   on_finish: &test_result
-    cmd: |
-        cd %APPVEYOR_BUILD_FOLDER%/test
-        find . -type f -name '*.xml' -print0 | xargs -0 -I '{}' curl -F 'file=@{}' "https://ci.appveyor.com/api/testresults/junit/%APPVEYOR_JOB_ID%"
+    ps: |
+      $wc = New-Object 'System.Net.WebClient'
+      Get-ChildItem "%APPVEYOR_BUILD_FOLDER%/test" -Filter *.xml | 
+      Foreach-Object {
+        $content = Get-Content $_.FullName
+        $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path $content))
+      }
+#    cmd: |
+#        cd %APPVEYOR_BUILD_FOLDER%/test
+#        find . -type f -name '*.xml' -print0 | xargs -0 -I '{}' curl -F 'file=@{}' "https://ci.appveyor.com/api/testresults/junit/%APPVEYOR_JOB_ID%"
 # MINGW
 -
   matrix:
