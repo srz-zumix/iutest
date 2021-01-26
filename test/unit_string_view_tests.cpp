@@ -23,17 +23,11 @@
 #define IUTEST_PRINTTOSTRING_EQ(expect, val)        \
     IUTEST_EXPECT_STREQ(static_cast<const char*>(expect), ::iutest::PrintToString(val))
 
-#define IUTEST_PRINTTOSTRING_CONTAIN(expect, val)  \
-    IUTEST_EXPECT_STRIN(static_cast<const char*>(expect), ::iutest::PrintToString(val))
-
 #else
 
 #define IUTEST_PRINTTOSTRING_EQ(expect, val)        \
     (void)(expect); \
     (void)(val)
-
-// unused
-// #define IUTEST_PRINTTOSTRING_CONTAIN(expect, val)
 
 #endif
 
