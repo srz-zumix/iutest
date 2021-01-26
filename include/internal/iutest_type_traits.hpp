@@ -148,6 +148,7 @@ template<typename T>struct is_member_function_pointer;
 
 using ::std::true_type;
 using ::std::false_type;
+using ::std::conditional;
 using ::std::remove_const;
 using ::std::remove_volatile;
 using ::std::remove_reference;
@@ -210,6 +211,18 @@ template<bool B>const bool bool_constant<B>::value;
 
 typedef bool_constant<true>  true_type;
 typedef bool_constant<false> false_type;
+
+/**
+ * @brief   conditional
+*/
+template<bool B, typename T, typename U>
+class conditional
+{
+    template<bool X>struct impl { typedef T type; };
+    template<>struct impl<false> { typedef U type; };
+public:
+    typedef typename impl<B>::type type;
+};
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
