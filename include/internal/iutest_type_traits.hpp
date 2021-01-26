@@ -218,8 +218,8 @@ typedef bool_constant<false> false_type;
 template<bool B, typename T, typename U>
 class conditional
 {
-    template<bool X>struct impl { typedef T type; }
-    template<>struct impl<false> { typedef U type; }
+    template<bool X>struct impl { typedef T type; };
+    template<>struct impl<false> { typedef U type; };
 public:
     typedef typename impl<B>::type type;
 };
