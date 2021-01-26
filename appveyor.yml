@@ -236,7 +236,7 @@ for:
   on_finish: &test_result
     ps: |
       $wc = New-Object 'System.Net.WebClient'
-      Get-ChildItem "%APPVEYOR_BUILD_FOLDER%/test" -Filter *.xml | 
+      Get-ChildItem "$($env:APPVEYOR_BUILD_FOLDER)\test" -Filter *.xml | 
       Foreach-Object {
         $content = Get-Content $_.FullName
         $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path $content))
