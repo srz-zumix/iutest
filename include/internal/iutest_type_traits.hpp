@@ -220,7 +220,7 @@ class conditional
 {
     template<bool X, typename TMP>
     struct impl { typedef T type; };
-    template<bool X, typename TMP>
+    template<typename TMP>
     struct impl<false, TMP> { typedef U type; };
 public:
     typedef typename impl<B, void>::type type;
