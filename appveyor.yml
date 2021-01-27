@@ -232,14 +232,15 @@ for:
       make showcxxmacros
       make -j4
   test_script:
-    cmd: make test OUTPUTXML=xml && make report
+    cmd: make test OUTPUTXML=junit && make report
   on_finish: &test_result
     ps: |
       $wc = New-Object 'System.Net.WebClient'
       Get-ChildItem "$($env:APPVEYOR_BUILD_FOLDER)\test" -Filter *.xml | 
       Foreach-Object {
         $XmlFilePath = $_.FullName
-        $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", $XmlFilePath)
+        Write-Host $XmlFilePath
+        $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", $XmlFilePath)
       }
 #    cmd: |
 #        cd %APPVEYOR_BUILD_FOLDER%/test
