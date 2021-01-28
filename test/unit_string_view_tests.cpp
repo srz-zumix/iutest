@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2019-2021, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -16,6 +16,41 @@
 //======================================================================
 // include
 #include "iutest.hpp"
+#include "logger_tests.hpp"
+
+#if !defined(IUTEST_USE_GTEST)
+
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+
+#define IUTEST_PRINTTOSTRING_CHECK(expect, val)        \
+    IUTEST_EXPECT_STREQ(static_cast<const char*>(expect), ::iutest::PrintToString(val))
+
+#else
+
+#define IUTEST_PRINTTOSTRING_CHECK(expect, val)  \
+    IUTEST_EXPECT_STRIN(static_cast<const char*>(expect), ::iutest::PrintToString(val))
+
+#endif
+
+#else
+
+#define IUTEST_PRINTTOSTRING_CHECK(expect, val)        \
+    (void)(expect); \
+    (void)(val)
+
+#endif
+
+#if !defined(IUTEST_USE_GTEST) && !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+
+#define IUTEST_STREAMOUT_CHECK(val) \
+    IUTEST_SUCCEED() << val
+
+#else
+
+#define IUTEST_STREAMOUT_CHECK(val) \
+    IUTEST_SUCCEED() << ::iutest::PrintToString(val)
+
+#endif
 
 IUTEST(UnitTest, StringView)
 {
@@ -42,4 +77,38 @@ IUTEST(UnitTest, StringView)
     IUTEST_EXPECT_NE(s, sv3);
 
     //IUTEST_EXPECT_STRNE("Abc", sv1);
+}
+
+IUTEST(UnitTest, PrintStringView)
+{
+    LogChecker ck("XYZ");
+    ::iutest::detail::iu_string_view view = "XYZ";
+    IUTEST_PRINTTOSTRING_EQ(ck, view);
+    IUTEST_STREAMOUT_CHECK(view);
+}
+
+struct StringViewConvertible
+{
+    ::std::string name;
+    StringViewConvertible()
+    : name("ABC")
+    {
+    }
+
+    operator ::iutest::detail::iu_string_view () const
+    {
+        return name;
+    }
+};
+
+IUTEST(UnitTest, PrintStringViewConvertible)
+{
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+    LogChecker ck("ABC");
+#else
+    LogChecker ck("-Byte object");
+#endif
+    StringViewConvertible v;
+    IUTEST_PRINTTOSTRING_CHECK(ck, v);
+    IUTEST_STREAMOUT_CHECK(v);
 }
