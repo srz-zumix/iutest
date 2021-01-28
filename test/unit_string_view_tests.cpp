@@ -94,7 +94,11 @@ struct StringViewConvertible
 
 IUTEST(UnitTest, PrintStringViewConvertible)
 {
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     LogChecker ck("ABC");
+#else
+    LogChecker ck("-Byte object");
+#endif
     StringViewConvertible v;
     IUTEST_PRINTTOSTRING_EQ(ck, v);
     IUTEST_STREAMOUT_CHECK(v);
