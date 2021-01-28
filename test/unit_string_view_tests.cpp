@@ -20,12 +20,21 @@
 
 #if !defined(IUTEST_USE_GTEST)
 
-#define IUTEST_PRINTTOSTRING_EQ(expect, val)        \
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+
+#define IUTEST_PRINTTOSTRING_CHECK(expect, val)        \
     IUTEST_EXPECT_STREQ(static_cast<const char*>(expect), ::iutest::PrintToString(val))
 
 #else
 
-#define IUTEST_PRINTTOSTRING_EQ(expect, val)        \
+#define IUTEST_PRINTTOSTRING_CHECK(expect, val)  \
+    IUTEST_EXPECT_STRIN(static_cast<const char*>(expect), ::iutest::PrintToString(val))
+
+#endif
+
+#else
+
+#define IUTEST_PRINTTOSTRING_CHECK(expect, val)        \
     (void)(expect); \
     (void)(val)
 
@@ -100,6 +109,6 @@ IUTEST(UnitTest, PrintStringViewConvertible)
     LogChecker ck("-Byte object");
 #endif
     StringViewConvertible v;
-    IUTEST_PRINTTOSTRING_EQ(ck, v);
+    IUTEST_PRINTTOSTRING_CHECK(ck, v);
     IUTEST_STREAMOUT_CHECK(v);
 }
