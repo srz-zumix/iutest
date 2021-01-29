@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
     (void)argc;
 #if defined(OUTPUTXML)
     // 実行対象テストがないので xml 出力しない
-    ::iutest::IUTEST_FLAG(output) = IUTEST_NULLPTR;
+    ::iutest::IUTEST_FLAG(output) = "";
 #endif
 
     {
