@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
     IUTEST_INIT(&argc, argv);
 #if defined(OUTPUTXML)
     // 失敗テストを含むので xml 出力しない
-    ::iutest::IUTEST_FLAG(output) = NULL;
+    ::iutest::IUTEST_FLAG(output) = IUTEST_NULLPTR;
 #endif
     return IUTEST_RUN_ALL_TESTS();
 }
