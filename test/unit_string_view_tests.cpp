@@ -20,21 +20,27 @@
 
 #if !defined(IUTEST_USE_GTEST)
 
+#define IUTEST_PRINTTOSTRING_EQ(expect, val)        \
+    IUTEST_EXPECT_STREQ(static_cast<const char*>(expect), ::iutest::PrintToString(val))
+
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 
-#define IUTEST_PRINTTOSTRING_CHECK(expect, val)        \
-    IUTEST_EXPECT_STREQ(static_cast<const char*>(expect), ::iutest::PrintToString(val))
+#define IUTEST_PRINTTOSTRING_CHECK  IUTEST_PRINTTOSTRING_EQ
 
 #else
 
-#define IUTEST_PRINTTOSTRING_CHECK(expect, val)  \
+#define IUTEST_PRINTTOSTRING_CHECK(expect, val)     \
     IUTEST_EXPECT_STRIN(static_cast<const char*>(expect), ::iutest::PrintToString(val))
 
 #endif
 
 #else
 
-#define IUTEST_PRINTTOSTRING_CHECK(expect, val)        \
+#define IUTEST_PRINTTOSTRING_EQ(expect, val)        \
+    (void)(expect); \
+    (void)(val)
+
+#define IUTEST_PRINTTOSTRING_CHECK(expect, val)     \
     (void)(expect); \
     (void)(val)
 
