@@ -17,7 +17,7 @@ steps:
     commands:
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - make showcxxversion && make clean && make -j4 $${MAKE_OPTIONS}
-      - make test
+      - make test OUTPUTXML=1
       - make report
       - make clean
     # depends_on: [ clone ]
@@ -66,7 +66,7 @@ steps:
     commands:
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - make showcxxversion && make clean && make -j4 $${MAKE_OPTIONS}
-      - make test
+      - make test OUTPUTXML=1
       - make report
       - make clean
     # depends_on: [ clone ]
@@ -103,7 +103,7 @@ steps:
       - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) -exec sed -i -e '1s/^\xEF\xBB\xBF//' {} \;
       - cd test
       - make showcxxversion && make clean && make -j4 $${MAKE_OPTIONS}
-      - make test
+      - make test OUTPUTXML=1
       - make report
       - make clean
 
@@ -131,7 +131,7 @@ steps:
       - export CXX=clang++-$${DRONE_STEP_NAME}
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - make showcxxversion && make clean && make -j4 $${MAKE_OPTIONS}
-      - make test
+      - make test OUTPUTXML=1
       - make report
       - make clean
     # depends_on: [ clone ]
@@ -188,7 +188,7 @@ steps:
       - export CXX=clang++-$${DRONE_STEP_NAME}
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - make showcxxversion && make clean && make -j4 $${MAKE_OPTIONS}
-      - make test
+      - make test OUTPUTXML=1
       - make report
       - make clean
     # depends_on: [ clone ]
@@ -243,7 +243,7 @@ steps:
       - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) -exec sed -i -e '1s/^\xEF\xBB\xBF//' {} \;
       - cd test
       - make showcxxversion && make clean && make -j4 STDFLAG=-std=c++98
-      - make test
+      - make test OUTPUTXML=1
       - make report
       - make clean
 

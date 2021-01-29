@@ -134,7 +134,7 @@ workflows:
         - content: |-
             #!/bin/bash
             set -ex
-            python -m pip install --upgrade pip
+            python -m pip install --upgrade pip==20.0
             python -m pip install --upgrade cmake
             cmake --version
             mkdir android-build
