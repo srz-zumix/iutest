@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
     IUTEST_INIT(&argc, argv);
 #if defined(OUTPUTXML)
     // 実行対象テストがないので xml 出力しない
-    ::iutest::IUTEST_FLAG(output) = NULL;
+    ::iutest::IUTEST_FLAG(output) = IUTEST_NULLPTR;
 #endif
 
     ::iutest::AddGlobalTestEnvironment(new LoggerClear());
