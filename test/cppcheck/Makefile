@@ -21,13 +21,43 @@ IUTEST_HEADERS =$(IUTEST_DIR)/include/*.hpp \
 
 CPPCHECK_DEFINES= \
 	IUTEST_HAS_CLOCK=1 \
+	IUTEST_MAX_PATH=260 \
 
 CPPCHECK_UNDEFINES= \
 	_WIN32 \
 	_MSC_VER \
+	__AFX_H__ \
 	__clang__ \
 	__CYGWIN__ \
 	__APPLE__ \
+	ANDROID \
+	__ANDROID__ \
+	__CUDACC__ \
+	__INTEL_COMPILER \
+	COMPILER_ICC \
+	__BORLANDC__ \
+	__MWERKS__ \
+	__MINGW32__ \
+	__MINGW64__ \
+	__MINGW__ \
+	__AVR32__ \
+	__avr32__ \
+	__arm__ \
+	__ARMCC_VERSION \
+	__sun \
+	__SunOS \
+	__native_client__ \
+	_STLPORT_VERSION \
+	__USE_MINGW_ANSI_STDIO \
+	__MAC_OS_X_VERSION_MIN_REQUIRED \
+	__STDC_WANT_SECURE_LIB__ \
+	IUTEST_BUILD_DOXYGEN \
+	IUTEST_OS_WINDOWS_MINGW \
+	IUTEST_OS_FREEBSD \
+	IUTEST_OS_LINUX_ANDROID \
+	IUTEST_OS_NACL \
+
+	# IUTEST_USE_GTEST \
 
 CPPCHECK_SUPPRESS= \
 	syntaxError \
@@ -42,7 +72,11 @@ CPPCHECK_SUPPRESS_OPTIONS=$(patsubst %,--suppress=%,$(CPPCHECK_SUPPRESS))
 
 CPPCHECK_ENABLE_OPTION= --enable=all
 
-DEFAULT_OPTIONS=--inline-suppr -f -j4 --platform=unix64
+DEFAULT_OPTIONS=--inline-suppr -f -j8 --platform=unix64
+
+ifdef USE_CLANG
+DEFAULT_OPTIONS+= --clang
+endif
 
 OPTIONS+= $(DEFAULT_OPTIONS)
 OPTIONS+= $(CPPCHECK_ENABLE_OPTION)
@@ -82,3 +116,6 @@ check-config:
 
 $(TARGETS): $(SRC_CPP) Makefile
 	cppcheck $(IUTEST_INCLUDE) $(OPTIONS) $(SRCS) --xml 2> $@
+
+html: $(TARGETS)
+	cppcheck-htmlreport --file=$< --title=iutest --report-dir=./html --source-dir=$(IUTEST_DIR)/include
