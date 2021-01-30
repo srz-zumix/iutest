@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -23,7 +23,7 @@ static int teardown_flag = 0;
 class TestSetUpFailure : public ::iutest::Test
 {
 public:
-    virtual void SetUp() IUTEST_CXX_OVERRIDE
+    virtual void SetUp() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         IUTEST_FAIL() << "SetUp Failed.";
     }
@@ -37,7 +37,7 @@ IUTEST_F(TestSetUpFailure, Test)
 class TestTearDownFailure : public ::iutest::Test
 {
 public:
-    virtual void TearDown() IUTEST_CXX_OVERRIDE
+    virtual void TearDown() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         IUTEST_FAIL() << "TearDown Failed.";
     }
@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
     IUTEST_INIT(&argc, argv);
 #if defined(OUTPUTXML)
     // 失敗テストを含むので xml 出力しない
-    ::iutest::IUTEST_FLAG(output) = NULL;
+    ::iutest::IUTEST_FLAG(output) = "";
 #endif
     const int ret = IUTEST_RUN_ALL_TESTS();
 

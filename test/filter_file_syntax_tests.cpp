@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2015-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -25,7 +25,7 @@
 
 #if FILTER_FILE_TEST
 
-class FilterFile : public ::iutest::StringStreamFile
+class FilterFile IUTEST_CXX_FINAL : public ::iutest::StringStreamFile
 {
 public:
     static ::std::string filter;

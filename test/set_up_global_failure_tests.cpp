@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -19,7 +19,7 @@
 
 static bool setup_failure=true;
 
-class SetUpFailureEnvironment : public ::iutest::Environment
+class SetUpFailureEnvironment IUTEST_CXX_FINAL : public ::iutest::Environment
 {
 private:
     virtual void SetUp(void) IUTEST_CXX_OVERRIDE
@@ -31,7 +31,7 @@ private:
     }
 };
 
-class TearDownFailureEnvironment : public ::iutest::Environment
+class TearDownFailureEnvironment IUTEST_CXX_FINAL : public ::iutest::Environment
 {
 private:
     virtual void TearDown(void) IUTEST_CXX_OVERRIDE
@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
     IUTEST_INIT(&argc, argv);
 #if defined(OUTPUTXML)
     // 失敗テストを含むので xml 出力しない
-    ::iutest::IUTEST_FLAG(output) = NULL;
+    ::iutest::IUTEST_FLAG(output) = "";
 #endif
 
     {

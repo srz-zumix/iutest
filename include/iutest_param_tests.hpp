@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -174,7 +174,7 @@
 */
 #define IIUT_TEST_P_I_(classname_, testsuite_, testsuitename_, testname_)                   \
     IIUT_TEST_P_FIXTURE_DECL_(testsuite_)                                                   \
-    class classname_ : public testsuite_ {                                                  \
+    class classname_ IUTEST_CXX_FINAL : public testsuite_ {                                 \
         public: classname_() {}                                                             \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE;                                 \
         private: static int AddRegister() {                                                 \
@@ -191,7 +191,7 @@
 #if IUTEST_HAS_IGNORE_TEST
 
 #define IIUT_TEST_P_I_IGNORE_(classname_, testsuite_, testsuitename_, testname_)            \
-    class classname_ : public testsuite_ {                                                  \
+    class classname_ IUTEST_CXX_FINAL : public testsuite_ {                                 \
         public: classname_() {}                                                             \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
         template<typename T>void Body();                                                    \

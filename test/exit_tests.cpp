@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        exit_tests.cpp
- * @brief       exit 対応テスト
+ * @brief       quick_exit test
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2016-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2016-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -19,7 +19,7 @@
 
 #if IUTEST_HAS_STD_QUICK_EXIT
 
-class ExitCheckEventListener : public ::iutest::EmptyTestEventListener
+class ExitCheckEventListener IUTEST_CXX_FINAL : public ::iutest::EmptyTestEventListener
 {
     virtual void OnTestProgramEnd(const ::iutest::UnitTest& test) IUTEST_CXX_OVERRIDE
     {
