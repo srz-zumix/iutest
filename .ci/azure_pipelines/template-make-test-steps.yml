@@ -17,6 +17,7 @@ steps:
     echo [main] > ~/.config/apport/settings
     echo unpackaged=true >> ~/.config/apport/settings
     cat ~/.config/apport/settings
+    sudo apt-get update
     sudo apt-get install language-pack-ja
     sudo update-locale LANG=${{ parameters.LOCALE_CTYPE }}
     locale -a
