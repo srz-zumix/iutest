@@ -134,6 +134,8 @@ workflows:
         - content: |-
             #!/bin/bash
             set -ex
+            curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+            sudo python3 get-pip.py --force-reinstall
             sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 90
             # python -m pip install --upgrade pip==20.0
             python -m pip install --upgrade pip
