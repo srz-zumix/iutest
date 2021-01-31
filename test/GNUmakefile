@@ -132,6 +132,10 @@ ifdef GTEST_EXPECT_LATEST
 CXXFLAGS+=-DGTEST_EXPECT_LATEST=$(GTEST_EXPECT_LATEST)
 endif
 
+#
+# build configs
+#
+
 CXXFLAGS += $(DEFS) $(STDFLAG) $(STDLIB)
 LIBS_ = $(LIBS:%=-l%)
 LDFLAGS += $(LIBS_)
@@ -182,6 +186,16 @@ endif
 
 COVERITY_SCAN_BUILD_TARGETS = $(ALLTESTS_TARGET) $(EXTENSIONTESTS_TARGET) \
 	$(TEST_TARGETS) $(ASSERTION_ONLY_TARGETS) $(TARGETS_IUTEST_ONLY) $(UNITTESTS_TARGET)
+
+#
+# exec options
+#
+
+ifeq ($(USE_GTEST)$(USE_GMOCK),)
+TEST_OPTION_PREFIX=iutest
+else
+TEST_OPTION_PREFIX=gtest
+endif
 
 #
 #
@@ -269,13 +283,13 @@ list-xml:
 %_run : $(OUTDIR)/%
 	@echo $(OUTDIR)/$(<F)
 ifdef USE_COVERAGE
-	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --iutest_output=xml:$(OUTDIR)/$(<F).xml > /dev/null
+	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --${TEST_OPTION_PREFIX}_output=xml:$(OUTDIR)/$(<F).xml > /dev/null
 else
 ifdef OUTPUTXML
 ifeq ($(OUTPUTXML),junit)
-	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --iutest_output=junit:$(OUTDIR)/$(<F).xml
+	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --${TEST_OPTION_PREFIX}_output=junit:$(OUTDIR)/$(<F).xml
 else
-	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --iutest_output=xml:$(OUTDIR)/$(<F).xml
+	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --${TEST_OPTION_PREFIX}_output=xml:$(OUTDIR)/$(<F).xml
 endif
 else
 	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION)
