@@ -332,7 +332,7 @@ inline ::std::string GetTypeName()
     ::std::string str(status == 0 ? read_name : name);
 #if defined(_IUTEST_DEBUG)
     if( status != 0 ) {
-        fprintf(stderr, "Unable to demangle \"%s\". (status=%d)\n", name, status);
+        fprintf(stderr, "Unable to demangle \"%s\" -> \"%s\". (status=%d)\n", name, read_name ? read_name : "", status);
         fflush(stderr);
     }
 #endif
