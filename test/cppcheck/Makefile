@@ -55,6 +55,9 @@ CPPCHECK_UNDEFINES= \
 	__avr32__ \
 	__arm__ \
 	__ARMCC_VERSION \
+	_XOPEN_SOURCE \
+	_BSD_SOURCE \
+	_POSIX_C_SOURCE \
 	sun \
 	__sun \
 	__SunOS \
@@ -84,6 +87,12 @@ CPPCHECK_UNDEFINES= \
 	GTEST_OS_WINDOWS_MINGW \
 
 	# IUTEST_USE_GTEST \
+
+
+# C++20
+
+CPPCHECK_DEFINES+= \
+	IUTEST_CPLUSPLUS=202002L
 
 CPPCHECK_SUPPRESS= \
 	syntaxError \
@@ -144,4 +153,5 @@ $(TARGETS): $(SRC_CPP) Makefile
 	cppcheck $(IUTEST_INCLUDE) $(OPTIONS) $(SRCS) --xml 2> $@
 
 html: $(TARGETS)
-	cppcheck-htmlreport --file=$< --title=iutest --report-dir=./html --source-dir=$(IUTEST_DIR)/include
+	cppcheck-htmlreport --file=$< --title=iutest --report-dir=./html
+	# cppcheck-htmlreport --file=$< --title=iutest --report-dir=./html --source-dir=$(IUTEST_DIR)/include
