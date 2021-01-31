@@ -81,23 +81,10 @@ endif
 # compiler
 #
 
-#
 # Wine g++
-#
 ifeq ($(CXX),wineg++)
 LIBS+=ws2_32
 CXXFLAGS += -static-libgcc -static-libstdc++ -m32
-endif
-
-#
-# scan-build
-#
-ifeq ($(findstring c++-analyzer, $(CXX)),c++-analyzer)
-USE_SCANBUILD=yes
-endif
-
-ifdef OUTPUTXML
-CXXFLAGS +=-DOUTPUTXML
 endif
 
 ifeq ($(HOST),WINE)
@@ -107,6 +94,12 @@ else
 WINE_ =
 endif
 
+# scan-build
+ifeq ($(findstring c++-analyzer, $(CXX)),c++-analyzer)
+USE_SCANBUILD=yes
+endif
+
+# cygwin
 ifeq ($(IUTEST_MKFLAG_CYGWIN),1)
 STDFLAG:=$(subst c++,gnu++,$(STDFLAG))
 endif
@@ -135,6 +128,14 @@ endif
 #
 # build configs
 #
+
+ifdef OUTPUTXML
+CXXFLAGS +=-DOUTPUTXML
+endif
+
+ifdef IUTEST_DEBUG
+CXXFLAGS +=-D_IUTEST_DEBUG
+endif
 
 CXXFLAGS += $(DEFS) $(STDFLAG) $(STDLIB)
 LIBS_ = $(LIBS:%=-l%)

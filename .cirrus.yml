@@ -63,6 +63,6 @@ cirrus_freebsd_clang_test_task:
       - STDFLAG: -std=c++2a
   install_script: pkg install -y gmake
   version_script: gmake --version && gmake -C test showcxxversion
-  build_script: gmake -C test -j4
+  build_script: gmake -C test -j4 IUTEST_DEBUG=1
   test_script : gmake -C test test
   report_script: gmake -C test report
