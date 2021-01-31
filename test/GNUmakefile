@@ -260,6 +260,9 @@ endif
 ifdef CLANGMAJOR
 endif
 
+list-xml:
+	@ls | grep *.xml || true
+
 %_build: $(OUTDIR)/%
 	@echo $(OUTDIR)/$(<F)
 
@@ -430,7 +433,7 @@ endif
 CXX_ERROR_TEST_FLAGS:=-ferror-limit=100
 
 $(ERR_TARGETS) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
-	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) $(CXX_ERROR_TEST_FLAGS) -o $@ $< $(LDFLAGS) 2>&1 | python $(PY_COMPILEERROR_TEST_TOOL) $(IUTEST_COMPILE_ERROR_TEST_OPTION)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -Wno-error $(CXX_ERROR_TEST_FLAGS) -o $@ $< $(LDFLAGS) 2>&1 | python $(PY_COMPILEERROR_TEST_TOOL) $(IUTEST_COMPILE_ERROR_TEST_OPTION)
 
 else
 
