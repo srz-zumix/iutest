@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -303,12 +303,14 @@ private:
             , m_current_random_seed(0)
             , m_before_origin_random_seed(0)
             , m_repeat_count(1)
+            , m_output_option_dirty(false)
             , m_testpartresult_reporter(NULL)
         {}
         unsigned int        m_random_seed;
         unsigned int        m_current_random_seed;
         unsigned int        m_before_origin_random_seed;
         int                 m_repeat_count;
+        bool                m_output_option_dirty;
         ::std::string       m_output_option;
         ::std::string       m_test_filter;
         ::std::string       m_flagfile;
@@ -371,6 +373,16 @@ public:
     static bool has_output_option()
     {
         return !get_vars().m_output_option.empty();
+    }
+    /** @private */
+    static bool is_output_option_dirty()
+    {
+        return get_vars().m_output_option_dirty;
+    }
+    /** @private */
+    static void flush_output_option()
+    {
+        get_vars().m_output_option_dirty = false;
     }
 
 private:
@@ -459,6 +471,7 @@ private:
     static void set_output_option(const char* str)
     {
         get_vars().m_output_option = detail::NullableString(str);
+        get_vars().m_output_option_dirty = true;
     }
 
     /**

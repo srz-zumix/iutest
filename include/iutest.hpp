@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
  *
@@ -1859,6 +1859,7 @@ public:
     void Initialize()
     {
         UnitTest::instance().Initialize();
+        SetUpDefaultListener();
     }
 
     /**
@@ -1873,8 +1874,9 @@ public:
 private:
     void SetUpDefaultListener()
     {
-        if( TestEnv::has_output_option() )
+        if( TestEnv::has_output_option() && TestEnv::is_output_option_dirty() )
         {
+            TestEnv::flush_output_option();
             do
             {
 #if defined(__WANDBOX__)
