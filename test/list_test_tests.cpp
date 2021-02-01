@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -46,6 +46,7 @@ IUTEST_TYPED_TEST(TypedTest, A)
 
 #endif
 
+#if !defined(IUTEST_USE_GTEST)
 const char list_test_str[] =
 #if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TYPED_TEST
 "3 tests from 3 testsuite\n"
@@ -85,6 +86,8 @@ const char list_test_with_where_str[] =
 "  A/0, where GetParam() = 42\n"
 #endif
 "";
+
+#endif
 
 #ifdef UNICODE
 #  define DECAL_ARGV(cmd) const wchar_t* targv[] = { argv[0], L cmd }
