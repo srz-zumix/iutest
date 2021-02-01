@@ -3,7 +3,7 @@
 #
 # Clang version check
 #
-# Copyright (C) 2017-2020, Takazumi Shirayanagi
+# Copyright (C) 2017-2021, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
@@ -56,77 +56,116 @@ ifeq ($(CXX_NAME),clang++)
 STD_CPP03=c++98
 STD_GNU03=gnu++98
 
-STD_CPP11=c++11
-STD_GNU11=gnu++11
-
 NO_UNUSED_LOCAL_TYPEDEFS=-Wno-unused-local-typedefs
 
 #
 # c++11
 #
 
+STD_CPP0X=c++0x
+STD_GNU0X=gnu++0x
+
 # 3.0 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) ))
 STD_CPP11=c++11
 STD_GNU11=gnu++11
-else
-STD_CPP11=c++0x
-STD_GNU11=gnu++0x
 endif
 
 #
 # c++14
 #
 
+# 3.2 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 2 \)))
+STD_CPP1Y=c++1y
+STD_GNU1Y=gnu++1y
+endif
+
 # 3.5 later
 ifeq (1,$(shell expr \( \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 5 \) \)))
 STD_CPP14=c++14
 STD_GNU14=gnu++14
-else
-
-# 3.2 later
-#ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 2 \)))
-#STD_CPP14=c++1y
-#STD_GNU14=gnu++1y
-#endif
-
 endif
 
 #
 # c++17
 #
 
+# 3.5 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 5 \)))
+STD_CPP1Z=c++1z
+STD_GNU1Z=gnu++1z
+endif
+
 # 5.0 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 5 \)))
 STD_CPP17=c++17
 STD_GNU17=gnu++17
-else
-
-# 3.5 later
-ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 5 \)))
-STD_CPP17=c++1z
-STD_GNU17=gnu++1z
-endif
-
 endif
 
 #
-# latest
+# c++20
 #
 
+# 5.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 5 \)))
+STD_CPP20=c++2a
+STD_GNU20=gnu++2a
+endif
+
+#
+# stable/latest
+#
+
+STD_CPP=$(STD_CPP03)
+STD_GNU=$(STD_GNU03)
+STD_CPP_LATEST=$(STD_CPP03)
+STD_GNU_LATEST=$(STD_GNU03)
+
+ifdef STD_CPP11
+STD_CPP_LATEST=$(STD_CPP0X)
+STD_GNU_LATEST=$(STD_GNU0X)
+endif
+
+ifdef STD_CPP11
 STD_CPP=$(STD_CPP11)
 STD_GNU=$(STD_GNU11)
+STD_CPP_LATEST=$(STD_CPP11)
+STD_GNU_LATEST=$(STD_GNU11)
+endif
+
+ifdef STD_CPP1Y
+STD_CPP_LATEST=$(STD_CPP1Y)
+STD_GNU_LATEST=$(STD_GNU1Y)
+endif
 
 ifdef STD_CPP14
 STD_CPP=$(STD_CPP14)
 STD_GNU=$(STD_GNU14)
+STD_CPP_LATEST=$(STD_CPP14)
+STD_GNU_LATEST=$(STD_GNU14)
+endif
+
+ifdef STD_CPP1Z
+STD_CPP_LATEST=$(STD_CPP1Z)
+STD_GNU_LATEST=$(STD_GNU1Z)
 endif
 
 ifdef STD_CPP17
 STD_CPP=$(STD_CPP17)
 STD_GNU=$(STD_GNU17)
+STD_CPP_LATEST=$(STD_CPP17)
+STD_GNU_LATEST=$(STD_GNU17)
 endif
 
+ifdef STD_CPP2A
+STD_CPP_LATEST=$(STD_CPP2A)
+STD_GNU_LATEST=$(STD_GNU2A)
+endif
+
+ifdef STDFLAG_USE_LATEST
+STDFLAG_VALUE=$(STD_CPP_LATEST)
+endif
 ifndef STDFLAG_VALUE
 STDFLAG_VALUE=$(STD_CPP)
 endif
