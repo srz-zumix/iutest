@@ -58,9 +58,9 @@ cirrus_freebsd_clang_test_task:
     image_family: freebsd-13-0-snap
   env:
     matrix:
-      - STDFLAG: -std=c++14
-      - STDFLAG: -std=c++17
-      - STDFLAG: -std=c++2a
+      - STDFLAG: -std=gnu++14
+      - STDFLAG: -std=gnu++17
+      - STDFLAG: -std=gnu++20
   install_script: pkg install -y gmake
   version_script: gmake --version && gmake -C test showcxxversion
   build_script: gmake -C test -j4 IUTEST_DEBUG=1
