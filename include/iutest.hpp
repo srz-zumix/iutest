@@ -1867,14 +1867,16 @@ public:
     */
     int Run()
     {
+        SetUpDefaultListener();
         return UnitTest::instance().Run();
     }
 
 private:
     void SetUpDefaultListener()
     {
-        if( TestEnv::has_output_option() )
+        if( TestEnv::has_output_option() && TestEnv::is_output_option_dirty() )
         {
+            TestEnv::flush_output_option();
             do
             {
 #if defined(__WANDBOX__)

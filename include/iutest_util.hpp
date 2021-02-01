@@ -44,7 +44,7 @@ inline void ReleaseDefaultXmlGenerator()
     listeners.Release(listeners.default_xml_generator());
 }
 
-}
+}   // end of namespace iuutil
 
 /**
  * @ingroup     IUTEST_UTIL
