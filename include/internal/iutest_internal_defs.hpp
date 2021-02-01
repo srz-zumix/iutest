@@ -333,6 +333,9 @@ inline ::std::string GetTypeName()
 #if defined(_IUTEST_DEBUG)
     if( status != 0 ) {
         fprintf(stderr, "Unable to demangle \"%s\" -> \"%s\". (status=%d)\n", name, read_name ? read_name : "", status);
+        char tmp[16] = { 0 };
+        __cxa_demangle("i", tmp, sizeof(tmp), &status);
+        fprintf(stderr, "Unable to demangle \"%s\" -> \"i\". (status=%d)\n", tmp, status);
         fflush(stderr);
     }
 #endif
