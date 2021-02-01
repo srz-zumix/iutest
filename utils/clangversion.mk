@@ -109,8 +109,14 @@ endif
 
 # 5.0 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 5 \)))
-STD_CPP20=c++2a
-STD_GNU20=gnu++2a
+STD_CPP2A=c++2a
+STD_GNU2A=gnu++2a
+endif
+
+# 11.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 11 \)))
+STD_CPP20=c++20
+STD_GNU20=gnu++20
 endif
 
 #
@@ -161,6 +167,13 @@ endif
 ifdef STD_CPP2A
 STD_CPP_LATEST=$(STD_CPP2A)
 STD_GNU_LATEST=$(STD_GNU2A)
+endif
+
+ifdef STD_CPP20
+STD_CPP=$(STD_CPP20)
+STD_GNU=$(STD_GNU20)
+STD_CPP_LATEST=$(STD_CPP20)
+STD_GNU_LATEST=$(STD_GNU20)
 endif
 
 ifdef STDFLAG_USE_LATEST
