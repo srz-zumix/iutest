@@ -334,7 +334,8 @@ inline ::std::string GetTypeName()
     if( status != 0 ) {
         fprintf(stderr, "Unable to demangle \"%s\" -> \"%s\". (status=%d)\n", name, read_name ? read_name : "", status);
         char tmp[16] = { 0 };
-        __cxa_demangle("i", tmp, sizeof(tmp), &status);
+        size_t len = sizeof(tmp);
+        __cxa_demangle("i", tmp, &len, &status);
         fprintf(stderr, "Unable to demangle \"%s\" -> \"i\". (status=%d)\n", tmp, status);
         fflush(stderr);
     }
