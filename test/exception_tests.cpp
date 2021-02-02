@@ -77,7 +77,7 @@ int main(int argc, char* argv[])
 
 #if defined(OUTPUTXML)
     // 失敗テストを含むので xml 出力しない
-    ::iutest::IUTEST_FLAG(output) = "";
+    ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
     if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
 #if IUTEST_HAS_ASSERTION_RETURN

@@ -81,23 +81,10 @@ endif
 # compiler
 #
 
-#
 # Wine g++
-#
 ifeq ($(CXX),wineg++)
 LIBS+=ws2_32
 CXXFLAGS += -static-libgcc -static-libstdc++ -m32
-endif
-
-#
-# scan-build
-#
-ifeq ($(findstring c++-analyzer, $(CXX)),c++-analyzer)
-USE_SCANBUILD=yes
-endif
-
-ifdef OUTPUTXML
-CXXFLAGS +=-DOUTPUTXML
 endif
 
 ifeq ($(HOST),WINE)
@@ -107,6 +94,12 @@ else
 WINE_ =
 endif
 
+# scan-build
+ifeq ($(findstring c++-analyzer, $(CXX)),c++-analyzer)
+USE_SCANBUILD=yes
+endif
+
+# cygwin
 ifeq ($(IUTEST_MKFLAG_CYGWIN),1)
 STDFLAG:=$(subst c++,gnu++,$(STDFLAG))
 endif
@@ -130,6 +123,18 @@ endif
 endif
 ifdef GTEST_EXPECT_LATEST
 CXXFLAGS+=-DGTEST_EXPECT_LATEST=$(GTEST_EXPECT_LATEST)
+endif
+
+#
+# build configs
+#
+
+ifdef OUTPUTXML
+CXXFLAGS +=-DOUTPUTXML
+endif
+
+ifdef IUTEST_DEBUG
+CXXFLAGS +=-D_IUTEST_DEBUG
 endif
 
 CXXFLAGS += $(DEFS) $(STDFLAG) $(STDLIB)
@@ -182,6 +187,16 @@ endif
 
 COVERITY_SCAN_BUILD_TARGETS = $(ALLTESTS_TARGET) $(EXTENSIONTESTS_TARGET) \
 	$(TEST_TARGETS) $(ASSERTION_ONLY_TARGETS) $(TARGETS_IUTEST_ONLY) $(UNITTESTS_TARGET)
+
+#
+# exec options
+#
+
+ifeq ($(USE_GTEST)$(USE_GMOCK),)
+TEST_OPTION_PREFIX=iutest
+else
+TEST_OPTION_PREFIX=gtest
+endif
 
 #
 #
@@ -260,19 +275,22 @@ endif
 ifdef CLANGMAJOR
 endif
 
+list-xml:
+	@ls | grep *.xml || true
+
 %_build: $(OUTDIR)/%
 	@echo $(OUTDIR)/$(<F)
 
 %_run : $(OUTDIR)/%
 	@echo $(OUTDIR)/$(<F)
 ifdef USE_COVERAGE
-	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --iutest_output=xml:$(OUTDIR)/$(<F).xml > /dev/null
+	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --${TEST_OPTION_PREFIX}_output=xml:$(OUTDIR)/$(<F).xml > /dev/null
 else
 ifdef OUTPUTXML
 ifeq ($(OUTPUTXML),junit)
-	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --iutest_output=junit:$(OUTDIR)/$(<F).xml
+	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --${TEST_OPTION_PREFIX}_output=junit:$(OUTDIR)/$(<F).xml
 else
-	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --iutest_output=xml:$(OUTDIR)/$(<F).xml
+	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --${TEST_OPTION_PREFIX}_output=xml:$(OUTDIR)/$(<F).xml
 endif
 else
 	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION)
@@ -430,7 +448,7 @@ endif
 CXX_ERROR_TEST_FLAGS:=-ferror-limit=100
 
 $(ERR_TARGETS) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
-	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) $(CXX_ERROR_TEST_FLAGS) -o $@ $< $(LDFLAGS) 2>&1 | python $(PY_COMPILEERROR_TEST_TOOL) $(IUTEST_COMPILE_ERROR_TEST_OPTION)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -Wno-error $(CXX_ERROR_TEST_FLAGS) -o $@ $< $(LDFLAGS) 2>&1 | python $(PY_COMPILEERROR_TEST_TOOL) $(IUTEST_COMPILE_ERROR_TEST_OPTION)
 
 else
 

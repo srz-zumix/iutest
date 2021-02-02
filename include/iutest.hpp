@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
  *
@@ -1859,6 +1859,7 @@ public:
     void Initialize()
     {
         UnitTest::instance().Initialize();
+        SetUpDefaultListener();
     }
 
     /**
@@ -1871,35 +1872,47 @@ public:
     }
 
 private:
+    void SetUpDefaultXmlListener()
+    {
+        if( TestEnv::is_output_option_dirty() )
+        {
+            if( TestEnv::has_output_option() )
+            {
+                TestEnv::flush_output_option();
+                do
+                {
+#if defined(__WANDBOX__)
+                    if( StderrXmlGeneratorListener::SetUp() )
+                    {
+                        break;
+                    }
+                    if( StderrJunitXmlGeneratorListener::SetUp() )
+                    {
+                        break;
+                    }
+#else
+                    if( DefaultXmlGeneratorListener::SetUp() )
+                    {
+                        break;
+                    }
+                    if( JunitXmlGeneratorListener::SetUp() )
+                    {
+                        break;
+                    }
+#endif
+                    IUTEST_LOG_(WARNING) << "unrecognized output format \"" << TestEnv::get_output_option_c_str() << "\" ignored.";
+                } while( detail::AlwaysFalse() );
+            }
+            else
+            {
+                TestEnv::event_listeners().Release(TestEnv::event_listeners().default_xml_generator());
+            }
+        }
+    }
+
     void SetUpDefaultListener()
     {
-        if( TestEnv::has_output_option() )
-        {
-            do
-            {
-#if defined(__WANDBOX__)
-                if( StderrXmlGeneratorListener::SetUp() )
-                {
-                    break;
-                }
-                if( StderrJunitXmlGeneratorListener::SetUp() )
-                {
-                    break;
-                }
-#else
-                if( DefaultXmlGeneratorListener::SetUp() )
-                {
-                    break;
-                }
-                if( JunitXmlGeneratorListener::SetUp() )
-                {
-                    break;
-                }
-#endif
-                IUTEST_LOG_(WARNING) << "unrecognized output format \"" << TestEnv::get_output_option() << "\" ignored.";
-            } while( detail::AlwaysFalse() );
-        }
-
+        SetUpDefaultXmlListener();
 #if IUTEST_HAS_STREAM_RESULT
         StreamResultListener::SetUp();
 #endif
