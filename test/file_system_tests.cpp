@@ -64,9 +64,9 @@ int main(int argc, char* argv[])
         IUTEST_EXPECT_FALSE(::iutest::detail::IFileSystem::ReadAll("iutest_file_system_test.cpp", str));
     }
 
-    IUTEST_INIT(&argc, argv);
-
     RegisterFileSystem();
+
+    IUTEST_INIT(&argc, argv);
     ::iutest::IUTEST_FLAG(output) = "xml:test.xml";
 
     const int ret = IUTEST_RUN_ALL_TESTS();

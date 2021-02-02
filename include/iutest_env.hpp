@@ -295,6 +295,20 @@ public:
     friend class RepeatCountSet;
 #endif
 
+    template<typename T>
+    class StateVariable
+    {
+        bool m_dirty;
+        T   m_value;
+    public:
+        StateVariable& operator = (const T& rhs) { m_value = rhs; m_dirty = true; return *this; }
+        operator const T& () const { return m_value; }
+        const T& operator ()() const { return m_value; }
+        bool is_dirty() const { return m_dirty; }
+        void flush() { m_dirty = false; }
+        T& get() { return m_value; }
+    };
+
 private:
     struct Variable
     {
@@ -303,19 +317,17 @@ private:
             , m_current_random_seed(0)
             , m_before_origin_random_seed(0)
             , m_repeat_count(1)
-            , m_output_option_dirty(false)
             , m_testpartresult_reporter(NULL)
         {}
         unsigned int        m_random_seed;
         unsigned int        m_current_random_seed;
         unsigned int        m_before_origin_random_seed;
         int                 m_repeat_count;
-        bool                m_output_option_dirty;
-        ::std::string       m_output_option;
+        StateVariable<::std::string>    m_output_option;
         ::std::string       m_test_filter;
         ::std::string       m_flagfile;
 #if IUTEST_HAS_STREAM_RESULT
-        ::std::string       m_stream_result_to;
+        StateVariable<::std::string>    m_stream_result_to;
 #endif
         ::std::string       m_default_package_name;
         detail::iuRandom    m_genrand;
@@ -330,17 +342,23 @@ private:
 
     static Variable& get_vars() { static Variable sVars; return sVars; }
 
+private:
+    static const char*          get_output_option_c_str() { return get_vars().m_output_option.get().c_str(); }
+#if IUTEST_HAS_STREAM_RESULT
+    static const char*          get_stream_result_to_c_str() { return get_vars().m_stream_result_to.get().c_str(); }
+#endif
+
 public:
     static detail::iuRandom&    genrand() { return get_vars().m_genrand; }              //!< 乱数生成器
     static unsigned int         get_random_seed() { return get_vars().m_random_seed; }              //!< 乱数シード
     static unsigned int         current_random_seed() { return get_vars().m_current_random_seed; }  //!< 乱数シード
     static int                  get_repeat_count() { return get_vars().m_repeat_count; }            //!< 繰り返し回数
-    static const char*          get_output_option() { return get_vars().m_output_option.c_str(); }  //!< 出力オプション
+    static const StateVariable<::std::string>&  get_output_option() { return get_vars().m_output_option; }  //!< 出力オプション
     static const char*          get_default_package_name() { return get_vars().m_default_package_name.c_str(); }    //!< root package オプション
     static const char*          test_filter() { return get_vars().m_test_filter.c_str(); }      //!< フィルター文字列
     static const char*          get_flagfile() { return get_vars().m_flagfile.c_str(); }        //!< flag file
 #if IUTEST_HAS_STREAM_RESULT
-    static const char*          get_stream_result_to() { return get_vars().m_stream_result_to.c_str(); }
+    static const StateVariable<::std::string>&  get_stream_result_to() { return get_vars().m_stream_result_to; }
 #endif
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
     static void                 global_ostream_copyfmt(iu_ostream& os) { os.copyfmt(get_vars().m_ostream_formatter); }  // NOLINT
@@ -372,17 +390,17 @@ public:
     /** @private */
     static bool has_output_option()
     {
-        return !get_vars().m_output_option.empty();
+        return !get_vars().m_output_option.get().empty();
     }
     /** @private */
     static bool is_output_option_dirty()
     {
-        return get_vars().m_output_option_dirty;
+        return get_vars().m_output_option.is_dirty();
     }
     /** @private */
     static void flush_output_option()
     {
-        get_vars().m_output_option_dirty = false;
+        get_vars().m_output_option.flush();
     }
 
 private:
@@ -471,7 +489,6 @@ private:
     static void set_output_option(const char* str)
     {
         get_vars().m_output_option = detail::NullableString(str);
-        get_vars().m_output_option_dirty = true;
     }
 
     /**
@@ -557,14 +574,14 @@ public:
      * @private
      * @brief   出力オプション設定用オブジェクト
     */
-    typedef OptionString<get_output_option, set_output_option> output;
+    typedef OptionString<get_output_option_c_str, set_output_option> output;
 
 #if IUTEST_HAS_STREAM_RESULT
     /**
      * @private
      * @brief   stream resultオプション設定用オブジェクト
     */
-    typedef OptionString<get_stream_result_to, set_stream_result_to> stream_result_to;
+    typedef OptionString<get_stream_result_to_c_str, set_stream_result_to> stream_result_to;
 #endif
 
     /**
