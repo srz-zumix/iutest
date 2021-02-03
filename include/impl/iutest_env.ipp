@@ -440,7 +440,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseOutputOption(const char* option)
         get_vars().m_output_option = "";
         return false;
     }
-    get_vars().m_output_option = option;
+    set_output_option(option);
     return true;
 }
 
