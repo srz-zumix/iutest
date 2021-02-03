@@ -1900,7 +1900,7 @@ private:
                         break;
                     }
 #endif
-                    IUTEST_LOG_(WARNING) << "unrecognized output format \"" << TestEnv::get_output_option_c_str() << "\" ignored.";
+                    IUTEST_LOG_(WARNING) << "unrecognized output format \"" << TestEnv::get_output_option() << "\" ignored.";
                 } while( detail::AlwaysFalse() );
             }
             else

@@ -307,6 +307,7 @@ public:
         bool is_dirty() const { return m_dirty; }
         void flush() { m_dirty = false; }
         T& get() { return m_value; }
+        const T& get() const { return m_value; }
     };
 
 private:
@@ -862,6 +863,13 @@ public:
 #endif
     }
 };
+
+template<typename T>
+inline iu_ostream& operator << (iu_ostream& os, const TestEnv::StateVariable<T>& value)
+{
+    return os << value.get();
+}
+
 
 }   // end of namespace iutest
 
