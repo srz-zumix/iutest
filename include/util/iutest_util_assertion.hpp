@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -735,6 +735,20 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const
                                         , size_t len1, const char* val2)
 {
     const size_t len2 = strlen(val2);
+    if( len2 == len1 )
+    {
+        return ::iutest::AssertionSuccess();
+    }
+    return ::iutest::AssertionFailure() << "error: Value of: " << expr1 << " == strlen(" << expr2 << ")"
+        << "\n  Actual: " << val2 << " : " << len2 << "\nExpected: " << len1;
+}
+/**
+ * @brief   文字列長アサーションフォーマッター
+*/
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const char* expr1, const char* expr2
+                                        , size_t len1, const ::std::string& val2)
+{
+    const size_t len2 = val2.length();
     if( len2 == len1 )
     {
         return ::iutest::AssertionSuccess();

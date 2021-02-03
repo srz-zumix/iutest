@@ -105,7 +105,7 @@ int main(int argc, char* argv[])
     ::iutest::IUTEST_FLAG(catch_exceptions) = true;
 #if defined(OUTPUTXML)
     // 失敗テストを含むので xml 出力しない
-    ::iutest::IUTEST_FLAG(output) = "";
+    ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
 
     ::iutest::IUTEST_FLAG(also_run_disabled_tests) = true;

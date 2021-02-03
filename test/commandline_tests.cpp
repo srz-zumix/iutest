@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
     (void)argc;
 #if defined(OUTPUTXML)
     // 実行対象テストがないので xml 出力しない
-    ::iutest::IUTEST_FLAG(output) = "";
+    ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
 
 #if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_NULLPTR

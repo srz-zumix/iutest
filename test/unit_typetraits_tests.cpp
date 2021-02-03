@@ -73,7 +73,7 @@ struct X
 struct Y
 {
     int a, b, c;
-    bool operator == (const Y&) { return true; }
+    bool operator == (const Y&) const { return true; }
 };
 
 struct Z
