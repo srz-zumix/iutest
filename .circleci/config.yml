@@ -184,6 +184,7 @@ jobs:
             docker exec iutest-work /home/wine/.wine/drive_c/iutest_/.ci/msvc-wine-entrypoint iutest/.ci/msvc-wine-build.bat
             echo == test end ==
             docker stop iutest-work
+          no_output_timeout: 15m
 
 workflows:
   version: 2.1
