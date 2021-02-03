@@ -324,11 +324,11 @@ private:
         unsigned int        m_current_random_seed;
         unsigned int        m_before_origin_random_seed;
         int                 m_repeat_count;
-        StateVariable<::std::string>    m_output_option;
+        StateVariable< ::std::string >  m_output_option;
         ::std::string       m_test_filter;
         ::std::string       m_flagfile;
 #if IUTEST_HAS_STREAM_RESULT
-        StateVariable<::std::string>    m_stream_result_to;
+        StateVariable< ::std::string >  m_stream_result_to;
 #endif
         ::std::string       m_default_package_name;
         detail::iuRandom    m_genrand;
@@ -354,12 +354,12 @@ public:
     static unsigned int         get_random_seed() { return get_vars().m_random_seed; }              //!< 乱数シード
     static unsigned int         current_random_seed() { return get_vars().m_current_random_seed; }  //!< 乱数シード
     static int                  get_repeat_count() { return get_vars().m_repeat_count; }            //!< 繰り返し回数
-    static const StateVariable<::std::string>&  get_output_option() { return get_vars().m_output_option; }  //!< 出力オプション
+    static const StateVariable< ::std::string >& get_output_option() { return get_vars().m_output_option; }  //!< 出力オプション
     static const char*          get_default_package_name() { return get_vars().m_default_package_name.c_str(); }    //!< root package オプション
     static const char*          test_filter() { return get_vars().m_test_filter.c_str(); }      //!< フィルター文字列
     static const char*          get_flagfile() { return get_vars().m_flagfile.c_str(); }        //!< flag file
 #if IUTEST_HAS_STREAM_RESULT
-    static const StateVariable<::std::string>&  get_stream_result_to() { return get_vars().m_stream_result_to; }
+    static const StateVariable< ::std::string >& get_stream_result_to() { return get_vars().m_stream_result_to; }
 #endif
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
     static void                 global_ostream_copyfmt(iu_ostream& os) { os.copyfmt(get_vars().m_ostream_formatter); }  // NOLINT
