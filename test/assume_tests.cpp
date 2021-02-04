@@ -72,8 +72,8 @@ IUTEST(AssumeTest, Null)
 
 IUTEST(AssumeTest, NOTNULL)
 {
-    IUTEST_ASSUME_NOTNULL(NULL);
-    IUTEST_ASSERT_NOTNULL(NULL);
+    IUTEST_ASSUME_NOTNULL(IUTEST_NULLPTR);
+    IUTEST_ASSERT_NOTNULL(IUTEST_NULLPTR);
 }
 
 IUTEST(AssumeTest, Near)
@@ -132,6 +132,8 @@ IUTEST(AssumeTest, THROW_VALUE_STRCASEEQ)
 
 IUTEST_PRAGMA_UNREACHCODE_WARN_DISABLE_END()
 
+#if !defined(IUTEST_USE_GTEST)
+
 #if IUTEST_HAS_EXCEPTIONS
 static const int assume_throw_test_count = 7;
 #else
@@ -144,6 +146,8 @@ static const int assume_test_count = assume_throw_test_count + 18 + 2;
 static const int assume_test_count = assume_throw_test_count + 18;
 #endif
 
+#endif
+
 #ifdef UNICODE
 int wmain(int argc, wchar_t** argv)
 #else
@@ -153,7 +157,7 @@ int main(int argc, char** argv)
     IUTEST_INIT(&argc, argv);
 #if defined(OUTPUTXML)
     // 失敗テストを含むので xml 出力しない
-    ::iutest::IUTEST_FLAG(output) = "";
+    ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
     const int ret = IUTEST_RUN_ALL_TESTS();
     if( ret == 0 ) return 1;

@@ -35,6 +35,7 @@ libs
 .vs
 .vscode
 .tox
+.DS_Store
 env.*/
 
 # Build results
