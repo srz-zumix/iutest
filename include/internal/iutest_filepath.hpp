@@ -65,13 +65,8 @@ public:
 #endif
 
 public:
-    iuFilePath & operator = (const iuFilePath& rhs) { m_path = rhs.m_path; return *this; }
+    iuFilePath& operator = (const iuFilePath& rhs) { m_path = rhs.m_path; return *this; }
 
-    iuFilePath& operator == (const iuFilePath& rhs)
-    {
-        m_path = rhs.m_path;
-        return *this;
-    }
     bool operator == (const iuFilePath& rhs) const
     {
         return IsStringCaseEqual(m_path, rhs.m_path);
