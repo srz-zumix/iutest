@@ -176,15 +176,20 @@ jobs:
       - docker/pull:
           images: 'madduci/docker-wine-msvc:16.7-2019'
       - run:
-          name: test
+          name: docker setup
           command: |
             docker run --rm -d -i --name iutest-work -w /home/wine/.wine/drive_c/ madduci/docker-wine-msvc:16.7-2019
             docker cp . iutest-work:/home/wine/.wine/drive_c/iutest_
             docker exec iutest-work wine64 cmd /C xcopy /Y /I /H /S /Q iutest_ iutest
+      - run:
+          name: test
+          command: |
             docker exec iutest-work /home/wine/.wine/drive_c/iutest_/.ci/msvc-wine-entrypoint iutest/.ci/msvc-wine-build.bat
-            echo == test end ==
-            docker stop iutest-work
           no_output_timeout: 15m
+      - run:
+          name: docker teardown
+          command: |
+            docker stop iutest-work
 
 workflows:
   version: 2.1
