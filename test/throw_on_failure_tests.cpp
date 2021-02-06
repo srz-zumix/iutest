@@ -100,7 +100,7 @@ int main(int argc, char* argv[])
 #endif
 #if defined(OUTPUTXML)
     // 失敗テストを含むので xml 出力しない
-    ::iutest::IUTEST_FLAG(output) = "";
+    ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
 
     printf("dummy");
