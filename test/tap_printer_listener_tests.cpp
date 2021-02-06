@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
     IUTEST_INIT(&argc, argv);
 #if defined(OUTPUTXML)
     // 失敗テストを含むので xml 出力しない
-    ::iutest::IUTEST_FLAG(output) = "";
+    ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
 
 #if !defined(IUTEST_USE_GTEST)
