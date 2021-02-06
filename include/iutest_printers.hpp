@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -459,7 +459,7 @@ inline ::std::string FileSystemFileTypeToString(const ::std::filesystem::file_ty
     return PrintToString(static_cast<int>(value));
 }
 template<>
-inline void PrintTo<::std::filesystem::path>(const ::std::filesystem::path& value, iu_ostream* os)
+inline void PrintTo< ::std::filesystem::path >(const ::std::filesystem::path& value, iu_ostream* os)
 {
     *os << value.generic_string();
 }
