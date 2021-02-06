@@ -6,7 +6,7 @@ cd build
 
 cmake %~dp0/../projects/cmake
 echo ==== finish cmake generate ====
-cmake --build . --log-level=VERBOSE
+cmake --build . -log-level=VERBOSE
 echo ==== finish cmake build ====
 ctest -V --output-on-failure
 echo ==== finish ctest ====
