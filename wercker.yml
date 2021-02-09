@@ -1,4 +1,7 @@
-box: python
+box:
+  id: python
+  username: srzzumix
+  password: ${WERCKER_DOCKERHUB_PASSWORD}
 build:
   steps:
     - pip-install: &pip-install
@@ -30,7 +33,10 @@ cmake-check:
           make cmake-sync-check
 
 gtest-compat:
-  box: alpine
+  box:
+    id: alpine
+    username: srzzumix
+    password: ${WERCKER_DOCKERHUB_PASSWORD}
   docker: true
   steps:
     - script:
