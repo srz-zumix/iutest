@@ -81,7 +81,18 @@ int main(int argc, char* argv[])
 #endif
 {
 #if OUTPUT_XML_TEST
+    ::iutest::IUTEST_FLAG(output) = "xml:test.xml";
+
     IUTEST_INIT(&argc, argv);
+
+    {
+        ::iutest::IUTEST_FLAG(output) = "";
+        ::iutest::IUTEST_FLAG(filter) = "-*Fail*";
+        const int ret = IUTEST_RUN_ALL_TESTS();
+        if( ret != 0 ) return 1;
+        IUTEST_ASSERT_STRLNEQ(0, FileIO::s_io) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        FileIO::s_io.clear();
+    }
 
     ::iutest::IUTEST_FLAG(output) = "xml:test.xml";
 
