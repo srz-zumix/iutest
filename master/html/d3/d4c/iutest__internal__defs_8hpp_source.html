@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.4</span>
+   &#160;<span id="projectnumber">1.17.99.5</span>
    </div>
   </td>
  </tr>
@@ -341,56 +341,62 @@ $(function() {
 <div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <span class="keywordtype">int</span> status=1;</div>
 <div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    <span class="keywordtype">char</span>* <span class="keyword">const</span> read_name = __cxa_demangle(name, 0, 0, &amp;status);</div>
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    ::std::string str(status == 0 ? read_name : name);</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    free(read_name);</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="keywordflow">return</span> str;</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    <span class="keywordflow">return</span> name;</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160; </div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    <span class="keywordflow">return</span> <span class="stringliteral">&quot;&lt;type&gt;&quot;</span>;</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;}</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160; </div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;<span class="preprocessor">#if !IUTEST_HAS_RTTI</span></div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160; </div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;<span class="preprocessor">#define IIUT_GeTypeNameSpecialization(type) \</span></div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="preprocessor">    template&lt;&gt;inline ::std::string GetTypeName&lt;type&gt;() { return #type; }    \</span></div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;<span class="preprocessor">    template&lt;&gt;inline ::std::string GetTypeName&lt;type*&gt;() { return #type &quot;*&quot;; }</span></div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<span class="preprocessor">#if defined(_IUTEST_DEBUG)</span></div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="keywordflow">if</span>( status != 0 ) {</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;        fprintf(stderr, <span class="stringliteral">&quot;Unable to demangle \&quot;%s\&quot; -&gt; \&quot;%s\&quot;. (status=%d)\n&quot;</span>, name, read_name ? read_name : <span class="stringliteral">&quot;&quot;</span>, status);</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        fflush(stderr);</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    }</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    free(read_name);</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    <span class="keywordflow">return</span> str;</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    <span class="keywordflow">return</span> name;</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160; </div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    <span class="keywordflow">return</span> <span class="stringliteral">&quot;&lt;type&gt;&quot;</span>;</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;}</div>
 <div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160; </div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="preprocessor">#define IIUT_GeTypeNameSpecialization2(type)    \</span></div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;<span class="preprocessor">    IIUT_GeTypeNameSpecialization(type)         \</span></div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="preprocessor">    IIUT_GeTypeNameSpecialization(unsigned type)</span></div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160; </div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;IIUT_GeTypeNameSpecialization2(<span class="keywordtype">char</span>)    <span class="comment">// NOLINT</span></div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;IIUT_GeTypeNameSpecialization2(<span class="keywordtype">short</span>)   <span class="comment">// NOLINT</span></div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;IIUT_GeTypeNameSpecialization2(<span class="keywordtype">int</span>)     <span class="comment">// NOLINT</span></div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;IIUT_GeTypeNameSpecialization2(<span class="keywordtype">long</span>)    <span class="comment">// NOLINT</span></div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;IIUT_GeTypeNameSpecialization(<span class="keywordtype">float</span>)    <span class="comment">// NOLINT</span></div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;IIUT_GeTypeNameSpecialization(<span class="keywordtype">double</span>)   <span class="comment">// NOLINT</span></div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;IIUT_GeTypeNameSpecialization(<span class="keywordtype">bool</span>)     <span class="comment">// NOLINT</span></div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160; </div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="preprocessor">#undef IIUT_GeTypeNameSpecialization</span></div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;<span class="preprocessor">#undef IIUT_GeTypeNameSpecialization2</span></div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160; </div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160; </div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;<span class="keyword">struct </span>GetTypeNameProxy</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;{</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    static ::std::string    GetTypeName() { <span class="keywordflow">return</span> detail::GetTypeName&lt;T&gt;(); }</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;};</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160; </div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160; </div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160; </div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_INTERNAL_DEFS_HPP_4B0AF5C2_8E8D_43EF_BFC5_F385E68F18DB_</span></div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="preprocessor">#if !IUTEST_HAS_RTTI</span></div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160; </div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="preprocessor">#define IIUT_GeTypeNameSpecialization(type) \</span></div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;<span class="preprocessor">    template&lt;&gt;inline ::std::string GetTypeName&lt;type&gt;() { return #type; }    \</span></div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;<span class="preprocessor">    template&lt;&gt;inline ::std::string GetTypeName&lt;type*&gt;() { return #type &quot;*&quot;; }</span></div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160; </div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;<span class="preprocessor">#define IIUT_GeTypeNameSpecialization2(type)    \</span></div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;<span class="preprocessor">    IIUT_GeTypeNameSpecialization(type)         \</span></div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;<span class="preprocessor">    IIUT_GeTypeNameSpecialization(unsigned type)</span></div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160; </div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;IIUT_GeTypeNameSpecialization2(<span class="keywordtype">char</span>)    <span class="comment">// NOLINT</span></div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;IIUT_GeTypeNameSpecialization2(<span class="keywordtype">short</span>)   <span class="comment">// NOLINT</span></div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;IIUT_GeTypeNameSpecialization2(<span class="keywordtype">int</span>)     <span class="comment">// NOLINT</span></div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;IIUT_GeTypeNameSpecialization2(<span class="keywordtype">long</span>)    <span class="comment">// NOLINT</span></div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;IIUT_GeTypeNameSpecialization(<span class="keywordtype">float</span>)    <span class="comment">// NOLINT</span></div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;IIUT_GeTypeNameSpecialization(<span class="keywordtype">double</span>)   <span class="comment">// NOLINT</span></div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;IIUT_GeTypeNameSpecialization(<span class="keywordtype">bool</span>)     <span class="comment">// NOLINT</span></div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160; </div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;<span class="preprocessor">#undef IIUT_GeTypeNameSpecialization</span></div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;<span class="preprocessor">#undef IIUT_GeTypeNameSpecialization2</span></div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160; </div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160; </div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;<span class="keyword">struct </span>GetTypeNameProxy</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;{</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    static ::std::string    GetTypeName() { <span class="keywordflow">return</span> detail::GetTypeName&lt;T&gt;(); }</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;};</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160; </div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160; </div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160; </div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_INTERNAL_DEFS_HPP_4B0AF5C2_8E8D_43EF_BFC5_F385E68F18DB_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
 <div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
 <div class="ttc" id="aiutest__string__stream_8hpp_html"><div class="ttname"><a href="../../d2/d9e/iutest__string__stream_8hpp.html">iutest_string_stream.hpp</a></div><div class="ttdoc">iris unit test iu_basic_ostream implimentaion</div></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_a83b2e224dac8ea0f2f882dc07da5bd04"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a></div><div class="ttdeci">#define IUTEST_CXX_CONSTEXPR</div><div class="ttdoc">constexpr</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:347</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_a83b2e224dac8ea0f2f882dc07da5bd04"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a></div><div class="ttdeci">#define IUTEST_CXX_CONSTEXPR</div><div class="ttdoc">constexpr</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:372</div></div>
 <div class="ttc" id="aiutest__type__traits_8hpp_html"><div class="ttname"><a href="../../d9/d0b/iutest__type__traits_8hpp.html">iutest_type_traits.hpp</a></div><div class="ttdoc">type traits</div></div>
 <div class="ttc" id="aiutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義</div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:31</div></div>
 <div class="ttc" id="aiutest__exception_8hpp_html"><div class="ttname"><a href="../../d3/d8e/iutest__exception_8hpp.html">iutest_exception.hpp</a></div><div class="ttdoc">iris unit test exception</div></div>
@@ -398,7 +404,7 @@ $(function() {
 <div class="ttc" id="aiutest__string__view_8hpp_html"><div class="ttname"><a href="../../d8/dc8/iutest__string__view_8hpp.html">iutest_string_view.hpp</a></div><div class="ttdoc">string_view</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2021年01月07日(木) 01時07分37秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2021年02月10日(水) 02時01分11秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

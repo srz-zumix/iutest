@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.4</span>
+   &#160;<span id="projectnumber">1.17.99.5</span>
    </div>
   </td>
  </tr>
@@ -194,7 +194,7 @@ $(function() {
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="preprocessor">    IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(testsuite_)) &gt; 1, &quot;testsuite_ must not be empty&quot;);   \</span></div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="preprocessor">    IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(testname_)) &gt; 1, &quot;testname_ must not be empty&quot;);     \</span></div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="preprocessor">    IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(IIUT_TO_NAME_(testsuite_))) &gt; 1, &quot;testsuite alias name must not be empty&quot;);     \</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="preprocessor">    class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) : public parent_class_ {           \</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="preprocessor">    class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) IUTEST_CXX_FINAL : public parent_class_ {          \</span></div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="preprocessor">    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testsuite_, testname_));     \</span></div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="preprocessor">        public: IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)() {}                         \</span></div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="preprocessor">        protected: virtual void Body() IUTEST_CXX_OVERRIDE;                                 \</span></div>
@@ -209,7 +209,7 @@ $(function() {
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="preprocessor">#if IUTEST_HAS_IGNORE_TEST</span></div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="preprocessor">#define IUTEST_TEST_IGNORE_(testsuite_, testname_, parent_class_, type_id_)                 \</span></div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="preprocessor">    class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) : public parent_class_ {           \</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="preprocessor">    class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) IUTEST_CXX_FINAL : public parent_class_ {  \</span></div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="preprocessor">    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN( IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) );   \</span></div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="preprocessor">        public: IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)() {}                         \</span></div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="preprocessor">        protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() &lt;&lt; &quot;ignored test...&quot;; }  \</span></div>
@@ -232,7 +232,7 @@ $(function() {
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="preprocessor">#define IIUT_TEST_PMZ_(testsuite_, testname_, method_, parent_class_, type_id_, ...)            \</span></div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="preprocessor">    class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_);                                       \</span></div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="preprocessor">    class IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_) : public parent_class_ {           \</span></div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="preprocessor">    class IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_) IUTEST_CXX_FINAL : public parent_class_ {  \</span></div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="preprocessor">    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_));     \</span></div>
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="preprocessor">        public: IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_)() {}                         \</span></div>
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="preprocessor">        static ::std::string MakeTestName() { return ::iutest::detail::MakeIndexTestName(       \</span></div>
@@ -597,7 +597,7 @@ $(function() {
 <div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2021年01月07日(木) 01時07分37秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2021年02月10日(水) 02時01分11秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

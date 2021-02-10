@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.4</span>
+   &#160;<span id="projectnumber">1.17.99.5</span>
    </div>
   </td>
  </tr>
@@ -507,7 +507,7 @@ $(function() {
 <div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">PrintToString</a>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(value));</div>
 <div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;}</div>
 <div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> PrintTo&lt;::std::filesystem::path&gt;(const ::std::filesystem::path&amp; value, iu_ostream* os)</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> PrintTo&lt; ::std::filesystem::path &gt;(const ::std::filesystem::path&amp; value, iu_ostream* os)</div>
 <div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;{</div>
 <div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;    *os &lt;&lt; value.generic_string();</div>
 <div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;}</div>
@@ -741,14 +741,14 @@ $(function() {
 <div class="ttc" id="aiutest__defs_8hpp_html"><div class="ttname"><a href="../../d1/d84/iutest__defs_8hpp.html">iutest_defs.hpp</a></div><div class="ttdoc">iris unit test definition</div></div>
 <div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
 <div class="ttc" id="aiutest__string__stream_8hpp_html"><div class="ttname"><a href="../../d2/d9e/iutest__string__stream_8hpp.html">iutest_string_stream.hpp</a></div><div class="ttdoc">iris unit test iu_basic_ostream implimentaion</div></div>
-<div class="ttc" id="aclassiutest_1_1iu__global__format__stringstream_html"><div class="ttname"><a href="../../d0/dc6/classiutest_1_1iu__global__format__stringstream.html">iutest::iu_global_format_stringstream</a></div><div class="ttdoc">ostream_formatter オプションが適用されてた stringstream</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:811</div></div>
+<div class="ttc" id="aclassiutest_1_1iu__global__format__stringstream_html"><div class="ttname"><a href="../../d0/dc6/classiutest_1_1iu__global__format__stringstream.html">iutest::iu_global_format_stringstream</a></div><div class="ttdoc">ostream_formatter オプションが適用されてた stringstream</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:842</div></div>
 <div class="ttc" id="anamespaceiutest_html_ae4fa9663c60e0130393ded072932fea8"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#ae4fa9663c60e0130393ded072932fea8">iutest::PrintToStrings</a></div><div class="ttdeci">inline ::std::string PrintToStrings(const char *separate, const T &amp;v)</div><div class="ttdoc">文字列化</div><div class="ttdef"><b>Definition:</b> iutest_printers.hpp:690</div></div>
 <div class="ttc" id="anamespaceiutest_html_a59de77dc10130fce6e48fde0024fd10b"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a59de77dc10130fce6e48fde0024fd10b">iutest::Int32</a></div><div class="ttdeci">detail::type_fit_t&lt; 4 &gt;::Int Int32</div><div class="ttdoc">32 bit 符号付き整数型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:425</div></div>
 <div class="ttc" id="aiutest__string__view_8hpp_html"><div class="ttname"><a href="../../d8/dc8/iutest__string__view_8hpp.html">iutest_string_view.hpp</a></div><div class="ttdoc">string_view</div></div>
 <div class="ttc" id="anamespaceiutest_html_af0a26182ebcee67d79f27f7c9b248448"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#af0a26182ebcee67d79f27f7c9b248448">iutest::BiggestInt</a></div><div class="ttdeci">detail::type_least_t&lt; 8 &gt;::Int BiggestInt</div><div class="ttdoc">Biggest Int</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:448</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2021年01月07日(木) 01時07分41秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2021年02月10日(水) 02時01分14秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

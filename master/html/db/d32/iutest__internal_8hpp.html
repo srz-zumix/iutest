@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.4</span>
+   &#160;<span id="projectnumber">1.17.99.5</span>
    </div>
   </td>
  </tr>
@@ -301,7 +301,7 @@ iutest_internal.hpp の依存先関係図:</div>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
 <div class="textblock"><p>iris unit test internal definition </p>
 <dl class="section author"><dt>著者</dt><dd>t.shirayanagi </dd></dl>
-<dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2011-2020, Takazumi Shirayanagi<br  />
+<dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2011-2021, Takazumi Shirayanagi<br  />
 This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><h2 class="groupheader">マクロ定義詳解</h2>
 <a id="a8696d4733a86ddd9ebea68dedb0fa536"></a>
@@ -366,7 +366,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 <b>値:</b><div class="fragment"><div class="line">    IUTEST_STATIC_ASSERT_MSG(<span class="keyword">sizeof</span>(IUTEST_PP_TOSTRING(testsuite_)) &gt; 1, <span class="stringliteral">&quot;testsuite_ must not be empty&quot;</span>);   \</div>
 <div class="line">    IUTEST_STATIC_ASSERT_MSG(<span class="keyword">sizeof</span>(IUTEST_PP_TOSTRING(testname_)) &gt; 1, <span class="stringliteral">&quot;testname_ must not be empty&quot;</span>);     \</div>
 <div class="line">    IUTEST_STATIC_ASSERT_MSG(<span class="keyword">sizeof</span>(IUTEST_PP_TOSTRING(IIUT_TO_NAME_(testsuite_))) &gt; 1, <span class="stringliteral">&quot;testsuite alias name must not be empty&quot;</span>);     \</div>
-<div class="line">    class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) : public parent_class_ {           \</div>
+<div class="line">    class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#aaf362ab17fd8e57646fc5d56216486d0">IUTEST_CXX_FINAL</a> : <span class="keyword">public</span> parent_class_ {          \</div>
 <div class="line">    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testsuite_, testname_));     \</div>
 <div class="line">        public: IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)() {}                         \</div>
 <div class="line">        protected: <span class="keyword">virtual</span> <span class="keywordtype">void</span> Body() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a>;                                 \</div>
@@ -1640,7 +1640,8 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div>
 </div><!-- contents -->
 <div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:719</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_aaf362ab17fd8e57646fc5d56216486d0"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#aaf362ab17fd8e57646fc5d56216486d0">IUTEST_CXX_FINAL</a></div><div class="ttdeci">#define IUTEST_CXX_FINAL</div><div class="ttdoc">final definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:753</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:744</div></div>
 <div class="ttc" id="aclassiutest_1_1_assertion_result_html"><div class="ttname"><a href="../../d9/d5f/classiutest_1_1_assertion_result.html">iutest::AssertionResult</a></div><div class="ttdoc">Assertion Result</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:66</div></div>
 <div class="ttc" id="aclassiutest_1_1_assertion_result_html_a670d58b4331f0ebc08f21118f839b868"><div class="ttname"><a href="../../d9/d5f/classiutest_1_1_assertion_result.html#a670d58b4331f0ebc08f21118f839b868">iutest::AssertionResult::Is</a></div><div class="ttdeci">static AssertionResult Is(const T &amp;b)</div><div class="ttdoc">成否の取得</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:140</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_part_result_html_a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6">iutest::TestPartResult::kFatalFailure</a></div><div class="ttdeci">@ kFatalFailure</div><div class="ttdoc">致命的な失敗</div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:69</div></div>
@@ -1648,7 +1649,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 <div class="ttc" id="anamespaceiutest_html_a0538466708443c65f3c7b2c84b7fce0b"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a></div><div class="ttdeci">AssertionResult AssertionSuccess()</div><div class="ttdoc">テスト成功を示す AssertionResult オブジェクトの取得</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:406</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2021年01月07日(木) 01時07分43秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2021年02月10日(水) 02時01分16秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

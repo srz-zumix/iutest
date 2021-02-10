@@ -1,3 +1,8 @@
 <map id="クラス階層図" name="クラス階層図">
-<area shape="rect" id="node1" href="$d3/d81/classiutest_1_1floating__point.html" title="浮動小数点数" alt="" coords="5,5,161,47"/>
+<area shape="rect" id="node1" title="入力ストリームインターフェイス" alt="" coords="11,5,186,32"/>
+<area shape="rect" id="node2" href="$d9/d57/classiutest_1_1_i_file.html" title="ファイルクラスインターフェイス" alt="" coords="240,31,335,57"/>
+<area shape="rect" id="node3" href="$de/d67/classiutest_1_1_stdio_file.html" title="標準ファイルクラス" alt="" coords="409,5,531,32"/>
+<area shape="rect" id="node5" href="$da/d94/classiutest_1_1_string_stream_file.html" title="文字列バッファ書き込み IFile インターフェースクラス" alt="" coords="383,56,557,83"/>
+<area shape="rect" id="node4" href="$d4/d62/classiutest_1_1_std_error_file.html" title=" " alt="" coords="605,5,748,32"/>
+<area shape="rect" id="node6" title="出力ストリームインターフェイス" alt="" coords="5,56,192,83"/>
 </map>
