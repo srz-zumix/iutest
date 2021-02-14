@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="14" failures="0" disabled="0" errors="0" time="0.023" timestamp="2021-02-12T00:46:33.760" name="AllTests">
+  <testsuite name="Exception" tests="8" failures="0" disabled="0" skipped="0" errors="0" time="0.011" timestamp="2021-02-12T00:46:33.762">
+    <testcase name="Throw" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.762" classname="Exception" />
+    <testcase name="AnyThrow" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.767" classname="Exception" />
+    <testcase name="NoThrow" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.767" classname="Exception" />
+    <testcase name="ValueEQ" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.768" classname="Exception" />
+    <testcase name="ValueNE" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.769" classname="Exception" />
+    <testcase name="ValueSTREQ" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.771" classname="Exception" />
+    <testcase name="ValueSTRCASEEQ" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.773" classname="Exception" />
+    <testcase name="ValueFormat" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.773" classname="Exception" />
+  </testsuite>
+  <testsuite name="ExceptionFailure" tests="6" failures="0" disabled="0" skipped="0" errors="0" time="0.008" timestamp="2021-02-12T00:46:33.774">
+    <testcase name="Throw" status="run" result="completed" time="0.001" timestamp="2021-02-12T00:46:33.774" classname="ExceptionFailure" />
+    <testcase name="AnyThrow" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.776" classname="ExceptionFailure" />
+    <testcase name="NoThrow" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.777" classname="ExceptionFailure" />
+    <testcase name="ValueEQ" status="run" result="completed" time="0.001" timestamp="2021-02-12T00:46:33.778" classname="ExceptionFailure" />
+    <testcase name="ValueSTREQ" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.779" classname="ExceptionFailure" />
+    <testcase name="ValueSTRCASEEQ" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.782" classname="ExceptionFailure" />
+  </testsuite>
+</testsuites>

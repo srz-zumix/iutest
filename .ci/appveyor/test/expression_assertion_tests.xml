@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="21" failures="0" disabled="0" errors="0" time="0.027" timestamp="2021-02-12T00:46:33.926" name="AllTests">
+  <testsuite name="Expression" tests="6" failures="0" disabled="0" skipped="0" errors="0" time="0.009" timestamp="2021-02-12T00:46:33.928">
+    <testcase name="Monadic" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.929" classname="Expression" />
+    <testcase name="Comparison" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.931" classname="Expression" />
+    <testcase name="Arithmetic" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.933" classname="Expression" />
+    <testcase name="Bitwise" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.934" classname="Expression" />
+    <testcase name="Logical" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.935" classname="Expression" />
+    <testcase name="VariadicMacro" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.935" classname="Expression" />
+  </testsuite>
+  <testsuite name="ExpressionNot" tests="5" failures="0" disabled="0" skipped="0" errors="0" time="0.004" timestamp="2021-02-12T00:46:33.937">
+    <testcase name="Monadic" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.937" classname="ExpressionNot" />
+    <testcase name="Comparison" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.938" classname="ExpressionNot" />
+    <testcase name="Arithmetic" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.939" classname="ExpressionNot" />
+    <testcase name="Bitwise" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.939" classname="ExpressionNot" />
+    <testcase name="Logical" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.941" classname="ExpressionNot" />
+  </testsuite>
+  <testsuite name="ExpressionFail" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0.003" timestamp="2021-02-12T00:46:33.942">
+    <testcase name="Monadic" status="run" result="completed" time="0.001" timestamp="2021-02-12T00:46:33.942" classname="ExpressionFail" />
+    <testcase name="Comparison" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.944" classname="ExpressionFail" />
+    <testcase name="Logical" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.945" classname="ExpressionFail" />
+    <testcase name="Bitwise" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.945" classname="ExpressionFail" />
+  </testsuite>
+  <testsuite name="ExpressionNotFail" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0.004" timestamp="2021-02-12T00:46:33.946">
+    <testcase name="Monadic" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.946" classname="ExpressionNotFail" />
+    <testcase name="Comparison" status="run" result="completed" time="0.001" timestamp="2021-02-12T00:46:33.947" classname="ExpressionNotFail" />
+    <testcase name="Logical" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.949" classname="ExpressionNotFail" />
+    <testcase name="Bitwise" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.950" classname="ExpressionNotFail" />
+  </testsuite>
+  <testsuite name="ExpressionMacro" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0.001" timestamp="2021-02-12T00:46:33.951">
+    <testcase name="True" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.951" classname="ExpressionMacro" />
+    <testcase name="False" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.952" classname="ExpressionMacro" />
+  </testsuite>
+</testsuites>

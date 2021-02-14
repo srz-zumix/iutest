@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="9" failures="0" disabled="0" errors="0" time="0.023" timestamp="2021-02-12T00:46:34.472" name="AllTests">
+  <testsuite name="Util" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.002" timestamp="2021-02-12T00:46:34.479">
+    <testcase name="Api" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:34.480" classname="Util" />
+  </testsuite>
+  <testsuite name="CaseFixture" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.001" timestamp="2021-02-12T00:46:34.481">
+    <testcase name="Test" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:34.482" classname="CaseFixture" />
+  </testsuite>
+  <testsuite name="SuiteFixture" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.001" timestamp="2021-02-12T00:46:34.483">
+    <testcase name="Test" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:34.483" classname="SuiteFixture" />
+  </testsuite>
+  <testsuite name="TypedTest/0" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.002" timestamp="2021-02-12T00:46:34.485">
+    <testcase name="Test" type_param="int" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:34.485" classname="TypedTest/0" />
+  </testsuite>
+  <testsuite name="TypedTest/1" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.001" timestamp="2021-02-12T00:46:34.489">
+    <testcase name="Test" type_param="float" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:34.490" classname="TypedTest/1" />
+  </testsuite>
+  <testsuite name="My1/TypeParamTest/0" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0" timestamp="2021-02-12T00:46:34.491">
+    <testcase name="Test" type_param="int" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:34.491" classname="My1/TypeParamTest/0" />
+  </testsuite>
+  <testsuite name="My1/TypeParamTest/1" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.001" timestamp="2021-02-12T00:46:34.492">
+    <testcase name="Test" type_param="float" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:34.493" classname="My1/TypeParamTest/1" />
+  </testsuite>
+  <testsuite name="A/ParamTest" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0.001" timestamp="2021-02-12T00:46:34.494">
+    <testcase name="Test/0" value_param="0" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:34.494" classname="A/ParamTest" />
+    <testcase name="Test/1" value_param="1" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:34.495" classname="A/ParamTest" />
+  </testsuite>
+</testsuites>

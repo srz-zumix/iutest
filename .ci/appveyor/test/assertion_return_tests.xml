@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="1" failures="0" disabled="0" errors="0" time="0.008" timestamp="2021-02-12T00:46:33.093" name="AllTests">
+  <testsuite name="ReturnTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.001" timestamp="2021-02-12T00:46:33.100">
+    <testcase name="Test" status="run" result="completed" time="0.001" timestamp="2021-02-12T00:46:33.100" classname="ReturnTest" />
+  </testsuite>
+</testsuites>
