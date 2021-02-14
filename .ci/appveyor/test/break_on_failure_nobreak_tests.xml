@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="3" failures="0" disabled="0" errors="0" time="0.011" timestamp="2021-02-12T00:46:33.225" name="AllTests">
+  <testsuite name="Foo" tests="3" failures="0" disabled="0" skipped="1" errors="0" time="0.004" timestamp="2021-02-12T00:46:33.232">
+    <testcase name="Skip" status="run" result="skipped" time="0.001" timestamp="2021-02-12T00:46:33.232" classname="Foo">
+      <skipped message="break_on_failure_nobreak_tests.cpp:22&#x0A;"><![CDATA[break_on_failure_nobreak_tests.cpp:22
+]]></skipped>
+    </testcase>
+    <testcase name="Inform" status="run" result="completed" time="0.002" timestamp="2021-02-12T00:46:33.233" classname="Foo" />
+    <testcase name="Assume" status="run" result="completed" time="0.001" timestamp="2021-02-12T00:46:33.235" classname="Foo" />
+  </testsuite>
+</testsuites>

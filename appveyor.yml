@@ -236,7 +236,7 @@ for:
   on_finish: &test_result
     ps: |
       $wc = New-Object 'System.Net.WebClient'
-      Get-ChildItem "$($env:APPVEYOR_BUILD_FOLDER)\test" -Filter *.xml | 
+      Get-ChildItem "$($env:APPVEYOR_BUILD_FOLDER)\.ci\appveyor\test" -Filter *.xml |
       Foreach-Object {
         $XmlFilePath = $_.FullName
         Write-Host $XmlFilePath
