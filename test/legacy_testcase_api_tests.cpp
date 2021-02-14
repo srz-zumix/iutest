@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2020-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -120,7 +120,7 @@ IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(My1, TypeParamTest, TypeParamTestTypes);
 
 #if !defined(IUTEST_USE_GTEST)
 
-class MyTestEventListener : public ::iutest::TestEventListener
+class MyTestEventListener IUTEST_CXX_FINAL : public ::iutest::TestEventListener
 {
 public:
     bool called_OnTestCaseStart;

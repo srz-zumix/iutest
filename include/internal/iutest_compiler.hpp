@@ -78,6 +78,7 @@
 #define IUTEST_CPLUSPLUS_CXX11 201103L
 #define IUTEST_CPLUSPLUS_CXX14 201402L
 #define IUTEST_CPLUSPLUS_CXX17 201703L
+#define IUTEST_CPLUSPLUS_CXX20 202002L
 
 // __cplusplus
 #if     defined(_MSVC_LANG)
@@ -86,6 +87,30 @@
 #  define IUTEST_CPLUSPLUS      __cplusplus
 #else
 #  define IUTEST_CPLUSPLUS      0
+#endif
+
+// c++2a
+
+#if !defined(IUTEST_HAS_CXX2B)
+#  if IUTEST_CPLUSPLUS > IUTEST_CPLUSPLUS_CXX20
+#    define IUTEST_HAS_CXX2B        1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CXX2B)
+#  define IUTEST_HAS_CXX2B          0
+#endif
+
+// c++20
+
+#if !defined(IUTEST_HAS_CXX20)
+#  if IUTEST_CPLUSPLUS >= IUTEST_CPLUSPLUS_CXX20
+#    define IUTEST_HAS_CXX20        1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CXX20)
+#  define IUTEST_HAS_CXX20          0
 #endif
 
 // c++2a

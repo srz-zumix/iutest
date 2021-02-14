@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -71,7 +71,7 @@ IUTEST_F(SetUpTestCaseThrow, Test)
 class SetUpThrow : public ::iutest::Test
 {
 public:
-    void SetUp() IUTEST_CXX_OVERRIDE
+    void SetUp() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         throw 2;
     }
@@ -100,7 +100,7 @@ int main(int argc, char* argv[])
 #endif
 #if defined(OUTPUTXML)
     // 失敗テストを含むので xml 出力しない
-    ::iutest::IUTEST_FLAG(output) = NULL;
+    ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
 
     printf("dummy");
