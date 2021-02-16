@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="2" failures="0" disabled="0" errors="0" time="0.005" timestamp="2021-02-12T00:46:33.624" name="AllTests">
-  <testsuite name="A/ParamTest" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0.002" timestamp="2021-02-12T00:46:33.627">
-    <testcase name="0" value_param="0" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.627" classname="A/ParamTest" />
-    <testcase name="1" value_param="1" status="run" result="completed" time="0" timestamp="2021-02-12T00:46:33.628" classname="A/ParamTest" />
-  </testsuite>
-</testsuites>

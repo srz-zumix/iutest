@@ -145,7 +145,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
         return;
     }
 
-    file->Printf("    <testsuite ");
+    file->Printf("    <testcase ");
     OutputXmlAttribute(file, "name", EscapeXmlAttribute(test_info.name()).c_str() );
 
     {
@@ -210,7 +210,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
             OutputXmlCDataSection(file, "Not Run");
             file->Printf("\n      </failure>\n");
         }
-        file->Printf("    </testsuite>\n");
+        file->Printf("    </testcase>\n");
     }
     else
     {
@@ -220,7 +220,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
         {
             file->Printf(">\n");
             OnReportTestSkipped(file, test_info);
-            file->Printf("    </testsuite>\n");
+            file->Printf("    </testcase>\n");
         }
         else
 #endif

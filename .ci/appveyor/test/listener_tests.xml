@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="1" failures="0" disabled="0" errors="0" time="0.011" timestamp="2021-02-12T00:46:34.573" name="AllTests">
-  <testsuite name="EventListenerTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.002" timestamp="2021-02-12T00:46:34.581">
-    <testcase name="FlagCheck" status="run" result="completed" time="0.002" timestamp="2021-02-12T00:46:34.581" classname="EventListenerTest" />
-  </testsuite>
-</testsuites>

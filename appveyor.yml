@@ -24,25 +24,30 @@ environment:
       job_depends_on: VisualStudio
       BUILD_CYGWIN: yes
       USE_GNU_EXTENSION: 0
+      OUTPUTXML_TYPE: junit
     - job_group: Cygwin
       job_depends_on: VisualStudio
       BUILD_CYGWIN: yes
       USE_GNU_EXTENSION: 1
+      OUTPUTXML_TYPE: xml
     # MINGW/MINGW64
     - job_group: MINGW
       job_depends_on: VisualStudio
       BUILD_MINGW: yes
       USE_GNU_EXTENSION: 0
+      OUTPUTXML_TYPE: xml
     # MINGW/MINGW64 GNU EXTENSION
     - job_group: MINGW
       job_depends_on: VisualStudio
       BUILD_MINGW: yes
+      OUTPUTXML_TYPE: junit
       USE_GNU_EXTENSION: 1
     # NMAKE
     - job_group: VisualStudio
       job_depends_on: VS2017
       BUILD_NMAKE: yes
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      OUTPUTXML_TYPE: xml
     # Prefast
     - job_group: VisualStudio
       job_depends_on: VS2015
@@ -232,7 +237,7 @@ for:
       make showcxxmacros
       make -j4
   test_script:
-    cmd: make test OUTPUTXML=junit && make report
+    cmd: make test OUTPUTXML=%OUTPUTXML_TYPE% && make report
   on_finish: &test_result
     ps: |
       $wc = New-Object 'System.Net.WebClient'
@@ -266,7 +271,7 @@ for:
       mingw32-make showcxxmacros
       mingw32-make -j4 %MAKE_OPTIONS%
   test_script:
-    cmd: mingw32-make test %MAKE_OPTIONS% OUTPUTXML=xml && mingw32-make report
+    cmd: mingw32-make test %MAKE_OPTIONS% OUTPUTXML=%OUTPUTXML_TYPE% && mingw32-make report
   on_finish: *test_result
 # NAMKE
 -
@@ -278,7 +283,7 @@ for:
   build_script:
     cmd: cd test && nmake showcxxmacros && nmake minimum_tests && minimum_tests.exe --spec
   test_script:
-    cmd: nmake test OUTPUTXML=xml
+    cmd: nmake test OUTPUTXML=%OUTPUTXML_TYPE%
   on_finish: *test_result
 # Prefast
 -
