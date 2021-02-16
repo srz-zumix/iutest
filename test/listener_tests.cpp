@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,7 +17,7 @@
 // include
 #include "iutest.hpp"
 
-class MyTestEventListener : public ::iuutil::backward::TestEventListener
+class MyTestEventListener IUTEST_CXX_FINAL : public ::iuutil::backward::TestEventListener
 {
 public:
     bool called_OnTestProgramStart;

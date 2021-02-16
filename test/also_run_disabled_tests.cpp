@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2019-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2019-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
     IUTEST_INIT(&argc, argv);
 #if defined(OUTPUTXML)
     // 失敗テストを含むので xml 出力しない
-    ::iutest::IUTEST_FLAG(output) = NULL;
+    ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
     ::iutest::IUTEST_FLAG(also_run_disabled_tests) = true;
     const int ret = IUTEST_RUN_ALL_TESTS();

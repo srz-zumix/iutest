@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -26,7 +26,7 @@
 
 #if TAP_TEST
 
-class FileIO : public ::iutest::StringStreamFile
+class FileIO IUTEST_CXX_FINAL : public ::iutest::StringStreamFile
 {
 public:
     static ::std::string s_io;
@@ -104,7 +104,7 @@ int main(int argc, char* argv[])
 #endif
 
     // xml 出力しない
-    ::iutest::IUTEST_FLAG(output) = NULL;
+    ::iuutil::ReleaseDefaultXmlGenerator();
 #if !defined(IUTEST_USE_GTEST)
     ::iutest::TAPFileGeneratorListener::SetUp();
 #endif

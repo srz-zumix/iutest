@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -266,7 +266,7 @@ private:
  * @brief   型つきTestSuite
 */
 template<typename T>
-class TypedTestSuite : public TestSuite
+class TypedTestSuite IUTEST_CXX_FINAL : public TestSuite
 {
 public:
     typedef T   TypeParam;  //!< 型
@@ -310,7 +310,7 @@ public:
     explicit TestSuiteMediator(TestSuite* p) IUTEST_CXX_NOEXCEPT_SPEC : iuITestSuiteMediator(p) {}
 public:
     virtual const char* test_suite_name() const IUTEST_CXX_OVERRIDE { return m_test_suite->name(); }
-    virtual const char* type_param()     const IUTEST_CXX_OVERRIDE { return m_test_suite->type_param(); }
+    virtual const char* type_param()      const IUTEST_CXX_OVERRIDE { return m_test_suite->type_param(); }
 };
 
 }   // end of namespace detail
