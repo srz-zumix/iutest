@@ -24,25 +24,30 @@ environment:
       job_depends_on: VisualStudio
       BUILD_CYGWIN: yes
       USE_GNU_EXTENSION: 0
+      OUTPUTXML_TYPE: junit
     - job_group: Cygwin
       job_depends_on: VisualStudio
       BUILD_CYGWIN: yes
       USE_GNU_EXTENSION: 1
+      OUTPUTXML_TYPE: xml
     # MINGW/MINGW64
     - job_group: MINGW
       job_depends_on: VisualStudio
       BUILD_MINGW: yes
       USE_GNU_EXTENSION: 0
+      OUTPUTXML_TYPE: xml
     # MINGW/MINGW64 GNU EXTENSION
     - job_group: MINGW
       job_depends_on: VisualStudio
       BUILD_MINGW: yes
+      OUTPUTXML_TYPE: junit
       USE_GNU_EXTENSION: 1
     # NMAKE
     - job_group: VisualStudio
       job_depends_on: VS2017
       BUILD_NMAKE: yes
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      OUTPUTXML_TYPE: xml
     # Prefast
     - job_group: VisualStudio
       job_depends_on: VS2015
@@ -165,7 +170,7 @@ build:
   verbosity: minimal
 
 test_script:
-  cmd: cd build && ctest -C %Configuration% -V
+  cmd: cd build && ctest -C %Configuration% -V -T Test
 
 on_failure:
   # wait RDP connect
@@ -174,6 +179,20 @@ on_failure:
     if($commit_message.Contains("[appveyor rdp]")) {
       $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
     }
+
+on_finish:
+  ps: |
+    $XSLInputElement = New-Object System.Xml.Xsl.XslCompiledTransform
+    $XSLInputElement.Load("https://raw.githubusercontent.com/rpavlik/jenkins-ctest-plugin/master/ctest-to-junit.xsl")
+    $TestXmlFile = Get-Childitem –Path "$($env:APPVEYOR_BUILD_FOLDER)\build" -Include *Test.xml -File -Recurse -ErrorAction SilentlyContinue
+    Write-Host $TestXmlFile
+    $XSLInputElement.Transform($TestXmlFile, (Join-Path (Resolve-Path .) "ctest-to-junit-results.xml"))
+    $wc = New-Object 'System.Net.WebClient'
+    $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\ctest-to-junit-results.xml))
+
+# artifacts:
+#   - path: "**/*.xml"
+
 
 for:
 # Build .sln (no cmake)
@@ -191,6 +210,8 @@ for:
     cd projects\%PROJECT_DIR%\%Configuration%
     iutest_sample.exe
     iutest_sample.exe --spec
+  on_finish: &noop
+    cmd: echo.
 # Cygwin
 -
   matrix:
@@ -209,15 +230,29 @@ for:
   install:
     cmd: |
       %CYGWIN_PATH%\%CYGWIN_SETUP_EXE% -qnNdO -R %CYGWIN_PATH% -s http://cygwin.mirror.constant.com -l %CYGWIN_PATH%/var/cache/setup -P make -P clang
-  before_build: &noop
-    cmd: echo.
+  before_build: &test-clean-all
+    cmd: |
+      ls test
+      make -C test clean-all
   build_script:
     cmd: |
       cd test
       make showcxxmacros
-      make -j4
+      make -j4 OUTPUTXML=%OUTPUTXML_TYPE%
   test_script:
-    cmd: make test && make report
+    cmd: make test OUTPUTXML=%OUTPUTXML_TYPE% && make report
+  on_finish: &test_result
+    ps: |
+      $wc = New-Object 'System.Net.WebClient'
+      Get-ChildItem "$($env:APPVEYOR_BUILD_FOLDER)\test" -Filter *.xml |
+      Foreach-Object {
+        $XmlFilePath = $_.FullName
+        Write-Host $XmlFilePath
+        $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", $XmlFilePath)
+      }
+#    cmd: |
+#        cd %APPVEYOR_BUILD_FOLDER%/test
+#        find . -type f -name '*.xml' -print0 | xargs -0 -I '{}' curl -F 'file=@{}' "https://ci.appveyor.com/api/testresults/junit/%APPVEYOR_JOB_ID%"
 # MINGW
 -
   matrix:
@@ -232,25 +267,31 @@ for:
         $env:MINGW_PATH="C:\mingw\bin"
       }
       $env:PATH=$env:MINGW_PATH + ";" + $env:PATH
-  before_build: *noop
+  before_build: *test-clean-all
   build_script:
     cmd: |
       cd test
       mingw32-make showcxxmacros
-      mingw32-make -j4 %MAKE_OPTIONS%
+      mingw32-make -j4 %MAKE_OPTIONS% OUTPUTXML=%OUTPUTXML_TYPE%
   test_script:
-    cmd: mingw32-make test %MAKE_OPTIONS% && mingw32-make report
+    cmd: mingw32-make test %MAKE_OPTIONS% OUTPUTXML=%OUTPUTXML_TYPE% && mingw32-make report
+  on_finish: *test_result
 # NAMKE
 -
   matrix:
     only:
       - BUILD_NMAKE: yes
   before_build:
-    cmd: '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat"'
+    cmd: |
+      "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat"
+      cd test && nmake showcxxmacros
+      nmake minimum_tests && minimum_tests.exe --spec
+      nmake clean
   build_script:
-    cmd: cd test && nmake showcxxmacros && nmake minimum_tests && minimum_tests.exe --spec
+    cmd: nmake OUTPUTXML=%OUTPUTXML_TYPE%
   test_script:
-    cmd: nmake test
+    cmd: nmake test OUTPUTXML=%OUTPUTXML_TYPE%
+  on_finish: *test_result
 # Prefast
 -
   matrix:
@@ -263,6 +304,7 @@ for:
   build_script:
     cmd: msbuild "projects\%PROJECT_DIR%\iutest_sample.vcxproj" /m %MSBUILD_LOGGER_OPTION% %MSBUILD_PREFAST_OPTION%
   test: off
+  on_finish: *noop
 # Menu
 -
   matrix:
@@ -274,6 +316,7 @@ for:
     parallel: true
     verbosity: minimal
   test: off
+  on_finish: *noop
 # Package Build
 -
   matrix:
@@ -283,6 +326,7 @@ for:
   build_script:
     sh: bash ./.ci/make-package.sh
   test: off
+  on_finish: *noop
 # NuGet
 -
   matrix:
@@ -295,3 +339,4 @@ for:
       Write-Output "Building NuGet package"
       nuget pack $nuspecPath -OutputDirectory ".\"
   test: off
+  on_finish: *noop
