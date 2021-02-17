@@ -230,7 +230,10 @@ for:
   install:
     cmd: |
       %CYGWIN_PATH%\%CYGWIN_SETUP_EXE% -qnNdO -R %CYGWIN_PATH% -s http://cygwin.mirror.constant.com -l %CYGWIN_PATH%/var/cache/setup -P make -P clang
-  before_build: *noop
+  before_build: &test-clean-all
+    cmd: |
+      ls test
+      make -C test clean-all
   build_script:
     cmd: |
       cd test
@@ -264,7 +267,7 @@ for:
         $env:MINGW_PATH="C:\mingw\bin"
       }
       $env:PATH=$env:MINGW_PATH + ";" + $env:PATH
-  before_build: *noop
+  before_build: *test-clean-all
   build_script:
     cmd: |
       cd test
