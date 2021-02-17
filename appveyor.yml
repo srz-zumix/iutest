@@ -235,7 +235,7 @@ for:
     cmd: |
       cd test
       make showcxxmacros
-      make -j4
+      make -j4 OUTPUTXML=%OUTPUTXML_TYPE%
   test_script:
     cmd: make test OUTPUTXML=%OUTPUTXML_TYPE% && make report
   on_finish: &test_result
@@ -269,7 +269,7 @@ for:
     cmd: |
       cd test
       mingw32-make showcxxmacros
-      mingw32-make -j4 %MAKE_OPTIONS%
+      mingw32-make -j4 %MAKE_OPTIONS% OUTPUTXML=%OUTPUTXML_TYPE%
   test_script:
     cmd: mingw32-make test %MAKE_OPTIONS% OUTPUTXML=%OUTPUTXML_TYPE% && mingw32-make report
   on_finish: *test_result
@@ -279,9 +279,13 @@ for:
     only:
       - BUILD_NMAKE: yes
   before_build:
-    cmd: '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat"'
+    cmd: |
+      '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat"'
+      cd test && nmake showcxxmacros
+      nmake minimum_tests && minimum_tests.exe --spec
+      nmake clean
   build_script:
-    cmd: cd test && nmake showcxxmacros && nmake minimum_tests && minimum_tests.exe --spec
+    cmd: nmake OUTPUTXML=%OUTPUTXML_TYPE%
   test_script:
     cmd: nmake test OUTPUTXML=%OUTPUTXML_TYPE%
   on_finish: *test_result
