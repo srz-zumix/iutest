@@ -280,7 +280,7 @@ for:
       - BUILD_NMAKE: yes
   before_build:
     cmd: |
-      '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat"'
+      "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat"
       cd test && nmake showcxxmacros
       nmake minimum_tests && minimum_tests.exe --spec
       nmake clean
