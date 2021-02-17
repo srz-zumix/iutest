@@ -2,6 +2,8 @@
 
 set -eu
 
+BASEDIR=$(dirname $0)
+
 if [ -z "${GITHUB_SHA+x}" ]; then
   GITHUB_SHA=$(git rev-parse HEAD)
   export GITHUB_SHA
@@ -27,6 +29,10 @@ if [ "${DIRNAME}" != 'master' ]; then
 fi
 
 echo ${DIRNAME}
+
+#
+# documents
+#
 
 doxygen --version
 dot -V || true
@@ -55,7 +61,17 @@ if [ "${DIRNAME}" = 'master' ]; then
   make gh-pages-for-master
 fi
 
-cd gh-pages
+#
+# cppcheck
+#
+
+cd ${BASEDIR}
+make -C test/cppcheck html HTML_REPORT_DIR=${BASEDIR}/docs/gh-pages/${DIRNAME}/cppcheck
+
+#
+# commit
+# 
+cd ${BASEDIR}/docs/gh-pages
 
 if [ -n "${INPUT_GITHUB_TOKEN+x}" ]; then
   if [ -z "${INPUT_GITHUB_EMAIL+x}" ]; then

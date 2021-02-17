@@ -1,4 +1,4 @@
-# Copyright (C) 2018, Takazumi Shirayanagi
+# Copyright (C) 2018-2021, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 
@@ -19,22 +19,7 @@ IUTEST_HEADERS =$(IUTEST_DIR)/include/*.hpp \
 # cppcheck configuration
 #
 
-CPPCHECK_DEFINES= \
-	IUTEST_HAS_CLOCK=1 \
-
-CPPCHECK_UNDEFINES= \
-	_WIN32 \
-	_MSC_VER \
-	__clang__ \
-	__CYGWIN__ \
-	__APPLE__ \
-
-CPPCHECK_SUPPRESS= \
-	syntaxError \
-	missingIncludeSystem \
-	ConfigurationNotChecked \
-	knownConditionTrueFalse:*/iutest_internal_defs.hpp \
-	unmatchedSuppression
+include Config.mk
 
 CPPCHECK_DEFINES_OPTIONS=$(patsubst %,-D%,$(CPPCHECK_DEFINES))
 CPPCHECK_UNDEFINES_OPTIONS=$(patsubst %,-U%,$(CPPCHECK_UNDEFINES))
@@ -42,7 +27,14 @@ CPPCHECK_SUPPRESS_OPTIONS=$(patsubst %,--suppress=%,$(CPPCHECK_SUPPRESS))
 
 CPPCHECK_ENABLE_OPTION= --enable=all
 
-DEFAULT_OPTIONS=--inline-suppr -f -j4 --platform=unix64
+DEFAULT_OPTIONS=--inline-suppr -j8 --platform=unix64
+
+ifdef FULL
+DEFAULT_OPTIONS+= -f
+endif
+ifdef USE_CLANG
+DEFAULT_OPTIONS+= --clang
+endif
 
 OPTIONS+= $(DEFAULT_OPTIONS)
 OPTIONS+= $(CPPCHECK_ENABLE_OPTION)
@@ -72,7 +64,7 @@ default: version $(TARGETS)
 all: clean default
 
 clean:
-	$(RM) $(TARGETS) check-config.xml
+	$(RM) $(TARGETS) check-config.xml ./html
 
 version:
 	cppcheck --version
@@ -82,3 +74,9 @@ check-config:
 
 $(TARGETS): $(SRC_CPP) Makefile
 	cppcheck $(IUTEST_INCLUDE) $(OPTIONS) $(SRCS) --xml 2> $@
+
+HTML_REPORT_DIR:=./html
+html: $(TARGETS)
+	@if [ ! -e ${HTML_REPORT_DIR} ]; then mkdir -p ${HTML_REPORT_DIR}; fi
+	cppcheck-htmlreport --file=$< --title=iutest --report-dir=${HTML_REPORT_DIR}
+	# cppcheck-htmlreport --file=$< --title=iutest --report-dir=./html --source-dir=$(IUTEST_DIR)/include
