@@ -72,7 +72,7 @@ version:
 check-config:
 	cppcheck $(IUTEST_INCLUDE) $(OPTIONS) $(SRCS) --check-config --xml 2> $@.xml
 
-$(TARGETS): $(SRC_CPP) Makefile
+$(TARGETS): $(SRC_CPP) $(IUTEST_HEADERS) Config.mk
 	cppcheck $(IUTEST_INCLUDE) $(OPTIONS) $(SRCS) --xml 2> $@
 
 HTML_REPORT_DIR:=./html

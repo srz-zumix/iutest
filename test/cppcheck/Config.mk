@@ -77,6 +77,11 @@ CPPCHECK_UNDEFINES= \
 CPPCHECK_DEFINES+= \
 	IUTEST_CPLUSPLUS=202002L
 
+CPPCHECK_DEFINES+= \
+	IUTEST_HAS_OVERRIDE_AND_FINAL=1 \
+	IUTEST_CXX_OVERRIDE=override \
+	IUTEST_CXX_FINAL=final \
+
 # gtest
 CPPCHECK_DEFINES+= \
 	GTEST_MAJORVER=0x01 \
@@ -96,4 +101,5 @@ CPPCHECK_SUPPRESS= \
 	missingIncludeSystem \
 	ConfigurationNotChecked \
 	knownConditionTrueFalse:*/iutest_internal_defs.hpp \
+	unusedPrivateFunction \
 	unmatchedSuppression
