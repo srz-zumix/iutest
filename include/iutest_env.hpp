@@ -206,7 +206,7 @@ public:
      * @param [in]  flag    = 検査対象フラグ
      * @return  真偽値
     */
-    static bool IsEnableFlag(int flag) { return GetInstance().m_test_flags & flag ? true : false; }
+    static bool IsEnableFlag(int flag) { return (GetInstance().m_test_flags & flag) ? true : false; }
 
 private:
     template<int KIND>
