@@ -1879,7 +1879,6 @@ private:
             if( TestEnv::has_output_option() )
             {
                 TestEnv::flush_output_option();
-                IUTEST_LOG_(WARNING) << TestEnv::get_output_option();
 
                 do
                 {
