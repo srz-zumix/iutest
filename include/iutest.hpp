@@ -1859,7 +1859,7 @@ public:
     void Initialize()
     {
         UnitTest::instance().Initialize();
-        SetUpDefaultListener();
+        SetUpDefaultXmlListener();
     }
 
     /**
@@ -1879,6 +1879,7 @@ private:
             if( TestEnv::has_output_option() )
             {
                 TestEnv::flush_output_option();
+
                 do
                 {
 #if defined(__WANDBOX__)
