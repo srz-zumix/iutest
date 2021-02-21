@@ -2,7 +2,7 @@
 
 set -eu
 
-BASEDIR=$(dirname "$0")
+CURDIR=$(pwd)
 
 if [ -z "${GITHUB_SHA+x}" ]; then
   GITHUB_SHA=$(git rev-parse HEAD)
@@ -65,13 +65,13 @@ fi
 # cppcheck
 #
 
-cd "${BASEDIR}"
-make -C test/cppcheck html HTML_REPORT_DIR="${BASEDIR}/docs/gh-pages/${DIRNAME}/cppcheck"
+cd ..
+make -C test/cppcheck html HTML_REPORT_DIR="${CURDIR}/docs/gh-pages/${DIRNAME}/cppcheck"
 
 #
 # commit
 # 
-cd "${BASEDIR}/docs/gh-pages"
+cd docs/gh-pages
 
 if [ -n "${INPUT_GITHUB_TOKEN+x}" ]; then
   if [ -z "${INPUT_GITHUB_EMAIL+x}" ]; then
