@@ -82,7 +82,7 @@ IUTEST_IPP_INLINE const char* GetEnv(const char* name)
     || defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE)
     IUTEST_UNUSED_VAR(name);
     return NULL;
-#elif defined(__BORLANDC__) || defined(__SunOS_5_8) || defined(__SunOS_5_9)
+#elif defined(__BORLANDC__) || defined(__SunOS)
     const char* env = getenv(name);
     return (env != NULL && env[0] != '\0') ? env : NULL;
 #else
