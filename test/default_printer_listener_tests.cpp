@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file        default_printer_listener_tests.cpp
- * @brief       QuietResultPrinter test
+ * @brief       default printer test
  *
  * @author      t.shirayanagi
  * @par         copyright
