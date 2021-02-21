@@ -1859,7 +1859,6 @@ public:
     void Initialize()
     {
         UnitTest::instance().Initialize();
-        SetUpDefaultListener();
     }
 
     /**
@@ -1871,7 +1870,7 @@ public:
         return UnitTest::instance().Run();
     }
 
-private:
+public:
     void SetUpDefaultXmlListener()
     {
         if( TestEnv::is_output_option_dirty() )
@@ -1879,6 +1878,7 @@ private:
             if( TestEnv::has_output_option() )
             {
                 TestEnv::flush_output_option();
+
                 do
                 {
 #if defined(__WANDBOX__)
@@ -1910,6 +1910,7 @@ private:
         }
     }
 
+private:
     void SetUpDefaultListener()
     {
         SetUpDefaultXmlListener();
@@ -1930,6 +1931,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, T argv)
     UnitTestSource::GetInstance().Initialize();
     TestEnv::ParseCommandLine(pargc, argv);
     TestEnv::LoadFlagFile();
+    UnitTestSource::GetInstance().SetUpDefaultXmlListener();
 }
 
 }   // end of namespace detail
@@ -1956,6 +1958,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(::std::vector< ::std::basi
     UnitTestSource::GetInstance().Initialize();
     TestEnv::ParseCommandLine(argv);
     TestEnv::LoadFlagFile();
+    UnitTestSource::GetInstance().SetUpDefaultXmlListener();
 }
 
 /**

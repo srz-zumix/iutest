@@ -44,11 +44,14 @@ int main(int argc, char* argv[])
     ::iutest::detail::iuConsole::SetLogger(&logger);
 #endif
 
+    ::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
     ::iutest::TestEventListener* listener = ::iuutil::QuietResultPrinter::SetUp();
 #if IUTEST_HAS_ASSERTION_RETURN
     IUTEST_ASSERT_NOTNULL( listener ) << ::iutest::AssertionReturn<int>(1);
+    IUTEST_ASSERT_NULL( listeners.default_result_printer() ) << ::iutest::AssertionReturn<int>(1);
 #else
-    if( listener == NULL ) return 1;
+    IUTEST_ASSERT_EXIT(listener != NULL);
+    IUTEST_ASSERT_EXIT(listeners.default_result_printer() == NULL);
 #endif
 
     if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
@@ -57,11 +60,8 @@ int main(int argc, char* argv[])
     IUTEST_ASSERT_STRIN   ("[  FAILED  ]", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
 #endif
 
-    {
-        ::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
-        delete listeners.Release(listener);
-    }
 
+    delete listeners.Release(listener);
     listener = ::iuutil::QuietResultPrinter::SetUp();
 #if IUTEST_HAS_ASSERTION_RETURN
     IUTEST_ASSERT_NULL( listener ) << ::iutest::AssertionReturn<int>(1);

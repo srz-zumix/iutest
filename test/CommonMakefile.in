@@ -153,6 +153,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/throw_on_failure_tests \
 		$(OUTDIR)/tr1_tests \
 		$(OUTDIR)/uninitialize_tests \
+		$(OUTDIR)/util_release_default_xml_generator_tests \
 		$(OUTDIR)/util_tests \
 
 ASSERTION_ONLY_TARGETS= \

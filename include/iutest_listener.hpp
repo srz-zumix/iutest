@@ -180,7 +180,18 @@ public:
     /**
      * @brief   リスナーの解放
     */
-    TestEventListener* Release(TestEventListener* listener) { return m_repeater.Release(listener); }
+    TestEventListener* Release(TestEventListener* listener)
+    {
+        if( listener == m_default_result_printer )
+        {
+            m_default_result_printer = NULL;
+        }
+        if( listener == m_default_xml_generator )
+        {
+            m_default_xml_generator = NULL;
+        }
+        return m_repeater.Release(listener);
+    }
 
 public:
     /**
