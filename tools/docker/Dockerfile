@@ -21,6 +21,7 @@ RUN apt-get update -q -y && \
         xz-utils tk-dev libffi-dev liblzma-dev python-openssl git \
         linux-tools-common linux-tools-generic \
         vim gdb iputils-ping \
+        cppcheck \
         subversion \
         python3 python3-pip \
         doxygen graphviz && \
