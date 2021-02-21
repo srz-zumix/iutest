@@ -41,7 +41,7 @@ namespace iuutil
 inline void ReleaseDefaultXmlGenerator()
 {
     ::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
-    listeners.Release(listeners.default_xml_generator());
+    delete listeners.Release(listeners.default_xml_generator());
 }
 
 }   // end of namespace iuutil

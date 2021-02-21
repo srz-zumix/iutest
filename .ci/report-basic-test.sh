@@ -41,33 +41,37 @@ os_detect() {
     esac
 }
 
-os_detect
-uname
-echo "$PLATFORM"
+do_main() {
+  os_detect
+  uname
+  echo "$PLATFORM"
 
-DATE=$(date -u)
-echo "$CI_ENV_NAME"
-echo "$CI_ENV_GIT_COMMIT"
-echo "$CI_ENV_PULL_REQUEST"
-echo "$CXX_NAME"
-echo "$CXX_VERSION"
-echo "$STDFLAG"
+  DATE=$(date -u)
+  echo "$CI_ENV_NAME"
+  echo "$CI_ENV_GIT_COMMIT"
+  echo "$CI_ENV_PULL_REQUEST"
+  echo "$CXX_NAME"
+  echo "$CXX_VERSION"
+  echo "$STDFLAG"
 
-if ${CI_ENV_PULL_REQUEST}; then
-  return
-fi
-if [ "${CI_ENV_GIT_BRANCH}" != "master" ]; then
-  if [ "${CI_ENV_GIT_BRANCH}" != "develop" ]; then
+  if ${CI_ENV_PULL_REQUEST}; then
     return
   fi
-fi
+  if [ "${CI_ENV_GIT_BRANCH}" != "master" ]; then
+    if [ "${CI_ENV_GIT_BRANCH}" != "develop" ]; then
+      return
+    fi
+  fi
 
-if [ -z "${INTEGROMAT_WEBHOOK_URL}" ]; then
-  export INTEGROMAT_WEBHOOK_URL="https://hook.integromat.com/cthwc5562x2xzx2r5ytzepi5aks9gqis"
-fi
+  if [ -z "${INTEGROMAT_WEBHOOK_URL}" ]; then
+    export INTEGROMAT_WEBHOOK_URL="https://hook.integromat.com/cthwc5562x2xzx2r5ytzepi5aks9gqis"
+  fi
 
-curl -k \
-  -H "Content-Type: application/json" \
-  -X POST \
-  -d "{\"time\": \"${DATE}\", \"ci\": \"${CI_ENV_NAME}\", \"commit\": \"${CI_ENV_GIT_COMMIT}\", \"os\": \"${PLATFORM}\", \"cxx\":\"${CXX_NAME}\", \"version\":\"${CXX_VERSION}\", \"std\":\"${STDFLAG}\" }" \
-  ${INTEGROMAT_WEBHOOK_URL}
+  curl -k \
+    -H "Content-Type: application/json" \
+    -X POST \
+    -d "{\"time\": \"${DATE}\", \"ci\": \"${CI_ENV_NAME}\", \"commit\": \"${CI_ENV_GIT_COMMIT}\", \"os\": \"${PLATFORM}\", \"cxx\":\"${CXX_NAME}\", \"version\":\"${CXX_VERSION}\", \"std\":\"${STDFLAG}\" }" \
+    ${INTEGROMAT_WEBHOOK_URL}
+}
+
+do_main
