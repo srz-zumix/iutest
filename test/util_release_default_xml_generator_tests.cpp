@@ -23,6 +23,25 @@
 #  define DECAL_ARGV(cmd) const char*    targv[] = { argv[0],   cmd }
 #endif
 
+#if !defined(IUTEST_USE_GTEST)
+
+class FileIO IUTEST_CXX_FINAL : public ::iutest::StringStreamFile
+{
+public:
+    static ::std::string s_io;
+
+    virtual void Close() IUTEST_CXX_OVERRIDE
+    {
+        s_io = ss.str();
+    }
+};
+
+::std::string FileIO::s_io;
+
+IUTEST_FILESYSTEM_INSTANTIATE(FileIO);
+
+#endif
+
 IUTEST(UtilReleaseXmlGeneratorTest, Fail)
 {
     IUTEST_FAIL();
@@ -48,6 +67,13 @@ int main(int argc, char* argv[])
     IUTEST_ASSERT_EXIT(listeners.default_xml_generator() == NULL);
 
     if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
+
+#if !defined(IUTEST_USE_GTEST)
+#if IUTEST_HAS_ASSERTION_RETURN
+    IUTEST_ASSERT_STRLNEQ(0, FileIO::s_io) << ::iutest::AssertionReturn<int>(1);
+#endif
+#endif
+
     printf("*** Successful ***\n");
     return 0;
 }
