@@ -39,11 +39,14 @@ int main(int argc, char* argv[])
     int targc = 2;
     DECAL_ARGV("--gtest_output=xml:util_release_default_xml_generator_tests.xml");
     IUTEST_INIT(&targc, targv);
+
+    ::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
+    IUTEST_ASSERT_EXIT(listeners.default_xml_generator() != NULL);
+
     ::iuutil::ReleaseDefaultXmlGenerator();
-    {
-        ::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
-        IUTEST_ASSERT_EXIT(listeners.default_xml_generator() == NULL);
-    }
+
+    IUTEST_ASSERT_EXIT(listeners.default_xml_generator() == NULL);
+
     if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
     printf("*** Successful ***\n");
     return 0;
