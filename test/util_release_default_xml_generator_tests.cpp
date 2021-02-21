@@ -23,7 +23,7 @@
 #  define DECAL_ARGV(cmd) const char*    targv[] = { argv[0],   cmd }
 #endif
 
-#if !defined(IUTEST_USE_GTEST)
+#if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_STRINGSTREAM && IUTEST_HAS_ASSERTION_RETURN
 
 class FileIO IUTEST_CXX_FINAL : public ::iutest::StringStreamFile
 {
@@ -68,10 +68,8 @@ int main(int argc, char* argv[])
 
     if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
 
-#if !defined(IUTEST_USE_GTEST)
-#if IUTEST_HAS_ASSERTION_RETURN
+#if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_STRINGSTREAM && IUTEST_HAS_ASSERTION_RETURN
     IUTEST_ASSERT_STRLNEQ(0, FileIO::s_io) << ::iutest::AssertionReturn<int>(1);
-#endif
 #endif
 
     printf("*** Successful ***\n");
