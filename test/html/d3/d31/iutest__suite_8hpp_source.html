@@ -1,0 +1,360 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>iutest: iutest_suite.hpp ソースファイル</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">iutest
+   &#160;<span id="projectnumber">1.17.99.5</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('../../',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">iutest_suite.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d3/d31/iutest__suite_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//======================================================================</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#ifndef INCG_IRIS_IUTEST_SUITE_HPP_0534E0BE_6BC4_4E99_80C0_56F441AD34ED_</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#define INCG_IRIS_IUTEST_SUITE_HPP_0534E0BE_6BC4_4E99_80C0_56F441AD34ED_</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//======================================================================</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// include</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">// IWYU pragma: begin_exports</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d4/d4b/iutest__info_8hpp.html">iutest_info.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">// IWYU pragma: end_exports</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d3/dda/namespaceiutest.html">iutest</a></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">//======================================================================</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">// class</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"></span><span class="keyword">class </span>TestSuite</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="../../d3/d87/classiutest_1_1_test_suite.html">   33</a></span>&#160;#if <a class="code" href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#ga0811f1e5c03ce4c5962630a6707acb75">IUTEST_USE_OWN_LIST</a></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    : <span class="keyword">public</span> detail::iu_list_node&lt;TestSuite&gt;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#if IUTEST_USE_OWN_LIST</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">typedef</span> detail::iu_list&lt;TestInfo&gt;   <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#a26c82a6596abc5ae2d84d0b59ef49ba9">iuTestInfos</a>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    typedef ::std::vector&lt;TestInfo*&gt;    <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#a26c82a6596abc5ae2d84d0b59ef49ba9">iuTestInfos</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="../../d3/d87/classiutest_1_1_test_suite.html#a26c82a6596abc5ae2d84d0b59ef49ba9">   43</a></span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#aba4f6c66a3728eead5743660ecd06715">TestSuite</a>(const ::std::string&amp; testsuite_name, <a class="code" href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">TestTypeId</a> <span class="keywordtype">id</span>, <a class="code" href="../../d3/dda/namespaceiutest.html#a3d4347414b4f9246d02cc912beead66d">SetUpMethod</a> setup, <a class="code" href="../../d3/dda/namespaceiutest.html#a4b4e0725aff84c407822b9009ae75b12">TearDownMethod</a> teardown)</div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="../../d3/d87/classiutest_1_1_test_suite.html#aba4f6c66a3728eead5743660ecd06715">   54</a></span>&#160;    : m_testsuite_name(testsuite_name)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    , m_setup(setup)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    , m_teardown(teardown)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    , m_id(id)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    , m_disable_num(0)</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    , m_should_run_num(0)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    , m_elapsedmsec(0)</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    , m_start_timestamp(0)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    , m_disable(detail::IsDisableTestName(testsuite_name))</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#a9508b05e836cf3ad66e52a13469425c7">~TestSuite</a>() {}</div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="../../d3/d87/classiutest_1_1_test_suite.html#a9508b05e836cf3ad66e52a13469425c7">   71</a></span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>*     <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#aa960e404c373dfecbaf789471bf04ef4">name</a>()<span class="keyword">                  const </span>{ <span class="keywordflow">return</span> m_testsuite_name.c_str(); }</div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="../../d3/d87/classiutest_1_1_test_suite.html#aa960e404c373dfecbaf789471bf04ef4">   75</a></span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#acea4bcd5fcf960c817df78bd04a4dbea">total_test_count</a>()      const <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a> { <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(m_testinfos.size()); }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#a7e2dbe0bd9099470c5c4f39d720227c5">reportable_test_count</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#a22135e23b5c44b6083a2f64ff64388b5">test_to_run_count</a>()     const <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a> { <span class="keywordflow">return</span> m_should_run_num; }</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#a7cec315759f615d01386508deab06eb4">failed_test_count</a>()     <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#ab5f1ad74368de6688b5537fee906e3bd">disabled_test_count</a>()   const <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a> { <span class="keywordflow">return</span> m_disable_num; }</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#af6bbdb8ee6d9a6a777fd68b2f0d6f7b0">reportable_disabled_test_count</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#a28564f2aff6ee92c019200b6bac3a694">successful_test_count</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#acd266755c75cd6fa0ffc1b2fa8d39742">skip_test_count</a>()       <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#a807a42ea36dc34f85ff510c9c759bb15">reportable_skip_test_count</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#a49dcaf5b748375b314b0a552589b729f">test_run_skipped_count</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#a2b0326da0865444f99876f8538a82b59">reportable_test_run_skipped_count</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">TimeInMillisec</a>  <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#acbb91b272b429da569d704520431941f">elapsed_time</a>()          const <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a> { <span class="keywordflow">return</span> m_elapsedmsec; }</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">TimeInMillisec</a>  <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#a711adab7646d90f227b7d8182f3a3ec5">start_timestamp</a>()       const <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a>{ <span class="keywordflow">return</span> m_start_timestamp; }</div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="../../d3/d87/classiutest_1_1_test_suite.html#a711adab7646d90f227b7d8182f3a3ec5">  102</a></span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html">TestInfo</a>* <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#a474edee295efeb3c84a0d1a589ffd5cf">GetTestInfo</a>(<span class="keywordtype">int</span> index)<span class="keyword">  const </span>{ <span class="keywordflow">return</span> m_testinfos[index]; }</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordtype">bool</span>            <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#a2267e8ef2a9b854c19f158d11dd19a2d">should_run</a>()            const <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a> { <span class="keywordflow">return</span> m_should_run_num != 0; }</div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="../../d3/d87/classiutest_1_1_test_suite.html#a2267e8ef2a9b854c19f158d11dd19a2d">  107</a></span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordtype">bool</span>            <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#a85f8c70d022c90b6102fea93b537f67f">Passed</a>()<span class="keyword">                const </span>{ <span class="keywordflow">return</span> <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#a7cec315759f615d01386508deab06eb4">failed_test_count</a>() == 0 &amp;&amp; m_ad_hoc_testresult.<a class="code" href="../../d0/d7b/classiutest_1_1_test_result.html#a54b0d9258545f81f3da76aea86181071">Passed</a>(); }</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordtype">bool</span>            <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#ada6ef9dd63f6a16db920ab6c3e8e324d">Failed</a>()<span class="keyword">                const </span>{ <span class="keywordflow">return</span> !<a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#a85f8c70d022c90b6102fea93b537f67f">Passed</a>(); }</div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="../../d3/d87/classiutest_1_1_test_suite.html#ada6ef9dd63f6a16db920ab6c3e8e324d">  112</a></span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#a64113589b0f0f7ad8f8b0317e30f27e3">type_param</a>()<span class="keyword">        const </span>{ <span class="keywordflow">return</span> NULL; }</div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="../../d3/d87/classiutest_1_1_test_suite.html#a64113589b0f0f7ad8f8b0317e30f27e3">  115</a></span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    ::std::string <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#adb7ade63cf853f2f10d0f9aeacee26fc">testsuite_name_with_where</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="../../d3/d87/classiutest_1_1_test_suite.html#adb7ade63cf853f2f10d0f9aeacee26fc">  118</a></span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        ::std::string str = m_testsuite_name;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keywordflow">if</span>( <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#a64113589b0f0f7ad8f8b0317e30f27e3">type_param</a>() != NULL )</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        {</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            str += <span class="stringliteral">&quot;, where TypeParam = &quot;</span>;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            str += <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#a64113589b0f0f7ad8f8b0317e30f27e3">type_param</a>();</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        }</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="keywordflow">return</span> str;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    }</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    ::std::string <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#a084e611692828b4d427001e415bba446">testsuite_name_with_default_package_name</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="../../d3/d87/classiutest_1_1_test_suite.html#a084e611692828b4d427001e415bba446">  130</a></span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#af1aed0bd741f7b3213025c95fecd6fae">TestEnv::AddDefaultPackageName</a>(<a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#aa960e404c373dfecbaf789471bf04ef4">name</a>());</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    }</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d0/d7b/classiutest_1_1_test_result.html">TestResult</a>* <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#abe2225a24fd1d63b5af6e5e490c929f0">ad_hoc_testresult</a>() const <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div>
+<div class="line"><a name="l00139"></a><span class="lineno"><a class="line" href="../../d3/d87/classiutest_1_1_test_suite.html#abe2225a24fd1d63b5af6e5e490c929f0">  139</a></span>&#160;    {</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#acbc914e2a5047c4dd82cad493fa47a46">ad_hoc_test_result</a>();</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    }</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d0/d7b/classiutest_1_1_test_result.html">TestResult</a>* <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#acbc914e2a5047c4dd82cad493fa47a46">ad_hoc_test_result</a>() const <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div>
+<div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="../../d3/d87/classiutest_1_1_test_suite.html#acbc914e2a5047c4dd82cad493fa47a46">  147</a></span>&#160;    {</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <span class="keywordflow">return</span> &amp;m_ad_hoc_testresult;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    }</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#ad6362b66c15e60cf3b17e4dc37b854b3">ValidateTestPropertyName</a>(const ::std::string&amp; <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#aa960e404c373dfecbaf789471bf04ef4">name</a>)</div>
+<div class="line"><a name="l00159"></a><span class="lineno"><a class="line" href="../../d3/d87/classiutest_1_1_test_suite.html#ad6362b66c15e60cf3b17e4dc37b854b3">  159</a></span>&#160;    {</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span>* ban[] = { <span class="stringliteral">&quot;name&quot;</span>, <span class="stringliteral">&quot;tests&quot;</span>, <span class="stringliteral">&quot;failures&quot;</span>, <span class="stringliteral">&quot;disabled&quot;</span>, <span class="stringliteral">&quot;skip&quot;</span>, <span class="stringliteral">&quot;errors&quot;</span>, <span class="stringliteral">&quot;time&quot;</span> };</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="preprocessor">#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../db/df6/classiutest_1_1_test_property.html#ad33b46ab30e2c53d4787cd31d68f05b3">TestProperty::ValidateName</a>(<a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#aa960e404c373dfecbaf789471bf04ef4">name</a>, ban);</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../db/df6/classiutest_1_1_test_property.html#ad33b46ab30e2c53d4787cd31d68f05b3">TestProperty::ValidateName</a>(<a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#aa960e404c373dfecbaf789471bf04ef4">name</a>, ban, ban+IUTEST_PP_COUNTOF(ban));</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    }</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordtype">bool</span> Run();</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keywordtype">bool</span> RunImpl();</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordtype">bool</span> CheckSetUpSkipped();</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keyword">struct </span>FindOp</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    {</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <a class="code" href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">TestTypeId</a>  m_id;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span>* m_name;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        <span class="keywordtype">bool</span> operator () (<span class="keyword">const</span> <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html">TestSuite</a>* p)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="keyword">        </span>{</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;            <span class="keywordflow">if</span>( p-&gt;get_typeid() == m_id &amp;&amp; detail::IsStringEqual(p-&gt;m_testsuite_name, m_name) )</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;            {</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            }</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        }</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    };</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="keywordtype">void</span> clear();</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="comment">/*</span></div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="comment">     * @brief   テストのフィルタリング</span></div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;<span class="comment">     * @return  実行する場合は真</span></div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="keywordtype">bool</span> filter();</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator == (<span class="keyword">const</span> <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#aba4f6c66a3728eead5743660ecd06715">TestSuite</a>&amp; lhs, <span class="keyword">const</span> <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#aba4f6c66a3728eead5743660ecd06715">TestSuite</a>&amp; rhs)</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    {</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        <span class="keywordflow">return</span> (lhs.m_id == rhs.m_id) &amp;&amp; (strcmp(lhs.name(), rhs.name()) == 0);</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    }</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <span class="keywordtype">void</span> push_back(TestInfo* p) { m_testinfos.push_back(p); }</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    iuTestInfos::const_iterator begin()<span class="keyword"> const       </span>{ <span class="keywordflow">return</span> m_testinfos.begin(); }</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    iuTestInfos::const_iterator end()<span class="keyword">   const       </span>{ <span class="keywordflow">return</span> m_testinfos.end(); }</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <a class="code" href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">TestTypeId</a>                  get_typeid() const <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a> { <span class="keywordflow">return</span> m_id; }</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <span class="keywordtype">bool</span> HasWarning()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_ad_hoc_testresult.<a class="code" href="../../d0/d7b/classiutest_1_1_test_result.html#a5ff42e8e37017dc23f77a8522009a660">HasWarning</a>() || detail::AnyOverList(m_testinfos, &amp;<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#a6957fe432548da07e4c381b1bb375a4f">TestInfo::HasWarning</a>); }</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> IsSuccessfulTest(<span class="keyword">const</span> TestInfo* p) { <span class="keywordflow">return</span> p-&gt;is_ran() &amp;&amp; p-&gt;Passed(); }</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> IsFailedTest(<span class="keyword">const</span> TestInfo* p) { <span class="keywordflow">return</span> p-&gt;should_run() &amp;&amp; p-&gt;HasFailure(); }</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> IsSkipTest(<span class="keyword">const</span> TestInfo* p) { <span class="keywordflow">return</span> !p-&gt;is_ran() || p-&gt;is_skipped(); }</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> IsReportableSkipTest(<span class="keyword">const</span> TestInfo* p) { <span class="keywordflow">return</span> p-&gt;is_reportable() &amp;&amp; IsSkipTest(p); }</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> IsRunSkippedTest(<span class="keyword">const</span> TestInfo* p) { <span class="keywordflow">return</span> p-&gt;should_run() &amp;&amp; p-&gt;is_skipped(); }</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> IsReportableRunSkippedTest(<span class="keyword">const</span> TestInfo* p) { <span class="keywordflow">return</span> p-&gt;is_reportable() &amp;&amp; IsRunSkippedTest(p); }</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> IsReportableDisabledTest(<span class="keyword">const</span> TestInfo* p) { <span class="keywordflow">return</span> p-&gt;is_reportable() &amp;&amp; p-&gt;is_disabled_test(); }</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>UnitTestImpl;</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>UnitTest;</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160; </div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;<span class="preprocessor">#if defined(IUTEST_NO_PRIVATE_IN_AGGREGATE)</span></div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span>FindOp;</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160; </div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    ::std::string   m_testsuite_name;   </div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#a26c82a6596abc5ae2d84d0b59ef49ba9">iuTestInfos</a>     m_testinfos;        </div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <a class="code" href="../../d3/dda/namespaceiutest.html#a3d4347414b4f9246d02cc912beead66d">SetUpMethod</a>     m_setup;            </div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    <a class="code" href="../../d3/dda/namespaceiutest.html#a4b4e0725aff84c407822b9009ae75b12">TearDownMethod</a>  m_teardown;         </div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <a class="code" href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">TestTypeId</a>      m_id;               </div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keywordtype">int</span>             m_disable_num;      </div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="keywordtype">int</span>             m_should_run_num;   </div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <a class="code" href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">TimeInMillisec</a>  m_elapsedmsec;      </div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <a class="code" href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">TimeInMillisec</a>  m_start_timestamp;  </div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="keywordtype">bool</span>            m_disable;          </div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    TestResult      m_ad_hoc_testresult;</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160; </div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <a class="code" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a>(<a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html#aba4f6c66a3728eead5743660ecd06715">TestSuite</a>);</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;};</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="keyword">class </span>TypedTestSuite <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#aaf362ab17fd8e57646fc5d56216486d0">IUTEST_CXX_FINAL</a> : <span class="keyword">public</span> TestSuite</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;{</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="keyword">typedef</span> T   TypeParam;  </div>
+<div class="line"><a name="l00273"></a><span class="lineno"><a class="line" href="../../df/d4b/classiutest_1_1_i_u_t_e_s_t___c_x_x___f_i_n_a_l.html#a27360ab4faebbd7c6b8afac9ab0d3913">  273</a></span>&#160; </div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    TypedTestSuite(const ::std::string&amp; testsuite_name, <a class="code" href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">TestTypeId</a> <span class="keywordtype">id</span>, <a class="code" href="../../d3/dda/namespaceiutest.html#a3d4347414b4f9246d02cc912beead66d">SetUpMethod</a> setup, <a class="code" href="../../d3/dda/namespaceiutest.html#a4b4e0725aff84c407822b9009ae75b12">TearDownMethod</a> teardown)</div>
+<div class="line"><a name="l00283"></a><span class="lineno"><a class="line" href="../../df/d4b/classiutest_1_1_i_u_t_e_s_t___c_x_x___f_i_n_a_l.html#af3ac239287cb00cd4a931791d4216ee4">  283</a></span>&#160;        : <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html">TestSuite</a>(testsuite_name, id, setup, teardown)</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        , m_type_param(detail::GetTypeNameProxy&lt;<a class="code" href="../../df/d4b/classiutest_1_1_i_u_t_e_s_t___c_x_x___f_i_n_a_l.html#a27360ab4faebbd7c6b8afac9ab0d3913">TypeParam</a>&gt;::GetTypeName())</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    {</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    }</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160; </div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* type_param() const <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
+<div class="line"><a name="l00291"></a><span class="lineno"><a class="line" href="../../df/d4b/classiutest_1_1_i_u_t_e_s_t___c_x_x___f_i_n_a_l.html#a665a44f992d7522b171c16b54305e49a">  291</a></span>&#160;    {</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        <span class="keywordflow">return</span> m_type_param.empty() ? NULL : m_type_param.c_str();</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    }</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160; </div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>UnitTestImpl;</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160; </div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    ::std::string m_type_param;     </div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;};</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160; </div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;<span class="keyword">namespace </span>detail</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;{</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;<span class="keyword">class </span>TestSuiteMediator <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#aaf362ab17fd8e57646fc5d56216486d0">IUTEST_CXX_FINAL</a> : <span class="keyword">public</span> detail::iuITestSuiteMediator</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;{</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    <span class="keyword">explicit</span> TestSuiteMediator(TestSuite* p) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a> : iuITestSuiteMediator(p) {}</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* test_suite_name() const <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a> { <span class="keywordflow">return</span> m_test_suite-&gt;name(); }</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* type_param()      const <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a> { <span class="keywordflow">return</span> m_test_suite-&gt;type_param(); }</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;};</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160; </div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160; </div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="preprocessor">#if !IUTEST_HAS_LIB</span></div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="preprocessor">#  include &quot;impl/iutest_suite.ipp&quot;</span> <span class="comment">// IWYU pragma: export</span></div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160; </div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_SUITE_HPP_0534E0BE_6BC4_4E99_80C0_56F441AD34ED_</span></div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclassiutest_1_1_test_result_html"><div class="ttname"><a href="../../d0/d7b/classiutest_1_1_test_result.html">iutest::TestResult</a></div><div class="ttdoc">テスト結果を示すクラス</div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:215</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_a474edee295efeb3c84a0d1a589ffd5cf"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#a474edee295efeb3c84a0d1a589ffd5cf">iutest::TestSuite::GetTestInfo</a></div><div class="ttdeci">const TestInfo * GetTestInfo(int index) const</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:105</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_a64113589b0f0f7ad8f8b0317e30f27e3"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#a64113589b0f0f7ad8f8b0317e30f27e3">iutest::TestSuite::type_param</a></div><div class="ttdeci">virtual const char * type_param() const</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:115</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_ad6362b66c15e60cf3b17e4dc37b854b3"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#ad6362b66c15e60cf3b17e4dc37b854b3">iutest::TestSuite::ValidateTestPropertyName</a></div><div class="ttdeci">static bool ValidateTestPropertyName(const ::std::string &amp;name)</div><div class="ttdoc">有効なプロパティ名かどうかチェック</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:159</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_adb7ade63cf853f2f10d0f9aeacee26fc"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#adb7ade63cf853f2f10d0f9aeacee26fc">iutest::TestSuite::testsuite_name_with_where</a></div><div class="ttdeci">::std::string testsuite_name_with_where() const</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:118</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_env_html_af1aed0bd741f7b3213025c95fecd6fae"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#af1aed0bd741f7b3213025c95fecd6fae">iutest::TestEnv::AddDefaultPackageName</a></div><div class="ttdeci">::std::string AddDefaultPackageName(const char *testsuite_name)</div><div class="ttdoc">default package name を追加</div></div>
+<div class="ttc" id="aclassiutest_1_1_i_u_t_e_s_t___c_x_x___f_i_n_a_l_html_af3ac239287cb00cd4a931791d4216ee4"><div class="ttname"><a href="../../df/d4b/classiutest_1_1_i_u_t_e_s_t___c_x_x___f_i_n_a_l.html#af3ac239287cb00cd4a931791d4216ee4">iutest::IUTEST_CXX_FINAL::TypedTestSuite</a></div><div class="ttdeci">TypedTestSuite(const ::std::string &amp;testsuite_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)</div><div class="ttdoc">コンストラクタ</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:283</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_a49dcaf5b748375b314b0a552589b729f"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#a49dcaf5b748375b314b0a552589b729f">iutest::TestSuite::test_run_skipped_count</a></div><div class="ttdeci">int test_run_skipped_count() const</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_info_html"><div class="ttname"><a href="../../d8/d3d/classiutest_1_1_test_info.html">iutest::TestInfo</a></div><div class="ttdoc">テスト情報クラス</div><div class="ttdef"><b>Definition:</b> iutest_info.hpp:34</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_acea4bcd5fcf960c817df78bd04a4dbea"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#acea4bcd5fcf960c817df78bd04a4dbea">iutest::TestSuite::total_test_count</a></div><div class="ttdeci">int total_test_count() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:78</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_info_html_a6957fe432548da07e4c381b1bb375a4f"><div class="ttname"><a href="../../d8/d3d/classiutest_1_1_test_info.html#a6957fe432548da07e4c381b1bb375a4f">iutest::TestInfo::HasWarning</a></div><div class="ttdeci">bool HasWarning() const</div><div class="ttdoc">警告があるかどうか</div><div class="ttdef"><b>Definition:</b> iutest_info.hpp:124</div></div>
+<div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r_html_ga0811f1e5c03ce4c5962630a6707acb75"><div class="ttname"><a href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#ga0811f1e5c03ce4c5962630a6707acb75">IUTEST_USE_OWN_LIST</a></div><div class="ttdeci">#define IUTEST_USE_OWN_LIST</div><div class="ttdoc">テストの所持を独自リストクラスで行う</div><div class="ttdef"><b>Definition:</b> iutest_config.hpp:704</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_a084e611692828b4d427001e415bba446"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#a084e611692828b4d427001e415bba446">iutest::TestSuite::testsuite_name_with_default_package_name</a></div><div class="ttdeci">::std::string testsuite_name_with_default_package_name() const</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:130</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:808</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_a9508b05e836cf3ad66e52a13469425c7"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#a9508b05e836cf3ad66e52a13469425c7">iutest::TestSuite::~TestSuite</a></div><div class="ttdeci">virtual ~TestSuite()</div><div class="ttdoc">デストラクタ</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:71</div></div>
+<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_aaf362ab17fd8e57646fc5d56216486d0"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#aaf362ab17fd8e57646fc5d56216486d0">IUTEST_CXX_FINAL</a></div><div class="ttdeci">#define IUTEST_CXX_FINAL</div><div class="ttdoc">final definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:753</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html">iutest::TestSuite</a></div><div class="ttdoc">TestSuite</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:33</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_ab5f1ad74368de6688b5537fee906e3bd"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#ab5f1ad74368de6688b5537fee906e3bd">iutest::TestSuite::disabled_test_count</a></div><div class="ttdeci">int disabled_test_count() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:86</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_a2b0326da0865444f99876f8538a82b59"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#a2b0326da0865444f99876f8538a82b59">iutest::TestSuite::reportable_test_run_skipped_count</a></div><div class="ttdeci">int reportable_test_run_skipped_count() const</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_acbb91b272b429da569d704520431941f"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#acbb91b272b429da569d704520431941f">iutest::TestSuite::elapsed_time</a></div><div class="ttdeci">TimeInMillisec elapsed_time() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:100</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_result_html_a5ff42e8e37017dc23f77a8522009a660"><div class="ttname"><a href="../../d0/d7b/classiutest_1_1_test_result.html#a5ff42e8e37017dc23f77a8522009a660">iutest::TestResult::HasWarning</a></div><div class="ttdeci">bool HasWarning() const</div><div class="ttdoc">警告があるかどうか</div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:283</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_aba4f6c66a3728eead5743660ecd06715"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#aba4f6c66a3728eead5743660ecd06715">iutest::TestSuite::TestSuite</a></div><div class="ttdeci">TestSuite(const ::std::string &amp;testsuite_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)</div><div class="ttdoc">コンストラクタ</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:54</div></div>
+<div class="ttc" id="anamespaceiutest_html_add3d75edff7febed1ad134ae3235f5dc"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">iutest::TestTypeId</a></div><div class="ttdeci">internal::TypeId TestTypeId</div><div class="ttdoc">テスト識別型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:442</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_a807a42ea36dc34f85ff510c9c759bb15"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#a807a42ea36dc34f85ff510c9c759bb15">iutest::TestSuite::reportable_skip_test_count</a></div><div class="ttdeci">int reportable_skip_test_count() const</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_a2267e8ef2a9b854c19f158d11dd19a2d"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#a2267e8ef2a9b854c19f158d11dd19a2d">iutest::TestSuite::should_run</a></div><div class="ttdeci">bool should_run() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:107</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:744</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_a711adab7646d90f227b7d8182f3a3ec5"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#a711adab7646d90f227b7d8182f3a3ec5">iutest::TestSuite::start_timestamp</a></div><div class="ttdeci">TimeInMillisec start_timestamp() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:102</div></div>
+<div class="ttc" id="aclassiutest_1_1_i_u_t_e_s_t___c_x_x___f_i_n_a_l_html_a27360ab4faebbd7c6b8afac9ab0d3913"><div class="ttname"><a href="../../df/d4b/classiutest_1_1_i_u_t_e_s_t___c_x_x___f_i_n_a_l.html#a27360ab4faebbd7c6b8afac9ab0d3913">iutest::IUTEST_CXX_FINAL::TypeParam</a></div><div class="ttdeci">T TypeParam</div><div class="ttdoc">型</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:273</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_acd266755c75cd6fa0ffc1b2fa8d39742"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#acd266755c75cd6fa0ffc1b2fa8d39742">iutest::TestSuite::skip_test_count</a></div><div class="ttdeci">int skip_test_count() const</div></div>
+<div class="ttc" id="aiutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義</div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:31</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_af6bbdb8ee6d9a6a777fd68b2f0d6f7b0"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#af6bbdb8ee6d9a6a777fd68b2f0d6f7b0">iutest::TestSuite::reportable_disabled_test_count</a></div><div class="ttdeci">int reportable_disabled_test_count() const</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_abe2225a24fd1d63b5af6e5e490c929f0"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#abe2225a24fd1d63b5af6e5e490c929f0">iutest::TestSuite::ad_hoc_testresult</a></div><div class="ttdeci">const TestResult * ad_hoc_testresult() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">テスト実行中じゃないときのリザルトの取得</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:139</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_a28564f2aff6ee92c019200b6bac3a694"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#a28564f2aff6ee92c019200b6bac3a694">iutest::TestSuite::successful_test_count</a></div><div class="ttdeci">int successful_test_count() const</div></div>
+<div class="ttc" id="anamespaceiutest_html_a192c2ae3b556bc59e31bc9e4b1bb1f85"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">iutest::TimeInMillisec</a></div><div class="ttdeci">detail::type_least_t&lt; 8 &gt;::UInt TimeInMillisec</div><div class="ttdoc">ミリ秒単位を扱う型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:447</div></div>
+<div class="ttc" id="anamespaceiutest_html_a4b4e0725aff84c407822b9009ae75b12"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a4b4e0725aff84c407822b9009ae75b12">iutest::TearDownMethod</a></div><div class="ttdeci">void(* TearDownMethod)()</div><div class="ttdoc">TearDown 関数型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:445</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_acbc914e2a5047c4dd82cad493fa47a46"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#acbc914e2a5047c4dd82cad493fa47a46">iutest::TestSuite::ad_hoc_test_result</a></div><div class="ttdeci">const TestResult * ad_hoc_test_result() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">テスト実行中じゃないときのリザルトの取得</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:147</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_a26c82a6596abc5ae2d84d0b59ef49ba9"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#a26c82a6596abc5ae2d84d0b59ef49ba9">iutest::TestSuite::iuTestInfos</a></div><div class="ttdeci">::std::vector&lt; TestInfo * &gt; iuTestInfos</div><div class="ttdoc">TestInfo リスト</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:43</div></div>
+<div class="ttc" id="anamespaceiutest_html_a3d4347414b4f9246d02cc912beead66d"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a3d4347414b4f9246d02cc912beead66d">iutest::SetUpMethod</a></div><div class="ttdeci">void(* SetUpMethod)()</div><div class="ttdoc">SetUp 関数型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:444</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_a22135e23b5c44b6083a2f64ff64388b5"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#a22135e23b5c44b6083a2f64ff64388b5">iutest::TestSuite::test_to_run_count</a></div><div class="ttdeci">int test_to_run_count() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:82</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_a7cec315759f615d01386508deab06eb4"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#a7cec315759f615d01386508deab06eb4">iutest::TestSuite::failed_test_count</a></div><div class="ttdeci">int failed_test_count() const</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_property_html_ad33b46ab30e2c53d4787cd31d68f05b3"><div class="ttname"><a href="../../db/df6/classiutest_1_1_test_property.html#ad33b46ab30e2c53d4787cd31d68f05b3">iutest::TestProperty::ValidateName</a></div><div class="ttdeci">static bool ValidateName(const ::std::string &amp;name, Ite begin, Ite end)</div><div class="ttdoc">有効なキーかどうかチェック</div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:193</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_a85f8c70d022c90b6102fea93b537f67f"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#a85f8c70d022c90b6102fea93b537f67f">iutest::TestSuite::Passed</a></div><div class="ttdeci">bool Passed() const</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:110</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_ada6ef9dd63f6a16db920ab6c3e8e324d"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#ada6ef9dd63f6a16db920ab6c3e8e324d">iutest::TestSuite::Failed</a></div><div class="ttdeci">bool Failed() const</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:112</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_a7e2dbe0bd9099470c5c4f39d720227c5"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#a7e2dbe0bd9099470c5c4f39d720227c5">iutest::TestSuite::reportable_test_count</a></div><div class="ttdeci">int reportable_test_count() const</div></div>
+<div class="ttc" id="aiutest__info_8hpp_html"><div class="ttname"><a href="../../d4/d4b/iutest__info_8hpp.html">iutest_info.hpp</a></div><div class="ttdoc">iris unit test info</div></div>
+<div class="ttc" id="aclassiutest_1_1_i_u_t_e_s_t___c_x_x___f_i_n_a_l_html_a665a44f992d7522b171c16b54305e49a"><div class="ttname"><a href="../../df/d4b/classiutest_1_1_i_u_t_e_s_t___c_x_x___f_i_n_a_l.html#a665a44f992d7522b171c16b54305e49a">iutest::IUTEST_CXX_FINAL::type_param</a></div><div class="ttdeci">virtual const char * type_param() const IUTEST_CXX_OVERRIDE</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:291</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html_aa960e404c373dfecbaf789471bf04ef4"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html#aa960e404c373dfecbaf789471bf04ef4">iutest::TestSuite::name</a></div><div class="ttdeci">const char * name() const</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:75</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_result_html_a54b0d9258545f81f3da76aea86181071"><div class="ttname"><a href="../../d0/d7b/classiutest_1_1_test_result.html#a54b0d9258545f81f3da76aea86181071">iutest::TestResult::Passed</a></div><div class="ttdeci">bool Passed() const</div><div class="ttdoc">成功したかどうか</div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:227</div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+2021年02月21日(日) 22時40分23秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>

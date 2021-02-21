@@ -1,9 +1,10 @@
 <map id="internal/iutest_mediator.hpp" name="internal/iutest_mediator.hpp">
-<area shape="rect" id="node1" title="iris unit test 仲介者 ファイル" alt="" coords="205,5,412,32"/>
-<area shape="rect" id="node2" href="$d1/d09/iutest__body_8hpp.html" title="iris unit test テスト単体クラス ファイル" alt="" coords="247,80,371,107"/>
-<area shape="rect" id="node3" href="$d4/d4b/iutest__info_8hpp.html" title="iris unit test info" alt="" coords="249,155,368,181"/>
-<area shape="rect" id="node4" href="$da/d62/iutest__case_8hpp.html" title="iris unit test testcase" alt="" coords="247,229,371,256"/>
-<area shape="rect" id="node5" href="$dc/d62/iutest__core__impl_8hpp.html" title="iris unit test UnitTest 実装 ファイル" alt="" coords="235,304,383,345"/>
+<area shape="rect" id="node1" title="iris unit test 仲介者 ファイル" alt="" coords="285,5,492,32"/>
+<area shape="rect" id="node2" href="$d1/d09/iutest__body_8hpp.html" title="iris unit test テスト単体クラス ファイル" alt="" coords="327,80,451,107"/>
+<area shape="rect" id="node3" href="$d4/d4b/iutest__info_8hpp.html" title="iris unit test info" alt="" coords="329,155,448,181"/>
+<area shape="rect" id="node4" href="$d3/d31/iutest__suite_8hpp.html" title="iris unit test testsuite" alt="" coords="325,229,452,256"/>
+<area shape="rect" id="node5" href="$dc/d62/iutest__core__impl_8hpp.html" title="iris unit test UnitTest core" alt="" coords="235,304,383,345"/>
+<area shape="rect" id="node13" href="$da/d62/iutest__case_8hpp.html" title="iris unit test legacy testcase" alt="" coords="407,311,531,338"/>
 <area shape="rect" id="node6" href="$d5/d65/iutest__result__reporter_8hpp.html" title="iris unit test TestPartResult リポーター ファイル" alt="" coords="230,393,387,435"/>
 <area shape="rect" id="node7" href="$d0/db5/iutest__core_8hpp.html" title="iris unit test core" alt="" coords="247,483,370,509"/>
 <area shape="rect" id="node8" href="$d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="19,565,105,591"/>

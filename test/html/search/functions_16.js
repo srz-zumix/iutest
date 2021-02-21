@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_7etestcase_1268',['~TestCase',['../df/d67/classiutest_1_1_test_case.html#a6ca504439e1bcfc01bb3422dcdde6ba5',1,'iutest::TestCase']]]
+  ['_7etestsuite_1313',['~TestSuite',['../d3/d87/classiutest_1_1_test_suite.html#a9508b05e836cf3ad66e52a13469425c7',1,'iutest::TestSuite']]]
 ];

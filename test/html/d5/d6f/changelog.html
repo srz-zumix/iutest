@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.0.6</span>
+   &#160;<span id="projectnumber">1.17.99.5</span>
    </div>
   </td>
  </tr>
@@ -68,9 +68,43 @@ $(function() {
 <div class="contents">
 <div class="textblock"><dl class="section user"><dt>Changes</dt><dd><ul>
 <li>
+v1.18.0.0 <ul>
+<li>
+TestCase の別名 TestSuite に対応（iutest はどちらもサポートし続けます） </li>
+<li>
+例外発生時にも SCOPED_TRACE のメッセージを出力するように変更 </li>
+<li>
+空のテストスイート名・テスト名に static_assert を追加 </li>
+<li>
+GoogleTest の GTEST_REMOVE_LEGACY_TEST_CASEAPI_ に対応 </li>
+</ul>
+</li>
+<li>
 v1.17.1.0 <ul>
 <li>
 GTEST_SKIP 対応 </li>
+<li>
+IUTEST_*_NE_RANGE アサーションを追加 </li>
+<li>
+IUTEST_*_NE_COLLECTIONS アサーションを追加 </li>
+<li>
+::std::wstring_view / ::std::u16string_view / ::std::u32string_view 対応 </li>
+<li>
+アサーションに operator &lt;&lt; したときの出力を PrintToString したものと同じになるように変更 </li>
+<li>
+テストをリピートした際のレポート出力ファイル名の書式を printf 書式から {I} に変更({I} にリピート回数が置換されます) </li>
+<li>
+iuwandbox: Wandbox 向けにサイズ圧縮したヘッダーをデフォルトで使用するように変更 </li>
+<li>
+iuwandbox: 上記に伴いフルバージョンのヘッダーを使うオプション(&ndash;no-iutest-use-wandbox-min)を追加 </li>
+<li>
+deprecated: iuwandbox: &ndash;iutest-use-wandbox-min </li>
+<li>
+Python2 のサポート終了 </li>
+<li>
+C++20 で削除された basic_ostream::operator &amp;lt;&lt; に対応 </li>
+<li>
+IUTEST_AP が同じ名前空間に複数定義できない問題を修正 </li>
 <li>
 Google Test 旧バージョンとの互換性を修正 </li>
 </ul>
@@ -198,7 +232,7 @@ iuwandbox の &ndash;boost オプションが Python3 で使えない問題を�
 <li>
 iuwandbox で未定義オプションを指定した場合にエラーにならない問題を修正 </li>
 <li>
-<a class="el" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9" title="テスト関数定義マクロ">IUTEST(A, B_C)</a> と <a class="el" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9" title="テスト関数定義マクロ">IUTEST(A_B, C)</a> が名前の衝突でコンパイルエラーになる問題を修正 </li>
+<a class="el" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga620d00f1c27d534e477e9ffe1739b3ea" title="テスト関数定義マクロ">IUTEST(A, B_C)</a> と <a class="el" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga620d00f1c27d534e477e9ffe1739b3ea" title="テスト関数定義マクロ">IUTEST(A_B, C)</a> が名前の衝突でコンパイルエラーになる問題を修正 </li>
 <li>
 色付きコンソールの自動判定を修正 </li>
 <li>
@@ -1033,7 +1067,7 @@ xml 出力に対応 </li>
 </div><!-- PageDoc -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年05月01日(金) 12時21分57秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2021年02月21日(日) 22時40分24秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

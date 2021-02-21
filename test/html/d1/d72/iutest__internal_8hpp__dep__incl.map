@@ -1,6 +1,6 @@
 <map id="internal/iutest_internal.hpp" name="internal/iutest_internal.hpp">
 <area shape="rect" id="node1" title="iris unit test internal definition" alt="" coords="209,5,408,32"/>
-<area shape="rect" id="node2" href="$dc/d62/iutest__core__impl_8hpp.html" title="iris unit test UnitTest 実装 ファイル" alt="" coords="235,80,383,121"/>
+<area shape="rect" id="node2" href="$dc/d62/iutest__core__impl_8hpp.html" title="iris unit test UnitTest core" alt="" coords="235,80,383,121"/>
 <area shape="rect" id="node3" href="$d5/d65/iutest__result__reporter_8hpp.html" title="iris unit test TestPartResult リポーター ファイル" alt="" coords="230,169,387,211"/>
 <area shape="rect" id="node4" href="$d0/db5/iutest__core_8hpp.html" title="iris unit test core" alt="" coords="247,259,370,285"/>
 <area shape="rect" id="node5" href="$d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="19,341,105,367"/>

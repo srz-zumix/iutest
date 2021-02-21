@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.0.6</span>
+   &#160;<span id="projectnumber">1.17.99.5</span>
    </div>
   </td>
  </tr>
@@ -172,16 +172,16 @@ $(function() {
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetUp() {} </div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="preprocessor">#if IUTEST_HAS_AUTOFIXTURE_PARAM_TEST</span></div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Body() {}  </div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Body() = 0;    </div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> TearDown() {}  </div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> SetUpTestCase() {}      </div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> TearDownTestCase() {}   </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Body() {}  </div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> TearDown() {}  </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> SetUpTestSuite() {}      </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> TearDownTestSuite() {}   </div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="preprocessor">#if IUTEST_HAS_TESTCASE</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> SetUpTestCase() {}</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> TearDownTestCase() {}</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keywordtype">void</span> Run(detail::iuITestInfoMediator* test_info);</div>
@@ -217,161 +217,162 @@ $(function() {
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a>;</div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>UnitTestImpl;</div>
 <div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html">TestInfo</a>;</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    detail::iuITestInfoMediator*    m_test_info;</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;<span class="preprocessor">#if IUTEST_HAS_GENRAND</span></div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    detail::iuRandom                m_random;</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>                    m_random_seed;</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;};</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> ParamType&gt;</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="keyword">struct </span><a class="code" href="../../dc/d05/structiutest_1_1_test_param_info.html">TestParamInfo</a></div>
-<div class="line"><a name="l00233"></a><span class="lineno"><a class="line" href="../../dc/d05/structiutest_1_1_test_param_info.html">  233</a></span>&#160;{</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <a class="code" href="../../dc/d05/structiutest_1_1_test_param_info.html">TestParamInfo</a>(<span class="keyword">const</span> ParamType&amp; p, <span class="keywordtype">size_t</span> i)</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        : param(p), index(i) {}</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    ParamType param;</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keywordtype">size_t</span> index;</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;};</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160; </div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="keyword">class </span><a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html">WithParamInterface</a></div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;{</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    <span class="keyword">typedef</span> T <a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html#a8ae49dee85b5d712529d0a8f5e327be2">ParamType</a>;    </div>
-<div class="line"><a name="l00249"></a><span class="lineno"><a class="line" href="../../df/d22/classiutest_1_1_with_param_interface.html#a8ae49dee85b5d712529d0a8f5e327be2">  249</a></span>&#160;    <span class="keyword">typedef</span> <a class="code" href="../../dc/d05/structiutest_1_1_test_param_info.html">TestParamInfo&lt;T&gt;</a> <a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html#accd379e4b3ceaf3625fb291c1da50522">TestParamInfoType</a>; </div>
-<div class="line"><a name="l00250"></a><span class="lineno"><a class="line" href="../../df/d22/classiutest_1_1_with_param_interface.html#accd379e4b3ceaf3625fb291c1da50522">  250</a></span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html">WithParamInterface</a>() {}</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160; </div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html#a8ae49dee85b5d712529d0a8f5e327be2">ParamType</a>&amp; <a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html#a230d2274b605bbc146785fddc1402c23">GetParam</a>()</div>
-<div class="line"><a name="l00258"></a><span class="lineno"><a class="line" href="../../df/d22/classiutest_1_1_with_param_interface.html#a230d2274b605bbc146785fddc1402c23">  258</a></span>&#160;    {</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        <a class="code" href="../../d1/d2a/iutest__port_8hpp.html#ace4f988a8127594f5c65ee322e6c88fd">IUTEST_CHECK_</a>(s_params != NULL) &lt;&lt; <span class="stringliteral">&quot;GetParam() can only use the value-parameterized test&quot;</span>;</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        IUTEST_ANALYSIS_ASSUME(s_params != NULL);</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        <span class="keywordflow">return</span> *s_params;</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    }</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160; </div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;<span class="preprocessor">#if IUTEST_HAS_TUPLE</span></div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    <span class="keyword">template</span>&lt;<span class="keywordtype">int</span> N&gt;</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">typename</span> tuples::tuple_element&lt;N, ParamType&gt;::type&amp; <a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html#a230d2274b605bbc146785fddc1402c23">GetParam</a>()</div>
-<div class="line"><a name="l00270"></a><span class="lineno"><a class="line" href="../../df/d22/classiutest_1_1_with_param_interface.html#a7c7044288d53ef5d72d63a01edcb7dae">  270</a></span>&#160;    {</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        <span class="keywordflow">return</span> tuples::get&lt;N&gt;(<a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html#a230d2274b605bbc146785fddc1402c23">GetParam</a>());</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    }</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160; </div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <span class="keyword">static</span> const ::std::string <a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html#a5fa0cd1fb34eeb918beeb91f4e0bd814">MakeTestParamName</a>(<span class="keyword">const</span> <a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html#accd379e4b3ceaf3625fb291c1da50522">TestParamInfoType</a>&amp; info)</div>
-<div class="line"><a name="l00279"></a><span class="lineno"><a class="line" href="../../df/d22/classiutest_1_1_with_param_interface.html#a5fa0cd1fb34eeb918beeb91f4e0bd814">  279</a></span>&#160;    {</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        <span class="keywordflow">return</span> detail::MakeIndexName(info.index);</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    }</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160; </div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> SetParam(<span class="keyword">const</span> <a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html#a8ae49dee85b5d712529d0a8f5e327be2">ParamType</a>* params) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a> { s_params = params; }</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160; </div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html#a8ae49dee85b5d712529d0a8f5e327be2">ParamType</a>* s_params;</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;};</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160; </div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;<span class="keyword">const</span> T* WithParamInterface&lt;T&gt;::s_params = NULL;</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;<span class="keyword">class </span>TestWithParam : <span class="keyword">public</span> Test, <span class="keyword">public</span> WithParamInterface&lt;T&gt;</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;{</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;};</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;<span class="keyword">namespace </span>detail</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;{</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160; </div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<span class="preprocessor">#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) &amp;&amp; !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)</span></div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160; </div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;<span class="keyword">class </span>is_useful_testfixture : <span class="keyword">public</span> iutest_type_traits::false_type {};</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160; </div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;<span class="keyword">namespace </span>is_useful_testfixture_helper</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;{</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160; </div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="keyword">class </span>is_override_setup {</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    <span class="keyword">template</span>&lt;<span class="keywordtype">bool</span> b, <span class="keyword">typename</span> U&gt;<span class="keyword">struct </span>impl { <span class="keyword">typedef</span> iutest_type_traits::false_type type; };</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;<span class="keyword">struct </span>impl&lt;true, U&gt;</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    {</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;        <span class="keyword">typedef</span> <span class="keywordtype">int</span>  yes_t;</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        <span class="keyword">typedef</span> <span class="keywordtype">char</span> no_t;</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        <span class="keyword">static</span> no_t check(<span class="keywordtype">void</span>(Test::*)());</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        <span class="keyword">static</span> yes_t check(...);</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        <span class="keyword">typedef</span> iutest_type_traits::bool_constant&lt; <span class="keyword">sizeof</span>(check(&amp;U::SetUp)) == <span class="keyword">sizeof</span>(yes_t) &gt; type;</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    };</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> impl&lt; iutest_type_traits::is_base_of&lt;Test, T&gt;::value, T&gt;::type type;</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;};</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160; </div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;}   <span class="comment">// end of namespace is_useful_testfixture_helper</span></div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160; </div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;<span class="keyword">class </span>is_useful_testfixture&lt;void (int(T))&gt; : <span class="keyword">public</span> is_useful_testfixture_helper::is_override_setup&lt;T&gt;::type    <span class="comment">// NOLINT</span></div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;{</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;};</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160; </div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160; </div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> IsDisableTestName(const ::std::string&amp; name)</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;{</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    <span class="keywordflow">if</span>( detail::IsStringForwardMatching(name, <span class="stringliteral">&quot;DISABLED_&quot;</span>)</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        || detail::IsStringContains(name, <span class="stringliteral">&quot;/DISABLED_&quot;</span>) )</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    {</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    }</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;}</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160; </div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160; </div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160; </div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> DMY&gt;</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;<a class="code" href="../../dc/d0e/classiutest_1_1_test.html">::iutest::Test</a>* ::iutest::Test::Observer&lt;DMY&gt;::s_current = NULL;</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160; </div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;<span class="preprocessor">#if !IUTEST_HAS_LIB</span></div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;<span class="preprocessor">#  include &quot;impl/iutest_body.ipp&quot;</span></div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160; </div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_BODY_HPP_3EEA6706_9954_4330_B292_129667FA6B96_</span></div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>detail::UncaughtScopedTrace;</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    detail::iuITestInfoMediator*    m_test_info;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;<span class="preprocessor">#if IUTEST_HAS_GENRAND</span></div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    detail::iuRandom                m_random;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>                    m_random_seed;</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;};</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> ParamType&gt;</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="keyword">struct </span><a class="code" href="../../dc/d05/structiutest_1_1_test_param_info.html">TestParamInfo</a></div>
+<div class="line"><a name="l00234"></a><span class="lineno"><a class="line" href="../../dc/d05/structiutest_1_1_test_param_info.html">  234</a></span>&#160;{</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <a class="code" href="../../dc/d05/structiutest_1_1_test_param_info.html">TestParamInfo</a>(<span class="keyword">const</span> ParamType&amp; p, <span class="keywordtype">size_t</span> i)</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        : param(p), index(i) {}</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    ParamType param;</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="keywordtype">size_t</span> index;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;};</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160; </div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;<span class="keyword">class </span><a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html">WithParamInterface</a></div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;{</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keyword">typedef</span> T <a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html#a8ae49dee85b5d712529d0a8f5e327be2">ParamType</a>;    </div>
+<div class="line"><a name="l00250"></a><span class="lineno"><a class="line" href="../../df/d22/classiutest_1_1_with_param_interface.html#a8ae49dee85b5d712529d0a8f5e327be2">  250</a></span>&#160;    <span class="keyword">typedef</span> <a class="code" href="../../dc/d05/structiutest_1_1_test_param_info.html">TestParamInfo&lt;T&gt;</a> <a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html#accd379e4b3ceaf3625fb291c1da50522">TestParamInfoType</a>; </div>
+<div class="line"><a name="l00251"></a><span class="lineno"><a class="line" href="../../df/d22/classiutest_1_1_with_param_interface.html#accd379e4b3ceaf3625fb291c1da50522">  251</a></span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html">WithParamInterface</a>() {}</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160; </div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html#a8ae49dee85b5d712529d0a8f5e327be2">ParamType</a>&amp; <a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html#a230d2274b605bbc146785fddc1402c23">GetParam</a>()</div>
+<div class="line"><a name="l00259"></a><span class="lineno"><a class="line" href="../../df/d22/classiutest_1_1_with_param_interface.html#a230d2274b605bbc146785fddc1402c23">  259</a></span>&#160;    {</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        <a class="code" href="../../d1/d2a/iutest__port_8hpp.html#ace4f988a8127594f5c65ee322e6c88fd">IUTEST_CHECK_</a>(s_params != NULL) &lt;&lt; <span class="stringliteral">&quot;GetParam() can only use the value-parameterized test&quot;</span>;</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        IUTEST_ANALYSIS_ASSUME(s_params != NULL);</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        <span class="keywordflow">return</span> *s_params;</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    }</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;<span class="preprocessor">#if IUTEST_HAS_TUPLE</span></div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160; </div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <span class="keyword">template</span>&lt;<span class="keywordtype">int</span> N&gt;</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">typename</span> tuples::tuple_element&lt;N, ParamType&gt;::type&amp; <a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html#a230d2274b605bbc146785fddc1402c23">GetParam</a>()</div>
+<div class="line"><a name="l00271"></a><span class="lineno"><a class="line" href="../../df/d22/classiutest_1_1_with_param_interface.html#a7c7044288d53ef5d72d63a01edcb7dae">  271</a></span>&#160;    {</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        <span class="keywordflow">return</span> tuples::get&lt;N&gt;(<a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html#a230d2274b605bbc146785fddc1402c23">GetParam</a>());</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    }</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160; </div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <span class="keyword">static</span> const ::std::string <a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html#a5fa0cd1fb34eeb918beeb91f4e0bd814">MakeTestParamName</a>(<span class="keyword">const</span> <a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html#accd379e4b3ceaf3625fb291c1da50522">TestParamInfoType</a>&amp; info)</div>
+<div class="line"><a name="l00280"></a><span class="lineno"><a class="line" href="../../df/d22/classiutest_1_1_with_param_interface.html#a5fa0cd1fb34eeb918beeb91f4e0bd814">  280</a></span>&#160;    {</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        <span class="keywordflow">return</span> detail::MakeIndexName(info.index);</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    }</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160; </div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> SetParam(<span class="keyword">const</span> <a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html#a8ae49dee85b5d712529d0a8f5e327be2">ParamType</a>* params) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a> { s_params = params; }</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160; </div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html#a8ae49dee85b5d712529d0a8f5e327be2">ParamType</a>* s_params;</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;};</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160; </div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;<span class="keyword">const</span> T* WithParamInterface&lt;T&gt;::s_params = NULL;</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160; </div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;<span class="keyword">class </span>TestWithParam : <span class="keyword">public</span> Test, <span class="keyword">public</span> WithParamInterface&lt;T&gt;</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;{</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;};</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160; </div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;<span class="keyword">namespace </span>detail</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;{</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160; </div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;<span class="preprocessor">#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) &amp;&amp; !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)</span></div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160; </div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;<span class="keyword">class </span>is_useful_testfixture : <span class="keyword">public</span> iutest_type_traits::false_type {};</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160; </div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;<span class="keyword">namespace </span>is_useful_testfixture_helper</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;{</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160; </div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="keyword">class </span>is_override_setup {</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    <span class="keyword">template</span>&lt;<span class="keywordtype">bool</span> b, <span class="keyword">typename</span> U&gt;<span class="keyword">struct </span>impl { <span class="keyword">typedef</span> iutest_type_traits::false_type type; };</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;<span class="keyword">struct </span>impl&lt;true, U&gt;</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    {</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        <span class="keyword">typedef</span> <span class="keywordtype">int</span>  yes_t;</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        <span class="keyword">typedef</span> <span class="keywordtype">char</span> no_t;</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        <span class="keyword">static</span> no_t check(<span class="keywordtype">void</span>(Test::*)());</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        <span class="keyword">static</span> yes_t check(...);</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        <span class="keyword">typedef</span> iutest_type_traits::bool_constant&lt; <span class="keyword">sizeof</span>(check(&amp;U::SetUp)) == <span class="keyword">sizeof</span>(yes_t) &gt; type;</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    };</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> impl&lt; iutest_type_traits::is_base_of&lt;Test, T&gt;::value, T&gt;::type type;</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;};</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160; </div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;}   <span class="comment">// end of namespace is_useful_testfixture_helper</span></div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160; </div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;<span class="keyword">class </span>is_useful_testfixture&lt;void (int(T))&gt; : <span class="keyword">public</span> is_useful_testfixture_helper::is_override_setup&lt;T&gt;::type    <span class="comment">// NOLINT</span></div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;{</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;};</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160; </div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160; </div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> IsDisableTestName(const ::std::string&amp; name)</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;{</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    <span class="keywordflow">if</span>( detail::IsStringForwardMatching(name, <span class="stringliteral">&quot;DISABLED_&quot;</span>)</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;        || detail::IsStringContains(name, <span class="stringliteral">&quot;/DISABLED_&quot;</span>) )</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    {</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    }</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;}</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160; </div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160; </div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160; </div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> DMY&gt;</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;<a class="code" href="../../dc/d0e/classiutest_1_1_test.html">::iutest::Test</a>* ::iutest::Test::Observer&lt;DMY&gt;::s_current = NULL;</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160; </div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;<span class="preprocessor">#if !IUTEST_HAS_LIB</span></div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;<span class="preprocessor">#  include &quot;impl/iutest_body.ipp&quot;</span> <span class="comment">// IWYU pragma: export</span></div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160; </div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_BODY_HPP_3EEA6706_9954_4330_B292_129667FA6B96_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassiutest_1_1_test_html"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html">iutest::Test</a></div><div class="ttdoc">テストベース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:43</div></div>
-<div class="ttc" id="aclassiutest_1_1_with_param_interface_html_a230d2274b605bbc146785fddc1402c23"><div class="ttname"><a href="../../df/d22/classiutest_1_1_with_param_interface.html#a230d2274b605bbc146785fddc1402c23">iutest::WithParamInterface::GetParam</a></div><div class="ttdeci">static const ParamType &amp; GetParam()</div><div class="ttdoc">パラメータの取得</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:258</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_info_html"><div class="ttname"><a href="../../d8/d3d/classiutest_1_1_test_info.html">iutest::TestInfo</a></div><div class="ttdoc">テスト情報クラス</div><div class="ttdef"><b>Definition:</b> iutest_info.hpp:32</div></div>
+<div class="ttc" id="aclassiutest_1_1_with_param_interface_html_a230d2274b605bbc146785fddc1402c23"><div class="ttname"><a href="../../df/d22/classiutest_1_1_with_param_interface.html#a230d2274b605bbc146785fddc1402c23">iutest::WithParamInterface::GetParam</a></div><div class="ttdeci">static const ParamType &amp; GetParam()</div><div class="ttdoc">パラメータの取得</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:259</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_info_html"><div class="ttname"><a href="../../d8/d3d/classiutest_1_1_test_info.html">iutest::TestInfo</a></div><div class="ttdoc">テスト情報クラス</div><div class="ttdef"><b>Definition:</b> iutest_info.hpp:34</div></div>
 <div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_html_a96897bc072fa321d913c9d4cab5e8edd"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html#a96897bc072fa321d913c9d4cab5e8edd">iutest::Test::IsSkipped</a></div><div class="ttdeci">static bool IsSkipped()</div><div class="ttdoc">スキップされたかどうか</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:114</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_html_a6d05d8ae171aca0af30e266892d2a716"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html#a6d05d8ae171aca0af30e266892d2a716">iutest::Test::RecordProperty</a></div><div class="ttdeci">static void RecordProperty(const ::std::string &amp;key, const T &amp;value)</div><div class="ttdoc">テスト結果の情報追加</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:134</div></div>
-<div class="ttc" id="anamespaceiutest_html_a089d4c220696dc46e2ef184fc945367c"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">iutest::PrintToString</a></div><div class="ttdeci">std::string PrintToString(const T &amp;v)</div><div class="ttdoc">文字列化</div><div class="ttdef"><b>Definition:</b> iutest_printers.hpp:649</div></div>
-<div class="ttc" id="aclassiutest_1_1_with_param_interface_html_a7c7044288d53ef5d72d63a01edcb7dae"><div class="ttname"><a href="../../df/d22/classiutest_1_1_with_param_interface.html#a7c7044288d53ef5d72d63a01edcb7dae">iutest::WithParamInterface::GetParam</a></div><div class="ttdeci">static const tuples::tuple_element&lt; N, ParamType &gt;::type &amp; GetParam()</div><div class="ttdoc">パラメータの取得</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:270</div></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:731</div></div>
-<div class="ttc" id="aclassiutest_1_1_with_param_interface_html_a8ae49dee85b5d712529d0a8f5e327be2"><div class="ttname"><a href="../../df/d22/classiutest_1_1_with_param_interface.html#a8ae49dee85b5d712529d0a8f5e327be2">iutest::WithParamInterface::ParamType</a></div><div class="ttdeci">T ParamType</div><div class="ttdoc">パラメータ型</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:249</div></div>
+<div class="ttc" id="anamespaceiutest_html_a089d4c220696dc46e2ef184fc945367c"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">iutest::PrintToString</a></div><div class="ttdeci">std::string PrintToString(const T &amp;v)</div><div class="ttdoc">文字列化</div><div class="ttdef"><b>Definition:</b> iutest_printers.hpp:712</div></div>
+<div class="ttc" id="aclassiutest_1_1_with_param_interface_html_a7c7044288d53ef5d72d63a01edcb7dae"><div class="ttname"><a href="../../df/d22/classiutest_1_1_with_param_interface.html#a7c7044288d53ef5d72d63a01edcb7dae">iutest::WithParamInterface::GetParam</a></div><div class="ttdeci">static const tuples::tuple_element&lt; N, ParamType &gt;::type &amp; GetParam()</div><div class="ttdoc">パラメータの取得</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:271</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:808</div></div>
+<div class="ttc" id="aclassiutest_1_1_with_param_interface_html_a8ae49dee85b5d712529d0a8f5e327be2"><div class="ttname"><a href="../../df/d22/classiutest_1_1_with_param_interface.html#a8ae49dee85b5d712529d0a8f5e327be2">iutest::WithParamInterface::ParamType</a></div><div class="ttdeci">T ParamType</div><div class="ttdoc">パラメータ型</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:250</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_html_a554f22d3f65d41f63848a0305669cfa5"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html#a554f22d3f65d41f63848a0305669cfa5">iutest::Test::HasFatalFailure</a></div><div class="ttdeci">static bool HasFatalFailure()</div><div class="ttdoc">致命的なエラーが出たかどうか</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:87</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_html_ac9f3116e7b5d1d274cb68c703c201302"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html#ac9f3116e7b5d1d274cb68c703c201302">iutest::Test::genrand</a></div><div class="ttdeci">unsigned int genrand(unsigned int max)</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:152</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_html_a293707e889e6dac9466ee8a3c587d62a"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html#a293707e889e6dac9466ee8a3c587d62a">iutest::Test::test_info_</a></div><div class="ttdeci">const TestInfo * test_info_</div><div class="ttdoc">テスト中に簡単にアクセス可能なように</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:215</div></div>
-<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:31</div></div>
-<div class="ttc" id="aclassiutest_1_1_unit_test_html"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html">iutest::UnitTest</a></div><div class="ttdoc">テスト全体の管理者</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:33</div></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_aaf362ab17fd8e57646fc5d56216486d0"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#aaf362ab17fd8e57646fc5d56216486d0">IUTEST_CXX_FINAL</a></div><div class="ttdeci">#define IUTEST_CXX_FINAL</div><div class="ttdoc">final definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:676</div></div>
+<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
+<div class="ttc" id="aclassiutest_1_1_unit_test_html"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html">iutest::UnitTest</a></div><div class="ttdoc">テスト全体の管理者</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:35</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_aaf362ab17fd8e57646fc5d56216486d0"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#aaf362ab17fd8e57646fc5d56216486d0">IUTEST_CXX_FINAL</a></div><div class="ttdeci">#define IUTEST_CXX_FINAL</div><div class="ttdoc">final definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:753</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_html_a82600ea64053455a9f3c7189338f1c67"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html#a82600ea64053455a9f3c7189338f1c67">iutest::Test::GetCurrentTestInfo</a></div><div class="ttdeci">static const TestInfo * GetCurrentTestInfo()</div><div class="ttdoc">実行中の TestInfo の取得</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:67</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_html_ae3f6d77e937b1bb0208ea4cbb407538d"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html#ae3f6d77e937b1bb0208ea4cbb407538d">iutest::Test::genrand</a></div><div class="ttdeci">unsigned int genrand()</div><div class="ttdoc">乱数の生成</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:146</div></div>
-<div class="ttc" id="aclassiutest_1_1_with_param_interface_html_a5fa0cd1fb34eeb918beeb91f4e0bd814"><div class="ttname"><a href="../../df/d22/classiutest_1_1_with_param_interface.html#a5fa0cd1fb34eeb918beeb91f4e0bd814">iutest::WithParamInterface::MakeTestParamName</a></div><div class="ttdeci">static const ::std::string MakeTestParamName(const TestParamInfoType &amp;info)</div><div class="ttdoc">テスト名の生成</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:279</div></div>
+<div class="ttc" id="aclassiutest_1_1_with_param_interface_html_a5fa0cd1fb34eeb918beeb91f4e0bd814"><div class="ttname"><a href="../../df/d22/classiutest_1_1_with_param_interface.html#a5fa0cd1fb34eeb918beeb91f4e0bd814">iutest::WithParamInterface::MakeTestParamName</a></div><div class="ttdeci">static const ::std::string MakeTestParamName(const TestParamInfoType &amp;info)</div><div class="ttdoc">テスト名の生成</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:280</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_html_a99fa9787b8992eb5fc20c34c6162172e"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html#a99fa9787b8992eb5fc20c34c6162172e">iutest::Test::HasFailure</a></div><div class="ttdeci">static bool HasFailure()</div><div class="ttdoc">エラーが出たかどうか</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:105</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_with_param_html"><div class="ttname"><a href="../../d6/d09/classiutest_1_1_test_with_param.html">iutest::TestWithParam</a></div><div class="ttdoc">パラメータテストベース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:29</div></div>
-<div class="ttc" id="aclassiutest_1_1_with_param_interface_html_accd379e4b3ceaf3625fb291c1da50522"><div class="ttname"><a href="../../df/d22/classiutest_1_1_with_param_interface.html#accd379e4b3ceaf3625fb291c1da50522">iutest::WithParamInterface::TestParamInfoType</a></div><div class="ttdeci">TestParamInfo&lt; T &gt; TestParamInfoType</div><div class="ttdoc">パラメータ情報型</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:250</div></div>
+<div class="ttc" id="aclassiutest_1_1_with_param_interface_html_accd379e4b3ceaf3625fb291c1da50522"><div class="ttname"><a href="../../df/d22/classiutest_1_1_with_param_interface.html#accd379e4b3ceaf3625fb291c1da50522">iutest::WithParamInterface::TestParamInfoType</a></div><div class="ttdeci">TestParamInfo&lt; T &gt; TestParamInfoType</div><div class="ttdoc">パラメータ情報型</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:251</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_html_a1f111dc8a1a75e19720e37a8d089c43f"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html#a1f111dc8a1a75e19720e37a8d089c43f">iutest::Test::random_seed</a></div><div class="ttdeci">unsigned int random_seed() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:159</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_html_a6048ed363bc6cee59c4d4b6de276de80"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html#a6048ed363bc6cee59c4d4b6de276de80">iutest::Test::genrandf</a></div><div class="ttdeci">float genrandf()</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:157</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_html_a90448f6d955a72cfd738be6ca0846eec"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html#a90448f6d955a72cfd738be6ca0846eec">iutest::Test::HasNonfatalFailure</a></div><div class="ttdeci">static bool HasNonfatalFailure()</div><div class="ttdoc">致命的ではないエラーが出たかどうか</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:96</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_html_a16d1f1b524ce188f327afd1b26afa541"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html#a16d1f1b524ce188f327afd1b26afa541">iutest::Test::random_engine</a></div><div class="ttdeci">detail::iuRandom &amp; random_engine()</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:162</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_html_a71b3b775b02ef523a6d653d9683c0a65"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html#a71b3b775b02ef523a6d653d9683c0a65">iutest::Test::RecordProperty</a></div><div class="ttdeci">static void RecordProperty(const ::std::string &amp;key, const ::std::string &amp;value)</div><div class="ttdoc">テスト結果の情報追加</div></div>
-<div class="ttc" id="astructiutest_1_1_test_param_info_html"><div class="ttname"><a href="../../dc/d05/structiutest_1_1_test_param_info.html">iutest::TestParamInfo</a></div><div class="ttdoc">値のパラメータ化テストのパラメータ情報</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:233</div></div>
+<div class="ttc" id="astructiutest_1_1_test_param_info_html"><div class="ttname"><a href="../../dc/d05/structiutest_1_1_test_param_info.html">iutest::TestParamInfo</a></div><div class="ttdoc">値のパラメータ化テストのパラメータ情報</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:234</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_html_a69f141c4284b30b119c5691c7933d56f"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html#a69f141c4284b30b119c5691c7933d56f">iutest::Test::GetCurrentTest</a></div><div class="ttdeci">static Test * GetCurrentTest()</div><div class="ttdoc">実行中の Test の取得</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:80</div></div>
 <div class="ttc" id="aclassiutest_1_1_with_param_interface_html"><div class="ttname"><a href="../../df/d22/classiutest_1_1_with_param_interface.html">iutest::WithParamInterface</a></div><div class="ttdoc">パラメータテストインターフェース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:28</div></div>
 <div class="ttc" id="aiutest__mediator_8hpp_html"><div class="ttname"><a href="../../dc/d87/iutest__mediator_8hpp.html">iutest_mediator.hpp</a></div><div class="ttdoc">iris unit test 仲介者 ファイル</div></div>
 <div class="ttc" id="aiutest__port_8hpp_html_ace4f988a8127594f5c65ee322e6c88fd"><div class="ttname"><a href="../../d1/d2a/iutest__port_8hpp.html#ace4f988a8127594f5c65ee322e6c88fd">IUTEST_CHECK_</a></div><div class="ttdeci">#define IUTEST_CHECK_(condition)</div><div class="ttdoc">内部エラーチェック</div><div class="ttdef"><b>Definition:</b> iutest_port.hpp:60</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年05月01日(金) 12時21分54秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2021年02月21日(日) 22時40分21秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

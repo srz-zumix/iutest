@@ -2,8 +2,8 @@
 <area shape="rect" id="node1" title="テスト結果の通知処理インターフェイス" alt="" coords="5,133,220,174"/>
 <area shape="rect" id="node2" title="デフォルト TestPartResult リポーター" alt="" coords="268,93,471,134"/>
 <area shape="rect" id="node5" title="Not report" alt="" coords="279,165,460,206"/>
-<area shape="rect" id="node3" title=" " alt="" coords="522,5,734,61"/>
-<area shape="rect" id="node4" title=" " alt="" coords="525,85,731,141"/>
-<area shape="rect" id="node6" title=" " alt="" coords="519,165,737,221"/>
-<area shape="rect" id="node7" title="SPI チェッカー" alt="" coords="785,173,960,214"/>
+<area shape="rect" id="node3" title=" " alt="" coords="536,5,748,61"/>
+<area shape="rect" id="node4" title=" " alt="" coords="519,85,765,141"/>
+<area shape="rect" id="node6" title=" " alt="" coords="533,165,751,221"/>
+<area shape="rect" id="node7" title="SPI チェッカー" alt="" coords="813,173,988,214"/>
 </map>

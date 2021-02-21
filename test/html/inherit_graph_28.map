@@ -1,5 +1,3 @@
 <map id="クラス階層図" name="クラス階層図">
-<area shape="rect" id="node1" href="$dc/d0e/classiutest_1_1_test.html" title="テストベース" alt="" coords="57,5,150,32"/>
-<area shape="rect" id="node2" href="$dd/d91/classiutest_1_1_test_with_any.html" title="any パラメータテストフィクスチャ" alt="" coords="249,35,397,61"/>
-<area shape="rect" id="node3" href="$df/d22/classiutest_1_1_with_param_interface.html" title=" " alt="" coords="5,57,201,98"/>
+<area shape="rect" id="node1" href="$d3/d87/classiutest_1_1_test_suite.html" title="TestSuite" alt="" coords="5,5,132,32"/>
 </map>

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.0.6</span>
+   &#160;<span id="projectnumber">1.17.99.5</span>
    </div>
   </td>
  </tr>
@@ -103,8 +103,8 @@ iutest_util_vc_unittest.hpp の依存先関係図:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 マクロ定義</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
-<tr class="memitem:a627b3e659e006f52b4350aa50716b5e9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST</b>(testcase_,  testname_)</td></tr>
-<tr class="separator:a627b3e659e006f52b4350aa50716b5e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a620d00f1c27d534e477e9ffe1739b3ea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST</b>(testsuite_,  testname_)</td></tr>
+<tr class="separator:a620d00f1c27d534e477e9ffe1739b3ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b67b40915d1674f2ae6342c47ea5689"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_F</b>(testfixture_,  testname_)</td></tr>
 <tr class="separator:a7b67b40915d1674f2ae6342c47ea5689"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e4ed763e41980f829340e2778f99545"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_P</b>(testfixture_,  testname_)</td></tr>
@@ -113,11 +113,11 @@ iutest_util_vc_unittest.hpp の依存先関係図:</div>
 <tr class="separator:abc5e1d0a44e2ffa4d0a777389c65d367"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d8f8f9dd27af00596c1f47543dcd5fe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TYPED_TEST_P</b>(testfixture_,  testname_)</td></tr>
 <tr class="separator:a8d8f8f9dd27af00596c1f47543dcd5fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16e66e5c78837cf72ce7748be8606910"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_VCUNIT_I</b>(testcase_,  testname_,  className,  methodName)</td></tr>
-<tr class="separator:a16e66e5c78837cf72ce7748be8606910"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac578b173af32fffd3c6b827ed5ab06e"><td class="memItemLeft" align="right" valign="top"><a id="aac578b173af32fffd3c6b827ed5ab06e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_VCUNIT_EXEC_</b>(testcase_,  testname_)&#160;&#160;&#160;Body( &quot;*&quot; #testcase_ &quot;.&quot; #testname_ &quot;*&quot; )</td></tr>
-<tr class="separator:aac578b173af32fffd3c6b827ed5ab06e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a050f986184d48179da854c3b7a5475c5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_VCUNIT_I</b>(testsuite_,  testname_,  className,  methodName)</td></tr>
+<tr class="separator:a050f986184d48179da854c3b7a5475c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca6cf6696cf8c87ffddbc8e842838cc9"><td class="memItemLeft" align="right" valign="top"><a id="aca6cf6696cf8c87ffddbc8e842838cc9"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_VCUNIT_EXEC_</b>(testsuite_,  testname_)&#160;&#160;&#160;Body( &quot;*&quot; #testsuite_ &quot;.&quot; #testname_ &quot;*&quot; )</td></tr>
+<tr class="separator:aca6cf6696cf8c87ffddbc8e842838cc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9acb14451a80ad384877d66b0f12e45b"><td class="memItemLeft" align="right" valign="top"><a id="a9acb14451a80ad384877d66b0f12e45b"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_VCUNIT_TEST_CLASS</b>(className)&#160;&#160;&#160;ONLY_USED_AT_NAMESPACE_SCOPE class className : public ::iuutil::VisualStudio::TestClass&lt;className&gt;</td></tr>
 <tr class="separator:a9acb14451a80ad384877d66b0f12e45b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,8 +128,8 @@ iutest_util_vc_unittest.hpp の依存先関係図:</div>
 <dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2015-2018, Takazumi Shirayanagi<br  />
 This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><h2 class="groupheader">マクロ定義詳解</h2>
-<a id="a627b3e659e006f52b4350aa50716b5e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a627b3e659e006f52b4350aa50716b5e9">&#9670;&nbsp;</a></span>IUTEST</h2>
+<a id="a620d00f1c27d534e477e9ffe1739b3ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a620d00f1c27d534e477e9ffe1739b3ea">&#9670;&nbsp;</a></span>IUTEST</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -138,7 +138,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
           <td class="memname">#define IUTEST</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">testcase_, </td>
+          <td class="paramname">testsuite_, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -153,8 +153,8 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_I(testcase_, testname_, testcase_##testname_##_class, testcase_##<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">_</a>##testname_);   \</div>
-<div class="line">    IUTEST_TEST(testcase_, testname_)</div>
+<b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_I(testsuite_, testname_, testsuite_##testname_##_class, testsuite_##<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">_</a>##testname_);        \</div>
+<div class="line">    IUTEST_TEST(testsuite_, testname_)</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -278,8 +278,8 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a16e66e5c78837cf72ce7748be8606910"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16e66e5c78837cf72ce7748be8606910">&#9670;&nbsp;</a></span>IUTEST_VCUNIT_I</h2>
+<a id="a050f986184d48179da854c3b7a5475c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a050f986184d48179da854c3b7a5475c5">&#9670;&nbsp;</a></span>IUTEST_VCUNIT_I</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -288,7 +288,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
           <td class="memname">#define IUTEST_VCUNIT_I</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">testcase_, </td>
+          <td class="paramname">testsuite_, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -317,17 +317,17 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><div class="memdoc">
 <b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_TEST_CLASS(className) {                               \</div>
 <div class="line">    public: TEST_METHOD(methodName) {                                   \</div>
-<div class="line">        IUTEST_VCUNIT_EXEC_(testcase_, testname_); }                    \</div>
-<div class="line">    IIUT_VCUNIT_METHOD_ATTRIBUTE(testcase_, methodName)                 \</div>
+<div class="line">        IUTEST_VCUNIT_EXEC_(testsuite_, testname_); }                   \</div>
+<div class="line">        IIUT_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName)            \</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->
-<div class="ttc" id="agroup___m_a_t_c_h_e_r_s_html_gad2cb56dba55586fba899a4785616081b"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">iutest::matchers::_</a></div><div class="ttdeci">const detail::AnythingMatcher _</div><div class="ttdoc">Anything matcher</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2529</div></div>
+<div class="ttc" id="agroup___m_a_t_c_h_e_r_s_html_gad2cb56dba55586fba899a4785616081b"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">iutest::matchers::_</a></div><div class="ttdeci">const detail::AnythingMatcher _</div><div class="ttdoc">Anything matcher</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2613</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年05月01日(金) 12時21分57秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2021年02月21日(日) 22時40分24秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

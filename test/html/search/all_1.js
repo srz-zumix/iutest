@@ -1,9 +1,9 @@
 var searchData=
 [
   ['a_1',['A',['../d4/d14/group___m_a_t_c_h_e_r_s.html#ga7dff43861c1c0e66369395115b2b4e42',1,'iutest::matchers']]],
-  ['ad_5fhoc_5ftest_5fresult_2',['ad_hoc_test_result',['../df/d67/classiutest_1_1_test_case.html#a9b625d6542f2eaab725143afddbb195f',1,'iutest::TestCase::ad_hoc_test_result()'],['../de/d13/classiutest_1_1_unit_test.html#a2e3f4886e28213ef0f012e417ff5cdc4',1,'iutest::UnitTest::ad_hoc_test_result()']]],
-  ['ad_5fhoc_5ftestresult_3',['ad_hoc_testresult',['../df/d67/classiutest_1_1_test_case.html#a02f57c1730a8322ecc8ca2eb696d2012',1,'iutest::TestCase::ad_hoc_testresult()'],['../de/d13/classiutest_1_1_unit_test.html#aebff55392dbb8a6dfdcc8f167feeee13',1,'iutest::UnitTest::ad_hoc_testresult()']]],
-  ['adddefaultpackagename_4',['AddDefaultPackageName',['../d7/d8c/classiutest_1_1_test_env.html#a83a052ba699fc992f0b696fd6283bc9c',1,'iutest::TestEnv']]],
+  ['ad_5fhoc_5ftest_5fresult_2',['ad_hoc_test_result',['../de/d13/classiutest_1_1_unit_test.html#a2e3f4886e28213ef0f012e417ff5cdc4',1,'iutest::UnitTest::ad_hoc_test_result()'],['../d3/d87/classiutest_1_1_test_suite.html#acbc914e2a5047c4dd82cad493fa47a46',1,'iutest::TestSuite::ad_hoc_test_result()']]],
+  ['ad_5fhoc_5ftestresult_3',['ad_hoc_testresult',['../de/d13/classiutest_1_1_unit_test.html#aebff55392dbb8a6dfdcc8f167feeee13',1,'iutest::UnitTest::ad_hoc_testresult()'],['../d3/d87/classiutest_1_1_test_suite.html#abe2225a24fd1d63b5af6e5e490c929f0',1,'iutest::TestSuite::ad_hoc_testresult()']]],
+  ['adddefaultpackagename_4',['AddDefaultPackageName',['../d7/d8c/classiutest_1_1_test_env.html#af1aed0bd741f7b3213025c95fecd6fae',1,'iutest::TestEnv']]],
   ['addglobaltestenvironment_5',['AddGlobalTestEnvironment',['../d7/d8c/classiutest_1_1_test_env.html#aa4ad04d5148c7d8226ae00b8ae53ac77',1,'iutest::TestEnv::AddGlobalTestEnvironment()'],['../d3/dda/namespaceiutest.html#ae122192fab03fe831e82c32db2bbd3be',1,'iutest::AddGlobalTestEnvironment()']]],
   ['allof_6',['AllOf',['../d4/d14/group___m_a_t_c_h_e_r_s.html#ga5cf646668845684b46980cd2b5a5baa2',1,'iutest::matchers']]],
   ['almostequals_7',['AlmostEquals',['../d3/d81/classiutest_1_1floating__point.html#a3a0b3b918b9686b051988925db27dfe0',1,'iutest::floating_point']]],

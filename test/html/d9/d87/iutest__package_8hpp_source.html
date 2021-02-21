@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.0.6</span>
+   &#160;<span id="projectnumber">1.17.99.5</span>
    </div>
   </td>
  </tr>
@@ -79,41 +79,41 @@ $(function() {
 <div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="../../d2/d24/group___t_e_s_t_d_e_f.html#gae64e21d033c63b6e2223bff23449d8db">   26</a></span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#if IUTEST_HAS_PACKAGE</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#define IUTEST_CONCAT_PACKAGE_(testcasename_)   IIUT_CONCAT_PACKAGE_I(testcasename_)</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#define IIUT_CONCAT_PACKAGE_I(testcasename_)                    \</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">    iuTest_ConcatTestCaseName( iuTest_GetTestCasePackageName(   \</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">        static_cast&lt;iuTest_TestCasePackage*&gt;(NULL))             \</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">        , #testcasename_)</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#define IUTEST_CONCAT_PACKAGE_(testsuitename_)   IIUT_CONCAT_PACKAGE_I(testsuitename_)</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#define IIUT_CONCAT_PACKAGE_I(testsuitename_)                    \</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">    iuTest_ConcatTestSuiteName( iuTest_GetTestSuitePackageName(  \</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">        static_cast&lt;iuTest_TestSuitePackage*&gt;(NULL))             \</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">        , #testsuitename_)</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#define IUTEST_GET_PACKAGENAME_()   \</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">    iuTest_GetTestCasePackageName( static_cast&lt;iuTest_TestCasePackage*&gt;(NULL) )</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">    iuTest_GetTestSuitePackageName( static_cast&lt;iuTest_TestSuitePackage*&gt;(NULL) )</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#if IUTEST_HAS_IF_EXISTS</span></div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#define IIUT_PACKAGE_DECL_NAME_FUNC(name)               \</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">    static ::std::string IUTEST_ATTRIBUTE_UNUSED_       \</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">    iuTest_GetTestCasePackageName(const iuTest_TestCasePackage*) {          \</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">        return iuTest_GetTestCaseParentPackageName(     \</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">            static_cast&lt;iuTest_TestCaseParentPackage*&gt;(NULL)) + #name &quot;.&quot;;  \</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">    iuTest_GetTestSuitePackageName(const iuTest_TestSuitePackage*) {        \</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">        return iuTest_GetTestSuiteParentPackageName(    \</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">            static_cast&lt;iuTest_TestSuiteParentPackage*&gt;(NULL)) + #name &quot;.&quot;; \</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">    }</span></div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#define IIUT_PACKAGE_DECL_PARENT_NAME_FUNC(name)        \</span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">    static ::std::string IUTEST_ATTRIBUTE_UNUSED_       \</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">    iuTest_GetTestCaseParentPackageName(const iuTest_TestCaseParentPackage*) {              \</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">        return iuTest_GetTestCasePackageName(static_cast&lt;iuTest_TestCasePackage*&gt;(NULL));   \</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">    iuTest_GetTestSuiteParentPackageName(const iuTest_TestSuiteParentPackage*) {              \</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">        return iuTest_GetTestSuitePackageName(static_cast&lt;iuTest_TestSuitePackage*&gt;(NULL));   \</span></div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">    }</span></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#define IIUT_PACKAGE_CURRENT_NAMESPACE_(name)               \</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">    class iuTest_TestCasePackage;                           \</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">    __if_not_exists(name::iuTest_GetTestCasePackageName) {  \</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">    class iuTest_TestSuitePackage;                          \</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">    __if_not_exists(name::iuTest_GetTestSuitePackageName) { \</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">        IIUT_PACKAGE_DECL_NAME_FUNC(name)                   \</span></div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">    }</span></div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#define IIUT_PACKAGE_PARENT_NAMESPACE_(name)                \</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">    class iuTest_TestCaseParentPackage;                     \</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">    __if_not_exists(name::iuTest_GetTestCaseParentPackageName) {    \</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">    class iuTest_TestSuiteParentPackage;                    \</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">    __if_not_exists(name::iuTest_GetTestSuiteParentPackageName) {   \</span></div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">        IUTEST_PRAGMA_MSC_WARN_PUSH()                       \</span></div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">        IUTEST_PRAGMA_MSC_WARN_DISABLE(4505)                \</span></div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">        IIUT_PACKAGE_DECL_PARENT_NAME_FUNC(name)            \</span></div>
@@ -123,18 +123,18 @@ $(function() {
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#define IIUT_PACKAGE_CURRENT_NAMESPACE_(name)               \</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">    class iuTest_TestCasePackage;                           \</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">    class iuTest_TestSuitePackage;                          \</span></div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">    namespace { const int IUTEST_PP_CAT(k_iutest_package_##name##_dummy_, IUTEST_PP_UNIQUEID)   \</span></div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">        IUTEST_ATTRIBUTE_UNUSED_ = ::iutest::detail::package_name_server&lt;                       \</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">                iuTest_TestCasePackage&gt;::setname(iuTest_GetTestCaseParentPackageName(           \</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">                    static_cast&lt;iuTest_TestCaseParentPackage*&gt;(NULL)) + #name &quot;.&quot;);             \</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">                iuTest_TestSuitePackage&gt;::setname(iuTest_GetTestSuiteParentPackageName(         \</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">                    static_cast&lt;iuTest_TestSuiteParentPackage*&gt;(NULL)) + #name &quot;.&quot;);            \</span></div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">    }</span></div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#define IIUT_PACKAGE_PARENT_NAMESPACE_(name)                \</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">    class iuTest_TestCaseParentPackage;                     \</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">    class iuTest_TestSuiteParentPackage;                    \</span></div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">    namespace { const int IUTEST_PP_CAT(k_iutest_package_##name##_parent_dummy_, IUTEST_PP_UNIQUEID)    \</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">        IUTEST_ATTRIBUTE_UNUSED_ = ::iutest::detail::package_name_server&lt;iuTest_TestCaseParentPackage&gt;  \</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">        ::setname(iuTest_GetTestCasePackageName(static_cast&lt;iuTest_TestCasePackage*&gt;(NULL)));           \</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">        IUTEST_ATTRIBUTE_UNUSED_ = ::iutest::detail::package_name_server&lt;iuTest_TestSuiteParentPackage&gt; \</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">        ::setname(iuTest_GetTestSuitePackageName(static_cast&lt;iuTest_TestSuitePackage*&gt;(NULL)));         \</span></div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">    }</span></div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#endif</span></div>
@@ -148,8 +148,8 @@ $(function() {
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">#define IUTEST_CONCAT_PACKAGE_(testcasename_)   IIUT_CONCAT_PACKAGE_I(testcasename_)</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor">#define IIUT_CONCAT_PACKAGE_I(testcasename_)    #testcasename_</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">#define IUTEST_CONCAT_PACKAGE_(testsuitename_)  IIUT_CONCAT_PACKAGE_I(testsuitename_)</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor">#define IIUT_CONCAT_PACKAGE_I(testsuitename_)   #testsuitename_</span></div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">#define IIUT_PACKAGE_(name)                     namespace name</span></div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor">#define IUTEST_GET_PACKAGENAME_()               &quot;&quot;</span></div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
@@ -157,17 +157,17 @@ $(function() {
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor">#if IUTEST_HAS_PACKAGE</span></div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="keyword">class </span>iuTest_TestCasePackage;           </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="keyword">class </span>iuTest_TestCaseParentPackage;     </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="keyword">class </span>iuTest_TestSuitePackage;           </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="keyword">class </span>iuTest_TestSuiteParentPackage;     </div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">#if IUTEST_HAS_IF_EXISTS</span></div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d9/d87/iutest__package_8hpp.html#aeaffd9f593669ab465b11f296223c6a7">iuTest_GetTestCasePackageName</a>(<span class="keyword">const</span> iuTest_TestCasePackage*)</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d9/d87/iutest__package_8hpp.html#ad59e4b71505286cb7c72e31e2f25f61b">iuTest_GetTestSuitePackageName</a>(<span class="keyword">const</span> iuTest_TestSuitePackage*)</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;{</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;}</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d9/d87/iutest__package_8hpp.html#a97169a76f8088ba775352759e459c0dc">iuTest_GetTestCaseParentPackageName</a>(<span class="keyword">const</span> iuTest_TestCaseParentPackage*)</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d9/d87/iutest__package_8hpp.html#af83b430602e0794d413bda080788fe61">iuTest_GetTestSuiteParentPackageName</a>(<span class="keyword">const</span> iuTest_TestSuiteParentPackage*)</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;{</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;}</div>
@@ -199,36 +199,36 @@ $(function() {
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;::std::string <a class="code" href="../../d9/d87/iutest__package_8hpp.html#aeaffd9f593669ab465b11f296223c6a7">iuTest_GetTestCasePackageName</a>(T*)         <span class="comment">// NOLINT</span></div>
-<div class="line"><a name="l00175"></a><span class="lineno"><a class="line" href="../../d9/d87/iutest__package_8hpp.html#aeaffd9f593669ab465b11f296223c6a7">  175</a></span>&#160;{</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;::std::string <a class="code" href="../../d9/d87/iutest__package_8hpp.html#ad59e4b71505286cb7c72e31e2f25f61b">iuTest_GetTestSuitePackageName</a>(T*)         <span class="comment">// NOLINT</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno"><a class="line" href="../../d9/d87/iutest__package_8hpp.html#ad59e4b71505286cb7c72e31e2f25f61b">  175</a></span>&#160;{</div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    return ::iutest::detail::package_name_server&lt;T&gt;::getname();</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;}</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;::std::string <a class="code" href="../../d9/d87/iutest__package_8hpp.html#a97169a76f8088ba775352759e459c0dc">iuTest_GetTestCaseParentPackageName</a>(T*)   <span class="comment">// NOLINT</span></div>
-<div class="line"><a name="l00185"></a><span class="lineno"><a class="line" href="../../d9/d87/iutest__package_8hpp.html#a97169a76f8088ba775352759e459c0dc">  185</a></span>&#160;{</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;::std::string <a class="code" href="../../d9/d87/iutest__package_8hpp.html#af83b430602e0794d413bda080788fe61">iuTest_GetTestSuiteParentPackageName</a>(T*)   <span class="comment">// NOLINT</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno"><a class="line" href="../../d9/d87/iutest__package_8hpp.html#af83b430602e0794d413bda080788fe61">  185</a></span>&#160;{</div>
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    return ::iutest::detail::package_name_server&lt;T&gt;::getname();</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;}</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d9/d87/iutest__package_8hpp.html#a481f44e732939f7a868a75c114864010">iuTest_ConcatTestCaseName</a>(const ::std::string&amp; package, <span class="keyword">const</span> <span class="keywordtype">char</span>* testcase_name)</div>
-<div class="line"><a name="l00196"></a><span class="lineno"><a class="line" href="../../d9/d87/iutest__package_8hpp.html#a481f44e732939f7a868a75c114864010">  196</a></span>&#160;{</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">package </span>+ testcase_name;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d9/d87/iutest__package_8hpp.html#a4363cfe3d3dd81c0688ec63fb42de259">iuTest_ConcatTestSuiteName</a>(const ::std::string&amp; package, <span class="keyword">const</span> <span class="keywordtype">char</span>* testsuite_name)</div>
+<div class="line"><a name="l00196"></a><span class="lineno"><a class="line" href="../../d9/d87/iutest__package_8hpp.html#a4363cfe3d3dd81c0688ec63fb42de259">  196</a></span>&#160;{</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">package </span>+ testsuite_name;</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;}</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_PACKAGE_HPP_F57C9B7E_7CAA_4429_BE75_FCAAEED1B220_</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aiutest__package_8hpp_html_aeaffd9f593669ab465b11f296223c6a7"><div class="ttname"><a href="../../d9/d87/iutest__package_8hpp.html#aeaffd9f593669ab465b11f296223c6a7">iuTest_GetTestCasePackageName</a></div><div class="ttdeci">::std::string iuTest_GetTestCasePackageName(T *)</div><div class="ttdoc">パッケージ名の取得</div><div class="ttdef"><b>Definition:</b> iutest_package.hpp:175</div></div>
+<div class="ttc" id="aiutest__package_8hpp_html_a4363cfe3d3dd81c0688ec63fb42de259"><div class="ttname"><a href="../../d9/d87/iutest__package_8hpp.html#a4363cfe3d3dd81c0688ec63fb42de259">iuTest_ConcatTestSuiteName</a></div><div class="ttdeci">inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_ConcatTestSuiteName(const ::std::string &amp;package, const char *testsuite_name)</div><div class="ttdoc">TestSuite 名との結合</div><div class="ttdef"><b>Definition:</b> iutest_package.hpp:196</div></div>
 <div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
-<div class="ttc" id="aiutest__package_8hpp_html_a97169a76f8088ba775352759e459c0dc"><div class="ttname"><a href="../../d9/d87/iutest__package_8hpp.html#a97169a76f8088ba775352759e459c0dc">iuTest_GetTestCaseParentPackageName</a></div><div class="ttdeci">::std::string iuTest_GetTestCaseParentPackageName(T *)</div><div class="ttdoc">親空間のパッケージ名の取得</div><div class="ttdef"><b>Definition:</b> iutest_package.hpp:185</div></div>
-<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:31</div></div>
-<div class="ttc" id="aiutest__package_8hpp_html_a481f44e732939f7a868a75c114864010"><div class="ttname"><a href="../../d9/d87/iutest__package_8hpp.html#a481f44e732939f7a868a75c114864010">iuTest_ConcatTestCaseName</a></div><div class="ttdeci">inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_ConcatTestCaseName(const ::std::string &amp;package, const char *testcase_name)</div><div class="ttdoc">テストケース名との結合</div><div class="ttdef"><b>Definition:</b> iutest_package.hpp:196</div></div>
+<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
+<div class="ttc" id="aiutest__package_8hpp_html_ad59e4b71505286cb7c72e31e2f25f61b"><div class="ttname"><a href="../../d9/d87/iutest__package_8hpp.html#ad59e4b71505286cb7c72e31e2f25f61b">iuTest_GetTestSuitePackageName</a></div><div class="ttdeci">::std::string iuTest_GetTestSuitePackageName(T *)</div><div class="ttdoc">パッケージ名の取得</div><div class="ttdef"><b>Definition:</b> iutest_package.hpp:175</div></div>
+<div class="ttc" id="aiutest__package_8hpp_html_af83b430602e0794d413bda080788fe61"><div class="ttname"><a href="../../d9/d87/iutest__package_8hpp.html#af83b430602e0794d413bda080788fe61">iuTest_GetTestSuiteParentPackageName</a></div><div class="ttdeci">::std::string iuTest_GetTestSuiteParentPackageName(T *)</div><div class="ttdoc">親空間のパッケージ名の取得</div><div class="ttdef"><b>Definition:</b> iutest_package.hpp:185</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年05月01日(金) 12時21分55秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2021年02月21日(日) 22時40分22秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
