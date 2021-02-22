@@ -225,7 +225,7 @@ public:
     optional(const optional& rhs) : m_init(rhs.m_init), m_value(rhs.value) {}
 
 public:
-    optional& operator = (const T& rhs) { m_init = true; m_value = rhs; }
+    optional& operator = (const T& rhs) { m_init = true; m_value = rhs; return *this; }
     operator bool () const { return has_value(); }
     const T& operator * () const { return value(); }
     T& operator * () { return value(); }
