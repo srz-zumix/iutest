@@ -2,6 +2,8 @@
 
 set -eu
 
+CURDIR=$(pwd)
+
 if [ -z "${GITHUB_SHA+x}" ]; then
   GITHUB_SHA=$(git rev-parse HEAD)
   export GITHUB_SHA
@@ -26,7 +28,11 @@ if [ "${DIRNAME}" != 'master' ]; then
   fi
 fi
 
-echo ${DIRNAME}
+echo "${DIRNAME}"
+
+#
+# documents
+#
 
 doxygen --version
 dot -V || true
@@ -55,7 +61,17 @@ if [ "${DIRNAME}" = 'master' ]; then
   make gh-pages-for-master
 fi
 
-cd gh-pages
+#
+# cppcheck
+#
+
+cd ..
+make -C test/cppcheck html HTML_REPORT_DIR="${CURDIR}/docs/gh-pages/${DIRNAME}/cppcheck" CTU_DEPTH=16
+
+#
+# commit
+# 
+cd docs/gh-pages
 
 if [ -n "${INPUT_GITHUB_TOKEN+x}" ]; then
   if [ -z "${INPUT_GITHUB_EMAIL+x}" ]; then
