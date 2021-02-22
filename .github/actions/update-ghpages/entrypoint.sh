@@ -66,7 +66,7 @@ fi
 #
 
 cd ..
-make -C test/cppcheck html HTML_REPORT_DIR="${CURDIR}/docs/gh-pages/${DIRNAME}/cppcheck"
+make -C test/cppcheck html HTML_REPORT_DIR="${CURDIR}/docs/gh-pages/${DIRNAME}/cppcheck" CTU_DEPTH=16
 
 #
 # commit

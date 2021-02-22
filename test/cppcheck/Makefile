@@ -32,6 +32,9 @@ DEFAULT_OPTIONS=--inline-suppr -j8 --platform=unix64
 ifdef FULL
 DEFAULT_OPTIONS+= -f
 endif
+ifdef CTU_DEPTH
+DEFAULT_OPTIONS+= --max-ctu-depth=$(CTU_DEPTH)
+endif
 ifdef USE_CLANG
 DEFAULT_OPTIONS+= --clang
 endif
@@ -41,6 +44,9 @@ OPTIONS+= $(CPPCHECK_ENABLE_OPTION)
 OPTIONS+= $(CPPCHECK_DEFINES_OPTIONS)
 OPTIONS+= $(CPPCHECK_UNDEFINES_OPTIONS)
 OPTIONS+= $(CPPCHECK_SUPPRESS_OPTIONS)
+ifdef CPPCHECK_ADD_OPTIONS
+OPTIONS+= $(CPPCHECK_ADD_OPTIONS)
+endif
 
 SRC_CPP=$(wildcard ../../src/*.cpp)
 SAMPLES=$(wildcard ../../samples/*.cpp)
