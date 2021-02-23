@@ -11,6 +11,10 @@ on:
       - '.github/workflows/ghpages.yml'
     tags:
       - v*
+  pull_request:
+    paths:
+      - '.github/actions/update-ghpages/**'
+      - '.github/workflows/ghpages.yml'
 
 jobs:
   update_document:
