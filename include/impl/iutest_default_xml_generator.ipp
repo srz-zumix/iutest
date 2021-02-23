@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -79,7 +79,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTest(IFile* file, co
         , test.reportable_disabled_test_count()
         );
 #if IUTEST_HAS_REPORT_SKIPPED
-    file->Printf("skip=\"%d\" ", test.reportable_skip_test_count());
+    file->Printf("skipped=\"%d\" ", test.reportable_skip_test_count());
 #endif
     file->Printf("errors=\"0\" time=\"%s\" timestamp=\"%s\" "
         , detail::FormatTimeInMillisecAsSecond(test.elapsed_time()).c_str()
@@ -119,7 +119,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestSuite(IFile* fil
         , test_suite.reportable_disabled_test_count()
         );
 #if IUTEST_HAS_REPORT_SKIPPED
-    file->Printf("skip=\"%d\" ", test_suite.reportable_skip_test_count() );
+    file->Printf("skipped=\"%d\" ", test_suite.reportable_skip_test_count() );
 #endif
     file->Printf("errors=\"0\" time=\"%s\" timestamp=\"%s\""
         , detail::FormatTimeInMillisecAsSecond(test_suite.elapsed_time()).c_str()
@@ -145,7 +145,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
         return;
     }
 
-    file->Printf("    <testsuite ");
+    file->Printf("    <testcase ");
     OutputXmlAttribute(file, "name", EscapeXmlAttribute(test_info.name()).c_str() );
 
     {
@@ -210,7 +210,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
             OutputXmlCDataSection(file, "Not Run");
             file->Printf("\n      </failure>\n");
         }
-        file->Printf("    </testsuite>\n");
+        file->Printf("    </testcase>\n");
     }
     else
     {
@@ -220,7 +220,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
         {
             file->Printf(">\n");
             OnReportTestSkipped(file, test_info);
-            file->Printf("    </testsuite>\n");
+            file->Printf("    </testcase>\n");
         }
         else
 #endif
