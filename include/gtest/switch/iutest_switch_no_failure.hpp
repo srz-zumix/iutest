@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -71,7 +71,7 @@ namespace testing
 namespace internal
 {
 
-class HasNewFailureHelper : public HasNewFatalFailureHelper
+class HasNewFailureHelper IUTEST_CXX_FINAL : public HasNewFatalFailureHelper
 {
 public:
     HasNewFailureHelper() : m_has_new_failure(false)
@@ -81,7 +81,7 @@ public:
     {
     }
 public:
-    virtual void ReportTestPartResult(const TestPartResult& result)
+    virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
     {
         if( result.failed() )
         {

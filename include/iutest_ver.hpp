@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01170009u     //!< iutest version 1.17.0.9
+#define IUTEST_VER          0x01179905u     //!< iutest version 1.17.99.5
 #define IUTEST_MAJORVER     0x01u           //!< Major Version
 #define IUTEST_MINORVER     0x17u           //!< Minor Version
-#define IUTEST_MICROVER     0x00u           //!< Micro Version
-#define IUTEST_REVISION     0x09u           //!< Revision
+#define IUTEST_MICROVER     0x99u           //!< Micro Version
+#define IUTEST_REVISION     0x05u           //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -121,14 +121,28 @@ modification, are permitted provided that the following conditions are met: \n
  * @page    changelog   変更履歴
  * @par     Changes
  <ul>
+  <li>v1.18.0.0
+    <ul>
+      <li>TestCase の別名 TestSuite に対応（iutest はどちらもサポートし続けます）</li>
+      <li>例外発生時にも SCOPED_TRACE のメッセージを出力するように変更</li>
+      <li>空のテストスイート名・テスト名に static_assert を追加</li>
+      <li>GoogleTest の GTEST_REMOVE_LEGACY_TEST_CASEAPI_ に対応</li>
+    </ul>
+  </li>
   <li>v1.17.1.0
     <ul>
       <li>GTEST_SKIP 対応</li>
+      <li>IUTEST_*_NE_RANGE アサーションを追加</li>
+      <li>IUTEST_*_NE_COLLECTIONS アサーションを追加</li>
       <li>::std::wstring_view / ::std::u16string_view / ::std::u32string_view 対応</li>
       <li>アサーションに operator &lt;&lt; したときの出力を PrintToString したものと同じになるように変更</li>
       <li>テストをリピートした際のレポート出力ファイル名の書式を printf 書式から {I} に変更({I} にリピート回数が置換されます)</li>
+      <li>iuwandbox: Wandbox 向けにサイズ圧縮したヘッダーをデフォルトで使用するように変更</li>
+      <li>iuwandbox: 上記に伴いフルバージョンのヘッダーを使うオプション(--no-iutest-use-wandbox-min)を追加</li>
+      <li>deprecated: iuwandbox: --iutest-use-wandbox-min</li>
       <li>Python2 のサポート終了</li>
       <li>C++20 で削除された basic_ostream::operator &lt;&lt; に対応</li>
+      <li>IUTEST_AP が同じ名前空間に複数定義できない問題を修正</li>
       <li>Google Test 旧バージョンとの互換性を修正</li>
     </ul>
   </li>

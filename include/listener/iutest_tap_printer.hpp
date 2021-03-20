@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,9 +17,11 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "../iutest_core.hpp"
 #include "../internal/iutest_log_stream.hpp"
 #include "../internal/iutest_filepath.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest
 {
@@ -38,8 +40,8 @@ public:
     virtual void OnTestProgramEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
 
 protected:
-    /// テストケース毎の処理
-    void OnReportTestCase(detail::IOutStream* const stream, const TestCase& test_case, int top=1);
+    /// TestSuite 毎の処理
+    void OnReportTestSuite(detail::IOutStream* const stream, const TestSuite& test_suite, int top=1);
 
 public:
     /**
@@ -138,23 +140,23 @@ inline void TAPPrintListener::OnTestProgramEnd(const UnitTest& test)
     detail::LogStream stream;
 
     int number = 1;
-    for( int k=0, count=test.total_test_case_count(); k < count; ++k )
+    for( int k=0, count=test.total_test_suite_count(); k < count; ++k )
     {
-        const TestCase& test_case = *test.GetTestCase(k);
+        const TestSuite& test_suite = *test.GetTestSuite(k);
 
-        OnReportTestCase(&stream, test_case, number);
+        OnReportTestSuite(&stream, test_suite, number);
 
-        number += test_case.total_test_count();
+        number += test_suite.total_test_count();
     }
     detail::iuConsole::output("1..%d\n", number-1);
 }
-inline void TAPPrintListener::OnReportTestCase(detail::IOutStream* const stream, const TestCase& test_case, int top)
+inline void TAPPrintListener::OnReportTestSuite(detail::IOutStream* const stream, const TestSuite& test_suite, int top)
 {
-    stream->Printf("# %s started.\n", test_case.name());
+    stream->Printf("# %s started.\n", test_suite.name());
 
-    for( int i=0, test_count=test_case.total_test_count(); i < test_count; ++i )
+    for( int i=0, test_count=test_suite.total_test_count(); i < test_count; ++i )
     {
-        const TestInfo* test_info = test_case.GetTestInfo(i);
+        const TestInfo* test_info = test_suite.GetTestInfo(i);
         if( !test_info->should_run() )
         {
             // スキップ
@@ -182,14 +184,14 @@ inline void TAPPrintListener::OnReportTestCase(detail::IOutStream* const stream,
         }
     }
 
-    stream->Printf("# %s ended.\n", test_case.name());
+    stream->Printf("# %s ended.\n", test_suite.name());
 }
 
 inline void TAPFileGeneratorListener::OnTestProgramEnd(const UnitTest& test)
 {
-    for( int k=0, count=test.total_test_case_count(); k < count; ++k )
+    for( int k=0, count=test.total_test_suite_count(); k < count; ++k )
     {
-        const TestCase& test_case = *test.GetTestCase(k);
+        const TestSuite& test_suite = *test.GetTestSuite(k);
 
         IUTEST_UNUSED_VAR(test);
         IFile* fp = detail::IFileSystem::New();
@@ -199,7 +201,7 @@ inline void TAPFileGeneratorListener::OnTestProgramEnd(const UnitTest& test)
         }
 
         ::std::string filepath = m_output_path;
-        ::std::string name = test_case.name();
+        ::std::string name = test_suite.name();
         detail::StringReplace(name, '/', "_");
         filepath += detail::GetPathSeparator();
         filepath += name;
@@ -211,9 +213,9 @@ inline void TAPFileGeneratorListener::OnTestProgramEnd(const UnitTest& test)
             fflush(stderr);
         }
 
-        OnReportTestCase(fp, test_case);
+        OnReportTestSuite(fp, test_suite);
 
-        fp->Printf("1..%d\n", test_case.total_test_count());
+        fp->Printf("1..%d\n", test_suite.total_test_count());
 
         fp->Close();
         detail::IFileSystem::Free(fp);

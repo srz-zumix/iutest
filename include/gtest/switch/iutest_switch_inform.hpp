@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -255,10 +255,10 @@ namespace testing
 namespace inform_support
 {
 
-class DefaultPrinter : public ::testing::EmptyTestEventListener
+class DefaultPrinter IUTEST_CXX_FINAL : public ::testing::EmptyTestEventListener
 {
 private:
-    virtual void OnTestPartResult(const TestPartResult& test_part_result)
+    virtual void OnTestPartResult(const TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE
     {
         if( ::testing::UnitTest::GetInstance()->listeners().default_result_printer() == NULL )
         {

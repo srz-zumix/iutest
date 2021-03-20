@@ -7,10 +7,17 @@ linter:
     config: ./.ci/goodcheck.yml
   cppcheck:
     std: "c++11"
+    target:
+      - "src/"
+    include-path:
+      - "include"
+      - "test"
   cpplint:
     filter: "-build/c++11\
       ,-build/c++tr1\
       ,-build/header_guard\
+      ,-build/include\
+      ,-build/include_what_you_use\
       ,-readability/braces\
       ,-readability/todo\
       ,-runtime/int\

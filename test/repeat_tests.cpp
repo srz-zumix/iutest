@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -37,7 +37,7 @@ const int kNumberOfParamTests = 10;
 
 class TestP : public ::iutest::TestWithParam<int> {};
 
-IUTEST_INSTANTIATE_TEST_CASE_P(Foo, TestP, ::iutest::Range<int>(0, kNumberOfParamTests));
+IUTEST_INSTANTIATE_TEST_SUITE_P(Foo, TestP, ::iutest::Range<int>(0, kNumberOfParamTests));
 
 IUTEST_P(TestP, Bar)
 {
@@ -49,11 +49,11 @@ IUTEST_P(TestP, Bar)
 int g_environment_setup = 0;
 int g_environment_teardown = 0;
 
-class MyEnvironment : public ::iutest::Environment
+class MyEnvironment IUTEST_CXX_FINAL : public ::iutest::Environment
 {
 private:
-    virtual void SetUp(void)    { ++g_environment_setup; }
-    virtual void TearDown(void) { ++g_environment_teardown; }
+    virtual void SetUp(void)    IUTEST_CXX_OVERRIDE { ++g_environment_setup; }
+    virtual void TearDown(void) IUTEST_CXX_OVERRIDE { ++g_environment_teardown; }
 };
 
 IUTEST(Repeat, Counter)

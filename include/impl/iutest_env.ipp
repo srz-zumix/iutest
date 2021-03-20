@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -60,20 +60,20 @@ IUTEST_IPP_INLINE::std::string TestEnv::get_report_junit_xml_filepath()
     return "";
 }
 
-IUTEST_IPP_INLINE::std::string TestEnv::AddDefaultPackageName(const char* testcase_name)
+IUTEST_IPP_INLINE::std::string TestEnv::AddDefaultPackageName(const char* testsuite_name)
 {
     ::std::string str = TestEnv::get_default_package_name();
     if( str.empty() )
     {
-        return testcase_name;
+        return testsuite_name;
     }
-    if( strchr(testcase_name, '.') != NULL )
+    if( strchr(testsuite_name, '.') != NULL )
     {
-        return testcase_name;
+        return testsuite_name;
     }
 
     str += ".";
-    str += testcase_name;
+    str += testsuite_name;
     return str;
 }
 
@@ -276,6 +276,7 @@ IUTEST_IPP_INLINE bool TestEnv::SetFlag(int enable, int mask)
 
 IUTEST_IPP_INLINE void TestEnv::LoadEnvironmentVariable()
 {
+#if !defined(__WANDBOX__)
     {
         int var = 0;
         if( detail::GetEnvironmentInt("IUTEST_ALSO_RUN_DISABLED_TESTS", var)
@@ -378,6 +379,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
             ParseFlagFileOption(str);
         }
     }
+#endif
 }
 
 IUTEST_IPP_INLINE void TestEnv::SetUp()
@@ -438,7 +440,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseOutputOption(const char* option)
         get_vars().m_output_option = "";
         return false;
     }
-    get_vars().m_output_option = option;
+    set_output_option(option);
     return true;
 }
 

@@ -42,18 +42,26 @@ const UInt32 kMaxCodePoint4 = (static_cast<UInt32>(1) << (3+3*6)) - 1;
 */
 IUTEST_IPP_INLINE IUTEST_CXX_CONSTEXPR bool IsUtf16SurrogatePair(wchar_t first, wchar_t second)
 {
-    return (sizeof(wchar_t) == 2)
-        && ((first & 0xFC00) == 0xD800) && ((second & 0xFC00) == 0xDC00);
+#if defined(__SIZEOF_WCHAR_T__) && __SIZEOF_WCHAR_T__ >= 2
+    return ((first & 0xFC00) == 0xD800) && ((second & 0xFC00) == 0xDC00);
+#else
+    return (sizeof(wchar_t) >= 2) &&
+        ((first & 0xFC00) == 0xD800) && ((second & 0xFC00) == 0xDC00);
+#endif
 }
 /**
  * @brief   サロゲートペアからコードポイントへ変換
 */
 IUTEST_IPP_INLINE IUTEST_CXX_CONSTEXPR UInt32 CreateCodePointFromUtf16SurrogatePair(wchar_t first, wchar_t second)
 {
+#if defined(__SIZEOF_WCHAR_T__) && __SIZEOF_WCHAR_T__ >= 2
     //const UInt32 mask = (1<<10) -1;   // 0x3FF
-    return (sizeof(wchar_t)==2) ?
-        (((first & 0x3FF) << 10) | (second & 0x3FF)) + 0x10000 :
+    return static_cast<UInt32>((((first & 0x3FF) << 10) | (second & 0x3FF)) + 0x10000);
+#else
+    return (sizeof(wchar_t)>=2) ?
+        static_cast<UInt32>((((first & 0x3FF) << 10) | (second & 0x3FF)) + 0x10000) :
         static_cast<UInt32>(first); // こっちは未対応
+#endif
 }
 /**
  * @brief   下位から指定ビット数のビットを取得してシフトする
@@ -146,7 +154,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
     }
 #if IUTEST_HAS_CXX_HDR_CODECVT && 0
 #else
-    iu_stringstream ss;
+    std::string s;
     for(int i=0; i < num; ++i )
     {
         UInt32 code_point = 0;
@@ -164,9 +172,9 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
             code_point = static_cast<UInt32>(str[i]);
         }
         char buf[32];
-        ss << CodePointToUtf8(code_point, buf, sizeof(buf));
+        s += CodePointToUtf8(code_point, buf, sizeof(buf));
     }
-    return ss.str();
+    return s;
 #endif
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 }
@@ -177,7 +185,7 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStr
 #if defined(IUTEST_OS_WINDOWS) && IUTEST_MBS_CODE == IUTEST_MBS_CODE_WINDOWS31J
     return win::WideStringToMultiByteString(str);
 #else
-    const size_t length = wcslen(str) * MB_CUR_MAX + 1;
+    const size_t length = wcslen(str) * static_cast<size_t>(MB_CUR_MAX) + 1;
     char* mbs = new char [length];
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
     const size_t written = wcstombs(mbs, str, length - 1);
@@ -234,7 +242,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     return ret;
 #else
 IUTEST_PRAGMA_WARN_PUSH()
-IUTEST_PRAGMA_WARN_CAST_ALIGN()
+IUTEST_PRAGMA_WARN_DISABLE_CAST_ALIGN()
     return AnyStringToUTF8(reinterpret_cast<const wchar_t*>(str), num);
 IUTEST_PRAGMA_WARN_POP()
 #endif
@@ -350,36 +358,36 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     return ret;
 }
 
-IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToUTF8(const char* src, int num)
+IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToUTF8(const char* str, int num)
 {
 #if (defined(__STDC_ISO_10646__) || defined(_MSC_VER)) && !defined(IUTEST_OS_WINDOWS_MOBILE)
     if( num == -1 )
     {
-        num = static_cast<int>(strlen(src));
+        num = static_cast<int>(strlen(str));
     }
-    ::std::string str;
-    const char* p = src;
+    ::std::string ret;
+    const char* p = str;
     //char* locale = setlocale(LC_CTYPE, "JPN");
-    for(const char* end = src + num; p < end; )
+    for(const char* end = str + num; p < end; )
     {
         wchar_t wc=0;
         const int len = iu_mbtowc(&wc, p, MB_CUR_MAX);
         if( len > 1 )
         {
-            str += AnyStringToUTF8(&wc, 1);
+            ret += AnyStringToUTF8(&wc, 1);
             p += len;
         }
         else
         {
-            str += *p;
+            ret += *p;
             ++p;
         }
     }
     //setlocale(LC_CTYPE, locale);
-    return str;
+    return ret;
 #else
     IUTEST_UNUSED_VAR(num);
-    return src;
+    return str;
 #endif
 }
 

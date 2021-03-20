@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -44,7 +44,7 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationStart(const Un
         detail::iuConsole::color_output(detail::iuConsole::yellow, "Note: Randomizing tests' orders with a seed of %u\n", test.random_seed());
     }
     detail::iuConsole::color_output(detail::iuConsole::green, "[==========] ");
-    detail::iuConsole::output("Running %d tests from %d test cases.\n", test.test_to_run_count(), test.test_case_to_run_count() );
+    detail::iuConsole::output("Running %d tests from %d test suites.\n", test.test_to_run_count(), test.test_suite_to_run_count() );
 }
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnEnvironmentsSetUpStart(const UnitTest& test)
 {
@@ -57,20 +57,20 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnEnvironmentsSetUpEnd(const 
 {
     IUTEST_UNUSED_VAR(test);
 }
-IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestCaseStart(const TestCase& test_case)
+IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestSuiteStart(const TestSuite& test_suite)
 {
     detail::iuConsole::color_output(detail::iuConsole::green, "[----------] ");
-    detail::iuConsole::output("%d tests from %s\n", test_case.test_to_run_count(), test_case.testcase_name_with_where().c_str() );
+    detail::iuConsole::output("%d tests from %s\n", test_suite.test_to_run_count(), test_suite.testsuite_name_with_where().c_str() );
 }
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestStart(const TestInfo& test_info)
 {
     detail::iuConsole::color_output(detail::iuConsole::green, "[ RUN      ] ");
-    detail::iuConsole::output("%s.%s\n", test_info.test_case_name(), test_info.name());
+    detail::iuConsole::output("%s.%s\n", test_info.test_suite_name(), test_info.name());
 }
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestPartResult(const TestPartResult& test_part_result)
 {
     //if( test_part_result.type() == TestPartResult::kSuccess ) return;
-    const std::string msg = test_part_result.make_newline_message();;
+    const std::string msg = test_part_result.make_newline_message();
 #if defined(_MSC_VER) && !defined(IUTEST_OS_WINDOWS_MOBILE)
     OutputDebugStringA(msg.c_str());
 #endif
@@ -85,17 +85,17 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::PrintTestResult(const TestInf
     if( test_info.HasFailure() )
     {
         detail::iuConsole::color_output(detail::iuConsole::red   , "[  FAILED  ] ");
-        detail::iuConsole::output("%s.%s", test_info.test_case_name(), test_info.test_name_with_where().c_str());
+        detail::iuConsole::output("%s.%s", test_info.test_suite_name(), test_info.test_name_with_where().c_str());
         return;
     }
     if( test_info.is_skipped() )
     {
         detail::iuConsole::color_output(detail::iuConsole::yellow, "[  SKIPPED ] ");
-        detail::iuConsole::output("%s.%s", test_info.test_case_name(), test_info.name());
+        detail::iuConsole::output("%s.%s", test_info.test_suite_name(), test_info.name());
         return;
     }
     detail::iuConsole::color_output(detail::iuConsole::green , "[       OK ] ");
-    detail::iuConsole::output("%s.%s", test_info.test_case_name(), test_info.name());
+    detail::iuConsole::output("%s.%s", test_info.test_suite_name(), test_info.name());
 }
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestEnd(const TestInfo& test_info)
 {
@@ -110,16 +110,16 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestEnd(const TestInfo& tes
     }
     detail::iuConsole::output("\n");
 }
-IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestCaseEnd(const TestCase& test_case)
+IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestSuiteEnd(const TestSuite& test_suite)
 {
     detail::iuConsole::color_output(detail::iuConsole::green, "[----------] ");
-    detail::iuConsole::output("%d tests from %s", test_case.test_to_run_count(), test_case.name() );
+    detail::iuConsole::output("%d tests from %s", test_suite.test_to_run_count(), test_suite.name() );
     if( TestFlag::IsEnableFlag(TestFlag::PRINT_TIME) )
     {
 #if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
         detail::iuConsole::output("(--ms total)");
 #else
-        detail::iuConsole::output("(%sms total)", detail::FormatTimeInMillisec(test_case.elapsed_time()).c_str());
+        detail::iuConsole::output("(%sms total)", detail::FormatTimeInMillisec(test_suite.elapsed_time()).c_str());
 #endif
     }
     detail::iuConsole::output("\n\n");
@@ -141,8 +141,8 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
     IUTEST_UNUSED_VAR(iteration);
 
     detail::iuConsole::color_output(detail::iuConsole::green, "[==========] ");
-    detail::iuConsole::output("%d tests from %d testcase ran."
-        , test.test_to_run_count(), test.test_case_to_run_count() );
+    detail::iuConsole::output("%d tests from %d testsuite ran."
+        , test.test_to_run_count(), test.test_suite_to_run_count() );
     if( TestFlag::IsEnableFlag(TestFlag::PRINT_TIME) )
     {
 #if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
@@ -166,16 +166,16 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
                 detail::iuConsole::output("%d tests.\n", count );
                 if( TestFlag::IsEnableFlag(TestFlag::VERBOSE) )
                 {
-                    for( int i=0, case_count=test.total_test_case_count(); i < case_count; ++i )
+                    for( int i=0, case_count=test.total_test_suite_count(); i < case_count; ++i )
                     {
-                        const TestCase* testcase = test.GetTestCase(i);
-                        for( int j=0, info_count=testcase->total_test_count(); j < info_count; ++j )
+                        const TestSuite* testsuite = test.GetTestSuite(i);
+                        for( int j=0, info_count=testsuite->total_test_count(); j < info_count; ++j )
                         {
-                            const TestInfo* testinfo = testcase->GetTestInfo(j);
+                            const TestInfo* testinfo = testsuite->GetTestInfo(j);
                             if( testinfo->is_disabled_test() )
                             {
                                 detail::iuConsole::color_output(detail::iuConsole::yellow, "[ DISABLED ] ");
-                                detail::iuConsole::output("%s.%s\n", testinfo->test_case_name(), testinfo->name());
+                                detail::iuConsole::output("%s.%s\n", testinfo->test_suite_name(), testinfo->name());
                             }
                         }
                     }
@@ -190,16 +190,16 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
                 detail::iuConsole::output("%d tests.\n", count );
                 if( TestFlag::IsEnableFlag(TestFlag::VERBOSE) )
                 {
-                    for( int i=0, case_count=test.total_test_case_count(); i < case_count; ++i )
+                    for( int i=0, case_count=test.total_test_suite_count(); i < case_count; ++i )
                     {
-                        const TestCase* testcase = test.GetTestCase(i);
-                        for( int j=0, info_count=testcase->total_test_count(); j < info_count; ++j )
+                        const TestSuite* testsuite = test.GetTestSuite(i);
+                        for( int j=0, info_count=testsuite->total_test_count(); j < info_count; ++j )
                         {
-                            const TestInfo* testinfo = testcase->GetTestInfo(j);
+                            const TestInfo* testinfo = testsuite->GetTestInfo(j);
                             if( testinfo->is_skipped() )
                             {
                                 detail::iuConsole::color_output(detail::iuConsole::yellow, "[  SKIPPED ] ");
-                                detail::iuConsole::output("%s.%s\n", testinfo->test_case_name(), testinfo->name());
+                                detail::iuConsole::output("%s.%s\n", testinfo->test_suite_name(), testinfo->name());
                             }
                         }
                     }
@@ -213,22 +213,22 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
             detail::iuConsole::color_output(detail::iuConsole::red, "[  FAILED  ] ");
             detail::iuConsole::output("%d %s, listed below:\n", failed_num, failed_num == 1 ? "test" : "tests" );
 
-            for( int i=0, count=test.total_test_case_count(); i < count; ++i )
+            for( int i=0, count=test.total_test_suite_count(); i < count; ++i )
             {
-                const TestCase* testcase = test.GetTestCase(i);
-                for( int j=0, info_count=testcase->total_test_count(); j < info_count; ++j )
+                const TestSuite* testsuite = test.GetTestSuite(i);
+                for( int j=0, info_count=testsuite->total_test_count(); j < info_count; ++j )
                 {
-                    const TestInfo* testinfo = testcase->GetTestInfo(j);
+                    const TestInfo* testinfo = testsuite->GetTestInfo(j);
                     if( testinfo->HasFailure() )
                     {
                         detail::iuConsole::color_output(detail::iuConsole::red, "[  FAILED  ] ");
-                        detail::iuConsole::output("%s.%s\n", testinfo->test_case_name(), testinfo->name());
+                        detail::iuConsole::output("%s.%s\n", testinfo->test_suite_name(), testinfo->name());
                     }
                 }
-                if( testcase->ad_hoc_test_result()->Failed() )
+                if( testsuite->ad_hoc_test_result()->Failed() )
                 {
                     detail::iuConsole::color_output(detail::iuConsole::red, "[  FAILED  ] ");
-                    detail::iuConsole::output("%s at SetUpTestCase/TearDownTestCase\n", testcase->name());
+                    detail::iuConsole::output("%s at SetUpTestSuite/TearDownTestSuite\n", testsuite->name());
                 }
             }
 

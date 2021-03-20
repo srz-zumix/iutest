@@ -93,27 +93,28 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& m)
  */
 
 #define IIUT_DECL_COMPARE_MATCHER(name, op)  \
-    template<typename T>class IUTEST_PP_CAT(name, Matcher): public IMatcher{    \
+    template<typename T>                                                        \
+    class IUTEST_PP_CAT(name, Matcher) IUTEST_CXX_FINAL : public IMatcher {     \
     public: explicit IUTEST_PP_CAT(name, Matcher)(const T& v) : m_expected(v) {}\
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                         \
         iu_global_format_stringstream strm;                                     \
         strm << #name ": " << m_expected; return strm.str();                    \
     }                                                                           \
     template<typename U>AssertionResult operator ()(const U& actual) const {    \
-        if( actual op m_expected ) return AssertionSuccess();                   \
+        if IUTEST_COND_LIKELY( actual op m_expected ) return AssertionSuccess();\
         return AssertionFailure() << WhichIs();                                 \
     }                                                                           \
     private: const T& m_expected;                                               \
     }
 
 #define IIUT_DECL_COMPARE_MATCHER2(name, op) \
-    class IUTEST_PP_CAT(Twofold, IUTEST_PP_CAT(name, Matcher)): public IMatcher{        \
-    public: ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return #name; }         \
-    template<typename T, typename U>AssertionResult operator ()                         \
-        (const T& actual, const U& expected) const {                                    \
-        if( actual op expected ) return AssertionSuccess();                             \
-        return AssertionFailure() << WhichIs() << ": " << actual << " vs " << expected; \
-    }                                                                                   \
+    class IUTEST_PP_CAT(Twofold, IUTEST_PP_CAT(name, Matcher)) IUTEST_CXX_FINAL : public IMatcher{  \
+    public: ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return #name; }                     \
+    template<typename T, typename U>AssertionResult operator ()                                     \
+        (const T& actual, const U& expected) const {                                                \
+        if IUTEST_COND_LIKELY( actual op expected ) return AssertionSuccess();                      \
+        return AssertionFailure() << WhichIs() << ": " << actual << " vs " << expected;             \
+    }                                                                                               \
     }
 
 
@@ -139,10 +140,11 @@ IUTEST_PRAGMA_WARN_POP()
 #undef IIUT_DECL_COMPARE_MATCHER2
 
 #define IIUT_DECL_STR_COMPARE_MATCHER(name)  \
-    template<typename T>class IUTEST_PP_CAT(name, Matcher): public IMatcher {   \
+    template<typename T>                                                        \
+    class IUTEST_PP_CAT(name, Matcher) IUTEST_CXX_FINAL : public IMatcher {     \
     public: IUTEST_PP_CAT(name, Matcher)(const T& value) : m_expected(value) {} \
     template<typename U>AssertionResult operator ()(const U& actual) const {    \
-        if( internal::IUTEST_PP_CAT(name, Helper)::Compare(                     \
+        if IUTEST_COND_LIKELY( internal::IUTEST_PP_CAT(name, Helper)::Compare(  \
             actual, m_expected) ) { return AssertionSuccess(); }                \
         return AssertionFailure() << WhichIs();                                 \
     }                                                                           \
@@ -168,13 +170,13 @@ IIUT_DECL_STR_COMPARE_MATCHER(StrCaseNe);
 /**
  * @brief   IsNull matcher
 */
-class IsNullMatcher : public IMatcher
+class IsNullMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     template<typename U>
-    AssertionResult operator ()(const U* actual) const
+    AssertionResult operator ()(const U& actual) const
     {
-        if( actual == NULL )
+        if IUTEST_COND_LIKELY( actual == IUTEST_NULLPTR )
         {
             return AssertionSuccess();
         }
@@ -189,18 +191,19 @@ public:
 /**
  * @brief   NotNull matcher
 */
-class NotNullMatcher : public IMatcher
+class NotNullMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     template<typename U>
-    AssertionResult operator ()(const U* actual) const
+    AssertionResult operator ()(const U& actual) const
     {
-        if( actual != NULL )
+        if IUTEST_COND_LIKELY( actual != IUTEST_NULLPTR )
         {
             return AssertionSuccess();
         }
         return AssertionFailure() << WhichIs();
     }
+
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         return "Not Null";
@@ -211,7 +214,7 @@ public:
  * @brief   Floating point Eq matcher
 */
 template<typename T>
-class FloatingPointEqMatcher : public IMatcher
+class FloatingPointEqMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit FloatingPointEqMatcher(const T& value) : m_expected(value) {}
@@ -220,8 +223,8 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        floating_point<T> f2(actual);
-        if( m_expected.AlmostEquals(f2) )
+        const floating_point<T> f2(actual);
+        if IUTEST_COND_LIKELY( m_expected.AlmostEquals(f2) )
         {
             return AssertionSuccess();
         }
@@ -242,7 +245,7 @@ private:
  * @brief   Floating point Eq matcher (NanSensitive)
 */
 template<typename T>
-class NanSensitiveFloatingPointEqMatcher : public IMatcher
+class NanSensitiveFloatingPointEqMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit NanSensitiveFloatingPointEqMatcher(const T& value) : m_expected(value) {}
@@ -251,8 +254,8 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        floating_point<T> f2(actual);
-        if( m_expected.NanSensitiveAlmostEquals(f2) )
+        const floating_point<T> f2(actual);
+        if IUTEST_COND_LIKELY( m_expected.NanSensitiveAlmostEquals(f2) )
         {
             return AssertionSuccess();
         }
@@ -273,7 +276,7 @@ private:
  * @brief   Floating point Near matcher
 */
 template<typename T>
-class FloatingPointNearMatcher : public IMatcher
+class FloatingPointNearMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit FloatingPointNearMatcher(const T& value, const T& abs_error)
@@ -283,8 +286,8 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        floating_point<T> a(actual);
-        if( m_expected.AlmostNear(a, m_max_abs_error) )
+        const floating_point<T> a(actual);
+        if IUTEST_COND_LIKELY( m_expected.AlmostNear(a, m_max_abs_error) )
         {
             return AssertionSuccess();
         }
@@ -306,7 +309,7 @@ private:
  * @brief   Floating point Near matcher (NanSensitive)
 */
 template<typename T>
-class NanSensitiveFloatingPointNearMatcher : public IMatcher
+class NanSensitiveFloatingPointNearMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit NanSensitiveFloatingPointNearMatcher(const T& value, const T& abs_error)
@@ -316,8 +319,8 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        floating_point<T> a(actual);
-        if( m_expected.NanSensitiveAlmostNear(a, m_max_abs_error) )
+        const floating_point<T> a(actual);
+        if IUTEST_COND_LIKELY( m_expected.NanSensitiveAlmostNear(a, m_max_abs_error) )
         {
             return AssertionSuccess();
         }
@@ -339,7 +342,7 @@ private:
  * @brief   StartsWith matcher
 */
 template<typename T>
-class StartsWithMatcher : public IMatcher
+class StartsWithMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit StartsWithMatcher(T str) : m_expected(str) {}
@@ -348,7 +351,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        if( StartsWith(actual, m_expected) )
+        if IUTEST_COND_LIKELY( StartsWith(actual, m_expected) )
         {
             return AssertionSuccess();
         }
@@ -390,7 +393,7 @@ private:
  * @brief   Has substr matcher
 */
 template<typename T>
-class HasSubstrMatcher : public IMatcher
+class HasSubstrMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit HasSubstrMatcher(T expected) : m_expected(expected) {}
@@ -398,7 +401,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        if( HasSubstr(actual, m_expected) )
+        if IUTEST_COND_LIKELY( HasSubstr(actual, m_expected) )
         {
             return AssertionSuccess();
         }
@@ -441,7 +444,7 @@ private:
  * @brief   EndsWith matcher
 */
 template<typename T>
-class EndsWithMatcher : public IMatcher
+class EndsWithMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit EndsWithMatcher(T str) : m_expected(str) {}
@@ -450,7 +453,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        if( EndsWith(actual, m_expected) )
+        if IUTEST_COND_LIKELY( EndsWith(actual, m_expected) )
         {
             return AssertionSuccess();
         }
@@ -516,7 +519,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        if( Equals(actual, m_expected) )
+        if IUTEST_COND_LIKELY( Equals(actual, m_expected) )
         {
             return AssertionSuccess();
         }
@@ -527,7 +530,7 @@ public:
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
-        strm << "Eq: " << m_expected;
+        strm << "Eq: " << PrintToString(m_expected);
         return strm.str();
     }
 private:
@@ -561,7 +564,7 @@ private:
  * @brief   TypedEq matcher
 */
 template<typename T>
-class TypedEqMatcher : public EqMatcher<T>
+class TypedEqMatcher IUTEST_CXX_FINAL : public EqMatcher<T>
 {
 public:
     explicit TypedEqMatcher(T expected) : EqMatcher<T>(m_expected), m_expected(expected) {}
@@ -611,7 +614,7 @@ T& CastToMatcher(T& matcher)
  * @brief   Contains matcher
 */
 template<typename T>
-class ContainsMatcher : public IMatcher
+class ContainsMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit ContainsMatcher(const T& expected) : m_expected(expected) {}
@@ -621,7 +624,7 @@ public:
     AssertionResult operator ()(const U& actual)
     {
         IUTEST_USING_BEGIN_END();
-        if( Contains(begin(actual), end(actual)) )
+        if IUTEST_COND_LIKELY( Contains(begin(actual), end(actual)) )
         {
             return AssertionSuccess();
         }
@@ -659,7 +662,7 @@ private:
  * @brief   Each matcher
 */
 template<typename T>
-class EachMatcher : public IMatcher
+class EachMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit EachMatcher(const T& expected) : m_expected(expected) {}
@@ -669,7 +672,7 @@ public:
     AssertionResult operator ()(const U& actual)
     {
         IUTEST_USING_BEGIN_END();
-        if( Each(begin(actual), end(actual)) )
+        if IUTEST_COND_LIKELY( Each(begin(actual), end(actual)) )
         {
             return AssertionSuccess();
         }
@@ -707,7 +710,7 @@ private:
  * @brief   ContainerEq matcher
 */
 template<typename T>
-class ContainerEqMatcher : public IMatcher
+class ContainerEqMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit ContainerEqMatcher(const T& expected) : m_expected(expected) {}
@@ -717,7 +720,7 @@ public:
     AssertionResult operator ()(const U& actual)
     {
         IUTEST_USING_BEGIN_END();
-        if( Check(begin(m_expected), end(m_expected)
+        if IUTEST_COND_LIKELY( Check(begin(m_expected), end(m_expected)
             , begin(actual), end(actual)) )
         {
             return AssertionSuccess();
@@ -773,7 +776,7 @@ private:
  * @brief   Pointwise matcher
 */
 template<typename M, typename T>
-class PointwiseMatcher : public IMatcher
+class PointwiseMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     PointwiseMatcher(const M& matcher, const T& expected)
@@ -784,7 +787,7 @@ public:
     AssertionResult operator ()(const U& actual)
     {
         IUTEST_USING_BEGIN_END();
-        if( Check(begin(m_expected), end(m_expected)
+        if IUTEST_COND_LIKELY( Check(begin(m_expected), end(m_expected)
             , begin(actual), end(actual)) )
         {
             return AssertionSuccess();
@@ -835,16 +838,75 @@ private:
 
 #endif
 
+#if IUTEST_HAS_MATCHER_OPTIONAL
+
+/**
+ * @brief   Optional matcher
+*/
+template<typename T>
+class OptionalMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    explicit OptionalMatcher(const T& expected)
+        : m_expected(expected) {}
+
+public:
+    template<typename U>
+    AssertionResult operator ()(const U& actual)
+    {
+        if( Check(actual) )
+        {
+            return AssertionSuccess();
+        }
+        return AssertionFailure() << WhichIs();
+    }
+
+private:
+    template<typename U>
+    bool Check(const U& actual)
+    {
+        bool result = true;
+        Message ar;
+        if( !actual )
+        {
+            result = false;
+            ar << "which is not engaged";
+        }
+        else if( !CastToMatcher(m_expected)(*actual) )
+        {
+            result = false;
+            ar << actual;
+        }
+        m_whichIs = ar.GetString();
+        return result;
+    }
+
+public:
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        iu_global_format_stringstream strm;
+        strm << "Optional: " << PrintToString(m_expected);
+        strm << " (" << m_whichIs << ")";
+        return strm.str();
+    }
+private:
+    const T& m_expected;
+    ::std::string m_whichIs;
+};
+
+#endif
+
+
 /**
  * @brief   IsEmpty matcher
 */
-class IsEmptyMatcher : public IMatcher
+class IsEmptyMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     template<typename U>
     AssertionResult operator ()(const U& actual)
     {
-        if( (actual).empty() )
+        if IUTEST_COND_LIKELY( (actual).empty() )
         {
             return AssertionSuccess();
         }
@@ -863,7 +925,7 @@ public:
  * @brief   SizeIs matcher
 */
 template<typename T>
-class SizeIsMatcher : public IMatcher
+class SizeIsMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit SizeIsMatcher(const T& expected) : m_expected(expected) {}
@@ -872,7 +934,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual)
     {
-        if( Check(actual) )
+        if IUTEST_COND_LIKELY( Check(actual) )
         {
             return AssertionSuccess();
         }
@@ -908,7 +970,7 @@ private:
  * @brief   At matcher
 */
 template<typename T>
-class AtMatcher : public IMatcher
+class AtMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     AtMatcher(size_t index, const T& expected) : m_index(index), m_expected(expected) {}
@@ -917,7 +979,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual)
     {
-        if( CastToMatcher(m_expected)(actual[m_index]) )
+        if IUTEST_COND_LIKELY( CastToMatcher(m_expected)(actual[m_index]) )
         {
             return AssertionSuccess();
         }
@@ -941,7 +1003,7 @@ private:
  * @brief   ElementsAreArray matcher
 */
 template<typename T>
-class ElementsAreArrayMatcher : public IMatcher
+class ElementsAreArrayMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     template<typename It>
@@ -984,13 +1046,13 @@ private:
     {
         const size_t actual_cnt = ::std::distance(actual_begin, actual_end);
         const size_t expected_cnt = m_expected.size();
-        if( actual_cnt < expected_cnt )
+        if IUTEST_COND_UNLIKELY( actual_cnt < expected_cnt )
         {
             iu_global_format_stringstream stream;
             stream << "actual argument[" << actual_cnt << "] is less than " << expected_cnt;
             return AssertionFailure() << WhichIs(stream.str());
         }
-        if( m_expected_elem_count && actual_cnt > expected_cnt )
+        if IUTEST_COND_UNLIKELY( m_expected_elem_count && actual_cnt > expected_cnt )
         {
             iu_global_format_stringstream stream;
             stream << "actual argument[" << actual_cnt << "] is greater than " << expected_cnt;
@@ -1002,7 +1064,7 @@ private:
         for( int i=0; it_a != actual_end && it_e != m_expected.end(); ++it_e, ++it_a, ++i )
         {
             (void)i;
-            if( *it_a != *it_e )
+            if IUTEST_COND_UNLIKELY( *it_a != *it_e )
             {
                 return AssertionFailure() << WhichIs();
             }
@@ -1042,7 +1104,7 @@ private:
     static AssertionResult Check(Ite it, Ite end, M& matchers)
     {
         const size_t cnt = ::std::distance(it, end);
-        if( cnt < LAST+1 )
+        if IUTEST_COND_UNLIKELY( cnt < LAST+1 )
         {
             return AssertionFailure() << "ElementsAre: argument[" << cnt << "] is less than " << LAST+1;
         }
@@ -1056,7 +1118,7 @@ private:
         for( int index=N; it != end; ++it, ++index )
         {
             AssertionResult ar = CastToMatcher(tuples::get<N>(matchers))(*it);
-            if( !ar )
+            if IUTEST_COND_UNLIKELY( !ar )
             {
                 return AssertionFailure() << WhichIsElem<N>(matchers, index);
             }
@@ -1069,7 +1131,7 @@ private:
         , typename detail::disable_if<N == LAST, void>::type*& = detail::enabler::value)
     {
         AssertionResult ar = CastToMatcher(tuples::get<N>(matchers))(*it);
-        if( ar )
+        if IUTEST_COND_LIKELY( ar )
         {
             return CheckElem<N + 1, LAST>(++it, end, matchers);
         }
@@ -1104,7 +1166,7 @@ private:
 * @brief    ElementsAre matcher
 */
 template<typename ...T>
-class ElementsAreMatcher : public ElementsAreMatcherBase
+class ElementsAreMatcher IUTEST_CXX_FINAL : public ElementsAreMatcherBase
 {
 public:
     explicit ElementsAreMatcher(T... t) : m_matchers(t...) {}
@@ -1128,7 +1190,7 @@ private:
 
 /*
 template<typename T0, typename T1>
-class ElementsAreMatcher : public ElementsAreMatcherBase
+class ElementsAreMatcher IUTEST_CXX_FINAL : public ElementsAreMatcherBase
 {
 public:
     ElementsAreMatcher(T0 m0, T1 m1) : m_matchers(m0, m1) {}
@@ -1150,7 +1212,7 @@ private:
 
 #define IIUT_DECL_ELEMENTSARE_MATCHER(n)                                                \
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                                    \
-    class IUTEST_PP_CAT(ElementsAreMatcher, n) : public ElementsAreMatcherBase {        \
+    class IUTEST_PP_CAT(ElementsAreMatcher, n) IUTEST_CXX_FINAL : public ElementsAreMatcherBase {   \
     public: IUTEST_PP_CAT(ElementsAreMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, T, m)) \
         : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                    \
     template<typename U>AssertionResult operator ()(const U& actual) {                  \
@@ -1182,7 +1244,7 @@ IIUT_DECL_ELEMENTSARE_MATCHER(10);
  * @brief   Field matcher
 */
 template<typename F, typename T>
-class FieldMatcher : public IMatcher
+class FieldMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     FieldMatcher(const F& field, const T& expected) : m_field(field), m_expected(expected) {}
@@ -1191,7 +1253,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual)
     {
-        if( Check(actual) )
+        if IUTEST_COND_LIKELY( Check(actual) )
         {
             return AssertionSuccess();
         }
@@ -1237,7 +1299,7 @@ private:
  * @brief   Property matcher
 */
 template<typename F, typename T>
-class PropertyMatcher : public IMatcher
+class PropertyMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     PropertyMatcher(const F& prop, const T& expected) : m_property(prop), m_expected(expected) {}
@@ -1246,7 +1308,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual)
     {
-        if( Check(actual) )
+        if IUTEST_COND_LIKELY( Check(actual) )
         {
             return AssertionSuccess();
         }
@@ -1292,7 +1354,7 @@ private:
  * @brief   Key matcher
 */
 template<typename T>
-class KeyMatcher : public IMatcher
+class KeyMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit KeyMatcher(const T& expected) : m_expected(expected) {}
@@ -1301,7 +1363,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        if( CastToMatcher(m_expected)(actual.first) )
+        if IUTEST_COND_LIKELY( CastToMatcher(m_expected)(actual.first) )
         {
             return AssertionSuccess();
         }
@@ -1324,7 +1386,7 @@ private:
  * @brief   Pair matcher
 */
 template<typename T1, typename T2>
-class PairMatcher : public IMatcher
+class PairMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     PairMatcher(const T1& m1, const T2& m2) : m_m1(m1), m_m2(m2) {}
@@ -1333,11 +1395,11 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual)
     {
-        if( !CheckElem(actual.first, m_m1) )
+        if IUTEST_COND_UNLIKELY( !CheckElem(actual.first, m_m1) )
         {
             return AssertionFailure() << WhichIs();
         }
-        if( !CheckElem(actual.second, m_m2) )
+        if IUTEST_COND_UNLIKELY( !CheckElem(actual.second, m_m2) )
         {
             return AssertionFailure() << WhichIs();
         }
@@ -1367,7 +1429,7 @@ private:
  * @brief   ResultOf matcher
 */
 template<typename F, typename T>
-class ResultOfMatcher : public IMatcher
+class ResultOfMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     ResultOfMatcher(F& func, const T& expected) : m_func(func), m_expected(expected) {}
@@ -1376,7 +1438,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual)
     {
-        if( Check(actual) )
+        if IUTEST_COND_LIKELY( Check(actual) )
         {
             return AssertionSuccess();
         }
@@ -1406,7 +1468,7 @@ private:
  * @brief   Pointee matcher
 */
 template<typename T>
-class PointeeMatcher : public IMatcher
+class PointeeMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit PointeeMatcher(const T& expected) : m_expected(expected) {}
@@ -1415,7 +1477,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual)
     {
-        if( Check(actual) )
+        if IUTEST_COND_LIKELY( Check(actual) )
         {
             return AssertionSuccess();
         }
@@ -1443,7 +1505,7 @@ private:
  * @brief   Not matcher
 */
 template<typename T>
-class NotMatcher : public IMatcher
+class NotMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit NotMatcher(const T& unexpected) : m_unexpected(unexpected) {}
@@ -1452,7 +1514,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual)
     {
-        if( !CastToMatcher(m_unexpected)(actual) )
+        if IUTEST_COND_LIKELY( !CastToMatcher(m_unexpected)(actual) )
         {
             return AssertionSuccess();
         }
@@ -1475,7 +1537,7 @@ private:
  * @brief   Any matcher
 */
 template<typename T>
-class AnyMatcher : public IMatcher
+class AnyMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     AssertionResult operator ()(const T&) const
@@ -1497,7 +1559,7 @@ public:
 /**
  * @brief   Anything matcher
 */
-class AnythingMatcher : public IMatcher
+class AnythingMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     AnythingMatcher() {}
@@ -1520,7 +1582,7 @@ public:
 /**
  * @brief   Regex matcher
 */
-class RegexMatcher : public IMatcher
+class RegexMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     RegexMatcher(const detail::iuRegex& expected, bool full_match) : m_expected(expected), m_full_match(full_match) {}
@@ -1529,7 +1591,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        if( Regex(actual) )
+        if IUTEST_COND_LIKELY( Regex(actual) )
         {
             return AssertionSuccess();
         }
@@ -1592,7 +1654,7 @@ private:
     static AssertionResult Check_(T& matchers, const U& actual, typename detail::enable_if<N == LAST, void>::type*& = detail::enabler::value)
     {
         AssertionResult ar = tuples::get<N>(matchers)(actual);
-        if( ar )
+        if IUTEST_COND_LIKELY( ar )
         {
             return ar;
         }
@@ -1602,7 +1664,7 @@ private:
     static AssertionResult Check_(T& matchers, const U& actual, typename detail::disable_if<N == LAST, void>::type*& = detail::enabler::value)
     {
         AssertionResult ar = tuples::get<N>(matchers)(actual);
-        if( ar )
+        if IUTEST_COND_LIKELY( ar )
         {
             return Check_<T, U, N + 1, LAST>(matchers, actual);
         }
@@ -1627,7 +1689,7 @@ private:
  * @brief   AllOf matcher
 */
 template<typename ...T>
-class AllOfMatcher : public AllOfMatcherBase
+class AllOfMatcher IUTEST_CXX_FINAL : public AllOfMatcherBase
 {
 public:
     explicit AllOfMatcher(T... t) : m_matchers(t...) {}
@@ -1651,7 +1713,7 @@ private:
 
 /*
 template<typename T0, typename T1>
-class AllOfMatcher : public AllOfMatcherBase
+class AllOfMatcher IUTEST_CXX_FINAL : public AllOfMatcherBase
 {
 public:
     AllOfMatcher(T0 m0, T1 m1) : m_matchers(m0, m1) {}
@@ -1673,7 +1735,7 @@ private:
 
 #define IIUT_DECL_ALLOF_MATCHER(n)                                                  \
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                                \
-    class IUTEST_PP_CAT(AllOfMatcher, n) : public AllOfMatcherBase {                \
+    class IUTEST_PP_CAT(AllOfMatcher, n) IUTEST_CXX_FINAL : public AllOfMatcherBase {   \
     public: IUTEST_PP_CAT(AllOfMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, T, m))   \
         : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                \
     template<typename U>AssertionResult operator ()(const U& actual) {              \
@@ -1719,7 +1781,7 @@ private:
     static AssertionResult Check_(T& matchers, const U& actual, typename detail::enable_if<N == LAST, void>::type*& = detail::enabler::value)
     {
         AssertionResult ar = tuples::get<N>(matchers)(actual);
-        if( ar )
+        if IUTEST_COND_LIKELY( ar )
         {
             return ar;
         }
@@ -1729,7 +1791,7 @@ private:
     static AssertionResult Check_(T& matchers, const U& actual, typename detail::disable_if<N == LAST, void>::type*& = detail::enabler::value)
     {
         AssertionResult ar = tuples::get<N>(matchers)(actual);
-        if( ar )
+        if IUTEST_COND_LIKELY( ar )
         {
             return ar;
         }
@@ -1754,7 +1816,7 @@ private:
  * @brief   AnyOf matcher
 */
 template<typename ...T>
-class AnyOfMatcher : public AnyOfMatcherBase
+class AnyOfMatcher IUTEST_CXX_FINAL : public AnyOfMatcherBase
 {
 public:
     explicit AnyOfMatcher(T... t) : m_matchers(t...) {}
@@ -1778,7 +1840,7 @@ private:
 
 /*
 template<typename T0, typename T1>
-class AnyOfMatcher : public AnyOfMatcherBase
+class AnyOfMatcher IUTEST_CXX_FINAL : public AnyOfMatcherBase
 {
 public:
     AnyOfMatcher(T0 m0, T1 m1) : m_matchers(m0, m1) {}
@@ -1800,7 +1862,7 @@ private:
 
 #define IIUT_DECL_ANYOF_MATCHER(n)                                                  \
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                                \
-    class IUTEST_PP_CAT(AnyOfMatcher, n) : public AnyOfMatcherBase {                \
+    class IUTEST_PP_CAT(AnyOfMatcher, n) IUTEST_CXX_FINAL : public AnyOfMatcherBase {   \
     public: IUTEST_PP_CAT(AnyOfMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, T, m))   \
         : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                \
     template<typename U>AssertionResult operator ()(const U& actual) {              \
@@ -2277,6 +2339,20 @@ template<typename M, typename T>
 detail::PointwiseMatcher<M, T> Pointwise(const M& matcher, const T& expected)
 {
     return detail::PointwiseMatcher<M, T>(matcher, expected);
+}
+
+#endif
+
+#if IUTEST_HAS_MATCHER_OPTIONAL
+
+/**
+ * @brief   Make Optional matcher
+ * @details argument は expected にマッチする
+*/
+template<typename T>
+detail::OptionalMatcher<T> Optional(const T& expected)
+{
+    return detail::OptionalMatcher<T>(expected);
 }
 
 #endif

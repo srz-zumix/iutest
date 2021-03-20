@@ -27,10 +27,58 @@
 #  endif
 #endif
 
+// for clang
+#if defined(__clang__)
+#  if !defined(IUTEST_CLANG_MAJOR)
+#    if defined(__APPLE__)
+#      if __clang_major__ > 11
+#        define IUTEST_CLANG_MAJOR      10
+#      elif __clang_major__ > 10
+#        if __clang_minor__ > 3
+#          define IUTEST_CLANG_MAJOR    9
+#        else
+#          define IUTEST_CLANG_MAJOR    8
+#        endif
+#      elif __clang_major__ > 9
+#        if __clang_minor__ > 1
+#          define IUTEST_CLANG_MAJOR    7
+#        else
+#          define IUTEST_CLANG_MAJOR    6
+#        endif
+#      elif __clang_major__ > 8
+#        if __clang_minor__ > 2
+#          define IUTEST_CLANG_MAJOR    5
+#        else
+#          define IUTEST_CLANG_MAJOR    4
+#        endif
+#      else
+#        define IUTEST_CLANG_MAJOR      3
+#        if __clang_major__ > 7
+#          define IUTEST_CLANG_MINOR    9
+#        elif __clang_major__ > 6
+#          if __clang_minor__ > 2
+#            define IUTEST_CLANG_MINOR  8
+#          else
+#            define IUTEST_CLANG_MINOR  7
+#          endif
+#        else
+#          define IUTEST_CLANG_MINOR    __clang_major__
+#        endif
+#      endif
+#    else
+#      define IUTEST_CLANG_MAJOR  __clang_major__
+#    endif
+#  endif
+#  if !defined(IUTEST_CLANG_MINOR)
+#    define IUTEST_CLANG_MINOR  __clang_minor__
+#  endif
+#endif
+
 // __cplusplus numbers
 #define IUTEST_CPLUSPLUS_CXX11 201103L
 #define IUTEST_CPLUSPLUS_CXX14 201402L
 #define IUTEST_CPLUSPLUS_CXX17 201703L
+#define IUTEST_CPLUSPLUS_CXX20 202002L
 
 // __cplusplus
 #if     defined(_MSVC_LANG)
@@ -39,6 +87,30 @@
 #  define IUTEST_CPLUSPLUS      __cplusplus
 #else
 #  define IUTEST_CPLUSPLUS      0
+#endif
+
+// c++2a
+
+#if !defined(IUTEST_HAS_CXX2B)
+#  if IUTEST_CPLUSPLUS > IUTEST_CPLUSPLUS_CXX20
+#    define IUTEST_HAS_CXX2B        1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CXX2B)
+#  define IUTEST_HAS_CXX2B          0
+#endif
+
+// c++20
+
+#if !defined(IUTEST_HAS_CXX20)
+#  if IUTEST_CPLUSPLUS >= IUTEST_CPLUSPLUS_CXX20
+#    define IUTEST_HAS_CXX20        1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CXX20)
+#  define IUTEST_HAS_CXX20          0
 #endif
 
 // c++2a
@@ -99,6 +171,8 @@
 
 
 // c++20 features
+
+//! has concepts
 #if !defined(IUTEST_HAS_CONCEPTS)
 #  if   defined(__cpp_concepts) && __cpp_concepts >= 201907
 #    define IUTEST_HAS_CONCEPTS             1
@@ -118,7 +192,7 @@
 #if   defined(__cpp_inline_variables) && __cpp_inline_variables >= 201606
 #  define IUTEST_HAS_INLINE_VARIABLE        1
 #elif defined(__clang__)
-#  if IUTEST_HAS_CXX1Z && (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 9))
+#  if IUTEST_HAS_CXX1Z && (IUTEST_CLANG_MAJOR > 3 || (IUTEST_CLANG_MAJOR == 3 && IUTEST_CLANG_MINOR >= 9))
 #    define IUTEST_HAS_INLINE_VARIABLE      1
 #  endif
 #endif
@@ -152,6 +226,9 @@
 #  elif defined(__clang__)
 #    if __has_feature(cxx_nullptr)
 #      define IUTEST_HAS_NULLPTR    1
+#    endif
+#    if  (IUTEST_CLANG_MAJOR < 3 || (IUTEST_CLANG_MAJOR == 3 && IUTEST_CLANG_MINOR <= 2))
+#      define IUTEST_NO_NULL_TO_NULLPTR_T   1   // -Wnull-conversion
 #    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
@@ -795,7 +872,11 @@
 // c++
 //! has exceptions
 #if !defined(IUTEST_HAS_EXCEPTIONS)
-#  if   defined(_MSC_VER) || defined(__BORLANDC__)
+#  if   defined(_MSC_VER)
+#    if defined(_CPPUNWIND) && _CPPUNWIND
+#      define IUTEST_HAS_EXCEPTIONS 1
+#    endif
+#  elif defined(__BORLANDC__)
 #    ifndef _HAS_EXCEPTIONS
 #      define _HAS_EXCEPTIONS       1
 #    endif
@@ -823,10 +904,10 @@
 #if !defined(IUTEST_HAS_SEH)
 #  if   defined(_WIN32) && !defined(__clang__)
 #    if defined(_MSC_VER) && _MSC_VER > 1400
-#      define IUTEST_HAS_SEH    1
+#      define IUTEST_HAS_SEH    IUTEST_HAS_EXCEPTIONS
 #    endif
 #  elif defined(__BORLANDC__)
-#    define IUTEST_HAS_SEH      1
+#    define IUTEST_HAS_SEH      IUTEST_HAS_EXCEPTIONS
 #  endif
 #endif
 
@@ -925,6 +1006,18 @@
 #    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_STATIC_MEMBER_FUNCTION 0
 #  else
 #    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_STATIC_MEMBER_FUNCTION 1
+#  endif
+#endif
+
+//! explicit instantiation access checking (overload member function)
+#if !defined(IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_OVERLOAD_MEMBER_FUNCTION)
+#  if defined(_MSC_VER) && (_MSC_VER < 1900)
+#    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_OVERLOAD_MEMBER_FUNCTION   0
+#  elif defined(__clang__)
+// Does clang give priority to access restrictions during overload resolution?
+#    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_OVERLOAD_MEMBER_FUNCTION   0
+#  else
+#    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_OVERLOAD_MEMBER_FUNCTION   1
 #  endif
 #endif
 
@@ -1079,7 +1172,7 @@
 //! has __if_exists
 #if !defined(IUTEST_HAS_IF_EXISTS)
 #  if defined(__clang__)
-#    if IUTEST_HAS_MS_EXTENSIONS && (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 5) )
+#    if IUTEST_HAS_MS_EXTENSIONS && (IUTEST_CLANG_MAJOR > 3 || (IUTEST_CLANG_MAJOR == 3 && IUTEST_CLANG_MINOR >= 5) )
 #      define IUTEST_HAS_IF_EXISTS          1
 #    endif
 #  elif defined(_MSC_VER) && _MSC_VER >= 1310
@@ -1175,18 +1268,60 @@
 #  define IUTEST_HAS_ATTRIBUTE      0
 #endif
 
+//! has likely/unlikely attribute
+#if !defined(IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY)
+#  if defined(__has_cpp_attribute)
+#    if __has_cpp_attribute(likely) >= 201803L && __has_cpp_attribute(unlikely) >= 201803L
+#      if defined(__GNUC__) && (__GNUC__ <= 9)
+// gcc 9.X likely is experimental. can be used in switch~case, cannot be used in if statement
+#        define IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY  0
+#       else
+#        define IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY  IUTEST_HAS_ATTRIBUTE
+#       endif
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY)
+#  define IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY      0
+#endif
+
+//! likely attribute
+#if !defined(IUTEST_ATTRIBUTE_LIKELY_)
+#  if IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY
+#    define IUTEST_ATTRIBUTE_LIKELY_    [[likely]]
+#  else
+#  endif
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_LIKELY_)
+#  define IUTEST_ATTRIBUTE_LIKELY_
+#endif
+
+//! unlikely attribute
+#if !defined(IUTEST_ATTRIBUTE_UNLIKELY_)
+#  if IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY
+#    define IUTEST_ATTRIBUTE_UNLIKELY_  [[unlikely]]
+#  else
+#  endif
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_UNLIKELY_)
+#  define IUTEST_ATTRIBUTE_UNLIKELY_
+#endif
+
 //! has deprecated attribute
 #if !defined(IUTEST_HAS_ATTRIBUTE_DEPRECATED)
 #  if defined(__has_cpp_attribute)
 #    if __has_cpp_attribute(deprecated) >= 201309
-#      define IUTEST_HAS_ATTRIBUTE_DEPRECATED   1
+#      define IUTEST_HAS_ATTRIBUTE_DEPRECATED   IUTEST_HAS_ATTRIBUTE
 #    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 9)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_ATTRIBUTE_DEPRECATED   1
 #    endif
 #  elif   defined(__clang__)
-#    if __clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 4)
+#    if IUTEST_CLANG_MAJOR > 3 || (IUTEST_CLANG_MAJOR == 3 && IUTEST_CLANG_MINOR >= 4)
 #      define IUTEST_HAS_ATTRIBUTE_DEPRECATED   1
 #    endif
 #  elif   defined(_MSC_VER)
@@ -1297,6 +1432,39 @@
 #  define IUTEST_ATTRIBUTE_FORMAT_PRINTF(fi, vi)
 #endif
 
+
+// builtin
+
+//! builtin expect
+#if !defined(IUTEST_HAS_BUILTIN_EXPECT)
+#  if defined(__clang__) || defined(__GNUC__)
+#    define IUTEST_HAS_BUILTIN_EXPECT   1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_BUILTIN_EXPECT)
+#  define IUTEST_HAS_BUILTIN_EXPECT     0
+#endif
+
+#if !defined(IUTEST_COND_LIKELY)
+#  if IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY
+#    define IUTEST_COND_LIKELY(cond)    (cond) IUTEST_ATTRIBUTE_LIKELY_
+#  elif IUTEST_HAS_BUILTIN_EXPECT
+#    define IUTEST_COND_LIKELY(cond)    (__builtin_expect(static_cast<bool>(!!(cond)), 1))
+#  else
+#    define IUTEST_COND_LIKELY(cond)    (cond)
+#  endif
+#endif
+
+#if !defined(IUTEST_COND_UNLIKELY)
+#  if IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY
+#    define IUTEST_COND_UNLIKELY(cond)  (cond) IUTEST_ATTRIBUTE_UNLIKELY_
+#  elif IUTEST_HAS_BUILTIN_EXPECT
+#    define IUTEST_COND_UNLIKELY(cond)  (__builtin_expect(static_cast<bool>(!!(cond)), 0))
+#  else
+#    define IUTEST_COND_UNLIKELY(cond)  (cond)
+#  endif
+#endif
 
 //! MemorySanitizer
 #if !defined(IUTEST_HAS_MEMORY_SANITIZER)

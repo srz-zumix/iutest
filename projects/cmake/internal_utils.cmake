@@ -1,6 +1,6 @@
 ﻿
 #
-# MT, MD 設定
+# for compiler configs
 #
 macro(fix_default_compiler_settings_)
   if (MSVC)
@@ -26,6 +26,12 @@ macro(fix_default_compiler_settings_)
       #else()
       #  set(${flag_var} "${${flag_var}} /W4")
       endif()
+
+      # /EHsc
+      # string(REPLACE "/EHsc" "" ${flag_var} "${${flag_var}}")
+      if (build_no_exceptions)
+        string(REPLACE "/EHsc" "/EHs-c- /D_HAS_EXCEPTIONS=0" ${flag_var} "${${flag_var}}")
+      endif()
     endforeach()
 
     foreach (flag_var
@@ -33,6 +39,15 @@ macro(fix_default_compiler_settings_)
             )
       message(STATUS "${flag_var}=${${flag_var}}")
     endforeach()
+
+    # experimental
+    if (build_use_experimental)
+      if(NOT (MSVC_VERSION LESS 1910))
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /experimental:preprocessor /Wv:18")
+      endif()
+    endif()
+  elseif (APPLE)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_LIBCPP_DISABLE_AVAILABILITY")
   endif()
   set(CMAKE_CXX_FLAGS_DEBUG_GTEST "${CMAKE_CXX_FLAGS_DEBUG} -DIUTEST_USE_GTEST")
   set(CMAKE_EXE_LINKER_FLAGS_DEBUG_GTEST ${CMAKE_EXE_LINKER_FLAGS_DEBUG})
@@ -40,7 +55,7 @@ endmacro()
 
 
 #
-# プロジェクト設定
+# project configs
 #
 macro(config_compiler_and_linker)
   fix_default_compiler_settings_()
@@ -51,7 +66,7 @@ macro(config_compiler_and_linker)
     set(cxx_base_flags "${cxx_base_flags} -D_UNICODE -DUNICODE -DWIN32 -D_WIN32")
     set(cxx_base_flags "${cxx_base_flags} -DSTRICT -DWIN32_LEAN_AND_MEAN")
     set(cxx_exception_flags "-EHsc -D_HAS_EXCEPTIONS=1")
-    set(cxx_no_exception_flags "-D_HAS_EXCEPTIONS=0")
+    set(cxx_no_exception_flags "-EHs-c- -D_HAS_EXCEPTIONS=0")
     set(cxx_no_rtti_flags "-GR-")
   elseif (CMAKE_COMPILER_IS_GNUCXX)
     set(cxx_base_flags "-Wall -Wshadow")
@@ -89,7 +104,11 @@ macro(config_compiler_and_linker)
   set(cxx_exception "${CMAKE_CXX_FLAGS} ${cxx_base_flags} ${cxx_exception_flags}")
   set(cxx_no_exception
     "${CMAKE_CXX_FLAGS} ${cxx_base_flags} ${cxx_no_exception_flags}")
-  set(cxx_default "${cxx_exception}")
+  if (build_no_exceptions)
+    set(cxx_default "${cxx_no_exception}")
+  else()
+    set(cxx_default "${cxx_exception}")
+  endif()
   set(cxx_no_rtti "${cxx_default} ${cxx_no_rtti_flags}")
   set(cxx_use_own_tuple "${cxx_default}")
 
@@ -118,7 +137,7 @@ function(cxx_library_with_type name type cxx_flags)
 endfunction()
 
 #
-# ターゲット設定
+# target configs
 #
 function(cxx_shared_library name cxx_flags)
   cxx_library_with_type(${name} SHARED "${cxx_flags}" ${ARGN})
@@ -137,21 +156,21 @@ endif()
 endfunction()
 
 function(cxx_executable_with_flags name cxx_flags libs)
-  # ソースコード
+  # sources
   iutest_add_executable(${name} ${ARGN})
   if (cxx_flags)
     set_target_properties(${name}
       PROPERTIES
       COMPILE_FLAGS "${cxx_flags}")
   endif()
-  # ライブラリリンク
+  # libraries
   foreach (lib "${libs}")
     target_link_libraries(${name} ${lib})
   endforeach()
 endfunction()
 
 #
-# サンプル用
+# for sample
 #
 function(cxx_executable_sample name)
 iutest_add_executable(${name} ${ARGN})
@@ -161,7 +180,7 @@ iutest_add_executable(${name} ${ARGN})
 endfunction()
 
 #
-# gtest サンプル用
+# for gtest sample
 #
 function(cxx_executable_gtest_sample name dir)
   set(SRCS ${dir}/${name}.cc)
@@ -172,7 +191,7 @@ function(cxx_executable_gtest_sample name dir)
 endfunction()
 
 #
-# test 用
+# for tests
 #
 function(cxx_executable_test name)
   set(SRCS ${IUTEST_ROOT_DIR}/test/${name}.cpp)
@@ -191,7 +210,7 @@ function(cxx_executable_test_with_main name)
 endfunction()
 
 
-function(cxx_namespace_test name)
+function(cxx_executable_test_ns name)
   set(SRCS ${IUTEST_ROOT_DIR}/test/main.cpp)
   message(STATUS "create namespace test source:")
   file(RELATIVE_PATH test_relative_include_path ${IUTEST_ROOT_DIR}/test ${IUTEST_INCLUDE_DIR})
@@ -212,7 +231,7 @@ function(cxx_namespace_test name)
 endfunction()
 
 #
-# CTest 用
+# CTest
 #
 function(cxx_add_test name)
   add_test(

@@ -17,7 +17,9 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_util_tests.hpp"
+// IWYU pragma: end_exports
 
 #if defined(IUTEST_OS_WINDOWS)
 #include <windows.h>
@@ -34,12 +36,12 @@ namespace iuutil
 class TestMenu
 {
     typedef ::std::map<WORD, const ::iutest::TestInfo*> TestInfoMap;
-    typedef ::std::map<WORD, const ::iutest::TestCase*> TestCaseMap;
+    typedef ::std::map<WORD, const ::iutest::TestSuite*> TestSuiteMap;
     WORD m_nID;
     const WORD m_nIDTop;
     HMENU m_hRootMenu;
     TestInfoMap m_TestInfoList;
-    TestCaseMap m_TestCaseList;
+    TestSuiteMap m_TestSuiteList;
 public:
     explicit TestMenu(WORD nIDTop) : m_nIDTop(nIDTop), m_nID(nIDTop), m_hRootMenu(NULL) {}
 public:
@@ -71,23 +73,23 @@ public:
         ++m_nID;
 
         ::iutest::UnitTest* pUnitTest = ::iutest::UnitTest::GetInstance();
-        const int testcase_count = pUnitTest->total_test_case_count();
-        for( int i=0; i < testcase_count; ++i )
+        const int testsuite_count = pUnitTest->total_test_suite_count();
+        for( int i=0; i < testsuite_count; ++i )
         {
-            const ::iutest::TestCase* pTestCase = pUnitTest->GetTestCase(i);
-            const int test_count = pTestCase->total_test_count();
-            HMENU hTestCase = AppendPopup(hRoot, pTestCase->name());
-            Append(hTestCase, "以下をすべて実行", m_nID);
+            const ::iutest::TestSuite* pTestSuite = pUnitTest->GetTestSuite(i);
+            const int test_count = pTestSuite->total_test_count();
+            HMENU hTestSuite = AppendPopup(hRoot, pTestSuite->name());
+            Append(hTestSuite, "以下をすべて実行", m_nID);
 #if IUTEST_HAS_STD_EMPLACE
-            m_TestCaseList.emplace(m_nID, pTestCase);
+            m_TestSuiteList.emplace(m_nID, pTestSuite);
 #else
-            m_TestCaseList.insert( ::std::pair<WORD, const ::iutest::TestCase*>(m_nID, pTestCase) );
+            m_TestSuiteList.insert( ::std::pair<WORD, const ::iutest::TestSuite*>(m_nID, pTestSuite) );
 #endif
             ++m_nID;
             for( int j=0; j < test_count; ++j )
             {
-                const ::iutest::TestInfo* pTestInfo = pTestCase->GetTestInfo(j);
-                Append(hTestCase, pTestInfo->name(), m_nID);
+                const ::iutest::TestInfo* pTestInfo = pTestSuite->GetTestInfo(j);
+                Append(hTestSuite, pTestInfo->name(), m_nID);
 #if IUTEST_HAS_STD_EMPLACE
                 m_TestInfoList.emplace(m_nID, pTestInfo);
 #else
@@ -117,8 +119,8 @@ public:
             }
         }
         {
-            TestCaseMap::iterator it = m_TestCaseList.find(wID);
-            if( it != m_TestCaseList.end() )
+            TestSuiteMap::iterator it = m_TestSuiteList.find(wID);
+            if( it != m_TestSuiteList.end() )
             {
                 ::std::string filter = it->second->name();
                 filter += ".*";

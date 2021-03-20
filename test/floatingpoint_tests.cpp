@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -40,7 +40,7 @@ template<typename T>
 T FloatingpointTest<T>::ZERO = static_cast<T>(0);
 
 typedef ::iutest::Types<float, double> FloatingpointTestTypes;
-IUTEST_TYPED_TEST_CASE(FloatingpointTest, FloatingpointTestTypes);
+IUTEST_TYPED_TEST_SUITE(FloatingpointTest, FloatingpointTestTypes);
 
 IUTEST_TYPED_TEST(FloatingpointTest, PINF)
 {
@@ -50,6 +50,9 @@ IUTEST_TYPED_TEST(FloatingpointTest, PINF)
 
     IUTEST_EXPECT_EQ(FloatType(a/b), FloatType::PINF());
 }
+
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DOUBLE_PROMOTION()
 
 IUTEST_TYPED_TEST(FloatingpointTest, NINF)
 {
@@ -70,6 +73,8 @@ IUTEST_TYPED_TEST(FloatingpointTest, NQNAN)
     IUTEST_EXPECT_EQ(FloatType(sq), FloatType::NQNAN());
 }
 #endif
+
+IUTEST_PRAGMA_WARN_POP()
 
 }   // end of namespace floatingpoint_test
 

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,12 +17,23 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_defs.hpp"
 #include "internal/iutest_string_stream.hpp"
 #include "internal/iutest_string_view.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest
 {
+
+// PrintTo (User defined)
+// PrintTo (iutest)
+//   DefaultPrintTo
+//      container
+//      pointer
+//      ostream operator <<
+//      BiggestInt
+//      bytes
 
 //======================================================================
 // declare
@@ -31,6 +42,9 @@ std::string PrintToString(const T& v);
 
 namespace detail
 {
+
+template<typename T>
+void UniversalPrint(const T& value, iu_ostream* os);
 
 inline void PrintBytesInObjectTo(const unsigned char* buf, size_t size, iu_ostream* os)
 {
@@ -64,9 +78,7 @@ namespace printer_internal
 namespace formatter
 {
 
-/** @private */
-template<bool convertible>
-struct Printer
+struct RawBytesPrinter
 {
     template<typename T>
     static void Print(const T& value, iu_ostream* os)
@@ -78,19 +90,38 @@ struct Printer
     }
 };
 
-template<>
-struct Printer<true>
+struct StringViewPrinter
 {
-    template<typename T>
-    static void Print(const T& value, iu_ostream* os)
+    static void Print(iu_string_view value, iu_ostream* os)
+    {
+        UniversalPrint(value, os);
+    }
+};
+
+struct BiggestIntPrinter
+{
+    static void Print(BiggestInt value, iu_ostream* os)
     {
 #if IUTEST_HAS_BIGGESTINT_OSTREAM
-        const BiggestInt v = value;
+        *os << value;
 #else
         const Int32 v = value;
-#endif
         *os << v;
+#endif
     }
+};
+
+/** @private */
+template<typename T>
+struct PrinterTypeSelecter
+{
+    typedef typename iutest_type_traits::conditional<iutest_type_traits::is_convertible<T, BiggestInt>::value
+        , BiggestIntPrinter
+        , typename iutest_type_traits::conditional<iutest_type_traits::is_convertible<T, iu_string_view>::value
+            , StringViewPrinter
+            , RawBytesPrinter
+        >::type
+    >::type type;
 };
 
 }   // end of namespace formatter
@@ -102,8 +133,8 @@ public:
     template<typename T>
     static void PrintValue(const T& value, iu_ostream* os)
     {
-        formatter::Printer<
-            iutest_type_traits::is_convertible<const T&, BiggestInt>::value>::Print(value, os);
+        typedef typename formatter::PrinterTypeSelecter<const T&>::type Printer;
+        Printer::Print(value, os);
     }
 };
 
@@ -147,8 +178,6 @@ void DefaultPrintNonContainerTo(const T& value, iu_ostream* os)
 
 //======================================================================
 // declare
-template<typename T>
-void UniversalPrint(const T& value, iu_ostream* os);
 
 //======================================================================
 // function
@@ -190,7 +219,7 @@ inline void DefaultPrintNonContainerTo(const T& value, iu_ostream* os)
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     printer_internal2::DefaultPrintNonContainerTo(value, os);
 #else
-    printer_internal::formatter::Printer<false>::Print(value, os);
+    printer_internal::formatter::RawBytesPrinter::Print(value, os);
 #endif
 }
 /** @overload */
@@ -384,7 +413,14 @@ inline void PrintTo(const unsigned char value, iu_ostream* os)
 {
     *os << static_cast<unsigned int>(value);
 }
-#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+#if IUTEST_USE_OWN_STRING_VIEW
+template<typename CharT, typename Traits>
+inline void PrintTo(const iu_basic_string_view<CharT, Traits>& value, iu_ostream* os)
+{
+    const ::std::basic_string<CharT, Traits> str = value.data();
+    UniversalTersePrint(str.c_str(), os);
+}
+#else
 template<typename CharT, typename Traits>
 inline void PrintTo(const ::std::basic_string_view<CharT, Traits>& value, iu_ostream* os)
 {
@@ -408,7 +444,7 @@ inline void PrintTo(const ::std::optional<T>& value, iu_ostream* os)
 }
 #endif
 
-#if IUTEST_HAS_CXX_HDR_VARIANT
+#if IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_CXX_HDR_VARIANT
 template<typename... Types>
 inline void PrintTo(const ::std::variant<Types...>& value, iu_ostream* os)
 {
@@ -418,7 +454,7 @@ inline void PrintTo(const ::std::variant<Types...>& value, iu_ostream* os)
     }
     else
     {
-        std::visit([&os](const auto& v) { UniversalPrint(v, os); }, value);
+        ::std::visit([&os](const auto& v) { UniversalPrint(v, os); }, value);
     }
 }
 inline void PrintTo(const ::std::monostate&, iu_ostream* os)
@@ -450,16 +486,14 @@ inline ::std::string FileSystemFileTypeToString(const ::std::filesystem::file_ty
     IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, fifo);
     IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, socket);
     IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, unknown);
-#if defined(IUTEST_OS_WINDOWS)
+#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MINGW)
     IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, junction);
 #endif
-    default:
-        break;
     }
     return PrintToString(static_cast<int>(value));
 }
 template<>
-inline void PrintTo<::std::filesystem::path>(const ::std::filesystem::path& value, iu_ostream* os)
+inline void PrintTo< ::std::filesystem::path >(const ::std::filesystem::path& value, iu_ostream* os)
 {
     *os << value.generic_string();
 }

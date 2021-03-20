@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
  *
@@ -21,6 +21,11 @@
 // include
 // IWYU pragma: begin_exports
 #include "iutest_ver.hpp"
+#include "internal/iutest_compiler.hpp"
+
+IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
+
+#include "iutest_legacy.hpp"
 #include "iutest_core.hpp"
 #include "iutest_param_tests.hpp"
 #include "iutest_typed_tests.hpp"
@@ -47,22 +52,22 @@
 
 /**
  * @ingroup TESTDEF
- * @def     IUTEST_TEST(testcase_, testname_)
+ * @def     IUTEST_TEST(testsuite_, testname_)
  * @brief   テスト関数定義マクロ
- * @param   testcase_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   testname_   = テスト名
 */
-#define IUTEST_TEST(testcase_, testname_)       IUTEST_TEST_STRICT_(testcase_, testname_    \
+#define IUTEST_TEST(testsuite_, testname_)      IUTEST_TEST_STRICT_(testsuite_, testname_    \
                                                     , ::iutest::Test, ::iutest::internal::GetTestTypeId())
 
 /**
  * @ingroup TESTDEF
- * @def     IUTEST(testcase_, testname_)
+ * @def     IUTEST(testsuite_, testname_)
  * @brief   テスト関数定義マクロ
- * @param   testcase_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   testname_   = テスト名
 */
-#define IUTEST(testcase_, testname_)            IUTEST_TEST(testcase_, testname_)
+#define IUTEST(testsuite_, testname_)           IUTEST_TEST(testsuite_, testname_)
 
 /**
  * @ingroup TESTDEF
@@ -76,13 +81,13 @@
 #if IUTEST_HAS_PARAM_METHOD_TEST
 /**
  * @ingroup VALUE_PARAMETERIZED_TEST
- * @def     IUTEST_PMZ(testcase_, testname_, method_, ...)
+ * @def     IUTEST_PMZ(testsuite_, testname_, method_, ...)
  * @brief   パラメタライズ関数コールテスト定義マクロ
- * @param   testcase_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   testname_   = テスト名
  * @param   method_     = 関数
 */
-#define IUTEST_PMZ(testcase_, testname_, method_, ...)  IIUT_TEST_PMZ_(testcase_, testname_     \
+#define IUTEST_PMZ(testsuite_, testname_, method_, ...) IIUT_TEST_PMZ_(testsuite_, testname_    \
                                                             , method_, ::iutest::Test           \
                                                             , ::iutest::internal::GetTestTypeId(), __VA_ARGS__)
 
@@ -112,10 +117,10 @@
 /**
  * @ingroup TESTDEF
  * @brief   テストフィクスチャ用テストの別名
- * @param   testcasename_   = テストケース名
+ * @param   testsuitename_   = TestSuite 名
  * @param   testfixture_    = テストフィクスチャ名
 */
-#define IUTEST_ALIAS_TESTNAME_F(testcasename_, testfixture_)    IUTEST_ALIAS_TESTNAME_F_(testcasename_, testfixture_)
+#define IUTEST_ALIAS_TESTNAME_F(testsuitename_, testfixture_)   IUTEST_ALIAS_TESTNAME_F_(testsuitename_, testfixture_)
 
 #if IUTEST_HAS_TESTNAME_ALIAS_JP
 
@@ -129,10 +134,10 @@
 /**
  * @ingroup TESTDEF
  * @brief   テストフィクスチャ用日本語テスト名
- * @param   testcasename_   = テストケース名
+ * @param   testsuitename_   = TestSuite 名
  * @param   testfixture_    = テストフィクスチャ名
 */
-#define IUTEST_JAPANESE_NAME_F(testcasename_, testfixture_)     IUTEST_ALIAS_TESTNAME_F(testcasename_, testfixture_)
+#define IUTEST_JAPANESE_NAME_F(testsuitename_, testfixture_)    IUTEST_ALIAS_TESTNAME_F(testsuitename_, testfixture_)
 
 #endif
 
@@ -471,6 +476,8 @@
 #  define IUTEST_ASSERT_STRCASENE(v1, v2)           IUTEST_TEST_STRCASENE(v1, v2, IUTEST_ASSERT_FAILURE)
 #endif
 
+#if defined(IUTEST_OS_WINDOWS)
+
 /**
  * @ingroup IUTEST_ASSERT_
  * @brief   HRESULT の成功 テスト
@@ -494,6 +501,8 @@
 #  else
 #    define IUTEST_ASSERT_HRESULT_FAILED(hr)        IUTEST_TEST_HRESULT_FAILED(hr, IUTEST_ASSERT_FAILURE)
 #  endif
+#endif
+
 #endif
 
 #if IUTEST_HAS_EXCEPTIONS
@@ -867,6 +876,8 @@
 #  define   IUTEST_EXPECT_STRCASENE(v1, v2)         IUTEST_TEST_STRCASENE(v1, v2, IUTEST_EXPECT_FAILURE)
 #endif
 
+#if defined(IUTEST_OS_WINDOWS)
+
 /**
  * @ingroup IUTEST_EXPECT_
  * @brief   HRESULT の成功 テスト
@@ -890,6 +901,8 @@
 #  else
 #    define IUTEST_EXPECT_HRESULT_FAILED(hr)        IUTEST_TEST_HRESULT_FAILED(hr, IUTEST_EXPECT_FAILURE)
 #  endif
+#endif
+
 #endif
 
 #if IUTEST_HAS_EXCEPTIONS
@@ -1273,6 +1286,8 @@
 #  define IUTEST_INFORM_STRCASENE(v1, v2)           IUTEST_TEST_STRCASENE(v1, v2, IUTEST_INFORM_FAILURE)
 #endif
 
+#if defined(IUTEST_OS_WINDOWS)
+
 /**
  * @ingroup IUTEST_INFORM_
  * @brief   HRESULT の成功 テスト
@@ -1296,6 +1311,8 @@
 #  else
 #    define IUTEST_INFORM_HRESULT_FAILED(hr)        IUTEST_TEST_HRESULT_FAILED(hr, IUTEST_INFORM_FAILURE)
 #  endif
+#endif
+
 #endif
 
 #if IUTEST_HAS_EXCEPTIONS
@@ -1661,6 +1678,8 @@
 #  define IUTEST_ASSUME_STRCASENE(v1, v2)           IUTEST_TEST_STRCASENE(v1, v2, IUTEST_ASSUME_FAILURE)
 #endif
 
+#if defined(IUTEST_OS_WINDOWS)
+
 /**
  * @ingroup IUTEST_ASSUME_
  * @brief   HRESULT の成功 テスト
@@ -1684,6 +1703,8 @@
 #  else
 #    define IUTEST_ASSUME_HRESULT_FAILED(hr)        IUTEST_TEST_HRESULT_FAILED(hr, IUTEST_ASSUME_FAILURE)
 #  endif
+#endif
+
 #endif
 
 #if IUTEST_HAS_EXCEPTIONS
@@ -1849,36 +1870,50 @@ public:
         return UnitTest::instance().Run();
     }
 
+public:
+    void SetUpDefaultXmlListener()
+    {
+        if( TestEnv::is_output_option_dirty() )
+        {
+            if( TestEnv::has_output_option() )
+            {
+                TestEnv::flush_output_option();
+
+                do
+                {
+#if defined(__WANDBOX__)
+                    if( StderrXmlGeneratorListener::SetUp() )
+                    {
+                        break;
+                    }
+                    if( StderrJunitXmlGeneratorListener::SetUp() )
+                    {
+                        break;
+                    }
+#else
+                    if( DefaultXmlGeneratorListener::SetUp() )
+                    {
+                        break;
+                    }
+                    if( JunitXmlGeneratorListener::SetUp() )
+                    {
+                        break;
+                    }
+#endif
+                    IUTEST_LOG_(WARNING) << "unrecognized output format \"" << TestEnv::get_output_option() << "\" ignored.";
+                } while( detail::AlwaysFalse() );
+            }
+            else
+            {
+                TestEnv::event_listeners().Release(TestEnv::event_listeners().default_xml_generator());
+            }
+        }
+    }
+
 private:
     void SetUpDefaultListener()
     {
-        if( TestEnv::has_output_option() )
-        {
-            do
-            {
-#if defined(__WANDBOX__)
-                if( StderrXmlGeneratorListener::SetUp() )
-                {
-                    break;
-                }
-                if( StderrJunitXmlGeneratorListener::SetUp() )
-                {
-                    break;
-                }
-#else
-                if( DefaultXmlGeneratorListener::SetUp() )
-                {
-                    break;
-                }
-                if( JunitXmlGeneratorListener::SetUp() )
-                {
-                    break;
-                }
-#endif
-                IUTEST_LOG_(WARNING) << "unrecognized output format \"" << TestEnv::get_output_option() << "\" ignored.";
-            } while( detail::AlwaysFalse() );
-        }
-
+        SetUpDefaultXmlListener();
 #if IUTEST_HAS_STREAM_RESULT
         StreamResultListener::SetUp();
 #endif
@@ -1896,6 +1931,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, T argv)
     UnitTestSource::GetInstance().Initialize();
     TestEnv::ParseCommandLine(pargc, argv);
     TestEnv::LoadFlagFile();
+    UnitTestSource::GetInstance().SetUpDefaultXmlListener();
 }
 
 }   // end of namespace detail
@@ -1922,6 +1958,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(::std::vector< ::std::basi
     UnitTestSource::GetInstance().Initialize();
     TestEnv::ParseCommandLine(argv);
     TestEnv::LoadFlagFile();
+    UnitTestSource::GetInstance().SetUpDefaultXmlListener();
 }
 
 /**
@@ -1941,10 +1978,12 @@ inline Environment* IUTEST_ATTRIBUTE_UNUSED_ AddGlobalTestEnvironment(Environmen
 #  include "gtest/iutest_switch.hpp"
 #endif
 
-#include "iutest_util.hpp"
+#include "iutest_util.hpp"  // IWYU pragma: export
 
 #if defined(IUTEST_USE_MAIN)
 #  include "internal/iutest_default_main.hpp"
 #endif
+
+IUTEST_PRAGMA_IUTEST_WARN_DISABLE_END()
 
 #endif // INCG_IRIS_IUTEST_HPP_

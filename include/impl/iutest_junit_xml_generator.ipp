@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -48,16 +48,16 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTest(IFile* file, cons
         );
     file->Printf("name=\"AllTests\">\n");
 
-    for( int i=0, count=test.total_test_case_count(); i < count; ++i )
+    for( int i=0, count=test.total_test_suite_count(); i < count; ++i )
     {
-        OnReportTestCase(file, *test.GetTestCase(i));
+        OnReportTestSuite(file, *test.GetTestSuite(i));
     }
     file->Printf("</testsuites>\n");
 }
 
-IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestCase(IFile* file, const TestCase& test_case)
+IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestSuite(IFile* file, const TestSuite& test_suite)
 {
-    const int reportable_test_count = test_case.reportable_test_count();
+    const int reportable_test_count = test_suite.reportable_test_count();
     if( reportable_test_count <= 0 )
     {
         return;
@@ -65,31 +65,31 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestCase(IFile* file, 
 
     file->Printf("  <testsuite ");
     OutputXmlAttribute(file, "name"
-        , EscapeXmlAttribute(test_case.testcase_name_with_default_package_name()).c_str());
+        , EscapeXmlAttribute(test_suite.testsuite_name_with_default_package_name()).c_str());
     file->Printf("tests=\"%d\" failures=\"%d\" disabled=\"%d\" "
         , reportable_test_count
-        , test_case.failed_test_count()
-        , test_case.reportable_disabled_test_count()
+        , test_suite.failed_test_count()
+        , test_suite.reportable_disabled_test_count()
         );
-    file->Printf("skipped=\"%d\" ", test_case.reportable_skip_test_count() );
+    file->Printf("skipped=\"%d\" ", test_suite.reportable_skip_test_count() );
     file->Printf("errors=\"0\" time=\"%s\" timestamp=\"%s\">\n"
-        , detail::FormatTimeInMillisecAsSecond(test_case.elapsed_time()).c_str()
-        , detail::FormatTimeInMillisecAsIso8601(test_case.start_timestamp()).c_str()
+        , detail::FormatTimeInMillisecAsSecond(test_suite.elapsed_time()).c_str()
+        , detail::FormatTimeInMillisecAsIso8601(test_suite.start_timestamp()).c_str()
         );
 
     file->Printf("    <properties>\n");
 
     {
-        const char* type_param = test_case.type_param();
+        const char* type_param = test_suite.type_param();
         if( type_param != NULL )
         {
             OnReportProperty(file, "type_param", EscapeXmlAttribute(type_param).c_str());
         }
     }
     {
-        for( int i=0, count=test_case.total_test_count(); i < count; ++i )
+        for( int i=0, count=test_suite.total_test_count(); i < count; ++i )
         {
-            const TestInfo& test_info = *test_case.GetTestInfo(i);
+            const TestInfo& test_info = *test_suite.GetTestInfo(i);
             const char* value_param = test_info.value_param();
             if( value_param != NULL )
             {
@@ -99,14 +99,14 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestCase(IFile* file, 
     }
 
     // propertys
-    OnReportTestProperty(file, *test_case.ad_hoc_test_result());
+    OnReportTestProperty(file, *test_suite.ad_hoc_test_result());
 
     file->Printf("    </properties>\n");
 
     {
-        for( int i=0, count=test_case.total_test_count(); i < count; ++i )
+        for( int i=0, count=test_suite.total_test_count(); i < count; ++i )
         {
-            OnReportTestInfo(file, *test_case.GetTestInfo(i));
+            OnReportTestInfo(file, *test_suite.GetTestInfo(i));
         }
     }
 
@@ -136,7 +136,7 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestInfo(IFile* file, 
         , detail::FormatTimeInMillisecAsSecond(test_info.elapsed_time()).c_str()
         );
     OutputXmlAttribute(file, "classname"
-        , EscapeXmlAttribute(test_info.testcase_name_with_default_package_name()).c_str());
+        , EscapeXmlAttribute(test_info.testsuite_name_with_default_package_name()).c_str());
     file->Printf(">\n");
 
     // propertys

@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        output_xml_tests.cpp
- * @brief       xml 出力対応テスト
+ * @brief       xml output tests
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -25,12 +25,12 @@
 
 #if OUTPUT_XML_TEST
 
-class FileIO : public ::iutest::StringStreamFile
+class FileIO IUTEST_CXX_FINAL : public ::iutest::StringStreamFile
 {
 public:
     static ::std::string s_io;
 
-    virtual void Close()
+    virtual void Close() IUTEST_CXX_OVERRIDE
     {
         s_io = ss.str();
     }
@@ -81,7 +81,18 @@ int main(int argc, char* argv[])
 #endif
 {
 #if OUTPUT_XML_TEST
+    ::iutest::IUTEST_FLAG(output) = "xml:test.xml";
+
     IUTEST_INIT(&argc, argv);
+
+    {
+        ::iutest::IUTEST_FLAG(output) = "";
+        ::iutest::IUTEST_FLAG(filter) = "-*Fail*";
+        const int ret = IUTEST_RUN_ALL_TESTS();
+        if( ret != 0 ) return 1;
+        IUTEST_ASSERT_STRLNEQ(0, FileIO::s_io) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        FileIO::s_io.clear();
+    }
 
     ::iutest::IUTEST_FLAG(output) = "xml:test.xml";
 

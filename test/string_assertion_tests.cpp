@@ -70,8 +70,8 @@ typedef ::iutest::Types<char, wchar_t
     > StrTestTypes;
 typedef ::iutest::Types<char, wchar_t> StrCaseTestTypes;
 
-IUTEST_TYPED_TEST_CASE(StrTest, StrTestTypes);
-IUTEST_TYPED_TEST_CASE(StrCaseTest, StrCaseTestTypes);
+IUTEST_TYPED_TEST_SUITE(StrTest, StrTestTypes);
+IUTEST_TYPED_TEST_SUITE(StrCaseTest, StrCaseTestTypes);
 
 IUTEST_TYPED_TEST(StrTest, EqNull)
 {

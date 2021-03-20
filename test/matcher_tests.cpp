@@ -16,6 +16,7 @@
 //======================================================================
 // include
 #include <map>
+#include <memory>
 #include "../include/gtest/iutest_spi_switch.hpp"
 
 #if IUTEST_HAS_MATCHERS
@@ -42,7 +43,7 @@ int** p2 = &p1;
 float f0 = 0.0f;
 double d0 = 0.0;
 #if IUTEST_HAS_LONG_DOUBLE
-long double ld0 = 0.0;
+long double ld0 = 0.0l;
 #endif
 
 struct X { int a, b; X(int _a, int _b) : a(_a), b(_b) {} int GetA() const { return a; } };
@@ -51,6 +52,11 @@ X gx(1, 1);
 int X2(int v) { return v*2; }
 
 }   // end of namespace
+
+IUTEST(Matcher, SuppressWarning)
+{
+    (void)gn;
+}
 
 IUTEST(Matcher, Eq)
 {
@@ -117,9 +123,9 @@ IUTEST(Matcher, DoubleEq)
 
 IUTEST(Matcher, LongDoubleEq)
 {
-    IUTEST_EXPECT_THAT(ld0, LongDoubleEq(0.0));
-    long double ldx = 0.001;
-    IUTEST_EXPECT_THAT(ldx, LongDoubleEq(0.001));
+    IUTEST_EXPECT_THAT(ld0, LongDoubleEq(0.0l));
+    long double ldx = 0.001l;
+    IUTEST_EXPECT_THAT(ldx, LongDoubleEq(0.001l));
 }
 
 #endif
@@ -142,10 +148,10 @@ IUTEST(Matcher, NanSensitiveDoubleEq)
 
 IUTEST(Matcher, NanSensitiveLongDoubleEq)
 {
-    IUTEST_EXPECT_THAT(ld0, NanSensitiveLongDoubleEq(0.0));
-    IUTEST_EXPECT_THAT(0.0/ld0, NanSensitiveLongDoubleEq(0.0/ld0));
-    long double ldx = 0.001;
-    IUTEST_EXPECT_THAT(ldx, NanSensitiveLongDoubleEq(0.001));
+    IUTEST_EXPECT_THAT(ld0, NanSensitiveLongDoubleEq(0.0l));
+    IUTEST_EXPECT_THAT(0.0l/ld0, NanSensitiveLongDoubleEq(0.0l/ld0));
+    long double ldx = 0.001l;
+    IUTEST_EXPECT_THAT(ldx, NanSensitiveLongDoubleEq(0.001l));
 }
 
 #endif
@@ -170,8 +176,8 @@ IUTEST(Matcher, DoubleNear)
 
 IUTEST(Matcher, LongDoubleNear)
 {
-    IUTEST_EXPECT_THAT(ld0, LongDoubleNear(0.0, 0.0));
-    long double ldx = 0.001;
+    IUTEST_EXPECT_THAT(ld0, LongDoubleNear(0.0l, 0.0l));
+    long double ldx = 0.001l;
     IUTEST_EXPECT_THAT(ld0, LongDoubleNear(ldx, ldx));
 }
 #endif
@@ -196,9 +202,9 @@ IUTEST(Matcher, NanSensitiveDoubleNear)
 
 IUTEST(Matcher, NanSensitiveLongDoubleNear)
 {
-    IUTEST_EXPECT_THAT(ld0, NanSensitiveLongDoubleNear(0.0, 0.0));
-    IUTEST_EXPECT_THAT(0.0/ld0, NanSensitiveLongDoubleNear(0.0/ld0, 0.0));
-    long double ldx = 0.001;
+    IUTEST_EXPECT_THAT(ld0, NanSensitiveLongDoubleNear(0.0l, 0.0l));
+    IUTEST_EXPECT_THAT(0.0l/ld0, NanSensitiveLongDoubleNear(0.0l/ld0, 0.0l));
+    long double ldx = 0.001l;
     IUTEST_EXPECT_THAT(ld0, NanSensitiveLongDoubleNear(ldx, ldx));
 }
 
@@ -487,7 +493,7 @@ IUTEST(MatcherFailure, DoubleEq)
 
 IUTEST(MatcherFailure, LongDoubleEq)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(ld0, LongDoubleEq(1.0)), "Eq: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(ld0, LongDoubleEq(1.0l)), "Eq: " );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(0/ld0, LongDoubleEq(0/ld0)), "Eq: " );
 }
 
@@ -509,7 +515,7 @@ IUTEST(MatcherFailure, NanSensitiveDoubleEq)
 
 IUTEST(MatcherFailure, NanSensitiveLongDoubleEq)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(ld0, NanSensitiveLongDoubleEq(1.0)), "Eq: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(ld0, NanSensitiveLongDoubleEq(1.0l)), "Eq: " );
 }
 
 #endif
@@ -534,8 +540,8 @@ IUTEST(MatcherFailure, DoubleNear)
 
 IUTEST(MatcherFailure, LongDoubleNear)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(ld0, LongDoubleNear(1.0, ld0)), "Near: " );
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(0/ld0, LongDoubleNear(0/ld0, 1.0)), "Near: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(ld0, LongDoubleNear(1.0l, ld0)), "Near: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(0/ld0, LongDoubleNear(0/ld0, 1.0l)), "Near: " );
 }
 
 #endif
@@ -556,7 +562,7 @@ IUTEST(MatcherFailure, NanSensitiveDoubleNear)
 
 IUTEST(MatcherFailure, NanSensitiveLongDoubleNear)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(ld0, NanSensitiveLongDoubleNear(1.0, ld0)), "Near: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(ld0, NanSensitiveLongDoubleNear(1.0l, ld0)), "Near: " );
 }
 
 #endif
@@ -804,28 +810,57 @@ IUTEST(MatcherFailure, ContainsRegex)
 #endif
 
 
+#if IUTEST_HAS_CXX11
+typedef ::std::unique_ptr<int> test_int_ptr;
+#else
+typedef int* test_int_ptr;
+#endif
 #if IUTEST_HAS_MATCHER_OPTIONAL
+
+#if IUTEST_HAS_CXX_HDR_OPTIONAL
+typedef ::std::optional<int> OptionalInt;
+typedef ::std::optional<test_int_ptr> OptionalIntPtr;
+#elif !defined(IUTEST_USE_GTEST)
+typedef ::iutest::stl::optional<int> OptionalInt;
+typedef ::iutest::stl::optional<test_int_ptr> OptionalIntPtr;
+#else
+template <typename T>
+class SampleOptional
+{
+public:
+    typedef T value_type;
+    template<typename U>
+    explicit SampleOptional(const U& value)
+        : value_(T(value)), has_value_(true) {}
+    SampleOptional() : value_(), has_value_(false) {}
+    operator bool() const { return has_value_; }
+    const T &operator*() const { return value_; }
+
+private:
+    T value_;
+    bool has_value_;
+};
+typedef SampleOptional<int> OptionalInt;
+typedef SampleOptional<test_int_ptr> OptionalIntPtr;
+#endif
+
+OptionalInt opt1(1);
+OptionalIntPtr optnull(p1);
+OptionalInt optempty;
 
 IUTEST(Matcher, Optional)
 {
-    IUTEST_EXPECT_THAT("hoge", ElementsAre('h', 'o', 'g', 'e', '\0'));
-#if !defined(IUTEST_USE_GMOCK)
-    IUTEST_EXPECT_THAT(va, ElementsAre(Ge(0), Gt(0)));
-#endif
+    IUTEST_EXPECT_THAT(opt1, Optional(1));
+    IUTEST_EXPECT_THAT(opt1, Optional(Eq(1)));
+    IUTEST_EXPECT_THAT(opt1, Optional(Lt(2)));
+
+    IUTEST_EXPECT_THAT(optnull, Optional(IsNull()));
 }
 
-IUTEST(MatcherFailure, ElementsAre)
+IUTEST(MatcherFailure, Optional)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge"
-        , ElementsAre( 'h', 'o', 'G', 'e', '\0')), "ElementsAre(2): G");
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(va
-        , ElementsAre(Ge(0), Gt(0), Lt(1))), "ElementsAre(2): Lt: 1");
-#if IUTEST_HAS_MATCHER_EACH
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(gn, Each(
-        ElementsAre(Lt(3), Lt(3)))), "Each: ElementsAre: {Lt: 3, Lt: 3}");
-#endif
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(gc
-        , ElementsAre( Ge(0), Gt(0), Ne(0), Eq(0) ) ), "ElementsAre: argument[3] is less than 4");
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(optempty, Optional(1)), "Optional: 1 (which is not engaged)");
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(opt1, Optional(2)), "Optional: 2 (1)");
 }
 
 #endif

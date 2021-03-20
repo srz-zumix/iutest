@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2017-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -30,7 +30,7 @@ int main(int argc, char** argv)
     IUTEST_INIT(&argc, argv);
 #if defined(OUTPUTXML)
     // 失敗テストを含むので xml 出力しない
-    ::iutest::IUTEST_FLAG(output) = NULL;
+    ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
 #if !defined(IUTEST_USE_GTEST)
     ::iutest::IUTEST_FLAG(warning_into_error) = true;
@@ -38,11 +38,11 @@ int main(int argc, char** argv)
     const int ret = IUTEST_RUN_ALL_TESTS();
 #if !defined(IUTEST_USE_GTEST)
     IUTEST_ASSERT_EXIT( ret != 0 );
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->successful_test_case_count() == 0 );
+    IUTEST_ASSERT_EXIT( ::iuutil::GetSuccessfulTestSuiteCount() == 0 );
     IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
 #else
     IUTEST_ASSERT_EXIT( ret == 0 );
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->successful_test_case_count() == 1 );
+    IUTEST_ASSERT_EXIT( ::iuutil::GetSuccessfulTestSuiteCount() == 1 );
     IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 0 );
 #endif
     printf("*** Successful ***\n");

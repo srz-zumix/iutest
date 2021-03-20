@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -21,6 +21,7 @@ namespace prod_test
 {
 
 int ProdClass::m_y = 0;
+int ProtectedProdClass::m_y = 0;
 
 }
 
@@ -54,7 +55,7 @@ IUTEST_F(ProdFixtureTest, Friend)
 
 class ProdParamTest : public ::iutest::TestWithParam<int> {};
 
-IUTEST_INSTANTIATE_TEST_CASE_P(X, ProdParamTest, ::iutest::Values(0));
+IUTEST_INSTANTIATE_TEST_SUITE_P(X, ProdParamTest, ::iutest::Values(0));
 
 IUTEST_P(ProdParamTest, Friend)
 {
@@ -72,7 +73,7 @@ IUTEST_P(ProdParamTest, Friend)
 template<typename T>
 class ProdTypedTest : public ::iutest::Test {};
 
-IUTEST_TYPED_TEST_CASE(ProdTypedTest, int);
+IUTEST_TYPED_TEST_SUITE(ProdTypedTest, int);
 
 IUTEST_TYPED_TEST(ProdTypedTest, Friend)
 {
@@ -92,7 +93,7 @@ typedef ::iutest::Types<int, float> ProdTypeParams;
 template<typename T>
 class ProdTypeParamTest : public ::iutest::Test {};
 
-IUTEST_TYPED_TEST_CASE_P(ProdTypeParamTest);
+IUTEST_TYPED_TEST_SUITE_P(ProdTypeParamTest);
 
 IUTEST_TYPED_TEST_P(ProdTypeParamTest, Friend)
 {
@@ -103,8 +104,8 @@ IUTEST_TYPED_TEST_P(ProdTypeParamTest, Friend)
     IUTEST_ASSERT_EQ(2, s_prod.GetX());
 }
 
-IUTEST_REGISTER_TYPED_TEST_CASE_P(ProdTypeParamTest, Friend);
-IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(A, ProdTypeParamTest, ::iutest::Types<int>);
+IUTEST_REGISTER_TYPED_TEST_SUITE_P(ProdTypeParamTest, Friend);
+IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(A, ProdTypeParamTest, ::iutest::Types<int>);
 
 #endif
 
@@ -112,12 +113,16 @@ IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(A, ProdTypeParamTest, ::iutest::Types<int>)
 #if IUTEST_HAS_PEEP
 
 static ProdClass2 s_prod2;
+static ProtectedProdClass s_protected;
 
 // peep を使ってのアクセス
+IUTEST_MAKE_PEEP(int* ProdClass::*, ProdClass, m_b);
 IUTEST_MAKE_PEEP(int ProdClass::*, ProdClass, m_x);
 IUTEST_MAKE_PEEP(const int ProdClass::*, ProdClass, m_c);
 
 IUTEST_MAKE_PEEP(int ProdClass2::*, ProdClass2, m_x);
+
+IUTEST_MAKE_PEEP(int ProtectedProdClass::*, ProtectedProdClass, m_x);
 
 IUTEST(PeepTest, PeepMacro)
 {
@@ -130,6 +135,18 @@ IUTEST(PeepTest, PeepMacro)
     IUTEST_EXPECT_EQ(42, s_prod2.GetX());
 
     IUTEST_EXPECT_EQ(42, IUTEST_PEEP_GET(s_prod2, ProdClass2, m_x));
+
+    IUTEST_PEEP_GET(s_protected, ProtectedProdClass, m_x) = 42;
+    IUTEST_EXPECT_EQ(42, s_protected.GetX());
+
+    IUTEST_EXPECT_EQ(42, IUTEST_PEEP_GET(s_protected, ProtectedProdClass, m_x));
+}
+
+IUTEST(PeepTest, PeepPointer)
+{
+    int* pb = IUTEST_PEEP_GET(s_prod, ProdClass, m_b);
+    *pb = 4;
+    IUTEST_EXPECT_EQ(4, *s_prod.GetB());
 }
 
 #if IUTEST_HAS_PEEP_CLASS
@@ -182,6 +199,7 @@ IUTEST(PeepClassTest, Const)
 #endif
 
 IUTEST_MAKE_PEEP(int *, ProdClass, m_y);
+IUTEST_MAKE_PEEP(int *, ProtectedProdClass, m_y);
 
 IUTEST(PeepTest, StaticPeep)
 {
@@ -189,6 +207,14 @@ IUTEST(PeepTest, StaticPeep)
     IUTEST_EXPECT_EQ(4, ProdClass::GetY());
 
     IUTEST_EXPECT_EQ(4, IUTEST_PEEP_STATIC_GET(ProdClass, m_y));
+}
+
+IUTEST(PeepTest, StaticProtectedPeep)
+{
+    IUTEST_PEEP_STATIC_GET(ProtectedProdClass, m_y) = 4;
+    IUTEST_EXPECT_EQ(4, ProtectedProdClass::GetY());
+
+    IUTEST_EXPECT_EQ(4, IUTEST_PEEP_STATIC_GET(ProtectedProdClass, m_y));
 }
 
 #if IUTEST_HAS_PEEP_CLASS
@@ -213,12 +239,26 @@ IUTEST(PeepClassTest, StaticPeep)
 
 IUTEST_MAKE_PEEP(void (ProdClass::*)(int), ProdClass, SetX);
 IUTEST_MAKE_PEEP(int (ProdClass::*)() const, ProdClass, ConstGetX);
+IUTEST_MAKE_PEEP(void (ProtectedProdClass::*)(int), ProtectedProdClass, SetX);
+#if IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_OVERLOAD_MEMBER_FUNCTION
+IUTEST_MAKE_PEEP(int (ProtectedProdClass::*)() const, ProtectedProdClass, GetProtectedX);
+#endif
 
 IUTEST(PeepTest, Function)
 {
     IUTEST_PEEP_GET(s_prod, ProdClass, SetX)(100);
     IUTEST_EXPECT_EQ(100, s_prod.GetX());
     IUTEST_EXPECT_EQ(100, IUTEST_PEEP_GET(s_prod, ProdClass, ConstGetX)());
+}
+
+IUTEST(PeepTest, ProtectedFunction)
+{
+    IUTEST_PEEP_GET(s_protected, ProtectedProdClass, SetX)(100);
+    IUTEST_EXPECT_EQ(100, s_protected.GetX());
+
+#if IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_OVERLOAD_MEMBER_FUNCTION
+    IUTEST_EXPECT_EQ(100, IUTEST_PEEP_GET(s_protected, ProtectedProdClass, GetProtectedX)());
+#endif
 }
 
 #if IUTEST_HAS_PEEP_CLASS
@@ -238,11 +278,18 @@ IUTEST(PeepClassTest, Function)
 #if IUTEST_HAS_PEEP_STATIC_FUNC
 
 IUTEST_MAKE_PEEP(void (*)(int), ProdClass, SetY);
+IUTEST_MAKE_PEEP(void (*)(int), ProtectedProdClass, SetY);
 
 IUTEST(PeepTest, StaticFunction)
 {
     IUTEST_PEEP_STATIC_GET(ProdClass, SetY)(100);
     IUTEST_EXPECT_EQ(100, ProdClass::GetY());
+}
+
+IUTEST(PeepTest, StaticProtectedFunction)
+{
+    IUTEST_PEEP_STATIC_GET(ProtectedProdClass, SetY)(100);
+    IUTEST_EXPECT_EQ(100, ProtectedProdClass::GetY());
 }
 
 // object 版

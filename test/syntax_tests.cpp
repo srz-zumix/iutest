@@ -33,6 +33,7 @@ template<int A, int B>struct T
 
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE()
+IUTEST_PRAGMA_WARN_DISABLE_FLOAT_CONVERSION()
 
 IUTEST(SyntaxTest, True)
 {
@@ -102,8 +103,8 @@ IUTEST(SyntaxTest, EQ)
 
 IUTEST(SyntaxTest, EQ_COLLECTIONS)
 {
-    int  a[] = { 0, 1, 2, 3, 4 };
-    int  b[] = { 0, 1, 2, 3, 4 };
+    int a[] = { 0, 1, 2, 3, 4 };
+    int b[] = { 0, 1, 2, 3, 4 };
 
     if( int size = (sizeof(a)/sizeof(a[0])) )
         IUTEST_ASSERT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
@@ -115,10 +116,25 @@ IUTEST(SyntaxTest, EQ_COLLECTIONS)
         IUTEST_ASSUME_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
 }
 
+IUTEST(SyntaxTest, NE_COLLECTIONS)
+{
+    int a[] = { 0, 1, 2, 3, 4 };
+    int b[] = { 0, 1, 5, 3, 4 };
+
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_ASSERT_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_EXPECT_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_INFORM_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_ASSUME_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
+}
+
 IUTEST(SyntaxTest, EQ_RANGE)
 {
-    int  a[] = { 0, 1, 2, 3, 4 };
-    int  b[] = { 0, 1, 2, 3, 4 };
+    int a[] = { 0, 1, 2, 3, 4 };
+    int b[] = { 0, 1, 2, 3, 4 };
 
     if( int size = (sizeof(a)/sizeof(a[0])) )
         IUTEST_ASSERT_EQ_RANGE(a, b) << size;
@@ -128,6 +144,21 @@ IUTEST(SyntaxTest, EQ_RANGE)
         IUTEST_INFORM_EQ_RANGE(a, b) << size;
     if( int size = (sizeof(a)/sizeof(a[0])) )
         IUTEST_ASSUME_EQ_RANGE(a, b) << size;
+}
+
+IUTEST(SyntaxTest, NE_RANGE)
+{
+    int a[] = { 0, 1, 2, 3, 4 };
+    int b[] = { 0, 1, 0, 3, 4 };
+
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_ASSERT_NE_RANGE(a, b) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_EXPECT_NE_RANGE(a, b) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_INFORM_NE_RANGE(a, b) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_ASSUME_NE_RANGE(a, b) << size;
 }
 
 IUTEST(SyntaxTest, NE)
@@ -724,10 +755,8 @@ static void ExceptionFunction(int i)
         return;
     case 1:
         throw 2;
-        break;
     case 2:
         throw ::std::bad_exception();
-        break;
     case 3:
         throw "error";
     case 4:
@@ -874,7 +903,7 @@ IUTEST(SyntaxTest, ShowSpec)
 template<typename T>
 class TypedPrintToTest : public ::iutest::Test {};
 typedef ::iutest::Types<char, unsigned char, short, unsigned short, int, unsigned int, long, unsigned long, int*> PrintStringTestTypes;
-IUTEST_TYPED_TEST_CASE(TypedPrintToTest, PrintStringTestTypes);
+IUTEST_TYPED_TEST_SUITE(TypedPrintToTest, PrintStringTestTypes);
 
 IUTEST_TYPED_TEST(TypedPrintToTest, Print)
 {
@@ -966,12 +995,12 @@ IUTEST_P(ValuesTest, Test)
 {
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P( X1, ValuesTest, ::iutest::Values(1) );
-IUTEST_INSTANTIATE_TEST_CASE_P( X2, ValuesTest, ::iutest::Values(1, 2) );
+IUTEST_INSTANTIATE_TEST_SUITE_P( X1, ValuesTest, ::iutest::Values(1) );
+IUTEST_INSTANTIATE_TEST_SUITE_P( X2, ValuesTest, ::iutest::Values(1, 2) );
 
 #if IUTEST_HAS_VARIADIC_VALUES
 
-IUTEST_INSTANTIATE_TEST_CASE_P( X51, ValuesTest
+IUTEST_INSTANTIATE_TEST_SUITE_P( X51, ValuesTest
     , ::iutest::Values( IUTEST_PP_ENUM_PARAMS(51, IUTEST_PP_EMPTY()) ) );
 
 #endif

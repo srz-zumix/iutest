@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,7 +17,9 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_core_impl.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest {
 namespace detail
@@ -128,7 +130,7 @@ public:
 
 public:
     template<typename COND, typename REPORTER=DefaultGlobalTestPartResultReporter>
-    class Counter : public REPORTER
+    class Counter IUTEST_CXX_FINAL : public REPORTER
     {
         typedef REPORTER _Mybase;
     public:

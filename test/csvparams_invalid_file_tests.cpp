@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2018-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2018-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -33,8 +33,8 @@ IUTEST_P(CsvParamsIntTest, DoNothing)
 {
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(NotExist, CsvParamsIntTest, ::iutest::CSV<int>("testdata/not-exist?.csv") );
-IUTEST_INSTANTIATE_TEST_CASE_P(EmptyCsv, CsvParamsIntTest, ::iutest::CSV<int>("testdata/empty.csv") );
+IUTEST_INSTANTIATE_TEST_SUITE_P(NotExist, CsvParamsIntTest, ::iutest::CSV<int>("testdata/not-exist?.csv") );
+IUTEST_INSTANTIATE_TEST_SUITE_P(EmptyCsv, CsvParamsIntTest, ::iutest::CSV<int>("testdata/empty.csv") );
 
 #endif
 
@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
     IUTEST_INIT(&argc, argv);
 #if defined(OUTPUTXML)
     // 失敗テストを含むので xml 出力しない
-    ::iutest::IUTEST_FLAG(output) = NULL;
+    ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
 
     const int ret = IUTEST_RUN_ALL_TESTS();

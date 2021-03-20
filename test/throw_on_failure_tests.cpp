@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -18,6 +18,9 @@
 #include "iutest.hpp"
 
 #if IUTEST_HAS_EXCEPTIONS
+
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_MISSING_NORETURN()
 
 IUTEST(Expect, Test)
 {
@@ -54,7 +57,7 @@ IUTEST(Throw, Dummy)
 class SetUpTestCaseThrow : public ::iutest::Test
 {
 public:
-    static void SetUpTestCase()
+    IUTEST_ATTRIBUTE_NORETURN_ static void SetUpTestCase()
     {
         throw 2;
     }
@@ -68,7 +71,7 @@ IUTEST_F(SetUpTestCaseThrow, Test)
 class SetUpThrow : public ::iutest::Test
 {
 public:
-    void SetUp()
+    void SetUp() IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         throw 2;
     }
@@ -79,6 +82,8 @@ IUTEST_F(SetUpThrow, Test)
     throw 2;
 }
 
+IUTEST_PRAGMA_WARN_POP()
+
 #endif
 
 #ifdef UNICODE
@@ -87,6 +92,7 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
+    printf("start");
     IUTEST_INIT(&argc, argv);
     ::iutest::IUTEST_FLAG(throw_on_failure) = true;
 #if !defined(IUTEST_USE_GTEST)
@@ -94,8 +100,10 @@ int main(int argc, char* argv[])
 #endif
 #if defined(OUTPUTXML)
     // 失敗テストを含むので xml 出力しない
-    ::iutest::IUTEST_FLAG(output) = NULL;
+    ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
+
+    printf("dummy");
 
     {
         ::iutest::IUTEST_FLAG(filter) = "*Dummy*";
@@ -104,6 +112,8 @@ int main(int argc, char* argv[])
     }
 
 #if IUTEST_HAS_EXCEPTIONS
+    printf("expect");
+
     try
     {
         ::iutest::IUTEST_FLAG(filter) = "*Expect*";
@@ -115,6 +125,8 @@ int main(int argc, char* argv[])
     catch(...)
     {
     }
+
+    printf("assert");
 
     try
     {
@@ -128,6 +140,8 @@ int main(int argc, char* argv[])
     {
     }
 
+    printf("throw");
+
     try
     {
         ::iutest::IUTEST_FLAG(filter) = "Throw*";
@@ -140,6 +154,8 @@ int main(int argc, char* argv[])
     {
     }
 
+    printf("setup throw");
+
     try
     {
         ::iutest::IUTEST_FLAG(filter) = "SetUpThrow*";
@@ -151,6 +167,8 @@ int main(int argc, char* argv[])
     catch(...)
     {
     }
+
+    printf("setup testcase throw");
 
     try
     {
@@ -165,6 +183,8 @@ int main(int argc, char* argv[])
     }
 
 #if !defined(IUTEST_USE_GTEST)
+    printf("throw");
+
     try
     {
         ::iutest::IUTEST_FLAG(catch_exceptions_global) = true;

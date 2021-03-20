@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -33,14 +33,14 @@ IUTEST_IPP_INLINE TestResult* UnitTestImpl::current_test_result()
     {
         return NULL;
     }
-    if( p->m_current_testcase != NULL )
+    if( p->m_current_testsuite != NULL )
     {
-        return &p->m_current_testcase->m_ad_hoc_testresult;
+        return &p->m_current_testsuite->m_ad_hoc_testresult;
     }
     return &p->m_ad_hoc_testresult;
 }
 
-IUTEST_IPP_INLINE void UnitTestImpl::AddTestInfo(TestCase* pCase, TestInfo* pInfo)
+IUTEST_IPP_INLINE void UnitTestImpl::AddTestInfo(TestSuite* pCase, TestInfo* pInfo)
 {
     ++m_total_test_num;
     pCase->push_back(pInfo);
@@ -62,12 +62,12 @@ IUTEST_IPP_INLINE bool UnitTestImpl::SkipTest()
 
 IUTEST_IPP_INLINE int UnitTestImpl::Listup() const
 {
-    detail::iuConsole::output("%d tests from %" IUPRzu " testcase\n", m_total_test_num, m_testcases.size() );
-    for( iuTestCases::const_iterator it = m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
+    detail::iuConsole::output("%d tests from %" IUPRzu " testsuite\n", m_total_test_num, m_testsuites.size() );
+    for( iuTestSuites::const_iterator it = m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
     {
         detail::iuConsole::output("%s\n", (*it)->name());
 
-        for( TestCase::iuTestInfos::const_iterator it2 = (*it)->begin(), end2=(*it)->end(); it2 != end2; ++it2 )
+        for( TestSuite::iuTestInfos::const_iterator it2 = (*it)->begin(), end2=(*it)->end(); it2 != end2; ++it2 )
         {
             detail::iuConsole::output("  %s\n", (*it2)->name());
         }
@@ -77,12 +77,12 @@ IUTEST_IPP_INLINE int UnitTestImpl::Listup() const
 
 IUTEST_IPP_INLINE int UnitTestImpl::ListupWithWhere() const
 {
-    detail::iuConsole::output("%d tests from %" IUPRzu " testcase\n", m_total_test_num, m_testcases.size() );
-    for( iuTestCases::const_iterator it = m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
+    detail::iuConsole::output("%d tests from %" IUPRzu " testsuite\n", m_total_test_num, m_testsuites.size() );
+    for( iuTestSuites::const_iterator it = m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
     {
-        detail::iuConsole::output("%s\n", (*it)->testcase_name_with_where().c_str());
+        detail::iuConsole::output("%s\n", (*it)->testsuite_name_with_where().c_str());
 
-        for( TestCase::iuTestInfos::const_iterator it2 = (*it)->begin(), end2=(*it)->end(); it2 != end2; ++it2 )
+        for( TestSuite::iuTestInfos::const_iterator it2 = (*it)->begin(), end2=(*it)->end(); it2 != end2; ++it2 )
         {
             detail::iuConsole::output("  %s\n", (*it2)->test_name_with_where().c_str());
         }
@@ -104,7 +104,7 @@ IUTEST_IPP_INLINE bool UnitTestImpl::PreRunner()
 
 IUTEST_IPP_INLINE void UnitTestImpl::ClearNonAdHocTestResult()
 {
-    for( iuTestCases::iterator it=m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
+    for( iuTestSuites::iterator it=m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
     {
         (*it)->clear();
     }
@@ -124,11 +124,11 @@ IUTEST_IPP_INLINE void UnitTestImpl::RecordProperty(const TestProperty& prop)
             return;
         }
     }
-    else if( p->m_current_testcase != NULL )
+    else if( p->m_current_testsuite != NULL )
     {
-        tr = &p->m_current_testcase->m_ad_hoc_testresult;
+        tr = &p->m_current_testsuite->m_ad_hoc_testresult;
         // 不正なキーのチェック
-        if( !TestCase::ValidateTestPropertyName(prop.key()) )
+        if( !TestSuite::ValidateTestPropertyName(prop.key()) )
         {
             IIUT_ADD_FAILURE() << "Reserved key used in RecordProperty(): " << prop.key();
             return;
@@ -148,10 +148,10 @@ IUTEST_IPP_INLINE void UnitTestImpl::RecordProperty(const TestProperty& prop)
     TestEnv::event_listeners().OnTestRecordProperty(prop);
 }
 
-IUTEST_IPP_INLINE TestCase* UnitTestImpl::FindTestCase(const ::std::string& testcase_name, TestTypeId id)
+IUTEST_IPP_INLINE TestSuite* UnitTestImpl::FindTestSuite(const ::std::string& testsuite_name, TestTypeId id)
 {
-    TestCase::FindOp func ={ id, testcase_name.c_str() };
-    return detail::FindList(m_testcases, func);
+    TestSuite::FindOp func ={ id, testsuite_name.c_str() };
+    return detail::FindList(m_testsuites, func);
 }
 
 IUTEST_IPP_INLINE bool UnitTestImpl::DoInfoOptions()
@@ -227,10 +227,10 @@ IUTEST_IPP_INLINE void UnitTestImpl::InitializeImpl()
 
 IUTEST_IPP_INLINE void UnitTestImpl::TerminateImpl()
 {
-    for( iuTestCases::iterator it = m_testcases.begin(); it != m_testcases.end(); it = m_testcases.begin())
+    for( iuTestSuites::iterator it = m_testsuites.begin(); it != m_testsuites.end(); it = m_testsuites.begin())
     {
-        TestCase* p = (*it);
-        m_testcases.erase(it);
+        TestSuite* p = (*it);
+        m_testsuites.erase(it);
         delete p;
     }
 }
@@ -298,6 +298,46 @@ IUTEST_IPP_INLINE ::std::string MakePrefixedIndexTestName(const char* prefix, co
     }
     name += MakeIndexTestName(basename, index);
     return name;
+}
+
+IUTEST_IPP_INLINE void UncaughtScopedTrace::Add(const detail::iuCodeMessage& msg)
+{
+    const Test* curr = Test::GetCurrentTest();
+    if( curr == NULL || curr->m_test_info == NULL )
+    {
+        return;
+    }
+    TestInfo* p = curr->m_test_info->ptr();
+    if( p != NULL )
+    {
+        p->m_uncaught_messages.push_back(msg);
+    }
+}
+
+IUTEST_IPP_INLINE bool UncaughtScopedTrace::Has()
+{
+    const TestInfo* curr = Test::GetCurrentTestInfo();
+    if( curr == NULL )
+    {
+        return false;
+    }
+    return !curr->m_uncaught_messages.empty();
+}
+
+IUTEST_IPP_INLINE ::std::string UncaughtScopedTrace::Get()
+{
+    const TestInfo* curr = Test::GetCurrentTestInfo();
+    ::std::string msg = "";
+    if( curr != NULL )
+    {
+        const TestInfo::UncaughtMessagesType& v = curr->m_uncaught_messages;
+        for( TestInfo::UncaughtMessagesType::const_iterator it = v.begin(), end=v.end(); it != end; ++it )
+        {
+            msg.append("\n");
+            msg.append(it->make_message().c_str());
+        }
+    }
+    return msg;
 }
 
 }   // end of namespace detail

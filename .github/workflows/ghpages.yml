@@ -9,12 +9,18 @@ on:
       - 'docs/**'
       - '.github/actions/update-ghpages/**'
       - '.github/workflows/ghpages.yml'
+    tags:
+      - v*
+  pull_request:
+    paths:
+      - '.github/actions/update-ghpages/**'
+      - '.github/workflows/ghpages.yml'
 
 jobs:
   update_document:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
     - name: Update GitHub Pages
       uses: ./.github/actions/update-ghpages
       with:

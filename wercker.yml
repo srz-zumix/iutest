@@ -1,31 +1,9 @@
-# This references the default Python container from
-# the Docker Hub with the 2.7 tag:
-# https://registry.hub.docker.com/_/python/
-# If you want to use a slim Python container with
-# version 3.4.3 you would use: python:3.4-slim
-# If you want Google's container you would reference google/python
-# Read more about containers on our dev center
-# http://devcenter.wercker.com/docs/containers/index.html
-box: python
-# You can also use services such as databases. Read more on our dev center:
-# http://devcenter.wercker.com/docs/services/index.html
-# services:
-    # - postgres
-    # http://devcenter.wercker.com/docs/services/postgresql.html
-
-    # - mongo
-    # http://devcenter.wercker.com/docs/services/mongodb.html
-
-# This is the build pipeline. Pipelines are the core of wercker
-# Read more about pipelines on our dev center
-# http://devcenter.wercker.com/docs/pipelines/index.html
+box:
+  id: python
+  username: srzzumix
+  password: ${WERCKER_DOCKERHUB_PASSWORD}
 build:
-  # The steps that will be executed on build
-  # Steps make up the actions in your pipeline
-  # Read more about steps on our dev center:
-  # http://devcenter.wercker.com/docs/steps/index.html
   steps:
-    # A step that executes `pip install` command.
     - pip-install: &pip-install
         requirements_file: ""
         packages_list: "requests"
@@ -34,8 +12,6 @@ build:
     # - pip-install:
     #     clean_wheel_dir: true
 
-    # A custom script step, name value is used in the UI
-    # and the code value contains the command that get executed
     - script:
         name: echo python information
         code: |
@@ -47,6 +23,52 @@ build:
         code: |
           cd tools/wandbox
           python iuwandbox.py --list-compiler --verbose
+
+cmake-check:
+  steps:
+    - script:
+        name: CMake tests check
+        code: |
+          cd test
+          make cmake-sync-check
+
+gtest-compat:
+  box:
+    id: alpine
+    username: srzzumix
+    password: ${WERCKER_DOCKERHUB_PASSWORD}
+  docker: true
+  steps:
+    - script:
+        name: Install docker
+        code: apk --no-cache add docker
+    - script:
+        name: Login DockerHub
+        code: |
+          echo ${WERCKER_DOCKERHUB_PASSWORD} | docker login -u srzzumix --password-stdin
+    - script:
+        name: Launch docker container
+        # https://devcenter.wercker.com/development/pipelines/direct-docker-access/#volumes-and-mounts
+        code: |
+          docker run --rm -d -i --name iutest-work -w /iutest ${DOCKER_IMAGE} bash
+          docker cp . iutest-work:/iutest
+    - script:
+        name: Use GTest
+        code: |
+          docker exec iutest-work \
+            make -C test USE_GTEST=1 \
+            GTEST_EXPECT_VER=${GTEST_EXPECT_VERSION} GTEST_EXPECT_LATEST=${GTEST_EXPECT_LATEST} clean ${MAKE_TARGET}
+    - script:
+        name: Use GMock
+        code: |
+          docker exec iutest-work \
+            make -C test USE_GTEST=1 USE_GMOCK=1 \
+            GTEST_EXPECT_VER=${GTEST_EXPECT_VERSION} GTEST_EXPECT_LATEST=${GTEST_EXPECT_LATEST} clean ${MAKE_TARGET}
+    - script:
+      name: Clean docker container
+      code: |
+        docker stop iutest-work
+        docker logout
 
 wandbox:
   steps:
@@ -60,7 +82,8 @@ wandbox:
         name: setup
         code: |
           export PYTHONDONTWRITEBYTECODE=1
-          export IUWANDBOX_COMMANDLINE_OPTION="../../test/syntax_tests.cpp -f"-DIUTEST_USE_MAIN=1" -f"-Werror" --encoding utf-8-sig --expand-include --verbose --check-config --retry-wait 180"
+          export IUWANDBOX_COMMANDLINE_OPTION="-f"-Werror" --encoding utf-8-sig --expand-include --verbose --check-config --retry-wait 180 --iutest-use-main"
+          if [ -z "${IUWANDBOX_TARGET_SRC+x}" ]; then export IUWANDBOX_TARGET_SRC="../../test/syntax_tests.cpp"; fi
 
     - script: &experimental
         name: experimental setup
@@ -73,17 +96,18 @@ wandbox:
           cd tools/wandbox
           for compiler in ${IUWANDBOX_COMPILER}
           do
-              python ./iuwandbox.py ${IUWANDBOX_EXPERIMENTAL_OPTION} ${IUWANDBOX_COMMANDLINE_OPTION} -c $compiler --std "c++${IUWANDBOX_CPPVER}" ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_STDC_ADD_OPTION};
+              echo ./iuwandbox.py ${IUWANDBOX_EXPERIMENTAL_OPTION} ${IUWANDBOX_COMMANDLINE_OPTION} -c $compiler --std "c++${IUWANDBOX_CPPVER}" ${IUWANDBOX_TARGET_SRC} ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_STDC_ADD_OPTION};
+              python ./iuwandbox.py ${IUWANDBOX_EXPERIMENTAL_OPTION} ${IUWANDBOX_COMMANDLINE_OPTION} -c $compiler --std "c++${IUWANDBOX_CPPVER}" ${IUWANDBOX_TARGET_SRC} ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_STDC_ADD_OPTION};
           done
 
-    - script: &gnucpp
-        name: gnuc++
-        code: |
-          cd tools/wandbox
-          for compiler in ${IUWANDBOX_COMPILER}
-          do
-              python ./iuwandbox.py ${IUWANDBOX_EXPERIMENTAL_OPTION} ${IUWANDBOX_COMMANDLINE_OPTION} -c $compiler --std "gnu++${IUWANDBOX_CPPVER}" ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_STDC_ADD_OPTION};
-          done
+    # - script: &gnucpp
+    #     name: gnuc++
+    #     code: |
+    #       cd tools/wandbox
+    #       for compiler in ${IUWANDBOX_COMPILER}
+    #       do
+    #           python ./iuwandbox.py ${IUWANDBOX_EXPERIMENTAL_OPTION} ${IUWANDBOX_COMMANDLINE_OPTION} -c $compiler --std "gnu++${IUWANDBOX_CPPVER}" ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_STDC_ADD_OPTION};
+    #       done
 
 wandbox-no-experimental:
   steps:
@@ -91,7 +115,7 @@ wandbox-no-experimental:
     - script: *make-fused
     - script: *setup
     - script: *cpp
-    - script: *gnucpp
+    # - script: *gnucpp
 
 wandbox-all-compiler:
   steps:

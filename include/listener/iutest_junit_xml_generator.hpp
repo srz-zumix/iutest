@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,7 +17,9 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_default_xml_generator.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest
 {
@@ -46,7 +48,7 @@ public:
     virtual void OnReportTest(IFile* file, const UnitTest& test) IUTEST_CXX_OVERRIDE;
 
 private:
-    static void OnReportTestCase(IFile* file, const TestCase& test_case);
+    static void OnReportTestSuite(IFile* file, const TestSuite& test_suite);
     static void OnReportTestInfo(IFile* file, const TestInfo& test_info);
     static void OnReportProperty(IFile* file, const char* name, const char* value);
     static void OnReportTestProperty(IFile* file, const TestResult& test_result);
@@ -68,7 +70,7 @@ public:
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "../impl/iutest_junit_xml_generator.ipp"
+#  include "../impl/iutest_junit_xml_generator.ipp" // IWYU pragma: export
 #endif
 
 #endif // INCG_IRIS_IUTEST_JUNIT_XML_GENERATOR_HPP_C6AD11BD_BDA4_45F3_A736_53B09DD6A7BD_

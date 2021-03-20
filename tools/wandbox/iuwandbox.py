@@ -2,7 +2,7 @@
 #
 # iuwandbox.py
 #
-# Copyright (C) 2014-2018, Takazumi Shirayanagi
+# Copyright (C) 2014-2020, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
@@ -18,16 +18,29 @@ from wandbox import Wandbox
 
 IUTEST_FUSED_SRC = os.path.normpath(os.path.join(os.path.dirname(__file__), '../../fused-src/iutest.min.hpp'))
 IUTEST_WANDBOX_FUSED_SRC = os.path.normpath(os.path.join(os.path.dirname(__file__), '../../fused-src/iutest.wandbox.min.hpp'))
+IUTEST_WANDBOX_FUSED_CLANG_SRC = os.path.normpath(os.path.join(os.path.dirname(__file__), '../../fused-src/iutest.wandbox.min.clang.hpp'))
+IUTEST_WANDBOX_FUSED_GCC_SRC = os.path.normpath(os.path.join(os.path.dirname(__file__), '../../fused-src/iutest.wandbox.min.gcc.hpp'))
 IUTEST_INCLUDE_PATH = os.path.normpath(os.path.join(os.path.dirname(__file__), '../../include'))
 IUTEST_INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*".*(iutest|iutest_switch)\.hpp"')
 EXPAND_INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*"(.*?)"')
 IUTEST_INCG_REGEX = re.compile(r'\s*#\s*define[/\s]*(INCG_IRIS_\S*)\s*')
 
+iutest_src_map = {
+    'wandbox': {
+        'any': IUTEST_WANDBOX_FUSED_SRC,
+        'clang': IUTEST_WANDBOX_FUSED_CLANG_SRC,
+        'gcc': IUTEST_WANDBOX_FUSED_GCC_SRC,
+    },
+    'min': {
+        'any': IUTEST_FUSED_SRC,
+    }
+}
+
 iutest_incg_list = []
 workaround = True
 api_retries = 3
 api_retry_wait = 60
-fused_src = IUTEST_FUSED_SRC
+fused_src = 'wandbox'
 
 
 # command line option
@@ -41,7 +54,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 6.3'
+        version=u'%(prog)s version 8.0'
     )
     parser.add_argument(
         '--list-compiler',
@@ -202,7 +215,13 @@ def parse_command_line():
     parser.add_argument(
         '--iutest-use-wandbox-min',
         action='store_true',
-        help='use iutest.wandbox.min.hpp (experimental).'
+        default=True,
+        help='!this option is deprecated! use iutest.wandbox.min.hpp (default true).'
+    )
+    parser.add_argument(
+        '--no-iutest-use-wandbox-min',
+        action='store_true',
+        help='not use iutest.wandbox.min.hpp (experimental).'
     )
     parser.add_argument(
         '--verbose',
@@ -223,8 +242,10 @@ def parse_command_line():
     options = parser.parse_args()
     api_retries = options.retry
     api_retry_wait = options.retry_wait
-    if options.iutest_use_wandbox_min:
-        fused_src = IUTEST_WANDBOX_FUSED_SRC
+    if options.no_iutest_use_wandbox_min:
+        fused_src = "min"
+    else:
+        fused_src = "wandbox"
     return options, parser
 
 
@@ -258,8 +279,22 @@ def is_iutest_included_file(filepath):
     return False
 
 
+def select_fused_src(compiler, group):
+    if group not in iutest_src_map:
+        return IUTEST_WANDBOX_FUSED_SRC
+    cxx = 'any'
+    if 'clang' in compiler:
+        cxx = 'clang'
+    elif 'gcc' in compiler:
+        cxx = 'gcc'
+
+    if cxx not in iutest_src_map[group]:
+        return iutest_src_map[group]['any']
+    return iutest_src_map[group][cxx]
+
+
 # make code
-def make_code(path, encoding, expand, includes, included_files):
+def make_code(path, compiler, encoding, expand, includes, included_files):
     code = ''
     file = file_open(path, 'r', encoding)
     for line in file:
@@ -268,15 +303,16 @@ def make_code(path, encoding, expand, includes, included_files):
             code += '#include "iutest.hpp"\n'
             code += '//origin>> ' + line
             if 'iutest.hpp' not in includes:
+                fused_src_path = select_fused_src(compiler, fused_src)
                 try:
-                    f = codecs.open(fused_src, 'r', 'utf-8-sig')
+                    f = codecs.open(fused_src_path, 'r', 'utf-8-sig')
                     iutest_src = f.read()
                     f.close()
                     includes['iutest.hpp'] = iutest_src
                     global iutest_incg_list
                     iutest_incg_list = IUTEST_INCG_REGEX.findall(iutest_src)
                 except Exception:
-                    print('{0} is not found...'.format(fused_src))
+                    print('{0} is not found...'.format(fused_src_path))
                     print('please try \"make fused\"')
                     exit(1)
         else:
@@ -288,7 +324,7 @@ def make_code(path, encoding, expand, includes, included_files):
                 elif os.path.exists(include_path):
                     if expand:
                         expand_include_file_code = make_code(
-                            include_path, encoding, expand, includes, included_files)
+                            include_path, compiler, encoding, expand, includes, included_files)
                         code += expand_include_file_code
                         code += '//origin>> '
                     else:
@@ -301,7 +337,7 @@ def make_code(path, encoding, expand, includes, included_files):
                         if include_filename not in includes:
                             includes[include_filename] = ''
                             expand_include_file_code = make_code(
-                                include_path, encoding, expand, includes, included_files)
+                                include_path, compiler, encoding, expand, includes, included_files)
                             includes[include_filename] = expand_include_file_code
             code += line
     file.close()
@@ -474,20 +510,31 @@ def create_compiler_raw_option_list(options):
         for x in raw_options:
             colist.extend(re.split('\s(?=-)', x.strip('"')))
     if options.iutest_use_main:
-        colist.append('-DIUTEST_USE_MAIN')
+        if len(options.code) < 2:
+            colist.append('-DIUTEST_USE_MAIN')
     if '-D__WANDBOX__' not in colist:
         colist.append('-D__WANDBOX__')
     return colist
 
 
+def get_compiler_exec(compiler):
+    if 'gcc' in compiler:
+        return 'g++'
+    if 'clang' in compiler:
+        return 'clang++'
+    if 'zapcc' in compiler:
+        return 'zapcc++'
+    return None
+
+
 # run wandbox (makefile)
-def run_wandbox_make(main_filepath, code, includes, impliments, options):
+def run_wandbox_make(main_filepath, code, includes, implements, options):
     with Wandbox() as w:
         w.compiler('bash')
         woptions = create_option_list(options)
         if options.stdin:
             w.stdin(options.stdin)
-        impliments[os.path.basename(main_filepath)] = code
+        implements[os.path.basename(main_filepath)] = code
 
         colist = create_compiler_raw_option_list(options)
         colist.extend(expand_wandbox_options(w, options.compiler, woptions))
@@ -498,11 +545,16 @@ def run_wandbox_make(main_filepath, code, includes, impliments, options):
                 rolist.extend(opt.split())
 
         makefile = '#!/bin/make\n# generate makefile by iuwandbox.py\n'
+        cxx = get_compiler_exec(options.compiler)
+        if cxx is None:
+            print('failed: invalid compiler...')
+            sys.exit(1)
+        makefile += '\nCXX=/opt/wandbox/' + options.compiler + '/bin/' + cxx
         makefile += '\nCXXFLAGS+='
         for opt in colist:
             makefile += opt + ' '
         makefile += '\nOBJS='
-        for filename in impliments.keys():
+        for filename in implements.keys():
             makefile += os.path.splitext(filename)[0] + '.o '
 
         makefile += '\n\
@@ -510,7 +562,7 @@ prog: $(OBJS)\n\
 \t$(CXX) -o $@ $^ $(CXXFLAGS) $(LDFLAGS)\n\
 '
 
-        impliments['Makefile'] = makefile
+        implements['Makefile'] = makefile
 
         bashscript = 'make -j 4\n'
         bashscript += './prog '
@@ -523,14 +575,14 @@ prog: $(OBJS)\n\
             w.permanent_link(options.save)
         if options.verbose:
             w.dump()
-        add_files(w, impliments)
+        add_files(w, implements)
         add_files(w, includes)
 
         return run_wandbox_impl(w, options)
 
 
 # run wandbox (cxx)
-def run_wandbox_cxx(code, includes, impliments, options):
+def run_wandbox_cxx(code, includes, implements, options):
     with Wandbox() as w:
         w.compiler(options.compiler)
         woptions = ','.join(create_option_list(options))
@@ -550,6 +602,8 @@ def run_wandbox_cxx(code, includes, impliments, options):
                 if options.compiler in ['clang-3.4', 'clang-3.3']:
                     colist.append('-fno-exceptions')
                     colist.append('-fno-rtti')
+            # if 'gcc' in options.compiler:
+            #     colist.append('-flarge-source-files')
         if colist:
             co = '\n'.join(colist)
             co = co.replace('\\n', '\n')
@@ -563,22 +617,22 @@ def run_wandbox_cxx(code, includes, impliments, options):
             w.runtime_options(ro)
         if options.save:
             w.permanent_link(options.save)
-        for filename in impliments.keys():
+        for filename in implements.keys():
             w.add_compiler_options(filename)
         if options.verbose:
             w.dump()
         w.code(code)
-        add_files(w, impliments)
+        add_files(w, implements)
         add_files(w, includes)
 
         return run_wandbox_impl(w, options)
 
 
 # run wandbox
-def run_wandbox(main_filepath, code, includes, impliments, options):
+def run_wandbox(main_filepath, code, includes, implements, options):
     if options.make:
-        return run_wandbox_make(main_filepath, code, includes, impliments, options)
-    return run_wandbox_cxx(code, includes, impliments, options)
+        return run_wandbox_make(main_filepath, code, includes, implements, options)
+    return run_wandbox_cxx(code, includes, implements, options)
 
 
 def wandbox_hint(r):
@@ -668,12 +722,17 @@ def run(options):
         sys.exit(1)
     includes = {}
     included_files = {}
-    impliments = {}
-    code = make_code(main_filepath, options.encoding, options.expand_include, includes, included_files)
+    implements = {}
+    code = ""
+    if len(options.code) > 1 and options.iutest_use_main:
+        code += '#define IUTEST_USE_MAIN\n'
+    code += make_code(main_filepath, options.compiler, options.encoding, options.expand_include, includes, included_files)
+
 
     for filepath_ in options.code[1:]:
         filepath = filepath_.strip()
-        impliments[os.path.basename(filepath)] = make_code(filepath, options.encoding, options.expand_include, includes, included_files)
+        implements[os.path.basename(filepath)] = make_code(filepath,
+            options.compiler, options.encoding, options.expand_include, includes, included_files)
 
     if options.output:
         f = file_open(options.output, 'w', options.encoding)
@@ -686,7 +745,7 @@ def run(options):
     if options.junit:
         xml = options.junit
         set_output_xml(options, 'junit', xml)
-    r = run_wandbox(main_filepath, code, includes, impliments, options)
+    r = run_wandbox(main_filepath, code, includes, implements, options)
     b = show_result(r, options)
     if xml and 'program_error' in r:
         f = file_open(xml, 'w', options.encoding)

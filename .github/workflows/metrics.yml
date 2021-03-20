@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-18.04
     needs: prepare
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
     - name: fused
       id: fused
       run: |
@@ -46,5 +46,31 @@ jobs:
           -X POST \
           -d "{\"branch\": \"${GITHUB_REF#refs/heads/}\", \"commit\": \"${GITHUB_SHA}\", \"size\": \"${{ steps.fused.outputs.size }}\", \"min\": \"${{ steps.fused.outputs.min_size }}\", \"wandbox\": \"${{ steps.fused.outputs.wandbox_min_size }}\"}" \
           ${{ secrets.FUSED_METRICS_WEBHOOK }}
+
+  login:
+    runs-on: ubuntu-latest
+    needs: prepare
+    steps:
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+  lizard:
+    runs-on: ubuntu-18.04
+    needs: login
+    steps:
+    - uses: actions/checkout@v2
+    - name: Lizard
+      uses: docker://srzzumix/lizard
+      with:
+        args: -o lizard.html --html ./include
+    - name: Archive code metrics results
+      uses: actions/upload-artifact@v1
+      with:
+        name: lizard.html
+        path: lizard.html
 
 

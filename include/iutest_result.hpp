@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,7 +17,9 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "internal/iutest_message.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest
 {
@@ -96,7 +98,7 @@ public:
     /**
      * @brief   失敗かどうか
     */
-    bool        failed() const IUTEST_CXX_NOEXCEPT_SPEC { return type_is_failed(m_type);; }
+    bool        failed() const IUTEST_CXX_NOEXCEPT_SPEC { return type_is_failed(m_type); }
     /**
      * @brief   成功かどうか
     */
@@ -374,7 +376,7 @@ private:
 private:
     friend class UnitTestImpl;
     friend class TestInfo;
-    friend class TestCase;
+    friend class TestSuite;
     friend class detail::DefaultGlobalTestPartResultReporter;
 
     TestPartResults m_test_part_results;

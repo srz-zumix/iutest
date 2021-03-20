@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -39,6 +39,7 @@ public:
     const float fa;
     const double da;
     int  aa[5];
+    int  aa2[5];
     int  ab[6];
     char ac[5];
     const ::std::string sa;
@@ -46,6 +47,9 @@ public:
     const ::std::string sa2;
     TestObjectX ox;
     TestObjectX oy;
+#if IUTEST_HAS_CXX_HDR_VARIANT
+    const ::std::variant<int, float, ::std::string> v;
+#endif
 
     SPITest()
         : null_str(NULL)
@@ -56,11 +60,14 @@ public:
         , sb("b")
         , ox(0, 1, 2)
         , oy(0, 0, 0)
+#if IUTEST_HAS_CXX_HDR_VARIANT
+        , v(1)
+#endif
     {
         const char ac_[5] = { 0, 0, 2, 3, 5 };
         for( int i=0; i < 5; ++i )
         {
-            aa[i] = ab[i] = i;
+            aa[i] = aa2[i] = ab[i] = i;
             ac[i] = ac_[i];
         }
         ab[5] = 5;
@@ -76,6 +83,7 @@ public:
 const char* null_str = NULL;
 const int a=0, b=0;
 const int  aa[] = { 0, 1, 2, 3, 4 };
+const int  aa2[] = { 0, 1, 2, 3, 4 };
 const int  ab[] = { 0, 1, 2, 3, 4, 5 };
 const char ac[] = { 0, 0, 2, 3, 5 };
 const ::std::string sa="a";
@@ -84,6 +92,9 @@ const float fa = static_cast<float>(a);
 const double da = static_cast<double>(a);
 const TestObjectX ox(0, 1, 2);
 const TestObjectX oy(0, 0, 0);
+#if IUTEST_HAS_CXX_HDR_VARIANT
+const ::std::variant<int, float, ::std::string> v = 1;
+#endif
 #endif
 
 void SPITest::FatalFailure_Sub(int& count)

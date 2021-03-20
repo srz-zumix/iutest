@@ -1,13 +1,58 @@
+version: v2
+
 tasks:
-  # ubuntu-tests:
-  #   image: srzzumix/gcc3:ubuntu
-  #   commands:
-  #     - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) | xargs nkf --overwrite --oc=UTF-8
-  #     - make -C test -j4
-  #     - make -C test test
-  centos-tests:
-    image: srzzumix/gcc3:centos5
-    commands:
-      - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) -exec sed -i -e '1s/^\xEF\xBB\xBF//' {} \;
-      - make -C test -j4
-      - make -C test test
+  build-image:
+    steps:
+      - checkout
+      - docker/build:
+          image: iutest/razorops_test
+          push: false
+          tags: [ "latest" ]
+          dockerfile: .ci/docker/centos/Dockerfile
+
+  test:
+    depends: [build-image]
+    containers:
+      - image: iutest/razorops_test
+    steps:
+      - checkout
+      - commands:
+          - uname -a
+          - cd test
+          - make OUTPUTXML=junit
+          - make OUTPUTXML=junit test
+          - make report
+          - cd ..
+      # Note:
+      # Failed to check if bucket(throbbing-shape-1474) exists: Missing fields in request.
+      # bucket throbbing-shape-1474: Missing fields in request.
+      # - reports/junit:
+      #     paths: [ "test/*.xml" ]
+
+  lint-editorconfig:
+    steps:
+    - checkout
+    # - cache/pull:
+    #     key: npm-cache-[[ checksum "package-lock.json" ]]
+    #     fallback_key: npm-cache-
+    - commands:
+      - npm install
+      - npm run lint:editorconfig
+    # - cache/push:
+    #     key: npm-cache-[[ checksum "package-lock.json" ]]
+    #     paths: [node_modules]
+
+trigger:
+  ## triggers pipeline only on feature branches and on tags (mind the prefix)
+  when: branch in ('master', 'develop') || branch =~ 'razorops.*'
+
+# Note:
+# workflows seems to be unsupported GitHub Checks
+# workflows:
+#   - name: centos-test
+#     tasks:
+#       - build-image
+#       - test
+#   - name: lint
+#     tasks:
+#       - lint-editorconfig

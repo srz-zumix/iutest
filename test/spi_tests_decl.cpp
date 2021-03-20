@@ -34,6 +34,7 @@
     FAILURE_MACRO( FLAVOR(_SAME)(a, b), "" );
 #if IUTEST_HAS_ASSERTION_NOEQUALTO_OBJECT
     FAILURE_MACRO( FLAVOR(_EQ)(ox, oy), "" );
+    FAILURE_MACRO( FLAVOR(_NE)(ox, ox), "" );
 #endif
     FAILURE_MACRO( FLAVOR(_EQ)(0, 1), "" );
     FAILURE_MACRO( FLAVOR(_NE)(1, 1), "" );
@@ -51,8 +52,8 @@
 #else
     FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(0, 1), "" );
     FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(0, 1), "" );
-    FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(0.0f/fa, 0.0f/fa), "" );
-    FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(0.0/da, 0.0f/da), "" );
+    FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(Div(0.0f, fa), Div(0.0f, fa)), "" );
+    FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(Div(0.0, da), Div(0.0, da)), "" );
     FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::FloatLE , 2, 0), "" );
     FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::DoubleLE, 2, 0), "" );
 #endif
@@ -90,7 +91,6 @@
     FAILURE_MACRO( FLAVOR(_STRCASENE)(sa, sa), "" );
     FAILURE_MACRO( FLAVOR(_STRCASENE)(L"A", L"a"), "" );
 
-
     FAILURE_MACRO( FLAVOR(_PRED1)(IsOdd, 2), "evaluates to false, where" );
     FAILURE_MACRO( FLAVOR(_PRED2)(IsGreater, 0, 1), "evaluates to false, where" );
     FAILURE_MACRO( FLAVOR(_PRED3)(PredTest3, 0, 1, 3), "evaluates to false, where" );
@@ -118,9 +118,13 @@
     FAILURE_MACRO( FLAVOR(_EQ_COLLECTIONS)(ab, ab+(sizeof(ab)/sizeof(ab[0])), aa, aa+(sizeof(aa)/sizeof(aa[0]))), "Mismatch element" );
     FAILURE_MACRO( FLAVOR(_EQ_COLLECTIONS)(aa, aa+(sizeof(aa)/sizeof(aa[0])), ac, ac+(sizeof(ac)/sizeof(ac[0]))), "Mismatch in a position" );
 
+    FAILURE_MACRO( FLAVOR(_NE_COLLECTIONS)(aa, aa+(sizeof(aa)/sizeof(aa[0])), aa2, aa2+(sizeof(aa2)/sizeof(aa2[0]))), "!=" );
+
     FAILURE_MACRO( FLAVOR(_EQ_RANGE)(aa, ab), "Mismatch element" );
     FAILURE_MACRO( FLAVOR(_EQ_RANGE)(ab, aa), "Mismatch element" );
     FAILURE_MACRO( FLAVOR(_EQ_RANGE)(aa, ac), "Mismatch in a position" );
+
+    FAILURE_MACRO( FLAVOR(_NE_RANGE)(aa, aa2), "!=" );
 
 #if IUTEST_HAS_REGEX
     FAILURE_MACRO( FLAVOR(_MATCHES_REGEXEQ)("te[0-9]*st", "te0123sta"), "Matches Regex (\"te[0-9]*st\")" );
@@ -133,11 +137,8 @@
 #endif
 
 #if IUTEST_HAS_CXX_HDR_VARIANT
-    {
-        ::std::variant<int, float, ::std::string> v = 1;
-        FAILURE_MACRO( FLAVOR(_EQ)(v, 0), "Which is: 1" );
-        FAILURE_MACRO( FLAVOR(_EQ)(0.1f, v), "Actual: 1" );
-    }
+    FAILURE_MACRO( FLAVOR(_EQ)(v, 0), "Which is: 1" );
+    FAILURE_MACRO( FLAVOR(_EQ)(0.1f, v), "Actual: 1" );
 #endif
 
 #undef FLAVOR

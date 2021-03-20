@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,12 +31,12 @@ void FileSystemCallTest()
 class TestFileSystem : public ::iutest::detail::IFileSystem
 {
 private:
-    virtual ::iutest::IFile* Create(void)
+    virtual ::iutest::IFile* Create(void) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         is_call_create = true;
         return NULL;
     }
-    virtual void Delete(::iutest::IFile*)
+    virtual void Delete(::iutest::IFile*) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         is_call_delete = true;
     }
@@ -64,10 +64,11 @@ int main(int argc, char* argv[])
         IUTEST_EXPECT_FALSE(::iutest::detail::IFileSystem::ReadAll("iutest_file_system_test.cpp", str));
     }
 
-    IUTEST_INIT(&argc, argv);
-
     RegisterFileSystem();
+
+    IUTEST_INIT(&argc, argv);
     ::iutest::IUTEST_FLAG(output) = "xml:test.xml";
+
     const int ret = IUTEST_RUN_ALL_TESTS();
     if( ret != 0 ) return ret;
     FileSystemCallTest();

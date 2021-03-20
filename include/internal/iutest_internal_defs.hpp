@@ -17,12 +17,14 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "../iutest_defs.hpp"
 #include "iutest_string_stream.hpp"
 #include "iutest_string_view.hpp"
 #include "iutest_type_traits.hpp"
 #include "iutest_compatible_defs.hpp"
 #include "iutest_exception.hpp"
+// IWYU pragma: end_exports
 
 #if IUTEST_HAS_HDR_CXXABI
 #  include <cxxabi.h>
@@ -122,7 +124,7 @@ namespace detail
 
 //======================================================================
 // types
-#if IUTEST_HAS_NULLPTR
+#if IUTEST_HAS_NULLPTR && !defined(IUTEST_NO_NULL_TO_NULLPTR_T)
 typedef ::std::nullptr_t iu_nullptr_convertible_t;
 #else
 typedef ::iutest_compatible::IsNullLiteralHelper::Object* iu_nullptr_convertible_t;
@@ -328,6 +330,12 @@ inline ::std::string GetTypeName()
     int status=1;
     char* const read_name = __cxa_demangle(name, 0, 0, &status);
     ::std::string str(status == 0 ? read_name : name);
+#if defined(_IUTEST_DEBUG)
+    if( status != 0 ) {
+        fprintf(stderr, "Unable to demangle \"%s\" -> \"%s\". (status=%d)\n", name, read_name ? read_name : "", status);
+        fflush(stderr);
+    }
+#endif
     free(read_name);
     return str;
 #else

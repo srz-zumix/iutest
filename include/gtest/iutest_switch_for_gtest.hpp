@@ -57,9 +57,14 @@ using ::std::get;
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "../iutest_ver.hpp"
+// IWYU pragma: end_exports
 
 // gtest 1.5 or less compatible
+#if !defined(IUTEST_HAS_CONCEPTS)
+#  define IUTEST_HAS_CONCEPTS       0
+#endif
 #if !IUTEST_HAS_CONCEPTS
 #include <gtest/internal/gtest-internal.h>
 #define GTestStreamToHelper GTestStreamToHelperForCompatible
@@ -80,6 +85,13 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 
 //======================================================================
 // define
+
+#if !defined(GTEST_HAS_PARAM_TEST)
+#  define GTEST_HAS_PARAM_TEST  1
+#endif
+#if !defined(GTEST_HAS_COMBINE)
+#  define GTEST_HAS_COMBINE     1
+#endif
 
 #if defined(INCG_IRIS_IUTEST_HPP_)
 #undef IUTEST_SUCCEED
@@ -103,6 +115,9 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #undef IUTEST_TYPED_TEST_P_STRICT
 #undef IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME
 #undef IUTEST_HAS_PARAM_TEST_PARAM_NAME_GENERATOR
+
+#undef IUTEST_HAS_TESTSUITE
+#undef IUTEST_HAS_TESTCASE
 
 #undef IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
 #undef IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE
@@ -139,6 +154,8 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #undef IUTEST_HAS_LONG_DOUBLE
 
 #undef IUTEST_HAS_STREAM_BUFFER
+
+#undef IUTEST_HAS_STD_FILESYSTEM
 
 #undef IUTEST_OPERAND
 #undef IUTEST_EXPRESSION
@@ -202,6 +219,8 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #  define IUTEST_HAS_STREAM_RESULT      1
 #endif
 
+#define IUTEST_HAS_STD_FILESYSTEM       0
+
 #define IUTEST_HAS_STREAM_BUFFER        0
 
 #define IUTEST_HAS_VARIADIC_TEMPLATES   0
@@ -230,7 +249,9 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #  define IUTEST_NO_AD_HOC_TEST_RESULT
 #endif
 
+// IWYU pragma: begin_exports
 #include "../internal/iutest_compiler.hpp"
+#include "../internal/iutest_stdlib_defs.hpp"
 #include "../internal/iutest_type_traits.hpp"
 #include "../internal/iutest_compatible_defs.hpp"
 
@@ -256,6 +277,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #include "switch/iutest_switch_filepath.hpp"
 
 #include "switch/iutest_switch_cmphelper.hpp"
+// IWYU pragma: end_exports
 
 #ifndef IUTEST_STATIC_ASSERT_MSG
 #  define IUTEST_STATIC_ASSERT_MSG(B, Msg)  typedef ::testing::iusupport::StaticAssertionTest<  \
@@ -542,6 +564,14 @@ inline void GTestStreamTo(std::ostream* os, const char val)
 {
     *os << val;
 }
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+template<typename CharT, typename Traits>
+inline void GTestStreamTo(std::ostream* os, const ::std::basic_string_view<CharT, Traits>& val)
+{
+    const ::std::basic_string<CharT, Traits> str{ val };
+    *os << str.c_str();
+}
+#endif
 
 }   // end of namespace printer_internal2
 }   // end of namespace testing
@@ -554,6 +584,40 @@ inline void GTestStreamToHelperForCompatible(std::ostream* os, const T& val) {
 
 #endif
 #endif  // #if GTEST_VER < 0x01060000
+
+#if GTEST_VER >= 0x01100000
+
+#define IUTEST_HAS_TESTSUITE    1
+#define IUTEST_HAS_TESTCASE     1
+
+#if defined(GTEST_REMOVE_LEGACY_TEST_CASEAPI_)
+
+#if GTEST_VER <= 0x01100000
+// #  error google test 1.10.0 or less is not supported GTEST_REMOVE_LEGACY_TEST_CASEAPI_...
+#endif
+
+#define IUTEST_REMOVE_LEGACY_TEST_CASEAPI_   GTEST_REMOVE_LEGACY_TEST_CASEAPI_
+
+namespace testing
+{
+
+typedef TestSuite    TestCase;
+
+}
+
+#endif
+
+#else
+
+#define IUTEST_HAS_TESTSUITE    0
+#define IUTEST_HAS_TESTCASE     1
+
+namespace testing
+{
+    typedef TestCase    TestSuite;
+}
+
+#endif
 
 #if defined(INCG_IRIS_IUTEST_HPP_)
 // すでに iutest namespace が存在するので、define で対応

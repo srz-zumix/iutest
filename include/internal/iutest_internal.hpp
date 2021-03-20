@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,8 +17,10 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "../iutest_pred.hpp"
 #include "../iutest_package.hpp"
+// IWYU pragma: end_exports
 
 #if defined(__clang_analyzer__)
 #  include <assert.h>
@@ -30,13 +32,13 @@
  * @private
  * @{
 */
-#define IUTEST_TEST_CLASS_NAME_(testcase_, testname_)   IIUT_TEST_CLASS_NAME_I(IIUT_TO_VARNAME_(testcase_), IIUT_TO_VARNAME_(testname_))
-#define IIUT_TEST_CLASS_NAME_I(testcase_, testname_)    IIUT_TEST_CLASS_NAME_I_(testcase_, testname_)
-#define IIUT_TEST_CLASS_NAME_I_(testcase_, testname_)   iu_##testcase_##_x_iutest_x_##testname_##_Test
+#define IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)  IIUT_TEST_CLASS_NAME_I(IIUT_TO_VARNAME_(testsuite_), IIUT_TO_VARNAME_(testname_))
+#define IIUT_TEST_CLASS_NAME_I(testsuite_, testname_)   IIUT_TEST_CLASS_NAME_I_(testsuite_, testname_)
+#define IIUT_TEST_CLASS_NAME_I_(testsuite_, testname_)  iu_##testsuite_##_x_iutest_x_##testname_##_Test
 
-#define IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)    IIUT_TEST_INSTANCE_NAME_I(IIUT_TO_VARNAME_(testcase_), IIUT_TO_VARNAME_(testname_))
-#define IIUT_TEST_INSTANCE_NAME_I(testcase_, testname_)     IIUT_TEST_INSTANCE_NAME_I_(testcase_, testname_)
-#define IIUT_TEST_INSTANCE_NAME_I_(testcase_, testname_)    s_##testcase_##_x_iutest_x_##testname_##_Instance
+#define IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_)   IIUT_TEST_INSTANCE_NAME_I(IIUT_TO_VARNAME_(testsuite_), IIUT_TO_VARNAME_(testname_))
+#define IIUT_TEST_INSTANCE_NAME_I(testsuite_, testname_)    IIUT_TEST_INSTANCE_NAME_I_(testsuite_, testname_)
+#define IIUT_TEST_INSTANCE_NAME_I_(testsuite_, testname_)   s_##testsuite_##_x_iutest_x_##testname_##_Instance
 
 #if IUTEST_HAS_TESTNAME_ALIAS
 
@@ -46,7 +48,7 @@
 
 #define IIUT_TO_NAME_(name_)                    IIUT_TO_NAME_I( (IIUT_ALIAS_TESTNAME_PP_##name_, name_, name_, dummy_) )
 #define IIUT_TO_NAME_I(tuple_)                  IUTEST_PP_EXPAND( IIUT_TO_NAME_I_ tuple_ )
-#define IIUT_TO_NAME_I_(dummy, dummy_2, name_, ...) name_
+#define IIUT_TO_NAME_I_(d1_, d2_, name_, ...)   name_
 
 #define IIUT_TO_NAME_STR_(name_)                IUTEST_PP_TOSTRING( IIUT_TO_NAME_(name_) )
 
@@ -88,9 +90,9 @@
 
 #if !defined(IUTEST_TEST_STRICT_)
 #if IUTEST_CHECK_STRICT
-#  define IUTEST_TEST_STRICT_(testcase_, testname_, parent_class_, type_id_)    \
-            IIUT_CHECK_TESTFIXTURE(testcase_)                                   \
-            IUTEST_TEST_(testcase_, testname_, parent_class_, type_id_)
+#  define IUTEST_TEST_STRICT_(testsuite_, testname_, parent_class_, type_id_)   \
+            IIUT_CHECK_TESTFIXTURE(testsuite_)                                  \
+            IUTEST_TEST_(testsuite_, testname_, parent_class_, type_id_)
 #else
 #  define IUTEST_TEST_STRICT_   IUTEST_TEST_
 #endif
@@ -138,17 +140,21 @@
  * @internal
  * @brief   Test class defined macro
 */
-#define IUTEST_TEST_(testcase_, testname_, parent_class_, type_id_)                         \
-    class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {            \
-    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));      \
-        public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)() {}                          \
+#define IUTEST_TEST_(testsuite_, testname_, parent_class_, type_id_)                        \
+    IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(testsuite_)) > 1, "testsuite_ must not be empty");   \
+    IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(testname_)) > 1, "testname_ must not be empty");     \
+    IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(IIUT_TO_NAME_(testsuite_))) > 1, "testsuite alias name must not be empty");     \
+    class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) IUTEST_CXX_FINAL : public parent_class_ {          \
+    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testsuite_, testname_));     \
+        public: IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)() {}                         \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE;                                 \
     };                                                                                      \
-    ::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>           \
-    IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(                                       \
-        IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_)), IIUT_TO_NAME_STR_(testname_)      \
-        , type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase);         \
-    void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body()
+    ::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)>          \
+    IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_)(                                      \
+        IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testsuite_)), IIUT_TO_NAME_STR_(testname_)     \
+        , type_id_, IUTEST_GET_SETUP_TESTSUITE(parent_class_, __FILE__, __LINE__)           \
+        , IUTEST_GET_TEARDOWN_TESTSUITE(parent_class_, __FILE__, __LINE__));                \
+    void IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)::Body()
 
 #if IUTEST_HAS_IGNORE_TEST
 
@@ -157,18 +163,19 @@
  * @brief   Test class defined macro
  *          関数の中はコンパイルできなくてもよい
 */
-#define IUTEST_TEST_IGNORE_(testcase_, testname_, parent_class_, type_id_)                  \
-    class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {            \
-    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN( IUTEST_TEST_CLASS_NAME_(testcase_, testname_) );    \
-        public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)() {}                          \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }          \
+#define IUTEST_TEST_IGNORE_(testsuite_, testname_, parent_class_, type_id_)                 \
+    class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) IUTEST_CXX_FINAL : public parent_class_ {  \
+    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN( IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) );   \
+        public: IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)() {}                         \
+        protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
         template<typename T>void Body();                                                    \
     };                                                                                      \
-    ::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>           \
-    IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(                                       \
-        IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_)), IIUT_TO_NAME_STR_(testname_)      \
-        , type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase);         \
-    template<typename T>void IUTEST_TEST_CLASS_NAME_(testcase_, testname_ )::Body()
+    ::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)>          \
+    IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_)(                                      \
+        IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testsuite_)), IIUT_TO_NAME_STR_(testname_)     \
+        , type_id_, IUTEST_GET_SETUP_TESTSUITE(parent_class_, __FILE__, __LINE__)           \
+        , IUTEST_GET_TEARDOWN_TESTSUITE(parent_class_, __FILE__, __LINE__));                \
+    template<typename T>void IUTEST_TEST_CLASS_NAME_(testsuite_, testname_ )::Body()
 
 #endif
 
@@ -178,9 +185,9 @@
  * @private
  * @{
 */
-#define IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)   IIUT_PMZ_TEST_CLASS_NAME_I(IIUT_TO_VARNAME_(testcase_), IIUT_TO_VARNAME_(testname_))
-#define IIUT_PMZ_TEST_CLASS_NAME_I(testcase_, testname_)    IIUT_PMZ_TEST_CLASS_NAME_I_(testcase_, testname_)
-#define IIUT_PMZ_TEST_CLASS_NAME_I_(testcase_, testname_)   IUTEST_PP_CAT( IUTEST_PP_CAT(iu_##testcase_##_x_Test_, testname_), __LINE__)
+#define IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_)  IIUT_PMZ_TEST_CLASS_NAME_I(IIUT_TO_VARNAME_(testsuite_), IIUT_TO_VARNAME_(testname_))
+#define IIUT_PMZ_TEST_CLASS_NAME_I(testsuite_, testname_)   IIUT_PMZ_TEST_CLASS_NAME_I_(testsuite_, testname_)
+#define IIUT_PMZ_TEST_CLASS_NAME_I_(testsuite_, testname_)  IUTEST_PP_CAT( IUTEST_PP_CAT(iu_##testsuite_##_x_Test_, testname_), __LINE__)
 /**
  * @}
 */
@@ -189,36 +196,24 @@
  * @internal
  * @brief   Parameterized test class defined macro
 */
-#define IIUT_TEST_PMZ_(testcase_, testname_, method_, parent_class_, type_id_, ...)             \
-    class IUTEST_TEST_CLASS_NAME_(testcase_, testname_);                                        \
-    class IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {            \
-    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_));      \
-        public: IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)() {}                          \
+#define IIUT_TEST_PMZ_(testsuite_, testname_, method_, parent_class_, type_id_, ...)            \
+    class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_);                                       \
+    class IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_) IUTEST_CXX_FINAL : public parent_class_ {  \
+    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_));     \
+        public: IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_)() {}                         \
         static ::std::string MakeTestName() { return ::iutest::detail::MakeIndexTestName(       \
             IIUT_TO_NAME_STR_(testname_), ::iutest::detail::GetTypeUniqueCounter<               \
-                IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>()); }                            \
+                IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)>()); }                           \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE { method_(__VA_ARGS__); }            \
     };                                                                                          \
-    ::iutest::detail::TestInstance<IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)>           \
-    IUTEST_PP_CAT( IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_), __LINE__)(                 \
-        IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_))                                        \
-        , IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)::MakeTestName().c_str()             \
-        , #__VA_ARGS__, type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase)
+    ::iutest::detail::TestInstance<IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_)>          \
+    IUTEST_PP_CAT( IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_), __LINE__)(                \
+        IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testsuite_))                                       \
+        , IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_)::MakeTestName().c_str()            \
+        , #__VA_ARGS__, type_id_, IUTEST_GET_SETUP_TESTSUITE(parent_class_, __FILE__, __LINE__) \
+        , IUTEST_GET_TEARDOWN_TESTSUITE(parent_class_, __FILE__, __LINE__))
 
 #endif
-
-/**
- * @private
- * @{
-*/
-#define IUTEST_CLASS_INITIALIZE(methodName)     static void SetUpTestCase() { methodName(); } static void methodName()
-#define IUTEST_CLASS_CLEANUP(methodName)        static void TearDownTestCase() { methodName(); } static void methodName()
-
-#define IUTEST_METHOD_INITIALIZE(methodName)    virtual void SetUp() IUTEST_CXX_OVERRIDE { methodName(); } void methodName()
-#define IUTEST_METHOD_CLEANUP(methodName)       virtual void TearDown() IUTEST_CXX_OVERRIDE { methodName(); } void methodName()
-/**
- * @}
-*/
 
 /**
  * @internal
@@ -421,7 +416,7 @@
 #define IUTEST_TEST_BOOLEAN_(expression, text, actual, expected, on_failure)    \
     IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                              \
     if( const ::iutest::AssertionResult iutest_ar = ::iutest::AssertionResult::Is(expression) ) \
-        ;                                                                       \
+        IUTEST_ATTRIBUTE_LIKELY_;                                               \
     else                                                                        \
         on_failure(::iutest::internal::GetBooleanAssertionFailureMessage(       \
             iutest_ar, text, #actual, #expected).c_str() )
@@ -430,7 +425,7 @@
  * @internal
  * @brief   assert
 */
-#define IUTEST_ASSERT_EXIT(cond)            do { if( !(cond) ) {                                                \
+#define IUTEST_ASSERT_EXIT(cond)            do { if IUTEST_COND_UNLIKELY( !(cond) ) {                           \
                                                 IUTEST_MESSAGE(#cond, ::iutest::TestPartResult::kFatalFailure); \
                                                 exit(1);                                                        \
                                             } } while(::iutest::detail::AlwaysFalse())
@@ -469,8 +464,8 @@
 #if defined(IUTEST_ANALYSIS_ASSUME_DELEGATE)
 #define IUTEST_THROUGH_ANALYSIS_ASSUME_(expr, todo)                 \
     IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                  \
-    if( bool b = true ) {                                           \
-        IUTEST_UNUSED_VAR(b);                                       \
+    if( bool iu_b_ = true ) {                                       \
+        IUTEST_UNUSED_VAR(iu_b_);                                   \
         IUTEST_ANALYSIS_ASSUME_DELEGATE(expr);                      \
         goto IUTEST_PP_CAT(iutest_label_analysis_assume, __LINE__); \
     } else                                                          \
@@ -558,6 +553,8 @@
     IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSTRCASENE    \
         , v1, v2, on_failure )
 
+#if defined(IUTEST_OS_WINDOWS)
+
 #define IUTEST_TEST_HRESULT_SUCCEEDED(hr, on_failure)           \
     IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTSuccess  \
         , hr, on_failure )
@@ -565,6 +562,8 @@
 #define IUTEST_TEST_HRESULT_FAILED(hr, on_failure)              \
     IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTFailure  \
         , hr, on_failure )
+
+#endif
 
 #define IUTEST_TEST_SAME(v1, v2, on_failure)                    \
     IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSame     \
@@ -619,18 +618,20 @@
 
 /**
  * @brief   コンパイルエラーチェックタグ
+ * @param   e = error message regexp
 */
 #if defined(_MSC_VER) && !defined(__clang__)
 #  define IUTEST_TEST_COMPILEERROR(e)   \
-    IUTEST_PRAGMA_MESSAGE(__FILE__ "(" IUTEST_PP_TOSTRING(__LINE__) "): note : " "IUTEST_TEST_COMPILEERROR( " #e " )")
+    IUTEST_PRAGMA_MESSAGE(__FILE__ "(" IUTEST_PP_TOSTRING(__LINE__) "): note : " "IUTEST_TEST_COMPILEERROR( " e " )")
 #else
 #  define IUTEST_TEST_COMPILEERROR(e)   \
-    IUTEST_PRAGMA_MESSAGE("IUTEST_TEST_COMPILEERROR( " #e " )")
+    IUTEST_PRAGMA_MESSAGE("IUTEST_TEST_COMPILEERROR( " e " )")
 #endif
 
 /**
-* @brief    static_assert チェックタグ
-* @{
+ * @brief   static_assert チェックタグ
+ * @param   e = error message regexp
+ * @{
 */
 #if IUTEST_HAS_STATIC_ASSERT
 #  define IUTEST_TEST_STATICASSERT(e)   IUTEST_TEST_COMPILEERROR(e)
@@ -638,7 +639,7 @@
 #  define IUTEST_TEST_STATICASSERT(e)   IUTEST_TEST_COMPILEERROR("static_assert")
 #endif
 /**
-* @}
+ * @}
 */
 
 #endif // INCG_IRIS_IUTEST_INTERNAL_HPP_A5BD9FBB_B57A_4C1D_B205_0ADB7798DBF9_

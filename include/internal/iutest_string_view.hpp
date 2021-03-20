@@ -15,7 +15,11 @@
 #ifndef INCG_IRIS_IUTEST_STRING_VIEW_HPP_46AEE8A4_996C_4925_ACBA_2A511909B38F_
 #define INCG_IRIS_IUTEST_STRING_VIEW_HPP_46AEE8A4_996C_4925_ACBA_2A511909B38F_
 
+//======================================================================
+// include
+// IWYU pragma: begin_exports
 #include "../iutest_defs.hpp"
+// IWYU pragma: end_exports
 
 #if IUTEST_HAS_CXX_HDR_STRING_VIEW
 #  include <string_view>
@@ -24,6 +28,10 @@
 #if IUTEST_HAS_EXCEPTIONS
 #  include <stdexcept>
 #endif
+#include <climits>
+
+//======================================================================
+// class
 
 namespace iutest {
 namespace detail
@@ -168,7 +176,7 @@ public:
 
 public:
 IUTEST_PRAGMA_WARN_PUSH()
-IUTEST_PRAGMA_WARN_CXX14_CONSTEXPR_NOT_IMPLY_CONST()
+IUTEST_PRAGMA_WARN_DISABLE_CXX14_CONSTEXPR_NOT_IMPLY_CONST()
 
     IUTEST_CXX14_CONSTEXPR void remove_prefix(size_type n) IUTEST_CXX_NOEXCEPT_SPEC
     {

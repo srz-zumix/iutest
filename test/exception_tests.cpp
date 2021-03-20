@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -26,11 +26,17 @@
 #if !defined(EXCEPTION_CATCH_TEST)
 #  if IUTEST_HAS_EXCEPTIONS
 #    define EXCEPTION_CATCH_TEST  1
+#  else
+#    define EXCEPTION_CATCH_TEST  0
 #  endif
 #endif
 
+
 #if EXCEPTION_CATCH_TEST
 #include <stdexcept>
+
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_MISSING_NORETURN()
 
 IUTEST(ExceptionTest, StdExceptionThrow)
 {
@@ -42,6 +48,21 @@ IUTEST(ExceptionTest, Throw)
     throw "ExceptionTest";
 }
 
+IUTEST_PRAGMA_WARN_POP()
+
+class ExceptionSetUpTest : public ::iuutil::backward::Test<ExceptionSetUpTest>
+{
+public:
+    IUTEST_ATTRIBUTE_NORETURN_ static void SetUpTestSuite()
+    {
+        throw "ExceptionSetUpTest";
+    }
+};
+
+IUTEST_F(ExceptionSetUpTest, Empty)
+{
+}
+
 #endif
 
 #ifdef UNICODE
@@ -50,18 +71,25 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-    IUTEST_INIT(&argc, argv);
 #if EXCEPTION_CATCH_TEST
+    IUTEST_INIT(&argc, argv);
     ::iutest::IUTEST_FLAG(catch_exceptions) = true;
 
 #if defined(OUTPUTXML)
     // 失敗テストを含むので xml 出力しない
-    ::iutest::IUTEST_FLAG(output) = NULL;
+    ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
     if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 2 );
+#if IUTEST_HAS_ASSERTION_RETURN
+    IUTEST_ASSERT_EQ(2, ::iutest::UnitTest::GetInstance()->failed_test_count())
+        << ::iutest::AssertionReturn<int>(1);
 #else
-    if( IUTEST_RUN_ALL_TESTS() ) return 1;
+    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 2 );
+#endif
+
+#else
+    IUTEST_UNUSED_VAR(argc);
+    IUTEST_UNUSED_VAR(argv);
 #endif
     printf("*** Successful ***\n");
     return 0;

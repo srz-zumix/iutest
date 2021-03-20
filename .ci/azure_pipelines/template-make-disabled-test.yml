@@ -7,7 +7,7 @@
 parameters:
   name: ''
   options: ''
-  vmImage: 'ubuntu 16.04'
+  vmImage: 'ubuntu-latest'
 
 jobs:
   - job: ${{ parameters.name }}
@@ -39,6 +39,8 @@ jobs:
           DISABLED_CONFIG: IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD
         Disable_MatcherFloatingPointNear:
           DISABLED_CONFIG: IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR
+        Disable_MatcherOptional:
+          DISABLED_CONFIG: IUTEST_HAS_MATCHER_OPTIONAL
         Disable_MatcherPointwise:
           DISABLED_CONFIG: IUTEST_HAS_MATCHER_POINTWISE
         Disable_MatcherRegex:
@@ -110,6 +112,8 @@ jobs:
           DISABLED_CONFIG: IUTEST_HAS_VARIADIC_PAIRWISE
         Disable_VariadicValues:
           DISABLED_CONFIG: IUTEST_HAS_VARIADIC_VALUES
+        Disable_TestCase:
+          DISABLED_CONFIG: IUTEST_HAS_TESTCASE
         # spec config
         Disable_BitwiseExpressionDecompose:
           DISABLED_CONFIG: IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE

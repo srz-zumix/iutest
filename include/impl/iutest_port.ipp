@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -82,7 +82,7 @@ IUTEST_IPP_INLINE const char* GetEnv(const char* name)
     || defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE)
     IUTEST_UNUSED_VAR(name);
     return NULL;
-#elif defined(__BORLANDC__) || defined(__SunOS_5_8) || defined(__SunOS_5_9)
+#elif defined(__BORLANDC__) || defined(__SunOS)
     const char* env = getenv(name);
     return (env != NULL && env[0] != '\0') ? env : NULL;
 #else
@@ -279,7 +279,7 @@ IUTEST_IPP_INLINE size_t FindLastPathSeparatorPosition(const char* path, size_t 
     {
         return ::std::string::npos;
     }
-    return p - path;
+    return static_cast<size_t>(p - path);
 }
 
 IUTEST_IPP_INLINE bool SetEnvironmentVariable(const char* name, const char* value)
@@ -461,7 +461,7 @@ IUTEST_IPP_INLINE IUTestLog::~IUTestLog()
     if( kLevel == LOG_FATAL )
     {
         fflush(stderr);
-        posix::Abort();
+        IUTEST_ABORT();
     }
 }
 

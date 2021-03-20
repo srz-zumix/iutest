@@ -16,10 +16,12 @@ RUN apt-get update -q -y && \
     apt-get install -y --no-install-recommends software-properties-common apt-transport-https && \
     apt-get update -q -y && \
     apt-get install -y \
-        make build-essential libssl-dev zlib1g-dev libbz2-dev \
+        make cmake build-essential libssl-dev zlib1g-dev libbz2-dev \
         libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
         xz-utils tk-dev libffi-dev liblzma-dev python-openssl git \
+        linux-tools-common linux-tools-generic \
         vim gdb iputils-ping \
+        cppcheck \
         subversion \
         python3 python3-pip \
         doxygen graphviz && \
@@ -67,6 +69,10 @@ RUN . /etc/os-release && \
     rm -rf /var/lib/apt/lists/* && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${CLANG_VERSION} 1000 \
                         --slave   /usr/bin/clang clang /usr/bin/clang-${CLANG_VERSION}
+
+# perf
+RUN rm -f /usr/bin/perf && \
+    update-alternatives --install /usr/bin/perf perf $(find /usr/lib/linux-tools -name *generic)/perf 1000
 
 RUN mkdir /iutest
 VOLUME [ "/iutest" ]

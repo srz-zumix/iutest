@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -84,7 +84,7 @@ private:
     virtual void OnReportTest(IFile* file, const UnitTest& test);
 
 private:
-    static void OnReportTestCase(IFile* file, const TestCase& test_case);
+    static void OnReportTestSuite(IFile* file, const TestSuite& test_suite);
     static void OnReportTestInfo(IFile* file, const TestInfo& test_info);
     static void OnReportTestProperty(IFile* file, const TestResult& test_result
         , bool (*pfnValidate)(const ::std::string&));
@@ -152,7 +152,7 @@ public:
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "../impl/iutest_default_xml_generator.ipp"
+#  include "../impl/iutest_default_xml_generator.ipp" // IWYU pragma: export
 #endif
 
 #endif // INCG_IRIS_IUTEST_DEFAULT_XML_GENERATOR_HPP_791DCB98_05CC_49BA_8518_0EC9CA2B5450_
