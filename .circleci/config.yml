@@ -78,7 +78,7 @@ aliases:
   - &test-step
     name: run test
     command: |
-      make $MAKE_RUN_TARGET
+      make $MAKE_RUN_TARGET $MAKE_OPTION $MAKE_ADD_OPTION
     working_directory: test
   - &report-step
     name: report

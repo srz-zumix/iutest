@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file        ostream_formatter_tests.cpp
- * @brief       QuietResultPrinter test
+ * @brief       ostream formatter test
  *
  * @author      t.shirayanagi
  * @par         copyright
