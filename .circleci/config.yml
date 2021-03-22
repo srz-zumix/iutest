@@ -66,6 +66,7 @@ aliases:
   - &build-step
     name: build
     command: |
+      rm -f $CIRCLE_ARTIFACTS/*.json
       make clean $MAKE_OPTION $MAKE_ADD_OPTION
       case $CIRCLE_NODE_INDEX in \
         0) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O2 ;; \
