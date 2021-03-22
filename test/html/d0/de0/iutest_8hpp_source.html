@@ -973,23 +973,23 @@ $(function() {
 <div class="line"><a name="l01859"></a><span class="lineno"> 1859</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="../../db/d1a/classiutest_1_1_unit_test_source.html#ab06867c733b1a18ddb9e81f50f934b6d">Initialize</a>()</div>
 <div class="line"><a name="l01860"></a><span class="lineno"><a class="line" href="../../db/d1a/classiutest_1_1_unit_test_source.html#ab06867c733b1a18ddb9e81f50f934b6d"> 1860</a></span>&#160;    {</div>
 <div class="line"><a name="l01861"></a><span class="lineno"> 1861</span>&#160;        UnitTest::instance().Initialize();</div>
-<div class="line"><a name="l01862"></a><span class="lineno"> 1862</span>&#160;        SetUpDefaultListener();</div>
-<div class="line"><a name="l01863"></a><span class="lineno"> 1863</span>&#160;    }</div>
-<div class="line"><a name="l01864"></a><span class="lineno"> 1864</span>&#160; </div>
-<div class="line"><a name="l01868"></a><span class="lineno"> 1868</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="../../db/d1a/classiutest_1_1_unit_test_source.html#a0747cd770fe77ed5e91c14397d163ee7">Run</a>()</div>
-<div class="line"><a name="l01869"></a><span class="lineno"><a class="line" href="../../db/d1a/classiutest_1_1_unit_test_source.html#a0747cd770fe77ed5e91c14397d163ee7"> 1869</a></span>&#160;    {</div>
-<div class="line"><a name="l01870"></a><span class="lineno"> 1870</span>&#160;        SetUpDefaultListener();</div>
-<div class="line"><a name="l01871"></a><span class="lineno"> 1871</span>&#160;        <span class="keywordflow">return</span> UnitTest::instance().Run();</div>
-<div class="line"><a name="l01872"></a><span class="lineno"> 1872</span>&#160;    }</div>
-<div class="line"><a name="l01873"></a><span class="lineno"> 1873</span>&#160; </div>
-<div class="line"><a name="l01874"></a><span class="lineno"> 1874</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l01875"></a><span class="lineno"> 1875</span>&#160;    <span class="keywordtype">void</span> SetUpDefaultXmlListener()</div>
-<div class="line"><a name="l01876"></a><span class="lineno"> 1876</span>&#160;    {</div>
-<div class="line"><a name="l01877"></a><span class="lineno"> 1877</span>&#160;        <span class="keywordflow">if</span>( TestEnv::is_output_option_dirty() )</div>
-<div class="line"><a name="l01878"></a><span class="lineno"> 1878</span>&#160;        {</div>
-<div class="line"><a name="l01879"></a><span class="lineno"> 1879</span>&#160;            <span class="keywordflow">if</span>( TestEnv::has_output_option() )</div>
-<div class="line"><a name="l01880"></a><span class="lineno"> 1880</span>&#160;            {</div>
-<div class="line"><a name="l01881"></a><span class="lineno"> 1881</span>&#160;                TestEnv::flush_output_option();</div>
+<div class="line"><a name="l01862"></a><span class="lineno"> 1862</span>&#160;    }</div>
+<div class="line"><a name="l01863"></a><span class="lineno"> 1863</span>&#160; </div>
+<div class="line"><a name="l01867"></a><span class="lineno"> 1867</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="../../db/d1a/classiutest_1_1_unit_test_source.html#a0747cd770fe77ed5e91c14397d163ee7">Run</a>()</div>
+<div class="line"><a name="l01868"></a><span class="lineno"><a class="line" href="../../db/d1a/classiutest_1_1_unit_test_source.html#a0747cd770fe77ed5e91c14397d163ee7"> 1868</a></span>&#160;    {</div>
+<div class="line"><a name="l01869"></a><span class="lineno"> 1869</span>&#160;        SetUpDefaultListener();</div>
+<div class="line"><a name="l01870"></a><span class="lineno"> 1870</span>&#160;        <span class="keywordflow">return</span> UnitTest::instance().Run();</div>
+<div class="line"><a name="l01871"></a><span class="lineno"> 1871</span>&#160;    }</div>
+<div class="line"><a name="l01872"></a><span class="lineno"> 1872</span>&#160; </div>
+<div class="line"><a name="l01873"></a><span class="lineno"> 1873</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l01874"></a><span class="lineno"> 1874</span>&#160;    <span class="keywordtype">void</span> SetUpDefaultXmlListener()</div>
+<div class="line"><a name="l01875"></a><span class="lineno"> 1875</span>&#160;    {</div>
+<div class="line"><a name="l01876"></a><span class="lineno"> 1876</span>&#160;        <span class="keywordflow">if</span>( TestEnv::is_output_option_dirty() )</div>
+<div class="line"><a name="l01877"></a><span class="lineno"> 1877</span>&#160;        {</div>
+<div class="line"><a name="l01878"></a><span class="lineno"> 1878</span>&#160;            <span class="keywordflow">if</span>( TestEnv::has_output_option() )</div>
+<div class="line"><a name="l01879"></a><span class="lineno"> 1879</span>&#160;            {</div>
+<div class="line"><a name="l01880"></a><span class="lineno"> 1880</span>&#160;                TestEnv::flush_output_option();</div>
+<div class="line"><a name="l01881"></a><span class="lineno"> 1881</span>&#160; </div>
 <div class="line"><a name="l01882"></a><span class="lineno"> 1882</span>&#160;                <span class="keywordflow">do</span></div>
 <div class="line"><a name="l01883"></a><span class="lineno"> 1883</span>&#160;                {</div>
 <div class="line"><a name="l01884"></a><span class="lineno"> 1884</span>&#160;<span class="preprocessor">#if defined(__WANDBOX__)</span></div>
@@ -1021,72 +1021,75 @@ $(function() {
 <div class="line"><a name="l01910"></a><span class="lineno"> 1910</span>&#160;        }</div>
 <div class="line"><a name="l01911"></a><span class="lineno"> 1911</span>&#160;    }</div>
 <div class="line"><a name="l01912"></a><span class="lineno"> 1912</span>&#160; </div>
-<div class="line"><a name="l01913"></a><span class="lineno"> 1913</span>&#160;    <span class="keywordtype">void</span> SetUpDefaultListener()</div>
-<div class="line"><a name="l01914"></a><span class="lineno"> 1914</span>&#160;    {</div>
-<div class="line"><a name="l01915"></a><span class="lineno"> 1915</span>&#160;        SetUpDefaultXmlListener();</div>
-<div class="line"><a name="l01916"></a><span class="lineno"> 1916</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STREAM_RESULT</span></div>
-<div class="line"><a name="l01917"></a><span class="lineno"> 1917</span>&#160;        StreamResultListener::SetUp();</div>
-<div class="line"><a name="l01918"></a><span class="lineno"> 1918</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01919"></a><span class="lineno"> 1919</span>&#160;    }</div>
-<div class="line"><a name="l01920"></a><span class="lineno"> 1920</span>&#160;};</div>
-<div class="line"><a name="l01921"></a><span class="lineno"> 1921</span>&#160; </div>
-<div class="line"><a name="l01922"></a><span class="lineno"> 1922</span>&#160;<span class="comment">//======================================================================</span></div>
-<div class="line"><a name="l01923"></a><span class="lineno"> 1923</span>&#160;<span class="comment">// function</span></div>
-<div class="line"><a name="l01924"></a><span class="lineno"> 1924</span>&#160;<span class="keyword">namespace </span>detail</div>
-<div class="line"><a name="l01925"></a><span class="lineno"> 1925</span>&#160;{</div>
-<div class="line"><a name="l01926"></a><span class="lineno"> 1926</span>&#160; </div>
-<div class="line"><a name="l01927"></a><span class="lineno"> 1927</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l01928"></a><span class="lineno"> 1928</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab">InitIrisUnitTest</a>(<span class="keywordtype">int</span>* pargc, T argv)</div>
-<div class="line"><a name="l01929"></a><span class="lineno"> 1929</span>&#160;{</div>
-<div class="line"><a name="l01930"></a><span class="lineno"> 1930</span>&#160;    UnitTestSource::GetInstance().Initialize();</div>
-<div class="line"><a name="l01931"></a><span class="lineno"> 1931</span>&#160;    TestEnv::ParseCommandLine(pargc, argv);</div>
-<div class="line"><a name="l01932"></a><span class="lineno"> 1932</span>&#160;    <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#aa78aa2f004d67eeabecfb1ac74648701">TestEnv::LoadFlagFile</a>();</div>
-<div class="line"><a name="l01933"></a><span class="lineno"> 1933</span>&#160;}</div>
-<div class="line"><a name="l01934"></a><span class="lineno"> 1934</span>&#160; </div>
-<div class="line"><a name="l01935"></a><span class="lineno"> 1935</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
+<div class="line"><a name="l01913"></a><span class="lineno"> 1913</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l01914"></a><span class="lineno"> 1914</span>&#160;    <span class="keywordtype">void</span> SetUpDefaultListener()</div>
+<div class="line"><a name="l01915"></a><span class="lineno"> 1915</span>&#160;    {</div>
+<div class="line"><a name="l01916"></a><span class="lineno"> 1916</span>&#160;        SetUpDefaultXmlListener();</div>
+<div class="line"><a name="l01917"></a><span class="lineno"> 1917</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STREAM_RESULT</span></div>
+<div class="line"><a name="l01918"></a><span class="lineno"> 1918</span>&#160;        StreamResultListener::SetUp();</div>
+<div class="line"><a name="l01919"></a><span class="lineno"> 1919</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01920"></a><span class="lineno"> 1920</span>&#160;    }</div>
+<div class="line"><a name="l01921"></a><span class="lineno"> 1921</span>&#160;};</div>
+<div class="line"><a name="l01922"></a><span class="lineno"> 1922</span>&#160; </div>
+<div class="line"><a name="l01923"></a><span class="lineno"> 1923</span>&#160;<span class="comment">//======================================================================</span></div>
+<div class="line"><a name="l01924"></a><span class="lineno"> 1924</span>&#160;<span class="comment">// function</span></div>
+<div class="line"><a name="l01925"></a><span class="lineno"> 1925</span>&#160;<span class="keyword">namespace </span>detail</div>
+<div class="line"><a name="l01926"></a><span class="lineno"> 1926</span>&#160;{</div>
+<div class="line"><a name="l01927"></a><span class="lineno"> 1927</span>&#160; </div>
+<div class="line"><a name="l01928"></a><span class="lineno"> 1928</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l01929"></a><span class="lineno"> 1929</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab">InitIrisUnitTest</a>(<span class="keywordtype">int</span>* pargc, T argv)</div>
+<div class="line"><a name="l01930"></a><span class="lineno"> 1930</span>&#160;{</div>
+<div class="line"><a name="l01931"></a><span class="lineno"> 1931</span>&#160;    UnitTestSource::GetInstance().Initialize();</div>
+<div class="line"><a name="l01932"></a><span class="lineno"> 1932</span>&#160;    TestEnv::ParseCommandLine(pargc, argv);</div>
+<div class="line"><a name="l01933"></a><span class="lineno"> 1933</span>&#160;    <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#aa78aa2f004d67eeabecfb1ac74648701">TestEnv::LoadFlagFile</a>();</div>
+<div class="line"><a name="l01934"></a><span class="lineno"> 1934</span>&#160;    UnitTestSource::GetInstance().SetUpDefaultXmlListener();</div>
+<div class="line"><a name="l01935"></a><span class="lineno"> 1935</span>&#160;}</div>
 <div class="line"><a name="l01936"></a><span class="lineno"> 1936</span>&#160; </div>
-<div class="line"><a name="l01942"></a><span class="lineno"> 1942</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab">InitIrisUnitTest</a>(<span class="keywordtype">int</span>* pargc, <span class="keywordtype">char</span>** argv)      { <a class="code" href="../../d3/dda/namespaceiutest.html#af15fd0a68e4cbc64eca4d56446593163">detail::InitIrisUnitTest</a>(pargc, argv); }</div>
-<div class="line"><a name="l01943"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab"> 1943</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab">InitIrisUnitTest</a>(<span class="keywordtype">int</span>* pargc, <span class="keywordtype">wchar_t</span>** argv)   { <a class="code" href="../../d3/dda/namespaceiutest.html#af15fd0a68e4cbc64eca4d56446593163">detail::InitIrisUnitTest</a>(pargc, argv); }      </div>
-<div class="line"><a name="l01944"></a><span class="lineno"> 1944</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab">InitIrisUnitTest</a>(<span class="keywordtype">int</span>* pargc, <span class="keyword">const</span> <span class="keywordtype">char</span>** argv)    { <a class="code" href="../../d3/dda/namespaceiutest.html#af15fd0a68e4cbc64eca4d56446593163">detail::InitIrisUnitTest</a>(pargc, argv); }  </div>
-<div class="line"><a name="l01945"></a><span class="lineno"> 1945</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab">InitIrisUnitTest</a>(<span class="keywordtype">int</span>* pargc, <span class="keyword">const</span> <span class="keywordtype">wchar_t</span>** argv) { <a class="code" href="../../d3/dda/namespaceiutest.html#af15fd0a68e4cbc64eca4d56446593163">detail::InitIrisUnitTest</a>(pargc, argv); }  </div>
-<div class="line"><a name="l01946"></a><span class="lineno"> 1946</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab">InitIrisUnitTest</a>() { detail::InitIrisUnitTest&lt;char**&gt;(NULL, NULL); }   </div>
-<div class="line"><a name="l01947"></a><span class="lineno"> 1947</span>&#160; </div>
-<div class="line"><a name="l01948"></a><span class="lineno"> 1948</span>&#160;<span class="preprocessor">#if IUTEST_HAS_NULLPTR</span></div>
-<div class="line"><a name="l01949"></a><span class="lineno"> 1949</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab">InitIrisUnitTest</a>(<span class="keywordtype">int</span>* pargc, ::std::nullptr_t) { detail::InitIrisUnitTest&lt;char**&gt;(pargc, NULL); }  </div>
-<div class="line"><a name="l01950"></a><span class="lineno"> 1950</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01951"></a><span class="lineno"> 1951</span>&#160; </div>
-<div class="line"><a name="l01953"></a><span class="lineno"> 1953</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> CharType&gt;</div>
-<div class="line"><a name="l01954"></a><span class="lineno"> 1954</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab">InitIrisUnitTest</a>(::std::vector&lt; ::std::basic_string&lt;CharType&gt; &gt;&amp; argv)</div>
-<div class="line"><a name="l01955"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#af15fd0a68e4cbc64eca4d56446593163"> 1955</a></span>&#160;{</div>
-<div class="line"><a name="l01956"></a><span class="lineno"> 1956</span>&#160;    UnitTestSource::GetInstance().Initialize();</div>
-<div class="line"><a name="l01957"></a><span class="lineno"> 1957</span>&#160;    TestEnv::ParseCommandLine(argv);</div>
-<div class="line"><a name="l01958"></a><span class="lineno"> 1958</span>&#160;    <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#aa78aa2f004d67eeabecfb1ac74648701">TestEnv::LoadFlagFile</a>();</div>
-<div class="line"><a name="l01959"></a><span class="lineno"> 1959</span>&#160;}</div>
-<div class="line"><a name="l01960"></a><span class="lineno"> 1960</span>&#160; </div>
-<div class="line"><a name="l01967"></a><span class="lineno"> 1967</span>&#160;<span class="keyword">inline</span> Environment* IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#ae122192fab03fe831e82c32db2bbd3be">AddGlobalTestEnvironment</a>(Environment* env)</div>
-<div class="line"><a name="l01968"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#ae122192fab03fe831e82c32db2bbd3be"> 1968</a></span>&#160;{</div>
-<div class="line"><a name="l01969"></a><span class="lineno"> 1969</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#aa4ad04d5148c7d8226ae00b8ae53ac77">TestEnv::AddGlobalTestEnvironment</a>(env);</div>
-<div class="line"><a name="l01970"></a><span class="lineno"> 1970</span>&#160;}</div>
-<div class="line"><a name="l01971"></a><span class="lineno"> 1971</span>&#160; </div>
-<div class="line"><a name="l01972"></a><span class="lineno"> 1972</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
-<div class="line"><a name="l01973"></a><span class="lineno"> 1973</span>&#160; </div>
-<div class="line"><a name="l01974"></a><span class="lineno"> 1974</span>&#160;<span class="preprocessor">#if defined(IUTEST_USE_GTEST)</span></div>
-<div class="line"><a name="l01975"></a><span class="lineno"> 1975</span>&#160;<span class="preprocessor">#  include &quot;gtest/iutest_switch.hpp&quot;</span></div>
-<div class="line"><a name="l01976"></a><span class="lineno"> 1976</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01977"></a><span class="lineno"> 1977</span>&#160; </div>
-<div class="line"><a name="l01978"></a><span class="lineno"> 1978</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../de/dd4/iutest__util_8hpp.html">iutest_util.hpp</a>&quot;</span>  <span class="comment">// IWYU pragma: export</span></div>
-<div class="line"><a name="l01979"></a><span class="lineno"> 1979</span>&#160; </div>
-<div class="line"><a name="l01980"></a><span class="lineno"> 1980</span>&#160;<span class="preprocessor">#if defined(IUTEST_USE_MAIN)</span></div>
-<div class="line"><a name="l01981"></a><span class="lineno"> 1981</span>&#160;<span class="preprocessor">#  include &quot;<a class="code" href="../../db/df6/iutest__default__main_8hpp.html">internal/iutest_default_main.hpp</a>&quot;</span></div>
-<div class="line"><a name="l01982"></a><span class="lineno"> 1982</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01983"></a><span class="lineno"> 1983</span>&#160; </div>
-<div class="line"><a name="l01984"></a><span class="lineno"> 1984</span>&#160;IUTEST_PRAGMA_IUTEST_WARN_DISABLE_END()</div>
-<div class="line"><a name="l01985"></a><span class="lineno"> 1985</span>&#160; </div>
-<div class="line"><a name="l01986"></a><span class="lineno"> 1986</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_HPP_</span></div>
+<div class="line"><a name="l01937"></a><span class="lineno"> 1937</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
+<div class="line"><a name="l01938"></a><span class="lineno"> 1938</span>&#160; </div>
+<div class="line"><a name="l01944"></a><span class="lineno"> 1944</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab">InitIrisUnitTest</a>(<span class="keywordtype">int</span>* pargc, <span class="keywordtype">char</span>** argv)      { <a class="code" href="../../d3/dda/namespaceiutest.html#af15fd0a68e4cbc64eca4d56446593163">detail::InitIrisUnitTest</a>(pargc, argv); }</div>
+<div class="line"><a name="l01945"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab"> 1945</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab">InitIrisUnitTest</a>(<span class="keywordtype">int</span>* pargc, <span class="keywordtype">wchar_t</span>** argv)   { <a class="code" href="../../d3/dda/namespaceiutest.html#af15fd0a68e4cbc64eca4d56446593163">detail::InitIrisUnitTest</a>(pargc, argv); }      </div>
+<div class="line"><a name="l01946"></a><span class="lineno"> 1946</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab">InitIrisUnitTest</a>(<span class="keywordtype">int</span>* pargc, <span class="keyword">const</span> <span class="keywordtype">char</span>** argv)    { <a class="code" href="../../d3/dda/namespaceiutest.html#af15fd0a68e4cbc64eca4d56446593163">detail::InitIrisUnitTest</a>(pargc, argv); }  </div>
+<div class="line"><a name="l01947"></a><span class="lineno"> 1947</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab">InitIrisUnitTest</a>(<span class="keywordtype">int</span>* pargc, <span class="keyword">const</span> <span class="keywordtype">wchar_t</span>** argv) { <a class="code" href="../../d3/dda/namespaceiutest.html#af15fd0a68e4cbc64eca4d56446593163">detail::InitIrisUnitTest</a>(pargc, argv); }  </div>
+<div class="line"><a name="l01948"></a><span class="lineno"> 1948</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab">InitIrisUnitTest</a>() { detail::InitIrisUnitTest&lt;char**&gt;(NULL, NULL); }   </div>
+<div class="line"><a name="l01949"></a><span class="lineno"> 1949</span>&#160; </div>
+<div class="line"><a name="l01950"></a><span class="lineno"> 1950</span>&#160;<span class="preprocessor">#if IUTEST_HAS_NULLPTR</span></div>
+<div class="line"><a name="l01951"></a><span class="lineno"> 1951</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab">InitIrisUnitTest</a>(<span class="keywordtype">int</span>* pargc, ::std::nullptr_t) { detail::InitIrisUnitTest&lt;char**&gt;(pargc, NULL); }  </div>
+<div class="line"><a name="l01952"></a><span class="lineno"> 1952</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01953"></a><span class="lineno"> 1953</span>&#160; </div>
+<div class="line"><a name="l01955"></a><span class="lineno"> 1955</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> CharType&gt;</div>
+<div class="line"><a name="l01956"></a><span class="lineno"> 1956</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab">InitIrisUnitTest</a>(::std::vector&lt; ::std::basic_string&lt;CharType&gt; &gt;&amp; argv)</div>
+<div class="line"><a name="l01957"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#af15fd0a68e4cbc64eca4d56446593163"> 1957</a></span>&#160;{</div>
+<div class="line"><a name="l01958"></a><span class="lineno"> 1958</span>&#160;    UnitTestSource::GetInstance().Initialize();</div>
+<div class="line"><a name="l01959"></a><span class="lineno"> 1959</span>&#160;    TestEnv::ParseCommandLine(argv);</div>
+<div class="line"><a name="l01960"></a><span class="lineno"> 1960</span>&#160;    <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#aa78aa2f004d67eeabecfb1ac74648701">TestEnv::LoadFlagFile</a>();</div>
+<div class="line"><a name="l01961"></a><span class="lineno"> 1961</span>&#160;    UnitTestSource::GetInstance().SetUpDefaultXmlListener();</div>
+<div class="line"><a name="l01962"></a><span class="lineno"> 1962</span>&#160;}</div>
+<div class="line"><a name="l01963"></a><span class="lineno"> 1963</span>&#160; </div>
+<div class="line"><a name="l01970"></a><span class="lineno"> 1970</span>&#160;<span class="keyword">inline</span> Environment* IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#ae122192fab03fe831e82c32db2bbd3be">AddGlobalTestEnvironment</a>(Environment* env)</div>
+<div class="line"><a name="l01971"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#ae122192fab03fe831e82c32db2bbd3be"> 1971</a></span>&#160;{</div>
+<div class="line"><a name="l01972"></a><span class="lineno"> 1972</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#aa4ad04d5148c7d8226ae00b8ae53ac77">TestEnv::AddGlobalTestEnvironment</a>(env);</div>
+<div class="line"><a name="l01973"></a><span class="lineno"> 1973</span>&#160;}</div>
+<div class="line"><a name="l01974"></a><span class="lineno"> 1974</span>&#160; </div>
+<div class="line"><a name="l01975"></a><span class="lineno"> 1975</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l01976"></a><span class="lineno"> 1976</span>&#160; </div>
+<div class="line"><a name="l01977"></a><span class="lineno"> 1977</span>&#160;<span class="preprocessor">#if defined(IUTEST_USE_GTEST)</span></div>
+<div class="line"><a name="l01978"></a><span class="lineno"> 1978</span>&#160;<span class="preprocessor">#  include &quot;gtest/iutest_switch.hpp&quot;</span></div>
+<div class="line"><a name="l01979"></a><span class="lineno"> 1979</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01980"></a><span class="lineno"> 1980</span>&#160; </div>
+<div class="line"><a name="l01981"></a><span class="lineno"> 1981</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../de/dd4/iutest__util_8hpp.html">iutest_util.hpp</a>&quot;</span>  <span class="comment">// IWYU pragma: export</span></div>
+<div class="line"><a name="l01982"></a><span class="lineno"> 1982</span>&#160; </div>
+<div class="line"><a name="l01983"></a><span class="lineno"> 1983</span>&#160;<span class="preprocessor">#if defined(IUTEST_USE_MAIN)</span></div>
+<div class="line"><a name="l01984"></a><span class="lineno"> 1984</span>&#160;<span class="preprocessor">#  include &quot;<a class="code" href="../../db/df6/iutest__default__main_8hpp.html">internal/iutest_default_main.hpp</a>&quot;</span></div>
+<div class="line"><a name="l01985"></a><span class="lineno"> 1985</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01986"></a><span class="lineno"> 1986</span>&#160; </div>
+<div class="line"><a name="l01987"></a><span class="lineno"> 1987</span>&#160;IUTEST_PRAGMA_IUTEST_WARN_DISABLE_END()</div>
+<div class="line"><a name="l01988"></a><span class="lineno"> 1988</span>&#160; </div>
+<div class="line"><a name="l01989"></a><span class="lineno"> 1989</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_HPP_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassiutest_1_1_test_env_html_aa78aa2f004d67eeabecfb1ac74648701"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#aa78aa2f004d67eeabecfb1ac74648701">iutest::TestEnv::LoadFlagFile</a></div><div class="ttdeci">static bool LoadFlagFile()</div><div class="ttdoc">フラグファイルをロード</div></div>
 <div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
-<div class="ttc" id="anamespaceiutest_html_ae122192fab03fe831e82c32db2bbd3be"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#ae122192fab03fe831e82c32db2bbd3be">iutest::AddGlobalTestEnvironment</a></div><div class="ttdeci">Environment *IUTEST_ATTRIBUTE_UNUSED_ AddGlobalTestEnvironment(Environment *env)</div><div class="ttdoc">グローバル環境セットクラスの追加</div><div class="ttdef"><b>Definition:</b> iutest.hpp:1968</div></div>
+<div class="ttc" id="anamespaceiutest_html_ae122192fab03fe831e82c32db2bbd3be"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#ae122192fab03fe831e82c32db2bbd3be">iutest::AddGlobalTestEnvironment</a></div><div class="ttdeci">Environment *IUTEST_ATTRIBUTE_UNUSED_ AddGlobalTestEnvironment(Environment *env)</div><div class="ttdoc">グローバル環境セットクラスの追加</div><div class="ttdef"><b>Definition:</b> iutest.hpp:1971</div></div>
 <div class="ttc" id="aiutest__typed__tests_8hpp_html"><div class="ttname"><a href="../../d7/d4a/iutest__typed__tests_8hpp.html">iutest_typed_tests.hpp</a></div><div class="ttdoc">iris unit test typed test</div></div>
 <div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
 <div class="ttc" id="aclassiutest_1_1_environment_html"><div class="ttname"><a href="../../d3/d17/classiutest_1_1_environment.html">iutest::Environment</a></div><div class="ttdoc">環境セットクラス</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:101</div></div>
@@ -1101,21 +1104,21 @@ $(function() {
 <div class="ttc" id="aiutest__expression__assertion_8hpp_html"><div class="ttname"><a href="../../d5/d06/iutest__expression__assertion_8hpp.html">iutest_expression_assertion.hpp</a></div><div class="ttdoc">iris unit test 式アサーション 定義 ファイル</div></div>
 <div class="ttc" id="aclassiutest_1_1_default_result_print_listener_html"><div class="ttname"><a href="../../d2/d71/classiutest_1_1_default_result_print_listener.html">iutest::DefaultResultPrintListener</a></div><div class="ttdoc">デフォルト出力イベントリスナー</div><div class="ttdef"><b>Definition:</b> iutest_default_printer.hpp:27</div></div>
 <div class="ttc" id="aiutest__mfc_8hpp_html"><div class="ttname"><a href="../../dc/d5d/iutest__mfc_8hpp.html">iutest_mfc.hpp</a></div><div class="ttdoc">MFC support</div></div>
-<div class="ttc" id="anamespaceiutest_html_abdd686869c9d13105c648526d03c57ab"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab">iutest::InitIrisUnitTest</a></div><div class="ttdeci">void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int *pargc, char **argv)</div><div class="ttdoc">初期化</div><div class="ttdef"><b>Definition:</b> iutest.hpp:1943</div></div>
+<div class="ttc" id="anamespaceiutest_html_abdd686869c9d13105c648526d03c57ab"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab">iutest::InitIrisUnitTest</a></div><div class="ttdeci">void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int *pargc, char **argv)</div><div class="ttdoc">初期化</div><div class="ttdef"><b>Definition:</b> iutest.hpp:1945</div></div>
 <div class="ttc" id="aiutest__compiler_8hpp_html"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html">iutest_compiler.hpp</a></div><div class="ttdoc">iris unit test compiler 依存の吸収 ファイル</div></div>
 <div class="ttc" id="aiutest__ignore_8hpp_html"><div class="ttname"><a href="../../dc/df5/iutest__ignore_8hpp.html">iutest_ignore.hpp</a></div><div class="ttdoc">iris unit test ignore test ファイル</div></div>
 <div class="ttc" id="aiutest__param__tests_8hpp_html"><div class="ttname"><a href="../../dc/df5/iutest__param__tests_8hpp.html">iutest_param_tests.hpp</a></div><div class="ttdoc">iris unit test parameter 定義 ファイル</div></div>
-<div class="ttc" id="aclassiutest_1_1_unit_test_source_html_a0747cd770fe77ed5e91c14397d163ee7"><div class="ttname"><a href="../../db/d1a/classiutest_1_1_unit_test_source.html#a0747cd770fe77ed5e91c14397d163ee7">iutest::UnitTestSource::Run</a></div><div class="ttdeci">int Run()</div><div class="ttdoc">テストの実行</div><div class="ttdef"><b>Definition:</b> iutest.hpp:1869</div></div>
+<div class="ttc" id="aclassiutest_1_1_unit_test_source_html_a0747cd770fe77ed5e91c14397d163ee7"><div class="ttname"><a href="../../db/d1a/classiutest_1_1_unit_test_source.html#a0747cd770fe77ed5e91c14397d163ee7">iutest::UnitTestSource::Run</a></div><div class="ttdeci">int Run()</div><div class="ttdoc">テストの実行</div><div class="ttdef"><b>Definition:</b> iutest.hpp:1868</div></div>
 <div class="ttc" id="aiutest__static__assertion_8hpp_html"><div class="ttname"><a href="../../dc/d47/iutest__static__assertion_8hpp.html">iutest_static_assertion.hpp</a></div><div class="ttdoc">iris unit test static assertion 定義 ファイル</div></div>
 <div class="ttc" id="aiutest__prod_8hpp_html"><div class="ttname"><a href="../../d9/d06/iutest__prod_8hpp.html">iutest_prod.hpp</a></div><div class="ttdoc">iris unit test production code 対応用 ファイル</div></div>
 <div class="ttc" id="aiutest__core_8hpp_html"><div class="ttname"><a href="../../d0/db5/iutest__core_8hpp.html">iutest_core.hpp</a></div><div class="ttdoc">iris unit test core</div></div>
-<div class="ttc" id="anamespaceiutest_html_af15fd0a68e4cbc64eca4d56446593163"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#af15fd0a68e4cbc64eca4d56446593163">iutest::InitIrisUnitTest</a></div><div class="ttdeci">void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(::std::vector&lt; ::std::basic_string&lt; CharType &gt; &gt; &amp;argv)</div><div class="ttdef"><b>Definition:</b> iutest.hpp:1955</div></div>
+<div class="ttc" id="anamespaceiutest_html_af15fd0a68e4cbc64eca4d56446593163"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#af15fd0a68e4cbc64eca4d56446593163">iutest::InitIrisUnitTest</a></div><div class="ttdeci">void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(::std::vector&lt; ::std::basic_string&lt; CharType &gt; &gt; &amp;argv)</div><div class="ttdef"><b>Definition:</b> iutest.hpp:1957</div></div>
 <div class="ttc" id="aiutest__streaming__listener_8hpp_html"><div class="ttname"><a href="../../d0/dfd/iutest__streaming__listener_8hpp.html">iutest_streaming_listener.hpp</a></div><div class="ttdoc">iris unit test stream result</div></div>
 <div class="ttc" id="aiutest__matcher_8hpp_html"><div class="ttname"><a href="../../dd/d8a/iutest__matcher_8hpp.html">iutest_matcher.hpp</a></div><div class="ttdoc">iris unit test matcher 定義 ファイル</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_env_html_aa4ad04d5148c7d8226ae00b8ae53ac77"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#aa4ad04d5148c7d8226ae00b8ae53ac77">iutest::TestEnv::AddGlobalTestEnvironment</a></div><div class="ttdeci">static Environment * AddGlobalTestEnvironment(Environment *env)</div><div class="ttdoc">グローバル環境セットクラスの追加</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:635</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2021年02月22日(月) 13時47分37秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2021年03月22日(月) 11時27分27秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
