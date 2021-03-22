@@ -177,8 +177,8 @@ workflows:
             #!/bin/bash
             set -ex
             git remote rm fork || true
-            bitrise run iutest-${BITRISE_TRIGGERED_WORKFLOW_ID}
-            bitrise run iutest-android-${BITRISE_TRIGGERED_WORKFLOW_ID}
+            bitrise run iOS
+            bitrise run Android
   test:
     after_run:
     - iOS
