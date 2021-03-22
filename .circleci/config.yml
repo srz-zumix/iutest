@@ -88,10 +88,8 @@ aliases:
   - &move-result-step
     name: move result xml
     command: |
-      if [ "$CIRCLE_NODE_INDEX" == "0" ]; then
-        mkdir -p $CIRCLE_TEST_REPORTS/junit/;
-        find . -type f -regex ".*/test/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;;
-      fi
+      mkdir -p $CIRCLE_TEST_REPORTS/junit/$CIRCLE_NODE_INDEX;
+      find . -type f -regex ".*/test/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/$CIRCLE_NODE_INDEX \;;
   - &build-test-steps
     - checkout
     - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
