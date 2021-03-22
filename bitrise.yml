@@ -134,13 +134,13 @@ workflows:
         - content: |-
             #!/bin/bash
             set -ex
-            curl https://bootstrap.pypa.io/3.5/get-pip.py -o get-pip.py
+            curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
             sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 90
             python --version
-            pip3 --version
-            # sudo python get-pip.py --force-reinstall
-            python3 -m pip3 install --upgrade pip3
-            python3 -m pip3 install --upgrade cmake
+            sudo python get-pip.py --force-reinstall
+            # python -m pip install --upgrade pip==20.0
+            python -m pip install --upgrade pip
+            python -m pip install --upgrade cmake
             cmake --version
             mkdir android-build
             cd android-build
