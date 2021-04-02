@@ -284,7 +284,7 @@ $(function() {
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <a class="code" href="../../d7/da2/classiutest_1_1stl_1_1optional.html">optional</a>(<span class="keyword">const</span> <a class="code" href="../../d7/da2/classiutest_1_1stl_1_1optional.html">optional</a>&amp; rhs) : m_init(rhs.m_init), m_value(rhs.value) {}</div>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <a class="code" href="../../d7/da2/classiutest_1_1stl_1_1optional.html">optional</a>&amp; operator = (<span class="keyword">const</span> T&amp; rhs) { m_init = <span class="keyword">true</span>; m_value = rhs; }</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <a class="code" href="../../d7/da2/classiutest_1_1stl_1_1optional.html">optional</a>&amp; operator = (<span class="keyword">const</span> T&amp; rhs) { m_init = <span class="keyword">true</span>; m_value = rhs; <span class="keywordflow">return</span> *<span class="keyword">this</span>; }</div>
 <div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keyword">operator</span> bool ()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> has_value(); }</div>
 <div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="keyword">const</span> T&amp; operator * ()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> value(); }</div>
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    T&amp; operator * () { <span class="keywordflow">return</span> value(); }</div>
@@ -512,7 +512,7 @@ $(function() {
 <div class="ttc" id="aclassiutest_1_1stl_1_1nullpot__t_html"><div class="ttname"><a href="../../d1/d9e/classiutest_1_1stl_1_1nullpot__t.html">iutest::stl::nullpot_t</a></div><div class="ttdef"><b>Definition:</b> iutest_stdlib.hpp:213</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2021年02月10日(水) 02時01分12秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2021年04月02日(金) 02時17分31秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
