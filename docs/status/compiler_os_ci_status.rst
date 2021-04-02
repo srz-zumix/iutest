@@ -76,8 +76,8 @@ OS
 .. |Bitrise| image:: https://app.bitrise.io/app/6903498632e89465/status.svg?token=siumhVNY6p6lklSZF6xGNA&branch=master&.svg
   :target: https://app.bitrise.io/app/6903498632e89465
 
-.. |Buddy| image:: https://app.buddy.works/zumixcpp/iutest/repository/branch/master/badge.svg?token=5e58135ab4831252209e7b1fe75bfe9de669b0dc7e95ed4316eebad2187d59a0&.svg
-  :target: https://app.buddy.works/zumixcpp/iutest/repository/branch/master
+.. |Buddy| image:: https://app.buddy.works/zumixcpp-1/iutest/repository/branch/master/badge.svg?token=5e58135ab4831252209e7b1fe75bfe9de669b0dc7e95ed4316eebad2187d59a0&.svg
+  :target: https://app.buddy.works/zumixcpp-1/iutest/repository/branch/master
 
 .. |CircleCI| image:: https://circleci.com/gh/srz-zumix/iutest/tree/master.svg?style=svg&.svg
   :target: https://circleci.com/gh/srz-zumix/iutest/tree/master
