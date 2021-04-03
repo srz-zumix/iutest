@@ -219,6 +219,11 @@ endif
 
 endif
 
+# 10.0 later
+ifeq (1,$(shell expr \( $(GCCMAJOR) \> 9 \) ))
+IUTEST_CXX_STRICT_FLAGS+=-fanalyzer
+endif
+
 IUTEST_CXX_STRICT_FLAGS+=-Wformat-nonliteral -Winit-self
 
 endif
