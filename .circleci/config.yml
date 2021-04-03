@@ -66,7 +66,7 @@ aliases:
   - &build-step
     name: build
     command: |
-      make clean
+      make clean $MAKE_OPTION $MAKE_ADD_OPTION
       case $CIRCLE_NODE_INDEX in \
         0) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O2 ;; \
         1) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O3 ;; \
@@ -78,7 +78,7 @@ aliases:
   - &test-step
     name: run test
     command: |
-      make $MAKE_RUN_TARGET
+      make $MAKE_RUN_TARGET $MAKE_OPTION $MAKE_ADD_OPTION
     working_directory: test
   - &report-step
     name: report
@@ -88,10 +88,8 @@ aliases:
   - &move-result-step
     name: move result xml
     command: |
-      if [ "$CIRCLE_NODE_INDEX" == "0" ]; then
-        mkdir -p $CIRCLE_TEST_REPORTS/junit/;
-        find . -type f -regex ".*/test/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;;
-      fi
+      mkdir -p $CIRCLE_TEST_REPORTS/junit/$CIRCLE_NODE_INDEX;
+      find . -type f -regex ".*/test/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/$CIRCLE_NODE_INDEX \;;
   - &build-test-steps
     - checkout
     - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS

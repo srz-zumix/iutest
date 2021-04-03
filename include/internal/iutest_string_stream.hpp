@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -86,7 +86,7 @@ inline bool StringToValue(const ::std::string& s, double& out)
     char* endptr=NULL;
     const char* p = s.c_str();
     errno = 0;
-    const floating_point<double> v = strtod(s.c_str(), &endptr);
+    const floating_point<double> v = strtod(p, &endptr);
 #if IUTEST_HAS_EXCEPTIONS
     if(p == endptr)
     {
@@ -112,7 +112,7 @@ inline bool StringToValue(const ::std::string& s, long double& out)
     char* endptr=NULL;
     const char* p = s.c_str();
     errno = 0;
-    const floating_point<long double> v = strtold(s.c_str(), &endptr);
+    const floating_point<long double> v = strtold(p, &endptr);
 #if IUTEST_HAS_EXCEPTIONS
     if(p == endptr)
     {

@@ -53,6 +53,11 @@ int main(int argc, char* argv[])
     listeners.Append(new ExitCheckEventListener());
 
     IUTEST_INIT(&argc, argv);
+
+#if defined(OUTPUTXML)
+    // 失敗テストを含むので xml 出力しない
+    ::iuutil::ReleaseDefaultXmlGenerator();
+#endif
     IUTEST_RUN_ALL_TESTS();
     return 1;
 #else

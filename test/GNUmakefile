@@ -45,36 +45,36 @@ include CommonMakefile.in
 STRICT_CXXFLAGS:= ${IUTEST_CXX_STRICT_FLAGS}
 
 CXXWARNFLAGS:= -Wall -Wextra $(STRICT_CXXFLAGS)
-CXXFLAGS += -g $(CXXWARNFLAGS) $(OPTIMIZE)
+override CXXFLAGS += -g $(CXXWARNFLAGS) $(OPTIMIZE)
 
 ifdef _DEBUG
-CXXFLAGS += -ggdb
+override CXXFLAGS += -ggdb
 endif
 
 ifdef _VERBOSE
-CXXFLAGS += -v
+override CXXFLAGS += -v
 endif
 
 ifdef USE_COVERAGE
-CXXFLAGS += -coverage
+override CXXFLAGS += -coverage
 ifndef CCOV
 CCOV=$(USE_COVERAGE)
 endif
 endif
 
 ifdef GGC_MIN_EXPAND
-CXXFLAGS += --param ggc-min-expand=${GGC_MIN_EXPAND}
+override CXXFLAGS += --param ggc-min-expand=${GGC_MIN_EXPAND}
 endif
 ifdef GGC_MIN_HEAPSIZE
-CXXFLAGS += --param ggc-min-heapsize=${GGC_MIN_HEAPSIZE}
+override CXXFLAGS += --param ggc-min-heapsize=${GGC_MIN_HEAPSIZE}
 endif
 
 ifdef CI_NODEBUG
-CXXFLAGS += -g0 -O0
+override CXXFLAGS += -g0 -O0
 endif
 
 # debug options
-# CXXFLAGS += -ftemplate-backtrace-limit=0
+# override CXXFLAGS += -ftemplate-backtrace-limit=0
 
 #
 #
@@ -84,7 +84,7 @@ endif
 # Wine g++
 ifeq ($(CXX),wineg++)
 LIBS+=ws2_32
-CXXFLAGS += -static-libgcc -static-libstdc++ -m32
+override CXXFLAGS += -static-libgcc -static-libstdc++ -m32
 endif
 
 ifeq ($(HOST),WINE)
@@ -116,13 +116,13 @@ endif
 # gtest-version tests
 #
 ifdef GTEST_EXPECT_VER
-CXXFLAGS+=-DGTEST_EXPECT_VER=$(GTEST_EXPECT_VER)
+override CXXFLAGS+=-DGTEST_EXPECT_VER=$(GTEST_EXPECT_VER)
 ifndef GTEST_EXPECT_LATEST
-CXXFLAGS+=-DGTEST_EXPECT_LATEST=0
+override CXXFLAGS+=-DGTEST_EXPECT_LATEST=0
 endif
 endif
 ifdef GTEST_EXPECT_LATEST
-CXXFLAGS+=-DGTEST_EXPECT_LATEST=$(GTEST_EXPECT_LATEST)
+override CXXFLAGS+=-DGTEST_EXPECT_LATEST=$(GTEST_EXPECT_LATEST)
 endif
 
 #
@@ -130,16 +130,16 @@ endif
 #
 
 ifdef OUTPUTXML
-CXXFLAGS +=-DOUTPUTXML
+override CXXFLAGS +=-DOUTPUTXML
 endif
 
 ifdef IUTEST_DEBUG
-CXXFLAGS +=-D_IUTEST_DEBUG
+override CXXFLAGS +=-D_IUTEST_DEBUG
 endif
 
-CXXFLAGS += $(DEFS) $(STDFLAG) $(STDLIB)
+override CXXFLAGS += $(DEFS) $(STDFLAG) $(STDLIB)
 LIBS_ = $(LIBS:%=-l%)
-LDFLAGS += $(LIBS_)
+override LDFLAGS += $(LIBS_)
 
 MAKEFILE=GNUmakefile CommonMakefile.in
 
@@ -421,11 +421,11 @@ endif
 ifeq ($(USE_GTEST)$(USE_GMOCK),)
 
 TARGETS_EXCLUDE_ALLTESTS= $(TEST_TARGETS) $(ASSERTION_ONLY_TARGETS) $(TARGETS_IUTEST_ONLY) $(BUILD_ONLY)
-CXXFLAGS += -Werror $(IUTEST_CXX_NOWARN_FLAGS)
+override CXXFLAGS += -Werror $(IUTEST_CXX_NOWARN_FLAGS)
 
 ifdef USE_LIB
-CXXFLAGS += -DIUTEST_USE_LIB=1 -L../lib
-LDFLAGS:= -liutest $(LDFLAGS)
+override CXXFLAGS += -DIUTEST_USE_LIB=1 -L../lib
+override LDFLAGS:= -liutest $(LDFLAGS)
 endif
 
 $(TARGETS_EXCLUDE_ALLTESTS) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
@@ -455,7 +455,7 @@ else
 # use Google Test or Google Mock
 include ../utils/usegtest.mk
 ifdef GTEST_SYSTEM_INCLUDED
-CXXFLAGS += -Werror $(IUTEST_CXX_WARN_FLAGS)
+override CXXFLAGS += -Werror $(IUTEST_CXX_NOWARN_FLAGS)
 endif
 
 $(BUILD_ONLY) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
