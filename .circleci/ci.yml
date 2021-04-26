@@ -199,15 +199,15 @@ workflows:
   default-test:
     jobs:
       - gcc_optimize_test:
-          wehn: << pipeline.parameters.build >>
+          when: << pipeline.parameters.build >>
           filters: *branch-filter
       - clang_optimize_test:
-          wehn: << pipeline.parameters.build >>
+          when: << pipeline.parameters.build >>
           filters: *branch-filter
       - vcperf:
-          wehn: << pipeline.parameters.build >>
+          when: << pipeline.parameters.build >>
           filters: *branch-filter
       - msvc_wine:
-          wehn: << pipeline.parameters.build >>
+          when: << pipeline.parameters.build >>
           filters: *branch-filter
 
