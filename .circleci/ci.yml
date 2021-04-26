@@ -197,17 +197,14 @@ jobs:
 workflows:
   version: 2.1
   default-test:
+    when: << pipeline.parameters.build >>
     jobs:
       - gcc_optimize_test:
-          when: << pipeline.parameters.build >>
           filters: *branch-filter
       - clang_optimize_test:
-          when: << pipeline.parameters.build >>
           filters: *branch-filter
       - vcperf:
-          when: << pipeline.parameters.build >>
           filters: *branch-filter
       - msvc_wine:
-          when: << pipeline.parameters.build >>
           filters: *branch-filter
 
