@@ -47,6 +47,32 @@ jobs:
         run: |
           echo "build and push"
 
+  gcc-basic-test:
+    runs-on: ubuntu-18.04
+    container:
+      image: docker://gcc:latest
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    needs: prepare
+    env:
+      PYTHON_VERSION: 3.8
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-python@v2
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    - name: Set Python environment variable
+      run: echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> $GITHUB_ENV
+    - name: gcc test
+      run: |
+        make -C test clean
+        make -C test showcxxmacros
+        make -C test showcxxversion
+        make -C test check_stdlib
+        make -C test IUTEST_REQUIRE_PYTHON=1
+        make -C test test
+
   llvm-basic-test:
     runs-on: windows-latest
     needs: prepare
@@ -66,6 +92,7 @@ jobs:
         make -C test CXX=clang++ CC=clang check_stdlib
         make -C test CXX=clang++ CC=clang -j8
         make -C test CXX=clang++ CC=clang test
+
   mingw-basic-test:
     runs-on: windows-latest
     needs: prepare
@@ -79,6 +106,7 @@ jobs:
         make -C test check_stdlib
         make -C test -j8
         make -C test test
+
   zapcc-basic-test:
     runs-on: ubuntu-18.04
     container:
@@ -104,6 +132,7 @@ jobs:
         make -C test check_stdlib
         make -C test -j1 IUTEST_REQUIRE_PYTHON=1
         make -C test test
+
   arm-none-eabi:
     runs-on: ubuntu-18.04
     needs: prepare
@@ -113,6 +142,7 @@ jobs:
       uses: ./.github/actions/arm-none-eabi
       with:
         args: ./.github/actions/arm-none-eabi/build.sh
+
   lint-editorconfig:
     runs-on: ubuntu-18.04
     needs: prepare
@@ -123,6 +153,7 @@ jobs:
       run: |
         npm install
         npm run lint:editorconfig
+
   iwyu:
     runs-on: ubuntu-18.04
     needs: lint-editorconfig
