@@ -1,4 +1,4 @@
-name: GitHub Actions
+name: Coverage
 on:
   pull_request:
     branches:
@@ -34,6 +34,9 @@ jobs:
     - name: test
       run: |
         make -C test test
+    - name: coverage
+      run: |
+        make -C test coverage
     - uses: codecov/codecov-action@v1
       with:
         fail_ci_if_error: true
