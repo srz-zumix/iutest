@@ -1,0 +1,40 @@
+name: GitHub Actions
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+      - 'feature/**'
+      - 'fix/**'
+      - 'gh/**'
+      - 'github/**'
+      - 'githubactions/**'
+    paths-ignore:
+      - '*.ini'
+      - '*.md'
+      - '*.yml'
+      - '*.yaml'
+      - '.circleci/**'
+      - '.semaphore/**'
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    env:
+      USE_COVERAGE: gcov
+    steps:
+    - uses: actions/checkout@master
+    - name: build
+      run: |
+        make -j4 default
+    - name: test
+      run: |
+        make -C test test
+    - uses: codecov/codecov-action@v1
+      with:
+        fail_ci_if_error: true
+        verbose: true
