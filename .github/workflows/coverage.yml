@@ -22,7 +22,7 @@ on:
       - develop
 
 jobs:
-  coverage:
+  codecov:
     runs-on: ubuntu-latest
     env:
       USE_COVERAGE: gcov
@@ -30,7 +30,7 @@ jobs:
     - uses: actions/checkout@master
     - name: build
       run: |
-        make -j4 default
+        make -C test -j4 default
     - name: test
       run: |
         make -C test test
