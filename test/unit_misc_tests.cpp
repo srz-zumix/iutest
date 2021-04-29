@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -36,6 +36,14 @@ IUTEST(UnitEnvTest, GetEnvironmentVariable)
 {
     ::std::string var;
     IUTEST_EXPECT_TRUE(::iutest::detail::GetEnvironmentVariable("PATH", var));
+}
+
+IUTEST(UnitEnvTest, GetEnvironmentInt)
+{
+    IUTEST_ASSUME_EQ(0, ::iutest::internal::posix::SetEnv("INTVAR_TEST_VALUE", "123", 1)) << "errno: " << errno;
+    int var;
+    IUTEST_EXPECT_TRUE(::iutest::detail::GetEnvironmentInt("INTVAR_TEST_VALUE", var));
+    IUTEST_EXPECT_EQ(123, var);
 }
 
 IUTEST(UnitAnyTest, Empty)
