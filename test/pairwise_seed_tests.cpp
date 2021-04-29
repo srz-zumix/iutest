@@ -121,8 +121,8 @@ int main(int argc, char* argv[])
     }
 
 #if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_PAIRWISE
-    IUTEST_ASSERT_EXIT((memcmp(PairwiseTest::mtx[0], PairwiseTest::mtx[1], sizeof(PairwiseTest::mtx[0])) != 0));
     IUTEST_ASSERT_EXIT((memcmp(golden, PairwiseTest::mtx, sizeof(PairwiseTest::mtx)) == 0));
+    IUTEST_ASSERT_EXIT((memcmp(PairwiseTest::mtx[0], PairwiseTest::mtx[1], sizeof(PairwiseTest::mtx[0])) != 0));
 #endif
     return 0;
 }
