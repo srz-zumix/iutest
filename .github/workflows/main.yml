@@ -118,6 +118,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: icpc test
+      shell: bash
       run: |
         make -C test clean
         make -C test showcxxmacros
