@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -92,20 +92,29 @@ IUTEST_IPP_INLINE const char* GetEnv(const char* name)
 
 IUTEST_IPP_INLINE int PutEnv(const char* expr)
 {
-#if defined(IUTEST_NO_PUTENV) || defined(__STRICT_ANSI__) \
+#if defined(IUTEST_NO_PUTENV) \
     || defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE)
     IUTEST_UNUSED_VAR(expr);
     return -1;
 #elif defined(IUTEST_OS_WINDOWS)
     return _putenv(expr);
 #else
+
+#if (defined(__SVID_VISIBLE) && !__SVID_VISIBLE) \
+    && (defined(__XSI_VISIBLE) && !__XSI_VISIBLE)
+    IUTEST_UNUSED_VAR(expr);
+    #error no-putenv
+    return -1;
+#else
     return putenv(const_cast<char*>(expr));
+#endif
+
 #endif
 }
 
 IUTEST_IPP_INLINE int SetEnv(const char* name, const char* value, int overwrite)
 {
-#if defined(IUTEST_NO_SETENV) || defined(__STRICT_ANSI__) \
+#if defined(IUTEST_NO_SETENV) \
     || defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE)
     IUTEST_UNUSED_VAR(name);
     IUTEST_UNUSED_VAR(value);
@@ -124,7 +133,17 @@ IUTEST_IPP_INLINE int SetEnv(const char* name, const char* value, int overwrite)
     expr += value;
     return PutEnv(expr.c_str());
 #else
+
+#if (defined(__BSD_VISIBLE) && !__BSD_VISIBLE) \
+    && (defined(__POSIX_VISIBLE) && __POSIX_VISIBLE < 200112)
+    IUTEST_UNUSED_VAR(name);
+    IUTEST_UNUSED_VAR(value);
+    IUTEST_UNUSED_VAR(overwrite);
+    return -1;
+#else
     return setenv(name, value, overwrite);
+#endif
+
 #endif
 }
 
@@ -326,7 +345,7 @@ IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, char* buf, size_
 IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, ::std::string& var)
 {
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
-    char buf[2048];
+    char buf[4096];
     if( !GetEnvironmentVariable(name, buf, sizeof(buf)) )
     {
         return false;
