@@ -458,6 +458,21 @@ inline int iu_mbtowc(wchar_t* dst, const char* src, size_t size)
 #endif
 }
 
+template<typename Ite, typename Random>
+void iu_shuffle(Ite first, Ite last, Random urandom)
+{
+    for(Ite it = first; it != last; ++it)
+    {
+        //0~i番目の要素から、入れ替え対象の要素をランダムに選ぶ
+        target = rand() % i;
+        //ここから下は末尾の要素と入れ替え
+        tmp = array[target];
+        array[target] = array[i];
+        array[i] = tmp;
+    }
+}
+}
+
 }   // end of namespace detail
 }   // end of namespace iutest
 
