@@ -120,6 +120,7 @@ jobs:
     - name: icpc test
       shell: bash
       run: |
+        . /opt/intel/oneapi/setvars.sh
         make -C test clean
         make -C test showcxxmacros
         make -C test showcxxversion
