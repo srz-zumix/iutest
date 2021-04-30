@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -229,7 +229,9 @@ public:
     template<typename It>
     void shuffle(It first, It last)
     {
-#if IUTEST_HAS_CXX_HDR_RANDOM
+#if   IUTEST_USE_OWN_SHUFFLE
+        detail::iu_shuffle(first, last, m_engine);
+#elif IUTEST_HAS_CXX_HDR_RANDOM
         ::std::shuffle(first, last, m_engine);
 #else
         ::std::random_shuffle(first, last, *this);

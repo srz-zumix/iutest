@@ -15,6 +15,7 @@
 
 //======================================================================
 // include
+#define IUTEST_USE_OWN_SHUFFLE  1
 #include "iutest.hpp"
 
 #if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_PAIRWISE
@@ -28,22 +29,22 @@ static const int N3 = 3;
 bool golden[2][N1][N2][N3] = {
     {
         {
-            {  true, false,  true },
             { false,  true,  true },
+            {  true, false,  true },
         },
         {
-            { false,  true,  true },
-            {  true, false, false },
+            {  true, false,  true },
+            { false,  true, false },
         }
     },
     {
         {
-            {  true, false,  true },
             { false,  true,  true },
+            {  true, false, false },
         },
         {
-            { false,  true, false },
             {  true, false,  true },
+            { false,  true,  true },
         }
     }
 };
@@ -112,7 +113,7 @@ int main(int argc, char* argv[])
 #endif
 {
     ::iutest::detail::iuRandom rnd;
-    ::iutest::IUTEST_FLAG(random_seed) = 10;
+    ::iutest::IUTEST_FLAG(random_seed) = 9;
     IUTEST_INIT(&argc, argv);
     const int ret = IUTEST_RUN_ALL_TESTS();
     if( ret != 0 )
@@ -121,8 +122,8 @@ int main(int argc, char* argv[])
     }
 
 #if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_PAIRWISE
-    IUTEST_ASSERT_EXIT((memcmp(golden, PairwiseTest::mtx, sizeof(PairwiseTest::mtx)) == 0));
     IUTEST_ASSERT_EXIT((memcmp(PairwiseTest::mtx[0], PairwiseTest::mtx[1], sizeof(PairwiseTest::mtx[0])) != 0));
+    IUTEST_ASSERT_EXIT((memcmp(golden, PairwiseTest::mtx, sizeof(PairwiseTest::mtx)) == 0));
 #endif
     return 0;
 }
