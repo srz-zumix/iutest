@@ -117,7 +117,7 @@ jobs:
       CXX: icpc
     steps:
     - uses: actions/checkout@master
-    - name: icpc test
+    - name: zapcc test
       run: |
         make -C test clean
         make -C test showcxxmacros
