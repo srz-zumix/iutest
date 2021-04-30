@@ -122,6 +122,12 @@ stages:
       - template: .ci/azure_pipelines/template-make-mix-test.yml
         parameters:
           name: mix
+  - stage: ConfigTest
+    dependsOn: Precheck
+    jobs:
+      - template: .ci/azure_pipelines/template-make-config-test.yml
+        parameters:
+          name: config
   - stage: VisualStudio
     dependsOn: Precheck
     jobs:

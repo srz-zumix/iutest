@@ -3,7 +3,7 @@
 # Add steps that publish test results, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/c-cpp/gcc
 
-# mix config jobs template
+# config jobs template
 parameters:
   name: ''
   options: ''
@@ -14,17 +14,12 @@ jobs:
     strategy:
       matrix:
         # mix config
-        Mix_NoParameAndType:
-          MIX_CONFIG: "-DIUTEST_HAS_TYPED_TEST=0 -DIUTEST_HAS_PARAM_TEST=0 -DIUTEST_HAS_TYPED_TEST_P=0 -DIUTEST_HAS_VARIADIC_PRED=0"
-          PKG_NAME: NoParameAndType
-        Mix_StrStream:
-          MIX_CONFIG: "-DIUTEST_HAS_STRINGSTREAM=0 -DIUTEST_HAS_STRSTREAM=1 -Wno-deprecated"
-          # ADD_OPT: "STDFLAG=-std=c++03"
-          PKG_NAME: StrStream
+        Conf_RandomEngine:
+          MIX_CONFIG: "-DIUTEST_USE_RANDOM_ENGINE_TYPENAME=::std::default_random_engine"
     pool:
       vmImage: ${{ parameters.vmImage }}
     steps:
     - template: template-make-test-steps.yml
       parameters:
-        options: ${{ parameters.options }} DEFS+="${MIX_CONFIG}" ${ADD_OPT}
+        options: ${{ parameters.options }} DEFS+="${DEF_CONFIG}" ${ADD_OPT}
         package_name: "${{ parameters.name }}-${NOFEATURE_CONFIG}"
