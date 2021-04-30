@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -456,6 +456,19 @@ inline int iu_mbtowc(wchar_t* dst, const char* src, size_t size)
 #else
     return mbtowc(dst, src, size);
 #endif
+}
+
+template<typename Ite, typename Random>
+void iu_shuffle(Ite first, Ite last, Random urandom)
+{
+    typedef typename ::std::iterator_traits<Ite>::difference_type utype;
+    const utype size = ::std::distance(first, last);
+    Ite it = first;
+    for(utype i=0; it != last && i < size - 1; ++it, ++i)
+    {
+        const int n = urandom() % (size - i - 1) + i;
+        std::iter_swap(it, first + n);
+    }
 }
 
 }   // end of namespace detail

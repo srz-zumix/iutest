@@ -180,6 +180,7 @@ TARGETS_IUTEST_ONLY = \
 		$(OUTDIR)/output_xml_invalid_path_tests \
 		$(OUTDIR)/output_xml_repeat_tests \
 		$(OUTDIR)/own_string_view_tests \
+		$(OUTDIR)/pairwise_seed_tests \
 		$(OUTDIR)/param_test_name_invalid_tests \
 		$(OUTDIR)/param_test_name_tests \
 		$(OUTDIR)/no_yoda_tests \
