@@ -101,9 +101,9 @@ IUTEST_IPP_INLINE int PutEnv(const char* expr)
 #else
 
 #if (defined(__SVID_VISIBLE) && !__SVID_VISIBLE) \
-    && (defined(__XSI_VISIBLE) && __XSI_VISIBLE)
+    && (defined(__XSI_VISIBLE) && !__XSI_VISIBLE)
     IUTEST_UNUSED_VAR(expr);
-    error no-putenv
+    #error no-putenv
     return -1;
 #else
     return putenv(const_cast<char*>(expr));
@@ -139,7 +139,6 @@ IUTEST_IPP_INLINE int SetEnv(const char* name, const char* value, int overwrite)
     IUTEST_UNUSED_VAR(name);
     IUTEST_UNUSED_VAR(value);
     IUTEST_UNUSED_VAR(overwrite);
-    error no-setenv
     return -1;
 #else
     return setenv(name, value, overwrite);
