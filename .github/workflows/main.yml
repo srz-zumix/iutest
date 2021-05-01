@@ -130,7 +130,8 @@ jobs:
   arm-none-eabi:
     runs-on: ubuntu-latest
     container:
-      image: docker://srzzumix/arm-none-eabi:8-2018q4
+      # image: docker://srzzumix/arm-none-eabi:8-2018q4
+      image: docker://srzzumix/arm-none-eabi:9-2019q4
       credentials:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
