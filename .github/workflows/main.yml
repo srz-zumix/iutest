@@ -130,7 +130,7 @@ jobs:
   arm-none-eabi:
     strategy:
       matrix:
-        tag_version:
+        container-version:
           - "6-2016q4"
           - "7-2017q4"
           - "8-2018q4"
@@ -138,7 +138,7 @@ jobs:
           - "latest"
     runs-on: ubuntu-latest
     container:
-      image: docker://srzzumix/arm-none-eabi:$tag_version
+      image: docker://srzzumix/arm-none-eabi:{{ matrix.container-version }}
       credentials:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
