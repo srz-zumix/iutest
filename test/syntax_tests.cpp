@@ -957,7 +957,7 @@ IUTEST(PrintToTest, Iomanip)
 #if IUTEST_HAS_CHAR16_T
 IUTEST(PrintToTest, U16String)
 {
-    IUTEST_SUCCEED() << u"テスト";
+    IUTEST_SUCCEED() << u"test";
 }
 
 #if IUTEST_HAS_CXX_HDR_STRING_VIEW
@@ -973,7 +973,7 @@ IUTEST(PrintToTest, U16StringStringView)
 #if IUTEST_HAS_CHAR32_T
 IUTEST(PrintToTest, U32String)
 {
-    IUTEST_SUCCEED() << U"テスト";
+    IUTEST_SUCCEED() << U"TEST";
 }
 
 #if IUTEST_HAS_CXX_HDR_STRING_VIEW

@@ -444,6 +444,7 @@ endif
 ifeq ($(CI),true)
 IUTEST_COMPILE_ERROR_TEST_OPTION+= --verbose
 endif
+IUTEST_COMPILE_ERROR_TEST_OPTION+= --allow-unknown-compiler
 
 CXX_ERROR_TEST_FLAGS:=-ferror-limit=100
 
@@ -560,4 +561,4 @@ cmake-sync-check: ../projects/cmake/CMakeLists.txt $(MAKEFILE) ## check cmake an
 # help
 #
 help: ## show help
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sed -e 's/^GNUmakefile://' | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^[a-zA-Z][a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sed -e 's/^GNUmakefile://' | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
