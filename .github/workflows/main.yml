@@ -128,14 +128,31 @@ jobs:
         make -C test -j8
         make -C test test
   arm-none-eabi:
-    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        container-version:
+          - "6-2016q4"
+          - "7-2017q4"
+          - "8-2018q4"
+          - "9-2019q4"
+          - "latest"
+    runs-on: ubuntu-latest
+    container:
+      image: docker://srzzumix/arm-none-eabi:{{ matrix.container-version }}
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
     needs: prepare
+    env:
+      DEFS: --specs=nosys.specs -mthumb -mcpu=cortex-m3
     steps:
     - uses: actions/checkout@v2
-    - name: arm-none-eabi
-      uses: ./.github/actions/arm-none-eabi
-      with:
-        args: ./.github/actions/arm-none-eabi/build.sh
+    - name: info
+      run: |
+        make -C test showcxxversion showcxxmacros DEFS="$DEFS"
+    - name: build
+      run: |
+        make -C test DEFS="$DEFS"
   lint-editorconfig:
     runs-on: ubuntu-18.04
     needs: prepare
