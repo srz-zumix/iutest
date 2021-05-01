@@ -128,10 +128,17 @@ jobs:
         make -C test -j8
         make -C test test
   arm-none-eabi:
+    strategy:
+      matrix:
+        tag_version:
+          - "6-2016q4"
+          - "7-2017q4"
+          - "8-2018q4"
+          - "9-2019q4"
+          - "latest"
     runs-on: ubuntu-latest
     container:
-      # image: docker://srzzumix/arm-none-eabi:8-2018q4
-      image: docker://srzzumix/arm-none-eabi:9-2019q4
+      image: docker://srzzumix/arm-none-eabi:$tag_version
       credentials:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
