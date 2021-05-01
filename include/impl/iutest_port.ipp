@@ -346,13 +346,12 @@ IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, ::std::string& v
 {
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
     char buf[4096];
-    if( !GetEnvironmentVariable(name, buf, sizeof(buf)) )
+    if( GetEnvironmentVariable(name, buf, sizeof(buf)) )
     {
-        return false;
+        var = buf;
+        return true;
     }
-    var = buf;
-    return true;
-#else
+#endif
     const char* env = internal::posix::GetEnv(name);
     if( env == NULL )
     {
@@ -360,7 +359,6 @@ IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, ::std::string& v
     }
     var = env;
     return true;
-#endif
 }
 
 IUTEST_IPP_INLINE bool GetEnvironmentInt(const char* name, int& var)
