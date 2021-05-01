@@ -138,7 +138,7 @@ jobs:
           - "latest"
     runs-on: ubuntu-latest
     container:
-      image: docker://srzzumix/arm-none-eabi:{{ matrix.container-version }}
+      image: docker://srzzumix/arm-none-eabi:${{ matrix.container-version }}
       credentials:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
