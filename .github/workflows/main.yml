@@ -142,7 +142,6 @@ jobs:
     - name: info
       run: |
         make -C test showcxxversion showcxxmacros DEFS="$DEFS"
-        make -C test showcxxversion check_stdlib DEFS="$DEFS"
     - name: build
       run: |
         make -C test DEFS="$DEFS"
