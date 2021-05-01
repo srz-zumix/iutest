@@ -129,6 +129,7 @@ jobs:
         make -C test test
   arm-none-eabi:
     strategy:
+      fail-fast: false
       matrix:
         container-version:
           - "6-2016q4"
