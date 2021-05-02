@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -470,7 +470,7 @@
 //======================================================================
 // define
 #if !defined(IUTEST_HAS_STD_FILESYSTEM)
-#  if defined(ANDROID) || defined(__ANDROID__)
+#  if defined(ANDROID) || defined(__ANDROID__) || defined(__ARM_EABI__)
 #    define IUTEST_HAS_STD_FILESYSTEM       0
 #  elif IUTEST_HAS_CXX_HDR_FILESYSTEM && defined(__cpp_lib_filesystem) && __cpp_lib_filesystem >= 201703
 #    if !defined(__cpp_lib_experimental_filesystem)
