@@ -145,7 +145,8 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     needs: prepare
     env:
-      DEFS: --specs=nosys.specs -mthumb -mcpu=cortex-m3
+      DEFS: --specs=nosys.specs -march=armv8-a
+      LIBS: nosys
     steps:
     - uses: actions/checkout@v2
     - name: info
