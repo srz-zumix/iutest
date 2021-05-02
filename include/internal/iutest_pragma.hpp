@@ -391,6 +391,20 @@
 #  define IUTEST_PRAGMA_WARN_DISABLE_NOEXCEPT_TPYE()
 #endif
 
+#if !defined(IUTEST_PRAGMA_WARN_DISABLE_NONNULL)
+#  if   defined(__clang__)
+#    define IUTEST_PRAGMA_WARN_DISABLE_NONNULL()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wnonnull")
+#  elif defined(__GNUC__)
+#    define IUTEST_PRAGMA_WARN_DISABLE_NONNULL()    IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wnonnull")
+#  elif defined(_MSC_VER)
+#    define IUTEST_PRAGMA_WARN_DISABLE_NONNULL()    IUTEST_PRAGMA_MSC_WARN_DISABLE(6387)
+#  endif
+#endif
+
+#if !defined(IUTEST_PRAGMA_WARN_DISABLE_NONNULL)
+#  define IUTEST_PRAGMA_WARN_DISABLE_NONNULL()
+#endif
+
 #if   defined(__clang__)
 #  if IUTEST_CLANG_MAJOR > 10
 #    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_11()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wsuggest-destructor-override")
