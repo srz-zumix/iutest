@@ -970,7 +970,14 @@ using namespace has_equal_to_operator_helper;   // NOLINT
 template<typename T>
 struct has_equal_to_operator
 {
+#if IUTEST_HAS_DECLTYPE
+    typedef bool_constant< (sizeof(::std::declval<T>() == ::std::declval<T>()) != sizeof(has_equal_to_operator_helper::no_t) ) > type;    // NOLINT
+#else
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_NONNULL()
     typedef bool_constant< (sizeof(*(T*)0 == *(T*)0) != sizeof(has_equal_to_operator_helper::no_t) ) > type;    // NOLINT
+IUTEST_PRAGMA_WARN_POP()
+#endif
 };
 
 IUTEST_PRAGMA_WARN_POP()

@@ -8,6 +8,7 @@
   * 例外発生時にも SCOPED_TRACE のメッセージを出力するように変更
   * 空のテストスイート名・テスト名に static_assert を追加
   * GoogleTest の GTEST_REMOVE_LEGACY_TEST_CASEAPI_ に対応
+  * Intel Compiler に対応
 
 * Changes
   * TestCase の別名 TestSuite に対応（iutest はどちらもサポートし続けます）
