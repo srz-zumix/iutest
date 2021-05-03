@@ -96,7 +96,7 @@ IUTEST_IPP_INLINE int PutEnv(const char* expr)
     || defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE)
     IUTEST_UNUSED_VAR(expr);
     return -1;
-#elif defined(IUTEST_OS_WINDOWS)
+#elif defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MINGW)
     return _putenv(expr);
 #else
 
