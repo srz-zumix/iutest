@@ -142,8 +142,15 @@ jobs:
     steps: *build-test-steps
   arm:
     machine: true
+    environment:
+      CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
+      CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
+      MAKE_OPTION: -j4 OUTPUTXML=1
+      MAKE_TARGET: default
+      MAKE_RUN_TARGET: test
     steps:
       - checkout
+      - run: *check-version-step
       - run: *min-tests-and-spec-step
       - run: *build-step
       - run: *test-step
@@ -151,12 +158,12 @@ jobs:
       - run: *move-result-step
       # Teardown
       - store_test_results:
-          path: /tmp/circleci-test-results
+          path: $CIRCLE_TEST_REPORTS
       # Save artifacts
       - store_artifacts:
-          path: /tmp/circleci-artifacts
+          path: $CIRCLE_ARTIFACTS
       - store_artifacts:
-          path: /tmp/circleci-test-results
+          path: $CIRCLE_TEST_REPORTS
   vcperf:
     executor: win/default
     environment:
