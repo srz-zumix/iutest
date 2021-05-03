@@ -160,12 +160,12 @@ jobs:
       - run: *move-result-step
       # Teardown
       - store_test_results:
-          path: $CIRCLE_TEST_REPORTS
+          path: /tmp/circleci-test-results
       # Save artifacts
       - store_artifacts:
-          path: $CIRCLE_ARTIFACTS
+          path: /tmp/circleci-artifacts
       - store_artifacts:
-          path: $CIRCLE_TEST_REPORTS
+          path: /tmp/circleci-test-results
   vcperf:
     executor: win/default
     environment:
