@@ -86,6 +86,7 @@ Compiler
 * VC++6~
 * GCC 3.4.6~
 * Clang 3.1~
+* Intel Compiler
 * Zapcc
 
 Documentation
