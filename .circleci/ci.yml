@@ -141,7 +141,9 @@ jobs:
       MAKE_ADD_OPTION: CXXFLAGS=-ftime-trace
     steps: *build-test-steps
   arm:
-    machine: true
+    machine:
+      image: ubuntu-2004:202101-01
+    resource_class: arm.medium
     environment:
       CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
