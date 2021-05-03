@@ -256,7 +256,7 @@ ifdef CXX_NAME
 endif
 
 showcxxmacros: ## show compiler predefined macros
-	$(CXX) $(STDFLAG) -dM -E -x c++ - < /dev/null
+	$(CXX) $(STDFLAG) ${CXXFLAGS} -dM -E -x c++ - < /dev/null
 
 showcxxflags: ## show cxxflags
 	@echo $(CXXFLAGS)
