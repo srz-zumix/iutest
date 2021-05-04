@@ -16,8 +16,4 @@ workflows:
             src/.* build true
             test/.* build true
             utils/.* build true
-        steps:
-          run:
-            commnad: circleci-agent step halt
-            when: on_fail
 
