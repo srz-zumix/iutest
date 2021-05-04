@@ -12,8 +12,8 @@ workflows:
           base-revision: master
           config-path: .circleci/ci.yml
           mapping: |
+            .circleci/.* build true
             include/.* build true
             src/.* build true
             test/.* build true
             utils/.* build true
-
