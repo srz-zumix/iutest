@@ -87,6 +87,7 @@ aliases:
     working_directory: test
   - &move-result-step
     name: move result xml
+    when: always
     command: |
       mkdir -p $CIRCLE_TEST_REPORTS/junit/$CIRCLE_NODE_INDEX;
       find . -type f -regex ".*/test/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/$CIRCLE_NODE_INDEX \;;
