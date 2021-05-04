@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -67,6 +67,8 @@ IUTEST_TYPED_TEST(FloatingpointTest, NINF)
 #if !defined(__MINGW64__)
 IUTEST_TYPED_TEST(FloatingpointTest, NQNAN)
 {
+    IUTEST_ASSUME_TRUE(::std::numeric_limits<TypeParam>::is_iec559);
+
     typedef typename TestFixture::ftype FloatType;
     const TypeParam a=TestFixture::ONE;
     const TypeParam sq=static_cast<TypeParam>(sqrt(-a));
