@@ -916,7 +916,7 @@ namespace floationg_point_helper
 template<typename T>
 ::iutest::detail::FloatingPoint<float> CastToFloatingPoint(const T& x)
 {
-    return ::iutest::detail::FloatingPoint<float>(float(x));
+    return ::iutest::detail::FloatingPoint<float>(static_cast<float>(x));
 }
 ::iutest::detail::FloatingPoint<float> CastToFloatingPoint(const float& x)
 {
@@ -927,7 +927,7 @@ template<typename T>
     return ::iutest::detail::FloatingPoint<double>(x);
 }
 
-}
+} // end of namespace floationg_point_helper
 
 /**
  * @brief   NaN Assertion formatter
