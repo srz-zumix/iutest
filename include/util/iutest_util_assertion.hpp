@@ -297,6 +297,40 @@
 #  define   IUTEST_ASSUME_STRNOTIN(substr, actual)      IUTEST_TEST_STRNOTIN(substr, actual, IUTEST_ASSUME_FAILURE)
 #endif
 
+
+/**
+ * @ingroup IUTEST_ASSERT_
+ * @brief   isnan
+ * @param   actual  = floating point value
+*/
+#ifndef IUTEST_ASSERT_NAN
+#  define   IUTEST_ASSERT_NAN(actual)       IUTEST_TEST_NAN(actual, IUTEST_ASSERT_FAILURE)
+#endif
+/**
+ * @ingroup IUTEST_EXPECT_
+ * @brief   isnan
+ * @param   actual  = floating point value
+*/
+#ifndef IUTEST_EXPECT_NAN
+#  define   IUTEST_EXPECT_NAN(actual)       IUTEST_TEST_NAN(actual, IUTEST_EXPECT_FAILURE)
+#endif
+/**
+ * @ingroup IUTEST_INFORM
+ * @brief   isnan
+ * @param   actual  = floating point value
+*/
+#ifndef IUTEST_INFORM_NAN
+#  define   IUTEST_INFORM_NAN(actual)       IUTEST_TEST_NAN(actual, IUTEST_INFORM_FAILURE)
+#endif
+/**
+ * @ingroup IUTEST_ASSUME
+ * @brief   isnan
+ * @param   actual  = floating point value
+*/
+#ifndef IUTEST_ASSUME_NAN
+#  define   IUTEST_ASSUME_NAN(actual)       IUTEST_TEST_NAN(actual, IUTEST_ASSUME_FAILURE)
+#endif
+
 #if IUTEST_HAS_REGEX
 
 /**
@@ -482,6 +516,7 @@
 #define ASSERT_STRLNEQ          IUTEST_ASSERT_STRLNEQ
 #define ASSERT_STRIN            IUTEST_ASSERT_STRIN
 #define ASSERT_STRNOTIN         IUTEST_ASSERT_STRNOTIN
+#define ASSERT_BAB              IUTEST_ASSERT_NAN
 
 #define EXPECT_EQ_COLLECTIONS   IUTEST_EXPECT_EQ_COLLECTIONS
 #define EXPECT_NE_COLLECTIONS   IUTEST_EXPECT_NE_COLLECTIONS
@@ -490,6 +525,7 @@
 #define EXPECT_STRLNEQ          IUTEST_EXPECT_STRLNEQ
 #define EXPECT_STRIN            IUTEST_EXPECT_STRIN
 #define EXPECT_STRNOTIN         IUTEST_EXPECT_STRNOTIN
+#define EXPECT_NAN              IUTEST_EXPECT_NAN
 
 #define INFORM_EQ_COLLECTIONS   IUTEST_INFORM_EQ_COLLECTIONS
 #define INFORM_NE_COLLECTIONS   IUTEST_INFORM_NE_COLLECTIONS
@@ -498,6 +534,7 @@
 #define INFORM_STRLNEQ          IUTEST_INFORM_STRLNEQ
 #define INFORM_STRIN            IUTEST_INFORM_STRIN
 #define INFORM_STRNOTIN         IUTEST_INFORM_STRNOTIN
+#define INFORM_NAN              IUTEST_INFORM_NAN
 
 #define ASSUME_EQ_COLLECTIONS   IUTEST_ASSUME_EQ_COLLECTIONS
 #define ASSUME_NE_COLLECTIONS   IUTEST_ASSUME_NE_COLLECTIONS
@@ -506,6 +543,7 @@
 #define ASSUME_STRLNEQ          IUTEST_ASSUME_STRLNEQ
 #define ASSUME_STRIN            IUTEST_ASSUME_STRIN
 #define ASSUME_STRNOTIN         IUTEST_ASSUME_STRNOTIN
+#define ASSUME_NAN              IUTEST_ASSUME_NAN
 
 #if IUTEST_HAS_REGEX
 
@@ -549,6 +587,8 @@
 #define IUTEST_TEST_STRLNEQ(len, v2, on_failure)                IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperSTRLNEQ, len, v2, on_failure )
 #define IUTEST_TEST_STRIN(substr, actual, on_failure)           IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperSTRIN, substr, actual, on_failure )
 #define IUTEST_TEST_STRNOTIN(substr, actual, on_failure)        IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperSTRNOTIN, substr, actual, on_failure )
+
+#define IUTEST_TEST_NAN(actual, on_failure)                     IUTEST_PRED_FORMAT1_( ::iuutil::CmpHelperIsNan, actual, on_failure )
 
 #if IUTEST_HAS_REGEX
 
@@ -868,6 +908,39 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNOTIN(cons
     , const T1& substr, const T2& actual)
 {
     return StrNotInHelper::Assertion(substr_str, actual_str, substr, actual);
+}
+
+namespace floationg_point_helper
+{
+
+template<typename T>
+::iutest::detail::FloatingPoint<float> CastToFloatingPoint(const T& x)
+{
+    return ::iutest::detail::FloatingPoint<float>(float(x));
+}
+::iutest::detail::FloatingPoint<float> CastToFloatingPoint(const float& x)
+{
+    return ::iutest::detail::FloatingPoint<float>(x);
+}
+::iutest::detail::FloatingPoint<double> CastToFloatingPoint(const double& x)
+{
+    return ::iutest::detail::FloatingPoint<double>(x);
+}
+
+}
+
+/**
+ * @brief   NaN Assertion formatter
+*/
+template<typename T>
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperIsNan(const char* actual_str, const T& actual)
+{
+    if( floationg_point_helper::CastToFloatingPoint(actual).is_nan() )
+    {
+        return ::iutest::AssertionSuccess();
+    }
+    return ::iutest::AssertionFailure() << "error: Value of: " << actual_str
+        << "\n  Actual: " << actual << "\nExpected: NaN";
 }
 
 #if IUTEST_HAS_REGEX

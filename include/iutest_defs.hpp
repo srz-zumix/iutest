@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -396,6 +396,23 @@ private:
 private:
     FInt m_v;
 };
+
+// googletest compat
+
+namespace detail
+{
+
+template<typename T>
+class FloatingPoint : public floating_point<T>
+{
+public:
+    explicit FloatingPoint(const T& x) : floating_point<T>(x) {}
+};
+
+typedef FloatingPoint<float> Float;
+typedef FloatingPoint<double> Double;
+
+}   // end of namespace detail
 
 #if defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
 
