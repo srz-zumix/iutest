@@ -45,6 +45,10 @@ int RegisterFileSystem()
 #endif
 
 
+#ifndef IUTEST_EXPECT_NO_THROW
+#  define IUTEST_EXPECT_NO_THROW void
+#endif
+
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else
