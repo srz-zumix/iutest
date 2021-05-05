@@ -65,7 +65,7 @@ IUTEST_TYPED_TEST(FloatingpointTest, NINF)
 // MinGW-w64 sqrt bug
 // https://sourceforge.net/p/mingw/bugs/2337/
 #if !defined(__MINGW64__)
-IUTEST_TYPED_TEST(FloatingpointTest, NQNAN)
+IUTEST_TYPED_TEST(FloatingpointTest, IsNAN)
 {
     IUTEST_ASSUME_TRUE(::std::numeric_limits<TypeParam>::is_iec559);
 
@@ -74,6 +74,20 @@ IUTEST_TYPED_TEST(FloatingpointTest, NQNAN)
     const TypeParam sq=static_cast<TypeParam>(sqrt(-a));
     IUTEST_EXPECT_EQ(FloatType(sq), FloatType::NQNAN());
 }
+#endif
+
+#if IUTEST_HAS_CXX11
+
+IUTEST_TYPED_TEST(FloatingpointTest, NQNAN)
+{
+    IUTEST_ASSUME_TRUE(::std::numeric_limits<TypeParam>::is_iec559);
+
+    typedef typename TestFixture::ftype FloatType;
+    const TypeParam a=TestFixture::ONE;
+    const TypeParam sq=static_cast<TypeParam>(sqrt(-a));
+    IUTEST_EXPECT_NAN(sq);
+}
+
 #endif
 
 IUTEST_PRAGMA_WARN_POP()
