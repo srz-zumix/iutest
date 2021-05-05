@@ -297,6 +297,40 @@
 #  define   IUTEST_ASSUME_STRNOTIN(substr, actual)      IUTEST_TEST_STRNOTIN(substr, actual, IUTEST_ASSUME_FAILURE)
 #endif
 
+
+/**
+ * @ingroup IUTEST_ASSERT_
+ * @brief   isnan
+ * @param   actual  = floating point value
+*/
+#ifndef IUTEST_ASSERT_NAN
+#  define   IUTEST_ASSERT_NAN(actual)       IUTEST_TEST_NAN(actual, IUTEST_ASSERT_FAILURE)
+#endif
+/**
+ * @ingroup IUTEST_EXPECT_
+ * @brief   isnan
+ * @param   actual  = floating point value
+*/
+#ifndef IUTEST_EXPECT_NAN
+#  define   IUTEST_EXPECT_NAN(actual)       IUTEST_TEST_NAN(actual, IUTEST_EXPECT_FAILURE)
+#endif
+/**
+ * @ingroup IUTEST_INFORM
+ * @brief   isnan
+ * @param   actual  = floating point value
+*/
+#ifndef IUTEST_INFORM_NAN
+#  define   IUTEST_INFORM_NAN(actual)       IUTEST_TEST_NAN(actual, IUTEST_INFORM_FAILURE)
+#endif
+/**
+ * @ingroup IUTEST_ASSUME
+ * @brief   isnan
+ * @param   actual  = floating point value
+*/
+#ifndef IUTEST_ASSUME_NAN
+#  define   IUTEST_ASSUME_NAN(actual)       IUTEST_TEST_NAN(actual, IUTEST_ASSUME_FAILURE)
+#endif
+
 #if IUTEST_HAS_REGEX
 
 /**
@@ -549,6 +583,8 @@
 #define IUTEST_TEST_STRLNEQ(len, v2, on_failure)                IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperSTRLNEQ, len, v2, on_failure )
 #define IUTEST_TEST_STRIN(substr, actual, on_failure)           IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperSTRIN, substr, actual, on_failure )
 #define IUTEST_TEST_STRNOTIN(substr, actual, on_failure)        IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperSTRNOTIN, substr, actual, on_failure )
+
+#define IUTEST_TEST_NAN(actual, on_failure)                     IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperIsNan, actual, on_failure )
 
 #if IUTEST_HAS_REGEX
 
@@ -868,6 +904,20 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNOTIN(cons
     , const T1& substr, const T2& actual)
 {
     return StrNotInHelper::Assertion(substr_str, actual_str, substr, actual);
+}
+
+/**
+ * @brief   NaN Assertion formatter
+*/
+template<typename T>
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperIsNan(const char* actual_str, const T& actual)
+{
+    ::iutest::detail::FloatingPoint<T> fv(actual);
+    if( fv.is_nan() )
+    {
+        return ::iutest::AssertionSuccess();
+    }
+    return ::iutest::AssertionFailure() << "error: Expected: NaN\n  Actual:" << GetAssertionResultMessage(fv);
 }
 
 #if IUTEST_HAS_REGEX

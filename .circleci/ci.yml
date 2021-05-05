@@ -87,6 +87,7 @@ aliases:
     working_directory: test
   - &move-result-step
     name: move result xml
+    when: always
     command: |
       mkdir -p $CIRCLE_TEST_REPORTS/junit/$CIRCLE_NODE_INDEX;
       find . -type f -regex ".*/test/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/$CIRCLE_NODE_INDEX \;;
@@ -140,6 +141,32 @@ jobs:
       FAST_OPTIMIZE: -Ot
       MAKE_ADD_OPTION: CXXFLAGS=-ftime-trace
     steps: *build-test-steps
+  arm:
+    machine:
+      image: ubuntu-2004:202101-01
+    resource_class: arm.medium
+    environment:
+      CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
+      CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
+      MAKE_OPTION: -j4 OUTPUTXML=1
+      MAKE_TARGET: default
+      MAKE_RUN_TARGET: test
+    steps:
+      - checkout
+      - run: *check-version-step
+      - run: *min-tests-and-spec-step
+      - run: *build-step
+      - run: *test-step
+      - run: *report-step
+      - run: *move-result-step
+      # Teardown
+      - store_test_results:
+          path: /tmp/circleci-test-results
+      # Save artifacts
+      - store_artifacts:
+          path: /tmp/circleci-artifacts
+      - store_artifacts:
+          path: /tmp/circleci-test-results
   vcperf:
     executor: win/default
     environment:
@@ -202,6 +229,8 @@ workflows:
       - gcc_optimize_test:
           filters: *branch-filter
       - clang_optimize_test:
+          filters: *branch-filter
+      - arm:
           filters: *branch-filter
       - vcperf:
           filters: *branch-filter
