@@ -918,7 +918,7 @@ template<typename T>
 {
     return ::iutest::detail::FloatingPoint<float>(static_cast<float>(x));
 }
-::iutest::detail::FloatingPoint<double> CastToFloatingPoint(const double& x)
+inline ::iutest::detail::FloatingPoint<double> CastToFloatingPoint(const double& x)
 {
     return ::iutest::detail::FloatingPoint<double>(x);
 }
