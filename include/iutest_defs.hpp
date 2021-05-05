@@ -406,8 +406,11 @@ template<typename T>
 class FloatingPoint : public floating_point<T>
 {
 public:
-    explicit FloatingPoint(const T& x) : floating_point(x) {}
+    explicit FloatingPoint(const T& x) : floating_point<T>(x) {}
 };
+
+typedef FloatingPoint<float> Float;
+typedef FloatingPoint<double> Double;
 
 }   // end of namespace detail
 
