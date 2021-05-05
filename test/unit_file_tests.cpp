@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -41,6 +41,8 @@ IUTEST(StdFileUnitTest, FileSize)
     ::iutest::internal::FilePath filename(__FILE__);
     IUTEST_ASSERT_TRUE( file.Open(filename.string().c_str(), iutest::IFile::OpenAppend) );
     IUTEST_EXPECT_LT(0u, file.GetSize());
+    IUTEST_EXPECT_EQ(0u, ::iutest::StdioFile::GetSize(NULL));
+    IUTEST_EXPECT_EQ(0u, ::iutest::StdioFile::GetSizeBySeekSet(NULL));
 }
 
 #endif
