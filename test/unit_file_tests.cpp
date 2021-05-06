@@ -47,6 +47,34 @@ IUTEST(StdFileUnitTest, FileSize)
 
 #endif
 
+#if IUTEST_HAS_STRINGSTREAM
+
+IUTEST(StringStreamFileUnitTest, FileSize)
+{
+    ::iutest::StringStreamFile file;
+    ::iutest::internal::FilePath filename(__FILE__);
+    IUTEST_ASSERT_TRUE( file.Open(filename.string().c_str(), iutest::IFile::OpenAppend) );
+    IUTEST_EXPECT_EQ(0u, file.GetSize());
+    const char data[] = "test";
+    char buf[16];
+    IUTEST_EXPECT_TRUE( file.Write(data, sizeof(data), 1) );
+    IUTEST_EXPECT_TRUE( file.Read(buf, sizeof(data), 1) );
+    IUTEST_EXPECT_EQ(sizeof(data), file.GetSize());
+    IUTEST_EXPECT_STREQ(data, buf);
+}
+
+#endif
+
+IUTEST(NoEffectFileUnitTest, Call)
+{
+    ::iutest::detail::NoEffectFile file;
+    ::iutest::internal::FilePath filename(__FILE__);
+    IUTEST_ASSERT_TRUE( file.Open(filename.string().c_str(), iutest::IFile::OpenAppend) );
+    IUTEST_EXPECT_TRUE( file.Write(NULL, 0, 0) );
+    IUTEST_EXPECT_TRUE( file.Read(NULL, 0, 0) );
+    IUTEST_EXPECT_EQ(0u, file.GetSize());
+}
+
 #if IUTEST_HAS_STD_FILESYSTEM
 
 const std::filesystem::path largefile("./testdata/largefile.bin");
@@ -79,4 +107,3 @@ IUTEST_F(FileSystemTest, FileSize64bit)
 #endif
 
 #endif
-
