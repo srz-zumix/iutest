@@ -69,10 +69,9 @@ IUTEST_TYPED_TEST(FloatingpointTest, IsNAN)
 {
     IUTEST_ASSUME_TRUE(::std::numeric_limits<TypeParam>::is_iec559);
 
-    typedef typename TestFixture::ftype FloatType;
     const TypeParam a=TestFixture::ONE;
     const TypeParam sq=static_cast<TypeParam>(sqrt(-a));
-    IUTEST_EXPECT_EQ(FloatType(sq), FloatType::NQNAN());
+    IUTEST_EXPECT_NAN(sq);
 }
 #endif
 
@@ -82,9 +81,10 @@ IUTEST_TYPED_TEST(FloatingpointTest, NQNAN)
 {
     IUTEST_ASSUME_TRUE(::std::numeric_limits<TypeParam>::is_iec559);
 
+    typedef typename TestFixture::ftype FloatType;
     const TypeParam a=TestFixture::ONE;
     const TypeParam sq=static_cast<TypeParam>(sqrt(-a));
-    IUTEST_EXPECT_NAN(sq);
+    IUTEST_EXPECT_EQ(FloatType(sq), FloatType::NQNAN());
 }
 
 #endif
