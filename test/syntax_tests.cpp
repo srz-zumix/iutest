@@ -428,8 +428,8 @@ IUTEST(SyntaxTest, StrLn)
 
 IUTEST(SyntaxTest, Nan)
 {
-    const float  fnan = ::std::numeric_limits<float>::quiet_NaN();
-    const double dnan = ::std::numeric_limits<double>::quiet_NaN();
+    float  fnan = ::std::numeric_limits<float>::quiet_NaN();
+    double dnan = ::std::numeric_limits<double>::quiet_NaN();
     if( fnan )
         IUTEST_ASSERT_NAN(fnan) << fnan;
     if( fnan )

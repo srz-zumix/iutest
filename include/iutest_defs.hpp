@@ -406,7 +406,7 @@ template<typename T>
 class FloatingPoint : public floating_point<T>
 {
 public:
-    explicit FloatingPoint(const T& x) : floating_point<T>(x) {}
+    explicit FloatingPoint(const T& rhs) : floating_point<T>(rhs) {}
 };
 
 typedef FloatingPoint<float> Float;
