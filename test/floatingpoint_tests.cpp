@@ -75,20 +75,6 @@ IUTEST_TYPED_TEST(FloatingpointTest, IsNAN)
 }
 #endif
 
-#if IUTEST_HAS_CXX11
-
-IUTEST_TYPED_TEST(FloatingpointTest, NQNAN)
-{
-    IUTEST_ASSUME_TRUE(::std::numeric_limits<TypeParam>::is_iec559);
-
-    typedef typename TestFixture::ftype FloatType;
-    const TypeParam a=TestFixture::ONE;
-    const TypeParam sq=static_cast<TypeParam>(sqrt(-a));
-    IUTEST_EXPECT_EQ(FloatType(sq), FloatType::NQNAN());
-}
-
-#endif
-
 IUTEST_PRAGMA_WARN_POP()
 
 }   // end of namespace floatingpoint_test
