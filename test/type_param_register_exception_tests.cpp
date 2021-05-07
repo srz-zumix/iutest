@@ -58,8 +58,8 @@ template<>
     IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw 42);
     return MakeIndexTestName(basename, index);
 }
-}
-}
+} // end of namespace detail
+} // end of namespace iutest
 
 template<typename T>
 class RegisterExceptionTypeParamTest : public ::iutest::Test {};
