@@ -59,6 +59,13 @@ aliases:
         if [ "$CIRCLE_NODE_INDEX" == "0" ]; then
           make showcxxversion;
         fi
+  - &dump-macros-step
+      name: dump compiler macros
+      working_directory: test
+      command: |
+        if [ "$CIRCLE_NODE_INDEX" == "0" ]; then
+          make showcxxmacros;
+        fi
   - &min-tests-and-spec-step
     name: minimum_tests and show feature / spec
     command: if [ "$CIRCLE_NODE_INDEX" == "0" ]; then make minimum_tests && ./minimum_tests --spec --feature; fi
@@ -99,6 +106,7 @@ aliases:
     - save_cache: *save_cache
     # Test
     - run: *check-version-step
+    - run: *dump-macros-step
     - run: *min-tests-and-spec-step
     - run: *build-step
     - run: *test-step
@@ -154,6 +162,7 @@ jobs:
     steps:
       - checkout
       - run: *check-version-step
+      - run: *dump-macros-step
       - run: *min-tests-and-spec-step
       - run: *build-step
       - run: *test-step

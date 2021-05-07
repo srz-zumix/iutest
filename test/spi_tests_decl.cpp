@@ -60,7 +60,7 @@
 #if IUTEST_HAS_LONG_DOUBLE
     FAILURE_MACRO( FLAVOR(_LONG_DOUBLE_EQ)(0, 1), "(0x" );
     FAILURE_MACRO( FLAVOR(_LONG_DOUBLE_EQ)(Div(0.0, da), Div(0.0, da)), "(0x" );
-    FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::LongDoubleLE, 2, 0), "(0x" );
+    // FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::LongDoubleLE, 2, 0), "(0x" );
 #endif
     FAILURE_MACRO( FLAVOR(_NEAR)(0, 100, 2), "" );
 
