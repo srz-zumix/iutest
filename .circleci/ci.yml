@@ -220,6 +220,12 @@ jobs:
           name: docker teardown
           command: |
             docker stop iutest-work
+  noop:
+    machine: true
+    steps:
+      - run:
+          name: halt
+          command: circleci-agent step halt
 
 workflows:
   version: 2.1
@@ -236,4 +242,9 @@ workflows:
           filters: *branch-filter
       - msvc_wine:
           filters: *branch-filter
+  noop:
+    when: not << pipeline.parameters.build >>
+    jobs:
+      - noop
+
 
