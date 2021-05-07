@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2015-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -56,6 +56,11 @@
     FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(Div(0.0, da), Div(0.0, da)), "" );
     FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::FloatLE , 2, 0), "" );
     FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::DoubleLE, 2, 0), "" );
+#endif
+#if IUTEST_HAS_LONG_DOUBLE
+    FAILURE_MACRO( FLAVOR(_LONG_DOUBLE_EQ)(0, 1), "(0x" );
+    FAILURE_MACRO( FLAVOR(_LONG_DOUBLE_EQ)(Div(0.0, da), Div(0.0, da)), "(0x" );
+    FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::LongDoubleLE, 2, 0), "(0x" );
 #endif
     FAILURE_MACRO( FLAVOR(_NEAR)(0, 100, 2), "" );
 
