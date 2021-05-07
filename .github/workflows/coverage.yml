@@ -28,6 +28,15 @@ jobs:
       USE_COVERAGE: gcov
     steps:
     - uses: actions/checkout@master
+    - name: info
+      run: |
+        make -C test showcxxmacros
+        make -C test showcxxversion
+        make -C test check_stdlib
+    - name: specs
+      run: |
+        make -C test minimum_tests && ./test/minimum_tests --spec --feature
+        make -C test clean
     - name: build
       run: |
         make -C test -j4 default

@@ -468,12 +468,12 @@ IUTEST_IPP_INLINE IUTestLog::IUTestLog(Level level, const char* file, int line)
         ( level == LOG_WARNING ) ?  "[WARNING] ":
         ( level == LOG_ERROR   ) ?  "[ ERROR ] ":
                                     "[ FATAL ] ";
-    GetStream() << "\r\n" << tag << FormatFileLocation(file, line).c_str() << ": ";
+    GetStream() << "\n" << tag << FormatFileLocation(file, line).c_str() << ": ";
 }
 
 IUTEST_IPP_INLINE IUTestLog::~IUTestLog()
 {
-    GetStream() << "\r\n";
+    GetStream() << "\n";
     fprintf(stderr, "%s", m_stream.str().c_str());
     if( kLevel == LOG_FATAL )
     {
