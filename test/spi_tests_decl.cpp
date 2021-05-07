@@ -126,6 +126,8 @@
 
     FAILURE_MACRO( FLAVOR(_NE_RANGE)(aa, aa2), "!=" );
 
+    FAILURE_MACRO( FLAVOR(_NAN)(1), "Expected: NaN" );
+
 #if IUTEST_HAS_REGEX
     FAILURE_MACRO( FLAVOR(_MATCHES_REGEXEQ)("te[0-9]*st", "te0123sta"), "Matches Regex (\"te[0-9]*st\")" );
     FAILURE_MACRO( FLAVOR(_MATCHES_REGEXEQ)("te[0-9]*st", null_str), "Matches Regex (\"te[0-9]*st\")" );
