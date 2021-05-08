@@ -52,13 +52,13 @@ IUTEST_TYPED_TEST(FloatingpointTest, EXP)
 {
     typedef typename TestFixture::ftype FloatType;
     const int exp = static_cast<int>(log2(::std::numeric_limits<TypeParam>::max_exponent) + 1);
-    IUTEST_EXPECT_EQ(exp, FloatType::EXP);
+    IUTEST_EXPECT_EQ(exp, FloatType::kEXP);
 }
 
 IUTEST_TYPED_TEST(FloatingpointTest, MANT)
 {
     typedef typename TestFixture::ftype FloatType;
-    IUTEST_EXPECT_EQ(::std::numeric_limits<TypeParam>::digits, FloatType::DIGITS);
+    IUTEST_EXPECT_EQ(::std::numeric_limits<TypeParam>::digits, FloatType::kDIGITS);
 }
 
 IUTEST_TYPED_TEST(FloatingpointTest, PINF)

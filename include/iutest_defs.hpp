@@ -93,6 +93,18 @@ namespace detail
 template<size_t MANT>
 struct ieee754_bits_from_mant {};
 
+// half float
+template<>
+struct ieee754_bits_from_mant<11>
+{
+    enum
+    {
+          EXP = 5
+        , MANT = 10
+        , MANT_HIDDEN = 1
+    };
+};
+
 // float
 template<>
 struct ieee754_bits_from_mant<24>
@@ -296,9 +308,19 @@ public:
     UInt    exponent_bits() const { return m_v.uv & kExpMask; }
 
     /**
-     * @brief   fraction
+     * @brief   fraction (mantissa)
     */
-    UInt    fraction_bits() const { return m_v.uv & kFracMask; }
+    UInt    fraction_bits() const { return mantissa_bits(); }
+
+    /**
+     * @brief   mantissa
+    */
+    UInt    mantissa_bits() const { return m_v.uv & kMantMask; }
+
+    /**
+     * @brief   economized mantissa
+    */
+   UInt     economized_mantissa_bits() const { return m_v.uv & kEconomizedMantMask; }
 
     /**
      * @brief   sign
@@ -308,19 +330,19 @@ public:
     /**
      * @brief   is nan
     */
-    bool    is_nan() const { return exponent_bits() == kExpMask && fraction_bits() != 0; }
+    bool    is_nan() const { return exponent_bits() == kExpMask && economized_mantissa_bits() != 0; }
 
     /**
      * @brief   is inf
     */
-    bool    is_inf() const { return exponent_bits() == kExpMask && fraction_bits() == 0; }
+    bool    is_inf() const { return exponent_bits() == kExpMask && economized_mantissa_bits() == 0; }
 
 public:
     //! plus inf
     static _Myt PINF()
     {
         _Myt f;
-        f.m_v.uv = kExpMask;
+        f.m_v.uv = kExpMask | kDefaultMantBitMask;
         return f;
     }
     //! minus inf
@@ -334,7 +356,7 @@ public:
     static _Myt PNAN()
     {
         _Myt f;
-        f.m_v.uv = kExpMask | 1;
+        f.m_v.uv = kExpMask | kDefaultMantBitMask | 1;
         return f;
     }
     //! minus nan
@@ -350,6 +372,7 @@ public:
         _Myt f;
         f.m_v.uv = ((1 << (kEXP + 1)) - 1);
         f.m_v.uv <<= kMANT - 1;
+        f.m_v.uv |= kDefaultMantBitMask;
         return f;
     }
     //! minus qnan
@@ -375,16 +398,9 @@ public:
 public:
     enum
     {
-          EXP = detail::ieee754_bits<RawType>::EXP
-        , MANT = detail::ieee754_bits<RawType>::MANT
-        , DIGITS = MANT + detail::ieee754_bits<RawType>::MANT_HIDDEN
-    };
-
-private:
-    enum
-    {
           kEXP = detail::ieee754_bits<RawType>::EXP
         , kMANT = detail::ieee754_bits<RawType>::MANT
+        , kDIGITS = kMANT + detail::ieee754_bits<RawType>::MANT_HIDDEN
         , kMaxUlps = 4
     };
 
@@ -394,12 +410,16 @@ private:
 #if !defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
     static const UInt kSignMask = static_cast<UInt>(1u) << (kEXP + kMANT);
     static const UInt kExpMask = ((static_cast<UInt>(1u) << kEXP) - 1) << kMANT;
-    static const UInt kFracMask = (static_cast<UInt>(1u) << kMANT) - 1;
-    static const UInt kEnableBitMask = kSignMask | kExpMask | kFracMask;
+    static const UInt kMantMask = (static_cast<UInt>(1u) << kMANT) - 1;
+    static const UInt kEconomizedMantMask = (static_cast<UInt>(1u) << (kDIGITS - 1)) - 1;
+    static const UInt kDefaultMantBitMask = static_cast<UInt>(1u) << (kDIGITS - 1);
+    static const UInt kEnableBitMask = kSignMask | kExpMask | kMantMask;
 #else
     static const UInt kSignMask;
     static const UInt kExpMask;
-    static const UInt kFracMask;
+    static const UInt kMantMask;
+    static const UInt kEconomizedMantMask;
+    static const UInt kDefaultMantBitMask;
     static const UInt kEnableBitMask;
 #endif
 
@@ -434,11 +454,17 @@ const typename floating_point<T>::UInt floating_point<T>::kExpMask
     = ((static_cast<typename floating_point<T>::UInt>(1u)
         << floating_point<T>::kEXP) - 1) << floating_point<T>::kMANT;
 template<typename T>
-const typename floating_point<T>::UInt floating_point<T>::kFracMask
+const typename floating_point<T>::UInt floating_point<T>::kMantMask
     = ((static_cast<typename floating_point<T>::UInt>(1u) << floating_point<T>::kMANT) - 1);
 template<typename T>
+const typename floating_point<T>::UInt floating_point<T>::kEconomizedMantMask
+    = ((static_cast<typename floating_point<T>::UInt>(1u) << (floating_point<T>::kDIGITS - 1)) - 1);
+template<typename T>
+const typename floating_point<T>::UInt floating_point<T>::kDefaultMantBitMask
+    = (static_cast<typename floating_point<T>::UInt>(1u) << (floating_point<T>::kDIGITS - 1));
+template<typename T>
 const typename floating_point<T>::UInt floating_point<T>::kEnableBitMask
-    = floating_point<T>::kSignMask | floating_point<T>::kExpMask | floating_point<T>::kFracMask;
+    = floating_point<T>::kSignMask | floating_point<T>::kExpMask | floating_point<T>::kMantMask;
 
 #endif
 

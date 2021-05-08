@@ -62,11 +62,12 @@ jobs:
         call refreshenv
     - name: set path
       run: |
-        echo "C:\Program Files\LLVM\bin" >> $GITHUB_PATH
+        echo "C:\Program Files\LLVM\bin" >> %GITHUB_PATH%
     - name: llvm clang info
       run: |
         make -C test clean
         make -C test CXX=clang++ CC=clang showcxxversion
+        make -C test CXX=clang++ CC=clang showcxxmacros
         make -C test CXX=clang++ CC=clang check_stdlib
     - name: llvm clang build
       run: |
@@ -87,6 +88,7 @@ jobs:
       run: |
         make -C test clean
         make -C test showcxxversion
+        make -C test showcxxmacros
         make -C test check_stdlib
     - name: mingw build
       run: |
@@ -115,8 +117,8 @@ jobs:
     - name: zapcc info
       run: |
         make -C test clean
-        make -C test showcxxmacros
         make -C test showcxxversion
+        make -C test showcxxmacros
         make -C test check_stdlib
     - name: zapcc build
       run: |
@@ -148,8 +150,8 @@ jobs:
       shell: bash
       run: |
         make -C test clean
-        make -C test showcxxmacros
         make -C test showcxxversion
+        make -C test showcxxmacros
         make -C test check_stdlib
     - name: icpc build
       shell: bash
