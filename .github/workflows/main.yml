@@ -62,9 +62,10 @@ jobs:
         call refreshenv
     - name: set path
       run: |
-        echo "C:\Program Files\LLVM\bin" >> %GITHUB_PATH%
+        echo "C:\\Program Files\\LLVM\\bin" >> %GITHUB_PATH%
     - name: llvm clang info
       run: |
+        path
         make -C test clean
         make -C test CXX=clang++ CC=clang showcxxversion
         make -C test CXX=clang++ CC=clang showcxxmacros
@@ -140,25 +141,22 @@ jobs:
       CXX: icpc
     defaults:
       run:
-        shell: bash -l {0}
+        shell: bash -e -o pipefail -l {0}
     steps:
     - uses: actions/checkout@master
     - name: set .bash_profile
       run: |
         echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
     - name: icpc info
-      shell: bash
       run: |
         make -C test clean
         make -C test showcxxversion
         make -C test showcxxmacros
         make -C test check_stdlib
     - name: icpc build
-      shell: bash
       run: |
         make -C test -j8
     - name: icpc test
-      shell: bash
       run: |
         make -C test test
 
