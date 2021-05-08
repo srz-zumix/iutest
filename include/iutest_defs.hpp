@@ -102,7 +102,7 @@ struct ieee754_bits<float>
 {
     enum {
           EXP = 8
-        , FRAC = 23
+        , MANT = 23
     };
 };
 
@@ -111,7 +111,7 @@ struct ieee754_bits<double>
 {
     enum {
           EXP = 11
-        , FRAC = 52
+        , MANT = 52
     };
 };
 
@@ -125,7 +125,7 @@ struct ieee754_bits_longdouble<8u>
 {
     enum {
           EXP = 11
-        , FRAC = 52
+        , MANT = 52
     };
 };
 
@@ -135,7 +135,7 @@ struct ieee754_bits_longdouble<16u>
 {
     enum {
           EXP = 15
-        , FRAC = 64
+        , MANT = 64
     };
 };
 
@@ -347,7 +347,7 @@ public:
     {
         _Myt f;
         f.m_v.uv = ((1 << (kEXP + 1)) - 1);
-        f.m_v.uv <<= kFRAC - 1;
+        f.m_v.uv <<= kMANT - 1;
         return f;
     }
     //! minus qnan
@@ -370,11 +370,11 @@ public:
 
     bool    operator == (const _Myt& rhs) const { return m_v.uv == rhs.m_v.uv; }    //!< 比較
 
-private:
+public:
     enum
     {
           kEXP = detail::ieee754_bits<RawType>::EXP
-        , kFRAC = detail::ieee754_bits<RawType>::FRAC
+        , kMANT = detail::ieee754_bits<RawType>::MANT
         , kMaxUlps = 4
     };
 
@@ -382,9 +382,9 @@ private:
     static UInt norm(UInt v) { return (v & kSignMask) ? (~v + 1) : (v | kSignMask); }
 
 #if !defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
-    static const UInt kSignMask = static_cast<UInt>(1u) << (kEXP + kFRAC);
-    static const UInt kExpMask = ((static_cast<UInt>(1u) << kEXP) - 1) << kFRAC;
-    static const UInt kFracMask = (static_cast<UInt>(1u) << kFRAC) - 1;
+    static const UInt kSignMask = static_cast<UInt>(1u) << (kEXP + kMANT);
+    static const UInt kExpMask = ((static_cast<UInt>(1u) << kEXP) - 1) << kMANT;
+    static const UInt kFracMask = (static_cast<UInt>(1u) << kMANT) - 1;
     static const UInt kEnableBitMask = kSignMask | kExpMask | kFracMask;
 #else
     static const UInt kSignMask;
@@ -418,14 +418,14 @@ typedef FloatingPoint<double> Double;
 
 template<typename T>
 const typename floating_point<T>::UInt floating_point<T>::kSignMask
-    = static_cast<typename floating_point<T>::UInt>(1u) << (kEXP + kFRAC);
+    = static_cast<typename floating_point<T>::UInt>(1u) << (kEXP + kMANT);
 template<typename T>
 const typename floating_point<T>::UInt floating_point<T>::kExpMask
     = ((static_cast<typename floating_point<T>::UInt>(1u)
-        << floating_point<T>::kEXP) - 1) << floating_point<T>::kFRAC;
+        << floating_point<T>::kEXP) - 1) << floating_point<T>::kMANT;
 template<typename T>
 const typename floating_point<T>::UInt floating_point<T>::kFracMask
-    = ((static_cast<typename floating_point<T>::UInt>(1u) << floating_point<T>::kFRAC) - 1);
+    = ((static_cast<typename floating_point<T>::UInt>(1u) << floating_point<T>::kMANT) - 1);
 template<typename T>
 const typename floating_point<T>::UInt floating_point<T>::kEnableBitMask
     = floating_point<T>::kSignMask | floating_point<T>::kExpMask | floating_point<T>::kFracMask;

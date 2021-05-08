@@ -39,8 +39,27 @@ T FloatingpointTest<T>::ONE = static_cast<T>(1);
 template<typename T>
 T FloatingpointTest<T>::ZERO = static_cast<T>(0);
 
-typedef ::iutest::Types<float, double> FloatingpointTestTypes;
+typedef ::iutest::Types<
+                float
+              , double
+#if IUTEST_HAS_LONG_DOUBLE
+              , long double
+#endif
+        > FloatingpointTestTypes;
 IUTEST_TYPED_TEST_SUITE(FloatingpointTest, FloatingpointTestTypes);
+
+IUTEST_TYPED_TEST(FloatingpointTest, EXP)
+{
+    typedef typename TestFixture::ftype FloatType;
+    const int exp = static_cast<int>(log2(::std::numeric_limits<TypeParam>::max_exponent) + 1);
+    IUTEST_EXPECT_EQ(exp, FloatType::kEXP);
+}
+
+IUTEST_TYPED_TEST(FloatingpointTest, MANT)
+{
+    typedef typename TestFixture::ftype FloatType;
+    IUTEST_EXPECT_EQ(::std::numeric_limits<TypeParam>::digits, FloatType::kMANT);
+}
 
 IUTEST_TYPED_TEST(FloatingpointTest, PINF)
 {
