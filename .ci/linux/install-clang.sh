@@ -20,9 +20,11 @@ if $INSATLL_CLANG_TOOLS; then
 fi
 
 sudo update-alternatives --install /usr/bin/clang clang \
-  /usr/bin/clang-${CLANG_VERSION} 360 \
+  /usr/bin/clang-${CLANG_VERSION} 1990 \
   --slave /usr/bin/clang++ clang++ /usr/bin/clang++-${CLANG_VERSION} \
   ${CLANG_SLAVES}
 
-clang++-${CLANG_VERSION} --version
+update-alternatives --display clang
+
+"clang++-${CLANG_VERSION}" --version
 clang++ --version
