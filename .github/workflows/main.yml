@@ -216,6 +216,7 @@ jobs:
         make -C test -j8 DEFS="$DEFS"
     - name: test
       run: |
+        su conan
         make -C test DEFS="$DEFS" test
 
   #===================================================================

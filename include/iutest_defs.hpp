@@ -320,7 +320,7 @@ public:
     /**
      * @brief   economized mantissa
     */
-   UInt     economized_mantissa_bits() const { return m_v.uv & kEconomizedMantMask; }
+    UInt    economized_mantissa_bits() const { return m_v.uv & kEconomizedMantMask; }
 
     /**
      * @brief   sign
