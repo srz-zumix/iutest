@@ -27,15 +27,15 @@
 #  define REGISTER_EXCEPTION_TEST   0
 #endif
 
-#if !defined(REGISTER_EXCEPTION_TEST_THROW_INT)
-#  define REGISTER_EXCEPTION_TEST_THROW_INT 0
-#endif
-
 #if IUTEST_HAS_STREAM_BUFFER
     ::iutest::detail::IUStreamBuffer<> stderr_capture(stderr);
 #endif
 
 #if REGISTER_EXCEPTION_TEST
+
+#if !defined(REGISTER_EXCEPTION_TEST_THROW_INT)
+#  define REGISTER_EXCEPTION_TEST_THROW_INT 0
+#endif
 
 struct exception_value
 {
