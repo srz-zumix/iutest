@@ -95,10 +95,12 @@ int main(int argc, char* argv[])
         , stderr_capture.GetStreamString() );
 #endif
 #endif
-#endif
     if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
 
     printf("*** Successful ***\n");
     return 0;
+#else
+    return IUTEST_RUN_ALL_TESTS();
+#endif
 }
 
