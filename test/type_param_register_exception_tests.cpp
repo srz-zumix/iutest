@@ -96,6 +96,9 @@ int main(int argc, char* argv[])
 #endif
 #endif
 #endif
-    return IUTEST_RUN_ALL_TESTS();
+    if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
+
+    printf("*** Successful ***\n");
+    return 0;
 }
 
