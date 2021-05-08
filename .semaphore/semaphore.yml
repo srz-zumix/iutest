@@ -60,6 +60,7 @@ blocks:
         - name: basic_tests
           commands:
             - cd test
+            - make showcxxversion showcxxmacros
             - make $PARALLELS
             - make test
             - make report

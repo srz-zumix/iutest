@@ -298,6 +298,11 @@ public:
     UInt    bits() const { return m_v.uv; }
 
     /**
+     * @brief   ビット列の取得
+    */
+    UInt    enable_bits() const { return m_v.uv & kEnableBitMask; }
+
+    /**
      * @brief   raw データの取得
     */
     RawType raw() const { return m_v.fv; }
@@ -391,9 +396,9 @@ public:
     operator double() const { return m_v.fv; }
 #endif
     _Myt&   operator = (RawType f)  { m_v.fv = f; return *this; }   //!< 代入
-    _Myt&   operator = (const _Myt& rhs) { m_v.fv = rhs.m_v; return *this; }   //!< 代入
+    _Myt&   operator = (const _Myt& rhs) { m_v.fv = rhs.m_v.fv; return *this; }   //!< 代入
 
-    bool    operator == (const _Myt& rhs) const { return m_v.uv == rhs.m_v.uv; }    //!< 比較
+    bool    operator == (const _Myt& rhs) const { return m_v.enable_bits() == rhs.m_v.enable_bits(); }    //!< 比較
 
 public:
     enum

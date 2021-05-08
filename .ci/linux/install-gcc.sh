@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e
+set -ex
 
 if [ -z ${GCC_VERSION+x} ]; then
   echo "GCC_VERSION is empty. skip install gcc..."
