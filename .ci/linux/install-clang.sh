@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e
+set -ex
 
 if [ -z ${CLANG_VERSION+x} ]; then
   echo "CLANG_VERSION is empty. skip install clang..."
@@ -23,3 +23,6 @@ sudo update-alternatives --install /usr/bin/clang clang \
   /usr/bin/clang-${CLANG_VERSION} 360 \
   --slave /usr/bin/clang++ clang++ /usr/bin/clang++-${CLANG_VERSION} \
   ${CLANG_SLAVES}
+
+clang++-${CLANG_VERSION} --version
+clang++ --version
