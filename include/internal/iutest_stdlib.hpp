@@ -284,10 +284,14 @@ namespace detail
 
 //======================================================================
 // struct
+
+namespace type_t_helper
+{
+
 /**
  * @brief   type_least_t
 */
-template<int SIZE>
+template<size_t SIZE>
 struct type_least_t {};
 
 /** type_least_t<1> */
@@ -438,6 +442,63 @@ struct type_fit_t<16>
 #endif
 #endif
 };
+
+template<bool B, typename T, typename U>
+class conditional
+{
+    template<bool X, typename TMP>
+    struct impl { typedef T type; };
+    template<typename TMP>
+    struct impl<false, TMP> { typedef U type; };
+public:
+    typedef typename impl<B, void>::type type;
+};
+
+template<size_t SIZE>
+struct type_least_t_select
+{
+    typedef typename conditional<(SIZE & (SIZE - 1)) == 0, type_least_t<SIZE>
+        , typename conditional<SIZE >= 16, type_least_t<16>
+            , typename conditional<SIZE >= 8, type_least_t<8>
+                , typename conditional<SIZE >= 4, type_least_t<4>
+                    , typename conditional<SIZE >= 2, type_least_t<2>
+                        , type_least_t<1>
+                    >::type
+                >::type
+            >::type
+        >::type
+    >::type type;
+};
+
+template<size_t SIZE>
+struct type_fit_t_select
+{
+    typedef typename conditional<(SIZE & (SIZE - 1)) == 0, type_fit_t<SIZE>
+        , typename conditional<SIZE >= 16, type_fit_t<16>
+            , typename conditional<SIZE >= 8, type_fit_t<8>
+                , typename conditional<SIZE >= 4, type_fit_t<4>
+                    , typename conditional<SIZE >= 2, type_fit_t<2>
+                        , type_fit_t<1>
+                    >::type
+                >::type
+            >::type
+        >::type
+    >::type type;
+};
+
+}   // end of namespace type_t_helper
+
+/**
+ * @brief   type_least_t
+*/
+template<size_t SIZE>
+struct type_least_t : public type_t_helper::type_least_t_select<SIZE>::type {};
+
+/**
+ * @brief   type_fit_t
+*/
+template<size_t SIZE>
+struct type_fit_t : public type_t_helper::type_fit_t_select<SIZE>::type {};
 
 //======================================================================
 // function
