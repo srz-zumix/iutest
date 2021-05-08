@@ -47,50 +47,54 @@ jobs:
         run: |
           echo "build and push"
 
+  #===================================================================
   llvm-basic-test:
     runs-on: windows-latest
     needs: prepare
+    defaults:
+      run:
+        shell: cmd
     steps:
     - uses: actions/checkout@v2
     - name: choco-install
-      shell: cmd
       run: |
         choco install -y llvm || exit 1
         call refreshenv
-    - name: llvm clang info
-      shell: cmd
+    - name: set path
       run: |
-        set PATH=%PATH%;C:\Program Files\LLVM\bin
+        echo "C:\Program Files\LLVM\bin" >> $GITHUB_PATH
+    - name: llvm clang info
+      run: |
         make -C test clean
         make -C test CXX=clang++ CC=clang showcxxversion
         make -C test CXX=clang++ CC=clang check_stdlib
     - name: llvm clang build
-      shell: cmd
       run: |
         make -C test CXX=clang++ CC=clang -j8
     - name: llvm clang test
-      shell: cmd
       run: |
         make -C test CXX=clang++ CC=clang test
+
   mingw-basic-test:
     runs-on: windows-latest
     needs: prepare
+    defaults:
+      run:
+        shell: cmd
     steps:
     - uses: actions/checkout@v2
     - name: mingw info
-      shell: cmd
       run: |
         make -C test clean
         make -C test showcxxversion
         make -C test check_stdlib
     - name: mingw build
-      shell: cmd
       run: |
         make -C test -j8
     - name: mingw test
-      shell: cmd
       run: |
         make -C test test
+
   zapcc-basic-test:
     runs-on: ubuntu-18.04
     container:
@@ -120,6 +124,7 @@ jobs:
     - name: zapcc test
       run: |
         make -C test test
+
   icpc-basic-test:
     runs-on: ubuntu-latest
     container:
@@ -131,12 +136,17 @@ jobs:
     env:
       CC: icpc
       CXX: icpc
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
     - uses: actions/checkout@master
+    - name: set .bash_profile
+      run: |
+        echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
     - name: icpc info
       shell: bash
       run: |
-        . /opt/intel/oneapi/setvars.sh
         make -C test clean
         make -C test showcxxmacros
         make -C test showcxxversion
@@ -149,6 +159,7 @@ jobs:
       shell: bash
       run: |
         make -C test test
+
   arm-none-eabi:
     strategy:
       fail-fast: false
@@ -177,6 +188,7 @@ jobs:
     - name: build
       run: |
         make -C test -j8 DEFS="$DEFS"
+
   arm-linux-gnueabi:
     strategy:
       fail-fast: false
@@ -204,6 +216,7 @@ jobs:
       run: |
         make -C test DEFS="$DEFS" test
 
+  #===================================================================
   lint-editorconfig:
     runs-on: ubuntu-18.04
     needs: prepare
