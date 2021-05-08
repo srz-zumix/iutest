@@ -100,18 +100,22 @@ struct ieee754_bits {};
 template<>
 struct ieee754_bits<float>
 {
-    enum {
+    enum
+    {
           EXP = 8
         , MANT = 23
+        , MANT_HIDDEN = 1
     };
 };
 
 template<>
 struct ieee754_bits<double>
 {
-    enum {
+    enum
+    {
           EXP = 11
         , MANT = 52
+        , MANT_HIDDEN = 1
     };
 };
 
@@ -123,9 +127,11 @@ struct ieee754_bits_longdouble {};
 template<>
 struct ieee754_bits_longdouble<8u>
 {
-    enum {
+    enum
+    {
           EXP = 11
         , MANT = 52
+        , MANT_HIDDEN = 1
     };
 };
 
@@ -133,9 +139,11 @@ struct ieee754_bits_longdouble<8u>
 template<>
 struct ieee754_bits_longdouble<16u>
 {
-    enum {
+    enum
+    {
           EXP = 15
         , MANT = 64
+        , MANT_HIDDEN = 0
     };
 };
 
@@ -371,6 +379,14 @@ public:
     bool    operator == (const _Myt& rhs) const { return m_v.uv == rhs.m_v.uv; }    //!< 比較
 
 public:
+    enum
+    {
+          EXP = detail::ieee754_bits<RawType>::EXP
+        , MANT = detail::ieee754_bits<RawType>::MANT
+        , DIGITS = MANT + detail::ieee754_bits<RawType>::MANT_HIDDEN
+    };
+
+private:
     enum
     {
           kEXP = detail::ieee754_bits<RawType>::EXP

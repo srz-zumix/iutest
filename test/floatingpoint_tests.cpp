@@ -52,13 +52,13 @@ IUTEST_TYPED_TEST(FloatingpointTest, EXP)
 {
     typedef typename TestFixture::ftype FloatType;
     const int exp = static_cast<int>(log2(::std::numeric_limits<TypeParam>::max_exponent) + 1);
-    IUTEST_EXPECT_EQ(exp, FloatType::kEXP);
+    IUTEST_EXPECT_EQ(exp, FloatType::EXP);
 }
 
 IUTEST_TYPED_TEST(FloatingpointTest, MANT)
 {
     typedef typename TestFixture::ftype FloatType;
-    IUTEST_EXPECT_EQ(::std::numeric_limits<TypeParam>::digits, FloatType::kMANT);
+    IUTEST_EXPECT_EQ(::std::numeric_limits<TypeParam>::digits, FloatType::DIGITS);
 }
 
 IUTEST_TYPED_TEST(FloatingpointTest, PINF)
@@ -77,7 +77,7 @@ IUTEST_TYPED_TEST(FloatingpointTest, NINF)
 {
     typedef typename TestFixture::ftype FloatType;
     const TypeParam b=TestFixture::ZERO;
-    const TypeParam lb=static_cast<TypeParam>(log(b));
+    const TypeParam lb=static_cast<TypeParam>(::std::log(b));
     IUTEST_EXPECT_EQ(FloatType(lb), FloatType::NINF());
 }
 
@@ -89,7 +89,7 @@ IUTEST_TYPED_TEST(FloatingpointTest, IsNAN)
     IUTEST_ASSUME_TRUE(::std::numeric_limits<TypeParam>::is_iec559);
 
     const TypeParam a=TestFixture::ONE;
-    const TypeParam sq=static_cast<TypeParam>(sqrt(-a));
+    const TypeParam sq=static_cast<TypeParam>(::std::sqrt(-a));
     IUTEST_EXPECT_NAN(sq);
 }
 #endif

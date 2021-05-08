@@ -252,7 +252,8 @@ workflows:
       - msvc_wine:
           filters: *branch-filter
   noop:
-    when: not << pipeline.parameters.build >>
+    when:
+      not: << pipeline.parameters.build >>
     jobs:
       - noop
 
