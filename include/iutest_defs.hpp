@@ -146,7 +146,7 @@ struct ieee754_bits_from_mant<113>
  * @brief   IEEE754 floating point bits
 */
 template<typename T>
-struct ieee754_bits : ieee754_bits_from_mant<::std::numeric_limits<T>::digits> {}
+struct ieee754_bits : ieee754_bits_from_mant<::std::numeric_limits<T>::digits> {};
 
 }   // end of namespace detail
 
