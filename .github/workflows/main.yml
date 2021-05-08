@@ -57,27 +57,39 @@ jobs:
       run: |
         choco install -y llvm || exit 1
         call refreshenv
-    - name: llvm clang test
+    - name: llvm clang info
       shell: cmd
       run: |
         set PATH=%PATH%;C:\Program Files\LLVM\bin
         make -C test clean
         make -C test CXX=clang++ CC=clang showcxxversion
         make -C test CXX=clang++ CC=clang check_stdlib
+    - name: llvm clang build
+      shell: cmd
+      run: |
         make -C test CXX=clang++ CC=clang -j8
+    - name: llvm clang test
+      shell: cmd
+      run: |
         make -C test CXX=clang++ CC=clang test
   mingw-basic-test:
     runs-on: windows-latest
     needs: prepare
     steps:
     - uses: actions/checkout@v2
-    - name: mingw test
+    - name: mingw info
       shell: cmd
       run: |
         make -C test clean
         make -C test showcxxversion
         make -C test check_stdlib
+    - name: mingw build
+      shell: cmd
+      run: |
         make -C test -j8
+    - name: mingw test
+      shell: cmd
+      run: |
         make -C test test
   zapcc-basic-test:
     runs-on: ubuntu-18.04
@@ -96,13 +108,17 @@ jobs:
         python-version: ${{ env.PYTHON_VERSION }}
     - name: Set Python environment variable
       run: echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> $GITHUB_ENV
-    - name: zapcc test
+    - name: zapcc info
       run: |
         make -C test clean
         make -C test showcxxmacros
         make -C test showcxxversion
         make -C test check_stdlib
+    - name: zapcc build
+      run: |
         make -C test -j1 IUTEST_REQUIRE_PYTHON=1
+    - name: zapcc test
+      run: |
         make -C test test
   icpc-basic-test:
     runs-on: ubuntu-latest
@@ -117,7 +133,7 @@ jobs:
       CXX: icpc
     steps:
     - uses: actions/checkout@master
-    - name: icpc test
+    - name: icpc info
       shell: bash
       run: |
         . /opt/intel/oneapi/setvars.sh
@@ -125,7 +141,13 @@ jobs:
         make -C test showcxxmacros
         make -C test showcxxversion
         make -C test check_stdlib
+    - name: icpc build
+      shell: bash
+      run: |
         make -C test -j8
+    - name: icpc test
+      shell: bash
+      run: |
         make -C test test
   arm-none-eabi:
     strategy:
@@ -154,7 +176,34 @@ jobs:
         make -C test showcxxversion showcxxmacros DEFS="$DEFS"
     - name: build
       run: |
-        make -C test DEFS="$DEFS"
+        make -C test -j8 DEFS="$DEFS"
+  arm-linux-gnueabi:
+    strategy:
+      fail-fast: false
+      matrix:
+        container-name:
+          - "gcc10-armv7"
+    runs-on: ubuntu-latest
+    container:
+      image: docker://conanio/${{ matrix.container-name }}
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    needs: prepare
+    env:
+      DEFS: --static
+    steps:
+    - uses: actions/checkout@v2
+    - name: info
+      run: |
+        make -C test showcxxversion showcxxmacros DEFS="$DEFS"
+    - name: build
+      run: |
+        make -C test -j8 DEFS="$DEFS"
+    - name: test
+      run: |
+        make -C test DEFS="$DEFS" test
+
   lint-editorconfig:
     runs-on: ubuntu-18.04
     needs: prepare
