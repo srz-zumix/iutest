@@ -13,6 +13,9 @@
 //-----------------------------------------------------------------------
 //======================================================================
 
+#if defined(IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME)
+#  undef IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME
+#endif
 #define IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME   1
 #define IUTEST_ABORT()  (void)0
 

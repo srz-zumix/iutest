@@ -13,6 +13,9 @@
 //-----------------------------------------------------------------------
 //======================================================================
 
+#if defined(IUTEST_TYPED_TEST_P_STRICT)
+#  undef IUTEST_TYPED_TEST_P_STRICT
+#endif
 #define IUTEST_TYPED_TEST_P_STRICT  1
 #include "iutest.hpp"
 
