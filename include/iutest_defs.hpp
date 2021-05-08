@@ -90,15 +90,12 @@ struct TypeWithSize : public detail::type_fit_t<SIZE> {};
 namespace detail
 {
 
-/**
- * @internal
- * @brief   IEEE754 floating point bits
-*/
-template<typename T>
-struct ieee754_bits {};
+template<size_t MANT>
+struct ieee754_bits_from_mant {};
 
+// float
 template<>
-struct ieee754_bits<float>
+struct ieee754_bits_from_mant<24>
 {
     enum
     {
@@ -108,8 +105,9 @@ struct ieee754_bits<float>
     };
 };
 
+// double
 template<>
-struct ieee754_bits<double>
+struct ieee754_bits_from_mant<53>
 {
     enum
     {
@@ -119,25 +117,9 @@ struct ieee754_bits<double>
     };
 };
 
-#if IUTEST_HAS_LONG_DOUBLE
-
-template<size_t N>
-struct ieee754_bits_longdouble {};
-
+// 80bit
 template<>
-struct ieee754_bits_longdouble<8u>
-{
-    enum
-    {
-          EXP = 11
-        , MANT = 52
-        , MANT_HIDDEN = 1
-    };
-};
-
-// 80bit 精度
-template<>
-struct ieee754_bits_longdouble<16u>
+struct ieee754_bits_from_mant<64>
 {
     enum
     {
@@ -147,12 +129,24 @@ struct ieee754_bits_longdouble<16u>
     };
 };
 
+// 128bit
 template<>
-struct ieee754_bits<long double> : ieee754_bits_longdouble<sizeof(long double)>
+struct ieee754_bits_from_mant<113>
 {
+    enum
+    {
+          EXP = 15
+        , MANT = 113
+        , MANT_HIDDEN = 0
+    };
 };
 
-#endif
+/**
+ * @internal
+ * @brief   IEEE754 floating point bits
+*/
+template<typename T>
+struct ieee754_bits : ieee754_bits_from_mant<::std::numeric_limits<T>::digits> {}
 
 }   // end of namespace detail
 
