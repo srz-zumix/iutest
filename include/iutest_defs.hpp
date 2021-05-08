@@ -295,7 +295,7 @@ public:
     /**
      * @brief   ビット列の取得
     */
-    UInt    bits() const { return m_v.uv & kEnableBitMask; }
+    UInt    bits() const { return m_v.uv; }
 
     /**
      * @brief   raw データの取得
