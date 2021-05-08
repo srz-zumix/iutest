@@ -21,3 +21,6 @@ sudo apt-get -qq install "g++-${GCC_VERSION}"
 sudo update-alternatives --install /usr/bin/gcc gcc \
   /usr/bin/gcc-${GCC_VERSION} 90 \
   --slave /usr/bin/g++ g++ /usr/bin/g++-${GCC_VERSION}
+
+g++-${GCC_VERSION} --version
+g++ --version

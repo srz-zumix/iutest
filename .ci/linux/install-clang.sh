@@ -23,3 +23,6 @@ sudo update-alternatives --install /usr/bin/clang clang \
   /usr/bin/clang-${CLANG_VERSION} 360 \
   --slave /usr/bin/clang++ clang++ /usr/bin/clang++-${CLANG_VERSION} \
   ${CLANG_SLAVES}
+
+clang++-${CLANG_VERSION} --version
+clang++ --version
