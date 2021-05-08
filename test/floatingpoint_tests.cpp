@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -39,8 +39,27 @@ T FloatingpointTest<T>::ONE = static_cast<T>(1);
 template<typename T>
 T FloatingpointTest<T>::ZERO = static_cast<T>(0);
 
-typedef ::iutest::Types<float, double> FloatingpointTestTypes;
+typedef ::iutest::Types<
+                float
+              , double
+#if IUTEST_HAS_LONG_DOUBLE
+              , long double
+#endif
+        > FloatingpointTestTypes;
 IUTEST_TYPED_TEST_SUITE(FloatingpointTest, FloatingpointTestTypes);
+
+IUTEST_TYPED_TEST(FloatingpointTest, EXP)
+{
+    typedef typename TestFixture::ftype FloatType;
+    const int exp = static_cast<int>(log2(::std::numeric_limits<TypeParam>::max_exponent) + 1);
+    IUTEST_EXPECT_EQ(exp, FloatType::EXP);
+}
+
+IUTEST_TYPED_TEST(FloatingpointTest, MANT)
+{
+    typedef typename TestFixture::ftype FloatType;
+    IUTEST_EXPECT_EQ(::std::numeric_limits<TypeParam>::digits, FloatType::DIGITS);
+}
 
 IUTEST_TYPED_TEST(FloatingpointTest, PINF)
 {
@@ -58,19 +77,20 @@ IUTEST_TYPED_TEST(FloatingpointTest, NINF)
 {
     typedef typename TestFixture::ftype FloatType;
     const TypeParam b=TestFixture::ZERO;
-    const TypeParam lb=static_cast<TypeParam>(log(b));
+    const TypeParam lb=static_cast<TypeParam>(::std::log(b));
     IUTEST_EXPECT_EQ(FloatType(lb), FloatType::NINF());
 }
 
 // MinGW-w64 sqrt bug
 // https://sourceforge.net/p/mingw/bugs/2337/
 #if !defined(__MINGW64__)
-IUTEST_TYPED_TEST(FloatingpointTest, NQNAN)
+IUTEST_TYPED_TEST(FloatingpointTest, IsNAN)
 {
-    typedef typename TestFixture::ftype FloatType;
+    IUTEST_ASSUME_TRUE(::std::numeric_limits<TypeParam>::is_iec559);
+
     const TypeParam a=TestFixture::ONE;
-    const TypeParam sq=static_cast<TypeParam>(sqrt(-a));
-    IUTEST_EXPECT_EQ(FloatType(sq), FloatType::NQNAN());
+    const TypeParam sq=static_cast<TypeParam>(::std::sqrt(-a));
+    IUTEST_EXPECT_NAN(sq);
 }
 #endif
 
