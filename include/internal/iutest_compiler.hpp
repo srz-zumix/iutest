@@ -1023,6 +1023,17 @@
 #  define IUTEST_HAS_LONG_DOUBLE    0
 #endif
 
+//! long double size
+#if !defined(IUTEST_LONG_DOUBLE_128)
+#  if defined(__LONG_DOUBLE_128__) && __LONG_DOUBLE_128__
+#    define IUTEST_LONG_DOUBLE_128  1
+#  endif
+#endif
+
+#if !defined(IUTEST_LONG_DOUBLE_128)
+#  define IUTEST_LONG_DOUBLE_128    0
+#endif
+
 //! explicit instantiation access checking
 #if !defined(IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_MEMBER_FUNCTION)
 #  if defined(_MSC_VER) && ((_MSC_VER < 1600) || (_MSC_VER == 1900))

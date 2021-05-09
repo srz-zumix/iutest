@@ -399,18 +399,29 @@ inline void PrintTo(detail::type_fit_t<16>::UInt v, iu_ostream* os)
 #endif
 
 #if IUTEST_HAS_FLOAT128
-// NOTE: need libquadmath
-inline void PrintTo(const detail::Float128::Float v, iu_ostream* os)
+inline void PrintToFloat128(const detail::Float128::Float v, iu_ostream* os)
 {
 #if   IUTEST_USE_QUADMATH
     char buf[256] = {0};
     quadmath_snprintf(buf, sizeof(buf), "%Qf", v);
     *os << buf;
-#elif IUTEST_HAS_LONG_DOUBLE && (!defined(__LONG_DOUBLE_128__) || !__LONG_DOUBLE_128__)
+#elif IUTEST_HAS_LONG_DOUBLE && !IUTEST_LONG_DOUBLE_128
     *os << static_cast<long double>(v);
 #else
     *os << static_cast<double>(v);
 #endif
+}
+
+// NOTE: need libquadmath
+inline void PrintTo(const detail::Float128::Float v, iu_ostream* os)
+{
+    PrintToFloat128(v, os);
+}
+
+#if IUTEST_HAS_LONG_DOUBLE && IUTEST_LONG_DOUBLE_128
+inline void PrintTo(const long double v, iu_ostream* os)
+{
+    PrintToFloat128(v, os);
 }
 #endif
 
