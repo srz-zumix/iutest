@@ -284,68 +284,9 @@ namespace detail
 
 //======================================================================
 // struct
-/**
- * @brief   type_least_t
-*/
-template<int SIZE>
-struct type_least_t {};
 
-/** type_least_t<1> */
-template<>
-struct type_least_t<1>
+namespace type_t_helper
 {
-#if defined(INT_LEAST8_MIN)
-    typedef int_least8_t        Int;
-    typedef uint_least8_t       UInt;
-#else
-    typedef char                Int;
-    typedef unsigned char       UInt;
-#endif
-};
-
-/** type_least_t<2> */
-template<>
-struct type_least_t<2>
-{
-#if defined(INT_LEAST16_MIN)
-    typedef int_least16_t       Int;
-    typedef uint_least16_t      UInt;
-#else
-    typedef short               Int;
-    typedef unsigned short      UInt;
-#endif
-};
-
-/** type_least_t<4> */
-template<>
-struct type_least_t<4>
-{
-#if defined(INT_LEAST32_MIN)
-    typedef int_least32_t       Int;
-    typedef uint_least32_t      UInt;
-#else
-    typedef int                 Int;
-    typedef unsigned int        UInt;
-#endif
-};
-
-/** type_least_t<8> */
-template<>
-struct type_least_t<8>
-{
-#if defined(INT_LEAST64_MIN)
-    typedef int_least64_t       Int;
-    typedef uint_least64_t      UInt;
-#else
-#if defined(_MSC_VER)
-    typedef __int64             Int;
-    typedef unsigned __int64    UInt;
-#else
-    typedef long long           Int;
-    typedef unsigned long long  UInt;
-#endif
-#endif
-};
 
 /**
  * @brief   type_fit_t
@@ -424,7 +365,7 @@ struct type_fit_t<8>
 #endif
 };
 
-/** type_fit_t<8> */
+/** type_fit_t<16> */
 template<>
 struct type_fit_t<16>
 {
@@ -438,6 +379,132 @@ struct type_fit_t<16>
 #endif
 #endif
 };
+
+/**
+ * @brief   type_least_t
+*/
+template<size_t SIZE>
+struct type_least_t {};
+
+/** type_least_t<1> */
+template<>
+struct type_least_t<1>
+{
+#if defined(INT_LEAST8_MIN)
+    typedef int_least8_t        Int;
+    typedef uint_least8_t       UInt;
+#else
+    typedef char                Int;
+    typedef unsigned char       UInt;
+#endif
+};
+
+/** type_least_t<2> */
+template<>
+struct type_least_t<2>
+{
+#if defined(INT_LEAST16_MIN)
+    typedef int_least16_t       Int;
+    typedef uint_least16_t      UInt;
+#else
+    typedef short               Int;
+    typedef unsigned short      UInt;
+#endif
+};
+
+/** type_least_t<4> */
+template<>
+struct type_least_t<4>
+{
+#if defined(INT_LEAST32_MIN)
+    typedef int_least32_t       Int;
+    typedef uint_least32_t      UInt;
+#else
+    typedef int                 Int;
+    typedef unsigned int        UInt;
+#endif
+};
+
+/** type_least_t<8> */
+template<>
+struct type_least_t<8>
+{
+#if defined(INT_LEAST64_MIN)
+    typedef int_least64_t       Int;
+    typedef uint_least64_t      UInt;
+#else
+#if defined(_MSC_VER)
+    typedef __int64             Int;
+    typedef unsigned __int64    UInt;
+#else
+    typedef long long           Int;
+    typedef unsigned long long  UInt;
+#endif
+#endif
+};
+
+/** type_least_t<16> */
+template<>
+struct type_least_t<16> : public type_fit_t<16>
+{
+};
+
+template<bool B, typename T, typename U>
+class conditional
+{
+    template<bool X, typename TMP>
+    struct impl { typedef T type; };
+    template<typename TMP>
+    struct impl<false, TMP> { typedef U type; };
+public:
+    typedef typename impl<B, void>::type type;
+};
+
+template<size_t SIZE>
+struct type_fit_t_select
+{
+    typedef typename conditional<(SIZE & (SIZE - 1)) == 0, type_fit_t<SIZE>
+        , typename conditional<(SIZE > 8), type_fit_t<16>
+            , typename conditional<(SIZE > 4), type_fit_t<8>
+                , typename conditional<(SIZE > 2), type_fit_t<4>
+                    , typename conditional<(SIZE > 1), type_fit_t<2>
+                        , type_fit_t<1>
+                    >::type
+                >::type
+            >::type
+        >::type
+    >::type type;
+};
+
+template<size_t SIZE>
+struct type_least_t_select
+{
+    typedef typename conditional<(SIZE & (SIZE - 1)) == 0, type_least_t<SIZE>
+        , typename conditional<(SIZE > 8), type_least_t<16>
+            , typename conditional<(SIZE > 4), type_least_t<8>
+                , typename conditional<(SIZE > 2), type_least_t<4>
+                    , typename conditional<(SIZE > 1), type_least_t<2>
+                        , type_least_t<1>
+                    >::type
+                >::type
+            >::type
+        >::type
+    >::type type;
+};
+
+}   // end of namespace type_t_helper
+
+/**
+ * @brief   type_fit_t
+*/
+template<size_t SIZE>
+struct type_fit_t : public type_t_helper::type_fit_t_select<SIZE>::type {};
+
+/**
+ * @brief   type_least_t
+*/
+template<size_t SIZE>
+struct type_least_t : public type_t_helper::type_least_t_select<SIZE>::type {};
 
 //======================================================================
 // function
@@ -456,6 +523,18 @@ inline int iu_mbtowc(wchar_t* dst, const char* src, size_t size)
 #else
     return mbtowc(dst, src, size);
 #endif
+}
+
+template<typename T>
+T numeric_min()
+{
+    return ::std::numeric_limits<T>::(min)();
+}
+
+template<typename T>
+T numeric_max()
+{
+    return ::std::numeric_limits<T>::(max)();
 }
 
 }   // end of namespace detail
