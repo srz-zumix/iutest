@@ -630,6 +630,11 @@
  * @{
 */
 
+//! use quadmath
+#if !defined(IUTEST_USE_QUADMATH)
+#  define IUTEST_USE_QUADMATH       0
+#endif
+
 //! テストのチェック機能の有無
 #if !defined(IUTEST_CHECK_STRICT)
 #  define IUTEST_CHECK_STRICT       1

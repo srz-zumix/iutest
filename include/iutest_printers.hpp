@@ -23,6 +23,11 @@
 #include "internal/iutest_string_view.hpp"
 // IWYU pragma: end_exports
 
+#if IUTEST_USE_QUADMATH
+#  include <quadmath.h>
+#endif
+
+
 namespace iutest
 {
 
@@ -397,9 +402,15 @@ inline void PrintTo(detail::type_fit_t<16>::UInt v, iu_ostream* os)
 // NOTE: need libquadmath
 inline void PrintTo(detail::Float128::Float v, iu_ostream* os)
 {
+#if   IUTEST_USE_QUADMATH
     char buf[256] = {0};
     quadmath_snprintf(buf, sizeof(buf), "%Qf", v);
     *os << buf;
+#elif IUTEST_HAS_LONG_DOUBLE
+    *os << static_cast<long dobule>(v);
+#else
+    *os << static_cast<dobule>(v);
+#endif
 }
 #endif
 

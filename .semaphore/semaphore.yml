@@ -69,14 +69,14 @@ blocks:
             - env_var: DEFS
               values:
                 - "-m96bit-long-double"
-                - "-mlong-double-64"
-                - "-mlong-double-80"
-                - "-mlong-double-128"
+                - "-DIUTEST_USE_QUADMATH -mlong-double-64"
+                - "-DIUTEST_USE_QUADMATH -mlong-double-80"
+                - "-DIUTEST_USE_QUADMATH -mlong-double-128"
           commands:
             - cd test
             - make clean
             - make showcxxversion showcxxmacros
-            - make DEFS=$DEFS LIBS=quadmath floatingpoint_tests_run
+            - make DEFS="$DEFS" LIBS=quadmath floatingpoint_tests_run
         - name: scan-build
           commands:
             - cd test
