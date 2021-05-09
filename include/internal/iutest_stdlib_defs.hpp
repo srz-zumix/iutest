@@ -35,6 +35,10 @@
 #include <cstddef>
 #include <limits>
 
+#if IUTEST_HAS_FLOAT128
+#  include <quadmath.h>
+#endif
+
 // <version> header
 #if !defined(IUTEST_HAS_CXX_HDR_VERSION)
 #  if defined(__has_include)

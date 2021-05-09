@@ -90,6 +90,57 @@ IUTEST(PrintToTest, Bar)
 
 #if !defined(IUTEST_USE_GTEST)
 
+#if IUTEST_HAS_INT128
+IUTEST(PrintToTest, Int128)
+{
+    typedef ::iutest::internal::TypeWithSize<16>::Int i128_t;
+    IUTEST_ASSUME_EQ(16u, sizeof(i128_t));
+    i128_t i128 = ::std::numeric_limits<::iutest::internal::TypeWithSize<8>::Int>::min(); // -9223372036854775808
+    i128 -= 1;
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+    LogChecker ck("0xFFFFFFFFFFFFFFFF7FFFFFFFFFFFFFFF");
+    IUTEST_PRINTTOSTRING_EQ(ck, i128);
+#else
+    LogChecker ck("-Byte object < 00 00 00 00 ");
+    IUTEST_PRINTTOSTRING_CONTAIN(ck, i128);
+#endif
+    IUTEST_STREAMOUT_CHECK(i128);
+}
+
+IUTEST(PrintToTest, UInt128)
+{
+    typedef ::iutest::internal::TypeWithSize<16>::UInt i128_t;
+    IUTEST_ASSUME_EQ(16u, sizeof(i128_t));
+    i128_t i128 = ::std::numeric_limits<::iutest::internal::TypeWithSize<8>::UInt>::max(); // 18446744073709551615;
+    i128 += 1;
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+    LogChecker ck("0x00000000000000010000000000000000");
+    IUTEST_PRINTTOSTRING_EQ(ck, i128);
+#else
+    LogChecker ck("-Byte object < 00 00 00 00 ");
+    IUTEST_PRINTTOSTRING_CONTAIN(ck, i128);
+#endif
+    IUTEST_STREAMOUT_CHECK(i128);
+}
+#endif
+
+#if IUTEST_HAS_FLOAT128
+IUTEST(PrintToTest, Float128)
+{
+    ::iutest::detail::Float128 f128 = 0.1Q;
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+    LogChecker ck("0xFFFFFFFFFFFFFFFF7FFFFFFFFFFFFFFF");
+    IUTEST_PRINTTOSTRING_EQ(ck, f128);
+#else
+    LogChecker ck("-Byte object < 00 00 00 00 ");
+    IUTEST_PRINTTOSTRING_CONTAIN(ck, i128);
+#endif
+    IUTEST_STREAMOUT_CHECK(f128);
+}
+
+#endif
+
+
 IUTEST(PrintToTest, IutestAnyNotInitialized)
 {
     ::iutest::any a;

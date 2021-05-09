@@ -175,11 +175,12 @@ private:
     typedef typename detail::type_fit_t<sizeof(RawType)> type;
     typedef typename type::Int  Int;
     typedef typename type::UInt UInt;
+    typedef RawType Float;
     union FInt
     {
         Int     iv;
         UInt    uv;
-        RawType fv;
+        Float   fv;
     };
 
 public:
@@ -447,6 +448,13 @@ public:
 
 typedef FloatingPoint<float> Float;
 typedef FloatingPoint<double> Double;
+
+#if IUTEST_HAS_LONG_DOUBLE
+typedef FloatingPoint<long double> LongDouble;
+#endif
+#if IUTEST_HAS_FLOAT128
+typedef FloatingPoint<__float128> Float128;
+#endif
 
 }   // end of namespace detail
 
