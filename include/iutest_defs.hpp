@@ -148,8 +148,8 @@ struct ieee754_bits_from_mant<113>
     enum
     {
           EXP = 15
-        , MANT = 113
-        , MANT_HIDDEN = 0
+        , MANT = 112
+        , MANT_HIDDEN = 1
     };
 };
 
@@ -398,8 +398,8 @@ public:
     _Myt&   operator = (RawType f)  { m_v.fv = f; return *this; }   //!< 代入
     _Myt&   operator = (const _Myt& rhs) { m_v.fv = rhs.m_v.fv; return *this; }   //!< 代入
 
-    // bool    operator == (const _Myt& rhs) const { return enable_bits() == rhs.enable_bits(); }    //!< 比較
-    bool    operator == (const _Myt& rhs) const { return m_v.uv == rhs.m_v.uv; }    //!< 比較
+    bool    operator == (const _Myt& rhs) const { return enable_bits() == rhs.enable_bits(); }    //!< 比較
+    // bool    operator == (const _Myt& rhs) const { return m_v.uv == rhs.m_v.uv; }    //!< 比較
 
 public:
     enum
