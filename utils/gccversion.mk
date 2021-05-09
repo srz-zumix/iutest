@@ -221,4 +221,8 @@ endif
 
 IUTEST_CXX_STRICT_FLAGS+=-Wformat-nonliteral -Winit-self
 
+ifdef CI
+IUTEST_CXX_DIAGNOSTICS_FLAGS+=-fno-diagnostics-color
+endif
+
 endif

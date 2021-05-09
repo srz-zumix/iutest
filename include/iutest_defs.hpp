@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -90,61 +90,75 @@ struct TypeWithSize : public detail::type_fit_t<SIZE> {};
 namespace detail
 {
 
+template<size_t MANT>
+struct ieee754_bits_from_mant {};
+
+// half float
+template<>
+struct ieee754_bits_from_mant<11>
+{
+    enum
+    {
+          EXP = 5
+        , MANT = 10
+        , MANT_HIDDEN = 1
+    };
+};
+
+// float
+template<>
+struct ieee754_bits_from_mant<24>
+{
+    enum
+    {
+          EXP = 8
+        , MANT = 23
+        , MANT_HIDDEN = 1
+    };
+};
+
+// double
+template<>
+struct ieee754_bits_from_mant<53>
+{
+    enum
+    {
+          EXP = 11
+        , MANT = 52
+        , MANT_HIDDEN = 1
+    };
+};
+
+// 80bit
+template<>
+struct ieee754_bits_from_mant<64>
+{
+    enum
+    {
+          EXP = 15
+        , MANT = 64
+        , MANT_HIDDEN = 0
+    };
+};
+
+// 128bit
+template<>
+struct ieee754_bits_from_mant<113>
+{
+    enum
+    {
+          EXP = 15
+        , MANT = 112
+        , MANT_HIDDEN = 1
+    };
+};
+
 /**
  * @internal
  * @brief   IEEE754 floating point bits
 */
 template<typename T>
-struct ieee754_bits {};
-
-template<>
-struct ieee754_bits<float>
-{
-    enum {
-          EXP = 8
-        , FRAC = 23
-    };
-};
-
-template<>
-struct ieee754_bits<double>
-{
-    enum {
-          EXP = 11
-        , FRAC = 52
-    };
-};
-
-#if IUTEST_HAS_LONG_DOUBLE
-
-template<size_t N>
-struct ieee754_bits_longdouble {};
-
-template<>
-struct ieee754_bits_longdouble<8u>
-{
-    enum {
-          EXP = 11
-        , FRAC = 52
-    };
-};
-
-// 80bit 精度
-template<>
-struct ieee754_bits_longdouble<16u>
-{
-    enum {
-          EXP = 15
-        , FRAC = 64
-    };
-};
-
-template<>
-struct ieee754_bits<long double> : ieee754_bits_longdouble<sizeof(long double)>
-{
-};
-
-#endif
+struct ieee754_bits : ieee754_bits_from_mant<::std::numeric_limits<T>::digits> {};
 
 }   // end of namespace detail
 
@@ -281,7 +295,12 @@ public:
     /**
      * @brief   ビット列の取得
     */
-    UInt    bits() const { return m_v.uv & kEnableBitMask; }
+    UInt    bits() const { return m_v.uv; }
+
+    /**
+     * @brief   ビット列の取得
+    */
+    UInt    enable_bits() const { return m_v.uv & kEnableBitMask; }
 
     /**
      * @brief   raw データの取得
@@ -294,9 +313,19 @@ public:
     UInt    exponent_bits() const { return m_v.uv & kExpMask; }
 
     /**
-     * @brief   fraction
+     * @brief   fraction (mantissa)
     */
-    UInt    fraction_bits() const { return m_v.uv & kFracMask; }
+    UInt    fraction_bits() const { return mantissa_bits(); }
+
+    /**
+     * @brief   mantissa
+    */
+    UInt    mantissa_bits() const { return m_v.uv & kMantMask; }
+
+    /**
+     * @brief   economized mantissa
+    */
+    UInt    economized_mantissa_bits() const { return m_v.uv & kEconomizedMantMask; }
 
     /**
      * @brief   sign
@@ -306,19 +335,19 @@ public:
     /**
      * @brief   is nan
     */
-    bool    is_nan() const { return exponent_bits() == kExpMask && fraction_bits() != 0; }
+    bool    is_nan() const { return exponent_bits() == kExpMask && economized_mantissa_bits() != 0; }
 
     /**
      * @brief   is inf
     */
-    bool    is_inf() const { return exponent_bits() == kExpMask && fraction_bits() == 0; }
+    bool    is_inf() const { return exponent_bits() == kExpMask && economized_mantissa_bits() == 0; }
 
 public:
     //! plus inf
     static _Myt PINF()
     {
         _Myt f;
-        f.m_v.uv = kExpMask;
+        f.m_v.uv = kExpMask | kDefaultMantBitMask;
         return f;
     }
     //! minus inf
@@ -332,7 +361,7 @@ public:
     static _Myt PNAN()
     {
         _Myt f;
-        f.m_v.uv = kExpMask | 1;
+        f.m_v.uv = kExpMask | kDefaultMantBitMask | 1;
         return f;
     }
     //! minus nan
@@ -347,7 +376,8 @@ public:
     {
         _Myt f;
         f.m_v.uv = ((1 << (kEXP + 1)) - 1);
-        f.m_v.uv <<= kFRAC - 1;
+        f.m_v.uv <<= kMANT - 1;
+        f.m_v.uv |= kDefaultMantBitMask;
         return f;
     }
     //! minus qnan
@@ -366,15 +396,17 @@ public:
     operator double() const { return m_v.fv; }
 #endif
     _Myt&   operator = (RawType f)  { m_v.fv = f; return *this; }   //!< 代入
-    _Myt&   operator = (const _Myt& rhs) { m_v.fv = rhs.m_v; return *this; }   //!< 代入
+    _Myt&   operator = (const _Myt& rhs) { m_v.fv = rhs.m_v.fv; return *this; }   //!< 代入
 
-    bool    operator == (const _Myt& rhs) const { return m_v.uv == rhs.m_v.uv; }    //!< 比較
+    bool    operator == (const _Myt& rhs) const { return enable_bits() == rhs.enable_bits(); }    //!< 比較
+    // bool    operator == (const _Myt& rhs) const { return m_v.uv == rhs.m_v.uv; }    //!< 比較
 
-private:
+public:
     enum
     {
           kEXP = detail::ieee754_bits<RawType>::EXP
-        , kFRAC = detail::ieee754_bits<RawType>::FRAC
+        , kMANT = detail::ieee754_bits<RawType>::MANT
+        , kDIGITS = kMANT + detail::ieee754_bits<RawType>::MANT_HIDDEN
         , kMaxUlps = 4
     };
 
@@ -382,14 +414,18 @@ private:
     static UInt norm(UInt v) { return (v & kSignMask) ? (~v + 1) : (v | kSignMask); }
 
 #if !defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
-    static const UInt kSignMask = static_cast<UInt>(1u) << (kEXP + kFRAC);
-    static const UInt kExpMask = ((static_cast<UInt>(1u) << kEXP) - 1) << kFRAC;
-    static const UInt kFracMask = (static_cast<UInt>(1u) << kFRAC) - 1;
-    static const UInt kEnableBitMask = kSignMask | kExpMask | kFracMask;
+    static const UInt kSignMask = static_cast<UInt>(1u) << (kEXP + kMANT);
+    static const UInt kExpMask = ((static_cast<UInt>(1u) << kEXP) - 1) << kMANT;
+    static const UInt kMantMask = (static_cast<UInt>(1u) << kMANT) - 1;
+    static const UInt kEconomizedMantMask = (static_cast<UInt>(1u) << (kDIGITS - 1)) - 1;
+    static const UInt kDefaultMantBitMask = static_cast<UInt>(1u) << (kDIGITS - 1);
+    static const UInt kEnableBitMask = kSignMask | kExpMask | kMantMask;
 #else
     static const UInt kSignMask;
     static const UInt kExpMask;
-    static const UInt kFracMask;
+    static const UInt kMantMask;
+    static const UInt kEconomizedMantMask;
+    static const UInt kDefaultMantBitMask;
     static const UInt kEnableBitMask;
 #endif
 
@@ -397,21 +433,44 @@ private:
     FInt m_v;
 };
 
+// googletest compat
+
+namespace detail
+{
+
+template<typename T>
+class FloatingPoint : public floating_point<T>
+{
+public:
+    explicit FloatingPoint(const T& rhs) : floating_point<T>(rhs) {}
+};
+
+typedef FloatingPoint<float> Float;
+typedef FloatingPoint<double> Double;
+
+}   // end of namespace detail
+
 #if defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
 
 template<typename T>
 const typename floating_point<T>::UInt floating_point<T>::kSignMask
-    = static_cast<typename floating_point<T>::UInt>(1u) << (kEXP + kFRAC);
+    = static_cast<typename floating_point<T>::UInt>(1u) << (kEXP + kMANT);
 template<typename T>
 const typename floating_point<T>::UInt floating_point<T>::kExpMask
     = ((static_cast<typename floating_point<T>::UInt>(1u)
-        << floating_point<T>::kEXP) - 1) << floating_point<T>::kFRAC;
+        << floating_point<T>::kEXP) - 1) << floating_point<T>::kMANT;
 template<typename T>
-const typename floating_point<T>::UInt floating_point<T>::kFracMask
-    = ((static_cast<typename floating_point<T>::UInt>(1u) << floating_point<T>::kFRAC) - 1);
+const typename floating_point<T>::UInt floating_point<T>::kMantMask
+    = ((static_cast<typename floating_point<T>::UInt>(1u) << floating_point<T>::kMANT) - 1);
+template<typename T>
+const typename floating_point<T>::UInt floating_point<T>::kEconomizedMantMask
+    = ((static_cast<typename floating_point<T>::UInt>(1u) << (floating_point<T>::kDIGITS - 1)) - 1);
+template<typename T>
+const typename floating_point<T>::UInt floating_point<T>::kDefaultMantBitMask
+    = (static_cast<typename floating_point<T>::UInt>(1u) << (floating_point<T>::kDIGITS - 1));
 template<typename T>
 const typename floating_point<T>::UInt floating_point<T>::kEnableBitMask
-    = floating_point<T>::kSignMask | floating_point<T>::kExpMask | floating_point<T>::kFracMask;
+    = floating_point<T>::kSignMask | floating_point<T>::kExpMask | floating_point<T>::kMantMask;
 
 #endif
 
