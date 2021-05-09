@@ -49,15 +49,19 @@ namespace iutest
 namespace detail
 {
 
-IUTEST_ATTRIBUTE_NORETURN_
+bool is_throw = true;
+
 template<>
 ::std::string MakeIndexTypedTestName<exception_value>(const char* basename, size_t index)
 {
+    if( is_throw )
+    {
 #if REGISTER_EXCEPTION_TEST_THROW_INT
-    IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw 42);
+        IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw 42);
 #else
-    IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw ::std::runtime_error("HOGE"));
+        IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw ::std::runtime_error("HOGE"));
 #endif
+    }
     return MakeIndexTestName(basename, index);
 }
 
