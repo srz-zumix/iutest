@@ -374,7 +374,7 @@ inline void PrintTo(const floating_point<T>& f, iu_ostream* os)
 template<typename T>
 inline void PrintTo(const FloatingPoint<T>& f, iu_ostream* os)
 {
-     PrintToFloatingPoint(f, os);
+    PrintToFloatingPoint(f, os);
 }
 template<typename T1, typename T2>
 inline void PrintTo(const ::std::pair<T1, T2>& value, iu_ostream* os)
