@@ -425,6 +425,8 @@ inline void PrintTo(const long double v, iu_ostream* os)
 }
 #endif
 
+#endif
+
 template<typename T>
 void PrintToChar(const T value, iu_ostream* os)
 {
