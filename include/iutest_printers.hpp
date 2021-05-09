@@ -350,15 +350,26 @@ template<typename CharT, typename Traits, typename Alloc>
 inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os)   { UniversalTersePrint(str.c_str(), os); }
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 template<typename T>
-inline void PrintTo(const floating_point<T>& f, iu_ostream* os)
+inline void PrintToFloatingPoint(const floating_point<T>& f, iu_ostream* os)
 {
 #if IUTEST_HAS_IOMANIP
     iu_stringstream ss;
-    ss << ::std::setprecision(::std::numeric_limits<T>::digits10 + 2) << f.raw();
+    ss << ::std::setprecision(::std::numeric_limits<T>::digits10 + 2);
+    PrintTo(f.raw(), &ss);
     *os << ss.str() << "(0x" << ToHexString(f.bits()) << ")";
 #else
     *os << f.raw()  << "(0x" << ToHexString(f.bits()) << ")";
 #endif
+}
+template<typename T>
+inline void PrintTo(const floating_point<T>& f, iu_ostream* os)
+{
+    PrintToFloatingPoint(f, os);
+}
+template<typename T>
+inline void PrintTo(const FloatingPoint<T>& f, iu_ostream* os)
+{
+     PrintToFloatingPoint(f, os);
 }
 template<typename T1, typename T2>
 inline void PrintTo(const ::std::pair<T1, T2>& value, iu_ostream* os)
@@ -368,6 +379,26 @@ inline void PrintTo(const ::std::pair<T1, T2>& value, iu_ostream* os)
     *os << ", ";
     UniversalPrint(value.second, os);
     *os << ")";
+}
+#endif
+
+#if IUTEST_HAS_INT128
+inline void PrintTo(detail::type_fit_t<16>::Int v, iu_ostream* os)
+{
+    *os << "0x" << ToHexString(v);
+}
+inline void PrintTo(detail::type_fit_t<16>::UInt v, iu_ostream* os)
+{
+    *os << "0x" << ToHexString(v);
+}
+#endif
+
+#if IUTEST_HAS_FLOAT128
+inline void PrintTo(detail::Float128::Float v, iu_ostream* os)
+{
+    char buf[256] = {0};
+    quadmath_snprintf(buf, sizeof(buf), "%Qf", v);
+    *os << buf;
 }
 #endif
 
