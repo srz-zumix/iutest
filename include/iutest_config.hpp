@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -510,18 +510,6 @@
 #  endif
 #endif
 
-#if !defined(IUTEST_HAS_LONG_DOUBLE)
-#  if   IUTEST_HAS_INT128
-#    define IUTEST_HAS_LONG_DOUBLE  1
-#  elif defined(__SIZEOF_FLOAT128__) && (__SIZEOF_FLOAT128__ <= 8)
-#    define IUTEST_HAS_LONG_DOUBLE  1
-#  endif
-#endif
-
-#if !defined(IUTEST_HAS_LONG_DOUBLE)
-#  define IUTEST_HAS_LONG_DOUBLE    0
-#endif
-
 /**
  * @}
 */
@@ -641,6 +629,11 @@
  * @brief       その他の CONFIG
  * @{
 */
+
+//! use quadmath
+#if !defined(IUTEST_USE_QUADMATH)
+#  define IUTEST_USE_QUADMATH       0
+#endif
 
 //! テストのチェック機能の有無
 #if !defined(IUTEST_CHECK_STRICT)
