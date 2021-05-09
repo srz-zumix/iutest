@@ -352,7 +352,7 @@ inline void PrintTo(int v, iu_ostream* os)  { *os << v; }
 #endif
 inline void PrintTo(const ::std::string& str, iu_ostream* os)   { *os << str.c_str(); }
 template<typename CharT, typename Traits, typename Alloc>
-inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os)   { UniversalTersePrint(str.c_str(), os); }
+inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os) { UniversalTersePrint(str.c_str(), os); }
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 template<typename T>
 inline void PrintToFloatingPoint(const floating_point<T>& f, iu_ostream* os)
@@ -406,7 +406,7 @@ inline void PrintTo(const detail::Float128::Float v, iu_ostream* os)
     char buf[256] = {0};
     quadmath_snprintf(buf, sizeof(buf), "%Qf", v);
     *os << buf;
-#elif IUTEST_HAS_LONG_DOUBLE
+#elif IUTEST_HAS_LONG_DOUBLE && (!defined(__LONG_DOUBLE_128__) || !__LONG_DOUBLE_128__)
     *os << static_cast<long double>(v);
 #else
     *os << static_cast<double>(v);
