@@ -137,7 +137,7 @@ IUTEST(PrintToTest, Float128)
     ::iutest::detail::Float128 f128(static_cast<::iutest::detail::Float128::Float>(1.0f));
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     LogChecker ck("1");
-    IUTEST_PRINTTOSTRING_EQ(ck, f128);
+    IUTEST_PRINTTOSTRING_CONTAIN(ck, f128);
 #else
     LogChecker ck("-Byte object ");
     IUTEST_PRINTTOSTRING_CONTAIN(ck, i128);
