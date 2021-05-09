@@ -69,9 +69,9 @@ blocks:
             - env_var: DEFS
               values:
                 - "-m96bit-long-double"
-                - "-DIUTEST_USE_QUADMATH -mlong-double-64"
-                - "-DIUTEST_USE_QUADMATH -mlong-double-80"
-                - "-DIUTEST_USE_QUADMATH -mlong-double-128"
+                - "-DIUTEST_USE_QUADMATH=1 -mlong-double-64"
+                - "-DIUTEST_USE_QUADMATH=1 -mlong-double-80"
+                - "-DIUTEST_USE_QUADMATH=1 -mlong-double-128"
           commands:
             - cd test
             - make clean
