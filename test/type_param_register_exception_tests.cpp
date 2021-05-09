@@ -50,7 +50,7 @@ namespace detail
 {
 
 template<>
-::std::string MakeIndexTypedTestName<exception_value>(const char* basename, size_t index)
+IUTEST_ATTRIBUTE_NORETURN_ ::std::string MakeIndexTypedTestName<exception_value>(const char* basename, size_t index)
 {
 #if REGISTER_EXCEPTION_TEST_THROW_INT
     IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw 42);
