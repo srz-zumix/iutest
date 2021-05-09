@@ -49,8 +49,9 @@ namespace iutest
 namespace detail
 {
 
+IUTEST_ATTRIBUTE_NORETURN_
 template<>
-::std::string IUTEST_ATTRIBUTE_NORETURN_ MakeIndexTypedTestName<exception_value>(const char* basename, size_t index)
+::std::string MakeIndexTypedTestName<exception_value>(const char* basename, size_t index)
 {
 #if REGISTER_EXCEPTION_TEST_THROW_INT
     IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw 42);
