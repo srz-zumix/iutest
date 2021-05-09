@@ -102,7 +102,7 @@ IUTEST(PrintToTest, Int128)
 {
     typedef ::iutest::internal::TypeWithSize<16>::Int i128_t;
     IUTEST_ASSUME_EQ(16u, sizeof(i128_t));
-    i128_t i128 = ::std::numeric_limits<::iutest::internal::TypeWithSize<8>::Int>::min(); // -9223372036854775808
+    i128_t i128 = ::iutest::detail::numeric_min<::iutest::internal::TypeWithSize<8>::Int>(); // -9223372036854775808
     i128 -= 1;
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     LogChecker ck("0xFFFFFFFFFFFFFFFF7FFFFFFFFFFFFFFF");
@@ -118,7 +118,7 @@ IUTEST(PrintToTest, UInt128)
 {
     typedef ::iutest::internal::TypeWithSize<16>::UInt i128_t;
     IUTEST_ASSUME_EQ(16u, sizeof(i128_t));
-    i128_t i128 = ::std::numeric_limits<::iutest::internal::TypeWithSize<8>::UInt>::max(); // 18446744073709551615;
+    i128_t i128 = ::iutest::detail::numeric_max<::iutest::internal::TypeWithSize<8>::UInt>(); // 18446744073709551615;
     i128 += 1;
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     LogChecker ck("0x00000000000000010000000000000000");
