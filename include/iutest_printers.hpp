@@ -407,9 +407,9 @@ inline void PrintTo(detail::Float128::Float v, iu_ostream* os)
     quadmath_snprintf(buf, sizeof(buf), "%Qf", v);
     *os << buf;
 #elif IUTEST_HAS_LONG_DOUBLE
-    *os << static_cast<long dobule>(v);
+    *os << static_cast<long double>(v);
 #else
-    *os << static_cast<dobule>(v);
+    *os << static_cast<double>(v);
 #endif
 }
 #endif
