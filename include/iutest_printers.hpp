@@ -389,6 +389,7 @@ inline void PrintTo(detail::Float128::Float v, iu_ostream* os)
     char buf[256] = {0};
     quadmath_snprintf(buf, sizeof(buf), "%Qf", v);
     *os << buf;
+}
 #endif
 
 template<typename T>
