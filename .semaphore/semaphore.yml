@@ -76,7 +76,7 @@ blocks:
             - cd test
             - make clean
             - make showcxxversion showcxxmacros
-            - make DEFS=$DEFS floatingpoint_tests_run
+            - make DEFS=$DEFS LIBS=quadmath floatingpoint_tests_run
         - name: scan-build
           commands:
             - cd test
