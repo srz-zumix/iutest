@@ -355,7 +355,7 @@ inline void PrintToFloatingPoint(const floating_point<T>& f, iu_ostream* os)
 #if IUTEST_HAS_IOMANIP
     iu_stringstream ss;
     ss << ::std::setprecision(::std::numeric_limits<T>::digits10 + 2);
-    PrintTo(f.raw(), &ss);
+    UniversalPrint(f.raw(), &ss);
     *os << ss.str() << "(0x" << ToHexString(f.bits()) << ")";
 #else
     *os << f.raw()  << "(0x" << ToHexString(f.bits()) << ")";
