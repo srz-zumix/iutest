@@ -76,9 +76,9 @@ IUTEST_PRAGMA_WARN_DISABLE_DOUBLE_PROMOTION()
 IUTEST_TYPED_TEST(FloatingpointTest, NINF)
 {
     typedef typename TestFixture::ftype FloatType;
-    const TypeParam b=TestFixture::ZERO;
-    const TypeParam lb=static_cast<TypeParam>(::std::log(b));
-    IUTEST_EXPECT_EQ(FloatType(lb), FloatType::NINF());
+    TypeParam a= - TestFixture::ONE;
+    TypeParam b=TestFixture::ZERO;
+    IUTEST_EXPECT_EQ(FloatType(a/b), FloatType::NINF());
 }
 
 // MinGW-w64 sqrt bug
@@ -88,9 +88,10 @@ IUTEST_TYPED_TEST(FloatingpointTest, IsNAN)
 {
     IUTEST_ASSUME_TRUE(::std::numeric_limits<TypeParam>::is_iec559);
 
-    const TypeParam a=TestFixture::ONE;
-    const TypeParam sq=static_cast<TypeParam>(::std::sqrt(-a));
-    IUTEST_EXPECT_NAN(sq);
+    TypeParam a=TestFixture::ONE;
+    TypeParam b=TestFixture::ZERO;
+    const TypeParam nan=(a/b)*b;
+    IUTEST_EXPECT_NAN(nan);
 }
 #endif
 
