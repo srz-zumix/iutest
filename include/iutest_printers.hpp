@@ -400,7 +400,7 @@ inline void PrintTo(detail::type_fit_t<16>::UInt v, iu_ostream* os)
 
 #if IUTEST_HAS_FLOAT128
 // NOTE: need libquadmath
-inline void PrintTo(detail::Float128::Float v, iu_ostream* os)
+inline void PrintTo(const detail::Float128::Float v, iu_ostream* os)
 {
 #if   IUTEST_USE_QUADMATH
     char buf[256] = {0};
