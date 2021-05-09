@@ -1012,6 +1012,14 @@
 #  define IUTEST_HAS_FLOAT128       0
 #endif
 
+#if IUTEST_HAS_FLOAT128
+#  if defined(__FLT128_MANT_DIG__)
+#    define IUTEST_FLT128_MANT_DIG  __FLT128_MANT_DIG__
+#  else
+#    define IUTEST_FLT128_MANT_DIG  113
+#  endif
+#endif
+
 //! has long double
 #if !defined(IUTEST_HAS_LONG_DOUBLE)
 #  if defined(__SIZEOF_LONG_DOUBLE__)

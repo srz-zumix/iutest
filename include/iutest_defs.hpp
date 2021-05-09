@@ -162,7 +162,7 @@ struct ieee754_bits : ieee754_bits_from_mant<::std::numeric_limits<T>::digits> {
 
 #if IUTEST_HAS_FLOAT128
 template<>
-struct ieee754_bits<__float128> : ieee754_bits_from_mant<__FLT128_MANT_DIG__> {};
+struct ieee754_bits<__float128> : ieee754_bits_from_mant<IUTEST_FLT128_MANT_DIG> {};
 #endif
 
 }   // end of namespace detail
