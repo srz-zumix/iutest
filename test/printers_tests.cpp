@@ -134,7 +134,7 @@ IUTEST(PrintToTest, UInt128)
 #if IUTEST_HAS_FLOAT128
 IUTEST(PrintToTest, Float128)
 {
-    ::iutest::detail::Float128 f128 = 0.1Q;
+    ::iutest::detail::Float128 f128(static_cast<::iutest::detail::Float128::Float>(1.0f));
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     LogChecker ck("0xFFFFFFFFFFFFFFFF7FFFFFFFFFFFFFFF");
     IUTEST_PRINTTOSTRING_EQ(ck, f128);
