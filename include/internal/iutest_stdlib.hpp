@@ -528,13 +528,13 @@ inline int iu_mbtowc(wchar_t* dst, const char* src, size_t size)
 template<typename T>
 T numeric_min()
 {
-    return ::std::numeric_limits<T>::(min)();
+    return (::std::numeric_limits<T>::min)();
 }
 
 template<typename T>
 T numeric_max()
 {
-    return ::std::numeric_limits<T>::(max)();
+    return (::std::numeric_limits<T>::max)();
 }
 
 }   // end of namespace detail
