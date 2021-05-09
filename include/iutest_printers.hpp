@@ -350,7 +350,7 @@ template<typename CharT, typename Traits, typename Alloc>
 inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os)   { UniversalTersePrint(str.c_str(), os); }
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 template<typename T>
-inline void PrintTo(const floating_point<T>& f, iu_ostream* os)
+inline void PrintToFloatingPoint(const floating_point<T>& f, iu_ostream* os)
 {
 #if IUTEST_HAS_IOMANIP
     iu_stringstream ss;
@@ -360,6 +360,16 @@ inline void PrintTo(const floating_point<T>& f, iu_ostream* os)
 #else
     *os << f.raw()  << "(0x" << ToHexString(f.bits()) << ")";
 #endif
+}
+template<typename T>
+inline void PrintTo(const floating_point<T>& f, iu_ostream* os)
+{
+    PrintToFloatingPoint(f, os);
+}
+template<typename T>
+inline void PrintTo(const FloatingPoint<T>& f, iu_ostream* os)
+{
+     PrintToFloatingPoint(f, os);
 }
 template<typename T1, typename T2>
 inline void PrintTo(const ::std::pair<T1, T2>& value, iu_ostream* os)

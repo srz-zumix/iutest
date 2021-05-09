@@ -90,6 +90,13 @@ IUTEST(PrintToTest, Bar)
 
 #if !defined(IUTEST_USE_GTEST)
 
+IUTEST(PrintToTest, FloatingPoint)
+{
+    ::iutest::floating_point<float> f = 1.0f;
+    ::iutest::detail::FloatingPoint<float> F(1.0f);
+    IUTEST_ASSERT_STREQ(::iutest::PrintToString(f), ::iutest::PrintToString(F));
+}
+
 #if IUTEST_HAS_INT128
 IUTEST(PrintToTest, Int128)
 {

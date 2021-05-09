@@ -995,8 +995,16 @@
 
 //! hsa 128bit float type
 #if !defined(IUTEST_HAS_FLOAT128)
-#  if   defined(__SIZEOF_FLOAT128__)
-#    define IUTEST_HAS_FLOAT128     1
+#  if defined(__SIZEOF_FLOAT128__)
+#    if   defined(__clang__)
+#      if IUTEST_CLANG_MAJOR > 4 && defined(__has_include)
+#        if __has_include(<quadmath.h>)
+#          define IUTEST_HAS_FLOAT128   1
+#        endif
+#      endif
+#    else
+#      define IUTEST_HAS_FLOAT128   1
+#    endif
 #  endif
 #endif
 
@@ -1006,7 +1014,7 @@
 
 //! has long double
 #if !defined(IUTEST_HAS_LONG_DOUBLE)
-#  if   defined(__SIZEOF_LONG_DOUBLE__)
+#  if defined(__SIZEOF_LONG_DOUBLE__)
 #    define IUTEST_HAS_LONG_DOUBLE  1
 #  endif
 #endif
