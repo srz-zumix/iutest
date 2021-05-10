@@ -218,6 +218,9 @@ jobs:
   arm-linux-gnueabi-run:
     runs-on: ubuntu-latest
     needs: arm-linux-gnueabi
+    env:
+      DEFS: --static
+    steps:
     - name: login check
       run: |
         echo a | docker login
