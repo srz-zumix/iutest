@@ -177,6 +177,7 @@ jobs:
       credentials:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
+      options: --user root
     needs: prepare
     env:
       DEFS: --specs=nosys.specs -march=armv8-a
