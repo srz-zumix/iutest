@@ -217,7 +217,10 @@ jobs:
     - name: test
       run: |
         su conan
-        make -C test DEFS="$DEFS" test
+        cd test
+        ls -l
+        file ./minimum_tests
+        make DEFS="$DEFS" test
 
   #===================================================================
   lint-editorconfig:

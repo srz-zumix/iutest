@@ -141,6 +141,18 @@ struct ieee754_bits_from_mant<64>
     };
 };
 
+// double double
+template<>
+struct ieee754_bits_from_mant<106>
+{
+    enum
+    {
+          EXP = 22
+        , MANT = 104
+        , MANT_HIDDEN = 2
+    };
+};
+
 // 128bit
 template<>
 struct ieee754_bits_from_mant<113>
