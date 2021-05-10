@@ -197,31 +197,34 @@ jobs:
         container-name:
           - "gcc10-armv7"
     runs-on: ubuntu-latest
-    container:
-      image: docker://conanio/${{ matrix.container-name }}
-      credentials:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-      options: --user root
-    needs: prepare
+    # container:
+    #   image: docker://conanio/${{ matrix.container-name }}
+    #   credentials:
+    #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+    #     password: ${{ secrets.DOCKERHUB_TOKEN }}
+    needs: login
     env:
       DEFS: --static
     steps:
+    - name: login check
+      run: |
+        echo a | docker login
+    - name: qemu-user-static:register
+      run: |
+        docker run --rm --privileged multiarch/qemu-user-static:register --reset
     - uses: actions/checkout@v2
     - name: info
-      run: |
-        make -C test showcxxversion showcxxmacros DEFS="$DEFS"
+      uses: docker://conanio/${{ matrix.container-name }}
+      with:
+        args: 'make -C test showcxxversion showcxxmacros DEFS="$DEFS"'
     - name: build
-      run: |
-        make -C test -j8 DEFS="$DEFS"
+      uses: docker://conanio/${{ matrix.container-name }}
+      with:
+        args: 'make -C test -j8 DEFS="$DEFS"'
     - name: test
-      run: |
-        su conan
-        cd test
-        ls -l
-        file ./minimum_tests
-        ./minimum_tests
-        make DEFS="$DEFS" test
+      uses: docker://conanio/${{ matrix.container-name }}
+      with:
+        args: 'make -C test DEFS="$DEFS" test'
 
   #===================================================================
   lint-editorconfig:
