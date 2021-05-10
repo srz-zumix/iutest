@@ -192,16 +192,16 @@ jobs:
 
   arm-linux-gnueabi:
     runs-on: ubuntu-latest
-    # strategy:
-    #   fail-fast: false
-    #   matrix:
-    #     container-name:
-    #       - "gcc10-armv7"
-    # container:
-    #   image: docker://conanio/${{ matrix.container-name }}
-    #   credentials:
-    #     username: ${{ secrets.DOCKERHUB_USERNAME }}
-    #     password: ${{ secrets.DOCKERHUB_TOKEN }}
+    strategy:
+      fail-fast: false
+      matrix:
+        container-name:
+          - "gcc10-armv7"
+    container:
+      image: docker://conanio/${{ matrix.container-name }}
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
     needs: login
     env:
       DEFS: --static
@@ -214,17 +214,26 @@ jobs:
         docker run --rm --privileged multiarch/qemu-user-static:register --reset
     - uses: actions/checkout@v2
     - name: info
-      uses: docker://conanio/gcc10-armv7
-      with:
-        args: make -C test showcxxversion showcxxmacros
+      run: |
+        make -C test showcxxversion showcxxmacros
     - name: build
-      uses: docker://conanio/gcc10-armv7
-      with:
-        args: make -C test -j8
+      run: |
+        make -C test -j8
     - name: test
-      uses: docker://conanio/gcc10-armv7
-      with:
-        args: make -C test test
+      run: |
+        make test
+    # - name: info
+    #   uses: docker://conanio/gcc10-armv7
+    #   with:
+    #     args: make -C test showcxxversion showcxxmacros
+    # - name: build
+    #   uses: docker://conanio/gcc10-armv7
+    #   with:
+    #     args: make -C test -j8
+    # - name: test
+    #   uses: docker://conanio/gcc10-armv7
+    #   with:
+    #     args: make -C test test
 
   #===================================================================
   lint-editorconfig:
