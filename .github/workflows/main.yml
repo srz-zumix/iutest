@@ -220,6 +220,7 @@ jobs:
         cd test
         ls -l
         file ./minimum_tests
+        ./minimum_tests
         make DEFS="$DEFS" test
 
   #===================================================================
