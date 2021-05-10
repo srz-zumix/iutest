@@ -207,12 +207,6 @@ jobs:
     env:
       DEFS: --static
     steps:
-    - name: login check
-      run: |
-        echo a | docker login
-    - name: qemu-user-static:register
-      run: |
-        docker run --rm --privileged multiarch/qemu-user-static:register --reset
     - uses: actions/checkout@v2
     - name: info
       run: |
@@ -220,9 +214,19 @@ jobs:
     - name: build
       run: |
         make -C test -j8
+
+  arm-linux-gnueabi-run:
+    runs-on: ubuntu-latest
+    needs: arm-linux-gnueabi
+    - name: login check
+      run: |
+        echo a | docker login
+    - name: qemu-user-static:register
+      run: |
+        docker run --rm --privileged multiarch/qemu-user-static:register --reset
     - name: test
       run: |
-        make test
+        ls ./test
     # - name: info
     #   uses: docker://conanio/gcc10-armv7
     #   with:
@@ -231,10 +235,10 @@ jobs:
     #   uses: docker://conanio/gcc10-armv7
     #   with:
     #     args: make -C test -j8
-    # - name: test
-    #   uses: docker://conanio/gcc10-armv7
-    #   with:
-    #     args: make -C test test
+    - name: test
+      uses: docker://conanio/gcc10-armv7
+      with:
+        args: make -C test test
 
   #===================================================================
   lint-editorconfig:
