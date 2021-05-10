@@ -216,15 +216,15 @@ jobs:
     - name: info
       uses: docker://conanio/gcc10-armv7
       with:
-        args: 'make -C test showcxxversion showcxxmacros DEFS="${DEFS}"'
+        args: make -C test showcxxversion showcxxmacros DEFS="${{ env.DEFS }}"
     - name: build
       uses: docker://conanio/gcc10-armv7
       with:
-        args: 'make -C test -j8 DEFS="${DEFS}"'
+        args: make -C test -j8 DEFS="${{ env.DEFS }}"
     - name: test
       uses: docker://conanio/gcc10-armv7
       with:
-        args: 'make -C test DEFS="${DEFS}" test'
+        args: make -C test DEFS="${{ env.DEFS }}" test
 
   #===================================================================
   lint-editorconfig:
