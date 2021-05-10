@@ -221,4 +221,11 @@ endif
 
 IUTEST_CXX_STRICT_FLAGS+=-Wformat-nonliteral -Winit-self
 
+ifdef CI
+IUTEST_CXX_DIAGNOSTICS_FLAGS+=-fno-diagnostics-color
+endif
+
+## for __float128 Q literal
+# -fext-numeric-literals
+
 endif
