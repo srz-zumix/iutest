@@ -47,38 +47,58 @@ jobs:
         run: |
           echo "build and push"
 
+  #===================================================================
   llvm-basic-test:
     runs-on: windows-latest
     needs: prepare
+    defaults:
+      run:
+        shell: cmd
     steps:
     - uses: actions/checkout@v2
     - name: choco-install
-      shell: cmd
       run: |
         choco install -y llvm || exit 1
         call refreshenv
-    - name: llvm clang test
-      shell: cmd
+    - name: set path
+      shell: bash
       run: |
-        set PATH=%PATH%;C:\Program Files\LLVM\bin
+        echo "C:\Program Files\LLVM\bin" >> $GITHUB_PATH
+    - name: llvm clang info
+      run: |
+        path
         make -C test clean
         make -C test CXX=clang++ CC=clang showcxxversion
+        make -C test CXX=clang++ CC=clang showcxxmacros
         make -C test CXX=clang++ CC=clang check_stdlib
+    - name: llvm clang build
+      run: |
         make -C test CXX=clang++ CC=clang -j8
+    - name: llvm clang test
+      run: |
         make -C test CXX=clang++ CC=clang test
+
   mingw-basic-test:
     runs-on: windows-latest
     needs: prepare
+    defaults:
+      run:
+        shell: cmd
     steps:
     - uses: actions/checkout@v2
-    - name: mingw test
-      shell: cmd
+    - name: mingw info
       run: |
         make -C test clean
         make -C test showcxxversion
+        make -C test showcxxmacros
         make -C test check_stdlib
+    - name: mingw build
+      run: |
         make -C test -j8
+    - name: mingw test
+      run: |
         make -C test test
+
   zapcc-basic-test:
     runs-on: ubuntu-18.04
     container:
@@ -96,14 +116,19 @@ jobs:
         python-version: ${{ env.PYTHON_VERSION }}
     - name: Set Python environment variable
       run: echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> $GITHUB_ENV
-    - name: zapcc test
+    - name: zapcc info
       run: |
         make -C test clean
-        make -C test showcxxmacros
         make -C test showcxxversion
+        make -C test showcxxmacros
         make -C test check_stdlib
+    - name: zapcc build
+      run: |
         make -C test -j1 IUTEST_REQUIRE_PYTHON=1
+    - name: zapcc test
+      run: |
         make -C test test
+
   icpc-basic-test:
     runs-on: ubuntu-latest
     container:
@@ -115,18 +140,27 @@ jobs:
     env:
       CC: icpc
       CXX: icpc
+    defaults:
+      run:
+        shell: bash -e -o pipefail -l {0}
     steps:
     - uses: actions/checkout@master
-    - name: icpc test
-      shell: bash
+    - name: set .bash_profile
       run: |
-        . /opt/intel/oneapi/setvars.sh
+        echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
+    - name: icpc info
+      run: |
         make -C test clean
-        make -C test showcxxmacros
         make -C test showcxxversion
+        make -C test showcxxmacros
         make -C test check_stdlib
+    - name: icpc build
+      run: |
         make -C test -j8
+    - name: icpc test
+      run: |
         make -C test test
+
   arm-none-eabi:
     strategy:
       fail-fast: false
@@ -154,7 +188,45 @@ jobs:
         make -C test showcxxversion showcxxmacros DEFS="$DEFS"
     - name: build
       run: |
-        make -C test DEFS="$DEFS"
+        make -C test -j8 DEFS="$DEFS"
+
+  arm-linux-gnueabi:
+    runs-on: ubuntu-latest
+    # strategy:
+    #   fail-fast: false
+    #   matrix:
+    #     container-name:
+    #       - "gcc10-armv7"
+    # container:
+    #   image: docker://conanio/${{ matrix.container-name }}
+    #   credentials:
+    #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+    #     password: ${{ secrets.DOCKERHUB_TOKEN }}
+    needs: login
+    env:
+      DEFS: --static
+    steps:
+    - name: login check
+      run: |
+        echo a | docker login
+    - name: qemu-user-static:register
+      run: |
+        docker run --rm --privileged multiarch/qemu-user-static:register --reset
+    - uses: actions/checkout@v2
+    - name: info
+      uses: docker://conanio/gcc10-armv7
+      with:
+        args: 'make -C test showcxxversion showcxxmacros DEFS="{{ env.DEFS }}"'
+    - name: build
+      uses: docker://conanio/gcc10-armv7
+      with:
+        args: 'make -C test -j8 DEFS="{{ env.DEFS }}"'
+    - name: test
+      uses: docker://conanio/gcc10-armv7
+      with:
+        args: 'make -C test DEFS="{{ env.DEFS }}" test'
+
+  #===================================================================
   lint-editorconfig:
     runs-on: ubuntu-18.04
     needs: prepare
