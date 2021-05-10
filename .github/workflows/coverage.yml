@@ -1,0 +1,56 @@
+name: Coverage
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+      - 'feature/**'
+      - 'fix/**'
+      - 'gh/**'
+      - 'github/**'
+      - 'githubactions/**'
+    paths-ignore:
+      - '*.ini'
+      - '*.md'
+      - '*.yml'
+      - '*.yaml'
+      - '.circleci/**'
+      - '.semaphore/**'
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  codecov:
+    runs-on: ubuntu-latest
+    env:
+      USE_COVERAGE: gcov
+    steps:
+    - uses: actions/checkout@master
+    - name: info
+      run: |
+        make -C test showcxxmacros
+        make -C test showcxxversion
+        make -C test check_stdlib
+    - name: specs
+      run: |
+        make -C test minimum_tests && ./test/minimum_tests --spec --feature
+        make -C test clean
+    - name: build
+      run: |
+        make -C test -j4 default
+    - name: test
+      run: |
+        make -C test test
+    - name: coverage
+      run: |
+        make -C test coverage
+    - uses: codecov/codecov-action@v1
+      with:
+        fail_ci_if_error: true
+        verbose: true
+    - uses: actions/upload-artifact@v1
+      with:
+        name: test-result
+        path: test/*.xml
