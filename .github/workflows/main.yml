@@ -214,9 +214,12 @@ jobs:
     - name: build
       run: |
         make -C test -j8
+    - uses: actions/checkout@v2
+      repository: https://github.com/multiarch/qemu-user-static.git
     - name: qemu-user-static:register
       run: |
-        docker run --rm --privileged multiarch/qemu-user-static:register --reset
+        # docker run --rm --privileged multiarch/qemu-user-static:register --reset
+        ./qemu-user-static/containers/latest/register.sh --reset
     - name: test
       uses: docker://conanio/gcc10-armv7
       with:
