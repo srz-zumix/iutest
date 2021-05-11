@@ -43,7 +43,7 @@ jobs:
     - name: test
       run: |
         make -C test test
-        ls
+        ls test
     - uses: actions/upload-artifact@v1
       with:
         name: test-result
