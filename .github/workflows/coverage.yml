@@ -43,6 +43,11 @@ jobs:
     - name: test
       run: |
         make -C test test
+        ls
+    - uses: actions/upload-artifact@v1
+      with:
+        name: test-result
+        path: test/*.xml
     - name: coverage
       run: |
         make -C test coverage
@@ -50,7 +55,3 @@ jobs:
       with:
         fail_ci_if_error: true
         verbose: true
-    - uses: actions/upload-artifact@v1
-      with:
-        name: test-result
-        path: test/*.xml
