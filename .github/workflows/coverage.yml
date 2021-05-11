@@ -43,8 +43,7 @@ jobs:
     - name: test
       run: |
         make -C test test
-        ls test
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v2
       with:
         name: test-result
         path: test/*.xml
