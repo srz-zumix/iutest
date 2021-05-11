@@ -215,7 +215,8 @@ jobs:
       run: |
         make -C test -j8
     - uses: actions/checkout@v2
-      repository: https://github.com/multiarch/qemu-user-static.git
+      with:
+        repository: https://github.com/multiarch/qemu-user-static.git
     - name: qemu-user-static:register
       run: |
         # docker run --rm --privileged multiarch/qemu-user-static:register --reset
