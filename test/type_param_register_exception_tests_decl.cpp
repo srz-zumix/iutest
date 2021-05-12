@@ -13,32 +13,13 @@
 //-----------------------------------------------------------------------
 //======================================================================
 
-#if defined(IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME)
-#  undef IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME
-#endif
-#define IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME   1
-#define IUTEST_ABORT()  (void)0
-
-#include "iutest.hpp"
 #include <stdexcept>
-
-#if IUTEST_HAS_TYPED_TEST_P && IUTEST_HAS_EXCEPTIONS && !defined(IUTEST_USE_GTEST)
-#  define REGISTER_EXCEPTION_TEST   1
-#endif
-
-#if !defined(REGISTER_EXCEPTION_TEST)
-#  define REGISTER_EXCEPTION_TEST   0
-#endif
 
 #if IUTEST_HAS_STREAM_BUFFER
     ::iutest::detail::IUStreamBuffer<> stderr_capture(stderr);
 #endif
 
 #if REGISTER_EXCEPTION_TEST
-
-#if !defined(REGISTER_EXCEPTION_TEST_THROW_INT)
-#  define REGISTER_EXCEPTION_TEST_THROW_INT 0
-#endif
 
 struct exception_value
 {

@@ -1,7 +1,7 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file        type_param_register_exception_int_tests.cpp
+ * @file        type_param_register_exception_std_tests.cpp
  * @brief       type parameter exception in register test
  *
  * @author      t.shirayanagi
@@ -15,6 +15,6 @@
 
 #include "type_param_register_exception_tests_decl.hpp"
 #if REGISTER_EXCEPTION_TEST
-#  define REGISTER_EXCEPTION_TEST_THROW_INT   1
+#  define REGISTER_EXCEPTION_TEST_THROW_INT   0
 #endif
 #include "type_param_register_exception_tests_decl.cpp"
