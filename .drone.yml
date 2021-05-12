@@ -719,3 +719,42 @@ steps:
 #     dockerfile: tools/docker/Dockerfile
 #     repo: srzzumix/iutest
 #     dry_run: true
+
+---
+  # arm-linux-gnueabi:
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       container-name:
+  #         - "gcc10-armv7"
+  #   container:
+  #     image: docker://conanio/${{ matrix.container-name }}
+  #     credentials:
+  #       username: ${{ secrets.DOCKERHUB_USERNAME }}
+  #       password: ${{ secrets.DOCKERHUB_TOKEN }}
+  #     options: --user root
+  #   needs: login
+  #   env:
+  #     DEFS: --static
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: info
+  #     run: |
+  #       make -C test showcxxversion showcxxmacros
+  #   - name: build
+  #     run: |
+  #       make -C test -j8
+  #   - uses: actions/checkout@v2
+  #     with:
+  #       repository: multiarch/qemu-user-static
+  #       path: qemu-user-static
+  #   - name: qemu-user-static:register
+  #     run: |
+  #       # docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  #       ./qemu-user-static/containers/latest/register.sh --reset
+  #   - name: test
+  #     uses: docker://conanio/gcc10-armv7
+  #     with:
+  #       args: make -C test test
+
