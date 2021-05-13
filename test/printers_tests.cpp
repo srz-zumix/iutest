@@ -140,7 +140,7 @@ IUTEST(PrintToTest, Float128)
     IUTEST_PRINTTOSTRING_CONTAIN(ck, f128);
 #else
     LogChecker ck("-Byte object ");
-    IUTEST_PRINTTOSTRING_CONTAIN(ck, i128);
+    IUTEST_PRINTTOSTRING_CONTAIN(ck, f128);
 #endif
     IUTEST_STREAMOUT_CHECK(f128);
 }
