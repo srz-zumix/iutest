@@ -206,6 +206,12 @@ IUTEST(PrintToTest, String)
         IUTEST_STREAMOUT_CHECK(c);
     }
     {
+        LogChecker ck("128");
+        char c = 0x80;
+        IUTEST_PRINTTOSTRING_EQ(ck, c);
+        IUTEST_STREAMOUT_CHECK(c);
+    }
+    {
         LogChecker ck("(null)");
         char* p = NULL;
         IUTEST_PRINTTOSTRING_EQ(ck, p);
