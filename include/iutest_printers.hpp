@@ -385,8 +385,9 @@ void PrintToChar(const T value, iu_ostream* os)
     }
     else
     {
-        const T str[2] = { value, 0 };
-        *os << "\'" << detail::ShowAnyCString(str) << "\'";
+        *os << value;
+        // const T str[2] = { value, 0 };
+        // *os << "\'" << detail::ShowAnyCString(str) << "\'";
     }
 }
 inline void PrintTo(const char value, iu_ostream* os)
