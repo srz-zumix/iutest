@@ -17,11 +17,25 @@
 // include
 #include "iutest.hpp"
 
-IUTEST(UnitEnvTest, GetEnvironmentVariable)
+IUTEST(UnitEnvTest, InvalideResultVars)
 {
     char buf[2];
     IUTEST_EXPECT_FALSE(::iutest::detail::GetEnvironmentVariable("PATH", buf, sizeof(buf)));
     IUTEST_EXPECT_FALSE(::iutest::detail::GetEnvironmentVariable("PATH", NULL, 0));
+}
+
+IUTEST(UnitEnvTest, NoExist)
+{
+    char buf[256];
+    IUTEST_EXPECT_FALSE(::iutest::detail::GetEnvironmentVariable("NOEXIST_ENVIRONMENT_VARIABLE_1234", buf, sizeof(buf)));
+    ::std::string var;
+    IUTEST_EXPECT_FALSE(::iutest::detail::GetEnvironmentVariable("NOEXIST_ENVIRONMENT_VARIABLE_1234", var));
+}
+
+IUTEST(UnitEnvTest, GetEnvironmentVariable)
+{
+    ::std::string var;
+    IUTEST_EXPECT_TRUE(::iutest::detail::GetEnvironmentVariable("PATH", var));
 }
 
 IUTEST(UnitAnyTest, Empty)

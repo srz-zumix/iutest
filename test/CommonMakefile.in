@@ -186,6 +186,9 @@ TARGETS_IUTEST_ONLY = \
 		$(OUTDIR)/scoped_trace_exception_tests \
 		$(OUTDIR)/tap_file_generator_listener_tests \
 		$(OUTDIR)/tap_printer_listener_tests \
+		$(OUTDIR)/type_param_register_exception_int_tests \
+		$(OUTDIR)/type_param_register_exception_std_tests \
+		$(OUTDIR)/type_param_strict_failure_tests \
 		$(OUTDIR)/type_param_strict_tests
 
 COMPILEERROR_TARGETS=\

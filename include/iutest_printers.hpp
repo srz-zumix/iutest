@@ -372,6 +372,18 @@ inline void PrintTo(const ::std::pair<T1, T2>& value, iu_ostream* os)
 #endif
 
 template<typename T>
+void PrintToCharAsString(const T value, iu_ostream* os)
+{
+    const T str[2] = { value, 0 };
+    *os << "\'" << detail::ShowAnyCString(str) << "\'";
+}
+
+inline void PrintToCharAsString(const char value, iu_ostream* os)
+{
+    *os << value;
+}
+
+template<typename T>
 void PrintToChar(const T value, iu_ostream* os)
 {
     // char or unsigned char の時に、 0 が NULL 文字にならないように修正
@@ -385,8 +397,7 @@ void PrintToChar(const T value, iu_ostream* os)
     }
     else
     {
-        const T str[2] = { value, 0 };
-        *os << "\'" << detail::ShowAnyCString(str) << "\'";
+        PrintToCharAsString(value, os);
     }
 }
 inline void PrintTo(const char value, iu_ostream* os)
