@@ -380,7 +380,15 @@ void PrintToCharAsString(const T value, iu_ostream* os)
 
 inline void PrintToCharAsString(const char value, iu_ostream* os)
 {
-    *os << value;
+    if( (value & 0x80) )
+    {
+        *os << static_cast<int>(value);
+    }
+    else
+    {
+        const T str[2] = { value, 0 };
+        *os << "\'" << detail::ShowAnyCString(str) << "\'";
+    }
 }
 
 template<typename T>
