@@ -56,7 +56,7 @@ override CXXFLAGS += -v
 endif
 
 ifdef USE_COVERAGE
-override CXXFLAGS += -coverage
+override CXXFLAGS += -coverage -O0
 ifndef CCOV
 CCOV=$(USE_COVERAGE)
 endif
