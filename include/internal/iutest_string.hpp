@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -25,7 +25,7 @@
 #include <wctype.h>
 #include <stdarg.h>
 #include <errno.h>
-#if defined(IUTEST_OS_CYGWIN) || defined(IUTEST_OS_ARM)
+#if defined(IUTEST_OS_CYGWIN) || defined(__arm__)
 #include <strings.h>
 #endif
 #include <string>
@@ -70,9 +70,18 @@ inline int iu_stricmp(const char* str1, const char* str2)
 
 inline int iu_wcicmp(wchar_t l, wchar_t r)
 {
-    const ::std::wint_t ul = towupper(l);
-    const ::std::wint_t ur = towupper(r);
-    return ul - ur;
+    if( sizeof(::std::wint_t) < sizeof(int) )
+    {
+        const int ul = static_cast<int>(towupper(l));
+        const int ur = static_cast<int>(towupper(r));
+        return ul - ur;
+    }
+    else
+    {
+        const ::std::wint_t ul = towupper(l);
+        const ::std::wint_t ur = towupper(r);
+        return ul - ur;
+    }
 }
 
 inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
@@ -122,7 +131,7 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 {
 #if   defined(_MSC_VER)
     return _wcsicmp(str1, str2);
-#elif defined(IUTEST_OS_LINUX) && !defined(IUTEST_OS_LINUX_ANDROID)
+#elif defined(IUTEST_OS_LINUX) && !defined(IUTEST_ARCH_ARM)
     return wcscasecmp(str1, str2);
 #else
     return wrapper::iu_wcsicmp(str1, str2);
