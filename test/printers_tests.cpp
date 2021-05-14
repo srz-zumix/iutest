@@ -194,7 +194,7 @@ IUTEST(PrintToTest, String)
         IUTEST_STREAMOUT_CHECK(c);
     }
     {
-        LogChecker ck("10");
+        LogChecker ck("0x0A");
         char c = '\n';
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_STREAMOUT_CHECK(c);
@@ -206,7 +206,7 @@ IUTEST(PrintToTest, String)
         IUTEST_STREAMOUT_CHECK(c);
     }
     {
-        LogChecker ck("128");
+        LogChecker ck("0x80");
         char c = 0x80;
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_STREAMOUT_CHECK(c);
@@ -245,9 +245,9 @@ IUTEST(PrintToTest, WideString)
         IUTEST_STREAMOUT_CHECK(c);
     }
     {
-        LogChecker ck("10");
+        LogChecker ck("000A");
         wchar_t c = L'\n';
-        IUTEST_PRINTTOSTRING_EQ(ck, c);
+        IUTEST_PRINTTOSTRING_CONTAIN(ck, c);
         IUTEST_STREAMOUT_CHECK(c);
     }
     {
