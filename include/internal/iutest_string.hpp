@@ -70,15 +70,9 @@ inline int iu_stricmp(const char* str1, const char* str2)
 
 inline int iu_wcicmp(wchar_t l, wchar_t r)
 {
-#if defined(__SIZEOF_WINT_T__) && __SIZEOF_WINT_T__ == 2
-    const int ul = static_cast<int>(static_cast<unsigned short>(towupper(l)));
-    const int ur = static_cast<int>(static_cast<unsigned short>(towupper(r)));
-    return ul - ur;
-#else
     const ::std::wint_t ul = towupper(l);
     const ::std::wint_t ur = towupper(r);
     return ul - ur;
-#endif
 }
 
 inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
