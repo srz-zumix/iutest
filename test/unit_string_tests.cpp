@@ -49,8 +49,11 @@ IUTEST(UnitStringTest, Wcsicmp)
     IUTEST_EXPECT_LT(0, ::iutest::detail::iu_wcsicmp(L"AAAa", L"aaa"));
     IUTEST_EXPECT_LT(0, ::iutest::detail::iu_wcsicmp(L"AAAB", L"aaaa"));
     IUTEST_EXPECT_GT(0, ::iutest::detail::iu_wcsicmp(L"AAAa", L"aaaB"));
+#if __SIZEOF_WINT_T__ == 2
     IUTEST_EXPECT_GT(0, ::iutest::detail::iu_wcsicmp(L"AAA", negative_sample)) << towupper(negative);
+#else
     IUTEST_EXPECT_LT(0, ::iutest::detail::iu_wcsicmp(L"AAA", negative_sample)) << towupper(negative);
+#endif
     IUTEST_EXPECT_GT(0, ::iutest::detail::iu_wcsicmp(L"AAA", L"aaaA"));
 }
 
@@ -62,11 +65,7 @@ IUTEST(UnitStringTest, OwnWcsicmp)
     IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAAa", L"aaa"));
     IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAAB", L"aaaa"));
     IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAAa", L"aaaB"));
-#if IUTEST_WCHAR_UNSIGNED
-    IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", negative_sample));
-#else
-    IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", negative_sample));
-#endif
+    IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", negative_sample)) << towupper(negative);
     IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", L"aaaA"));
 }
 
