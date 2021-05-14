@@ -207,7 +207,8 @@ IUTEST(PrintToTest, String)
     }
     {
         LogChecker ck("0x80");
-        char c = static_cast<char>(0x80);
+        unsigned char uc = 0x80;
+        char c = static_cast<char>(uc);
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_STREAMOUT_CHECK(c);
     }
