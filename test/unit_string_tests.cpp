@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -235,11 +235,20 @@ IUTEST(UnitStringTest, Utf8AsciiCode)
 
 IUTEST(UnitStringTest, SurrogatePair)
 {
-    ::std::string s = ::iutest::detail::AnyStringToUTF8(L"\U00020BB7", -1);
-    const unsigned char uexpect[4] = { 0xF0, 0xA0, 0xAE, 0xB7 };
-    char expect[4];
-    memcpy(expect, uexpect, sizeof(expect));
-    IUTEST_EXPECT_EQ_RANGE(expect, s);
+    {
+        ::std::string s = ::iutest::detail::AnyStringToUTF8(L"\U00020BB7", -1);
+        const unsigned char uexpect[4] = { 0xF0, 0xA0, 0xAE, 0xB7 };
+        char expect[4];
+        memcpy(expect, uexpect, sizeof(expect));
+        IUTEST_EXPECT_EQ_RANGE(expect, s);
+    }
+    {
+        ::std::string s = ::iutest::detail::AnyStringToUTF8(L"\U0001F600", -1);
+        const unsigned char uexpect[4] = { 0xF0, 0x9F, 0x98, 0x80 };
+        char expect[4];
+        memcpy(expect, uexpect, sizeof(expect));
+        IUTEST_EXPECT_EQ_RANGE(expect, s);
+    }
 }
 
 IUTEST(UnitStringTest, StringToValue)
