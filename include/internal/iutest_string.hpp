@@ -70,9 +70,18 @@ inline int iu_stricmp(const char* str1, const char* str2)
 
 inline int iu_wcicmp(wchar_t l, wchar_t r)
 {
-    const ::std::wint_t ul = towupper(l);
-    const ::std::wint_t ur = towupper(r);
-    return ul - ur;
+    if( sizeof(::std::wint_t) < sizeof(int) )
+    {
+        const int ul = static_cast<int>(towupper(l));
+        const int ur = static_cast<int>(towupper(r));
+        return ul - ur;
+    }
+    else
+    {
+        const ::std::wint_t ul = towupper(l);
+        const ::std::wint_t ur = towupper(r);
+        return ul - ur;
+    }
 }
 
 inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
