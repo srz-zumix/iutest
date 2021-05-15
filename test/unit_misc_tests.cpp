@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -66,4 +66,10 @@ IUTEST(UnitRandomTest, Size64)
         y[i] = r.genrand<iutest::UInt64>() >> 32;
     }
     IUTEST_EXPECT_NE_RANGE(x, y);
+}
+
+IUTEST(UnitFileLoacation, NullFilePath)
+{
+    IUTEST_EXPECT_STREQ("unknown file", ::iutest::detail::FormatFileLocation(NULL, -1));
+    IUTEST_EXPECT_STREQ("unknown file", ::iutest::detail::FormatCompilerIndependentFileLocation(NULL, -1));
 }
