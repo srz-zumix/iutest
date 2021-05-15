@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -39,12 +39,26 @@ IUTEST(FilePath, GetExecFilePath)
 
 IUTEST(FilePath, IsDirectory)
 {
-    ::iutest::internal::FilePath path = ::iutest::internal::FilePath::GetCurrentDir();
+    ::iutest::internal::FilePath path;
+    IUTEST_EXPECT_FALSE(path.IsDirectory());
+    path = ::iutest::internal::FilePath::GetCurrentDir();
     IUTEST_EXPECT_FALSE(path.IsEmpty());
     IUTEST_EXPECT_TRUE (path.DirectoryExists());
 }
 
 #endif
+
+IUTEST(FilePath, RemoveTrailingPathSeparator)
+{
+    {
+        ::iutest::internal::FilePath path;
+        IUTEST_EXPECT_EQ("", path.RemoveTrailingPathSeparator());
+    }
+    {
+        ::iutest::internal::FilePath path("path/to/dir/////");
+        IUTEST_EXPECT_EQ("path/to/dir", path.RemoveTrailingPathSeparator());
+    }
+}
 
 IUTEST(FilePath, RemoveExtension)
 {
@@ -100,6 +114,16 @@ IUTEST(FilePath, RemoveDirectoryName)
         ::iutest::internal::FilePath path("test/test.exe");
         IUTEST_EXPECT_EQ("test.exe", path.RemoveDirectoryName());
     }
+}
+
+IUTEST(FilePath, Normalize)
+{
+    ::iutest::internal::FilePath path("path//to///dir////file.txt");
+#ifdef IUTEST_OS_WINDOWS
+    IUTEST_EXPECT_EQ("path\\to\\dir\\file.txt", path);
+#else
+    IUTEST_EXPECT_EQ("path/to/dir/file.txt", path);
+#endif
 }
 
 #if IUTEST_HAS_PRINT_TO
