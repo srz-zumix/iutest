@@ -40,13 +40,25 @@ IUTEST(FilePath, GetExecFilePath)
 IUTEST(FilePath, IsDirectory)
 {
     ::iutest::internal::FilePath path;
-    IUTEST_EXPECT_FALSE(path.DirectoryExists());
+    IUTEST_EXPECT_FALSE(path.IsDirectory());
     path = ::iutest::internal::FilePath::GetCurrentDir();
     IUTEST_EXPECT_FALSE(path.IsEmpty());
     IUTEST_EXPECT_TRUE (path.DirectoryExists());
 }
 
 #endif
+
+IUTEST(FilePath, RemoveTrailingPathSeparator)
+{
+    {
+        ::iutest::internal::FilePath path;
+        IUTEST_EXPECT_EQ("", path.RemoveTrailingPathSeparator());
+    }
+    {
+        ::iutest::internal::FilePath path("path/to/dir/////");
+        IUTEST_EXPECT_EQ("path/to/dir", path.RemoveTrailingPathSeparator());
+    }
+}
 
 IUTEST(FilePath, RemoveExtension)
 {
@@ -104,7 +116,7 @@ IUTEST(FilePath, RemoveDirectoryName)
     }
 }
 
-IUTEST(FilePath, DISABLED_Normalize)
+IUTEST(FilePath, Normalize)
 {
     ::iutest::internal::FilePath path("path//to///dir////file.txt");
 #ifdef IUTEST_OS_WINDOWS
