@@ -62,6 +62,25 @@ CCOV=$(USE_COVERAGE)
 endif
 endif
 
+ifdef USE_ASAN
+IUTEST_CXX_SANITIZE_FLAG=-fsanitize=address
+endif
+ifdef USE_TSAN
+IUTEST_CXX_SANITIZE_FLAG=-fsanitize=thread
+endif
+ifdef USE_MSAN
+IUTEST_CXX_SANITIZE_FLAG=-fsanitize=memory
+endif
+ifdef USE_UBSAN
+ifeq (${IUTEST_CXX_SANITIZE_FLAG},)
+IUTEST_CXX_SANITIZE_FLAG=-fsanitize=undefined
+else
+IUTEST_CXX_SANITIZE_FLAG:=${IUTEST_CXX_SANITIZE_FLAG},undefined
+endif
+endif
+
+override CXXFLAGS += ${IUTEST_CXX_SANITIZE_FLAG}
+
 ifdef GGC_MIN_EXPAND
 override CXXFLAGS += --param ggc-min-expand=${GGC_MIN_EXPAND}
 endif
