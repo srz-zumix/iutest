@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -50,6 +50,9 @@ public:
 #if IUTEST_HAS_CXX_HDR_VARIANT
     const ::std::variant<int, float, ::std::string> v;
 #endif
+#if IUTEST_HAS_LONG_DOUBLE
+    long double lda;
+#endif
 
     SPITest()
         : null_str(NULL)
@@ -62,6 +65,9 @@ public:
         , oy(0, 0, 0)
 #if IUTEST_HAS_CXX_HDR_VARIANT
         , v(1)
+#endif
+#if IUTEST_HAS_LONG_DOUBLE
+        , lda(0.0l)
 #endif
     {
         const char ac_[5] = { 0, 0, 2, 3, 5 };
@@ -94,6 +100,9 @@ const TestObjectX ox(0, 1, 2);
 const TestObjectX oy(0, 0, 0);
 #if IUTEST_HAS_CXX_HDR_VARIANT
 const ::std::variant<int, float, ::std::string> v = 1;
+#endif
+#if IUTEST_HAS_LONG_DOUBLE
+long double lda = static_cast<long double>(a);
 #endif
 #endif
 
