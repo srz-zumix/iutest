@@ -203,11 +203,11 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - uses: actions/checkout@v2
     - name: info
-      uses: docker://conanio/gcc10-armv7
+      uses: ./.github/actions/arm-linux-gnueabi
       with:
         args: "make -C test showcxxversion showcxxmacros"
     - name: build
-      uses: docker://conanio/gcc10-armv7
+      uses: ./.github/actions/arm-linux-gnueabi
       with:
         args: "make -C test -j8"
     - name: test
