@@ -213,7 +213,7 @@ jobs:
     - name: test
       uses: ./.github/actions/arm-linux-gnueabi
       with:
-        args: "QEMU_COMMAND=qemu-arm-static make -C test test"
+        args: "make -C test test QEMU_COMMAND=qemu-arm-static"
 
   #===================================================================
   lint-editorconfig:
