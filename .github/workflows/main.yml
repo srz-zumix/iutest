@@ -211,9 +211,10 @@ jobs:
       with:
         args: "make -C test -j8"
     - name: test
-      run: |
-        make -C .ci/docker/arm-linux-gnueabi build
-        docker run -it --rm "$(pwd)":/work -w /work -e DEFS=-static qemu-gcc-armv7 qemu-arm-static ./test/all_tests
+      uses: ./.github/actions/arm-linux-gnueabi
+      with:
+        with:
+          args: "qemu-arm-static ./test/all_tests"
 
   #===================================================================
   lint-editorconfig:
