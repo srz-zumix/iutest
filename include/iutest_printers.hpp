@@ -357,14 +357,12 @@ inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ost
 template<typename T>
 inline void PrintToFloatingPoint(const floating_point<T>& f, iu_ostream* os)
 {
-#if IUTEST_HAS_IOMANIP
     iu_stringstream ss;
+#if IUTEST_HAS_IOMANIP
     ss << ::std::setprecision(::std::numeric_limits<T>::digits10 + 2);
+#endif
     UniversalPrint(f.raw(), &ss);
     *os << ss.str() << "(0x" << ToHexString(f.bits()) << ")";
-#else
-    *os << f.raw()  << "(0x" << ToHexString(f.bits()) << ")";
-#endif
 }
 template<typename T>
 inline void PrintTo(const floating_point<T>& f, iu_ostream* os)

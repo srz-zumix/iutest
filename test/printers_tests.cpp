@@ -104,13 +104,8 @@ IUTEST(PrintToTest, Int128)
     IUTEST_ASSUME_EQ(16u, sizeof(i128_t));
     i128_t i128 = ::iutest::detail::numeric_min< ::iutest::internal::TypeWithSize<8>::Int >(); // -9223372036854775808
     i128 -= 1;
-#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     LogChecker ck("0xFFFFFFFFFFFFFFFF7FFFFFFFFFFFFFFF");
     IUTEST_PRINTTOSTRING_EQ(ck, i128);
-#else
-    LogChecker ck("-Byte object < 00 00 00 00 ");
-    IUTEST_PRINTTOSTRING_CONTAIN(ck, i128);
-#endif
     IUTEST_STREAMOUT_CHECK(i128);
 }
 
@@ -120,13 +115,8 @@ IUTEST(PrintToTest, UInt128)
     IUTEST_ASSUME_EQ(16u, sizeof(i128_t));
     i128_t i128 = ::iutest::detail::numeric_max< ::iutest::internal::TypeWithSize<8>::UInt >(); // 18446744073709551615;
     i128 += 1;
-#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     LogChecker ck("0x00000000000000010000000000000000");
     IUTEST_PRINTTOSTRING_EQ(ck, i128);
-#else
-    LogChecker ck("-Byte object < 00 00 00 00 ");
-    IUTEST_PRINTTOSTRING_CONTAIN(ck, i128);
-#endif
     IUTEST_STREAMOUT_CHECK(i128);
 }
 #endif
@@ -135,13 +125,8 @@ IUTEST(PrintToTest, UInt128)
 IUTEST(PrintToTest, Float128)
 {
     ::iutest::detail::Float128 f128(static_cast< ::iutest::detail::Float128::Float>(1.0f));
-#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     LogChecker ck("1");
     IUTEST_PRINTTOSTRING_CONTAIN(ck, f128);
-#else
-    LogChecker ck("-Byte object ");
-    IUTEST_PRINTTOSTRING_CONTAIN(ck, f128);
-#endif
     IUTEST_STREAMOUT_CHECK(f128);
 }
 
