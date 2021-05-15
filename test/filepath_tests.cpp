@@ -104,7 +104,7 @@ IUTEST(FilePath, RemoveDirectoryName)
     }
 }
 
-IUTEST(FilePath, Normalize)
+IUTEST(FilePath, DISABLED_Normalize)
 {
     ::iutest::internal::FilePath path("path//to///dir////file.txt");
 #ifdef IUTEST_OS_WINDOWS
