@@ -37,16 +37,54 @@ IUTEST(FilePath, GetExecFilePath)
 
 #if defined(IUTEST_USE_GTEST) || IUTEST_HAS_FILE_STAT
 
-IUTEST(FilePath, IsDirectory)
+IUTEST(FilePath, DirectoryExists)
 {
-    ::iutest::internal::FilePath path;
-    IUTEST_EXPECT_FALSE(path.IsDirectory());
-    path = ::iutest::internal::FilePath::GetCurrentDir();
+    ::iutest::internal::FilePath path = ::iutest::internal::FilePath::GetCurrentDir();
     IUTEST_EXPECT_FALSE(path.IsEmpty());
     IUTEST_EXPECT_TRUE (path.DirectoryExists());
 }
 
 #endif
+
+IUTEST(FilePath, IsDirectory)
+{
+    ::iutest::internal::FilePath path;
+    IUTEST_EXPECT_FALSE(path.IsDirectory());
+}
+
+IUTEST(FilePath, IsRootDirectory)
+{
+    {
+        ::iutest::internal::FilePath path;
+        IUTEST_EXPECT_FALSE(path.IsRootDirectory());
+    }
+    {
+        ::iutest::internal::FilePath path("path");
+        IUTEST_EXPECT_FALSE(path.IsRootDirectory());
+    }
+// FIXME: https://github.com/srz-zumix/iutest/issues/589
+//     {
+// #ifdef IUTEST_OS_WINDOWS
+//         ::iutest::internal::FilePath path("C:\\");
+//         IUTEST_EXPECT_TRUE(path.IsRootDirectory());
+// #else
+//         ::iutest::internal::FilePath path("/");
+//         IUTEST_EXPECT_TRUE(path.IsRootDirectory());
+// #endif
+//     }
+}
+
+IUTEST(FilePath, IsAbsolutePath)
+{
+    {
+        ::iutest::internal::FilePath path;
+        IUTEST_EXPECT_FALSE(path.IsAbsolutePath());
+    }
+    {
+        ::iutest::internal::FilePath path("path");
+        IUTEST_EXPECT_FALSE(path.IsAbsolutePath());
+    }
+}
 
 IUTEST(FilePath, RemoveTrailingPathSeparator)
 {
