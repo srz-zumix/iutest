@@ -35,16 +35,21 @@ IUTEST(FilePath, GetExecFilePath)
 }
 #endif
 
-#if defined(IUTEST_USE_GTEST) || IUTEST_HAS_FILE_STAT
-
 IUTEST(FilePath, DirectoryExists)
 {
-    ::iutest::internal::FilePath path = ::iutest::internal::FilePath::GetCurrentDir();
-    IUTEST_EXPECT_FALSE(path.IsEmpty());
-    IUTEST_EXPECT_TRUE (path.DirectoryExists());
+    {
+        ::iutest::internal::FilePath path;
+        IUTEST_EXPECT_FALSE(path.DirectoryExists());
+    }
+#if defined(IUTEST_USE_GTEST) || IUTEST_HAS_FILE_STAT
+    {
+        ::iutest::internal::FilePath path = ::iutest::internal::FilePath::GetCurrentDir();
+        IUTEST_EXPECT_FALSE(path.IsEmpty());
+        IUTEST_EXPECT_TRUE (path.DirectoryExists());
+    }
+#endif
 }
 
-#endif
 
 IUTEST(FilePath, IsDirectory)
 {
@@ -99,6 +104,22 @@ IUTEST(FilePath, RemoveTrailingPathSeparator)
 #else
         IUTEST_EXPECT_EQ("path/to/dir", path.RemoveTrailingPathSeparator());
 #endif
+    }
+}
+
+IUTEST(FilePath, GetExtention)
+{
+    {
+        ::iutest::internal::FilePath path;
+        IUTEST_EXPECT_EQ("", path.GetExtension());
+    }
+    {
+        ::iutest::internal::FilePath path("test.exe");
+        IUTEST_EXPECT_EQ(".exe", path.GetExtension());
+    }
+    {
+        ::iutest::internal::FilePath path("test.exe.txt");
+        IUTEST_EXPECT_EQ(".txt", path.GetExtension());
     }
 }
 
