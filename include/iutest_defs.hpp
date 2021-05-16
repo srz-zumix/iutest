@@ -246,8 +246,8 @@ public:
     */
     bool    NanSensitiveAlmostEquals(const _Myt& rhs) const
     {
-        const UInt v1 = norm(bits());
-        const UInt v2 = norm(rhs.bits());
+        const UInt v1 = norm(enable_bits());
+        const UInt v2 = norm(rhs.enable_bits());
         const UInt diff = (v1 > v2) ? v1 - v2 : v2 - v1;
         if( diff <= kMaxUlps )
         {
