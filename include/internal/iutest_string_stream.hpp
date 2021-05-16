@@ -56,7 +56,7 @@ bool StringToValue(const ::std::string& s, T& out)
     char* endptr=NULL;
     const char* p = s.c_str();
     errno = 0;
-    const unsigned long long v = strtoull(p, &endptr);
+    const unsigned long long v = strtoull(p, &endptr, 10);
     if(p == endptr)
     {
 #if IUTEST_HAS_EXCEPTIONS
@@ -228,7 +228,7 @@ IUTEST_PRAGMA_WARN_DISABLE_FORMAT_NONLITERAL()
     {
         template<typename E>
         static int vastring(E* dst, const E* fmt, va_list va);
-        static int vastring(char* dst, size_t len, const char* fmt, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3,0)
+        static int vastring(char* dst, size_t len, const char* fmt, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 0)
         {
             (void)len;
             return vsprintf(dst, fmt, va);
