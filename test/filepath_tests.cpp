@@ -94,7 +94,11 @@ IUTEST(FilePath, RemoveTrailingPathSeparator)
     }
     {
         ::iutest::internal::FilePath path("path/to/dir/////");
+#ifdef IUTEST_OS_WINDOWS
+        IUTEST_EXPECT_EQ("path\\to\\dir", path.RemoveTrailingPathSeparator());
+#else
         IUTEST_EXPECT_EQ("path/to/dir", path.RemoveTrailingPathSeparator());
+#endif
     }
 }
 

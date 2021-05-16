@@ -48,7 +48,7 @@ IUTEST_IPP_INLINE bool iuFilePath::IsRootDirectory() const
         return false;
     }
 #else
-    if( length() != 3 )
+    if( length() != 1 )
     {
         return false;
     }
