@@ -370,7 +370,7 @@ IUTEST_PRAGMA_WARN_POP()
     inline _Myt& operator<< (double v)
     {
         _Elem a[64];
-        impl::tostring(a, 64, IIUT_PP_XCS("%l"), v);
+        impl::tostring(a, 64, IIUT_PP_XCS("%lf"), v);
         s += a;
         return *this;
     }
@@ -378,13 +378,13 @@ IUTEST_PRAGMA_WARN_POP()
     inline _Myt& operator<< (long double v)
     {
         _Elem a[64];
-        impl::tostring(a, 64, IIUT_PP_XCS("%L"), v);
+        impl::tostring(a, 64, IIUT_PP_XCS("%Lf"), v);
         s += a;
         return *this;
     }
 #endif
 #if IUTEST_HAS_FLOAT128
-    inline _Myt& operator<< (const detail::Float128::Float v)
+    inline _Myt& operator<< (detail::Float128::Float v)
     {
         _Elem a[64];
         const double d = static_cast<double>(v);

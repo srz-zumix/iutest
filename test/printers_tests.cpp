@@ -121,6 +121,16 @@ IUTEST(PrintToTest, UInt128)
 }
 #endif
 
+#if IUTEST_HAS_LONG_DOUBLE
+IUTEST(PrintToTest, LongDouble)
+{
+    ::iutest::detail::LongDouble ld(static_cast< ::iutest::detail::LongDouble::Float>(1.0f));
+    LogChecker ck("1");
+    IUTEST_PRINTTOSTRING_CONTAIN(ck, ld);
+    IUTEST_STREAMOUT_CHECK(ld);
+}
+#endif
+
 #if IUTEST_HAS_FLOAT128
 IUTEST(PrintToTest, Float128)
 {
@@ -129,7 +139,6 @@ IUTEST(PrintToTest, Float128)
     IUTEST_PRINTTOSTRING_CONTAIN(ck, f128);
     IUTEST_STREAMOUT_CHECK(f128);
 }
-
 #endif
 
 
