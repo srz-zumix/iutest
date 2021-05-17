@@ -50,6 +50,20 @@ IUTEST(FilePath, DirectoryExists)
 #endif
 }
 
+IUTEST(FilePath, FileOrDirectoryExists)
+{
+    {
+        ::iutest::internal::FilePath path;
+        IUTEST_EXPECT_FALSE(path.FileOrDirectoryExists());
+    }
+#if defined(IUTEST_USE_GTEST) || IUTEST_HAS_FILE_STAT
+    {
+        ::iutest::internal::FilePath path = ::iutest::internal::FilePath::GetCurrentDir();
+        IUTEST_EXPECT_FALSE(path.IsEmpty());
+        IUTEST_EXPECT_TRUE (path.FileOrDirectoryExists());
+    }
+#endif
+}
 
 IUTEST(FilePath, IsDirectory)
 {
@@ -103,6 +117,29 @@ IUTEST(FilePath, RemoveTrailingPathSeparator)
         IUTEST_EXPECT_EQ("path\\to\\dir", path.RemoveTrailingPathSeparator());
 #else
         IUTEST_EXPECT_EQ("path/to/dir", path.RemoveTrailingPathSeparator());
+#endif
+    }
+}
+
+IUTEST(FilePath, ConcatPaths)
+{
+    {
+        ::iutest::internal::FilePath a("a");
+        ::iutest::internal::FilePath empty;
+        IUTEST_EXPECT_EQ("a", ::iutest::internal::FilePath::ConcatPaths(empty, a));
+#ifdef IUTEST_OS_WINDOWS
+        IUTEST_EXPECT_EQ("a\\", ::iutest::internal::FilePath::ConcatPaths(dir, empty));
+#else
+        IUTEST_EXPECT_EQ("a/", ::iutest::internal::FilePath::ConcatPaths(a, empty));
+#endif
+    }
+    {
+        ::iutest::internal::FilePath dir("path/to/dir/////");
+        ::iutest::internal::FilePath file("test.text");
+#ifdef IUTEST_OS_WINDOWS
+        IUTEST_EXPECT_EQ("path\\to\\dir\\test.text", ::iutest::internal::FilePath::ConcatPaths());
+#else
+        IUTEST_EXPECT_EQ("path/to/dir/test.text", ::iutest::internal::FilePath::ConcatPaths(dir, file));
 #endif
     }
 }

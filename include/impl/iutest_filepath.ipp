@@ -272,6 +272,10 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::GetExecFilePath()
 
 IUTEST_IPP_INLINE iuFilePath iuFilePath::ConcatPaths(const iuFilePath& directory, const iuFilePath& relative_path)
 {
+    if( directory.IsEmpty() )
+    {
+        return relative_path;
+    }
     ::std::string path = directory.RemoveTrailingPathSeparator().m_path;
     path += GetPathSeparator();
     path += relative_path.m_path;
