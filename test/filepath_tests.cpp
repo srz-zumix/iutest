@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -35,16 +35,130 @@ IUTEST(FilePath, GetExecFilePath)
 }
 #endif
 
+IUTEST(FilePath, DirectoryExists)
+{
+    {
+        ::iutest::internal::FilePath path;
+        IUTEST_EXPECT_FALSE(path.DirectoryExists());
+    }
 #if defined(IUTEST_USE_GTEST) || IUTEST_HAS_FILE_STAT
+    {
+        ::iutest::internal::FilePath path = ::iutest::internal::FilePath::GetCurrentDir();
+        IUTEST_EXPECT_FALSE(path.IsEmpty());
+        IUTEST_EXPECT_TRUE (path.DirectoryExists());
+    }
+#endif
+}
+
+IUTEST(FilePath, FileOrDirectoryExists)
+{
+    {
+        ::iutest::internal::FilePath path;
+        IUTEST_EXPECT_FALSE(path.FileOrDirectoryExists());
+    }
+#if defined(IUTEST_USE_GTEST) || IUTEST_HAS_FILE_STAT
+    {
+        ::iutest::internal::FilePath path = ::iutest::internal::FilePath::GetCurrentDir();
+        IUTEST_EXPECT_FALSE(path.IsEmpty());
+        IUTEST_EXPECT_TRUE (path.FileOrDirectoryExists());
+    }
+#endif
+}
 
 IUTEST(FilePath, IsDirectory)
 {
-    ::iutest::internal::FilePath path = ::iutest::internal::FilePath::GetCurrentDir();
-    IUTEST_EXPECT_FALSE(path.IsEmpty());
-    IUTEST_EXPECT_TRUE (path.DirectoryExists());
+    ::iutest::internal::FilePath path;
+    IUTEST_EXPECT_FALSE(path.IsDirectory());
 }
 
+IUTEST(FilePath, IsRootDirectory)
+{
+    {
+        ::iutest::internal::FilePath path;
+        IUTEST_EXPECT_FALSE(path.IsRootDirectory());
+    }
+    {
+        ::iutest::internal::FilePath path("path");
+        IUTEST_EXPECT_FALSE(path.IsRootDirectory());
+    }
+// FIXME: https://github.com/srz-zumix/iutest/issues/589
+//     {
+// #ifdef IUTEST_OS_WINDOWS
+//         ::iutest::internal::FilePath path("C:\\");
+//         IUTEST_EXPECT_TRUE(path.IsRootDirectory());
+// #else
+//         ::iutest::internal::FilePath path("/");
+//         IUTEST_EXPECT_TRUE(path.IsRootDirectory());
+// #endif
+//     }
+}
+
+IUTEST(FilePath, IsAbsolutePath)
+{
+    {
+        ::iutest::internal::FilePath path;
+        IUTEST_EXPECT_FALSE(path.IsAbsolutePath());
+    }
+    {
+        ::iutest::internal::FilePath path("path");
+        IUTEST_EXPECT_FALSE(path.IsAbsolutePath());
+    }
+}
+
+IUTEST(FilePath, RemoveTrailingPathSeparator)
+{
+    {
+        ::iutest::internal::FilePath path;
+        IUTEST_EXPECT_EQ("", path.RemoveTrailingPathSeparator());
+    }
+    {
+        ::iutest::internal::FilePath path("path/to/dir/////");
+#ifdef IUTEST_OS_WINDOWS
+        IUTEST_EXPECT_EQ("path\\to\\dir", path.RemoveTrailingPathSeparator());
+#else
+        IUTEST_EXPECT_EQ("path/to/dir", path.RemoveTrailingPathSeparator());
 #endif
+    }
+}
+
+IUTEST(FilePath, ConcatPaths)
+{
+    {
+        ::iutest::internal::FilePath a("a");
+        ::iutest::internal::FilePath empty;
+        IUTEST_EXPECT_EQ("a", ::iutest::internal::FilePath::ConcatPaths(empty, a));
+#ifdef IUTEST_OS_WINDOWS
+        IUTEST_EXPECT_EQ("a\\", ::iutest::internal::FilePath::ConcatPaths(dir, empty));
+#else
+        IUTEST_EXPECT_EQ("a/", ::iutest::internal::FilePath::ConcatPaths(a, empty));
+#endif
+    }
+    {
+        ::iutest::internal::FilePath dir("path/to/dir/////");
+        ::iutest::internal::FilePath file("test.text");
+#ifdef IUTEST_OS_WINDOWS
+        IUTEST_EXPECT_EQ("path\\to\\dir\\test.text", ::iutest::internal::FilePath::ConcatPaths());
+#else
+        IUTEST_EXPECT_EQ("path/to/dir/test.text", ::iutest::internal::FilePath::ConcatPaths(dir, file));
+#endif
+    }
+}
+
+IUTEST(FilePath, GetExtention)
+{
+    {
+        ::iutest::internal::FilePath path;
+        IUTEST_EXPECT_EQ("", path.GetExtension());
+    }
+    {
+        ::iutest::internal::FilePath path("test.exe");
+        IUTEST_EXPECT_EQ(".exe", path.GetExtension());
+    }
+    {
+        ::iutest::internal::FilePath path("test.exe.txt");
+        IUTEST_EXPECT_EQ(".txt", path.GetExtension());
+    }
+}
 
 IUTEST(FilePath, RemoveExtension)
 {
@@ -100,6 +214,16 @@ IUTEST(FilePath, RemoveDirectoryName)
         ::iutest::internal::FilePath path("test/test.exe");
         IUTEST_EXPECT_EQ("test.exe", path.RemoveDirectoryName());
     }
+}
+
+IUTEST(FilePath, Normalize)
+{
+    ::iutest::internal::FilePath path("path//to///dir////file.txt");
+#ifdef IUTEST_OS_WINDOWS
+    IUTEST_EXPECT_EQ("path\\to\\dir\\file.txt", path);
+#else
+    IUTEST_EXPECT_EQ("path/to/dir/file.txt", path);
+#endif
 }
 
 #if IUTEST_HAS_PRINT_TO
