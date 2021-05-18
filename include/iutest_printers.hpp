@@ -23,6 +23,11 @@
 #include "internal/iutest_string_view.hpp"
 // IWYU pragma: end_exports
 
+#if IUTEST_USE_QUADMATH
+#  include <quadmath.h>
+#endif
+
+
 namespace iutest
 {
 
@@ -347,18 +352,27 @@ inline void PrintTo(int v, iu_ostream* os)  { *os << v; }
 #endif
 inline void PrintTo(const ::std::string& str, iu_ostream* os)   { *os << str.c_str(); }
 template<typename CharT, typename Traits, typename Alloc>
-inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os)   { UniversalTersePrint(str.c_str(), os); }
+inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os) { UniversalTersePrint(str.c_str(), os); }
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+template<typename T>
+inline void PrintToFloatingPoint(const floating_point<T>& f, iu_ostream* os)
+{
+    iu_stringstream ss;
+#if IUTEST_HAS_IOMANIP
+    ss << ::std::setprecision(::std::numeric_limits<T>::digits10 + 2);
+#endif
+    UniversalPrint(f.raw(), &ss);
+    *os << ss.str() << "(0x" << ToHexString(f.bits()) << ")";
+}
 template<typename T>
 inline void PrintTo(const floating_point<T>& f, iu_ostream* os)
 {
-#if IUTEST_HAS_IOMANIP
-    iu_stringstream ss;
-    ss << ::std::setprecision(::std::numeric_limits<T>::digits10 + 2) << f.raw();
-    *os << ss.str() << "(0x" << ToHexString(f.bits()) << ")";
-#else
-    *os << f.raw()  << "(0x" << ToHexString(f.bits()) << ")";
-#endif
+    PrintToFloatingPoint(f, os);
+}
+template<typename T>
+inline void PrintTo(const FloatingPoint<T>& f, iu_ostream* os)
+{
+    PrintToFloatingPoint(f, os);
 }
 template<typename T1, typename T2>
 inline void PrintTo(const ::std::pair<T1, T2>& value, iu_ostream* os)
@@ -369,6 +383,46 @@ inline void PrintTo(const ::std::pair<T1, T2>& value, iu_ostream* os)
     UniversalPrint(value.second, os);
     *os << ")";
 }
+#endif
+
+#if IUTEST_HAS_INT128
+inline void PrintTo(detail::type_fit_t<16>::Int v, iu_ostream* os)
+{
+    *os << "0x" << ToHexString(v);
+}
+inline void PrintTo(detail::type_fit_t<16>::UInt v, iu_ostream* os)
+{
+    *os << "0x" << ToHexString(v);
+}
+#endif
+
+#if IUTEST_HAS_FLOAT128
+inline void PrintToFloat128(const detail::Float128::Float v, iu_ostream* os)
+{
+#if   IUTEST_USE_QUADMATH
+    char buf[256] = {0};
+    quadmath_snprintf(buf, sizeof(buf), "%Qf", v);
+    *os << buf;
+#elif IUTEST_HAS_LONG_DOUBLE && !IUTEST_LONG_DOUBLE_128
+    *os << static_cast<long double>(v);
+#else
+    *os << static_cast<double>(v);
+#endif
+}
+
+// NOTE: need libquadmath
+inline void PrintTo(const detail::Float128::Float v, iu_ostream* os)
+{
+    PrintToFloat128(v, os);
+}
+
+#if IUTEST_HAS_LONG_DOUBLE && IUTEST_LONG_DOUBLE_128
+inline void PrintTo(const long double v, iu_ostream* os)
+{
+    PrintToFloat128(v, os);
+}
+#endif
+
 #endif
 
 template<typename T>
