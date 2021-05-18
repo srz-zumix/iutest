@@ -128,7 +128,7 @@ IUTEST(FilePath, ConcatPaths)
         ::iutest::internal::FilePath empty;
         IUTEST_EXPECT_EQ("a", ::iutest::internal::FilePath::ConcatPaths(empty, a));
 #ifdef IUTEST_OS_WINDOWS
-        IUTEST_EXPECT_EQ("a\\", ::iutest::internal::FilePath::ConcatPaths(dir, empty));
+        IUTEST_EXPECT_EQ("a\\", ::iutest::internal::FilePath::ConcatPaths(a, empty));
 #else
         IUTEST_EXPECT_EQ("a/", ::iutest::internal::FilePath::ConcatPaths(a, empty));
 #endif
@@ -137,7 +137,7 @@ IUTEST(FilePath, ConcatPaths)
         ::iutest::internal::FilePath dir("path/to/dir/////");
         ::iutest::internal::FilePath file("test.text");
 #ifdef IUTEST_OS_WINDOWS
-        IUTEST_EXPECT_EQ("path\\to\\dir\\test.text", ::iutest::internal::FilePath::ConcatPaths());
+        IUTEST_EXPECT_EQ("path\\to\\dir\\test.text", ::iutest::internal::FilePath::ConcatPaths(dir, file));
 #else
         IUTEST_EXPECT_EQ("path/to/dir/test.text", ::iutest::internal::FilePath::ConcatPaths(dir, file));
 #endif
