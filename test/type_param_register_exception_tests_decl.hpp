@@ -23,7 +23,7 @@
 
 #include "iutest.hpp"
 
-#if IUTEST_HAS_TYPED_TEST_P && IUTEST_HAS_EXCEPTIONS && !defined(IUTEST_USE_GTEST)
+#if IUTEST_HAS_TYPED_TEST_P && IUTEST_HAS_EXCEPTIONS && !defined(IUTEST_USE_GTEST) && !defined(IUTEST_USE_LIB)
 #  define REGISTER_EXCEPTION_TEST   1
 #endif
 
