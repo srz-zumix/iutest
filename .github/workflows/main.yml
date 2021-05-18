@@ -167,9 +167,9 @@ jobs:
     - name: info
       run: |
         make -C test showcxxversion showcxxmacros DEFS="$DEFS"
-    - name: asan
-      run: |
-        make -C test USE_ASAN=1 USE_UBSAN=1 test
+    # - name: asan
+    #   run: |
+    #     make -C test USE_ASAN=1 USE_UBSAN=1 test
     - name: msan
       run: |
         make -C test USE_MSAN=1 USE_UBSAN=1 test
