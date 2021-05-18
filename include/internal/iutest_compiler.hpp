@@ -995,7 +995,7 @@
 
 //! hsa 128bit float type
 #if !defined(IUTEST_HAS_FLOAT128)
-#  if defined(__SIZEOF_FLOAT128__)
+#  if defined(__SIZEOF_FLOAT128__) && IUTEST_HAS_INT128
 #    if   defined(__clang__)
 #      if IUTEST_CLANG_MAJOR > 4 && defined(__has_include)
 #        if __has_include(<quadmath.h>)
@@ -1020,17 +1020,6 @@
 #  endif
 #endif
 
-//! has long double
-#if !defined(IUTEST_HAS_LONG_DOUBLE)
-#  if defined(__SIZEOF_LONG_DOUBLE__)
-#    define IUTEST_HAS_LONG_DOUBLE  1
-#  endif
-#endif
-
-#if !defined(IUTEST_HAS_LONG_DOUBLE)
-#  define IUTEST_HAS_LONG_DOUBLE    0
-#endif
-
 //! long double size
 #if !defined(IUTEST_LONG_DOUBLE_128)
 #  if defined(__LONG_DOUBLE_128__) && __LONG_DOUBLE_128__
@@ -1040,6 +1029,19 @@
 
 #if !defined(IUTEST_LONG_DOUBLE_128)
 #  define IUTEST_LONG_DOUBLE_128    0
+#endif
+
+//! has long double
+#if !defined(IUTEST_HAS_LONG_DOUBLE)
+#  if defined(__SIZEOF_LONG_DOUBLE__)
+#    if !IUTEST_LONG_DOUBLE_128 || IUTEST_HAS_INT128
+#      define IUTEST_HAS_LONG_DOUBLE  1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_LONG_DOUBLE)
+#  define IUTEST_HAS_LONG_DOUBLE    0
 #endif
 
 //! explicit instantiation access checking
