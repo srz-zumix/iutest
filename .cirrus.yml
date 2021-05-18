@@ -25,6 +25,21 @@ cirrus_gcc_test_task:
 #    image: srzzumix/googletest:latest
 #  test_script: cd test && make -j4 showcxxversion default && make test
 
+cirrus_use_lib_task:
+  only_if: *default-condition
+  auto_cancellation: true
+  env:
+    USE_LIB: 1
+  container:
+    image: gcc:latest
+  version_script: make -C test showcxxversion
+  # NOTE: -j$((`nproc`)): Container errored with 'OOMKilled'
+  build_script: make -C test -j4
+  test_script: make -C test test
+  report_script: make -C test report
+  depends_on:
+    - cirrus_gcc_test_task
+
 cirrus_osx_14_test_task: &osx_task
   only_if: *default-condition
   auto_cancellation: true
