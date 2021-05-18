@@ -55,11 +55,11 @@ IUTEST_TYPED_TEST(FloatingpointTest, EXP)
     IUTEST_EXPECT_EQ(exp, FloatType::kEXP);
 }
 
-IUTEST_TYPED_TEST(FloatingpointTest, MANT)
-{
-    typedef typename TestFixture::ftype FloatType;
-    IUTEST_EXPECT_EQ(::std::numeric_limits<TypeParam>::digits, FloatType::kDIGITS);
-}
+// IUTEST_TYPED_TEST(FloatingpointTest, MANT)
+// {
+//     typedef typename TestFixture::ftype FloatType;
+//     IUTEST_EXPECT_EQ(::std::numeric_limits<TypeParam>::digits, FloatType::kDIGITS);
+// }
 
 IUTEST_TYPED_TEST(FloatingpointTest, PINF)
 {
