@@ -421,13 +421,10 @@ public:
     // bool    operator == (const _Myt& rhs) const { return m_v.uv == rhs.m_v.uv; }    //!< 比較
 
 public:
-    enum
-    {
-          kEXP = detail::ieee754_bits<RawType>::EXP
-        , kMANT = detail::ieee754_bits<RawType>::MANT
-        , kDIGITS = kMANT + detail::ieee754_bits<RawType>::MANT_HIDDEN
-        , kMaxUlps = 4
-    };
+    static const int kEXP;
+    static const int kMANT;
+    static const int kDIGITS;
+    static const int kMaxUlps;
 
 private:
     static UInt norm(UInt v) { return (v & kSignMask) ? (~v + 1) : (v | kSignMask); }
@@ -452,29 +449,14 @@ private:
     FInt m_v;
 };
 
-// googletest compat
-
-namespace detail
-{
-
 template<typename T>
-class FloatingPoint : public floating_point<T>
-{
-public:
-    explicit FloatingPoint(const T& rhs) : floating_point<T>(rhs) {}
-};
-
-typedef FloatingPoint<float> Float;
-typedef FloatingPoint<double> Double;
-
-#if IUTEST_HAS_LONG_DOUBLE
-typedef FloatingPoint<long double> LongDouble;
-#endif
-#if IUTEST_HAS_FLOAT128
-typedef FloatingPoint<__float128> Float128;
-#endif
-
-}   // end of namespace detail
+const int floating_point<T>::kEXP = detail::ieee754_bits<T>::EXP;
+template<typename T>
+const int floating_point<T>::kMANT = detail::ieee754_bits<T>::MANT;
+template<typename T>
+const int floating_point<T>::kDIGITS = detail::ieee754_bits<T>::MANT + detail::ieee754_bits<T>::MANT_HIDDEN;
+template<typename T>
+const int floating_point<T>::kMaxUlps = 4;
 
 #if defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
 
@@ -499,6 +481,29 @@ const typename floating_point<T>::UInt floating_point<T>::kEnableBitMask
     = floating_point<T>::kSignMask | floating_point<T>::kExpMask | floating_point<T>::kMantMask;
 
 #endif
+// googletest compat
+
+namespace detail
+{
+
+template<typename T>
+class FloatingPoint : public floating_point<T>
+{
+public:
+    explicit FloatingPoint(const T& rhs) : floating_point<T>(rhs) {}
+};
+
+typedef FloatingPoint<float> Float;
+typedef FloatingPoint<double> Double;
+
+#if IUTEST_HAS_LONG_DOUBLE
+typedef FloatingPoint<long double> LongDouble;
+#endif
+#if IUTEST_HAS_FLOAT128
+typedef FloatingPoint<__float128> Float128;
+#endif
+
+}   // end of namespace detail
 
 //======================================================================
 // typedef
