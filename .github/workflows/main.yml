@@ -90,9 +90,9 @@ jobs:
           cd ./cmake-build
           cmake ../projects/cmake
     - name: cmake build
-      run: cmake --build .
+      run: cmake --build cmake-build
     - name: cmake test
-      run: ctest -C Debug -V
+      run: ctest -C Debug -V cmake-build
   zapcc-basic-test:
     runs-on: ubuntu-18.04
     container:
