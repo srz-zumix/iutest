@@ -131,6 +131,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/no_fatalfailure_tests \
 		$(OUTDIR)/no_test_tests \
 		$(OUTDIR)/output_env_var_tests \
+		$(OUTDIR)/output_junit_xml_empty_tests \
 		$(OUTDIR)/output_junit_xml_tests \
 		$(OUTDIR)/output_xml_tests \
 		$(OUTDIR)/port_tests \
