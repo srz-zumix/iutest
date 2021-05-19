@@ -38,7 +38,7 @@ cirrus_use_lib_task:
   test_script: make -C test test
   report_script: make -C test report
   depends_on:
-    - cirrus_gcc_test_task
+    - cirrus_gcc_test
 
 cirrus_osx_14_test_task: &osx_task
   only_if: *default-condition
