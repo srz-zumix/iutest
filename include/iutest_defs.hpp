@@ -429,21 +429,12 @@ public:
 private:
     static UInt norm(UInt v) { return (v & kSignMask) ? (~v + 1) : (v | kSignMask); }
 
-#if !defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
-    static const UInt kSignMask = static_cast<UInt>(1u) << (kEXP + kMANT);
-    static const UInt kExpMask = ((static_cast<UInt>(1u) << kEXP) - 1) << kMANT;
-    static const UInt kMantMask = (static_cast<UInt>(1u) << kMANT) - 1;
-    static const UInt kEconomizedMantMask = (static_cast<UInt>(1u) << (kDIGITS - 1)) - 1;
-    static const UInt kDefaultMantBitMask = static_cast<UInt>(1u) << (kDIGITS - 1);
-    static const UInt kEnableBitMask = kSignMask | kExpMask | kMantMask;
-#else
     static const UInt kSignMask;
     static const UInt kExpMask;
     static const UInt kMantMask;
     static const UInt kEconomizedMantMask;
     static const UInt kDefaultMantBitMask;
     static const UInt kEnableBitMask;
-#endif
 
 private:
     FInt m_v;
@@ -457,8 +448,6 @@ template<typename T>
 const int floating_point<T>::kDIGITS = detail::ieee754_bits<T>::MANT + detail::ieee754_bits<T>::MANT_HIDDEN;
 template<typename T>
 const int floating_point<T>::kMaxUlps = 4;
-
-#if defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
 
 template<typename T>
 const typename floating_point<T>::UInt floating_point<T>::kSignMask
@@ -480,7 +469,6 @@ template<typename T>
 const typename floating_point<T>::UInt floating_point<T>::kEnableBitMask
     = floating_point<T>::kSignMask | floating_point<T>::kExpMask | floating_point<T>::kMantMask;
 
-#endif
 // googletest compat
 
 namespace detail
