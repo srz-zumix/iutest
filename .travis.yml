@@ -4,7 +4,7 @@ language: cpp
 
 compiler:
   - clang
-  - gcc
+  # - gcc
 
 branches:
   only:
@@ -136,8 +136,8 @@ env:
     - IUTEST_REQUIRE_PYTHON: yes
 
   matrix:
-    - STDFLAG=-std=c++98
-    - STDFLAG=-std=c++11
+    # - STDFLAG=-std=c++98
+    # - STDFLAG=-std=c++11
     - STDFLAG=
 
 allow_failures:
@@ -160,26 +160,26 @@ matrix:
     #        - libc++-dev
     #        - clang-8
     # coverage
-    - compiler: gcc
-      env: USE_COVERAGE=gcov USE_CODECOV=1 USE_GNU_EXTENSION=1
-    - compiler: clang
-      env: USE_COVERAGE=lcov USE_COVERALLS=1 USE_GNU_EXTENSION=1 LCOV_GCOV_TOOL=${TRAVIS_BUILD_DIR}/.ci/llvm-gcov.sh
-      addons:
-        apt:
-          sources: *apt-common-sources
-          packages:
-            - clang-8
-            - lcov
-            - rubygems-integration
-    # cmake
-    - compiler: gcc
-      env: USE_CMAKE=1
-      addons:
-        apt:
-          sources: *apt-common-sources
-          packages: &apt-cmake-packages
-            - *apt-common-packages
-            - cmake
+    # - compiler: gcc
+    #   env: USE_COVERAGE=gcov USE_CODECOV=1 USE_GNU_EXTENSION=1
+    # - compiler: clang
+    #   env: USE_COVERAGE=lcov USE_COVERALLS=1 USE_GNU_EXTENSION=1 LCOV_GCOV_TOOL=${TRAVIS_BUILD_DIR}/.ci/llvm-gcov.sh
+    #   addons:
+    #     apt:
+    #       sources: *apt-common-sources
+    #       packages:
+    #         - clang-8
+    #         - lcov
+    #         - rubygems-integration
+    # # cmake
+    # - compiler: gcc
+    #   env: USE_CMAKE=1
+    #   addons:
+    #     apt:
+    #       sources: *apt-common-sources
+    #       packages: &apt-cmake-packages
+    #         - *apt-common-packages
+    #         - cmake
     # Google Test
     #- compiler: gcc
     #  env: USE_GTEST=1 USE_GTEST_HEAD=1 USE_GNU_EXTENSION=1
@@ -189,23 +189,23 @@ matrix:
     #      packages:
     #        - *apt-cmake-packages
     #        - cmake
-    - compiler: gcc
-      env: USE_GTEST=1
-      addons:
-        apt:
-          sources: *apt-common-sources
-          packages:
-            - *apt-cmake-packages
-            - libgtest-dev
-    # Google Mock
-    - compiler: gcc
-      env: USE_GMOCK=1
-      addons:
-        apt:
-          sources: *apt-common-sources
-          packages:
-            - *apt-cmake-packages
-            - google-mock
+    # - compiler: gcc
+    #   env: USE_GTEST=1
+    #   addons:
+    #     apt:
+    #       sources: *apt-common-sources
+    #       packages:
+    #         - *apt-cmake-packages
+    #         - libgtest-dev
+    # # Google Mock
+    # - compiler: gcc
+    #   env: USE_GMOCK=1
+    #   addons:
+    #     apt:
+    #       sources: *apt-common-sources
+    #       packages:
+    #         - *apt-cmake-packages
+    #         - google-mock
     # MinGW
     # - compiler: gcc
     #   env:
@@ -223,9 +223,9 @@ matrix:
     #         - binutils-mingw-w64-i686
     #         - gcc-mingw-w64-i686
     #         - g++-mingw-w64-i686
-    # Use Lib
-    - compiler: gcc
-      env: USE_LIB=1
+    # # Use Lib
+    # - compiler: gcc
+    #   env: USE_LIB=1
     # - compiler: clang
     #   env: USE_LIB=1
     # - compiler: gcc
