@@ -397,7 +397,8 @@ inline void PrintTo(detail::type_fit_t<16>::UInt v, iu_ostream* os)
 #endif
 
 #if IUTEST_HAS_FLOAT128
-inline void PrintToFloat128(const detail::Float128::Float v, iu_ostream* os)
+template<typename T>
+inline void PrintToFloat128(const T v, iu_ostream* os)
 {
 #if   IUTEST_USE_QUADMATH
     char buf[256] = {0};
