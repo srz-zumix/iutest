@@ -14,7 +14,6 @@ cirrus_gcc_test_task:
       - STDFLAG: -std=c++2a
   version_script: make -C test showcxxversion
   # NOTE: -j$((`nproc`)): Container errored with 'OOMKilled'
-  build_lib_script: make -C projects/make
   build_script: make -C test -j4
   test_script: make -C test test
   report_script: make -C test report
@@ -35,6 +34,7 @@ cirrus_use_lib_task:
     image: gcc:latest
   version_script: make -C test showcxxversion
   # NOTE: -j$((`nproc`)): Container errored with 'OOMKilled'
+  build_lib_script: make -C projects/make
   build_script: make -C test -j4
   test_script: make -C test test
   report_script: make -C test report
