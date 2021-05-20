@@ -1022,7 +1022,9 @@
 
 //! long double size
 #if !defined(IUTEST_LONG_DOUBLE_128)
-#  if defined(__LONG_DOUBLE_128__) && __LONG_DOUBLE_128__
+#  if   defined(__LONG_DOUBLE_128__) && __LONG_DOUBLE_128__
+#    define IUTEST_LONG_DOUBLE_128  1
+#  elif defined(__SIZEOF_LONG_DOUBLE__) && __SIZEOF_LONG_DOUBLE__ >= 16
 #    define IUTEST_LONG_DOUBLE_128  1
 #  endif
 #endif
