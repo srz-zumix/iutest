@@ -249,6 +249,7 @@ public:
         const UInt v1 = norm(enable_bits());
         const UInt v2 = norm(rhs.enable_bits());
         const UInt diff = (v1 > v2) ? v1 - v2 : v2 - v1;
+        const UInt kMaxUlps = 4u;
         if( diff <= kMaxUlps )
         {
             return true;
@@ -424,7 +425,6 @@ public:
     static const int kEXP;
     static const int kMANT;
     static const int kDIGITS;
-    static const int kMaxUlps;
 
 private:
     static UInt norm(UInt v) { return (v & kSignMask) ? (~v + 1) : (v | kSignMask); }
@@ -446,8 +446,6 @@ template<typename T>
 const int floating_point<T>::kMANT = detail::ieee754_bits<T>::MANT;
 template<typename T>
 const int floating_point<T>::kDIGITS = detail::ieee754_bits<T>::MANT + detail::ieee754_bits<T>::MANT_HIDDEN;
-template<typename T>
-const int floating_point<T>::kMaxUlps = 4;
 
 template<typename T>
 const typename floating_point<T>::UInt floating_point<T>::kSignMask
