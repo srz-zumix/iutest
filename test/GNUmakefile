@@ -344,6 +344,7 @@ ifeq ($(USE_COVERAGE),lcov)
 	$(CCOV) -c -d . -o coverage.info $(CCOV_OPT)
 	$(CCOV) -r coverage.info *gcc* -o coverage.info
 	$(CCOV) -r coverage.info */test/* -o coverage.info
+	$(CCOV) -r coverage.info */usr/include/* -o coverage.info
 endif
 ifeq ($(USE_COVERAGE),gcov)
 ifeq ($(findstring relative-only, $(shell $(CCOV) --help)), relative-only)
