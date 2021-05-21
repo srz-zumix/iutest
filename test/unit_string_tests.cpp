@@ -41,6 +41,12 @@ IUTEST(UnitStringTest, OwnStricmp)
     IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_stricmp("AAA", "aaaA"));
 }
 
+#if defined(__SIZEOF_WINT_T__) && (__SIZEOF_WINT_T__ >= __SIZEOF_INT__)
+#  define WCS_COMPARE_GE_INT_SIZE  1
+#else
+#  define WCS_COMPARE_GE_INT_SIZE  0
+#endif
+
 IUTEST(UnitStringTest, Wcsicmp)
 {
     const wchar_t negative = static_cast<wchar_t>(-1);
@@ -49,11 +55,14 @@ IUTEST(UnitStringTest, Wcsicmp)
     IUTEST_EXPECT_LT(0, ::iutest::detail::iu_wcsicmp(L"AAAa", L"aaa"));
     IUTEST_EXPECT_LT(0, ::iutest::detail::iu_wcsicmp(L"AAAB", L"aaaa"));
     IUTEST_EXPECT_GT(0, ::iutest::detail::iu_wcsicmp(L"AAAa", L"aaaB"));
-#if IUTEST_WCHAR_UNSIGNED
-    IUTEST_EXPECT_GT(0, ::iutest::detail::iu_wcsicmp(L"AAA", negative_sample));
-#else
-    IUTEST_EXPECT_LT(0, ::iutest::detail::iu_wcsicmp(L"AAA", negative_sample));
-#endif
+    if( sizeof(::std::wint_t) >= sizeof(int) )
+    {
+        IUTEST_EXPECT_LT(0, ::iutest::detail::iu_wcsicmp(L"AAA", negative_sample));
+    }
+    else
+    {
+        IUTEST_EXPECT_GT(0, ::iutest::detail::iu_wcsicmp(L"AAA", negative_sample));
+    }
     IUTEST_EXPECT_GT(0, ::iutest::detail::iu_wcsicmp(L"AAA", L"aaaA"));
 }
 
@@ -65,11 +74,14 @@ IUTEST(UnitStringTest, OwnWcsicmp)
     IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAAa", L"aaa"));
     IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAAB", L"aaaa"));
     IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAAa", L"aaaB"));
-#if IUTEST_WCHAR_UNSIGNED
-    IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", negative_sample));
-#else
-    IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", negative_sample));
-#endif
+    if( sizeof(::std::wint_t) >= sizeof(int) )
+    {
+        IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", negative_sample));
+    }
+    else
+    {
+        IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", negative_sample));
+    }
     IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", L"aaaA"));
 }
 
