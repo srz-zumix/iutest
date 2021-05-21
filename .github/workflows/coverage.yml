@@ -61,6 +61,9 @@ jobs:
       USE_COVERAGE: lcov
     steps:
     - uses: actions/checkout@master
+    - name: install dependencies
+      run: |
+        sudo apt-get install lcov
     - name: info
       run: |
         make -C test showcxxmacros
