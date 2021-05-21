@@ -54,3 +54,36 @@ jobs:
       with:
         fail_ci_if_error: true
         verbose: true
+
+  coveralls:
+    runs-on: ubuntu-latest
+    env:
+      USE_COVERAGE: lcov
+    steps:
+    - uses: actions/checkout@master
+    - name: info
+      run: |
+        make -C test showcxxmacros
+        make -C test showcxxversion
+        make -C test check_stdlib
+    - name: specs
+      run: |
+        make -C test minimum_tests && ./test/minimum_tests --spec --feature
+        make -C test clean
+    - name: build
+      run: |
+        make -C test -j4 default
+    - name: test
+      run: |
+        make -C test test
+    - uses: actions/upload-artifact@v2
+      with:
+        name: test-result
+        path: test/*.xml
+    - name: coverage
+      run: |
+        make -C test coverage
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
