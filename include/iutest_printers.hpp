@@ -434,9 +434,9 @@ void PrintToChar(const T value, iu_ostream* os)
     {
         *os << "\\0";
     }
-    else if( value < 0x20 )
+    else if( static_cast<int>(value) < 0x20 )
     {
-        *os << static_cast<int>(value);
+        *os << "0x" << ToHexString(value);
     }
     else
     {

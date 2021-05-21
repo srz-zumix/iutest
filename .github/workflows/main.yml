@@ -99,6 +99,23 @@ jobs:
       run: |
         make -C test test
 
+  cmake-basic-test:
+    runs-on: ubuntu-latest
+    needs: prepare
+    steps:
+    - uses: actions/checkout@master
+    - name: cmake
+      run: |
+          mkdir ./cmake-build
+          cd ./cmake-build
+          cmake ../projects/cmake
+    - name: cmake build
+      run: cmake --build cmake-build
+    - name: cmake test
+      run: |
+        cd cmake-build
+        ctest -C Debug -V
+
   zapcc-basic-test:
     runs-on: ubuntu-18.04
     container:
