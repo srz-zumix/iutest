@@ -363,7 +363,7 @@ ifeq ($(USE_COVERAGE),gcov)
 endif
 
 send-codecov: coverage
-	curl -s https://codecov.io/bash | bash /dev/stdin
+	../tools/codecov/codecov-uploade.sh
 
 #
 #
