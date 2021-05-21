@@ -41,12 +41,6 @@ IUTEST(UnitStringTest, OwnStricmp)
     IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_stricmp("AAA", "aaaA"));
 }
 
-#if defined(__SIZEOF_WINT_T__) && (__SIZEOF_WINT_T__ >= __SIZEOF_INT__)
-#  define WCS_COMPARE_GE_INT_SIZE  1
-#else
-#  define WCS_COMPARE_GE_INT_SIZE  0
-#endif
-
 IUTEST(UnitStringTest, Wcsicmp)
 {
     const wchar_t negative = static_cast<wchar_t>(-1);
