@@ -28,7 +28,6 @@ ALLTESTS_TEST_SRCS= \
 		compatibility_tests.cpp \
 		filepath_tests.cpp \
 		fixture_tests.cpp \
-		floatingpoint_tests.cpp \
 		no_failure_tests.cpp \
 		nullptr_tests.cpp \
 		param_test_tests1.cpp \
@@ -116,6 +115,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/file_system_tests \
 		$(OUTDIR)/filter_tests \
 		$(OUTDIR)/flagfile_gtest_tests \
+		$(OUTDIR)/floatingpoint_tests \
 		$(OUTDIR)/gtest_version_tests \
 		$(OUTDIR)/help_tests \
 		$(OUTDIR)/inform_tests \
