@@ -169,13 +169,16 @@ jobs:
         make -C test showcxxversion showcxxmacros DEFS="$DEFS"
     # - name: asan
     #   run: |
+    #     make -C test clean
     #     make -C test USE_ASAN=1 USE_UBSAN=1 test
     - name: tsan
       run: |
+        make -C test clean
         make -C test USE_TSAN=1 USE_UBSAN=1 test
-    - name: msan
-      run: |
-        make -C test USE_MSAN=1 USE_UBSAN=1 test
+    # - name: msan
+    #   run: |
+    #     make -C test clean
+    #     make -C test USE_MSAN=1 USE_UBSAN=1 test
 
   lint-editorconfig:
     runs-on: ubuntu-18.04
