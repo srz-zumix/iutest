@@ -446,7 +446,7 @@ void PrintToChar(const T value, iu_ostream* os)
 }
 inline void PrintTo(const char value, iu_ostream* os)
 {
-    PrintToChar(static_cast<const signed char>(value), os);
+    PrintToChar(static_cast<signed char>(value), os);
 }
 inline void PrintTo(const wchar_t value, iu_ostream* os)
 {
