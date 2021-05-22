@@ -990,7 +990,60 @@
 #endif
 
 #if !defined(IUTEST_HAS_INT128)
-#  define IUTEST_HAS_INT128     0
+#  define IUTEST_HAS_INT128         0
+#endif
+
+//! hsa 128bit float type
+#if !defined(IUTEST_HAS_FLOAT128)
+#  if defined(__SIZEOF_FLOAT128__) && IUTEST_HAS_INT128
+#    if   defined(__clang__)
+#      if IUTEST_CLANG_MAJOR > 4 && defined(__has_include)
+#        if __has_include(<quadmath.h>)
+#          define IUTEST_HAS_FLOAT128   1
+#        endif
+#      endif
+#    else
+#      define IUTEST_HAS_FLOAT128   1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_FLOAT128)
+#  define IUTEST_HAS_FLOAT128       0
+#endif
+
+#if IUTEST_HAS_FLOAT128
+#  if defined(__FLT128_MANT_DIG__)
+#    define IUTEST_FLT128_MANT_DIG  __FLT128_MANT_DIG__
+#  else
+#    define IUTEST_FLT128_MANT_DIG  113
+#  endif
+#endif
+
+//! long double size
+#if !defined(IUTEST_LONG_DOUBLE_128)
+#  if   defined(__LONG_DOUBLE_128__) && __LONG_DOUBLE_128__
+#    define IUTEST_LONG_DOUBLE_128  1
+#  elif defined(__SIZEOF_LONG_DOUBLE__) && __SIZEOF_LONG_DOUBLE__ >= 16
+#    define IUTEST_LONG_DOUBLE_128  1
+#  endif
+#endif
+
+#if !defined(IUTEST_LONG_DOUBLE_128)
+#  define IUTEST_LONG_DOUBLE_128    0
+#endif
+
+//! has long double
+#if !defined(IUTEST_HAS_LONG_DOUBLE)
+#  if defined(__SIZEOF_LONG_DOUBLE__)
+#    if !IUTEST_LONG_DOUBLE_128 || IUTEST_HAS_INT128
+#      define IUTEST_HAS_LONG_DOUBLE  1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_LONG_DOUBLE)
+#  define IUTEST_HAS_LONG_DOUBLE    0
 #endif
 
 //! explicit instantiation access checking
