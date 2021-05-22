@@ -55,7 +55,7 @@ inline ::std::string AnyStringToMultiByteString(const char* str, int num = -1)
 */
 inline ::std::string AnyStringToMultiByteString(const signed char* str, int num = -1)
 {
-    return AnyStringToMultiByteString(static_cast<const char*>(str), num);
+    return AnyStringToMultiByteString(reinterpret_cast<const char*>(str), num);
 }
 
 /**
