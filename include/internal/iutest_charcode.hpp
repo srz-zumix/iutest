@@ -48,6 +48,17 @@ inline ::std::string AnyStringToMultiByteString(const char* str, int num = -1)
 }
 
 /**
+ * @brief   マルチバイト文字列をそのまま返す
+ * @param [in]  str = 入力
+ * @param [in]  num = 入力バッファサイズ
+ * @return  マルチバイト文字列
+*/
+inline ::std::string AnyStringToMultiByteString(const signed char* str, int num = -1)
+{
+    return AnyStringToMultiByteString(static_cast<const char*>(str), num);
+}
+
+/**
  * @brief   ワイド文字列からUTF8へ変換
  * @param [in]  str = 入力
  * @param [in]  num = 入力バッファサイズ
