@@ -91,7 +91,7 @@ IUTEST(UnitStringTest, OwnWcsicmpNegativeLT)
     IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", negative_sample));
 }
 
-IUTEST(UnitStringTest, OwnWcsicmpNegativeLT)
+IUTEST(UnitStringTest, OwnWcsicmpNegativeGT)
 {
     const wchar_t negative = static_cast<wchar_t>(-1);
     const wchar_t negative_sample[] = { L'a', L'a', L'a', negative, L'\0' };
