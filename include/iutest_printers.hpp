@@ -404,7 +404,7 @@ inline void PrintToFloat128(const T v, iu_ostream* os)
     char buf[256] = {0};
     quadmath_snprintf(buf, sizeof(buf), "%Qf", v);
     *os << buf;
-#elif IUTEST_HAS_LONG_DOUBLE && !IUTEST_LONG_DOUBLE_128
+#elif IUTEST_HAS_LONG_DOUBLE && IUTEST_LONG_DOUBLE_AS_IS_DOUBLE
     *os << static_cast<long double>(v);
 #else
     *os << static_cast<double>(v);
@@ -417,7 +417,7 @@ inline void PrintTo(const detail::Float128::Float v, iu_ostream* os)
     PrintToFloat128(v, os);
 }
 
-#if IUTEST_HAS_LONG_DOUBLE && IUTEST_LONG_DOUBLE_128
+#if IUTEST_HAS_LONG_DOUBLE && !IUTEST_LONG_DOUBLE_AS_IS_DOUBLE
 inline void PrintTo(const long double v, iu_ostream* os)
 {
     PrintToFloat128(v, os);

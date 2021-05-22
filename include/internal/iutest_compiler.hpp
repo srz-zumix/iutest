@@ -1020,23 +1020,22 @@
 #  endif
 #endif
 
-//! long double size
-#if !defined(IUTEST_LONG_DOUBLE_128)
-#  if   defined(__LONG_DOUBLE_128__) && __LONG_DOUBLE_128__
-#    define IUTEST_LONG_DOUBLE_128  1
-#  elif defined(__SIZEOF_LONG_DOUBLE__) && __SIZEOF_LONG_DOUBLE__ >= 16
-#    define IUTEST_LONG_DOUBLE_128  1
+//! long double as is double
+#if !defined(IUTEST_LONG_DOUBLE_AS_IS_DOUBLE)
+#  elif defined(__SIZEOF_LONG_DOUBLE__) && defined(__SIZEOF_DOUBLE__) \
+            && __SIZEOF_LONG_DOUBLE__ == __SIZEOF_DOUBLE__
+#    define IUTEST_LONG_DOUBLE_AS_IS_DOUBLE 1
 #  endif
 #endif
 
-#if !defined(IUTEST_LONG_DOUBLE_128)
-#  define IUTEST_LONG_DOUBLE_128    0
+#if !defined(IUTEST_LONG_DOUBLE_AS_IS_DOUBLE)
+#  define IUTEST_LONG_DOUBLE_AS_IS_DOUBLE   0
 #endif
 
 //! has long double
 #if !defined(IUTEST_HAS_LONG_DOUBLE)
 #  if defined(__SIZEOF_LONG_DOUBLE__)
-#    if !IUTEST_LONG_DOUBLE_128 || IUTEST_HAS_INT128
+#    if IUTEST_LONG_DOUBLE_AS_IS_DOUBLE || IUTEST_HAS_INT128
 #      define IUTEST_HAS_LONG_DOUBLE  1
 #    endif
 #  endif
