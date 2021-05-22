@@ -489,10 +489,25 @@ class iuCartesianProductGenerator IUTEST_CXX_FINAL : public iuIParamGenerator< t
         return tuples::tuple<T1>(tuples::get<index>(v).GetCurrent());
     }
 
+    template<int index, int end>
+    void release_foreach(
+        typename detail::enable_if<index != end-1, void>::type*& = detail::enabler::value ) const
+    {
+        delete tuples::get<index>(v);
+        release_foreach<index+1, end>();
+    }
+    template<int index, int end>
+    void release_foreach(
+        typename detail::enable_if<index == end-1, void>::type*& = detail::enabler::value ) const
+    {
+        delete tuples::get<index>(v);
+    }
+
 public:
     typedef tuples::tuple<Args...> ParamType;
 public:
     iuCartesianProductGenerator() {}
+    ~iuCartesianProductGenerator() { release_foreach<0, kCount>(); }
 
 public:
     virtual void Begin() IUTEST_CXX_OVERRIDE
