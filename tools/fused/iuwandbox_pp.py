@@ -28,7 +28,6 @@ predefined_macros = {
     '__MINGW64__': None,
     '__linux__': '1',
     '__arm__': None,
-    'IUTEST_OS_ARM': None,
     '__ARMCC_VERSION': None,
     '__AVR32__': None,
     '__avr32__': None,
