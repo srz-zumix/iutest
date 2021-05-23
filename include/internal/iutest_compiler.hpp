@@ -1022,7 +1022,7 @@
 
 //! long double as is double
 #if !defined(IUTEST_LONG_DOUBLE_AS_IS_DOUBLE)
-#  elif defined(__SIZEOF_LONG_DOUBLE__) && defined(__SIZEOF_DOUBLE__) \
+#  if defined(__SIZEOF_LONG_DOUBLE__) && defined(__SIZEOF_DOUBLE__) \
             && __SIZEOF_LONG_DOUBLE__ == __SIZEOF_DOUBLE__
 #    define IUTEST_LONG_DOUBLE_AS_IS_DOUBLE 1
 #  endif
