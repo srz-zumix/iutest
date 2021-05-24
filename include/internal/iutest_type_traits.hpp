@@ -164,6 +164,7 @@ using ::std::is_class;
 using ::std::is_convertible;
 using ::std::is_base_of;
 using ::std::is_signed;
+using ::std::is_unsigned;
 using ::std::add_lvalue_reference;
 #if IUTEST_HAS_RVALUE_REFS
 using ::std::add_rvalue_reference;
@@ -697,6 +698,12 @@ struct is_signed<T, false> : public false_type {};
 template<typename T>
 struct is_signed
     : public is_signed_helper::is_signed<T, true>
+{
+};
+
+template<typename T>
+struct is_unsigned
+    : public bool_constant<!is_signed<T>::value>
 {
 };
 
