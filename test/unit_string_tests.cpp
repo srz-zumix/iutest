@@ -62,7 +62,7 @@ IUTEST(UnitStringTest, WcsicmpNegativeLT)
 {
     const wchar_t negative = static_cast<wchar_t>(-1);
     const wchar_t negative_sample[] = { L'a', L'a', L'a', negative, L'\0' };
-    IUTEST_ASSUME_GE(sizeof(::std::wint_t), sizeof(int));
+    IUTEST_ASSUME(sizeof(::std::wint_t) >= sizeof(int) && (sizeof(wchar_t) > 2 || ::iutest_type_traits::is_signed<wchar_t>::value));
     IUTEST_EXPECT_LT(0, ::iutest::detail::iu_wcsicmp(L"AAA", negative_sample));
 }
 
@@ -70,7 +70,7 @@ IUTEST(UnitStringTest, WcsicmpNegativeGT)
 {
     const wchar_t negative = static_cast<wchar_t>(-1);
     const wchar_t negative_sample[] = { L'a', L'a', L'a', negative, L'\0' };
-    IUTEST_ASSUME_LT(sizeof(::std::wint_t), sizeof(int));
+    IUTEST_ASSUME(!(sizeof(::std::wint_t) >= sizeof(int) && (sizeof(wchar_t) > 2 || ::iutest_type_traits::is_signed<wchar_t>::value)));
     IUTEST_EXPECT_GT(0, ::iutest::detail::iu_wcsicmp(L"AAA", negative_sample));
 }
 
