@@ -5,10 +5,7 @@ resources:
       gitProvider: GitHub
       path: srz-zumix/iutest
       branches:
-        include:
-          - master
-          # - ^feature/.*
-          - ^jfrog/.*
+        include: master|^jfrog/.*
 pipelines:
   - name: basic_test
     configuration:
