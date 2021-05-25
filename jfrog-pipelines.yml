@@ -1,5 +1,5 @@
 resources:
-  - name: gitRepo
+  - name: iutest_gitRepo
     type: GitRepo
     configuration:
       gitProvider: GitHub
@@ -18,7 +18,7 @@ pipelines:
         type: Bash
         configuration:
           inputResources:
-            - name: gitRepo
+            - name: iutest_gitRepo
         execution:
           onExecute:
             - pushd ${res_gitRepo_resourcePath}
