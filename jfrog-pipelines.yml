@@ -21,7 +21,7 @@ pipelines:
             - name: iutest_gitRepo
         execution:
           onExecute:
-            - pushd ${res_gitRepo_resourcePath}
+            - pushd ${res_iutest_gitRepo_resourcePath}
             - make -C test showcxxversion showcxxmacros
             - make -C test -j2
             - make -C test test
