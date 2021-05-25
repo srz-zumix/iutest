@@ -1,0 +1,29 @@
+resources:
+  - name: gitRepo
+    type: GitRepo
+    configuration:
+      gitProvider: GitHub
+      path: srz-zumix/iutest
+      branches:
+        include:
+          - master
+          # - ^feature/.*
+          - ^jfrog/.*
+pipelines:
+  - name: basic_test
+    configuration:
+      nodePool: centos-latest
+    steps:
+      - name: test
+        type: Bash
+        configuration:
+          inputResources:
+            - name: gitRepo
+        execution:
+          onExecute:
+            - pushd ${res_gitRepo_resourcePath}
+            - make -C test showcxxversion showcxxmacros
+            - make -C test -j2
+            - make -C test test
+            - make -C test report
+            - popd
