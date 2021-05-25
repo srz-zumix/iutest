@@ -10,6 +10,11 @@ pipelines:
   - name: basic_test
     configuration:
       nodePool: centos-latest
+      runtime:
+        type: image
+        image:
+          auto:
+            language: cpp
     steps:
       - name: test
         type: Bash
