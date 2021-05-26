@@ -18,7 +18,7 @@ pipelines:
             versions:
               - "9.0.1"
     steps:
-      - name: test
+      - name: iutest_test
         type: Bash
         configuration:
           inputResources:
