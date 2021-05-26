@@ -20,15 +20,14 @@ pipelines:
     steps:
       - name: setup
         type: Bash
-        configuration:
-          inputResources:
-            - name: iutest_gitRepo
         execution:
           onExecute:
             - yum install -y make
       - name: test
         type: Bash
         configuration:
+          inputResources:
+            - name: iutest_gitRepo
           inputSteps:
             - name: setup
         execution:
