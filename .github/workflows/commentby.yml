@@ -1,0 +1,15 @@
+name: GitHub Actions - comment trigger
+on:
+  pull_request_review_comment:
+
+jobs:
+  prepare:
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Check condition
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: |
+        echo "$GITHUB_CONTEXT"
+    - name: Show Event
+      run: cat ${GITHUB_EVENT_PATH}
