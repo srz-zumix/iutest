@@ -18,7 +18,7 @@ pipelines:
             versions:
               - "9.0.1"
     steps:
-      - name: setup
+      - name: test
         type: Bash
         configuration:
           inputResources:
@@ -26,15 +26,6 @@ pipelines:
         execution:
           onExecute:
             - yum install -y make
-      - name: test
-        type: Bash
-        configuration:
-          inputResources:
-            - name: iutest_gitRepo
-          inputSteps:
-            - name: setup
-        execution:
-          onExecute:
             - pushd ${res_iutest_gitRepo_resourcePath}
             - make -C test showcxxversion showcxxmacros
             - make -C test -j2
