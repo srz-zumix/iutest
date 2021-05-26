@@ -18,11 +18,19 @@ pipelines:
             versions:
               - "9.0.1"
     steps:
-      - name: test
+      - name: setup
         type: Bash
         configuration:
           inputResources:
             - name: iutest_gitRepo
+        execution:
+          onExecute:
+            - apt install -y make
+      - name: test
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: setup
         execution:
           onExecute:
             - pushd ${res_iutest_gitRepo_resourcePath}
