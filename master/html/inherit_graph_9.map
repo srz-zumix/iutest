@@ -1,4 +1,8 @@
 <map id="クラス階層図" name="クラス階層図">
-<area shape="rect" id="node1" title="ファイル処理クラスインターフェイス" alt="" coords="5,13,193,39"/>
-<area shape="rect" id="node2" href="$df/d4b/classiutest_1_1_i_u_t_e_s_t___c_x_x___f_i_n_a_l.html" title="ファイル処理クラスインターフェイス" alt="" coords="241,5,388,47"/>
+<area shape="rect" id="node1" title="入力ストリームインターフェイス" alt="" coords="11,5,186,32"/>
+<area shape="rect" id="node2" href="$d9/d57/classiutest_1_1_i_file.html" title="ファイルクラスインターフェイス" alt="" coords="240,31,335,57"/>
+<area shape="rect" id="node3" href="$de/d67/classiutest_1_1_stdio_file.html" title="標準ファイルクラス" alt="" coords="409,5,531,32"/>
+<area shape="rect" id="node5" href="$da/d94/classiutest_1_1_string_stream_file.html" title="文字列バッファ書き込み IFile インターフェースクラス" alt="" coords="383,56,557,83"/>
+<area shape="rect" id="node4" href="$d4/d62/classiutest_1_1_std_error_file.html" title=" " alt="" coords="605,5,748,32"/>
+<area shape="rect" id="node6" title="出力ストリームインターフェイス" alt="" coords="5,56,192,83"/>
 </map>

@@ -1,5 +1,4 @@
 <map id="クラス階層図" name="クラス階層図">
-<area shape="rect" id="node1" title=" " alt="" coords="5,46,76,73"/>
-<area shape="rect" id="node2" href="$dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html" title="mfc container iterator" alt="" coords="129,5,309,47"/>
-<area shape="rect" id="node3" href="$d3/dd1/classiutest_1_1mfc_1_1mfc__map__iterator.html" title="mfc map container iterator" alt="" coords="124,71,315,112"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,13,44,39"/>
+<area shape="rect" id="node2" href="$d9/d29/structiutest_1_1legacy_1_1_suite_api_resolver.html" title=" " alt="" coords="92,5,263,47"/>
 </map>
