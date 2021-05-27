@@ -45,7 +45,7 @@ include CommonMakefile.in
 STRICT_CXXFLAGS:= ${IUTEST_CXX_STRICT_FLAGS}
 
 CXXWARNFLAGS:= -Wall -Wextra $(STRICT_CXXFLAGS)
-override CXXFLAGS += -g $(CXXWARNFLAGS) $(OPTIMIZE)
+override CXXFLAGS += -g $(CXXWARNFLAGS) $(OPTIMIZE) $(IUTEST_CXX_DIAGNOSTICS_FLAGS)
 
 ifdef _DEBUG
 override CXXFLAGS += -ggdb
@@ -56,7 +56,7 @@ override CXXFLAGS += -v
 endif
 
 ifdef USE_COVERAGE
-override CXXFLAGS += -coverage
+override CXXFLAGS += -coverage -O0
 ifndef CCOV
 CCOV=$(USE_COVERAGE)
 endif
@@ -85,13 +85,6 @@ endif
 ifeq ($(CXX),wineg++)
 LIBS+=ws2_32
 override CXXFLAGS += -static-libgcc -static-libstdc++ -m32
-endif
-
-ifeq ($(HOST),WINE)
-#WINE_ =wine
-WINE_ =wineconsole
-else
-WINE_ =
 endif
 
 # scan-build
@@ -256,7 +249,7 @@ ifdef CXX_NAME
 endif
 
 showcxxmacros: ## show compiler predefined macros
-	$(CXX) $(STDFLAG) -dM -E -x c++ - < /dev/null
+	$(CXX) $(STDFLAG) ${CXXFLAGS} -dM -E -x c++ - < /dev/null
 
 showcxxflags: ## show cxxflags
 	@echo $(CXXFLAGS)
@@ -281,19 +274,33 @@ list-xml:
 %_build: $(OUTDIR)/%
 	@echo $(OUTDIR)/$(<F)
 
+
+#
+#
+# run config
+#
+RUN_PREFIX=
+ifeq ($(HOST),WINE)
+#RUN_PREFIX=wine
+RUN_PREFIX=wineconsole
+endif
+ifdef QEMU_COMMAND
+RUN_PREFIX=${QEMU_COMMAND}
+endif
+
 %_run : $(OUTDIR)/%
 	@echo $(OUTDIR)/$(<F)
 ifdef USE_COVERAGE
-	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --${TEST_OPTION_PREFIX}_output=xml:$(OUTDIR)/$(<F).xml > /dev/null
+	${RUN_PREFIX} $(OUTDIR)/$(<F) $(RUN_OPTION) --${TEST_OPTION_PREFIX}_output=xml:$(OUTDIR)/$(<F).xml > /dev/null
 else
 ifdef OUTPUTXML
 ifeq ($(OUTPUTXML),junit)
-	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --${TEST_OPTION_PREFIX}_output=junit:$(OUTDIR)/$(<F).xml
+	${RUN_PREFIX} $(OUTDIR)/$(<F) $(RUN_OPTION) --${TEST_OPTION_PREFIX}_output=junit:$(OUTDIR)/$(<F).xml
 else
-	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --${TEST_OPTION_PREFIX}_output=xml:$(OUTDIR)/$(<F).xml
+	${RUN_PREFIX} $(OUTDIR)/$(<F) $(RUN_OPTION) --${TEST_OPTION_PREFIX}_output=xml:$(OUTDIR)/$(<F).xml
 endif
 else
-	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION)
+	${RUN_PREFIX} $(OUTDIR)/$(<F) $(RUN_OPTION)
 endif
 endif
 
@@ -344,6 +351,7 @@ ifeq ($(USE_COVERAGE),lcov)
 	$(CCOV) -c -d . -o coverage.info $(CCOV_OPT)
 	$(CCOV) -r coverage.info *gcc* -o coverage.info
 	$(CCOV) -r coverage.info */test/* -o coverage.info
+	$(CCOV) -r coverage.info */usr/include/* -o coverage.info
 endif
 ifeq ($(USE_COVERAGE),gcov)
 ifeq ($(findstring relative-only, $(shell $(CCOV) --help)), relative-only)
@@ -363,7 +371,7 @@ ifeq ($(USE_COVERAGE),gcov)
 endif
 
 send-codecov: coverage
-	curl -s https://codecov.io/bash | bash /dev/stdin
+	../tools/codecov/codecov-uploade.sh
 
 #
 #

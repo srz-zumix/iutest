@@ -551,8 +551,8 @@ public:
         }
         catch (const ::std::exception& e)
         {
-            IUTEST_LOG_(FATAL) << "IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P register tests failed...\n"
-                << e.what();
+            IUTEST_LOG_(FATAL) << "IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P register tests failed... (what: "
+                << e.what() << ")\n";
         }
         catch(...)
         {
