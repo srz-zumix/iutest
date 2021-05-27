@@ -8,7 +8,7 @@ resources:
         include: master|^jfrog/.*
       # https://www.jfrog.com/confluence/display/JFROG/Triggering+Pipelines+and+Steps#TriggeringPipelinesandSteps-CancellingPreviousRunsOnaGitRepositoryChange
       cancelPendingRunsOn:
-        commit: true
+        newCommit: true
         pullRequestUpdate: true
 pipelines:
   - name: basic_test
