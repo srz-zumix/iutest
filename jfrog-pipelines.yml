@@ -11,7 +11,7 @@ resources:
         newCommit: true
         pullRequestUpdate: true
 pipelines:
-  - name: iutest_basic_test
+  - name: iutest_centos_basic_test
     configuration:
       nodePool: centos-latest
       runtime:
@@ -22,9 +22,26 @@ pipelines:
             versions:
               - "9.0.1"
     steps:
-      - name: iutest_test
+      - name: gcc
         type: Bash
         configuration:
+          inputResources:
+            - name: iutest_gitRepo
+        execution:
+          onExecute:
+            - yum install -y make
+            - pushd ${res_iutest_gitRepo_resourcePath}
+            - make -C test showcxxversion showcxxmacros
+            - make -C test -j2
+            - make -C test test
+            - make -C test report
+            - popd
+      - name: clang
+        type: Bash
+        configuration:
+          environmentVariables:
+            CC: clang
+            CXX: clang++
           inputResources:
             - name: iutest_gitRepo
         execution:
