@@ -160,7 +160,6 @@ if (build_tests)
     compatibility_tests.cpp
     filepath_tests.cpp
     fixture_tests.cpp
-    floatingpoint_tests.cpp
     no_failure_tests.cpp
     nullptr_tests.cpp
     param_test_tests1.cpp
@@ -215,6 +214,7 @@ if (build_tests)
   cxx_executable_test(file_system_tests)
   cxx_executable_test(filter_tests)
   cxx_executable_test(flagfile_gtest_tests)
+  cxx_executable_test(floatingpoint_tests)
   cxx_executable_test(gtest_version_tests)
   cxx_executable_test(help_tests)
   cxx_executable_test(inform_tests)
@@ -262,7 +262,6 @@ if (build_tests)
       compatibility_tests.cpp
       filepath_tests.cpp
       fixture_tests.cpp
-      floatingpoint_tests.cpp
       no_failure_tests.cpp
       nullptr_tests.cpp
       param_test_tests1.cpp
@@ -355,6 +354,7 @@ if (build_tests)
   cxx_add_test(file_system_tests)
   cxx_add_test(filter_tests)
   cxx_add_test(flagfile_gtest_tests)
+  cxx_add_test(floatingpoint_tests)
   cxx_add_test(gtest_version_tests)
   cxx_add_test(help_tests)
   cxx_add_test(inform_tests)
