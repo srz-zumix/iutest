@@ -334,7 +334,9 @@
 
 #if !defined(IUTEST_HAS_CXX_HDR_FILESYSTEM)
 #  if __has_include(<filesystem>)
-#    define IUTEST_HAS_CXX_HDR_FILESYSTEM   1
+#    if !defined(__cpp_lib_experimental_filesystem)
+#      define IUTEST_HAS_CXX_HDR_FILESYSTEM 1
+#    endif
 #  endif
 #endif
 
