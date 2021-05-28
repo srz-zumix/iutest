@@ -454,31 +454,6 @@
 #  endif
 #endif
 
-//======================================================================
-// include
-#include <iterator>
-
-#if IUTEST_HAS_CXX_HDR_ANY
-#  include <any>
-#endif
-#if IUTEST_HAS_CXX_HDR_CSTDINT
-#  include <cstdint>
-#endif
-#if IUTEST_HAS_CXX_HDR_FILESYSTEM && IUTEST_HAS_STD_FILESYSTEM
-#  include <filesystem>
-#endif
-#if IUTEST_HAS_CXX_HDR_OPTIONAL
-#  include <optional>
-#endif
-#if IUTEST_HAS_CXX_HDR_VARIANT
-#  include <variant>
-#endif
-#if IUTEST_HAS_CXX_HDR_CHARCONV
-#  include <charconv>
-#endif
-
-//======================================================================
-// define
 #if !defined(IUTEST_HAS_STD_TO_CHARS)
 #  if defined(__cpp_lib_to_chars) && __cpp_lib_to_chars >= 201611
 #    define IUTEST_HAS_STD_TO_CHARS         1
@@ -660,6 +635,29 @@
 #  else
 #    define iu_va_copy(dest, src)   (dest = src)
 #  endif
+#endif
+
+//======================================================================
+// include
+#include <iterator>
+
+#if IUTEST_HAS_CXX_HDR_ANY
+#  include <any>
+#endif
+#if IUTEST_HAS_CXX_HDR_CSTDINT
+#  include <cstdint>
+#endif
+#if IUTEST_HAS_CXX_HDR_FILESYSTEM && IUTEST_HAS_STD_FILESYSTEM
+#  include <filesystem>
+#endif
+#if IUTEST_HAS_CXX_HDR_OPTIONAL
+#  include <optional>
+#endif
+#if IUTEST_HAS_CXX_HDR_VARIANT
+#  include <variant>
+#endif
+#if IUTEST_HAS_CXX_HDR_CHARCONV
+#  include <charconv>
 #endif
 
 #endif // INCG_IRIS_IUTEST_STDLIB_DEFS_HPP_9C62C097_E5FB_49EE_9329_811F32C846A2_
