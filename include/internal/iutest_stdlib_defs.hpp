@@ -444,6 +444,16 @@
 #  define IUTEST_HAS_HDR_CXXABI             0
 #endif
 
+#if !defined(IUTEST_HAS_STD_FILESYSTEM)
+#  if defined(ANDROID) || defined(__ANDROID__) || defined(__ARM_EABI__)
+#    define IUTEST_HAS_STD_FILESYSTEM       0
+#  elif IUTEST_HAS_CXX_HDR_FILESYSTEM && defined(__cpp_lib_filesystem) && __cpp_lib_filesystem >= 201703
+#    if !defined(__cpp_lib_experimental_filesystem)
+#      define IUTEST_HAS_STD_FILESYSTEM     1
+#    endif
+#  endif
+#endif
+
 //======================================================================
 // include
 #include <iterator>
@@ -454,7 +464,7 @@
 #if IUTEST_HAS_CXX_HDR_CSTDINT
 #  include <cstdint>
 #endif
-#if IUTEST_HAS_CXX_HDR_FILESYSTEM
+#if IUTEST_HAS_CXX_HDR_FILESYSTEM && IUTEST_HAS_STD_FILESYSTEM
 #  include <filesystem>
 #endif
 #if IUTEST_HAS_CXX_HDR_OPTIONAL
@@ -469,16 +479,6 @@
 
 //======================================================================
 // define
-#if !defined(IUTEST_HAS_STD_FILESYSTEM)
-#  if defined(ANDROID) || defined(__ANDROID__) || defined(__ARM_EABI__)
-#    define IUTEST_HAS_STD_FILESYSTEM       0
-#  elif IUTEST_HAS_CXX_HDR_FILESYSTEM && defined(__cpp_lib_filesystem) && __cpp_lib_filesystem >= 201703
-#    if !defined(__cpp_lib_experimental_filesystem)
-#      define IUTEST_HAS_STD_FILESYSTEM     1
-#    endif
-#  endif
-#endif
-
 #if !defined(IUTEST_HAS_STD_TO_CHARS)
 #  if defined(__cpp_lib_to_chars) && __cpp_lib_to_chars >= 201611
 #    define IUTEST_HAS_STD_TO_CHARS         1
