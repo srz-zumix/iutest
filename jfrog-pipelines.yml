@@ -28,7 +28,10 @@ pipelines:
           inputResources:
             - name: iutest_gitRepo
         execution:
+          onStart:
+            - update_commit_status iutest_gitRepo # Status: "processing"
           onExecute:
+            - update_commit_status iutest_gitRepo # Status: "processing"
             - yum install -y make
             - pushd ${res_iutest_gitRepo_resourcePath}
             - make -C test showcxxversion showcxxmacros
@@ -36,6 +39,10 @@ pipelines:
             - make -C test test
             - make -C test report
             - popd
+          onFailure:
+            - update_commit_status iutest_gitRepo # Status: "failure"
+          onSuccess:
+            - update_commit_status iutest_gitRepo # Status: "success"
       - name: clang
         type: Bash
         configuration:
@@ -45,7 +52,10 @@ pipelines:
           inputResources:
             - name: iutest_gitRepo
         execution:
+          onStart:
+            - update_commit_status iutest_gitRepo # Status: "processing"
           onExecute:
+            - update_commit_status iutest_gitRepo # Status: "processing"
             - yum install -y make
             - pushd ${res_iutest_gitRepo_resourcePath}
             - make -C test showcxxversion showcxxmacros
@@ -53,3 +63,7 @@ pipelines:
             - make -C test test
             - make -C test report
             - popd
+          onFailure:
+            - update_commit_status iutest_gitRepo # Status: "failure"
+          onSuccess:
+            - update_commit_status iutest_gitRepo # Status: "success"
