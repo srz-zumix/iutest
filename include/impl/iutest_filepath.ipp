@@ -68,7 +68,7 @@ IUTEST_IPP_INLINE bool iuFilePath::IsAbsolutePath() const
     }
     const char* name = m_path.c_str();
 
-    const char drive = toupper(name[0]);
+    const int drive = toupper(name[0]);
     if( !(drive >= 'A' && drive <= 'Z') )
     {
         return false;
