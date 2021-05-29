@@ -68,11 +68,12 @@ IUTEST_IPP_INLINE bool iuFilePath::IsAbsolutePath() const
     }
     const char* name = m_path.c_str();
 
-    if( IsDBCSLeadByte(name[0]) )
+    const char drive = toupper(name[0])
+    if( !(drive >= 'A' && drive <= 'Z') )
     {
-        ++name;
+        return false;
     }
-    return (name[1] == ':' && IsPathSeparator(name[0]));
+    return (name[1] == ':' && IsPathSeparator(name[2]));
 #else
     return IsPathSeparator(*m_path.begin());
 #endif
