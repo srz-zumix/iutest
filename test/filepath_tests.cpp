@@ -81,16 +81,15 @@ IUTEST(FilePath, IsRootDirectory)
         ::iutest::internal::FilePath path("path");
         IUTEST_EXPECT_FALSE(path.IsRootDirectory());
     }
-// FIXME: https://github.com/srz-zumix/iutest/issues/589
-//     {
-// #ifdef IUTEST_OS_WINDOWS
-//         ::iutest::internal::FilePath path("C:\\");
-//         IUTEST_EXPECT_TRUE(path.IsRootDirectory());
-// #else
-//         ::iutest::internal::FilePath path("/");
-//         IUTEST_EXPECT_TRUE(path.IsRootDirectory());
-// #endif
-//     }
+    {
+#ifdef IUTEST_OS_WINDOWS
+        ::iutest::internal::FilePath path("C:\\");
+        IUTEST_EXPECT_TRUE(path.IsRootDirectory());
+#else
+        ::iutest::internal::FilePath path("/");
+        IUTEST_EXPECT_TRUE(path.IsRootDirectory());
+#endif
+    }
 }
 
 IUTEST(FilePath, IsAbsolutePath)
