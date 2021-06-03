@@ -24,7 +24,6 @@ int main(int argc, char* argv[])
 #endif
 {
     IUTEST_INIT(&argc, argv);
-    IUTEST_ABORT();
     return IUTEST_RUN_ALL_TESTS();
 }
 
