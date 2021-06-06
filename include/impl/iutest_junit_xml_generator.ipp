@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -27,7 +27,8 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 IUTEST_IPP_INLINE bool JunitXmlGeneratorListener::IsReportable(const UnitTest& test)
 {
     const int reportable_test_count = test.reportable_test_count();
-    if( reportable_test_count <= 0 ) {
+    if( reportable_test_count <= 0 )
+    {
         return false;
     }
     return true;
@@ -122,7 +123,7 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestInfo(IFile* file, 
         return;
     }
 
-    file->Printf("    <testsuite ");
+    file->Printf("    <testcase ");
     OutputXmlAttribute(file, "name", EscapeXmlAttribute(test_info.name()).c_str() );
     if( test_info.is_ran() )
     {
@@ -178,7 +179,7 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestInfo(IFile* file, 
             OnReportTestSkipped(file, test_info);
         }
     }
-    file->Printf("    </testsuite>\n");
+    file->Printf("    </testcase>\n");
 }
 
 

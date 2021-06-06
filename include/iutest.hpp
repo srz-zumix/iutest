@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
  *
@@ -21,6 +21,10 @@
 // include
 // IWYU pragma: begin_exports
 #include "iutest_ver.hpp"
+#include "internal/iutest_compiler.hpp"
+
+IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
+
 #include "iutest_legacy.hpp"
 #include "iutest_core.hpp"
 #include "iutest_param_tests.hpp"
@@ -1866,36 +1870,50 @@ public:
         return UnitTest::instance().Run();
     }
 
+public:
+    void SetUpDefaultXmlListener()
+    {
+        if( TestEnv::is_output_option_dirty() )
+        {
+            if( TestEnv::has_output_option() )
+            {
+                TestEnv::flush_output_option();
+
+                do
+                {
+#if defined(__WANDBOX__)
+                    if( StderrXmlGeneratorListener::SetUp() )
+                    {
+                        break;
+                    }
+                    if( StderrJunitXmlGeneratorListener::SetUp() )
+                    {
+                        break;
+                    }
+#else
+                    if( DefaultXmlGeneratorListener::SetUp() )
+                    {
+                        break;
+                    }
+                    if( JunitXmlGeneratorListener::SetUp() )
+                    {
+                        break;
+                    }
+#endif
+                    IUTEST_LOG_(WARNING) << "unrecognized output format \"" << TestEnv::get_output_option() << "\" ignored.";
+                } while( detail::AlwaysFalse() );
+            }
+            else
+            {
+                TestEnv::event_listeners().Release(TestEnv::event_listeners().default_xml_generator());
+            }
+        }
+    }
+
 private:
     void SetUpDefaultListener()
     {
-        if( TestEnv::has_output_option() )
-        {
-            do
-            {
-#if defined(__WANDBOX__)
-                if( StderrXmlGeneratorListener::SetUp() )
-                {
-                    break;
-                }
-                if( StderrJunitXmlGeneratorListener::SetUp() )
-                {
-                    break;
-                }
-#else
-                if( DefaultXmlGeneratorListener::SetUp() )
-                {
-                    break;
-                }
-                if( JunitXmlGeneratorListener::SetUp() )
-                {
-                    break;
-                }
-#endif
-                IUTEST_LOG_(WARNING) << "unrecognized output format \"" << TestEnv::get_output_option() << "\" ignored.";
-            } while( detail::AlwaysFalse() );
-        }
-
+        SetUpDefaultXmlListener();
 #if IUTEST_HAS_STREAM_RESULT
         StreamResultListener::SetUp();
 #endif
@@ -1913,6 +1931,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, T argv)
     UnitTestSource::GetInstance().Initialize();
     TestEnv::ParseCommandLine(pargc, argv);
     TestEnv::LoadFlagFile();
+    UnitTestSource::GetInstance().SetUpDefaultXmlListener();
 }
 
 }   // end of namespace detail
@@ -1939,6 +1958,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(::std::vector< ::std::basi
     UnitTestSource::GetInstance().Initialize();
     TestEnv::ParseCommandLine(argv);
     TestEnv::LoadFlagFile();
+    UnitTestSource::GetInstance().SetUpDefaultXmlListener();
 }
 
 /**
@@ -1958,10 +1978,12 @@ inline Environment* IUTEST_ATTRIBUTE_UNUSED_ AddGlobalTestEnvironment(Environmen
 #  include "gtest/iutest_switch.hpp"
 #endif
 
-#include "iutest_util.hpp"
+#include "iutest_util.hpp"  // IWYU pragma: export
 
 #if defined(IUTEST_USE_MAIN)
 #  include "internal/iutest_default_main.hpp"
 #endif
+
+IUTEST_PRAGMA_IUTEST_WARN_DISABLE_END()
 
 #endif // INCG_IRIS_IUTEST_HPP_

@@ -194,7 +194,7 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStr
 #if defined(IUTEST_OS_WINDOWS) && IUTEST_MBS_CODE == IUTEST_MBS_CODE_WINDOWS31J
     return win::WideStringToMultiByteString(str, num);
 #else
-    const size_t length = num < 0 ? (wcslen(str) * MB_CUR_MAX + 1) : static_cast<size_t>(num);
+    const size_t length = num < 0 ? (wcslen(str) * static_cast<size_t>(MB_CUR_MAX) + 1) : static_cast<size_t>(num);
     char* mbs = new char [length];
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
     const size_t written = wcstombs(mbs, str, length - 1);
@@ -263,7 +263,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const ch
     return AnyStringToMultiByteString(str, num);
 #else
 IUTEST_PRAGMA_WARN_PUSH()
-IUTEST_PRAGMA_WARN_CAST_ALIGN()
+IUTEST_PRAGMA_WARN_DISABLE_CAST_ALIGN()
     return AnyStringToUTF8(reinterpret_cast<const wchar_t*>(str), num);
 IUTEST_PRAGMA_WARN_POP()
 #endif
@@ -377,34 +377,36 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     return ret;
 }
 
-IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToUTF8(const char* src, int num)
+IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToUTF8(const char* str, int num)
 {
 #if (defined(__STDC_ISO_10646__) || defined(_MSC_VER)) && !defined(IUTEST_OS_WINDOWS_MOBILE)
     if( num == -1 )
     {
-        num = static_cast<int>(strlen(src));
+        num = static_cast<int>(strlen(str));
     }
-    ::std::string str;
-    const char* p = src;
-    for(const char* end = src + num; p < end; )
+    ::std::string ret;
+    const char* p = str;
+    //char* locale = setlocale(LC_CTYPE, "JPN");
+    for(const char* end = str + num; p < end; )
     {
         wchar_t wc=0;
         const int len = iu_mbtowc(&wc, p, MB_CUR_MAX);
         if( len > 1 )
         {
-            str += AnyStringToUTF8(&wc, 1);
+            ret += AnyStringToUTF8(&wc, 1);
             p += len;
         }
         else
         {
-            str += *p;
+            ret += *p;
             ++p;
         }
     }
-    return str;
+    //setlocale(LC_CTYPE, locale);
+    return ret;
 #else
     IUTEST_UNUSED_VAR(num);
-    return src;
+    return str;
 #endif
 }
 

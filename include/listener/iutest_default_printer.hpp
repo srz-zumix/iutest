@@ -57,7 +57,7 @@ private:
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "../impl/iutest_default_printer.ipp"
+#  include "../impl/iutest_default_printer.ipp" // IWYU pragma: export
 #endif
 
 #endif // INCG_IRIS_IUTEST_DEFAULT_PRINTER_HPP_77055C2B_AAE1_4944_A61C_26C58B04B37B_

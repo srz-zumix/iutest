@@ -31,41 +31,98 @@ jobs:
       - run: |
           echo "${{ github.event.head_commit.message }}"
 
+  login:
+    runs-on: ubuntu-latest
+    needs: prepare
+    steps:
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: login check
+        run: |
+          echo a | docker login
+      - name: TODO
+        run: |
+          echo "build and push"
+
+  #===================================================================
   llvm-basic-test:
     runs-on: windows-latest
     needs: prepare
+    defaults:
+      run:
+        shell: cmd
     steps:
     - uses: actions/checkout@v2
     - name: choco-install
-      shell: cmd
       run: |
         choco install -y llvm || exit 1
         call refreshenv
-    - name: llvm clang test
-      shell: cmd
+    - name: set path
+      shell: bash
       run: |
-        set PATH=%PATH%;C:\Program Files\LLVM\bin
+        echo "C:\Program Files\LLVM\bin" >> $GITHUB_PATH
+    - name: llvm clang info
+      run: |
+        path
         make -C test clean
         make -C test CXX=clang++ CC=clang showcxxversion
+        make -C test CXX=clang++ CC=clang showcxxmacros
         make -C test CXX=clang++ CC=clang check_stdlib
+    - name: llvm clang build
+      run: |
         make -C test CXX=clang++ CC=clang -j8
+    - name: llvm clang test
+      run: |
         make -C test CXX=clang++ CC=clang test
+
   mingw-basic-test:
     runs-on: windows-latest
     needs: prepare
+    defaults:
+      run:
+        shell: cmd
     steps:
     - uses: actions/checkout@v2
-    - name: mingw test
-      shell: cmd
+    - name: mingw info
       run: |
         make -C test clean
         make -C test showcxxversion
+        make -C test showcxxmacros
         make -C test check_stdlib
+    - name: mingw build
+      run: |
         make -C test -j8
+    - name: mingw test
+      run: |
         make -C test test
+
+  cmake-basic-test:
+    runs-on: ubuntu-latest
+    needs: prepare
+    steps:
+    - uses: actions/checkout@master
+    - name: cmake
+      run: |
+          mkdir ./cmake-build
+          cd ./cmake-build
+          cmake ../projects/cmake
+    - name: cmake build
+      run: cmake --build cmake-build
+    - name: cmake test
+      run: |
+        cd cmake-build
+        ctest -C Debug -V
+
   zapcc-basic-test:
     runs-on: ubuntu-18.04
-    container: docker://srzzumix/zapcc
+    container:
+      image: docker://srzzumix/zapcc:bionic
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
     needs: prepare
     env:
       PYTHON_VERSION: 3.8
@@ -75,23 +132,107 @@ jobs:
       with:
         python-version: ${{ env.PYTHON_VERSION }}
     - name: Set Python environment variable
-      run: echo '::set-env name=LD_LIBRARY_PATH::${{ env.pythonLocation }}/lib'
-    - name: zapcc test
+      run: echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> $GITHUB_ENV
+    - name: zapcc info
       run: |
         make -C test clean
         make -C test showcxxversion
+        make -C test showcxxmacros
         make -C test check_stdlib
+    - name: zapcc build
+      run: |
         make -C test -j1 IUTEST_REQUIRE_PYTHON=1
+    - name: zapcc test
+      run: |
         make -C test test
-  arm-none-eabi:
-    runs-on: ubuntu-18.04
+
+  icpc-basic-test:
+    runs-on: ubuntu-latest
+    container:
+      image: docker://srzzumix/oneapi-cxx:latest
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
     needs: prepare
+    env:
+      CC: icpc
+      CXX: icpc
+    defaults:
+      run:
+        shell: bash -e -o pipefail -l {0}
+    steps:
+    - uses: actions/checkout@master
+    - name: set .bash_profile
+      run: |
+        echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
+    - name: icpc info
+      run: |
+        make -C test clean
+        make -C test showcxxversion
+        make -C test showcxxmacros
+        make -C test check_stdlib
+    - name: icpc build
+      run: |
+        make -C test -j8
+    - name: icpc test
+      run: |
+        make -C test test
+
+  arm-none-eabi:
+    strategy:
+      fail-fast: false
+      matrix:
+        container-version:
+          - "6-2016q4"
+          - "7-2017q4"
+          - "8-2018q4"
+          - "9-2019q4"
+          - "latest"
+    runs-on: ubuntu-latest
+    container:
+      image: docker://srzzumix/arm-none-eabi:${{ matrix.container-version }}
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    needs: prepare
+    env:
+      DEFS: --specs=nosys.specs -march=armv8-a
+      LIBS: nosys
     steps:
     - uses: actions/checkout@v2
-    - name: arm-none-eabi
-      uses: ./.github/actions/arm-none-eabi
+    - name: info
+      run: |
+        make -C test showcxxversion showcxxmacros
+    - name: build
+      run: |
+        make -C test -j8
+
+  arm-linux-gnueabi:
+    runs-on: ubuntu-latest
+    needs: prepare
+    env:
+      DEFS: --static
+    steps:
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
       with:
-        args: ./.github/actions/arm-none-eabi/build.sh
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - uses: actions/checkout@v2
+    - name: info
+      uses: ./.github/actions/arm-linux-gnueabi
+      with:
+        args: "make -C test showcxxversion showcxxmacros"
+    - name: build
+      uses: ./.github/actions/arm-linux-gnueabi
+      with:
+        args: "make -C test -j8"
+    - name: test
+      uses: ./.github/actions/arm-linux-gnueabi
+      with:
+        args: "make -C test test QEMU_COMMAND=qemu-arm-static"
+
+  #===================================================================
   lint-editorconfig:
     runs-on: ubuntu-18.04
     needs: prepare

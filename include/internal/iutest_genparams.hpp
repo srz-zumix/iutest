@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -52,7 +52,7 @@ public:
  * @brief   パラメータ生成器保持クラス
 */
 template<typename T>
-class iuParamGenerator : public iuIParamGenerator<T>
+class iuParamGenerator IUTEST_CXX_FINAL : public iuIParamGenerator<T>
 {
     typedef iuIParamGenerator<T> _Interface;
     typedef iuParamGenerator<T>  _Myt;
@@ -87,7 +87,7 @@ private:
  * @tparam T    = パラメータ型
 */
 template<typename T>
-class iuRangeParamsGenerator : public iuIParamGenerator<T>
+class iuRangeParamsGenerator IUTEST_CXX_FINAL : public iuIParamGenerator<T>
 {
     T m_begin;
     T m_end;
@@ -118,7 +118,7 @@ public:
 /**
  * @brief   真偽値パラメータ生成器
 */
-class iuBoolParamsGenerator : public iuIParamGenerator<bool>
+class iuBoolParamsGenerator IUTEST_CXX_FINAL : public iuIParamGenerator<bool>
 {
     int m_n;
     bool m_cur;
@@ -430,7 +430,7 @@ IIUT_DECL_VALUEARRAY_(50);
 #if IUTEST_HAS_VARIADIC_COMBINE
 
 template<typename... Args>
-class iuCartesianProductGenerator : public iuIParamGenerator< tuples::tuple<Args...> >
+class iuCartesianProductGenerator IUTEST_CXX_FINAL : public iuIParamGenerator< tuples::tuple<Args...> >
 {
     typedef tuples::tuple< iuParamGenerator<Args>... > _MyTuple;
     static const int kCount = sizeof...(Args);
@@ -620,9 +620,10 @@ public:
 
 /*
 template<typename T1, typename T2, typename T3>
-class iuCartesianProductGenerator3 : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>
-                                                                            , iuCartesianProductGenerator2<T2, T3>
-                                                                            , tuples::tuple<T1, T2, T3> >
+class iuCartesianProductGenerator3 IUTEST_CXX_FINAL
+    : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>
+    , iuCartesianProductGenerator2<T2, T3>
+    , tuples::tuple<T1, T2, T3> >
 {
     typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>, iuCartesianProductGenerator2<T2, T3>, tuples::tuple<T1, T2, T3> >    _Mybase;
     typedef iuParamGenerator<T1> Generator1;
@@ -762,7 +763,7 @@ private:
                 IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_STATICCAST_, T, m_g) );         \
         }                                                       \
         IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_CONCAT_()            \
-    private: _Myt& operator = (const _Myt&);                    \
+    private: _Myt& operator = (const _Myt&) IUTEST_CXX_DELETED_FUNCTION;    \
         IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_VARIABLE_, const Generator, m_g)      \
     }
 
@@ -1122,7 +1123,7 @@ private:
 #else
 
 template<typename T1, typename T2>
-class iuPairwiseGenerator2 : public iuIParamGenerator< tuples::tuple<T1, T2> >
+class iuPairwiseGenerator2 IUTEST_CXX_FINAL : public iuIParamGenerator< tuples::tuple<T1, T2> >
 {
     typedef iuParamGenerator<T1> Generator1;
     typedef iuParamGenerator<T2> Generator2;
@@ -1238,7 +1239,7 @@ public:
 
 #define IIUT_DECL_PAIRWISE_GENERATOR_(n)                \
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >    \
-    class IUTEST_PP_CAT(iuPairwiseGenerator, n) : public iuPairwiseGeneratorBase {  \
+    class IUTEST_PP_CAT(iuPairwiseGenerator, n) IUTEST_CXX_FINAL : public iuPairwiseGeneratorBase {     \
         IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_PAIRWISE_GENERATOR_TEMPLATE_T_, typedef iuParamGenerator, Generator)   \
         typedef ParamIndexes<n> _MyParamIndexes;                            \
         typedef ::std::vector< _MyParamIndexes > ParamIndexesList;          \
@@ -1304,7 +1305,7 @@ public:
     }
 
 private:
-    _Myt& operator = (const _Myt&);
+    _Myt& operator = (const _Myt&) IUTEST_CXX_DELETED_FUNCTION;
 private:
     const Generator1 m_g1;
     const Generator2 m_g2;
@@ -1336,7 +1337,7 @@ private:
                 IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_PAIRWISE_HOLDER_STATICCAST_, T, m_g) );          \
         }                                                       \
         IIUT_DECL_PAIRWISE_HOLDER_CONCAT_()                     \
-    private: _Myt& operator = (const _Myt&);                    \
+    private: _Myt& operator = (const _Myt&) IUTEST_CXX_DELETED_FUNCTION;    \
         IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_PAIRWISE_HOLDER_VARIABLE_, const Generator, m_g)       \
     }
 

@@ -17,9 +17,11 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_result.hpp"
 #include "iutest_printers.hpp"
 #include "internal/iutest_list.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest
 {
@@ -41,9 +43,19 @@ inline ::std::string StreamableToString(const T& value)
 // declare
 namespace detail
 {
-    //! TestPartResultReporter がない場合の処理関数
-    void DefaultReportTestPartResult(const TestPartResult& test_part_result);
-}
+
+//! TestPartResultReporter がない場合の処理関数
+void DefaultReportTestPartResult(const TestPartResult& test_part_result);
+
+class UncaughtScopedTrace
+{
+public:
+    static void Add(const detail::iuCodeMessage& msg);
+    static bool Has();
+    static ::std::string Get();
+};
+
+}   // end of namespace detail
 
 //======================================================================
 // class
@@ -217,6 +229,10 @@ public:
         ~ScopedMessage()
         {
             ScopedTrace::GetInstance().list.remove(this);
+            if( stl::uncaught_exception() )
+            {
+                detail::UncaughtScopedTrace::Add(*this);
+            }
         }
     };
 private:
@@ -229,19 +245,24 @@ private:
         typedef ::std::list<ScopedMessage*> msg_list;
 #endif
         msg_list list;
+
         static ScopedTrace& GetInstance() { static ScopedTrace inst; return inst; }
     public:
-        void append_message(TestPartResult& part_result)
+        void append_message(TestPartResult& part_result, bool isException)
         {
-            if( list.size() )
+            if( !list.empty() || detail::UncaughtScopedTrace::Has() )
             {
                 part_result.add_message("\niutest trace:");
+                // TODO : 追加メッセージとして保存するべき
+                // 現状はテスト結果のメッセージに追加している。
                 for( msg_list::iterator it = list.begin(), end=list.end(); it != end; ++it )
                 {
-                    // TODO : 追加メッセージとして保存するべき
-                    // 現状はテスト結果のメッセージに追加している。
                     part_result.add_message("\n");
                     part_result.add_message((*it)->make_message().c_str());
+                }
+                if( isException )
+                {
+                    part_result.add_message(detail::UncaughtScopedTrace::Get());
                 }
             }
         }
@@ -311,6 +332,8 @@ public:
         OnFixed(fixed);
 #if IUTEST_HAS_EXCEPTIONS && IUTEST_USE_THROW_ON_ASSERTION_FAILURE
         {
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_SWITCH_ENUM()
             switch( m_part_result.type() )
             {
             case TestPartResult::kSkip:
@@ -320,6 +343,7 @@ public:
             default:
                 break;
             }
+IUTEST_PRAGMA_WARN_POP()
         }
 #endif
     }
@@ -334,7 +358,7 @@ public:
 #endif
 
 private:
-    void OnFixed(const Fixed& fixed)
+    void OnFixed(const Fixed& fixed, bool isException = false)
     {
         // OnFixed で throw しないこと！テスト側の例外キャッチにかからなくなる
         const ::std::string append_message = fixed.GetString();
@@ -342,7 +366,7 @@ private:
         {
             m_part_result.add_message(" " + append_message);
         }
-        ScopedTrace::GetInstance().append_message(m_part_result);
+        ScopedTrace::GetInstance().append_message(m_part_result, isException);
 
         if( TestEnv::GetGlobalTestPartResultReporter() != IUTEST_NULLPTR )
         {
@@ -463,7 +487,10 @@ inline AssertionResult CmpHelperOpFailure(const char* expr1, const char* expr2, 
 #define IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_BASE_(op_name, op)    \
     template<typename T1, typename T2>                              \
     bool iuOperator##op_name(const T1& v1, const T2& v2) {          \
+        IUTEST_PRAGMA_WARN_PUSH()                                   \
+        IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_INT_FLOAT_CONVERSION()          \
         return v1 op v2;                                            \
+        IUTEST_PRAGMA_WARN_POP()                                    \
     }
 
 #if IUTEST_HAS_CXX_HDR_VARIANT && IUTEST_HAS_VARIADIC_TEMPLATES
@@ -519,6 +546,7 @@ bool iuOperatorEQ(const T1& v1, const T2& v2)
 {
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
+IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_INT_FLOAT_CONVERSION()
     return v1 == v2;
 IUTEST_PRAGMA_WARN_POP()
 }

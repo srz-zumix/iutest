@@ -25,6 +25,22 @@ cirrus_gcc_test_task:
 #    image: srzzumix/googletest:latest
 #  test_script: cd test && make -j4 showcxxversion default && make test
 
+cirrus_use_lib_task:
+  only_if: *default-condition
+  auto_cancellation: true
+  env:
+    USE_LIB: 1
+  container:
+    image: gcc:latest
+  version_script: make -C test showcxxversion
+  # NOTE: -j$((`nproc`)): Container errored with 'OOMKilled'
+  build_lib_script: make -C projects/make
+  build_script: make -C test -j4
+  test_script: make -C test test
+  report_script: make -C test report
+  depends_on:
+    - cirrus_gcc_test
+
 cirrus_osx_14_test_task: &osx_task
   only_if: *default-condition
   auto_cancellation: true
@@ -56,14 +72,14 @@ cirrus_freebsd_clang_test_task:
   only_if: *default-condition
   freebsd_instance:
     image_family: freebsd-12-1-snap
+    # image_family: freebsd-13-0-snap
   env:
     matrix:
       - STDFLAG: -std=c++14
       - STDFLAG: -std=c++17
-      #- STDFLAG: -std=c++2a
+      - STDFLAG: -std=c++2a
   install_script: pkg install -y gmake
   version_script: gmake --version && gmake -C test showcxxversion
   build_script: gmake -C test -j4
   test_script : gmake -C test test
   report_script: gmake -C test report
-

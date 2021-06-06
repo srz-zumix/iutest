@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,6 +17,7 @@
 // include
 #include "iutest.hpp"
 #include "pred_tests.hpp"
+#include <limits>
 
 namespace syntax_tests
 {
@@ -33,6 +34,7 @@ template<int A, int B>struct T
 
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE()
+IUTEST_PRAGMA_WARN_DISABLE_FLOAT_CONVERSION()
 
 IUTEST(SyntaxTest, True)
 {
@@ -422,6 +424,20 @@ IUTEST(SyntaxTest, StrLn)
         IUTEST_INFORM_STRLNEQ(len, test) << len;
     if( int len = 4 )
         IUTEST_ASSUME_STRLNEQ(len, test) << len;
+}
+
+IUTEST(SyntaxTest, Nan)
+{
+    float  fnan = ::std::numeric_limits<float>::quiet_NaN();
+    double dnan = ::std::numeric_limits<double>::quiet_NaN();
+    if( fnan )
+        IUTEST_ASSERT_NAN(fnan) << fnan;
+    if( fnan )
+        IUTEST_EXPECT_NAN(fnan) << fnan;
+    if( dnan )
+        IUTEST_INFORM_NAN(dnan) << dnan;
+    if( dnan )
+        IUTEST_ASSUME_NAN(dnan) << dnan;
 }
 
 #if defined(IUTEST_OS_WINDOWS)
@@ -956,7 +972,7 @@ IUTEST(PrintToTest, Iomanip)
 #if IUTEST_HAS_CHAR16_T
 IUTEST(PrintToTest, U16String)
 {
-    IUTEST_SUCCEED() << u"テスト";
+    IUTEST_SUCCEED() << u"test";
 }
 
 #if IUTEST_HAS_CXX_HDR_STRING_VIEW
@@ -972,7 +988,7 @@ IUTEST(PrintToTest, U16StringStringView)
 #if IUTEST_HAS_CHAR32_T
 IUTEST(PrintToTest, U32String)
 {
-    IUTEST_SUCCEED() << U"テスト";
+    IUTEST_SUCCEED() << U"TEST";
 }
 
 #if IUTEST_HAS_CXX_HDR_STRING_VIEW

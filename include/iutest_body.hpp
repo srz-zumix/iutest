@@ -217,6 +217,7 @@ private:
     friend class UnitTest;
     friend class UnitTestImpl;
     friend class TestInfo;
+    friend class detail::UncaughtScopedTrace;
 
     detail::iuITestInfoMediator*    m_test_info;
 #if IUTEST_HAS_GENRAND
@@ -355,7 +356,7 @@ template<typename DMY>
 ::iutest::Test* ::iutest::Test::Observer<DMY>::s_current = NULL;
 
 #if !IUTEST_HAS_LIB
-#  include "impl/iutest_body.ipp"
+#  include "impl/iutest_body.ipp" // IWYU pragma: export
 #endif
 
 #endif // INCG_IRIS_IUTEST_BODY_HPP_3EEA6706_9954_4330_B292_129667FA6B96_

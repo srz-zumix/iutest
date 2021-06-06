@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,10 +17,12 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "util/iutest_util_assertion.hpp"
 #include "util/iutest_util_output.hpp"
 #include "util/iutest_util_quiet_result_printer.hpp"
 #include "util/iutest_util_tests.hpp"
+// IWYU pragma: end_exports
 
 #if defined(MS_CPP_UNITTESTFRAMEWORK)
 #include "util/iutest_util_vc_unittest.hpp"
@@ -29,7 +31,20 @@
 /**
  * @brief iutest utility namespace
 */
-namespace iuutil {}
+namespace iuutil
+{
+
+/**
+ * @ingroup IUTEST_UTIL
+ * @brief   Xml Generator の解放
+*/
+inline void ReleaseDefaultXmlGenerator()
+{
+    ::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
+    delete listeners.Release(listeners.default_xml_generator());
+}
+
+}   // end of namespace iuutil
 
 /**
  * @ingroup     IUTEST_UTIL

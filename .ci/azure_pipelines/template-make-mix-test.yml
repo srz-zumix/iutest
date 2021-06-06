@@ -3,11 +3,11 @@
 # Add steps that publish test results, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/c-cpp/gcc
 
-# disable config jobs template
+# mix config jobs template
 parameters:
   name: ''
   options: ''
-  vmImage: 'ubuntu 16.04'
+  vmImage: 'ubuntu-latest'
 
 jobs:
   - job: ${{ parameters.name }}
@@ -21,6 +21,9 @@ jobs:
           MIX_CONFIG: "-DIUTEST_HAS_STRINGSTREAM=0 -DIUTEST_HAS_STRSTREAM=1 -Wno-deprecated"
           # ADD_OPT: "STDFLAG=-std=c++03"
           PKG_NAME: StrStream
+        Mix_DisableStringStream_StrToValue:
+          MIX_CONFIG: "-DIUTEST_HAS_STRINGSTREAM=0 -DIUTEST_HAS_STD_STR_TO_VALUE=0"
+          PKG_NAME: DisableStringStream_StrToValue
     pool:
       vmImage: ${{ parameters.vmImage }}
     steps:

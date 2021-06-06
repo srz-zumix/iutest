@@ -219,10 +219,10 @@ IUTEST(AssertionTest, DoubleLE)
 
 IUTEST(AssertionTest, LongDouble)
 {
-    long double d0=0.0, d1=1.0;
-    IUTEST_ASSERT_LONG_DOUBLE_EQ(1.0, d1);
-    IUTEST_EXPECT_LONG_DOUBLE_EQ(0.0, d0);
-    IUTEST_INFORM_LONG_DOUBLE_EQ(-1.0, -2.0/2.0);
+    long double d0=0.0l, d1=1.0l;
+    IUTEST_ASSERT_LONG_DOUBLE_EQ(1.0l, d1);
+    IUTEST_EXPECT_LONG_DOUBLE_EQ(0.0l, d0);
+    IUTEST_INFORM_LONG_DOUBLE_EQ(-1.0l, -2.0l/2.0l);
 }
 
 #endif

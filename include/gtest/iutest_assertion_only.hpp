@@ -7,7 +7,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -21,7 +21,7 @@
 #else // !defined(IUTEST_USE_GTEST)
 
 #include "iutest_gtest_ver.hpp"
-#if GTEST_OS_WINDOWS
+#if defined(_WIN32) || defined(WIN32) || defined(__WIN32__) || defined(WINAPI_FAMILY)
 #include <windows.h>
 #endif
 
@@ -86,7 +86,7 @@ void AssertHelper::operator=(const Message& message) const
 #endif
 
     printf("%s", msg.GetString().c_str());
-#if GTEST_OS_WINDOWS
+#if defined(_WIN32) || defined(WIN32) || defined(__WIN32__) || defined(WINAPI_FAMILY)
     OutputDebugStringA(msg.GetString().c_str());
 #endif
 }

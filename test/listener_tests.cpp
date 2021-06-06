@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,7 +17,7 @@
 // include
 #include "iutest.hpp"
 
-class MyTestEventListener : public ::iuutil::backward::TestEventListener
+class MyTestEventListener IUTEST_CXX_FINAL : public ::iuutil::backward::TestEventListener
 {
 public:
     bool called_OnTestProgramStart;
@@ -54,66 +54,64 @@ public:
     {}
 
 public:
-    virtual void OnTestProgramStart(const ::iutest::UnitTest& /*test*/)
+    virtual void OnTestProgramStart(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE
     {
         called_OnTestProgramStart = true;
     }
     virtual void OnTestIterationStart(const ::iutest::UnitTest& /*test*/
-                                    , int /*iteration*/)
+                                    , int /*iteration*/) IUTEST_CXX_OVERRIDE
     {
         called_OnTestIterationStart = true;
     }
-    virtual void OnEnvironmentsSetUpStart(const ::iutest::UnitTest& /*test*/)
+    virtual void OnEnvironmentsSetUpStart(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE
     {
         called_OnEnvironmentsSetUpStart = true;
     }
-    virtual void OnEnvironmentsSetUpEnd(const ::iutest::UnitTest& /*test*/)
+    virtual void OnEnvironmentsSetUpEnd(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE
     {
         called_OnEnvironmentsSetUpEnd = true;
     }
-    virtual void OnTestSuiteStart(const ::iutest::TestSuite& /*test_suite*/)
+    virtual void OnTestSuiteStart(const ::iutest::TestSuite& /*test_suite*/) IUTEST_CXX_OVERRIDE
     {
         called_OnTestSuiteStart = true;
     }
-    virtual void OnTestStart(const ::iutest::TestInfo& /*test_info*/)
+    virtual void OnTestStart(const ::iutest::TestInfo& /*test_info*/) IUTEST_CXX_OVERRIDE
     {
         called_OnTestStart = true;
     }
-    virtual void OnTestPartResult(const ::iutest::TestPartResult& /*test_part_result*/)
+    virtual void OnTestPartResult(const ::iutest::TestPartResult& /*test_part_result*/) IUTEST_CXX_OVERRIDE
     {
         called_OnTestPartResult = true;
     }
-    virtual void OnTestRecordProperty(const ::iutest::TestProperty& test_property)
+#if !defined(IUTEST_USE_GTEST)
+    virtual void OnTestRecordProperty(const ::iutest::TestProperty& test_property) IUTEST_CXX_OVERRIDE
     {
         called_OnTestRecordProperty = true;
-#if !defined(IUTEST_USE_GTEST)
         TestEventListener::OnTestRecordProperty(test_property);
-#else
-        IUTEST_UNUSED_VAR(test_property);
-#endif
     }
-    virtual void OnTestEnd(const ::iutest::TestInfo& /*test_info*/)
+#endif
+    virtual void OnTestEnd(const ::iutest::TestInfo& /*test_info*/) IUTEST_CXX_OVERRIDE
     {
         called_OnTestEnd = true;
     }
-    virtual void OnTestSuiteEnd(const ::iutest::TestSuite& /*test_suite*/)
+    virtual void OnTestSuiteEnd(const ::iutest::TestSuite& /*test_suite*/) IUTEST_CXX_OVERRIDE
     {
         called_OnTestSuiteEnd = true;
     }
-    virtual void OnEnvironmentsTearDownStart(const ::iutest::UnitTest& /*test*/)
+    virtual void OnEnvironmentsTearDownStart(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE
     {
         called_OnEnvironmentsTearDownStart = true;
     }
-    virtual void OnEnvironmentsTearDownEnd(const ::iutest::UnitTest& /*test*/)
+    virtual void OnEnvironmentsTearDownEnd(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE
     {
         called_OnEnvironmentsTearDownEnd = true;
     }
     virtual void OnTestIterationEnd(const ::iutest::UnitTest& /*test*/
-                                    , int /*iteration*/)
+                                    , int /*iteration*/) IUTEST_CXX_OVERRIDE
     {
         called_OnTestIterationEnd = true;
     }
-    virtual void OnTestProgramEnd(const ::iutest::UnitTest& /*test*/)
+    virtual void OnTestProgramEnd(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE
     {
         if( called_OnTestProgramEnd ) exit(1);
         called_OnTestProgramEnd = true;
@@ -139,12 +137,14 @@ IUTEST(EventListenerTest, FlagCheck)
     IUTEST_ASSERT_FALSE( listener->called_OnTestProgramEnd );
 
     IUTEST_ASSERT_FALSE( listener->called_OnTestPartResult );
-    IUTEST_EXPECT_EQ(1, 2);
+    IUTEST_INFORM_EQ(1, 2);
     IUTEST_ASSERT_TRUE( listener->called_OnTestPartResult );
 
+#if !defined(IUTEST_USE_GTEST)
     IUTEST_ASSERT_FALSE( listener->called_OnTestRecordProperty );
     RecordProperty("dummy", 0);
     IUTEST_ASSERT_TRUE( listener->called_OnTestRecordProperty );
+#endif
 }
 
 #ifdef UNICODE
@@ -154,10 +154,6 @@ int main(int argc, char* argv[])
 #endif
 {
     IUTEST_INIT(&argc, argv);
-#if defined(OUTPUTXML)
-    // 失敗テストを含むので xml 出力しない
-    ::iutest::IUTEST_FLAG(output) = NULL;
-#endif
 
     ::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
     listener = new MyTestEventListener();
@@ -172,7 +168,5 @@ int main(int argc, char* argv[])
     IUTEST_ASSERT_EXIT( listener->called_OnTestIterationEnd );
     IUTEST_ASSERT_EXIT( listener->called_OnTestProgramEnd );
 
-    if( ret == 0 ) return 1;
-    printf("*** Successful ***\n");
-    return 0;
+    return ret;
 }

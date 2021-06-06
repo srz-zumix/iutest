@@ -22,6 +22,7 @@ RUN apt-get update -q -y && \
         language-pack-ja-base language-pack-ja ibus-mozc \
         linux-tools-common linux-tools-generic \
         vim gdb iputils-ping \
+        cppcheck \
         subversion \
         python3 python3-pip \
         doxygen graphviz && \

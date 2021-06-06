@@ -6,17 +6,25 @@ trigger:
     - master
     - develop
 
+image_pull_secrets:
+  - dockerconfig
+
 steps:
   - &gcc
-    name: 10
-    image: gcc:10
+    name: 11
+    image: gcc:11
+    # pull: if-not-exists
     commands:
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
-      - make showcxxversion && make clean && make -j4 $${MAKE_OPTIONS}
-      - make test
+      - make showcxxversion showcxxmacros && make clean && make -j4 $${MAKE_OPTIONS}
+      - make test OUTPUTXML=1
       - make report
       - make clean
     # depends_on: [ clone ]
+  -
+    <<: *gcc
+    name: 10
+    image: gcc:10
   -
     <<: *gcc
     name: 9
@@ -51,14 +59,18 @@ trigger:
     - master
     - develop
 
+image_pull_secrets:
+  - dockerconfig
+
 steps:
   - &gcc
-    name: 5
-    image: gcc:5
+    name: 5.5
+    image: gcc:5.5
+    # pull: if-not-exists
     commands:
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
-      - make showcxxversion && make clean && make -j4 $${MAKE_OPTIONS}
-      - make test
+      - make showcxxversion showcxxmacros && make clean && make -j4 $${MAKE_OPTIONS}
+      - make test OUTPUTXML=1
       - make report
       - make clean
     # depends_on: [ clone ]
@@ -66,6 +78,10 @@ steps:
   #   <<: *gcc
   #   name: 5
   #   image: gcc:5
+  -
+    <<: *gcc
+    name: 5.1
+    image: gcc:5.1
   -
     <<: *gcc
     name: 4.9
@@ -90,8 +106,8 @@ steps:
       - "cp -R ./ ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) -exec sed -i -e '1s/^\xEF\xBB\xBF//' {} \;
       - cd test
-      - make showcxxversion && make clean && make -j4 $${MAKE_OPTIONS}
-      - make test
+      - make showcxxversion showcxxmacros && make clean && make -j4 $${MAKE_OPTIONS}
+      - make test OUTPUTXML=1
       - make report
       - make clean
 
@@ -105,20 +121,32 @@ trigger:
     - master
     - develop
 
+image_pull_secrets:
+  - dockerconfig
+
 steps:
   - &clang
-    name: 11
-    image: teeks99/clang-ubuntu:11
+    name: 13
+    image: teeks99/clang-ubuntu:13
+    # pull: if-not-exists
     commands:
       - apt-get update && apt-get -qq -y install curl
       - export CC=clang-$${DRONE_STEP_NAME}
       - export CXX=clang++-$${DRONE_STEP_NAME}
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
-      - make showcxxversion && make clean && make -j4 $${MAKE_OPTIONS}
-      - make test
+      - make showcxxversion showcxxmacros && make clean && make -j4 $${MAKE_OPTIONS}
+      - make test OUTPUTXML=1
       - make report
       - make clean
     # depends_on: [ clone ]
+  -
+    <<: *clang
+    name: 12
+    image: teeks99/clang-ubuntu:12
+  -
+    <<: *clang
+    name: 11
+    image: teeks99/clang-ubuntu:11
   -
     <<: *clang
     name: 10
@@ -158,17 +186,21 @@ trigger:
     - master
     - develop
 
+image_pull_secrets:
+  - dockerconfig
+
 steps:
   - &clang
     name: 3.9
     image: teeks99/clang-ubuntu:3.9
+    # pull: if-not-exists
     commands:
       - apt-get update && apt-get -qq -y install curl
       - export CC=clang-$${DRONE_STEP_NAME}
       - export CXX=clang++-$${DRONE_STEP_NAME}
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
-      - make showcxxversion && make clean && make -j4 $${MAKE_OPTIONS}
-      - make test
+      - make showcxxversion showcxxmacros && make clean && make -j4 $${MAKE_OPTIONS}
+      - make test OUTPUTXML=1
       - make report
       - make clean
     # depends_on: [ clone ]
@@ -222,8 +254,8 @@ steps:
       - "cp -R ./ ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) -exec sed -i -e '1s/^\xEF\xBB\xBF//' {} \;
       - cd test
-      - make showcxxversion && make clean && make -j4 STDFLAG=-std=c++98
-      - make test
+      - make showcxxversion showcxxmacros && make clean && make -j4 STDFLAG=-std=c++98
+      - make test OUTPUTXML=1
       - make report
       - make clean
 
@@ -237,18 +269,27 @@ trigger:
     - master
     - develop
 
+image_pull_secrets:
+  - dockerconfig
+
 steps:
   - &gcc
-    name: gcc-10-c++98
-    image: gcc:10
+    name: gcc-11-c++98
+    image: gcc:11
+    # pull: if-not-exists
     commands: &syntax-test-commands
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
+      - make showcxxversion showcxxmacros
       - make clean && make run_syntax_tests report $${MAKE_OPTIONS}
       - make clean && make run_syntax_tests report $${MAKE_OPTIONS} USE_GNU_EXTENSION=1
       - make clean
     environment:
       MAKE_OPTIONS: STDFLAG_VALUE=c++98
     # depends_on: [ clone ]
+  -
+    <<: *gcc
+    name: gcc-10-c++98
+    image: gcc:10
   -
     <<: *gcc
     name: gcc-9-c++98
@@ -287,19 +328,29 @@ steps:
     image: gcc:4.6
 
   - &clang
-    name: 11
-    image: teeks99/clang-ubuntu:11
+    name: 13
+    image: teeks99/clang-ubuntu:13
+    # pull: if-not-exists
     commands:
       - apt-get update && apt-get -qq -y install curl
       - export CC=clang-$${DRONE_STEP_NAME}
       - export CXX=clang++-$${DRONE_STEP_NAME}
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
+      - make showcxxversion showcxxmacros
       - make clean && make run_syntax_tests report $${MAKE_OPTIONS}
       - make clean && make run_syntax_tests report $${MAKE_OPTIONS} USE_GNU_EXTENSION=1
       - make clean
     environment:
       MAKE_OPTIONS: STDFLAG_VALUE=c++98
     # depends_on: [ clone ]
+  -
+    <<: *clang
+    name: 12
+    image: teeks99/clang-ubuntu:12
+  -
+    <<: *clang
+    name: 11
+    image: teeks99/clang-ubuntu:11
   -
     <<: *clang
     name: 10

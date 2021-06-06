@@ -90,9 +90,9 @@
 #endif
 #ifdef IUTEST_OS_MAC
 #  define GTEST_OS_MAC                  IUTEST_OS_MAC
-#  ifdef IUTEST_OS_IOS
-#    define GTEST_OS_IOS                IUTEST_OS_IOS
-#  endif
+#endif
+#ifdef IUTEST_OS_IOS
+#  define GTEST_OS_IOS                  IUTEST_OS_IOS
 #endif
 #ifdef IUTEST_OS_FREEBSD
 #  define GTEST_OS_FREEBSD              IUTEST_OS_FREEBSD
@@ -191,9 +191,9 @@
 #endif
 #ifdef GTEST_OS_MAC
 #  define IUTEST_OS_MAC                 GTEST_OS_MAC
-#  ifdef GTEST_OS_IOS
-#    define IUTEST_OS_IOS               GTEST_OS_IOS
-#  endif
+#endif
+#ifdef GTEST_OS_IOS
+#  define IUTEST_OS_IOS                 GTEST_OS_IOS
 #endif
 #ifdef GTEST_OS_FREEBSD
 #  define IUTEST_OS_FREEBSD             GTEST_OS_FREEBSD

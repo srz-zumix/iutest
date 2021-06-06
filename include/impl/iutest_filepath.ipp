@@ -48,7 +48,7 @@ IUTEST_IPP_INLINE bool iuFilePath::IsRootDirectory() const
         return false;
     }
 #else
-    if( length() != 3 )
+    if( length() != 1 )
     {
         return false;
     }
@@ -68,11 +68,12 @@ IUTEST_IPP_INLINE bool iuFilePath::IsAbsolutePath() const
     }
     const char* name = m_path.c_str();
 
-    if( IsDBCSLeadByte(name[0]) )
+    const int drive = toupper(name[0]);
+    if( !(drive >= 'A' && drive <= 'Z') )
     {
-        ++name;
+        return false;
     }
-    return (name[1] == ':' && IsPathSeparator(name[0]));
+    return (name[1] == ':' && IsPathSeparator(name[2]));
 #else
     return IsPathSeparator(*m_path.begin());
 #endif
@@ -82,12 +83,12 @@ IUTEST_IPP_INLINE bool iuFilePath::IsAbsolutePath() const
 IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveTrailingPathSeparator() const
 {
     const ::std::string& path = m_path;
-    ::std::string::const_iterator it = path.end()-1;
-    while(it != path.begin() && IsPathSeparator(*it))
+    ::std::string::const_reverse_iterator it = path.rbegin();
+    while(it != path.rend() && IsPathSeparator(*it))
     {
-        --it;
+        ++it;
     }
-    return iuFilePath(::std::string(path.begin(), it+1));
+    return iuFilePath(path.substr(0, ::std::distance(it, path.rend())));
 }
 
 IUTEST_IPP_INLINE ::std::string iuFilePath::GetExtension() const
@@ -272,6 +273,10 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::GetExecFilePath()
 
 IUTEST_IPP_INLINE iuFilePath iuFilePath::ConcatPaths(const iuFilePath& directory, const iuFilePath& relative_path)
 {
+    if( directory.IsEmpty() )
+    {
+        return relative_path;
+    }
     ::std::string path = directory.RemoveTrailingPathSeparator().m_path;
     path += GetPathSeparator();
     path += relative_path.m_path;

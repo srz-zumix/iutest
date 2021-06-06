@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -41,36 +41,62 @@ IUTEST(UnitStringTest, OwnStricmp)
     IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_stricmp("AAA", "aaaA"));
 }
 
-IUTEST(UnitStringTest, Wcsicmp)
+void WcsicmpNegativeTest()
 {
     const wchar_t negative = static_cast<wchar_t>(-1);
     const wchar_t negative_sample[] = { L'a', L'a', L'a', negative, L'\0' };
+    IUTEST_ASSUME_GE(sizeof(::std::wint_t), sizeof(int));
+    IUTEST_EXPECT_LT(0, ::iutest::detail::iu_wcsicmp(L"AAA", negative_sample));
+}
+
+IUTEST(UnitStringTest, Wcsicmp)
+{
     IUTEST_EXPECT_EQ(0, ::iutest::detail::iu_wcsicmp(L"AAA", L"aaa"));
     IUTEST_EXPECT_LT(0, ::iutest::detail::iu_wcsicmp(L"AAAa", L"aaa"));
     IUTEST_EXPECT_LT(0, ::iutest::detail::iu_wcsicmp(L"AAAB", L"aaaa"));
     IUTEST_EXPECT_GT(0, ::iutest::detail::iu_wcsicmp(L"AAAa", L"aaaB"));
-#if IUTEST_WCHAR_UNSIGNED
-    IUTEST_EXPECT_GT(0, ::iutest::detail::iu_wcsicmp(L"AAA", negative_sample));
-#else
-    IUTEST_EXPECT_LT(0, ::iutest::detail::iu_wcsicmp(L"AAA", negative_sample));
-#endif
     IUTEST_EXPECT_GT(0, ::iutest::detail::iu_wcsicmp(L"AAA", L"aaaA"));
+}
+
+IUTEST(UnitStringTest, WcsicmpNegativeLT)
+{
+    const wchar_t negative = static_cast<wchar_t>(-1);
+    const wchar_t negative_sample[] = { L'a', L'a', L'a', negative, L'\0' };
+    IUTEST_ASSUME(sizeof(::std::wint_t) >= sizeof(int) && (sizeof(wchar_t) > 2 || ::iutest_type_traits::is_signed<wchar_t>::value));
+    IUTEST_EXPECT_LT(0, ::iutest::detail::iu_wcsicmp(L"AAA", negative_sample));
+}
+
+IUTEST(UnitStringTest, WcsicmpNegativeGT)
+{
+    const wchar_t negative = static_cast<wchar_t>(-1);
+    const wchar_t negative_sample[] = { L'a', L'a', L'a', negative, L'\0' };
+    IUTEST_ASSUME(!(sizeof(::std::wint_t) >= sizeof(int) && (sizeof(wchar_t) > 2 || ::iutest_type_traits::is_signed<wchar_t>::value)));
+    IUTEST_EXPECT_GT(0, ::iutest::detail::iu_wcsicmp(L"AAA", negative_sample));
 }
 
 IUTEST(UnitStringTest, OwnWcsicmp)
 {
-    const wchar_t negative = static_cast<wchar_t>(-1);
-    const wchar_t negative_sample[] = { L'a', L'a', L'a', negative, L'\0' };
     IUTEST_EXPECT_EQ(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", L"aaa"));
     IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAAa", L"aaa"));
     IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAAB", L"aaaa"));
     IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAAa", L"aaaB"));
-#if IUTEST_WCHAR_UNSIGNED
-    IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", negative_sample));
-#else
-    IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", negative_sample));
-#endif
     IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", L"aaaA"));
+}
+
+IUTEST(UnitStringTest, OwnWcsicmpNegativeLT)
+{
+    const wchar_t negative = static_cast<wchar_t>(-1);
+    const wchar_t negative_sample[] = { L'a', L'a', L'a', negative, L'\0' };
+    IUTEST_ASSUME(sizeof(::std::wint_t) >= sizeof(int) && (sizeof(wchar_t) > 2 || ::iutest_type_traits::is_signed<wchar_t>::value));
+    IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", negative_sample));
+}
+
+IUTEST(UnitStringTest, OwnWcsicmpNegativeGT)
+{
+    const wchar_t negative = static_cast<wchar_t>(-1);
+    const wchar_t negative_sample[] = { L'a', L'a', L'a', negative, L'\0' };
+    IUTEST_ASSUME(!(sizeof(::std::wint_t) >= sizeof(int) && (sizeof(wchar_t) > 2 || ::iutest_type_traits::is_signed<wchar_t>::value)));
+    IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", negative_sample));
 }
 
 IUTEST(UnitStringTest, StringStrip)
@@ -235,11 +261,20 @@ IUTEST(UnitStringTest, Utf8AsciiCode)
 
 IUTEST(UnitStringTest, SurrogatePair)
 {
-    ::std::string s = ::iutest::detail::AnyStringToUTF8(L"\U00020BB7", -1);
-    const unsigned char uexpect[4] = { 0xF0, 0xA0, 0xAE, 0xB7 };
-    char expect[4];
-    memcpy(expect, uexpect, sizeof(expect));
-    IUTEST_EXPECT_EQ_RANGE(expect, s);
+    {
+        ::std::string s = ::iutest::detail::AnyStringToUTF8(L"\U00020BB7", -1);
+        const unsigned char uexpect[4] = { 0xF0, 0xA0, 0xAE, 0xB7 };
+        char expect[4];
+        memcpy(expect, uexpect, sizeof(expect));
+        IUTEST_EXPECT_EQ_RANGE(expect, s);
+    }
+    {
+        ::std::string s = ::iutest::detail::AnyStringToUTF8(L"\U0001F600", -1);
+        const unsigned char uexpect[4] = { 0xF0, 0x9F, 0x98, 0x80 };
+        char expect[4];
+        memcpy(expect, uexpect, sizeof(expect));
+        IUTEST_EXPECT_EQ_RANGE(expect, s);
+    }
 }
 
 IUTEST(UnitStringTest, StringToValue)
@@ -258,7 +293,7 @@ IUTEST(UnitStringTest, StringToValue)
     {
         long double f;
         IUTEST_EXPECT_TRUE(::iutest::detail::StringToValue("1.0", f));
-        IUTEST_EXPECT_DOUBLE_EQ(1.0, f);
+        IUTEST_EXPECT_LONG_DOUBLE_EQ(1.0l, f);
     }
 #endif
 }
@@ -277,25 +312,25 @@ IUTEST(UnitStringTest, StringToValueException)
         IUTEST_EXPECT_FLOAT_EQ(-10.0f, f);
     }
     {
-        float f = -10.0;
+        double f = -10.0;
         IUTEST_EXPECT_THROW(::iutest::detail::StringToValue("ABC", f), ::std::invalid_argument);
         IUTEST_EXPECT_DOUBLE_EQ(-10.0, f);
     }
     {
-        float f = -10.0;
+        double f = -10.0;
         IUTEST_EXPECT_THROW(::iutest::detail::StringToValue("123456789e1000", f), ::std::out_of_range);
         IUTEST_EXPECT_DOUBLE_EQ(-10.0, f);
     }
 #if IUTEST_HAS_LONG_DOUBLE
     {
-        long double f = -10.0;
+        long double f = -10.0l;
         IUTEST_EXPECT_THROW(::iutest::detail::StringToValue("ABC", f), ::std::invalid_argument);
-        IUTEST_EXPECT_LONG_DOUBLE_EQ(-10.0, f);
+        IUTEST_EXPECT_LONG_DOUBLE_EQ(-10.0l, f);
     }
     {
-        long double f = -10.0;
+        long double f = -10.0l;
         IUTEST_EXPECT_THROW(::iutest::detail::StringToValue("123456789e1000000", f), ::std::out_of_range);
-        IUTEST_EXPECT_LONG_DOUBLE_EQ(-10.0, f);
+        IUTEST_EXPECT_LONG_DOUBLE_EQ(-10.0l, f);
     }
 #endif
 }

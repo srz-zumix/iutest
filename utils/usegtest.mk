@@ -45,7 +45,8 @@ ifdef USE_GTEST
 
 ifdef GTEST_ROOT_
 
-GTEST_INC_=-I$(GTEST_ROOT_)/include
+GTEST_INC_=-isystem$(GTEST_ROOT_)/include
+GTEST_SYSTEM_INCLUDED=1
 #GTEST_LIB_=$(GTEST_ROOT_)/make/gtest.a
 
 ifeq ($(findstring yes, $(shell test -e $(GTEST_ROOT_)/make/gtest-all.o && echo -n yes)), yes)
@@ -76,6 +77,9 @@ endif
 
 LDFLAGS += $(GTEST_LIB_)
 CXXFLAGS += -DIUTEST_USE_GTEST -DIUTEST_HAS_SOCKET=0 $(NO_UNUSED_LOCAL_TYPEDEFS) -Wno-sign-compare $(GTEST_INC_)
+ifeq ($(findstring suggest-override, $(CXXFLAGS)), suggest-override)
+CXXFLAGS += -Wno-suggest-override
+endif
 # CXXFLAGS += -DGTEST_REMOVE_LEGACY_TEST_CASEAPI_
 
 endif
@@ -101,8 +105,9 @@ endif
 
 ifdef GMOCK_ROOT_
 
-GMOCK_INC_=-I$(GMOCK_ROOT_)/include -I$(GTEST_ROOT_)/include
+GMOCK_INC_=-isystem$(GMOCK_ROOT_)/include -isystem$(GTEST_ROOT_)/include
 GMOCK_LIB_=$(GMOCK_ROOT_)/make/gmock-all.o $(GMOCK_ROOT_)/make/gtest-all.o
+GTEST_SYSTEM_INCLUDED=1
 
 else
 

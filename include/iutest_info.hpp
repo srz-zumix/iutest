@@ -17,8 +17,10 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_body.hpp"
 #include "internal/iutest_factory.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest
 {
@@ -240,6 +242,7 @@ private:
     friend class UnitTestImpl;
     friend class UnitTest;
     friend class TestSuite;
+    friend class detail::UncaughtScopedTrace;
 
     ::std::string           m_testname;         //!< テスト名
     ::std::string           m_value_param;      //!< value param string
@@ -253,13 +256,16 @@ private:
     bool                    m_skip;             //!< スキップしたかどうか
     bool                    m_matches_filter;   //!< フィルターにマッチしたかどうか
 
+    typedef ::std::vector<detail::iuCodeMessage> UncaughtMessagesType;
+    UncaughtMessagesType    m_uncaught_messages;
+
     IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TestInfo);
 };
 
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "impl/iutest_info.ipp"
+#  include "impl/iutest_info.ipp" // IWYU pragma: export
 #endif
 
 #endif // INCG_IRIS_IUTEST_INFO_HPP_764A79A8_E822_4C0F_8CB7_82C635BA28BA_

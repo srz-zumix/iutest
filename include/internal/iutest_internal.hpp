@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,8 +17,10 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "../iutest_pred.hpp"
 #include "../iutest_package.hpp"
+// IWYU pragma: end_exports
 
 #if defined(__clang_analyzer__)
 #  include <assert.h>
@@ -142,7 +144,7 @@
     IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(testsuite_)) > 1, "testsuite_ must not be empty");   \
     IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(testname_)) > 1, "testname_ must not be empty");     \
     IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(IIUT_TO_NAME_(testsuite_))) > 1, "testsuite alias name must not be empty");     \
-    class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) : public parent_class_ {           \
+    class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) IUTEST_CXX_FINAL : public parent_class_ {          \
     IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testsuite_, testname_));     \
         public: IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)() {}                         \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE;                                 \
@@ -162,7 +164,7 @@
  *          関数の中はコンパイルできなくてもよい
 */
 #define IUTEST_TEST_IGNORE_(testsuite_, testname_, parent_class_, type_id_)                 \
-    class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) : public parent_class_ {           \
+    class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) IUTEST_CXX_FINAL : public parent_class_ {  \
     IUTEST_PP_DISALLOW_COPY_AND_ASSIGN( IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) );   \
         public: IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)() {}                         \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
@@ -196,7 +198,7 @@
 */
 #define IIUT_TEST_PMZ_(testsuite_, testname_, method_, parent_class_, type_id_, ...)            \
     class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_);                                       \
-    class IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_) : public parent_class_ {           \
+    class IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_) IUTEST_CXX_FINAL : public parent_class_ {  \
     IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_));     \
         public: IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_)() {}                         \
         static ::std::string MakeTestName() { return ::iutest::detail::MakeIndexTestName(       \
@@ -462,8 +464,8 @@
 #if defined(IUTEST_ANALYSIS_ASSUME_DELEGATE)
 #define IUTEST_THROUGH_ANALYSIS_ASSUME_(expr, todo)                 \
     IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                  \
-    if( bool b = true ) {                                           \
-        IUTEST_UNUSED_VAR(b);                                       \
+    if( bool iu_b_ = true ) {                                       \
+        IUTEST_UNUSED_VAR(iu_b_);                                   \
         IUTEST_ANALYSIS_ASSUME_DELEGATE(expr);                      \
         goto IUTEST_PP_CAT(iutest_label_analysis_assume, __LINE__); \
     } else                                                          \

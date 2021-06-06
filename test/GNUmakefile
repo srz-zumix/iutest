@@ -25,6 +25,8 @@ ifndef OUTDIR
 OUTDIR = .
 endif
 
+# IUTEST_WARN_EVERYTHING:=1
+
 #
 #
 # include
@@ -41,72 +43,56 @@ include CommonMakefile.in
 #OPTIMIZE=-O2
 
 STRICT_CXXFLAGS:= ${IUTEST_CXX_STRICT_FLAGS}
-# STRICT_CXXFLAGS+= -Wfloat-equal
-# Necessary for peep class operator
-# STRICT_CXXFLAGS+= -Wconversion
 
-CXXFLAGS += -g -Wall -Wextra $(STRICT_CXXFLAGS) $(OPTIMIZE)
+CXXWARNFLAGS:= -Wall -Wextra $(STRICT_CXXFLAGS)
+override CXXFLAGS += -g $(CXXWARNFLAGS) $(OPTIMIZE) $(IUTEST_CXX_DIAGNOSTICS_FLAGS)
 
 ifdef _DEBUG
-CXXFLAGS += -ggdb
+override CXXFLAGS += -ggdb
 endif
 
 ifdef _VERBOSE
-CXXFLAGS += -v
+override CXXFLAGS += -v
 endif
 
 ifdef USE_COVERAGE
-CXXFLAGS += -coverage
+override CXXFLAGS += -coverage -O0
 ifndef CCOV
 CCOV=$(USE_COVERAGE)
 endif
 endif
 
 ifdef GGC_MIN_EXPAND
-CXXFLAGS += --param ggc-min-expand=${GGC_MIN_EXPAND}
+override CXXFLAGS += --param ggc-min-expand=${GGC_MIN_EXPAND}
 endif
 ifdef GGC_MIN_HEAPSIZE
-CXXFLAGS += --param ggc-min-heapsize=${GGC_MIN_HEAPSIZE}
+override CXXFLAGS += --param ggc-min-heapsize=${GGC_MIN_HEAPSIZE}
 endif
 
 ifdef CI_NODEBUG
-CXXFLAGS += -g0 -O0
+override CXXFLAGS += -g0 -O0
 endif
 
 # debug options
-# CXXFLAGS += -ftemplate-backtrace-limit=0
+# override CXXFLAGS += -ftemplate-backtrace-limit=0
 
 #
 #
 # compiler
 #
 
-#
 # Wine g++
-#
 ifeq ($(CXX),wineg++)
 LIBS+=ws2_32
-CXXFLAGS += -static-libgcc -static-libstdc++ -m32
+override CXXFLAGS += -static-libgcc -static-libstdc++ -m32
 endif
 
-#
 # scan-build
-#
 ifeq ($(findstring c++-analyzer, $(CXX)),c++-analyzer)
 USE_SCANBUILD=yes
 endif
 
-ifdef OUTPUTXML
-CXXFLAGS +=-DOUTPUTXML
-endif
-
-ifeq ($(HOST),WINE)
-#WINE_ =wine
-WINE_ =wineconsole
-else
-WINE_ =
-endif
-
+# cygwin
 ifeq ($(IUTEST_MKFLAG_CYGWIN),1)
 STDFLAG:=$(subst c++,gnu++,$(STDFLAG))
 endif
@@ -123,18 +109,30 @@ endif
 # gtest-version tests
 #
 ifdef GTEST_EXPECT_VER
-CXXFLAGS+=-DGTEST_EXPECT_VER=$(GTEST_EXPECT_VER)
+override CXXFLAGS+=-DGTEST_EXPECT_VER=$(GTEST_EXPECT_VER)
 ifndef GTEST_EXPECT_LATEST
-CXXFLAGS+=-DGTEST_EXPECT_LATEST=0
+override CXXFLAGS+=-DGTEST_EXPECT_LATEST=0
 endif
 endif
 ifdef GTEST_EXPECT_LATEST
-CXXFLAGS+=-DGTEST_EXPECT_LATEST=$(GTEST_EXPECT_LATEST)
+override CXXFLAGS+=-DGTEST_EXPECT_LATEST=$(GTEST_EXPECT_LATEST)
 endif
 
-CXXFLAGS += $(DEFS) $(STDFLAG) $(STDLIB)
+#
+# build configs
+#
+
+ifdef OUTPUTXML
+override CXXFLAGS +=-DOUTPUTXML
+endif
+
+ifdef IUTEST_DEBUG
+override CXXFLAGS +=-D_IUTEST_DEBUG
+endif
+
+override CXXFLAGS += $(DEFS) $(STDFLAG) $(STDLIB)
 LIBS_ = $(LIBS:%=-l%)
-LDFLAGS += $(LIBS_)
+override LDFLAGS += $(LIBS_)
 
 MAKEFILE=GNUmakefile CommonMakefile.in
 
@@ -146,7 +144,7 @@ NAMESPACETESTS_SRC_AND_OBJS = main.cpp $(NAMESPACETESTS_TEST_OBJS)
 
 ALL_OBJS=$(ALLTESTS_TEST_OBJS) $(NAMESPACETESTS_TEST_OBJS)
 
-COMMON_RUN_TARGETS=$(ALLTESTS_TARGET) $(EXTENSIONTESTS_TARGET) $(TARGETS1) $(TARGETS2)
+COMMON_RUN_TARGETS=$(ALLTESTS_TARGET) $(EXTENSIONTESTS_TARGET) $(TEST_TARGETS) $(ASSERTION_ONLY_TARGETS)
 ifndef CI_SMALL_RESOURCE
 COMMON_RUN_TARGETS+=$(NAMESPACETESTS_TARGET)
 endif
@@ -174,12 +172,24 @@ NO_DEFAULT_TARGETS=$(SYNTAXTESTS_TARGET)
 SRCS   = $(BUILD_TARGETS:%=%.cpp)
 RUNNER = $(RUN_TARGETS:$(OUTDIR)/%=run_%)
 
-ifdef USE_FUSEDD
+ifdef USE_FUSED
 IUTEST_INCLUDE=-I$(IUTEST_DIR)/fused-src
 IUTEST_HEADERS+=$(IUTEST_DIR)/fused-src/iutest.hpp
+ASSERTION_ONLY_TARGETS=
 endif
 
-COVERITY_SCAN_BUILD_TARGETS = $(ALLTESTS_TARGET) $(EXTENSIONTESTS_TARGET) $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY) $(UNITTESTS_TARGET)
+COVERITY_SCAN_BUILD_TARGETS = $(ALLTESTS_TARGET) $(EXTENSIONTESTS_TARGET) \
+	$(TEST_TARGETS) $(ASSERTION_ONLY_TARGETS) $(TARGETS_IUTEST_ONLY) $(UNITTESTS_TARGET)
+
+#
+# exec options
+#
+
+ifeq ($(USE_GTEST)$(USE_GMOCK),)
+TEST_OPTION_PREFIX=iutest
+else
+TEST_OPTION_PREFIX=gtest
+endif
 
 #
 #
@@ -239,27 +249,58 @@ ifdef CXX_NAME
 endif
 
 showcxxmacros: ## show compiler predefined macros
-	$(CXX) $(STDFLAG) -dM -E -x c++ - < /dev/null
+	$(CXX) $(STDFLAG) ${CXXFLAGS} -dM -E -x c++ - < /dev/null
 
 showcxxflags: ## show cxxflags
 	@echo $(CXXFLAGS)
 
+showcxxwarn:
+ifdef GCCMAJOR
+	$(CXX) -Q $(CXXWARNFLAGS) $(IUTEST_CXX_NOWARN_FLAGS) --help=c++
+endif
+ifdef CLANGMAJOR
+endif
+
+showcxxwarn-disabled:
+ifdef GCCMAJOR
+	$(CXX) -Q $(CXXWARNFLAGS) $(IUTEST_CXX_NOWARN_FLAGS) --help=c++ | grep disabled
+endif
+ifdef CLANGMAJOR
+endif
+
+list-xml:
+	@ls | grep *.xml || true
+
 %_build: $(OUTDIR)/%
 	@echo $(OUTDIR)/$(<F)
+
+
+#
+#
+# run config
+#
+RUN_PREFIX=
+ifeq ($(HOST),WINE)
+#RUN_PREFIX=wine
+RUN_PREFIX=wineconsole
+endif
+ifdef QEMU_COMMAND
+RUN_PREFIX=${QEMU_COMMAND}
+endif
 
 %_run : $(OUTDIR)/%
 	@echo $(OUTDIR)/$(<F)
 ifdef USE_COVERAGE
-	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --iutest_output=xml:$(OUTDIR)/$(<F).xml > /dev/null
+	${RUN_PREFIX} $(OUTDIR)/$(<F) $(RUN_OPTION) --${TEST_OPTION_PREFIX}_output=xml:$(OUTDIR)/$(<F).xml > /dev/null
 else
 ifdef OUTPUTXML
 ifeq ($(OUTPUTXML),junit)
-	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --iutest_output=junit:$(OUTDIR)/$(<F).xml
+	${RUN_PREFIX} $(OUTDIR)/$(<F) $(RUN_OPTION) --${TEST_OPTION_PREFIX}_output=junit:$(OUTDIR)/$(<F).xml
 else
-	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --iutest_output=xml:$(OUTDIR)/$(<F).xml
+	${RUN_PREFIX} $(OUTDIR)/$(<F) $(RUN_OPTION) --${TEST_OPTION_PREFIX}_output=xml:$(OUTDIR)/$(<F).xml
 endif
 else
-	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION)
+	${RUN_PREFIX} $(OUTDIR)/$(<F) $(RUN_OPTION)
 endif
 endif
 
@@ -310,6 +351,7 @@ ifeq ($(USE_COVERAGE),lcov)
 	$(CCOV) -c -d . -o coverage.info $(CCOV_OPT)
 	$(CCOV) -r coverage.info *gcc* -o coverage.info
 	$(CCOV) -r coverage.info */test/* -o coverage.info
+	$(CCOV) -r coverage.info */usr/include/* -o coverage.info
 endif
 ifeq ($(USE_COVERAGE),gcov)
 ifeq ($(findstring relative-only, $(shell $(CCOV) --help)), relative-only)
@@ -329,7 +371,7 @@ ifeq ($(USE_COVERAGE),gcov)
 endif
 
 send-codecov: coverage
-	curl -s https://codecov.io/bash | bash /dev/stdin
+	../tools/codecov/codecov-uploade.sh
 
 #
 #
@@ -386,12 +428,12 @@ endif
 
 ifeq ($(USE_GTEST)$(USE_GMOCK),)
 
-TARGETS_EXCLUDE_ALLTESTS= $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY) $(BUILD_ONLY)
-CXXFLAGS += -Werror $(IUTEST_CXX_WARN_FLAGS)
+TARGETS_EXCLUDE_ALLTESTS= $(TEST_TARGETS) $(ASSERTION_ONLY_TARGETS) $(TARGETS_IUTEST_ONLY) $(BUILD_ONLY)
+override CXXFLAGS += -Werror $(IUTEST_CXX_NOWARN_FLAGS)
 
 ifdef USE_LIB
-CXXFLAGS += -DIUTEST_USE_LIB=1 -L../lib
-LDFLAGS:= -liutest $(LDFLAGS)
+override CXXFLAGS += -DIUTEST_USE_LIB=1 -L../lib
+override LDFLAGS:= -liutest $(LDFLAGS)
 endif
 
 $(TARGETS_EXCLUDE_ALLTESTS) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
@@ -410,25 +452,29 @@ endif
 ifeq ($(CI),true)
 IUTEST_COMPILE_ERROR_TEST_OPTION+= --verbose
 endif
+IUTEST_COMPILE_ERROR_TEST_OPTION+= --allow-unknown-compiler
 
 CXX_ERROR_TEST_FLAGS:=-ferror-limit=100
 
 $(ERR_TARGETS) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
-	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) $(CXX_ERROR_TEST_FLAGS) -o $@ $< $(LDFLAGS) 2>&1 | python $(PY_COMPILEERROR_TEST_TOOL) $(IUTEST_COMPILE_ERROR_TEST_OPTION)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -Wno-error $(CXX_ERROR_TEST_FLAGS) -o $@ $< $(LDFLAGS) 2>&1 | python $(PY_COMPILEERROR_TEST_TOOL) $(IUTEST_COMPILE_ERROR_TEST_OPTION)
 
 else
 
 # use Google Test or Google Mock
 include ../utils/usegtest.mk
+ifdef GTEST_SYSTEM_INCLUDED
+override CXXFLAGS += -Werror $(IUTEST_CXX_NOWARN_FLAGS)
+endif
 
 $(BUILD_ONLY) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $< $(LDFLAGS)
 
-$(TARGETS1) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
+$(TEST_TARGETS) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 	$(BUILD4ZAPCC)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $< $(LDFLAGS)
 
-$(TARGETS2) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
+$(ASSERTION_ONLY_TARGETS) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 	$(BUILD4ZAPCC)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $<
 
@@ -494,8 +540,33 @@ cppcheck: ## cppcheck
 report:
 	CXX_NAME=${CXX_NAME} CXX_VERSION=${CXX_VERSION} STDFLAG=${STDFLAG} ./../.ci/report-basic-test.sh || true
 
+
+#
+# cmake sync test
+#
+
+CMAKE_CHECKS = $(RUN_TARGETS:$(OUTDIR)/%=%)
+cmake-sync-check: ../projects/cmake/CMakeLists.txt $(MAKEFILE) ## check cmake and test makefile
+	@echo ========== invalid test names ==========
+	@for f in $(CMAKE_CHECKS); do \
+		echo $$f | grep -v "setup" > /dev/null || echo $$f; \
+	done
+	@echo ========== cxx_executable_test not found ==========
+	@for f in $(CMAKE_CHECKS); do \
+		grep "cxx_executable_test.*($$f" $< > /dev/null || echo $$f; \
+	done
+	@echo ========== cxx_add_test not found ==========
+	@for f in $(CMAKE_CHECKS); do \
+		grep "cxx_add_test($$f" $< > /dev/null || echo $$f; \
+	done
+	@for f in $(CMAKE_CHECKS); do \
+		echo $$f | grep -v "setup" > /dev/null || exit 1; \
+		grep "cxx_executable_test.*($$f" $< > /dev/null || exit 1; \
+		grep "cxx_add_test($$f" $< > /dev/null || exit 1; \
+	done
+
 #
 # help
 #
 help: ## show help
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sed -e 's/^GNUmakefile://' | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^[a-zA-Z][a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sed -e 's/^GNUmakefile://' | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'

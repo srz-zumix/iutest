@@ -148,6 +148,7 @@ template<typename T>struct is_member_function_pointer;
 
 using ::std::true_type;
 using ::std::false_type;
+using ::std::conditional;
 using ::std::remove_const;
 using ::std::remove_volatile;
 using ::std::remove_reference;
@@ -163,6 +164,7 @@ using ::std::is_class;
 using ::std::is_convertible;
 using ::std::is_base_of;
 using ::std::is_signed;
+using ::std::is_unsigned;
 using ::std::add_lvalue_reference;
 #if IUTEST_HAS_RVALUE_REFS
 using ::std::add_rvalue_reference;
@@ -210,6 +212,20 @@ template<bool B>const bool bool_constant<B>::value;
 
 typedef bool_constant<true>  true_type;
 typedef bool_constant<false> false_type;
+
+/**
+ * @brief   conditional
+*/
+template<bool B, typename T, typename U>
+class conditional
+{
+    template<bool X, typename TMP>
+    struct impl { typedef T type; };
+    template<typename TMP>
+    struct impl<false, TMP> { typedef U type; };
+public:
+    typedef typename impl<B, void>::type type;
+};
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
@@ -690,6 +706,12 @@ struct is_signed
 {
 };
 
+template<typename T>
+struct is_unsigned
+    : public bool_constant<!is_signed<T>::value>
+{
+};
+
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 /**
@@ -953,14 +975,21 @@ namespace has_equal_to_operator_impl
 {
 
 IUTEST_PRAGMA_WARN_PUSH()
-IUTEST_PRAGMA_WARN_FLOAT_EQUAL()
+IUTEST_PRAGMA_WARN_DISABLE_FLOAT_EQUAL()
 
 using namespace has_equal_to_operator_helper;   // NOLINT
 /** @private */
 template<typename T>
 struct has_equal_to_operator
 {
+#if IUTEST_HAS_DECLTYPE
+    typedef bool_constant< (sizeof(::std::declval<T>() == ::std::declval<T>()) != sizeof(has_equal_to_operator_helper::no_t) ) > type;    // NOLINT
+#else
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_NONNULL()
     typedef bool_constant< (sizeof(*(T*)0 == *(T*)0) != sizeof(has_equal_to_operator_helper::no_t) ) > type;    // NOLINT
+IUTEST_PRAGMA_WARN_POP()
+#endif
 };
 
 IUTEST_PRAGMA_WARN_POP()

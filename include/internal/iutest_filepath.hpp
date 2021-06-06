@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -65,13 +65,8 @@ public:
 #endif
 
 public:
-    iuFilePath & operator = (const iuFilePath& rhs) { m_path = rhs.m_path; return *this; }
+    iuFilePath& operator = (const iuFilePath& rhs) { m_path = rhs.m_path; return *this; }
 
-    iuFilePath& operator == (const iuFilePath& rhs)
-    {
-        m_path = rhs.m_path;
-        return *this;
-    }
     bool operator == (const iuFilePath& rhs) const
     {
         return IsStringCaseEqual(m_path, rhs.m_path);
@@ -189,7 +184,7 @@ namespace internal
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "../impl/iutest_filepath.ipp"
+#  include "../impl/iutest_filepath.ipp" // IWYU pragma: export
 #endif
 
 #endif

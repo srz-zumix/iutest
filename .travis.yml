@@ -4,7 +4,7 @@ language: cpp
 
 compiler:
   - clang
-  - gcc
+  # - gcc
 
 branches:
   only:
@@ -96,8 +96,9 @@ script:
   - cd ./test
   - |
     if [ "${COVERITY_SCAN}" != '1' ] && [ "${USE_CMAKE}" != '1' ]; then
-      make -j4 showcxxversion ${USE_FUSED} default &&
-      make test ${USE_FUSED} &&
+      make showcxxversion &&
+      make -j4 default &&
+      make test &&
       make report
     fi
   - |
@@ -113,7 +114,7 @@ script:
   #    cppcheck --version;
   #    cppcheck samples --enable=all -f -j 4 --suppress=syntaxError -i samples/gmock -i samples/gtest -i samples/vcunittest -i samples/windows -UGTEST_HIDE_UNREACHABLE_CODE_ -UGTEST_API_ -UGTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS_ -UGTEST_HAS_STD_TUPLE_ -UGTEST_MESSAGE_AT_ -UGTEST_INCLUDE_GTEST_GTEST_TYPED_TEST_H_ -UGMOCK_INCLUDE_GMOCK_GMOCK_H_ -U__STDC_WANT_SECURE_LIB__ -UIUTEST_USE_GTEST -UIUTEST_DEBUG -UIUTEST_FILE -U__GLIBCXX__;
   #  else
-  #    cd ./test; make showcxxversion ${USE_FUSED} all;
+  #    cd ./test; make showcxxversion all;
   #  fi
 
 after_failure:
@@ -135,8 +136,8 @@ env:
     - IUTEST_REQUIRE_PYTHON: yes
 
   matrix:
-    - STDFLAG=-std=c++98
-    - STDFLAG=-std=c++11
+    # - STDFLAG=-std=c++98
+    # - STDFLAG=-std=c++11
     - STDFLAG=
 
 allow_failures:
@@ -159,31 +160,26 @@ matrix:
     #        - libc++-dev
     #        - clang-8
     # coverage
-    - compiler: gcc
-      env: USE_COVERAGE=gcov USE_CODECOV=1 USE_GNU_EXTENSION=1
-    - compiler: clang
-      env: USE_COVERAGE=lcov USE_COVERALLS=1 USE_GNU_EXTENSION=1 LCOV_GCOV_TOOL=${TRAVIS_BUILD_DIR}/.ci/llvm-gcov.sh
-      addons:
-        apt:
-          sources: *apt-common-sources
-          packages:
-            - clang-8
-            - lcov
-            - rubygems-integration
-    # fused
-    - compiler: gcc
-      env: USE_FUSED=fused
-    - compiler: gcc
-      env: USE_FUSED=fused_min STDFLAG=-std=c++98
-    # cmake
-    - compiler: gcc
-      env: USE_CMAKE=1
-      addons:
-        apt:
-          sources: *apt-common-sources
-          packages: &apt-cmake-packages
-            - *apt-common-packages
-            - cmake
+    # - compiler: gcc
+    #   env: USE_COVERAGE=gcov USE_CODECOV=1 USE_GNU_EXTENSION=1
+    # - compiler: clang
+    #   env: USE_COVERAGE=lcov USE_COVERALLS=1 USE_GNU_EXTENSION=1 LCOV_GCOV_TOOL=${TRAVIS_BUILD_DIR}/.ci/llvm-gcov.sh
+    #   addons:
+    #     apt:
+    #       sources: *apt-common-sources
+    #       packages:
+    #         - clang-8
+    #         - lcov
+    #         - rubygems-integration
+    # # cmake
+    # - compiler: gcc
+    #   env: USE_CMAKE=1
+    #   addons:
+    #     apt:
+    #       sources: *apt-common-sources
+    #       packages: &apt-cmake-packages
+    #         - *apt-common-packages
+    #         - cmake
     # Google Test
     #- compiler: gcc
     #  env: USE_GTEST=1 USE_GTEST_HEAD=1 USE_GNU_EXTENSION=1
@@ -193,23 +189,23 @@ matrix:
     #      packages:
     #        - *apt-cmake-packages
     #        - cmake
-    - compiler: gcc
-      env: USE_GTEST=1
-      addons:
-        apt:
-          sources: *apt-common-sources
-          packages:
-            - *apt-cmake-packages
-            - libgtest-dev
-    # Google Mock
-    - compiler: gcc
-      env: USE_GMOCK=1
-      addons:
-        apt:
-          sources: *apt-common-sources
-          packages:
-            - *apt-cmake-packages
-            - google-mock
+    # - compiler: gcc
+    #   env: USE_GTEST=1
+    #   addons:
+    #     apt:
+    #       sources: *apt-common-sources
+    #       packages:
+    #         - *apt-cmake-packages
+    #         - libgtest-dev
+    # # Google Mock
+    # - compiler: gcc
+    #   env: USE_GMOCK=1
+    #   addons:
+    #     apt:
+    #       sources: *apt-common-sources
+    #       packages:
+    #         - *apt-cmake-packages
+    #         - google-mock
     # MinGW
     # - compiler: gcc
     #   env:
@@ -227,9 +223,9 @@ matrix:
     #         - binutils-mingw-w64-i686
     #         - gcc-mingw-w64-i686
     #         - g++-mingw-w64-i686
-    # Use Lib
-    - compiler: gcc
-      env: USE_LIB=1
+    # # Use Lib
+    # - compiler: gcc
+    #   env: USE_LIB=1
     # - compiler: clang
     #   env: USE_LIB=1
     # - compiler: gcc

@@ -73,7 +73,7 @@ struct X
 struct Y
 {
     int a, b, c;
-    bool operator == (const Y&) { return true; }
+    bool operator == (const Y&) const { return true; }
 };
 
 struct Z
@@ -108,12 +108,20 @@ IUTEST(UnitTest, is_signed)
     IUTEST_STATIC_ASSERT( !::iutest_type_traits::is_signed<unsigned int>::value );
 }
 
+IUTEST(UnitTest, is_unsigned)
+{
+    IUTEST_STATIC_ASSERT( !::iutest_type_traits::is_unsigned<int>::value );
+    IUTEST_STATIC_ASSERT(  ::iutest_type_traits::is_unsigned<unsigned int>::value );
+}
+
 IUTEST(UnitTest, is_signed_wchar_t)
 {
 #if IUTEST_WCHAR_UNSIGNED
     IUTEST_STATIC_ASSERT( !::iutest_type_traits::is_signed<wchar_t>::value );
+    IUTEST_STATIC_ASSERT(  ::iutest_type_traits::is_unsigned<wchar_t>::value );
 #else
     IUTEST_STATIC_ASSERT(  ::iutest_type_traits::is_signed<wchar_t>::value );
+    IUTEST_STATIC_ASSERT( !::iutest_type_traits::is_unsigned<wchar_t>::value );
 #endif
 }
 

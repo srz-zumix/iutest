@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        exit_tests.cpp
- * @brief       exit 対応テスト
+ * @brief       quick_exit test
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2016-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2016-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -19,7 +19,7 @@
 
 #if IUTEST_HAS_STD_QUICK_EXIT
 
-class ExitCheckEventListener : public ::iutest::EmptyTestEventListener
+class ExitCheckEventListener IUTEST_CXX_FINAL : public ::iutest::EmptyTestEventListener
 {
     virtual void OnTestProgramEnd(const ::iutest::UnitTest& test) IUTEST_CXX_OVERRIDE
     {
@@ -30,10 +30,15 @@ class ExitCheckEventListener : public ::iutest::EmptyTestEventListener
     }
 };
 
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_MISSING_NORETURN()
+
 IUTEST(ExitTest, QuickExit)
 {
     ::std::quick_exit(0);
 }
+
+IUTEST_PRAGMA_WARN_POP()
 
 #endif
 
@@ -48,6 +53,11 @@ int main(int argc, char* argv[])
     listeners.Append(new ExitCheckEventListener());
 
     IUTEST_INIT(&argc, argv);
+
+#if defined(OUTPUTXML)
+    // 失敗テストを含むので xml 出力しない
+    ::iuutil::ReleaseDefaultXmlGenerator();
+#endif
     IUTEST_RUN_ALL_TESTS();
     return 1;
 #else

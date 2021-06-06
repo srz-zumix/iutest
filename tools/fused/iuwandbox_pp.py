@@ -13,6 +13,7 @@ import codecs
 import re
 import collections
 from iutest_pp_strip import IutestPreprocessor
+from iutest_pp_strip import UNUSED_
 
 predefined_macros = {
     '__WANDBOX__': '1',
@@ -27,7 +28,6 @@ predefined_macros = {
     '__MINGW64__': None,
     '__linux__': '1',
     '__arm__': None,
-    'IUTEST_OS_ARM': None,
     '__ARMCC_VERSION': None,
     '__AVR32__': None,
     '__avr32__': None,
@@ -36,6 +36,7 @@ predefined_macros = {
     '__ANDROID__': None,
     'IUTEST_OS_LINUX_ANDROID': None,
     '__APPLE__': None,
+    '__APPLE_CC__': None,
     'IUTEST_OS_IOS': None,
     'IUTEST_OS_MAC': None,
     '__INTEL_COMPILER': None,
@@ -60,6 +61,7 @@ predefined_macros = {
     '_STLPORT_VERSION': None,
     '_BSD_SOURCE': None,
     '__USE_MINGW_ANSI_STDIO': None,
+    '__GLIBCPP__': None,
     'MAX_PATH': None,
     'PATH_MAX': None,
     'IUTEST_OS_WINDOWS': None,
@@ -105,17 +107,35 @@ predefined_macros = {
     'IUTEST_USE_EXTERNAL_STD_TUPLE': '0',
     'IUTEST_USE_EXTERNAL_TR1_TUPLE': '0',
     'IUTEST_USE_CXX_FILESYSTEM': '0',
-    'IUTEST_CXX_NOEXCEPT': 'unused',
-    'IUTEST_CXX_NOEXCEPT_AS': 'unused',
-    'IUTEST_CXX_NOTHROW': 'unused',
-    'IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY': 'unused',
-    'IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL': 'unused',
-    'IUTEST_PRAGMA_WARN_CXX14_CONSTEXPR_NOT_IMPLY_CONST': 'unused',
-    'IUTEST_MAKE_ASSERTIONRESULT_': 'unused',
-    'IUTEST_COND_LIKELY': 'unused',
-    'IUTEST_COND_UNLIKELY': 'unused',
+    'IUTEST_HAS_TESTSUITE': '1',
+    'IUTEST_HAS_TESTCASE': '1',
+    'IUTEST_CXX_NOEXCEPT': UNUSED_,
+    'IUTEST_CXX_NOEXCEPT_AS': UNUSED_,
+    'IUTEST_CXX_NOTHROW': UNUSED_,
+    'IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY': UNUSED_,
+    'IUTEST_PRAGMA_WARN_DISABLE_FORMAT_NONLITERAL': UNUSED_,
+    'IUTEST_PRAGMA_WARN_DISABLE_CXX14_CONSTEXPR_NOT_IMPLY_CONST': UNUSED_,
+    'IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_FLOAT_CONVERSION': UNUSED_,
+    'IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_INT_FLOAT_CONVERSION': UNUSED_,
+    'IUTEST_PRAGMA_WARN_DISABLE_NARROWING': UNUSED_,
+    'IUTEST_PRAGMA_WARN_DISABLE_SWITCH_ENUM': UNUSED_,
+    'IUTEST_PRAGMA_WARN_DISABLE_CAST_ALIGN': UNUSED_,
+    'IUTEST_PRAGMA_WARN_DISABLE_MISSING_NORETURN': UNUSED_,
+    'IUTEST_PRAGMA_WARN_DISABLE_DOUBLE_PROMOTION': UNUSED_,
+    'IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE': None,
+    'IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE': None,
+    'IUTEST_PRAGMA_WARN_DISABLE_FLOAT_CONVERSION': None,
+    'IUTEST_PRAGMA_WARN_DISABLE_FLOAT_EQUAL': None,
+    'IUTEST_PRAGMA_WARN_DISABLE_NOEXCEPT_TPYE': None,
+    'IUTEST_MAKE_ASSERTIONRESULT_': UNUSED_,
+    'IUTEST_COND_LIKELY': UNUSED_,
+    'IUTEST_COND_UNLIKELY': UNUSED_,
     'IUTEST_ATTRIBUTE_LIKELY_': '',
     'IUTEST_ATTRIBUTE_UNLIKELY_': '',
+    'IUTEST_ATTRIBUTE_UNUSED_': None,
+    'IUTEST_ATTRIBUTE_NORETURN_': None,
+    'IUTEST_ATTRIBUTE_FORMAT_PRINTF': None,
+    'IUTEST_ATTRIBUTE_FORMAT': None,
     # no overridable
     'IUTEST_SUCCEED': None,
     'IUTEST_FAIL': None,
@@ -298,6 +318,72 @@ predefined_macros = {
     'IUTEST_ASSUME_MATCHES_REGEXNE': None,
     'IUTEST_ASSUME_CONTAINS_REGEXEQ': None,
     'IUTEST_ASSUME_CONTAINS_REGEXNE': None,
+    'IUTEST_VPRINTF': None,
+    'IUTEST_REMOVE_LEGACY_TEST_CASEAPI_': None,
+    'IUTEST_HAS_CXX11': None,
+    'IUTEST_HAS_CXX14': None,
+    'IUTEST_HAS_CXX1Z': None,
+    'IUTEST_HAS_CXX17': None,
+    'IUTEST_HAS_CXX2A': None,
+    'IUTEST_HAS_CXX20': None,
+    'IUTEST_HAS_ATTRIBUTE': None,
+    'IUTEST_HAS_AUTO': None,
+    'IUTEST_HAS_CHAR8_T': None,
+    'IUTEST_HAS_CHAR16_T': None,
+    'IUTEST_HAS_CHAR32_T': None,
+    'IUTEST_HAS_CONCEPTS': None,
+    'IUTEST_HAS_CONSTEXPR': None,
+    'IUTEST_HAS_CONSTEXPR_IF': None,
+    'IUTEST_HAS_DECLTYPE': None,
+    'IUTEST_HAS_DELETED_FUNCTIONS': None,
+    'IUTEST_HAS_DEFAULT_FUNCTIONS': None,
+    'IUTEST_HAS_EXCEPTIONS': None,
+    'IUTEST_HAS_EXPLICIT_CONVERSION': None,
+    'IUTEST_HAS_INITIALIZER_LIST': None,
+    'IUTEST_HAS_INLINE_VARIABLE': None,
+    'IUTEST_HAS_INT128': None,
+    'IUTEST_HAS_LAMBDA': None,
+    'IUTEST_HAS_NOEXCEPT': None,
+    'IUTEST_HAS_NULLPTR': None,
+    'IUTEST_HAS_OVERRIDE_AND_FINAL': None,
+    'IUTEST_HAS_RTTI': None,
+    'IUTEST_HAS_RVALUE_REFS': None,
+    'IUTEST_HAS_STATIC_ASSERT': None,
+    'IUTEST_HAS_STD_FILESYSTEM': None,
+    'IUTEST_HAS_VARIADIC_TEMPLATES': None,
+    'IUTEST_WCHAR_UNSIGNED': None,
+    'IUTEST_HAS_MATCHER_VARIADIC': None,
+    'IUTEST_HAS_REGEX': None,
+    'IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD': None,
+    'IUTEST_HAS_MATCHER_ELEMENTSARE': None,
+    'IUTEST_HAS_VARIADIC_PAIRWISE': None,
+    'IUTEST_HAS_VARIADIC_COMBINE': None,
+    'IUTEST_HAS_VARIADIC_VALUES': None,
+    'IUTEST_HAS_PAIRWISE': None,
+    'IUTEST_HAS_COMBINE': None,
+    'IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE': None,
+    'IUTEST_USE_THROW_ON_ASSERTION_FAILURE': None,
+    'IUTEST_HAS_SPI_LAMBDA_SUPPORT': None,
+    'IUTEST_HAS_LAMBDA_STATEMENTS': None,
+    'IUTEST_HAS_PEEP_FUNC': None,
+    'IUTEST_HAS_PEEP_STATIC_FUNC': None,
+    'IUTEST_HAS_PEEP_CLASS': None,
+    'IUTEST_HAS_VARIADIC_PRED': None,
+    'IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME': None,
+    'IUTEST_HAS_LONG_DOUBLE': None,
+    'IUTEST_HAS_CLOCK': None,
+    'IUTEST_HAS_CHAR16_T_PRINTABLE': None,
+    'IUTEST_HAS_CHAR32_T_PRINTABLE': None,
+    'IUTEST_USE_OWN_STRING_VIEW': None,
+    'IUTEST_HAS_HDR_CXXABI': None,
+    'IUTEST_HAS_CXX_HDR_ANY': None,
+    'IUTEST_HAS_CXX_HDR_FILESYSTEM': None,
+    'IUTEST_HAS_CXX_HDR_OPTIONAL': None,
+    'IUTEST_HAS_CXX_HDR_STRING_VIEW': None,
+    'IUTEST_HAS_CXX_HDR_TYPE_TARITS': None,
+    'IUTEST_HAS_CXX_HDR_VARIANT': None,
+    'IUTEST_HAS_CXX_HDR_VERSION': None,
+    'IUTEST_PP_MSVC_TRADITIONAL': None,
 }
 
 iutest_config_macro = {
@@ -350,12 +436,16 @@ iutest_config_macro = {
     'IUTEST_HAS_TESTNAME_ALIAS': '1',
     'IUTEST_HAS_REPORT_SKIPPED': '1',
     'IUTEST_HAS_STREAM_BUFFER': '1',
-    # 'IUTEST_HAS_STREAM_RESULT': '1',
+    'IUTEST_HAS_STREAM_RESULT': '0',
     'IUTEST_HAS_BIGGESTINT_OSTREAM': '1',
-    'IUTEST_CHECK_STRICT': '1',
+    'IUTEST_CHECK_STRICT': '0',
     'IUTEST_HAS_COLORCONSOLE': '0',
     'IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY': '0',
     'IUTEST_HAS_BUILTIN_EXPECT': '0',
+    'IUTEST_HAS_PARAM_METHOD_TEST': '1',
+    'IUTEST_HAS_MATCHER_OPTIONAL': '1',
+    'IUTEST_TYPED_TEST_APPEND_TYPENAME': '0',
+    'IUTEST_HAS_FILENO': '0',
 }
 
 expands_macros = [
@@ -371,6 +461,8 @@ expands_macros = [
     'IUTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS',
     'IUTEST_ATTRIBUTE_NO_SANITIZE_THREAD',
     'IUTEST_ATTRIBUTE_NO_SANITIZE_ALL',
+    'IUTEST_HAS_TESTSUITE',
+    'IUTEST_HAS_TESTCASE',
 ]
 
 # expand function macros
@@ -389,8 +481,15 @@ expand_function_macros = [
     'IUTEST_PRAGMA_UNREACHCODE_WARN_DISABLE_BEGIN',
     'IUTEST_PRAGMA_UNREACHCODE_WARN_DISABLE_END',
     'IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY',
-    'IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL',
-    'IUTEST_PRAGMA_WARN_CXX14_CONSTEXPR_NOT_IMPLY_CONST',
+    'IUTEST_PRAGMA_WARN_DISABLE_FORMAT_NONLITERAL',
+    'IUTEST_PRAGMA_WARN_DISABLE_CXX14_CONSTEXPR_NOT_IMPLY_CONST',
+    'IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_FLOAT_CONVERSION',
+    'IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_INT_FLOAT_CONVERSION',
+    'IUTEST_PRAGMA_WARN_DISABLE_NARROWING',
+    'IUTEST_PRAGMA_WARN_DISABLE_SWITCH_ENUM',
+    'IUTEST_PRAGMA_WARN_DISABLE_CAST_ALIGN',
+    'IUTEST_PRAGMA_WARN_DISABLE_MISSING_NORETURN',
+    'IUTEST_PRAGMA_WARN_DISABLE_DOUBLE_PROMOTION',
     'IUTEST_WORKAROUND_MSC_STLSTREAM_C4250',
     'IUTEST_EXPLICIT_TEMPLATE_TYPE_',
     'IUTEST_IF_EXISTS',
@@ -404,6 +503,9 @@ expand_function_macros = [
     'IUTEST_CLASS_CLEANUP',
     'IUTEST_METHOD_INITIALIZE',
     'IUTEST_METHOD_CLEANUP',
+    'IUTEST_PRAGMA_MESSAGE',
+    'IUTEST_TEST_COMPILEERROR',
+    'IUTEST_TEST_STATICASSERT',
     # 'IUTEST_MAKE_ASSERTIONRESULT_',
 ]
 
@@ -441,20 +543,20 @@ rename_macro = {
     'IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_': 'II_A_E_TT',
     'IUTEST_PRAGMA_ASSIGNMENT_OPERATOR_COULD_NOT_GENERATE_WARN_DISABLE_BEGIN': 'II_PGM_A_O_CN_G_W_D_B',
     'IUTEST_PRAGMA_ASSIGNMENT_OPERATOR_COULD_NOT_GENERATE_WARN_DISABLE_END': 'II_PGM_A_O_CN_G_W_D_E',
-    'IUTEST_PRAGMA_WARN_FLOAT_EQUAL': 'II_PGM_W_FE',
-    'IUTEST_PRAGMA_WARN_CAST_ALIGN': 'II_PGM_W_CA',
+    # 'IUTEST_PRAGMA_WARN_DISABLE_FLOAT_EQUAL': 'II_PGM_W_FE',
+    'IUTEST_PRAGMA_WARN_DISABLE_CAST_ALIGN': 'II_PGM_W_CA',
     'IUTEST_PRAGMA_WARN_DISABLE_NOEXCEPT_TPYE': 'II_PGM_W_D_NE_T',
     'IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE': 'II_PGM_W_D_S_C',
-    'IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE': 'II_PGM_W_D_D_E',
+    # 'IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE': 'II_PGM_W_D_D_E',
     'IUTEST_PRAGMA_CLANG_WARN_PUSH': 'II_PGM_C_W_PU',
     'IUTEST_PRAGMA_CLANG_WARN_DISABLE': 'II_PGM_C_W_D',
     'IUTEST_PRAGMA_CLANG_WARN_POP': 'II_PGM_C_W_PP',
     'IUTEST_PRAGMA_GCC_WARN_PUSH': 'II_PGM_G_W_PU',
     'IUTEST_PRAGMA_GCC_WARN_DISABLE': 'II_PGM_G_W_D',
     'IUTEST_PRAGMA_GCC_WARN_POP': 'II_PGM_G_W_PP',
-    'IUTEST_PRAGMA_WARN_PUSH': 'II_PGM_W_PU',
+    # 'IUTEST_PRAGMA_WARN_PUSH': 'II_PGM_W_PU',
     # 'IUTEST_PRAGMA_WARN_DISABLE': 'II_PGM_W_D',
-    'IUTEST_PRAGMA_WARN_POP': 'II_PGM_W_PP',
+    # 'IUTEST_PRAGMA_WARN_POP': 'II_PGM_W_PP',
     'IUTEST_PP_DISALLOW_COPY_AND_ASSIGN': 'IP_DIS_C_A_A',
     'IUTEST_PP_DISALLOW_ASSIGN': 'IP_DIS_A',
     'IUTEST_PP_DISALLOW_MOVE_AND_COPY_AND_ASSIGN': 'IP_DIS_M_A_C_A_A',
@@ -462,6 +564,7 @@ rename_macro = {
     'IUTEST_PP_INC': 'IP_INC',
     'IUTEST_PP_DEC': 'IP_DEC',
     'IUTEST_PP_CAT': 'IP_CAT',
+    'IUTEST_PP_EMPTY_': 'IP_EMP_',
     'IUTEST_PP_EMPTY': 'IP_EMPTY',
     'IUTEST_PP_IS_BEGIN_PARENS': 'IP_IS_B_PAR',
     'IUTEST_LIBSTDCXX_VERSION': 'II_LSTDCXX_V',
@@ -513,6 +616,7 @@ rename_macro = {
 rename_text = {
     'backward': 'bkw',
     # 'CmpHelper': 'CHlpr',
+    'IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_': 'II_PGM_IWD_CLNG_',
     'IUTEST_MAKE_ASSERTIONRESULT_': '',
     'II_DECL_STREQ_COMPARE_HELPER_': 'II_DECL_SE_C_H_',
     'II_INSTANTIATE_TEST_CASE_AP_': 'II_INST_TC_AP_',
@@ -606,6 +710,21 @@ class WandboxPreprocessor:
             dst += "#define " + k + " " + v + "\n"
         return dst
 
+    def remove_redudant_pragma(self, code):
+        dst = ""
+        RE_PRAGMA_WARN_STRIP = re.compile(r'II_PGM_W_PU\(\)(.*?)II_PGM_W_PP\(\)')
+        for line in code.splitlines():
+            for m in RE_PRAGMA_WARN_STRIP.finditer(line):
+                if 'II_PGM_W' not in m.group(1):
+                    line = line.replace(m.group(0), m.group(1))
+            line += "\n"
+            dst += line
+        return dst
+
+    def trancate_line(self, code):
+        return self.pp.trancate_line(code)
+
+
 
 def default_pp():
     output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../fused-src")
@@ -619,6 +738,70 @@ def default_pp():
     code = pp.remove_empty_ppif(code)
     code = pp.remove_redudant(code)
     code = pp.rename_macros(code)
+    code = pp.remove_redudant_pragma(code)
+    code = pp.trancate_line(code)
+    output_file.write(code)
+    output_file.close()
+
+
+def clang_pp():
+    output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../fused-src")
+    output = "iutest.wandbox.min.clang.hpp"
+    f = codecs.open(os.path.join(output_dir, "iutest.wandbox.min.hpp"), 'r', 'utf-8-sig')
+    code = f.read()
+    f.close()
+    output_file = codecs.open(os.path.join(output_dir, output), 'w', 'utf-8-sig')
+    clang_predefined_macros = {
+        '__clang__': '1',
+        '__GNUC__': None,
+        '__GXX_EXPERIMENTAL_CXX0X__': None,
+    }
+    clang_predefined_macros.update(predefined_macros)
+    clagn_config_macro = {
+        'IUTEST_HAS_COUNTER_MACRO': '1',
+        'IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_OVERLOAD_MEMBER_FUNCTION': '0',
+    }
+    clagn_config_macro.update(iutest_config_macro)
+    pp = IutestPreprocessor(clang_predefined_macros,
+        clagn_config_macro,
+        expand_function_macros,
+        expands_macros,
+        has_features,
+        has_include)
+    code = pp.preprocess(code, None)
+    code = pp.remove_empty_ppif(code)
+    code = pp.trancate_line(code)
+    output_file.write(code)
+    output_file.close()
+
+
+def gcc_pp():
+    output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../fused-src")
+    output = "iutest.wandbox.min.gcc.hpp"
+    f = codecs.open(os.path.join(output_dir, "iutest.wandbox.min.hpp"), 'r', 'utf-8-sig')
+    code = f.read()
+    f.close()
+    output_file = codecs.open(os.path.join(output_dir, output), 'w', 'utf-8-sig')
+    gcc_predefined_macros = {
+        '__clang__': None,
+        '__GNUC__': 'unknown',
+        '_LIBCPP_VERSION': None,
+    }
+    gcc_predefined_macros.update(predefined_macros)
+    clagn_config_macro = {
+        'IUTEST_HAS_COUNTER_MACRO': '0',
+        'IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_OVERLOAD_MEMBER_FUNCTION': '1',
+    }
+    clagn_config_macro.update(iutest_config_macro)
+    pp = IutestPreprocessor(gcc_predefined_macros,
+        iutest_config_macro,
+        expand_function_macros,
+        expands_macros,
+        has_features,
+        has_include)
+    code = pp.preprocess(code, None)
+    code = pp.remove_empty_ppif(code)
+    code = pp.trancate_line(code)
     output_file.write(code)
     output_file.close()
 
@@ -630,6 +813,8 @@ def main():
         if sys.argv[1] == 'debug':
             debug = True
     default_pp()
+    clang_pp()
+    gcc_pp()
 
 if __name__ == '__main__':
     main()

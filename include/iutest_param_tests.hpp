@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,7 +17,9 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_any.hpp"
+// IWYU pragma: end_exports
 
 #if IUTEST_HAS_PARAM_TEST
 
@@ -156,8 +158,8 @@
     static ::iutest::detail::iuIParamGenerator< basefixture_::ParamType >*                          \
         IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testsuite_)() { return generator_; }               \
     static ::std::string IIUT_TEST_P_PARAMGENERATOR_NAME_(prefix_, testsuite_)(                     \
-        const ::iutest::TestParamInfo< basefixture_::ParamType >& info) { return                    \
-            ::iutest::detail::ParamTestSuiteInfo< basefixture_ >::paramname_generator_(info); }     \
+        const ::iutest::TestParamInfo< basefixture_::ParamType >& pinfo_) { return                  \
+            ::iutest::detail::ParamTestSuiteInfo< basefixture_ >::paramname_generator_(pinfo_); }   \
     int IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testsuite_)() {                            \
         ::iutest::detail::ParamTestSuiteInfo< basefixture_ >* p = IIUT_GETTESTSUITEPATTERNHOLDER(   \
                 basefixture_, IIUT_TO_NAME_STR_(testsuite_), IUTEST_GET_PACKAGENAME_());            \
@@ -172,7 +174,7 @@
 */
 #define IIUT_TEST_P_I_(classname_, testsuite_, testsuitename_, testname_)                   \
     IIUT_TEST_P_FIXTURE_DECL_(testsuite_)                                                   \
-    class classname_ : public testsuite_ {                                                  \
+    class classname_ IUTEST_CXX_FINAL : public testsuite_ {                                 \
         public: classname_() {}                                                             \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE;                                 \
         private: static int AddRegister() {                                                 \
@@ -189,7 +191,7 @@
 #if IUTEST_HAS_IGNORE_TEST
 
 #define IIUT_TEST_P_I_IGNORE_(classname_, testsuite_, testsuitename_, testname_)            \
-    class classname_ : public testsuite_ {                                                  \
+    class classname_ IUTEST_CXX_FINAL : public testsuite_ {                                 \
         public: classname_() {}                                                             \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
         template<typename T>void Body();                                                    \
@@ -677,7 +679,7 @@ detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ CSV(const char* relative_pa
     ::std::string path;
     if( sep != NULL )
     {
-        const size_t length = ::std::distance(test_file, sep);
+        const size_t length = static_cast<size_t>(::std::distance(test_file, sep));
         path += ::std::string(test_file, length);
         path += detail::GetPathSeparator();
     }

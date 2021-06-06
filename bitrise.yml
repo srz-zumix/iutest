@@ -60,14 +60,6 @@ workflows:
             system_profiler SPHardwareDataType
             gem install xcpretty
     - script:
-        title: brew install
-        inputs:
-        - content: |
-            #!/usr/bin/env bash
-            set -ex
-            brew install cmake
-            brew link cmake
-    - script:
         title: CMake
         inputs:
         - content: |-
@@ -134,6 +126,11 @@ workflows:
         - content: |-
             #!/bin/bash
             set -ex
+            curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+            sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 90
+            python --version
+            sudo python get-pip.py --force-reinstall
+            # python -m pip install --upgrade pip==20.0
             python -m pip install --upgrade pip
             python -m pip install --upgrade cmake
             cmake --version
@@ -159,16 +156,21 @@ workflows:
             $APT_CACHE_DIR
     meta:
       bitrise.io:
-        stack: linux-docker-android
+        stack: linux-docker-android-20.04
   primary:
     steps:
-    - trigger-bitrise-workflow:
+    - activate-ssh-key:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone: {}
+    - script:
+        title: continue from repo
         inputs:
-        - workflow_id: Android
-        - api_token: "$IUTEST_RPIMARY_TRIGGER_KEY"
-        title: Trigger Android workflow
-    after_run:
-    - iOS
+        - content: |-
+            #!/bin/bash
+            set -ex
+            git remote rm fork || true
+            bitrise run iOS
+            bitrise run Android
   test:
     after_run:
     - iOS

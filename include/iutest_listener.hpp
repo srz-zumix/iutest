@@ -180,7 +180,18 @@ public:
     /**
      * @brief   リスナーの解放
     */
-    TestEventListener* Release(TestEventListener* listener) { return m_repeater.Release(listener); }
+    TestEventListener* Release(TestEventListener* listener)
+    {
+        if( listener == m_default_result_printer )
+        {
+            m_default_result_printer = NULL;
+        }
+        if( listener == m_default_xml_generator )
+        {
+            m_default_xml_generator = NULL;
+        }
+        return m_repeater.Release(listener);
+    }
 
 public:
     /**
@@ -239,7 +250,7 @@ private:
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "impl/iutest_listener.ipp"
+#  include "impl/iutest_listener.ipp" // IWYU pragma: export
 #endif
 
 #endif // INCG_IRIS_IUTEST_LISTENER_HPP_C94B8142_F8B3_413F_B479_8AA2B78604CE_

@@ -17,6 +17,7 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #if defined(INCG_IRIS_IUTEST_SWITCH_HPP_)
 #  if defined(IUTEST_USE_GTEST)
 #    ifndef iutest
@@ -29,6 +30,7 @@
 #    endif
 #  endif
 #endif
+// IWYU pragma: end_exports
 
 namespace iuutil
 {

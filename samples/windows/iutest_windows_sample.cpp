@@ -98,7 +98,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     HWND hWnd;
 
     int argc = __argc;
-    ::std::vector<::std::string> argv;
+    ::std::vector< ::std::string > argv;
     for (int i = 0; i < argc; ++i)
     {
         argv.push_back(__argv[i]);

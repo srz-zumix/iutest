@@ -17,9 +17,11 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_internal.hpp"
 #include "iutest_option_message.hpp"
 #include "../iutest_suite.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest
 {
@@ -149,7 +151,7 @@ private:
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
     // _invalid_parameter_handler
-    static void OnInvalidParameter(const wchar_t * expression, const wchar_t * function
+    IUTEST_ATTRIBUTE_NORETURN_ static void OnInvalidParameter(const wchar_t * expression, const wchar_t * function
         , const wchar_t * file, unsigned int line, uintptr_t pReserved);
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
@@ -251,7 +253,7 @@ template<typename T>
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "../impl/iutest_core_impl.ipp"
+#  include "../impl/iutest_core_impl.ipp" // IWYU pragma: export
 #endif
 
 #endif // INCG_IRIS_IUTEST_CORE_IMPL_HPP_D5ABC7DE_C751_4AC0_922F_547880163891_

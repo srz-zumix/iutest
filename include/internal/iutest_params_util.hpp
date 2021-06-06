@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,11 +17,15 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_genparams.hpp"
 #include "iutest_genparams_from_file.hpp"
+// IWYU pragma: end_exports
 
 #if IUTEST_HAS_PARAM_TEST
+// IWYU pragma: begin_exports
 #include "iutest_pool.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest {
 namespace detail
@@ -114,7 +118,7 @@ protected:
  * @tparam  T   = テストクラス
 */
 template<class T>
-class ParamTestSuiteInfo : public IParamTestSuiteInfo
+class ParamTestSuiteInfo IUTEST_CXX_FINAL : public IParamTestSuiteInfo
 {
     typedef T                                       Tester;
     typedef typename Tester::ParamType              ParamType;

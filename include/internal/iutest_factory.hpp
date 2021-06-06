@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -46,7 +46,7 @@ public:
  * @tparam  Tester  = テストクラス
 */
 template<class Tester>
-class iuFactory : public iuFactoryBase
+class iuFactory IUTEST_CXX_FINAL : public iuFactoryBase
 {
 public:
     virtual auto_ptr<Test> Create() IUTEST_CXX_OVERRIDE
@@ -81,7 +81,7 @@ protected:
  * @tparam  Tester  = テストクラス
 */
 template<class Tester>
-class iuParamTestFactory : public iuParamTestFactoryBase<typename Tester::ParamType>
+class iuParamTestFactory IUTEST_CXX_FINAL : public iuParamTestFactoryBase<typename Tester::ParamType>
 {
     typedef typename Tester::ParamType ParamType;
     typedef iuParamTestFactoryBase<ParamType> _Mybase;

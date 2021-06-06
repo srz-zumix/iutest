@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,7 +17,9 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "internal/iutest_internal_defs.hpp"
+// IWYU pragma: end_exports
 
 //======================================================================
 // class
@@ -127,7 +129,7 @@ private:
         virtual ::std::string to_string() const = 0;
     };
     template<typename T>
-    class holder : public placeholder
+    class holder IUTEST_CXX_FINAL : public placeholder
     {
     public:
         explicit holder(const T& v) : held(v) {}

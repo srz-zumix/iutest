@@ -123,14 +123,14 @@ IUTEST(PrintToTest, U8String)
 #if IUTEST_HAS_CHAR16_T
 IUTEST(PrintToTest, U16String)
 {
-    IUTEST_SUCCEED() << ::iutest::PrintToString(u"テスト");
+    IUTEST_SUCCEED() << ::iutest::PrintToString(u"test");
 }
 #endif
 
 #if IUTEST_HAS_CHAR32_T
 IUTEST(PrintToTest, U32String)
 {
-    IUTEST_SUCCEED() << ::iutest::PrintToString(U"テスト");
+    IUTEST_SUCCEED() << ::iutest::PrintToString(U"TEST");
 }
 #endif
 

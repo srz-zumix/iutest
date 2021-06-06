@@ -1,4 +1,7 @@
-box: python
+box:
+  id: python
+  username: srzzumix
+  password: ${WERCKER_DOCKERHUB_PASSWORD}
 build:
   steps:
     - pip-install: &pip-install
@@ -21,13 +24,28 @@ build:
           cd tools/wandbox
           python iuwandbox.py --list-compiler --verbose
 
+cmake-check:
+  steps:
+    - script:
+        name: CMake tests check
+        code: |
+          cd test
+          make cmake-sync-check
+
 gtest-compat:
-  box: alpine
+  box:
+    id: alpine
+    username: srzzumix
+    password: ${WERCKER_DOCKERHUB_PASSWORD}
   docker: true
   steps:
     - script:
         name: Install docker
         code: apk --no-cache add docker
+    - script:
+        name: Login DockerHub
+        code: |
+          echo ${WERCKER_DOCKERHUB_PASSWORD} | docker login -u srzzumix --password-stdin
     - script:
         name: Launch docker container
         # https://devcenter.wercker.com/development/pipelines/direct-docker-access/#volumes-and-mounts
@@ -50,6 +68,7 @@ gtest-compat:
       name: Clean docker container
       code: |
         docker stop iutest-work
+        docker logout
 
 wandbox:
   steps:
@@ -64,7 +83,7 @@ wandbox:
         code: |
           export PYTHONDONTWRITEBYTECODE=1
           export IUWANDBOX_COMMANDLINE_OPTION="-f"-Werror" --encoding utf-8-sig --expand-include --verbose --check-config --retry-wait 180 --iutest-use-main"
-          if [ "${IUWANDBOX_TARGET_SRC+x}" ]; then export IUWANDBOX_TARGET_SRC="../../test/syntax_tests.cpp"; fi
+          if [ -z "${IUWANDBOX_TARGET_SRC+x}" ]; then export IUWANDBOX_TARGET_SRC="../../test/syntax_tests.cpp"; fi
 
     - script: &experimental
         name: experimental setup
@@ -77,6 +96,7 @@ wandbox:
           cd tools/wandbox
           for compiler in ${IUWANDBOX_COMPILER}
           do
+              echo ./iuwandbox.py ${IUWANDBOX_EXPERIMENTAL_OPTION} ${IUWANDBOX_COMMANDLINE_OPTION} -c $compiler --std "c++${IUWANDBOX_CPPVER}" ${IUWANDBOX_TARGET_SRC} ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_STDC_ADD_OPTION};
               python ./iuwandbox.py ${IUWANDBOX_EXPERIMENTAL_OPTION} ${IUWANDBOX_COMMANDLINE_OPTION} -c $compiler --std "c++${IUWANDBOX_CPPVER}" ${IUWANDBOX_TARGET_SRC} ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_STDC_ADD_OPTION};
           done
 

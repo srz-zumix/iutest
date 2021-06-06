@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/gtest/iutest_spi_switch.hpp"
+#include "../include/gtest/iutest_spi_switch.hpp"  // IWYU pragma: keep
 
 IUTEST_PRAGMA_UNREACHCODE_WARN_DISABLE_BEGIN()
 
@@ -72,8 +72,8 @@ IUTEST(AssumeTest, Null)
 
 IUTEST(AssumeTest, NOTNULL)
 {
-    IUTEST_ASSUME_NOTNULL(NULL);
-    IUTEST_ASSERT_NOTNULL(NULL);
+    IUTEST_ASSUME_NOTNULL(IUTEST_NULLPTR);
+    IUTEST_ASSERT_NOTNULL(IUTEST_NULLPTR);
 }
 
 IUTEST(AssumeTest, Near)
@@ -96,7 +96,7 @@ IUTEST(AssumeTest, ANY_THROW)
     IUTEST_ASSERT_ANY_THROW((void)0);
 }
 
-void AssumeTest_NO_THROW_Test() { throw 1; }
+IUTEST_ATTRIBUTE_NORETURN_ void AssumeTest_NO_THROW_Test() { throw 1; }
 
 IUTEST(AssumeTest, NO_THROW)
 {
@@ -132,6 +132,8 @@ IUTEST(AssumeTest, THROW_VALUE_STRCASEEQ)
 
 IUTEST_PRAGMA_UNREACHCODE_WARN_DISABLE_END()
 
+#if !defined(IUTEST_USE_GTEST)
+
 #if IUTEST_HAS_EXCEPTIONS
 static const int assume_throw_test_count = 7;
 #else
@@ -144,6 +146,8 @@ static const int assume_test_count = assume_throw_test_count + 18 + 2;
 static const int assume_test_count = assume_throw_test_count + 18;
 #endif
 
+#endif
+
 #ifdef UNICODE
 int wmain(int argc, wchar_t** argv)
 #else
@@ -153,7 +157,7 @@ int main(int argc, char** argv)
     IUTEST_INIT(&argc, argv);
 #if defined(OUTPUTXML)
     // 失敗テストを含むので xml 出力しない
-    ::iutest::IUTEST_FLAG(output) = NULL;
+    ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
     const int ret = IUTEST_RUN_ALL_TESTS();
     if( ret == 0 ) return 1;

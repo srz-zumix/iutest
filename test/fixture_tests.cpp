@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -22,7 +22,7 @@ class TestSetUpEachCall : public ::iuutil::backward::Test<TestSetUpEachCall>
 protected:
     static int x;
 public:
-    virtual void SetUp(void)
+    virtual void SetUp(void) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         ++x;
     }
@@ -53,12 +53,12 @@ public:
         IUTEST_ASSERT_EQ(-1, x);
         x = 0;
     }
-    virtual void SetUp(void)
+    virtual void SetUp(void) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         IUTEST_ASSERT_EQ(0, x);
         ++x;
     }
-    virtual void TearDown(void)
+    virtual void TearDown(void) IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
     {
         IUTEST_ASSERT_EQ(2, x);
         ++x;

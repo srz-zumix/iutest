@@ -61,16 +61,16 @@ class TestEventListener : public ::iutest::TestEventListener
 {
 #if IUTEST_HAS_TESTSUITE
 #if defined(IUTEST_REMOVE_LEGACY_TEST_CASEAPI_)
-    virtual void OnTestSuiteStart(const ::iutest::TestSuite& test_suite)    { OnTestCaseStart(test_suite); }
+    virtual void OnTestSuiteStart(const ::iutest::TestSuite& test_suite) IUTEST_CXX_OVERRIDE { OnTestCaseStart(test_suite); }
     virtual void OnTestCaseStart(const ::iutest::TestSuite& /*test_suite*/) {}
-    virtual void OnTestSuiteEnd(const ::iutest::TestSuite& test_suite)      { OnTestCaseEnd(test_suite); }
+    virtual void OnTestSuiteEnd(const ::iutest::TestSuite& test_suite) IUTEST_CXX_OVERRIDE   { OnTestCaseEnd(test_suite); }
     virtual void OnTestCaseEnd(const ::iutest::TestSuite& /*test_suite*/)   {}
 #endif
 #else
     virtual void OnTestSuiteStart(const ::iutest::TestCase& /*test_case*/) {}
-    virtual void OnTestCaseStart(const ::iutest::TestCase& test_case)       { OnTestSuiteStart(test_case); }
+    virtual void OnTestCaseStart(const ::iutest::TestCase& test_case) IUTEST_CXX_OVERRIDE    { OnTestSuiteStart(test_case); }
     virtual void OnTestSuiteEnd(const ::iutest::TestCase& /*test_case*/)   {}
-    virtual void OnTestCaseEnd(const ::iutest::TestCase& test_case)         { OnTestSuiteEnd(test_case); }
+    virtual void OnTestCaseEnd(const ::iutest::TestCase& test_case) IUTEST_CXX_OVERRIDE      { OnTestSuiteEnd(test_case); }
 #endif
 };
 

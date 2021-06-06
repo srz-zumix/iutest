@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -79,7 +79,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTest(IFile* file, co
         , test.reportable_disabled_test_count()
         );
 #if IUTEST_HAS_REPORT_SKIPPED
-    file->Printf("skip=\"%d\" ", test.reportable_skip_test_count());
+    file->Printf("skipped=\"%d\" ", test.reportable_skip_test_count());
 #endif
     file->Printf("errors=\"0\" time=\"%s\" timestamp=\"%s\" "
         , detail::FormatTimeInMillisecAsSecond(test.elapsed_time()).c_str()
@@ -87,7 +87,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTest(IFile* file, co
         );
     if( TestFlag::IsEnableFlag(TestFlag::SHUFFLE_TESTS) )
     {
-        file->Printf("random_seed=\"%d\" ", test.random_seed());
+        file->Printf("random_seed=\"%u\" ", test.random_seed());
     }
     file->Printf("name=\"AllTests\"");
 
@@ -119,7 +119,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestSuite(IFile* fil
         , test_suite.reportable_disabled_test_count()
         );
 #if IUTEST_HAS_REPORT_SKIPPED
-    file->Printf("skip=\"%d\" ", test_suite.reportable_skip_test_count() );
+    file->Printf("skipped=\"%d\" ", test_suite.reportable_skip_test_count() );
 #endif
     file->Printf("errors=\"0\" time=\"%s\" timestamp=\"%s\""
         , detail::FormatTimeInMillisecAsSecond(test_suite.elapsed_time()).c_str()
@@ -145,7 +145,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
         return;
     }
 
-    file->Printf("    <testsuite ");
+    file->Printf("    <testcase ");
     OutputXmlAttribute(file, "name", EscapeXmlAttribute(test_info.name()).c_str() );
 
     {
@@ -210,7 +210,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
             OutputXmlCDataSection(file, "Not Run");
             file->Printf("\n      </failure>\n");
         }
-        file->Printf("    </testsuite>\n");
+        file->Printf("    </testcase>\n");
     }
     else
     {
@@ -220,7 +220,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
         {
             file->Printf(">\n");
             OnReportTestSkipped(file, test_info);
-            file->Printf("    </testsuite>\n");
+            file->Printf("    </testcase>\n");
         }
         else
 #endif
@@ -357,7 +357,7 @@ IUTEST_IPP_INLINE ::std::string DefaultXmlGeneratorListener::EscapeXml(const cha
                 {
 #if !defined(IUTEST_OS_WINDOWS_MOBILE)
                     wchar_t wc = 0;
-                    const int len = detail::iu_mbtowc(&wc, src, MB_CUR_MAX);
+                    const int len = detail::iu_mbtowc(&wc, src, static_cast<size_t>(MB_CUR_MAX));
                     if( len > 1 )
                     {
                         msg += detail::AnyStringToUTF8(&wc, 1);
@@ -371,7 +371,7 @@ IUTEST_IPP_INLINE ::std::string DefaultXmlGeneratorListener::EscapeXml(const cha
                         if( is_attribute && IsWhitespace(s) )
                         {
                             char tmp[8];
-                            detail::iu_snprintf(tmp, sizeof(tmp), "&#x%02X;", s);
+                            detail::iu_snprintf(tmp, sizeof(tmp), "&#x%02X;", static_cast<unsigned int>(s));
                             msg += tmp;
                         }
                         else

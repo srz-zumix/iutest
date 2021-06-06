@@ -87,7 +87,7 @@ IUTEST(Optional, Compare)
         IUTEST_EXPECT_EQ(::std::nullopt, opt);
     }
     {
-        ::std::optional<int> opt = ::std::nullopt;
+        static const ::std::optional<int> opt = ::std::nullopt;
         IUTEST_EXPECT_FALSE(opt);
         IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_EQ(1234, opt), "1234");
     }
@@ -141,19 +141,19 @@ IUTEST(Variant, CompareRawType)
 struct AlwaysThrow
 {
     AlwaysThrow() = default;
-    AlwaysThrow(const AlwaysThrow &)
+    IUTEST_ATTRIBUTE_NORETURN_ AlwaysThrow(const AlwaysThrow &)
     {
         throw std::exception();
     }
-    AlwaysThrow(AlwaysThrow &&)
+    IUTEST_ATTRIBUTE_NORETURN_ AlwaysThrow(AlwaysThrow &&)
     {
         throw std::exception();
     }
-    AlwaysThrow &operator=(const AlwaysThrow &)
+    IUTEST_ATTRIBUTE_NORETURN_ AlwaysThrow &operator=(const AlwaysThrow &)
     {
         throw std::exception();
     }
-    AlwaysThrow &operator=(AlwaysThrow &&)
+    IUTEST_ATTRIBUTE_NORETURN_ AlwaysThrow &operator=(AlwaysThrow &&)
     {
         throw std::exception();
     }
@@ -272,6 +272,8 @@ IUTEST(FileSystem, PathPrintTo)
     }
 }
 
+#if IUTEST_HAS_CXX2A
+
 IUTEST(FileSystem, StatusCompare)
 {
     {
@@ -280,6 +282,8 @@ IUTEST(FileSystem, StatusCompare)
         IUTEST_EXPECT_EQ(v1, v2);
     }
 }
+
+#endif
 
 IUTEST(FileSystem, StatusPrintTo)
 {
