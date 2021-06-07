@@ -60,14 +60,6 @@ workflows:
             system_profiler SPHardwareDataType
             gem install xcpretty
     - script:
-        title: brew install
-        inputs:
-        - content: |
-            #!/usr/bin/env bash
-            set -ex
-            brew install cmake
-            brew link cmake
-    - script:
         title: CMake
         inputs:
         - content: |-
