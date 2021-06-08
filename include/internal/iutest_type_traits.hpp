@@ -346,6 +346,11 @@ template<>
 class is_integral<wchar_t> : public true_type {};
 #endif
 
+#if IUTEST_HAS_CHAR8_T
+template<>
+class is_integral<char8_t> : public true_type {};
+#endif
+
 #if IUTEST_HAS_CHAR16_T
 template<>
 class is_integral<char16_t> : public true_type {};
