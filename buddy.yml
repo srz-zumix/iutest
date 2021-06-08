@@ -3,12 +3,11 @@
   events:
   - type: "PUSH"
     refs:
-    - master
-    - develop
-    - ^buddy/.+$
+    - "(^(master$|develop$|buddy/.+$))"
   trigger_conditions:
   - trigger_condition: "ALWAYS"
   auto_clear_cache: true
+  fetch_all_refs: true
   # You can not change this option in Free mode.
   # no_skip_to_most_recent: true
   actions:
