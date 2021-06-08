@@ -645,6 +645,15 @@
 #  endif
 #endif
 
+#if !defined(IU_MB_CUR_MAX)
+#  if defined(MB_CUR_MAX)
+#    define IU_MB_CUR_MAX   MB_CUR_MAX
+#  endif
+#endif
+#if !defined(IU_MB_CUR_MAX)
+#  define IU_MB_CUR_MAX   6
+#endif
+
 //======================================================================
 // include
 #include <iterator>
