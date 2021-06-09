@@ -226,7 +226,7 @@ namespace win
     /**
      * @brief   文字列変換
      */
-    ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const wchar_t* wide_c_str);
+    ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const wchar_t* wide_c_str, int num=-1);
 
     /**
      * @brief   HRESULT のエラー文字列を取得
