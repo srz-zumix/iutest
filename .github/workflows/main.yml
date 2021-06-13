@@ -62,6 +62,8 @@ jobs:
         run: |
           echo "C:\Program Files\LLVM\bin" >> $GITHUB_PATH
       - uses: ./.github/actions/composite/test-info
+        with:
+          shell: cmd
       - name: llvm clang build
         run: |
           make -C test -j8
@@ -78,6 +80,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/composite/test-info
+        with:
+          shell: cmd
       - name: mingw build
         run: |
           make -C test -j8
