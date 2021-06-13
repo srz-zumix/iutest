@@ -1,0 +1,13 @@
+name: 'Docker login'
+description: 'docker login'
+runs:
+  using: "composite"
+  steps:
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: login check
+      run: |
+        echo a | docker login

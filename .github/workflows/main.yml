@@ -35,14 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: prepare
     steps:
-      - name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: login check
-        run: |
-          echo a | docker login
+      - uses: ./.github/actions/composite/docker-login
       - name: TODO
         run: |
           echo "build and push"
@@ -51,6 +44,9 @@ jobs:
   llvm-basic-test:
     runs-on: windows-latest
     needs: prepare
+    env:
+      CXX: clang++
+      CC: clang
     defaults:
       run:
         shell: cmd
@@ -64,19 +60,13 @@ jobs:
       shell: bash
       run: |
         echo "C:\Program Files\LLVM\bin" >> $GITHUB_PATH
-    - name: llvm clang info
-      run: |
-        path
-        make -C test clean
-        make -C test CXX=clang++ CC=clang showcxxversion
-        make -C test CXX=clang++ CC=clang showcxxmacros
-        make -C test CXX=clang++ CC=clang check_stdlib
+    - uses: ./.github/actions/composite/tes-info
     - name: llvm clang build
       run: |
-        make -C test CXX=clang++ CC=clang -j8
+        make -C test -j8
     - name: llvm clang test
       run: |
-        make -C test CXX=clang++ CC=clang test
+        make -C test test
 
   mingw-basic-test:
     runs-on: windows-latest
@@ -86,12 +76,7 @@ jobs:
         shell: cmd
     steps:
     - uses: actions/checkout@v2
-    - name: mingw info
-      run: |
-        make -C test clean
-        make -C test showcxxversion
-        make -C test showcxxmacros
-        make -C test check_stdlib
+    - uses: ./.github/actions/composite/tes-info
     - name: mingw build
       run: |
         make -C test -j8
@@ -133,12 +118,7 @@ jobs:
         python-version: ${{ env.PYTHON_VERSION }}
     - name: Set Python environment variable
       run: echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> $GITHUB_ENV
-    - name: zapcc info
-      run: |
-        make -C test clean
-        make -C test showcxxversion
-        make -C test showcxxmacros
-        make -C test check_stdlib
+    - uses: ./.github/actions/composite/tes-info
     - name: zapcc build
       run: |
         make -C test -j1 IUTEST_REQUIRE_PYTHON=1
@@ -165,12 +145,7 @@ jobs:
     - name: set .bash_profile
       run: |
         echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
-    - name: icpc info
-      run: |
-        make -C test clean
-        make -C test showcxxversion
-        make -C test showcxxmacros
-        make -C test check_stdlib
+    - uses: ./.github/actions/composite/tes-info
     - name: icpc build
       run: |
         make -C test -j8
@@ -200,9 +175,7 @@ jobs:
       LIBS: nosys
     steps:
     - uses: actions/checkout@v2
-    - name: info
-      run: |
-        make -C test showcxxversion showcxxmacros
+    - uses: ./.github/actions/composite/tes-info
     - name: build
       run: |
         make -C test -j8
