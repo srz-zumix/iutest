@@ -4,7 +4,7 @@ inputs:
   before-clean:
     description: 'before clean'
     default: true
-  shell:
+  shell-command:
     description: 'shell command'
     default: bash
 runs:
@@ -13,14 +13,14 @@ runs:
     - name: clean
       run: |
         make -C test clean
-      shell: ${{ inputs.shell }}
-      if: "${{ inputs.before-clean }}"
+      shell: ${{ inputs.shell-command }}
+      if: ${{ inputs.before-clean }} == true
     - name: compiler info
-      shell: ${{ inputs.shell }}
+      shell: ${{ inputs.shell-command }}
       run: |
         make -C test showcxxversion
         make -C test showcxxmacros
     - name: stdlib
-      shell: ${{ inputs.shell }}
+      shell: ${{ inputs.shell-command }}
       run: |
         make -C test check_stdlib
