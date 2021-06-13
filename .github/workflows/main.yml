@@ -159,12 +159,12 @@ jobs:
       - name: set .bash_profile
         run: |
           echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
-        - name: icpc info
-          run: |
-            make -C test clean
-            make -C test showcxxversion
-            make -C test showcxxmacros
-            make -C test check_stdlib
+      - name: icpc info
+        run: |
+          make -C test clean
+          make -C test showcxxversion
+          make -C test showcxxmacros
+          make -C test check_stdlib
       - name: icpc build
         run: |
           make -C test -j8
