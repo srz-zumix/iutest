@@ -509,7 +509,7 @@ $(OUTDIR)/%.o: %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 
 check_stdlib: % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -v -o $@ $<
-	./$@
+	${RUN_PREFIX} ./$@
 
 #
 #
