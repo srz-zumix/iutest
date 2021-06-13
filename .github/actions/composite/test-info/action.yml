@@ -10,8 +10,7 @@ runs:
     - name: clean
       shell: bash
       run: |
-        make -C test clean
-      if: ${{ inputs.before-clean }}
+        if ${{ inputs.before-clean }}; then make -C test clean fi
     - name: compiler info
       shell: bash
       run: |
