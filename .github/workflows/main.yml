@@ -35,6 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: prepare
     steps:
+      - uses: actions/checkout@v2
       - uses: ./.github/actions/composite/docker-login
       - name: TODO
         run: |
@@ -51,22 +52,22 @@ jobs:
       run:
         shell: cmd
     steps:
-    - uses: actions/checkout@v2
-    - name: choco-install
-      run: |
-        choco install -y llvm || exit 1
-        call refreshenv
-    - name: set path
-      shell: bash
-      run: |
-        echo "C:\Program Files\LLVM\bin" >> $GITHUB_PATH
-    - uses: ./.github/actions/composite/tes-info
-    - name: llvm clang build
-      run: |
-        make -C test -j8
-    - name: llvm clang test
-      run: |
-        make -C test test
+      - uses: actions/checkout@v2
+      - name: choco-install
+        run: |
+          choco install -y llvm || exit 1
+          call refreshenv
+      - name: set path
+        shell: bash
+        run: |
+          echo "C:\Program Files\LLVM\bin" >> $GITHUB_PATH
+      - uses: ./.github/actions/composite/test-info
+      - name: llvm clang build
+        run: |
+          make -C test -j8
+      - name: llvm clang test
+        run: |
+          make -C test test
 
   mingw-basic-test:
     runs-on: windows-latest
@@ -75,31 +76,31 @@ jobs:
       run:
         shell: cmd
     steps:
-    - uses: actions/checkout@v2
-    - uses: ./.github/actions/composite/tes-info
-    - name: mingw build
-      run: |
-        make -C test -j8
-    - name: mingw test
-      run: |
-        make -C test test
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/composite/test-info
+      - name: mingw build
+        run: |
+          make -C test -j8
+      - name: mingw test
+        run: |
+          make -C test test
 
   cmake-basic-test:
     runs-on: ubuntu-latest
     needs: prepare
     steps:
-    - uses: actions/checkout@master
-    - name: cmake
-      run: |
-          mkdir ./cmake-build
-          cd ./cmake-build
-          cmake ../projects/cmake
-    - name: cmake build
-      run: cmake --build cmake-build
-    - name: cmake test
-      run: |
-        cd cmake-build
-        ctest -C Debug -V
+      - uses: actions/checkout@master
+      - name: cmake
+        run: |
+            mkdir ./cmake-build
+            cd ./cmake-build
+            cmake ../projects/cmake
+      - name: cmake build
+        run: cmake --build cmake-build
+      - name: cmake test
+        run: |
+          cd cmake-build
+          ctest -C Debug -V
 
   zapcc-basic-test:
     runs-on: ubuntu-18.04
@@ -112,19 +113,19 @@ jobs:
     env:
       PYTHON_VERSION: 3.8
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-python@v2
-      with:
-        python-version: ${{ env.PYTHON_VERSION }}
-    - name: Set Python environment variable
-      run: echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> $GITHUB_ENV
-    - uses: ./.github/actions/composite/tes-info
-    - name: zapcc build
-      run: |
-        make -C test -j1 IUTEST_REQUIRE_PYTHON=1
-    - name: zapcc test
-      run: |
-        make -C test test
+      - uses: actions/checkout@master
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Set Python environment variable
+        run: echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> $GITHUB_ENV
+      - uses: ./.github/actions/composite/test-info
+      - name: zapcc build
+        run: |
+          make -C test -j1 IUTEST_REQUIRE_PYTHON=1
+      - name: zapcc test
+        run: |
+          make -C test test
 
   icpc-basic-test:
     runs-on: ubuntu-latest
@@ -141,17 +142,17 @@ jobs:
       run:
         shell: bash -e -o pipefail -l {0}
     steps:
-    - uses: actions/checkout@master
-    - name: set .bash_profile
-      run: |
-        echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
-    - uses: ./.github/actions/composite/tes-info
-    - name: icpc build
-      run: |
-        make -C test -j8
-    - name: icpc test
-      run: |
-        make -C test test
+      - uses: actions/checkout@master
+      - name: set .bash_profile
+        run: |
+          echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
+      - uses: ./.github/actions/composite/test-info
+      - name: icpc build
+        run: |
+          make -C test -j8
+      - name: icpc test
+        run: |
+          make -C test test
 
   arm-none-eabi:
     strategy:
@@ -174,11 +175,11 @@ jobs:
       DEFS: --specs=nosys.specs -march=armv8-a
       LIBS: nosys
     steps:
-    - uses: actions/checkout@v2
-    - uses: ./.github/actions/composite/tes-info
-    - name: build
-      run: |
-        make -C test -j8
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/composite/test-info
+      - name: build
+        run: |
+          make -C test -j8
 
   arm-linux-gnueabi:
     runs-on: ubuntu-latest
@@ -186,42 +187,42 @@ jobs:
     env:
       DEFS: --static
     steps:
-    - name: Login to DockerHub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - uses: actions/checkout@v2
-    - name: info
-      uses: ./.github/actions/arm-linux-gnueabi
-      with:
-        args: "make -C test showcxxversion showcxxmacros"
-    - name: build
-      uses: ./.github/actions/arm-linux-gnueabi
-      with:
-        args: "make -C test -j8"
-    - name: test
-      uses: ./.github/actions/arm-linux-gnueabi
-      with:
-        args: "make -C test test QEMU_COMMAND=qemu-arm-static"
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: actions/checkout@v2
+      - name: info
+        uses: ./.github/actions/arm-linux-gnueabi
+        with:
+          args: "make -C test showcxxversion showcxxmacros"
+      - name: build
+        uses: ./.github/actions/arm-linux-gnueabi
+        with:
+          args: "make -C test -j8"
+      - name: test
+        uses: ./.github/actions/arm-linux-gnueabi
+        with:
+          args: "make -C test test QEMU_COMMAND=qemu-arm-static"
 
   #===================================================================
   lint-editorconfig:
     runs-on: ubuntu-18.04
     needs: prepare
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-    - name: lint:editorconfig
-      run: |
-        npm install
-        npm run lint:editorconfig
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - name: lint:editorconfig
+        run: |
+          npm install
+          npm run lint:editorconfig
   iwyu:
     runs-on: ubuntu-18.04
     needs: lint-editorconfig
     steps:
-    - uses: actions/checkout@v2
-    - name: Include What You Use
-      uses: ./.github/actions/iwyu
-      with:
-        args: /work/projects/cmake -Dbuild_test_namespace_test=OFF
+      - uses: actions/checkout@v2
+      - name: Include What You Use
+        uses: ./.github/actions/iwyu
+        with:
+          args: /work/projects/cmake -Dbuild_test_namespace_test=OFF
