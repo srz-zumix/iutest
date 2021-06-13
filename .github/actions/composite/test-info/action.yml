@@ -3,24 +3,21 @@ description: 'print compiler/environment info'
 inputs:
   before-clean:
     description: 'before clean'
-    default: true
-  shell-command:
-    description: 'shell command'
-    default: bash
+    default: "true"
 runs:
   using: "composite"
   steps:
     - name: clean
+      shell: bash
       run: |
         make -C test clean
-      shell: ${{ inputs.shell-command }}
-      if: ${{ inputs.before-clean }} == true
+      if: ${{ inputs.before-clean }}
     - name: compiler info
-      shell: ${{ inputs.shell-command }}
+      shell: bash
       run: |
         make -C test showcxxversion
         make -C test showcxxmacros
     - name: stdlib
-      shell: ${{ inputs.shell-command }}
+      shell: bash
       run: |
         make -C test check_stdlib
