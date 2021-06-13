@@ -199,7 +199,6 @@ jobs:
           make -C test clean
           make -C test showcxxversion
           make -C test showcxxmacros
-          make -C test check_stdlib
       - name: build
         run: |
           make -C test -j8
@@ -219,7 +218,7 @@ jobs:
       - name: info
         uses: ./.github/actions/arm-linux-gnueabi
         with:
-          args: "make -C test showcxxversion showcxxmacros"
+          args: "make -C test QEMU_COMMAND=qemu-arm-static showcxxversion showcxxmacros check_stdlib"
       - name: build
         uses: ./.github/actions/arm-linux-gnueabi
         with:
