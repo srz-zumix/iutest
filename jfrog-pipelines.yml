@@ -35,7 +35,7 @@ pipelines:
             - yum install -y make
             - pushd ${res_iutest_gitRepo_resourcePath}
             - make -C test showcxxversion showcxxmacros
-            - make -C test -j2
+            - make -C test -j4
             - make -C test test
             - make -C test report
             - popd
