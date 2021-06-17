@@ -27,7 +27,7 @@ pipelines:
         configuration:
           inputResources:
             - name: iutest_gitRepo
-        execution:
+        execution: &basic-test-execution
           onStart:
             - update_commit_status iutest_gitRepo # Status: "processing"
           onExecute:
@@ -35,7 +35,7 @@ pipelines:
             - yum install -y make
             - pushd ${res_iutest_gitRepo_resourcePath}
             - make -C test showcxxversion showcxxmacros
-            - make -C test -j2
+            - make -C test -j4
             - make -C test test
             - make -C test report
             - popd
@@ -51,19 +51,4 @@ pipelines:
             CXX: clang++
           inputResources:
             - name: iutest_gitRepo
-        execution:
-          onStart:
-            - update_commit_status iutest_gitRepo # Status: "processing"
-          onExecute:
-            - update_commit_status iutest_gitRepo # Status: "processing"
-            - yum install -y make
-            - pushd ${res_iutest_gitRepo_resourcePath}
-            - make -C test showcxxversion showcxxmacros
-            - make -C test -j2
-            - make -C test test
-            - make -C test report
-            - popd
-          onFailure:
-            - update_commit_status iutest_gitRepo # Status: "failure"
-          onSuccess:
-            - update_commit_status iutest_gitRepo # Status: "success"
+        execution: *basic-test-execution
