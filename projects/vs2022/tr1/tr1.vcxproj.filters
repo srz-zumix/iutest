@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{0f1f20da-17b3-4d53-925b-3c3827df1859}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="iutest">
+      <UniqueIdentifier>{060bdbb6-43b9-4ac0-8ffe-ae625ee4d533}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="iutest\tr1">
+      <UniqueIdentifier>{2b7cc866-7701-468e-b5cf-2a911ee3949a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\test\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\test\tr1_value_tmp_tests.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\test\tr1_param_direct_tests.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\test\tr1_failurecount_assertion_tests.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\tr1\iutest_value_tmp_tests.hpp">
+      <Filter>iutest\tr1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\tr1\iutest_vc_unittest.hpp">
+      <Filter>iutest\tr1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\tr1\iutest_param_direct_tests.hpp">
+      <Filter>iutest\tr1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\tr1\iutest_failurecount_assertion.hpp">
+      <Filter>iutest\tr1</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
