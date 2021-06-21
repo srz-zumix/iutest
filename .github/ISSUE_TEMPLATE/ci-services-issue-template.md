@@ -20,11 +20,11 @@ assignees: ''
 * [ ] Drone
 * [ ] GitHub Actions
 * [ ] GitLab CI
+* [ ] JFrog Pipelines
 * [ ] Peakflow
 * [ ] Razorops
 * [ ] Scrutinizer
 * [ ] Semaphore
-* [ ] Shippable
 * [ ] TeamCity Cloud
 * [ ] Travis CI
 * [ ] Wercker
