@@ -224,6 +224,29 @@ IUTEST(UnitStringTest, ToOctString)
     IUTEST_EXPECT_STREQ(                   "377", ::iutest::detail::ToOctString< ::iutest::UInt8  >(0377u));
 }
 
+IUTEST(UnitStringTest, FormatIntWidth2)
+{
+    IUTEST_EXPECT_STREQ(  "00", ::iutest::detail::FormatIntWidth2(0));
+    IUTEST_EXPECT_STREQ( "128", ::iutest::detail::FormatIntWidth2(128));
+    IUTEST_EXPECT_STREQ("-128", ::iutest::detail::FormatIntWidth2(-128));
+}
+
+IUTEST(UnitStringTest, FormatIntWidth3)
+{
+    IUTEST_EXPECT_STREQ( "000", ::iutest::detail::FormatIntWidthN(0, 3));
+    IUTEST_EXPECT_STREQ( "128", ::iutest::detail::FormatIntWidthN(128, 3));
+    IUTEST_EXPECT_STREQ("1024", ::iutest::detail::FormatIntWidthN(1024, 3));
+}
+
+IUTEST(UnitStringTest, FormatIntWidthN)
+{
+    IUTEST_EXPECT_STREQ("0000000000", ::iutest::detail::FormatIntWidthN(0, 10));
+    IUTEST_EXPECT_STREQ("0000008096", ::iutest::detail::FormatIntWidthN(8096, 10));
+    IUTEST_EXPECT_STREQ("1024",  ::iutest::detail::FormatIntWidthN(1024, -1));
+    IUTEST_EXPECT_STREQ("-101",  ::iutest::detail::FormatIntWidthN(-101, 2));
+    IUTEST_EXPECT_STREQ("-0101", ::iutest::detail::FormatIntWidthN(-101, 4));
+}
+
 IUTEST(UnitStringTest, FormatSizeByte)
 {
     IUTEST_EXPECT_STREQ("0B", ::iutest::detail::FormatSizeByte(0));
