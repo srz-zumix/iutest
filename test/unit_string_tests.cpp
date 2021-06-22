@@ -242,6 +242,9 @@ IUTEST(UnitStringTest, FormatIntWidthN)
 {
     IUTEST_EXPECT_STREQ("0000000000", ::iutest::detail::FormatIntWidthN(0, 10));
     IUTEST_EXPECT_STREQ("0000008096", ::iutest::detail::FormatIntWidthN(8096, 10));
+    IUTEST_EXPECT_STREQ("1024",  ::iutest::detail::FormatIntWidthN(1024, -1));
+    IUTEST_EXPECT_STREQ("-101",  ::iutest::detail::FormatIntWidthN(-101, 2));
+    IUTEST_EXPECT_STREQ("-0101", ::iutest::detail::FormatIntWidthN(-101, 4));
 }
 
 IUTEST(UnitStringTest, FormatSizeByte)
