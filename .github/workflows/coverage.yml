@@ -26,6 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       USE_COVERAGE: gcov
+      DEFS: -DIUTEST_FORCE_COLORCONSOLE=1
     steps:
     - uses: actions/checkout@master
     - name: info

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -36,6 +36,10 @@ namespace detail
 #  else
 #    define IUTEST_HAS_COLORCONSOLE 1   //!< 色つきターミナルが使用可能かどうか
 #  endif
+#endif
+
+#ifndef IUTEST_FORCE_COLORCONSOLE
+# define IUTEST_FORCE_COLORCONSOLE  0
 #endif
 
 //======================================================================
@@ -158,7 +162,9 @@ private:
     static inline void color_output_impl(Color color, const char* fmt, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(2, 0);
     static inline bool IsShouldUseColor(bool use_color);
     static inline bool HasColorConsole();
+#if IUTEST_HAS_COLORCONSOLE && !IUTEST_FORCE_COLORCONSOLE
     static inline bool IsStringEqual(const char* str1, const char* str2) { return strcmp(str1, str2) == 0; }
+#endif
 
 private:
     struct LoggerInstanceVariable
@@ -278,8 +284,10 @@ inline bool iuConsole::IsShouldUseColor(bool use_color)
 
 inline bool iuConsole::HasColorConsole()
 {
-#if !IUTEST_HAS_COLORCONSOLE
+#if   !IUTEST_HAS_COLORCONSOLE
     return false;
+#elif IUTEST_FORCE_COLORCONSOLE
+    return true;
 #else
 #if defined(IUTEST_OS_WINDOWS)
     {
@@ -292,7 +300,7 @@ inline bool iuConsole::HasColorConsole()
 #endif
     const char* env = internal::posix::GetEnv("TERM");
     const bool term_conf = (env != NULL) && (
-        IsStringEqual(env, "xterm")
+           IsStringEqual(env, "xterm")
         || IsStringEqual(env, "xterm-color")
         || IsStringEqual(env, "xterm-256color")
         || IsStringEqual(env, "screen")
