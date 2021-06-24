@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -95,7 +95,8 @@ IUTEST_IPP_INLINE ::std::string FormatTimeInMillisecAsIso8601(TimeInMillisec mse
         + FormatIntWidth2(t.tm_mday) + "T"
         + FormatIntWidth2(t.tm_hour) + ":"
         + FormatIntWidth2(t.tm_min) + ":"
-        + FormatIntWidth2(t.tm_sec);
+        + FormatIntWidth2(t.tm_sec) + "."
+        + FormatIntWidthN(static_cast<int>(msec % 1000), 3);
 #else
     return FormatTimeInMillisecAsSecond(msec);
 #endif
