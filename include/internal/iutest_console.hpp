@@ -300,7 +300,7 @@ inline bool iuConsole::HasColorConsole()
 #endif
     const char* env = internal::posix::GetEnv("TERM");
     const bool term_conf = (env != NULL) && (
-           IsStringEqual(env, "xterm")
+        IsStringEqual(env, "xterm")
         || IsStringEqual(env, "xterm-color")
         || IsStringEqual(env, "xterm-256color")
         || IsStringEqual(env, "screen")
@@ -312,7 +312,16 @@ inline bool iuConsole::HasColorConsole()
         || IsStringEqual(env, "linux")
         || IsStringEqual(env, "cygwin")
         );
-    return term_conf;
+    if( term_conf )
+    {
+        return true;
+    }
+    // for CI
+    if( internal::posix::GetEnv("GITHUB_ACTIONS") != NULL )
+    {
+        return true;
+    }
+    return false;
 #endif
 }
 
