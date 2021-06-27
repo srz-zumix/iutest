@@ -151,7 +151,8 @@ jobs:
     env:
       CC: icpc
       CXX: icpc
-      RUN_OPTION: "--iutest_color=yes"
+      DEFS: -DIUTEST_FORCE_COLORCONSOLE=1
+      # RUN_OPTION: "--iutest_color=yes"
     defaults:
       run:
         shell: bash -e -o pipefail -l {0}
