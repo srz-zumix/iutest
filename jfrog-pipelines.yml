@@ -53,7 +53,7 @@ pipelines:
             - name: iutest_gitRepo
         execution: *basic-test-execution
 
-  - name: gtest-compatible-released
+  - name: gtest_compatible_released
     configuration:
       nodePool: centos-latest
       runtime:
