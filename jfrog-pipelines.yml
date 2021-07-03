@@ -52,3 +52,57 @@ pipelines:
           inputResources:
             - name: iutest_gitRepo
         execution: *basic-test-execution
+
+  - name: gtest_compatible_released
+    configuration:
+      nodePool: centos-latest
+    steps:
+      - name: latest
+        type: Matrix
+        stepMode: Bash
+        configuration:
+          inputResources:
+            - name: iutest_gitRepo
+        stepletMultipliers:
+          fastFail: true
+          environmentVariables:
+            - GTEST_EXPECT_VERSION: 0x01100000
+            - GTEST_EXPECT_VERSION: 0x01000000
+          runtimes:
+            - &gtest-latest
+              type: image
+              image:
+                custom:
+                  name: srzzumix/googletest
+                  tag: latest
+            - &gtest-1.10.0
+              type: image
+              image:
+                custom:
+                  name: srzzumix/googletest
+                  tag: release-1.10.0
+          exclude:
+            - environmentVariables:
+              GTEST_EXPECT_VERSION: 0x01100000
+              runtime: *gtest-1.10.0
+            - environmentVariables:
+              GTEST_EXPECT_VERSION: 0x01000000
+              runtime: *gtest-latest
+
+        execution:
+          onStart:
+            - update_commit_status iutest_gitRepo # Status: "processing"
+          onExecute:
+            - update_commit_status iutest_gitRepo # Status: "processing"
+            - pushd ${res_iutest_gitRepo_resourcePath}
+            - make -C test showcxxversion showcxxmacros
+            - make -C test -j4 USE_GTEST=1             GTEST_EXPECT_VER=$${GTEST_EXPECT_VERSION} GTEST_EXPECT_LATEST=1
+            - make -C test test
+            # - make -C test clean
+            # - make -C test -j4 USE_GTEST=1 USE_GMOCK=1 GTEST_EXPECT_VER=$${GTEST_EXPECT_VERSION} GTEST_EXPECT_LATEST=1
+            # - make -C test test
+            - popd
+          onFailure:
+            - update_commit_status iutest_gitRepo # Status: "failure"
+          onSuccess:
+            - update_commit_status iutest_gitRepo # Status: "success"
