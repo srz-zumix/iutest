@@ -83,10 +83,10 @@ pipelines:
                   tag: release-1.10.0
           exclude:
             - environmentVariables:
-              GTEST_EXPECT_VERSION: 0x01100000
+                GTEST_EXPECT_VERSION: 0x01100000
               runtime: *gtest-1.10.0
             - environmentVariables:
-              GTEST_EXPECT_VERSION: 0x01000000
+                GTEST_EXPECT_VERSION: 0x01000000
               runtime: *gtest-latest
 
         execution:
