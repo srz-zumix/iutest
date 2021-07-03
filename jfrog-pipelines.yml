@@ -57,7 +57,7 @@ pipelines:
     configuration:
       nodePool: centos-latest
     steps:
-      - name: latest
+      - name: gtest_compatible_released
         type: Matrix
         stepMode: Bash
         configuration:
