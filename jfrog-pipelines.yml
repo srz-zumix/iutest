@@ -56,20 +56,39 @@ pipelines:
   - name: gtest_compatible_released
     configuration:
       nodePool: centos-latest
-      runtime:
-        type: image
-        image:
-          custom:
-            name: srzzumix/googletest
-            tag: latest
     steps:
       - name: latest
-        type: Bash
+        type: Matrix
+        stepMode: Bash
         configuration:
-          environmentVariables:
-            GTEST_EXPECT_VERSION: 0x01100000
           inputResources:
             - name: iutest_gitRepo
+        stepletMultipliers:
+          fastFail: true
+          environmentVariables:
+            - GTEST_EXPECT_VERSION: 0x01100000
+            - GTEST_EXPECT_VERSION: 0x01000000
+          runtimes:
+            - &gtest-latest
+              type: image
+              image:
+                custom:
+                  name: srzzumix/googletest
+                  tag: latest
+            - &gtest-1.10.0
+              type: image
+              image:
+                custom:
+                  name: srzzumix/googletest
+                  tag: release-1.10.0
+          exclude:
+            - environmentVariables:
+              GTEST_EXPECT_VERSION: 0x01100000
+              runtime: *gtest-1.10.0
+            - environmentVariables:
+              GTEST_EXPECT_VERSION: 0x01000000
+              runtime: *gtest-latest
+
         execution:
           onStart:
             - update_commit_status iutest_gitRepo # Status: "processing"
