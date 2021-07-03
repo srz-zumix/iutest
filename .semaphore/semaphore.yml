@@ -47,7 +47,7 @@ blocks:
       prologue:
         commands:
           # - cache restore
-          - echo ${DOCKER_PASSWORD} ./.ci/login-dockerhub.sh ${DOCKER_USERNAME}
+          - echo ${DOCKER_PASSWORD} | ./.ci/login-dockerhub.sh ${DOCKER_USERNAME}
           - ./.ci/linux/install-clang.sh
           - ./.ci/linux/install-gcc.sh
       jobs:
