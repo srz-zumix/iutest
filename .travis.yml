@@ -147,6 +147,9 @@ allow_failures:
 
 matrix:
   include:
+    - compiler: clang
+      env:
+        - STDFLAG=
     # libc++
     #- compiler: clang
     #  env:
