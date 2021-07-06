@@ -151,6 +151,7 @@ jobs:
     env:
       CC: icpc
       CXX: icpc
+      OUTPUTXML: junit
       # DEFS: -DIUTEST_FORCE_COLORCONSOLE=1
       # RUN_OPTION: "--iutest_color=yes"
     defaults:
@@ -173,6 +174,11 @@ jobs:
       - name: icpc test
         run: |
           make -C test test
+      - name: report
+        uses: mikepenz/action-junit-report@v2
+        with:
+          report_paths: test/*.xml
+
 
   arm-none-eabi:
     strategy:
