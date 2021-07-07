@@ -236,6 +236,7 @@ jobs:
     needs: prepare
     env:
       DEFS: --static
+      OUTPUTXML: junit
     steps:
       - name: Login to DockerHub
         uses: docker/login-action@v1
@@ -255,6 +256,10 @@ jobs:
         uses: ./.github/actions/arm-linux-gnueabi
         with:
           args: "make -C test test QEMU_COMMAND=qemu-arm-static"
+      - name: report
+        uses: mikepenz/action-junit-report@v2
+        with:
+          report_paths: test/*.xml
 
   #===================================================================
   lint-editorconfig:
