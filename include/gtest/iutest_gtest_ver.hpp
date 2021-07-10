@@ -27,7 +27,7 @@
 
 //!< Minor Version
 #ifndef GTEST_MINORVER
-#  if   defined(GTEST_TEST_NO_THROW_CATCH_STD_EXCEPTION_)
+#  if   defined(GTEST_FLAG_GET)
 #    define GTEST_MINORVER  0x11
 #    define GTEST_LATEST    1
 #  elif defined(GTEST_TEST_NO_THROW_CATCH_STD_EXCEPTION_)
