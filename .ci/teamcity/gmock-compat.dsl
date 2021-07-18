@@ -86,6 +86,7 @@ object GoogleMockCompatibleTest : BuildType({
             dockerImage = "srzzumix/googletest:release-1.10.0"
         }
         script {
+            name = "gtest-compat-1.11.0"
             scriptContent = """
                 cd test && mkdir gmock1_11_0
                 make clean
