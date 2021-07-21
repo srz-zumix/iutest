@@ -165,10 +165,31 @@ IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
 
 /**
  * @ingroup     IUTEST_UTIL
+ * @brief       get iutest flag
+ * @name        name = flag name
+*/
+#ifndef IUTEST_FLAG_GET
+#  define IUTEST_FLAG_GET(name)   ::iutest::IUTEST_FLAG(name)
+#endif
+
+/**
+ * @ingroup     IUTEST_UTIL
+ * @brief       set iutest flag
+ * @name        name  = flag name
+ * @value       value = flag value
+*/
+#ifndef IUTEST_FLAG_SET
+#  define IUTEST_FLAG_SET(name, value)   (void)(::iutest::IUTEST_FLAG(name) = value)
+#endif
+
+/**
+ * @ingroup     IUTEST_UTIL
  * @brief       スコープ内のテストメッセージへのメッセージ追加
  * @param       msg = メッセージ
 */
-#define IUTEST_SCOPED_TRACE(msg)                IIUT_SCOPED_MESSAGE(msg)
+#ifndef IUTEST_SCOPED_TRAC
+#  define IUTEST_SCOPED_TRACE(msg)                IIUT_SCOPED_MESSAGE(msg)
+#endif
 
 /**
  * @ingroup     IUTEST_UTIL
