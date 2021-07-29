@@ -29,6 +29,9 @@ aliases:
     test-reports-path:
       type: string
       default: /tmp/circleci-test-results
+    clang-version:
+      type: string
+      default: ""
   - &restore_cache
       keys:
       # This branch if available
@@ -149,11 +152,7 @@ jobs:
   clang_optimize_test:
     parallelism: 4
     <<: *default
-    parameters:
-      <<: *job-parameters
-      clang-version:
-        type: string
-        default: ""
+    parameters: *job-parameters
     environment:
       CXX: clang++
       FAST_OPTIMIZE: -Ot
