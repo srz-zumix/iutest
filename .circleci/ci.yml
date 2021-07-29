@@ -14,8 +14,6 @@ aliases:
     docker:
       - image: circleci/buildpack-deps:focal-curl
         environment:
-          CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
-          CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
           MAKE_OPTION: -j4 OUTPUTXML=1
           MAKE_TARGET: default
           MAKE_RUN_TARGET: test
@@ -24,6 +22,16 @@ aliases:
         auth:
           username: $DOCKERHUB_LOGIN
           password: $DOCKERHUB_TOKEN
+  - &job-parameters
+    artifacts-path:
+      type: string
+      default: /tmp/circleci-artifacts
+    test-reports-path:
+      type: string
+      default: /tmp/circleci-test-results
+    clang-version:
+      type: string
+      default: ""
   - &restore_cache
       keys:
       # This branch if available
@@ -37,7 +45,7 @@ aliases:
       command: |
         sudo apt-get -y --allow-unauthenticated update && \
         sudo apt-get install software-properties-common && \
-        ./.ci/linux/install-clang.sh && \
+        CLANG_VERSION="<< parameters.clang-version >>" ./.ci/linux/install-clang.sh && \
         ./.ci/linux/install-gcc.sh
   - &save_cache
       key: v2-dep-{{ .Branch }}-{{ epoch }}
@@ -80,7 +88,7 @@ aliases:
         2) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Os ;; \
         3) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=$FAST_OPTIMIZE ;; \
       esac
-      cp *.json $CIRCLE_ARTIFACTS/ 2>/dev/null || true
+      cp *.json << parameters.artifacts-path >>/ 2>/dev/null || true
     working_directory: test
   - &test-step
     name: run test
@@ -96,11 +104,11 @@ aliases:
     name: move result xml
     when: always
     command: |
-      mkdir -p $CIRCLE_TEST_REPORTS/junit/$CIRCLE_NODE_INDEX;
-      find . -type f -regex ".*/test/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/$CIRCLE_NODE_INDEX \;;
+      mkdir -p << parameters.test-reports-path >>/junit/$CIRCLE_NODE_INDEX;
+      find . -type f -regex ".*/test/.*xml" -exec cp {} << parameters.test-reports-path >>/junit/$CIRCLE_NODE_INDEX \;;
   - &build-test-steps
     - checkout
-    - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
+    - run: mkdir -p << parameters.artifacts-path >> << parameters.test-reports-path >>
     - restore_cache: *restore_cache
     - run: *setup-step
     - save_cache: *save_cache
@@ -114,12 +122,12 @@ aliases:
     - run: *move-result-step
     # Teardown
     - store_test_results:
-        path: /tmp/circleci-test-results
+        path: << parameters.test-reports-path >>
     # Save artifacts
     - store_artifacts:
-        path: /tmp/circleci-artifacts
+        path: << parameters.artifacts-path >>
     - store_artifacts:
-        path: /tmp/circleci-test-results
+        path: << parameters.test-reports-path >>
 
 parameters:
   build:
@@ -134,6 +142,7 @@ jobs:
   gcc_optimize_test:
     parallelism: 4
     <<: *default
+    parameters: *job-parameters
     environment:
       CXX: g++
       GCC_VERSION: "8"
@@ -143,9 +152,9 @@ jobs:
   clang_optimize_test:
     parallelism: 4
     <<: *default
+    parameters: *job-parameters
     environment:
       CXX: clang++
-      CLANG_VERSION: "10"
       FAST_OPTIMIZE: -Ot
       MAKE_ADD_OPTION: CXXFLAGS=-ftime-trace
     steps: *build-test-steps
@@ -153,9 +162,8 @@ jobs:
     machine:
       image: ubuntu-2004:202101-01
     resource_class: arm.medium
+    parameters: *job-parameters
     environment:
-      CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
-      CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
       MAKE_OPTION: -j4 OUTPUTXML=1
       MAKE_TARGET: default
       MAKE_RUN_TARGET: test
@@ -245,6 +253,9 @@ workflows:
           filters: *branch-filter
       - clang_optimize_test:
           filters: *branch-filter
+          matrix:
+              parameters:
+                clang-version: ["10", "11"]
       - arm:
           filters: *branch-filter
       - vcperf:
