@@ -549,6 +549,7 @@ public:
 #endif
 
 private:
+    iuCartesianProductHolder(const _Myt&) IUTEST_CXX_DELETED_FUNCTION;
     _Myt& operator = (const _Myt&) IUTEST_CXX_DELETED_FUNCTION;
 private:
     _MyTuple v;
