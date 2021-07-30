@@ -2,7 +2,7 @@
 
 set -ex
 
-if [ -z ${CLANG_VERSION+x} ]; then
+if [ "x${CLANG_VERSION}" = "x" ]; then
   echo "CLANG_VERSION is empty. skip install clang..."
   return
 fi
