@@ -527,6 +527,10 @@ class iuCartesianProductHolder
     typedef tuples::tuple<const Generator...> _MyTuple;
 
 public:
+    iuCartesianProductHolder(const iuCartesianProductHolder& rhs)
+        : v(rhs.v)
+    {
+    }
     explicit iuCartesianProductHolder(const Generator&... generators)
         : v(generators...) {}
 
