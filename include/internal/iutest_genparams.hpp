@@ -1097,6 +1097,8 @@ class iuPairwiseHolder
     typedef tuples::tuple<const Generator...> _MyTuple;
 
 public:
+    iuPairwiseHolder(const iuPairwiseHolder& rhs)
+        : v(rhs.v) {}
     explicit iuPairwiseHolder(const Generator&... generators)
         : v(generators...) {}
 
