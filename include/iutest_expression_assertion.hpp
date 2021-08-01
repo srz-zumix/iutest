@@ -167,6 +167,7 @@ public:
     }
 #endif
     ExpressionLHS(T lhs, const ::std::string& msg) : m_lhs(lhs), m_message(msg) {}
+    ExpressionLHS(const ExpressionLHS& rhs) : m_lhs(rhs.m_lhs), m_message(rhs.m_message) {}
 
 public:
     IIUT_DECL_EXPRESSION_OP(==)
