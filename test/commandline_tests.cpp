@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
         DECAL_ARGV("--version");
         IUTEST_INIT(&targc, targv);
         IUTEST_EXPECT_EQ(1, targc);
-        IUTEST_EXPECT_NE( "no", ::iutest::IUTEST_FLAG(color) );
+        IUTEST_EXPECT_NE( "no", IUTEST_FLAG_GET(color) );
         if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
     }
     {
@@ -126,8 +126,8 @@ int main(int argc, char* argv[])
     }
 
     {
-        const bool file_location_msvc = ::iutest::IUTEST_FLAG(file_location_style_msvc);
-        ::iutest::IUTEST_FLAG(file_location_style_msvc) = !file_location_msvc;
+        const bool file_location_msvc = IUTEST_FLAG_GET(file_location_style_msvc);
+        IUTEST_FLAG_SET(file_location_style_msvc, !file_location_msvc);
 
         ::std::vector< ::std::string > vargv;
         vargv.push_back("--iutest_break_on_failure");
@@ -137,10 +137,10 @@ int main(int argc, char* argv[])
         ::iutest::InitIrisUnitTest(vargv);
         IUTEST_EXPECT_EQ(0u, vargv.size());
 
-        IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(break_on_failure) );
-        IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(throw_on_failure) );
-        IUTEST_EXPECT_STREQ( "*", ::iutest::IUTEST_FLAG(filter).c_str() );
-        IUTEST_EXPECT_EQ   ( file_location_msvc, ::iutest::IUTEST_FLAG(file_location_style_msvc) );
+        IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(break_on_failure) );
+        IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(throw_on_failure) );
+        IUTEST_EXPECT_STREQ( "*", IUTEST_FLAG_GET(filter).c_str() );
+        IUTEST_EXPECT_EQ   ( file_location_msvc, IUTEST_FLAG_GET(file_location_style_msvc) );
 
         if( ::iutest::UnitTest::GetInstance()->Failed() ) return 1;
     }
@@ -173,24 +173,24 @@ int main(int argc, char* argv[])
         ::iutest::InitIrisUnitTest(vargv);
         IUTEST_EXPECT_EQ(0u, vargv.size());
 
-        IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(also_run_disabled_tests) );
-        IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(break_on_failure) );
-        IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(throw_on_failure) );
-        IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(catch_exceptions) );
-        IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(print_time) );
-        IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(shuffle) );
-        IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(file_location_style_msvc) );
-        IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(warning_into_error) );
+        IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(also_run_disabled_tests) );
+        IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(break_on_failure) );
+        IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(throw_on_failure) );
+        IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(catch_exceptions) );
+        IUTEST_EXPECT_FALSE( IUTEST_FLAG_GET(print_time) );
+        IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(shuffle) );
+        IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(file_location_style_msvc) );
+        IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(warning_into_error) );
 
-        IUTEST_EXPECT_EQ( 200u, ::iutest::IUTEST_FLAG(random_seed) );
-        IUTEST_EXPECT_EQ(   2 , ::iutest::IUTEST_FLAG(repeat) );
+        IUTEST_EXPECT_EQ( 200u, IUTEST_FLAG_GET(random_seed) );
+        IUTEST_EXPECT_EQ(   2 , IUTEST_FLAG_GET(repeat) );
 
-        IUTEST_EXPECT_STREQ( "ansi", ::iutest::IUTEST_FLAG(color).c_str() );
-        IUTEST_EXPECT_STREQ( "Flag*", ::iutest::IUTEST_FLAG(filter).c_str() );
-        IUTEST_EXPECT_STREQ( "root", ::iutest::IUTEST_FLAG(default_package_name).c_str() );
-        IUTEST_EXPECT_STREQ( "C", ::iutest::IUTEST_FLAG(locale_ctype).c_str() );
+        IUTEST_EXPECT_STREQ( "ansi", IUTEST_FLAG_GET(color).c_str() );
+        IUTEST_EXPECT_STREQ( "Flag*", IUTEST_FLAG_GET(filter).c_str() );
+        IUTEST_EXPECT_STREQ( "root", IUTEST_FLAG_GET(default_package_name).c_str() );
+        IUTEST_EXPECT_STREQ( "C", IUTEST_FLAG_GET(locale_ctype).c_str() );
 #if IUTEST_HAS_STREAM_RESULT
-        IUTEST_EXPECT_STREQ( "test", ::iutest::IUTEST_FLAG(stream_result_to).c_str() );
+        IUTEST_EXPECT_STREQ( "test", IUTEST_FLAG_GET(stream_result_to).c_str() );
 #endif
         IUTEST_EXPECT_TRUE (::iutest::TestFlag::IsEnableFlag(::iutest::TestFlag::VERBOSE));
 
@@ -214,24 +214,24 @@ int main(int argc, char* argv[])
         ::iutest::InitIrisUnitTest(vargv);
         IUTEST_EXPECT_EQ(0u, vargv.size());
 
-        IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(also_run_disabled_tests) );
-        IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(break_on_failure) );
-        IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(throw_on_failure) );
-        IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(catch_exceptions) );
-        IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(print_time) );
-        IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(shuffle) );
-        IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(file_location_style_msvc) );
+        IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(also_run_disabled_tests) );
+        IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(break_on_failure) );
+        IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(throw_on_failure) );
+        IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(catch_exceptions) );
+        IUTEST_EXPECT_FALSE( IUTEST_FLAG_GET(print_time) );
+        IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(shuffle) );
+        IUTEST_EXPECT_FALSE( IUTEST_FLAG_GET(file_location_style_msvc) );
 
-        IUTEST_EXPECT_EQ( 200u, ::iutest::IUTEST_FLAG(random_seed) );
-        IUTEST_EXPECT_EQ(   2 , ::iutest::IUTEST_FLAG(repeat) );
+        IUTEST_EXPECT_EQ( 200u, IUTEST_FLAG_GET(random_seed) );
+        IUTEST_EXPECT_EQ(   2 , IUTEST_FLAG_GET(repeat) );
 
-        IUTEST_EXPECT_STREQ( "ansi", ::iutest::IUTEST_FLAG(color).c_str() );
-        IUTEST_EXPECT_STREQ( "Flag*", ::iutest::IUTEST_FLAG(filter).c_str() );
-        IUTEST_EXPECT_STREQ( "", ::iutest::IUTEST_FLAG(default_package_name).c_str() );
+        IUTEST_EXPECT_STREQ( "ansi", IUTEST_FLAG_GET(color).c_str() );
+        IUTEST_EXPECT_STREQ( "Flag*", IUTEST_FLAG_GET(filter).c_str() );
+        IUTEST_EXPECT_STREQ( "", IUTEST_FLAG_GET(default_package_name).c_str() );
 
         if( ::iutest::UnitTest::GetInstance()->Failed() ) return 1;
 
-        ::iutest::IUTEST_FLAG(repeat) = 1;
+        IUTEST_FLAG_SET(repeat, 1);
     }
 
     {
@@ -239,7 +239,7 @@ int main(int argc, char* argv[])
         vargv.push_back("--iutest_color=off");
         ::iutest::InitIrisUnitTest(vargv);
         IUTEST_EXPECT_EQ(0u, vargv.size());
-        IUTEST_EXPECT_STREQ( "no", ::iutest::IUTEST_FLAG(color).c_str() );
+        IUTEST_EXPECT_STREQ( "no", IUTEST_FLAG_GET(color).c_str() );
 
         if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
     }
@@ -248,7 +248,7 @@ int main(int argc, char* argv[])
         vargv.push_back("--iutest_color=1");
         ::iutest::InitIrisUnitTest(vargv);
         IUTEST_EXPECT_EQ(0u, vargv.size());
-        IUTEST_EXPECT_STREQ( "yes", ::iutest::IUTEST_FLAG(color).c_str() );
+        IUTEST_EXPECT_STREQ( "yes", IUTEST_FLAG_GET(color).c_str() );
 
         if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
     }
@@ -257,7 +257,7 @@ int main(int argc, char* argv[])
         vargv.push_back("--iutest_color=auto");
         ::iutest::InitIrisUnitTest(vargv);
         IUTEST_EXPECT_EQ(0u, vargv.size());
-        IUTEST_EXPECT_STREQ( "auto", ::iutest::IUTEST_FLAG(color).c_str() );
+        IUTEST_EXPECT_STREQ( "auto", IUTEST_FLAG_GET(color).c_str() );
 
         if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
     }

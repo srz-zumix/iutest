@@ -454,8 +454,8 @@ steps:
 #     branch:
 #       exclude:
 #         - master
-# - name: release-1.10.0
-#   image: srzzumix/googletest:release-1.10.0
+# - name: release-1.11.0
+#   image: srzzumix/googletest:release-1.11.0
 #   environment:
 #     GTEST_EXPECT_VERSION: 0x01100000
 #   commands: &gtest-compatible-commands
@@ -469,6 +469,12 @@ steps:
 #       make clean &&
 #       make -j4 USE_GTEST=1 USE_GMOCK=1 GTEST_EXPECT_VER=$${GTEST_EXPECT_VERSION} &&
 #       make test
+#   depends_on: [ clone ]
+# - name: release-1.10.0
+#   image: srzzumix/googletest:release-1.10.0
+#   environment:
+#     GTEST_EXPECT_VERSION: 0x01080100
+#   commands: *gtest-compatible-commands
 #   depends_on: [ clone ]
 # - name: release-1.8.1
 #   image: srzzumix/googletest:release-1.8.1
@@ -550,6 +556,7 @@ steps:
 #     status: [ failure ]
 #   depends_on:
 #     - latest
+#     - release-1.11.0
 #     - release-1.10.0
 #     - release-1.8.1
 #     - release-1.8.0
@@ -595,8 +602,8 @@ steps:
 #       exclude:
 #         - master
 #   depends_on: [ clone ]
-# - name: release-1.10.0
-#   image: srzzumix/googletest:release-1.10.0
+# - name: release-1.11.0
+#   image: srzzumix/googletest:release-1.11.0
 #   environment:
 #     GTEST_EXPECT_VERSION: 0x01100000
 #   commands: &gtest-version-detect-commands
@@ -608,6 +615,12 @@ steps:
 #     - >
 #       make clean &&
 #       make USE_GTEST=1 USE_GMOCK=1 GTEST_EXPECT_VER=$${GTEST_EXPECT_VERSION} gtest-version
+#   depends_on: [ clone ]
+# - name: release-1.10.0
+#   image: srzzumix/googletest:release-1.8.1
+#   environment:
+#     GTEST_EXPECT_VERSION: 0x01080100
+#   commands: *gtest-version-detect-commands
 #   depends_on: [ clone ]
 # - name: release-1.8.1
 #   image: srzzumix/googletest:release-1.8.1
@@ -688,6 +701,7 @@ steps:
 #     status: [ failure ]
 #   depends_on:
 #     - latest
+#     - release-1.11.0
 #     - release-1.10.0
 #     - release-1.8.1
 #     - release-1.8.0
