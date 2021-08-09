@@ -176,7 +176,7 @@ IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
  * @ingroup     IUTEST_UTIL
  * @brief       set iutest flag
  * @name        name  = flag name
- * @value       value = flag value
+ * @param       value = flag value
 */
 #ifndef IUTEST_FLAG_SET
 #  define IUTEST_FLAG_SET(name, value)   (void)(::iutest::IUTEST_FLAG(name) = value)
