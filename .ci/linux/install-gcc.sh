@@ -2,7 +2,7 @@
 
 set -ex
 
-if [ -z ${GCC_VERSION+x} ]; then
+if [ -z "${GCC_VERSION}" ]; then
   echo "GCC_VERSION is empty. skip install gcc..."
   return
 fi
