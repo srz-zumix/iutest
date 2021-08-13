@@ -37,6 +37,8 @@ jobs:
         gtest-version: [""]
         GTEST_EXPECT_VER: [""]
         GTEST_EXPECT_LATEST: [0]
+        exclude:
+          - gtest-version: ""
         include:
           - gtest-version: "latest"
             GTEST_EXPECT_VER: 0x01110000
