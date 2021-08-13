@@ -1,0 +1,67 @@
+name: Google Test Compatible
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+      - 'feature/**'
+      - 'fix/**'
+      - 'gh/**'
+      - 'github/**'
+      - 'githubactions/**'
+    paths-ignore:
+      - '*.ini'
+      - '*.md'
+      - '*.yml'
+      - '*.yaml'
+      - '.circleci/**'
+      - '.semaphore/**'
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    if: >
+      ! contains(github.event.head_commit.message, '[ci skip gtest]')
+    steps:
+      - run: |
+          echo "${{ github.event.head_commit.message }}"
+
+  gtest-compat:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        gtest-version: [""]
+        GTEST_EXPECT_VER: [""]
+        GTEST_EXPECT_LATEST: [0]
+        include:
+          - gtest-version: "latest"
+            GTEST_EXPECT_VER: 0x01110000
+            GTEST_EXPECT_LATEST: 1
+          - gtest-version: "release-1.11.0"
+            GTEST_EXPECT_VER: 0x01110000
+          - gtest-version: "release-1.8.1"
+            GTEST_EXPECT_VER: 0x01080100
+          - gtest-version: "release-1.8.0"
+            GTEST_EXPECT_VER: 0x01080000
+          - gtest-version: "release-1.7.0"
+            GTEST_EXPECT_VER: 0x01070000
+          - gtest-version: "release-1.6.0"
+            GTEST_EXPECT_VER: 0x01060000
+          - gtest-version: "release-1.5.0"
+            GTEST_EXPECT_VER: 0x01050000
+      fail-fast: false
+    container:
+      image: "srzzumix/googletest:${{ matrix.gtest-version }}"
+    env:
+      MAKE_OPTION: "-j4 USE_GTEST=1"
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          cd test
+          make clean
+          make OUTPUTXML=1 GTEST_EXPECT_VER=${{ matrix.GTEST_EXPECT_VER }} GTEST_EXPECT_LATEST=${{ matrix.GTEST_EXPECT_LATEST }} ${MAKE_OPTION} test
+
