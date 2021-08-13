@@ -34,8 +34,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        gtest-version: []
-        GTEST_EXPECT_VER: []
+        gtest-version: [""]
+        GTEST_EXPECT_VER: [""]
         GTEST_EXPECT_LATEST: [0]
         include:
           - gtest-version: "latest"
