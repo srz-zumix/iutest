@@ -45,6 +45,8 @@ jobs:
             GTEST_EXPECT_LATEST: 1
           - gtest-version: "release-1.11.0"
             GTEST_EXPECT_VER: 0x01110000
+          - gtest-version: "release-1.10.0"
+            GTEST_EXPECT_VER: 0x01100000
           - gtest-version: "release-1.8.1"
             GTEST_EXPECT_VER: 0x01080100
           - gtest-version: "release-1.8.0"
@@ -59,11 +61,19 @@ jobs:
     container:
       image: "srzzumix/googletest:${{ matrix.gtest-version }}"
     env:
-      MAKE_OPTION: "-j4 USE_GTEST=1"
+      MAKE_OPTION: "-j4"
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          cd test
-          make clean
-          make OUTPUTXML=1 GTEST_EXPECT_VER=${{ matrix.GTEST_EXPECT_VER }} GTEST_EXPECT_LATEST=${{ matrix.GTEST_EXPECT_LATEST }} ${MAKE_OPTION} test
+      - name: Google Test
+        env:
+          GTEST_OPTION: "USE_GTEST=1"
+        run: |
+          make -C test clean
+          make -C test OUTPUTXML=1 GTEST_EXPECT_VER=${{ matrix.GTEST_EXPECT_VER }} GTEST_EXPECT_LATEST=${{ matrix.GTEST_EXPECT_LATEST }} ${MAKE_OPTION} ${GTEST_OPTION} test
+      - name: Google Mock
+        env:
+          GTEST_OPTION: "USE_GTEST=1 USE_GMOCK=1"
+        run: |
+          make -C test clean
+          make -C test OUTPUTXML=1 GTEST_EXPECT_VER=${{ matrix.GTEST_EXPECT_VER }} GTEST_EXPECT_LATEST=${{ matrix.GTEST_EXPECT_LATEST }} ${MAKE_OPTION} ${GTEST_OPTION} test
 
