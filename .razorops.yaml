@@ -22,6 +22,7 @@ tasks:
       #     paths: [ "test/*.xml" ]
 
   lint-editorconfig:
+    depends: [test]
     steps:
     - checkout
     # - cache/pull:
