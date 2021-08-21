@@ -1,33 +1,33 @@
 version: v2
 
 tasks:
-  # build-image:
-  #   steps:
-  #     - checkout
-  #     - docker/build:
-  #         image: iutest/razorops_test
-  #         push: false
-  #         tags: [ "latest" ]
-  #         dockerfile: .ci/docker/centos/Dockerfile
+  build-image:
+    steps:
+      - checkout
+      - docker/build:
+          image: iutest/razorops_test
+          push: false
+          tags: [ "latest" ]
+          dockerfile: .ci/docker/centos/Dockerfile
 
-  # test:
-  #   depends: [build-image]
-  #   containers:
-  #     - image: iutest/razorops_test
-  #   steps:
-  #     - checkout
-  #     - commands:
-  #         - uname -a
-  #         - cd test
-  #         - make OUTPUTXML=junit
-  #         - make OUTPUTXML=junit test
-  #         - make report
-  #         - cd ..
-  #     # Note:
-  #     # Failed to check if bucket(throbbing-shape-1474) exists: Missing fields in request.
-  #     # bucket throbbing-shape-1474: Missing fields in request.
-  #     # - reports/junit:
-  #     #     paths: [ "test/*.xml" ]
+  test:
+    depends: [build-image]
+    containers:
+      - image: iutest/razorops_test
+    steps:
+      - checkout
+      - commands:
+          - uname -a
+          - cd test
+          - make OUTPUTXML=junit
+          - make OUTPUTXML=junit test
+          - make report
+          - cd ..
+      # Note:
+      # Failed to check if bucket(throbbing-shape-1474) exists: Missing fields in request.
+      # bucket throbbing-shape-1474: Missing fields in request.
+      # - reports/junit:
+      #     paths: [ "test/*.xml" ]
 
   lint-editorconfig:
     steps:
