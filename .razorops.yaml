@@ -7,13 +7,12 @@ tasks:
     steps:
       - checkout
       - commands:
-          - uname -a
           # gcc 3 is not support UTF8-BOM
           - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) -exec sed -i -e '1s/^\xEF\xBB\xBF//' {} \;
           - cd test
           - make showcxxversion showcxxmacros
-          - make -j4  OUTPUTXML=junit
-          - make test OUTPUTXML=junit
+          - make
+          - make test
           - make report
       # Note:
       # Failed to check if bucket(throbbing-shape-1474) exists: Missing fields in request.
