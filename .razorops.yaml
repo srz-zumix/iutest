@@ -21,7 +21,6 @@ tasks:
       #     paths: [ "test/*.xml" ]
 
   lint-editorconfig:
-    depends: [test]
     steps:
     - checkout
     # - cache/pull:
@@ -40,11 +39,10 @@ trigger:
 
 # Note:
 # workflows seems to be unsupported GitHub Checks
-# workflows:
-#   - name: centos-test
-#     tasks:
-#       - build-image
-#       - test
-#   - name: lint
-#     tasks:
-#       - lint-editorconfig
+workflows:
+  - name: gcc3-test
+    tasks:
+      - test
+  - name: lint
+    tasks:
+      - lint-editorconfig
