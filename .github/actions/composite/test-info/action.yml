@@ -4,19 +4,26 @@ inputs:
   before-clean:
     description: 'before clean'
     default: "true"
+  shell-cmd:
+    description: 'shell command'
+    default: "bash"
+
 runs:
   using: "composite"
   steps:
     - name: clean
       shell: bash
+      # shell: ${{ inputs.shell-cmd }}
       run: |
         if ${{ inputs.before-clean }}; then make -C test clean; fi
     - name: compiler info
       shell: bash
+      # shell: ${{ inputs.shell-cmd }}
       run: |
         make -C test showcxxversion
         make -C test showcxxmacros
     - name: stdlib
       shell: bash
+      # shell: ${{ inputs.shell-cmd }}
       run: |
         make -C test check_stdlib
