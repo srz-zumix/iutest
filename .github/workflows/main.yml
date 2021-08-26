@@ -35,9 +35,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: prepare
     steps:
-      - uses: actions/checkout@v2
-      - name: Docker login
-        uses: ./.github/actions/composite/docker-login
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: login check
+        run: |
+          echo a | docker login
       - name: TODO
         run: |
           echo "build and push"
@@ -55,14 +60,8 @@ jobs:
       OUTPUTXML: junit
     steps:
       - uses: actions/checkout@v2
-      - name: choco-install
-        run: |
-          choco install -y llvm || exit 1
-          call refreshenv
-      - name: set path
-        shell: bash
-        run: |
-          echo "C:\Program Files\LLVM\bin" >> $GITHUB_PATH
+      - name: Setup Windows LLVM
+        uses: ./.github/actions/composite/setup-win-llvm
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: llvm clang build
