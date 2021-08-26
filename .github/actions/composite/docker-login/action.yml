@@ -10,5 +10,6 @@ runs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: login check
+      shell: bash
       run: |
         echo a | docker login
