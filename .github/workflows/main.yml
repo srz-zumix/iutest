@@ -60,14 +60,8 @@ jobs:
       OUTPUTXML: junit
     steps:
       - uses: actions/checkout@v2
-      - name: choco-install
-        run: |
-          choco install -y llvm || exit 1
-          call refreshenv
-      - name: set path
-        shell: bash
-        run: |
-          echo "C:\Program Files\LLVM\bin" >> $GITHUB_PATH
+      - name: Setup Windows LLVM
+        uses: ./.github/actions/composite/setup-win-llvm
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: llvm clang build

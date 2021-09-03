@@ -1,0 +1,15 @@
+name: 'Setup Window LLVM'
+description: 'setup windows llvm'
+
+runs:
+  using: "composite"
+  steps:
+    - name: choco-install
+      shell: cmd
+      run: |
+        choco install -y llvm || exit 1
+        call refreshenv
+    - name: set path
+      shell: bash
+      run: |
+        echo "C:\Program Files\LLVM\bin" >> $GITHUB_PATH
