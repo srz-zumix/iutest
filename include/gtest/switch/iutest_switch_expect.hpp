@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_switch_expect.hpp
- * @brief       EXPECT フレーバー切り替え ファイル
+ * @brief       EXPECT flavor iutest/gtest switch file
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -71,6 +71,7 @@
 #define EXPECT_NEAR         IUTEST_EXPECT_NEAR
 #define EXPECT_FLOAT_EQ     IUTEST_EXPECT_FLOAT_EQ
 #define EXPECT_DOUBLE_EQ    IUTEST_EXPECT_DOUBLE_EQ
+#define EXPECT_COMPLEX_EQ   IUTEST_EXPECT_COMPLEX_EQ
 #define EXPECT_STREQ        IUTEST_EXPECT_STREQ
 #define EXPECT_STRNE        IUTEST_EXPECT_STRNE
 #define EXPECT_STRCASEEQ    IUTEST_EXPECT_STRCASEEQ
@@ -125,6 +126,7 @@
 #undef IUTEST_EXPECT_SAME
 #undef IUTEST_EXPECT_FLOAT_EQ
 #undef IUTEST_EXPECT_DOUBLE_EQ
+#undef IUTEST_EXPECT_COMPLEX_EQ
 #undef IUTEST_EXPECT_STREQ
 #undef IUTEST_EXPECT_STRNE
 #undef IUTEST_EXPECT_STRCASEEQ

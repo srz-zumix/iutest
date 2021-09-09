@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_switch_inform.hpp
- * @brief       INFORM フレーバー切り替え ファイル
+ * @brief       INFORM flavor iutest/gtest switch file
  *
  * @author      t.shirayanagi
  * @par         copyright
@@ -30,6 +30,7 @@
 #define INFORM_NEAR         IUTEST_INFORM_NEAR
 #define INFORM_FLOAT_EQ     IUTEST_INFORM_FLOAT_EQ
 #define INFORM_DOUBLE_EQ    IUTEST_INFORM_DOUBLE_EQ
+#define INFORM_COMPLEX_EQ   IUTEST_INFORM_COMPLEX_EQ
 #define INFORM_STREQ        IUTEST_INFORM_STREQ
 #define INFORM_STRNE        IUTEST_INFORM_STRNE
 #define INFORM_STRCASEEQ    IUTEST_INFORM_STRCASEEQ
@@ -84,6 +85,7 @@
 #undef IUTEST_INFORM_SAME
 #undef IUTEST_INFORM_FLOAT_EQ
 #undef IUTEST_INFORM_DOUBLE_EQ
+#undef IUTEST_INFORM_COMPLEX_EQ
 #undef IUTEST_INFORM_STREQ
 #undef IUTEST_INFORM_STRNE
 #undef IUTEST_INFORM_STRCASEEQ

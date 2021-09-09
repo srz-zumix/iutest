@@ -533,6 +533,10 @@
 
 #endif
 
+#define IUTEST_TEST_COMPLEX_EQ(expected, actual, on_failure) \
+    IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperFloatingPointComplexEQ   \
+        , expected, actual, on_failure )
+
 #define IUTEST_TEST_NEAR(v1, v2, abs_v, on_failure)         \
     IUTEST_PRED_FORMAT3_( ::iutest::internal::CmpHelperNear \
         , v1, v2, abs_v, on_failure )
