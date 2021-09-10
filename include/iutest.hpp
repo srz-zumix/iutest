@@ -450,6 +450,17 @@ IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
 
 /**
  * @ingroup IUTEST_ASSERT_
+ * @brief   float の比較 テスト
+ * @param   expected    = 期待値
+ * @param   actual      = 検査対象
+*/
+#ifndef IUTEST_ASSERT_COMPLEX_EQ
+#  define IUTEST_ASSERT_COMPLEX_EQ(expected, actual)    \
+    IUTEST_TEST_COMPLEX_EQ(expected, actual, IUTEST_ASSERT_FAILURE)
+#endif
+
+/**
+ * @ingroup IUTEST_ASSERT_
  * @brief   ２値の差の範囲 テスト
  * @param   v1      = 値1
  * @param   v2      = 値2
@@ -846,6 +857,17 @@ IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
 #  define IUTEST_EXPECT_LONG_DOUBLE_EQ(expected, actual)    \
     IUTEST_TEST_LONG_DOUBLE_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
 #endif
+#endif
+
+/**
+ * @ingroup IUTEST_EXPECT_
+ * @brief   std::complex の比較 テスト
+ * @param   expected    = 期待値
+ * @param   actual      = 検査対象
+*/
+#ifndef IUTEST_EXPECT_COMPLEX_EQ
+#  define IUTEST_EXPECT_COMPLEX_EQ(expected, actual)    \
+    IUTEST_TEST_COMPLEX_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
 #endif
 
 /**
@@ -1257,6 +1279,16 @@ IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
     IUTEST_TEST_LONG_DOUBLE_EQ(expected, actual, IUTEST_INFORM_FAILURE)
 #endif
 #endif
+/**
+ * @ingroup IUTEST_INFORM_
+ * @brief   float の比較 テスト
+ * @param   expected    = 期待値
+ * @param   actual      = 検査対象
+*/
+#ifndef IUTEST_INFORM_COMPLEX_EQ
+#  define IUTEST_INFORM_COMPLEX_EQ(expected, actual)    \
+    IUTEST_TEST_COMPLEX_EQ(expected, actual, IUTEST_INFORM_FAILURE)
+#endif
 
 /**
  * @ingroup IUTEST_INFORM_
@@ -1648,6 +1680,17 @@ IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
 #  define IUTEST_ASSUME_LONG_DOUBLE_EQ(expected, actual)    \
     IUTEST_TEST_LONG_DOUBLE_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
 #endif
+#endif
+
+/**
+ * @ingroup IUTEST_ASSUME_
+ * @brief   float の比較 テスト
+ * @param   expected    = 期待値
+ * @param   actual      = 検査対象
+*/
+#ifndef IUTEST_ASSUME_COMPLEX_EQ
+#  define IUTEST_ASSUME_COMPLEX_EQ(expected, actual)    \
+    IUTEST_TEST_COMPLEX_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
 #endif
 
 /**
