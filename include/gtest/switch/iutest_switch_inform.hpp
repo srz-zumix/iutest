@@ -184,6 +184,9 @@
 #define INFORM_DOUBLE_EQ(expected, actual)\
     INFORM_PRED_FORMAT2(::testing::internal::CmpHelperFloatingPointEQ<double>, \
     expected, actual)
+#define INFORM_COMPLEX_EQ(expected, actual)\
+    INFORM_PRED_FORMAT2(::testing::internal::CmpHelperFloatingPointComplexEQ, \
+    expected, actual)
 #define INFORM_NEAR(val1, val2, abs_error)\
     INFORM_PRED_FORMAT3(::testing::internal::DoubleNearPredFormat, \
     val1, val2, abs_error)
@@ -216,6 +219,7 @@
 #define IUTEST_INFORM_NEAR                  INFORM_NEAR
 #define IUTEST_INFORM_FLOAT_EQ              INFORM_FLOAT_EQ
 #define IUTEST_INFORM_DOUBLE_EQ             INFORM_DOUBLE_EQ
+#define IUTEST_INFORM_COMPLEX_EQ            INFORM_COMPLEX_EQ
 #define IUTEST_INFORM_STREQ                 INFORM_STREQ
 #define IUTEST_INFORM_STRNE                 INFORM_STRNE
 #define IUTEST_INFORM_STRCASEEQ             INFORM_STRCASEEQ

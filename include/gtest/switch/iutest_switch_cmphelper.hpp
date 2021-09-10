@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_switch_cmphelper.hpp
- * @brief       comapre helper for gtest
+ * @brief       compare helper for gtest
  *
  * @author      t.shirayanagi
  * @par         copyright

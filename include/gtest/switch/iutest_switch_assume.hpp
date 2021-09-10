@@ -178,7 +178,7 @@
     ASSUME_PRED_FORMAT2(::testing::internal::CmpHelperFloatingPointEQ<double>, \
     expected, actual)
 #define ASSUME_COMPLEX_EQ(expected, actual)\
-    ASSERT_PRED_FORMAT2(::testing::internal::CmpHelperFloatingPointComplexEQ, \
+    ASSUME_PRED_FORMAT2(::testing::internal::CmpHelperFloatingPointComplexEQ, \
     expected, actual)
 #define ASSUME_NEAR(val1, val2, abs_error)\
     ASSUME_PRED_FORMAT3(::testing::internal::DoubleNearPredFormat, \

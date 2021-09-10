@@ -178,6 +178,7 @@
 #define IUTEST_EXPECT_SAME(v1, v2)          EXPECT_PRED_FORMAT2(::testing::internal::CmpHelperSame, v1, v2)
 #define IUTEST_EXPECT_FLOAT_EQ              EXPECT_FLOAT_EQ
 #define IUTEST_EXPECT_DOUBLE_EQ             EXPECT_DOUBLE_EQ
+#define IUTEST_EXPECT_COMPLEX_EQ(v1, v2)    EXPECT_PRED_FORMAT2(::testing::internal::CmpHelperFloatingPointComplexEQ, v1, v2)
 #define IUTEST_EXPECT_STREQ                 EXPECT_STREQ
 #define IUTEST_EXPECT_STRNE                 EXPECT_STRNE
 #define IUTEST_EXPECT_STRCASEEQ             EXPECT_STRCASEEQ
