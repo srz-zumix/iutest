@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_switch_cmphelper.hpp
- * @brief       gtest 用 比較ヘルパー関数 ファイル
+ * @brief       compare helper for gtest
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -99,24 +99,91 @@ public:
     }
 };
 
+template<typename RawType>
+inline AssertionResult CmpHelperFloatingPointComplexEQ(const char* expr1, const char* expr2
+                                                , const ::std::complex<RawType>& val1, const ::std::complex<RawType>& val2)
+{
+    AssertionResult real = CmpHelperFloatingPointEQ<RawType>(expr1, expr2, val1.real(), val2.real());
+    AssertionResult imag = CmpHelperFloatingPointEQ<RawType>(expr1, expr2, val1.imag(), val2.imag());
+    if( real && imag )
+    {
+        return real;
+    }
+    return EqFailure(expr1, expr2
+        , FormatForComparisonFailureMessage(val1, val2).c_str()
+        , FormatForComparisonFailureMessage(val2, val1).c_str()
+        , true);
+}
+
+template<typename R1, typename R2>
+inline AssertionResult CmpHelperFloatingPointComplexEQ(const char* expr1, const char* expr2
+                                                , const ::std::complex<R1>& val1, const ::std::complex<R2>& val2)
+{
+    if( sizeof(R1) > sizeof(R2) )
+    {
+        return CmpHelperFloatingPointComplexEQ<R1>(expr1, expr2, val1, val2);
+    }
+    else
+    {
+        return CmpHelperFloatingPointComplexEQ<R2>(expr1, expr2, val1, val2);
+    }
+}
+
+template<typename R1, typename R2>
+inline AssertionResult CmpHelperFloatingPointComplexEQ(const char* expr1, const char* expr2
+                                                , R1 val1, const ::std::complex<R2>& val2)
+{
+    return CmpHelperFloatingPointComplexEQ(expr1, expr2, ::std::complex<R2>(val1, R2()), val2);
+}
+template<typename R1, typename R2>
+inline AssertionResult CmpHelperFloatingPointComplexEQ(const char* expr1, const char* expr2
+                                                , const ::std::complex<R1>& val1, R2 val2)
+{
+    return CmpHelperFloatingPointComplexEQ(expr1, expr2, val1, ::std::complex<R1>(val2, R1()));
+}
+
+
 template<bool lhs_is_null_literal>
 class AlmostEqHelper : public EqHelper<lhs_is_null_literal>
 {
+    struct CmpHelper
+    {
+        template<typename T1, typename T2>
+        static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2)
+        {
+            return EqHelper<false>::Compare(expr1, expr2, val1, static_cast<T1>(val2));
+        }
+        template<typename T>
+        static AssertionResult Compare(const char* expr1, const char* expr2, const float& val1, const T& val2)
+        {
+            return CmpHelperFloatingPointEQ<float>(expr1, expr2, val1, static_cast<float>(val2));
+        }
+        template<typename T>
+        static AssertionResult Compare(const char* expr1, const char* expr2, const double& val1, const T& val2)
+        {
+            return CmpHelperFloatingPointEQ<double>(expr1, expr2, val1, static_cast<double>(val2));
+        }
+    };
 public:
     template<typename T1, typename T2>
     static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2)
     {
-        return EqHelper<false>::Compare(expr1, expr2, val1, static_cast<T1>(val2));
+        return CmpHelper::Compare(expr1, expr2, val1, val2);
     }
-    template<typename T>
-    static AssertionResult Compare(const char* expr1, const char* expr2, const float& val1, const T& val2)
+    template<typename T, typename U>
+    static AssertionResult Compare(const char* expr1, const char* expr2, const ::std::complex<T>& val1, const ::std::complex<U>& val2)
     {
-        return CmpHelperFloatingPointEQ<float>(expr1, expr2, val1, static_cast<float>(val2));
+        return CmpHelperFloatingPointComplexEQ(expr1, expr2, val1, val2);
     }
-    template<typename T>
-    static AssertionResult Compare(const char* expr1, const char* expr2, const double& val1, const T& val2)
+    template<typename T, typename U>
+    static AssertionResult Compare(const char* expr1, const char* expr2, const T& val1, const ::std::complex<U>& val2)
     {
-        return CmpHelperFloatingPointEQ<double>(expr1, expr2, val1, static_cast<double>(val2));
+        return CmpHelperFloatingPointComplexEQ(expr1, expr2, val1, val2);
+    }
+    template<typename T, typename U>
+    static AssertionResult Compare(const char* expr1, const char* expr2, const ::std::complex<T>& val1, const U& val2)
+    {
+        return CmpHelperFloatingPointComplexEQ(expr1, expr2, val1, val2);
     }
 };
 
