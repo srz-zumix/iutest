@@ -64,11 +64,11 @@ jobs:
           GTEST_OPTION: "USE_GTEST=1"
         run: |
           make -C test clean
-          make -C test OUTPUTXML=1 GTEST_EXPECT_VER=${{ matrix.GTEST_EXPECT_VER }} GTEST_EXPECT_LATEST=${{ matrix.GTEST_EXPECT_LATEST }} ${MAKE_OPTION} ${GTEST_OPTION} test
+          echo make -C test OUTPUTXML=1 GTEST_EXPECT_VER=${{ matrix.GTEST_EXPECT_VER }} GTEST_EXPECT_LATEST=${{ matrix.GTEST_EXPECT_LATEST }} ${MAKE_OPTION} ${GTEST_OPTION} test
       - name: Google Mock
         env:
           GTEST_OPTION: "USE_GTEST=1 USE_GMOCK=1"
         run: |
           make -C test clean
-          make -C test OUTPUTXML=1 GTEST_EXPECT_VER=${{ matrix.GTEST_EXPECT_VER }} GTEST_EXPECT_LATEST=${{ matrix.GTEST_EXPECT_LATEST }} ${MAKE_OPTION} ${GTEST_OPTION} test
+          echo make -C test OUTPUTXML=1 GTEST_EXPECT_VER=${{ matrix.GTEST_EXPECT_VER }} GTEST_EXPECT_LATEST=${{ matrix.GTEST_EXPECT_LATEST }} ${MAKE_OPTION} ${GTEST_OPTION} test
 
