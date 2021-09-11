@@ -93,7 +93,7 @@ IUTEST(PrintToTest, Bar)
 IUTEST(PrintToTest, FloatingPoint)
 {
     ::iutest::floating_point<float> f = 1.0f;
-    ::iutest::detail::FloatingPoint<float> F(1.0f);
+    ::iutest::internal::FloatingPoint<float> F(1.0f);
     IUTEST_ASSERT_STREQ(::iutest::PrintToString(f), ::iutest::PrintToString(F));
 }
 
@@ -124,7 +124,7 @@ IUTEST(PrintToTest, UInt128)
 #if IUTEST_HAS_LONG_DOUBLE
 IUTEST(PrintToTest, LongDouble)
 {
-    ::iutest::detail::LongDouble ld(static_cast< ::iutest::detail::LongDouble::Float>(1.0f));
+    ::iutest::internal::LongDouble ld(static_cast< ::iutest::internal::LongDouble::Float>(1.0f));
     LogChecker ck("1");
     IUTEST_PRINTTOSTRING_CONTAIN(ck, ld);
     IUTEST_STREAMOUT_CHECK(ld);
@@ -134,7 +134,7 @@ IUTEST(PrintToTest, LongDouble)
 #if IUTEST_HAS_FLOAT128
 IUTEST(PrintToTest, Float128)
 {
-    ::iutest::detail::Float128 f128(static_cast< ::iutest::detail::Float128::Float>(1.0f));
+    ::iutest::internal::Float128 f128(static_cast< ::iutest::internal::Float128::Float>(1.0f));
     LogChecker ck("1");
     IUTEST_PRINTTOSTRING_CONTAIN(ck, f128);
     IUTEST_STREAMOUT_CHECK(f128);
