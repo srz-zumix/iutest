@@ -75,7 +75,7 @@ GTEST_LIB_=-lgtest -lpthread
 
 endif
 
-LDFLAGS += $(GTEST_LIB_)
+override LDFLAGS += $(GTEST_LIB_)
 override CXXFLAGS += -DIUTEST_USE_GTEST -DIUTEST_HAS_SOCKET=0 $(NO_UNUSED_LOCAL_TYPEDEFS) -Wno-sign-compare $(GTEST_INC_)
 ifeq ($(findstring suggest-override, $(CXXFLAGS)), suggest-override)
 override CXXFLAGS += -Wno-suggest-override
@@ -116,7 +116,7 @@ GMOCK_LIB_=-lgmock -lgtest -lpthread
 
 endif
 
-LDFLAGS += $(GMOCK_LIB_)
+override LDFLAGS += $(GMOCK_LIB_)
 override CXXFLAGS += -DIUTEST_USE_GTEST -DIUTEST_USE_GMOCK -DIUTEST_HAS_SOCKET=0 $(NO_UNUSED_LOCAL_TYPEDEFS) $(GMOCK_INC_)
 # override CXXFLAGS += -DGTEST_REMOVE_LEGACY_TEST_CASEAPI_
 
