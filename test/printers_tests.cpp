@@ -32,8 +32,9 @@
     (void)(expect); \
     (void)(val)
 
-// unused
-// #define IUTEST_PRINTTOSTRING_CONTAIN(expect, val)
+#define IUTEST_PRINTTOSTRING_CONTAIN(expect, val)   \
+    (void)(expect); \
+    (void)(val)
 
 #endif
 
