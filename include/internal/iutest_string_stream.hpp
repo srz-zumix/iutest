@@ -384,7 +384,7 @@ IUTEST_PRAGMA_WARN_POP()
     }
 #endif
 #if IUTEST_HAS_FLOAT128
-    inline _Myt& operator<< (detail::Float128::Float v)
+    inline _Myt& operator<< (internal::Float128::Float v)
     {
         _Elem a[64];
         const double d = static_cast<double>(v);
