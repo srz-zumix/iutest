@@ -35,8 +35,48 @@ using ::std::enable_if;
 using ::iutest_type_traits::enable_if;
 #endif
 
-//======================================================================
-// class
+template<typename RawType>
+inline AssertionResult CmpHelperFloatingPointComplexEQ(const char* expr1, const char* expr2
+                                                , const ::std::complex<RawType>& val1, const ::std::complex<RawType>& val2)
+{
+    AssertionResult real = CmpHelperFloatingPointEQ<RawType>(expr1, expr2, val1.real(), val2.real());
+    AssertionResult imag = CmpHelperFloatingPointEQ<RawType>(expr1, expr2, val1.imag(), val2.imag());
+    if( real && imag )
+    {
+        return real;
+    }
+    return EqFailure(expr1, expr2
+        , FormatForComparisonFailureMessage(val1, val2).c_str()
+        , FormatForComparisonFailureMessage(val2, val1).c_str()
+        , true);
+}
+
+template<typename R1, typename R2>
+inline AssertionResult CmpHelperFloatingPointComplexEQ(const char* expr1, const char* expr2
+                                                , const ::std::complex<R1>& val1, const ::std::complex<R2>& val2)
+{
+    if( sizeof(R1) > sizeof(R2) )
+    {
+        return CmpHelperFloatingPointComplexEQ<R1>(expr1, expr2, val1, val2);
+    }
+    else
+    {
+        return CmpHelperFloatingPointComplexEQ<R2>(expr1, expr2, val1, val2);
+    }
+}
+
+template<typename R1, typename R2>
+inline AssertionResult CmpHelperFloatingPointComplexEQ(const char* expr1, const char* expr2
+                                                , R1 val1, const ::std::complex<R2>& val2)
+{
+    return CmpHelperFloatingPointComplexEQ(expr1, expr2, ::std::complex<R2>(val1, R2()), val2);
+}
+template<typename R1, typename R2>
+inline AssertionResult CmpHelperFloatingPointComplexEQ(const char* expr1, const char* expr2
+                                                , const ::std::complex<R1>& val1, R2 val2)
+{
+    return CmpHelperFloatingPointComplexEQ(expr1, expr2, val1, ::std::complex<R1>(val2, R1()));
+}
 
 namespace backward
 {
@@ -99,50 +139,6 @@ public:
     }
 };
 
-template<typename RawType>
-inline AssertionResult CmpHelperFloatingPointComplexEQ(const char* expr1, const char* expr2
-                                                , const ::std::complex<RawType>& val1, const ::std::complex<RawType>& val2)
-{
-    AssertionResult real = CmpHelperFloatingPointEQ<RawType>(expr1, expr2, val1.real(), val2.real());
-    AssertionResult imag = CmpHelperFloatingPointEQ<RawType>(expr1, expr2, val1.imag(), val2.imag());
-    if( real && imag )
-    {
-        return real;
-    }
-    return EqFailure(expr1, expr2
-        , FormatForComparisonFailureMessage(val1, val2).c_str()
-        , FormatForComparisonFailureMessage(val2, val1).c_str()
-        , true);
-}
-
-template<typename R1, typename R2>
-inline AssertionResult CmpHelperFloatingPointComplexEQ(const char* expr1, const char* expr2
-                                                , const ::std::complex<R1>& val1, const ::std::complex<R2>& val2)
-{
-    if( sizeof(R1) > sizeof(R2) )
-    {
-        return CmpHelperFloatingPointComplexEQ<R1>(expr1, expr2, val1, val2);
-    }
-    else
-    {
-        return CmpHelperFloatingPointComplexEQ<R2>(expr1, expr2, val1, val2);
-    }
-}
-
-template<typename R1, typename R2>
-inline AssertionResult CmpHelperFloatingPointComplexEQ(const char* expr1, const char* expr2
-                                                , R1 val1, const ::std::complex<R2>& val2)
-{
-    return CmpHelperFloatingPointComplexEQ(expr1, expr2, ::std::complex<R2>(val1, R2()), val2);
-}
-template<typename R1, typename R2>
-inline AssertionResult CmpHelperFloatingPointComplexEQ(const char* expr1, const char* expr2
-                                                , const ::std::complex<R1>& val1, R2 val2)
-{
-    return CmpHelperFloatingPointComplexEQ(expr1, expr2, val1, ::std::complex<R1>(val2, R1()));
-}
-
-
 template<bool lhs_is_null_literal>
 class AlmostEqHelper : public EqHelper<lhs_is_null_literal>
 {
@@ -193,9 +189,6 @@ class AlmostEqHelper<true> : public EqHelper<true>
 };
 
 }   // end of namespace backward
-
-//======================================================================
-// function
 
 template<typename T1, typename T2>
 inline AssertionResult  CmpHelperSame(const char* expected_str, const char* actual_str
