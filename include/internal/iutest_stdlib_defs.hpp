@@ -34,6 +34,7 @@
 #include <cstdlib>
 #include <cstddef>
 #include <limits>
+#include <complex>
 
 // <version> header
 #if !defined(IUTEST_HAS_CXX_HDR_VERSION)
