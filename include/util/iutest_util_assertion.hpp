@@ -914,13 +914,13 @@ namespace floationg_point_helper
 {
 
 template<typename T>
-::iutest::detail::FloatingPoint<float> CastToFloatingPoint(const T& x)
+::iutest::internal::FloatingPoint<float> CastToFloatingPoint(const T& x)
 {
-    return ::iutest::detail::FloatingPoint<float>(static_cast<float>(x));
+    return ::iutest::internal::FloatingPoint<float>(static_cast<float>(x));
 }
-inline ::iutest::detail::FloatingPoint<double> CastToFloatingPoint(const double& x)
+inline ::iutest::internal::FloatingPoint<double> CastToFloatingPoint(const double& x)
 {
-    return ::iutest::detail::FloatingPoint<double>(x);
+    return ::iutest::internal::FloatingPoint<double>(x);
 }
 
 } // end of namespace floationg_point_helper

@@ -370,7 +370,7 @@ inline void PrintTo(const floating_point<T>& f, iu_ostream* os)
     PrintToFloatingPoint(f, os);
 }
 template<typename T>
-inline void PrintTo(const FloatingPoint<T>& f, iu_ostream* os)
+inline void PrintTo(const internal::FloatingPoint<T>& f, iu_ostream* os)
 {
     PrintToFloatingPoint(f, os);
 }
