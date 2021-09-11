@@ -37,6 +37,7 @@ jobs:
           ,-whitespace/operators\
           ,-whitespace/parens\
           "
+
   shellcheck:
     name: runner / shellcheck
     runs-on: ubuntu-latest
@@ -49,3 +50,9 @@ jobs:
           path: "."
           pattern: "*.sh"
           exclude: "./.git/*"
+
+  actionlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: reviewdog/action-actionlint@v1
