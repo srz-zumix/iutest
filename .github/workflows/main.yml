@@ -24,12 +24,14 @@ on:
 jobs:
   prepare:
     runs-on: ubuntu-latest
+    env:
+      HEAD_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
     if: >
-      ! contains(github.event.head_commit.message, '[ci skip]') &&
-      ! contains(github.event.head_commit.message, '[skip ci]')
+      ! contains(github.event.head_commit.message, '[gh skip]') &&
+      ! contains(github.event.head_commit.message, '[skip gh]')
     steps:
       - run: |
-          echo "${{ github.event.head_commit.message }}"
+          echo "$HEAD_COMMIT_MESSAGE"
 
   login:
     runs-on: ubuntu-latest
