@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -226,6 +226,18 @@ IUTEST(AssertionTest, LongDouble)
 }
 
 #endif
+
+IUTEST(AssertionTest, Complex)
+{
+    ::std::complex<float> cf0(0.0f, 2.0f);
+    ::std::complex<float> cf1(1.0f, 0.0f);
+    ::std::complex<double> cd1(1.0, 0.0);
+    IUTEST_ASSERT_COMPLEX_EQ(::std::complex<float>(1.0f, 0.0f), cf1);
+    IUTEST_EXPECT_COMPLEX_EQ(::std::complex<float>(0.0f, 2.0f), cf0);
+    IUTEST_INFORM_COMPLEX_EQ(1.0f, cf1);
+    IUTEST_INFORM_COMPLEX_EQ(cf1, 1.0f);
+    IUTEST_INFORM_COMPLEX_EQ(cf1, cd1);
+}
 
 IUTEST(AssertionTest, Near)
 {
