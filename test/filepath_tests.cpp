@@ -143,6 +143,7 @@ IUTEST(FilePath, ConcatPaths)
     }
 }
 
+#if !defined(IUTEST_USE_GTEST)
 IUTEST(FilePath, GetExtention)
 {
     {
@@ -158,6 +159,7 @@ IUTEST(FilePath, GetExtention)
         IUTEST_EXPECT_EQ(".txt", path.GetExtension());
     }
 }
+#endif
 
 IUTEST(FilePath, RemoveExtension)
 {
