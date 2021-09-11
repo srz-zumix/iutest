@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_switch_assert.hpp
- * @brief       ASSERT フレーバー切り替え ファイル
+ * @brief       ASSERT flavor iutest/gtest switch file
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -71,6 +71,7 @@
 #define ASSERT_NEAR         IUTEST_ASSERT_NEAR
 #define ASSERT_FLOAT_EQ     IUTEST_ASSERT_FLOAT_EQ
 #define ASSERT_DOUBLE_EQ    IUTEST_ASSERT_DOUBLE_EQ
+#define ASSERT_COMPLEX_EQ   IUTEST_ASSERT_COMPLEX_EQ
 #define ASSERT_STREQ        IUTEST_ASSERT_STREQ
 #define ASSERT_STRNE        IUTEST_ASSERT_STRNE
 #define ASSERT_STRCASEEQ    IUTEST_ASSERT_STRCASEEQ
@@ -125,6 +126,7 @@
 #undef IUTEST_ASSERT_SAME
 #undef IUTEST_ASSERT_FLOAT_EQ
 #undef IUTEST_ASSERT_DOUBLE_EQ
+#undef IUTEST_ASSERT_COMPLEX_EQ
 #undef IUTEST_ASSERT_STREQ
 #undef IUTEST_ASSERT_STRNE
 #undef IUTEST_ASSERT_STRCASEEQ
@@ -177,6 +179,7 @@
 #define IUTEST_ASSERT_SAME(v1, v2)          ASSERT_PRED_FORMAT2(::testing::internal::CmpHelperSame, v1, v2)
 #define IUTEST_ASSERT_FLOAT_EQ              ASSERT_FLOAT_EQ
 #define IUTEST_ASSERT_DOUBLE_EQ             ASSERT_DOUBLE_EQ
+#define IUTEST_ASSERT_COMPLEX_EQ(v1, v2)    ASSERT_PRED_FORMAT2(::testing::internal::CmpHelperFloatingPointComplexEQ, v1, v2)
 #define IUTEST_ASSERT_STREQ                 ASSERT_STREQ
 #define IUTEST_ASSERT_STRNE                 ASSERT_STRNE
 #define IUTEST_ASSERT_STRCASEEQ             ASSERT_STRCASEEQ
