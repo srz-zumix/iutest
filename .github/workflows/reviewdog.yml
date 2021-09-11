@@ -11,7 +11,6 @@ on:
 
 jobs:
   cpplint:
-    name: runner / cpplint
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -39,7 +38,6 @@ jobs:
           "
 
   shellcheck:
-    name: runner / shellcheck
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
