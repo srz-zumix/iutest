@@ -412,7 +412,7 @@ inline void PrintToFloat128(const T v, iu_ostream* os)
 }
 
 // NOTE: need libquadmath
-inline void PrintTo(const detail::Float128::Float v, iu_ostream* os)
+inline void PrintTo(const internal::Float128::Float v, iu_ostream* os)
 {
     PrintToFloat128(v, os);
 }
