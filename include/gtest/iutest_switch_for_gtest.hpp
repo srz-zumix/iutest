@@ -54,7 +54,6 @@ using ::std::get;
 #  include <cstdio>
 #  define __STRICT_ANSI__
 #endif
-#include <complex>
 
 //======================================================================
 // include
@@ -554,6 +553,11 @@ void GTestStreamTo(std::ostream* os, const T& val)
     *os << val;
 }
 inline void GTestStreamTo(std::ostream* os, const ::std::string& val)
+{
+    *os << val;
+}
+template<typename T>
+inline void GTestStreamTo(std::ostream* os, const ::std::complex<T>& val)
 {
     *os << val;
 }
