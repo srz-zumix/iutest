@@ -473,7 +473,7 @@ namespace printer_internal
 {
 
 template<typename T>
-iu_ostream& operator << (iu_ostream& os, const T& val)
+::std::ostream& operator << (::std::ostream& os, const T& val)
 {
     const unsigned char* buf = const_cast<const unsigned char*>(
         reinterpret_cast<const volatile unsigned char*>(&val));
@@ -536,7 +536,7 @@ const T* WithParamInterface<T>::parameter_ = NULL;
 #if IUTEST_HAS_PRINT_TO
 
 template <typename T>
-inline void GTestStreamToHelperForCompatible(std::ostream* os, const T& val) {
+inline void GTestStreamToHelperForCompatible(::std::ostream* os, const T& val) {
     *os << val;
 }
 
@@ -556,11 +556,11 @@ inline void GTestStreamTo(std::ostream* os, const ::std::string& val)
 {
     *os << val;
 }
-template<typename T>
-inline void GTestStreamTo(std::ostream* os, const ::std::complex<T>& val)
-{
-    *os << val;
-}
+// template<typename T>
+// inline void GTestStreamTo(std::ostream* os, const ::std::complex<T>& val)
+// {
+//     *os << val;
+// }
 inline void GTestStreamTo(std::ostream* os, const char* const val)
 {
     *os << val;
