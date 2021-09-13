@@ -117,9 +117,7 @@ workflows:
             #!/usr/bin/env bash
             set -ex
             env
-            ls /opt/android-ndk
-            envman add --key ANDROID_NDK_ROOT --value /opt/android-ndk
-            envman add --key ANDROID_NDK_HOME --value /opt/android-ndk
+            envman add --key ANDROID_NDK_ROOT --value ${ANDROID_NDK_HOME}
     - script:
         title: CMake
         inputs:
