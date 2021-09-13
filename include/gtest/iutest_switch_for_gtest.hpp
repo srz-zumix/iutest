@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -536,7 +536,7 @@ const T* WithParamInterface<T>::parameter_ = NULL;
 #if IUTEST_HAS_PRINT_TO
 
 template <typename T>
-inline void GTestStreamToHelperForCompatible(std::ostream* os, const T& val) {
+inline void GTestStreamToHelperForCompatible(::std::ostream* os, const T& val) {
     *os << val;
 }
 
@@ -553,6 +553,11 @@ void GTestStreamTo(std::ostream* os, const T& val)
     *os << val;
 }
 inline void GTestStreamTo(std::ostream* os, const ::std::string& val)
+{
+    *os << val;
+}
+template<typename T>
+inline void GTestStreamTo(std::ostream* os, const ::std::complex<T>& val)
 {
     *os << val;
 }
