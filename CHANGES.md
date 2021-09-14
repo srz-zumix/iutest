@@ -4,7 +4,11 @@
 
 ## Changes for 1.17.99
 
+* New
+  * IUTEST_*_COMPLEX_EQ アサーションを追加
+
 * Improved
+  * IUTEST_*_ALMOST_EQ が ::std::complex に対応
   * 例外発生時にも SCOPED_TRACE のメッセージを出力するように変更
   * 空のテストスイート名・テスト名に static_assert を追加
   * GoogleTest の GTEST_REMOVE_LEGACY_TEST_CASEAPI_ に対応
