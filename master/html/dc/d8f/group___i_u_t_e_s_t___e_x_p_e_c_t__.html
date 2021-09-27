@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.10</span>
+   &#160;<span id="projectnumber">1.17.99.11</span>
    </div>
   </td>
  </tr>
@@ -134,6 +134,9 @@ EXPECT 連携図</div>
 <tr class="memitem:gac02eac88d835bf79b046fc9840c3159f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#gac02eac88d835bf79b046fc9840c3159f">IUTEST_EXPECT_DOUBLE_EQ</a>(expected,  actual)&#160;&#160;&#160;IUTEST_TEST_DOUBLE_EQ(expected, actual, IUTEST_EXPECT_FAILURE)</td></tr>
 <tr class="memdesc:gac02eac88d835bf79b046fc9840c3159f"><td class="mdescLeft">&#160;</td><td class="mdescRight">double の比較 テスト  <a href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#gac02eac88d835bf79b046fc9840c3159f">[詳解]</a><br /></td></tr>
 <tr class="separator:gac02eac88d835bf79b046fc9840c3159f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2a32b100ce8f261324092479968ef89b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga2a32b100ce8f261324092479968ef89b">IUTEST_EXPECT_COMPLEX_EQ</a>(expected,  actual)&#160;&#160;&#160;IUTEST_TEST_COMPLEX_EQ(expected, actual, IUTEST_EXPECT_FAILURE)</td></tr>
+<tr class="memdesc:ga2a32b100ce8f261324092479968ef89b"><td class="mdescLeft">&#160;</td><td class="mdescRight">std::complex の比較 テスト  <a href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga2a32b100ce8f261324092479968ef89b">[詳解]</a><br /></td></tr>
+<tr class="separator:ga2a32b100ce8f261324092479968ef89b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae3f962c76fc3e279272e27fb9c75040e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#gae3f962c76fc3e279272e27fb9c75040e">IUTEST_EXPECT_NEAR</a>(v1,  v2,  abs_v)&#160;&#160;&#160;IUTEST_TEST_NEAR(v1, v2, abs_v, IUTEST_EXPECT_FAILURE)</td></tr>
 <tr class="memdesc:gae3f962c76fc3e279272e27fb9c75040e"><td class="mdescLeft">&#160;</td><td class="mdescRight">２値の差の範囲 テスト  <a href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#gae3f962c76fc3e279272e27fb9c75040e">[詳解]</a><br /></td></tr>
 <tr class="separator:gae3f962c76fc3e279272e27fb9c75040e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -347,6 +350,43 @@ EXPECT 連携図</div>
   </dd>
 </dl>
 <dl class="section examples"><dt>各種例</dt><dd><a class="el" href="../../d8/d00/exception_8cpp-example.html#a2">exception.cpp</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="ga2a32b100ce8f261324092479968ef89b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2a32b100ce8f261324092479968ef89b">&#9670;&nbsp;</a></span>IUTEST_EXPECT_COMPLEX_EQ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_EXPECT_COMPLEX_EQ</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expected, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">actual&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;IUTEST_TEST_COMPLEX_EQ(expected, actual, IUTEST_EXPECT_FAILURE)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>std::complex の比較 テスト </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">expected</td><td>= 期待値 </td></tr>
+    <tr><td class="paramname">actual</td><td>= 検査対象 </td></tr>
+  </table>
+  </dd>
 </dl>
 
 </div>
@@ -2344,7 +2384,7 @@ EXPECT 連携図</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2021年08月23日(月) 02時00分51秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2021年09月27日(月) 02時05分34秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

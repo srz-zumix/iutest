@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.10</span>
+   &#160;<span id="projectnumber">1.17.99.11</span>
    </div>
   </td>
  </tr>
@@ -134,6 +134,9 @@ INFORM 連携図</div>
 <tr class="memitem:gade0d04d861551de07ece1ec3eff094a4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#gade0d04d861551de07ece1ec3eff094a4">IUTEST_INFORM_DOUBLE_EQ</a>(expected,  actual)&#160;&#160;&#160;IUTEST_TEST_DOUBLE_EQ(expected, actual, IUTEST_INFORM_FAILURE)</td></tr>
 <tr class="memdesc:gade0d04d861551de07ece1ec3eff094a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">double の比較 テスト  <a href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#gade0d04d861551de07ece1ec3eff094a4">[詳解]</a><br /></td></tr>
 <tr class="separator:gade0d04d861551de07ece1ec3eff094a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae5673a9a9888dbc89a8458c42ab1cdfb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#gae5673a9a9888dbc89a8458c42ab1cdfb">IUTEST_INFORM_COMPLEX_EQ</a>(expected,  actual)&#160;&#160;&#160;IUTEST_TEST_COMPLEX_EQ(expected, actual, IUTEST_INFORM_FAILURE)</td></tr>
+<tr class="memdesc:gae5673a9a9888dbc89a8458c42ab1cdfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">float の比較 テスト  <a href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#gae5673a9a9888dbc89a8458c42ab1cdfb">[詳解]</a><br /></td></tr>
+<tr class="separator:gae5673a9a9888dbc89a8458c42ab1cdfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8ffde1a078f66988ab33836109470624"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#ga8ffde1a078f66988ab33836109470624">IUTEST_INFORM_NEAR</a>(v1,  v2,  abs_v)&#160;&#160;&#160;IUTEST_TEST_NEAR(v1, v2, abs_v, IUTEST_INFORM_FAILURE)</td></tr>
 <tr class="memdesc:ga8ffde1a078f66988ab33836109470624"><td class="mdescLeft">&#160;</td><td class="mdescRight">２値の差の範囲 テスト  <a href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#ga8ffde1a078f66988ab33836109470624">[詳解]</a><br /></td></tr>
 <tr class="separator:ga8ffde1a078f66988ab33836109470624"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -315,6 +318,43 @@ INFORM 連携図</div>
 <p>statement が何らかの例外を投げることを検証します </p><dl class="params"><dt>引数</dt><dd>
   <table class="params">
     <tr><td class="paramname">statement</td><td>= ステートメント </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gae5673a9a9888dbc89a8458c42ab1cdfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae5673a9a9888dbc89a8458c42ab1cdfb">&#9670;&nbsp;</a></span>IUTEST_INFORM_COMPLEX_EQ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_INFORM_COMPLEX_EQ</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expected, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">actual&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;IUTEST_TEST_COMPLEX_EQ(expected, actual, IUTEST_INFORM_FAILURE)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>float の比較 テスト </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">expected</td><td>= 期待値 </td></tr>
+    <tr><td class="paramname">actual</td><td>= 検査対象 </td></tr>
   </table>
   </dd>
 </dl>
@@ -2054,7 +2094,7 @@ INFORM 連携図</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2021年08月23日(月) 02時00分51秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2021年09月27日(月) 02時05分34秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
