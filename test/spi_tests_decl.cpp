@@ -62,6 +62,7 @@
     FAILURE_MACRO( FLAVOR(_LONG_DOUBLE_EQ)(Div(0.0l, lda), Div(0.0l, lda)), "(0x" );
     // FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::LongDoubleLE, 2, 0), "(0x" );
 #endif
+    FAILURE_MACRO( FLAVOR(_COMPLEX_EQ)(::std::complex<float>(1.0f, 1.0f), 1.0f), "" );
     FAILURE_MACRO( FLAVOR(_NEAR)(0, 100, 2), "" );
 
     FAILURE_MACRO( FLAVOR(_STREQ)("A", "a"), "" );

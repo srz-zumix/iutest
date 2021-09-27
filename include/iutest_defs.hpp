@@ -469,7 +469,7 @@ const typename floating_point<T>::UInt floating_point<T>::kEnableBitMask
 
 // googletest compat
 
-namespace detail
+namespace internal
 {
 
 template<typename T>
@@ -489,7 +489,7 @@ typedef FloatingPoint<long double> LongDouble;
 typedef FloatingPoint<__float128> Float128;
 #endif
 
-}   // end of namespace detail
+}   // end of namespace internal
 
 //======================================================================
 // typedef
