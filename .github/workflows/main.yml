@@ -117,7 +117,7 @@ jobs:
           cd cmake-build
           ctest -C Debug -V
 
-  macos-test:
+  xcodebuild-test:
     runs-on: macos-latest
     needs: prepare
     steps:
@@ -128,8 +128,7 @@ jobs:
             cd ./cmake-build
             cmake -G Xcode ../projects/cmake
       - name: cmake build
-        run: cmake --build cmake-build
-      - run: ls ./cmake-build
+        run: cmake --build cmake-build -- -resultBundlePath TestResults
       - name: cmake test
         run: |
           cd cmake-build
