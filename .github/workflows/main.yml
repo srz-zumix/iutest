@@ -117,6 +117,28 @@ jobs:
           cd cmake-build
           ctest -C Debug -V
 
+  macos-test:
+    runs-on: macos-latest
+    needs: prepare
+    steps:
+      - uses: actions/checkout@master
+      - name: cmake
+        run: |
+            mkdir ./cmake-build
+            cd ./cmake-build
+            cmake ../projects/cmake
+      - name: cmake build
+        run: cmake --build cmake-build
+      - run: ls
+      - name: cmake test
+        run: |
+          cd cmake-build
+          ctest -C Debug -V
+      - uses: kishikawakatsumi/xcresulttool@v1.0.3
+        with:
+          path: TestResults.xcresult
+        if: success() || failure()
+
   zapcc-basic-test:
     runs-on: ubuntu-18.04
     needs: prepare
