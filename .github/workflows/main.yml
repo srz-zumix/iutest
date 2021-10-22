@@ -126,7 +126,7 @@ jobs:
         run: |
             mkdir ./cmake-build
             cd ./cmake-build
-            cmake ../projects/cmake
+            cmake -G Xcode ../projects/cmake
       - name: cmake build
         run: cmake --build cmake-build
       - run: ls ./cmake-build
