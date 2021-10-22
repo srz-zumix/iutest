@@ -129,10 +129,15 @@ jobs:
             cmake ../projects/cmake
       - name: cmake build
         run: cmake --build cmake-build
+      - run: ls
       - name: cmake test
         run: |
           cd cmake-build
           ctest -C Debug -V
+      - uses: kishikawakatsumi/xcresulttool@v1.0.3
+        with:
+          path: TestResults.xcresult
+        if: success() || failure()
 
   zapcc-basic-test:
     runs-on: ubuntu-18.04
