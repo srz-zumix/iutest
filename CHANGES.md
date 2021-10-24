@@ -16,6 +16,7 @@
 
 * Changes
   * TestCase の別名 TestSuite に対応（iutest はどちらもサポートし続けます）
+  * IUTEST_ASSERT_EXIT を IUTEST_TERMINATE_ON_FAILURE に変更
 
 * Bug fixes
   * その他いくつかの不具合を修正

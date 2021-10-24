@@ -90,19 +90,19 @@ int main(int argc, char* argv[])
     const int ret = IUTEST_RUN_ALL_TESTS();
     if( ret == 0 ) return 1;
 #if !defined(IUTEST_USE_GTEST)
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->test_to_run_count() == 5 );
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->test_run_skipped_count() == 3 );
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 3 );
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->skip_test_count() == 4 );
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 4 );
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->successful_test_count() == 0 );
-    IUTEST_ASSERT_EXIT( ::iuutil::GetTotalTestSuiteCount() == 4 );
-    IUTEST_ASSERT_EXIT( ::iuutil::GetSuccessfulTestSuiteCount() == 3 );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->test_to_run_count() == 5 );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->test_run_skipped_count() == 3 );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 3 );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->skip_test_count() == 4 );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 4 );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->successful_test_count() == 0 );
+    IUTEST_TERMINATE_ON_FAILURE( ::iuutil::GetTotalTestSuiteCount() == 4 );
+    IUTEST_TERMINATE_ON_FAILURE( ::iuutil::GetSuccessfulTestSuiteCount() == 3 );
 #else
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->test_to_run_count() == 3 );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->test_to_run_count() == 3 );
 #endif
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 2 );
-    IUTEST_ASSERT_EXIT( skip_check );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->failed_test_count() == 2 );
+    IUTEST_TERMINATE_ON_FAILURE( skip_check );
     printf("*** Successful ***\n");
     return 0;
 }
