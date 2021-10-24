@@ -126,6 +126,7 @@ modification, are permitted provided that the following conditions are met: \n
       <li>IUTEST_*_COMPLEX_EQ アサーションを追加</li>
       <li>IUTEST_*_ALMOST_EQ が ::std::complex に対応</li>
       <li>TestCase の別名 TestSuite に対応（iutest はどちらもサポートし続けます）</li>
+      <li>IUTEST_ASSERT_EXIT を IUTEST_TERMINATE_ON_FAILURE に変更</li>
       <li>例外発生時にも SCOPED_TRACE のメッセージを出力するように変更</li>
       <li>空のテストスイート名・テスト名に static_assert を追加</li>
       <li>GoogleTest の GTEST_REMOVE_LEGACY_TEST_CASEAPI_ に対応</li>

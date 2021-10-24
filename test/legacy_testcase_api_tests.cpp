@@ -212,7 +212,7 @@ int main(int argc, char* argv[])
     listeners.Append( listener );
     const int ret = IUTEST_RUN_ALL_TESTS();
 
-    IUTEST_ASSERT_EXIT( listener->called_OnTestCaseEnd );
+    IUTEST_TERMINATE_ON_FAILURE( listener->called_OnTestCaseEnd );
     return ret;
 #else
     return IUTEST_RUN_ALL_TESTS();

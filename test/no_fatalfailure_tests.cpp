@@ -64,9 +64,9 @@ int main(int argc, char* argv[])
     IUTEST_ASSERT_EQ(3, ::iutest::UnitTest::GetInstance()->failed_test_count()) << ::iutest::AssertionReturn(1);
     IUTEST_ASSERT_TRUE(bTest) << ::iutest::AssertionReturn(1);
 #else
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->successful_test_count() == 0 );
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 3 );
-    IUTEST_ASSERT_EXIT( bTest );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->successful_test_count() == 0 );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->failed_test_count() == 3 );
+    IUTEST_TERMINATE_ON_FAILURE( bTest );
 #endif
     printf("*** Successful ***\n");
     return 0;

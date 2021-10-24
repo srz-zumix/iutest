@@ -50,8 +50,8 @@ int main(int argc, char* argv[])
     IUTEST_ASSERT_NOTNULL( listener ) << ::iutest::AssertionReturn<int>(1);
     IUTEST_ASSERT_NULL( listeners.default_result_printer() ) << ::iutest::AssertionReturn<int>(1);
 #else
-    IUTEST_ASSERT_EXIT(listener != NULL);
-    IUTEST_ASSERT_EXIT(listeners.default_result_printer() == NULL);
+    IUTEST_TERMINATE_ON_FAILURE(listener != NULL);
+    IUTEST_TERMINATE_ON_FAILURE(listeners.default_result_printer() == NULL);
 #endif
 
     if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;

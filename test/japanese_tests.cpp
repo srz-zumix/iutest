@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -217,8 +217,8 @@ int main(int argc, char* argv[])
     IUTEST_ASSERT_EQ( testsuite_count, ::iuutil::GetTotalTestSuiteCount()) << ::iutest::AssertionReturn(1);
     IUTEST_ASSERT_EQ( test_count, ::iutest::UnitTest::GetInstance()->total_test_count() ) << ::iutest::AssertionReturn(1);
 #else
-    IUTEST_ASSERT_EXIT( ::iuutil::GetTotalTestSuiteCount() == testsuite_count );
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->total_test_count() == test_count );
+    IUTEST_TERMINATE_ON_FAILURE( ::iuutil::GetTotalTestSuiteCount() == testsuite_count );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->total_test_count() == test_count );
 #endif
 
 #endif

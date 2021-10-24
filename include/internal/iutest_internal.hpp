@@ -425,7 +425,7 @@
  * @internal
  * @brief   assert
 */
-#define IUTEST_ASSERT_EXIT(cond)            do { if IUTEST_COND_UNLIKELY( !(cond) ) {                           \
+#define IUTEST_TERMINATE_ON_FAILURE(cond)   do { if IUTEST_COND_UNLIKELY( !(cond) ) {                           \
                                                 IUTEST_MESSAGE(#cond, ::iutest::TestPartResult::kFatalFailure); \
                                                 exit(1);                                                        \
                                             } } while(::iutest::detail::AlwaysFalse())
