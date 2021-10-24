@@ -80,7 +80,7 @@ int main(int argc, char* argv[])
     IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->failed_test_count())
         << ::iutest::AssertionReturn<int>(1);
 #else
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 0 );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->failed_test_count() == 0 );
 #endif
 
 #else

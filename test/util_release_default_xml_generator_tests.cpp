@@ -60,11 +60,11 @@ int main(int argc, char* argv[])
     IUTEST_INIT(&targc, targv);
 
     ::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
-    IUTEST_ASSERT_EXIT(listeners.default_xml_generator() != NULL);
+    IUTEST_TERMINATE_ON_FAILURE(listeners.default_xml_generator() != NULL);
 
     ::iuutil::ReleaseDefaultXmlGenerator();
 
-    IUTEST_ASSERT_EXIT(listeners.default_xml_generator() == NULL);
+    IUTEST_TERMINATE_ON_FAILURE(listeners.default_xml_generator() == NULL);
 
     if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
 

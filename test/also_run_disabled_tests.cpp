@@ -31,15 +31,15 @@ int main(int argc, char* argv[])
 #endif
     ::iutest::IUTEST_FLAG(also_run_disabled_tests) = true;
     const int ret = IUTEST_RUN_ALL_TESTS();
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->disabled_test_count() == expected_disable_test_count );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->disabled_test_count() == expected_disable_test_count );
 #if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() == expected_disable_test_count );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() == expected_disable_test_count );
 #endif
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->test_to_run_count() == expected_test_count );
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == expected_disable_test_count );
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->total_test_count() == expected_test_count );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->test_to_run_count() == expected_test_count );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->failed_test_count() == expected_disable_test_count );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->total_test_count() == expected_test_count );
 #if !defined(IUTEST_USE_GTEST)
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->skip_test_count() == 0 );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->skip_test_count() == 0 );
 #endif
     if( ret == 0 ) return 1;
     printf("*** Successful ***\n");
