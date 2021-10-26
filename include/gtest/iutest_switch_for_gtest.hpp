@@ -288,13 +288,11 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #  define IUTEST_STATIC_ASSERT(...) IUTEST_STATIC_ASSERT_MSG((__VA_ARGS__), "")
 #endif
 
-#ifdef IUTEST_ASSERT_EXIT
-#  undef IUTEST_ASSERT_EXIT
-#endif
-#define IUTEST_ASSERT_EXIT(cond)    do { if( !(cond) ) {                                                    \
-                                        GTEST_MESSAGE_(#cond, ::testing::TestPartResult::kFatalFailure);    \
-                                        exit(1);                                                            \
-                                    } } while(::testing::internal::AlwaysFalse())
+#undef IUTEST_TERMINATE_ON_FAILURE
+#define IUTEST_TERMINATE_ON_FAILURE(cond)   do { if( !(cond) ) {                                                    \
+                                                GTEST_MESSAGE_(#cond, ::testing::TestPartResult::kFatalFailure);    \
+                                                exit(1);                                                            \
+                                            } } while(::testing::internal::AlwaysFalse())
 
 #define IUTEST_OPERAND(op)          op
 #define IUTEST_EXPRESSION(expr)     expr

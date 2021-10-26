@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
 #endif
 {
     MyEnvironment* const env = new MyEnvironment();
-    IUTEST_ASSERT_EXIT( ::iutest::AddGlobalTestEnvironment(env) == env );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::AddGlobalTestEnvironment(env) == env );
     IUTEST_INIT(&argc, argv);
 
     ::iutest::IUTEST_FLAG(repeat) = 3;
