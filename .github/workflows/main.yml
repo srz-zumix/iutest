@@ -289,6 +289,7 @@ jobs:
       - name: infer
         run: |
           infer -- make -C test IUTEST_USE_PYTHON=0
+      - run: ls
       - name: Check Infer report
         uses: srz-zumix/action-infer@main
         with:
