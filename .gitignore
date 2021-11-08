@@ -95,3 +95,6 @@ CMakeFiles/
 
 # CLion
 cmake-build*/
+
+# Infer
+infer-out/
