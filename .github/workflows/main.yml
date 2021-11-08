@@ -287,10 +287,8 @@ jobs:
       - uses: actions/checkout@v2
       - uses: srz-zumix/setup-infer@v1
       - name: infer
-        env:
-          IUTEST_USE_PYTHON: 0
         run: |
-          infer -- make -C test
+          infer -- make -C test IUTEST_USE_PYTHON=0
       - name: Check Infer report
         uses: srz-zumix/action-infer@main
         with:
