@@ -37,23 +37,23 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_ClangC2|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -63,7 +63,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_LLVM|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>LLVM-vs2014</PlatformToolset>
+    <PlatformToolset>ClangCL</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -101,12 +101,12 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'">$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'">$(SolutionDir)\..\..\lib\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'">$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">lib$(ProjectName)-vc141-mtd</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_ClangC2|Win32'">lib$(ProjectName)-vc141-mtd</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_LLVM|Win32'">lib$(ProjectName)-vc141-mtd</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'">lib$(ProjectName)-vc141-mdd</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">lib$(ProjectName)-vc141-mt</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'">lib$(ProjectName)-vc141-md</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">lib$(ProjectName)-vc143-mtd</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_ClangC2|Win32'">lib$(ProjectName)-vc143-mtd</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_LLVM|Win32'">lib$(ProjectName)-vc143-mtd</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'">lib$(ProjectName)-vc143-mdd</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">lib$(ProjectName)-vc143-mt</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'">lib$(ProjectName)-vc143-md</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <RunCodeAnalysis>false</RunCodeAnalysis>
