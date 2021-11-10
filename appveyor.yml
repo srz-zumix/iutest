@@ -52,7 +52,8 @@ environment:
     - job_group: VisualStudio
       job_depends_on: VS2019
       BUILD_PREFAST: yes
-      PROJECT_DIR: vs2015
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      PROJECT_DIR: vs2019
     # Menu
     - job_group: VisualStudio
       BUILD_MENU: yes
