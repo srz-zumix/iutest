@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -266,9 +266,9 @@ public:
 private:
     bool m_init;
     T m_value;
-};
+};1
 
-inline bool uncaught_exception()
+inline bool uncaught_exception() IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if IUTEST_HAS_CXX1Z && (!defined(IUTEST_LIBSTDCXX_VERSION) || (IUTEST_LIBSTDCXX_VERSION >= 60000))
     return ::std::uncaught_exceptions() > 0;
