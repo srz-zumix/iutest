@@ -266,7 +266,7 @@ public:
 private:
     bool m_init;
     T m_value;
-};1
+};
 
 inline bool uncaught_exception() IUTEST_CXX_NOEXCEPT_SPEC
 {
