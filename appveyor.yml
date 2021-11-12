@@ -281,10 +281,10 @@ for:
   environment:
     MSBUILD_LOGGER_OPTION: /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
     MSBUILD_PREFAST_OPTION: /p:RunCodeAnalysis=true /p:EnablePREfast=true /p:CodeAnalysisTreatWarningsAsErrors=true
-    CPPCORE_CHECK_OPTION: /p:CodeAnalysisRuleSet=CppCoreCheckRules.ruleset /p:ForceImportAfterCppTargets=%APPVEYOR_BUILD_FOLDER%/utils/CppCoreCheckDisableSpecificWarnings.props
+    CPPCORE_CHECK_OPTION: /p:CodeAnalysisRuleSet=CppCoreCheckRules.ruleset
   before_build: *noop
   build_script:
-    cmd: msbuild "projects\%PROJECT_DIR%\iutest_sample.vcxproj" /m %MSBUILD_LOGGER_OPTION% %MSBUILD_PREFAST_OPTION% %CPPCORE_CHECK_OPTION%
+    cmd: msbuild "projects\%PROJECT_DIR%\iutest_sample.vcxproj" /m %MSBUILD_LOGGER_OPTION% %MSBUILD_PREFAST_OPTION% %CPPCORE_CHECK_OPTION% /p:ForceImportAfterCppTargets=%APPVEYOR_BUILD_FOLDER%/utils/CppCoreCheckDisableSpecificWarnings.props
   test: off
   on_finish: *noop
 # Menu
