@@ -4,6 +4,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <DisableSpecificWarnings>26477;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <AdditionalOptions>/wd26477 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
 </Project>
