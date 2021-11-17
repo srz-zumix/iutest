@@ -93,7 +93,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
                     ++str;
                     iuoption = true;
                 }
-                if(*str == 'i' && *(str+1) == 'u' )
+                else if(*str == 'i' && *(str+1) == 'u' )
                 {
                     str += 2;
                     iuoption = true;

@@ -850,20 +850,24 @@
 #  define IUTEST_LIB_THREAD_OPT ""
 #endif
 
-#if   _MSC_VER == 1400
-#  define IUTEST_LIB_TOOLSET    "vc80"
-#elif _MSC_VER == 1500
-#  define IUTEST_LIB_TOOLSET    "vc90"
-#elif _MSC_VER == 1600
-#  define IUTEST_LIB_TOOLSET    "vc100"
-#elif _MSC_VER == 1700
-#  define IUTEST_LIB_TOOLSET    "vc110"
+#if   _MSC_VER >= 1930
+#  define IUTEST_LIB_TOOLSET    "vc143"
+#elif _MSC_VER >= 1920
+#  define IUTEST_LIB_TOOLSET    "vc142"
+#elif _MSC_VER >= 1910
+#  define IUTEST_LIB_TOOLSET    "vc141"
+#elif _MSC_VER >= 1900
+#  define IUTEST_LIB_TOOLSET    "vc140"
 #elif _MSC_VER == 1800
 #  define IUTEST_LIB_TOOLSET    "vc120"
-#elif _MSC_VER == 1900
-#  define IUTEST_LIB_TOOLSET    "vc140"
-#elif _MSC_VER == 1910
-#  define IUTEST_LIB_TOOLSET    "vc141"
+#elif _MSC_VER == 1700
+#  define IUTEST_LIB_TOOLSET    "vc110"
+#elif _MSC_VER == 1600
+#  define IUTEST_LIB_TOOLSET    "vc100"
+#elif _MSC_VER == 1500
+#  define IUTEST_LIB_TOOLSET    "vc90"
+#elif _MSC_VER == 1400
+#  define IUTEST_LIB_TOOLSET    "vc80"
 #else
 #  error unknown _MSC_VER.
 #endif
