@@ -46,8 +46,8 @@ namespace wrapper
 
 inline int iu_mbicmp(char l, char r)
 {
-    const int ul { static_cast<unsigned char>(toupper(l)) };
-    const int ur { static_cast<unsigned char>(toupper(r)) };
+    const int ul = static_cast<int>(static_cast<unsigned char>(toupper(l)));
+    const int ur = static_cast<int>(static_cast<unsigned char>(toupper(r)));
     return ul - ur;
 }
 
