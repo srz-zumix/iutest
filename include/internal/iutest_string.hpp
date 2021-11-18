@@ -44,14 +44,14 @@ namespace detail
 namespace wrapper
 {
 
-inline int iu_mbicmp(char l, char r)
+inline int iu_mbicmp(char l, char r) IUTEST_CXX_NOEXCEPT_SPEC
 {
     const int ul = static_cast<int>(static_cast<unsigned char>(toupper(l)));
     const int ur = static_cast<int>(static_cast<unsigned char>(toupper(r)));
     return ul - ur;
 }
 
-inline int iu_stricmp(const char* str1, const char* str2)
+inline int iu_stricmp(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC
 {
     const char* l = str1;
     const char* r = str2;
@@ -68,14 +68,14 @@ inline int iu_stricmp(const char* str1, const char* str2)
     return iu_mbicmp(*l, *r);
 }
 
-inline int iu_wcicmp(wchar_t l, wchar_t r)
+inline int iu_wcicmp(wchar_t l, wchar_t r) IUTEST_CXX_NOEXCEPT_SPEC
 {
     const ::std::wint_t ul = towupper(l);
     const ::std::wint_t ur = towupper(r);
     return ul - ur;
 }
 
-inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
+inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2) IUTEST_CXX_NOEXCEPT_SPEC
 {
     const wchar_t* l = str1;
     const wchar_t* r = str2;
@@ -93,6 +93,23 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 }
 
 }   // end of namespace wrapper
+
+/**
+ * @internal
+ * @brief   mbtowc
+*/
+inline int iu_mbtowc(wchar_t* dst, const char* src, size_t size) IUTEST_CXX_NOEXCEPT_SPEC
+{
+#if defined(IUTEST_OS_LINUX_ANDROID) || defined(IUTEST_OS_WINDOWS_MOBILE)
+    // unimplimented
+    IUTEST_UNUSED_VAR(dst);
+    IUTEST_UNUSED_VAR(src);
+    IUTEST_UNUSED_VAR(size);
+    return 0;
+#else
+    return mbtowc(dst, src, size);
+#endif
+}
 
 /**
  * @internal
