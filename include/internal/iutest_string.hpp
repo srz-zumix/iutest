@@ -115,7 +115,7 @@ inline int iu_mbtowc(wchar_t* dst, const char* src, size_t size) IUTEST_CXX_NOEX
  * @internal
  * @brief   stricmp (unsigned char compare)
 */
-inline int iu_stricmp(const char* str1, const char* str2)
+inline int iu_stricmp(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if   defined(__BORLANDC__)
     return stricmp(str1, str2);
@@ -135,7 +135,7 @@ inline int iu_stricmp(const char* str1, const char* str2)
  * @internal
  * @brief   wcsicmp
 */
-inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
+inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if   defined(_MSC_VER)
     return _wcsicmp(str1, str2);
@@ -179,12 +179,12 @@ int iu_snprintf(char* dst, size_t size, const char* format, ...) IUTEST_ATTRIBUT
 */
 inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 {
-    if( dst == NULL && size > 0 )
+    if( dst == IUTEST_NULLPTR && size > 0 )
     {
         return -1;
     }
 #if   defined(_MSC_VER)
-    if( dst == NULL || size <= 0 )
+    if( dst == IUTEST_NULLPTR || size <= 0 )
     {
         return _vscprintf(format, va);
     }
@@ -218,16 +218,16 @@ inline int iu_snprintf(char* dst, size_t size, const char* format, ...)
 
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 
-inline bool IsEmpty(const char* p) { return p == NULL || *p == '\0'; }
+inline bool IsEmpty(const char* p) { return p == IUTEST_NULLPTR || *p == '\0'; }
 inline IUTEST_CXX_CONSTEXPR bool IsSpace(char ch) { return ch == ' ' || ch =='\t'; }
-inline const char* NullableString(const char* str) { return str == NULL ? "" : str; }
+inline const char* NullableString(const char* str) { return str == IUTEST_NULLPTR ? "" : str; }
 inline IUTEST_CXX_CONSTEXPR const char* SkipSpace(const char* p)
 {
-    return p == NULL ? NULL : (IsSpace(*p) ? SkipSpace(++p) : p);
+    return p == IUTEST_NULLPTR ? IUTEST_NULLPTR : (IsSpace(*p) ? SkipSpace(++p) : p);
 }
 inline IUTEST_CXX_CONSTEXPR const char* FindComma(const char* p)
 {
-    return (p == NULL || *p == '\0') ? NULL : ((*p == ',') ? p : FindComma(++p));
+    return (p == IUTEST_NULLPTR || *p == '\0') ? IUTEST_NULLPTR : ((*p == ',') ? p : FindComma(++p));
 }
 inline bool IsStringEqual(const char* str1, const char* str2) { return strcmp(str1, str2) == 0; }
 inline bool IsStringEqual(const ::std::string& str1, const char* str2) { return str1.compare(str2) == 0; }
@@ -238,7 +238,7 @@ inline bool IsStringCaseEqual(const ::std::string& str1, const ::std::string& st
 inline bool IsStringForwardMatching(const char* str1, const char* str2) { return strstr(str1, str2) == str1; }
 inline bool IsStringForwardMatching(const ::std::string& str1, const char* str2) { return str1.find(str2) == 0; }
 inline bool IsStringForwardMatching(const ::std::string& str1, const std::string& str2) { return str1.find(str2) == 0; }
-inline bool IsStringContains(const char* str1, const char* str2) { return strstr(str1, str2) != NULL; }
+inline bool IsStringContains(const char* str1, const char* str2) { return strstr(str1, str2) != IUTEST_NULLPTR; }
 inline bool IsStringContains(const ::std::string& str1, const char* str2) { return str1.find(str2) != ::std::string::npos; }
 inline bool IsStringContains(const ::std::string& str1, const ::std::string& str2) { return str1.find(str2) != ::std::string::npos; }
 
@@ -506,7 +506,7 @@ inline ::std::string StringFormat(const char* format, va_list va)
     {
         va_list va2;
         iu_va_copy(va2, va);    // cppcheck-suppress va_list_usedBeforeStarted
-        const int ret = iu_vsnprintf(NULL, 0u, format, va2);
+        const int ret = iu_vsnprintf(IUTEST_NULLPTR, 0u, format, va2);
         va_end(va2);
         if( ret > 0 )
         {
