@@ -74,7 +74,7 @@ public:
 #endif
         throw seh_exception(strm.str().c_str());
     }
-    static int should_process_through_break_and_cppexceptions(DWORD code)
+    static IUTEST_CXX_CONSTEXPR int should_process_through_break_and_cppexceptions(DWORD code) IUTEST_CXX_NOEXCEPT_SPEC
     {
         bool should_handle = true;
         // break point と C++ 例外はハンドリングしない

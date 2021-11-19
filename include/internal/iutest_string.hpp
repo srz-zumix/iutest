@@ -232,16 +232,42 @@ inline IUTEST_CXX_CONSTEXPR const char* FindComma(const char* p) IUTEST_CXX_NOEX
 inline bool IsStringEqual(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC { return strcmp(str1, str2) == 0; }
 inline bool IsStringEqual(const ::std::string& str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC { return str1.compare(str2) == 0; }
 inline bool IsStringEqual(const ::std::string& str1, const ::std::string& str2) IUTEST_CXX_NOEXCEPT_SPEC { return str1.compare(str2) == 0; }
-inline bool IsStringCaseEqual(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC { return iu_stricmp(str1, str2) == 0; }
-inline bool IsStringCaseEqual(const ::std::string& str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC { return iu_stricmp(str1.c_str(), str2) == 0; }
-inline bool IsStringCaseEqual(const ::std::string& str1, const ::std::string& str2) IUTEST_CXX_NOEXCEPT_SPEC { return iu_stricmp(str1.c_str(), str2.c_str()) == 0; }
-inline bool IsStringForwardMatching(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC { return strstr(str1, str2) == str1; }
-inline bool IsStringForwardMatching(const ::std::string& str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC { return str1.find(str2) == 0; }
-inline bool IsStringForwardMatching(const ::std::string& str1, const std::string& str2) IUTEST_CXX_NOEXCEPT_SPEC { return str1.find(str2) == 0; }
-inline bool IsStringContains(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC { return strstr(str1, str2) != IUTEST_NULLPTR; }
-inline bool IsStringContains(const ::std::string& str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC { return str1.find(str2) != ::std::string::npos; }
-inline bool IsStringContains(const ::std::string& str1, const ::std::string& str2) IUTEST_CXX_NOEXCEPT_SPEC { return str1.find(str2) != ::std::string::npos; }
-
+inline bool IsStringCaseEqual(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return iu_stricmp(str1, str2) == 0;
+}
+inline bool IsStringCaseEqual(const ::std::string& str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return iu_stricmp(str1.c_str(), str2) == 0;
+}
+inline bool IsStringCaseEqual(const ::std::string& str1, const ::std::string& str2) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return iu_stricmp(str1.c_str(), str2.c_str()) == 0;
+}
+inline bool IsStringForwardMatching(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return strstr(str1, str2) == str1;
+}
+inline bool IsStringForwardMatching(const ::std::string& str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return str1.find(str2) == 0;
+}
+inline bool IsStringForwardMatching(const ::std::string& str1, const std::string& str2) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return str1.find(str2) == 0;
+}
+inline bool IsStringContains(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return strstr(str1, str2) != IUTEST_NULLPTR;
+}
+inline bool IsStringContains(const ::std::string& str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return str1.find(str2) != ::std::string::npos;
+}
+inline bool IsStringContains(const ::std::string& str1, const ::std::string& str2) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return str1.find(str2) != ::std::string::npos;
+}
 inline void StringReplace(::std::string& str, const char* from, size_t n, const char* to)
 {
     ::std::string::size_type pos = 0;
@@ -452,7 +478,7 @@ IIUT_DECL_TOSTRING("%llu", unsigned long long)
 
 inline ::std::string FormatSizeByte(UInt64 value)
 {
-    const char* suffixes[] = {
+    const char* const suffixes[] = {
         "B",
         "KB",
         "MB",
