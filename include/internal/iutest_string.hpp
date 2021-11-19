@@ -154,9 +154,9 @@ int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va) IUTEST_
 inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 {
     char buffer[4096] = {0};
-    char* write_buffer = dst != NULL && size >= 4096 ? dst : buffer;
+    char* write_buffer = dst != IUTEST_NULLPTR && size >= 4096 ? dst : buffer;
     const int ret = vsprintf(write_buffer, format, va);
-    if( dst != NULL )
+    if( dst != IUTEST_NULLPTR )
     {
         const size_t length = static_cast<size_t>(ret);
         const size_t write = (size <= length) ? size - 1 : length;
@@ -218,29 +218,29 @@ inline int iu_snprintf(char* dst, size_t size, const char* format, ...)
 
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 
-inline bool IsEmpty(const char* p) { return p == IUTEST_NULLPTR || *p == '\0'; }
-inline IUTEST_CXX_CONSTEXPR bool IsSpace(char ch) { return ch == ' ' || ch =='\t'; }
-inline const char* NullableString(const char* str) { return str == IUTEST_NULLPTR ? "" : str; }
-inline IUTEST_CXX_CONSTEXPR const char* SkipSpace(const char* p)
+inline bool IsEmpty(const char* p) IUTEST_CXX_NOEXCEPT_SPEC { return p == IUTEST_NULLPTR || *p == '\0'; }
+inline IUTEST_CXX_CONSTEXPR bool IsSpace(char ch) IUTEST_CXX_NOEXCEPT_SPEC { return ch == ' ' || ch =='\t'; }
+inline const char* NullableString(const char* str) IUTEST_CXX_NOEXCEPT_SPEC { return str == IUTEST_NULLPTR ? "" : str; }
+inline IUTEST_CXX_CONSTEXPR const char* SkipSpace(const char* p) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return p == IUTEST_NULLPTR ? IUTEST_NULLPTR : (IsSpace(*p) ? SkipSpace(++p) : p);
 }
-inline IUTEST_CXX_CONSTEXPR const char* FindComma(const char* p)
+inline IUTEST_CXX_CONSTEXPR const char* FindComma(const char* p) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return (p == IUTEST_NULLPTR || *p == '\0') ? IUTEST_NULLPTR : ((*p == ',') ? p : FindComma(++p));
 }
-inline bool IsStringEqual(const char* str1, const char* str2) { return strcmp(str1, str2) == 0; }
-inline bool IsStringEqual(const ::std::string& str1, const char* str2) { return str1.compare(str2) == 0; }
-inline bool IsStringEqual(const ::std::string& str1, const ::std::string& str2) { return str1.compare(str2) == 0; }
-inline bool IsStringCaseEqual(const char* str1, const char* str2) { return iu_stricmp(str1, str2) == 0; }
-inline bool IsStringCaseEqual(const ::std::string& str1, const char* str2) { return iu_stricmp(str1.c_str(), str2) == 0; }
-inline bool IsStringCaseEqual(const ::std::string& str1, const ::std::string& str2) { return iu_stricmp(str1.c_str(), str2.c_str()) == 0; }
-inline bool IsStringForwardMatching(const char* str1, const char* str2) { return strstr(str1, str2) == str1; }
-inline bool IsStringForwardMatching(const ::std::string& str1, const char* str2) { return str1.find(str2) == 0; }
-inline bool IsStringForwardMatching(const ::std::string& str1, const std::string& str2) { return str1.find(str2) == 0; }
-inline bool IsStringContains(const char* str1, const char* str2) { return strstr(str1, str2) != IUTEST_NULLPTR; }
-inline bool IsStringContains(const ::std::string& str1, const char* str2) { return str1.find(str2) != ::std::string::npos; }
-inline bool IsStringContains(const ::std::string& str1, const ::std::string& str2) { return str1.find(str2) != ::std::string::npos; }
+inline bool IsStringEqual(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC { return strcmp(str1, str2) == 0; }
+inline bool IsStringEqual(const ::std::string& str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC { return str1.compare(str2) == 0; }
+inline bool IsStringEqual(const ::std::string& str1, const ::std::string& str2) IUTEST_CXX_NOEXCEPT_SPEC { return str1.compare(str2) == 0; }
+inline bool IsStringCaseEqual(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC { return iu_stricmp(str1, str2) == 0; }
+inline bool IsStringCaseEqual(const ::std::string& str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC { return iu_stricmp(str1.c_str(), str2) == 0; }
+inline bool IsStringCaseEqual(const ::std::string& str1, const ::std::string& str2) IUTEST_CXX_NOEXCEPT_SPEC { return iu_stricmp(str1.c_str(), str2.c_str()) == 0; }
+inline bool IsStringForwardMatching(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC { return strstr(str1, str2) == str1; }
+inline bool IsStringForwardMatching(const ::std::string& str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC { return str1.find(str2) == 0; }
+inline bool IsStringForwardMatching(const ::std::string& str1, const std::string& str2) IUTEST_CXX_NOEXCEPT_SPEC { return str1.find(str2) == 0; }
+inline bool IsStringContains(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC { return strstr(str1, str2) != IUTEST_NULLPTR; }
+inline bool IsStringContains(const ::std::string& str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC { return str1.find(str2) != ::std::string::npos; }
+inline bool IsStringContains(const ::std::string& str1, const ::std::string& str2) IUTEST_CXX_NOEXCEPT_SPEC { return str1.find(str2) != ::std::string::npos; }
 
 inline void StringReplace(::std::string& str, const char* from, size_t n, const char* to)
 {
@@ -253,7 +253,7 @@ inline void StringReplace(::std::string& str, const char* from, size_t n, const 
 }
 inline void StringReplace(::std::string& str, char a, const char* to)
 {
-    char s[] = { a, 0 };
+    const char s[] = { a, 0 };
     return StringReplace(str, s, 1, to);
 }
 inline ::std::string StripLeadingSpace(const ::std::string& str)
@@ -459,7 +459,7 @@ inline ::std::string FormatSizeByte(UInt64 value)
         "GB",
         "TB",
     };
-    const size_t suffixes_length = IUTEST_PP_COUNTOF(suffixes);
+    IUTEST_CXX_CONSTEXPR_OR_CONST size_t suffixes_length = IUTEST_PP_COUNTOF(suffixes);
     size_t index = 0;
     double view_value = static_cast<double>(value);
     while(view_value >= 1024 && index + 1 < suffixes_length)
