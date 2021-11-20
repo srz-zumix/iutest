@@ -151,7 +151,7 @@ inline int  AlwaysZero() IUTEST_CXX_NOEXCEPT_SPEC { return 0; }
 /**
  * @brief   真偽値を返す(警告対策用)
 */
-inline bool IsTrue(bool b) IUTEST_CXX_NOEXCEPT_SPEC { return b; }
+inline IUTEST_CXX_CONSTEXPR bool IsTrue(bool b) IUTEST_CXX_NOEXCEPT_SPEC { return b; }
 
 //======================================================================
 // class
