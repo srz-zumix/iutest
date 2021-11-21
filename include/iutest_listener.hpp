@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -169,7 +169,7 @@ class TestEventListeners
     typedef ::std::vector<TestEventListener*> ListenerContainer;
 
 public:
-    TestEventListeners() : m_default_result_printer(NULL), m_default_xml_generator(NULL) {}
+    TestEventListeners() : m_default_result_printer(IUTEST_NULLPTR), m_default_xml_generator(IUTEST_NULLPTR) {}
 
 public:
     /**
@@ -184,11 +184,11 @@ public:
     {
         if( listener == m_default_result_printer )
         {
-            m_default_result_printer = NULL;
+            m_default_result_printer = IUTEST_NULLPTR;
         }
         if( listener == m_default_xml_generator )
         {
-            m_default_xml_generator = NULL;
+            m_default_xml_generator = IUTEST_NULLPTR;
         }
         return m_repeater.Release(listener);
     }
