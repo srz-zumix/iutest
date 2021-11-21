@@ -96,7 +96,7 @@ const char* GetCWD(char* buf, size_t length);
 
 void SleepMillisec(unsigned int millisec);
 
-IUTEST_ATTRIBUTE_NORETURN_ void Abort();
+IUTEST_ATTRIBUTE_NORETURN_ void Abort() IUTEST_CXX_NOEXCEPT_SPEC;
 #if !defined(IUTEST_OS_WINDOWS_MOBILE)
 inline void Abort() IUTEST_CXX_NOEXCEPT_SPEC { abort(); }
 #endif
