@@ -371,10 +371,15 @@
 #  define IUTEST_CXX_CONSTEXPR
 #endif
 
-#if IUTEST_HAS_CONSTEXPR && \
-        (defined(__cpp_constexpr) && __cpp_constexpr >= 201304 || IUTEST_HAS_CXX14)
-#  define IUTEST_CXX14_CONSTEXPR        constexpr
-#else
+#if IUTEST_HAS_CONSTEXPR
+#  if   defined(_MSC_VER) && _MSC_VER < 1910
+#    define IUTEST_CXX14_CONSTEXPR
+#  elif (defined(__cpp_constexpr) && __cpp_constexpr >= 201304) || IUTEST_HAS_CXX14
+#    define IUTEST_CXX14_CONSTEXPR        constexpr
+#  endif
+#endif
+
+#if !defined(IUTEST_CXX14_CONSTEXPR)
 #  define IUTEST_CXX14_CONSTEXPR
 #endif
 
