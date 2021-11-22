@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -67,7 +67,7 @@ IUTEST_IPP_INLINE::std::string TestEnv::AddDefaultPackageName(const char* testsu
     {
         return testsuite_name;
     }
-    if( strchr(testsuite_name, '.') != NULL )
+    if( strchr(testsuite_name, '.') != IUTEST_NULLPTR )
     {
         return testsuite_name;
     }
@@ -184,9 +184,9 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
     if( detail::IsStringForwardMatching(str, "random_seed") )
     {
         const char* opt = ParseOptionSettingStr(str);
-        if( opt != NULL )
+        if( opt != IUTEST_NULLPTR )
         {
-            char* end = NULL;
+            char* end = IUTEST_NULLPTR;
             const long seed = strtol(opt, &end, 0);
             init_random(static_cast<unsigned int>(seed));
             return true;
@@ -219,9 +219,9 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
     if( detail::IsStringForwardMatching(str, "repeat") )
     {
         const char* opt = ParseOptionSettingStr(str);
-        if( opt != NULL )
+        if( opt != IUTEST_NULLPTR )
         {
-            char* end = NULL;
+            char* end = IUTEST_NULLPTR;
             const long count = strtol(opt, &end, 0);
             set_repeat_count(static_cast<int>(count));
             return true;
@@ -239,7 +239,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
     if( detail::IsStringForwardMatching(str, "stream_result_to") )
     {
         const char* opt = ParseOptionSettingStr(str);
-        if( opt != NULL )
+        if( opt != IUTEST_NULLPTR )
         {
             set_stream_result_to(opt);
             return true;
@@ -253,7 +253,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
     if( detail::IsStringForwardMatching(str, "default_package_name") )
     {
         const char* opt = ParseOptionSettingStr(str);
-        if (opt != NULL)
+        if (opt != IUTEST_NULLPTR)
         {
             set_default_package_name(opt);
             return true;
@@ -403,7 +403,7 @@ IUTEST_IPP_INLINE void TestEnv::SetUp()
 
 IUTEST_IPP_INLINE bool TestEnv::ParseColorOption(const char* option)
 {
-    if( option == NULL )
+    if( option == IUTEST_NULLPTR )
     {
         return false;
     }
@@ -435,7 +435,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseColorOption(const char* option)
 
 IUTEST_IPP_INLINE bool TestEnv::ParseOutputOption(const char* option)
 {
-    if(option == NULL)
+    if( option == IUTEST_NULLPTR )
     {
         get_vars().m_output_option = "";
         return false;
@@ -446,7 +446,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseOutputOption(const char* option)
 
 IUTEST_IPP_INLINE bool TestEnv::ParseFileLocationOption(const char* option)
 {
-    if( option == NULL )
+    if( option == IUTEST_NULLPTR )
     {
         return false;
     }
@@ -476,7 +476,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseFileLocationOption(const char* option)
 
 IUTEST_IPP_INLINE bool TestEnv::ParseFilterOption(const char* option)
 {
-    if( option != NULL && *option == '@' )
+    if( option != IUTEST_NULLPTR && *option == '@' )
     {
         // file
         const char* path = option + 1;
@@ -501,7 +501,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseFilterOption(const char* option)
 
 IUTEST_IPP_INLINE bool TestEnv::ParseFlagFileOption(const char* option)
 {
-    if( option == NULL || option[0] == '\0' )
+    if( option == IUTEST_NULLPTR || option[0] == '\0' )
     {
         return false;
     }
@@ -512,7 +512,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseFlagFileOption(const char* option)
 IUTEST_IPP_INLINE bool TestEnv::LoadFlagFile()
 {
     const char* path = get_flagfile();
-    if( path == NULL || path[0] == '\0' )
+    if( path == IUTEST_NULLPTR || path[0] == '\0' )
     {
         return true;
     }
@@ -534,7 +534,7 @@ IUTEST_IPP_INLINE bool TestEnv::LoadFlagFile()
 IUTEST_IPP_INLINE bool TestEnv::ParseYesNoFlagCommandLine(const char* str, TestFlag::Kind flag, int def)
 {
     const char* option = ParseOptionSettingStr(str);
-    const int yesno = option != NULL ? ParseYesNoOption(option) : def;
+    const int yesno = option != IUTEST_NULLPTR ? ParseYesNoOption(option) : def;
     if( yesno < 0 )
     {
         return false;
@@ -545,7 +545,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseYesNoFlagCommandLine(const char* str, TestF
 
 IUTEST_IPP_INLINE int TestEnv::ParseYesNoOption(const char* option)
 {
-    if( option != NULL )
+    if( option != IUTEST_NULLPTR )
     {
         if( IsYes(option) )
         {

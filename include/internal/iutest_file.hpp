@@ -87,7 +87,7 @@ public:
     }
     virtual ~IFileSystem()
     {
-        SetInstance(NULL);
+        SetInstance(IUTEST_NULLPTR);
     }
 
 public:
@@ -100,9 +100,9 @@ public:
     static IFile* New()
     {
         IFileSystem* fs = GetInstance();
-        if( fs == NULL )
+        if( fs == IUTEST_NULLPTR )
         {
-            return NULL;
+            return IUTEST_NULLPTR;
         }
         IFile* p = fs->Create();
         return p;
@@ -110,7 +110,7 @@ public:
     static void Free(IFile* ptr)
     {
         IFileSystem* fs = GetInstance();
-        if( fs == NULL )
+        if( fs == IUTEST_NULLPTR )
         {
             return;
         }
@@ -120,7 +120,7 @@ public:
     static bool ReadAll(const char* filename, ::std::string& dst)
     {
         IFile* fp = detail::IFileSystem::New();
-        if(fp == NULL)
+        if(fp == IUTEST_NULLPTR)
         {
             return false;
         }
@@ -178,7 +178,7 @@ class StdioFile : public IFile
 protected:
     FILE* m_fp;
 public:
-    StdioFile() IUTEST_CXX_NOEXCEPT_SPEC : m_fp(NULL) {}
+    StdioFile() IUTEST_CXX_NOEXCEPT_SPEC : m_fp(IUTEST_NULLPTR) {}
     virtual ~StdioFile() { Close(); }
 public:
     /**
@@ -186,10 +186,10 @@ public:
     */
     virtual void Close() IUTEST_CXX_OVERRIDE
     {
-        if( m_fp != NULL )
+        if( m_fp != IUTEST_NULLPTR )
         {
             fclose(m_fp);
-            m_fp = NULL;
+            m_fp = IUTEST_NULLPTR;
         }
     }
     /**
@@ -239,7 +239,7 @@ public:
 public:
     static size_t GetSize(FILE* fp)
     {
-        if( fp == NULL )
+        if( fp == IUTEST_NULLPTR )
         {
             return 0;
         }
@@ -257,7 +257,7 @@ public:
     }
     static size_t GetSizeBySeekSet(FILE* fp)
     {
-        if( fp == NULL )
+        if( fp == IUTEST_NULLPTR )
         {
             return 0;
         }
@@ -290,7 +290,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
             break;
         }
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
-        return m_fp != NULL;
+        return m_fp != IUTEST_NULLPTR;
     }
 };
 
@@ -305,7 +305,7 @@ public:
     */
     virtual void Close() IUTEST_CXX_OVERRIDE
     {
-        m_fp = NULL;
+        m_fp = IUTEST_NULLPTR;
     }
 private:
     virtual bool OpenImpl(const char* , int ) IUTEST_CXX_OVERRIDE
