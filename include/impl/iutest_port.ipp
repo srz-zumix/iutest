@@ -37,7 +37,7 @@ namespace detail
 IUTEST_IPP_INLINE void PostMessage(const pp::Var& var)
 {
     ::pp::Module* module = ::pp::Module::Get();
-    if( module != NULL )
+    if( module != IUTEST_NULLPTR )
     {
         if( module->current_instances().size() > 0 )
         {
@@ -53,10 +53,10 @@ IUTEST_IPP_INLINE void vprint_message(const char *fmt, va_list va)
     char msg[1024];
     vsnprintf(msg, sizeof(msg), fmt, va);
     char* tp = strtok(msg, "\n");   // NOLINT
-    while( tp != NULL )
+    while( tp != IUTEST_NULLPTR )
     {
         detail::PostMessage(pp::Var(tp));
-        tp = strtok(NULL, "\n");    // NOLINT
+        tp = strtok(IUTEST_NULLPTR, "\n");    // NOLINT
     }
 }
 IUTEST_IPP_INLINE void print_message(const char *fmt, ...)

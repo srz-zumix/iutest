@@ -186,7 +186,7 @@ inline void iuConsole::output(const char *fmt, ...)
 inline void iuConsole::voutput(const char* fmt, va_list va)
 {
     iuLogger* pLogger = GetLogger();
-    if(pLogger != NULL)
+    if(pLogger != IUTEST_NULLPTR)
     {
         pLogger->voutput(fmt, va);
     }
@@ -299,7 +299,7 @@ inline bool iuConsole::HasColorConsole()
     }
 #endif
     const char* env = internal::posix::GetEnv("TERM");
-    const bool term_conf = (env != NULL) && (
+    const bool term_conf = (env != IUTEST_NULLPTR) && (
         IsStringEqual(env, "xterm")
         || IsStringEqual(env, "xterm-color")
         || IsStringEqual(env, "xterm-256color")
@@ -317,7 +317,7 @@ inline bool iuConsole::HasColorConsole()
         return true;
     }
     // for CI
-    if( internal::posix::GetEnv("GITHUB_ACTIONS") != NULL )
+    if( internal::posix::GetEnv("GITHUB_ACTIONS") != IUTEST_NULLPTR )
     {
         return true;
     }
