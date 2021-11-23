@@ -82,7 +82,7 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestSuite(IFile* file,
 
     {
         const char* type_param = test_suite.type_param();
-        if( type_param != NULL )
+        if( type_param != IUTEST_NULLPTR )
         {
             OnReportProperty(file, "type_param", EscapeXmlAttribute(type_param).c_str());
         }
@@ -92,7 +92,7 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestSuite(IFile* file,
         {
             const TestInfo& test_info = *test_suite.GetTestInfo(i);
             const char* value_param = test_info.value_param();
-            if( value_param != NULL )
+            if( value_param != IUTEST_NULLPTR )
             {
                 OnReportProperty(file, test_info.name(), EscapeXmlAttribute(value_param).c_str());
             }

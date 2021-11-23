@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -136,22 +136,22 @@ typedef ::iutest_compatible::IsNullLiteralHelper::Object* iu_nullptr_convertible
 /**
  * @brief   true を返す(警告対策用)
 */
-inline bool AlwaysTrue() { return true; }
+inline bool AlwaysTrue() IUTEST_CXX_NOEXCEPT_SPEC { return true; }
 
 /**
  * @brief   false を返す(警告対策用)
 */
-inline bool AlwaysFalse() { return !AlwaysTrue(); }
+inline bool AlwaysFalse() IUTEST_CXX_NOEXCEPT_SPEC { return !AlwaysTrue(); }
 
 /**
  * @brief   0 を返す(警告対策用)
 */
-inline int  AlwaysZero() { return 0; }
+inline int  AlwaysZero() IUTEST_CXX_NOEXCEPT_SPEC { return 0; }
 
 /**
  * @brief   真偽値を返す(警告対策用)
 */
-inline bool IsTrue(bool b) { return b; }
+inline IUTEST_CXX_CONSTEXPR bool IsTrue(bool b) IUTEST_CXX_NOEXCEPT_SPEC { return b; }
 
 //======================================================================
 // class
