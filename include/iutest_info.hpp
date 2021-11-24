@@ -74,12 +74,12 @@ public:
     /** is reportable */
     bool            is_reportable()     const IUTEST_CXX_NOEXCEPT_SPEC { return m_matches_filter; }
     /** テストの実行ミリ秒 */
-    TimeInMillisec  elapsed_time()      const { return m_test_result.elapsed_time(); }
+    TimeInMillisec  elapsed_time()      const IUTEST_CXX_NOEXCEPT_SPEC { return m_test_result.elapsed_time(); }
     /** テスト結果の取得 */
     const TestResult*   result()        const IUTEST_CXX_NOEXCEPT_SPEC { return &m_test_result; }
 
     /** value param 文字列の取得 */
-    const   char*   value_param()       const { return m_value_param.empty() ? IUTEST_NULLPTR : m_value_param.c_str(); }
+    const   char*   value_param()       const IUTEST_CXX_NOEXCEPT_SPEC { return m_value_param.empty() ? IUTEST_NULLPTR : m_value_param.c_str(); }
     /** type param 文字列の取得 */
     const   char*   type_param()        const { return m_testsuite->type_param(); }
 

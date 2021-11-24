@@ -1493,6 +1493,17 @@
 #  define IUTEST_ATTRIBUTE_FORMAT_PRINTF(fi, vi)
 #endif
 
+//! gsl::suppress
+#if !defined(IUTEST_ATTRIBUTE_GSL_SUPPRESS)
+#  if  defined(_MSC_VER)
+#    define IUTEST_ATTRIBUTE_GSL_SUPPRESS(...)  [[gsl::suppress(__VA_ARGS__)]]
+#  endif
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_GSL_SUPPRESS)
+#  define IUTEST_ATTRIBUTE_GSL_SUPPRESS(...)
+#endif
+
 
 // builtin
 

@@ -140,22 +140,22 @@ public:
 
 public:
     // On*End は後ろから実行
-    virtual void OnTestProgramStart(const UnitTest& test)           IUTEST_CXX_OVERRIDE;
-    virtual void OnTestIterationStart(const UnitTest& test
+    IUTEST_ATTRIBUTE_GSL_SUPPRESS(f.6) virtual void OnTestProgramStart(const UnitTest& test)           IUTEST_CXX_OVERRIDE;
+    IUTEST_ATTRIBUTE_GSL_SUPPRESS(f.6) virtual void OnTestIterationStart(const UnitTest& test
                                     , int iteration)                IUTEST_CXX_OVERRIDE;
-    virtual void OnEnvironmentsSetUpStart(const UnitTest& test)     IUTEST_CXX_OVERRIDE;
-    virtual void OnEnvironmentsSetUpEnd(const UnitTest& test)       IUTEST_CXX_OVERRIDE;
-    virtual void OnTestSuiteStart(const TestSuite& test_suite)      IUTEST_CXX_OVERRIDE;
-    virtual void OnTestStart(const TestInfo& test_info)             IUTEST_CXX_OVERRIDE;
-    virtual void OnTestPartResult(const TestPartResult& test_part_result)   IUTEST_CXX_OVERRIDE;
-    virtual void OnTestRecordProperty(const TestProperty& test_property)    IUTEST_CXX_OVERRIDE;
-    virtual void OnTestEnd(const TestInfo& test_info)               IUTEST_CXX_OVERRIDE;
-    virtual void OnTestSuiteEnd(const TestSuite& test_suite)        IUTEST_CXX_OVERRIDE;
-    virtual void OnEnvironmentsTearDownStart(const UnitTest& test)  IUTEST_CXX_OVERRIDE;
-    virtual void OnEnvironmentsTearDownEnd(const UnitTest& test)    IUTEST_CXX_OVERRIDE;
-    virtual void OnTestIterationEnd(const UnitTest& test
+    IUTEST_ATTRIBUTE_GSL_SUPPRESS(f.6) virtual void OnEnvironmentsSetUpStart(const UnitTest& test)     IUTEST_CXX_OVERRIDE;
+    IUTEST_ATTRIBUTE_GSL_SUPPRESS(f.6) virtual void OnEnvironmentsSetUpEnd(const UnitTest& test)       IUTEST_CXX_OVERRIDE;
+    IUTEST_ATTRIBUTE_GSL_SUPPRESS(f.6) virtual void OnTestSuiteStart(const TestSuite& test_suite)      IUTEST_CXX_OVERRIDE;
+    IUTEST_ATTRIBUTE_GSL_SUPPRESS(f.6) virtual void OnTestStart(const TestInfo& test_info)             IUTEST_CXX_OVERRIDE;
+    IUTEST_ATTRIBUTE_GSL_SUPPRESS(f.6) virtual void OnTestPartResult(const TestPartResult& test_part_result)   IUTEST_CXX_OVERRIDE;
+    IUTEST_ATTRIBUTE_GSL_SUPPRESS(f.6) virtual void OnTestRecordProperty(const TestProperty& test_property)    IUTEST_CXX_OVERRIDE;
+    IUTEST_ATTRIBUTE_GSL_SUPPRESS(f.6) virtual void OnTestEnd(const TestInfo& test_info)               IUTEST_CXX_OVERRIDE;
+    IUTEST_ATTRIBUTE_GSL_SUPPRESS(f.6) virtual void OnTestSuiteEnd(const TestSuite& test_suite)        IUTEST_CXX_OVERRIDE;
+    IUTEST_ATTRIBUTE_GSL_SUPPRESS(f.6) virtual void OnEnvironmentsTearDownStart(const UnitTest& test)  IUTEST_CXX_OVERRIDE;
+    IUTEST_ATTRIBUTE_GSL_SUPPRESS(f.6) virtual void OnEnvironmentsTearDownEnd(const UnitTest& test)    IUTEST_CXX_OVERRIDE;
+    IUTEST_ATTRIBUTE_GSL_SUPPRESS(f.6) virtual void OnTestIterationEnd(const UnitTest& test
                                     , int iteration)                IUTEST_CXX_OVERRIDE;
-    virtual void OnTestProgramEnd(const UnitTest& test)             IUTEST_CXX_OVERRIDE;
+    IUTEST_ATTRIBUTE_GSL_SUPPRESS(f.6) virtual void OnTestProgramEnd(const UnitTest& test)             IUTEST_CXX_OVERRIDE;
 
 private:
     ListenerContainer m_listeners;

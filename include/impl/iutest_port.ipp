@@ -190,7 +190,7 @@ IUTEST_IPP_INLINE ::std::string GetCWD()
     return GetCWD(buf, sizeof(buf));
 }
 
-IUTEST_IPP_INLINE int SleepMillisecFor(unsigned int millisec)
+IUTEST_IPP_INLINE int SleepMillisecFor(unsigned int millisec) IUTEST_CXX_NOEXCEPT_SPEC
 {
     volatile int x=0;
     for( unsigned int i=0; i < millisec; ++i )

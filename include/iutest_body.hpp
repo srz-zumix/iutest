@@ -63,7 +63,7 @@ public:
     /**
      * @brief   実行中の TestInfo の取得
     */
-    static const TestInfo* GetCurrentTestInfo()
+    static const TestInfo* GetCurrentTestInfo() IUTEST_CXX_NOEXCEPT_SPEC
     {
         const Test* curr = GetCurrentTest();
         if( curr == IUTEST_NULLPTR || curr->m_test_info == IUTEST_NULLPTR )

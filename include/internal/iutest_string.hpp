@@ -315,7 +315,7 @@ inline ::std::string StripSpace(const ::std::string& str)
     return ::std::string(start, end+1);
 }
 
-inline bool StringIsBlank(const ::std::string& str)
+inline bool StringIsBlank(const ::std::string& str) IUTEST_CXX_NOEXCEPT_SPEC
 {
     ::std::string::const_iterator it = str.begin();
     while( it != str.end() )
@@ -343,13 +343,15 @@ inline ::std::string StringRemoveComment(const ::std::string& str)
     while( pos != ::std::string::npos )
     {
         ++pos;
-        if( str[prev] != '#' ) {
+        if( str[prev] != '#' )
+        {
             r += str.substr(prev, pos-prev);
         }
         prev = pos;
         pos = str.find('\n', pos);
     }
-    if( str[prev] != '#' ) {
+    if( str[prev] != '#' )
+    {
         r += str.substr(prev);
     }
     return r;
