@@ -32,7 +32,7 @@ IUTEST_IPP_INLINE ::std::string TestEnv::get_report_xml_filepath()
 {
     const ::std::string& option = get_vars().m_output_option;
     const char spec[] = "xml";
-    const size_t length = sizeof(spec) - 1;
+    IUTEST_CXX_CONSTEXPR_OR_CONST size_t length = sizeof(spec) - 1;
     if( option.compare(0, length, spec) == 0 )
     {
         if( (option.length() > length + 1) && (option.at(length) == ':') )
@@ -48,7 +48,7 @@ IUTEST_IPP_INLINE::std::string TestEnv::get_report_junit_xml_filepath()
 {
     const ::std::string& option = get_vars().m_output_option;
     const char spec[] = "junit";
-    const size_t length = sizeof(spec) - 1;
+    IUTEST_CXX_CONSTEXPR_OR_CONST size_t length = sizeof(spec) - 1;
     if( option.compare(0, length, spec) == 0 )
     {
         if( (option.length() > length + 1) && (option.at(length) == ':') )
@@ -294,7 +294,7 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnvironmentVariable()
         if( detail::GetEnvironmentInt("IUTEST_RANDOM_SEED", var)
         ||  detail::GetEnvironmentInt("GTEST_RANDOM_SEED", var) )
         {
-            init_random((unsigned int)var);
+            init_random(static_cast<unsigned int>(var));
         }
         if( detail::GetEnvironmentInt("IUTEST_CATCH_EXCEPTIONS", var)
         ||  detail::GetEnvironmentInt("GTEST_CATCH_EXCEPTIONS", var) )

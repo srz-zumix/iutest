@@ -81,7 +81,7 @@ IUTEST_IPP_INLINE ::std::string FormatTimeInMillisecAsSecond(TimeInMillisec msec
 IUTEST_IPP_INLINE ::std::string FormatTimeInMillisecAsIso8601(TimeInMillisec msec)
 {
 #if IUTEST_HAS_CTIME
-    time_t sec = static_cast<time_t>(msec / 1000);
+    const time_t sec = static_cast<time_t>(msec / 1000);
     struct tm t;
     if( !Localtime(sec, &t) )
     {

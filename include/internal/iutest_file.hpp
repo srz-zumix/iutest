@@ -369,9 +369,9 @@ public:
     //! サイズ取得
     virtual size_t GetSize() IUTEST_CXX_OVERRIDE
     {
-        ::std::stringstream::pos_type pre = ss.tellg();
+        const ::std::stringstream::pos_type pre = ss.tellg();
         ss.seekg(0, ::std::ios::end);
-        ::std::stringstream::pos_type size = ss.tellg();
+        const ::std::stringstream::pos_type size = ss.tellg();
         ss.seekg(pre, ::std::ios::beg);
         return static_cast<size_t>(size);
     }

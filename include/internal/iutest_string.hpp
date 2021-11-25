@@ -343,14 +343,14 @@ inline ::std::string StringRemoveComment(const ::std::string& str)
     while( pos != ::std::string::npos )
     {
         ++pos;
-        if( str[prev] != '#' )
+        if( str.at(prev) != '#' )
         {
             r += str.substr(prev, pos-prev);
         }
         prev = pos;
         pos = str.find('\n', pos);
     }
-    if( str[prev] != '#' )
+    if( str.at(prev) != '#' )
     {
         r += str.substr(prev);
     }
