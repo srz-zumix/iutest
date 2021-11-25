@@ -107,7 +107,7 @@ private:
     void Release();
 private:
     struct should_be_SetUp {};
-    virtual should_be_SetUp* Setup() IUTEST_CXX_FINAL { return NULL; }
+    virtual should_be_SetUp* Setup() IUTEST_CXX_FINAL { return IUTEST_NULLPTR; }
 };
 
 /**
@@ -318,7 +318,7 @@ private:
             , m_current_random_seed(0)
             , m_before_origin_random_seed(0)
             , m_repeat_count(1)
-            , m_testpartresult_reporter(NULL)
+            , m_testpartresult_reporter(IUTEST_NULLPTR)
         {}
         unsigned int        m_random_seed;
         unsigned int        m_current_random_seed;
@@ -426,7 +426,7 @@ private:
     */
     static void set_test_filter(const char* str)
     {
-        get_vars().m_test_filter = str == NULL ? "*" : str;
+        get_vars().m_test_filter = str == IUTEST_NULLPTR ? "*" : str;
         TestFlag::SetFlag(TestFlag::FILTERING_TESTS);
     }
 
@@ -633,11 +633,10 @@ public:
     */
     static Environment* AddGlobalTestEnvironment(Environment* env)
     {
-        if( env == NULL )
+        if( env != IUTEST_NULLPTR )
         {
-            return NULL;
+            environments().push_back(env);
         }
-        environments().push_back(env);
         return env;
     }
 
@@ -648,15 +647,15 @@ public:
     */
     static Environment* ReleaseGlobalTestEnvironment(Environment* env)
     {
-        if( env == NULL )
+        if( env == IUTEST_NULLPTR )
         {
-            return NULL;
+            return IUTEST_NULLPTR;
         }
         iuEnvironmentList& list = environments();
         iuEnvironmentList::iterator it = ::std::find(list.begin(), list.end(), env);
         if( it == list.end() )
         {
-            return NULL;
+            return IUTEST_NULLPTR;
         }
         list.erase(it);
         return env;
@@ -690,7 +689,7 @@ public:
     template<typename CharType>
     static void ParseCommandLine(int* pargc, CharType** argv)
     {
-        if( argv == NULL )
+        if( argv == IUTEST_NULLPTR )
         {
             return;
         }
@@ -773,9 +772,9 @@ private:
     static inline const char* ParseOptionSettingStr(const char* opt)
     {
         const char* eq = strchr(opt, '=');
-        if( eq == NULL )
+        if( eq == IUTEST_NULLPTR )
         {
-            return NULL;
+            return IUTEST_NULLPTR;
         }
         return eq+1;
     }

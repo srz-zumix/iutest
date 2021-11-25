@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -30,10 +30,10 @@ namespace detail
 
 //======================================================================
 // variable
-const UInt32 kMaxCodePoint1 = (static_cast<UInt32>(1) << 7) - 1;
-const UInt32 kMaxCodePoint2 = (static_cast<UInt32>(1) << (5+6)) - 1;
-const UInt32 kMaxCodePoint3 = (static_cast<UInt32>(1) << (4+2*6)) - 1;
-const UInt32 kMaxCodePoint4 = (static_cast<UInt32>(1) << (3+3*6)) - 1;
+IUTEST_CXX_CONSTEXPR_OR_CONST UInt32 kMaxCodePoint1 = (static_cast<UInt32>(1) << 7) - 1;
+IUTEST_CXX_CONSTEXPR_OR_CONST UInt32 kMaxCodePoint2 = (static_cast<UInt32>(1) << (5+6)) - 1;
+IUTEST_CXX_CONSTEXPR_OR_CONST UInt32 kMaxCodePoint3 = (static_cast<UInt32>(1) << (4+2*6)) - 1;
+IUTEST_CXX_CONSTEXPR_OR_CONST UInt32 kMaxCodePoint4 = (static_cast<UInt32>(1) << (3+3*6)) - 1;
 
 //======================================================================
 // function
@@ -119,7 +119,7 @@ IUTEST_IPP_INLINE char* CodePointToUtf8(UInt32 code_point, char* buf, size_t siz
 IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToSJIS(const ::std::string& str)
 {
     const int src_length = static_cast<int>(str.length() + 1);
-    const int lengthWideChar = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), src_length, NULL, 0);
+    const int lengthWideChar = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), src_length, IUTEST_NULLPTR, 0);
     if( lengthWideChar <= 0 )
     {
         return "(convert error)";
@@ -128,7 +128,7 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToSJIS(const ::std:
     wchar_t* wbuf = new wchar_t[lengthWideChar];
     MultiByteToWideChar(CP_UTF8, 0, str.c_str(), src_length, wbuf, lengthWideChar);
 
-    const int lengthSJIS = WideCharToMultiByte(CP_THREAD_ACP, 0, wbuf, -1, NULL, 0, NULL, NULL);
+    const int lengthSJIS = WideCharToMultiByte(CP_THREAD_ACP, 0, wbuf, -1, IUTEST_NULLPTR, 0, IUTEST_NULLPTR, IUTEST_NULLPTR);
     if( lengthSJIS <= 0 )
     {
         delete[] wbuf;
@@ -136,7 +136,7 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToSJIS(const ::std:
     }
 
     char* buf = new char[lengthSJIS];
-    WideCharToMultiByte(CP_THREAD_ACP, 0, wbuf, -1, buf, lengthSJIS, NULL, NULL);
+    WideCharToMultiByte(CP_THREAD_ACP, 0, wbuf, -1, buf, lengthSJIS, IUTEST_NULLPTR, IUTEST_NULLPTR);
 
     ::std::string ret(buf);
     delete[] wbuf;
@@ -340,7 +340,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
 
 IUTEST_IPP_INLINE ::std::wstring IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToWideString(const char* str)
 {
-    if(str == NULL)
+    if(str == IUTEST_NULLPTR)
     {
         return L"";
     }
