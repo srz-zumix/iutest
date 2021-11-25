@@ -109,8 +109,9 @@ private:
 protected:
     ::std::string m_testsuite_base_name;
     ::std::string m_package_name;
-    const char* m_file;
-    int m_line;
+    // FIXME: https://github.com/srz-zumix/iutest/issues/629
+    // const char* m_file;
+    // int m_line;
 };
 
 /**
