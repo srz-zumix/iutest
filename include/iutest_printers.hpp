@@ -54,7 +54,7 @@ void UniversalPrint(const T& value, iu_ostream* os);
 inline void PrintBytesInObjectTo(const unsigned char* buf, size_t size, iu_ostream* os)
 {
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
-    const size_t kMaxCount = detail::kValues::MaxPrintContainerCount;
+    IUTEST_CXX_CONSTEXPR_OR_CONST size_t kMaxCount = detail::kValues::MaxPrintContainerCount;
     *os << size << "-Byte object < ";
     if( buf != IUTEST_NULLPTR && size > 0 )
     {

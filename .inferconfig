@@ -1,6 +1,7 @@
 {
     "skip-analysis-in-path": [
-        "test/"
+        "test/",
+        "sample/"
     ],
     "skip-translation-headers": [
     ],

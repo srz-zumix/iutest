@@ -523,7 +523,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
         }
     private:
-        TestSuiteMediator    m_mediator;
+        TestSuiteMediator   m_mediator;
         Factory             m_factory;
         TestInfo            m_info;
     };

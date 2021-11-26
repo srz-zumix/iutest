@@ -191,7 +191,7 @@ public:
                 , IUTEST_GET_SETUP_TESTSUITE(Tester, file, line)
                 , IUTEST_GET_TEARDOWN_TESTSUITE(Tester, file, line));
 
-            if( p.get() != NULL )
+            if( p.get() != IUTEST_NULLPTR )
             {
                 size_t i=0;
                 for( p->Begin(); !p->IsEnd(); p->Next() )

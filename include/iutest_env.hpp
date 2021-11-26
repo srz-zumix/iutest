@@ -301,6 +301,7 @@ public:
         bool m_dirty;
         T   m_value;
     public:
+        StateVariable() : m_dirty(false), m_value(T()) {}
         StateVariable& operator = (const T& rhs) { m_value = rhs; m_dirty = true; return *this; }
         operator const T& () const { return m_value; }
         const T& operator ()() const { return m_value; }
