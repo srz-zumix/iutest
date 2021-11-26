@@ -819,7 +819,7 @@ public:
     }
     template<typename T2>
     static AssertionResult Compare(const char* expr1, const char* expr2
-        , detail::IsNullLiteralHelper::Object* val1, T2* val2)
+        , const detail::IsNullLiteralHelper::Object* val1, T2* val2)
     {
         IUTEST_UNUSED_VAR(val1);
         return CmpHelperEQ(expr1, expr2, static_cast<T2*>(IUTEST_NULLPTR), val2);

@@ -242,14 +242,14 @@ class auto_ptr
 {
     mutable T* m_ptr;
 public:
-    explicit auto_ptr(T* p = NULL) : m_ptr(p) {}
-    auto_ptr(const auto_ptr& rhs) : m_ptr(rhs.m_ptr) { rhs.m_ptr = NULL; }
-    ~auto_ptr() { if( m_ptr != NULL ) delete m_ptr; }
+    explicit auto_ptr(T* p = IUTEST_NULLPTR) : m_ptr(p) {}
+    auto_ptr(const auto_ptr& rhs) : m_ptr(rhs.m_ptr) { rhs.m_ptr = IUTEST_NULLPTR; }
+    ~auto_ptr() { if( m_ptr != IUTEST_NULLPTR ) delete m_ptr; }
 
     T& operator *  () const { return *m_ptr; }
     T* operator -> () const { return m_ptr; }
 
-    auto_ptr& operator = (auto_ptr& rhs) { m_ptr = rhs.m_ptr; rhs.m_ptr = NULL; return *this; }
+    auto_ptr& operator = (auto_ptr& rhs) { m_ptr = rhs.m_ptr; rhs.m_ptr = IUTEST_NULLPTR; return *this; }
 
     T* get() { return m_ptr; }
 };
@@ -263,7 +263,7 @@ class scoped_ptr
 {
     T* m_ptr;
 public:
-    explicit scoped_ptr(T* p=NULL) : m_ptr(p) {}
+    explicit scoped_ptr(T* p=IUTEST_NULLPTR) : m_ptr(p) {}
     ~scoped_ptr() { reset(); }
 
     T& operator *  () const { return *m_ptr; }
@@ -273,11 +273,11 @@ public:
     T* release()
     {
         T* const p = m_ptr;
-        m_ptr = NULL;
+        m_ptr = IUTEST_NULLPTR;
         return p;
     }
 
-    void reset(T* p=NULL)
+    void reset(T* p=IUTEST_NULLPTR)
     {
         if( m_ptr != p )
         {
@@ -310,7 +310,7 @@ struct IsContainerHelper
 
     template<typename T>
     static IUTEST_CXX_CONSTEXPR yes_t IsContainer(int IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)
-        , typename T::iterator* =NULL, typename T::const_iterator* =NULL) { return 0; }
+        , typename T::iterator* =IUTEST_NULLPTR, typename T::const_iterator* =IUTEST_NULLPTR) { return 0; }
 
     template<typename T>
     static IUTEST_CXX_CONSTEXPR no_t  IsContainer(long IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)) { return 0; }

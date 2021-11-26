@@ -398,7 +398,7 @@ inline IUTEST_CXX_CONSTEXPR char ToHex(unsigned int n)
 template<typename T>
 inline ::std::string ToHexString(T value)
 {
-    const size_t kN = sizeof(T)*2;
+    IUTEST_CXX_CONSTEXPR_OR_CONST size_t kN = sizeof(T)*2;
     char buf[kN + 1] = {0};
     for( size_t i=0; i < kN; ++i )
     {
@@ -451,7 +451,7 @@ inline ::std::string FormatIntWidth2(int value)
 template<typename T>
 ::std::string iu_to_string(const T& value)
 {
-    const size_t kN = 128;
+    IUTEST_CXX_CONSTEXPR_OR_CONST size_t kN = 128;
     char buf[kN] = { 0 };
     const ::std::to_chars_result r = ::std::to_chars(buf, buf + kN, value);
     *r.ptr = '\0';

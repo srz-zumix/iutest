@@ -90,7 +90,7 @@ struct RawBytesPrinter
     {
         const unsigned char* ptr = const_cast<const unsigned char*>(
             reinterpret_cast<const volatile unsigned char*>(&value));
-        const size_t size = sizeof(T);
+        IUTEST_CXX_CONSTEXPR size_t size = sizeof(T);
         PrintBytesInObjectTo(ptr, size, os);
     }
 };
@@ -677,8 +677,8 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const T* begin, size_t 
     else
     {
         *os << "{ ";
-        const size_t kThreshold = kValues::PrintArrayThreshold;
-        const size_t kChunksize = kValues::PrintArrayChunksize;
+        IUTEST_CXX_CONSTEXPR size_t kThreshold = kValues::PrintArrayThreshold;
+        IUTEST_CXX_CONSTEXPR size_t kChunksize = kValues::PrintArrayChunksize;
         if( N <= kThreshold )
         {
             PrintRawArrayTo(begin, N, os);
