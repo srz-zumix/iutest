@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -93,7 +93,7 @@ public:
         {
             return true;
         }
-        addrinfo* servinfo = NULL;
+        addrinfo* servinfo = IUTEST_NULLPTR;
         addrinfo hints;
         memset(&hints, 0, sizeof(hints));
         hints.ai_family = AF_UNSPEC;
@@ -104,7 +104,7 @@ public:
             return false;
         }
 
-        for( addrinfo* curr=servinfo; curr != NULL; curr = curr->ai_next )
+        for( addrinfo* curr=servinfo; curr != IUTEST_NULLPTR; curr = curr->ai_next )
         {
             const descriptor_t fd = socket(curr->ai_family, curr->ai_socktype, curr->ai_protocol);
             if( fd != INVALID_DESCRIPTOR )
