@@ -126,7 +126,7 @@ public:
 
         int m_test_flags;
     public:
-        ScopedGuard()
+        ScopedGuard() IUTEST_CXX_NOEXCEPT_SPEC
         {
             m_test_flags = TestFlag::GetInstance().m_test_flags;
         }
@@ -188,7 +188,7 @@ private:
 
 public:
     /** @private */
-    static TestFlag& GetInstance() { static TestFlag flag; return flag; }
+    static TestFlag& GetInstance() IUTEST_CXX_NOEXCEPT_SPEC { static TestFlag flag; return flag; }
 public:
     /**
      * @brief   フラグのビット操作
@@ -196,7 +196,7 @@ public:
      * @param [in]  enable  = 論理和
      * @param [in]  mask    = マスク値
     */
-    static void SetFlag(int enable, int mask=-1)
+    static void SetFlag(int enable, int mask=-1) IUTEST_CXX_NOEXCEPT_SPEC
     {
         GetInstance().m_test_flags |= enable;
         GetInstance().m_test_flags &= mask;
@@ -206,7 +206,7 @@ public:
      * @param [in]  flag    = 検査対象フラグ
      * @return  真偽値
     */
-    static bool IsEnableFlag(int flag) { return (GetInstance().m_test_flags & flag) ? true : false; }
+    static bool IsEnableFlag(int flag) IUTEST_CXX_NOEXCEPT_SPEC { return (GetInstance().m_test_flags & flag) ? true : false; }
 
 private:
     template<int KIND>
@@ -215,9 +215,9 @@ private:
         typedef Fragment<KIND> _Myt;
     public:
         Fragment() IUTEST_CXX_NOEXCEPT_SPEC {}
-        Fragment(bool enabled) { SetFlag(KIND, enabled ? -1 : ~KIND); } // NOLINT
-        _Myt& operator = (bool enabled) { SetFlag(KIND, enabled ? -1 : ~KIND); return *this; }
-        operator bool() const { return IsEnableFlag(KIND); }
+        Fragment(bool enabled) IUTEST_CXX_NOEXCEPT_SPEC { SetFlag(KIND, enabled ? -1 : ~KIND); } // NOLINT
+        _Myt& operator = (bool enabled) IUTEST_CXX_NOEXCEPT_SPEC { SetFlag(KIND, enabled ? -1 : ~KIND); return *this; }
+        operator bool() const IUTEST_CXX_NOEXCEPT_SPEC { return IsEnableFlag(KIND); }
     };
 
 private:
@@ -272,7 +272,7 @@ public:
     {
     public:
         RandomSeedSet() IUTEST_CXX_NOEXCEPT_SPEC {}
-        RandomSeedSet(unsigned int seed) { init_random(seed); }
+        RandomSeedSet(unsigned int seed) IUTEST_CXX_NOEXCEPT_SPEC { init_random(seed); }
         RandomSeedSet& operator = (unsigned int seed) { init_random(seed); return *this; }
         operator unsigned int() const { return get_random_seed(); }
     } random_seed;
@@ -285,7 +285,7 @@ public:
     {
     public:
         RepeatCountSet() IUTEST_CXX_NOEXCEPT_SPEC {}
-        RepeatCountSet(int count) { set_repeat_count(count); }
+        RepeatCountSet(int count) IUTEST_CXX_NOEXCEPT_SPEC { set_repeat_count(count); }
         RepeatCountSet& operator = (int count) { set_repeat_count(count); return *this; }
         operator int() const { return get_repeat_count(); }
     } repeat;
@@ -314,7 +314,7 @@ public:
 private:
     struct Variable
     {
-        Variable()
+        Variable() IUTEST_CXX_NOEXCEPT_SPEC
             : m_random_seed(0)
             , m_current_random_seed(0)
             , m_before_origin_random_seed(0)
@@ -342,7 +342,7 @@ private:
         ::std::string       m_locale_ctype;
     };
 
-    static Variable& get_vars() { static Variable sVars; return sVars; }
+    static Variable& get_vars() IUTEST_CXX_NOEXCEPT_SPEC { static Variable sVars; return sVars; }
 
 private:
     static const char*          get_output_option_c_str() { return get_vars().m_output_option.get().c_str(); }
@@ -409,7 +409,7 @@ private:
     /**
      * @brief   乱数シードの設定
     */
-    static void init_random(unsigned int seed)
+    static void init_random(unsigned int seed) IUTEST_CXX_NOEXCEPT_SPEC
     {
         get_vars().m_random_seed = seed;
     }
@@ -417,7 +417,7 @@ private:
     /**
      * @brief   繰り返し回数の設定
     */
-    static void set_repeat_count(int count)
+    static void set_repeat_count(int count) IUTEST_CXX_NOEXCEPT_SPEC
     {
         get_vars().m_repeat_count = count;
     }

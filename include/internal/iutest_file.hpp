@@ -81,7 +81,7 @@ namespace detail
 class IFileSystem
 {
 public:
-    IFileSystem()
+    IFileSystem() IUTEST_CXX_NOEXCEPT_SPEC
     {
         SetInstance(this);
     }
@@ -146,8 +146,8 @@ private:
         IFileSystem* pInstance;
     };
 
-    static InstanceVariable& GetInstanceVariable() { static InstanceVariable v; return v; }
-    static void SetInstance(IFileSystem* pFileSystem) { GetInstanceVariable().pInstance = pFileSystem; }
+    static InstanceVariable& GetInstanceVariable() IUTEST_CXX_NOEXCEPT_SPEC { static InstanceVariable v; return v; }
+    static void SetInstance(IFileSystem* pFileSystem) IUTEST_CXX_NOEXCEPT_SPEC { GetInstanceVariable().pInstance = pFileSystem; }
 };
 
 }   // end of namespace detail

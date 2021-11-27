@@ -19,6 +19,10 @@ environment:
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       PROJECT_DIR: vs2019
       CMAKE_GENERATOR_NAME: Visual Studio 16 2019
+    - job_group: VisualStudio
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
+      PROJECT_DIR: vs2022
+      CMAKE_GENERATOR_NAME: Visual Studio 17 2022
     # Cygwin
     - job_group: Cygwin
       job_depends_on: VisualStudio
@@ -50,10 +54,10 @@ environment:
       OUTPUTXML_TYPE: xml
     # Prefast
     - job_group: VisualStudio
-      job_depends_on: VS2019
+      job_depends_on: VS2022
       BUILD_PREFAST: yes
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-      PROJECT_DIR: vs2019
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
+      PROJECT_DIR: vs2022
     # Menu
     - job_group: VisualStudio
       BUILD_MENU: yes

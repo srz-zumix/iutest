@@ -209,9 +209,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const ch
 #if IUTEST_HAS_CXX_HDR_CUCHAR
     IUTEST_UNUSED_VAR(num);
     const size_t length = ::std::char_traits<char16_t>::length(str);
-    char16_t lead = 0, trail = 0;
-    char32_t cp;
-    char mbs[6];
+    char mbs[6] = {};
     mbstate_t state = {};
     IUTEST_CHECK_(mbsinit(&state) != 0);
     ::std::string ret;
@@ -219,17 +217,14 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const ch
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
     for( size_t i = 0; i < length; ++i )
     {
-        lead = str[i];
+        const char16_t lead = str[i];
+        char32_t cp = lead;
 
         if( lead > 0xD800 && lead < 0xDC00 )
         {
             ++i;
-            trail = str[i];
+            const char16_t trail = str[i];
             cp = (lead << 10) + trail + 0x10000 - (0xD800 << 10) - 0xDC00;
-        }
-        else
-        {
-            cp = lead;
         }
         const size_t len = ::std::c32rtomb(mbs, cp, &state);
         if( len != static_cast<size_t>(-1) )
@@ -302,7 +297,6 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const ch
 {
 #if IUTEST_HAS_CXX_HDR_CUCHAR
     const size_t length = num < 0 ? ::std::char_traits<char32_t>::length(str) : num;
-    char mbs[6];
     mbstate_t state = {};
     IUTEST_CHECK_(mbsinit(&state) != 0);
     ::std::string ret;
@@ -310,6 +304,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const ch
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
     for( size_t i = 0; i < length; ++i )
     {
+        char mbs[6] = {};
         const size_t len = ::std::c32rtomb(mbs, str[i], &state);
         if( len != static_cast<size_t>(-1) )
         {

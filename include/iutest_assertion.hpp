@@ -221,7 +221,7 @@ public:
 #endif
     {
     public:
-        ScopedMessage(const detail::iuCodeMessage& msg) // NOLINT
+        ScopedMessage(const detail::iuCodeMessage& msg) IUTEST_CXX_NOEXCEPT_SPEC // NOLINT
             : detail::iuCodeMessage(msg)
         {
             ScopedTrace::GetInstance().list.push_back(this);
@@ -246,7 +246,7 @@ private:
 #endif
         msg_list list;
 
-        static ScopedTrace& GetInstance() { static ScopedTrace inst; return inst; }
+        static ScopedTrace& GetInstance() IUTEST_CXX_NOEXCEPT_SPEC { static ScopedTrace inst; return inst; }
     public:
         void append_message(TestPartResult& part_result, bool isException)
         {

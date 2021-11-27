@@ -63,7 +63,7 @@ class TestEventListener
 {
     IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TestEventListener);
 public:
-    TestEventListener() {}
+    TestEventListener() IUTEST_CXX_NOEXCEPT_SPEC {}
     virtual ~TestEventListener() {}
 public:
     virtual void OnTestProgramStart(const UnitTest& test)           = 0;    //!< テストプログラム開始時に呼ばれます
@@ -169,7 +169,8 @@ class TestEventListeners
     typedef ::std::vector<TestEventListener*> ListenerContainer;
 
 public:
-    TestEventListeners() : m_default_result_printer(IUTEST_NULLPTR), m_default_xml_generator(IUTEST_NULLPTR) {}
+    TestEventListeners() IUTEST_CXX_NOEXCEPT_SPEC
+        : m_default_result_printer(IUTEST_NULLPTR), m_default_xml_generator(IUTEST_NULLPTR) {}
 
 public:
     /**
