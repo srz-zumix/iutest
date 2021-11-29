@@ -111,12 +111,12 @@ public:
 #endif
 
 public:
-    iuRandom()
+    iuRandom() IUTEST_CXX_NOEXCEPT_SPEC
     {
         init();
     }
 
-    explicit iuRandom(unsigned int seed)
+    explicit iuRandom(unsigned int seed) IUTEST_CXX_NOEXCEPT_SPEC
     {
         init(seed);
     }
@@ -126,7 +126,7 @@ public:
      * @brief   初期化
      * @details 時間でシードを決定
     */
-    void init()
+    void init() IUTEST_CXX_NOEXCEPT_SPEC
     {
         init(GetIndefiniteValue());
     }
@@ -134,7 +134,7 @@ public:
      * @brief   初期化
      * @param [in]  seed    = シード
     */
-    void init(unsigned int seed)
+    void init(unsigned int seed) IUTEST_CXX_NOEXCEPT_SPEC
     {
         m_engine = Engine(seed);
     }

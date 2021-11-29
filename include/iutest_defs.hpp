@@ -77,7 +77,7 @@ inline TypeId GetTypeId()
 */
 inline IUTEST_CXX_CONSTEXPR TypeId GetTestTypeId()
 {
-    return 0;
+    return IUTEST_NULLPTR;
 }
 
 template<size_t SIZE>

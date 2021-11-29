@@ -60,7 +60,7 @@ namespace detail
 class seh_exception : public ::std::exception
 {
 public:
-    seh_exception() : ::std::exception() {}
+    seh_exception() IUTEST_CXX_NOEXCEPT_SPEC : ::std::exception() {}
     explicit seh_exception(const char *const& what) : ::std::exception(what) {}
 public:
     static void translator(DWORD code, const _EXCEPTION_POINTERS* ep)
