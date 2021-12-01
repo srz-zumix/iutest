@@ -102,7 +102,7 @@ public:
     class ReporterHolder
     {
     public:
-        ReporterHolder() : m_origin(NULL) {}
+        ReporterHolder() IUTEST_CXX_NOEXCEPT_SPEC : m_origin(NULL) {}
         virtual ~ReporterHolder()
         {
             Detach();

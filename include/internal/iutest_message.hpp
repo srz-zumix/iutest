@@ -45,8 +45,8 @@ namespace detail
 class iuStreamMessage
 {
 public:
-    iuStreamMessage() {}
-    explicit iuStreamMessage(const char* message) : m_stream(message) {}
+    iuStreamMessage() IUTEST_CXX_NOEXCEPT_SPEC {}
+    explicit iuStreamMessage(const char* message) IUTEST_CXX_NOEXCEPT_SPEC : m_stream(message) {}
     iuStreamMessage(const iuStreamMessage& rhs) : m_stream(rhs.GetString()) {}
 
 public:

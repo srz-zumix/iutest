@@ -72,11 +72,11 @@ public:
 
 #endif
 public:
-    BasicSocket() : m_socket(INVALID_DESCRIPTOR)
+    BasicSocket() IUTEST_CXX_NOEXCEPT_SPEC : m_socket(INVALID_DESCRIPTOR)
     {
 #ifdef IUTEST_OS_WINDOWS
         WSADATA wsaData;
-        (void)WSAStartup(MAKEWORD(2, 2), &wsaData);
+        IUTEST_UNUSED_RETURN(WSAStartup(MAKEWORD(2, 2), &wsaData));
 #endif
     }
     ~BasicSocket(void)
@@ -160,7 +160,7 @@ class SocketWriter : virtual public BasicSocket
     , public IOutStream
 {
 public:
-    SocketWriter() {}
+    SocketWriter() IUTEST_CXX_NOEXCEPT_SPEC {}
 public:
     bool Send(const ::std::string& message)
     {
@@ -210,7 +210,7 @@ private:
 class SocketReader : virtual public BasicSocket
 {
 public:
-    SocketReader() {}
+    SocketReader() IUTEST_CXX_NOEXCEPT_SPEC {}
 public:
     bool Read(void* buf, size_t size)
     {
@@ -243,7 +243,7 @@ private:
 class Socket : public SocketWriter, public SocketReader
 {
 public:
-    Socket() {}
+    Socket() IUTEST_CXX_NOEXCEPT_SPEC {}
 };
 
 }   // end of namespace detail

@@ -33,7 +33,7 @@ class any
 {
     typedef internal::TypeId type_id;
 public:
-    any() : content(IUTEST_NULLPTR) {}
+    any() IUTEST_CXX_NOEXCEPT_SPEC : content(IUTEST_NULLPTR) {}
     template<typename T>
     any(const T& rhs) : content(new holder<T>(rhs)) {}  // NOLINT
     any(const any& rhs) : content(rhs.content == IUTEST_NULLPTR ? IUTEST_NULLPTR : rhs.content->clone()) {}

@@ -378,14 +378,14 @@ public:
     static ::std::string get_report_junit_xml_filepath();
 
     /** @private */
-    static TestEventListeners& event_listeners() { return get_vars().m_event_listeners; }
+    static TestEventListeners& event_listeners() IUTEST_CXX_NOEXCEPT_SPEC { return get_vars().m_event_listeners; }
     /** @private */
-    static TestPartResultReporterInterface* GetGlobalTestPartResultReporter()
+    static TestPartResultReporterInterface* GetGlobalTestPartResultReporter() IUTEST_CXX_NOEXCEPT_SPEC
     {
         return get_vars().m_testpartresult_reporter;
     }
     /** @private */
-    static void SetGlobalTestPartResultReporter(TestPartResultReporterInterface* ptr)
+    static void SetGlobalTestPartResultReporter(TestPartResultReporterInterface* ptr) IUTEST_CXX_NOEXCEPT_SPEC
     {
         get_vars().m_testpartresult_reporter = ptr;
     }
