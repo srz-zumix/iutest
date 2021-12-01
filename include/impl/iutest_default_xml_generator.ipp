@@ -40,13 +40,13 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestIterationStart(const U
         {
             m_output_path_format.clear();
         }
-        if( m_fp != NULL )
+        if( m_fp != IUTEST_NULLPTR )
         {
             OnReportTest(m_fp, test);
             FileClose();
         }
     }
-    if( m_fp == NULL )
+    if( m_fp == IUTEST_NULLPTR )
     {
         FileOpen(m_output_path.c_str());
     }
@@ -58,10 +58,10 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestProgramEnd(const UnitT
     {
         return;
     }
-    if( m_fp == NULL )
+    if( m_fp == IUTEST_NULLPTR )
     {
         FileOpen(m_output_path.c_str());
-        if( m_fp == NULL )
+        if( m_fp == IUTEST_NULLPTR )
         {
             return;
         }
@@ -150,7 +150,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
 
     {
         const char* type_param = test_info.type_param();
-        if( type_param != NULL )
+        if( type_param != IUTEST_NULLPTR )
         {
             OutputXmlAttribute(file, "type_param"
                 , EscapeXmlAttribute(type_param).c_str() );
@@ -158,7 +158,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
     }
     {
         const char* value_param = test_info.value_param();
-        if( value_param != NULL )
+        if( value_param != IUTEST_NULLPTR )
         {
             OutputXmlAttribute(file, "value_param"
                 , EscapeXmlAttribute(value_param).c_str() );
@@ -286,7 +286,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestProperty(IFile* 
 IUTEST_IPP_INLINE bool DefaultXmlGeneratorListener::FileOpen(const char* path)
 {
     m_fp = detail::IFileSystem::New();
-    if( m_fp == NULL )
+    if( m_fp == IUTEST_NULLPTR )
     {
         return false;
     }
@@ -296,7 +296,7 @@ IUTEST_IPP_INLINE bool DefaultXmlGeneratorListener::FileOpen(const char* path)
         fprintf(stderr, "Unable to open file \"%s\".\n", m_output_path.c_str());
         fflush(stderr);
         detail::IFileSystem::Free(m_fp);
-        m_fp = NULL;
+        m_fp = IUTEST_NULLPTR;
         return false;
     }
     return true;
@@ -304,13 +304,13 @@ IUTEST_IPP_INLINE bool DefaultXmlGeneratorListener::FileOpen(const char* path)
 
 IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::FileClose()
 {
-    if( m_fp == NULL )
+    if( m_fp == IUTEST_NULLPTR )
     {
         return;
     }
     m_fp->Close();
     detail::IFileSystem::Free(m_fp);
-    m_fp = NULL;
+    m_fp = IUTEST_NULLPTR;
 }
 
 IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OutputXmlCDataSection(IFile* file, const char* data)
@@ -331,7 +331,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 IUTEST_IPP_INLINE ::std::string DefaultXmlGeneratorListener::EscapeXml(const char* str, bool is_attribute)
 {
     ::std::string msg;
-    if( str != NULL )
+    if( str != IUTEST_NULLPTR )
     {
         for( const char* src = str; *src; ++src )
         {
@@ -388,7 +388,6 @@ IUTEST_IPP_INLINE ::std::string DefaultXmlGeneratorListener::EscapeXml(const cha
 }
 
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
-
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 }   // end of namespace iutest

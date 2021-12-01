@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -44,6 +44,9 @@
 #endif
 #ifndef IUTEST_PRAGMA_MSC_WARN_DISABLE
 #  define IUTEST_PRAGMA_MSC_WARN_DISABLE(x)
+#endif
+#ifndef IUTEST_PRAGMA_MSC_WARN_SUPPRESS
+#  define IUTEST_PRAGMA_MSC_WARN_SUPPRESS(x)
 #endif
 #ifndef IUTEST_PRAGMA_MSC_WARN_POP
 #  define IUTEST_PRAGMA_MSC_WARN_POP()
