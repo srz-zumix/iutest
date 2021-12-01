@@ -166,10 +166,12 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
                 detail::iuConsole::output("%d tests.\n", count );
                 if( TestFlag::IsEnableFlag(TestFlag::VERBOSE) )
                 {
-                    for( int i=0, case_count=test.total_test_suite_count(); i < case_count; ++i )
+                    const int case_count = test.total_test_suite_count();
+                    for( int i=0; i < case_count; ++i )
                     {
                         const TestSuite* testsuite = test.GetTestSuite(i);
-                        for( int j=0, info_count=testsuite->total_test_count(); j < info_count; ++j )
+                        const int info_count = testsuite->total_test_count();
+                        for( int j=0; j < info_count; ++j )
                         {
                             const TestInfo* testinfo = testsuite->GetTestInfo(j);
                             if( testinfo->is_disabled_test() )
@@ -190,10 +192,12 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
                 detail::iuConsole::output("%d tests.\n", count );
                 if( TestFlag::IsEnableFlag(TestFlag::VERBOSE) )
                 {
-                    for( int i=0, case_count=test.total_test_suite_count(); i < case_count; ++i )
+                    const int case_count = test.total_test_suite_count();
+                    for( int i=0; i < case_count; ++i )
                     {
                         const TestSuite* testsuite = test.GetTestSuite(i);
-                        for( int j=0, info_count=testsuite->total_test_count(); j < info_count; ++j )
+                        const int info_count = testsuite->total_test_count();
+                        for( int j=0; j < info_count; ++j )
                         {
                             const TestInfo* testinfo = testsuite->GetTestInfo(j);
                             if( testinfo->is_skipped() )
@@ -213,10 +217,12 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
             detail::iuConsole::color_output(detail::iuConsole::red, "[  FAILED  ] ");
             detail::iuConsole::output("%d %s, listed below:\n", failed_num, failed_num == 1 ? "test" : "tests" );
 
-            for( int i=0, count=test.total_test_suite_count(); i < count; ++i )
+            const int count = test.total_test_suite_count();
+            for( int i=0; i < count; ++i )
             {
                 const TestSuite* testsuite = test.GetTestSuite(i);
-                for( int j=0, info_count=testsuite->total_test_count(); j < info_count; ++j )
+                const int info_count = testsuite->total_test_count();
+                for( int j=0; j < info_count; ++j )
                 {
                     const TestInfo* testinfo = testsuite->GetTestInfo(j);
                     if( testinfo->HasFailure() )

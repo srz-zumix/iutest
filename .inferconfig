@@ -1,7 +1,5 @@
 {
     "skip-analysis-in-path": [
-        "test/",
-        "samples/"
     ],
     "skip-translation-headers": [
     ],

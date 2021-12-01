@@ -39,7 +39,7 @@
 #ifdef __INTEL_COMPILER
 #  define IUTEST_AMBIGUOUS_ELSE_BLOCKER_
 #else
-#  define IUTEST_AMBIGUOUS_ELSE_BLOCKER_    switch(::iutest::detail::AlwaysZero()) case 0: default:
+#  define IUTEST_AMBIGUOUS_ELSE_BLOCKER_    IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26818) switch(::iutest::detail::AlwaysZero()) case 0: default:
 #endif
 
 #define IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(statement) if( ::iutest::detail::AlwaysTrue() ) statement
