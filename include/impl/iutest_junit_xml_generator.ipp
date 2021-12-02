@@ -49,7 +49,8 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTest(IFile* file, cons
         );
     file->Printf("name=\"AllTests\">\n");
 
-    for( int i=0, count=test.total_test_suite_count(); i < count; ++i )
+    const int count = test.total_test_suite_count();
+    for( int i=0; i < count; ++i )
     {
         OnReportTestSuite(file, *test.GetTestSuite(i));
     }
@@ -88,7 +89,8 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestSuite(IFile* file,
         }
     }
     {
-        for( int i=0, count=test_suite.total_test_count(); i < count; ++i )
+        const int count = test_suite.total_test_count();
+        for( int i=0; i < count; ++i )
         {
             const TestInfo& test_info = *test_suite.GetTestInfo(i);
             const char* value_param = test_info.value_param();
@@ -105,7 +107,8 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestSuite(IFile* file,
     file->Printf("    </properties>\n");
 
     {
-        for( int i=0, count=test_suite.total_test_count(); i < count; ++i )
+        const int count = test_suite.total_test_count();
+        for( int i=0; i < count; ++i )
         {
             OnReportTestInfo(file, *test_suite.GetTestInfo(i));
         }
@@ -146,7 +149,8 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestInfo(IFile* file, 
     const bool notrun = test_info.should_run() && !test_info.is_ran();
     if( test_info.HasFailure() || notrun )
     {
-        for( int i=0, count=test_info.result()->total_part_count(); i < count; ++i )
+        const int count = test_info.result()->total_part_count();
+        for( int i=0; i < count; ++i )
         {
             const TestPartResult& part = test_info.result()->GetTestPartResult(i);
             if( part.passed() )
@@ -190,7 +194,8 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportProperty(IFile* file, 
 
 IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestProperty(IFile* file, const TestResult& test_result)
 {
-    for( int i=0, count=test_result.test_property_count(); i < count; ++i )
+    const int count = test_result.test_property_count();
+    for( int i=0; i < count; ++i )
     {
         const TestProperty& prop = test_result.GetTestProperty(i);
         OnReportProperty(file
