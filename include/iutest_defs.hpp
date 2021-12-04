@@ -77,7 +77,7 @@ inline TypeId GetTypeId()
 */
 inline IUTEST_CXX_CONSTEXPR TypeId GetTestTypeId()
 {
-    return 0;
+    return IUTEST_NULLPTR;
 }
 
 template<size_t SIZE>
@@ -249,7 +249,7 @@ public:
         const UInt v1 = norm(enable_bits());
         const UInt v2 = norm(rhs.enable_bits());
         const UInt diff = (v1 > v2) ? v1 - v2 : v2 - v1;
-        const UInt kMaxUlps = 4u;
+        IUTEST_CXX_CONSTEXPR UInt kMaxUlps = 4u;
         if( diff <= kMaxUlps )
         {
             return true;
