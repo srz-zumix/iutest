@@ -11,6 +11,8 @@ global_job_config:
   env_vars:
     - name: PARALLELS
       value: -j8
+    - name: MAKE_OPTION
+      value: "OUTPUTXML=1"
     - name: CLANG_VERSION
       value: "9"
     - name: INSATLL_CLANG_TOOLS
@@ -50,6 +52,11 @@ blocks:
           - echo ${DOCKER_PASSWORD} | ./.ci/login-dockerhub.sh ${DOCKER_USERNAME}
           - ./.ci/linux/install-clang.sh
           - ./.ci/linux/install-gcc.sh
+      epilogue:
+        always:
+          commands:
+            - cd "${SEMAPHORE_GIT_DIR}"
+            - test-results publish test/
       jobs:
         - name: minimum_tests
           commands:
@@ -61,9 +68,9 @@ blocks:
           commands:
             - cd test
             - make showcxxversion showcxxmacros
-            - make $PARALLELS
-            - make test
-            - make report
+            - make $MAKE_OPTION $PARALLELS
+            - make $MAKE_OPTION test
+            - make $MAKE_OPTION report
         - name: long_double_tests
           matrix:
             - env_var: DEFS
@@ -76,7 +83,7 @@ blocks:
             - cd test
             - make clean
             - make showcxxversion showcxxmacros
-            - make DEFS="$DEFS" LIBS=quadmath floatingpoint_tests_run
+            - make $MAKE_OPTION DEFS="$DEFS" LIBS=quadmath floatingpoint_tests_run
         - name: scan-build
           commands:
             - cd test
