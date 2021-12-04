@@ -55,22 +55,19 @@ blocks:
       epilogue:
         always:
           commands:
-            - cd "${SEMAPHORE_GIT_DIR}"
             - test-results publish test/
       jobs:
         - name: minimum_tests
           commands:
-            - cd test
-            - make CXX=clang++ run_minimum_tests RUN_OPTION=--spec
-            - ldd minimum_tests
-            - make clean
+            - make -C test CXX=clang++ run_minimum_tests RUN_OPTION=--spec
+            - ldd test/minimum_tests
+            - make -C test  clean
         - name: basic_tests
           commands:
-            - cd test
-            - make showcxxversion showcxxmacros
-            - make $MAKE_OPTION $PARALLELS
-            - make $MAKE_OPTION test
-            - make $MAKE_OPTION report
+            - make -C test showcxxversion showcxxmacros
+            - make -C test $MAKE_OPTION $PARALLELS
+            - make -C test $MAKE_OPTION test
+            - make -C test $MAKE_OPTION report
         - name: long_double_tests
           matrix:
             - env_var: DEFS
@@ -80,10 +77,9 @@ blocks:
                 - "-DIUTEST_USE_QUADMATH=1 -mlong-double-80"
                 - "-DIUTEST_USE_QUADMATH=1 -mlong-double-128"
           commands:
-            - cd test
-            - make clean
-            - make showcxxversion showcxxmacros
-            - make $MAKE_OPTION DEFS="$DEFS" LIBS=quadmath floatingpoint_tests_run
+            - make -C test clean
+            - make -C test showcxxversion showcxxmacros
+            - make -C test $MAKE_OPTION DEFS="$DEFS" LIBS=quadmath floatingpoint_tests_run
         - name: scan-build
           commands:
             - cd test
@@ -92,7 +88,6 @@ blocks:
             # - scan-build -k --status-bugs make CXX=clang++ CCC_CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 $PARALLELS
         - name: sample-run
           commands:
-            - cd projects/make
-            - make run
-            - make clean
-            - make CXX=clang++ run
+            - make -C projects/make run
+            - make -C projects/make clean
+            - make -C projects/make CXX=clang++ run
