@@ -89,3 +89,7 @@ blocks:
             - make run
             - make clean
             - make CXX=clang++ run
+    epilogue:
+      always:
+        commands:
+          - test-results publish test/
