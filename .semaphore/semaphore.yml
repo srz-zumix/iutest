@@ -50,6 +50,10 @@ blocks:
           - echo ${DOCKER_PASSWORD} | ./.ci/login-dockerhub.sh ${DOCKER_USERNAME}
           - ./.ci/linux/install-clang.sh
           - ./.ci/linux/install-gcc.sh
+      epilogue:
+        always:
+          commands:
+            - test-results publish test/
       jobs:
         - name: minimum_tests
           commands:
@@ -89,7 +93,3 @@ blocks:
             - make run
             - make clean
             - make CXX=clang++ run
-    epilogue:
-      always:
-        commands:
-          - test-results publish test/
