@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -198,7 +198,7 @@ public: // VC++6.0 bug
     ~UnitTest()
     {
         TestEnv::ReleaseGlobalTestEnvironment();
-        TestEnv::SetGlobalTestPartResultReporter(NULL);
+        TestEnv::SetGlobalTestPartResultReporter(IUTEST_NULLPTR);
     }
 
 private:
