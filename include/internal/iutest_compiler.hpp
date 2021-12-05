@@ -371,10 +371,15 @@
 #  define IUTEST_CXX_CONSTEXPR
 #endif
 
-#if IUTEST_HAS_CONSTEXPR && \
-        (defined(__cpp_constexpr) && __cpp_constexpr >= 201304 || IUTEST_HAS_CXX14)
-#  define IUTEST_CXX14_CONSTEXPR        constexpr
-#else
+#if IUTEST_HAS_CONSTEXPR
+#  if   defined(_MSC_VER) && _MSC_VER < 1910
+#    define IUTEST_CXX14_CONSTEXPR
+#  elif (defined(__cpp_constexpr) && __cpp_constexpr >= 201304) || IUTEST_HAS_CXX14
+#    define IUTEST_CXX14_CONSTEXPR        constexpr
+#  endif
+#endif
+
+#if !defined(IUTEST_CXX14_CONSTEXPR)
 #  define IUTEST_CXX14_CONSTEXPR
 #endif
 
@@ -1486,6 +1491,17 @@
 #endif
 #if !defined(IUTEST_ATTRIBUTE_FORMAT_PRINTF)
 #  define IUTEST_ATTRIBUTE_FORMAT_PRINTF(fi, vi)
+#endif
+
+//! gsl::suppress
+#if !defined(IUTEST_ATTRIBUTE_GSL_SUPPRESS)
+#  if  defined(_MSC_VER) && IUTEST_HAS_ATTRIBUTE
+#    define IUTEST_ATTRIBUTE_GSL_SUPPRESS(...)  [[gsl::suppress(__VA_ARGS__)]]
+#  endif
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_GSL_SUPPRESS)
+#  define IUTEST_ATTRIBUTE_GSL_SUPPRESS(...)
 #endif
 
 
