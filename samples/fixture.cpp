@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -56,8 +56,8 @@ IUTEST_F(TestFixed2, Test1)
     IUTEST_ASSERT_EQ(1, x);
 
     {
-        Point a = {0, 0};
-        Point b = {0, 0};
+        const Point a = {0, 0};
+        const Point b = {0, 0};
         IUTEST_EXPECT_EQ(a, b); // operator == があれば可能.
     }
 }
