@@ -59,7 +59,7 @@ class iuParamGenerator IUTEST_CXX_FINAL : public iuIParamGenerator<T>
 public:
     typedef T type;
 public:
-    iuParamGenerator(_Interface* pInterface=IUTEST_NULLPTR) IUTEST_CXX_NOEXCEPT_SPEC : m_pInterface(pInterface) {} // NOLINT
+    iuParamGenerator(_Interface* pInterface=NULL) : m_pInterface(pInterface) {} // NOLINT
 
 public:
     operator iuIParamGenerator<T>* () const { return m_pInterface; }
@@ -100,7 +100,7 @@ public:
      * @param [in]  end     = 終了値
      * @param [in]  step    = 増値
     */
-    iuRangeParamsGenerator(T begin, T end, T step) IUTEST_CXX_NOEXCEPT_SPEC
+    iuRangeParamsGenerator(T begin, T end, T step)
         : m_begin(begin)
         , m_end(end)
         , m_step(step)
@@ -123,7 +123,7 @@ class iuBoolParamsGenerator IUTEST_CXX_FINAL : public iuIParamGenerator<bool>
     int m_n;
     bool m_cur;
 public:
-    iuBoolParamsGenerator() IUTEST_CXX_NOEXCEPT_SPEC
+    iuBoolParamsGenerator()
         : m_n(0)
         , m_cur(false)
     {}
@@ -492,7 +492,7 @@ class iuCartesianProductGenerator IUTEST_CXX_FINAL : public iuIParamGenerator< t
 public:
     typedef tuples::tuple<Args...> ParamType;
 public:
-    iuCartesianProductGenerator() IUTEST_CXX_NOEXCEPT_SPEC {}
+    iuCartesianProductGenerator() {}
 
 public:
     virtual void Begin() IUTEST_CXX_OVERRIDE
@@ -803,7 +803,7 @@ protected:
     struct ParamIndexes
     {
         int index[N];
-        ParamIndexes() IUTEST_CXX_NOEXCEPT_SPEC { for( int i=0; i < N; ++i ) index[i] = -1; }
+        ParamIndexes() { for( int i=0; i < N; ++i ) index[i] = -1; }
     };
 
 private:
