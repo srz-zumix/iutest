@@ -109,8 +109,9 @@ private:
 protected:
     ::std::string m_testsuite_base_name;
     ::std::string m_package_name;
-    const char* m_file;
-    int m_line;
+    // FIXME: https://github.com/srz-zumix/iutest/issues/629
+    // const char* m_file;
+    // int m_line;
 };
 
 /**
@@ -190,7 +191,7 @@ public:
                 , IUTEST_GET_SETUP_TESTSUITE(Tester, file, line)
                 , IUTEST_GET_TEARDOWN_TESTSUITE(Tester, file, line));
 
-            if( p.get() != NULL )
+            if( p.get() != IUTEST_NULLPTR )
             {
                 size_t i=0;
                 for( p->Begin(); !p->IsEnd(); p->Next() )

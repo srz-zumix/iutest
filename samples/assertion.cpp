@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -44,9 +44,9 @@ IUTEST(AssertionTest, NoFailure)
 
 IUTEST(AssertionTest, Base)
 {
-    int x0=0, y0=0, x1=1;
-    float f0=0.0f, f1=1.0f;
-    double d0=0.0, d1=1.0;
+    const int x0=0, y0=0, x1=1;
+    const float f0=0.0f, f1=1.0f;
+    const double d0=0.0, d1=1.0;
 
     IUTEST_ASSUME_EQ(x0, y0);
 
@@ -65,17 +65,17 @@ IUTEST(AssertionTest, Base)
     // EQ
     {
         IUTEST_EXPECT_EQ(x0, y0);
-        int* zero=NULL;
+        const int* zero=NULL;
         IUTEST_EXPECT_EQ(NULL, zero);
 
-        ::std::vector<int> v1, v2;
+        const ::std::vector<int> v1, v2;
         IUTEST_EXPECT_EQ(v1, v2);
     }
 
     // NE
     {
         IUTEST_EXPECT_NE(x0, x1);
-        int* one=reinterpret_cast<int*>(1);
+        const int* one=reinterpret_cast<int*>(1);
         IUTEST_EXPECT_NE(NULL, one);
     }
 
@@ -122,22 +122,22 @@ IUTEST(AssertionTest, Base2)
 {
     // NULL
     {
-        int* p1 = NULL;
+        const int* p1 = NULL;
         IUTEST_EXPECT_NULL(p1);
 
-        void* p2 = &p1;
+        const void* p2 = &p1;
         IUTEST_EXPECT_NOTNULL(p2);
     }
     // SAME
     {
-        int v = 0;
-        int* p1 = &v;
+        const int v = 0;
+        const int* p1 = &v;
         IUTEST_EXPECT_SAME(v, *p1);
     }
     // EQ_COLLECTIONS/EQ_RANGE
     {
-        int aa[] ={ 0, 1, 2, 3, 4 };
-        int ab[] ={ 0, 1, 2, 3, 4 };
+        const int aa[] ={ 0, 1, 2, 3, 4 };
+        const int ab[] ={ 0, 1, 2, 3, 4 };
         IUTEST_EXPECT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ab, ab+(sizeof(ab)/sizeof(ab[0])));
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
         IUTEST_EXPECT_EQ_RANGE(aa, ab);
@@ -146,8 +146,8 @@ IUTEST(AssertionTest, Base2)
     // NE_COLLECTIONS/NE_RANGE
     // NE_COLLECTIONS
     {
-        int aa[] ={ 0, 1, 2, 3, 4 };
-        int ab[] ={ 9, 1, 2, 3, 4 };
+        const int aa[] ={ 0, 1, 2, 3, 4 };
+        const int ab[] ={ 9, 1, 2, 3, 4 };
         IUTEST_EXPECT_NE_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ab, ab+(sizeof(ab)/sizeof(ab[0])));
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
         IUTEST_EXPECT_NE_RANGE(aa, ab);
@@ -166,8 +166,8 @@ struct TestObjectX
 
 IUTEST(AssertionTest, MemCmpEQ)
 {
-    TestObjectX x={ 0, 1, 2 };
-    TestObjectX y={ 0, 1, 2 };
+    const TestObjectX x={ 0, 1, 2 };
+    const TestObjectX y={ 0, 1, 2 };
     IUTEST_ASSERT_EQ(x, y);
 }
 
@@ -309,13 +309,13 @@ IUTEST(DISABLED_TestFailure, EQ)
 
 IUTEST(DISABLED_TestFailure, NE)
 {
-    int x=1, y=1;
+    const int x=1, y=1;
     IUTEST_ASSERT_NE(x, y);
 }
 
 IUTEST(DISABLED_TestFailure, GE)
 {
-    float a = 0.1f, b = 1.0f;
+    const float a = 0.1f, b = 1.0f;
     IUTEST_ASSERT_GE(a, b);
 }
 
@@ -359,7 +359,7 @@ IUTEST(DISABLED_TestFailure, NoFailure)
 
 IUTEST(DISABLED_TestFailure, Pred)
 {
-    int x=4, y=5;
+    const int x=4, y=5;
     IUTEST_EXPECT_PRED1(IsOdd, x);
     IUTEST_EXPECT_PRED2(IsGreater, x, y);
 }
@@ -379,8 +379,8 @@ IUTEST(DISABLED_TestFailure, Mix)
     IUTEST_EXPECT_NEAR(0, 100, 2);
     IUTEST_EXPECT_FAIL();
     {
-        ::std::string str1 = "test";
-        ::std::string str2 = "text";
+        const ::std::string str1 = "test";
+        const ::std::string str2 = "text";
 
         IUTEST_EXPECT_STREQ("text", str1);
         IUTEST_EXPECT_STRNE("text", str2);
@@ -389,9 +389,9 @@ IUTEST(DISABLED_TestFailure, Mix)
     }
     // EQ_COLLECTIONS
     {
-        int  aa[] = { 0, 1, 2, 3, 4 };
-        int  ab[] = { 0, 1, 2, 3, 4, 5 };
-        char ac[] = { 0, 0, 2, 3, 5 };
+        const int  aa[] = { 0, 1, 2, 3, 4 };
+        const int  ab[] = { 0, 1, 2, 3, 4, 5 };
+        const char ac[] = { 0, 0, 2, 3, 5 };
         IUTEST_EXPECT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ab, ab+(sizeof(ab)/sizeof(ab[0])));
         IUTEST_EXPECT_EQ_COLLECTIONS(ab, ab+(sizeof(ab)/sizeof(ab[0])), aa, aa+(sizeof(aa)/sizeof(aa[0])));
         IUTEST_EXPECT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ac, ac+(sizeof(ac)/sizeof(ac[0])));
