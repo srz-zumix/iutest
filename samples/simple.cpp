@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -120,7 +120,7 @@ static void Sub2(int n)
 IUTEST(DISABLED_TestFailure, Subroutine1)
 {
     {
-        const int x=100;
+        int x=100;
         IUTEST_SCOPED_TRACE(::iutest::Message() << "routine1. x=" << x);
 
         Sub1(x);
@@ -155,6 +155,6 @@ IUTEST_MAKE_PEEP(int ProdClass::*, ProdClass, m_x);
 
 IUTEST(ProdTest, Peep)
 {
-    const ProdClass c;
+    ProdClass c;
     IUTEST_ASSERT_EQ(100, IUTEST_PEEP_GET(c, ProdClass, m_x));
 }
