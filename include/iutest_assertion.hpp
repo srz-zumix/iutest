@@ -221,7 +221,7 @@ public:
 #endif
     {
     public:
-        ScopedMessage(const detail::iuCodeMessage& msg) // NOLINT
+        ScopedMessage(const detail::iuCodeMessage& msg) IUTEST_CXX_NOEXCEPT_SPEC // NOLINT
             : detail::iuCodeMessage(msg)
         {
             ScopedTrace::GetInstance().list.push_back(this);
@@ -246,7 +246,7 @@ private:
 #endif
         msg_list list;
 
-        static ScopedTrace& GetInstance() { static ScopedTrace inst; return inst; }
+        static ScopedTrace& GetInstance() IUTEST_CXX_NOEXCEPT_SPEC { static ScopedTrace inst; return inst; }
     public:
         void append_message(TestPartResult& part_result, bool isException)
         {
@@ -691,7 +691,7 @@ template<typename RawType>
 inline AssertionResult CmpHelperFloatingPointEQ(const char* expr1, const char* expr2
                                                 , RawType val1, RawType val2)
 {
-    floating_point<RawType> f1(val1), f2(val2);
+    const floating_point<RawType> f1(val1), f2(val2);
     if IUTEST_COND_LIKELY( f1.AlmostEquals(f2) )
     {
         return AssertionSuccess();
@@ -723,8 +723,8 @@ template<typename RawType>
 inline AssertionResult CmpHelperFloatingPointComplexEQ(const char* expr1, const char* expr2
                                                 , const ::std::complex<RawType>& val1, const ::std::complex<RawType>& val2)
 {
-    floating_point<RawType> real1(val1.real()), real2(val2.real());
-    floating_point<RawType> imag1(val1.imag()), imag2(val2.imag());
+    const floating_point<RawType> real1(val1.real()), real2(val2.real());
+    const floating_point<RawType> imag1(val1.imag()), imag2(val2.imag());
     if IUTEST_COND_LIKELY( real1.AlmostEquals(real2) && imag1.AlmostEquals(imag2) )
     {
         return AssertionSuccess();
@@ -819,7 +819,7 @@ public:
     }
     template<typename T2>
     static AssertionResult Compare(const char* expr1, const char* expr2
-        , detail::IsNullLiteralHelper::Object* val1, T2* val2)
+        , const detail::IsNullLiteralHelper::Object* val1, T2* val2)
     {
         IUTEST_UNUSED_VAR(val1);
         return CmpHelperEQ(expr1, expr2, static_cast<T2*>(IUTEST_NULLPTR), val2);
@@ -1071,8 +1071,9 @@ namespace StrEqHelper
 
 #if IUTEST_HAS_NULLPTR && 0
 #define IIUT_DECL_STREQ_COMPARE_HELPER_NULL_(T)   \
-    inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(::std::nullptr_t, const T* val2) {     \
-        return val2 == IUTEST_NULLPTR;                                                  \
+    inline IUTEST_CXX_CONSTEXPR bool IUTEST_ATTRIBUTE_UNUSED_   \
+    Compare(::std::nullptr_t, const T* val2) {                  \
+        return val2 == IUTEST_NULLPTR;                          \
     }
 #else
 #define IIUT_DECL_STREQ_COMPARE_HELPER_NULL_(T)
