@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -151,12 +151,12 @@ IUTEST_IPP_INLINE bool iuFilterRegex::match(const char* regex, const char* src)
 
 IUTEST_IPP_INLINE bool iuRegex::FullMatch(const char* str) const
 {
-    return (str != NULL) ? ::std::regex_match(str, m_re) : false;
+    return (str != IUTEST_NULLPTR) ? ::std::regex_match(str, m_re) : false;
 }
 
 IUTEST_IPP_INLINE bool iuRegex::PartialMatch(const char* str) const
 {
-    return (str != NULL) ? ::std::regex_search(str, m_re) : false;
+    return (str != IUTEST_NULLPTR) ? ::std::regex_search(str, m_re) : false;
 }
 
 IUTEST_IPP_INLINE void iuRegex::Init(const char* str)
