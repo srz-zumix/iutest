@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -418,7 +418,7 @@ public:
 private:
     static bool HasSubstr(const char* actual, const char* expected)
     {
-        return strstr(actual, expected) != NULL;
+        return strstr(actual, expected) != IUTEST_NULLPTR;
     }
     static bool HasSubstr(const ::std::string& actual, const char* expected)
     {
@@ -1061,9 +1061,8 @@ private:
 
         Ite it_a=actual_begin;
         typename ::std::vector<T>::iterator it_e=m_expected.begin();
-        for( int i=0; it_a != actual_end && it_e != m_expected.end(); ++it_e, ++it_a, ++i )
+        for( ; it_a != actual_end && it_e != m_expected.end(); ++it_e, ++it_a )
         {
-            (void)i;
             if IUTEST_COND_UNLIKELY( *it_a != *it_e )
             {
                 return AssertionFailure() << WhichIs();

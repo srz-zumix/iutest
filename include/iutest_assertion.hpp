@@ -221,7 +221,7 @@ public:
 #endif
     {
     public:
-        ScopedMessage(const detail::iuCodeMessage& msg) // NOLINT
+        ScopedMessage(const detail::iuCodeMessage& msg) IUTEST_CXX_NOEXCEPT_SPEC // NOLINT
             : detail::iuCodeMessage(msg)
         {
             ScopedTrace::GetInstance().list.push_back(this);
@@ -246,7 +246,7 @@ private:
 #endif
         msg_list list;
 
-        static ScopedTrace& GetInstance() { static ScopedTrace inst; return inst; }
+        static ScopedTrace& GetInstance() IUTEST_CXX_NOEXCEPT_SPEC { static ScopedTrace inst; return inst; }
     public:
         void append_message(TestPartResult& part_result, bool isException)
         {
@@ -819,7 +819,7 @@ public:
     }
     template<typename T2>
     static AssertionResult Compare(const char* expr1, const char* expr2
-        , detail::IsNullLiteralHelper::Object* val1, T2* val2)
+        , const detail::IsNullLiteralHelper::Object* val1, T2* val2)
     {
         IUTEST_UNUSED_VAR(val1);
         return CmpHelperEQ(expr1, expr2, static_cast<T2*>(IUTEST_NULLPTR), val2);
@@ -1071,8 +1071,9 @@ namespace StrEqHelper
 
 #if IUTEST_HAS_NULLPTR && 0
 #define IIUT_DECL_STREQ_COMPARE_HELPER_NULL_(T)   \
-    inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(::std::nullptr_t, const T* val2) {     \
-        return val2 == IUTEST_NULLPTR;                                                  \
+    inline IUTEST_CXX_CONSTEXPR bool IUTEST_ATTRIBUTE_UNUSED_   \
+    Compare(::std::nullptr_t, const T* val2) {                  \
+        return val2 == IUTEST_NULLPTR;                          \
     }
 #else
 #define IIUT_DECL_STREQ_COMPARE_HELPER_NULL_(T)
