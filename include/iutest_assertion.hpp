@@ -691,7 +691,7 @@ template<typename RawType>
 inline AssertionResult CmpHelperFloatingPointEQ(const char* expr1, const char* expr2
                                                 , RawType val1, RawType val2)
 {
-    floating_point<RawType> f1(val1), f2(val2);
+    const floating_point<RawType> f1(val1), f2(val2);
     if IUTEST_COND_LIKELY( f1.AlmostEquals(f2) )
     {
         return AssertionSuccess();
@@ -723,8 +723,8 @@ template<typename RawType>
 inline AssertionResult CmpHelperFloatingPointComplexEQ(const char* expr1, const char* expr2
                                                 , const ::std::complex<RawType>& val1, const ::std::complex<RawType>& val2)
 {
-    floating_point<RawType> real1(val1.real()), real2(val2.real());
-    floating_point<RawType> imag1(val1.imag()), imag2(val2.imag());
+    const floating_point<RawType> real1(val1.real()), real2(val2.real());
+    const floating_point<RawType> imag1(val1.imag()), imag2(val2.imag());
     if IUTEST_COND_LIKELY( real1.AlmostEquals(real2) && imag1.AlmostEquals(imag2) )
     {
         return AssertionSuccess();

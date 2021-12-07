@@ -242,7 +242,7 @@ class auto_ptr
 {
     mutable T* m_ptr;
 public:
-    explicit auto_ptr(T* p = IUTEST_NULLPTR) : m_ptr(p) {}
+    explicit auto_ptr(T* p = IUTEST_NULLPTR) IUTEST_CXX_NOEXCEPT_SPEC : m_ptr(p) {}
     auto_ptr(const auto_ptr& rhs) : m_ptr(rhs.m_ptr) { rhs.m_ptr = IUTEST_NULLPTR; }
     ~auto_ptr() { if( m_ptr != IUTEST_NULLPTR ) delete m_ptr; }
 
@@ -263,7 +263,7 @@ class scoped_ptr
 {
     T* m_ptr;
 public:
-    explicit scoped_ptr(T* p=IUTEST_NULLPTR) : m_ptr(p) {}
+    explicit scoped_ptr(T* p=IUTEST_NULLPTR) IUTEST_CXX_NOEXCEPT_SPEC : m_ptr(p) {}
     ~scoped_ptr() { reset(); }
 
     T& operator *  () const { return *m_ptr; }

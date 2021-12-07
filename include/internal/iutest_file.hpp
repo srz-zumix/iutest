@@ -164,7 +164,7 @@ class FileSystem IUTEST_CXX_FINAL : public detail::IFileSystem
 {
 private:
     virtual IFile*  Create() IUTEST_CXX_OVERRIDE { return new FILE; }
-    virtual void    Delete(IFile* ptr) IUTEST_CXX_OVERRIDE { detail::Delete<FILE>(static_cast<FILE*>(ptr)); }
+    virtual void    Delete(IFile* ptr) IUTEST_CXX_OVERRIDE { detail::Delete<FILE>(ptr); }
 };
 
 

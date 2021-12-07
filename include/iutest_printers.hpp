@@ -194,7 +194,7 @@ inline void DefaultPrintTo(IsContainerHelper::yes_t
                         , iutest_type_traits::false_type
                         , const T& container, iu_ostream* os)
 {
-    const size_t kMaxCount = kValues::MaxPrintContainerCount;
+    IUTEST_CXX_CONSTEXPR_OR_CONST size_t kMaxCount = kValues::MaxPrintContainerCount;
     size_t count = 0;
     *os << "{";
     for( typename T::const_iterator it=container.begin(), end=container.end(); it != end; ++it, ++count)
