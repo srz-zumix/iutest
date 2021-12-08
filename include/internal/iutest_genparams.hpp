@@ -259,6 +259,7 @@ class iuValueArray
         template<typename U>
         void operator ()(int index, const U& value) { val[index] = value; }
 
+        IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26495)
         explicit make_array(const _MyTuple& t)
         {
             tuples::tuple_foreach(t, *this);
@@ -283,7 +284,7 @@ public:
     template<typename T>
     operator iuIParamGenerator<T>* () const
     {
-        make_array<T> ar(v);
+        const make_array<T> ar(v);
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
         return new iuValuesInParamsGenerator<T>(ar.val);
 #else
@@ -1446,7 +1447,7 @@ public:
         {
             seed = GetIndefiniteValue();
         }
-        iuValuesParamsGeneratorHolder< iuTypedRandom<T> > gen( m_num, iuTypedRandom<T>(seed) );
+        const iuValuesParamsGeneratorHolder< iuTypedRandom<T> > gen( m_num, iuTypedRandom<T>(seed) );
         return gen;
     }
 

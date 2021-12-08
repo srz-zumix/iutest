@@ -19,7 +19,7 @@
 *//*--------------------------------------------------*/
 IUTEST(Test, Version)
 {
-    unsigned long v = (IUTEST_MAJORVER << 24) | (IUTEST_MINORVER << 16) | (IUTEST_BUILD << 8) | IUTEST_REVISION;
+    const unsigned long v = (IUTEST_MAJORVER << 24) | (IUTEST_MINORVER << 16) | (IUTEST_BUILD << 8) | IUTEST_REVISION;
     IUTEST_ASSERT_EQ( IUTEST_VER, v );
 }
 
@@ -147,7 +147,7 @@ class ProdClass
 {
     int m_x;
 public:
-    ProdClass() : m_x(100) {}
+    ProdClass() IUTEST_CXX_NOEXCEPT_SPEC : m_x(100) {}
     int GetX() const { return m_x; }
 };
 

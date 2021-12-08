@@ -47,8 +47,8 @@ IUTEST(PrintToTest, Test1)
     }
     IUTEST_SUCCEED() << ::iutest::PrintToString(a);
 
-    const int* pi=NULL;
-    const void* p=NULL;
+    const int* pi=IUTEST_NULLPTR;
+    const void* p=IUTEST_NULLPTR;
     IUTEST_SUCCEED() << ::iutest::PrintToString(p);
     IUTEST_SUCCEED() << ::iutest::PrintToString(pi);
 
