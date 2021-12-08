@@ -121,7 +121,7 @@ IUTEST(Matcher, ElementsAreArray)
 
 IUTEST(Matcher, ElementsAre)
 {
-    int a[3] ={ 0, -1, 3 };
+    const int a[3] ={ 0, -1, 3 };
     IUTEST_EXPECT_THAT(a, ElementsAre(Ge(0), _, Gt(0)));
 }
 
@@ -131,14 +131,14 @@ IUTEST(Matcher, ElementsAre)
 
 IUTEST(Matcher, AllOf)
 {
-    int a[3] ={ 0, 1, 3 };
+    const int a[3] ={ 0, 1, 3 };
     IUTEST_EXPECT_THAT("hoge", AllOf(StartsWith("ho"), EndsWith("ge")));
     IUTEST_EXPECT_THAT(a, Each(AllOf(Ge(0), Le(10))));
 }
 
 IUTEST(Matcher, AnyOf)
 {
-    int a[3] ={ 0, -1, 10 };
+    const int a[3] ={ 0, -1, 10 };
     IUTEST_EXPECT_THAT("hoge", AnyOf(StartsWith("Ho"), EndsWith("ge")));
     IUTEST_EXPECT_THAT(a, Each(AnyOf(Le(0), Ge(10))));
 }

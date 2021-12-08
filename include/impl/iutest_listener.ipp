@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -27,7 +27,7 @@ IUTEST_IPP_INLINE TestEventListener* TestEventRepeater::Release(TestEventListene
     ListenerContainer::iterator it = ::std::find(m_listeners.begin(), m_listeners.end(), listener);
     if( it == m_listeners.end() )
     {
-        return NULL;
+        return IUTEST_NULLPTR;
     }
     m_listeners.erase(it);
     return listener;
@@ -137,7 +137,7 @@ IUTEST_IPP_INLINE void TestEventRepeater::OnTestProgramEnd(const UnitTest& test)
 IUTEST_IPP_INLINE void TestEventListeners::set_default_result_printer(TestEventListener* listener)
 {
     delete Release(m_default_result_printer);
-    if( listener != NULL )
+    if( listener != IUTEST_NULLPTR )
     {
         Append(listener);
     }
@@ -146,7 +146,7 @@ IUTEST_IPP_INLINE void TestEventListeners::set_default_result_printer(TestEventL
 IUTEST_IPP_INLINE void TestEventListeners::set_default_xml_generator(TestEventListener* listener)
 {
     delete Release(m_default_xml_generator);
-    if( listener != NULL )
+    if( listener != IUTEST_NULLPTR )
     {
         Append(listener);
     }
