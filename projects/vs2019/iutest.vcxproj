@@ -101,12 +101,12 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'">$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'">$(SolutionDir)\..\..\lib\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'">$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">lib$(ProjectName)-vc141-mtd</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_ClangC2|Win32'">lib$(ProjectName)-vc141-mtd</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_LLVM|Win32'">lib$(ProjectName)-vc141-mtd</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'">lib$(ProjectName)-vc141-mdd</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">lib$(ProjectName)-vc141-mt</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'">lib$(ProjectName)-vc141-md</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">lib$(ProjectName)-vc142-mtd</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_ClangC2|Win32'">lib$(ProjectName)-vc142-mtd</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_LLVM|Win32'">lib$(ProjectName)-vc142-mtd</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'">lib$(ProjectName)-vc142-mdd</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">lib$(ProjectName)-vc142-mt</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'">lib$(ProjectName)-vc142-md</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <RunCodeAnalysis>false</RunCodeAnalysis>

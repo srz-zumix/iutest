@@ -161,12 +161,12 @@ int main(int argc, char* argv[])
     listeners.Append( new ::iutest::EmptyTestEventListener() );
     const int ret = IUTEST_RUN_ALL_TESTS();
 
-    IUTEST_ASSERT_EXIT( listener->called_OnTestEnd );
-    IUTEST_ASSERT_EXIT( listener->called_OnTestSuiteEnd );
-    IUTEST_ASSERT_EXIT( listener->called_OnEnvironmentsTearDownStart );
-    IUTEST_ASSERT_EXIT( listener->called_OnEnvironmentsTearDownEnd );
-    IUTEST_ASSERT_EXIT( listener->called_OnTestIterationEnd );
-    IUTEST_ASSERT_EXIT( listener->called_OnTestProgramEnd );
+    IUTEST_TERMINATE_ON_FAILURE( listener->called_OnTestEnd );
+    IUTEST_TERMINATE_ON_FAILURE( listener->called_OnTestSuiteEnd );
+    IUTEST_TERMINATE_ON_FAILURE( listener->called_OnEnvironmentsTearDownStart );
+    IUTEST_TERMINATE_ON_FAILURE( listener->called_OnEnvironmentsTearDownEnd );
+    IUTEST_TERMINATE_ON_FAILURE( listener->called_OnTestIterationEnd );
+    IUTEST_TERMINATE_ON_FAILURE( listener->called_OnTestProgramEnd );
 
     return ret;
 }
