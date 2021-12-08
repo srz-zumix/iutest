@@ -1215,7 +1215,7 @@
 <a name="line-425"></a><span class="cm"> * @internal</span>
 <a name="line-426"></a><span class="cm"> * @brief   assert</span>
 <a name="line-427"></a><span class="cm">*/</span>
-<a name="line-428"></a><span class="cp">#define IUTEST_ASSERT_EXIT(cond)            do { if IUTEST_COND_UNLIKELY( !(cond) ) {                           \</span>
+<a name="line-428"></a><span class="cp">#define IUTEST_TERMINATE_ON_FAILURE(cond)   do { if IUTEST_COND_UNLIKELY( !(cond) ) {                           \</span>
 <a name="line-429"></a><span class="cp">                                                IUTEST_MESSAGE(#cond, ::iutest::TestPartResult::kFatalFailure); \</span>
 <a name="line-430"></a><span class="cp">                                                exit(1);                                                        \</span>
 <a name="line-431"></a><span class="cp">                                            } } while(::iutest::detail::AlwaysFalse())</span>
