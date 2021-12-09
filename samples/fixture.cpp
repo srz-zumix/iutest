@@ -26,7 +26,7 @@ public:
     {
         ++x;
     }
-    static void SetUpTestSuite() IUTEST_CXX_OVERRIDE
+    static void SetUpTestSuite()
     {
         x = 0;
     }

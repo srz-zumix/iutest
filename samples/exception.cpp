@@ -74,7 +74,7 @@ IUTEST(AssertionTest, Exception2)
 #if IUTEST_HAS_CATCH_SEH_EXCEPTION_ASSERTION
 IUTEST(TestFailure, SEH)
 {
-    const int* p = reinterpret_cast<int*>(0x1234);
+    int* const p = reinterpret_cast<int*>(0x1234);
     IUTEST_EXPECT_ANY_THROW(*p = 1);
 }
 #endif
