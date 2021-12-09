@@ -709,7 +709,7 @@ inline AssertionResult CmpHelperFloatingPointLE(const char* expr1, const char* e
     {
         return AssertionSuccess();
     }
-    floating_point<RawType> f1(val1), f2(val2);
+    const floating_point<RawType> f1(val1), f2(val2);
     if IUTEST_COND_LIKELY( f1.AlmostEquals(f2) )
     {
         return AssertionSuccess();
@@ -947,7 +947,7 @@ public:
     }
     template<typename T2>
     static AssertionResult Compare(const char* expr1, const char* expr2
-        , detail::IsNullLiteralHelper::Object* val1, T2* val2)
+        , const detail::IsNullLiteralHelper::Object* val1, T2* val2)
     {
         IUTEST_UNUSED_VAR(val1);
         return CmpHelperNE(expr1, expr2, static_cast<T2*>(IUTEST_NULLPTR), val2);
@@ -1019,7 +1019,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNearFloatingPoint(
     {
         return AssertionSuccess();
     }
-    floating_point<RawType> f1(diff), f2(abs_v);
+    const floating_point<RawType> f1(diff), f2(abs_v);
     if IUTEST_COND_LIKELY( f1.AlmostEquals(f2) )
     {
         return AssertionSuccess();

@@ -248,10 +248,10 @@ class WithParamInterface
 public:
     typedef T ParamType;    //!< パラメータ型
     typedef TestParamInfo<T> TestParamInfoType; //!< パラメータ情報型
-protected:
-    virtual ~WithParamInterface() {}
 
 public:
+    virtual ~WithParamInterface() {}
+
     /**
      * @brief   パラメータの取得
     */

@@ -677,7 +677,7 @@ detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ CSV(const char* relative_pa
 {
     const char* sep = detail::FindLastPathSeparator(test_file, strlen(test_file));
     ::std::string path;
-    if( sep != NULL )
+    if( sep != IUTEST_NULLPTR )
     {
         const size_t length = static_cast<size_t>(::std::distance(test_file, sep));
         path += ::std::string(test_file, length);
