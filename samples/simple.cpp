@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -19,7 +19,7 @@
 *//*--------------------------------------------------*/
 IUTEST(Test, Version)
 {
-    unsigned long v = (IUTEST_MAJORVER << 24) | (IUTEST_MINORVER << 16) | (IUTEST_BUILD << 8) | IUTEST_REVISION;
+    const unsigned long v = (IUTEST_MAJORVER << 24) | (IUTEST_MINORVER << 16) | (IUTEST_BUILD << 8) | IUTEST_REVISION;
     IUTEST_ASSERT_EQ( IUTEST_VER, v );
 }
 
@@ -120,7 +120,7 @@ static void Sub2(int n)
 IUTEST(DISABLED_TestFailure, Subroutine1)
 {
     {
-        int x=100;
+        const int x=100;
         IUTEST_SCOPED_TRACE(::iutest::Message() << "routine1. x=" << x);
 
         Sub1(x);
@@ -147,7 +147,7 @@ class ProdClass
 {
     int m_x;
 public:
-    ProdClass() : m_x(100) {}
+    ProdClass() IUTEST_CXX_NOEXCEPT_SPEC : m_x(100) {}
     int GetX() const { return m_x; }
 };
 
@@ -155,6 +155,6 @@ IUTEST_MAKE_PEEP(int ProdClass::*, ProdClass, m_x);
 
 IUTEST(ProdTest, Peep)
 {
-    ProdClass c;
+    const ProdClass c;
     IUTEST_ASSERT_EQ(100, IUTEST_PEEP_GET(c, ProdClass, m_x));
 }
