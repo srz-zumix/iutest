@@ -14,6 +14,8 @@
 //======================================================================
 #include "../include/iutest.hpp"
 
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_BEGIN()
+
 /* ---------------------------------------------------
  * PrintTo
 *//*--------------------------------------------------*/
@@ -130,3 +132,5 @@ IUTEST(PrintToTest, U32String)
 #endif
 
 #endif
+
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()

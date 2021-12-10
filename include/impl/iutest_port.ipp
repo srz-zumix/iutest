@@ -471,7 +471,7 @@ IUTEST_IPP_INLINE IUTestLog::IUTestLog(Level level, const char* file, int line)
     GetStream() << "\n" << tag << FormatFileLocation(file, line).c_str() << ": ";
 }
 
-IUTEST_IPP_INLINE IUTestLog::~IUTestLog()
+IUTEST_IPP_INLINE IUTestLog::~IUTestLog() IUTEST_CXX_NOEXCEPT(false)
 {
     GetStream() << "\n";
     fprintf(stderr, "%s", m_stream.str().c_str());

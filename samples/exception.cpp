@@ -14,6 +14,7 @@
 //======================================================================
 #include "../include/iutest.hpp"
 
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_BEGIN()
 
 /* ---------------------------------------------------
  * 例外アサーション
@@ -117,3 +118,5 @@ IUTEST_PRAGMA_WARN_POP()
 }
 
 #endif
+
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()

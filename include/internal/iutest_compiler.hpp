@@ -813,12 +813,9 @@
 #  endif
 #endif
 
+//! noexcept(noexcept(expr_))
 #if !defined(IUTEST_CXX_NOEXCEPT_AS)
-#  if IUTEST_HAS_NOEXCEPT
-#    define IUTEST_CXX_NOEXCEPT_AS(expr_)   noexcept( noexcept(expr_) )
-#  else
-#    define IUTEST_CXX_NOEXCEPT_AS(expr_)
-#  endif
+#  define IUTEST_CXX_NOEXCEPT_AS(expr_)   IUTEST_CXX_NOEXCEPT( IUTEST_CXX_NOEXCEPT(expr_) )
 #endif
 
 //! nothrow definition

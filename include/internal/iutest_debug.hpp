@@ -65,7 +65,7 @@ static void IUTEST_ATTRIBUTE_UNUSED_ iuDebugBreakAlloc(long n)
 class MiniDump
 {
 private:
-    MiniDump();
+    MiniDump() IUTEST_CXX_NOEXCEPT_SPEC;
     ~MiniDump();
 
     bool Dump(HANDLE hFile, EXCEPTION_POINTERS* ep);

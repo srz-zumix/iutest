@@ -14,6 +14,8 @@
 //======================================================================
 #include "../include/iutest.hpp"
 
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_BEGIN()
+
 /* ---------------------------------------------------
  * テストフィクスチャの利用
 *//*--------------------------------------------------*/
@@ -68,3 +70,5 @@ IUTEST_F(TestFixed2, Test2)
     IUTEST_EXPECT_EQ(2, x);
     IUTEST_INFORM_EQ(2, x);
 }
+
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()

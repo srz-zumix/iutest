@@ -14,6 +14,8 @@
 //======================================================================
 #include "../include/iutest.hpp"
 
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_BEGIN()
+
 int f()
 {
     return 42;
@@ -397,3 +399,5 @@ IUTEST(DISABLED_TestFailure, Mix)
         IUTEST_EXPECT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ac, ac+(sizeof(ac)/sizeof(ac[0])));
     }
 }
+
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()

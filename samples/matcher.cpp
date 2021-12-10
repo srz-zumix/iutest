@@ -14,6 +14,8 @@
 //======================================================================
 #include "../include/iutest.hpp"
 
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_BEGIN()
+
 #if IUTEST_HAS_MATCHERS
 #include <map>
 
@@ -146,3 +148,5 @@ IUTEST(Matcher, AnyOf)
 #endif
 
 #endif
+
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()

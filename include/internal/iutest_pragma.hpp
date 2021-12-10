@@ -445,4 +445,15 @@
 #  define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_END()
 #endif
 
+#if   defined(_MSC_VER)
+#  define IUTEST_PRAGMA_COREGUIDELINE_DISABLE_BEGIN()   IUTEST_PRAGMA_MSC_WARN_PUSH() \
+                                                        IUTEST_PRAGMA_MSC_WARN_DISABLE(26477) \
+                                                        IUTEST_PRAGMA_MSC_WARN_DISABLE(26477) \
+                                                        IUTEST_PRAGMA_MSC_WARN_DISABLE(26814)
+
+#  define IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()     IUTEST_PRAGMA_MSC_WARN_POP()
+#else
+#  define IUTEST_PRAGMA_COREGUIDELINE_DISABLE_BEGIN()
+#  define IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()
+#endif
 #endif // INCG_IRIS_IUTEST_PRAGMA_HPP_FBC5A1DE_3D0C_443E_84B1_5F0618DF9A6B_

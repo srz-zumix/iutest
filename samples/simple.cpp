@@ -14,6 +14,8 @@
 //======================================================================
 #include "../include/iutest.hpp"
 
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_BEGIN()
+
 /* ---------------------------------------------------
  * 簡単なテスト
 *//*--------------------------------------------------*/
@@ -158,3 +160,5 @@ IUTEST(ProdTest, Peep)
     const ProdClass c;
     IUTEST_ASSERT_EQ(100, IUTEST_PEEP_GET(c, ProdClass, m_x));
 }
+
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()

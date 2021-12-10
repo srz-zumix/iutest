@@ -39,7 +39,7 @@ namespace detail
 
 #if defined(_MSC_VER) && IUTEST_HAS_MINIDUMP
 
-IUTEST_IPP_INLINE MiniDump::MiniDump()
+IUTEST_IPP_INLINE MiniDump::MiniDump() IUTEST_CXX_NOEXCEPT_SPEC
     : m_hModule(IUTEST_NULLPTR), m_pfnMiniDumpWriteDump(IUTEST_NULLPTR)
 {
     m_hModule = ::LoadLibraryA("dbghelp.dll");

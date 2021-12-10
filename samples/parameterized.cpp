@@ -14,6 +14,8 @@
 //======================================================================
 #include "../include/iutest.hpp"
 
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_BEGIN()
+
 /* ---------------------------------------------------
  * 値をパラメータ化したテスト
 *//*--------------------------------------------------*/
@@ -275,3 +277,5 @@ IUTEST_PMZ_F(DISABLED_TestFailureParamMethodFixed, EQ, TestFunction, 1, 1);
 IUTEST_PMZ_F(DISABLED_TestFailureParamMethodFixed, EQ, TestFunction, 2, 3);
 
 #endif
+
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()
