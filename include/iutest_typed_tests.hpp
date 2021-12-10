@@ -414,7 +414,7 @@ class TypedTestSuitePState
 #endif
 
 public:
-    TypedTestSuitePState() : m_names(IUTEST_NULLPTR) {}
+    TypedTestSuitePState() IUTEST_CXX_NOEXCEPT_SPEC : m_names(IUTEST_NULLPTR) {}
 public:
     const char* names() const { return m_names; }
 

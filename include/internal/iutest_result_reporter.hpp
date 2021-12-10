@@ -102,17 +102,17 @@ public:
     class ReporterHolder
     {
     public:
-        ReporterHolder() IUTEST_CXX_NOEXCEPT_SPEC : m_origin(NULL) {}
+        ReporterHolder() IUTEST_CXX_NOEXCEPT_SPEC : m_origin(IUTEST_NULLPTR) {}
         virtual ~ReporterHolder()
         {
             Detach();
         }
-        void Attach(TestPartResultReporterInterface* p)
+        void Attach(TestPartResultReporterInterface* p) IUTEST_CXX_NOEXCEPT_SPEC
         {
             m_origin = TestEnv::GetGlobalTestPartResultReporter();
             TestEnv::SetGlobalTestPartResultReporter(p);
         }
-        void Detach()
+        void Detach() IUTEST_CXX_NOEXCEPT_SPEC
         {
             TestEnv::SetGlobalTestPartResultReporter(m_origin);
         }

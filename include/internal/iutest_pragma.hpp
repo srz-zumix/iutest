@@ -448,7 +448,7 @@
 #if   defined(_MSC_VER)
 #  define IUTEST_PRAGMA_COREGUIDELINE_DISABLE_BEGIN()   IUTEST_PRAGMA_MSC_WARN_PUSH() \
                                                         IUTEST_PRAGMA_MSC_WARN_DISABLE(26477) \
-                                                        IUTEST_PRAGMA_MSC_WARN_DISABLE(26477) \
+                                                        IUTEST_PRAGMA_MSC_WARN_DISABLE(26497) \
                                                         IUTEST_PRAGMA_MSC_WARN_DISABLE(26814)
 
 #  define IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()     IUTEST_PRAGMA_MSC_WARN_POP()

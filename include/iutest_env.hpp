@@ -351,10 +351,10 @@ private:
 #endif
 
 public:
-    static detail::iuRandom&    genrand() { return get_vars().m_genrand; }              //!< 乱数生成器
-    static unsigned int         get_random_seed() { return get_vars().m_random_seed; }              //!< 乱数シード
-    static unsigned int         current_random_seed() { return get_vars().m_current_random_seed; }  //!< 乱数シード
-    static int                  get_repeat_count() { return get_vars().m_repeat_count; }            //!< 繰り返し回数
+    static detail::iuRandom&    genrand() IUTEST_CXX_NOEXCEPT_SPEC { return get_vars().m_genrand; }             //!< 乱数生成器
+    static unsigned int         get_random_seed() IUTEST_CXX_NOEXCEPT_SPEC { return get_vars().m_random_seed; } //!< 乱数シード
+    static unsigned int         current_random_seed() IUTEST_CXX_NOEXCEPT_SPEC { return get_vars().m_current_random_seed; } //!< 乱数シード
+    static int                  get_repeat_count() IUTEST_CXX_NOEXCEPT_SPEC { return get_vars().m_repeat_count; }   //!< 繰り返し回数
     static const StateVariable< ::std::string >& get_output_option() { return get_vars().m_output_option; }  //!< 出力オプション
     static const char*          get_default_package_name() { return get_vars().m_default_package_name.c_str(); }    //!< root package オプション
     static const char*          test_filter() { return get_vars().m_test_filter.c_str(); }      //!< フィルター文字列
