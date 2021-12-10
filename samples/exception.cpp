@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -14,6 +14,7 @@
 //======================================================================
 #include "../include/iutest.hpp"
 
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_BEGIN()
 
 /* ---------------------------------------------------
  * 例外アサーション
@@ -65,7 +66,7 @@ public:
 
 IUTEST(AssertionTest, Exception2)
 {
-    ::std::vector<int> a;
+    const ::std::vector<int> a;
     IUTEST_ASSERT_THROW(exception_test(a), ::std::exception);
 }
 
@@ -74,7 +75,7 @@ IUTEST(AssertionTest, Exception2)
 #if IUTEST_HAS_CATCH_SEH_EXCEPTION_ASSERTION
 IUTEST(TestFailure, SEH)
 {
-    int* p = reinterpret_cast<int*>(0x1234);
+    int* const p = reinterpret_cast<int*>(0x1234);
     IUTEST_EXPECT_ANY_THROW(*p = 1);
 }
 #endif
@@ -117,3 +118,5 @@ IUTEST_PRAGMA_WARN_POP()
 }
 
 #endif
+
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()

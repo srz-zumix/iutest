@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -55,7 +55,7 @@ IUTEST_IPP_INLINE void StreamResultListener::OnTestStart(const TestInfo& test_in
 IUTEST_IPP_INLINE void StreamResultListener::OnTestPartResult(const TestPartResult& test_part_result)
 {
     const char* filename = test_part_result.file_name();
-    if( filename == NULL )
+    if( filename == IUTEST_NULLPTR )
     {
         filename = "";
     }
@@ -100,7 +100,7 @@ IUTEST_IPP_INLINE void StreamResultListener::OnTestProgramEnd(const UnitTest& te
 IUTEST_IPP_INLINE ::std::string StreamResultListener::UrlEncode(const char* str)
 {
     ::std::string result;
-    if( str != NULL )
+    if( str != IUTEST_NULLPTR )
     {
         result.reserve(strlen(str)+1);
         for( const char* p=str; *p != '\0'; ++p )
