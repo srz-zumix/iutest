@@ -6,13 +6,15 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
 //-----------------------------------------------------------------------
 //======================================================================
 #include "../include/iutest.hpp"
+
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_BEGIN()
 
 /* ---------------------------------------------------
  * PrintTo
@@ -47,8 +49,8 @@ IUTEST(PrintToTest, Test1)
     }
     IUTEST_SUCCEED() << ::iutest::PrintToString(a);
 
-    int* pi=NULL;
-    void* p=NULL;
+    const int* pi=IUTEST_NULLPTR;
+    const void* p=IUTEST_NULLPTR;
     IUTEST_SUCCEED() << ::iutest::PrintToString(p);
     IUTEST_SUCCEED() << ::iutest::PrintToString(pi);
 
@@ -58,8 +60,8 @@ IUTEST(PrintToTest, Test1)
 
 IUTEST(PrintToTest, Test2)
 {
-    Bar bar1 = {0, 1, 2};
-    Bar bar2 = {0, 1, 2};
+    const Bar bar1 = {0, 1, 2};
+    const Bar bar2 = {0, 1, 2};
     IUTEST_ASSERT_EQ(bar1, bar2);
 }
 
@@ -130,3 +132,5 @@ IUTEST(PrintToTest, U32String)
 #endif
 
 #endif
+
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()

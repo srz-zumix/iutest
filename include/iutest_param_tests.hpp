@@ -175,7 +175,7 @@
 #define IIUT_TEST_P_I_(classname_, testsuite_, testsuitename_, testname_)                   \
     IIUT_TEST_P_FIXTURE_DECL_(testsuite_)                                                   \
     class classname_ IUTEST_CXX_FINAL : public testsuite_ {                                 \
-        public: classname_() {}                                                             \
+        public: classname_() IUTEST_CXX_NOEXCEPT_SPEC {}                                    \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE;                                 \
         private: static int AddRegister() {                                                 \
             static ::iutest::detail::ParamTestInstance< classname_ > testinfo(testname_);   \
@@ -192,7 +192,7 @@
 
 #define IIUT_TEST_P_I_IGNORE_(classname_, testsuite_, testsuitename_, testname_)            \
     class classname_ IUTEST_CXX_FINAL : public testsuite_ {                                 \
-        public: classname_() {}                                                             \
+        public: classname_() IUTEST_CXX_NOEXCEPT_SPEC {}                                    \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
         template<typename T>void Body();                                                    \
         private: static int AddRegister() {                                                 \
@@ -677,7 +677,7 @@ detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ CSV(const char* relative_pa
 {
     const char* sep = detail::FindLastPathSeparator(test_file, strlen(test_file));
     ::std::string path;
-    if( sep != NULL )
+    if( sep != IUTEST_NULLPTR )
     {
         const size_t length = static_cast<size_t>(::std::distance(test_file, sep));
         path += ::std::string(test_file, length);

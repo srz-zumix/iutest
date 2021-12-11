@@ -107,7 +107,7 @@ private:
     void Release();
 private:
     struct should_be_SetUp {};
-    virtual should_be_SetUp* Setup() IUTEST_CXX_FINAL { return NULL; }
+    virtual should_be_SetUp* Setup() IUTEST_CXX_FINAL { return IUTEST_NULLPTR; }
 };
 
 /**
@@ -126,7 +126,7 @@ public:
 
         int m_test_flags;
     public:
-        ScopedGuard()
+        ScopedGuard() IUTEST_CXX_NOEXCEPT_SPEC
         {
             m_test_flags = TestFlag::GetInstance().m_test_flags;
         }
@@ -188,7 +188,7 @@ private:
 
 public:
     /** @private */
-    static TestFlag& GetInstance() { static TestFlag flag; return flag; }
+    static TestFlag& GetInstance() IUTEST_CXX_NOEXCEPT_SPEC { static TestFlag flag; return flag; }
 public:
     /**
      * @brief   フラグのビット操作
@@ -196,7 +196,7 @@ public:
      * @param [in]  enable  = 論理和
      * @param [in]  mask    = マスク値
     */
-    static void SetFlag(int enable, int mask=-1)
+    static void SetFlag(int enable, int mask=-1) IUTEST_CXX_NOEXCEPT_SPEC
     {
         GetInstance().m_test_flags |= enable;
         GetInstance().m_test_flags &= mask;
@@ -206,7 +206,7 @@ public:
      * @param [in]  flag    = 検査対象フラグ
      * @return  真偽値
     */
-    static bool IsEnableFlag(int flag) { return (GetInstance().m_test_flags & flag) ? true : false; }
+    static bool IsEnableFlag(int flag) IUTEST_CXX_NOEXCEPT_SPEC { return (GetInstance().m_test_flags & flag) ? true : false; }
 
 private:
     template<int KIND>
@@ -215,9 +215,9 @@ private:
         typedef Fragment<KIND> _Myt;
     public:
         Fragment() IUTEST_CXX_NOEXCEPT_SPEC {}
-        Fragment(bool enabled) { SetFlag(KIND, enabled ? -1 : ~KIND); } // NOLINT
-        _Myt& operator = (bool enabled) { SetFlag(KIND, enabled ? -1 : ~KIND); return *this; }
-        operator bool() const { return IsEnableFlag(KIND); }
+        Fragment(bool enabled) IUTEST_CXX_NOEXCEPT_SPEC { SetFlag(KIND, enabled ? -1 : ~KIND); } // NOLINT
+        _Myt& operator = (bool enabled) IUTEST_CXX_NOEXCEPT_SPEC { SetFlag(KIND, enabled ? -1 : ~KIND); return *this; }
+        operator bool() const IUTEST_CXX_NOEXCEPT_SPEC { return IsEnableFlag(KIND); }
     };
 
 private:
@@ -272,7 +272,7 @@ public:
     {
     public:
         RandomSeedSet() IUTEST_CXX_NOEXCEPT_SPEC {}
-        RandomSeedSet(unsigned int seed) { init_random(seed); }
+        RandomSeedSet(unsigned int seed) IUTEST_CXX_NOEXCEPT_SPEC { init_random(seed); }
         RandomSeedSet& operator = (unsigned int seed) { init_random(seed); return *this; }
         operator unsigned int() const { return get_random_seed(); }
     } random_seed;
@@ -285,7 +285,7 @@ public:
     {
     public:
         RepeatCountSet() IUTEST_CXX_NOEXCEPT_SPEC {}
-        RepeatCountSet(int count) { set_repeat_count(count); }
+        RepeatCountSet(int count) IUTEST_CXX_NOEXCEPT_SPEC { set_repeat_count(count); }
         RepeatCountSet& operator = (int count) { set_repeat_count(count); return *this; }
         operator int() const { return get_repeat_count(); }
     } repeat;
@@ -301,6 +301,7 @@ public:
         bool m_dirty;
         T   m_value;
     public:
+        StateVariable() : m_dirty(false), m_value(T()) {}
         StateVariable& operator = (const T& rhs) { m_value = rhs; m_dirty = true; return *this; }
         operator const T& () const { return m_value; }
         const T& operator ()() const { return m_value; }
@@ -313,12 +314,12 @@ public:
 private:
     struct Variable
     {
-        Variable()
+        Variable() IUTEST_CXX_NOEXCEPT_SPEC
             : m_random_seed(0)
             , m_current_random_seed(0)
             , m_before_origin_random_seed(0)
             , m_repeat_count(1)
-            , m_testpartresult_reporter(NULL)
+            , m_testpartresult_reporter(IUTEST_NULLPTR)
         {}
         unsigned int        m_random_seed;
         unsigned int        m_current_random_seed;
@@ -341,7 +342,7 @@ private:
         ::std::string       m_locale_ctype;
     };
 
-    static Variable& get_vars() { static Variable sVars; return sVars; }
+    static Variable& get_vars() IUTEST_CXX_NOEXCEPT_SPEC { static Variable sVars; return sVars; }
 
 private:
     static const char*          get_output_option_c_str() { return get_vars().m_output_option.get().c_str(); }
@@ -350,10 +351,10 @@ private:
 #endif
 
 public:
-    static detail::iuRandom&    genrand() { return get_vars().m_genrand; }              //!< 乱数生成器
-    static unsigned int         get_random_seed() { return get_vars().m_random_seed; }              //!< 乱数シード
-    static unsigned int         current_random_seed() { return get_vars().m_current_random_seed; }  //!< 乱数シード
-    static int                  get_repeat_count() { return get_vars().m_repeat_count; }            //!< 繰り返し回数
+    static detail::iuRandom&    genrand() IUTEST_CXX_NOEXCEPT_SPEC { return get_vars().m_genrand; }             //!< 乱数生成器
+    static unsigned int         get_random_seed() IUTEST_CXX_NOEXCEPT_SPEC { return get_vars().m_random_seed; } //!< 乱数シード
+    static unsigned int         current_random_seed() IUTEST_CXX_NOEXCEPT_SPEC { return get_vars().m_current_random_seed; } //!< 乱数シード
+    static int                  get_repeat_count() IUTEST_CXX_NOEXCEPT_SPEC { return get_vars().m_repeat_count; }   //!< 繰り返し回数
     static const StateVariable< ::std::string >& get_output_option() { return get_vars().m_output_option; }  //!< 出力オプション
     static const char*          get_default_package_name() { return get_vars().m_default_package_name.c_str(); }    //!< root package オプション
     static const char*          test_filter() { return get_vars().m_test_filter.c_str(); }      //!< フィルター文字列
@@ -377,14 +378,14 @@ public:
     static ::std::string get_report_junit_xml_filepath();
 
     /** @private */
-    static TestEventListeners& event_listeners() { return get_vars().m_event_listeners; }
+    static TestEventListeners& event_listeners() IUTEST_CXX_NOEXCEPT_SPEC { return get_vars().m_event_listeners; }
     /** @private */
-    static TestPartResultReporterInterface* GetGlobalTestPartResultReporter()
+    static TestPartResultReporterInterface* GetGlobalTestPartResultReporter() IUTEST_CXX_NOEXCEPT_SPEC
     {
         return get_vars().m_testpartresult_reporter;
     }
     /** @private */
-    static void SetGlobalTestPartResultReporter(TestPartResultReporterInterface* ptr)
+    static void SetGlobalTestPartResultReporter(TestPartResultReporterInterface* ptr) IUTEST_CXX_NOEXCEPT_SPEC
     {
         get_vars().m_testpartresult_reporter = ptr;
     }
@@ -408,7 +409,7 @@ private:
     /**
      * @brief   乱数シードの設定
     */
-    static void init_random(unsigned int seed)
+    static void init_random(unsigned int seed) IUTEST_CXX_NOEXCEPT_SPEC
     {
         get_vars().m_random_seed = seed;
     }
@@ -416,7 +417,7 @@ private:
     /**
      * @brief   繰り返し回数の設定
     */
-    static void set_repeat_count(int count)
+    static void set_repeat_count(int count) IUTEST_CXX_NOEXCEPT_SPEC
     {
         get_vars().m_repeat_count = count;
     }
@@ -426,7 +427,7 @@ private:
     */
     static void set_test_filter(const char* str)
     {
-        get_vars().m_test_filter = str == NULL ? "*" : str;
+        get_vars().m_test_filter = str == IUTEST_NULLPTR ? "*" : str;
         TestFlag::SetFlag(TestFlag::FILTERING_TESTS);
     }
 
@@ -633,11 +634,10 @@ public:
     */
     static Environment* AddGlobalTestEnvironment(Environment* env)
     {
-        if( env == NULL )
+        if( env != IUTEST_NULLPTR )
         {
-            return NULL;
+            environments().push_back(env);
         }
-        environments().push_back(env);
         return env;
     }
 
@@ -648,15 +648,15 @@ public:
     */
     static Environment* ReleaseGlobalTestEnvironment(Environment* env)
     {
-        if( env == NULL )
+        if( env == IUTEST_NULLPTR )
         {
-            return NULL;
+            return IUTEST_NULLPTR;
         }
         iuEnvironmentList& list = environments();
         iuEnvironmentList::iterator it = ::std::find(list.begin(), list.end(), env);
         if( it == list.end() )
         {
-            return NULL;
+            return IUTEST_NULLPTR;
         }
         list.erase(it);
         return env;
@@ -690,7 +690,7 @@ public:
     template<typename CharType>
     static void ParseCommandLine(int* pargc, CharType** argv)
     {
-        if( argv == NULL )
+        if( argv == IUTEST_NULLPTR )
         {
             return;
         }
@@ -773,9 +773,9 @@ private:
     static inline const char* ParseOptionSettingStr(const char* opt)
     {
         const char* eq = strchr(opt, '=');
-        if( eq == NULL )
+        if( eq == IUTEST_NULLPTR )
         {
-            return NULL;
+            return IUTEST_NULLPTR;
         }
         return eq+1;
     }
