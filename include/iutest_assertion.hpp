@@ -221,12 +221,12 @@ public:
 #endif
     {
     public:
-        ScopedMessage(const detail::iuCodeMessage& msg) IUTEST_CXX_NOEXCEPT_SPEC // NOLINT
+        ScopedMessage(const detail::iuCodeMessage& msg) IUTEST_CXX_NOEXCEPT(false) // NOLINT
             : detail::iuCodeMessage(msg)
         {
             ScopedTrace::GetInstance().list.push_back(this);
         }
-        ~ScopedMessage()
+        ~ScopedMessage() IUTEST_CXX_NOEXCEPT(false)
         {
             ScopedTrace::GetInstance().list.remove(this);
             if( stl::uncaught_exception() )

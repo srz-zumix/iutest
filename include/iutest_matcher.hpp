@@ -68,8 +68,8 @@ public:
     template<typename T>
     struct is_matcher : public iutest_type_traits::is_base_of<IMatcher, T> {};
 public:
-    IMatcher() {}
-    IMatcher(const IMatcher&) {}
+    IMatcher() IUTEST_CXX_NOEXCEPT_SPEC {}
+    IMatcher(const IMatcher&) IUTEST_CXX_NOEXCEPT_SPEC {}
     virtual ~IMatcher() {}
     virtual ::std::string WhichIs() const = 0;
 };
@@ -217,7 +217,7 @@ template<typename T>
 class FloatingPointEqMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit FloatingPointEqMatcher(const T& value) : m_expected(value) {}
+    explicit FloatingPointEqMatcher(const T& value) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(value) {}
 
 public:
     template<typename U>
@@ -248,7 +248,7 @@ template<typename T>
 class NanSensitiveFloatingPointEqMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit NanSensitiveFloatingPointEqMatcher(const T& value) : m_expected(value) {}
+    explicit NanSensitiveFloatingPointEqMatcher(const T& value) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(value) {}
 
 public:
     template<typename U>
@@ -279,7 +279,7 @@ template<typename T>
 class FloatingPointNearMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit FloatingPointNearMatcher(const T& value, const T& abs_error)
+    explicit FloatingPointNearMatcher(const T& value, const T& abs_error) IUTEST_CXX_NOEXCEPT_SPEC
         : m_expected(value), m_max_abs_error(abs_error) {}
 
 public:
@@ -312,7 +312,7 @@ template<typename T>
 class NanSensitiveFloatingPointNearMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit NanSensitiveFloatingPointNearMatcher(const T& value, const T& abs_error)
+    explicit NanSensitiveFloatingPointNearMatcher(const T& value, const T& abs_error) IUTEST_CXX_NOEXCEPT_SPEC
         : m_expected(value), m_max_abs_error(abs_error) {}
 
 public:
@@ -345,7 +345,7 @@ template<typename T>
 class StartsWithMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit StartsWithMatcher(T str) : m_expected(str) {}
+    explicit StartsWithMatcher(T str) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(str) {}
 
 public:
     template<typename U>
@@ -396,7 +396,7 @@ template<typename T>
 class HasSubstrMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit HasSubstrMatcher(T expected) : m_expected(expected) {}
+    explicit HasSubstrMatcher(T expected) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(expected) {}
 public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
@@ -447,7 +447,7 @@ template<typename T>
 class EndsWithMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit EndsWithMatcher(T str) : m_expected(str) {}
+    explicit EndsWithMatcher(T str) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(str) {}
 
 public:
     template<typename U>
@@ -513,7 +513,7 @@ template<typename T>
 class EqMatcher : public IMatcher
 {
 public:
-    explicit EqMatcher(const T& expected) : m_expected(expected) {}
+    explicit EqMatcher(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(expected) {}
 
 public:
     template<typename U>
@@ -567,7 +567,7 @@ template<typename T>
 class TypedEqMatcher IUTEST_CXX_FINAL : public EqMatcher<T>
 {
 public:
-    explicit TypedEqMatcher(T expected) : EqMatcher<T>(m_expected), m_expected(expected) {}
+    explicit TypedEqMatcher(T expected) IUTEST_CXX_NOEXCEPT_SPEC : EqMatcher<T>(m_expected), m_expected(expected) {}
 public:
     AssertionResult operator ()(const T& actual)
     {
@@ -617,7 +617,7 @@ template<typename T>
 class ContainsMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit ContainsMatcher(const T& expected) : m_expected(expected) {}
+    explicit ContainsMatcher(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(expected) {}
 
 public:
     template<typename U>
@@ -665,7 +665,7 @@ template<typename T>
 class EachMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit EachMatcher(const T& expected) : m_expected(expected) {}
+    explicit EachMatcher(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(expected) {}
 
 public:
     template<typename U>
@@ -713,7 +713,7 @@ template<typename T>
 class ContainerEqMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit ContainerEqMatcher(const T& expected) : m_expected(expected) {}
+    explicit ContainerEqMatcher(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(expected) {}
 
 public:
     template<typename U>
@@ -779,7 +779,7 @@ template<typename M, typename T>
 class PointwiseMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    PointwiseMatcher(const M& matcher, const T& expected)
+    PointwiseMatcher(const M& matcher, const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
         : m_matcher(matcher), m_expected(expected) {}
 
 public:
@@ -847,7 +847,7 @@ template<typename T>
 class OptionalMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit OptionalMatcher(const T& expected)
+    explicit OptionalMatcher(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
         : m_expected(expected) {}
 
 public:
@@ -928,7 +928,7 @@ template<typename T>
 class SizeIsMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit SizeIsMatcher(const T& expected) : m_expected(expected) {}
+    explicit SizeIsMatcher(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(expected) {}
 
 public:
     template<typename U>
@@ -973,7 +973,7 @@ template<typename T>
 class AtMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    AtMatcher(size_t index, const T& expected) : m_index(index), m_expected(expected) {}
+    AtMatcher(size_t index, const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_index(index), m_expected(expected) {}
 
 public:
     template<typename U>
@@ -1007,7 +1007,7 @@ class ElementsAreArrayMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     template<typename It>
-    ElementsAreArrayMatcher(It begin, It end, bool expected_elem_count=true)
+    ElementsAreArrayMatcher(It begin, It end, bool expected_elem_count=true) IUTEST_CXX_NOEXCEPT_SPEC
         : m_expected_elem_count(expected_elem_count)
     {
         m_expected.insert(m_expected.end(), begin, end);
@@ -1168,7 +1168,7 @@ template<typename ...T>
 class ElementsAreMatcher IUTEST_CXX_FINAL : public ElementsAreMatcherBase
 {
 public:
-    explicit ElementsAreMatcher(T... t) : m_matchers(t...) {}
+    explicit ElementsAreMatcher(T... t) IUTEST_CXX_NOEXCEPT_SPEC : m_matchers(t...) {}
 
 public:
     template<typename U>
@@ -1213,7 +1213,7 @@ private:
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                                    \
     class IUTEST_PP_CAT(ElementsAreMatcher, n) IUTEST_CXX_FINAL : public ElementsAreMatcherBase {   \
     public: IUTEST_PP_CAT(ElementsAreMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, T, m)) \
-        : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                    \
+        IUTEST_CXX_NOEXCEPT_SPEC : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}           \
     template<typename U>AssertionResult operator ()(const U& actual) {                  \
         return Check(m_matchers, actual); }                                             \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                                 \
@@ -1246,7 +1246,7 @@ template<typename F, typename T>
 class FieldMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    FieldMatcher(const F& field, const T& expected) : m_field(field), m_expected(expected) {}
+    FieldMatcher(const F& field, const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_field(field), m_expected(expected) {}
 
 public:
     template<typename U>
@@ -1301,7 +1301,7 @@ template<typename F, typename T>
 class PropertyMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    PropertyMatcher(const F& prop, const T& expected) : m_property(prop), m_expected(expected) {}
+    PropertyMatcher(const F& prop, const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_property(prop), m_expected(expected) {}
 
 public:
     template<typename U>
@@ -1356,7 +1356,7 @@ template<typename T>
 class KeyMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit KeyMatcher(const T& expected) : m_expected(expected) {}
+    explicit KeyMatcher(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(expected) {}
 
 public:
     template<typename U>
@@ -1388,7 +1388,7 @@ template<typename T1, typename T2>
 class PairMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    PairMatcher(const T1& m1, const T2& m2) : m_m1(m1), m_m2(m2) {}
+    PairMatcher(const T1& m1, const T2& m2) IUTEST_CXX_NOEXCEPT_SPEC : m_m1(m1), m_m2(m2) {}
 
 public:
     template<typename U>
@@ -1431,7 +1431,7 @@ template<typename F, typename T>
 class ResultOfMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    ResultOfMatcher(F& func, const T& expected) : m_func(func), m_expected(expected) {}
+    ResultOfMatcher(F& func, const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_func(func), m_expected(expected) {}
 
 public:
     template<typename U>
@@ -1470,7 +1470,7 @@ template<typename T>
 class PointeeMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit PointeeMatcher(const T& expected) : m_expected(expected) {}
+    explicit PointeeMatcher(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(expected) {}
 
 public:
     template<typename U>
@@ -1507,7 +1507,7 @@ template<typename T>
 class NotMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit NotMatcher(const T& unexpected) : m_unexpected(unexpected) {}
+    explicit NotMatcher(const T& unexpected) IUTEST_CXX_NOEXCEPT_SPEC : m_unexpected(unexpected) {}
 
 public:
     template<typename U>
@@ -1561,7 +1561,7 @@ public:
 class AnythingMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    AnythingMatcher() {}
+    AnythingMatcher() IUTEST_CXX_NOEXCEPT_SPEC {}
 public:
     template<typename U>
     AssertionResult operator ()(const U&) const
@@ -1584,7 +1584,7 @@ public:
 class RegexMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    RegexMatcher(const detail::iuRegex& expected, bool full_match) : m_expected(expected), m_full_match(full_match) {}
+    RegexMatcher(const detail::iuRegex& expected, bool full_match) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(expected), m_full_match(full_match) {}
 
 public:
     template<typename U>
@@ -1691,7 +1691,7 @@ template<typename ...T>
 class AllOfMatcher IUTEST_CXX_FINAL : public AllOfMatcherBase
 {
 public:
-    explicit AllOfMatcher(T... t) : m_matchers(t...) {}
+    explicit AllOfMatcher(T... t) IUTEST_CXX_NOEXCEPT_SPEC : m_matchers(t...) {}
 
 public:
     template<typename U>
@@ -1736,7 +1736,7 @@ private:
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                                \
     class IUTEST_PP_CAT(AllOfMatcher, n) IUTEST_CXX_FINAL : public AllOfMatcherBase {   \
     public: IUTEST_PP_CAT(AllOfMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, T, m))   \
-        : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                \
+        IUTEST_CXX_NOEXCEPT_SPEC : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}       \
     template<typename U>AssertionResult operator ()(const U& actual) {              \
         return Check(m_matchers, actual); }                                         \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                             \
@@ -1818,7 +1818,7 @@ template<typename ...T>
 class AnyOfMatcher IUTEST_CXX_FINAL : public AnyOfMatcherBase
 {
 public:
-    explicit AnyOfMatcher(T... t) : m_matchers(t...) {}
+    explicit AnyOfMatcher(T... t) IUTEST_CXX_NOEXCEPT_SPEC : m_matchers(t...) {}
 
 public:
     template<typename U>
@@ -1863,7 +1863,7 @@ private:
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                                \
     class IUTEST_PP_CAT(AnyOfMatcher, n) IUTEST_CXX_FINAL : public AnyOfMatcherBase {   \
     public: IUTEST_PP_CAT(AnyOfMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, T, m))   \
-        : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                \
+        IUTEST_CXX_NOEXCEPT_SPEC : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}       \
     template<typename U>AssertionResult operator ()(const U& actual) {              \
         return Check(m_matchers, actual); }                                         \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                             \

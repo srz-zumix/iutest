@@ -181,7 +181,7 @@ private:
     }
 
 private:
-    UnitTest() IUTEST_CXX_NOEXCEPT_SPEC
+    UnitTest() IUTEST_CXX_NOEXCEPT(false)
         : m_repeat_counter(0)
         , m_init_iutest_count(0)
         , m_test_started(false)
