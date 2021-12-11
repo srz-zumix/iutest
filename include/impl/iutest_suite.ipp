@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -76,7 +76,7 @@ IUTEST_IPP_INLINE bool TestSuite::RunImpl()
     bool result=true;
     m_elapsedmsec = 0;
 
-    if( m_setup != NULL )
+    if( m_setup != IUTEST_NULLPTR )
     {
         m_setup();
     }
@@ -105,7 +105,7 @@ IUTEST_IPP_INLINE bool TestSuite::RunImpl()
         m_elapsedmsec = sw.stop();
     }
 
-    if( m_teardown != NULL )
+    if( m_teardown != IUTEST_NULLPTR )
     {
         m_teardown();
     }

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -268,7 +268,7 @@ private:
     T m_value;
 };
 
-inline bool uncaught_exception()
+inline bool uncaught_exception() IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if IUTEST_HAS_CXX1Z && (!defined(IUTEST_LIBSTDCXX_VERSION) || (IUTEST_LIBSTDCXX_VERSION >= 60000))
     return ::std::uncaught_exceptions() > 0;
@@ -508,23 +508,6 @@ struct type_least_t : public type_t_helper::type_least_t_select<SIZE>::type {};
 
 //======================================================================
 // function
-/**
- * @internal
- * @brief   mbtowc
-*/
-inline int iu_mbtowc(wchar_t* dst, const char* src, size_t size)
-{
-#if defined(IUTEST_OS_LINUX_ANDROID) || defined(IUTEST_OS_WINDOWS_MOBILE)
-    // unimplimented
-    IUTEST_UNUSED_VAR(dst);
-    IUTEST_UNUSED_VAR(src);
-    IUTEST_UNUSED_VAR(size);
-    return 0;
-#else
-    return mbtowc(dst, src, size);
-#endif
-}
-
 template<typename T>
 T numeric_min()
 {
