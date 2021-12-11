@@ -24,8 +24,8 @@ using namespace ::iutest::matchers;
 namespace {
     struct X { int a, b; X(int _a, int _b) : a(_a), b(_b) {} int GetA() const { return a; } };
     int X2(int v) { return v * 2; }
-    const float f0 = 0.0f;
-    const double d0 = 0.0;
+    float f0 = 0.0f;
+    double d0 = 0.0;
 }
 
 IUTEST(Matcher, Gernal)
