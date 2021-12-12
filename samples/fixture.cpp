@@ -6,13 +6,15 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
 //-----------------------------------------------------------------------
 //======================================================================
 #include "../include/iutest.hpp"
+
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_BEGIN()
 
 /* ---------------------------------------------------
  * テストフィクスチャの利用
@@ -22,7 +24,7 @@ class TestFixed : public ::iutest::Test
 protected:
     static int x;
 public:
-    virtual void SetUp()
+    virtual void SetUp() IUTEST_CXX_OVERRIDE
     {
         ++x;
     }
@@ -68,3 +70,5 @@ IUTEST_F(TestFixed2, Test2)
     IUTEST_EXPECT_EQ(2, x);
     IUTEST_INFORM_EQ(2, x);
 }
+
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()
