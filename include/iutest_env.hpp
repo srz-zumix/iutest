@@ -607,7 +607,7 @@ public:
     {
         IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()
     public:
-        OStreamFormatter()
+        OStreamFormatter() IUTEST_CXX_NOEXCEPT(false)
         {
             copyfmt(get_vars().m_ostream_formatter);
         }
@@ -842,20 +842,20 @@ class iu_global_format_stringstream : public iu_stringstream
 {
     IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()
 public:
-    iu_global_format_stringstream()
+    iu_global_format_stringstream() IUTEST_CXX_NOEXCEPT(false)
     {
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
         TestEnv::global_ostream_copyfmt(*this);
 #endif
     }
-    explicit iu_global_format_stringstream(const char* str)
+    explicit iu_global_format_stringstream(const char* str) IUTEST_CXX_NOEXCEPT(false)
         : iu_stringstream(str)
     {
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
         TestEnv::global_ostream_copyfmt(*this);
 #endif
     }
-    explicit iu_global_format_stringstream(const ::std::string& str)
+    explicit iu_global_format_stringstream(const ::std::string& str) IUTEST_CXX_NOEXCEPT(false)
         : iu_stringstream(str)
     {
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM

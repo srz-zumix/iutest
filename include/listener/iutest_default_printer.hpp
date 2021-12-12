@@ -26,7 +26,7 @@ namespace iutest
 class DefaultResultPrintListener : public TestEventListener
 {
 public:
-    DefaultResultPrintListener() {}
+    DefaultResultPrintListener() IUTEST_CXX_NOEXCEPT_SPEC {}
 
     virtual ~DefaultResultPrintListener()
     {

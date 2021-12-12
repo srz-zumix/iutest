@@ -39,12 +39,12 @@ protected:
 #endif
     typedef ::std::vector<Environment*> iuEnvironmentList;
 protected:
-    UnitTestImpl() : m_total_test_num(0), m_disable_num(0), m_should_run_num(0)
+    UnitTestImpl() IUTEST_CXX_NOEXCEPT_SPEC : m_total_test_num(0), m_disable_num(0), m_should_run_num(0)
         , m_current_testsuite(IUTEST_NULLPTR), m_elapsedmsec(0)
     {
         ptr() = this;
     }
-    ~UnitTestImpl() { TerminateImpl(); }
+    ~UnitTestImpl() IUTEST_CXX_NOEXCEPT(false) { TerminateImpl(); }
 
 public:
     /**

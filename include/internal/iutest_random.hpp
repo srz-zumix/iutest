@@ -111,7 +111,7 @@ public:
 #endif
 
 public:
-    iuRandom() IUTEST_CXX_NOEXCEPT_SPEC
+    iuRandom() IUTEST_CXX_NOEXCEPT_AS(GetIndefiniteValue())
     {
         init();
     }
@@ -126,7 +126,7 @@ public:
      * @brief   初期化
      * @details 時間でシードを決定
     */
-    void init() IUTEST_CXX_NOEXCEPT_SPEC
+    void init() IUTEST_CXX_NOEXCEPT_AS(GetIndefiniteValue())
     {
         init(GetIndefiniteValue());
     }
@@ -158,6 +158,7 @@ public:
     result_type genrand(unsigned int max)
     {
 #if IUTEST_HAS_CXX_HDR_RANDOM
+        IUTEST_ATTRIBUTE_GSL_SUPPRESS(con.4)
         ::std::uniform_int_distribution<unsigned int> d(0, max-1);
         return d(m_engine);
 #else

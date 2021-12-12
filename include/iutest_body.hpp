@@ -44,7 +44,7 @@ class Test
     IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(Test);
 
 public:
-    Test()
+    Test() IUTEST_CXX_NOEXCEPT_SPEC
         : test_info_(IUTEST_NULLPTR)
         , m_test_info(IUTEST_NULLPTR)
 #if IUTEST_HAS_GENRAND

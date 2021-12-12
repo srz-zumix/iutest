@@ -120,7 +120,7 @@ public:
         , m_file(file ? file : kStrings::UnknownFile)
         , m_line(line)
     {}
-    iuCodeMessage(const char* file, int line, const iuStreamMessage& message) IUTEST_CXX_NOEXCEPT_SPEC
+    iuCodeMessage(const char* file, int line, const iuStreamMessage& message) IUTEST_CXX_NOEXCEPT(false)
         : m_message(message.GetString())
         , m_file(file ? file : kStrings::UnknownFile)
         , m_line(line)
