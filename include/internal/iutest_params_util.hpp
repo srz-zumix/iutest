@@ -109,8 +109,9 @@ private:
 protected:
     ::std::string m_testsuite_base_name;
     ::std::string m_package_name;
-    const char* m_file;
-    int m_line;
+    // FIXME: https://github.com/srz-zumix/iutest/issues/629
+    // const char* m_file;
+    // int m_line;
 };
 
 /**
@@ -135,7 +136,7 @@ class ParamTestSuiteInfo IUTEST_CXX_FINAL : public IParamTestSuiteInfo
     {
     public:
         Functor()
-            : CreateGen(NULL), ParamNameGen(NULL), m_file(NULL), m_line(0) {}
+            : CreateGen(IUTEST_NULLPTR), ParamNameGen(IUTEST_NULLPTR), m_file(IUTEST_NULLPTR), m_line(0) {}
         Functor(pfnCreateGeneratorFunc c, pfnParamNameGeneratorFunc p, const char* file, int line)
             : CreateGen(c), ParamNameGen(p), m_file(file), m_line(line) {}
         pfnCreateGeneratorFunc      CreateGen;
@@ -190,7 +191,7 @@ public:
                 , IUTEST_GET_SETUP_TESTSUITE(Tester, file, line)
                 , IUTEST_GET_TEARDOWN_TESTSUITE(Tester, file, line));
 
-            if( p.get() != NULL )
+            if( p.get() != IUTEST_NULLPTR )
             {
                 size_t i=0;
                 for( p->Begin(); !p->IsEnd(); p->Next() )
@@ -278,8 +279,9 @@ public:
     ParamTestSuiteInfo<T>* GetTestSuitePatternHolder(const ::std::string& testsuite
         , const ::std::string& package IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
     {
+        IUTEST_ATTRIBUTE_GSL_SUPPRESS(type.2)
         ParamTestSuiteInfo<T>* p = static_cast<ParamTestSuiteInfo<T>*>(FindTestSuitePatternHolder(testsuite, package));
-        if( p == NULL )
+        if( p == IUTEST_NULLPTR )
         {
             p = new ParamTestSuiteInfo<T>(testsuite, package);
             m_testsuite_infos.push_back(p);
@@ -298,7 +300,7 @@ private:
                 return (*it);
             }
         }
-        return NULL;
+        return IUTEST_NULLPTR;
     }
 
 public:
