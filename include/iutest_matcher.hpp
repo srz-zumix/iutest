@@ -1584,7 +1584,7 @@ public:
 class RegexMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    RegexMatcher(const detail::iuRegex& expected, bool full_match) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(expected), m_full_match(full_match) {}
+    RegexMatcher(const detail::iuRegex& expected, bool full_match) IUTEST_CXX_NOEXCEPT(false) : m_expected(expected), m_full_match(full_match) {}
 
 public:
     template<typename U>

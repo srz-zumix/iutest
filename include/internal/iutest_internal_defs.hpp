@@ -277,7 +277,7 @@ public:
         return p;
     }
 
-    void reset(T* p=IUTEST_NULLPTR)
+    void reset(T* p=IUTEST_NULLPTR) IUTEST_CXX_NOEXCEPT_SPEC
     {
         if( m_ptr != p )
         {

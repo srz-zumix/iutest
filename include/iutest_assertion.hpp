@@ -156,7 +156,7 @@ struct AssertionReturnType
 {
     R value;    //!< 戻り値
     //! コンストラクタ
-    AssertionReturnType() {}
+    AssertionReturnType() IUTEST_CXX_NOEXCEPT_SPEC {}
     /**
      * @brief   コンストラクタ
      * @param [in]  v : 戻り値の値
@@ -170,7 +170,7 @@ template<>
 struct AssertionReturnType<void>
 {
     //! コンストラクタ
-    AssertionReturnType() {}
+    AssertionReturnType() IUTEST_CXX_NOEXCEPT_SPEC {}
 };
 
 /**
@@ -282,6 +282,8 @@ public:
     class Fixed : public Message
     {
     public:
+IUTEST_PRAGMA_MSC_WARN_PUSH()
+IUTEST_PRAGMA_MSC_WARN_DISABLE(26434)
         template<typename T>
         Fixed& operator << (T val)
         {
@@ -312,6 +314,7 @@ public:
             return ReturnTypedFixed<R>(*this, ret);
         }
 #endif
+IUTEST_PRAGMA_MSC_WARN_POP()
     };
 
 #if IUTEST_HAS_ASSERTION_RETURN

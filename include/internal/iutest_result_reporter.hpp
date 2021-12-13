@@ -134,7 +134,7 @@ public:
     {
         typedef REPORTER _Mybase;
     public:
-        Counter() : m_count(0)
+        Counter() IUTEST_CXX_NOEXCEPT_SPEC : m_count(0)
         {
             m_holder.Attach(this);
         }
@@ -161,7 +161,7 @@ public:
         typedef REPORTER _Mybase;
         typedef ::std::vector<TestPartResult> TestPartResults;
     public:
-        Collector()
+        Collector() IUTEST_CXX_NOEXCEPT_SPEC
         {
             m_holder.Attach(this);
         }

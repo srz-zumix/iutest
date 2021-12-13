@@ -204,7 +204,7 @@ public:
     /**
      * @brief   コンストラクタ
     */
-    floating_point()
+    floating_point() IUTEST_CXX_NOEXCEPT_SPEC
     {
         m_v.uv = 0;
     }
@@ -213,7 +213,7 @@ public:
      * @brief   コンストラクタ
      * @param [in]  f   = 浮動小数点数
     */
-    floating_point(RawType f)   // NOLINT
+    floating_point(RawType f) IUTEST_CXX_NOEXCEPT_SPEC // NOLINT
     {
         m_v.uv = 0;
         m_v.fv = f;
@@ -222,7 +222,7 @@ public:
     /**
      * @brief   コンストラクタ
     */
-    floating_point(const floating_point& rhs)
+    floating_point(const floating_point& rhs) IUTEST_CXX_NOEXCEPT_SPEC
         : m_v(rhs.m_v)
     {
     }

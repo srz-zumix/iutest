@@ -219,6 +219,7 @@ T* unsafe_any_cast(any* p)
     {
         return IUTEST_NULLPTR;
     }
+    IUTEST_ATTRIBUTE_GSL_SUPPRESS(type.2)
     return &(static_cast< any::holder<T>* >(p->content)->held);
 }
 /** @overload */

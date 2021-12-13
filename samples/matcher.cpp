@@ -41,8 +41,8 @@ IUTEST(Matcher, Gernal)
 
 IUTEST(Matcher, Null)
 {
-    int* const p1 = NULL;
-    int* const * const p2 = &p1;
+    const int* const p1 = NULL;
+    const int* const * const p2 = &p1;
     IUTEST_EXPECT_THAT(p1, IsNull());
     IUTEST_EXPECT_THAT(p2, NotNull());
     IUTEST_EXPECT_THAT(p2, Pointee(IsNull()));
