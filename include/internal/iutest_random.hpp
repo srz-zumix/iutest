@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -59,14 +59,14 @@ class iuRandom
             return m_v1 != rhs.m_v1 || m_v2 != rhs.m_v2 || m_v3 != rhs.m_v3 || m_v4 != rhs.m_v4;
         }
     public:
-        void seed(unsigned int s)
+        void seed(unsigned int s) IUTEST_CXX_NOEXCEPT_SPEC
         {
             m_v4 = s;
             m_v3 = 1812433253 * ((m_v4 ^ (m_v4 >> 30)) + 1);
             m_v2 = 1812433253 * ((m_v3 ^ (m_v3 >> 30)) + 2);
             m_v1 = 1812433253 * ((m_v2 ^ (m_v2 >> 30)) + 3);
         }
-        void discard(unsigned int z)
+        void discard(unsigned int z) IUTEST_CXX_NOEXCEPT_SPEC
         {
             for(unsigned int i=0; i < z; ++i)
             {
@@ -83,7 +83,7 @@ class iuRandom
         static IUTEST_CXX_CONSTEXPR result_type (max)() { return static_cast<result_type>(-1); }
 
     private:
-        result_type gen()
+        result_type gen() IUTEST_CXX_NOEXCEPT_SPEC
         {
             const unsigned int t = (m_v1 ^ (m_v1 << 11));
             m_v1 = m_v2;
@@ -111,12 +111,12 @@ public:
 #endif
 
 public:
-    iuRandom()
+    iuRandom() IUTEST_CXX_NOEXCEPT_AS(GetIndefiniteValue())
     {
         init();
     }
 
-    explicit iuRandom(unsigned int seed)
+    explicit iuRandom(unsigned int seed) IUTEST_CXX_NOEXCEPT_SPEC
     {
         init(seed);
     }
@@ -126,7 +126,7 @@ public:
      * @brief   初期化
      * @details 時間でシードを決定
     */
-    void init()
+    void init() IUTEST_CXX_NOEXCEPT_AS(GetIndefiniteValue())
     {
         init(GetIndefiniteValue());
     }
@@ -134,7 +134,7 @@ public:
      * @brief   初期化
      * @param [in]  seed    = シード
     */
-    void init(unsigned int seed)
+    void init(unsigned int seed) IUTEST_CXX_NOEXCEPT_SPEC
     {
         m_engine = Engine(seed);
     }
@@ -158,7 +158,7 @@ public:
     result_type genrand(unsigned int max)
     {
 #if IUTEST_HAS_CXX_HDR_RANDOM
-        ::std::uniform_int_distribution<unsigned int> d(0, max-1);
+        IUTEST_ATTRIBUTE_GSL_SUPPRESS(con.4) ::std::uniform_int_distribution<unsigned int> d(0, max-1);
         return d(m_engine);
 #else
         return genrand()%max;
