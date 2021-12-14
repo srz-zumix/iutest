@@ -454,7 +454,7 @@
 
 #  define IUTEST_PRAGMA_SAMPLE_COREGUIDELINE_DISABLE_BEGIN()    \
                                                         IUTEST_PRAGMA_COREGUIDELINE_DISABLE_BEGIN() \
-                                                        IUTEST_PRAGMA_MSC_WARN_DISABLE(26496) \
+                                                        IUTEST_PRAGMA_MSC_WARN_DISABLE(26496)
 #  define IUTEST_PRAGMA_SAMPLE_COREGUIDELINE_DISABLE_END()      \
                                                         IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()
 #else
