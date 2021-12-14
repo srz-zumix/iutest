@@ -14,7 +14,7 @@
 //======================================================================
 #include "../include/iutest.hpp"
 
-IUTEST_PRAGMA_COREGUIDELINE_DISABLE_BEGIN()
+IUTEST_PRAGMA_SAMPLE_COREGUIDELINE_DISABLE_BEGIN()
 
 #if IUTEST_HAS_MATCHERS
 #include <map>
