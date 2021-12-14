@@ -158,8 +158,7 @@ public:
     result_type genrand(unsigned int max)
     {
 #if IUTEST_HAS_CXX_HDR_RANDOM
-        IUTEST_ATTRIBUTE_GSL_SUPPRESS(con.4)
-        ::std::uniform_int_distribution<unsigned int> d(0, max-1);
+        IUTEST_ATTRIBUTE_GSL_SUPPRESS(con.4) ::std::uniform_int_distribution<unsigned int> d(0, max-1);
         return d(m_engine);
 #else
         return genrand()%max;

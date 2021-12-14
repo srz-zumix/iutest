@@ -100,7 +100,7 @@ inline ::std::string EnvironmentString(const char* name)
 class Environment
 {
 public:
-    virtual ~Environment() { Release(); }
+    virtual ~Environment() IUTEST_CXX_NOEXCEPT(false) { Release(); }
     virtual void SetUp() {}     //!< 事前処理
     virtual void TearDown() {}  //!< 事後処理
 private:
@@ -301,7 +301,7 @@ public:
         bool m_dirty;
         T   m_value;
     public:
-        StateVariable() : m_dirty(false), m_value(T()) {}
+        StateVariable() IUTEST_CXX_NOEXCEPT_SPEC : m_dirty(false), m_value(T()) {}
         StateVariable& operator = (const T& rhs) { m_value = rhs; m_dirty = true; return *this; }
         operator const T& () const { return m_value; }
         const T& operator ()() const { return m_value; }
@@ -624,7 +624,7 @@ public:
 #endif
 
 private:
-    static iuEnvironmentList& environments() { return get_vars().m_environment_list; }
+    static iuEnvironmentList& environments() IUTEST_CXX_NOEXCEPT_SPEC { return get_vars().m_environment_list; }
 
 public:
     /**

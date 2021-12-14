@@ -99,7 +99,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
                     iuoption = true;
                 }
                 const char option_prefix[] = "test_";
-                const int size = sizeof(option_prefix)/sizeof(option_prefix[0])-1;
+                IUTEST_CXX_CONSTEXPR_OR_CONST int size = sizeof(option_prefix)/sizeof(option_prefix[0])-1;
                 for( int i=0; i < size; ++i, ++str )
                 {
                     if( *str != option_prefix[i] )

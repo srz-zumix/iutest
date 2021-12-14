@@ -64,7 +64,7 @@ IUTEST_IPP_INLINE void print_message(const char *fmt, ...)
     va_list va;
     va_start(va, fmt);
     vprint_message(fmt, va);
-    va_end(va);
+    iu_va_end(va);
 }
 
 }   // end of namespace nacl

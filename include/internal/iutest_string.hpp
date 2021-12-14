@@ -212,7 +212,7 @@ inline int iu_snprintf(char* dst, size_t size, const char* format, ...)
     va_list va;
     va_start(va, format);
     const int ret = iu_vsnprintf(dst, size, format, va);
-    va_end(va);
+    iu_va_end(va);
     return ret;
 }
 
@@ -525,7 +525,7 @@ inline ::std::string StringFormat(const char* format, ...)
     va_list va;
     va_start(va, format);
     ::std::string str = StringFormat(format, va);
-    va_end(va);
+    iu_va_end(va);
     return str;
 }
 inline ::std::string StringFormat(const char* format, va_list va)
@@ -535,7 +535,7 @@ inline ::std::string StringFormat(const char* format, va_list va)
         va_list va2;
         iu_va_copy(va2, va);    // cppcheck-suppress va_list_usedBeforeStarted
         const int ret = iu_vsnprintf(IUTEST_NULLPTR, 0u, format, va2);
-        va_end(va2);
+        iu_va_end(va2);
         if( ret > 0 )
         {
             n = static_cast<size_t>(ret + 1);
@@ -547,7 +547,7 @@ inline ::std::string StringFormat(const char* format, va_list va)
         va_list va2;
         iu_va_copy(va2, va);    // cppcheck-suppress va_list_usedBeforeStarted
         const int written = iu_vsnprintf(dst, n, format, va2);
-        va_end(va2);
+        iu_va_end(va2);
         if( written < 0 )
         {
 #if defined(EOVERFLOW)
