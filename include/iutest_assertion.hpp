@@ -282,8 +282,8 @@ public:
     class Fixed : public Message
     {
     public:
-IUTEST_PRAGMA_MSC_WARN_PUSH()
-IUTEST_PRAGMA_MSC_WARN_DISABLE(26434)
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_HIDE_FUNCTION()
         template<typename T>
         Fixed& operator << (T val)
         {
@@ -314,7 +314,7 @@ IUTEST_PRAGMA_MSC_WARN_DISABLE(26434)
             return ReturnTypedFixed<R>(*this, ret);
         }
 #endif
-IUTEST_PRAGMA_MSC_WARN_POP()
+IUTEST_PRAGMA_WARN_POP()
     };
 
 #if IUTEST_HAS_ASSERTION_RETURN

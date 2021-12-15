@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -95,7 +95,7 @@ public:
 template<typename T>
 void seh_passthrough(T func)
 {
-    _EXCEPTION_POINTERS* ep = NULL;
+    _EXCEPTION_POINTERS* ep = IUTEST_NULLPTR;
     __try
     {
         (func)();

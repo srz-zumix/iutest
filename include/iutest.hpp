@@ -1897,7 +1897,7 @@ public:
     static UnitTestSource& GetInstance() { static UnitTestSource inst; return inst; }
 
 private:
-    UnitTestSource()
+    UnitTestSource() IUTEST_CXX_NOEXCEPT(false)
     {
 #if defined(_IUTEST_DEBUG)
         detail::iuDebugInitialize();
@@ -1910,7 +1910,7 @@ private:
 
 public:
     /** @private */
-    ~UnitTestSource()
+    ~UnitTestSource() IUTEST_CXX_NOEXCEPT(false)
     {
         TestEnv::event_listeners().set_default_result_printer(IUTEST_NULLPTR);
         TestEnv::event_listeners().set_default_xml_generator(IUTEST_NULLPTR);
