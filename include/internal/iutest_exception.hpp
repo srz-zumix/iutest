@@ -33,7 +33,7 @@ namespace detail
 inline ::std::string FormatCxxException(const char* description)
 {
     iu_stringstream strm;
-    if( description != NULL )
+    if( description != IUTEST_NULLPTR )
     {
         strm << "C++ exception with description \"" << description << "\"";
     }
