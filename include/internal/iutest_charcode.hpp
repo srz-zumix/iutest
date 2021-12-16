@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -55,6 +55,7 @@ inline ::std::string AnyStringToMultiByteString(const char* str, int num = -1)
 */
 inline ::std::string AnyStringToMultiByteString(const signed char* str, int num = -1)
 {
+    IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26473)
     return AnyStringToMultiByteString(reinterpret_cast<const char*>(str), num);
 }
 

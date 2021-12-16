@@ -56,7 +56,7 @@ public:
         va_list va;
         va_start(va, fmt);
         iuConsole::voutput(fmt, va);
-        va_end(va);
+        iu_va_end(va);
         return 0;
     }
 };
