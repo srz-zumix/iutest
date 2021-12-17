@@ -248,7 +248,7 @@ IUTEST_PRAGMA_WARN_DISABLE_FORMAT_NONLITERAL()
             va_list va;
             va_start(va, fmt);
             const int ret = vastring(dst, len, fmt, va);
-            va_end(va);
+            iu_va_end(va);
             return ret;
         }
     };

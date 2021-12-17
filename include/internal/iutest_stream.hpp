@@ -43,7 +43,7 @@ public:
         va_list va;
         va_start(va, fmt);
         const ::std::string str = StringFormat(fmt, va);
-        va_end(va);
+        iu_va_end(va);
         const size_t len = str.length();
         Write(str.c_str(), len, 1);
         return static_cast<int>(len);
