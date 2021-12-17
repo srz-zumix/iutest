@@ -15,6 +15,7 @@
 #include "../include/iutest.hpp"
 
 IUTEST_PRAGMA_SAMPLE_COREGUIDELINE_DISABLE_BEGIN()
+IUTEST_PRAGMA_MSC_WARN_DISABLE(26462)
 
 /* ---------------------------------------------------
  * 例外アサーション

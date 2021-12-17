@@ -138,7 +138,7 @@ inline ::std::string AnyStringToMultiByteString(const signed char* str, int num 
 template<typename CharType>
 ::std::string ShowAnyCString(const CharType* any_c_str)
 {
-    if( any_c_str == NULL )
+    if( any_c_str == IUTEST_NULLPTR )
     {
         return kStrings::Null;
     }
