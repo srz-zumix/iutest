@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -181,7 +181,7 @@ private:
     }
 
 private:
-    UnitTest()
+    UnitTest() IUTEST_CXX_NOEXCEPT(false)
         : m_repeat_counter(0)
         , m_init_iutest_count(0)
         , m_test_started(false)
@@ -195,10 +195,10 @@ private:
 #if defined(_MSC_VER) && _MSC_VER < 1300
 public: // VC++6.0 bug
 #endif
-    ~UnitTest()
+    ~UnitTest() IUTEST_CXX_NOEXCEPT(false)
     {
         TestEnv::ReleaseGlobalTestEnvironment();
-        TestEnv::SetGlobalTestPartResultReporter(NULL);
+        TestEnv::SetGlobalTestPartResultReporter(IUTEST_NULLPTR);
     }
 
 private:
