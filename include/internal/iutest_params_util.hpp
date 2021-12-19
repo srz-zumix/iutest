@@ -204,6 +204,7 @@ public:
                         IUTEST_LOG_(WARNING) << testsuite_name << "." << name << " is already exist.";
                     }
 #endif
+                    IUTEST_ATTRIBUTE_GSL_SUPPRESS(type.2)
                     EachTest* test = static_cast<EachTest*>(infodata->RegisterTest(testsuite, name));
                     test->SetParam(p->GetCurrent());
                     ++i;
@@ -279,6 +280,7 @@ public:
     ParamTestSuiteInfo<T>* GetTestSuitePatternHolder(const ::std::string& testsuite
         , const ::std::string& package IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
     {
+        IUTEST_ATTRIBUTE_GSL_SUPPRESS(type.2)
         ParamTestSuiteInfo<T>* p = static_cast<ParamTestSuiteInfo<T>*>(FindTestSuitePatternHolder(testsuite, package));
         if( p == IUTEST_NULLPTR )
         {
