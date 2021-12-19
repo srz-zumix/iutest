@@ -164,6 +164,7 @@ class FileSystem IUTEST_CXX_FINAL : public detail::IFileSystem
 {
 private:
     virtual IFile*  Create() IUTEST_CXX_OVERRIDE { return new FILE; }
+    IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26466)
     virtual void    Delete(IFile* ptr) IUTEST_CXX_OVERRIDE { detail::Delete<FILE>(static_cast<FILE*>(ptr)); }
 };
 
