@@ -6,13 +6,15 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
 //-----------------------------------------------------------------------
 //======================================================================
 #include "../include/iutest.hpp"
+
+IUTEST_PRAGMA_SAMPLE_COREGUIDELINE_DISABLE_BEGIN()
 
 /* ---------------------------------------------------
  * Diabled Test
@@ -93,3 +95,5 @@ IUTEST_F(EnabledTestFixed, Count)
     IUTEST_ASSERT_TRUE(testcase->Passed());
     IUTEST_ASSERT_FALSE(testcase->Failed());
 }
+
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()
