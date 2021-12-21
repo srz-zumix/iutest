@@ -198,6 +198,26 @@ namespace iutest
 namespace stl
 {
 
+#if IUTEST_HAS_RVALUE_REFS
+
+template<typename T, typename U>
+IUTEST_ATTRIBUTE_GSL_SUPPRESS(type.1)
+IUTEST_CXX_CONSTEXPR T narrow_cast(U&& value) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return static_cast<T>(::std::forward<U>(value));
+}
+
+#else
+
+template<typename T, typename U>
+IUTEST_ATTRIBUTE_GSL_SUPPRESS(type.1)
+IUTEST_CXX_CONSTEXPR T narrow_cast(U& value) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return static_cast<T>(value);
+}
+
+#endif
+
 // #if IUTEST_HAS_CXX_HDR_OPTIONAL
 // #else
 // #endif
