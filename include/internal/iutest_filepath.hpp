@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -105,7 +105,7 @@ public:
     /**
      * @brief   拡張子の削除
     */
-    iuFilePath RemoveExtension(const char* extension=NULL) const;
+    iuFilePath RemoveExtension(const char* extension=IUTEST_NULLPTR) const;
 
     /**
      * @brief   ディレクトリ名の削除
