@@ -3,7 +3,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemDefinitionGroup>
     <ClCompile>
-      <DisableSpecificWarnings>26432;26435;26446;26472;26481;26482;26485;26490;26812;;26401;26429;26492;26400;26401;26440;26409;26426;26447;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>26432;26435;26446;26472;26481;26482;26485;26490;26812;;26492;26400;26401;26440;26409;26426;26447;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PreprocessorDefinitions>_IUTEST_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
