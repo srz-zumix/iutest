@@ -139,7 +139,7 @@ int test_print(char* dst, size_t size, const char* fmt, ...) IUTEST_ATTRIBUTE_FO
 int test_print(char* dst, size_t size, const char* fmt, ...)
 {
     va_list va;
-    va_start(va, fmt);
+    iu_va_start(va, fmt);
     const int ret = ::iutest::detail::iu_vsnprintf(dst, size, fmt, va);
     iu_va_end(va);
     return ret;

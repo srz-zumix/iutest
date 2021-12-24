@@ -41,7 +41,7 @@ public:
     virtual int Printf(const char* fmt, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(2, 3)
     {
         va_list va;
-        va_start(va, fmt);
+        iu_va_start(va, fmt);
         const ::std::string str = StringFormat(fmt, va);
         iu_va_end(va);
         const size_t len = str.length();

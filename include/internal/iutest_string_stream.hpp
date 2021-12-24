@@ -246,7 +246,7 @@ IUTEST_PRAGMA_WARN_DISABLE_FORMAT_NONLITERAL()
         static int tostring(E* dst, size_t len, const E* fmt, ...)
         {
             va_list va;
-            va_start(va, fmt);
+            iu_va_start(va, fmt);
             const int ret = vastring(dst, len, fmt, va);
             iu_va_end(va);
             return ret;

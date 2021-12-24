@@ -55,7 +55,7 @@ public:
     virtual void output(const char* fmt, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(2, 3)
     {
         va_list va;
-        va_start(va, fmt);
+        iu_va_start(va, fmt);
         voutput(fmt, va);
         iu_va_end(va);
     }
@@ -179,7 +179,7 @@ private:
 inline void iuConsole::output(const char *fmt, ...)
 {
     va_list va;
-    va_start(va, fmt);
+    iu_va_start(va, fmt);
     voutput(fmt, va);
     iu_va_end(va);
 }
@@ -198,7 +198,7 @@ inline void iuConsole::voutput(const char* fmt, va_list va)
 inline void iuConsole::color_output(Color color, const char *fmt, ...)
 {
     va_list va;
-    va_start(va, fmt);
+    iu_va_start(va, fmt);
 
     if( IsShouldUseColor(true) )
     {
@@ -214,7 +214,7 @@ inline void iuConsole::color_output(Color color, const char *fmt, ...)
 inline void iuConsole::nl_output(const char *fmt, ...)
 {
     va_list va;
-    va_start(va, fmt);
+    iu_va_start(va, fmt);
     nl_voutput(fmt, va);
     iu_va_end(va);
 }

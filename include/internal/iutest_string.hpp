@@ -210,7 +210,7 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 inline int iu_snprintf(char* dst, size_t size, const char* format, ...)
 {
     va_list va;
-    va_start(va, format);
+    iu_va_start(va, format);
     const int ret = iu_vsnprintf(dst, size, format, va);
     iu_va_end(va);
     return ret;
@@ -523,7 +523,7 @@ inline ::std::string ShowStringQuoted(const ::std::string& str)
 inline ::std::string StringFormat(const char* format, ...)
 {
     va_list va;
-    va_start(va, format);
+    iu_va_start(va, format);
     ::std::string str = StringFormat(format, va);
     iu_va_end(va);
     return str;

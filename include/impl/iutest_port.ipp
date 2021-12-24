@@ -62,7 +62,7 @@ IUTEST_IPP_INLINE void vprint_message(const char *fmt, va_list va)
 IUTEST_IPP_INLINE void print_message(const char *fmt, ...)
 {
     va_list va;
-    va_start(va, fmt);
+    iu_va_start(va, fmt);
     vprint_message(fmt, va);
     iu_va_end(va);
 }
