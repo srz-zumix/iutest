@@ -39,7 +39,7 @@
 #  define IUTEST_HAS_GSL        0
 #endif
 
-#if IUTEST_HAS_GDL
+#if IUTEST_HAS_GSL
 #  include <gsl/gsl>
 #endif
 
