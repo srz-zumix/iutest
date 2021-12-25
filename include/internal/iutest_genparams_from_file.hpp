@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2015-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -58,7 +58,7 @@ private:
     {
         params_t params;
         IFile* fp = detail::IFileSystem::New();
-        if( (fp != NULL) && fp->Open(path.c_str(), IFile::OpenRead) )
+        if( (fp != IUTEST_NULLPTR) && fp->Open(path.c_str(), IFile::OpenRead) )
         {
             const ::std::string dataset = fp->ReadAll();
             ::std::string::size_type prev = 0;
