@@ -281,7 +281,7 @@ public:
         , const ::std::string& package IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
     {
         IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26466)
-        ParamTestSuiteInfo<T>* p = static_cast<ParamTestSuiteInfo<T>*>(FindTestSuitePatternHolder(testsuite, package));
+        typename gsl::owner_t<ParamTestSuiteInfo<T>*>::type p = static_cast<ParamTestSuiteInfo<T>*>(FindTestSuitePatternHolder(testsuite, package));
         if( p == IUTEST_NULLPTR )
         {
             p = new ParamTestSuiteInfo<T>(testsuite, package);

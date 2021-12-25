@@ -515,7 +515,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
                 test_name = ::std::string(str, static_cast<size_t>(comma - str));
                 ++comma;
             }
-            _Myt* test = new EachTest(testsuite, StripTrailingSpace(test_name));
+            typename gsl::owner_t<_Myt*>::type test = new EachTest(testsuite, StripTrailingSpace(test_name));
             // new オブジェクトを管理してもらう
             detail::iuPool::GetInstance().push(test);
 

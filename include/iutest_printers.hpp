@@ -88,6 +88,7 @@ struct RawBytesPrinter
     template<typename T>
     static void Print(const T& value, iu_ostream* os)
     {
+        IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26492)
         const unsigned char* ptr = const_cast<const unsigned char*>(
             reinterpret_cast<const volatile unsigned char*>(&value));
         IUTEST_CXX_CONSTEXPR size_t size = sizeof(T);
@@ -240,13 +241,13 @@ inline void DefaultPrintTo(IsContainerHelper::no_t
 
 template<typename T>
 inline void DefaultPtrPrintTo(T* ptr, iu_ostream* os
-    , typename iutest_type_traits::enable_if_t< iutest_type_traits::is_convertible<T*, const void*> >::type*& = iutest_type_traits::enabler::value)
+    , typename iutest_type_traits::enable_if< iutest_type_traits::is_convertible<T*, const void*>::value >::type*& = iutest_type_traits::enabler::value)
 {
     *os << reinterpret_cast<iu_uintptr_t>(ptr);
 }
 template<typename T>
 inline void DefaultPtrPrintTo(T* ptr, iu_ostream* os
-    , typename iutest_type_traits::disable_if_t< iutest_type_traits::is_convertible<T*, const void*> >::type*& = iutest_type_traits::enabler::value)
+    , typename iutest_type_traits::disable_if< iutest_type_traits::is_convertible<T*, const void*>::value >::type*& = iutest_type_traits::enabler::value)
 {
     *os << reinterpret_cast<const void*>(reinterpret_cast<type_least_t<8>::UInt>(ptr));
 }

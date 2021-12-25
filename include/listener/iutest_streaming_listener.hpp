@@ -75,7 +75,7 @@ public:
         {
             return IUTEST_NULLPTR;
         }
-        TestEventListener* p = new StreamResultListener(addr.substr(0, pos).c_str(), addr.substr(pos+1).c_str());
+        gsl::owner_t<TestEventListener*>::type p = new StreamResultListener(addr.substr(0, pos).c_str(), addr.substr(pos+1).c_str());
         UnitTest::GetInstance()->listeners().Append(p);
         return p;
     }

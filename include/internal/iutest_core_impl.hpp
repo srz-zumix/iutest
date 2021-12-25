@@ -77,7 +77,7 @@ public:
     TestSuite* AddTestSuite(const ::std::string& testsuite_name, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
     {
-        TestSuite* p = FindTestSuite(testsuite_name, id);
+        gsl::owner_t<TestSuite*>::type p = FindTestSuite(testsuite_name, id);
         if( p == IUTEST_NULLPTR )
         {
             p = new T (testsuite_name, id, setup, teardown);

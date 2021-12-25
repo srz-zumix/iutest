@@ -72,13 +72,13 @@ public:
         const size_t size = GetSize();
         if( size != 0 )
         {
-            char* buf = new char[size+1];
+            gsl::owner_t<char*>::type buf = new char[size+1];
             buf[size] = '\0';
             if( Read(buf, size, 1) )
             {
                 str = buf;
             }
-            delete [] buf;
+            delete[] buf;
         }
         return str;
     }

@@ -539,7 +539,7 @@ public:
     template<typename... Args>
     operator iuIParamGenerator< tuples::tuple<Args...> >* () const
     {
-        iuCartesianProductGenerator<Args...>* p = new iuCartesianProductGenerator<Args...>();
+        typename gsl::owner_t<iuCartesianProductGenerator<Args...>*>::type p = new iuCartesianProductGenerator<Args...>();
         tuples::tuple_cast_copy(p->generators(), v);
         return p;
     }

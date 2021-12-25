@@ -76,7 +76,7 @@ public:
 
 #if !defined(IUTEST_NO_SFINAE)
 template<typename T>
-inline typename detail::enable_if_t< IMatcher::is_matcher<T>, iu_ostream>::type& operator << (iu_ostream& os, const T& m)
+inline typename detail::enable_if< IMatcher::is_matcher<T>::value, iu_ostream>::type& operator << (iu_ostream& os, const T& m)
 {
     return os << m.WhichIs();
 }
@@ -587,14 +587,14 @@ private:
 
 template<typename T>
 T& CastToMatcher(T& matcher
-    , typename detail::enable_if_t< IMatcher::is_matcher<T> >::type*& = detail::enabler::value)
+    , typename detail::enable_if< IMatcher::is_matcher<T>::value >::type*& = detail::enabler::value)
 {
     return matcher;
 }
 /** @overload */
 template<typename T>
 EqMatcher<T> CastToMatcher(const T& value
-    , typename detail::disable_if_t< IMatcher::is_matcher<T> >::type*& = detail::enabler::value)
+    , typename detail::disable_if< IMatcher::is_matcher<T>::value >::type*& = detail::enabler::value)
 {
     return EqMatcher<T>(value);
 }
@@ -1271,13 +1271,13 @@ private:
 #if !defined(IUTEST_NO_SFINAE)
     template<typename U>
     bool Check(const U& actual
-        , typename detail::disable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
+        , typename detail::disable_if< detail::is_pointer<U>::value >::type*& = detail::enabler::value)
     {
         return static_cast<bool>(CastToMatcher(m_expected)(actual.*m_field));
     }
     template<typename U>
     bool Check(const U& actual
-        , typename detail::enable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
+        , typename detail::enable_if< detail::is_pointer<U>::value >::type*& = detail::enabler::value)
     {
         return static_cast<bool>(CastToMatcher(m_expected)(actual->*m_field));
     }
@@ -1326,13 +1326,13 @@ private:
 #if !defined(IUTEST_NO_SFINAE)
     template<typename U>
     bool Check(const U& actual
-        , typename detail::disable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
+        , typename detail::disable_if< detail::is_pointer<U>::value >::type*& = detail::enabler::value)
     {
         return static_cast<bool>(CastToMatcher(m_expected)((actual.*m_property)()));
     }
     template<typename U>
     bool Check(const U& actual
-        , typename detail::enable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
+        , typename detail::enable_if< detail::is_pointer<U>::value >::type*& = detail::enabler::value)
     {
         return static_cast<bool>(CastToMatcher(m_expected)((actual->*m_property)()));
     }

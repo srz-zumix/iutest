@@ -21,6 +21,7 @@
 #  define _MBSTATE_T
 #endif
 
+#include "iutest_gsl.hpp"
 #include <wchar.h>
 #include <wctype.h>
 #include <stdarg.h>
@@ -543,7 +544,7 @@ inline ::std::string StringFormat(const char* format, va_list va)
     }
     for( ;; )
     {
-        char* dst = new char[n];
+        gsl::owner_t<char*>::type dst = new char[n];
         va_list va2;
         iu_va_copy(va2, va);    // cppcheck-suppress va_list_usedBeforeStarted
         const int written = iu_vsnprintf(dst, n, format, va2);

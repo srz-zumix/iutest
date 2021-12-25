@@ -394,10 +394,10 @@ IUTEST_IPP_INLINE ::std::string WideStringToMultiByteString(const wchar_t* wide_
     if( wide_c_str == IUTEST_NULLPTR ) return "";
     ::std::string str;
     const int length = static_cast<int>(wcslen(wide_c_str)) * 2 + 1;
-    char* mbs = new char [length];
+    gsl::owner_t<char*>::type mbs = new char [length];
     WideCharToMultiByte(932, 0, wide_c_str, static_cast<int>(wcslen(wide_c_str))+1, mbs, length, IUTEST_NULLPTR, IUTEST_NULLPTR);
     str = mbs;
-    delete [] mbs;
+    delete[] mbs;
     return str;
 }
 

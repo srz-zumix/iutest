@@ -19,6 +19,7 @@
 // include
 // IWYU pragma: begin_exports
 #include "iutest_stdlib_defs.hpp"
+#include "iutest_gsl.hpp"
 // IWYU pragma: end_exports
 
 //======================================================================
