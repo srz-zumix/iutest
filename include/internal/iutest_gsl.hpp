@@ -23,14 +23,24 @@
 
 //======================================================================
 // define
-#if defined(__has_include)
-#  if __has_include(<gsl/gsl>)
-#    define IUTEST_HAS_GSL      1
+#if !defined(IUTEST_HAS_GSL)
+#  if defined(__has_include)
+#    if __has_include(<gsl/gsl>)
+#      define IUTEST_HAS_GSL    1
+#    endif
+#  elif defined(_MSC_VER)
+#    if _MSC_VER >= 1900
+#      define IUTEST_HAS_GSL    1
+#    endif
 #  endif
 #endif
 
 #if !defined(IUTEST_HAS_GSL)
 #  define IUTEST_HAS_GSL        0
+#endif
+
+#if IUTEST_HAS_GDL
+#  include <gsl/gsl>
 #endif
 
 //======================================================================
