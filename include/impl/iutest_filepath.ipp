@@ -312,7 +312,7 @@ IUTEST_IPP_INLINE void iuFilePath::Normalize()
     }
     *dst = '\0';
     m_path = dst_top;
-    delete [] dst_top;
+    delete[] dst_top;
 }
 
 }   // end of namespace detail

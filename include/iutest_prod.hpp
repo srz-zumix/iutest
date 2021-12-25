@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -101,7 +101,7 @@
                         typedef ::iutest_type_traits::identity<member_type>::type type; };      \
     template<typename T, typename Tag, typename Tag::type X>                                    \
     struct IIUT_PEEP_SETTER_NAME_(class_name, member_name) {                                    \
-        IIUT_PEEP_SETTER_NAME_(class_name, member_name)() {                                     \
+        IIUT_PEEP_SETTER_NAME_(class_name, member_name)() IUTEST_CXX_NOEXCEPT_SPEC {            \
             ::iutest::detail::peep_tag<Tag>::value = X; }                                       \
         static IIUT_PEEP_SETTER_NAME_(class_name, member_name) instance;                        \
     };                                                                                          \
@@ -162,7 +162,7 @@ private:
     private:
         U* m_ptr;
     public:
-        explicit peep_member_function_impl(U* ptr) : m_ptr(ptr) {}
+        explicit peep_member_function_impl(U* ptr) IUTEST_CXX_NOEXCEPT_SPEC : m_ptr(ptr) {}
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
     public:
@@ -211,7 +211,7 @@ private:
     private:
         U* m_ptr;
     public:
-        explicit peep_member_object_impl(U* ptr) : m_ptr(ptr) {}
+        explicit peep_member_object_impl(U* ptr) IUTEST_CXX_NOEXCEPT_SPEC : m_ptr(ptr) {}
     private:
         peep_member_object_impl(const peep_member_object_impl&);
     public:
@@ -225,7 +225,7 @@ private:
     private:
         U* m_ptr;
     public:
-        explicit peep_member_object_impl(U* ptr) : m_ptr(ptr) {}
+        explicit peep_member_object_impl(U* ptr) IUTEST_CXX_NOEXCEPT_SPEC : m_ptr(ptr) {}
     private:
         peep_member_object_impl(const peep_member_object_impl&);
     public:
@@ -256,7 +256,7 @@ private:
     {
         typedef typename type_traits::remove_pointer<Type>::type value_type;
     public:
-        peep_static_impl() {}
+        peep_static_impl() IUTEST_CXX_NOEXCEPT_SPEC {}
         peep_static_impl(const value_type& value) { *detail::peep_tag<peep_tag>::value = value; }   // NOLINT
         peep_static_impl(const peep_static_impl&) {}
     public:
