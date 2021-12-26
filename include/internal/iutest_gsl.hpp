@@ -29,7 +29,7 @@
 #      define IUTEST_HAS_GSL    1
 #    endif
 #  elif defined(_MSC_VER)
-#    if _MSC_VER >= 1900
+#    if _MSC_VER > 1900
 #      define IUTEST_HAS_GSL    1
 #    endif
 #  endif
