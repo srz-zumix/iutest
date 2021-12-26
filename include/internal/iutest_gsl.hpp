@@ -43,6 +43,16 @@
 #  include <gsl/gsl>
 #endif
 
+#if !defined(IUGSL_OWNER_T)
+#  if IUTEST_HAS_GSL
+#    define IUGSL_OWNER_T(type) gsl::owner<type>
+#  elif IUTEST_
+#    define IUGSL_OWNER_T(type) type
+#  else
+#    define IUGSL_OWNER_T(type) type
+#  endif
+#endif
+
 //======================================================================
 // struct
 
