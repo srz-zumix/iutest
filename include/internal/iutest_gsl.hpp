@@ -46,11 +46,22 @@
 #if !defined(IUGSL_OWNER_T)
 #  if IUTEST_HAS_GSL
 #    define IUGSL_OWNER_T(type) gsl::owner<type>
-#  elif IUTEST_
-#    define IUGSL_OWNER_T(type) type
+#  elif IUTEST_HAS_AUTO
+#    define IUGSL_OWNER_T(type) auto
 #  else
 #    define IUGSL_OWNER_T(type) type
 #  endif
+#endif
+
+//! gsl::suppress
+#if !defined(IUTEST_ATTRIBUTE_GSL_SUPPRESS)
+#  if  defined(_MSC_VER) && IUTEST_HAS_ATTRIBUTE
+#    define IUTEST_ATTRIBUTE_GSL_SUPPRESS(...)  [[gsl::suppress(__VA_ARGS__)]]
+#  endif
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_GSL_SUPPRESS)
+#  define IUTEST_ATTRIBUTE_GSL_SUPPRESS(...)
 #endif
 
 //======================================================================
