@@ -72,7 +72,7 @@ public:
         const size_t size = GetSize();
         if( size != 0 )
         {
-            gsl::owner_t<char*>::type buf = new char[size+1];
+            IUGSL_OWNER_T(char*) buf = new char[size+1];
             buf[size] = '\0';
             if( Read(buf, size, 1) )
             {

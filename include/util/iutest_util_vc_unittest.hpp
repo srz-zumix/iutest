@@ -149,7 +149,7 @@ public:
             return;
         }
         length += 1;
-        gsl::owner_t<char*>::type buf = new char [length];
+        IUGSL_OWNER_T(char*) buf = new char [length];
         vsprintf_s(buf, length, fmt, va);
         m_log += buf;
         delete[] buf;
