@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2015-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -149,10 +149,10 @@ public:
             return;
         }
         length += 1;
-        char* buf = new char [length];
+        gsl::owner_t<char*>::type buf = new char [length];
         vsprintf_s(buf, length, fmt, va);
         m_log += buf;
-        delete [] buf;
+        delete[] buf;
 
         int pos = m_log.find('\n');
         while(pos >= 0) {

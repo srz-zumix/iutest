@@ -111,13 +111,13 @@ public:
     bool            Failed()                const { return !Passed(); }
 
     /** type param 文字列の取得 */
-    virtual const char* type_param()        const { return NULL; }
+    virtual const char* type_param()        const { return IUTEST_NULLPTR; }
 
     /** TestSuite 名の取得 */
     ::std::string testsuite_name_with_where() const
     {
         ::std::string str = m_testsuite_name;
-        if( type_param() != NULL )
+        if( type_param() != IUTEST_NULLPTR )
         {
             str += ", where TypeParam = ";
             str += type_param();
@@ -289,7 +289,7 @@ public:
     /** type param 文字列の取得 */
     virtual const char* type_param() const IUTEST_CXX_OVERRIDE
     {
-        return m_type_param.empty() ? NULL : m_type_param.c_str();
+        return m_type_param.empty() ? IUTEST_NULLPTR : m_type_param.c_str();
     }
 
 private:
