@@ -64,29 +64,5 @@
 #  define IUTEST_ATTRIBUTE_GSL_SUPPRESS(...)
 #endif
 
-//======================================================================
-// struct
-
-namespace iutest
-{
-
-namespace gsl
-{
-
-template<typename T>
-struct owner_t
-{
-#if IUTEST_HAS_GSL
-    typedef gsl::owner<T>   type;
-#else
-    typedef T type;
-#endif
-};
-
-}   // end of namespace gsl
-
-}   // end of namespace iutest
-
-
 #endif
 
