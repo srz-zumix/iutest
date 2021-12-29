@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -68,7 +68,7 @@ public:
      * @brief   コンストラクタ
      * @param [in]  directory = 出力ディレクトリ
     */
-    explicit TAPFileGeneratorListener(const char* directory=NULL)
+    explicit TAPFileGeneratorListener(const char* directory=IUTEST_NULLPTR)
     {
         SetFilePath(directory);
     }
@@ -83,7 +83,7 @@ private:
     */
     void SetFilePath(const char* directory)
     {
-        if( directory == NULL || *directory == '\0' )
+        if( directory == IUTEST_NULLPTR || *directory == '\0' )
         {
             m_output_path = internal::posix::GetCWD();
         }
@@ -195,7 +195,7 @@ inline void TAPFileGeneratorListener::OnTestProgramEnd(const UnitTest& test)
 
         IUTEST_UNUSED_VAR(test);
         IFile* fp = detail::IFileSystem::New();
-        if( fp == NULL )
+        if( fp == IUTEST_NULLPTR )
         {
             return;
         }

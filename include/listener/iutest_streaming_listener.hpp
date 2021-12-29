@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -68,14 +68,15 @@ public:
         ::std::string addr = TestEnv::get_stream_result_to();
         if( addr.empty() )
         {
-            return NULL;
+            return IUTEST_NULLPTR;
         }
         const size_t pos = addr.find(':');
         if( pos == ::std::string::npos )
         {
-            return NULL;
+            return IUTEST_NULLPTR;
         }
-        TestEventListener* p = new StreamResultListener(addr.substr(0, pos).c_str(), addr.substr(pos+1).c_str());
+        IUTEST_ATTRIBUTE_GSL_SUPPRESS(i.11) TestEventListener* p
+            = new StreamResultListener(addr.substr(0, pos).c_str(), addr.substr(pos+1).c_str());
         UnitTest::GetInstance()->listeners().Append(p);
         return p;
     }
