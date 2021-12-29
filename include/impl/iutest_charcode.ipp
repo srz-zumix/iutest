@@ -125,22 +125,19 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToSJIS(const ::std:
         return "(convert error)";
     }
 
-    IUGSL_OWNER_T(wchar_t*) wbuf = new wchar_t[lengthWideChar];
+    type_array<wchar_t> wbuf(lengthWideChar);
     MultiByteToWideChar(CP_UTF8, 0, str.c_str(), src_length, wbuf, lengthWideChar);
 
     const int lengthSJIS = WideCharToMultiByte(CP_THREAD_ACP, 0, wbuf, -1, IUTEST_NULLPTR, 0, IUTEST_NULLPTR, IUTEST_NULLPTR);
     if( lengthSJIS <= 0 )
     {
-        delete[] wbuf;
         return "(convert error)";
     }
 
-    IUGSL_OWNER_T(char*) buf = new char[lengthSJIS];
+    type_array<char> buf(lengthSJIS);
     WideCharToMultiByte(CP_THREAD_ACP, 0, wbuf, -1, buf, lengthSJIS, IUTEST_NULLPTR, IUTEST_NULLPTR);
 
     ::std::string ret(buf);
-    delete[] wbuf;
-    delete[] buf;
     return ret;
 }
 #endif
@@ -186,18 +183,16 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStr
     return win::WideStringToMultiByteString(str);
 #else
     const size_t length = wcslen(str) * static_cast<size_t>(MB_CUR_MAX) + 1;
-    char* mbs = new char [length];
+    type_array<char> mbs(length);
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
     const size_t written = wcstombs(mbs, str, length - 1);
     if( written == static_cast<size_t>(-1))
     {
-        delete[] mbs;
         return ToHexString(str, num);
     }
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     mbs[written] = '\0';
-    ::std::string ret = mbs;
-    delete[] mbs;
+    ::std::string ret(mbs);
     return ret;
 #endif
 }
@@ -340,16 +335,14 @@ IUTEST_IPP_INLINE ::std::wstring IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToWideS
         return L"";
     }
     const size_t length = strlen(str) + 1;
-    IUGSL_OWNER_T(wchar_t*) wcs = new wchar_t[length];
+    type_array<wchar_t> wcs(length);
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
     if(mbstowcs(wcs, str, length) == static_cast<size_t>(-1))
     {
-        delete[] wcs;
         return L"(convert error)";
     }
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
-    ::std::wstring ret = wcs;
-    delete[] wcs;
+    ::std::wstring ret(wcs);
     return ret;
 }
 

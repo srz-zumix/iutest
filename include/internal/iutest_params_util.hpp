@@ -280,13 +280,15 @@ public:
     ParamTestSuiteInfo<T>* GetTestSuitePatternHolder(const ::std::string& testsuite
         , const ::std::string& package IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
     {
-        IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26466)
-        IUGSL_OWNER_T(ParamTestSuiteInfo<T>*) p = static_cast<ParamTestSuiteInfo<T>*>(FindTestSuitePatternHolder(testsuite, package));
-        if( p == IUTEST_NULLPTR )
+        IParamTestSuiteInfo* holder = FindTestSuitePatternHolder(testsuite, package);
+        if( holder != IUTEST_NULLPTR )
         {
-            p = new ParamTestSuiteInfo<T>(testsuite, package);
-            m_testsuite_infos.push_back(p);
+            IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26466)
+            return static_cast<ParamTestSuiteInfo<T>*>(holder);
         }
+
+        IUTEST_ATTRIBUTE_GSL_SUPPRESS(i.11) ParamTestSuiteInfo<T>* p = new ParamTestSuiteInfo<T>(testsuite, package);
+        m_testsuite_infos.push_back(p);
         return p;
     }
 

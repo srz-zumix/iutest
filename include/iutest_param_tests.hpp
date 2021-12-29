@@ -335,7 +335,7 @@ private:
     virtual IParamTestInfoData::EachTestBase* RegisterTest(TestSuite* testsuite
                                                         , const ::std::string& name) const IUTEST_CXX_OVERRIDE
     {
-        IUGSL_OWNER_T(EachTest*) test = new EachTest(testsuite, name);
+        IUTEST_ATTRIBUTE_GSL_SUPPRESS(i.11) EachTest* test = new EachTest(testsuite, name);
         // new オブジェクトを管理してもらう
         detail::iuPool::GetInstance().push(test);
         return test;

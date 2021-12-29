@@ -64,5 +64,33 @@
 #  define IUTEST_ATTRIBUTE_GSL_SUPPRESS(...)
 #endif
 
+namespace iutest
+{
+namespace gsl
+{
+
+#if IUTEST_HAS_RVALUE_REFS
+
+template<typename T, typename U>
+IUTEST_ATTRIBUTE_GSL_SUPPRESS(type.1)
+IUTEST_CXX_CONSTEXPR T narrow_cast(U&& value) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return static_cast<T>(::std::forward<U>(value));
+}
+
+#else
+
+template<typename T, typename U>
+IUTEST_ATTRIBUTE_GSL_SUPPRESS(type.1)
+IUTEST_CXX_CONSTEXPR T narrow_cast(U& value) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return static_cast<T>(value);
+}
+
+#endif
+
+}   // end of namespace gsl
+}   // end of namespace iutest
+
 #endif
 

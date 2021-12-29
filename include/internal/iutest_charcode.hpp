@@ -44,7 +44,7 @@ namespace detail
 */
 inline ::std::string AnyStringToMultiByteString(const char* str, int num = -1)
 {
-    return num < 0 ? str : ::std::string(str, stl::narrow_cast<size_t>(num));
+    return num < 0 ? str : ::std::string(str, gsl::narrow_cast<size_t>(num));
 }
 
 /**

@@ -143,19 +143,20 @@ class VCCppUnitTestLogger : public ::iutest::detail::iuLogger
 public:
     virtual void voutput(const char* fmt, va_list va)
     {
-        int length = _vscprintf(fmt, va);
+        const int length = _vscprintf(fmt, va);
         if( length <= 0 )
         {
             return;
         }
-        length += 1;
-        IUGSL_OWNER_T(char*) buf = new char [length];
-        vsprintf_s(buf, length, fmt, va);
-        m_log += buf;
-        delete[] buf;
+        {
+            type_array<char> buf(length+1);
+            vsprintf_s(buf, length+1, fmt, va);
+            m_log += buf;
+        }
 
         int pos = m_log.find('\n');
-        while(pos >= 0) {
+        while(pos >= 0)
+        {
             Logger::WriteMessage(m_log.substr(0, pos).c_str());
             m_log = m_log.substr(pos+1);
             pos = m_log.find('\n');

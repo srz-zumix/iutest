@@ -199,26 +199,6 @@ namespace iutest
 namespace stl
 {
 
-#if IUTEST_HAS_RVALUE_REFS
-
-template<typename T, typename U>
-IUTEST_ATTRIBUTE_GSL_SUPPRESS(type.1)
-IUTEST_CXX_CONSTEXPR T narrow_cast(U&& value) IUTEST_CXX_NOEXCEPT_SPEC
-{
-    return static_cast<T>(::std::forward<U>(value));
-}
-
-#else
-
-template<typename T, typename U>
-IUTEST_ATTRIBUTE_GSL_SUPPRESS(type.1)
-IUTEST_CXX_CONSTEXPR T narrow_cast(U& value) IUTEST_CXX_NOEXCEPT_SPEC
-{
-    return static_cast<T>(value);
-}
-
-#endif
-
 // #if IUTEST_HAS_CXX_HDR_OPTIONAL
 // #else
 // #endif
@@ -526,6 +506,22 @@ struct type_fit_t : public type_t_helper::type_fit_t_select<SIZE>::type {};
 */
 template<size_t SIZE>
 struct type_least_t : public type_t_helper::type_least_t_select<SIZE>::type {};
+
+/**
+ * @brief   type array
+*/
+template<typename T>
+struct type_array
+{
+    explicit type_array(size_t size) : m_ptr(new T[size]) {}
+    ~type_array()
+    {
+        delete[] m_ptr;
+    }
+    operator const T* () const { return m_ptr; }
+    operator T* () { return m_ptr; }
+    T* m_ptr;
+};
 
 //======================================================================
 // function
