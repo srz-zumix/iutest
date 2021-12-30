@@ -77,7 +77,8 @@ public:
     TestSuite* AddTestSuite(const ::std::string& testsuite_name, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
     {
-        IUTEST_ATTRIBUTE_GSL_SUPPRESS(i.11) TestSuite* p = FindTestSuite(testsuite_name, id);
+        IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26400)
+        TestSuite* p = FindTestSuite(testsuite_name, id);
         if( p == IUTEST_NULLPTR )
         {
             p = new T (testsuite_name, id, setup, teardown);

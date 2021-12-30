@@ -75,8 +75,8 @@ public:
         {
             return IUTEST_NULLPTR;
         }
-        IUTEST_ATTRIBUTE_GSL_SUPPRESS(i.11) TestEventListener* p
-            = new StreamResultListener(addr.substr(0, pos).c_str(), addr.substr(pos+1).c_str());
+        IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26400)
+        TestEventListener* p = new StreamResultListener(addr.substr(0, pos).c_str(), addr.substr(pos+1).c_str());
         UnitTest::GetInstance()->listeners().Append(p);
         return p;
     }

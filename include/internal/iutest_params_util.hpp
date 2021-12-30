@@ -287,7 +287,8 @@ public:
             return static_cast<ParamTestSuiteInfo<T>*>(holder);
         }
 
-        IUTEST_ATTRIBUTE_GSL_SUPPRESS(i.11) ParamTestSuiteInfo<T>* p = new ParamTestSuiteInfo<T>(testsuite, package);
+        IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26400)
+        ParamTestSuiteInfo<T>* p = new ParamTestSuiteInfo<T>(testsuite, package);
         m_testsuite_infos.push_back(p);
         return p;
     }

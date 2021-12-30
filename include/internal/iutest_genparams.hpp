@@ -539,7 +539,8 @@ public:
     template<typename... Args>
     operator iuIParamGenerator< tuples::tuple<Args...> >* () const
     {
-        IUTEST_ATTRIBUTE_GSL_SUPPRESS(i.11) iuCartesianProductGenerator<Args...>* p = new iuCartesianProductGenerator<Args...>();
+        IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26400)
+        iuCartesianProductGenerator<Args...>* p = new iuCartesianProductGenerator<Args...>();
         tuples::tuple_cast_copy(p->generators(), v);
         return p;
     }
