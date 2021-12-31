@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2020-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -59,7 +59,7 @@ typedef void (*SetUpTearDownTestSuiteFuncType)();
 
 inline SetUpTearDownTestSuiteFuncType  GetNotDefaultOrNull(SetUpTearDownTestSuiteFuncType a, SetUpTearDownTestSuiteFuncType def)
 {
-    return a == def ? NULL : a;
+    return a == def ? IUTEST_NULLPTR : a;
 }
 
 template<typename T>
@@ -72,22 +72,22 @@ struct SuiteApiResolver : T
         SetUpTearDownTestSuiteFuncType testcase = GetNotDefaultOrNull(&T::SetUpTestCase, &Tester::SetUpTestCase);
         SetUpTearDownTestSuiteFuncType testsuite = GetNotDefaultOrNull(&T::SetUpTestSuite, &Tester::SetUpTestSuite);
 
-        IUTEST_CHECK_( testcase == NULL || testsuite == NULL )
+        IUTEST_CHECK_( testcase == IUTEST_NULLPTR || testsuite == IUTEST_NULLPTR )
             << "Test can not provide both SetUpTestSuite and SetUpTestCase, please make sure there is only one present at "
             << detail::FormatCompilerIndependentFileLocation(file, line);
 
-        return testcase != NULL ? testcase : testsuite;
+        return testcase != IUTEST_NULLPTR ? testcase : testsuite;
     }
     static SetUpTearDownTestSuiteFuncType GetTearDownCaseOrSuite(const char* file, int line)
     {
         SetUpTearDownTestSuiteFuncType testcase = GetNotDefaultOrNull(&T::TearDownTestCase, &Tester::TearDownTestCase);
         SetUpTearDownTestSuiteFuncType testsuite = GetNotDefaultOrNull(&T::TearDownTestSuite, &Tester::TearDownTestSuite);
 
-        IUTEST_CHECK_( testcase == NULL || testsuite == NULL )
+        IUTEST_CHECK_( testcase == IUTEST_NULLPTR || testsuite == IUTEST_NULLPTR )
             << "Test can not provide both TearDownTestSuite and TearDownTestCase, please make sure there is only one present at "
             << detail::FormatCompilerIndependentFileLocation(file, line);
 
-        return testcase != NULL ? testcase : testsuite;
+        return testcase != IUTEST_NULLPTR ? testcase : testsuite;
     }
 };
 
