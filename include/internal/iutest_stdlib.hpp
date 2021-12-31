@@ -520,7 +520,7 @@ struct type_array
     }
     operator const T* () const { return m_ptr; }
     operator T* () { return m_ptr; }
-    T* m_ptr;
+    IUGSL_OWNER_T(T*) m_ptr;
 };
 
 //======================================================================

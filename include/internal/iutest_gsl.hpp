@@ -46,8 +46,6 @@
 #if !defined(IUGSL_OWNER_T)
 #  if IUTEST_HAS_GSL
 #    define IUGSL_OWNER_T(type) gsl::owner<type>
-#  elif IUTEST_HAS_AUTO
-#    define IUGSL_OWNER_T(type) auto
 #  else
 #    define IUGSL_OWNER_T(type) type
 #  endif
