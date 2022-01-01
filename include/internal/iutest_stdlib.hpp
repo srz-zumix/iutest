@@ -516,11 +516,11 @@ struct type_array
     explicit type_array(size_t size) : m_ptr(new T[size]) {}
     ~type_array()
     {
-        delete[] m_ptr;
+        IUTEST_ATTRIBUTE_GSL_SUPPRESS(i.11) delete[] m_ptr;
     }
     operator const T* () const { return m_ptr; }
     operator T* () { return m_ptr; }
-    IUGSL_OWNER_T(T*) m_ptr;
+    T* m_ptr;
 };
 
 //======================================================================
