@@ -149,6 +149,7 @@
         public: IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)() IUTEST_CXX_NOEXCEPT_SPEC {}\
         protected: virtual void Body() IUTEST_CXX_OVERRIDE;                                 \
     };                                                                                      \
+    IUTEST_ATTRIBUTE_GSL_SUPPRESS(i.22)                                                     \
     ::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)>          \
     IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_)(                                      \
         IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testsuite_)), IIUT_TO_NAME_STR_(testname_)     \

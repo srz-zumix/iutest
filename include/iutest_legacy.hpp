@@ -94,8 +94,8 @@ struct SuiteApiResolver : T
 }   // end of namespace legacy
 }   // end of namespace iutest
 
-#define IUTEST_GET_SETUP_TESTSUITE(type, file, line)       IUTEST_ATTRIBUTE_GSL_SUPPRESS(i.22) ::iutest::legacy::SuiteApiResolver<type>::GetSetUpCaseOrSuite(file, line)
-#define IUTEST_GET_TEARDOWN_TESTSUITE(type, file, line)    IUTEST_ATTRIBUTE_GSL_SUPPRESS(i.22) ::iutest::legacy::SuiteApiResolver<type>::GetTearDownCaseOrSuite(file, line)
+#define IUTEST_GET_SETUP_TESTSUITE(type, file, line)       ::iutest::legacy::SuiteApiResolver<type>::GetSetUpCaseOrSuite(file, line)
+#define IUTEST_GET_TEARDOWN_TESTSUITE(type, file, line)    ::iutest::legacy::SuiteApiResolver<type>::GetTearDownCaseOrSuite(file, line)
 
 #else
 
