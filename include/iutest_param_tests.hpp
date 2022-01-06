@@ -185,8 +185,7 @@
         static int dummy_;                                                                  \
         IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(classname_);                                     \
     };                                                                                      \
-    int classname_::dummy_ IUTEST_ATTRIBUTE_UNUSED_  IUTEST_ATTRIBUTE_GSL_SUPPRESS(i.22)    \
-         = classname_::AddRegister();                                                       \
+    int classname_::dummy_ IUTEST_ATTRIBUTE_UNUSED_  = classname_::AddRegister();           \
     void classname_::Body()
 
 #if IUTEST_HAS_IGNORE_TEST
