@@ -175,7 +175,7 @@
 #define IIUT_TEST_P_I_(classname_, testsuite_, testsuitename_, testname_)                   \
     IIUT_TEST_P_FIXTURE_DECL_(testsuite_)                                                   \
     class classname_ IUTEST_CXX_FINAL : public testsuite_ {                                 \
-        public: classname_() {}                                                             \
+        public: classname_() IUTEST_CXX_NOEXCEPT_SPEC {}                                    \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE;                                 \
         private: static int AddRegister() {                                                 \
             static ::iutest::detail::ParamTestInstance< classname_ > testinfo(testname_);   \
@@ -185,14 +185,15 @@
         static int dummy_;                                                                  \
         IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(classname_);                                     \
     };                                                                                      \
-    int classname_::dummy_ IUTEST_ATTRIBUTE_UNUSED_  = classname_::AddRegister();           \
+    int classname_::dummy_ IUTEST_ATTRIBUTE_UNUSED_  IUTEST_ATTRIBUTE_GSL_SUPPRESS(i.22)    \
+         = classname_::AddRegister();                                                       \
     void classname_::Body()
 
 #if IUTEST_HAS_IGNORE_TEST
 
 #define IIUT_TEST_P_I_IGNORE_(classname_, testsuite_, testsuitename_, testname_)            \
     class classname_ IUTEST_CXX_FINAL : public testsuite_ {                                 \
-        public: classname_() {}                                                             \
+        public: classname_() IUTEST_CXX_NOEXCEPT_SPEC {}                                    \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
         template<typename T>void Body();                                                    \
         private: static int AddRegister() {                                                 \
@@ -335,6 +336,7 @@ private:
     virtual IParamTestInfoData::EachTestBase* RegisterTest(TestSuite* testsuite
                                                         , const ::std::string& name) const IUTEST_CXX_OVERRIDE
     {
+        IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26400)
         EachTest* test = new EachTest(testsuite, name);
         // new オブジェクトを管理してもらう
         detail::iuPool::GetInstance().push(test);
@@ -677,7 +679,7 @@ detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ CSV(const char* relative_pa
 {
     const char* sep = detail::FindLastPathSeparator(test_file, strlen(test_file));
     ::std::string path;
-    if( sep != NULL )
+    if( sep != IUTEST_NULLPTR )
     {
         const size_t length = static_cast<size_t>(::std::distance(test_file, sep));
         path += ::std::string(test_file, length);
