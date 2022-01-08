@@ -180,7 +180,11 @@ protected:
     FILE* m_fp;
 public:
     StdioFile() IUTEST_CXX_NOEXCEPT_SPEC : m_fp(IUTEST_NULLPTR) {}
-    virtual ~StdioFile() { Close(); }
+    virtual ~StdioFile()
+    {
+        IUTEST_PRAGMA_WARN_SUPPRESS_DESTRUCTOR_THROW_EXCEPTION()
+        Close();
+    }
 public:
     /**
      * @brief   閉じる
@@ -299,7 +303,11 @@ class StdErrorFile : public StdioFile
 {
 public:
     StdErrorFile() IUTEST_CXX_NOEXCEPT_SPEC {}
-    virtual ~StdErrorFile() { Close(); }
+    virtual ~StdErrorFile()
+    {
+        IUTEST_PRAGMA_WARN_SUPPRESS_DESTRUCTOR_THROW_EXCEPTION()
+        Close();
+    }
 public:
     /**
      * @brief   閉じる
@@ -326,13 +334,18 @@ private:
 class StringStreamFile : public IFile
 {
 public:
-    virtual ~StringStreamFile() { Close(); }
+    virtual ~StringStreamFile()
+    {
+        IUTEST_PRAGMA_WARN_SUPPRESS_DESTRUCTOR_THROW_EXCEPTION()
+        Close();
+    }
 public:
     /**
      * @brief   閉じる
     */
     virtual void Close() IUTEST_CXX_OVERRIDE
     {
+        ss.clear();
     }
 
     /**

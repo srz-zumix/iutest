@@ -613,6 +613,7 @@ public:
         }
         virtual ~OStreamFormatter()
         {
+            IUTEST_PRAGMA_WARN_SUPPRESS_DESTRUCTOR_THROW_EXCEPTION()
             get_vars().m_ostream_formatter.copyfmt(*this);
         }
     } ostream_formatter;
@@ -836,7 +837,7 @@ private:
 };
 
 /**
- * @brief   ostream_formatter オプションが適用されてた stringstream
+ * @brief   ostream_formatter オプションが適用された stringstream
 */
 class iu_global_format_stringstream : public iu_stringstream
 {

@@ -30,6 +30,7 @@ public:
 
     virtual ~DefaultResultPrintListener()
     {
+        IUTEST_PRAGMA_WARN_SUPPRESS_DESTRUCTOR_THROW_EXCEPTION()
         TestEnv::event_listeners().set_default_result_printer(IUTEST_NULLPTR);
     }
 public:

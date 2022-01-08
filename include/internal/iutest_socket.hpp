@@ -81,6 +81,7 @@ public:
     }
     ~BasicSocket(void)
     {
+        IUTEST_PRAGMA_WARN_SUPPRESS_DESTRUCTOR_THROW_EXCEPTION()
         Close();
 #ifdef IUTEST_OS_WINDOWS
         WSACleanup();
