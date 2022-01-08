@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -26,11 +26,12 @@ namespace iutest
 class DefaultResultPrintListener : public TestEventListener
 {
 public:
-    DefaultResultPrintListener() {}
+    DefaultResultPrintListener() IUTEST_CXX_NOEXCEPT_SPEC {}
 
     virtual ~DefaultResultPrintListener()
     {
-        TestEnv::event_listeners().set_default_result_printer(NULL);
+        IUTEST_PRAGMA_WARN_SUPPRESS_DESTRUCTOR_THROW_EXCEPTION()
+        TestEnv::event_listeners().set_default_result_printer(IUTEST_NULLPTR);
     }
 public:
     virtual void OnTestProgramStart(const UnitTest& test) IUTEST_CXX_OVERRIDE;
