@@ -124,7 +124,7 @@ public:
 #if IUTEST_HAS_TESTCASE
     const TestCase*     GetTestCase(int index)  const { return GetTestSuite(index); }
     const TestCase*     current_test_case() const { return current_test_suite(); }
-    int                 total_test_case_count() const { return total_test_suite_count()); }
+    int                 total_test_case_count() const { return total_test_suite_count(); }
     int                 test_case_to_run_count() const { return test_suite_to_run_count(); }
     int                 successful_test_case_count() const { return successful_test_suite_count(); }
     int                 failed_test_case_count() const { return failed_test_suite_count(); }
