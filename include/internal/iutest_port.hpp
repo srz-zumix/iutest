@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -96,9 +96,9 @@ const char* GetCWD(char* buf, size_t length);
 
 void SleepMillisec(unsigned int millisec);
 
-IUTEST_ATTRIBUTE_NORETURN_ void Abort();
+IUTEST_ATTRIBUTE_NORETURN_ void Abort() IUTEST_CXX_NOEXCEPT_SPEC;
 #if !defined(IUTEST_OS_WINDOWS_MOBILE)
-inline void Abort() { abort(); }
+inline void Abort() IUTEST_CXX_NOEXCEPT_SPEC { abort(); }
 #endif
 
 #if IUTEST_HAS_FILENO
@@ -121,9 +121,9 @@ inline int Fileno(FILE*) { return -1; }
 
 typedef struct _stat StatStruct;
 
-inline int FileStat(int fd, StatStruct* buf) { return _fstat(fd, buf); }
-inline int Stat(const char* path, StatStruct* buf) { return _stat(path, buf); }
-inline bool IsDir(const StatStruct& st) { return (st.st_mode & _S_IFDIR) != 0; }
+inline int FileStat(int fd, StatStruct* buf) IUTEST_CXX_NOEXCEPT_SPEC { return _fstat(fd, buf); }
+inline int Stat(const char* path, StatStruct* buf) IUTEST_CXX_NOEXCEPT_SPEC { return _stat(path, buf); }
+inline bool IsDir(const StatStruct& st) IUTEST_CXX_NOEXCEPT_SPEC { return (st.st_mode & _S_IFDIR) != 0; }
 
 #else
 
@@ -137,7 +137,7 @@ inline bool IsDir(const StatStruct& st) { return S_ISDIR(st.st_mode); }
 
 inline int Stat(FILE* fp, StatStruct* buf)
 {
-    int fd = Fileno(fp);
+    const int fd = Fileno(fp);
     return fd >= 0 ? FileStat(fd, buf) : fd;
 }
 
@@ -255,13 +255,13 @@ public:
 public:
     IUTestLog(Level level, const char* file, int line);
 
-    ~IUTestLog();
+    ~IUTestLog() IUTEST_CXX_NOEXCEPT(false);
 
 public:
-    iu_stringstream& GetStream() { return m_stream; }
+    iu_stringstream& GetStream() IUTEST_CXX_NOEXCEPT_SPEC { return m_stream; }
 
 public:
-    static int GetCount(Level level) { return GetCountTable().count[level]; }
+    static int GetCount(Level level) { return IUGSL_AT(GetCountTable().count, level); }
     static bool HasWarning() { return GetCount(LOG_WARNING) > 0; }
     static bool HasError() { return GetCount(LOG_ERROR) > 0 || GetCount(LOG_FATAL) > 0; }
 
@@ -271,7 +271,7 @@ private:
         int count[LOG_LEVEL_NUM];
     };
 
-    static Count& GetCountTable() { static Count count = { {0} }; return count; }
+    static Count& GetCountTable() IUTEST_CXX_NOEXCEPT_SPEC { static Count count = { {0} }; return count; }
     static void CountUp(int level);
 
 private:
