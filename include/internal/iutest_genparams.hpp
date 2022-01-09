@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -257,7 +257,7 @@ class iuValueArray
         T val[sizeof...(Args)];
 
         template<typename U>
-        void operator ()(int index, const U& value) { val[index] = value; }
+        void operator ()(int index, const U& value) { IUGSL_AT(val, index) = value; }
 
         IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26495)
         explicit make_array(const _MyTuple& t)

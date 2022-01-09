@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -224,7 +224,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         const size_t len = ::std::c32rtomb(mbs, cp, &state);
         if( len != static_cast<size_t>(-1) )
         {
-            mbs[len] = '\0';
+            IUGSL_AT(mbs, len) = '\0';
             ret += mbs;
         }
     }
@@ -273,7 +273,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         const size_t len = ::std::c32rtomb(mbs, cp, &state);
         if( len != static_cast<size_t>(-1) )
         {
-            mbs[len] = '\0';
+            IUGSL_AT(mbs, len) = '\0';
             ret += mbs;
         }
     }
@@ -303,7 +303,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         const size_t len = ::std::c32rtomb(mbs, str[i], &state);
         if( len != static_cast<size_t>(-1) )
         {
-            mbs[len] = '\0';
+            IUGSL_AT(mbs, len) = '\0';
             ret += mbs;
         }
     }

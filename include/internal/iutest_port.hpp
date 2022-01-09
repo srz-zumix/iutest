@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -261,7 +261,7 @@ public:
     iu_stringstream& GetStream() IUTEST_CXX_NOEXCEPT_SPEC { return m_stream; }
 
 public:
-    static int GetCount(Level level) { return GetCountTable().count[level]; }
+    static int GetCount(Level level) { return IUGSL_AT(GetCountTable().count, level); }
     static bool HasWarning() { return GetCount(LOG_WARNING) > 0; }
     static bool HasError() { return GetCount(LOG_ERROR) > 0 || GetCount(LOG_FATAL) > 0; }
 

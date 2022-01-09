@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2021-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -46,10 +46,23 @@
 #if !defined(IUGSL_OWNER_T)
 #  if IUTEST_HAS_GSL
 #    define IUGSL_OWNER_T(type) gsl::owner<type>
-#  else
-#    define IUGSL_OWNER_T(type) type
 #  endif
 #endif
+
+#if !defined(IUGSL_OWNER_T)
+#  define IUGSL_OWNER_T(type) type
+#endif
+
+#if !defined(IUGSL_AT)
+#  if IUTEST_HAS_GSL
+#    define IUGSL_AT(a, index)  ::gsl::at(a, index)
+#  endif
+#endif
+
+#if !defined(IUGSL_AT)
+#  define IUGSL_AT(a, index)    a[index]
+#endif
+
 
 //! gsl::suppress
 #if !defined(IUTEST_ATTRIBUTE_GSL_SUPPRESS)

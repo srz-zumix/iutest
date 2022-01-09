@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -102,7 +102,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
                 IUTEST_CXX_CONSTEXPR_OR_CONST int size = sizeof(option_prefix)/sizeof(option_prefix[0])-1;
                 for( int i=0; i < size; ++i, ++str )
                 {
-                    if( *str != option_prefix[i] )
+                    if( *str != IUGSL_AT(option_prefix, i) )
                     {
                         iuoption = false;
                         str = base_str;

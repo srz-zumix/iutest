@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -101,7 +101,7 @@ public:
     TimeInMillisec  start_timestamp()       const IUTEST_CXX_NOEXCEPT_SPEC{ return m_start_timestamp; }
 
     /** TestInfo の取得 */
-    const TestInfo* GetTestInfo(int index)  const { return m_testinfos[index]; }
+    const TestInfo* GetTestInfo(int index)  const { return IUGSL_AT(m_testinfos, index); }
     /** should_run */
     bool            should_run()            const IUTEST_CXX_NOEXCEPT_SPEC { return m_should_run_num != 0; }
 

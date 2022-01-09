@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -248,7 +248,7 @@ inline void iuConsole::color_output_impl(Color color, const char* fmt, va_list v
                 const WORD wAttributes = csbi.wAttributes;
 
                 fflush(stdout);
-                ::SetConsoleTextAttribute(stdout_handle, attr[color] | FOREGROUND_INTENSITY);
+                ::SetConsoleTextAttribute(stdout_handle, IUGSL_AT(attr, color) | FOREGROUND_INTENSITY);
 
                 voutput(fmt, va);
 

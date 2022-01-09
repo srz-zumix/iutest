@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -403,7 +403,7 @@ inline ::std::string ToHexString(T value)
     char buf[kN + 1] = {0};
     for( size_t i=0; i < kN; ++i )
     {
-        buf[i] = ToHex(static_cast<unsigned int>((value>>((kN-i-1)*4))));
+        IUGSL_AT(buf, i) = ToHex(static_cast<unsigned int>((value>>((kN-i-1)*4))));
     }
     buf[kN] = '\0';
     return buf;
@@ -427,17 +427,18 @@ inline ::std::string FormatIntWidthN(int value, int digit)
     int x = value;
     for( int i=0; i < digit; ++i, --idx )
     {
-        buf[idx] = static_cast<char>(::std::abs(x%10) + '0');
+        IUGSL_AT(buf, idx) = static_cast<char>(::std::abs(x%10) + '0');
         x /= 10;
     }
     for( ; x; --idx )
     {
-        buf[idx] = static_cast<char>(::std::abs(x%10) + '0');
+        IUGSL_AT(buf, idx) = static_cast<char>(::std::abs(x%10) + '0');
         x /= 10;
     }
     if( value < 0 )
     {
-        buf[idx--] = '-';
+        IUGSL_AT(buf, idx) = '-';
+        idx--;
     }
     return buf + idx + 1;
 }
@@ -499,7 +500,7 @@ inline ::std::string FormatSizeByte(UInt64 value)
 
     const UInt32 n = static_cast<UInt32>(::std::floor(view_value));
     const UInt32 f = static_cast<UInt32>(view_value * 10.0 - n * 10.0);
-    const char* suffix = suffixes[index];
+    const char* suffix = IUGSL_AT(suffixes, index);
     if(view_value - n <= 0.0)
     {
         return iu_to_string(n) + suffix;
