@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -35,14 +35,16 @@ public:
      * @param [in] path = 出力パス
     */
     explicit DefaultXmlGeneratorListener(const ::std::string& path)
-        : m_fp(NULL)
+        : m_fp(IUTEST_NULLPTR)
     {
         SetFilePath(path);
     }
     virtual ~DefaultXmlGeneratorListener()
     {
+        IUTEST_PRAGMA_WARN_SUPPRESS_DESTRUCTOR_THROW_EXCEPTION()
         FileClose();
-        TestEnv::event_listeners().set_default_xml_generator(NULL);
+        IUTEST_PRAGMA_WARN_SUPPRESS_DESTRUCTOR_THROW_EXCEPTION()
+        TestEnv::event_listeners().set_default_xml_generator(IUTEST_NULLPTR);
     }
 public:
     /**
