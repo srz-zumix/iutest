@@ -403,7 +403,7 @@ inline ::std::string ToHexString(T value)
     char buf[kN + 1] = {0};
     for( size_t i=0; i < kN; ++i )
     {
-        IUGSL_AT(buf, i) = ToHex(static_cast<unsigned int>((value>>((kN-i-1)*4))));
+        gsl::at(buf, i) = ToHex(static_cast<unsigned int>((value>>((kN-i-1)*4))));
     }
     buf[kN] = '\0';
     return buf;

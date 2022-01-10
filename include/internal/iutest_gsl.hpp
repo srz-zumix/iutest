@@ -100,6 +100,23 @@ IUTEST_CXX_CONSTEXPR T narrow_cast(U& value) IUTEST_CXX_NOEXCEPT_SPEC
 
 #endif
 
+
+#if IUTEST_HAS_GSL
+
+using ::gsl::at;
+
+#else
+
+template<typename T, size_t N, typename index_t>
+IUTEST_CXX_CONSTEXPR T& at(T (&ar)[N], index_t index)
+{
+    IUTEST_ATTRIBUTE_GSL_SUPPRESS(bounds.4)
+    return ar[index];
+}
+
+#endif
+
+
 }   // end of namespace gsl
 }   // end of namespace iutest
 
