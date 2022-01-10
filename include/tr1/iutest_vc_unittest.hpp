@@ -340,7 +340,7 @@ public:
         char* buf = new char [length];
         vsprintf_s(buf, length, fmt, va);
         m_log += buf;
-        delete [] buf;
+        delete[] buf;
 
         int pos = m_log.find('\n');
         while(pos >= 0) {

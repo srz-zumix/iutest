@@ -102,7 +102,7 @@ class iuStopWatch
 private:
     TimeInMillisec m_begin;
 public:
-    iuStopWatch() : m_begin(0) {}
+    iuStopWatch() IUTEST_CXX_NOEXCEPT_SPEC : m_begin(0) {}
 
 public:
     // 現在の時間をミリ秒単位で取得
