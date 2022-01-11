@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -111,7 +111,7 @@ public:
     TimeInMillisec  start_timestamp()   const IUTEST_CXX_NOEXCEPT_SPEC { return m_start_timestamp; }
 
     /** TestSuite の取得 */
-    const TestSuite* GetTestSuite(int index)  const { return m_testsuites[index]; }
+    const TestSuite* GetTestSuite(int index)  const { return IUGSL_AT(m_testsuites, index); }
 
     /** テストが成功したかどうか */
     bool            Passed()            const;
@@ -122,9 +122,9 @@ public:
     TestEventListeners& listeners()     const { return TestEnv::event_listeners(); }
 
 #if IUTEST_HAS_TESTCASE
-    const TestCase*     GetTestCase(int index)  const { return m_testsuites[index]; }
-    const TestCase*     current_test_case() const { return m_current_testsuite; }
-    int                 total_test_case_count() const { return static_cast<int>(m_testsuites.size()); }
+    const TestCase*     GetTestCase(int index)  const { return GetTestSuite(index); }
+    const TestCase*     current_test_case() const { return current_test_suite(); }
+    int                 total_test_case_count() const { return total_test_suite_count(); }
     int                 test_case_to_run_count() const { return test_suite_to_run_count(); }
     int                 successful_test_case_count() const { return successful_test_suite_count(); }
     int                 failed_test_case_count() const { return failed_test_suite_count(); }
@@ -181,7 +181,7 @@ private:
     }
 
 private:
-    UnitTest()
+    UnitTest() IUTEST_CXX_NOEXCEPT(false)
         : m_repeat_counter(0)
         , m_init_iutest_count(0)
         , m_test_started(false)
@@ -195,10 +195,10 @@ private:
 #if defined(_MSC_VER) && _MSC_VER < 1300
 public: // VC++6.0 bug
 #endif
-    ~UnitTest()
+    ~UnitTest() IUTEST_CXX_NOEXCEPT(false)
     {
         TestEnv::ReleaseGlobalTestEnvironment();
-        TestEnv::SetGlobalTestPartResultReporter(NULL);
+        TestEnv::SetGlobalTestPartResultReporter(IUTEST_NULLPTR);
     }
 
 private:
