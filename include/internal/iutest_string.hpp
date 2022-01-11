@@ -427,7 +427,11 @@ inline ::std::string FormatIntWidthN(int value, int digit)
     int x = value;
     for( int i=0; i < digit; ++i, --idx )
     {
-        IUGSL_AT(buf, idx) = static_cast<char>(::std::abs(x%10) + '0');
+#if IUTEST_HAS_GSL
+        ::gsl::at(buf, idx) = static_cast<char>(::std::abs(x%10) + '0');
+#else
+        buf[idx] = static_cast<char>(::std::abs(x%10) + '0');
+#endif
         x /= 10;
     }
     for( ; x; --idx )
