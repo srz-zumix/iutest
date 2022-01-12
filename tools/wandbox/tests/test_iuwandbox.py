@@ -26,7 +26,7 @@ except ImportError:
 root = os.path.normpath(os.path.dirname(os.path.abspath(__file__)) + '/../../../')
 fused_src = root + '/fused-src'
 test_src = root + '/test/syntax_tests.cpp'
-test_opt_default = ['--encoding', 'utf-8-sig', '--compiler', 'gcc-11.1.0']
+test_opt_default = ['--encoding', 'utf-8-sig', '--compiler', 'gcc-10.2.0']
 test_opt_nomain = test_opt_default
 test_opt = ['-f"-DIUTEST_USE_MAIN"']
 test_opt.extend(test_opt_default)
