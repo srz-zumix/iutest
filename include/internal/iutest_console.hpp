@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -55,9 +55,9 @@ public:
     virtual void output(const char* fmt, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(2, 3)
     {
         va_list va;
-        va_start(va, fmt);
+        iu_va_start(va, fmt);
         voutput(fmt, va);
-        va_end(va);
+        iu_va_end(va);
     }
     virtual void voutput(const char* fmt, va_list va) = 0;
 };
@@ -179,14 +179,14 @@ private:
 inline void iuConsole::output(const char *fmt, ...)
 {
     va_list va;
-    va_start(va, fmt);
+    iu_va_start(va, fmt);
     voutput(fmt, va);
-    va_end(va);
+    iu_va_end(va);
 }
 inline void iuConsole::voutput(const char* fmt, va_list va)
 {
     iuLogger* pLogger = GetLogger();
-    if(pLogger != NULL)
+    if(pLogger != IUTEST_NULLPTR)
     {
         pLogger->voutput(fmt, va);
     }
@@ -198,7 +198,7 @@ inline void iuConsole::voutput(const char* fmt, va_list va)
 inline void iuConsole::color_output(Color color, const char *fmt, ...)
 {
     va_list va;
-    va_start(va, fmt);
+    iu_va_start(va, fmt);
 
     if( IsShouldUseColor(true) )
     {
@@ -209,14 +209,14 @@ inline void iuConsole::color_output(Color color, const char *fmt, ...)
         voutput(fmt, va);
     }
 
-    va_end(va);
+    iu_va_end(va);
 }
 inline void iuConsole::nl_output(const char *fmt, ...)
 {
     va_list va;
-    va_start(va, fmt);
+    iu_va_start(va, fmt);
     nl_voutput(fmt, va);
-    va_end(va);
+    iu_va_end(va);
 }
 inline void iuConsole::nl_voutput(const char* fmt, va_list va)
 {
@@ -225,8 +225,6 @@ inline void iuConsole::nl_voutput(const char* fmt, va_list va)
 
 inline void iuConsole::color_output_impl(Color color, const char* fmt, va_list va)
 {
-    (void)(fmt);
-    (void)(va);
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE) \
         && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)
     if( !IsColorModeAnsi() )
@@ -250,7 +248,7 @@ inline void iuConsole::color_output_impl(Color color, const char* fmt, va_list v
                 const WORD wAttributes = csbi.wAttributes;
 
                 fflush(stdout);
-                ::SetConsoleTextAttribute(stdout_handle, attr[color] | FOREGROUND_INTENSITY);
+                ::SetConsoleTextAttribute(stdout_handle, gsl::at(attr, color) | FOREGROUND_INTENSITY);
 
                 voutput(fmt, va);
 
@@ -299,7 +297,7 @@ inline bool iuConsole::HasColorConsole()
     }
 #endif
     const char* env = internal::posix::GetEnv("TERM");
-    const bool term_conf = (env != NULL) && (
+    const bool term_conf = (env != IUTEST_NULLPTR) && (
         IsStringEqual(env, "xterm")
         || IsStringEqual(env, "xterm-color")
         || IsStringEqual(env, "xterm-256color")
@@ -317,7 +315,7 @@ inline bool iuConsole::HasColorConsole()
         return true;
     }
     // for CI
-    if( internal::posix::GetEnv("GITHUB_ACTIONS") != NULL )
+    if( internal::posix::GetEnv("GITHUB_ACTIONS") != IUTEST_NULLPTR )
     {
         return true;
     }

@@ -414,14 +414,14 @@ class TypedTestSuitePState
 #endif
 
 public:
-    TypedTestSuitePState() : m_names(NULL) {}
+    TypedTestSuitePState() IUTEST_CXX_NOEXCEPT_SPEC : m_names(IUTEST_NULLPTR) {}
 public:
     const char* names() const { return m_names; }
 
 public:
     bool AddTestName(const char* file, int line, const char* testsuite_name, const char* test_name)
     {
-        if( m_names != NULL )
+        if( m_names != IUTEST_NULLPTR )
         {
             IUTEST_LOG_(WARNING) << detail::FormatCompilerIndependentFileLocation(file, line)
                 << ": Test \"" << test_name << "\" must be defined before IUTEST_REGISTER_TYPED_TEST_SUITE_P("
@@ -442,7 +442,7 @@ public:
         {
             const char* test_name = *it;
             const char* p = strstr(test_names, test_name);
-            if( p != NULL )
+            if( p != IUTEST_NULLPTR )
             {
                 const size_t len = strlen(test_name);
                 if( p[len] == '\0' || p[len] == ',' || detail::IsSpace(p[len]) )
@@ -502,11 +502,11 @@ class TypeParameterizedTestSuite
         static void Register(TestSuite* testsuite, const char* test_names)
         {
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
-            IUTEST_CHECK_(test_names != NULL);
+            IUTEST_CHECK_(test_names != IUTEST_NULLPTR);
             const char* str = detail::SkipSpace(test_names);
             const char* comma = strchr(str, ',');
             ::std::string test_name;
-            if( comma == NULL )
+            if( comma == IUTEST_NULLPTR )
             {
                 test_name = str;
             }
@@ -515,6 +515,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
                 test_name = ::std::string(str, static_cast<size_t>(comma - str));
                 ++comma;
             }
+            IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26400)
             _Myt* test = new EachTest(testsuite, StripTrailingSpace(test_name));
             // new オブジェクトを管理してもらう
             detail::iuPool::GetInstance().push(test);
@@ -523,7 +524,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
         }
     private:
-        TestSuiteMediator    m_mediator;
+        TestSuiteMediator   m_mediator;
         Factory             m_factory;
         TestInfo            m_info;
     };
