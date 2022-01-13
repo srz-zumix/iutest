@@ -33,7 +33,7 @@
 
 #if !defined(IUTEST_HAS_GSL)
 #  if defined(_MSC_VER)
-#    if _MSC_VER > 1910
+#    if _MSC_VER >= 1920
 #      define IUTEST_HAS_GSL    1
 #    endif
 #  endif
