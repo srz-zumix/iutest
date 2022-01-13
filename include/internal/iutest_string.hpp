@@ -432,12 +432,12 @@ inline ::std::string FormatIntWidthN(int value, int digit)
     }
     for( ; x; --idx )
     {
-        IUGSL_AT(buf, idx) = static_cast<char>(::std::abs(x%10) + '0');
+        gsl::at(buf, idx) = static_cast<char>(::std::abs(x%10) + '0');
         x /= 10;
     }
     if( value < 0 )
     {
-        IUGSL_AT(buf, idx) = '-';
+        gsl::at(buf, idx) = '-';
         idx--;
     }
     return buf + idx + 1;
@@ -500,7 +500,7 @@ inline ::std::string FormatSizeByte(UInt64 value)
 
     const UInt32 n = static_cast<UInt32>(::std::floor(view_value));
     const UInt32 f = static_cast<UInt32>(view_value * 10.0 - n * 10.0);
-    const char* suffix = IUGSL_AT(suffixes, index);
+    const char* suffix = gsl::at(suffixes, index);
     if(view_value - n <= 0.0)
     {
         return iu_to_string(n) + suffix;

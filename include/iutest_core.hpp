@@ -111,7 +111,7 @@ public:
     TimeInMillisec  start_timestamp()   const IUTEST_CXX_NOEXCEPT_SPEC { return m_start_timestamp; }
 
     /** TestSuite の取得 */
-    const TestSuite* GetTestSuite(int index)  const { return IUGSL_AT(m_testsuites, index); }
+    const TestSuite* GetTestSuite(int index)  const { return m_testsuites.at(index); }
 
     /** テストが成功したかどうか */
     bool            Passed()            const;

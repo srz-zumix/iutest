@@ -224,7 +224,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         const size_t len = ::std::c32rtomb(mbs, cp, &state);
         if( len != static_cast<size_t>(-1) )
         {
-            IUGSL_AT(mbs, len) = '\0';
+            gsl::at(mbs, len) = '\0';
             ret += mbs;
         }
     }
@@ -273,7 +273,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         const size_t len = ::std::c32rtomb(mbs, cp, &state);
         if( len != static_cast<size_t>(-1) )
         {
-            IUGSL_AT(mbs, len) = '\0';
+            gsl::at(mbs, len) = '\0';
             ret += mbs;
         }
     }
@@ -303,7 +303,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         const size_t len = ::std::c32rtomb(mbs, str[i], &state);
         if( len != static_cast<size_t>(-1) )
         {
-            IUGSL_AT(mbs, len) = '\0';
+            gsl::at(mbs, len) = '\0';
             ret += mbs;
         }
     }

@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_list.hpp
- * @brief       iris unit test list 構造 ファイル
+ * @brief       iris unit test own list container
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -409,12 +409,7 @@ public:
         return IUTEST_NULLPTR;
     }
 
-public:
-    node_ptr    operator -> () { return m_node; }
-    node_ptr    operator &  () { return m_node; }   // NOLINT
-    NODE&       operator *  () { return *m_node; }
-
-    node_ptr    operator [] (int index) const
+    node_ptr at(int index) const
     {
         node_ptr cur = m_node;
         for( int i=0; i < index; ++i )
@@ -427,6 +422,13 @@ public:
         }
         return cur;
     }
+
+public:
+    node_ptr    operator -> () { return m_node; }
+    node_ptr    operator &  () { return m_node; }   // NOLINT
+    NODE&       operator *  () { return *m_node; }
+
+    node_ptr    operator [] (int index) const { return at(index); }
 
     bool operator == (node_ptr p) const { return m_node == p; }
     bool operator != (node_ptr p) const { return m_node != p; }

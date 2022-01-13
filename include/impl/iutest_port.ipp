@@ -486,7 +486,7 @@ IUTEST_IPP_INLINE void IUTestLog::CountUp(int level)
 {
     if( level < LOG_LEVEL_NUM && level >= 0 )
     {
-        ++IUGSL_AT(GetCountTable().count, level);
+        ++gsl::at(GetCountTable().count, level);
     }
 }
 

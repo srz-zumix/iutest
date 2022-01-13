@@ -32,14 +32,6 @@
 #endif
 
 #if !defined(IUTEST_HAS_GSL)
-#  if defined(_MSC_VER)
-#    if _MSC_VER >= 1920
-#      define IUTEST_HAS_GSL    1
-#    endif
-#  endif
-#endif
-
-#if !defined(IUTEST_HAS_GSL)
 #  define IUTEST_HAS_GSL        0
 #endif
 
@@ -49,24 +41,13 @@
 
 #if !defined(IUGSL_OWNER_T)
 #  if IUTEST_HAS_GSL
-#    define IUGSL_OWNER_T(type) gsl::owner<type>
+#    define IUGSL_OWNER_T(type) ::gsl::owner<type>
 #  endif
 #endif
 
 #if !defined(IUGSL_OWNER_T)
-#  define IUGSL_OWNER_T(type) type
+#  define IUGSL_OWNER_T(type)   type
 #endif
-
-#if !defined(IUGSL_AT)
-#  if IUTEST_HAS_GSL
-#    define IUGSL_AT(a, index)  ::gsl::at(a, index)
-#  endif
-#endif
-
-#if !defined(IUGSL_AT)
-#  define IUGSL_AT(a, index)    a[index]
-#endif
-
 
 //! gsl::suppress
 #if !defined(IUTEST_ATTRIBUTE_GSL_SUPPRESS)

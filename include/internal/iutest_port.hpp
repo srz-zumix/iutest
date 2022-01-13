@@ -261,7 +261,7 @@ public:
     iu_stringstream& GetStream() IUTEST_CXX_NOEXCEPT_SPEC { return m_stream; }
 
 public:
-    static int GetCount(Level level) { return IUGSL_AT(GetCountTable().count, level); }
+    static int GetCount(Level level) { return gsl::at(GetCountTable().count, level); }
     static bool HasWarning() { return GetCount(LOG_WARNING) > 0; }
     static bool HasError() { return GetCount(LOG_ERROR) > 0 || GetCount(LOG_FATAL) > 0; }
 

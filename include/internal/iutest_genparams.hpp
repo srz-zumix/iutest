@@ -257,7 +257,7 @@ class iuValueArray
         T val[sizeof...(Args)];
 
         template<typename U>
-        void operator ()(int index, const U& value) { IUGSL_AT(val, index) = value; }
+        void operator ()(int index, const U& value) { gsl::at(val, index) = value; }
 
         IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26495)
         explicit make_array(const _MyTuple& t)

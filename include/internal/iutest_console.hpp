@@ -248,7 +248,7 @@ inline void iuConsole::color_output_impl(Color color, const char* fmt, va_list v
                 const WORD wAttributes = csbi.wAttributes;
 
                 fflush(stdout);
-                ::SetConsoleTextAttribute(stdout_handle, IUGSL_AT(attr, color) | FOREGROUND_INTENSITY);
+                ::SetConsoleTextAttribute(stdout_handle, gsl::at(attr, color) | FOREGROUND_INTENSITY);
 
                 voutput(fmt, va);
 

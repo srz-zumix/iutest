@@ -102,7 +102,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
                 IUTEST_CXX_CONSTEXPR_OR_CONST int size = sizeof(option_prefix)/sizeof(option_prefix[0])-1;
                 for( int i=0; i < size; ++i, ++str )
                 {
-                    if( *str != IUGSL_AT(option_prefix, i) )
+                    if( *str != gsl::at(option_prefix, i) )
                     {
                         iuoption = false;
                         str = base_str;

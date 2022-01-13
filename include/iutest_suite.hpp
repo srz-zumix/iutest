@@ -101,7 +101,7 @@ public:
     TimeInMillisec  start_timestamp()       const IUTEST_CXX_NOEXCEPT_SPEC{ return m_start_timestamp; }
 
     /** TestInfo の取得 */
-    const TestInfo* GetTestInfo(int index)  const { return IUGSL_AT(m_testinfos, index); }
+    const TestInfo* GetTestInfo(int index)  const { return m_testinfos.at(index); }
     /** should_run */
     bool            should_run()            const IUTEST_CXX_NOEXCEPT_SPEC { return m_should_run_num != 0; }
 
