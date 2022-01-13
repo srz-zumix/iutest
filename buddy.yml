@@ -6,8 +6,6 @@
     - master
     - develop
     - "(^buddy/.+$)"
-  trigger_conditions:
-  - trigger_condition: "ALWAYS"
   auto_clear_cache: true
   fetch_all_refs: true
   # You can not change this option in Free mode.
@@ -24,6 +22,7 @@
     - "cd projects/make && make run"
     volume_mappings:
     - "/:/buddy/iutest"
+    cache_base_image: true
     shell: "SH"
 # - action: "Execute: make bench"
   #   type: "BUILD"
