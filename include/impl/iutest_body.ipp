@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -59,8 +59,8 @@ IUTEST_IPP_INLINE void Test::Run(detail::iuITestInfoMediator* test_info)
 
     TearDown();
 
-    test_info_ = NULL;
-    m_test_info = NULL;
+    test_info_ = IUTEST_NULLPTR;
+    m_test_info = IUTEST_NULLPTR;
 }
 
 }   // end of namespace iutest
