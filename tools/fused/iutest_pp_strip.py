@@ -338,64 +338,67 @@ class IutestPreprocessor:
             if b:
                 return line
             return None
-        m = RE_PPIF.match(line)
-        if m:
-            expr = m.group(2)
-            f,expanded_expr = self.__check_ppif(m.group(1), expr)
-            self.depth.append(f)
-            self.depth_macros.append({})
-            self.included_path.append([])
-            self.brothers.append([])
-            if expanded_expr is not None:
-                line = line.replace(expr, expanded_expr)
-            return ret(all(x != 0 for x in self.depth) and f == -1)
-        m = RE_PPELIF.match(line)
-        if m:
-            brother = self.brothers[-1]
-            prev_brother_f = self.depth[-1]
-            if len(brother) == 0 and prev_brother_f == 0:
-                # Convert to #if if the last is if and the result is False
-                line = line.replace('#elif', '#if')
-            else:
-                brother.append(prev_brother_f)
-            f = 0
-            if not any(x == 1 for x in brother):
-                expr = m.group(1)
-                f,expanded_expr = self.__check_ppif("elif", expr)
+        try:
+            m = RE_PPIF.match(line)
+            if m:
+                expr = m.group(2)
+                f,expanded_expr = self.__check_ppif(m.group(1), expr)
+                self.depth.append(f)
+                self.depth_macros.append({})
+                self.included_path.append([])
+                self.brothers.append([])
                 if expanded_expr is not None:
                     line = line.replace(expr, expanded_expr)
-            self.depth[-1] = f
-            if all(x != 0 for x in self.depth):
-                if f == -1 or any(x == -1 for x in brother):
-                    return line
-            return None
-        m = RE_PPELSE.match(line)
-        if m:
-            brother = self.brothers[-1]
-            brother.append(self.depth[-1])
-            f = -1
-            if any(x == 1 for x in brother):
+                return ret(all(x != 0 for x in self.depth) and f == -1)
+            m = RE_PPELIF.match(line)
+            if m:
+                brother = self.brothers[-1]
+                prev_brother_f = self.depth[-1]
+                if len(brother) == 0 and prev_brother_f == 0:
+                    # Convert to #if if the last is if and the result is False
+                    line = line.replace('#elif', '#if')
+                else:
+                    brother.append(prev_brother_f)
                 f = 0
-            elif all(x == 0 for x in brother):
-                f = 1
-            self.depth[-1] = f
-            return ret(all(x != 0 for x in self.depth) and f == -1)
-        if RE_PPENDIF.match(line):
-            brother = self.brothers[-1]
-            f = self.depth.pop()
-            self.included_path.pop()
-            poped_macros = self.depth_macros.pop()
-            b1 = all(x != 0 for x in self.depth)
-            b2 = any(x == -1 for x in brother)
-            self.brothers.pop()
-            need_endif = b1 and (f == -1 or b2)
-            if need_endif:
-                return line
-            if len(self.depth_macros) > 0:
-                current_depth_macros = self.depth_macros[-1]
-                current_depth_macros.update(poped_macros)
-            return None
-        return ret(len(self.depth) == 0 or all(x != 0 for x in self.depth))
+                if not any(x == 1 for x in brother):
+                    expr = m.group(1)
+                    f,expanded_expr = self.__check_ppif("elif", expr)
+                    if expanded_expr is not None:
+                        line = line.replace(expr, expanded_expr)
+                self.depth[-1] = f
+                if all(x != 0 for x in self.depth):
+                    if f == -1 or any(x == -1 for x in brother):
+                        return line
+                return None
+            m = RE_PPELSE.match(line)
+            if m:
+                brother = self.brothers[-1]
+                brother.append(self.depth[-1])
+                f = -1
+                if any(x == 1 for x in brother):
+                    f = 0
+                elif all(x == 0 for x in brother):
+                    f = 1
+                self.depth[-1] = f
+                return ret(all(x != 0 for x in self.depth) and f == -1)
+            if RE_PPENDIF.match(line):
+                brother = self.brothers[-1]
+                f = self.depth.pop()
+                self.included_path.pop()
+                poped_macros = self.depth_macros.pop()
+                b1 = all(x != 0 for x in self.depth)
+                b2 = any(x == -1 for x in brother)
+                self.brothers.pop()
+                need_endif = b1 and (f == -1 or b2)
+                if need_endif:
+                    return line
+                if len(self.depth_macros) > 0:
+                    current_depth_macros = self.depth_macros[-1]
+                    current_depth_macros.update(poped_macros)
+                return None
+            return ret(len(self.depth) == 0 or all(x != 0 for x in self.depth))
+        except Exception as e:
+            raise Exception('error: {0}: {1}'.format(e, line))
 
     def __check_include(self, line):
         m = RE_SYSTEM_INCLUDE_REGEX.match(line)

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -127,7 +127,8 @@ IUTEST_IPP_INLINE int UnitTest::Run()
         }
         //catch( ::std::exception& e )
         //{
-        //  iutest::AssertionHelper(IUTEST_NULLPTR, -1, detail::FormatCxxException(e.what()), TestPartResult::kFatalFailure) = AssertionHelper::Fixed();
+        //  iutest::AssertionHelper(IUTEST_NULLPTR, -1, detail::FormatCxxException(e.what()), TestPartResult::kFatalFailure)
+        //      = AssertionHelper::Fixed();
         //}
         catch( ... )
         {
