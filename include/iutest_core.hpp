@@ -195,10 +195,14 @@ private:
 #if defined(_MSC_VER) && _MSC_VER < 1300
 public: // VC++6.0 bug
 #endif
-    ~UnitTest() IUTEST_CXX_NOEXCEPT(false)
+    ~UnitTest()
     {
-        TestEnv::ReleaseGlobalTestEnvironment();
-        TestEnv::SetGlobalTestPartResultReporter(IUTEST_NULLPTR);
+        IUTEST_IGNORE_EXCEPTION_BEGIN()
+        {
+            TestEnv::ReleaseGlobalTestEnvironment();
+            TestEnv::SetGlobalTestPartResultReporter(IUTEST_NULLPTR);
+        }
+        IUTEST_IGNORE_EXCEPTION_END()
     }
 
 private:

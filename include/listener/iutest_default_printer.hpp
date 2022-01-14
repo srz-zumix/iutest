@@ -30,8 +30,11 @@ public:
 
     virtual ~DefaultResultPrintListener()
     {
-        IUTEST_PRAGMA_WARN_SUPPRESS_DESTRUCTOR_THROW_EXCEPTION()
-        TestEnv::event_listeners().set_default_result_printer(IUTEST_NULLPTR);
+        IUTEST_IGNORE_EXCEPTION_BEGIN()
+        {
+            TestEnv::event_listeners().set_default_result_printer(IUTEST_NULLPTR);
+        }
+        IUTEST_IGNORE_EXCEPTION_END()
     }
 public:
     virtual void OnTestProgramStart(const UnitTest& test) IUTEST_CXX_OVERRIDE;

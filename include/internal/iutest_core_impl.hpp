@@ -44,7 +44,7 @@ protected:
     {
         ptr() = this;
     }
-    ~UnitTestImpl() IUTEST_CXX_NOEXCEPT(false) { TerminateImpl(); }
+    ~UnitTestImpl() { TerminateImpl(); }
 
 public:
     /**
@@ -144,7 +144,7 @@ private:
     /**
      * @brief   後片付け
     */
-    void TerminateImpl();
+    void TerminateImpl() IUTEST_CXX_NOEXCEPT_SPEC;
 
 private:
 #if IUTEST_HAS_INVALID_PARAMETER_HANDLER

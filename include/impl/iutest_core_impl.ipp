@@ -225,14 +225,18 @@ IUTEST_IPP_INLINE void UnitTestImpl::InitializeImpl()
 #endif
 }
 
-IUTEST_IPP_INLINE void UnitTestImpl::TerminateImpl()
+IUTEST_IPP_INLINE void UnitTestImpl::TerminateImpl() IUTEST_CXX_NOEXCEPT_SPEC
 {
-    for( iuTestSuites::iterator it = m_testsuites.begin(); it != m_testsuites.end(); it = m_testsuites.begin())
+    IUTEST_IGNORE_EXCEPTION_BEGIN()
     {
-        TestSuite* p = (*it);
-        m_testsuites.erase(it);
-        delete p;
+        for( iuTestSuites::iterator it = m_testsuites.begin(); it != m_testsuites.end(); it = m_testsuites.begin())
+        {
+            TestSuite* p = (*it);
+            m_testsuites.erase(it);
+            delete p;
+        }
     }
+    IUTEST_IGNORE_EXCEPTION_END()
 }
 
 #if IUTEST_HAS_INVALID_PARAMETER_HANDLER

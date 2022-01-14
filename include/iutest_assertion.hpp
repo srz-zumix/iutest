@@ -226,13 +226,17 @@ public:
         {
             ScopedTrace::GetInstance().list.push_back(this);
         }
-        ~ScopedMessage() IUTEST_CXX_NOEXCEPT(false)
+        ~ScopedMessage()
         {
-            ScopedTrace::GetInstance().list.remove(this);
-            if( stl::uncaught_exception() )
+            IUTEST_IGNORE_EXCEPTION_BEGIN()
             {
-                detail::UncaughtScopedTrace::Add(*this);
+                ScopedTrace::GetInstance().list.remove(this);
+                if( stl::uncaught_exception() )
+                {
+                    detail::UncaughtScopedTrace::Add(*this);
+                }
             }
+            IUTEST_IGNORE_EXCEPTION_END()
         }
     };
 private:

@@ -100,7 +100,14 @@ inline ::std::string EnvironmentString(const char* name)
 class Environment
 {
 public:
-    virtual ~Environment() IUTEST_CXX_NOEXCEPT(false) { Release(); }
+    virtual ~Environment()
+    {
+        IUTEST_IGNORE_EXCEPTION_BEGIN()
+        {
+            Release();
+        }
+        IUTEST_IGNORE_EXCEPTION_END()
+    }
     virtual void SetUp() {}     //!< 事前処理
     virtual void TearDown() {}  //!< 事後処理
 private:
@@ -613,8 +620,11 @@ public:
         }
         virtual ~OStreamFormatter()
         {
-            IUTEST_PRAGMA_WARN_SUPPRESS_DESTRUCTOR_THROW_EXCEPTION()
-            get_vars().m_ostream_formatter.copyfmt(*this);
+            IUTEST_IGNORE_EXCEPTION_BEGIN()
+            {
+                get_vars().m_ostream_formatter.copyfmt(*this);
+            }
+            IUTEST_IGNORE_EXCEPTION_END()
         }
     } ostream_formatter;
 

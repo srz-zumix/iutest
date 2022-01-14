@@ -182,8 +182,10 @@ public:
     StdioFile() IUTEST_CXX_NOEXCEPT_SPEC : m_fp(IUTEST_NULLPTR) {}
     virtual ~StdioFile()
     {
-        IUTEST_PRAGMA_WARN_SUPPRESS_DESTRUCTOR_THROW_EXCEPTION()
-        Close();
+        try
+        {
+            Close();
+        }
     }
 public:
     /**
@@ -305,8 +307,11 @@ public:
     StdErrorFile() IUTEST_CXX_NOEXCEPT_SPEC {}
     virtual ~StdErrorFile()
     {
-        IUTEST_PRAGMA_WARN_SUPPRESS_DESTRUCTOR_THROW_EXCEPTION()
-        Close();
+        IUTEST_IGNORE_EXCEPTION_BEGIN()
+        {
+            Close();
+        }
+        IUTEST_IGNORE_EXCEPTION_END()
     }
 public:
     /**
@@ -336,8 +341,11 @@ class StringStreamFile : public IFile
 public:
     virtual ~StringStreamFile()
     {
-        IUTEST_PRAGMA_WARN_SUPPRESS_DESTRUCTOR_THROW_EXCEPTION()
-        Close();
+        IUTEST_IGNORE_EXCEPTION_BEGIN()
+        {
+            Close();
+        }
+        IUTEST_IGNORE_EXCEPTION_END()
     }
 public:
     /**

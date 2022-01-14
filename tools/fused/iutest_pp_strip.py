@@ -2,7 +2,7 @@
 #
 # iutest_pp_strip.py
 #
-# Copyright (C) 2018, Takazumi Shirayanagi
+# Copyright (C) 2018-2022, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
@@ -342,7 +342,7 @@ class IutestPreprocessor:
             m = RE_PPIF.match(line)
             if m:
                 expr = m.group(2)
-                f,expanded_expr = self.__check_ppif(m.group(1), expr)
+                f, expanded_expr = self.__check_ppif(m.group(1), expr)
                 self.depth.append(f)
                 self.depth_macros.append({})
                 self.included_path.append([])

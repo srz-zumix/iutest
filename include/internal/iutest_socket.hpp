@@ -81,11 +81,14 @@ public:
     }
     ~BasicSocket(void)
     {
-        IUTEST_PRAGMA_WARN_SUPPRESS_DESTRUCTOR_THROW_EXCEPTION()
-        Close();
+        IUTEST_IGNORE_EXCEPTION_BEGIN()
+        {
+            Close();
 #ifdef IUTEST_OS_WINDOWS
-        WSACleanup();
+            WSACleanup();
 #endif
+        }
+        IUTEST_IGNORE_EXCEPTION_END()
     }
 public:
     bool Open(const char* host, const char* port)

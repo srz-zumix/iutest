@@ -255,7 +255,7 @@ public:
 public:
     IUTestLog(Level level, const char* file, int line);
 
-    ~IUTestLog() IUTEST_CXX_NOEXCEPT(false);
+    ~IUTestLog();
 
 public:
     iu_stringstream& GetStream() IUTEST_CXX_NOEXCEPT_SPEC { return m_stream; }

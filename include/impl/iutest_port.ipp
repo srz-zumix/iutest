@@ -471,15 +471,19 @@ IUTEST_IPP_INLINE IUTestLog::IUTestLog(Level level, const char* file, int line)
     GetStream() << "\n" << tag << FormatFileLocation(file, line).c_str() << ": ";
 }
 
-IUTEST_IPP_INLINE IUTestLog::~IUTestLog() IUTEST_CXX_NOEXCEPT(false)
+IUTEST_IPP_INLINE IUTestLog::~IUTestLog()
 {
-    GetStream() << "\n";
-    fprintf(stderr, "%s", m_stream.str().c_str());
-    if( kLevel == LOG_FATAL )
+    IUTEST_IGNORE_EXCEPTION_BEGIN()
     {
-        fflush(stderr);
-        IUTEST_ABORT();
+        GetStream() << "\n";
+        fprintf(stderr, "%s", m_stream.str().c_str());
+        if( kLevel == LOG_FATAL )
+        {
+            fflush(stderr);
+            IUTEST_ABORT();
+        }
     }
+    IUTEST_IGNORE_EXCEPTION_END()
 }
 
 IUTEST_IPP_INLINE void IUTestLog::CountUp(int level)

@@ -1910,10 +1910,14 @@ private:
 
 public:
     /** @private */
-    ~UnitTestSource() IUTEST_CXX_NOEXCEPT(false)
+    ~UnitTestSource()
     {
-        TestEnv::event_listeners().set_default_result_printer(IUTEST_NULLPTR);
-        TestEnv::event_listeners().set_default_xml_generator(IUTEST_NULLPTR);
+        IUTEST_IGNORE_EXCEPTION_BEGIN()
+        {
+            TestEnv::event_listeners().set_default_result_printer(IUTEST_NULLPTR);
+            TestEnv::event_listeners().set_default_xml_generator(IUTEST_NULLPTR);
+        }
+        IUTEST_IGNORE_EXCEPTION_END()
     }
 
 public:

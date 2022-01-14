@@ -41,10 +41,12 @@ public:
     }
     virtual ~DefaultXmlGeneratorListener()
     {
-        IUTEST_PRAGMA_WARN_SUPPRESS_DESTRUCTOR_THROW_EXCEPTION()
-        FileClose();
-        IUTEST_PRAGMA_WARN_SUPPRESS_DESTRUCTOR_THROW_EXCEPTION()
-        TestEnv::event_listeners().set_default_xml_generator(IUTEST_NULLPTR);
+        IUTEST_IGNORE_EXCEPTION_BEGIN()
+        {
+            FileClose();
+            TestEnv::event_listeners().set_default_xml_generator(IUTEST_NULLPTR);
+        }
+        IUTEST_IGNORE_EXCEPTION_END()
     }
 public:
     /**
