@@ -41,9 +41,9 @@ public:
     virtual int Printf(const char* fmt, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(2, 3)
     {
         va_list va;
-        va_start(va, fmt);
+        iu_va_start(va, fmt);
         const ::std::string str = StringFormat(fmt, va);
-        va_end(va);
+        iu_va_end(va);
         const size_t len = str.length();
         Write(str.c_str(), len, 1);
         return static_cast<int>(len);
@@ -72,13 +72,12 @@ public:
         const size_t size = GetSize();
         if( size != 0 )
         {
-            char* buf = new char[size+1];
+            type_array<char> buf(size+1);
             buf[size] = '\0';
             if( Read(buf, size, 1) )
             {
                 str = buf;
             }
-            delete [] buf;
         }
         return str;
     }

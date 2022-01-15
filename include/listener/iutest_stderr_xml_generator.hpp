@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2016-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2016-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -60,7 +60,7 @@ private:
     }
     virtual void FileClose()
     {
-        this->m_fp = NULL;
+        this->m_fp = IUTEST_NULLPTR;
     }
 #endif
 
