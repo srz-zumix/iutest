@@ -182,10 +182,11 @@ public:
     StdioFile() IUTEST_CXX_NOEXCEPT_SPEC : m_fp(IUTEST_NULLPTR) {}
     virtual ~StdioFile()
     {
-        try
+        IUTEST_IGNORE_EXCEPTION_BEGIN()
         {
             Close();
         }
+        IUTEST_IGNORE_EXCEPTION_END()
     }
 public:
     /**
