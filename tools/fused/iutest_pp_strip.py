@@ -333,7 +333,7 @@ class IutestPreprocessor:
             return other(), None
 
     # return line string or None
-    def __check_pp(self, line):
+    def __check_pp(self, line, linenum):
         def ret(b):
             if b:
                 return line
@@ -398,7 +398,7 @@ class IutestPreprocessor:
                 return None
             return ret(len(self.depth) == 0 or all(x != 0 for x in self.depth))
         except Exception as e:
-            raise Exception('error: {0}: {1}'.format(e, line))
+            raise Exception('error: {0}:({1}): {2}'.format(e, linenum, line))
 
     def __check_include(self, line):
         m = RE_SYSTEM_INCLUDE_REGEX.match(line)
@@ -573,12 +573,14 @@ class IutestPreprocessor:
         if add_macros is not None:
             self.macros.update(add_macros)
         dst = ""
+        linenum = 0
         for line in code.splitlines():
+            linenum += 1
             # c++ comment
             if RE_CPP_COMMENT.match(line):
                 continue
             # if/ifdef/ifndef/elif/endif
-            line = self.__check_pp(line)
+            line = self.__check_pp(line, linenum)
             if line:
                 # include
                 if not self.__check_include(line):

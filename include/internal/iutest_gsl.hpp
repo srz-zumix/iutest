@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_gsl.hpp
- * @brief       stdlib
+ * @brief       guidelines support library
  *
  * @author      t.shirayanagi
  * @par         copyright
@@ -105,5 +105,4 @@ IUTEST_CXX_CONSTEXPR T& at(T (&ar)[N], index_t index)
 }   // end of namespace gsl
 }   // end of namespace iutest
 
-#endif
-
+#endif  // INCG_IRIS_IUTEST_GSL_HPP_8D0BC1A9_14B0_481B_9CB2_26B1520855DE_
