@@ -170,9 +170,11 @@ class IutestFused:
     def Translate(self, root, filename, output, output_dir, minimum):
         output_file = codecs.open(os.path.join(output_dir, output), 'w', 'utf-8-sig')
         processed_files = set()
-        # fused-min not support gtest switch
         if minimum:
+            # fused-min not support gtest switch
             processed_files.add(os.path.normpath(os.path.join(root, "gtest/iutest_switch.hpp")))
+            # fused-min not support vcunittest
+            processed_files.add(os.path.normpath(os.path.join(root, "util/iutest_util_vc_unittest.hpp")))
 
         def ProcessFile(curr, filename, fileset, minimum):
             path = os.path.join(root, filename)
