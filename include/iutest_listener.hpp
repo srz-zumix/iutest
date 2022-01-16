@@ -100,6 +100,9 @@ public:
 class EmptyTestEventListener : public TestEventListener
 {
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void OnTestProgramStart(const UnitTest& /*test*/)           IUTEST_CXX_OVERRIDE {}
     virtual void OnTestIterationStart(const UnitTest& /*test*/
                                     , int /*iteration*/)                IUTEST_CXX_OVERRIDE {}
@@ -116,6 +119,8 @@ public:
     virtual void OnTestIterationEnd(const UnitTest& /*test*/
                                     , int /*iteration*/)                IUTEST_CXX_OVERRIDE {}
     virtual void OnTestProgramEnd(const UnitTest& /*test*/)             IUTEST_CXX_OVERRIDE {}
+
+IUTEST_PRAGMA_WARN_POP()
 };
 
 /**
@@ -139,6 +144,9 @@ public:
     TestEventListener* Release(TestEventListener* listener);
 
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     // On*End は後ろから実行
     virtual void OnTestProgramStart(const UnitTest& test)           IUTEST_CXX_OVERRIDE;
     virtual void OnTestIterationStart(const UnitTest& test
@@ -157,6 +165,7 @@ public:
                                     , int iteration)                IUTEST_CXX_OVERRIDE;
     virtual void OnTestProgramEnd(const UnitTest& test)             IUTEST_CXX_OVERRIDE;
 
+IUTEST_PRAGMA_WARN_POP()
 private:
     ListenerContainer m_listeners;
 };
@@ -207,6 +216,9 @@ public:
 private:
     TestEventListener* repeater() { return &m_repeater; }
 
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     void OnTestProgramStart(const UnitTest& test)                   { m_repeater.OnTestProgramStart(test); }
     void OnTestIterationStart(const UnitTest& test, int iteration)  { m_repeater.OnTestIterationStart(test, iteration); }
     void OnEnvironmentsSetUpStart(const UnitTest& test)             { m_repeater.OnEnvironmentsSetUpStart(test); }
@@ -224,6 +236,7 @@ private:
     void OnTestIterationEnd(const UnitTest& test, int iteration)    { m_repeater.OnTestIterationEnd(test, iteration); }
     void OnTestProgramEnd(const UnitTest& test)                     { m_repeater.OnTestProgramEnd(test); }
 
+IUTEST_PRAGMA_WARN_POP()
 private:
     void set_default_result_printer(TestEventListener* listener);
     void set_default_xml_generator(TestEventListener* listener);

@@ -66,7 +66,7 @@ IUTEST_IPP_INLINE IUTEST_CXX_CONSTEXPR UInt32 CreateCodePointFromUtf16SurrogateP
 /**
  * @brief   下位から指定ビット数のビットを取得してシフトする
 */
-IUTEST_IPP_INLINE UInt32 ChopLowBits(UInt32* bits, int n)
+IUTEST_IPP_INLINE UInt32 ChopLowBits(UInt32* bits, int n) IUTEST_CXX_NOEXCEPT_SPEC
 {
     const UInt32 lowbits = *bits & ((static_cast<UInt32>(1) << n) - 1);
     *bits >>= n;
