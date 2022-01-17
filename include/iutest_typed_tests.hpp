@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -96,7 +96,7 @@
     class classname_ : public testsuite_<iutest_TypeParam> {                        \
         typedef testsuite_<iutest_TypeParam> TestFixture;                           \
         typedef iutest_TypeParam TypeParam;                                         \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE;                         \
+        protected: IUTEST_PRAGMA_WARN_SUPPRESS_DECLARE_NOEXCEPT() virtual void Body() IUTEST_CXX_OVERRIDE;  \
     };                                                                              \
     ::iutest::detail::TypeParamTestInstance< classname_, IIUT_TYPED_TEST_PARAMS_(testsuite_) >      \
         IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_)(                          \
@@ -112,10 +112,11 @@
     class classname_ : public testsuite_<iutest_TypeParam> {                        \
         typedef testsuite_<iutest_TypeParam> TestFixture;                           \
         typedef iutest_TypeParam TypeParam;                                         \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
+        protected: IUTEST_PRAGMA_WARN_SUPPRESS_DECLARE_NOEXCEPT()                   \
+            virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }     \
         template<typename T>void Body();                                            \
     };                                                                              \
-    ::iutest::detail::TypeParamTestInstance< classname_, IIUT_TYPED_TEST_PARAMS_(testsuite_) >      \
+    ::iutest::detail::TypeParamTestInstance< classname_, IIUT_TYPED_TEST_PARAMS_(testsuite_) >  \
         IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_)(                          \
         IUTEST_CONCAT_PACKAGE_(testsuitename_), IIUT_TO_NAME_STR_(testname_)        \
         , __FILE__, __LINE__);                                                      \
@@ -240,7 +241,7 @@
     class testname_ IUTEST_CXX_FINAL : public testsuite_<iutest_TypeParam> {     \
         typedef testsuite_<iutest_TypeParam> TestFixture;       \
         typedef iutest_TypeParam TypeParam;                     \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE;     \
+        protected: IUTEST_PRAGMA_WARN_SUPPRESS_DECLARE_NOEXCEPT() virtual void Body() IUTEST_CXX_OVERRIDE;  \
     }; IIUT_TYPED_TEST_P_ADDTESTNAME(testsuite_, testname_);    \
     }                                                           \
     template<typename iutest_TypeParam>                         \
@@ -254,7 +255,8 @@
     class testname_ IUTEST_CXX_FINAL : public testsuite_<iutest_TypeParam> {     \
         typedef testsuite_<iutest_TypeParam> TestFixture;       \
         typedef iutest_TypeParam TypeParam;                     \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
+        protected: IUTEST_PRAGMA_WARN_SUPPRESS_DECLARE_NOEXCEPT()   \
+            virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; } \
         template<typename T>void Body();                        \
     }; IIUT_TYPED_TEST_P_ADDTESTNAME(testsuite_, testname_);    \
     }                                                           \

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -176,7 +176,8 @@
     IIUT_TEST_P_FIXTURE_DECL_(testsuite_)                                                   \
     class classname_ IUTEST_CXX_FINAL : public testsuite_ {                                 \
         public: classname_() IUTEST_CXX_NOEXCEPT_SPEC {}                                    \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE;                                 \
+        protected: IUTEST_PRAGMA_WARN_SUPPRESS_DECLARE_NOEXCEPT()                           \
+            virtual void Body() IUTEST_CXX_OVERRIDE;                                        \
         private: static int AddRegister() {                                                 \
             static ::iutest::detail::ParamTestInstance< classname_ > testinfo(testname_);   \
             IIUT_GETTESTSUITEPATTERNHOLDER(testsuite_, testsuitename_                       \
@@ -193,7 +194,8 @@
 #define IIUT_TEST_P_I_IGNORE_(classname_, testsuite_, testsuitename_, testname_)            \
     class classname_ IUTEST_CXX_FINAL : public testsuite_ {                                 \
         public: classname_() IUTEST_CXX_NOEXCEPT_SPEC {}                                    \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
+        protected: IUTEST_PRAGMA_WARN_SUPPRESS_DECLARE_NOEXCEPT()                           \
+            virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; } \
         template<typename T>void Body();                                                    \
         private: static int AddRegister() {                                                 \
             static ::iutest::detail::ParamTestInstance< classname_ > testinfo(testname_);   \

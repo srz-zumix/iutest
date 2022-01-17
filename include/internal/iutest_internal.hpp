@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -167,7 +167,8 @@
     class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) IUTEST_CXX_FINAL : public parent_class_ {  \
     IUTEST_PP_DISALLOW_COPY_AND_ASSIGN( IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) );   \
         public: IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)() IUTEST_CXX_NOEXCEPT_SPEC {}\
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
+        protected: IUTEST_PRAGMA_WARN_SUPPRESS_DECLARE_NOEXCEPT()                           \
+            virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; } \
         template<typename T>void Body();                                                    \
     };                                                                                      \
     ::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)>          \
@@ -204,7 +205,8 @@
         static ::std::string MakeTestName() { return ::iutest::detail::MakeIndexTestName(       \
             IIUT_TO_NAME_STR_(testname_), ::iutest::detail::GetTypeUniqueCounter<               \
                 IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)>()); }                           \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE { method_(__VA_ARGS__); }            \
+        protected: IUTEST_PRAGMA_WARN_SUPPRESS_DECLARE_NOEXCEPT()                               \
+            virtual void Body() IUTEST_CXX_OVERRIDE { method_(__VA_ARGS__); }                   \
     };                                                                                          \
     ::iutest::detail::TestInstance<IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_)>          \
     IUTEST_PP_CAT( IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_), __LINE__)(                \
