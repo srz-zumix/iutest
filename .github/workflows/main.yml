@@ -160,7 +160,7 @@ jobs:
           make -C test check_stdlib
       - name: gcc build
         run: |
-          make -C test -j8
+          make -C test -j1
       - name: gcc test
         run: |
           make -C test test
