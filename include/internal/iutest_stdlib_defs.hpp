@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -34,6 +34,7 @@
 #include <cstdlib>
 #include <cstddef>
 #include <limits>
+#include <complex>
 
 // <version> header
 #if !defined(IUTEST_HAS_CXX_HDR_VERSION)
@@ -444,33 +445,8 @@
 #  define IUTEST_HAS_HDR_CXXABI             0
 #endif
 
-//======================================================================
-// include
-#include <iterator>
-
-#if IUTEST_HAS_CXX_HDR_ANY
-#  include <any>
-#endif
-#if IUTEST_HAS_CXX_HDR_CSTDINT
-#  include <cstdint>
-#endif
-#if IUTEST_HAS_CXX_HDR_FILESYSTEM
-#  include <filesystem>
-#endif
-#if IUTEST_HAS_CXX_HDR_OPTIONAL
-#  include <optional>
-#endif
-#if IUTEST_HAS_CXX_HDR_VARIANT
-#  include <variant>
-#endif
-#if IUTEST_HAS_CXX_HDR_CHARCONV
-#  include <charconv>
-#endif
-
-//======================================================================
-// define
 #if !defined(IUTEST_HAS_STD_FILESYSTEM)
-#  if defined(ANDROID) || defined(__ANDROID__)
+#  if defined(ANDROID) || defined(__ANDROID__) || defined(__ARM_EABI__)
 #    define IUTEST_HAS_STD_FILESYSTEM       0
 #  elif IUTEST_HAS_CXX_HDR_FILESYSTEM && defined(__cpp_lib_filesystem) && __cpp_lib_filesystem >= 201703
 #    if !defined(__cpp_lib_experimental_filesystem)
@@ -660,6 +636,29 @@
 #  else
 #    define iu_va_copy(dest, src)   (dest = src)
 #  endif
+#endif
+
+//======================================================================
+// include
+#include <iterator>
+
+#if IUTEST_HAS_CXX_HDR_ANY
+#  include <any>
+#endif
+#if IUTEST_HAS_CXX_HDR_CSTDINT
+#  include <cstdint>
+#endif
+#if IUTEST_HAS_CXX_HDR_FILESYSTEM && IUTEST_HAS_STD_FILESYSTEM
+#  include <filesystem>
+#endif
+#if IUTEST_HAS_CXX_HDR_OPTIONAL
+#  include <optional>
+#endif
+#if IUTEST_HAS_CXX_HDR_VARIANT
+#  include <variant>
+#endif
+#if IUTEST_HAS_CXX_HDR_CHARCONV
+#  include <charconv>
 #endif
 
 #endif // INCG_IRIS_IUTEST_STDLIB_DEFS_HPP_9C62C097_E5FB_49EE_9329_811F32C846A2_

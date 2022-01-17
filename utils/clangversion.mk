@@ -324,7 +324,7 @@ IUTEST_CXX_NOWARN_FLAGS+=-Wno-sign-conversion
 # IUTEST_CXX_NOWARN_FLAGS+=-Wno-error=unknown-warning-option
 
 ifeq ($(CLANG_TATGET), x86_64-pc-windows-msvc)
-CXXFLAGS+= -Xclang -flto-visibility-public-std
+override CXXFLAGS+= -Xclang -flto-visibility-public-std
 endif
 
 endif

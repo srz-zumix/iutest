@@ -4,7 +4,7 @@ language: cpp
 
 compiler:
   - clang
-  - gcc
+  # - gcc
 
 branches:
   only:
@@ -12,8 +12,8 @@ branches:
     - develop
     # - /feature.*/
     # - /fix.*/
-    # - /travisci.*/
-    # - /travis-ci.*/
+    - /travisci.*/
+    - /travis-ci.*/
 
 addons:
   apt: &apt-global
@@ -135,10 +135,10 @@ env:
     - secure: "R+KDlvwR4+5JbW/Ahm9HHkGHfe3MdU7VPpqxOpbAMc95KFIHLsRcMaJBNCBZMUWXGEjXNsTy6gBR4ZI/XQvTnlYMxabzNbJgMMO6YmI7czXw8yt7zR1+UnVaWE7KEA3d9suZ4jnwIUsIw0AtYZYbCHnDNuOUbpRf+8DrpXsSa/sPqYAvHcvDg4rRtEcLii0lsygcQHNzz0vUivDEiZtBVFlJTo+BkxicVH/Jkv/30KYcFD6Ao9wpJCMC4ysvlTeytTQj0s59PLVkfhYEc3VFQL1BLVGZoesS0BFNY/ZJ8n61Dvu8yNjg/tEMYht0H8278okc59RM2a2MUM5OSs+qC59pGsbsGpm9ScrIoLPi7YzaH6dxpm5iAIcKCVCiOFUdBjqNramfg+X0SMVV1hxPbaQEwQTX9M74QxPj7iue7W9MAYzqrcGJguDZYt/+m/SaM6rzOzI10GY+gNzlyp0aPOQZkp1Mw63NttCatr7Klw2yVP7CE+UuB648AVGrIFgfLAuugSCw3OVCFSnThhXfSjH57v0+3HTivsm3QHLYbTtyHymQOtfG7AB/FgvKF9nxCnDkzP3d5ijNEVWEfL8dF8+QqM8AFZGFHHjXHeopK22myzfuyRVZI8LIbcRAT1MCddmp2hgrRFJRX/Hl29QvGumZtU45xOKJwyKQorxXlfU="
     - IUTEST_REQUIRE_PYTHON: yes
 
-  matrix:
-    - STDFLAG=-std=c++98
-    - STDFLAG=-std=c++11
-    - STDFLAG=
+  # matrix:
+  #   - STDFLAG=-std=c++98
+  #   - STDFLAG=-std=c++11
+  #   - STDFLAG=
 
 allow_failures:
   - env:
@@ -147,6 +147,8 @@ allow_failures:
 
 matrix:
   include:
+    - compiler: clang
+      env: STDFLAG=
     # libc++
     #- compiler: clang
     #  env:
@@ -160,26 +162,26 @@ matrix:
     #        - libc++-dev
     #        - clang-8
     # coverage
-    - compiler: gcc
-      env: USE_COVERAGE=gcov USE_CODECOV=1 USE_GNU_EXTENSION=1
-    - compiler: clang
-      env: USE_COVERAGE=lcov USE_COVERALLS=1 USE_GNU_EXTENSION=1 LCOV_GCOV_TOOL=${TRAVIS_BUILD_DIR}/.ci/llvm-gcov.sh
-      addons:
-        apt:
-          sources: *apt-common-sources
-          packages:
-            - clang-8
-            - lcov
-            - rubygems-integration
-    # cmake
-    - compiler: gcc
-      env: USE_CMAKE=1
-      addons:
-        apt:
-          sources: *apt-common-sources
-          packages: &apt-cmake-packages
-            - *apt-common-packages
-            - cmake
+    # - compiler: gcc
+    #   env: USE_COVERAGE=gcov USE_CODECOV=1 USE_GNU_EXTENSION=1
+    # - compiler: clang
+    #   env: USE_COVERAGE=lcov USE_COVERALLS=1 USE_GNU_EXTENSION=1 LCOV_GCOV_TOOL=${TRAVIS_BUILD_DIR}/.ci/llvm-gcov.sh
+    #   addons:
+    #     apt:
+    #       sources: *apt-common-sources
+    #       packages:
+    #         - clang-8
+    #         - lcov
+    #         - rubygems-integration
+    # # cmake
+    # - compiler: gcc
+    #   env: USE_CMAKE=1
+    #   addons:
+    #     apt:
+    #       sources: *apt-common-sources
+    #       packages: &apt-cmake-packages
+    #         - *apt-common-packages
+    #         - cmake
     # Google Test
     #- compiler: gcc
     #  env: USE_GTEST=1 USE_GTEST_HEAD=1 USE_GNU_EXTENSION=1
@@ -189,23 +191,23 @@ matrix:
     #      packages:
     #        - *apt-cmake-packages
     #        - cmake
-    - compiler: gcc
-      env: USE_GTEST=1
-      addons:
-        apt:
-          sources: *apt-common-sources
-          packages:
-            - *apt-cmake-packages
-            - libgtest-dev
-    # Google Mock
-    - compiler: gcc
-      env: USE_GMOCK=1
-      addons:
-        apt:
-          sources: *apt-common-sources
-          packages:
-            - *apt-cmake-packages
-            - google-mock
+    # - compiler: gcc
+    #   env: USE_GTEST=1
+    #   addons:
+    #     apt:
+    #       sources: *apt-common-sources
+    #       packages:
+    #         - *apt-cmake-packages
+    #         - libgtest-dev
+    # # Google Mock
+    # - compiler: gcc
+    #   env: USE_GMOCK=1
+    #   addons:
+    #     apt:
+    #       sources: *apt-common-sources
+    #       packages:
+    #         - *apt-cmake-packages
+    #         - google-mock
     # MinGW
     # - compiler: gcc
     #   env:
@@ -223,9 +225,9 @@ matrix:
     #         - binutils-mingw-w64-i686
     #         - gcc-mingw-w64-i686
     #         - g++-mingw-w64-i686
-    # Use Lib
-    - compiler: gcc
-      env: USE_LIB=1
+    # # Use Lib
+    # - compiler: gcc
+    #   env: USE_LIB=1
     # - compiler: clang
     #   env: USE_LIB=1
     # - compiler: gcc

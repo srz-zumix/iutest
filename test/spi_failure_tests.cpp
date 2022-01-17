@@ -137,7 +137,7 @@ int main(int argc, char* argv[])
     const int ret = IUTEST_RUN_ALL_TESTS();
     if( ret == 0 ) return 1;
 
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->successful_test_count() == 0 );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->successful_test_count() == 0 );
     printf("*** Successful ***\n");
     return 0;
 }

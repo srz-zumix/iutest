@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -230,16 +230,16 @@
 #    if  (IUTEST_CLANG_MAJOR < 3 || (IUTEST_CLANG_MAJOR == 3 && IUTEST_CLANG_MINOR <= 2))
 #      define IUTEST_NO_NULL_TO_NULLPTR_T   1   // -Wnull-conversion
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if IUTEST_HAS_CXX11 && __INTEL_COMPILER > 1200
+#      define IUTEST_HAS_NULLPTR    1
+#    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_NULLPTR    1
 #    endif
 #  elif defined(_MSC_VER)
 #    if _MSC_VER > 1500
-#      define IUTEST_HAS_NULLPTR    1
-#    endif
-#  elif defined(__INTEL_COMPILER)
-#    if __INTEL_COMPILER > 1200
 #      define IUTEST_HAS_NULLPTR    1
 #    endif
 #  endif
@@ -263,16 +263,16 @@
 #    if __has_feature(cxx_auto_type)
 #      define IUTEST_HAS_AUTO   1
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if IUTEST_HAS_CXX11 && __INTEL_COMPILER >= 1200
+#      define IUTEST_HAS_AUTO   1
+#    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_AUTO   1
 #    endif
 #  elif defined(_MSC_VER)
 #    if _MSC_VER >= 1600
-#      define IUTEST_HAS_AUTO   1
-#    endif
-#  elif defined(__INTEL_COMPILER)
-#    if __INTEL_COMPILER >= 1200
 #      define IUTEST_HAS_AUTO   1
 #    endif
 #  endif
@@ -290,16 +290,16 @@
 #    if __has_feature(cxx_decltype)
 #      define IUTEST_HAS_DECLTYPE   1
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if IUTEST_HAS_CXX11 && __INTEL_COMPILER >= 1200
+#      define IUTEST_HAS_DECLTYPE   1
+#    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 3)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_DECLTYPE   1
 #    endif
 #  elif defined(_MSC_VER)
 #    if _MSC_VER >= 1600
-#      define IUTEST_HAS_DECLTYPE   1
-#    endif
-#  elif defined(__INTEL_COMPILER)
-#    if __INTEL_COMPILER >= 1200
 #      define IUTEST_HAS_DECLTYPE   1
 #    endif
 #  endif
@@ -317,16 +317,16 @@
 #    if __has_feature(cxx_static_assert)
 #      define IUTEST_HAS_STATIC_ASSERT  1
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if IUTEST_HAS_CXX11 && __INTEL_COMPILER > 1100
+#      define IUTEST_HAS_STATIC_ASSERT  1
+#    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 3)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_STATIC_ASSERT  1
 #    endif
 #  elif defined(_MSC_VER)
 #    if _MSC_VER >= 1600
-#      define IUTEST_HAS_STATIC_ASSERT  1
-#    endif
-#  elif defined(__INTEL_COMPILER)
-#    if __INTEL_COMPILER > 1100
 #      define IUTEST_HAS_STATIC_ASSERT  1
 #    endif
 #  endif
@@ -345,16 +345,16 @@
 #    if __has_feature(cxx_constexpr)
 #      define IUTEST_HAS_CONSTEXPR  1
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if IUTEST_HAS_CXX11 && __INTEL_COMPILER >= 1400
+#      define IUTEST_HAS_CONSTEXPR  1
+#    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_CONSTEXPR  1
 #    endif
 #  elif defined(_MSC_VER)
 #    if _MSC_VER >= 1900 || _MSC_FULL_VER == 180021114
-#      define IUTEST_HAS_CONSTEXPR  1
-#    endif
-#  elif defined(__INTEL_COMPILER)
-#    if __INTEL_COMPILER >= 1400
 #      define IUTEST_HAS_CONSTEXPR  1
 #    endif
 #  endif
@@ -393,16 +393,16 @@
 #    if __has_feature(cxx_rvalue_references)
 #      define IUTEST_HAS_RVALUE_REFS    1
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if IUTEST_HAS_CXX11 && __INTEL_COMPILER >= 1200
+#      define IUTEST_HAS_RVALUE_REFS    1
+#    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 3)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_RVALUE_REFS    1
 #    endif
 #  elif defined(_MSC_VER)
 #    if (_MSC_VER >= 1700)
-#      define IUTEST_HAS_RVALUE_REFS    1
-#    endif
-#  elif defined(__INTEL_COMPILER)
-#    if __INTEL_COMPILER >= 1200
 #      define IUTEST_HAS_RVALUE_REFS    1
 #    endif
 #  endif
@@ -418,16 +418,16 @@
 #    if __has_feature(cxx_deleted_functions)
 #      define IUTEST_HAS_DELETED_FUNCTIONS  1
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if IUTEST_HAS_CXX11 && __INTEL_COMPILER >= 1200
+#      define IUTEST_HAS_DELETED_FUNCTIONS  1
+#    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_DELETED_FUNCTIONS  1
 #    endif
 #  elif defined(_MSC_VER)
 #    if defined(_MSC_FULL_VER) && (_MSC_FULL_VER >= 180020827)
-#      define IUTEST_HAS_DELETED_FUNCTIONS  1
-#    endif
-#  elif defined(__INTEL_COMPILER)
-#    if __INTEL_COMPILER >= 1200
 #      define IUTEST_HAS_DELETED_FUNCTIONS  1
 #    endif
 #  endif
@@ -454,6 +454,10 @@
 #    if __has_feature(cxx_defaulted_functions)
 #      define IUTEST_HAS_DEFAULT_FUNCTIONS  1
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if IUTEST_HAS_CXX11 && __INTEL_COMPILER >= 1200
+#      define IUTEST_HAS_DEFAULT_FUNCTIONS  1
+#    endif
 #  elif defined(__GNUC__)
 // move assignment operator = default is not works in gcc 4.4
 // private destractor = default is not works in gcc 4.5 - 4.6
@@ -471,10 +475,6 @@
 #      if (_MSV_VER <= 1800) && !defined(IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION)
 #        define IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION 0
 #      endif
-#    endif
-#  elif defined(__INTEL_COMPILER)
-#    if __INTEL_COMPILER >= 1200
-#      define IUTEST_HAS_DEFAULT_FUNCTIONS  1
 #    endif
 #  endif
 #endif
@@ -501,6 +501,10 @@
 #    if __has_feature(cxx_generalized_initializers)
 #      define IUTEST_HAS_INITIALIZER_LIST   1
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if IUTEST_HAS_CXX11 && __INTEL_COMPILER >= 1400
+#      define IUTEST_HAS_INITIALIZER_LIST   1
+#    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_INITIALIZER_LIST   1
@@ -511,10 +515,6 @@
 #    elif (_MSC_FULL_VER == 170051025)
 #      define IUTEST_HAS_INITIALIZER_LIST   1
 #      include <initializer_list>
-#    endif
-#  elif defined(__INTEL_COMPILER)
-#    if __INTEL_COMPILER >= 1400
-#      define IUTEST_HAS_INITIALIZER_LIST   1
 #    endif
 #  endif
 #endif
@@ -531,6 +531,10 @@
 #    if __has_feature(cxx_variadic_templates)
 #      define IUTEST_HAS_VARIADIC_TEMPLATES 1
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if IUTEST_HAS_CXX11 && __INTEL_COMPILER > 1200
+#      define IUTEST_HAS_VARIADIC_TEMPLATES 1
+#    endif
 #  elif defined(__GNUC__)
 // https://gcc.gnu.org/bugzilla/show_bug.cgi?id=35722
 #    if defined(__VARIADIC_TEMPLATES)   \
@@ -543,10 +547,6 @@
 #    elif (_MSC_FULL_VER == 170051025)
 #      define IUTEST_HAS_VARIADIC_TEMPLATES 1
 #      define IUTEST_HAS_VARIADIC_COMBINE   0
-#    endif
-#  elif defined(__INTEL_COMPILER)
-#    if __INTEL_COMPILER > 1200
-#      define IUTEST_HAS_VARIADIC_TEMPLATES 1
 #    endif
 #  endif
 #endif
@@ -561,6 +561,8 @@
 #    if __has_feature(cxx_variadic_templates)
 #      define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES    1
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES  IUTEST_HAS_VARIADIC_TEMPLATES
 #  elif defined(__GNUC__)
 #    if defined(__VARIADIC_TEMPLATES) || ( ((__GNUC__ > 4) \
                 || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 8)) \
@@ -569,8 +571,6 @@
 #      define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES    1
 #    endif
 #  elif defined(_MSC_VER)
-#    define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES  IUTEST_HAS_VARIADIC_TEMPLATES
-#  elif defined(__INTEL_COMPILER)
 #    define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES  IUTEST_HAS_VARIADIC_TEMPLATES
 #  endif
 #endif
@@ -587,16 +587,16 @@
 #    if __has_feature(cxx_unicode_literals)
 #      define IUTEST_HAS_CHAR16_T   1
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if IUTEST_HAS_CXX11 && __INTEL_COMPILER >= 1400
+#      define IUTEST_HAS_CHAR16_T   1
+#    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_CHAR16_T   1
 #    endif
 #  elif defined(_MSC_VER)
 #    if _MSC_VER >= 1900
-#      define IUTEST_HAS_CHAR16_T   1
-#    endif
-#  elif defined(__INTEL_COMPILER)
-#    if __INTEL_COMPILER >= 1400
 #      define IUTEST_HAS_CHAR16_T   1
 #    endif
 #  endif
@@ -614,16 +614,16 @@
 #    if __has_feature(cxx_unicode_literals)
 #      define IUTEST_HAS_CHAR32_T   1
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if IUTEST_HAS_CXX11 && __INTEL_COMPILER >= 1400
+#      define IUTEST_HAS_CHAR32_T   1
+#    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_CHAR32_T   1
 #    endif
 #  elif defined(_MSC_VER)
 #    if _MSC_VER >= 1900
-#      define IUTEST_HAS_CHAR32_T   1
-#    endif
-#  elif defined(__INTEL_COMPILER)
-#    if __INTEL_COMPILER >= 1400
 #      define IUTEST_HAS_CHAR32_T   1
 #    endif
 #  endif
@@ -641,6 +641,10 @@
 #    if __has_feature(cxx_lambdas)
 #      define IUTEST_HAS_LAMBDA     1
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if IUTEST_HAS_CXX11 && __INTEL_COMPILER >= 1200
+#      define IUTEST_HAS_LAMBDA     1
+#    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 5)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_LAMBDA     1
@@ -654,10 +658,6 @@
 #    elif _MSC_VER == 1600
 #      define IUTEST_HAS_LAMBDA     1
 #      define IUTEST_NO_LAMBDA_SCOPE_RESOLUTION // VC++10 lambda v1.0 is not supported.
-#    endif
-#  elif defined(__INTEL_COMPILER)
-#    if __INTEL_COMPILER >= 1200
-#      define IUTEST_HAS_LAMBDA     1
 #    endif
 #  endif
 #endif
@@ -682,16 +682,16 @@
 #    if __has_feature(cxx_explicit_conversions)
 #      define IUTEST_HAS_EXPLICIT_CONVERSION    1
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if IUTEST_HAS_CXX11 && __INTEL_COMPILER >= 1300
+#      define IUTEST_HAS_EXPLICIT_CONVERSION    1
+#    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 5)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_EXPLICIT_CONVERSION    1
 #    endif
 #  elif defined(_MSC_VER)
 #    if (_MSC_VER >= 1800) || (_MSC_FULL_VER == 170051025)
-#      define IUTEST_HAS_EXPLICIT_CONVERSION    1
-#    endif
-#  elif defined(__INTEL_COMPILER)
-#    if __INTEL_COMPILER >= 1300
 #      define IUTEST_HAS_EXPLICIT_CONVERSION    1
 #    endif
 #  endif
@@ -716,16 +716,16 @@
 #    if __has_feature(cxx_override_control)
 #      define IUTEST_HAS_OVERRIDE_AND_FINAL 1
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if IUTEST_HAS_CXX11 && __INTEL_COMPILER >= 1400
+#      define IUTEST_HAS_OVERRIDE_AND_FINAL 1
+#    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_OVERRIDE_AND_FINAL 1
 #    endif
 #  elif defined(_MSC_VER)
 #    if _MSC_VER >= 1700
-#      define IUTEST_HAS_OVERRIDE_AND_FINAL 1
-#    endif
-#  elif defined(__INTEL_COMPILER)
-#    if __INTEL_COMPILER >= 1400
 #      define IUTEST_HAS_OVERRIDE_AND_FINAL 1
 #    endif
 #  endif
@@ -759,6 +759,10 @@
 #    if __has_feature(cxx_noexcept)
 #      define IUTEST_HAS_NOEXCEPT   1
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if IUTEST_HAS_CXX11 && __INTEL_COMPILER >= 1400
+#      define IUTEST_HAS_NOEXCEPT   1
+#    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_NOEXCEPT   1
@@ -766,10 +770,6 @@
 #  elif defined(_MSC_VER)
 // https://connect.microsoft.com/VisualStudio/feedback/details/809079/torino-compile-error-template-noexcept
 #    if _MSC_FULL_VER >= 190022816
-#      define IUTEST_HAS_NOEXCEPT   1
-#    endif
-#  elif defined(__INTEL_COMPILER)
-#    if __INTEL_COMPILER >= 1400
 #      define IUTEST_HAS_NOEXCEPT   1
 #    endif
 #  endif
@@ -831,12 +831,12 @@
 #if !defined(IUTEST_HAS_EXTERN_TEMPLATE)
 #  if defined(_MSC_VER) && _MSC_VER >= 1400
 #    define IUTEST_HAS_EXTERN_TEMPLATE      1
-#  elif defined(__GNUC__) || defined(__clang__)
-#    define IUTEST_HAS_EXTERN_TEMPLATE      1
 #  elif defined(__INTEL_COMPILER)
-#    if __INTEL_COMPILER > 1100
+#    if IUTEST_HAS_CXX11 && __INTEL_COMPILER > 1100
 #      define IUTEST_HAS_EXTERN_TEMPLATE    1
 #    endif
+#  elif defined(__GNUC__) || defined(__clang__)
+#    define IUTEST_HAS_EXTERN_TEMPLATE      1
 #  endif
 #endif
 
@@ -850,16 +850,16 @@
 #    if __has_feature(cxx_strong_enums)
 #      define IUTEST_HAS_STRONG_ENUMS   1
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if IUTEST_HAS_CXX11 && __INTEL_COMPILER >= 1400
+#      define IUTEST_HAS_STRONG_ENUMS   1
+#    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_STRONG_ENUMS   1
 #    endif
 #  elif defined(_MSC_VER)
 #    if _MSC_VER >= 1700
-#      define IUTEST_HAS_STRONG_ENUMS   1
-#    endif
-#  elif defined(__INTEL_COMPILER)
-#    if __INTEL_COMPILER >= 1400
 #      define IUTEST_HAS_STRONG_ENUMS   1
 #    endif
 #  endif
@@ -945,6 +945,10 @@
 #    if (__IBMCPP__ >= 900)
 #      define IUTEST_HAS_RTTI   1
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if defined(__INTEL_RTTI__) || defined(__cpp_rtti)
+#      define IUTEST_HAS_RTTI   1
+#    endif
 #  elif defined(_MSC_VER)
 #    ifdef _CPPRTTI
 #      define IUTEST_HAS_RTTI   1
@@ -986,7 +990,59 @@
 #endif
 
 #if !defined(IUTEST_HAS_INT128)
-#  define IUTEST_HAS_INT128     0
+#  define IUTEST_HAS_INT128         0
+#endif
+
+//! hsa 128bit float type
+#if !defined(IUTEST_HAS_FLOAT128)
+#  if defined(__SIZEOF_FLOAT128__) && IUTEST_HAS_INT128
+#    if   defined(__clang__)
+#      if IUTEST_CLANG_MAJOR > 4 && defined(__has_include)
+#        if __has_include(<quadmath.h>)
+#          define IUTEST_HAS_FLOAT128   1
+#        endif
+#      endif
+#    else
+#      define IUTEST_HAS_FLOAT128   1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_FLOAT128)
+#  define IUTEST_HAS_FLOAT128       0
+#endif
+
+#if IUTEST_HAS_FLOAT128
+#  if defined(__FLT128_MANT_DIG__)
+#    define IUTEST_FLT128_MANT_DIG  __FLT128_MANT_DIG__
+#  else
+#    define IUTEST_FLT128_MANT_DIG  113
+#  endif
+#endif
+
+//! long double as is double
+#if !defined(IUTEST_LONG_DOUBLE_AS_IS_DOUBLE)
+#  if defined(__SIZEOF_LONG_DOUBLE__) && defined(__SIZEOF_DOUBLE__) \
+            && __SIZEOF_LONG_DOUBLE__ == __SIZEOF_DOUBLE__
+#    define IUTEST_LONG_DOUBLE_AS_IS_DOUBLE 1
+#  endif
+#endif
+
+#if !defined(IUTEST_LONG_DOUBLE_AS_IS_DOUBLE)
+#  define IUTEST_LONG_DOUBLE_AS_IS_DOUBLE   0
+#endif
+
+//! has long double
+#if !defined(IUTEST_HAS_LONG_DOUBLE)
+#  if defined(__SIZEOF_LONG_DOUBLE__)
+#    if IUTEST_LONG_DOUBLE_AS_IS_DOUBLE || IUTEST_HAS_INT128
+#      define IUTEST_HAS_LONG_DOUBLE  1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_LONG_DOUBLE)
+#  define IUTEST_HAS_LONG_DOUBLE    0
 #endif
 
 //! explicit instantiation access checking

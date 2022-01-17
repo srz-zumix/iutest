@@ -1,9 +1,15 @@
 - pipeline: "test"
-  trigger_mode: "ON_EVERY_PUSH"
-  ref_name: "(^(master$|develop$|buddy/.+$))"
-  ref_type: "WILDCARD"
-  trigger_condition: "ALWAYS"
+  on: "EVENT"
+  events:
+  - type: "PUSH"
+    refs:
+    - master
+    - develop
+    - "(^buddy/.+$)"
+  trigger_conditions:
+  - trigger_condition: "ALWAYS"
   auto_clear_cache: true
+  fetch_all_refs: true
   # You can not change this option in Free mode.
   # no_skip_to_most_recent: true
   actions:

@@ -4,13 +4,19 @@
 
 ## Changes for 1.17.99
 
+* New
+  * IUTEST_*_COMPLEX_EQ アサーションを追加
+
 * Improved
+  * IUTEST_*_ALMOST_EQ が ::std::complex に対応
   * 例外発生時にも SCOPED_TRACE のメッセージを出力するように変更
   * 空のテストスイート名・テスト名に static_assert を追加
   * GoogleTest の GTEST_REMOVE_LEGACY_TEST_CASEAPI_ に対応
+  * Intel Compiler に対応
 
 * Changes
   * TestCase の別名 TestSuite に対応（iutest はどちらもサポートし続けます）
+  * IUTEST_ASSERT_EXIT を IUTEST_TERMINATE_ON_FAILURE に変更
 
 * Bug fixes
   * その他いくつかの不具合を修正

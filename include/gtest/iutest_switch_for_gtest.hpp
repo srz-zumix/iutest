@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -288,13 +288,11 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #  define IUTEST_STATIC_ASSERT(...) IUTEST_STATIC_ASSERT_MSG((__VA_ARGS__), "")
 #endif
 
-#ifdef IUTEST_ASSERT_EXIT
-#  undef IUTEST_ASSERT_EXIT
-#endif
-#define IUTEST_ASSERT_EXIT(cond)    do { if( !(cond) ) {                                                    \
-                                        GTEST_MESSAGE_(#cond, ::testing::TestPartResult::kFatalFailure);    \
-                                        exit(1);                                                            \
-                                    } } while(::testing::internal::AlwaysFalse())
+#undef IUTEST_TERMINATE_ON_FAILURE
+#define IUTEST_TERMINATE_ON_FAILURE(cond)   do { if( !(cond) ) {                                                    \
+                                                GTEST_MESSAGE_(#cond, ::testing::TestPartResult::kFatalFailure);    \
+                                                exit(1);                                                            \
+                                            } } while(::testing::internal::AlwaysFalse())
 
 #define IUTEST_OPERAND(op)          op
 #define IUTEST_EXPRESSION(expr)     expr
@@ -536,7 +534,7 @@ const T* WithParamInterface<T>::parameter_ = NULL;
 #if IUTEST_HAS_PRINT_TO
 
 template <typename T>
-inline void GTestStreamToHelperForCompatible(std::ostream* os, const T& val) {
+inline void GTestStreamToHelperForCompatible(::std::ostream* os, const T& val) {
     *os << val;
 }
 
@@ -553,6 +551,11 @@ void GTestStreamTo(std::ostream* os, const T& val)
     *os << val;
 }
 inline void GTestStreamTo(std::ostream* os, const ::std::string& val)
+{
+    *os << val;
+}
+template<typename T>
+inline void GTestStreamTo(std::ostream* os, const ::std::complex<T>& val)
 {
     *os << val;
 }

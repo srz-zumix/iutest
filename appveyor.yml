@@ -143,20 +143,7 @@ skip_commits:
 
 # Do not build feature branch with open Pull Requests
 skip_branch_with_pr: true
-
 clone_depth: 1
-
-init:
-  # RDP setup
-  ps: |
-    $commit_message = $env:APPVEYOR_REPO_COMMIT_MESSAGE
-    if($commit_message.Contains("[appveyor rdp]")) {
-        iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-        Set-WinSystemLocale ja-JP
-        Set-Location -Path hklm:\SYSTEM\CurrentControlSet\Control
-        New-ItemProperty -Path ".\Keyboard Layout" -Name IgnoreRemoteKeyboardLayout -PropertyType DWORD -Value 1 -Force
-        Restart-Computer
-    }
 
 before_build:
   cmd: |
@@ -172,23 +159,19 @@ build:
 test_script:
   cmd: cd build && ctest -C %Configuration% -V -T Test
 
-on_failure:
-  # wait RDP connect
-  ps: |
-    $commit_message = $env:APPVEYOR_REPO_COMMIT_MESSAGE
-    if($commit_message.Contains("[appveyor rdp]")) {
-      $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-    }
-
 on_finish:
   ps: |
-    $XSLInputElement = New-Object System.Xml.Xsl.XslCompiledTransform
-    $XSLInputElement.Load("https://raw.githubusercontent.com/rpavlik/jenkins-ctest-plugin/master/ctest-to-junit.xsl")
-    $TestXmlFile = Get-Childitem –Path "$($env:APPVEYOR_BUILD_FOLDER)\build" -Include *Test.xml -File -Recurse -ErrorAction SilentlyContinue
-    Write-Host $TestXmlFile
-    $XSLInputElement.Transform($TestXmlFile, (Join-Path (Resolve-Path .) "ctest-to-junit-results.xml"))
-    $wc = New-Object 'System.Net.WebClient'
-    $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\ctest-to-junit-results.xml))
+    try {
+      $XSLInputElement = New-Object System.Xml.Xsl.XslCompiledTransform
+      $XSLInputElement.Load("https://raw.githubusercontent.com/rpavlik/jenkins-ctest-plugin/master/ctest-to-junit.xsl")
+      $TestXmlFile = Get-Childitem –Path "$($env:APPVEYOR_BUILD_FOLDER)\build" -Include *Test.xml -File -Recurse -ErrorAction SilentlyContinue
+      Write-Host $TestXmlFile
+      $XSLInputElement.Transform($TestXmlFile, (Join-Path (Resolve-Path .) "ctest-to-junit-results.xml"))
+      $wc = New-Object 'System.Net.WebClient'
+      $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\ctest-to-junit-results.xml))
+    } catch {
+      Write-Host $_.Exception.Message
+    }
 
 # artifacts:
 #   - path: "**/*.xml"

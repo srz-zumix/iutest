@@ -160,7 +160,6 @@ if (build_tests)
     compatibility_tests.cpp
     filepath_tests.cpp
     fixture_tests.cpp
-    floatingpoint_tests.cpp
     no_failure_tests.cpp
     nullptr_tests.cpp
     param_test_tests1.cpp
@@ -215,6 +214,7 @@ if (build_tests)
   cxx_executable_test(file_system_tests)
   cxx_executable_test(filter_tests)
   cxx_executable_test(flagfile_gtest_tests)
+  cxx_executable_test(floatingpoint_tests)
   cxx_executable_test(gtest_version_tests)
   cxx_executable_test(help_tests)
   cxx_executable_test(inform_tests)
@@ -230,6 +230,7 @@ if (build_tests)
   cxx_executable_test(no_fatalfailure_tests)
   cxx_executable_test(no_test_tests)
   cxx_executable_test(output_env_var_tests)
+  cxx_executable_test(output_junit_xml_empty_tests)
   cxx_executable_test(output_junit_xml_tests)
   cxx_executable_test(output_xml_tests)
   cxx_executable_test(port_tests)
@@ -261,7 +262,6 @@ if (build_tests)
       compatibility_tests.cpp
       filepath_tests.cpp
       fixture_tests.cpp
-      floatingpoint_tests.cpp
       no_failure_tests.cpp
       nullptr_tests.cpp
       param_test_tests1.cpp
@@ -309,6 +309,9 @@ if (build_tests)
   cxx_executable_test(spec_tests)
   cxx_executable_test(tap_file_generator_listener_tests)
   cxx_executable_test(tap_printer_listener_tests)
+  cxx_executable_test(type_param_register_exception_int_tests)
+  cxx_executable_test(type_param_register_exception_std_tests)
+  cxx_executable_test(type_param_strict_failure_tests)
   cxx_executable_test(type_param_strict_tests)
   cxx_executable_test_with_main(unit_tests
     unit_file_tests.cpp
@@ -351,6 +354,7 @@ if (build_tests)
   cxx_add_test(file_system_tests)
   cxx_add_test(filter_tests)
   cxx_add_test(flagfile_gtest_tests)
+  cxx_add_test(floatingpoint_tests)
   cxx_add_test(gtest_version_tests)
   cxx_add_test(help_tests)
   cxx_add_test(inform_tests)
@@ -366,6 +370,7 @@ if (build_tests)
   cxx_add_test(no_fatalfailure_tests)
   cxx_add_test(no_test_tests)
   cxx_add_test(output_env_var_tests)
+  cxx_add_test(output_junit_xml_empty_tests)
   cxx_add_test(output_junit_xml_tests)
   cxx_add_test(output_xml_tests)
   cxx_add_test(port_tests)
@@ -420,6 +425,9 @@ if (build_tests)
   cxx_add_test(spec_tests)
   cxx_add_test(tap_file_generator_listener_tests)
   cxx_add_test(tap_printer_listener_tests)
+  cxx_add_test(type_param_register_exception_int_tests)
+  cxx_add_test(type_param_register_exception_std_tests)
+  cxx_add_test(type_param_strict_failure_tests)
   cxx_add_test(type_param_strict_tests)
   cxx_add_test(unit_tests)
 

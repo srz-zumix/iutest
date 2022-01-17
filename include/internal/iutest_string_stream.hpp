@@ -42,12 +42,40 @@ namespace detail
 template<typename T>
 bool StringToValue(const ::std::string& s, T& out)
 {
+#if IUTEST_HAS_STRINGSTREAM
     ::std::istringstream strm(s);
     if( strm >> out )
     {
         return true;
     }
     return false;
+#elif IUTEST_HAS_STD_STR_TO_VALUE
+    out = static_cast<T>(::std::stoull(s));
+    return true;
+#else
+    char* endptr=NULL;
+    const char* p = s.c_str();
+    errno = 0;
+    const unsigned long long v = strtoull(p, &endptr, 10);
+    if(p == endptr)
+    {
+#if IUTEST_HAS_EXCEPTIONS
+        throw ::std::invalid_argument(p);
+#else
+        return false;
+#endif
+    }
+    if(errno == ERANGE)
+    {
+#if IUTEST_HAS_EXCEPTIONS
+        throw ::std::out_of_range(p);
+#else
+        return false;
+#endif
+    }
+    out = static_cast<T>(v);
+    return true;
+#endif
 }
 
 inline bool StringToValue(const ::std::string& s, float& out)
@@ -63,16 +91,22 @@ inline bool StringToValue(const ::std::string& s, float& out)
 #else
     const floating_point<float> v = static_cast<float>(strtod(p, &endptr));
 #endif
-#if IUTEST_HAS_EXCEPTIONS
     if(p == endptr)
     {
+#if IUTEST_HAS_EXCEPTIONS
         throw ::std::invalid_argument(p);
+#else
+        return false;
+#endif
     }
     if((errno == ERANGE) || v.is_inf() )
     {
+#if IUTEST_HAS_EXCEPTIONS
         throw ::std::out_of_range(p);
-    }
+#else
+        return false;
 #endif
+    }
     out = v;
 #endif
     return true;
@@ -87,16 +121,22 @@ inline bool StringToValue(const ::std::string& s, double& out)
     const char* p = s.c_str();
     errno = 0;
     const floating_point<double> v = strtod(p, &endptr);
-#if IUTEST_HAS_EXCEPTIONS
     if(p == endptr)
     {
+#if IUTEST_HAS_EXCEPTIONS
         throw ::std::invalid_argument(p);
+#else
+        return false;
+#endif
     }
     if((errno == ERANGE) || v.is_inf() )
     {
+#if IUTEST_HAS_EXCEPTIONS
         throw ::std::out_of_range(p);
-    }
+#else
+        return false;
 #endif
+    }
     out = v;
 #endif
     return true;
@@ -113,16 +153,22 @@ inline bool StringToValue(const ::std::string& s, long double& out)
     const char* p = s.c_str();
     errno = 0;
     const floating_point<long double> v = strtold(p, &endptr);
-#if IUTEST_HAS_EXCEPTIONS
     if(p == endptr)
     {
+#if IUTEST_HAS_EXCEPTIONS
         throw ::std::invalid_argument(p);
+#else
+        return false;
+#endif
     }
     if((errno == ERANGE) || v.is_inf() )
     {
+#if IUTEST_HAS_EXCEPTIONS
         throw ::std::out_of_range(p);
-    }
+#else
+        return false;
 #endif
+    }
     out = v;
 #endif
     return true;
@@ -176,11 +222,13 @@ class iu_basic_ostream
     };
 #define IIUT_PP_XCS(txt_)   xcs<_Elem>::select::constant(txt_, L##txt_)
 
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_FORMAT_NONLITERAL()
     struct impl
     {
         template<typename E>
         static int vastring(E* dst, const E* fmt, va_list va);
-        static int vastring(char* dst, size_t len, const char* fmt, va_list va)
+        static int vastring(char* dst, size_t len, const char* fmt, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 0)
         {
             (void)len;
             return vsprintf(dst, fmt, va);
@@ -204,6 +252,8 @@ class iu_basic_ostream
             return ret;
         }
     };
+IUTEST_PRAGMA_WARN_POP()
+
 public:
     iu_basic_ostream() {}
     explicit iu_basic_ostream(const char* str) : s(str) {}
@@ -320,17 +370,29 @@ IUTEST_PRAGMA_WARN_POP()
     inline _Myt& operator<< (double v)
     {
         _Elem a[64];
-        impl::tostring(a, 64, IIUT_PP_XCS("%l"), v);
+        impl::tostring(a, 64, IIUT_PP_XCS("%lf"), v);
         s += a;
         return *this;
     }
+#if IUTEST_HAS_LONG_DOUBLE
     inline _Myt& operator<< (long double v)
     {
         _Elem a[64];
-        impl::tostring(a, 64, IIUT_PP_XCS("%L"), v);
+        impl::tostring(a, 64, IIUT_PP_XCS("%Lf"), v);
         s += a;
         return *this;
     }
+#endif
+#if IUTEST_HAS_FLOAT128
+    inline _Myt& operator<< (internal::Float128::Float v)
+    {
+        _Elem a[64];
+        const double d = static_cast<double>(v);
+        impl::tostring(a, 64, IIUT_PP_XCS("%L"), d);
+        s += a;
+        return *this;
+    }
+#endif
     inline _Myt& operator<< (const void* v)
     {
         _Elem a[64];

@@ -28,6 +28,7 @@ steps:
     working_directory: ./
     tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
     dockerfile: ./tools/docker/Dockerfile
+    registry: dockerhub
     when: *skip_condition
   PrepareUnitTests:
     title: Prepare

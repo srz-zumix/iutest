@@ -1,0 +1,382 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug_ClangC2|Win32">
+      <Configuration>Debug_ClangC2</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_LLVM|Win32">
+      <Configuration>Debug_LLVM</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_MD|Win32">
+      <Configuration>Debug_MD</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_MD|Win32">
+      <Configuration>Release_MD</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C46DA5A4-27B5-4A0C-97D0-F5D0B9881087}</ProjectGuid>
+    <RootNamespace>iutest</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_ClangC2|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140_clang_3_7</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_LLVM|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>ClangCL</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug_ClangC2|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug_LLVM|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\..\..\lib\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug_ClangC2|Win32'">$(SolutionDir)\..\..\lib\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug_LLVM|Win32'">$(SolutionDir)\..\..\lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug_ClangC2|Win32'">$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug_LLVM|Win32'">$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\..\..\lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'">$(SolutionDir)\..\..\lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'">$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'">$(SolutionDir)\..\..\lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'">$(Configuration)\$(ProjectName)\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">lib$(ProjectName)-vc143-mtd</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_ClangC2|Win32'">lib$(ProjectName)-vc143-mtd</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_LLVM|Win32'">lib$(ProjectName)-vc143-mtd</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'">lib$(ProjectName)-vc143-mdd</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">lib$(ProjectName)-vc143-mt</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'">lib$(ProjectName)-vc143-md</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_ClangC2|Win32'">
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_LLVM|Win32'">
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>
+      </MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <EnablePREfast>false</EnablePREfast>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <EnableModules>true</EnableModules>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_ClangC2|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>
+      </MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <DebugInformationFormat>FullDebug</DebugInformationFormat>
+      <EnablePREfast>false</EnablePREfast>
+      <TreatWarningAsError>true</TreatWarningAsError>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_LLVM|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>
+      </MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <EnablePREfast>false</EnablePREfast>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalOptions>-Qunused-arguments %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <MinimalRebuild />
+      <EnableModules>true</EnableModules>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>
+      </MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <EnableModules>true</EnableModules>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <MinimalRebuild />
+      <EnableModules>true</EnableModules>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\iutest_all.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\gtest\iutest_gmock_ver.hpp" />
+    <ClInclude Include="..\..\include\gtest\iutest_switch_for_gtest.hpp" />
+    <ClInclude Include="..\..\include\gtest\iutest_switch_for_iutest.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_assertion_return.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_assume.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_filepath.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_gmock.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_no_failure.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_pred.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_default_main.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_genparams_from_file.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_log_stream.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_mfc.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_socket.hpp" />
+    <ClInclude Include="..\..\include\iutest.hpp" />
+    <ClInclude Include="..\..\include\iutest_any.hpp" />
+    <ClInclude Include="..\..\include\iutest_assertion.hpp" />
+    <ClInclude Include="..\..\include\iutest_body.hpp" />
+    <ClInclude Include="..\..\include\iutest_case.hpp" />
+    <ClInclude Include="..\..\include\iutest_suite.hpp" />
+    <ClInclude Include="..\..\include\iutest_config.hpp" />
+    <ClInclude Include="..\..\include\iutest_core.hpp" />
+    <ClInclude Include="..\..\include\iutest_defs.hpp" />
+    <ClInclude Include="..\..\include\iutest_env.hpp" />
+    <ClInclude Include="..\..\include\iutest_expression_assertion.hpp" />
+    <ClInclude Include="..\..\include\iutest_ignore.hpp" />
+    <ClInclude Include="..\..\include\iutest_info.hpp" />
+    <ClInclude Include="..\..\include\iutest_legacy.hpp" />
+    <ClInclude Include="..\..\include\iutest_listener.hpp" />
+    <ClInclude Include="..\..\include\iutest_matcher.hpp" />
+    <ClInclude Include="..\..\include\iutest_package.hpp" />
+    <ClInclude Include="..\..\include\iutest_param_tests.hpp" />
+    <ClInclude Include="..\..\include\iutest_pred.hpp" />
+    <ClInclude Include="..\..\include\iutest_printers.hpp" />
+    <ClInclude Include="..\..\include\iutest_prod.hpp" />
+    <ClInclude Include="..\..\include\iutest_result.hpp" />
+    <ClInclude Include="..\..\include\iutest_spi.hpp" />
+    <ClInclude Include="..\..\include\iutest_static_assertion.hpp" />
+    <ClInclude Include="..\..\include\iutest_typed_tests.hpp" />
+    <ClInclude Include="..\..\include\iutest_util.hpp" />
+    <ClInclude Include="..\..\include\iutest_ver.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_charcode.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_compiler.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_console.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_constant.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_core_impl.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_debug.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_exception.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_factory.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_file.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_filepath.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_genparams.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_internal.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_internal_defs.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_list.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_mediator.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_message.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_option_message.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_params_util.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_pool.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_port.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_pp.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_pragma.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_random.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_regex.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_result_reporter.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_stdlib_defs.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_stdlib.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_stream.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_string_stream.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_string_view.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_string.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_time.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_type_traits.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_typed_util.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_typelist.hpp" />
+    <ClInclude Include="..\..\include\listener\iutest_default_printer.hpp" />
+    <ClInclude Include="..\..\include\listener\iutest_default_xml_generator.hpp" />
+    <ClInclude Include="..\..\include\listener\iutest_junit_xml_generator.hpp" />
+    <ClInclude Include="..\..\include\listener\iutest_progress_printer.hpp" />
+    <ClInclude Include="..\..\include\listener\iutest_stderr_xml_generator.hpp" />
+    <ClInclude Include="..\..\include\listener\iutest_streaming_listener.hpp" />
+    <ClInclude Include="..\..\include\listener\iutest_tap_printer.hpp" />
+    <ClInclude Include="..\..\include\gtest\iutest_assertion_only.hpp" />
+    <ClInclude Include="..\..\include\gtest\iutest_gtest_ver.hpp" />
+    <ClInclude Include="..\..\include\gtest\iutest_spi_switch.hpp" />
+    <ClInclude Include="..\..\include\gtest\iutest_switch.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_assert.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_cmphelper.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_core.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_expect.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_inform.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_package.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_peep.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_pmz.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_port.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_skip.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_throw_value.hpp" />
+    <ClInclude Include="..\..\include\util\iutest_util_assertion.hpp" />
+    <ClInclude Include="..\..\include\util\iutest_util_menu.hpp" />
+    <ClInclude Include="..\..\include\util\iutest_util_no_yoda.hpp" />
+    <ClInclude Include="..\..\include\util\iutest_util_output.hpp" />
+    <ClInclude Include="..\..\include\util\iutest_util_quiet_result_printer.hpp" />
+    <ClInclude Include="..\..\include\util\iutest_util_tests.hpp" />
+    <ClInclude Include="..\..\include\util\iutest_util_vc_unittest.hpp" />
+    <ClInclude Include="..\..\include\listener\iutest_sstp_notifier.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\include\impl\iutest_body.ipp" />
+    <None Include="..\..\include\impl\iutest_charcode.ipp" />
+    <None Include="..\..\include\impl\iutest_core.ipp" />
+    <None Include="..\..\include\impl\iutest_core_impl.ipp" />
+    <None Include="..\..\include\impl\iutest_debug.ipp" />
+    <None Include="..\..\include\impl\iutest_default_printer.ipp" />
+    <None Include="..\..\include\impl\iutest_default_xml_generator.ipp" />
+    <None Include="..\..\include\impl\iutest_env.ipp" />
+    <None Include="..\..\include\impl\iutest_filepath.ipp" />
+    <None Include="..\..\include\impl\iutest_info.ipp" />
+    <None Include="..\..\include\impl\iutest_junit_xml_generator.ipp" />
+    <None Include="..\..\include\impl\iutest_listener.ipp" />
+    <None Include="..\..\include\impl\iutest_message.ipp" />
+    <None Include="..\..\include\impl\iutest_port.ipp" />
+    <None Include="..\..\include\impl\iutest_regex.ipp" />
+    <None Include="..\..\include\impl\iutest_suite.ipp" />
+    <None Include="..\..\docs\Doxyfile" />
+    <None Include="..\..\docs\index.html" />
+    <None Include="..\..\include\impl\iutest_streaming_listener.ipp" />
+    <None Include="..\..\include\impl\iutest_time.ipp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\..\tools\VisualStudio\Visualizers\iutest.natvis" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

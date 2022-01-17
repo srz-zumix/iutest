@@ -116,7 +116,21 @@
 			"mutex": "cpp",
 			"numeric": "cpp",
 			"stack": "cpp",
-			"unordered_map": "cpp"
+			"unordered_map": "cpp",
+			"hash_map": "cpp",
+			"*.tcc": "cpp",
+			"clocale": "cpp",
+			"compare": "cpp",
+			"condition_variable": "cpp",
+			"memory_resource": "cpp",
+			"ranges": "cpp",
+			"shared_mutex": "cpp",
+			"stop_token": "cpp",
+			"thread": "cpp",
+			"cinttypes": "cpp",
+			"queue": "cpp",
+			"numbers": "cpp",
+			"semaphore": "cpp"
 		},
 		"bracketLens.minBracketScopeLines": 12
 	},

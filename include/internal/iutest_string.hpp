@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -25,7 +25,7 @@
 #include <wctype.h>
 #include <stdarg.h>
 #include <errno.h>
-#if defined(IUTEST_OS_CYGWIN) || defined(IUTEST_OS_ARM)
+#if defined(IUTEST_OS_CYGWIN) || defined(__arm__)
 #include <strings.h>
 #endif
 #include <string>
@@ -122,7 +122,7 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 {
 #if   defined(_MSC_VER)
     return _wcsicmp(str1, str2);
-#elif defined(IUTEST_OS_LINUX) && !defined(IUTEST_OS_LINUX_ANDROID)
+#elif defined(IUTEST_OS_LINUX) && !defined(IUTEST_ARCH_ARM)
     return wcscasecmp(str1, str2);
 #else
     return wrapper::iu_wcsicmp(str1, str2);
@@ -374,12 +374,31 @@ inline ::std::string ToHexString(const T* str, int length)
     return r;
 }
 
+inline ::std::string FormatIntWidthN(int value, int digit)
+{
+    char buf[128] = { 0 };
+    int idx = IUTEST_PP_COUNTOF(buf) - 2;
+    int x = value;
+    for( int i=0; i < digit; ++i, --idx )
+    {
+        buf[idx] = static_cast<char>(::std::abs(x%10) + '0');
+        x /= 10;
+    }
+    for( ; x; --idx )
+    {
+        buf[idx] = static_cast<char>(::std::abs(x%10) + '0');
+        x /= 10;
+    }
+    if( value < 0 )
+    {
+        buf[idx--] = '-';
+    }
+    return buf + idx + 1;
+}
+
 inline ::std::string FormatIntWidth2(int value)
 {
-    char buf[3] = "00";
-    buf[0] = static_cast<char>((value/10)%10 + '0');
-    buf[1] = static_cast<char>((value   )%10 + '0');
-    return buf;
+    return FormatIntWidthN(value, 2);
 }
 
 #if IUTEST_HAS_STD_TO_CHARS

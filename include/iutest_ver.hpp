@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01179906u     //!< iutest version 1.17.99.6
+#define IUTEST_VER          0x01179911u     //!< iutest version 1.17.99.11
 #define IUTEST_MAJORVER     0x01u           //!< Major Version
 #define IUTEST_MINORVER     0x17u           //!< Minor Version
 #define IUTEST_MICROVER     0x99u           //!< Micro Version
-#define IUTEST_REVISION     0x06u           //!< Revision
+#define IUTEST_REVISION     0x11u           //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -123,10 +123,14 @@ modification, are permitted provided that the following conditions are met: \n
  <ul>
   <li>v1.18.0.0
     <ul>
+      <li>IUTEST_*_COMPLEX_EQ アサーションを追加</li>
+      <li>IUTEST_*_ALMOST_EQ が ::std::complex に対応</li>
       <li>TestCase の別名 TestSuite に対応（iutest はどちらもサポートし続けます）</li>
+      <li>IUTEST_ASSERT_EXIT を IUTEST_TERMINATE_ON_FAILURE に変更</li>
       <li>例外発生時にも SCOPED_TRACE のメッセージを出力するように変更</li>
       <li>空のテストスイート名・テスト名に static_assert を追加</li>
       <li>GoogleTest の GTEST_REMOVE_LEGACY_TEST_CASEAPI_ に対応</li>
+      <li>Intel Compiler に対応</li>
     </ul>
   </li>
   <li>v1.17.1.0

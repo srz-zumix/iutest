@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -32,6 +32,10 @@
 #undef FRIEND_TEST
 #undef SCOPED_TRACE
 #undef GTEST_FLAG
+#ifdef GTEST_FLAG_GET
+#  undef GTEST_FLAG_GET
+#  undef GTEST_FLAG_SET
+#endif
 
 #undef TYPED_TEST_CASE
 #undef TYPED_TEST
@@ -62,6 +66,8 @@
 #define FRIEND_TEST         IUTEST_FRIEND_TEST
 #define SCOPED_TRACE        IUTEST_SCOPED_TRACE
 #define GTEST_FLAG          IUTEST_FLAG
+#define GTEST_FLAG_GET      IUTEST_FLAG_GET
+#define GTEST_FLAG_SET      IUTEST_FLAG_SET
 
 #define TYPED_TEST          IUTEST_TYPED_TEST
 #define TYPED_TEST_P        IUTEST_TYPED_TEST_P
@@ -107,6 +113,8 @@
 #undef IUTEST_FRIEND_TYPED_TEST_P
 #undef IUTEST_SCOPED_TRACE
 #undef IUTEST_FLAG
+#undef IUTEST_FLAG_GET
+#undef IUTEST_FLAG_SET
 
 #undef IUTEST_TYPED_TEST_SUITE
 #ifdef IUTEST_TYPED_TEST_CASE
@@ -174,6 +182,11 @@
 #  endif
 #endif
 
+#ifndef GTEST_FLAG_GET
+#  define GTEST_FLAG_GET(name)          ::testing::GTEST_FLAG(name)
+#  define GTEST_FLAG_SET(name, value)   (void)(::testing::GTEST_FLAG_GET(name) = value)
+#endif
+
 #define IUTEST_FRIEND_TEST          FRIEND_TEST
 #define IUTEST_FRIEND_TYPED_TEST    template<typename T>FRIEND_TEST
 #define IUTEST_FRIEND_TYPED_TEST_P_DECLARATION(test_suite_name, test_name)   \
@@ -182,6 +195,8 @@
     template<typename T>friend class GTEST_SUITE_NAMESPACE_(test_suite_name)::test_name
 #define IUTEST_SCOPED_TRACE         SCOPED_TRACE
 #define IUTEST_FLAG                 GTEST_FLAG
+#define IUTEST_FLAG_GET             GTEST_FLAG_GET
+#define IUTEST_FLAG_SET             GTEST_FLAG_SET
 
 #define IUTEST_TYPED_TEST           TYPED_TEST
 #define IUTEST_T                    TYPED_TEST

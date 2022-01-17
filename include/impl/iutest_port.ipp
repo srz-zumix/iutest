@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -92,20 +92,29 @@ IUTEST_IPP_INLINE const char* GetEnv(const char* name)
 
 IUTEST_IPP_INLINE int PutEnv(const char* expr)
 {
-#if defined(IUTEST_NO_PUTENV) || defined(__STRICT_ANSI__) \
-    || defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE)
+#if defined(IUTEST_NO_PUTENV) \
+    || defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE) \
+    || defined(IUTEST_OS_WINDOWS_MINGW)
     IUTEST_UNUSED_VAR(expr);
     return -1;
 #elif defined(IUTEST_OS_WINDOWS)
     return _putenv(expr);
 #else
+
+#if (defined(__SVID_VISIBLE) && !__SVID_VISIBLE) \
+    && (defined(__XSI_VISIBLE) && !__XSI_VISIBLE)
+    IUTEST_UNUSED_VAR(expr);
+    return -1;
+#else
     return putenv(const_cast<char*>(expr));
+#endif
+
 #endif
 }
 
 IUTEST_IPP_INLINE int SetEnv(const char* name, const char* value, int overwrite)
 {
-#if defined(IUTEST_NO_SETENV) || defined(__STRICT_ANSI__) \
+#if defined(IUTEST_NO_SETENV) \
     || defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE)
     IUTEST_UNUSED_VAR(name);
     IUTEST_UNUSED_VAR(value);
@@ -124,7 +133,17 @@ IUTEST_IPP_INLINE int SetEnv(const char* name, const char* value, int overwrite)
     expr += value;
     return PutEnv(expr.c_str());
 #else
+
+#if (defined(__BSD_VISIBLE) && !__BSD_VISIBLE) \
+    && (defined(__POSIX_VISIBLE) && __POSIX_VISIBLE < 200112)
+    IUTEST_UNUSED_VAR(name);
+    IUTEST_UNUSED_VAR(value);
+    IUTEST_UNUSED_VAR(overwrite);
+    return -1;
+#else
     return setenv(name, value, overwrite);
+#endif
+
 #endif
 }
 
@@ -132,7 +151,7 @@ IUTEST_IPP_INLINE int SetEnv(const char* name, const char* value, int overwrite)
 IUTEST_IPP_INLINE const char* GetCWD(char* buf, size_t length)
 {
 #if   defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE) \
-        || defined(IUTEST_OS_AVR32) || defined(IUTEST_OS_ARM) || defined(IUTEST_NO_GETCWD)
+        || defined(IUTEST_OS_AVR32) || defined(__arm__) || defined(IUTEST_NO_GETCWD)
     if( buf == NULL || length < 3 )
     {
         return NULL;
@@ -326,14 +345,13 @@ IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, char* buf, size_
 IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, ::std::string& var)
 {
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
-    char buf[2048];
-    if( !GetEnvironmentVariable(name, buf, sizeof(buf)) )
+    char buf[4096];
+    if( GetEnvironmentVariable(name, buf, sizeof(buf)) )
     {
-        return false;
+        var = buf;
+        return true;
     }
-    var = buf;
-    return true;
-#else
+#endif
     const char* env = internal::posix::GetEnv(name);
     if( env == NULL )
     {
@@ -341,7 +359,6 @@ IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, ::std::string& v
     }
     var = env;
     return true;
-#endif
 }
 
 IUTEST_IPP_INLINE bool GetEnvironmentInt(const char* name, int& var)
@@ -451,12 +468,12 @@ IUTEST_IPP_INLINE IUTestLog::IUTestLog(Level level, const char* file, int line)
         ( level == LOG_WARNING ) ?  "[WARNING] ":
         ( level == LOG_ERROR   ) ?  "[ ERROR ] ":
                                     "[ FATAL ] ";
-    GetStream() << "\r\n" << tag << FormatFileLocation(file, line).c_str() << ": ";
+    GetStream() << "\n" << tag << FormatFileLocation(file, line).c_str() << ": ";
 }
 
 IUTEST_IPP_INLINE IUTestLog::~IUTestLog()
 {
-    GetStream() << "\r\n";
+    GetStream() << "\n";
     fprintf(stderr, "%s", m_stream.str().c_str());
     if( kLevel == LOG_FATAL )
     {

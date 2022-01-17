@@ -1,0 +1,76 @@
+name: Google Test Compatible
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+      - 'feature/**'
+      - 'fix/**'
+      - 'gh/**'
+      - 'github/**'
+      - 'githubactions/**'
+    paths-ignore:
+      - '*.ini'
+      - '*.md'
+      - '*.yml'
+      - '*.yaml'
+      - '.circleci/**'
+      - '.semaphore/**'
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    env:
+      HEAD_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+    if: >
+      ! contains(github.event.head_commit.message, '[ci skip gtest]')
+    steps:
+      - run: |
+          echo "$HEAD_COMMIT_MESSAGE"
+
+  gtest-compat:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - gtest-version: "latest"
+            GTEST_EXPECT_VER: 0x01110000
+            GTEST_EXPECT_LATEST: 1
+          - gtest-version: "release-1.11.0"
+            GTEST_EXPECT_VER: 0x01110000
+          - gtest-version: "release-1.10.0"
+            GTEST_EXPECT_VER: 0x01100000
+          - gtest-version: "release-1.8.1"
+            GTEST_EXPECT_VER: 0x01080100
+          - gtest-version: "release-1.8.0"
+            GTEST_EXPECT_VER: 0x01080000
+          - gtest-version: "release-1.7.0"
+            GTEST_EXPECT_VER: 0x01070000
+          - gtest-version: "release-1.6.0"
+            GTEST_EXPECT_VER: 0x01060000
+          - gtest-version: "release-1.5.0"
+            GTEST_EXPECT_VER: 0x01050000
+      fail-fast: false
+    container:
+      image: "srzzumix/googletest:${{ matrix.gtest-version }}"
+    env:
+      MAKE_OPTION: "-j4"
+    steps:
+      - uses: actions/checkout@v2
+      - name: Google Test
+        env:
+          GTEST_OPTION: "USE_GTEST=1"
+        run: |
+          make -C test clean
+          make -C test OUTPUTXML=1 "${GTEST_OPTION}" GTEST_EXPECT_VER=${{ matrix.GTEST_EXPECT_VER }} GTEST_EXPECT_LATEST=${{ matrix.GTEST_EXPECT_LATEST }} "${MAKE_OPTION}" test
+      - name: Google Mock
+        env:
+          GTEST_OPTION: "USE_GTEST=1 USE_GMOCK=1"
+        run: |
+          make -C test clean
+          make -C test OUTPUTXML=1 "${GTEST_OPTION}" GTEST_EXPECT_VER=${{ matrix.GTEST_EXPECT_VER }} GTEST_EXPECT_LATEST=${{ matrix.GTEST_EXPECT_LATEST }} "${MAKE_OPTION}" test
+

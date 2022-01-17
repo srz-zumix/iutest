@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -510,18 +510,6 @@
 #  endif
 #endif
 
-#if !defined(IUTEST_HAS_LONG_DOUBLE)
-#  if   IUTEST_HAS_INT128
-#    define IUTEST_HAS_LONG_DOUBLE  1
-#  elif defined(__SIZEOF_FLOAT128__) && (__SIZEOF_FLOAT128__ <= 8)
-#    define IUTEST_HAS_LONG_DOUBLE  1
-#  endif
-#endif
-
-#if !defined(IUTEST_HAS_LONG_DOUBLE)
-#  define IUTEST_HAS_LONG_DOUBLE    0
-#endif
-
 /**
  * @}
 */
@@ -641,6 +629,11 @@
  * @brief       その他の CONFIG
  * @{
 */
+
+//! use quadmath
+#if !defined(IUTEST_USE_QUADMATH)
+#  define IUTEST_USE_QUADMATH       0
+#endif
 
 //! テストのチェック機能の有無
 #if !defined(IUTEST_CHECK_STRICT)
@@ -857,20 +850,24 @@
 #  define IUTEST_LIB_THREAD_OPT ""
 #endif
 
-#if   _MSC_VER == 1400
-#  define IUTEST_LIB_TOOLSET    "vc80"
-#elif _MSC_VER == 1500
-#  define IUTEST_LIB_TOOLSET    "vc90"
-#elif _MSC_VER == 1600
-#  define IUTEST_LIB_TOOLSET    "vc100"
-#elif _MSC_VER == 1700
-#  define IUTEST_LIB_TOOLSET    "vc110"
+#if   _MSC_VER >= 1930
+#  define IUTEST_LIB_TOOLSET    "vc143"
+#elif _MSC_VER >= 1920
+#  define IUTEST_LIB_TOOLSET    "vc142"
+#elif _MSC_VER >= 1910
+#  define IUTEST_LIB_TOOLSET    "vc141"
+#elif _MSC_VER >= 1900
+#  define IUTEST_LIB_TOOLSET    "vc140"
 #elif _MSC_VER == 1800
 #  define IUTEST_LIB_TOOLSET    "vc120"
-#elif _MSC_VER == 1900
-#  define IUTEST_LIB_TOOLSET    "vc140"
-#elif _MSC_VER == 1910
-#  define IUTEST_LIB_TOOLSET    "vc141"
+#elif _MSC_VER == 1700
+#  define IUTEST_LIB_TOOLSET    "vc110"
+#elif _MSC_VER == 1600
+#  define IUTEST_LIB_TOOLSET    "vc100"
+#elif _MSC_VER == 1500
+#  define IUTEST_LIB_TOOLSET    "vc90"
+#elif _MSC_VER == 1400
+#  define IUTEST_LIB_TOOLSET    "vc80"
 #else
 #  error unknown _MSC_VER.
 #endif

@@ -85,9 +85,9 @@ int main(int argc, char* argv[])
     const int ret = IUTEST_RUN_ALL_TESTS();
 
 #if IUTEST_USE_THROW_ON_ASSERTION_FAILURE
-    IUTEST_ASSERT_EXIT( x == 0 );
+    IUTEST_TERMINATE_ON_FAILURE( x == 0 );
 #else
-    IUTEST_ASSERT_EXIT( x == 4 );
+    IUTEST_TERMINATE_ON_FAILURE( x == 4 );
 #endif
     if( ret == 0 ) return 1;
     printf("*** Successful ***\n");
