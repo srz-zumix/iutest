@@ -139,6 +139,31 @@ jobs:
           path: cmake-build/TestResults.xcresult
         if: success() || failure()
 
+  gcc-fanalyzer:
+    runs-on: ubuntu-latest
+    needs: prepare
+    env:
+      DEFS: -fanalyzer
+      OUTPUTXML: junit
+    steps:
+      - uses: actions/checkout@master
+      - name: gcc info
+        run: |
+          make -C test clean
+          make -C test showcxxversion
+          make -C test showcxxmacros
+          make -C test check_stdlib
+      - name: gcc build
+        run: |
+          make -C test -j8
+      - name: gcc test
+        run: |
+          make -C test test
+      - name: report
+        uses: mikepenz/action-junit-report@v2
+        with:
+          report_paths: test/*.xml
+
   zapcc-basic-test:
     runs-on: ubuntu-18.04
     needs: prepare
