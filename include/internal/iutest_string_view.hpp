@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2019-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2019-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -414,6 +414,9 @@ public:
     typedef const value_type* const_pointer;
     typedef size_t size_type;
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_HIDE_FUNCTION()
+
     IUTEST_CXX_CONSTEXPR iu_nullable_basic_string_view() IUTEST_CXX_NOEXCEPT_SPEC IUTEST_CXX_DEFAULT_FUNCTION
 #if IUTEST_HAS_NULLPTR
     IUTEST_CXX_CONSTEXPR iu_nullable_basic_string_view(::std::nullptr_t)
@@ -454,6 +457,8 @@ public:
         : _Mybase(str.data(), str.length())
     {
     }
+
+IUTEST_PRAGMA_WARN_POP()
 };
 
 

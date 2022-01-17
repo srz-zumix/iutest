@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -59,7 +59,7 @@ class iuParamGenerator IUTEST_CXX_FINAL : public iuIParamGenerator<T>
 public:
     typedef T type;
 public:
-    iuParamGenerator(_Interface* pInterface=NULL) : m_pInterface(pInterface) {} // NOLINT
+    iuParamGenerator(_Interface* pInterface=IUTEST_NULLPTR) IUTEST_CXX_NOEXCEPT_SPEC : m_pInterface(pInterface) {} // NOLINT
 
 public:
     operator iuIParamGenerator<T>* () const { return m_pInterface; }
@@ -100,7 +100,7 @@ public:
      * @param [in]  end     = 終了値
      * @param [in]  step    = 増値
     */
-    iuRangeParamsGenerator(T begin, T end, T step)
+    iuRangeParamsGenerator(T begin, T end, T step) IUTEST_CXX_NOEXCEPT_SPEC
         : m_begin(begin)
         , m_end(end)
         , m_step(step)
@@ -123,7 +123,7 @@ class iuBoolParamsGenerator IUTEST_CXX_FINAL : public iuIParamGenerator<bool>
     int m_n;
     bool m_cur;
 public:
-    iuBoolParamsGenerator()
+    iuBoolParamsGenerator() IUTEST_CXX_NOEXCEPT_SPEC
         : m_n(0)
         , m_cur(false)
     {}
@@ -257,8 +257,9 @@ class iuValueArray
         T val[sizeof...(Args)];
 
         template<typename U>
-        void operator ()(int index, const U& value) { val[index] = value; }
+        void operator ()(int index, const U& value) { gsl::at(val, index) = value; }
 
+        IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26495)
         explicit make_array(const _MyTuple& t)
         {
             tuples::tuple_foreach(t, *this);
@@ -283,7 +284,7 @@ public:
     template<typename T>
     operator iuIParamGenerator<T>* () const
     {
-        make_array<T> ar(v);
+        const make_array<T> ar(v);
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
         return new iuValuesInParamsGenerator<T>(ar.val);
 #else
@@ -492,7 +493,7 @@ class iuCartesianProductGenerator IUTEST_CXX_FINAL : public iuIParamGenerator< t
 public:
     typedef tuples::tuple<Args...> ParamType;
 public:
-    iuCartesianProductGenerator() {}
+    iuCartesianProductGenerator() IUTEST_CXX_NOEXCEPT_SPEC {}
 
 public:
     virtual void Begin() IUTEST_CXX_OVERRIDE
@@ -538,6 +539,7 @@ public:
     template<typename... Args>
     operator iuIParamGenerator< tuples::tuple<Args...> >* () const
     {
+        IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26400)
         iuCartesianProductGenerator<Args...>* p = new iuCartesianProductGenerator<Args...>();
         tuples::tuple_cast_copy(p->generators(), v);
         return p;
@@ -803,7 +805,7 @@ protected:
     struct ParamIndexes
     {
         int index[N];
-        ParamIndexes() { for( int i=0; i < N; ++i ) index[i] = -1; }
+        ParamIndexes() IUTEST_CXX_NOEXCEPT_SPEC { for( int i=0; i < N; ++i ) index[i] = -1; }
     };
 
 private:
@@ -1446,7 +1448,7 @@ public:
         {
             seed = GetIndefiniteValue();
         }
-        iuValuesParamsGeneratorHolder< iuTypedRandom<T> > gen( m_num, iuTypedRandom<T>(seed) );
+        const iuValuesParamsGeneratorHolder< iuTypedRandom<T> > gen( m_num, iuTypedRandom<T>(seed) );
         return gen;
     }
 
