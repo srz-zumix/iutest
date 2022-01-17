@@ -136,6 +136,7 @@ predefined_macros = {
     'IUTEST_ATTRIBUTE_NORETURN_': None,
     'IUTEST_ATTRIBUTE_FORMAT_PRINTF': None,
     'IUTEST_ATTRIBUTE_FORMAT': None,
+    'IUTEST_HAS_GSL': '0',
     # no overridable
     'IUTEST_SUCCEED': None,
     'IUTEST_FAIL': None,

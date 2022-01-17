@@ -45,7 +45,7 @@ namespace detail
 class iuStreamMessage
 {
 public:
-    iuStreamMessage() {}
+    iuStreamMessage() IUTEST_CXX_NOEXCEPT_SPEC {}
     explicit iuStreamMessage(const char* message) : m_stream(message) {}
     iuStreamMessage(const iuStreamMessage& rhs) : m_stream(rhs.GetString()) {}
 
@@ -115,12 +115,12 @@ class iuCodeMessage
     const char*     m_file;     //!< ファイル名
     int             m_line;     //!< ライン
 public:
-    iuCodeMessage(const char* file, int line, const char* message)
+    iuCodeMessage(const char* file, int line, const char* message) IUTEST_CXX_NOEXCEPT_SPEC
         : m_message(message)
         , m_file(file ? file : kStrings::UnknownFile)
         , m_line(line)
     {}
-    iuCodeMessage(const char* file, int line, const iuStreamMessage& message)
+    iuCodeMessage(const char* file, int line, const iuStreamMessage& message) IUTEST_CXX_NOEXCEPT(false)
         : m_message(message.GetString())
         , m_file(file ? file : kStrings::UnknownFile)
         , m_line(line)
