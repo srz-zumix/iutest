@@ -258,6 +258,8 @@ workflows:
   default-test:
     when: << pipeline.parameters.build >>
     jobs:
+      - gcc_fanalzyer_test:
+          filters: *branch-filter
       - gcc_optimize_test:
           filters: *branch-filter
       - clang_optimize_test:
