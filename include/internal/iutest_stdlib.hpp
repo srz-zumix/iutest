@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -119,7 +119,7 @@ struct tuple_foreach_impl
     template<int N>
     struct impl<N, N>
     {
-        static void do_something(T&, F) {}
+        static void do_something(T&, F) IUTEST_CXX_NOEXCEPT_SPEC {}
     };
 
     static void do_something(T& t, F fn)
@@ -143,7 +143,7 @@ struct tuple_cast_copy_impl
     template<int N>
     struct impl<N, N>
     {
-        static void copy(T&, const U&) {}
+        static void copy(T&, const U&) IUTEST_CXX_NOEXCEPT_SPEC {}
     };
 
     static void copy(T& dst, const U& src)

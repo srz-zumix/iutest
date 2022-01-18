@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -132,7 +132,7 @@ private:
     class holder IUTEST_CXX_FINAL : public placeholder
     {
     public:
-        explicit holder(const T& v) : held(v) {}
+        explicit holder(const T& v) IUTEST_CXX_NOEXCEPT_SPEC : held(v) {}
     public:
         virtual type_id type() const IUTEST_CXX_OVERRIDE
         {

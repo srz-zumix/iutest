@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -260,8 +260,8 @@ class iuTypedRandom
 {
     typedef T result_type;
 public:
-    iuTypedRandom() {}
-    explicit iuTypedRandom(unsigned int seed)
+    iuTypedRandom() IUTEST_CXX_NOEXCEPT_SPEC {}
+    explicit iuTypedRandom(unsigned int seed) IUTEST_CXX_NOEXCEPT_SPEC
         : m_rnd(seed) {}
 
     result_type operator ()()

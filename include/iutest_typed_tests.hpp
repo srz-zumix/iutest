@@ -535,7 +535,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
     class EachTest<TypeParam, detail::TemplateTypeList0>
     {
     public:
-        static void Register(TestSuite* /*testsuite*/, const char* /*test_names*/) {}
+        static void Register(TestSuite* /*testsuite*/, const char* /*test_names*/) IUTEST_CXX_NOEXCEPT_SPEC {}
     };
 
 public:
@@ -618,7 +618,7 @@ public:
     static bool Register(const char* /*prefix*/, const char* /*testsuite_name*/
         , const ::std::string& /*package_name*/, const char* /*names*/
         , const char* /*file*/, int /*line*/
-        , size_t /*index*/=0)
+        , size_t /*index*/=0) IUTEST_CXX_NOEXCEPT_SPEC
     {
         return true;
     }

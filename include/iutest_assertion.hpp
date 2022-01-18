@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -161,7 +161,7 @@ struct AssertionReturnType
      * @brief   コンストラクタ
      * @param [in]  v : 戻り値の値
     */
-    AssertionReturnType(const R& v) : value(v) {}   // NOLINT
+    AssertionReturnType(const R& v) IUTEST_CXX_NOEXCEPT_SPEC : value(v) {}   // NOLINT
 };
 /**
  * @brief   Assetion Return Type (void)

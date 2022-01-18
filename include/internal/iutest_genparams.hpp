@@ -109,10 +109,13 @@ public:
     }
 
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
     virtual void    Begin() IUTEST_CXX_OVERRIDE { m_cur = m_begin; }
     virtual T       GetCurrent() const IUTEST_CXX_OVERRIDE { return m_cur; }
     virtual void    Next() IUTEST_CXX_OVERRIDE { m_cur = static_cast<T>(m_cur + m_step); }
     virtual bool    IsEnd() const IUTEST_CXX_OVERRIDE { return !(m_cur < m_end); }
+IUTEST_PRAGMA_WARN_POP()
 };
 
 /**
@@ -129,10 +132,13 @@ public:
     {}
 
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
     virtual void    Begin() IUTEST_CXX_OVERRIDE { m_cur = false; m_n = 0; }
     virtual bool    GetCurrent() const IUTEST_CXX_OVERRIDE { return m_cur; }
     virtual void    Next() IUTEST_CXX_OVERRIDE { ++m_n; m_cur = !m_cur; }
     virtual bool    IsEnd() const IUTEST_CXX_OVERRIDE { return m_n >= 2; }
+IUTEST_PRAGMA_WARN_POP()
 };
 
 /**
@@ -175,10 +181,13 @@ public:
 #endif
 
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
     virtual void    Begin() IUTEST_CXX_OVERRIDE { m_it = m_values.begin(); }
     virtual T       GetCurrent() const IUTEST_CXX_OVERRIDE { return *m_it; }
     virtual void    Next() IUTEST_CXX_OVERRIDE { ++m_it; }
     virtual bool    IsEnd() const IUTEST_CXX_OVERRIDE { return (m_it == m_values.end()); }
+IUTEST_PRAGMA_WARN_POP()
 };
 
 
@@ -191,7 +200,7 @@ class iuConcatParamHolder
 {
     typedef iuConcatParamHolder<G1, G2> _Myt;
 public:
-    iuConcatParamHolder(const G1& g1, const G2& g2)
+    iuConcatParamHolder(const G1& g1, const G2& g2) IUTEST_CXX_NOEXCEPT_SPEC
         : m_g1(g1), m_g2(g2) {}
 
 private:
@@ -266,7 +275,7 @@ class iuValueArray
         }
     };
 public:
-    explicit iuValueArray(const Args&... args)
+    explicit iuValueArray(const Args&... args) IUTEST_CXX_NOEXCEPT_SPEC
         : v(args...)
     {}
 
@@ -451,7 +460,7 @@ class iuCartesianProductGenerator IUTEST_CXX_FINAL : public iuIParamGenerator< t
     }
     template<int index, int end, typename Tuple>
     bool is_end_foreach(Tuple&
-        , typename detail::enable_if<index == end, void>::type*& = detail::enabler::value ) const
+        , typename detail::enable_if<index == end, void>::type*& = detail::enabler::value ) const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return true;
     }
@@ -472,7 +481,7 @@ class iuCartesianProductGenerator IUTEST_CXX_FINAL : public iuIParamGenerator< t
     }
     template<int index, int end, typename Tuple>
     void next_foreach(Tuple&
-        , typename detail::enable_if<index == end, void>::type*& = detail::enabler::value )
+        , typename detail::enable_if<index == end, void>::type*& = detail::enabler::value ) IUTEST_CXX_NOEXCEPT_SPEC
     {
     }
 
@@ -528,11 +537,11 @@ class iuCartesianProductHolder
     typedef tuples::tuple<const Generator...> _MyTuple;
 
 public:
-    iuCartesianProductHolder(const iuCartesianProductHolder& rhs)
+    iuCartesianProductHolder(const iuCartesianProductHolder& rhs) IUTEST_CXX_NOEXCEPT_SPEC
         : v(rhs.v)
     {
     }
-    explicit iuCartesianProductHolder(const Generator&... generators)
+    explicit iuCartesianProductHolder(const Generator&... generators) IUTEST_CXX_NOEXCEPT_SPEC
         : v(generators...) {}
 
 public:
