@@ -638,6 +638,22 @@
 #  endif
 #endif
 
+#if !defined(iu_va_start)
+#  if defined(_MSC_VER)
+#    define iu_va_start IUTEST_ATTRIBUTE_GSL_SUPPRESS(type.3) va_start
+#  else
+#    define iu_va_start va_start
+#  endif
+#endif
+
+#if !defined(iu_va_end)
+#  if defined(_MSC_VER)
+#    define iu_va_end   IUTEST_ATTRIBUTE_GSL_SUPPRESS(es.47) va_end
+#  else
+#    define iu_va_end   va_end
+#  endif
+#endif
+
 //======================================================================
 // include
 #include <iterator>
