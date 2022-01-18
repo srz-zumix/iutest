@@ -12,7 +12,7 @@ aliases:
     working_directory: ~/srz-zumix/iutest
     shell: /bin/bash --login
     docker:
-      - image: circleci/buildpack-deps:focal-curl
+      - image: cimg/base:stable
         environment:
           MAKE_OPTION: -j4 OUTPUTXML=1
           MAKE_TARGET: default
@@ -106,7 +106,7 @@ aliases:
     command: |
       mkdir -p << parameters.test-reports-path >>/junit/$CIRCLE_NODE_INDEX;
       find . -type f -regex ".*/test/.*xml" -exec cp {} << parameters.test-reports-path >>/junit/$CIRCLE_NODE_INDEX \;;
-  - &parallelism-build-test-steps
+  - &build-test-steps
     - checkout
     - run: mkdir -p << parameters.artifacts-path >> << parameters.test-reports-path >>
     - restore_cache: *restore_cache
@@ -128,7 +128,7 @@ aliases:
         path: << parameters.artifacts-path >>
     - store_artifacts:
         path: << parameters.test-reports-path >>
-  - &build-test-steps
+  - &container-build-test-steps
     - checkout
     - run: *check-version-step
     - run: *dump-macros-step
@@ -173,7 +173,7 @@ jobs:
       GCC_VERSION: "11"
       FAST_OPTIMIZE: -Og
       # FAST_OPTIMIZE: -Ofast # https://github.com/srz-zumix/iutest/issues/396
-    steps: *parallelism-build-test-steps
+    steps: *build-test-steps
   clang_optimize_test:
     parallelism: 4
     <<: *default
@@ -182,7 +182,7 @@ jobs:
       CXX: clang++
       FAST_OPTIMIZE: -Ot
       MAKE_ADD_OPTION: CXXFLAGS=-ftime-trace
-    steps: *parallelism-build-test-steps
+    steps: *build-test-steps
   arm:
     machine:
       image: ubuntu-2004:202101-01
@@ -192,7 +192,7 @@ jobs:
       MAKE_OPTION: -j4 OUTPUTXML=1
       MAKE_TARGET: default
       MAKE_RUN_TARGET: test
-    steps: *build-test-steps
+    steps: *container-build-test-steps
   vcperf:
     executor: win/default
     environment:
