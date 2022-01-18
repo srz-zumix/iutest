@@ -162,7 +162,7 @@ jobs:
     environment:
       CXX: g++
       GCC_VERSION: "11"
-      MAKE_ADD_OPTION: CXXFLAGS="-fanalyzer -Wno-analyzer-possible-null-argument"
+      MAKE_ADD_OPTION: DEFS="-fanalyzer -Wno-analyzer-possible-null-argument"
     steps: *build-test-steps
   gcc_optimize_test:
     parallelism: 4
