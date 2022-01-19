@@ -5,7 +5,7 @@ resources:
       gitProvider: GitHub
       path: srz-zumix/iutest
       branches:
-        include: master|^jfrog/.*
+        include: master|develop|^jfrog/.*
       # https://www.jfrog.com/confluence/display/JFROG/Triggering+Pipelines+and+Steps#TriggeringPipelinesandSteps-CancellingPreviousRunsOnaGitRepositoryChange
       cancelPendingRunsOn:
         newCommit: true
@@ -13,7 +13,8 @@ resources:
 pipelines:
   - name: iutest_centos_basic_test
     configuration:
-      nodePool: centos-latest
+      # nodePool: centos-latest
+      nodePool: ubuntu-latest
       runtime:
         type: image
         image:
