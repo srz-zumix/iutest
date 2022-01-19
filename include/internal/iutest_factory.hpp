@@ -51,8 +51,11 @@ class iuFactory IUTEST_CXX_FINAL : public iuFactoryBase
 public:
     virtual auto_ptr<Test> Create() IUTEST_CXX_OVERRIDE
     {
+        IUTEST_PRAGMA_GCC_WARN_PUSH()
+        IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wanalyzer-possible-null-dereference")
         auto_ptr<Test> p( new Tester() );
         return p;
+        IUTEST_PRAGMA_GCC_WARN_POP()
     }
 };
 
