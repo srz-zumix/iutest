@@ -162,7 +162,7 @@ jobs:
     environment:
       CXX: g++
       GCC_VERSION: "11"
-      DEFS: "-fanalyzer -Wno-analyzer-possible-null-argument"
+      DEFS: "-fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference"
     steps: *build-test-steps
   gcc_optimize_test:
     parallelism: 4
