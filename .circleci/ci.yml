@@ -81,20 +81,19 @@ aliases:
   - &build-step
     name: build
     command: |
-      echo $MAKE_ADD_OPTION
-      make clean $MAKE_OPTION "$MAKE_ADD_OPTION"
+      make clean $MAKE_OPTION $MAKE_ADD_OPTION
       case $CIRCLE_NODE_INDEX in \
-        0) make $MAKE_TARGET $MAKE_OPTION "$MAKE_ADD_OPTION" OPTIMIZE=-O2 ;; \
-        1) make $MAKE_TARGET $MAKE_OPTION "$MAKE_ADD_OPTION" OPTIMIZE=-O3 ;; \
-        2) make $MAKE_TARGET $MAKE_OPTION "$MAKE_ADD_OPTION" OPTIMIZE=-Os ;; \
-        3) make $MAKE_TARGET $MAKE_OPTION "$MAKE_ADD_OPTION" OPTIMIZE=$FAST_OPTIMIZE ;; \
+        0) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O2 ;; \
+        1) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O3 ;; \
+        2) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Os ;; \
+        3) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=$FAST_OPTIMIZE ;; \
       esac
       cp *.json << parameters.artifacts-path >>/ 2>/dev/null || true
     working_directory: test
   - &test-step
     name: run test
     command: |
-      make $MAKE_RUN_TARGET $MAKE_OPTION "$MAKE_ADD_OPTION"
+      make $MAKE_RUN_TARGET $MAKE_OPTION $MAKE_ADD_OPTION
     working_directory: test
   - &report-step
     name: report
@@ -163,7 +162,7 @@ jobs:
     environment:
       CXX: g++
       GCC_VERSION: "11"
-      MAKE_ADD_OPTION: "DEFS=\"-fanalyzer -Wno-analyzer-possible-null-argument\""
+      DEFS: "-fanalyzer -Wno-analyzer-possible-null-argument"
     steps: *build-test-steps
   gcc_optimize_test:
     parallelism: 4
