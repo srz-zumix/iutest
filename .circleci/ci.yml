@@ -12,7 +12,7 @@ aliases:
     working_directory: ~/srz-zumix/iutest
     shell: /bin/bash --login
     docker:
-      - image: circleci/buildpack-deps:focal-curl
+      - image: cimg/base:stable
         environment:
           MAKE_OPTION: -j4 OUTPUTXML=1
           MAKE_TARGET: default
@@ -81,19 +81,20 @@ aliases:
   - &build-step
     name: build
     command: |
-      make clean $MAKE_OPTION $MAKE_ADD_OPTION
+      echo $MAKE_ADD_OPTION
+      make clean $MAKE_OPTION "$MAKE_ADD_OPTION"
       case $CIRCLE_NODE_INDEX in \
-        0) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O2 ;; \
-        1) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O3 ;; \
-        2) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Os ;; \
-        3) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=$FAST_OPTIMIZE ;; \
+        0) make $MAKE_TARGET $MAKE_OPTION "$MAKE_ADD_OPTION" OPTIMIZE=-O2 ;; \
+        1) make $MAKE_TARGET $MAKE_OPTION "$MAKE_ADD_OPTION" OPTIMIZE=-O3 ;; \
+        2) make $MAKE_TARGET $MAKE_OPTION "$MAKE_ADD_OPTION" OPTIMIZE=-Os ;; \
+        3) make $MAKE_TARGET $MAKE_OPTION "$MAKE_ADD_OPTION" OPTIMIZE=$FAST_OPTIMIZE ;; \
       esac
       cp *.json << parameters.artifacts-path >>/ 2>/dev/null || true
     working_directory: test
   - &test-step
     name: run test
     command: |
-      make $MAKE_RUN_TARGET $MAKE_OPTION $MAKE_ADD_OPTION
+      make $MAKE_RUN_TARGET $MAKE_OPTION "$MAKE_ADD_OPTION"
     working_directory: test
   - &report-step
     name: report
@@ -128,6 +129,23 @@ aliases:
         path: << parameters.artifacts-path >>
     - store_artifacts:
         path: << parameters.test-reports-path >>
+  - &container-build-test-steps
+    - checkout
+    - run: *check-version-step
+    - run: *dump-macros-step
+    - run: *min-tests-and-spec-step
+    - run: *build-step
+    - run: *test-step
+    - run: *report-step
+    - run: *move-result-step
+    # Teardown
+    - store_test_results:
+        path: /tmp/circleci-test-results
+    # Save artifacts
+    - store_artifacts:
+        path: /tmp/circleci-artifacts
+    - store_artifacts:
+        path: /tmp/circleci-test-results
 
 parameters:
   build:
@@ -139,13 +157,21 @@ orbs:
   docker: circleci/docker@1.4.0
 
 jobs:
+  gcc_fanalzyer_test:
+    <<: *default
+    parameters: *job-parameters
+    environment:
+      CXX: g++
+      GCC_VERSION: "11"
+      MAKE_ADD_OPTION: "DEFS=\"-fanalyzer -Wno-analyzer-possible-null-argument\""
+    steps: *build-test-steps
   gcc_optimize_test:
     parallelism: 4
     <<: *default
     parameters: *job-parameters
     environment:
       CXX: g++
-      GCC_VERSION: "8"
+      GCC_VERSION: "11"
       FAST_OPTIMIZE: -Og
       # FAST_OPTIMIZE: -Ofast # https://github.com/srz-zumix/iutest/issues/396
     steps: *build-test-steps
@@ -167,23 +193,7 @@ jobs:
       MAKE_OPTION: -j4 OUTPUTXML=1
       MAKE_TARGET: default
       MAKE_RUN_TARGET: test
-    steps:
-      - checkout
-      - run: *check-version-step
-      - run: *dump-macros-step
-      - run: *min-tests-and-spec-step
-      - run: *build-step
-      - run: *test-step
-      - run: *report-step
-      - run: *move-result-step
-      # Teardown
-      - store_test_results:
-          path: /tmp/circleci-test-results
-      # Save artifacts
-      - store_artifacts:
-          path: /tmp/circleci-artifacts
-      - store_artifacts:
-          path: /tmp/circleci-test-results
+    steps: *container-build-test-steps
   vcperf:
     executor: win/default
     environment:
@@ -249,6 +259,8 @@ workflows:
   default-test:
     when: << pipeline.parameters.build >>
     jobs:
+      - gcc_fanalzyer_test:
+          filters: *branch-filter
       - gcc_optimize_test:
           filters: *branch-filter
       - clang_optimize_test:
