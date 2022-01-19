@@ -468,7 +468,7 @@ override CXXFLAGS += -Werror $(IUTEST_CXX_NOWARN_FLAGS)
 endif
 
 $(BUILD_ONLY) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
-	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -fno-analyzer -o $@ $< $(LDFLAGS)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $< $(LDFLAGS)
 
 $(TEST_TARGETS) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 	$(BUILD4ZAPCC)

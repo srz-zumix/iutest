@@ -163,7 +163,7 @@ jobs:
       CXX: g++
       GCC_VERSION: "11"
       DEFS: "-fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference"
-      MAKE_OPTION: -j1 OUTPUTXML=1
+      MAKE_ADD_OPTION: -j1
     steps: *build-test-steps
   gcc_optimize_test:
     parallelism: 4
