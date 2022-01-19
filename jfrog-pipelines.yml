@@ -13,7 +13,8 @@ resources:
 pipelines:
   - name: iutest_centos_basic_test
     configuration:
-      nodePool: centos-latest
+      # nodePool: centos-latest
+      nodePool: ubuntu-latest
       runtime:
         type: image
         image:
