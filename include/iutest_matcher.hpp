@@ -143,7 +143,8 @@ IUTEST_PRAGMA_WARN_POP()
 #define IIUT_DECL_STR_COMPARE_MATCHER(name)  \
     template<typename T>                                                        \
     class IUTEST_PP_CAT(name, Matcher) IUTEST_CXX_FINAL : public IMatcher {     \
-    public: IUTEST_PP_CAT(name, Matcher)(const T& value) : m_expected(value) {} \
+    public: IUTEST_PP_CAT(name, Matcher)(const T& value)                        \
+        IUTEST_CXX_NOEXCEPT_SPEC : m_expected(value) {}                         \
     template<typename U>AssertionResult operator ()(const U& actual) const {    \
         if IUTEST_COND_LIKELY( internal::IUTEST_PP_CAT(name, Helper)::Compare(  \
             actual, m_expected) ) { return AssertionSuccess(); }                \
@@ -367,7 +368,7 @@ public:
         return strm.str();
     }
 private:
-    static bool StartsWith(const char* actual, const char* start)
+    static bool StartsWith(const char* actual, const char* start) IUTEST_CXX_NOEXCEPT_SPEC
     {
         return strstr(actual, start) == actual;
     }
@@ -417,7 +418,7 @@ public:
         return strm.str();
     }
 private:
-    static bool HasSubstr(const char* actual, const char* expected)
+    static bool HasSubstr(const char* actual, const char* expected) IUTEST_CXX_NOEXCEPT_SPEC
     {
         return strstr(actual, expected) != IUTEST_NULLPTR;
     }
@@ -469,7 +470,7 @@ public:
         return strm.str();
     }
 private:
-    static bool EndsWith(const char* actual, const char* end)
+    static bool EndsWith(const char* actual, const char* end) IUTEST_CXX_NOEXCEPT_SPEC
     {
         const size_t len = strlen(end);
         const size_t actual_len = strlen(actual);
@@ -588,14 +589,14 @@ private:
 
 template<typename T>
 T& CastToMatcher(T& matcher
-    , typename detail::enable_if< IMatcher::is_matcher<T>::value >::type*& = detail::enabler::value)
+    , typename detail::enable_if< IMatcher::is_matcher<T>::value >::type*& = detail::enabler::value) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return matcher;
 }
 /** @overload */
 template<typename T>
 EqMatcher<T> CastToMatcher(const T& value
-    , typename detail::disable_if< IMatcher::is_matcher<T>::value >::type*& = detail::enabler::value)
+    , typename detail::disable_if< IMatcher::is_matcher<T>::value >::type*& = detail::enabler::value) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return EqMatcher<T>(value);
 }
