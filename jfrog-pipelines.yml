@@ -5,15 +5,55 @@ resources:
       gitProvider: GitHub
       path: srz-zumix/iutest
       branches:
-        include: master|develop|^jfrog/.*
+        include: master|^jfrog/.*
       # https://www.jfrog.com/confluence/display/JFROG/Triggering+Pipelines+and+Steps#TriggeringPipelinesandSteps-CancellingPreviousRunsOnaGitRepositoryChange
       cancelPendingRunsOn:
         newCommit: true
         pullRequestUpdate: true
 pipelines:
-  - name: iutest_centos_basic_test
+  # - name: iutest_centos_basic_test
+  #   configuration:
+  #     nodePool: centos-latest
+  #     runtime:
+  #       type: image
+  #       image:
+  #         auto:
+  #           language: cpp
+  #           versions:
+  #             - "9.0.1"
+  #   steps:
+  #     - name: gcc
+  #       type: Bash
+  #       configuration:
+  #         inputResources:
+  #           - name: iutest_gitRepo
+  #       execution: &basic-test-execution
+  #         onStart:
+  #           - update_commit_status iutest_gitRepo # Status: "processing"
+  #         onExecute:
+  #           - update_commit_status iutest_gitRepo # Status: "processing"
+  #           - yum install -y make
+  #           - pushd ${res_iutest_gitRepo_resourcePath}
+  #           - make -C test showcxxversion showcxxmacros
+  #           - make -C test -j4
+  #           - make -C test test
+  #           - make -C test report
+  #           - popd
+  #         onFailure:
+  #           - update_commit_status iutest_gitRepo # Status: "failure"
+  #         onSuccess:
+  #           - update_commit_status iutest_gitRepo # Status: "success"
+  #     - name: clang
+  #       type: Bash
+  #       configuration:
+  #         environmentVariables:
+  #           CC: clang
+  #           CXX: clang++
+  #         inputResources:
+  #           - name: iutest_gitRepo
+  #       execution: *basic-test-execution
+  - name: iutest_ubuntu_basic_test
     configuration:
-      # nodePool: centos-latest
       nodePool: ubuntu-latest
       runtime:
         type: image
@@ -28,12 +68,11 @@ pipelines:
         configuration:
           inputResources:
             - name: iutest_gitRepo
-        execution: &basic-test-execution
+        execution: &ubuntu-basic-test-execution
           onStart:
             - update_commit_status iutest_gitRepo # Status: "processing"
           onExecute:
             - update_commit_status iutest_gitRepo # Status: "processing"
-            - yum install -y make
             - pushd ${res_iutest_gitRepo_resourcePath}
             - make -C test showcxxversion showcxxmacros
             - make -C test -j4
@@ -52,7 +91,7 @@ pipelines:
             CXX: clang++
           inputResources:
             - name: iutest_gitRepo
-        execution: *basic-test-execution
+        execution: *ubuntu-basic-test-execution
 
 # ビルド時間制限的に無理なので disable
   # - name: gtest_compatible_released
