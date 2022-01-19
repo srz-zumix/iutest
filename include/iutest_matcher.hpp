@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -95,7 +95,8 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& m)
 #define IIUT_DECL_COMPARE_MATCHER(name, op)  \
     template<typename T>                                                        \
     class IUTEST_PP_CAT(name, Matcher) IUTEST_CXX_FINAL : public IMatcher {     \
-    public: explicit IUTEST_PP_CAT(name, Matcher)(const T& v) : m_expected(v) {}\
+    public: explicit IUTEST_PP_CAT(name, Matcher)(const T& v)                   \
+        IUTEST_CXX_NOEXCEPT_SPEC: m_expected(v) {}                              \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                         \
         iu_global_format_stringstream strm;                                     \
         strm << #name ": " << m_expected; return strm.str();                    \

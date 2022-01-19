@@ -1388,7 +1388,7 @@ class iuValuesParamsGeneratorHolder
 {
     typedef iuValuesParamsGeneratorHolder<StdGenerator> _Myt;
 public:
-    iuValuesParamsGeneratorHolder(size_t num, const StdGenerator& g)
+    iuValuesParamsGeneratorHolder(size_t num, const StdGenerator& g) IUTEST_CXX_NOEXCEPT_SPEC
         : m_num(num), m_g(g)
     {}
 public:

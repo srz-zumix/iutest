@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -66,7 +66,7 @@ template<typename T>bool TestTypeIdHelper<T>::_dummy = false;
  * @brief   TypeId Generator
 */
 template<typename T>
-inline TypeId GetTypeId()
+inline TypeId GetTypeId() IUTEST_CXX_NOEXCEPT_SPEC
 {
     return &(helper::TestTypeIdHelper<T>::_dummy);
 }
@@ -75,7 +75,7 @@ inline TypeId GetTypeId()
  * @internal
  * @brief   TypeId Generator
 */
-inline IUTEST_CXX_CONSTEXPR TypeId GetTestTypeId()
+inline IUTEST_CXX_CONSTEXPR TypeId GetTestTypeId() IUTEST_CXX_NOEXCEPT_SPEC
 {
     return IUTEST_NULLPTR;
 }
@@ -314,52 +314,52 @@ public:
     /**
      * @brief   ビット列の取得
     */
-    UInt    bits() const { return m_v.uv; }
+    UInt    bits() const IUTEST_CXX_NOEXCEPT_SPEC { return m_v.uv; }
 
     /**
      * @brief   ビット列の取得
     */
-    UInt    enable_bits() const { return m_v.uv & kEnableBitMask; }
+    UInt    enable_bits() const IUTEST_CXX_NOEXCEPT_SPEC { return m_v.uv & kEnableBitMask; }
 
     /**
      * @brief   raw データの取得
     */
-    RawType raw() const { return m_v.fv; }
+    RawType raw() const IUTEST_CXX_NOEXCEPT_SPEC { return m_v.fv; }
 
     /**
      * @brief   exponent
     */
-    UInt    exponent_bits() const { return m_v.uv & kExpMask; }
+    UInt    exponent_bits() const IUTEST_CXX_NOEXCEPT_SPEC { return m_v.uv & kExpMask; }
 
     /**
      * @brief   fraction (mantissa)
     */
-    UInt    fraction_bits() const { return mantissa_bits(); }
+    UInt    fraction_bits() const IUTEST_CXX_NOEXCEPT_SPEC { return mantissa_bits(); }
 
     /**
      * @brief   mantissa
     */
-    UInt    mantissa_bits() const { return m_v.uv & kMantMask; }
+    UInt    mantissa_bits() const IUTEST_CXX_NOEXCEPT_SPEC { return m_v.uv & kMantMask; }
 
     /**
      * @brief   economized mantissa
     */
-    UInt    economized_mantissa_bits() const { return m_v.uv & kEconomizedMantMask; }
+    UInt    economized_mantissa_bits() const IUTEST_CXX_NOEXCEPT_SPEC { return m_v.uv & kEconomizedMantMask; }
 
     /**
      * @brief   sign
     */
-    UInt    sign_bit() const { return m_v.uv & kSignMask; }
+    UInt    sign_bit() const IUTEST_CXX_NOEXCEPT_SPEC { return m_v.uv & kSignMask; }
 
     /**
      * @brief   is nan
     */
-    bool    is_nan() const { return exponent_bits() == kExpMask && economized_mantissa_bits() != 0; }
+    bool    is_nan() const IUTEST_CXX_NOEXCEPT_SPEC { return exponent_bits() == kExpMask && economized_mantissa_bits() != 0; }
 
     /**
      * @brief   is inf
     */
-    bool    is_inf() const { return exponent_bits() == kExpMask && economized_mantissa_bits() == 0; }
+    bool    is_inf() const IUTEST_CXX_NOEXCEPT_SPEC { return exponent_bits() == kExpMask && economized_mantissa_bits() == 0; }
 
 public:
     //! plus inf

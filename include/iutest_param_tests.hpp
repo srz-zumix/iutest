@@ -500,7 +500,7 @@ inline detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ ValuesIn(::std::init
  * @brief   値配列パラメータ
 */
 template<typename ...Args>
-inline detail::iuValueArray<Args...> IUTEST_ATTRIBUTE_UNUSED_ Values(Args... args)
+inline detail::iuValueArray<Args...> IUTEST_ATTRIBUTE_UNUSED_ Values(Args... args) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::iuValueArray<Args...>(args...);
 }
@@ -590,7 +590,7 @@ detail::iuConcatParamHolder<Generator1, Generator2> Concat(const Generator1& g1,
  * @brief   複合条件パラメータ化
 */
 template<typename ...Generator>
-detail::iuCartesianProductHolder<Generator...> Combine(const Generator&... generators)
+detail::iuCartesianProductHolder<Generator...> Combine(const Generator&... generators) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::iuCartesianProductHolder<Generator...>(generators...);
 }
@@ -631,7 +631,7 @@ IIUT_DECL_COMBINE_(9)
  * @brief   複合条件パラメータ化(オールペア法)
 */
 template<typename ...Generator>
-detail::iuPairwiseHolder<Generator...> Pairwise(const Generator&... generators)
+detail::iuPairwiseHolder<Generator...> Pairwise(const Generator&... generators) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::iuPairwiseHolder<Generator...>(generators...);
 }
