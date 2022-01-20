@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -69,7 +69,7 @@ public:
 
     virtual void OnTestPartResult(const ::iutest::TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE
     {
-        if( ::iutest::UnitTest::GetInstance()->current_test_info() != NULL )
+        if( ::iutest::UnitTest::GetInstance()->current_test_info() != IUTEST_NULLPTR )
         {
             const ::iutest::TestInfo& test_info = *::iutest::UnitTest::GetInstance()->current_test_info();
             if( test_info.result()->Failed()
@@ -137,9 +137,9 @@ public:
     {
         ::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
         ::iutest::TestEventListener* default_printer = listeners.Release(listeners.default_result_printer());
-        if( default_printer == NULL )
+        if( default_printer == IUTEST_NULLPTR )
         {
-            return NULL;
+            return IUTEST_NULLPTR;
         }
         ::iutest::TestEventListener* p = new QuietResultPrinter(default_printer);
         listeners.Append(p);
