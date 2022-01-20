@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -219,12 +219,12 @@ public:
     }
 
     template<typename ParamNameFunctor>
-    static ParamNameFunctor GetParamNameGen(ParamNameFunctor func)
+    static ParamNameFunctor GetParamNameGen(ParamNameFunctor func) IUTEST_CXX_NOEXCEPT_SPEC
     {
         return func;
     }
 
-    static pfnParamNameGeneratorFunc GetParamNameGen()
+    static pfnParamNameGeneratorFunc GetParamNameGen() IUTEST_CXX_NOEXCEPT_SPEC
     {
         return DefaultParamNameFunc;
     }

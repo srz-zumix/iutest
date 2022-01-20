@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -232,7 +232,7 @@ private:
 template<typename ParamType>
 struct TestParamInfo
 {
-    TestParamInfo(const ParamType& p, size_t i)
+    TestParamInfo(const ParamType& p, size_t i) IUTEST_CXX_NOEXCEPT_SPEC
         : param(p), index(i) {}
     ParamType param;
     size_t index;
@@ -255,7 +255,7 @@ public:
     /**
      * @brief   パラメータの取得
     */
-    static const ParamType& GetParam()
+    static const ParamType& GetParam() IUTEST_CXX_NOEXCEPT_SPEC
     {
         IUTEST_CHECK_(s_params != IUTEST_NULLPTR) << "GetParam() can only use the value-parameterized test";
         IUTEST_ANALYSIS_ASSUME(s_params != IUTEST_NULLPTR);
