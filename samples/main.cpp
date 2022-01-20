@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -23,6 +23,8 @@
 */
 #include "../include/iutest.hpp"
 
+IUTEST_PRAGMA_SAMPLE_COREGUIDELINE_DISABLE_BEGIN()
+
 #if defined(USE_TAP)
 #include "../include/listener/iutest_tap_printer.hpp"
 #endif
@@ -38,11 +40,11 @@
 *//*--------------------------------------------------*/
 class FooEnvironment : public ::iutest::Environment
 {
-    virtual void SetUp()
+    virtual void SetUp() IUTEST_CXX_OVERRIDE
     {
         iuutil::Console::output("FooEnvironment::SetUp\n");
     }
-    virtual void TearDown()
+    virtual void TearDown() IUTEST_CXX_OVERRIDE
     {
         iuutil::Console::output("FooEnvironment::TearDown\n");
     }
@@ -90,3 +92,5 @@ int main(int argc, char* argv[])
 }
 
 #endif
+
+IUTEST_PRAGMA_SAMPLE_COREGUIDELINE_DISABLE_END()
