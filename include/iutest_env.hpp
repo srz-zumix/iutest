@@ -108,13 +108,19 @@ public:
         }
         IUTEST_IGNORE_EXCEPTION_END()
     }
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void SetUp() {}     //!< 事前処理
     virtual void TearDown() {}  //!< 事後処理
+
+IUTEST_PRAGMA_WARN_POP()
+
 private:
     void Release();
 private:
     struct should_be_SetUp {};
-    virtual should_be_SetUp* Setup() IUTEST_CXX_FINAL { return IUTEST_NULLPTR; }
+    virtual should_be_SetUp* Setup() IUTEST_CXX_FINAL IUTEST_CXX_NOEXCEPT_SPEC { return IUTEST_NULLPTR; }
 };
 
 /**
@@ -280,8 +286,8 @@ public:
     public:
         RandomSeedSet() IUTEST_CXX_NOEXCEPT_SPEC {}
         RandomSeedSet(unsigned int seed) IUTEST_CXX_NOEXCEPT_SPEC { init_random(seed); }
-        RandomSeedSet& operator = (unsigned int seed) { init_random(seed); return *this; }
-        operator unsigned int() const { return get_random_seed(); }
+        RandomSeedSet& operator = (unsigned int seed) IUTEST_CXX_NOEXCEPT_SPEC { init_random(seed); return *this; }
+        operator unsigned int() const IUTEST_CXX_NOEXCEPT_SPEC { return get_random_seed(); }
     } random_seed;
 
     /**
@@ -293,8 +299,8 @@ public:
     public:
         RepeatCountSet() IUTEST_CXX_NOEXCEPT_SPEC {}
         RepeatCountSet(int count) IUTEST_CXX_NOEXCEPT_SPEC { set_repeat_count(count); }
-        RepeatCountSet& operator = (int count) { set_repeat_count(count); return *this; }
-        operator int() const { return get_repeat_count(); }
+        RepeatCountSet& operator = (int count) IUTEST_CXX_NOEXCEPT_SPEC { set_repeat_count(count); return *this; }
+        operator int() const IUTEST_CXX_NOEXCEPT_SPEC { return get_repeat_count(); }
     } repeat;
 
 #if defined(IUTEST_NO_PRIVATE_IN_AGGREGATE)
@@ -309,13 +315,13 @@ public:
         T   m_value;
     public:
         StateVariable() IUTEST_CXX_NOEXCEPT_SPEC : m_dirty(false), m_value(T()) {}
-        StateVariable& operator = (const T& rhs) { m_value = rhs; m_dirty = true; return *this; }
-        operator const T& () const { return m_value; }
-        const T& operator ()() const { return m_value; }
-        bool is_dirty() const { return m_dirty; }
-        void flush() { m_dirty = false; }
-        T& get() { return m_value; }
-        const T& get() const { return m_value; }
+        StateVariable& operator = (const T& rhs) IUTEST_CXX_NOEXCEPT_SPEC { m_value = rhs; m_dirty = true; return *this; }
+        operator const T& () const IUTEST_CXX_NOEXCEPT_SPEC { return m_value; }
+        const T& operator ()() const IUTEST_CXX_NOEXCEPT_SPEC { return m_value; }
+        bool is_dirty() const IUTEST_CXX_NOEXCEPT_SPEC { return m_dirty; }
+        void flush() IUTEST_CXX_NOEXCEPT_SPEC { m_dirty = false; }
+        T& get() IUTEST_CXX_NOEXCEPT_SPEC { return m_value; }
+        const T& get() const IUTEST_CXX_NOEXCEPT_SPEC { return m_value; }
     };
 
 private:

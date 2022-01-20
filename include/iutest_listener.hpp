@@ -66,6 +66,10 @@ public:
     TestEventListener() IUTEST_CXX_NOEXCEPT_SPEC {}
     virtual ~TestEventListener() {}
 public:
+
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void OnTestProgramStart(const UnitTest& test)           = 0;    //!< テストプログラム開始時に呼ばれます
     virtual void OnTestIterationStart(const UnitTest& test
                                     , int iteration)                = 0;    //!< 単体テスト開始時に毎回呼ばれます
@@ -92,6 +96,8 @@ public:
     virtual void OnTestIterationEnd(const UnitTest& test
                                     , int iteration)                = 0;    //!< 単体テスト終了時に毎回呼ばれます
     virtual void OnTestProgramEnd(const UnitTest& test)             = 0;    //!< テストプログラム終了時に呼ばれます
+
+IUTEST_PRAGMA_WARN_POP()
 };
 
 /**
