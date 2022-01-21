@@ -66,7 +66,6 @@ public:
     TestEventListener() IUTEST_CXX_NOEXCEPT_SPEC {}
     virtual ~TestEventListener() {}
 public:
-
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
 

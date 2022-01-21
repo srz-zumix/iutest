@@ -120,7 +120,7 @@ private:
     void Release();
 private:
     struct should_be_SetUp {};
-    virtual should_be_SetUp* Setup() IUTEST_CXX_FINAL IUTEST_CXX_NOEXCEPT_SPEC { return IUTEST_NULLPTR; }
+    virtual should_be_SetUp* Setup() IUTEST_CXX_NOEXCEPT_SPEC IUTEST_CXX_FINAL { return IUTEST_NULLPTR; }
 };
 
 /**
