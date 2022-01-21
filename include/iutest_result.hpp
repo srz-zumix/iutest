@@ -75,7 +75,7 @@ public:
      * @param [in]  message = メッセージ
      * @param [in]  type    = 結果のタイプ
     */
-    TestPartResult(const char* file, int line, const char* message, Type type)
+    TestPartResult(const char* file, int line, const char* message, Type type) IUTEST_CXX_NOEXCEPT_SPEC
         : detail::iuCodeMessage(file, line, message), m_type(type) {}
 
 public:
@@ -216,7 +216,7 @@ class TestResult
     typedef ::std::vector<TestPartResult>   TestPartResults;
     typedef ::std::vector<TestProperty>     TestPropertys;
 public:
-    TestResult() : m_elapsedmsec(0) {}
+    TestResult() IUTEST_CXX_NOEXCEPT_SPEC : m_elapsedmsec(0) {}
 
 public:
     /**
@@ -304,14 +304,14 @@ public:
      * @param [in]  index   = インデックス
      * @return  テスト結果
     */
-    const TestPartResult&   GetTestPartResult(int index) const { return m_test_part_results[index]; }
+    const TestPartResult&   GetTestPartResult(int index) const { return m_test_part_results.at(index); }
 
     /**
      * @brief   プロパティの取得
      * @param [in]  index   = インデックス
      * @return  プロパティの
     */
-    const TestProperty&     GetTestProperty(int index) const { return m_test_propertys[index]; }
+    const TestProperty&     GetTestProperty(int index) const { return m_test_propertys.at(index); }
 
 public:
     /**

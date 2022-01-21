@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -25,7 +25,7 @@ namespace detail
 
 IUTEST_IPP_INLINE void iuStreamMessage::append(const char* str)
 {
-    if( str == NULL )
+    if( str == IUTEST_NULLPTR )
     {
         m_stream << kStrings::Null;
     }
@@ -45,7 +45,7 @@ IUTEST_IPP_INLINE ::std::string iuCodeMessage::make_message() const
 
 IUTEST_IPP_INLINE ::std::string FormatFileLocation(const char* file, int line)
 {
-    const char* const file_name = file == NULL ? kStrings::UnknownFile : file;
+    const char* const file_name = file == IUTEST_NULLPTR ? kStrings::UnknownFile : file;
     if( line < 0 )
     {
         return file_name;
@@ -64,7 +64,7 @@ IUTEST_IPP_INLINE ::std::string FormatFileLocation(const char* file, int line)
 
 IUTEST_IPP_INLINE ::std::string FormatCompilerIndependentFileLocation(const char* file, int line)
 {
-    const char* const file_name = file == NULL ? kStrings::UnknownFile : file;
+    const char* const file_name = file == IUTEST_NULLPTR ? kStrings::UnknownFile : file;
     if( line < 0 )
     {
         return file_name;
