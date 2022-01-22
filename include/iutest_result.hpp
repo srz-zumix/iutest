@@ -244,7 +244,7 @@ public:
      * @brief   スキップしたかどうか
      * @return  真偽値
     */
-    bool        Skipped() const
+    bool        Skipped() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         for( TestPartResults::const_iterator it=m_test_part_results.begin()
             , end=m_test_part_results.end(); it != end; ++it )
@@ -261,25 +261,25 @@ public:
      * @brief   致命的なエラーがあるかどうか
      * @return  真偽値
     */
-    bool        HasFatalFailure() const { return HasResult(TestPartResult::kFatalFailure); }
+    bool        HasFatalFailure() const IUTEST_CXX_NOEXCEPT_SPEC { return HasResult(TestPartResult::kFatalFailure); }
 
     /**
      * @brief   致命的でないエラーがあるかどうか
      * @return  真偽値
     */
-    bool        HasNonfatalFailure() const { return HasResult(TestPartResult::kNonFatalFailure); }
+    bool        HasNonfatalFailure() const IUTEST_CXX_NOEXCEPT_SPEC { return HasResult(TestPartResult::kNonFatalFailure); }
 
     /**
      * @brief   前提条件エラーがあるかどうか
      * @return  真偽値
     */
-    bool        HasAssumeFailure() const { return HasResult(TestPartResult::kAssumeFailure); }
+    bool        HasAssumeFailure() const IUTEST_CXX_NOEXCEPT_SPEC { return HasResult(TestPartResult::kAssumeFailure); }
 
     /**
      * @brief   警告があるかどうか
      * @return  真偽値
     */
-    bool        HasWarning() const { return HasResult(TestPartResult::kWarning); }
+    bool        HasWarning() const IUTEST_CXX_NOEXCEPT_SPEC { return HasResult(TestPartResult::kWarning); }
 
     /**
      * @brief   テストの実行時間の取得

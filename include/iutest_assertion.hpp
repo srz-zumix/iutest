@@ -127,18 +127,18 @@ public:
     /**
      * @brief   成功結果の作成
     */
-    static AssertionResult Success() { return AssertionResult(true); }
+    static AssertionResult Success() IUTEST_CXX_NOEXCEPT_SPEC { return AssertionResult(true); }
     /**
      * @brief   失敗結果の作成
     */
-    static AssertionResult Failure() { return AssertionResult(false); }
+    static AssertionResult Failure() IUTEST_CXX_NOEXCEPT_SPEC { return AssertionResult(false); }
     /**
      * @brief   成否の取得
     */
     template<typename T>
-    static AssertionResult Is(const T& b) { return AssertionResult(b ? true : false); }
+    static AssertionResult Is(const T& b) IUTEST_CXX_NOEXCEPT_SPEC { return AssertionResult(b ? true : false); }
     /** @overload */
-    static AssertionResult Is(const AssertionResult& ar) { return AssertionResult(ar); }
+    static AssertionResult Is(const AssertionResult& ar) IUTEST_CXX_NOEXCEPT_SPEC { return AssertionResult(ar); }
 
 private:
     IUTEST_PP_DISALLOW_ASSIGN(AssertionResult);
@@ -180,7 +180,7 @@ template<typename T>
 inline AssertionReturnType<T> AssertionReturn(const T& ret) { return AssertionReturnType<T>(ret); }
 
 /** @overload */
-inline AssertionReturnType<void> AssertionReturn(void) { return AssertionReturnType<void>(); }
+inline AssertionReturnType<void> AssertionReturn(void) IUTEST_CXX_NOEXCEPT_SPEC { return AssertionReturnType<void>(); }
 
 #endif
 
@@ -198,7 +198,7 @@ public:
      * @param [in]  message = メッセージ
      * @param [in]  type    = テスト結果のタイプ
     */
-    AssertionHelper(const char* file, int line, const char* message, TestPartResult::Type type)
+    AssertionHelper(const char* file, int line, const char* message, TestPartResult::Type type) IUTEST_CXX_NOEXCEPT_SPEC
         : m_part_result(file, line, message, type)
     {}
     /**
@@ -208,7 +208,7 @@ public:
      * @param [in]  message = メッセージ
      * @param [in]  type    = テスト結果のタイプ
     */
-    AssertionHelper(const char* file, int line, const ::std::string& message, TestPartResult::Type type)
+    AssertionHelper(const char* file, int line, const ::std::string& message, TestPartResult::Type type) IUTEST_CXX_NOEXCEPT_SPEC
         : m_part_result(file, line, message.c_str(), type)
     {}
 
@@ -328,7 +328,7 @@ private:
     {
         Fixed fixed;
         AssertionReturnType<R> ret;
-        ReturnTypedFixed(const Fixed& f, const AssertionReturnType<R>& r) : fixed(f), ret(r) {}
+        ReturnTypedFixed(const Fixed& f, const AssertionReturnType<R>& r) IUTEST_CXX_NOEXCEPT_SPEC : fixed(f), ret(r) {}
     };
 #endif
 

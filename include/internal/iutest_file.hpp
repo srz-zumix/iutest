@@ -94,7 +94,7 @@ public:
     virtual void Initialize() {}
 
 public:
-    static IFileSystem* GetInstance() { return GetInstanceVariable().pInstance; }
+    static IFileSystem* GetInstance() IUTEST_CXX_NOEXCEPT_SPEC { return GetInstanceVariable().pInstance; }
 
 public:
     static IFile* New()
@@ -268,7 +268,7 @@ public:
         return GetSizeBySeekSet(fp);
 #endif
     }
-    static size_t GetSizeBySeekSet(FILE* fp)
+    static size_t GetSizeBySeekSet(FILE* fp) IUTEST_CXX_NOEXCEPT_SPEC
     {
         if( fp == IUTEST_NULLPTR )
         {
@@ -320,6 +320,9 @@ public:
         IUTEST_IGNORE_EXCEPTION_END()
     }
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     /**
      * @brief   閉じる
     */
@@ -333,6 +336,8 @@ private:
         m_fp = stderr;
         return true;
     }
+
+IUTEST_PRAGMA_WARN_POP()
 };
 
 #endif

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -802,7 +802,7 @@ private:
     }
     static bool ParseCommandLineElemA(const char* str);
     static bool ParseIutestOptionCommandLineElemA(const char* str);
-    static bool SetFlag(int enable, int mask = -1);
+    static bool SetFlag(int enable, int mask = -1) IUTEST_CXX_NOEXCEPT_SPEC;
 
 private:
     /**
@@ -841,7 +841,7 @@ private:
     /**
      * @brief   IUTEST_FILE_LOCATION オプションの判定
     */
-    static bool ParseFileLocationOption(const char* option);
+    static bool ParseFileLocationOption(const char* option) IUTEST_CXX_NOEXCEPT_SPEC;
 
     /**
      * @brief   IUTEST_FILTER オプションの判定
@@ -874,11 +874,11 @@ private:
     /**
      * @brief   yes オプションか判定
     */
-    static bool IsYes(const char* option);
+    static bool IsYes(const char* option) IUTEST_CXX_NOEXCEPT_SPEC;
     /**
      * @brief   no オプションか判定
     */
-    static bool IsNo(const char* option);
+    static bool IsNo(const char* option) IUTEST_CXX_NOEXCEPT_SPEC;
 
 private:
     friend class UnitTest;

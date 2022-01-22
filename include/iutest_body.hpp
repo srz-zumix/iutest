@@ -163,6 +163,9 @@ public:
 #endif
 
 protected:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void SetUp() {} //!< 実行前処理
     virtual void Body() {}  //!< テスト実装部
     virtual void TearDown() {}  //!< 実行後処理
@@ -175,6 +178,7 @@ public:
     static void TearDownTestCase() {}
 #endif
 
+IUTEST_PRAGMA_WARN_POP()
 private:
     /**
      * @brief   テストの実行

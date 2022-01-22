@@ -269,7 +269,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
     return false;
 }
 
-IUTEST_IPP_INLINE bool TestEnv::SetFlag(int enable, int mask)
+IUTEST_IPP_INLINE bool TestEnv::SetFlag(int enable, int mask) IUTEST_CXX_NOEXCEPT_SPEC
 {
     TestFlag::SetFlag(enable, mask);
     return true;
@@ -445,7 +445,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseOutputOption(const char* option)
     return true;
 }
 
-IUTEST_IPP_INLINE bool TestEnv::ParseFileLocationOption(const char* option)
+IUTEST_IPP_INLINE bool TestEnv::ParseFileLocationOption(const char* option) IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( option == IUTEST_NULLPTR )
     {
@@ -561,7 +561,7 @@ IUTEST_IPP_INLINE int TestEnv::ParseYesNoOption(const char* option)
     return -1;
 }
 
-IUTEST_IPP_INLINE bool TestEnv::IsYes(const char* option)
+IUTEST_IPP_INLINE bool TestEnv::IsYes(const char* option) IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( detail::IsStringCaseEqual(option, "yes")
         || detail::IsStringCaseEqual(option, "y")
@@ -575,7 +575,7 @@ IUTEST_IPP_INLINE bool TestEnv::IsYes(const char* option)
     return false;
 }
 
-IUTEST_IPP_INLINE bool TestEnv::IsNo(const char* option)
+IUTEST_IPP_INLINE bool TestEnv::IsNo(const char* option) IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( detail::IsStringCaseEqual(option, "no")
         || detail::IsStringCaseEqual(option, "n")
