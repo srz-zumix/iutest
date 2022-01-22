@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -33,10 +33,10 @@ class any
 {
     typedef internal::TypeId type_id;
 public:
-    any() : content(NULL) {}
+    any() IUTEST_CXX_NOEXCEPT_SPEC : content(IUTEST_NULLPTR) {}
     template<typename T>
     any(const T& rhs) : content(new holder<T>(rhs)) {}  // NOLINT
-    any(const any& rhs) : content(rhs.content == NULL ? NULL : rhs.content->clone()) {}
+    any(const any& rhs) : content(rhs.content == IUTEST_NULLPTR ? IUTEST_NULLPTR : rhs.content->clone()) {}
     any(const char rhs[]) : content(new holder< ::std::string >(::std::string(rhs)) ) {}  // NOLINT
     ~any() { delete content; }
 public:
@@ -54,7 +54,7 @@ public:
     */
     bool empty() const
     {
-        return content == NULL;
+        return content == IUTEST_NULLPTR;
     }
     /**
      * @brief   要素のクリア
@@ -69,7 +69,7 @@ public:
     */
     type_id type() const
     {
-        return content == NULL ? internal::GetTypeId<void>() : content->type();
+        return content == IUTEST_NULLPTR ? internal::GetTypeId<void>() : content->type();
     }
     /**
      * @brief   型の比較
@@ -132,7 +132,7 @@ private:
     class holder IUTEST_CXX_FINAL : public placeholder
     {
     public:
-        explicit holder(const T& v) : held(v) {}
+        explicit holder(const T& v) IUTEST_CXX_NOEXCEPT_SPEC : held(v) {}
     public:
         virtual type_id type() const IUTEST_CXX_OVERRIDE
         {
@@ -170,8 +170,8 @@ inline void swap(any& lhs, any& rhs) { lhs.swap(rhs); }
 template<typename T>
 T* any_cast(any* p)
 {
-    return p != NULL && p->type_equal<T>() ?
-        &(static_cast< any::holder<T>* >(p->content)->held) : NULL;
+    return p != IUTEST_NULLPTR && p->type_equal<T>() ?
+        &(static_cast< any::holder<T>* >(p->content)->held) : IUTEST_NULLPTR;
 }
 /** @overload */
 template<typename T>
@@ -190,7 +190,8 @@ inline T any_cast(any& value)
 #endif
     nonref_t* p = any_cast<nonref_t>(&value);
 #if IUTEST_HAS_EXCEPTIONS
-    if( p == NULL ) {
+    if( p == IUTEST_NULLPTR )
+    {
         throw bad_any_cast();
     }
 #endif
@@ -210,14 +211,15 @@ inline T any_cast(const any& value)
 template<typename T>
 T* unsafe_any_cast(any* p)
 {
-    if(p == NULL)
+    if( p == IUTEST_NULLPTR )
     {
-        return NULL;
+        return IUTEST_NULLPTR;
     }
-    if(!p->has_value())
+    if( !p->has_value() )
     {
-        return NULL;
+        return IUTEST_NULLPTR;
     }
+    IUTEST_ATTRIBUTE_GSL_SUPPRESS(type.2)
     return &(static_cast< any::holder<T>* >(p->content)->held);
 }
 /** @overload */

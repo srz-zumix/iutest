@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -50,7 +50,7 @@ protected:
      * @param [in]  setup           = テスト事前実行関数
      * @param [in]  teardown        = テスト事後実行関数
     */
-    TestSuite(const ::std::string& testsuite_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+    TestSuite(const ::std::string& testsuite_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown) IUTEST_CXX_NOEXCEPT_SPEC
     : m_testsuite_name(testsuite_name)
     , m_setup(setup)
     , m_teardown(teardown)
@@ -71,7 +71,7 @@ public:
 
 public:
     /** test suite 名の取得 */
-    const char*     name()                  const { return m_testsuite_name.c_str(); }
+    const char*     name()                  const IUTEST_CXX_NOEXCEPT_SPEC { return m_testsuite_name.c_str(); }
 
     /** テスト総数 */
     int             total_test_count()      const IUTEST_CXX_NOEXCEPT_SPEC { return static_cast<int>(m_testinfos.size()); }
@@ -101,7 +101,7 @@ public:
     TimeInMillisec  start_timestamp()       const IUTEST_CXX_NOEXCEPT_SPEC{ return m_start_timestamp; }
 
     /** TestInfo の取得 */
-    const TestInfo* GetTestInfo(int index)  const { return m_testinfos[index]; }
+    const TestInfo* GetTestInfo(int index)  const { return m_testinfos.at(index); }
     /** should_run */
     bool            should_run()            const IUTEST_CXX_NOEXCEPT_SPEC { return m_should_run_num != 0; }
 
@@ -111,13 +111,13 @@ public:
     bool            Failed()                const { return !Passed(); }
 
     /** type param 文字列の取得 */
-    virtual const char* type_param()        const { return NULL; }
+    virtual const char* type_param()        const IUTEST_CXX_NOEXCEPT_SPEC { return IUTEST_NULLPTR; }
 
     /** TestSuite 名の取得 */
     ::std::string testsuite_name_with_where() const
     {
         ::std::string str = m_testsuite_name;
-        if( type_param() != NULL )
+        if( type_param() != IUTEST_NULLPTR )
         {
             str += ", where TypeParam = ";
             str += type_param();
@@ -279,7 +279,7 @@ protected:
      * @param [in]  setup           = テスト事前実行関数
      * @param [in]  teardown        = テスト事後実行関数
     */
-    TypedTestSuite(const ::std::string& testsuite_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+    TypedTestSuite(const ::std::string& testsuite_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown) IUTEST_CXX_NOEXCEPT_SPEC
         : TestSuite(testsuite_name, id, setup, teardown)
         , m_type_param(detail::GetTypeNameProxy<TypeParam>::GetTypeName())
     {
@@ -287,9 +287,9 @@ protected:
 
 public:
     /** type param 文字列の取得 */
-    virtual const char* type_param() const IUTEST_CXX_OVERRIDE
+    virtual const char* type_param() const IUTEST_CXX_NOEXCEPT_SPEC IUTEST_CXX_OVERRIDE
     {
-        return m_type_param.empty() ? NULL : m_type_param.c_str();
+        return m_type_param.empty() ? IUTEST_NULLPTR : m_type_param.c_str();
     }
 
 private:
