@@ -12,7 +12,7 @@ aliases:
     working_directory: ~/srz-zumix/iutest
     shell: /bin/bash --login
     docker:
-      - image: circleci/buildpack-deps:focal-curl
+      - image: cimg/base:stable
         environment:
           MAKE_OPTION: -j4 OUTPUTXML=1
           MAKE_TARGET: default
@@ -128,6 +128,23 @@ aliases:
         path: << parameters.artifacts-path >>
     - store_artifacts:
         path: << parameters.test-reports-path >>
+  - &container-build-test-steps
+    - checkout
+    - run: *check-version-step
+    - run: *dump-macros-step
+    - run: *min-tests-and-spec-step
+    - run: *build-step
+    - run: *test-step
+    - run: *report-step
+    - run: *move-result-step
+    # Teardown
+    - store_test_results:
+        path: /tmp/circleci-test-results
+    # Save artifacts
+    - store_artifacts:
+        path: /tmp/circleci-artifacts
+    - store_artifacts:
+        path: /tmp/circleci-test-results
 
 parameters:
   build:
@@ -139,13 +156,22 @@ orbs:
   docker: circleci/docker@1.4.0
 
 jobs:
+  gcc_fanalzyer_test:
+    <<: *default
+    parameters: *job-parameters
+    environment:
+      CXX: g++
+      GCC_VERSION: "11"
+      DEFS: "-fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference -Wno-analyzer-malloc-leak"
+      MAKE_ADD_OPTION: -j1
+    steps: *build-test-steps
   gcc_optimize_test:
     parallelism: 4
     <<: *default
     parameters: *job-parameters
     environment:
       CXX: g++
-      GCC_VERSION: "8"
+      GCC_VERSION: "11"
       FAST_OPTIMIZE: -Og
       # FAST_OPTIMIZE: -Ofast # https://github.com/srz-zumix/iutest/issues/396
     steps: *build-test-steps
@@ -167,23 +193,7 @@ jobs:
       MAKE_OPTION: -j4 OUTPUTXML=1
       MAKE_TARGET: default
       MAKE_RUN_TARGET: test
-    steps:
-      - checkout
-      - run: *check-version-step
-      - run: *dump-macros-step
-      - run: *min-tests-and-spec-step
-      - run: *build-step
-      - run: *test-step
-      - run: *report-step
-      - run: *move-result-step
-      # Teardown
-      - store_test_results:
-          path: /tmp/circleci-test-results
-      # Save artifacts
-      - store_artifacts:
-          path: /tmp/circleci-artifacts
-      - store_artifacts:
-          path: /tmp/circleci-test-results
+    steps: *container-build-test-steps
   vcperf:
     executor: win/default
     environment:
@@ -249,6 +259,8 @@ workflows:
   default-test:
     when: << pipeline.parameters.build >>
     jobs:
+      - gcc_fanalzyer_test:
+          filters: *branch-filter
       - gcc_optimize_test:
           filters: *branch-filter
       - clang_optimize_test:
