@@ -189,6 +189,9 @@ public:
         IUTEST_IGNORE_EXCEPTION_END()
     }
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     /**
      * @brief   閉じる
     */
@@ -243,6 +246,8 @@ public:
         return GetSizeBySeekSet(m_fp);
 #endif
     }
+
+IUTEST_PRAGMA_WARN_POP()
 
 public:
     static size_t GetSize(FILE* fp)
@@ -425,12 +430,17 @@ namespace detail
 class NoEffectFile IUTEST_CXX_FINAL : public IFile
 {
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void Close() IUTEST_CXX_OVERRIDE {}
     virtual bool Write(const void*, size_t, size_t) IUTEST_CXX_OVERRIDE { return true;  }
     virtual bool Read(void*, size_t, size_t) IUTEST_CXX_OVERRIDE { return true; }
     virtual size_t GetSize() IUTEST_CXX_OVERRIDE { return 0; }
 private:
     virtual bool OpenImpl(const char*, int) IUTEST_CXX_OVERRIDE { return true; }
+
+IUTEST_PRAGMA_WARN_POP()
 };
 
 }   // end of namespace detail

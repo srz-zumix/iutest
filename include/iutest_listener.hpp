@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -219,7 +219,7 @@ public:
     TestEventListener* default_xml_generator()  const IUTEST_CXX_NOEXCEPT_SPEC { return m_default_xml_generator; }
 
 private:
-    TestEventListener* repeater() { return &m_repeater; }
+    TestEventListener* repeater() IUTEST_CXX_NOEXCEPT_SPEC { return &m_repeater; }
 
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()

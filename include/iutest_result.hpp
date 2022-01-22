@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -162,7 +162,7 @@ public:
      * @param [in]  key     = キー
      * @param [in]  value   = 値
     */
-    TestProperty(const ::std::string& key, const ::std::string& value)
+    TestProperty(const ::std::string& key, const ::std::string& value) IUTEST_CXX_NOEXCEPT_SPEC
         : m_key(key), m_value(value) {}
 
 public:
@@ -170,8 +170,8 @@ public:
      * @brief   値の設定
     */
     void SetValue(const ::std::string& value) { m_value = value; }
-    const char* key()   const { return m_key.c_str(); }     //!< キーの取得
-    const char* value() const { return m_value.c_str(); }   //!< 値の取得
+    const char* key()   const IUTEST_CXX_NOEXCEPT_SPEC { return m_key.c_str(); }     //!< キーの取得
+    const char* value() const IUTEST_CXX_NOEXCEPT_SPEC { return m_value.c_str(); }   //!< 値の取得
 
 public:
     /**
@@ -223,12 +223,12 @@ public:
      * @brief   成功したかどうか
      * @return  真偽値
     */
-    bool        Passed() const { return !Failed(); }
+    bool        Passed() const IUTEST_CXX_NOEXCEPT_SPEC { return !Failed(); }
     /**
      * @brief   失敗したかどうか
      * @return  真偽値
     */
-    bool        Failed() const
+    bool        Failed() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         for( TestPartResults::const_iterator it=m_test_part_results.begin()
             , end=m_test_part_results.end(); it != end; ++it )
@@ -291,13 +291,13 @@ public:
      * @brief   結果の数を取得
      * @return  結果の数
     */
-    int         total_part_count() const { return static_cast<int>(m_test_part_results.size()); }
+    int         total_part_count() const IUTEST_CXX_NOEXCEPT_SPEC { return static_cast<int>(m_test_part_results.size()); }
 
     /**
      * @brief   プロパティ総数の取得
      * @return  総数
     */
-    int         test_property_count() const { return static_cast<int>(m_test_propertys.size()); }
+    int         test_property_count() const IUTEST_CXX_NOEXCEPT_SPEC { return static_cast<int>(m_test_propertys.size()); }
 
     /**
      * @brief   テスト結果の取得
@@ -318,7 +318,7 @@ public:
      * @brief   失敗の数を取得
      * @return  失敗の数
     */
-    int total_error_count() const
+    int total_error_count() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         int count = 0;
         for( TestPartResults::const_iterator it=m_test_part_results.begin()
@@ -351,17 +351,19 @@ private:
         m_test_propertys.push_back(prop);
     }
 
-    void ClearResult()
+    void ClearResult() IUTEST_CXX_NOEXCEPT_SPEC
     {
         m_test_part_results.clear();
     }
-    void Clear()
+
+    void Clear() IUTEST_CXX_NOEXCEPT_SPEC
     {
         m_test_part_results.clear();
         m_test_propertys.clear();
         m_elapsedmsec = 0;
     }
-    bool HasResult(TestPartResult::Type eType) const
+
+    bool HasResult(TestPartResult::Type eType) const IUTEST_CXX_NOEXCEPT_SPEC
     {
         for( TestPartResults::const_iterator it=m_test_part_results.begin()
             , end=m_test_part_results.end(); it != end; ++it )

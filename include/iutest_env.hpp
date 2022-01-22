@@ -358,20 +358,52 @@ private:
     static Variable& get_vars() IUTEST_CXX_NOEXCEPT_SPEC { static Variable sVars; return sVars; }
 
 private:
-    static const char*          get_output_option_c_str() { return get_vars().m_output_option.get().c_str(); }
+    static const char*          get_output_option_c_str() IUTEST_CXX_NOEXCEPT_SPEC { return get_vars().m_output_option.get().c_str(); }
 #if IUTEST_HAS_STREAM_RESULT
-    static const char*          get_stream_result_to_c_str() { return get_vars().m_stream_result_to.get().c_str(); }
+    static const char*          get_stream_result_to_c_str() IUTEST_CXX_NOEXCEPT_SPEC { return get_vars().m_stream_result_to.get().c_str(); }
 #endif
 
 public:
-    static detail::iuRandom&    genrand() IUTEST_CXX_NOEXCEPT_SPEC { return get_vars().m_genrand; }             //!< 乱数生成器
-    static unsigned int         get_random_seed() IUTEST_CXX_NOEXCEPT_SPEC { return get_vars().m_random_seed; } //!< 乱数シード
-    static unsigned int         current_random_seed() IUTEST_CXX_NOEXCEPT_SPEC { return get_vars().m_current_random_seed; } //!< 乱数シード
-    static int                  get_repeat_count() IUTEST_CXX_NOEXCEPT_SPEC { return get_vars().m_repeat_count; }   //!< 繰り返し回数
-    static const StateVariable< ::std::string >& get_output_option() { return get_vars().m_output_option; }  //!< 出力オプション
-    static const char*          get_default_package_name() { return get_vars().m_default_package_name.c_str(); }    //!< root package オプション
-    static const char*          test_filter() { return get_vars().m_test_filter.c_str(); }      //!< フィルター文字列
-    static const char*          get_flagfile() { return get_vars().m_flagfile.c_str(); }        //!< flag file
+    //! get random generator
+    static detail::iuRandom& genrand() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return get_vars().m_genrand;
+    }
+     //! random seed
+    static unsigned int get_random_seed() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return get_vars().m_random_seed;
+    }
+     //! current test random seed
+    static unsigned int current_random_seed() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return get_vars().m_current_random_seed;
+    }
+    //! repeat count
+    static int get_repeat_count() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return get_vars().m_repeat_count;
+    }
+    //! output option
+    static const StateVariable< ::std::string >& get_output_option() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return get_vars().m_output_option;
+    }
+    //! root package option
+    static const char* get_default_package_name() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return get_vars().m_default_package_name.c_str();
+    }
+    //! filter string
+    static const char* test_filter() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return get_vars().m_test_filter.c_str();
+    }
+    //! flag file
+    static const char* get_flagfile() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return get_vars().m_flagfile.c_str();
+    }
 #if IUTEST_HAS_STREAM_RESULT
     static const StateVariable< ::std::string >& get_stream_result_to() { return get_vars().m_stream_result_to; }
 #endif

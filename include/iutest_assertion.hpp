@@ -69,9 +69,9 @@ public:
      * @brief   コンストラクタ
      * @param [in] result = テスト結果真偽値
     */
-    AssertionResult(bool result) : m_result(result) {}  // NOLINT
+    AssertionResult(bool result) IUTEST_CXX_NOEXCEPT_SPEC : m_result(result) {}  // NOLINT
     //! コピーコンストラクタ
-    AssertionResult(const AssertionResult& rhs) : m_message(rhs.m_message), m_result(rhs.m_result) {}
+    AssertionResult(const AssertionResult& rhs) IUTEST_CXX_NOEXCEPT_SPEC : m_message(rhs.m_message), m_result(rhs.m_result) {}
 
     /**
      * @brief   成否
@@ -86,16 +86,16 @@ public:
     /**
      * @brief   メッセージの取得
     */
-    const char* message() const { return m_message.c_str(); }
+    const char* message() const IUTEST_CXX_NOEXCEPT_SPEC { return m_message.c_str(); }
 
     /**
      * @brief   メッセージの取得
      * @deprecated please use message() instead.
     */
-    const char* failure_message() const { return message(); }
+    const char* failure_message() const IUTEST_CXX_NOEXCEPT_SPEC { return message(); }
 
     /** @private */
-    IUTEST_CXX_EXPLICIT_CONVERSION operator bool() const { return m_result; }
+    IUTEST_CXX_EXPLICIT_CONVERSION operator bool() const IUTEST_CXX_NOEXCEPT_SPEC { return m_result; }
 
 public:
     /**
