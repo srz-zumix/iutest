@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -60,7 +60,7 @@ class NoTestPartResultReporter : public TestPartResultReporterInterface
 {
 public:
     virtual ~NoTestPartResultReporter() IUTEST_CXX_OVERRIDE {}
-    virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
+    virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_NOEXCEPT_SPEC IUTEST_CXX_OVERRIDE
     {
         IUTEST_UNUSED_VAR(result);
     }
@@ -102,17 +102,17 @@ public:
     class ReporterHolder
     {
     public:
-        ReporterHolder() : m_origin(NULL) {}
+        ReporterHolder() IUTEST_CXX_NOEXCEPT_SPEC : m_origin(IUTEST_NULLPTR) {}
         virtual ~ReporterHolder()
         {
             Detach();
         }
-        void Attach(TestPartResultReporterInterface* p)
+        void Attach(TestPartResultReporterInterface* p) IUTEST_CXX_NOEXCEPT_SPEC
         {
             m_origin = TestEnv::GetGlobalTestPartResultReporter();
             TestEnv::SetGlobalTestPartResultReporter(p);
         }
-        void Detach()
+        void Detach() IUTEST_CXX_NOEXCEPT_SPEC
         {
             TestEnv::SetGlobalTestPartResultReporter(m_origin);
         }
@@ -134,7 +134,7 @@ public:
     {
         typedef REPORTER _Mybase;
     public:
-        Counter() : m_count(0)
+        Counter() IUTEST_CXX_NOEXCEPT_SPEC : m_count(0)
         {
             m_holder.Attach(this);
         }
@@ -161,7 +161,7 @@ public:
         typedef REPORTER _Mybase;
         typedef ::std::vector<TestPartResult> TestPartResults;
     public:
-        Collector()
+        Collector() IUTEST_CXX_NOEXCEPT_SPEC
         {
             m_holder.Attach(this);
         }

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -117,7 +117,7 @@ namespace detail
 class ExpressionResult
 {
 public:
-    explicit ExpressionResult(const AssertionResult& ar)
+    explicit ExpressionResult(const AssertionResult& ar) IUTEST_CXX_NOEXCEPT_SPEC
         : m_result(ar) {}
 
 public:
@@ -156,7 +156,7 @@ class ExpressionLHS
     typedef ExpressionLHS<T> _Myt;
 public:
 #if IUTEST_HAS_RVALUE_REFS
-    explicit ExpressionLHS(T&& lhs) : m_lhs( ::std::forward<T>(lhs) )
+    explicit ExpressionLHS(T&& lhs) IUTEST_CXX_NOEXCEPT_SPEC : m_lhs( ::std::forward<T>(lhs) )
     {
         AppendMessage(m_lhs);
     }
