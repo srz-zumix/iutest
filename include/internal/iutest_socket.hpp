@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -72,19 +72,23 @@ public:
 
 #endif
 public:
-    BasicSocket() : m_socket(INVALID_DESCRIPTOR)
+    BasicSocket() IUTEST_CXX_NOEXCEPT_SPEC : m_socket(INVALID_DESCRIPTOR)
     {
 #ifdef IUTEST_OS_WINDOWS
         WSADATA wsaData;
-        (void)WSAStartup(MAKEWORD(2, 2), &wsaData);
+        IUTEST_UNUSED_RETURN(WSAStartup(MAKEWORD(2, 2), &wsaData));
 #endif
     }
     ~BasicSocket(void)
     {
-        Close();
+        IUTEST_IGNORE_EXCEPTION_BEGIN()
+        {
+            Close();
 #ifdef IUTEST_OS_WINDOWS
-        WSACleanup();
+            WSACleanup();
 #endif
+        }
+        IUTEST_IGNORE_EXCEPTION_END()
     }
 public:
     bool Open(const char* host, const char* port)
@@ -93,7 +97,7 @@ public:
         {
             return true;
         }
-        addrinfo* servinfo = NULL;
+        addrinfo* servinfo = IUTEST_NULLPTR;
         addrinfo hints;
         memset(&hints, 0, sizeof(hints));
         hints.ai_family = AF_UNSPEC;
@@ -104,7 +108,7 @@ public:
             return false;
         }
 
-        for( addrinfo* curr=servinfo; curr != NULL; curr = curr->ai_next )
+        for( addrinfo* curr=servinfo; curr != IUTEST_NULLPTR; curr = curr->ai_next )
         {
             const descriptor_t fd = socket(curr->ai_family, curr->ai_socktype, curr->ai_protocol);
             if( fd != INVALID_DESCRIPTOR )
@@ -160,7 +164,7 @@ class SocketWriter : virtual public BasicSocket
     , public IOutStream
 {
 public:
-    SocketWriter() {}
+    SocketWriter() IUTEST_CXX_NOEXCEPT_SPEC {}
 public:
     bool Send(const ::std::string& message)
     {
@@ -210,7 +214,7 @@ private:
 class SocketReader : virtual public BasicSocket
 {
 public:
-    SocketReader() {}
+    SocketReader() IUTEST_CXX_NOEXCEPT_SPEC {}
 public:
     bool Read(void* buf, size_t size)
     {
@@ -243,7 +247,7 @@ private:
 class Socket : public SocketWriter, public SocketReader
 {
 public:
-    Socket() {}
+    Socket() IUTEST_CXX_NOEXCEPT_SPEC {}
 };
 
 }   // end of namespace detail

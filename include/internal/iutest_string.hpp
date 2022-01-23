@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -21,6 +21,7 @@
 #  define _MBSTATE_T
 #endif
 
+#include "iutest_stdlib.hpp"
 #include <wchar.h>
 #include <wctype.h>
 #include <stdarg.h>
@@ -44,14 +45,14 @@ namespace detail
 namespace wrapper
 {
 
-inline int iu_mbicmp(char l, char r)
+inline int iu_mbicmp(char l, char r) IUTEST_CXX_NOEXCEPT_SPEC
 {
     const int ul = static_cast<int>(static_cast<unsigned char>(toupper(l)));
     const int ur = static_cast<int>(static_cast<unsigned char>(toupper(r)));
     return ul - ur;
 }
 
-inline int iu_stricmp(const char* str1, const char* str2)
+inline int iu_stricmp(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC
 {
     const char* l = str1;
     const char* r = str2;
@@ -68,14 +69,14 @@ inline int iu_stricmp(const char* str1, const char* str2)
     return iu_mbicmp(*l, *r);
 }
 
-inline int iu_wcicmp(wchar_t l, wchar_t r)
+inline int iu_wcicmp(wchar_t l, wchar_t r) IUTEST_CXX_NOEXCEPT_SPEC
 {
     const ::std::wint_t ul = towupper(l);
     const ::std::wint_t ur = towupper(r);
     return ul - ur;
 }
 
-inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
+inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2) IUTEST_CXX_NOEXCEPT_SPEC
 {
     const wchar_t* l = str1;
     const wchar_t* r = str2;
@@ -96,9 +97,26 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 
 /**
  * @internal
+ * @brief   mbtowc
+*/
+inline int iu_mbtowc(wchar_t* dst, const char* src, size_t size) IUTEST_CXX_NOEXCEPT_SPEC
+{
+#if defined(IUTEST_OS_LINUX_ANDROID) || defined(IUTEST_OS_WINDOWS_MOBILE)
+    // unimplimented
+    IUTEST_UNUSED_VAR(dst);
+    IUTEST_UNUSED_VAR(src);
+    IUTEST_UNUSED_VAR(size);
+    return 0;
+#else
+    return mbtowc(dst, src, size);
+#endif
+}
+
+/**
+ * @internal
  * @brief   stricmp (unsigned char compare)
 */
-inline int iu_stricmp(const char* str1, const char* str2)
+inline int iu_stricmp(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if   defined(__BORLANDC__)
     return stricmp(str1, str2);
@@ -118,7 +136,7 @@ inline int iu_stricmp(const char* str1, const char* str2)
  * @internal
  * @brief   wcsicmp
 */
-inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
+inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if   defined(_MSC_VER)
     return _wcsicmp(str1, str2);
@@ -137,9 +155,9 @@ int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va) IUTEST_
 inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 {
     char buffer[4096] = {0};
-    char* write_buffer = dst != NULL && size >= 4096 ? dst : buffer;
+    char* write_buffer = dst != IUTEST_NULLPTR && size >= 4096 ? dst : buffer;
     const int ret = vsprintf(write_buffer, format, va);
-    if( dst != NULL )
+    if( dst != IUTEST_NULLPTR )
     {
         const size_t length = static_cast<size_t>(ret);
         const size_t write = (size <= length) ? size - 1 : length;
@@ -162,12 +180,12 @@ int iu_snprintf(char* dst, size_t size, const char* format, ...) IUTEST_ATTRIBUT
 */
 inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 {
-    if( dst == NULL && size > 0 )
+    if( dst == IUTEST_NULLPTR && size > 0 )
     {
         return -1;
     }
 #if   defined(_MSC_VER)
-    if( dst == NULL || size <= 0 )
+    if( dst == IUTEST_NULLPTR || size <= 0 )
     {
         return _vscprintf(format, va);
     }
@@ -193,38 +211,64 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 inline int iu_snprintf(char* dst, size_t size, const char* format, ...)
 {
     va_list va;
-    va_start(va, format);
+    iu_va_start(va, format);
     const int ret = iu_vsnprintf(dst, size, format, va);
-    va_end(va);
+    iu_va_end(va);
     return ret;
 }
 
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 
-inline bool IsEmpty(const char* p) { return p == NULL || *p == '\0'; }
-inline IUTEST_CXX_CONSTEXPR bool IsSpace(char ch) { return ch == ' ' || ch =='\t'; }
-inline const char* NullableString(const char* str) { return str == NULL ? "" : str; }
-inline IUTEST_CXX_CONSTEXPR const char* SkipSpace(const char* p)
+inline bool IsEmpty(const char* p) IUTEST_CXX_NOEXCEPT_SPEC { return p == IUTEST_NULLPTR || *p == '\0'; }
+inline IUTEST_CXX_CONSTEXPR bool IsSpace(char ch) IUTEST_CXX_NOEXCEPT_SPEC { return ch == ' ' || ch =='\t'; }
+inline const char* NullableString(const char* str) IUTEST_CXX_NOEXCEPT_SPEC { return str == IUTEST_NULLPTR ? "" : str; }
+inline IUTEST_CXX_CONSTEXPR const char* SkipSpace(const char* p) IUTEST_CXX_NOEXCEPT_SPEC
 {
-    return p == NULL ? NULL : (IsSpace(*p) ? SkipSpace(++p) : p);
+    return p == IUTEST_NULLPTR ? IUTEST_NULLPTR : (IsSpace(*p) ? SkipSpace(++p) : p);
 }
-inline IUTEST_CXX_CONSTEXPR const char* FindComma(const char* p)
+inline IUTEST_CXX_CONSTEXPR const char* FindComma(const char* p) IUTEST_CXX_NOEXCEPT_SPEC
 {
-    return (p == NULL || *p == '\0') ? NULL : ((*p == ',') ? p : FindComma(++p));
+    return (p == IUTEST_NULLPTR || *p == '\0') ? IUTEST_NULLPTR : ((*p == ',') ? p : FindComma(++p));
 }
-inline bool IsStringEqual(const char* str1, const char* str2) { return strcmp(str1, str2) == 0; }
-inline bool IsStringEqual(const ::std::string& str1, const char* str2) { return str1.compare(str2) == 0; }
-inline bool IsStringEqual(const ::std::string& str1, const ::std::string& str2) { return str1.compare(str2) == 0; }
-inline bool IsStringCaseEqual(const char* str1, const char* str2) { return iu_stricmp(str1, str2) == 0; }
-inline bool IsStringCaseEqual(const ::std::string& str1, const char* str2) { return iu_stricmp(str1.c_str(), str2) == 0; }
-inline bool IsStringCaseEqual(const ::std::string& str1, const ::std::string& str2) { return iu_stricmp(str1.c_str(), str2.c_str()) == 0; }
-inline bool IsStringForwardMatching(const char* str1, const char* str2) { return strstr(str1, str2) == str1; }
-inline bool IsStringForwardMatching(const ::std::string& str1, const char* str2) { return str1.find(str2) == 0; }
-inline bool IsStringForwardMatching(const ::std::string& str1, const std::string& str2) { return str1.find(str2) == 0; }
-inline bool IsStringContains(const char* str1, const char* str2) { return strstr(str1, str2) != NULL; }
-inline bool IsStringContains(const ::std::string& str1, const char* str2) { return str1.find(str2) != ::std::string::npos; }
-inline bool IsStringContains(const ::std::string& str1, const ::std::string& str2) { return str1.find(str2) != ::std::string::npos; }
-
+inline bool IsStringEqual(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC { return strcmp(str1, str2) == 0; }
+inline bool IsStringEqual(const ::std::string& str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC { return str1.compare(str2) == 0; }
+inline bool IsStringEqual(const ::std::string& str1, const ::std::string& str2) IUTEST_CXX_NOEXCEPT_SPEC { return str1.compare(str2) == 0; }
+inline bool IsStringCaseEqual(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return iu_stricmp(str1, str2) == 0;
+}
+inline bool IsStringCaseEqual(const ::std::string& str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return iu_stricmp(str1.c_str(), str2) == 0;
+}
+inline bool IsStringCaseEqual(const ::std::string& str1, const ::std::string& str2) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return iu_stricmp(str1.c_str(), str2.c_str()) == 0;
+}
+inline bool IsStringForwardMatching(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return strstr(str1, str2) == str1;
+}
+inline bool IsStringForwardMatching(const ::std::string& str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return str1.find(str2) == 0;
+}
+inline bool IsStringForwardMatching(const ::std::string& str1, const std::string& str2) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return str1.find(str2) == 0;
+}
+inline bool IsStringContains(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return strstr(str1, str2) != IUTEST_NULLPTR;
+}
+inline bool IsStringContains(const ::std::string& str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return str1.find(str2) != ::std::string::npos;
+}
+inline bool IsStringContains(const ::std::string& str1, const ::std::string& str2) IUTEST_CXX_NOEXCEPT_SPEC
+{
+    return str1.find(str2) != ::std::string::npos;
+}
 inline void StringReplace(::std::string& str, const char* from, size_t n, const char* to)
 {
     ::std::string::size_type pos = 0;
@@ -236,7 +280,7 @@ inline void StringReplace(::std::string& str, const char* from, size_t n, const 
 }
 inline void StringReplace(::std::string& str, char a, const char* to)
 {
-    char s[] = { a, 0 };
+    const char s[] = { a, 0 };
     return StringReplace(str, s, 1, to);
 }
 inline ::std::string StripLeadingSpace(const ::std::string& str)
@@ -272,7 +316,7 @@ inline ::std::string StripSpace(const ::std::string& str)
     return ::std::string(start, end+1);
 }
 
-inline bool StringIsBlank(const ::std::string& str)
+inline bool StringIsBlank(const ::std::string& str) IUTEST_CXX_NOEXCEPT_SPEC
 {
     ::std::string::const_iterator it = str.begin();
     while( it != str.end() )
@@ -300,13 +344,15 @@ inline ::std::string StringRemoveComment(const ::std::string& str)
     while( pos != ::std::string::npos )
     {
         ++pos;
-        if( str[prev] != '#' ) {
+        if( str.at(prev) != '#' )
+        {
             r += str.substr(prev, pos-prev);
         }
         prev = pos;
         pos = str.find('\n', pos);
     }
-    if( str[prev] != '#' ) {
+    if( str.at(prev) != '#' )
+    {
         r += str.substr(prev);
     }
     return r;
@@ -353,11 +399,11 @@ inline IUTEST_CXX_CONSTEXPR char ToHex(unsigned int n)
 template<typename T>
 inline ::std::string ToHexString(T value)
 {
-    const size_t kN = sizeof(T)*2;
+    IUTEST_CXX_CONSTEXPR_OR_CONST size_t kN = sizeof(T)*2;
     char buf[kN + 1] = {0};
     for( size_t i=0; i < kN; ++i )
     {
-        buf[i] = ToHex(static_cast<unsigned int>((value>>((kN-i-1)*4))));
+        gsl::at(buf, i) = ToHex(static_cast<unsigned int>((value>>((kN-i-1)*4))));
     }
     buf[kN] = '\0';
     return buf;
@@ -381,17 +427,18 @@ inline ::std::string FormatIntWidthN(int value, int digit)
     int x = value;
     for( int i=0; i < digit; ++i, --idx )
     {
-        buf[idx] = static_cast<char>(::std::abs(x%10) + '0');
+        gsl::at(buf, idx) = static_cast<char>(::std::abs(x%10) + '0');
         x /= 10;
     }
     for( ; x; --idx )
     {
-        buf[idx] = static_cast<char>(::std::abs(x%10) + '0');
+        gsl::at(buf, idx) = static_cast<char>(::std::abs(x%10) + '0');
         x /= 10;
     }
     if( value < 0 )
     {
-        buf[idx--] = '-';
+        gsl::at(buf, idx) = '-';
+        idx--;
     }
     return buf + idx + 1;
 }
@@ -406,7 +453,7 @@ inline ::std::string FormatIntWidth2(int value)
 template<typename T>
 ::std::string iu_to_string(const T& value)
 {
-    const size_t kN = 128;
+    IUTEST_CXX_CONSTEXPR_OR_CONST size_t kN = 128;
     char buf[kN] = { 0 };
     const ::std::to_chars_result r = ::std::to_chars(buf, buf + kN, value);
     *r.ptr = '\0';
@@ -435,14 +482,14 @@ IIUT_DECL_TOSTRING("%llu", unsigned long long)
 
 inline ::std::string FormatSizeByte(UInt64 value)
 {
-    const char* suffixes[] = {
+    const char* const suffixes[] = {
         "B",
         "KB",
         "MB",
         "GB",
         "TB",
     };
-    const size_t suffixes_length = IUTEST_PP_COUNTOF(suffixes);
+    IUTEST_CXX_CONSTEXPR_OR_CONST size_t suffixes_length = IUTEST_PP_COUNTOF(suffixes);
     size_t index = 0;
     double view_value = static_cast<double>(value);
     while(view_value >= 1024 && index + 1 < suffixes_length)
@@ -453,7 +500,7 @@ inline ::std::string FormatSizeByte(UInt64 value)
 
     const UInt32 n = static_cast<UInt32>(::std::floor(view_value));
     const UInt32 f = static_cast<UInt32>(view_value * 10.0 - n * 10.0);
-    const char* suffix = suffixes[index];
+    const char* suffix = gsl::at(suffixes, index);
     if(view_value - n <= 0.0)
     {
         return iu_to_string(n) + suffix;
@@ -478,9 +525,9 @@ inline ::std::string ShowStringQuoted(const ::std::string& str)
 inline ::std::string StringFormat(const char* format, ...)
 {
     va_list va;
-    va_start(va, format);
+    iu_va_start(va, format);
     ::std::string str = StringFormat(format, va);
-    va_end(va);
+    iu_va_end(va);
     return str;
 }
 inline ::std::string StringFormat(const char* format, va_list va)
@@ -489,8 +536,8 @@ inline ::std::string StringFormat(const char* format, va_list va)
     {
         va_list va2;
         iu_va_copy(va2, va);    // cppcheck-suppress va_list_usedBeforeStarted
-        const int ret = iu_vsnprintf(NULL, 0u, format, va2);
-        va_end(va2);
+        const int ret = iu_vsnprintf(IUTEST_NULLPTR, 0u, format, va2);
+        iu_va_end(va2);
         if( ret > 0 )
         {
             n = static_cast<size_t>(ret + 1);
@@ -498,11 +545,11 @@ inline ::std::string StringFormat(const char* format, va_list va)
     }
     for( ;; )
     {
-        char* dst = new char[n];
+        type_array<char> dst(n);
         va_list va2;
         iu_va_copy(va2, va);    // cppcheck-suppress va_list_usedBeforeStarted
         const int written = iu_vsnprintf(dst, n, format, va2);
-        va_end(va2);
+        iu_va_end(va2);
         if( written < 0 )
         {
 #if defined(EOVERFLOW)
@@ -521,10 +568,8 @@ inline ::std::string StringFormat(const char* format, va_list va)
         else if( static_cast<size_t>(written) < n )
         {
             ::std::string s = ::std::string(dst, static_cast<size_t>(written));
-            delete[] dst;
             return s;
         }
-        delete[] dst;
         n *= 2;
     }
     return "";

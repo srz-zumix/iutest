@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -35,20 +35,24 @@ public:
      * @param [in] path = 出力パス
     */
     explicit DefaultXmlGeneratorListener(const ::std::string& path)
-        : m_fp(NULL)
+        : m_fp(IUTEST_NULLPTR)
     {
         SetFilePath(path);
     }
     virtual ~DefaultXmlGeneratorListener()
     {
-        FileClose();
-        TestEnv::event_listeners().set_default_xml_generator(NULL);
+        IUTEST_IGNORE_EXCEPTION_BEGIN()
+        {
+            FileClose();
+            TestEnv::event_listeners().set_default_xml_generator(IUTEST_NULLPTR);
+        }
+        IUTEST_IGNORE_EXCEPTION_END()
     }
 public:
     /**
      * @brief   出力ファイルパスの取得
     */
-    const ::std::string& GetFilePath() const { return m_output_path; }
+    const ::std::string& GetFilePath() const IUTEST_CXX_NOEXCEPT_SPEC { return m_output_path; }
 
 private:
     /**
@@ -76,8 +80,13 @@ private:
     }
 
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void OnTestIterationStart(const UnitTest& test, int iteration) IUTEST_CXX_OVERRIDE;
     virtual void OnTestProgramEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
+
+IUTEST_PRAGMA_WARN_POP()
 
 private:
     virtual bool IsReportable(const UnitTest& test) { IUTEST_UNUSED_VAR(test); return true; }

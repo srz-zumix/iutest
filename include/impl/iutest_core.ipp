@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -127,7 +127,8 @@ IUTEST_IPP_INLINE int UnitTest::Run()
         }
         //catch( ::std::exception& e )
         //{
-        //  iutest::AssertionHelper(NULL, -1, detail::FormatCxxException(e.what()), TestPartResult::kFatalFailure) = AssertionHelper::Fixed();
+        //  iutest::AssertionHelper(IUTEST_NULLPTR, -1, detail::FormatCxxException(e.what()), TestPartResult::kFatalFailure)
+        //      = AssertionHelper::Fixed();
         //}
         catch( ... )
         {
@@ -141,7 +142,7 @@ IUTEST_IPP_INLINE int UnitTest::Run()
 #if IUTEST_HAS_SEH && IUTEST_HAS_EXCEPTIONS
 IUTEST_IPP_INLINE int UnitTest::RunOnMSC()
 {
-    _EXCEPTION_POINTERS* ep = NULL;
+    _EXCEPTION_POINTERS* ep = IUTEST_NULLPTR;
     int ret = 1;
     __try
     {
@@ -241,7 +242,7 @@ IUTEST_IPP_INLINE bool UnitTest::RunOnce()
         {
             m_current_testsuite = *it;
             m_current_testsuite->Run();
-            m_current_testsuite = NULL;
+            m_current_testsuite = IUTEST_NULLPTR;
         }
         m_elapsedmsec = sw.stop();
     }
@@ -315,7 +316,7 @@ IUTEST_IPP_INLINE void UnitTest::TestProgramEnd()
     {
         return;
     }
-    if( current_test_info() != NULL )
+    if( current_test_info() != IUTEST_NULLPTR )
     {
         IUTEST_EXPECT_FAILURE("program exit.");
     }
@@ -330,7 +331,7 @@ IUTEST_IPP_INLINE void UnitTest::Initialize()
     ClearAdHocTestResult();
 
     // ファイルシステムの初期化
-    if( detail::IFileSystem::GetInstance() == NULL )
+    if( detail::IFileSystem::GetInstance() == IUTEST_NULLPTR )
     {
 #if defined(IUTEST_FILE)
         static FileSystem<IUTEST_FILE> filesystem;
