@@ -818,8 +818,9 @@ protected:
     };
 
 private:
-    struct PairInfo {
-        PairInfo(int r1, int r2, int i1, int i2)
+    struct PairInfo
+    {
+        PairInfo(int r1, int r2, int i1, int i2) IUTEST_CXX_NOEXCEPT_SPEC
             : raw1(r1), raw2(r2), idx1(i1), idx2(i2) {}
         int raw1, raw2; // 列のペア
         int idx1, idx2; // インデックスのペア

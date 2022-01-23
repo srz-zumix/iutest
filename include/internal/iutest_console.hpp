@@ -125,7 +125,7 @@ public:
      * @brief 色付き表示が無効かどうか
      * @return 真偽値
     */
-    static bool IsColorModeOff()
+    static bool IsColorModeOff() IUTEST_CXX_NOEXCEPT_SPEC
     {
 #if defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
         return TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_OFF);
@@ -137,7 +137,7 @@ public:
      * @brief 色付き表示が有効かどうか
      * @return 真偽値
     */
-    static bool IsColorModeOn()
+    static bool IsColorModeOn() IUTEST_CXX_NOEXCEPT_SPEC
     {
 #if defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
         return TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ON);
@@ -149,7 +149,7 @@ public:
      * @brief 色付き表示が ANSI エスケープかどうか
      * @return 真偽値
     */
-    static bool IsColorModeAnsi()
+    static bool IsColorModeAnsi() IUTEST_CXX_NOEXCEPT_SPEC
     {
 #if defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
         return TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ANSI);
@@ -163,7 +163,7 @@ private:
     static inline bool IsShouldUseColor(bool use_color);
     static inline bool HasColorConsole();
 #if IUTEST_HAS_COLORCONSOLE && !IUTEST_FORCE_COLORCONSOLE
-    static inline bool IsStringEqual(const char* str1, const char* str2) { return strcmp(str1, str2) == 0; }
+    static inline bool IsStringEqual(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC { return strcmp(str1, str2) == 0; }
 #endif
 
 private:
@@ -172,7 +172,7 @@ private:
         iuLogger* pInstance;
     };
 
-    static LoggerInstanceVariable& GetLoggerInstanceVariable() { static LoggerInstanceVariable sLogger; return sLogger; }
+    static LoggerInstanceVariable& GetLoggerInstanceVariable() IUTEST_CXX_NOEXCEPT_SPEC { static LoggerInstanceVariable sLogger; return sLogger; }
     static iuLogger* GetLogger() { return GetLoggerInstanceVariable().pInstance; }
 };
 

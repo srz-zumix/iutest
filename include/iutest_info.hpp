@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -93,7 +93,7 @@ public:
      * @brief   致命的なエラーが出たかどうか
      * @return  真偽値
     */
-    bool    HasFatalFailure() const
+    bool    HasFatalFailure() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return m_test_result.HasFatalFailure();
     }
@@ -102,7 +102,7 @@ public:
      * @brief   致命的ではないエラーが出たかどうか
      * @return  真偽値
     */
-    bool    HasNonfatalFailure() const
+    bool    HasNonfatalFailure() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return m_test_result.HasNonfatalFailure();
     }
@@ -111,7 +111,7 @@ public:
      * @brief   エラーが出たかどうか
      * @return  真偽値
     */
-    bool    HasFailure() const
+    bool    HasFailure() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return m_test_result.Failed();
     }
@@ -120,7 +120,7 @@ public:
      * @brief   警告があるかどうか
      * @return  真偽値
     */
-    bool    HasWarning() const
+    bool    HasWarning() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return m_test_result.HasWarning();
     }
@@ -129,7 +129,7 @@ public:
      * @brief   成功したかどうか
      * @return  真偽値
     */
-    bool    Passed() const
+    bool    Passed() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         if( is_skipped() )
         {
@@ -200,7 +200,7 @@ private:
     /**
      * @brief   テストのクリア
     */
-    void clear();
+    void clear() IUTEST_CXX_NOEXCEPT_SPEC;
 
     /*
      * @brief   テストのフィルタリング
@@ -236,7 +236,7 @@ private:
             return ptr()->is_skipped();
         }
     public:
-        void SetPointer(TestInfo* p) { m_test_info = p; }
+        void SetPointer(TestInfo* p) IUTEST_CXX_NOEXCEPT_SPEC { m_test_info = p; }
     };
 private:
     friend class UnitTestImpl;

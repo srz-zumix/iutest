@@ -52,7 +52,7 @@ public:
     virtual ~IParamTestInfoData() IUTEST_CXX_DEFAULT_FUNCTION
     virtual TestSuite* MakeTestSuite(const ::std::string& , TestTypeId , SetUpMethod , TearDownMethod ) const = 0;
     virtual EachTestBase* RegisterTest(TestSuite* , const ::std::string& ) const = 0;
-    const char* GetName() const { return m_name.c_str(); }
+    const char* GetName() const IUTEST_CXX_NOEXCEPT_SPEC { return m_name.c_str(); }
 protected:
     ::std::string m_name;
 };
@@ -308,7 +308,7 @@ private:
     }
 
 public:
-    size_t count() const { return m_testsuite_infos.size(); }
+    size_t count() const IUTEST_CXX_NOEXCEPT_SPEC { return m_testsuite_infos.size(); }
 
 private:
     // テストを登録

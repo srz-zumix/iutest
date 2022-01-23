@@ -194,7 +194,7 @@ public:
         TestTypeId  m_id;
         const char* m_name;
 
-        bool operator () (const TestSuite* p) const
+        bool operator () (const TestSuite* p) const IUTEST_CXX_NOEXCEPT_SPEC
         {
             if( p->get_typeid() == m_id && detail::IsStringEqual(p->m_testsuite_name, m_name) )
             {
@@ -215,7 +215,7 @@ private:
     bool filter();
 
 private:
-    friend bool operator == (const TestSuite& lhs, const TestSuite& rhs)
+    friend bool operator == (const TestSuite& lhs, const TestSuite& rhs) IUTEST_CXX_NOEXCEPT_SPEC
     {
         return (lhs.m_id == rhs.m_id) && (strcmp(lhs.name(), rhs.name()) == 0);
     }
@@ -223,8 +223,8 @@ private:
     void push_back(TestInfo* p) { m_testinfos.push_back(p); }
 
 private:
-    iuTestInfos::const_iterator begin() const       { return m_testinfos.begin(); }
-    iuTestInfos::const_iterator end()   const       { return m_testinfos.end(); }
+    iuTestInfos::const_iterator begin() const IUTEST_CXX_NOEXCEPT_SPEC { return m_testinfos.begin(); }
+    iuTestInfos::const_iterator end()   const IUTEST_CXX_NOEXCEPT_SPEC { return m_testinfos.end(); }
     TestTypeId                  get_typeid() const IUTEST_CXX_NOEXCEPT_SPEC { return m_id; }
 
 private:

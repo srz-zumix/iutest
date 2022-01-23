@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -147,7 +147,7 @@ IUTEST_IPP_INLINE void TestInfo::RunOnMSC(Test* test)
 }
 #endif
 
-IUTEST_IPP_INLINE void TestInfo::clear()
+IUTEST_IPP_INLINE void TestInfo::clear() IUTEST_CXX_NOEXCEPT_SPEC
 {
     m_ran = false;
     m_skip = false;

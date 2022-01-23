@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -60,7 +60,7 @@ class NoTestPartResultReporter : public TestPartResultReporterInterface
 {
 public:
     virtual ~NoTestPartResultReporter() IUTEST_CXX_OVERRIDE {}
-    virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
+    virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_NOEXCEPT_SPEC IUTEST_CXX_OVERRIDE
     {
         IUTEST_UNUSED_VAR(result);
     }

@@ -405,13 +405,23 @@ public:
         return get_vars().m_flagfile.c_str();
     }
 #if IUTEST_HAS_STREAM_RESULT
-    static const StateVariable< ::std::string >& get_stream_result_to() { return get_vars().m_stream_result_to; }
+    static const StateVariable< ::std::string >& get_stream_result_to() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return get_vars().m_stream_result_to;
+    }
 #endif
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
     static void                 global_ostream_copyfmt(iu_ostream& os) { os.copyfmt(get_vars().m_ostream_formatter); }  // NOLINT
 #endif
-    static const char*          get_locale_ctype() { return get_vars().m_locale_ctype.c_str(); }    //!< ctype locale オプション
-    static bool                 is_specific_locale_ctype() { return !get_vars().m_locale_ctype.empty(); }
+    //!< ctype locale option
+    static const char* get_locale_ctype() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return get_vars().m_locale_ctype.c_str();
+    }
+    static bool is_specific_locale_ctype() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return !get_vars().m_locale_ctype.empty();
+    }
 
     /**
      * @brief   xml 出力パスを取得

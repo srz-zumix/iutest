@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -95,6 +95,9 @@ public:
         : m_fp(fp)
     {}
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     /**
      * @brief   書き込み
      * @param [in]  buf     = 書き込みバッファ
@@ -109,6 +112,8 @@ public:
         }
         return true;
     }
+
+IUTEST_PRAGMA_WARN_POP()
 };
 
 }   // end of namespace detail
