@@ -60,10 +60,14 @@ class NoTestPartResultReporter : public TestPartResultReporterInterface
 {
 public:
     virtual ~NoTestPartResultReporter() IUTEST_CXX_OVERRIDE {}
-    virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_NOEXCEPT_SPEC IUTEST_CXX_OVERRIDE
+
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+    virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
     {
         IUTEST_UNUSED_VAR(result);
     }
+IUTEST_PRAGMA_WARN_POP()
 };
 
 /**
