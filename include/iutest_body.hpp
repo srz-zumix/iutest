@@ -271,7 +271,7 @@ public:
      * @brief   パラメータの取得
     */
     template<int N>
-    static const typename tuples::tuple_element<N, ParamType>::type& GetParam()
+    static const typename tuples::tuple_element<N, ParamType>::type& GetParam() IUTEST_CXX_NOEXCEPT_SPEC
     {
         return tuples::get<N>(GetParam());
     }

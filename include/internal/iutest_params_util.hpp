@@ -135,9 +135,9 @@ class ParamTestSuiteInfo IUTEST_CXX_FINAL : public IParamTestSuiteInfo
     class Functor
     {
     public:
-        Functor()
+        Functor() IUTEST_CXX_NOEXCEPT_SPEC
             : CreateGen(IUTEST_NULLPTR), ParamNameGen(IUTEST_NULLPTR), m_file(IUTEST_NULLPTR), m_line(0) {}
-        Functor(pfnCreateGeneratorFunc c, pfnParamNameGeneratorFunc p, const char* file, int line)
+        Functor(pfnCreateGeneratorFunc c, pfnParamNameGeneratorFunc p, const char* file, int line) IUTEST_CXX_NOEXCEPT_SPEC
             : CreateGen(c), ParamNameGen(p), m_file(file), m_line(line) {}
         pfnCreateGeneratorFunc      CreateGen;
         pfnParamNameGeneratorFunc   ParamNameGen;

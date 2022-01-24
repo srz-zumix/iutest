@@ -275,10 +275,10 @@ public:
     ~scoped_ptr() { reset(); }
 
     T& operator *  () const { return *m_ptr; }
-    T* operator -> () const { return m_ptr; }
+    T* operator -> () const IUTEST_CXX_NOEXCEPT_SPEC { return m_ptr; }
 
-    T* get() const { return m_ptr; }
-    T* release()
+    T* get() const IUTEST_CXX_NOEXCEPT_SPEC { return m_ptr; }
+    T* release() IUTEST_CXX_NOEXCEPT_SPEC
     {
         T* const p = m_ptr;
         m_ptr = IUTEST_NULLPTR;
