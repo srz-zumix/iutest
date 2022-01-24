@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -66,7 +66,7 @@ IUTEST_IPP_INLINE void TestInfo::RunImpl()
         catch (const ::std::exception& e)
         {
             elapsedmsec = sw.stop();
-            iutest::AssertionHelper(NULL, -1, detail::FormatCxxException(e.what())
+            iutest::AssertionHelper(IUTEST_NULLPTR, -1, detail::FormatCxxException(e.what())
                 , TestPartResult::kFatalFailure).OnFixed(AssertionHelper::Fixed(), true);
             if( TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
             {
@@ -84,7 +84,7 @@ IUTEST_IPP_INLINE void TestInfo::RunImpl()
         catch (...)
         {
             elapsedmsec = sw.stop();
-            iutest::AssertionHelper(NULL, -1, detail::FormatCxxException(NULL)
+            iutest::AssertionHelper(IUTEST_NULLPTR, -1, detail::FormatCxxException(IUTEST_NULLPTR)
                 , TestPartResult::kFatalFailure).OnFixed(AssertionHelper::Fixed(), true);
             if( TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
             {
@@ -131,7 +131,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 IUTEST_IPP_INLINE void TestInfo::RunOnMSC(Test* test)
 {
-    _EXCEPTION_POINTERS* ep = NULL;
+    _EXCEPTION_POINTERS* ep = IUTEST_NULLPTR;
     __try
     {
         test->Run(&m_mediator);
@@ -147,7 +147,7 @@ IUTEST_IPP_INLINE void TestInfo::RunOnMSC(Test* test)
 }
 #endif
 
-IUTEST_IPP_INLINE void TestInfo::clear()
+IUTEST_IPP_INLINE void TestInfo::clear() IUTEST_CXX_NOEXCEPT_SPEC
 {
     m_ran = false;
     m_skip = false;
