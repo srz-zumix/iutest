@@ -1624,9 +1624,9 @@
 
 #if defined(_MSC_VER)
 // https://stackoverflow.com/questions/14487241/avoiding-an-inheritance-by-dominance-warning-for-a-mocked-stdfstream-class
-#  define IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()   \
-    void _Add_vtordisp1() {}    \
-    void _Add_vtordisp2() {}
+#  define IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()       \
+    void _Add_vtordisp1() IUTEST_CXX_NOEXCEPT_SPEC {}   \
+    void _Add_vtordisp2() IUTEST_CXX_NOEXCEPT_SPEC {}
 #else
 #  define IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()
 #endif

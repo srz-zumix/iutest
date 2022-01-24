@@ -381,7 +381,7 @@ public:
     };
 public:
     template<typename FUNC>
-    node_ptr find(node_ptr p, FUNC& f) const
+    node_ptr find(node_ptr p, FUNC& f) const  IUTEST_CXX_NOEXCEPT_AS(f)
     {
         node_ptr cur = m_node;
         while( cur != IUTEST_NULLPTR )
@@ -395,7 +395,7 @@ public:
         return IUTEST_NULLPTR;
     }
     template<typename FUNC>
-    node_ptr find(FUNC& f) const
+    node_ptr find(FUNC& f) const  IUTEST_CXX_NOEXCEPT_AS(f)
     {
         node_ptr cur = m_node;
         while( cur != IUTEST_NULLPTR )
@@ -485,13 +485,13 @@ void RandomShuffle(::std::vector<T>& list, Fn& r)
 
 #if IUTEST_USE_OWN_LIST
 template<typename Node, typename Fn>
-Node* FindList(const iu_list<Node>& list, Fn& f)
+Node* FindList(const iu_list<Node>& list, Fn& f) IUTEST_CXX_NOEXCEPT_AS(f)
 {
     return list.find(f);
 }
 #else
 template<typename T, typename Fn>
-T FindList(const ::std::vector<T>& list, Fn& f)
+T FindList(const ::std::vector<T>& list, Fn& f) IUTEST_CXX_NOEXCEPT_AS(f)
 {
     for(typename ::std::vector<T>::const_iterator it = list.begin(), end = list.end(); it != end; ++it)
     {
@@ -511,7 +511,7 @@ T FindList(const ::std::vector<T>& list, Fn& f)
 #if IUTEST_USE_OWN_LIST
 
 template<typename Node, typename Fn>
-int CountIf(const iu_list<Node>& list, Fn f)
+int CountIf(const iu_list<Node>& list, Fn f) IUTEST_CXX_NOEXCEPT_AS(f)
 {
     int count = 0;
     for( typename iu_list<Node>::const_iterator it = list.begin(), end=list.end(); it != end; ++it )
@@ -527,7 +527,7 @@ int CountIf(const iu_list<Node>& list, Fn f)
 #else
 
 template<typename T, typename Fn>
-int CountIf(const ::std::vector<T>& list, Fn f)
+int CountIf(const ::std::vector<T>& list, Fn f) IUTEST_CXX_NOEXCEPT_AS(f)
 {
     int count = 0;
     for(typename ::std::vector<T>::const_iterator it = list.begin(), end = list.end(); it != end; ++it)
@@ -549,7 +549,7 @@ int CountIf(const ::std::vector<T>& list, Fn f)
 #if IUTEST_USE_OWN_LIST
 
 template<typename Node, typename Fn>
-int SumOverList(const iu_list<Node>& list, Fn f)
+int SumOverList(const iu_list<Node>& list, Fn f) IUTEST_CXX_NOEXCEPT_AS(f)
 {
     int count = 0;
     for( typename iu_list<Node>::const_iterator it = list.begin(), end=list.end(); it != end; ++it )
@@ -562,7 +562,7 @@ int SumOverList(const iu_list<Node>& list, Fn f)
 #else
 
 template<typename T, typename Fn>
-int SumOverList(const ::std::vector<T>& list, Fn f)
+int SumOverList(const ::std::vector<T>& list, Fn f) IUTEST_CXX_NOEXCEPT_AS(f)
 {
     int count = 0;
     for(typename ::std::vector<T>::const_iterator it = list.begin(), end = list.end(); it != end; ++it)
@@ -581,7 +581,7 @@ int SumOverList(const ::std::vector<T>& list, Fn f)
 #if IUTEST_USE_OWN_LIST
 
 template<typename Node, typename Fn>
-int CountIfOverList(const iu_list<Node>& list, Fn f)
+int CountIfOverList(const iu_list<Node>& list, Fn f) IUTEST_CXX_NOEXCEPT_AS(f)
 {
     int count = 0;
     for( typename iu_list<Node>::const_iterator it = list.begin(), end=list.end(); it != end; ++it )
@@ -597,7 +597,7 @@ int CountIfOverList(const iu_list<Node>& list, Fn f)
 #else
 
 template<typename T, typename Fn>
-int CountIfOverList(const ::std::vector<T>& list, Fn f)
+int CountIfOverList(const ::std::vector<T>& list, Fn f) IUTEST_CXX_NOEXCEPT_AS(f)
 {
     int count = 0;
     for(typename ::std::vector<T>::const_iterator it = list.begin(), end = list.end(); it != end; ++it)
@@ -618,7 +618,7 @@ int CountIfOverList(const ::std::vector<T>& list, Fn f)
 #if IUTEST_USE_OWN_LIST
 
 template<typename Node, typename Fn>
-bool AnyOverList(const iu_list<Node>& list, Fn f)
+bool AnyOverList(const iu_list<Node>& list, Fn f) IUTEST_CXX_NOEXCEPT_AS(f)
 {
     for( typename iu_list<Node>::const_iterator it = list.begin(), end=list.end(); it != end; ++it )
     {
@@ -633,7 +633,7 @@ bool AnyOverList(const iu_list<Node>& list, Fn f)
 #else
 
 template<typename T, typename Fn>
-bool AnyOverList(const ::std::vector<T>& list, Fn f)
+bool AnyOverList(const ::std::vector<T>& list, Fn f) IUTEST_CXX_NOEXCEPT_AS(f)
 {
     for(typename ::std::vector<T>::const_iterator it = list.begin(), end = list.end(); it != end; ++it)
     {

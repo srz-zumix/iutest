@@ -445,17 +445,17 @@ public:
         get_vars().m_testpartresult_reporter = ptr;
     }
     /** @private */
-    static bool has_output_option()
+    static bool has_output_option() IUTEST_CXX_NOEXCEPT_SPEC
     {
         return !get_vars().m_output_option.get().empty();
     }
     /** @private */
-    static bool is_output_option_dirty()
+    static bool is_output_option_dirty() IUTEST_CXX_NOEXCEPT_SPEC
     {
         return get_vars().m_output_option.is_dirty();
     }
     /** @private */
-    static void flush_output_option()
+    static void flush_output_option() IUTEST_CXX_NOEXCEPT_SPEC
     {
         get_vars().m_output_option.flush();
     }
@@ -516,7 +516,7 @@ private:
     /**
      * @brief   color オプション文字列を取得
     */
-    static const char* get_color_option()
+    static const char* get_color_option() IUTEST_CXX_NOEXCEPT_SPEC
     {
         if( TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ANSI) )
         {
@@ -730,7 +730,7 @@ private:
     /**
      * @brief   環境セットクラスの解放
     */
-    static void ReleaseGlobalTestEnvironment()
+    static void ReleaseGlobalTestEnvironment() IUTEST_CXX_NOEXCEPT_SPEC
     {
         // すべて解放する
         for( iuEnvironmentList::iterator it=environments().begin(); it != environments().end(); )
@@ -829,7 +829,7 @@ private:
     /**
      * @brief   オプション文字列から設定文字列の先頭アドレスを取得
     */
-    static inline const char* ParseOptionSettingStr(const char* opt)
+    static inline const char* ParseOptionSettingStr(const char* opt) IUTEST_CXX_NOEXCEPT_SPEC
     {
         const char* eq = strchr(opt, '=');
         if( eq == IUTEST_NULLPTR )
@@ -841,7 +841,7 @@ private:
     /**
      * @brief   IUTEST_COLOR オプションの判定
     */
-    static bool ParseColorOption(const char* option);
+    static bool ParseColorOption(const char* option) IUTEST_CXX_NOEXCEPT_SPEC;
 
     /**
      * @brief   IUTEST_OUTPUT オプションの判定
@@ -879,7 +879,7 @@ private:
      * @retval  0   = NO
      * @retval  > 0 = YES
     */
-    static int ParseYesNoOption(const char* option);
+    static int ParseYesNoOption(const char* option) IUTEST_CXX_NOEXCEPT_SPEC;
 
     /**
      * @brief   yes オプションか判定

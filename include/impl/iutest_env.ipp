@@ -402,7 +402,7 @@ IUTEST_IPP_INLINE void TestEnv::SetUp()
     genrand().init(seed);
 }
 
-IUTEST_IPP_INLINE bool TestEnv::ParseColorOption(const char* option)
+IUTEST_IPP_INLINE bool TestEnv::ParseColorOption(const char* option) IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( option == IUTEST_NULLPTR )
     {
@@ -544,7 +544,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseYesNoFlagCommandLine(const char* str, TestF
     return true;
 }
 
-IUTEST_IPP_INLINE int TestEnv::ParseYesNoOption(const char* option)
+IUTEST_IPP_INLINE int TestEnv::ParseYesNoOption(const char* option) IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( option != IUTEST_NULLPTR )
     {
