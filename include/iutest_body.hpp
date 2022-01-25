@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -44,9 +44,9 @@ class Test
     IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(Test);
 
 public:
-    Test()
-        : test_info_(NULL)
-        , m_test_info(NULL)
+    Test() IUTEST_CXX_NOEXCEPT_SPEC
+        : test_info_(IUTEST_NULLPTR)
+        , m_test_info(IUTEST_NULLPTR)
 #if IUTEST_HAS_GENRAND
         , m_random_seed(0)
 #endif
@@ -56,19 +56,19 @@ public:
 
     virtual ~Test()
     {
-        CurrentTestObserver::s_current = NULL;
+        CurrentTestObserver::s_current = IUTEST_NULLPTR;
     }
 
 public:
     /**
      * @brief   実行中の TestInfo の取得
     */
-    static const TestInfo* GetCurrentTestInfo()
+    static const TestInfo* GetCurrentTestInfo() IUTEST_CXX_NOEXCEPT_SPEC
     {
         const Test* curr = GetCurrentTest();
-        if( curr == NULL || curr->m_test_info == NULL )
+        if( curr == IUTEST_NULLPTR || curr->m_test_info == IUTEST_NULLPTR )
         {
-            return NULL;
+            return IUTEST_NULLPTR;
         }
         return curr->m_test_info->ptr();
     }
@@ -76,7 +76,7 @@ public:
     /**
      * @brief   実行中の Test の取得
     */
-    static Test* GetCurrentTest() { return CurrentTestObserver::GetCurrentTest(); }
+    static Test* GetCurrentTest() IUTEST_CXX_NOEXCEPT_SPEC { return CurrentTestObserver::GetCurrentTest(); }
 
 
     /**
@@ -158,11 +158,14 @@ public:
     unsigned int    random_seed() const IUTEST_CXX_NOEXCEPT_SPEC { return m_random_seed; }
 
     /** 乱数生成器の取得 */
-    detail::iuRandom& random_engine() { return m_random; }
+    detail::iuRandom& random_engine() IUTEST_CXX_NOEXCEPT_SPEC { return m_random; }
 
 #endif
 
 protected:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void SetUp() {} //!< 実行前処理
     virtual void Body() {}  //!< テスト実装部
     virtual void TearDown() {}  //!< 実行後処理
@@ -175,6 +178,7 @@ public:
     static void TearDownTestCase() {}
 #endif
 
+IUTEST_PRAGMA_WARN_POP()
 private:
     /**
      * @brief   テストの実行
@@ -190,7 +194,7 @@ private:
 
 private:
     struct should_be_SetUp {};
-    virtual should_be_SetUp* Setup() IUTEST_CXX_FINAL { return NULL; }
+    virtual should_be_SetUp* Setup() IUTEST_CXX_NOEXCEPT_SPEC IUTEST_CXX_FINAL { return IUTEST_NULLPTR; }
 
 private:
     template<typename DMY>
@@ -232,7 +236,7 @@ private:
 template<typename ParamType>
 struct TestParamInfo
 {
-    TestParamInfo(const ParamType& p, size_t i)
+    TestParamInfo(const ParamType& p, size_t i) IUTEST_CXX_NOEXCEPT_SPEC
         : param(p), index(i) {}
     ParamType param;
     size_t index;
@@ -248,17 +252,17 @@ class WithParamInterface
 public:
     typedef T ParamType;    //!< パラメータ型
     typedef TestParamInfo<T> TestParamInfoType; //!< パラメータ情報型
-protected:
-    virtual ~WithParamInterface() {}
 
 public:
+    virtual ~WithParamInterface() {}
+
     /**
      * @brief   パラメータの取得
     */
-    static const ParamType& GetParam()
+    static const ParamType& GetParam() IUTEST_CXX_NOEXCEPT_SPEC
     {
-        IUTEST_CHECK_(s_params != NULL) << "GetParam() can only use the value-parameterized test";
-        IUTEST_ANALYSIS_ASSUME(s_params != NULL);
+        IUTEST_CHECK_(s_params != IUTEST_NULLPTR) << "GetParam() can only use the value-parameterized test";
+        IUTEST_ANALYSIS_ASSUME(s_params != IUTEST_NULLPTR);
         return *s_params;
     }
 
@@ -267,7 +271,7 @@ public:
      * @brief   パラメータの取得
     */
     template<int N>
-    static const typename tuples::tuple_element<N, ParamType>::type& GetParam()
+    static const typename tuples::tuple_element<N, ParamType>::type& GetParam() IUTEST_CXX_NOEXCEPT_SPEC
     {
         return tuples::get<N>(GetParam());
     }
@@ -289,7 +293,7 @@ private:
 };
 
 template<typename T>
-const T* WithParamInterface<T>::s_params = NULL;
+const T* WithParamInterface<T>::s_params = IUTEST_NULLPTR;
 
 /**
  * @brief   パラメータテストベース
@@ -338,7 +342,7 @@ class is_useful_testfixture<void (int(T))> : public is_useful_testfixture_helper
 
 #endif
 
-inline bool IsDisableTestName(const ::std::string& name)
+inline bool IsDisableTestName(const ::std::string& name) IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( detail::IsStringForwardMatching(name, "DISABLED_")
         || detail::IsStringContains(name, "/DISABLED_") )
@@ -353,7 +357,7 @@ inline bool IsDisableTestName(const ::std::string& name)
 }   // end of namespace iutest
 
 template<typename DMY>
-::iutest::Test* ::iutest::Test::Observer<DMY>::s_current = NULL;
+::iutest::Test* ::iutest::Test::Observer<DMY>::s_current = IUTEST_NULLPTR;
 
 #if !IUTEST_HAS_LIB
 #  include "impl/iutest_body.ipp" // IWYU pragma: export

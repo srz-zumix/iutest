@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -62,7 +62,7 @@ public:
     const   char*   test_case_name()    const { return m_testsuite->test_suite_name(); }
 #endif
     /** test 名の取得 */
-    const   char*   name()              const { return m_testname.c_str(); }
+    const   char*   name()              const IUTEST_CXX_NOEXCEPT_SPEC { return m_testname.c_str(); }
     /** should_run */
     bool            should_run()        const IUTEST_CXX_NOEXCEPT_SPEC { return m_should_run; }
     /** is ran */
@@ -70,16 +70,16 @@ public:
     /** disable */
     bool            is_disabled_test()  const IUTEST_CXX_NOEXCEPT_SPEC { return m_disable; }
     /** is skipped */
-    bool            is_skipped()        const IUTEST_CXX_NOEXCEPT_SPEC { return m_skip || m_test_result.Skipped(); }
+    bool            is_skipped()        const { return m_skip || m_test_result.Skipped(); }
     /** is reportable */
     bool            is_reportable()     const IUTEST_CXX_NOEXCEPT_SPEC { return m_matches_filter; }
     /** テストの実行ミリ秒 */
-    TimeInMillisec  elapsed_time()      const { return m_test_result.elapsed_time(); }
+    TimeInMillisec  elapsed_time()      const IUTEST_CXX_NOEXCEPT_SPEC { return m_test_result.elapsed_time(); }
     /** テスト結果の取得 */
     const TestResult*   result()        const IUTEST_CXX_NOEXCEPT_SPEC { return &m_test_result; }
 
     /** value param 文字列の取得 */
-    const   char*   value_param()       const { return m_value_param.empty() ? NULL : m_value_param.c_str(); }
+    const   char*   value_param()       const IUTEST_CXX_NOEXCEPT_SPEC { return m_value_param.empty() ? IUTEST_NULLPTR : m_value_param.c_str(); }
     /** type param 文字列の取得 */
     const   char*   type_param()        const { return m_testsuite->type_param(); }
 
@@ -93,7 +93,7 @@ public:
      * @brief   致命的なエラーが出たかどうか
      * @return  真偽値
     */
-    bool    HasFatalFailure() const
+    bool    HasFatalFailure() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return m_test_result.HasFatalFailure();
     }
@@ -102,7 +102,7 @@ public:
      * @brief   致命的ではないエラーが出たかどうか
      * @return  真偽値
     */
-    bool    HasNonfatalFailure() const
+    bool    HasNonfatalFailure() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return m_test_result.HasNonfatalFailure();
     }
@@ -111,7 +111,7 @@ public:
      * @brief   エラーが出たかどうか
      * @return  真偽値
     */
-    bool    HasFailure() const
+    bool    HasFailure() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return m_test_result.Failed();
     }
@@ -120,7 +120,7 @@ public:
      * @brief   警告があるかどうか
      * @return  真偽値
     */
-    bool    HasWarning() const
+    bool    HasWarning() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return m_test_result.HasWarning();
     }
@@ -129,7 +129,7 @@ public:
      * @brief   成功したかどうか
      * @return  真偽値
     */
-    bool    Passed() const
+    bool    Passed() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         if( is_skipped() )
         {
@@ -152,7 +152,7 @@ public:
     ::std::string test_name_with_where() const
     {
         ::std::string str = m_testname;
-        if( value_param() != NULL )
+        if( value_param() != IUTEST_NULLPTR )
         {
             str += ", where GetParam() = ";
             str += m_value_param;
@@ -200,7 +200,7 @@ private:
     /**
      * @brief   テストのクリア
     */
-    void clear();
+    void clear() IUTEST_CXX_NOEXCEPT_SPEC;
 
     /*
      * @brief   テストのフィルタリング
@@ -211,13 +211,13 @@ private:
     /**
     * @brief    テストのスキップ
     */
-    void skip() { m_skip = true; }
+    void skip() IUTEST_CXX_NOEXCEPT_SPEC { m_skip = true; }
 
 private:
     class Mediator IUTEST_CXX_FINAL : public detail::iuITestInfoMediator
     {
     public:
-        explicit Mediator(TestInfo* p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : iuITestInfoMediator(p) {}
+        explicit Mediator(TestInfo* p=IUTEST_NULLPTR) IUTEST_CXX_NOEXCEPT_SPEC : iuITestInfoMediator(p) {}
     public:
         virtual bool HasFatalFailure() const IUTEST_CXX_OVERRIDE
         {
@@ -236,7 +236,7 @@ private:
             return ptr()->is_skipped();
         }
     public:
-        void SetPointer(TestInfo* p) { m_test_info = p; }
+        void SetPointer(TestInfo* p) IUTEST_CXX_NOEXCEPT_SPEC { m_test_info = p; }
     };
 private:
     friend class UnitTestImpl;
