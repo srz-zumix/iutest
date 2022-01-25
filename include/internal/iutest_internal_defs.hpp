@@ -255,7 +255,7 @@ public:
     ~auto_ptr() { if( m_ptr != IUTEST_NULLPTR ) delete m_ptr; }
 
     T& operator *  () const { return *m_ptr; }
-    T* operator -> () IUTEST_CXX_NOEXCEPT_SPEC const { return m_ptr; }
+    T* operator -> () const IUTEST_CXX_NOEXCEPT_SPEC { return m_ptr; }
 
     auto_ptr& operator = (auto_ptr& rhs) { m_ptr = rhs.m_ptr; rhs.m_ptr = IUTEST_NULLPTR; return *this; }
 
