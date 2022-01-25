@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -89,7 +89,7 @@ IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
 IUTEST_PRAGMA_WARN_POP()
 
 private:
-    virtual bool IsReportable(const UnitTest& test) { IUTEST_UNUSED_VAR(test); return true; }
+    virtual bool IsReportable(const UnitTest& test) IUTEST_CXX_NOEXCEPT_SPEC { IUTEST_UNUSED_VAR(test); return true; }
     virtual void OnReportTest(IFile* file, const UnitTest& test);
 
 private:

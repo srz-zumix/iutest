@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -814,7 +814,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const
 namespace StrInHelper
 {
 
-inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const char* substr, const char* actual)
+inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const char* substr, const char* actual) IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( substr == IUTEST_NULLPTR || actual == IUTEST_NULLPTR )
     {
@@ -823,7 +823,7 @@ inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const char* substr, const char* act
     return strstr(actual, substr) != IUTEST_NULLPTR;
 }
 
-inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const wchar_t* substr, const wchar_t* actual)
+inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const wchar_t* substr, const wchar_t* actual) IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( substr == IUTEST_NULLPTR || actual == IUTEST_NULLPTR )
     {

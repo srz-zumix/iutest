@@ -79,7 +79,7 @@ public:
     template<TestPartResult::Type Type>
     struct CondEq
     {
-        bool operator ()(const TestPartResult& result)
+        bool operator ()(const TestPartResult& result) IUTEST_CXX_NOEXCEPT_SPEC
         {
             return result.type() == Type;
         }
@@ -88,7 +88,7 @@ public:
     template<TestPartResult::Type Type>
     struct CondNe
     {
-        bool operator ()(const TestPartResult& result)
+        bool operator ()(const TestPartResult& result) IUTEST_CXX_NOEXCEPT_SPEC
         {
             return result.type() != Type;
         }
@@ -97,7 +97,7 @@ public:
     template<TestPartResult::Type Type>
     struct CondGt
     {
-        bool operator ()(const TestPartResult& result)
+        bool operator ()(const TestPartResult& result) IUTEST_CXX_NOEXCEPT_SPEC
         {
             return result.type() > Type;
         }

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -439,14 +439,14 @@ inline const ::iutest::TestInfo* FindParamTestInfo(const ::iutest::TestSuite* te
 /**
  * @private
 */
-inline const ::iutest::TestResult* TestResultPointer(const ::iutest::TestResult* result)
+inline const ::iutest::TestResult* TestResultPointer(const ::iutest::TestResult* result) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return result;
 }
 /**
  * @private
 */
-inline const ::iutest::TestResult* TestResultPointer(const ::iutest::TestResult& result)
+inline const ::iutest::TestResult* TestResultPointer(const ::iutest::TestResult& result) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return &result;
 }

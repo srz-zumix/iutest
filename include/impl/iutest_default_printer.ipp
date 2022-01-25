@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -21,6 +21,9 @@
 
 namespace iutest
 {
+
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
 
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestProgramStart(const UnitTest& test)
 {
@@ -251,6 +254,8 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestProgramEnd(const UnitTe
 {
     IUTEST_UNUSED_VAR(test);
 }
+
+IUTEST_PRAGMA_WARN_POP()
 
 }   // end of namespace iutest
 

@@ -418,7 +418,7 @@ class TypedTestSuitePState
 public:
     TypedTestSuitePState() IUTEST_CXX_NOEXCEPT_SPEC : m_names(IUTEST_NULLPTR) {}
 public:
-    const char* names() const { return m_names; }
+    const char* names() const IUTEST_CXX_NOEXCEPT_SPEC { return m_names; }
 
 public:
     bool AddTestName(const char* file, int line, const char* testsuite_name, const char* test_name)

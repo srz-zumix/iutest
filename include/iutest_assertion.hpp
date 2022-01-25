@@ -136,7 +136,7 @@ public:
      * @brief   成否の取得
     */
     template<typename T>
-    static AssertionResult Is(const T& b) IUTEST_CXX_NOEXCEPT_SPEC { return AssertionResult(b ? true : false); }
+    static AssertionResult Is(const T& b) { return AssertionResult(b ? true : false); }
     /** @overload */
     static AssertionResult Is(const AssertionResult& ar) IUTEST_CXX_NOEXCEPT_SPEC { return AssertionResult(ar); }
 

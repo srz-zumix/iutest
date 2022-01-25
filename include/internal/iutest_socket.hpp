@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -137,7 +137,7 @@ public:
 #endif
     }
 public:
-    static int Close(descriptor_t d)
+    static int Close(descriptor_t d) IUTEST_CXX_NOEXCEPT_SPEC
     {
 #ifdef IUTEST_OS_WINDOWS
         return closesocket(d);
@@ -147,7 +147,7 @@ public:
     }
 
 public:
-    bool IsValid() const
+    bool IsValid() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return m_socket != INVALID_DESCRIPTOR;
     }
