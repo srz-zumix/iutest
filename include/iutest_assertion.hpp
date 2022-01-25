@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -69,9 +69,9 @@ public:
      * @brief   コンストラクタ
      * @param [in] result = テスト結果真偽値
     */
-    AssertionResult(bool result) : m_result(result) {}  // NOLINT
+    AssertionResult(bool result) IUTEST_CXX_NOEXCEPT_SPEC : m_result(result) {}  // NOLINT
     //! コピーコンストラクタ
-    AssertionResult(const AssertionResult& rhs) : m_message(rhs.m_message), m_result(rhs.m_result) {}
+    AssertionResult(const AssertionResult& rhs) IUTEST_CXX_NOEXCEPT_SPEC : m_message(rhs.m_message), m_result(rhs.m_result) {}
 
     /**
      * @brief   成否
@@ -86,16 +86,16 @@ public:
     /**
      * @brief   メッセージの取得
     */
-    const char* message() const { return m_message.c_str(); }
+    const char* message() const IUTEST_CXX_NOEXCEPT_SPEC { return m_message.c_str(); }
 
     /**
      * @brief   メッセージの取得
      * @deprecated please use message() instead.
     */
-    const char* failure_message() const { return message(); }
+    const char* failure_message() const IUTEST_CXX_NOEXCEPT_SPEC { return message(); }
 
     /** @private */
-    IUTEST_CXX_EXPLICIT_CONVERSION operator bool() const { return m_result; }
+    IUTEST_CXX_EXPLICIT_CONVERSION operator bool() const IUTEST_CXX_NOEXCEPT_SPEC { return m_result; }
 
 public:
     /**
@@ -127,18 +127,18 @@ public:
     /**
      * @brief   成功結果の作成
     */
-    static AssertionResult Success() { return AssertionResult(true); }
+    static AssertionResult Success() IUTEST_CXX_NOEXCEPT_SPEC { return AssertionResult(true); }
     /**
      * @brief   失敗結果の作成
     */
-    static AssertionResult Failure() { return AssertionResult(false); }
+    static AssertionResult Failure() IUTEST_CXX_NOEXCEPT_SPEC { return AssertionResult(false); }
     /**
      * @brief   成否の取得
     */
     template<typename T>
     static AssertionResult Is(const T& b) { return AssertionResult(b ? true : false); }
     /** @overload */
-    static AssertionResult Is(const AssertionResult& ar) { return AssertionResult(ar); }
+    static AssertionResult Is(const AssertionResult& ar) IUTEST_CXX_NOEXCEPT_SPEC { return AssertionResult(ar); }
 
 private:
     IUTEST_PP_DISALLOW_ASSIGN(AssertionResult);
@@ -156,12 +156,12 @@ struct AssertionReturnType
 {
     R value;    //!< 戻り値
     //! コンストラクタ
-    AssertionReturnType() {}
+    AssertionReturnType() IUTEST_CXX_NOEXCEPT_SPEC {}
     /**
      * @brief   コンストラクタ
      * @param [in]  v : 戻り値の値
     */
-    AssertionReturnType(const R& v) : value(v) {}   // NOLINT
+    AssertionReturnType(const R& v) IUTEST_CXX_NOEXCEPT_SPEC : value(v) {}   // NOLINT
 };
 /**
  * @brief   Assetion Return Type (void)
@@ -170,7 +170,7 @@ template<>
 struct AssertionReturnType<void>
 {
     //! コンストラクタ
-    AssertionReturnType() {}
+    AssertionReturnType() IUTEST_CXX_NOEXCEPT_SPEC {}
 };
 
 /**
@@ -180,7 +180,7 @@ template<typename T>
 inline AssertionReturnType<T> AssertionReturn(const T& ret) { return AssertionReturnType<T>(ret); }
 
 /** @overload */
-inline AssertionReturnType<void> AssertionReturn(void) { return AssertionReturnType<void>(); }
+inline AssertionReturnType<void> AssertionReturn(void) IUTEST_CXX_NOEXCEPT_SPEC { return AssertionReturnType<void>(); }
 
 #endif
 
@@ -198,7 +198,7 @@ public:
      * @param [in]  message = メッセージ
      * @param [in]  type    = テスト結果のタイプ
     */
-    AssertionHelper(const char* file, int line, const char* message, TestPartResult::Type type)
+    AssertionHelper(const char* file, int line, const char* message, TestPartResult::Type type) IUTEST_CXX_NOEXCEPT_SPEC
         : m_part_result(file, line, message, type)
     {}
     /**
@@ -208,7 +208,7 @@ public:
      * @param [in]  message = メッセージ
      * @param [in]  type    = テスト結果のタイプ
     */
-    AssertionHelper(const char* file, int line, const ::std::string& message, TestPartResult::Type type)
+    AssertionHelper(const char* file, int line, const ::std::string& message, TestPartResult::Type type) IUTEST_CXX_NOEXCEPT_SPEC
         : m_part_result(file, line, message.c_str(), type)
     {}
 
@@ -221,18 +221,22 @@ public:
 #endif
     {
     public:
-        ScopedMessage(const detail::iuCodeMessage& msg) // NOLINT
+        ScopedMessage(const detail::iuCodeMessage& msg) IUTEST_CXX_NOEXCEPT(false) // NOLINT
             : detail::iuCodeMessage(msg)
         {
             ScopedTrace::GetInstance().list.push_back(this);
         }
         ~ScopedMessage()
         {
-            ScopedTrace::GetInstance().list.remove(this);
-            if( stl::uncaught_exception() )
+            IUTEST_IGNORE_EXCEPTION_BEGIN()
             {
-                detail::UncaughtScopedTrace::Add(*this);
+                ScopedTrace::GetInstance().list.remove(this);
+                if( stl::uncaught_exception() )
+                {
+                    detail::UncaughtScopedTrace::Add(*this);
+                }
             }
+            IUTEST_IGNORE_EXCEPTION_END()
         }
     };
 private:
@@ -246,7 +250,7 @@ private:
 #endif
         msg_list list;
 
-        static ScopedTrace& GetInstance() { static ScopedTrace inst; return inst; }
+        static ScopedTrace& GetInstance() IUTEST_CXX_NOEXCEPT_SPEC { static ScopedTrace inst; return inst; }
     public:
         void append_message(TestPartResult& part_result, bool isException)
         {
@@ -282,6 +286,8 @@ public:
     class Fixed : public Message
     {
     public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_HIDE_FUNCTION()
         template<typename T>
         Fixed& operator << (T val)
         {
@@ -312,6 +318,7 @@ public:
             return ReturnTypedFixed<R>(*this, ret);
         }
 #endif
+IUTEST_PRAGMA_WARN_POP()
     };
 
 #if IUTEST_HAS_ASSERTION_RETURN
@@ -321,7 +328,7 @@ private:
     {
         Fixed fixed;
         AssertionReturnType<R> ret;
-        ReturnTypedFixed(const Fixed& f, const AssertionReturnType<R>& r) : fixed(f), ret(r) {}
+        ReturnTypedFixed(const Fixed& f, const AssertionReturnType<R>& r) IUTEST_CXX_NOEXCEPT_SPEC : fixed(f), ret(r) {}
     };
 #endif
 
@@ -691,7 +698,7 @@ template<typename RawType>
 inline AssertionResult CmpHelperFloatingPointEQ(const char* expr1, const char* expr2
                                                 , RawType val1, RawType val2)
 {
-    floating_point<RawType> f1(val1), f2(val2);
+    const floating_point<RawType> f1(val1), f2(val2);
     if IUTEST_COND_LIKELY( f1.AlmostEquals(f2) )
     {
         return AssertionSuccess();
@@ -709,7 +716,7 @@ inline AssertionResult CmpHelperFloatingPointLE(const char* expr1, const char* e
     {
         return AssertionSuccess();
     }
-    floating_point<RawType> f1(val1), f2(val2);
+    const floating_point<RawType> f1(val1), f2(val2);
     if IUTEST_COND_LIKELY( f1.AlmostEquals(f2) )
     {
         return AssertionSuccess();
@@ -723,8 +730,8 @@ template<typename RawType>
 inline AssertionResult CmpHelperFloatingPointComplexEQ(const char* expr1, const char* expr2
                                                 , const ::std::complex<RawType>& val1, const ::std::complex<RawType>& val2)
 {
-    floating_point<RawType> real1(val1.real()), real2(val2.real());
-    floating_point<RawType> imag1(val1.imag()), imag2(val2.imag());
+    const floating_point<RawType> real1(val1.real()), real2(val2.real());
+    const floating_point<RawType> imag1(val1.imag()), imag2(val2.imag());
     if IUTEST_COND_LIKELY( real1.AlmostEquals(real2) && imag1.AlmostEquals(imag2) )
     {
         return AssertionSuccess();
@@ -819,7 +826,7 @@ public:
     }
     template<typename T2>
     static AssertionResult Compare(const char* expr1, const char* expr2
-        , detail::IsNullLiteralHelper::Object* val1, T2* val2)
+        , const detail::IsNullLiteralHelper::Object* val1, T2* val2)
     {
         IUTEST_UNUSED_VAR(val1);
         return CmpHelperEQ(expr1, expr2, static_cast<T2*>(IUTEST_NULLPTR), val2);
@@ -947,7 +954,7 @@ public:
     }
     template<typename T2>
     static AssertionResult Compare(const char* expr1, const char* expr2
-        , detail::IsNullLiteralHelper::Object* val1, T2* val2)
+        , const detail::IsNullLiteralHelper::Object* val1, T2* val2)
     {
         IUTEST_UNUSED_VAR(val1);
         return CmpHelperNE(expr1, expr2, static_cast<T2*>(IUTEST_NULLPTR), val2);
@@ -1019,7 +1026,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNearFloatingPoint(
     {
         return AssertionSuccess();
     }
-    floating_point<RawType> f1(diff), f2(abs_v);
+    const floating_point<RawType> f1(diff), f2(abs_v);
     if IUTEST_COND_LIKELY( f1.AlmostEquals(f2) )
     {
         return AssertionSuccess();
@@ -1071,8 +1078,9 @@ namespace StrEqHelper
 
 #if IUTEST_HAS_NULLPTR && 0
 #define IIUT_DECL_STREQ_COMPARE_HELPER_NULL_(T)   \
-    inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(::std::nullptr_t, const T* val2) {     \
-        return val2 == IUTEST_NULLPTR;                                                  \
+    inline IUTEST_CXX_CONSTEXPR bool IUTEST_ATTRIBUTE_UNUSED_   \
+    Compare(::std::nullptr_t, const T* val2) {                  \
+        return val2 == IUTEST_NULLPTR;                          \
     }
 #else
 #define IIUT_DECL_STREQ_COMPARE_HELPER_NULL_(T)

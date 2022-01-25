@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -39,8 +39,8 @@ protected:
 #endif
     typedef ::std::vector<Environment*> iuEnvironmentList;
 protected:
-    UnitTestImpl() : m_total_test_num(0), m_disable_num(0), m_should_run_num(0)
-        , m_current_testsuite(NULL), m_elapsedmsec(0)
+    UnitTestImpl() IUTEST_CXX_NOEXCEPT_SPEC : m_total_test_num(0), m_disable_num(0), m_should_run_num(0)
+        , m_current_testsuite(IUTEST_NULLPTR), m_elapsedmsec(0)
     {
         ptr() = this;
     }
@@ -77,8 +77,9 @@ public:
     TestSuite* AddTestSuite(const ::std::string& testsuite_name, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
     {
+        IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26400)
         TestSuite* p = FindTestSuite(testsuite_name, id);
-        if( p == NULL )
+        if( p == IUTEST_NULLPTR )
         {
             p = new T (testsuite_name, id, setup, teardown);
             m_testsuites.push_back(p);
@@ -143,7 +144,7 @@ private:
     /**
      * @brief   後片付け
     */
-    void TerminateImpl();
+    void TerminateImpl() IUTEST_CXX_NOEXCEPT_SPEC;
 
 private:
 #if IUTEST_HAS_INVALID_PARAMETER_HANDLER
@@ -161,7 +162,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 private:
     static UnitTestImpl*& ptr() IUTEST_CXX_NOEXCEPT_SPEC
     {
-        static UnitTestImpl* ptr = NULL;
+        static UnitTestImpl* ptr = IUTEST_NULLPTR;
         return ptr;
     }
 protected:
