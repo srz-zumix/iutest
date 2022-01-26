@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -76,7 +76,7 @@ IUTEST_IPP_INLINE bool TestSuite::RunImpl()
     bool result=true;
     m_elapsedmsec = 0;
 
-    if( m_setup != NULL )
+    if( m_setup != IUTEST_NULLPTR )
     {
         m_setup();
     }
@@ -105,7 +105,7 @@ IUTEST_IPP_INLINE bool TestSuite::RunImpl()
         m_elapsedmsec = sw.stop();
     }
 
-    if( m_teardown != NULL )
+    if( m_teardown != IUTEST_NULLPTR )
     {
         m_teardown();
     }
@@ -116,7 +116,7 @@ IUTEST_IPP_INLINE bool TestSuite::RunImpl()
     return result;
 }
 
-IUTEST_IPP_INLINE bool TestSuite::CheckSetUpSkipped()
+IUTEST_IPP_INLINE bool TestSuite::CheckSetUpSkipped() IUTEST_CXX_NOEXCEPT_SPEC
 {
     if(m_ad_hoc_testresult.Skipped())
     {
@@ -129,7 +129,7 @@ IUTEST_IPP_INLINE bool TestSuite::CheckSetUpSkipped()
     return false;
 }
 
-IUTEST_IPP_INLINE void TestSuite::clear()
+IUTEST_IPP_INLINE void TestSuite::clear() IUTEST_CXX_NOEXCEPT_SPEC
 {
     m_ad_hoc_testresult.Clear();
     for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
@@ -161,12 +161,12 @@ IUTEST_IPP_INLINE bool TestSuite::filter()
     return should_run();
 }
 
-IUTEST_IPP_INLINE int TestSuite::reportable_test_count() const
+IUTEST_IPP_INLINE int TestSuite::reportable_test_count() const IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::CountIfOverList(m_testinfos, &TestInfo::is_reportable);
 }
 
-IUTEST_IPP_INLINE int TestSuite::failed_test_count() const
+IUTEST_IPP_INLINE int TestSuite::failed_test_count() const IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( !should_run() )
     {
@@ -179,7 +179,7 @@ IUTEST_IPP_INLINE int TestSuite::failed_test_count() const
     return detail::CountIf(m_testinfos, IsFailedTest);
 }
 
-IUTEST_IPP_INLINE int TestSuite::successful_test_count() const
+IUTEST_IPP_INLINE int TestSuite::successful_test_count() const IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( !should_run() )
     {
@@ -192,7 +192,7 @@ IUTEST_IPP_INLINE int TestSuite::successful_test_count() const
     return detail::CountIf(m_testinfos, IsSuccessfulTest);
 }
 
-IUTEST_IPP_INLINE int TestSuite::skip_test_count() const
+IUTEST_IPP_INLINE int TestSuite::skip_test_count() const IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( !should_run() )
     {
@@ -201,7 +201,7 @@ IUTEST_IPP_INLINE int TestSuite::skip_test_count() const
     return detail::CountIf(m_testinfos, IsSkipTest);
 }
 
-IUTEST_IPP_INLINE int TestSuite::reportable_skip_test_count() const
+IUTEST_IPP_INLINE int TestSuite::reportable_skip_test_count() const IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( !should_run() )
     {
@@ -210,7 +210,7 @@ IUTEST_IPP_INLINE int TestSuite::reportable_skip_test_count() const
     return detail::CountIf(m_testinfos, IsReportableSkipTest);
 }
 
-IUTEST_IPP_INLINE int TestSuite::test_run_skipped_count() const
+IUTEST_IPP_INLINE int TestSuite::test_run_skipped_count() const IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( !should_run() )
     {
@@ -219,7 +219,7 @@ IUTEST_IPP_INLINE int TestSuite::test_run_skipped_count() const
     return detail::CountIf(m_testinfos, IsRunSkippedTest);
 }
 
-IUTEST_IPP_INLINE int TestSuite::reportable_test_run_skipped_count() const
+IUTEST_IPP_INLINE int TestSuite::reportable_test_run_skipped_count() const IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( !should_run() )
     {
@@ -228,7 +228,7 @@ IUTEST_IPP_INLINE int TestSuite::reportable_test_run_skipped_count() const
     return detail::CountIf(m_testinfos, IsReportableRunSkippedTest);
 }
 
-IUTEST_IPP_INLINE int TestSuite::reportable_disabled_test_count() const
+IUTEST_IPP_INLINE int TestSuite::reportable_disabled_test_count() const IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::CountIf(m_testinfos, IsReportableDisabledTest);
 }
