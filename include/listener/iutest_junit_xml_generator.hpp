@@ -36,7 +36,7 @@ public:
      * @brief   コンストラクタ
      * @param [in] path = 出力パス
     */
-    explicit JunitXmlGeneratorListener(const ::std::string& path)
+    explicit JunitXmlGeneratorListener(const ::std::string& path) IUTEST_CXX_NOEXCEPT_SPEC
         : DefaultXmlGeneratorListener(path)
     {
     }

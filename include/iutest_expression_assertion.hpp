@@ -135,7 +135,7 @@ public:
     }
 private:
     bool result() const IUTEST_CXX_NOEXCEPT_SPEC { return m_result.passed(); }
-    const char* message() const { return m_result.message(); }
+    const char* message() const IUTEST_CXX_NOEXCEPT_SPEC { return m_result.message(); }
 private:
     AssertionResult m_result;
 };

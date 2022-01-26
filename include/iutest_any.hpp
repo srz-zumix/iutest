@@ -52,7 +52,7 @@ public:
      * @brief   空かどうか
      * @retval  true = 空
     */
-    bool empty() const
+    bool empty() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return content == IUTEST_NULLPTR;
     }

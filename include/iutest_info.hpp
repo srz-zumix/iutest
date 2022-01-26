@@ -70,7 +70,7 @@ public:
     /** disable */
     bool            is_disabled_test()  const IUTEST_CXX_NOEXCEPT_SPEC { return m_disable; }
     /** is skipped */
-    bool            is_skipped()        const { return m_skip || m_test_result.Skipped(); }
+    bool            is_skipped()        const IUTEST_CXX_NOEXCEPT_SPEC { return m_skip || m_test_result.Skipped(); }
     /** is reportable */
     bool            is_reportable()     const IUTEST_CXX_NOEXCEPT_SPEC { return m_matches_filter; }
     /** テストの実行ミリ秒 */
@@ -219,19 +219,19 @@ private:
     public:
         explicit Mediator(TestInfo* p=IUTEST_NULLPTR) IUTEST_CXX_NOEXCEPT_SPEC : iuITestInfoMediator(p) {}
     public:
-        virtual bool HasFatalFailure() const IUTEST_CXX_OVERRIDE
+        virtual bool HasFatalFailure() const IUTEST_CXX_NOEXCEPT_SPEC IUTEST_CXX_OVERRIDE
         {
             return ptr()->HasFatalFailure();
         }
-        virtual bool HasNonfatalFailure() const IUTEST_CXX_OVERRIDE
+        virtual bool HasNonfatalFailure() const IUTEST_CXX_NOEXCEPT_SPEC IUTEST_CXX_OVERRIDE
         {
             return ptr()->HasNonfatalFailure();
         }
-        virtual bool HasFailure() const IUTEST_CXX_OVERRIDE
+        virtual bool HasFailure() const IUTEST_CXX_NOEXCEPT_SPEC IUTEST_CXX_OVERRIDE
         {
             return ptr()->HasFailure();
         }
-        virtual bool IsSkipped() const IUTEST_CXX_OVERRIDE
+        virtual bool IsSkipped() const IUTEST_CXX_NOEXCEPT_SPEC IUTEST_CXX_OVERRIDE
         {
             return ptr()->is_skipped();
         }

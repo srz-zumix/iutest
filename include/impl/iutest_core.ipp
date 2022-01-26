@@ -22,57 +22,57 @@
 namespace iutest
 {
 
-IUTEST_IPP_INLINE int UnitTest::reportable_test_count() const
+IUTEST_IPP_INLINE int UnitTest::reportable_test_count() const IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::SumOverList(m_testsuites, &TestSuite::reportable_test_count);
 }
 
-IUTEST_IPP_INLINE int UnitTest::failed_test_count() const
+IUTEST_IPP_INLINE int UnitTest::failed_test_count() const IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::SumOverList(m_testsuites, &TestSuite::failed_test_count);
 }
 
-IUTEST_IPP_INLINE int UnitTest::reportable_disabled_test_count() const
+IUTEST_IPP_INLINE int UnitTest::reportable_disabled_test_count() const IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::SumOverList(m_testsuites, &TestSuite::reportable_disabled_test_count);
 }
 
-IUTEST_IPP_INLINE int UnitTest::successful_test_count() const
+IUTEST_IPP_INLINE int UnitTest::successful_test_count() const IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::SumOverList(m_testsuites, &TestSuite::successful_test_count);
 }
 
-IUTEST_IPP_INLINE int UnitTest::skip_test_count() const
+IUTEST_IPP_INLINE int UnitTest::skip_test_count() const IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::SumOverList(m_testsuites, &TestSuite::skip_test_count);
 }
 
-IUTEST_IPP_INLINE int UnitTest::reportable_skip_test_count() const
+IUTEST_IPP_INLINE int UnitTest::reportable_skip_test_count() const IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::SumOverList(m_testsuites, &TestSuite::reportable_skip_test_count);
 }
 
-IUTEST_IPP_INLINE int UnitTest::test_run_skipped_count() const
+IUTEST_IPP_INLINE int UnitTest::test_run_skipped_count() const IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::SumOverList(m_testsuites, &TestSuite::test_run_skipped_count);
 }
 
-IUTEST_IPP_INLINE int UnitTest::reportable_test_run_skipped_count() const
+IUTEST_IPP_INLINE int UnitTest::reportable_test_run_skipped_count() const IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::SumOverList(m_testsuites, &TestSuite::reportable_test_run_skipped_count);
 }
 
-IUTEST_IPP_INLINE int UnitTest::test_suite_to_run_count() const
+IUTEST_IPP_INLINE int UnitTest::test_suite_to_run_count() const IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::CountIfOverList(m_testsuites, &TestSuite::should_run);
 }
 
-IUTEST_IPP_INLINE int UnitTest::successful_test_suite_count() const
+IUTEST_IPP_INLINE int UnitTest::successful_test_suite_count() const IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::CountIfOverList(m_testsuites, &TestSuite::Passed);
 }
 
-IUTEST_IPP_INLINE int UnitTest::failed_test_suite_count() const
+IUTEST_IPP_INLINE int UnitTest::failed_test_suite_count() const IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::CountIfOverList(m_testsuites, &TestSuite::Failed);
 }
