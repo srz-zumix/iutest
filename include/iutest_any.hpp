@@ -97,7 +97,7 @@ public:
     /**
      * @brief   要素があるかどうか
     */
-    bool has_value() const
+    bool has_value() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return !empty();
     }

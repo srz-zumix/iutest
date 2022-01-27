@@ -89,7 +89,7 @@ public:
     /** @private */
     void AddTestInfo(TestSuite* pCase, TestInfo* pInfo);
     /** @private */
-    static bool SkipTest();
+    static bool SkipTest() IUTEST_CXX_NOEXCEPT_SPEC;
 
 protected:
     /**

@@ -57,9 +57,9 @@ public:
 
 public:
     /** test suite 名の取得 */
-    const   char*   test_suite_name()    const { return m_testsuite->test_suite_name(); }
+    const   char*   test_suite_name()   const IUTEST_CXX_NOEXCEPT_SPEC { return m_testsuite->test_suite_name(); }
 #if IUTEST_HAS_TESTCASE
-    const   char*   test_case_name()    const { return m_testsuite->test_suite_name(); }
+    const   char*   test_case_name()    const IUTEST_CXX_NOEXCEPT_SPEC { return m_testsuite->test_suite_name(); }
 #endif
     /** test 名の取得 */
     const   char*   name()              const IUTEST_CXX_NOEXCEPT_SPEC { return m_testname.c_str(); }
@@ -81,7 +81,7 @@ public:
     /** value param 文字列の取得 */
     const   char*   value_param()       const IUTEST_CXX_NOEXCEPT_SPEC { return m_value_param.empty() ? IUTEST_NULLPTR : m_value_param.c_str(); }
     /** type param 文字列の取得 */
-    const   char*   type_param()        const { return m_testsuite->type_param(); }
+    const   char*   type_param()        const IUTEST_CXX_NOEXCEPT_SPEC { return m_testsuite->type_param(); }
 
     /** default package 名を含む TestSuite 名の取得 */
     ::std::string testsuite_name_with_default_package_name() const

@@ -46,7 +46,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::AddTestInfo(TestSuite* pCase, TestInfo* pIn
     pCase->push_back(pInfo);
 }
 
-IUTEST_IPP_INLINE bool UnitTestImpl::SkipTest()
+IUTEST_IPP_INLINE bool UnitTestImpl::SkipTest() IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( current_test_result()->Failed() )
     {

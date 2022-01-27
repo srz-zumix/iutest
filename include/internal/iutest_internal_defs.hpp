@@ -195,7 +195,7 @@ struct IteratorTraits<const T*>
  * @brief   delete
 */
 template<typename T>
-inline void Delete(T* ptr)
+inline void Delete(T* ptr) IUTEST_CXX_NOEXCEPT_SPEC
 {
     delete ptr;
 }

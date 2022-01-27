@@ -308,7 +308,7 @@ IUTEST_PRAGMA_WARN_DISABLE_HIDE_FUNCTION()
         }
 #endif
 #if IUTEST_HAS_ASSERTION_RETURN
-        Fixed& operator << (const AssertionReturnType<void>&)
+        Fixed& operator << (const AssertionReturnType<void>&) IUTEST_CXX_NOEXCEPT_SPEC
         {
             return *this;
         }

@@ -106,9 +106,9 @@ public:
     bool            should_run()            const IUTEST_CXX_NOEXCEPT_SPEC { return m_should_run_num != 0; }
 
     /** テストが成功したかどうか */
-    bool            Passed()                const { return failed_test_count() == 0 && m_ad_hoc_testresult.Passed(); }
+    bool            Passed()                const IUTEST_CXX_NOEXCEPT_SPEC { return failed_test_count() == 0 && m_ad_hoc_testresult.Passed(); }
     /** テストが失敗したかどうか */
-    bool            Failed()                const { return !Passed(); }
+    bool            Failed()                const IUTEST_CXX_NOEXCEPT_SPEC { return !Passed(); }
 
     /** type param 文字列の取得 */
     virtual const char* type_param()        const IUTEST_CXX_NOEXCEPT_SPEC { return IUTEST_NULLPTR; }
@@ -236,7 +236,7 @@ private:
 private:
     static bool IsSuccessfulTest(const TestInfo* p) IUTEST_CXX_NOEXCEPT_SPEC { return p->is_ran() && p->Passed(); }
     static bool IsFailedTest(const TestInfo* p) IUTEST_CXX_NOEXCEPT_SPEC { return p->should_run() && p->HasFailure(); }
-    static bool IsSkipTest(const TestInfo* p) { return !p->is_ran() || p->is_skipped(); }
+    static bool IsSkipTest(const TestInfo* p) IUTEST_CXX_NOEXCEPT_SPEC { return !p->is_ran() || p->is_skipped(); }
     static bool IsReportableSkipTest(const TestInfo* p) IUTEST_CXX_NOEXCEPT_SPEC { return p->is_reportable() && IsSkipTest(p); }
     static bool IsRunSkippedTest(const TestInfo* p) { return p->should_run() && p->is_skipped(); }
     static bool IsReportableRunSkippedTest(const TestInfo* p) { return p->is_reportable() && IsRunSkippedTest(p); }

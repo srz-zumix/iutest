@@ -244,7 +244,7 @@ public:
      * @brief   浮動小数点数がほぼ一致するかどうか
      * @sa      https://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
     */
-    bool    NanSensitiveAlmostEquals(const _Myt& rhs) const
+    bool    NanSensitiveAlmostEquals(const _Myt& rhs) const IUTEST_CXX_NOEXCEPT_SPEC
     {
         const UInt v1 = norm(enable_bits());
         const UInt v2 = norm(rhs.enable_bits());
