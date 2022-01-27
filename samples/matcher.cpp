@@ -14,6 +14,8 @@
 //======================================================================
 #include "../include/iutest.hpp"
 
+IUTEST_PRAGMA_SAMPLE_COREGUIDELINE_DISABLE_BEGIN()
+
 #if IUTEST_HAS_MATCHERS
 #include <map>
 
@@ -39,8 +41,8 @@ IUTEST(Matcher, Gernal)
 
 IUTEST(Matcher, Null)
 {
-    int* p1 = NULL;
-    int** p2 = &p1;
+    const int* const p1 = NULL;
+    const int* const * const p2 = &p1;
     IUTEST_EXPECT_THAT(p1, IsNull());
     IUTEST_EXPECT_THAT(p2, NotNull());
     IUTEST_EXPECT_THAT(p2, Pointee(IsNull()));
@@ -73,8 +75,8 @@ IUTEST(Matcher, String)
 
 IUTEST(Matcher, Container)
 {
-    int a[2][3] ={ { 1, 2, 3 }, { 4, 5, 6 } };
-    int b[3] ={ 1, 2, 3 };
+    const int a[2][3] ={ { 1, 2, 3 }, { 4, 5, 6 } };
+    const int b[3] ={ 1, 2, 3 };
     IUTEST_EXPECT_THAT(b, Contains(Gt(2)));
     IUTEST_EXPECT_THAT(b, Each(Le(10)));
     IUTEST_EXPECT_THAT(a, Each(Each(Le(10))));
@@ -82,7 +84,7 @@ IUTEST(Matcher, Container)
 
 IUTEST(Matcher, Member)
 {
-    X x(0, 1);
+    const X x(0, 1);
     ::std::map<int, X> m;
     for( int i=0; i < 10; ++i )
     {
@@ -112,8 +114,8 @@ IUTEST(Matcher, Wildcard)
 
 IUTEST(Matcher, ElementsAreArray)
 {
-    int a[3] ={ 0, 1, 3 };
-    int b[3] ={ 0, 1, 3 };
+    const int a[3] ={ 0, 1, 3 };
+    const int b[3] ={ 0, 1, 3 };
     IUTEST_EXPECT_THAT(a, ElementsAreArray(b));
 }
 
@@ -121,7 +123,7 @@ IUTEST(Matcher, ElementsAreArray)
 
 IUTEST(Matcher, ElementsAre)
 {
-    int a[3] ={ 0, -1, 3 };
+    const int a[3] ={ 0, -1, 3 };
     IUTEST_EXPECT_THAT(a, ElementsAre(Ge(0), _, Gt(0)));
 }
 
@@ -131,14 +133,14 @@ IUTEST(Matcher, ElementsAre)
 
 IUTEST(Matcher, AllOf)
 {
-    int a[3] ={ 0, 1, 3 };
+    const int a[3] ={ 0, 1, 3 };
     IUTEST_EXPECT_THAT("hoge", AllOf(StartsWith("ho"), EndsWith("ge")));
     IUTEST_EXPECT_THAT(a, Each(AllOf(Ge(0), Le(10))));
 }
 
 IUTEST(Matcher, AnyOf)
 {
-    int a[3] ={ 0, -1, 10 };
+    const int a[3] ={ 0, -1, 10 };
     IUTEST_EXPECT_THAT("hoge", AnyOf(StartsWith("Ho"), EndsWith("ge")));
     IUTEST_EXPECT_THAT(a, Each(AnyOf(Le(0), Ge(10))));
 }
@@ -146,3 +148,5 @@ IUTEST(Matcher, AnyOf)
 #endif
 
 #endif
+
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()

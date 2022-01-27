@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -175,8 +175,9 @@
 #define IIUT_TEST_P_I_(classname_, testsuite_, testsuitename_, testname_)                   \
     IIUT_TEST_P_FIXTURE_DECL_(testsuite_)                                                   \
     class classname_ IUTEST_CXX_FINAL : public testsuite_ {                                 \
-        public: classname_() {}                                                             \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE;                                 \
+        public: classname_() IUTEST_CXX_NOEXCEPT_SPEC {}                                    \
+        protected: IUTEST_PRAGMA_WARN_SUPPRESS_DECLARE_NOEXCEPT()                           \
+            virtual void Body() IUTEST_CXX_OVERRIDE;                                        \
         private: static int AddRegister() {                                                 \
             static ::iutest::detail::ParamTestInstance< classname_ > testinfo(testname_);   \
             IIUT_GETTESTSUITEPATTERNHOLDER(testsuite_, testsuitename_                       \
@@ -192,8 +193,9 @@
 
 #define IIUT_TEST_P_I_IGNORE_(classname_, testsuite_, testsuitename_, testname_)            \
     class classname_ IUTEST_CXX_FINAL : public testsuite_ {                                 \
-        public: classname_() {}                                                             \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
+        public: classname_() IUTEST_CXX_NOEXCEPT_SPEC {}                                    \
+        protected: IUTEST_PRAGMA_WARN_SUPPRESS_DECLARE_NOEXCEPT()                           \
+            virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; } \
         template<typename T>void Body();                                                    \
         private: static int AddRegister() {                                                 \
             static ::iutest::detail::ParamTestInstance< classname_ > testinfo(testname_);   \
@@ -335,6 +337,7 @@ private:
     virtual IParamTestInfoData::EachTestBase* RegisterTest(TestSuite* testsuite
                                                         , const ::std::string& name) const IUTEST_CXX_OVERRIDE
     {
+        IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26400)
         EachTest* test = new EachTest(testsuite, name);
         // new オブジェクトを管理してもらう
         detail::iuPool::GetInstance().push(test);
@@ -448,7 +451,7 @@ inline detail::iuRandomFilterParamGenerator<T, Filter> IUTEST_ATTRIBUTE_UNUSED_ 
 /**
  * @brief   乱数値パラメータ
 */
-inline detail::iuRandomParamsHolder IUTEST_ATTRIBUTE_UNUSED_ RandomValues(size_t num, unsigned int seed=0)
+inline detail::iuRandomParamsHolder IUTEST_ATTRIBUTE_UNUSED_ RandomValues(size_t num, unsigned int seed=0) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::iuRandomParamsHolder(num, seed);
 }
@@ -497,7 +500,7 @@ inline detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ ValuesIn(::std::init
  * @brief   値配列パラメータ
 */
 template<typename ...Args>
-inline detail::iuValueArray<Args...> IUTEST_ATTRIBUTE_UNUSED_ Values(Args... args)
+inline detail::iuValueArray<Args...> IUTEST_ATTRIBUTE_UNUSED_ Values(Args... args) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::iuValueArray<Args...>(args...);
 }
@@ -587,7 +590,7 @@ detail::iuConcatParamHolder<Generator1, Generator2> Concat(const Generator1& g1,
  * @brief   複合条件パラメータ化
 */
 template<typename ...Generator>
-detail::iuCartesianProductHolder<Generator...> Combine(const Generator&... generators)
+detail::iuCartesianProductHolder<Generator...> Combine(const Generator&... generators) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::iuCartesianProductHolder<Generator...>(generators...);
 }
@@ -628,7 +631,7 @@ IIUT_DECL_COMBINE_(9)
  * @brief   複合条件パラメータ化(オールペア法)
 */
 template<typename ...Generator>
-detail::iuPairwiseHolder<Generator...> Pairwise(const Generator&... generators)
+detail::iuPairwiseHolder<Generator...> Pairwise(const Generator&... generators) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::iuPairwiseHolder<Generator...>(generators...);
 }
@@ -677,7 +680,7 @@ detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ CSV(const char* relative_pa
 {
     const char* sep = detail::FindLastPathSeparator(test_file, strlen(test_file));
     ::std::string path;
-    if( sep != NULL )
+    if( sep != IUTEST_NULLPTR )
     {
         const size_t length = static_cast<size_t>(::std::distance(test_file, sep));
         path += ::std::string(test_file, length);
