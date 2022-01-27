@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -22,7 +22,7 @@
 namespace iutest
 {
 
-IUTEST_IPP_INLINE TestResult* UnitTestImpl::current_test_result()
+IUTEST_IPP_INLINE TestResult* UnitTestImpl::current_test_result() IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( Test::GetCurrentTestInfo() )
     {
@@ -102,7 +102,7 @@ IUTEST_IPP_INLINE bool UnitTestImpl::PreRunner()
     return true;
 }
 
-IUTEST_IPP_INLINE void UnitTestImpl::ClearNonAdHocTestResult()
+IUTEST_IPP_INLINE void UnitTestImpl::ClearNonAdHocTestResult() IUTEST_CXX_NOEXCEPT_SPEC
 {
     for( iuTestSuites::iterator it=m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
     {
@@ -148,7 +148,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::RecordProperty(const TestProperty& prop)
     TestEnv::event_listeners().OnTestRecordProperty(prop);
 }
 
-IUTEST_IPP_INLINE TestSuite* UnitTestImpl::FindTestSuite(const ::std::string& testsuite_name, TestTypeId id)
+IUTEST_IPP_INLINE TestSuite* UnitTestImpl::FindTestSuite(const ::std::string& testsuite_name, TestTypeId id) IUTEST_CXX_NOEXCEPT_SPEC
 {
     TestSuite::FindOp func ={ id, testsuite_name.c_str() };
     return detail::FindList(m_testsuites, func);
@@ -318,7 +318,7 @@ IUTEST_IPP_INLINE void UncaughtScopedTrace::Add(const detail::iuCodeMessage& msg
     }
 }
 
-IUTEST_IPP_INLINE bool UncaughtScopedTrace::Has()
+IUTEST_IPP_INLINE bool UncaughtScopedTrace::Has() IUTEST_CXX_NOEXCEPT_SPEC
 {
     const TestInfo* curr = Test::GetCurrentTestInfo();
     if( curr == IUTEST_NULLPTR )

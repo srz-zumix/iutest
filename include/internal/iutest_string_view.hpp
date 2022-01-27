@@ -453,7 +453,7 @@ IUTEST_PRAGMA_WARN_DISABLE_HIDE_FUNCTION()
     }
 
     template<typename Allocator>
-    iu_nullable_basic_string_view(const ::std::basic_string<value_type, traits_type, Allocator>& str) // NOLINT
+    iu_nullable_basic_string_view(const ::std::basic_string<value_type, traits_type, Allocator>& str) IUTEST_CXX_NOEXCEPT_SPEC // NOLINT
         : _Mybase(str.data(), str.length())
     {
     }

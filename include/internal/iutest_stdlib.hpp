@@ -110,7 +110,7 @@ struct tuple_foreach_impl
     template<int N, int I>
     struct impl
     {
-        static void do_something(T& t, F fn)
+        static void do_something(T& t, F fn) IUTEST_CXX_NOEXCEPT_AS(fn)
         {
             fn(I, get<I>(t));
             impl<N, I + 1>::do_something(t, fn);
@@ -122,7 +122,7 @@ struct tuple_foreach_impl
         static void do_something(T&, F) IUTEST_CXX_NOEXCEPT_SPEC {}
     };
 
-    static void do_something(T& t, F fn)
+    static void do_something(T& t, F fn) IUTEST_CXX_NOEXCEPT_AS(fn)
     {
         impl<tuple_size<T>::value, Begin>::do_something(t, fn);
     }
@@ -518,8 +518,8 @@ struct type_array
     {
         IUTEST_ATTRIBUTE_GSL_SUPPRESS(i.11) delete[] m_ptr;
     }
-    operator const T* () const { return m_ptr; }
-    operator T* () { return m_ptr; }
+    operator const T* () const IUTEST_CXX_NOEXCEPT_SPEC { return m_ptr; }
+    operator T* () IUTEST_CXX_NOEXCEPT_SPEC { return m_ptr; }
     T* m_ptr;
 };
 

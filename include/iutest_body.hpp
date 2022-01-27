@@ -83,7 +83,7 @@ public:
      * @brief   致命的なエラーが出たかどうか
      * @return  真偽値
     */
-    static bool HasFatalFailure()
+    static bool HasFatalFailure() IUTEST_CXX_NOEXCEPT_SPEC
     {
         return GetCurrentTest()->m_test_info->HasFatalFailure();
     }
@@ -92,7 +92,7 @@ public:
      * @brief   致命的ではないエラーが出たかどうか
      * @return  真偽値
     */
-    static bool HasNonfatalFailure()
+    static bool HasNonfatalFailure() IUTEST_CXX_NOEXCEPT_SPEC
     {
         return GetCurrentTest()->m_test_info->HasNonfatalFailure();
     }
@@ -101,7 +101,7 @@ public:
      * @brief   エラーが出たかどうか
      * @return  真偽値
     */
-    static bool HasFailure()
+    static bool HasFailure() IUTEST_CXX_NOEXCEPT_SPEC
     {
         return GetCurrentTest()->m_test_info->HasFailure();
     }
@@ -110,7 +110,7 @@ public:
      * @brief   スキップされたかどうか
      * @return  真偽値
     */
-    static bool IsSkipped()
+    static bool IsSkipped() IUTEST_CXX_NOEXCEPT_SPEC
     {
         return GetCurrentTest()->m_test_info->IsSkipped();
     }
@@ -148,7 +148,7 @@ public:
      * @param [in]  max = 上限値
      * @return      [0,max) の乱数を生成
     */
-    unsigned int    genrand(unsigned int max)   { return m_random.genrand(max); }
+    unsigned int    genrand(unsigned int max) { return m_random.genrand(max); }
     /**
      * @overload
      * @return      max = [0,1] の乱数を生成

@@ -51,7 +51,7 @@ class UncaughtScopedTrace
 {
 public:
     static void Add(const detail::iuCodeMessage& msg);
-    static bool Has();
+    static bool Has() IUTEST_CXX_NOEXCEPT_SPEC;
     static ::std::string Get();
 };
 

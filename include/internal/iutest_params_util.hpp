@@ -92,7 +92,7 @@ public:
     ::std::string GetPackageName()      const { return m_package_name; }
 
 public:
-    bool is_same(const ::std::string& base_name, const ::std::string& package_name)
+    bool is_same(const ::std::string& base_name, const ::std::string& package_name) IUTEST_CXX_NOEXCEPT_SPEC
     {
         return m_testsuite_base_name == base_name && m_package_name == package_name;
     }

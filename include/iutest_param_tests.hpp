@@ -451,7 +451,7 @@ inline detail::iuRandomFilterParamGenerator<T, Filter> IUTEST_ATTRIBUTE_UNUSED_ 
 /**
  * @brief   乱数値パラメータ
 */
-inline detail::iuRandomParamsHolder IUTEST_ATTRIBUTE_UNUSED_ RandomValues(size_t num, unsigned int seed=0)
+inline detail::iuRandomParamsHolder IUTEST_ATTRIBUTE_UNUSED_ RandomValues(size_t num, unsigned int seed=0) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::iuRandomParamsHolder(num, seed);
 }

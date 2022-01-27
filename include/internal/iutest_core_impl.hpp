@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -50,7 +50,7 @@ public:
     /**
      * @brief   テスト中のテストの TestResult の取得
     */
-    static TestResult* current_test_result();
+    static TestResult* current_test_result() IUTEST_CXX_NOEXCEPT_SPEC;
 
 public:
     /**
@@ -110,12 +110,12 @@ protected:
     /**
      * @brief   テスト結果のクリア
     */
-    void ClearNonAdHocTestResult();
+    void ClearNonAdHocTestResult() IUTEST_CXX_NOEXCEPT_SPEC;
 
     /**
      * @brief   ad_hoc_testresult のクリア
     */
-    void ClearAdHocTestResult()
+    void ClearAdHocTestResult() IUTEST_CXX_NOEXCEPT_SPEC
     {
         m_ad_hoc_testresult.Clear();
     }
@@ -129,7 +129,7 @@ private:
     /**
      * @brief   FindTestSuite
     */
-    TestSuite* FindTestSuite(const ::std::string& testsuite_name, TestTypeId id);
+    TestSuite* FindTestSuite(const ::std::string& testsuite_name, TestTypeId id) IUTEST_CXX_NOEXCEPT_SPEC;
 
     /**
      * @brief   Do information options

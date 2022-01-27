@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -27,7 +27,7 @@ namespace iuutil
 class QuietResultPrinter : public ::iutest::TestEventListener
 {
 public:
-    explicit QuietResultPrinter(::iutest::TestEventListener* default_printer)
+    explicit QuietResultPrinter(::iutest::TestEventListener* default_printer) IUTEST_CXX_NOEXCEPT_SPEC
         : m_default_printer(default_printer)
     {}
     virtual ~QuietResultPrinter()

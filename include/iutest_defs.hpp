@@ -427,7 +427,7 @@ public:
     static const int kDIGITS;
 
 private:
-    static UInt norm(UInt v) { return (v & kSignMask) ? (~v + 1) : (v | kSignMask); }
+    static UInt norm(UInt v) IUTEST_CXX_NOEXCEPT_SPEC { return (v & kSignMask) ? (~v + 1) : (v | kSignMask); }
 
     static const UInt kSignMask;
     static const UInt kExpMask;
