@@ -456,7 +456,7 @@
 #endif
 
 #if !defined(IUTEST_HAS_STD_TO_CHARS)
-#  if defined(__cpp_lib_to_chars) && __cpp_lib_to_chars >= 201611
+#  if IUTEST_HAS_CXX_HDR_CHARCONV && defined(__cpp_lib_to_chars) && __cpp_lib_to_chars >= 201611
 #    define IUTEST_HAS_STD_TO_CHARS         1
 #  endif
 #endif
