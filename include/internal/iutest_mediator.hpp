@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -39,10 +39,10 @@ public:
     explicit iuITestInfoMediator(TestInfo* p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : m_test_info(p) {}
 public:
     virtual ~iuITestInfoMediator() IUTEST_CXX_DEFAULT_FUNCTION
-    virtual bool HasFatalFailure() const = 0;
-    virtual bool HasNonfatalFailure() const = 0;
-    virtual bool HasFailure() const = 0;
-    virtual bool IsSkipped() const = 0;
+    virtual bool HasFatalFailure() const IUTEST_CXX_NOEXCEPT_SPEC = 0;
+    virtual bool HasNonfatalFailure() const IUTEST_CXX_NOEXCEPT_SPEC = 0;
+    virtual bool HasFailure() const IUTEST_CXX_NOEXCEPT_SPEC = 0;
+    virtual bool IsSkipped() const IUTEST_CXX_NOEXCEPT_SPEC = 0;
     TestInfo* ptr() const IUTEST_CXX_NOEXCEPT_SPEC { return m_test_info; }
 };
 
@@ -57,8 +57,8 @@ public:
     explicit iuITestSuiteMediator(TestSuite* p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : m_test_suite(p) {}
 public:
     virtual ~iuITestSuiteMediator() IUTEST_CXX_DEFAULT_FUNCTION
-    virtual const char* test_suite_name() const = 0;
-    virtual const char* type_param() const = 0;
+    virtual const char* test_suite_name() const IUTEST_CXX_NOEXCEPT_SPEC = 0;
+    virtual const char* type_param() const IUTEST_CXX_NOEXCEPT_SPEC = 0;
     TestSuite* ptr() const IUTEST_CXX_NOEXCEPT_SPEC { return m_test_suite; }
 };
 

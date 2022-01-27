@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -22,18 +22,18 @@
 namespace iutest
 {
 
-IUTEST_IPP_INLINE TestResult* UnitTestImpl::current_test_result()
+IUTEST_IPP_INLINE TestResult* UnitTestImpl::current_test_result() IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( Test::GetCurrentTestInfo() )
     {
         return &(Test::GetCurrentTest()->m_test_info->ptr()->m_test_result);
     }
     UnitTestImpl* p = ptr();
-    if( p == NULL )
+    if( p == IUTEST_NULLPTR )
     {
-        return NULL;
+        return IUTEST_NULLPTR;
     }
-    if( p->m_current_testsuite != NULL )
+    if( p->m_current_testsuite != IUTEST_NULLPTR )
     {
         return &p->m_current_testsuite->m_ad_hoc_testresult;
     }
@@ -53,7 +53,7 @@ IUTEST_IPP_INLINE bool UnitTestImpl::SkipTest()
         return false;
     }
     const Test* test = Test::GetCurrentTest();
-    if( test != NULL && test->m_test_info->ptr() != NULL )
+    if( test != IUTEST_NULLPTR && test->m_test_info->ptr() != IUTEST_NULLPTR )
     {
         test->m_test_info->ptr()->skip();
     }
@@ -102,7 +102,7 @@ IUTEST_IPP_INLINE bool UnitTestImpl::PreRunner()
     return true;
 }
 
-IUTEST_IPP_INLINE void UnitTestImpl::ClearNonAdHocTestResult()
+IUTEST_IPP_INLINE void UnitTestImpl::ClearNonAdHocTestResult() IUTEST_CXX_NOEXCEPT_SPEC
 {
     for( iuTestSuites::iterator it=m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
     {
@@ -113,7 +113,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::ClearNonAdHocTestResult()
 IUTEST_IPP_INLINE void UnitTestImpl::RecordProperty(const TestProperty& prop)
 {
     UnitTestImpl* p = ptr();
-    TestResult* tr = NULL;
+    TestResult* tr = IUTEST_NULLPTR;
     if( Test::GetCurrentTestInfo() )
     {
         tr = &(Test::GetCurrentTest()->m_test_info->ptr()->m_test_result);
@@ -124,7 +124,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::RecordProperty(const TestProperty& prop)
             return;
         }
     }
-    else if( p->m_current_testsuite != NULL )
+    else if( p->m_current_testsuite != IUTEST_NULLPTR )
     {
         tr = &p->m_current_testsuite->m_ad_hoc_testresult;
         // 不正なキーのチェック
@@ -148,7 +148,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::RecordProperty(const TestProperty& prop)
     TestEnv::event_listeners().OnTestRecordProperty(prop);
 }
 
-IUTEST_IPP_INLINE TestSuite* UnitTestImpl::FindTestSuite(const ::std::string& testsuite_name, TestTypeId id)
+IUTEST_IPP_INLINE TestSuite* UnitTestImpl::FindTestSuite(const ::std::string& testsuite_name, TestTypeId id) IUTEST_CXX_NOEXCEPT_SPEC
 {
     TestSuite::FindOp func ={ id, testsuite_name.c_str() };
     return detail::FindList(m_testsuites, func);
@@ -215,7 +215,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::InitializeImpl()
 #endif
 
 #if !defined(IUTEST_OS_WINDOWS_MOBILE)
-    if( setlocale(LC_CTYPE, TestEnv::get_locale_ctype()) == NULL )
+    if( setlocale(LC_CTYPE, TestEnv::get_locale_ctype()) == IUTEST_NULLPTR )
     {
         if( TestEnv::is_specific_locale_ctype() )
         {
@@ -225,14 +225,18 @@ IUTEST_IPP_INLINE void UnitTestImpl::InitializeImpl()
 #endif
 }
 
-IUTEST_IPP_INLINE void UnitTestImpl::TerminateImpl()
+IUTEST_IPP_INLINE void UnitTestImpl::TerminateImpl() IUTEST_CXX_NOEXCEPT_SPEC
 {
-    for( iuTestSuites::iterator it = m_testsuites.begin(); it != m_testsuites.end(); it = m_testsuites.begin())
+    IUTEST_IGNORE_EXCEPTION_BEGIN()
     {
-        TestSuite* p = (*it);
-        m_testsuites.erase(it);
-        delete p;
+        for( iuTestSuites::iterator it = m_testsuites.begin(); it != m_testsuites.end(); it = m_testsuites.begin())
+        {
+            TestSuite* p = (*it);
+            m_testsuites.erase(it);
+            delete p;
+        }
     }
+    IUTEST_IGNORE_EXCEPTION_END()
 }
 
 #if IUTEST_HAS_INVALID_PARAMETER_HANDLER
@@ -303,21 +307,21 @@ IUTEST_IPP_INLINE ::std::string MakePrefixedIndexTestName(const char* prefix, co
 IUTEST_IPP_INLINE void UncaughtScopedTrace::Add(const detail::iuCodeMessage& msg)
 {
     const Test* curr = Test::GetCurrentTest();
-    if( curr == NULL || curr->m_test_info == NULL )
+    if( curr == IUTEST_NULLPTR || curr->m_test_info == IUTEST_NULLPTR )
     {
         return;
     }
     TestInfo* p = curr->m_test_info->ptr();
-    if( p != NULL )
+    if( p != IUTEST_NULLPTR )
     {
         p->m_uncaught_messages.push_back(msg);
     }
 }
 
-IUTEST_IPP_INLINE bool UncaughtScopedTrace::Has()
+IUTEST_IPP_INLINE bool UncaughtScopedTrace::Has() IUTEST_CXX_NOEXCEPT_SPEC
 {
     const TestInfo* curr = Test::GetCurrentTestInfo();
-    if( curr == NULL )
+    if( curr == IUTEST_NULLPTR )
     {
         return false;
     }
@@ -328,7 +332,7 @@ IUTEST_IPP_INLINE ::std::string UncaughtScopedTrace::Get()
 {
     const TestInfo* curr = Test::GetCurrentTestInfo();
     ::std::string msg = "";
-    if( curr != NULL )
+    if( curr != IUTEST_NULLPTR )
     {
         const TestInfo::UncaughtMessagesType& v = curr->m_uncaught_messages;
         for( TestInfo::UncaughtMessagesType::const_iterator it = v.begin(), end=v.end(); it != end; ++it )

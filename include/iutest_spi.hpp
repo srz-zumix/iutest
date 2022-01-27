@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -189,7 +189,7 @@ public:
                 << "\"\n  Actual:\n" << tr;
         }
 
-        if( strstr(tr.message(), substr.c_str()) == NULL )
+        if( strstr(tr.message(), substr.c_str()) == IUTEST_NULLPTR )
         {
             return AssertionFailure() << "error: Expected: " << expected
                 << " containing \"" << substr

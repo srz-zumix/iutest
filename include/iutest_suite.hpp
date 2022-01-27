@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -50,7 +50,7 @@ protected:
      * @param [in]  setup           = テスト事前実行関数
      * @param [in]  teardown        = テスト事後実行関数
     */
-    TestSuite(const ::std::string& testsuite_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+    TestSuite(const ::std::string& testsuite_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown) IUTEST_CXX_NOEXCEPT_SPEC
     : m_testsuite_name(testsuite_name)
     , m_setup(setup)
     , m_teardown(teardown)
@@ -71,37 +71,37 @@ public:
 
 public:
     /** test suite 名の取得 */
-    const char*     name()                  const { return m_testsuite_name.c_str(); }
+    const char*     name()                  const IUTEST_CXX_NOEXCEPT_SPEC { return m_testsuite_name.c_str(); }
 
     /** テスト総数 */
     int             total_test_count()      const IUTEST_CXX_NOEXCEPT_SPEC { return static_cast<int>(m_testinfos.size()); }
     /** レポート対象のテスト総数 */
-    int             reportable_test_count() const;
+    int             reportable_test_count() const IUTEST_CXX_NOEXCEPT_SPEC;
     /** 実行したテスト総数 */
     int             test_to_run_count()     const IUTEST_CXX_NOEXCEPT_SPEC { return m_should_run_num; }
     /** 失敗テスト総数 */
-    int             failed_test_count()     const;
+    int             failed_test_count()     const IUTEST_CXX_NOEXCEPT_SPEC;
     /** 無効テスト総数 */
     int             disabled_test_count()   const IUTEST_CXX_NOEXCEPT_SPEC { return m_disable_num; }
     /** レポート対象の無効テスト総数 */
-    int             reportable_disabled_test_count() const;
+    int             reportable_disabled_test_count() const IUTEST_CXX_NOEXCEPT_SPEC;
     /** 成功テスト総数 */
-    int             successful_test_count() const;
+    int             successful_test_count() const IUTEST_CXX_NOEXCEPT_SPEC;
     /** スキップテスト総数 */
-    int             skip_test_count()       const;
+    int             skip_test_count()       const IUTEST_CXX_NOEXCEPT_SPEC;
     /** レポート対象のスキップテスト総数 */
-    int             reportable_skip_test_count() const;
+    int             reportable_skip_test_count() const IUTEST_CXX_NOEXCEPT_SPEC;
     /** 明示的にスキップされたテスト総数 */
-    int             test_run_skipped_count() const;
+    int             test_run_skipped_count() const IUTEST_CXX_NOEXCEPT_SPEC;
     /** レポート対象の明示的にスキップされたテスト総数 */
-    int             reportable_test_run_skipped_count() const;
+    int             reportable_test_run_skipped_count() const IUTEST_CXX_NOEXCEPT_SPEC;
     /** テストの実行ミリ秒 */
     TimeInMillisec  elapsed_time()          const IUTEST_CXX_NOEXCEPT_SPEC { return m_elapsedmsec; }
     /** テスト開始時刻 */
     TimeInMillisec  start_timestamp()       const IUTEST_CXX_NOEXCEPT_SPEC{ return m_start_timestamp; }
 
     /** TestInfo の取得 */
-    const TestInfo* GetTestInfo(int index)  const { return m_testinfos[index]; }
+    const TestInfo* GetTestInfo(int index)  const { return m_testinfos.at(index); }
     /** should_run */
     bool            should_run()            const IUTEST_CXX_NOEXCEPT_SPEC { return m_should_run_num != 0; }
 
@@ -111,13 +111,13 @@ public:
     bool            Failed()                const { return !Passed(); }
 
     /** type param 文字列の取得 */
-    virtual const char* type_param()        const { return NULL; }
+    virtual const char* type_param()        const IUTEST_CXX_NOEXCEPT_SPEC { return IUTEST_NULLPTR; }
 
     /** TestSuite 名の取得 */
     ::std::string testsuite_name_with_where() const
     {
         ::std::string str = m_testsuite_name;
-        if( type_param() != NULL )
+        if( type_param() != IUTEST_NULLPTR )
         {
             str += ", where TypeParam = ";
             str += type_param();
@@ -182,7 +182,7 @@ private:
     /**
      * @brief   セットアップのスキップチェック
     */
-    bool CheckSetUpSkipped();
+    bool CheckSetUpSkipped() IUTEST_CXX_NOEXCEPT_SPEC;
 
 public:
     /**
@@ -194,7 +194,7 @@ public:
         TestTypeId  m_id;
         const char* m_name;
 
-        bool operator () (const TestSuite* p) const
+        bool operator () (const TestSuite* p) const IUTEST_CXX_NOEXCEPT_SPEC
         {
             if( p->get_typeid() == m_id && detail::IsStringEqual(p->m_testsuite_name, m_name) )
             {
@@ -207,7 +207,7 @@ private:
     /**
      * @brief   テストのクリア
     */
-    void clear();
+    void clear() IUTEST_CXX_NOEXCEPT_SPEC;
     /*
      * @brief   テストのフィルタリング
      * @return  実行する場合は真
@@ -215,7 +215,7 @@ private:
     bool filter();
 
 private:
-    friend bool operator == (const TestSuite& lhs, const TestSuite& rhs)
+    friend bool operator == (const TestSuite& lhs, const TestSuite& rhs) IUTEST_CXX_NOEXCEPT_SPEC
     {
         return (lhs.m_id == rhs.m_id) && (strcmp(lhs.name(), rhs.name()) == 0);
     }
@@ -223,21 +223,24 @@ private:
     void push_back(TestInfo* p) { m_testinfos.push_back(p); }
 
 private:
-    iuTestInfos::const_iterator begin() const       { return m_testinfos.begin(); }
-    iuTestInfos::const_iterator end()   const       { return m_testinfos.end(); }
+    iuTestInfos::const_iterator begin() const IUTEST_CXX_NOEXCEPT_SPEC { return m_testinfos.begin(); }
+    iuTestInfos::const_iterator end()   const IUTEST_CXX_NOEXCEPT_SPEC { return m_testinfos.end(); }
     TestTypeId                  get_typeid() const IUTEST_CXX_NOEXCEPT_SPEC { return m_id; }
 
 private:
-    bool HasWarning() const { return m_ad_hoc_testresult.HasWarning() || detail::AnyOverList(m_testinfos, &TestInfo::HasWarning); }
+    bool HasWarning() const IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return m_ad_hoc_testresult.HasWarning() || detail::AnyOverList(m_testinfos, &TestInfo::HasWarning);
+    }
 
 private:
-    static bool IsSuccessfulTest(const TestInfo* p) { return p->is_ran() && p->Passed(); }
-    static bool IsFailedTest(const TestInfo* p) { return p->should_run() && p->HasFailure(); }
+    static bool IsSuccessfulTest(const TestInfo* p) IUTEST_CXX_NOEXCEPT_SPEC { return p->is_ran() && p->Passed(); }
+    static bool IsFailedTest(const TestInfo* p) IUTEST_CXX_NOEXCEPT_SPEC { return p->should_run() && p->HasFailure(); }
     static bool IsSkipTest(const TestInfo* p) { return !p->is_ran() || p->is_skipped(); }
-    static bool IsReportableSkipTest(const TestInfo* p) { return p->is_reportable() && IsSkipTest(p); }
+    static bool IsReportableSkipTest(const TestInfo* p) IUTEST_CXX_NOEXCEPT_SPEC { return p->is_reportable() && IsSkipTest(p); }
     static bool IsRunSkippedTest(const TestInfo* p) { return p->should_run() && p->is_skipped(); }
     static bool IsReportableRunSkippedTest(const TestInfo* p) { return p->is_reportable() && IsRunSkippedTest(p); }
-    static bool IsReportableDisabledTest(const TestInfo* p) { return p->is_reportable() && p->is_disabled_test(); }
+    static bool IsReportableDisabledTest(const TestInfo* p) IUTEST_CXX_NOEXCEPT_SPEC { return p->is_reportable() && p->is_disabled_test(); }
 
 private:
     friend class UnitTestImpl;
@@ -279,7 +282,7 @@ protected:
      * @param [in]  setup           = テスト事前実行関数
      * @param [in]  teardown        = テスト事後実行関数
     */
-    TypedTestSuite(const ::std::string& testsuite_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+    TypedTestSuite(const ::std::string& testsuite_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown) IUTEST_CXX_NOEXCEPT_SPEC
         : TestSuite(testsuite_name, id, setup, teardown)
         , m_type_param(detail::GetTypeNameProxy<TypeParam>::GetTypeName())
     {
@@ -287,9 +290,9 @@ protected:
 
 public:
     /** type param 文字列の取得 */
-    virtual const char* type_param() const IUTEST_CXX_OVERRIDE
+    virtual const char* type_param() const IUTEST_CXX_NOEXCEPT_SPEC IUTEST_CXX_OVERRIDE
     {
-        return m_type_param.empty() ? NULL : m_type_param.c_str();
+        return m_type_param.empty() ? IUTEST_NULLPTR : m_type_param.c_str();
     }
 
 private:
@@ -309,8 +312,8 @@ class TestSuiteMediator IUTEST_CXX_FINAL : public detail::iuITestSuiteMediator
 public:
     explicit TestSuiteMediator(TestSuite* p) IUTEST_CXX_NOEXCEPT_SPEC : iuITestSuiteMediator(p) {}
 public:
-    virtual const char* test_suite_name() const IUTEST_CXX_OVERRIDE { return m_test_suite->name(); }
-    virtual const char* type_param()      const IUTEST_CXX_OVERRIDE { return m_test_suite->type_param(); }
+    virtual const char* test_suite_name() const IUTEST_CXX_NOEXCEPT_SPEC IUTEST_CXX_OVERRIDE { return m_test_suite->name(); }
+    virtual const char* type_param()      const IUTEST_CXX_NOEXCEPT_SPEC IUTEST_CXX_OVERRIDE { return m_test_suite->type_param(); }
 };
 
 }   // end of namespace detail
