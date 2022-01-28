@@ -114,9 +114,9 @@ public:
     const TestSuite* GetTestSuite(int index)  const { return m_testsuites.at(index); }
 
     /** テストが成功したかどうか */
-    bool            Passed()            const;
+    bool            Passed()            const IUTEST_CXX_NOEXCEPT_SPEC;
     /** テストが失敗したかどうか */
-    bool            Failed()            const { return !Passed(); }
+    bool            Failed()            const IUTEST_CXX_NOEXCEPT_SPEC { return !Passed(); }
 
     /** イベントリスナーの取得 */
     TestEventListeners& listeners()     const IUTEST_CXX_NOEXCEPT_SPEC { return TestEnv::event_listeners(); }

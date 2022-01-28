@@ -231,7 +231,7 @@ public:
     /**
      * @brief   浮動小数点数がほぼ一致するかどうか
     */
-    bool    AlmostEquals(const _Myt& rhs) const
+    bool    AlmostEquals(const _Myt& rhs) const IUTEST_CXX_NOEXCEPT_SPEC
     {
         if( is_nan() || rhs.is_nan() )
         {
@@ -261,7 +261,7 @@ public:
     /**
      * @brief   浮動小数点数の差分が max_abs_error 以内に収まるかどうか
     */
-    bool    AlmostNear(const _Myt& rhs, RawType max_abs_error) const
+    bool    AlmostNear(const _Myt& rhs, RawType max_abs_error) const IUTEST_CXX_NOEXCEPT_SPEC
     {
         if( is_nan() || rhs.is_nan() )
         {
@@ -289,7 +289,7 @@ IUTEST_PRAGMA_WARN_POP()
     /**
      * @brief   浮動小数点数の差分が max_abs_error 以内に収まるかどうか
     */
-    bool    NanSensitiveAlmostNear(const _Myt& rhs, RawType max_abs_error) const
+    bool    NanSensitiveAlmostNear(const _Myt& rhs, RawType max_abs_error) const IUTEST_CXX_NOEXCEPT_SPEC
     {
         if( is_nan() && rhs.is_nan() )
         {

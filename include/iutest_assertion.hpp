@@ -409,16 +409,16 @@ namespace iutest
 /**
  * @brief   テスト成功を示す AssertionResult オブジェクトの取得
 */
-inline AssertionResult AssertionSuccess() { return AssertionResult::Success(); }
+inline AssertionResult AssertionSuccess() IUTEST_CXX_NOEXCEPT_SPEC { return AssertionResult::Success(); }
 /**
  * @brief   テスト失敗を示す AssertionResult オブジェクトの取得
 */
-inline AssertionResult AssertionFailure() { return AssertionResult::Failure(); }
+inline AssertionResult AssertionFailure() IUTEST_CXX_NOEXCEPT_SPEC { return AssertionResult::Failure(); }
 
 /**
  * @brief   テスト結果のメッセージを取得する（for compatible）
 */
-inline const char* GetAssertionResultMessage(const AssertionResult& ar)
+inline const char* GetAssertionResultMessage(const AssertionResult& ar) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return ar.message();
 }

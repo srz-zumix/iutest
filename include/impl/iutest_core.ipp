@@ -77,7 +77,7 @@ IUTEST_IPP_INLINE int UnitTest::failed_test_suite_count() const IUTEST_CXX_NOEXC
     return detail::CountIfOverList(m_testsuites, &TestSuite::Failed);
 }
 
-IUTEST_IPP_INLINE bool UnitTest::Passed() const
+IUTEST_IPP_INLINE bool UnitTest::Passed() const IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( m_ad_hoc_testresult.Failed() )
     {

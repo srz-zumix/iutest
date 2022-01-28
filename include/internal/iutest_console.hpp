@@ -113,7 +113,7 @@ public:
 
 public:
     //! Logger のセット
-    static iuLogger* SetLogger(iuLogger* logger)
+    static iuLogger* SetLogger(iuLogger* logger) IUTEST_CXX_NOEXCEPT_SPEC
     {
         iuLogger* pre = GetLoggerInstanceVariable().pInstance;
         GetLoggerInstanceVariable().pInstance = logger;
@@ -173,7 +173,7 @@ private:
     };
 
     static LoggerInstanceVariable& GetLoggerInstanceVariable() IUTEST_CXX_NOEXCEPT_SPEC { static LoggerInstanceVariable sLogger; return sLogger; }
-    static iuLogger* GetLogger() { return GetLoggerInstanceVariable().pInstance; }
+    static iuLogger* GetLogger() IUTEST_CXX_NOEXCEPT_SPEC { return GetLoggerInstanceVariable().pInstance; }
 };
 
 inline void iuConsole::output(const char *fmt, ...)

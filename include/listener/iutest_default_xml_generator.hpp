@@ -34,7 +34,7 @@ public:
      * @brief   コンストラクタ
      * @param [in] path = 出力パス
     */
-    explicit DefaultXmlGeneratorListener(const ::std::string& path)
+    explicit DefaultXmlGeneratorListener(const ::std::string& path) IUTEST_CXX_NOEXCEPT_SPEC
         : m_fp(IUTEST_NULLPTR)
     {
         SetFilePath(path);
@@ -58,7 +58,7 @@ private:
     /**
      * @brief   出力ファイルの設定
     */
-    void SetFilePath(const ::std::string& path)
+    void SetFilePath(const ::std::string& path) IUTEST_CXX_NOEXCEPT_SPEC
     {
         if( path.empty() )
         {

@@ -67,7 +67,7 @@ public:
      * @brief   型IDの取得
      * @return  型ID
     */
-    type_id type() const
+    type_id type() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return content == IUTEST_NULLPTR ? internal::GetTypeId<void>() : content->type();
     }
@@ -76,7 +76,7 @@ public:
      * @retval  true = 同一
     */
     template<typename T>
-    bool type_equal() const
+    bool type_equal() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return type() == internal::GetTypeId<T>();
     }
