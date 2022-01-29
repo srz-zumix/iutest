@@ -155,22 +155,22 @@ struct tuple_cast_copy_impl
 }   // end of namespace detail
 
 template<int I, typename tuple_t, typename F>
-void tuple_foreach(tuple_t& t, F& fn)
+void tuple_foreach(tuple_t& t, F& fn) IUTEST_CXX_NOEXCEPT_AS(fn)
 {
     detail::tuple_foreach_impl<tuple_t, F&, I>::do_something(t, fn);
 }
 template<typename tuple_t, typename F>
-void tuple_foreach(tuple_t& t, F& fn)
+void tuple_foreach(tuple_t& t, F& fn) IUTEST_CXX_NOEXCEPT_AS(fn)
 {
     tuple_foreach<0>(t, fn);
 }
 template<int I, typename tuple_t, typename F>
-void tuple_foreach(tuple_t& t, const F& fn)
+void tuple_foreach(tuple_t& t, const F& fn) IUTEST_CXX_NOEXCEPT_AS(fn)
 {
     detail::tuple_foreach_impl<tuple_t, const F&, I>::do_something(t, fn);
 }
 template<typename tuple_t, typename F>
-void tuple_foreach(tuple_t& t, const F& fn)
+void tuple_foreach(tuple_t& t, const F& fn) IUTEST_CXX_NOEXCEPT_AS(fn)
 {
     tuple_foreach<0>(t, fn);
 }

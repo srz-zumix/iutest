@@ -177,7 +177,7 @@ struct AssertionReturnType<void>
  * @brief   Assetion Return 設定
 */
 template<typename T>
-inline AssertionReturnType<T> AssertionReturn(const T& ret) { return AssertionReturnType<T>(ret); }
+inline AssertionReturnType<T> AssertionReturn(const T& ret) IUTEST_CXX_NOEXCEPT_SPEC { return AssertionReturnType<T>(ret); }
 
 /** @overload */
 inline AssertionReturnType<void> AssertionReturn(void) IUTEST_CXX_NOEXCEPT_SPEC { return AssertionReturnType<void>(); }

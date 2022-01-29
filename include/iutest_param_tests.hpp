@@ -577,7 +577,7 @@ IIUT_DECL_VALUES_(50)
  * @brief   パラメータの結合
 */
 template<typename Generator1, typename Generator2>
-detail::iuConcatParamHolder<Generator1, Generator2> Concat(const Generator1& g1, const Generator2& g2)
+detail::iuConcatParamHolder<Generator1, Generator2> Concat(const Generator1& g1, const Generator2& g2) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::iuConcatParamHolder<Generator1, Generator2>(g1, g2);
 }

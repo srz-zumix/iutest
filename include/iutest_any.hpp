@@ -43,7 +43,7 @@ public:
     /**
      * @brief   swap
     */
-    any& swap(any& rhs)
+    any& swap(any& rhs) IUTEST_CXX_NOEXCEPT_SPEC
     {
         ::std::swap(content, rhs.content);
         return *this;
@@ -59,7 +59,7 @@ public:
     /**
      * @brief   要素のクリア
     */
-    void clear()
+    void clear() IUTEST_CXX_NOEXCEPT_SPEC
     {
         any().swap(*this);
     }
@@ -124,7 +124,7 @@ private:
     {
     public:
         virtual ~placeholder() {}
-        virtual type_id type() const = 0;
+        virtual type_id type() const IUTEST_CXX_NOEXCEPT_SPEC = 0;
         virtual placeholder* clone() const = 0;
         virtual ::std::string to_string() const = 0;
     };
@@ -134,7 +134,7 @@ private:
     public:
         explicit holder(const T& v) IUTEST_CXX_NOEXCEPT_SPEC : held(v) {}
     public:
-        virtual type_id type() const IUTEST_CXX_OVERRIDE
+        virtual type_id type() const IUTEST_CXX_NOEXCEPT_SPEC IUTEST_CXX_OVERRIDE
         {
             return internal::GetTypeId<T>();
         }
@@ -209,7 +209,7 @@ inline T any_cast(const any& value)
  * @brief   型を考慮せずキャスト
 */
 template<typename T>
-T* unsafe_any_cast(any* p)
+T* unsafe_any_cast(any* p) IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( p == IUTEST_NULLPTR )
     {
@@ -224,13 +224,13 @@ T* unsafe_any_cast(any* p)
 }
 /** @overload */
 template<typename T>
-inline const T* unsafe_any_cast(const any* p)
+inline const T* unsafe_any_cast(const any* p) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return unsafe_any_cast<T>(const_cast<any*>(p));
 }
 /** @overload */
 template<typename T>
-inline T unsafe_any_cast(any& value)
+inline T unsafe_any_cast(any& value) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
     typedef typename type_traits::remove_reference<T>::type nonref_t;
@@ -242,7 +242,7 @@ inline T unsafe_any_cast(any& value)
 }
 /** @overload */
 template<typename T>
-inline T unsafe_any_cast(const any& value)
+inline T unsafe_any_cast(const any& value) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return unsafe_any_cast<T>(const_cast<any&>(value));
 }

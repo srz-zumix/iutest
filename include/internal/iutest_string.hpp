@@ -161,7 +161,8 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
     {
         const size_t length = static_cast<size_t>(ret);
         const size_t write = (size <= length) ? size - 1 : length;
-        if( write_buffer == buffer ) {
+        if( write_buffer == buffer )
+        {
             strncpy(dst, buffer, write);
         }
         dst[write] = '\0';
@@ -171,14 +172,14 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 
 } // end of namespace wrapper
 
-int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 0);
-int iu_snprintf(char* dst, size_t size, const char* format, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 4);
+int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va) IUTEST_CXX_NOEXCEPT_SPEC IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 0);
+int iu_snprintf(char* dst, size_t size, const char* format, ...) IUTEST_CXX_NOEXCEPT_SPEC IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 4);
 
 /**
  * @internal
  * @brief   vsnprintf
 */
-inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
+inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va) IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( dst == IUTEST_NULLPTR && size > 0 )
     {
@@ -208,7 +209,7 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
  * @internal
  * @brief   snprintf
 */
-inline int iu_snprintf(char* dst, size_t size, const char* format, ...)
+inline int iu_snprintf(char* dst, size_t size, const char* format, ...) IUTEST_CXX_NOEXCEPT_SPEC
 {
     va_list va;
     iu_va_start(va, format);
