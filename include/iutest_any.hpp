@@ -117,7 +117,7 @@ public:
     template<typename T>
     friend T* any_cast(any*);
     template<typename T>
-    friend T* unsafe_any_cast(any*);
+    friend T* unsafe_any_cast(any*) IUTEST_CXX_NOEXCEPT_SPEC;
 
 private:
     class placeholder
