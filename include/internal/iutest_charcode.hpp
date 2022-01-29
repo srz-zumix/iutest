@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -44,7 +44,7 @@ namespace detail
 */
 inline ::std::string AnyStringToMultiByteString(const char* str, int num = -1)
 {
-    return num < 0 ? str : ::std::string(str, static_cast<size_t>(num));
+    return num < 0 ? str : ::std::string(str, gsl::narrow_cast<size_t>(num));
 }
 
 /**
@@ -55,6 +55,7 @@ inline ::std::string AnyStringToMultiByteString(const char* str, int num = -1)
 */
 inline ::std::string AnyStringToMultiByteString(const signed char* str, int num = -1)
 {
+    IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26473)
     return AnyStringToMultiByteString(reinterpret_cast<const char*>(str), num);
 }
 
@@ -137,7 +138,7 @@ inline ::std::string AnyStringToMultiByteString(const signed char* str, int num 
 template<typename CharType>
 ::std::string ShowAnyCString(const CharType* any_c_str)
 {
-    if( any_c_str == NULL )
+    if( any_c_str == IUTEST_NULLPTR )
     {
         return kStrings::Null;
     }
