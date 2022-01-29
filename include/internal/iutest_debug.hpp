@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -38,7 +38,7 @@ namespace detail
 
 //======================================================================
 // function
-static void IUTEST_ATTRIBUTE_UNUSED_ iuDebugInitialize()
+static void IUTEST_ATTRIBUTE_UNUSED_ iuDebugInitialize() IUTEST_CXX_NOEXCEPT_SPEC
 {
 #ifdef _IUTEST_DEBUG
 #  if defined(_MSC_VER) && !defined(IUTEST_OS_WINDOWS_MOBILE)
@@ -54,7 +54,7 @@ static void IUTEST_ATTRIBUTE_UNUSED_ iuDebugBreakAlloc(long n)
     _CrtSetBreakAlloc(n);
 #  endif
 #endif
-    (void)n;
+    IUTEST_UNUSED_VAR(n);
 }
 
 #if defined(_MSC_VER) && IUTEST_HAS_MINIDUMP
@@ -65,7 +65,7 @@ static void IUTEST_ATTRIBUTE_UNUSED_ iuDebugBreakAlloc(long n)
 class MiniDump
 {
 private:
-    MiniDump();
+    MiniDump() IUTEST_CXX_NOEXCEPT_SPEC;
     ~MiniDump();
 
     bool Dump(HANDLE hFile, EXCEPTION_POINTERS* ep);

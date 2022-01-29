@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -63,9 +63,12 @@ class TestEventListener
 {
     IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TestEventListener);
 public:
-    TestEventListener() {}
+    TestEventListener() IUTEST_CXX_NOEXCEPT_SPEC {}
     virtual ~TestEventListener() {}
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void OnTestProgramStart(const UnitTest& test)           = 0;    //!< テストプログラム開始時に呼ばれます
     virtual void OnTestIterationStart(const UnitTest& test
                                     , int iteration)                = 0;    //!< 単体テスト開始時に毎回呼ばれます
@@ -92,6 +95,8 @@ public:
     virtual void OnTestIterationEnd(const UnitTest& test
                                     , int iteration)                = 0;    //!< 単体テスト終了時に毎回呼ばれます
     virtual void OnTestProgramEnd(const UnitTest& test)             = 0;    //!< テストプログラム終了時に呼ばれます
+
+IUTEST_PRAGMA_WARN_POP()
 };
 
 /**
@@ -100,6 +105,9 @@ public:
 class EmptyTestEventListener : public TestEventListener
 {
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void OnTestProgramStart(const UnitTest& /*test*/)           IUTEST_CXX_OVERRIDE {}
     virtual void OnTestIterationStart(const UnitTest& /*test*/
                                     , int /*iteration*/)                IUTEST_CXX_OVERRIDE {}
@@ -116,6 +124,8 @@ public:
     virtual void OnTestIterationEnd(const UnitTest& /*test*/
                                     , int /*iteration*/)                IUTEST_CXX_OVERRIDE {}
     virtual void OnTestProgramEnd(const UnitTest& /*test*/)             IUTEST_CXX_OVERRIDE {}
+
+IUTEST_PRAGMA_WARN_POP()
 };
 
 /**
@@ -139,6 +149,9 @@ public:
     TestEventListener* Release(TestEventListener* listener);
 
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     // On*End は後ろから実行
     virtual void OnTestProgramStart(const UnitTest& test)           IUTEST_CXX_OVERRIDE;
     virtual void OnTestIterationStart(const UnitTest& test
@@ -157,6 +170,7 @@ public:
                                     , int iteration)                IUTEST_CXX_OVERRIDE;
     virtual void OnTestProgramEnd(const UnitTest& test)             IUTEST_CXX_OVERRIDE;
 
+IUTEST_PRAGMA_WARN_POP()
 private:
     ListenerContainer m_listeners;
 };
@@ -169,7 +183,8 @@ class TestEventListeners
     typedef ::std::vector<TestEventListener*> ListenerContainer;
 
 public:
-    TestEventListeners() : m_default_result_printer(NULL), m_default_xml_generator(NULL) {}
+    TestEventListeners() IUTEST_CXX_NOEXCEPT_SPEC
+        : m_default_result_printer(IUTEST_NULLPTR), m_default_xml_generator(IUTEST_NULLPTR) {}
 
 public:
     /**
@@ -184,11 +199,11 @@ public:
     {
         if( listener == m_default_result_printer )
         {
-            m_default_result_printer = NULL;
+            m_default_result_printer = IUTEST_NULLPTR;
         }
         if( listener == m_default_xml_generator )
         {
-            m_default_xml_generator = NULL;
+            m_default_xml_generator = IUTEST_NULLPTR;
         }
         return m_repeater.Release(listener);
     }
@@ -204,7 +219,10 @@ public:
     TestEventListener* default_xml_generator()  const IUTEST_CXX_NOEXCEPT_SPEC { return m_default_xml_generator; }
 
 private:
-    TestEventListener* repeater() { return &m_repeater; }
+    TestEventListener* repeater() IUTEST_CXX_NOEXCEPT_SPEC { return &m_repeater; }
+
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
 
     void OnTestProgramStart(const UnitTest& test)                   { m_repeater.OnTestProgramStart(test); }
     void OnTestIterationStart(const UnitTest& test, int iteration)  { m_repeater.OnTestIterationStart(test, iteration); }
@@ -223,6 +241,7 @@ private:
     void OnTestIterationEnd(const UnitTest& test, int iteration)    { m_repeater.OnTestIterationEnd(test, iteration); }
     void OnTestProgramEnd(const UnitTest& test)                     { m_repeater.OnTestProgramEnd(test); }
 
+IUTEST_PRAGMA_WARN_POP()
 private:
     void set_default_result_printer(TestEventListener* listener);
     void set_default_xml_generator(TestEventListener* listener);
