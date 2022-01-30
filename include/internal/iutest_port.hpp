@@ -87,8 +87,8 @@ namespace internal {
 namespace posix
 {
 
-const char* GetEnv(const char* name);
-int PutEnv(const char* expr);
+const char* GetEnv(const char* name) IUTEST_CXX_NOEXCEPT_SPEC;
+int PutEnv(const char* expr) IUTEST_CXX_NOEXCEPT_SPEC;
 int SetEnv(const char* name, const char* value, int overwrite);
 
 const char* GetCWD(char* buf, size_t length);
@@ -104,14 +104,14 @@ inline void Abort() IUTEST_CXX_NOEXCEPT_SPEC { abort(); }
 #if IUTEST_HAS_FILENO
 
 #if defined(_MSC_VER)
-inline int Fileno(FILE* fp) { return _fileno(fp); }
+inline int Fileno(FILE* fp) IUTEST_CXX_NOEXCEPT_SPEC { return _fileno(fp); }
 #else
-inline int Fileno(FILE* fp) { return fileno(fp); }
+inline int Fileno(FILE* fp) IUTEST_CXX_NOEXCEPT_SPEC { return fileno(fp); }
 #endif
 
 #else
 
-inline int Fileno(FILE*) { return -1; }
+inline int Fileno(FILE*) IUTEST_CXX_NOEXCEPT_SPEC { return -1; }
 
 #endif
 

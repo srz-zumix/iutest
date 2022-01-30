@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -50,7 +50,7 @@ namespace detail
  * @param   [out]   dst = 時刻
  * @return  成否
 */
-bool Localtime(time_t sec, struct tm* dst);
+bool Localtime(time_t sec, struct tm* dst) IUTEST_CXX_NOEXCEPT_SPEC;
 
 /**
  * @internal
@@ -79,7 +79,7 @@ bool Localtime(time_t sec, struct tm* dst);
 /**
  * @brief   現在時刻の取得
 */
-time_t GetTime();
+time_t GetTime() IUTEST_CXX_NOEXCEPT_SPEC;
 
 /**
  * @brief   現在時刻のミリ秒取得

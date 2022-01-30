@@ -126,7 +126,7 @@ public:
         , m_line(line)
     {}
 public:
-    const char*     message() const { return m_message.c_str(); }       //!< メッセージの取得
+    const char*     message() const IUTEST_CXX_NOEXCEPT_SPEC { return m_message.c_str(); }  //!< メッセージの取得
     const char*     file_name() const IUTEST_CXX_NOEXCEPT_SPEC { return m_file; }   //!< ファイル名の取得
     int             line_number() const IUTEST_CXX_NOEXCEPT_SPEC { return m_line; } //!< ライン番号の取得
 

@@ -46,15 +46,15 @@ class iuRandom
         {
             seed(s);
         }
-        result_type operator ()()
+        result_type operator ()() IUTEST_CXX_NOEXCEPT_SPEC
         {
             return gen();
         }
-        bool operator == (const Engine& rhs)
+        bool operator == (const Engine& rhs) IUTEST_CXX_NOEXCEPT_SPEC
         {
             return m_v1 == rhs.m_v1 && m_v2 == rhs.m_v2 && m_v3 == rhs.m_v3 && m_v4 == rhs.m_v4;
         }
-        bool operator != (const Engine& rhs)
+        bool operator != (const Engine& rhs) IUTEST_CXX_NOEXCEPT_SPEC
         {
             return m_v1 != rhs.m_v1 || m_v2 != rhs.m_v2 || m_v3 != rhs.m_v3 || m_v4 != rhs.m_v4;
         }

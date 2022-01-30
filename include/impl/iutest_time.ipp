@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -25,7 +25,7 @@ namespace detail
 
 //======================================================================
 // function
-IUTEST_IPP_INLINE bool Localtime(time_t sec, struct tm* dst)
+IUTEST_IPP_INLINE bool Localtime(time_t sec, struct tm* dst) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if IUTEST_HAS_CTIME
 
@@ -102,7 +102,7 @@ IUTEST_IPP_INLINE ::std::string FormatTimeInMillisecAsIso8601(TimeInMillisec mse
 #endif
 }
 
-IUTEST_IPP_INLINE time_t GetTime()
+IUTEST_IPP_INLINE time_t GetTime() IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if IUTEST_HAS_CTIME
     return time(IUTEST_NULLPTR);

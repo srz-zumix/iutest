@@ -76,7 +76,7 @@ namespace posix
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
-IUTEST_IPP_INLINE const char* GetEnv(const char* name)
+IUTEST_IPP_INLINE const char* GetEnv(const char* name) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if defined(IUTEST_NO_GETENV) \
     || defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE)
@@ -90,7 +90,7 @@ IUTEST_IPP_INLINE const char* GetEnv(const char* name)
 #endif
 }
 
-IUTEST_IPP_INLINE int PutEnv(const char* expr)
+IUTEST_IPP_INLINE int PutEnv(const char* expr) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if defined(IUTEST_NO_PUTENV) \
     || defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE) \
