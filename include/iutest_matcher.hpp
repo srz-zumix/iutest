@@ -2648,7 +2648,7 @@ inline detail::RegexMatcher ContainsRegex(const ::std::string& str)
  * @details argument が全ての matcher にマッチする
 */
 template<typename ...T>
-detail::AllOfMatcher<T...> AllOf(const T&... m)
+detail::AllOfMatcher<T...> AllOf(const T&... m) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::AllOfMatcher<T...>(m...);
 }
@@ -2658,7 +2658,7 @@ detail::AllOfMatcher<T...> AllOf(const T&... m)
  * @details argument がいずれかの matcher にマッチする
 */
 template<typename ...T>
-detail::AnyOfMatcher<T...> AnyOf(const T&... m)
+detail::AnyOfMatcher<T...> AnyOf(const T&... m) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::AnyOfMatcher<T...>(m...);
 }

@@ -62,7 +62,7 @@ public:
     iuParamGenerator(_Interface* pInterface=IUTEST_NULLPTR) IUTEST_CXX_NOEXCEPT_SPEC : m_pInterface(pInterface) {} // NOLINT
 
 public:
-    operator iuIParamGenerator<T>* () const { return m_pInterface; }
+    operator iuIParamGenerator<T>* () const IUTEST_CXX_NOEXCEPT_SPEC { return m_pInterface; }
 
 public:
 #if IUTEST_HAS_CONCAT
@@ -111,10 +111,12 @@ public:
 public:
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void    Begin() IUTEST_CXX_OVERRIDE { m_cur = m_begin; }
     virtual T       GetCurrent() const IUTEST_CXX_OVERRIDE { return m_cur; }
     virtual void    Next() IUTEST_CXX_OVERRIDE { m_cur = static_cast<T>(m_cur + m_step); }
     virtual bool    IsEnd() const IUTEST_CXX_OVERRIDE { return !(m_cur < m_end); }
+
 IUTEST_PRAGMA_WARN_POP()
 };
 
@@ -134,10 +136,12 @@ public:
 public:
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void    Begin() IUTEST_CXX_OVERRIDE { m_cur = false; m_n = 0; }
     virtual bool    GetCurrent() const IUTEST_CXX_OVERRIDE { return m_cur; }
     virtual void    Next() IUTEST_CXX_OVERRIDE { ++m_n; m_cur = !m_cur; }
     virtual bool    IsEnd() const IUTEST_CXX_OVERRIDE { return m_n >= 2; }
+
 IUTEST_PRAGMA_WARN_POP()
 };
 
@@ -183,10 +187,12 @@ public:
 public:
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void    Begin() IUTEST_CXX_OVERRIDE { m_it = m_values.begin(); }
     virtual T       GetCurrent() const IUTEST_CXX_OVERRIDE { return *m_it; }
     virtual void    Next() IUTEST_CXX_OVERRIDE { ++m_it; }
     virtual bool    IsEnd() const IUTEST_CXX_OVERRIDE { return (m_it == m_values.end()); }
+
 IUTEST_PRAGMA_WARN_POP()
 };
 
@@ -505,6 +511,9 @@ public:
     iuCartesianProductGenerator() IUTEST_CXX_NOEXCEPT_SPEC {}
 
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void Begin() IUTEST_CXX_OVERRIDE
     {
         tuples::tuple_foreach(v, begin_func());
@@ -525,7 +534,9 @@ public:
         return current_foreach<0, kCount, Args...>();
     }
 
-    _MyTuple& generators() { return v; }
+IUTEST_PRAGMA_WARN_POP()
+
+    _MyTuple& generators() IUTEST_CXX_NOEXCEPT_SPEC { return v; }
 private:
     _MyTuple v;
 };
@@ -580,6 +591,9 @@ public:
         : m_g1(g1), m_g2(g2)
     {}
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void Begin() IUTEST_CXX_OVERRIDE
     {
         m_g1.Begin();
@@ -606,6 +620,7 @@ public:
         return m_g1.IsEnd() && m_g2.IsEnd();
     }
 
+IUTEST_PRAGMA_WARN_POP()
 protected:
     Generator1 m_g1;
     Generator2 m_g2;
@@ -1158,6 +1173,9 @@ public:
         return new iuPairwiseGenerator2<T1, T2>(g1, g2);
     }
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void Begin() IUTEST_CXX_OVERRIDE
     {
         m_g1.Begin();
@@ -1187,6 +1205,8 @@ public:
     {
         return ParamType(this->m_g1.GetCurrent(), this->m_g2.GetCurrent());
     }
+
+IUTEST_PRAGMA_WARN_POP()
 private:
     Generator1 m_g1;
     Generator2 m_g2;

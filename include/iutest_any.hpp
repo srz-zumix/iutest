@@ -104,7 +104,7 @@ public:
     /**
     * @brief   要素のクリア
     */
-    void reset()
+    void reset() IUTEST_CXX_NOEXCEPT_SPEC
     {
         clear();
     }
@@ -162,7 +162,7 @@ private:
 class bad_any_cast : public ::std::bad_cast {};
 #endif
 
-inline void swap(any& lhs, any& rhs) { lhs.swap(rhs); }
+inline void swap(any& lhs, any& rhs) IUTEST_CXX_NOEXCEPT_SPEC { lhs.swap(rhs); }
 
 /**
  * @brief   型を考慮したキャスト
