@@ -164,8 +164,8 @@ jobs:
       GCC_VERSION: "11"
       DEFS: "-fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference -Wno-analyzer-malloc-leak"
       MAKE_ADD_OPTION: -j1
-      GGC_MIN_EXPAND: 4
-      GGC_MIN_HEAPSIZ: 32768
+      GGC_MIN_EXPAND: 1
+      GGC_MIN_HEAPSIZ: 16384
     steps: *build-test-steps
   gcc_optimize_test:
     parallelism: 4
