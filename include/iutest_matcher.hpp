@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -68,15 +68,15 @@ public:
     template<typename T>
     struct is_matcher : public iutest_type_traits::is_base_of<IMatcher, T> {};
 public:
-    IMatcher() {}
-    IMatcher(const IMatcher&) {}
+    IMatcher() IUTEST_CXX_NOEXCEPT_SPEC {}
+    IMatcher(const IMatcher&) IUTEST_CXX_NOEXCEPT_SPEC {}
     virtual ~IMatcher() {}
     virtual ::std::string WhichIs() const = 0;
 };
 
 #if !defined(IUTEST_NO_SFINAE)
 template<typename T>
-inline typename detail::enable_if_t< IMatcher::is_matcher<T>, iu_ostream>::type& operator << (iu_ostream& os, const T& m)
+inline typename detail::enable_if< IMatcher::is_matcher<T>::value, iu_ostream>::type& operator << (iu_ostream& os, const T& m)
 {
     return os << m.WhichIs();
 }
@@ -95,7 +95,8 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& m)
 #define IIUT_DECL_COMPARE_MATCHER(name, op)  \
     template<typename T>                                                        \
     class IUTEST_PP_CAT(name, Matcher) IUTEST_CXX_FINAL : public IMatcher {     \
-    public: explicit IUTEST_PP_CAT(name, Matcher)(const T& v) : m_expected(v) {}\
+    public: explicit IUTEST_PP_CAT(name, Matcher)(const T& v)                   \
+        IUTEST_CXX_NOEXCEPT_SPEC: m_expected(v) {}                              \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                         \
         iu_global_format_stringstream strm;                                     \
         strm << #name ": " << m_expected; return strm.str();                    \
@@ -142,7 +143,8 @@ IUTEST_PRAGMA_WARN_POP()
 #define IIUT_DECL_STR_COMPARE_MATCHER(name)  \
     template<typename T>                                                        \
     class IUTEST_PP_CAT(name, Matcher) IUTEST_CXX_FINAL : public IMatcher {     \
-    public: IUTEST_PP_CAT(name, Matcher)(const T& value) : m_expected(value) {} \
+    public: IUTEST_PP_CAT(name, Matcher)(const T& value)                        \
+        IUTEST_CXX_NOEXCEPT_SPEC : m_expected(value) {}                         \
     template<typename U>AssertionResult operator ()(const U& actual) const {    \
         if IUTEST_COND_LIKELY( internal::IUTEST_PP_CAT(name, Helper)::Compare(  \
             actual, m_expected) ) { return AssertionSuccess(); }                \
@@ -217,7 +219,7 @@ template<typename T>
 class FloatingPointEqMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit FloatingPointEqMatcher(const T& value) : m_expected(value) {}
+    explicit FloatingPointEqMatcher(const T& value) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(value) {}
 
 public:
     template<typename U>
@@ -248,7 +250,7 @@ template<typename T>
 class NanSensitiveFloatingPointEqMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit NanSensitiveFloatingPointEqMatcher(const T& value) : m_expected(value) {}
+    explicit NanSensitiveFloatingPointEqMatcher(const T& value) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(value) {}
 
 public:
     template<typename U>
@@ -279,7 +281,7 @@ template<typename T>
 class FloatingPointNearMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit FloatingPointNearMatcher(const T& value, const T& abs_error)
+    explicit FloatingPointNearMatcher(const T& value, const T& abs_error) IUTEST_CXX_NOEXCEPT_SPEC
         : m_expected(value), m_max_abs_error(abs_error) {}
 
 public:
@@ -312,7 +314,7 @@ template<typename T>
 class NanSensitiveFloatingPointNearMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit NanSensitiveFloatingPointNearMatcher(const T& value, const T& abs_error)
+    explicit NanSensitiveFloatingPointNearMatcher(const T& value, const T& abs_error) IUTEST_CXX_NOEXCEPT_SPEC
         : m_expected(value), m_max_abs_error(abs_error) {}
 
 public:
@@ -345,7 +347,7 @@ template<typename T>
 class StartsWithMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit StartsWithMatcher(T str) : m_expected(str) {}
+    explicit StartsWithMatcher(T str) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(str) {}
 
 public:
     template<typename U>
@@ -366,7 +368,7 @@ public:
         return strm.str();
     }
 private:
-    static bool StartsWith(const char* actual, const char* start)
+    static bool StartsWith(const char* actual, const char* start) IUTEST_CXX_NOEXCEPT_SPEC
     {
         return strstr(actual, start) == actual;
     }
@@ -396,7 +398,7 @@ template<typename T>
 class HasSubstrMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit HasSubstrMatcher(T expected) : m_expected(expected) {}
+    explicit HasSubstrMatcher(T expected) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(expected) {}
 public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
@@ -416,9 +418,9 @@ public:
         return strm.str();
     }
 private:
-    static bool HasSubstr(const char* actual, const char* expected)
+    static bool HasSubstr(const char* actual, const char* expected) IUTEST_CXX_NOEXCEPT_SPEC
     {
-        return strstr(actual, expected) != NULL;
+        return strstr(actual, expected) != IUTEST_NULLPTR;
     }
     static bool HasSubstr(const ::std::string& actual, const char* expected)
     {
@@ -447,7 +449,7 @@ template<typename T>
 class EndsWithMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit EndsWithMatcher(T str) : m_expected(str) {}
+    explicit EndsWithMatcher(T str) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(str) {}
 
 public:
     template<typename U>
@@ -468,7 +470,7 @@ public:
         return strm.str();
     }
 private:
-    static bool EndsWith(const char* actual, const char* end)
+    static bool EndsWith(const char* actual, const char* end) IUTEST_CXX_NOEXCEPT_SPEC
     {
         const size_t len = strlen(end);
         const size_t actual_len = strlen(actual);
@@ -513,7 +515,7 @@ template<typename T>
 class EqMatcher : public IMatcher
 {
 public:
-    explicit EqMatcher(const T& expected) : m_expected(expected) {}
+    explicit EqMatcher(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(expected) {}
 
 public:
     template<typename U>
@@ -567,7 +569,7 @@ template<typename T>
 class TypedEqMatcher IUTEST_CXX_FINAL : public EqMatcher<T>
 {
 public:
-    explicit TypedEqMatcher(T expected) : EqMatcher<T>(m_expected), m_expected(expected) {}
+    explicit TypedEqMatcher(T expected) IUTEST_CXX_NOEXCEPT_SPEC : EqMatcher<T>(m_expected), m_expected(expected) {}
 public:
     AssertionResult operator ()(const T& actual)
     {
@@ -587,14 +589,14 @@ private:
 
 template<typename T>
 T& CastToMatcher(T& matcher
-    , typename detail::enable_if_t< IMatcher::is_matcher<T> >::type*& = detail::enabler::value)
+    , typename detail::enable_if< IMatcher::is_matcher<T>::value >::type*& = detail::enabler::value) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return matcher;
 }
 /** @overload */
 template<typename T>
 EqMatcher<T> CastToMatcher(const T& value
-    , typename detail::disable_if_t< IMatcher::is_matcher<T> >::type*& = detail::enabler::value)
+    , typename detail::disable_if< IMatcher::is_matcher<T>::value >::type*& = detail::enabler::value) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return EqMatcher<T>(value);
 }
@@ -617,7 +619,7 @@ template<typename T>
 class ContainsMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit ContainsMatcher(const T& expected) : m_expected(expected) {}
+    explicit ContainsMatcher(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(expected) {}
 
 public:
     template<typename U>
@@ -665,7 +667,7 @@ template<typename T>
 class EachMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit EachMatcher(const T& expected) : m_expected(expected) {}
+    explicit EachMatcher(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(expected) {}
 
 public:
     template<typename U>
@@ -713,7 +715,7 @@ template<typename T>
 class ContainerEqMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit ContainerEqMatcher(const T& expected) : m_expected(expected) {}
+    explicit ContainerEqMatcher(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(expected) {}
 
 public:
     template<typename U>
@@ -779,7 +781,7 @@ template<typename M, typename T>
 class PointwiseMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    PointwiseMatcher(const M& matcher, const T& expected)
+    PointwiseMatcher(const M& matcher, const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
         : m_matcher(matcher), m_expected(expected) {}
 
 public:
@@ -847,7 +849,7 @@ template<typename T>
 class OptionalMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit OptionalMatcher(const T& expected)
+    explicit OptionalMatcher(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
         : m_expected(expected) {}
 
 public:
@@ -928,7 +930,7 @@ template<typename T>
 class SizeIsMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit SizeIsMatcher(const T& expected) : m_expected(expected) {}
+    explicit SizeIsMatcher(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(expected) {}
 
 public:
     template<typename U>
@@ -973,7 +975,7 @@ template<typename T>
 class AtMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    AtMatcher(size_t index, const T& expected) : m_index(index), m_expected(expected) {}
+    AtMatcher(size_t index, const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_index(index), m_expected(expected) {}
 
 public:
     template<typename U>
@@ -1007,7 +1009,7 @@ class ElementsAreArrayMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     template<typename It>
-    ElementsAreArrayMatcher(It begin, It end, bool expected_elem_count=true)
+    ElementsAreArrayMatcher(It begin, It end, bool expected_elem_count=true) IUTEST_CXX_NOEXCEPT_SPEC
         : m_expected_elem_count(expected_elem_count)
     {
         m_expected.insert(m_expected.end(), begin, end);
@@ -1061,9 +1063,8 @@ private:
 
         Ite it_a=actual_begin;
         typename ::std::vector<T>::iterator it_e=m_expected.begin();
-        for( int i=0; it_a != actual_end && it_e != m_expected.end(); ++it_e, ++it_a, ++i )
+        for( ; it_a != actual_end && it_e != m_expected.end(); ++it_e, ++it_a )
         {
-            (void)i;
             if IUTEST_COND_UNLIKELY( *it_a != *it_e )
             {
                 return AssertionFailure() << WhichIs();
@@ -1169,7 +1170,7 @@ template<typename ...T>
 class ElementsAreMatcher IUTEST_CXX_FINAL : public ElementsAreMatcherBase
 {
 public:
-    explicit ElementsAreMatcher(T... t) : m_matchers(t...) {}
+    explicit ElementsAreMatcher(T... t) IUTEST_CXX_NOEXCEPT_SPEC : m_matchers(t...) {}
 
 public:
     template<typename U>
@@ -1214,7 +1215,7 @@ private:
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                                    \
     class IUTEST_PP_CAT(ElementsAreMatcher, n) IUTEST_CXX_FINAL : public ElementsAreMatcherBase {   \
     public: IUTEST_PP_CAT(ElementsAreMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, T, m)) \
-        : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                    \
+        IUTEST_CXX_NOEXCEPT_SPEC : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}           \
     template<typename U>AssertionResult operator ()(const U& actual) {                  \
         return Check(m_matchers, actual); }                                             \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                                 \
@@ -1247,7 +1248,7 @@ template<typename F, typename T>
 class FieldMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    FieldMatcher(const F& field, const T& expected) : m_field(field), m_expected(expected) {}
+    FieldMatcher(const F& field, const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_field(field), m_expected(expected) {}
 
 public:
     template<typename U>
@@ -1272,13 +1273,13 @@ private:
 #if !defined(IUTEST_NO_SFINAE)
     template<typename U>
     bool Check(const U& actual
-        , typename detail::disable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
+        , typename detail::disable_if< detail::is_pointer<U>::value >::type*& = detail::enabler::value)
     {
         return static_cast<bool>(CastToMatcher(m_expected)(actual.*m_field));
     }
     template<typename U>
     bool Check(const U& actual
-        , typename detail::enable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
+        , typename detail::enable_if< detail::is_pointer<U>::value >::type*& = detail::enabler::value)
     {
         return static_cast<bool>(CastToMatcher(m_expected)(actual->*m_field));
     }
@@ -1302,7 +1303,7 @@ template<typename F, typename T>
 class PropertyMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    PropertyMatcher(const F& prop, const T& expected) : m_property(prop), m_expected(expected) {}
+    PropertyMatcher(const F& prop, const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_property(prop), m_expected(expected) {}
 
 public:
     template<typename U>
@@ -1327,13 +1328,13 @@ private:
 #if !defined(IUTEST_NO_SFINAE)
     template<typename U>
     bool Check(const U& actual
-        , typename detail::disable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
+        , typename detail::disable_if< detail::is_pointer<U>::value >::type*& = detail::enabler::value)
     {
         return static_cast<bool>(CastToMatcher(m_expected)((actual.*m_property)()));
     }
     template<typename U>
     bool Check(const U& actual
-        , typename detail::enable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
+        , typename detail::enable_if< detail::is_pointer<U>::value >::type*& = detail::enabler::value)
     {
         return static_cast<bool>(CastToMatcher(m_expected)((actual->*m_property)()));
     }
@@ -1357,7 +1358,7 @@ template<typename T>
 class KeyMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit KeyMatcher(const T& expected) : m_expected(expected) {}
+    explicit KeyMatcher(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(expected) {}
 
 public:
     template<typename U>
@@ -1389,7 +1390,7 @@ template<typename T1, typename T2>
 class PairMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    PairMatcher(const T1& m1, const T2& m2) : m_m1(m1), m_m2(m2) {}
+    PairMatcher(const T1& m1, const T2& m2) IUTEST_CXX_NOEXCEPT_SPEC : m_m1(m1), m_m2(m2) {}
 
 public:
     template<typename U>
@@ -1432,7 +1433,7 @@ template<typename F, typename T>
 class ResultOfMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    ResultOfMatcher(F& func, const T& expected) : m_func(func), m_expected(expected) {}
+    ResultOfMatcher(F& func, const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_func(func), m_expected(expected) {}
 
 public:
     template<typename U>
@@ -1471,7 +1472,7 @@ template<typename T>
 class PointeeMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit PointeeMatcher(const T& expected) : m_expected(expected) {}
+    explicit PointeeMatcher(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC : m_expected(expected) {}
 
 public:
     template<typename U>
@@ -1508,7 +1509,7 @@ template<typename T>
 class NotMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    explicit NotMatcher(const T& unexpected) : m_unexpected(unexpected) {}
+    explicit NotMatcher(const T& unexpected) IUTEST_CXX_NOEXCEPT_SPEC : m_unexpected(unexpected) {}
 
 public:
     template<typename U>
@@ -1562,7 +1563,7 @@ public:
 class AnythingMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    AnythingMatcher() {}
+    AnythingMatcher() IUTEST_CXX_NOEXCEPT_SPEC {}
 public:
     template<typename U>
     AssertionResult operator ()(const U&) const
@@ -1585,7 +1586,7 @@ public:
 class RegexMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    RegexMatcher(const detail::iuRegex& expected, bool full_match) : m_expected(expected), m_full_match(full_match) {}
+    RegexMatcher(const detail::iuRegex& expected, bool full_match) IUTEST_CXX_NOEXCEPT(false) : m_expected(expected), m_full_match(full_match) {}
 
 public:
     template<typename U>
@@ -1692,7 +1693,7 @@ template<typename ...T>
 class AllOfMatcher IUTEST_CXX_FINAL : public AllOfMatcherBase
 {
 public:
-    explicit AllOfMatcher(T... t) : m_matchers(t...) {}
+    explicit AllOfMatcher(T... t) IUTEST_CXX_NOEXCEPT_SPEC : m_matchers(t...) {}
 
 public:
     template<typename U>
@@ -1737,7 +1738,7 @@ private:
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                                \
     class IUTEST_PP_CAT(AllOfMatcher, n) IUTEST_CXX_FINAL : public AllOfMatcherBase {   \
     public: IUTEST_PP_CAT(AllOfMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, T, m))   \
-        : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                \
+        IUTEST_CXX_NOEXCEPT_SPEC : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}       \
     template<typename U>AssertionResult operator ()(const U& actual) {              \
         return Check(m_matchers, actual); }                                         \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                             \
@@ -1819,7 +1820,7 @@ template<typename ...T>
 class AnyOfMatcher IUTEST_CXX_FINAL : public AnyOfMatcherBase
 {
 public:
-    explicit AnyOfMatcher(T... t) : m_matchers(t...) {}
+    explicit AnyOfMatcher(T... t) IUTEST_CXX_NOEXCEPT_SPEC : m_matchers(t...) {}
 
 public:
     template<typename U>
@@ -1864,7 +1865,7 @@ private:
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                                \
     class IUTEST_PP_CAT(AnyOfMatcher, n) IUTEST_CXX_FINAL : public AnyOfMatcherBase {   \
     public: IUTEST_PP_CAT(AnyOfMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, T, m))   \
-        : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                \
+        IUTEST_CXX_NOEXCEPT_SPEC : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}       \
     template<typename U>AssertionResult operator ()(const U& actual) {              \
         return Check(m_matchers, actual); }                                         \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                             \
@@ -1910,7 +1911,7 @@ namespace matchers
  * @details argument == expected
 */
 template<typename T>
-detail::EqMatcher<T> Equals(const T& expected)
+detail::EqMatcher<T> Equals(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::EqMatcher<T>(expected);
 }
@@ -1920,7 +1921,7 @@ detail::EqMatcher<T> Equals(const T& expected)
  * @details argument == expected
 */
 template<typename T>
-detail::EqMatcher<T> Eq(const T& expected)
+detail::EqMatcher<T> Eq(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::EqMatcher<T>(expected);
 }
@@ -1930,7 +1931,7 @@ detail::EqMatcher<T> Eq(const T& expected)
  * @details argument != expected
 */
 template<typename T>
-detail::NeMatcher<T> Ne(const T& expected)
+detail::NeMatcher<T> Ne(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::NeMatcher<T>(expected);
 }
@@ -1940,7 +1941,7 @@ detail::NeMatcher<T> Ne(const T& expected)
  * @details argument <= expected
 */
 template<typename T>
-detail::LeMatcher<T> Le(const T& expected)
+detail::LeMatcher<T> Le(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::LeMatcher<T>(expected);
 }
@@ -1950,7 +1951,7 @@ detail::LeMatcher<T> Le(const T& expected)
  * @details argument < expected
 */
 template<typename T>
-detail::LtMatcher<T> Lt(const T& expected)
+detail::LtMatcher<T> Lt(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::LtMatcher<T>(expected);
 }
@@ -1960,7 +1961,7 @@ detail::LtMatcher<T> Lt(const T& expected)
  * @details argument >= expected
 */
 template<typename T>
-detail::GeMatcher<T> Ge(const T& expected)
+detail::GeMatcher<T> Ge(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::GeMatcher<T>(expected);
 }
@@ -1970,7 +1971,7 @@ detail::GeMatcher<T> Ge(const T& expected)
  * @details argument > expected
 */
 template<typename T>
-detail::GtMatcher<T> Gt(const T& expected)
+detail::GtMatcher<T> Gt(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::GtMatcher<T>(expected);
 }
@@ -1979,7 +1980,7 @@ detail::GtMatcher<T> Gt(const T& expected)
  * @brief   Make Twofold Eq matcher
  * @details argument == expected
 */
-inline detail::TwofoldEqMatcher Eq()
+inline detail::TwofoldEqMatcher Eq() IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::TwofoldEqMatcher();
 }
@@ -1988,7 +1989,7 @@ inline detail::TwofoldEqMatcher Eq()
  * @brief   Make Twofold Ne matcher
  * @details argument != expected
 */
-inline detail::TwofoldNeMatcher Ne()
+inline detail::TwofoldNeMatcher Ne() IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::TwofoldNeMatcher();
 }
@@ -1997,7 +1998,7 @@ inline detail::TwofoldNeMatcher Ne()
  * @brief   Make Twofold Le matcher
  * @details argument <= expected
 */
-inline detail::TwofoldLeMatcher Le()
+inline detail::TwofoldLeMatcher Le() IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::TwofoldLeMatcher();
 }
@@ -2006,7 +2007,7 @@ inline detail::TwofoldLeMatcher Le()
  * @brief   Make Twofold Lt matcher
  * @details argument < expected
 */
-inline detail::TwofoldLtMatcher Lt()
+inline detail::TwofoldLtMatcher Lt() IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::TwofoldLtMatcher();
 }
@@ -2015,7 +2016,7 @@ inline detail::TwofoldLtMatcher Lt()
  * @brief   Make Twofold Ge matcher
  * @details argument >= expected
 */
-inline detail::TwofoldGeMatcher Ge()
+inline detail::TwofoldGeMatcher Ge() IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::TwofoldGeMatcher();
 }
@@ -2024,7 +2025,7 @@ inline detail::TwofoldGeMatcher Ge()
  * @brief   Make Twofold Gt matcher
  * @details argument > expected
 */
-inline detail::TwofoldGtMatcher Gt()
+inline detail::TwofoldGtMatcher Gt() IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::TwofoldGtMatcher();
 }
@@ -2033,7 +2034,7 @@ inline detail::TwofoldGtMatcher Gt()
  * @brief   Make IsNull matcher
  * @details argument == nullptr
 */
-inline detail::IsNullMatcher IsNull()
+inline detail::IsNullMatcher IsNull() IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::IsNullMatcher();
 }
@@ -2042,7 +2043,7 @@ inline detail::IsNullMatcher IsNull()
  * @brief   Make NotNull matcher
  * @details argument != nullptr
 */
-inline detail::NotNullMatcher NotNull()
+inline detail::NotNullMatcher NotNull() IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::NotNullMatcher();
 }
@@ -2052,7 +2053,7 @@ inline detail::NotNullMatcher NotNull()
  * @details argument == (T)expected
 */
 template<typename T, typename U>
-detail::TypedEqMatcher<T> TypedEq(const U& expected)
+detail::TypedEqMatcher<T> TypedEq(const U& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::TypedEqMatcher<T>(static_cast<T>(expected));
 }
@@ -2062,7 +2063,7 @@ detail::TypedEqMatcher<T> TypedEq(const U& expected)
  * @details argument は expected とおよそ等しい
 */
 template<typename T>
-inline detail::FloatingPointEqMatcher<T> FloatingPointEq(T expected)
+inline detail::FloatingPointEqMatcher<T> FloatingPointEq(T expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::FloatingPointEqMatcher<T>(expected);
 }
@@ -2071,7 +2072,7 @@ inline detail::FloatingPointEqMatcher<T> FloatingPointEq(T expected)
  * @brief   Make Float Eq matcher
  * @details argument は expected とおよそ等しい
 */
-inline detail::FloatingPointEqMatcher<float> FloatEq(float expected)
+inline detail::FloatingPointEqMatcher<float> FloatEq(float expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::FloatingPointEqMatcher<float>(expected);
 }
@@ -2080,7 +2081,7 @@ inline detail::FloatingPointEqMatcher<float> FloatEq(float expected)
  * @brief   Make Double Eq matcher
  * @details argument は expected とおよそ等しい
 */
-inline detail::FloatingPointEqMatcher<double> DoubleEq(double expected)
+inline detail::FloatingPointEqMatcher<double> DoubleEq(double expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::FloatingPointEqMatcher<double>(expected);
 }
@@ -2091,7 +2092,7 @@ inline detail::FloatingPointEqMatcher<double> DoubleEq(double expected)
  * @brief   Make Long Double Eq matcher
  * @details argument は expected とおよそ等しい
 */
-inline detail::FloatingPointEqMatcher<long double> LongDoubleEq(long double expected)
+inline detail::FloatingPointEqMatcher<long double> LongDoubleEq(long double expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::FloatingPointEqMatcher<long double>(expected);
 }
@@ -2103,7 +2104,7 @@ inline detail::FloatingPointEqMatcher<long double> LongDoubleEq(long double expe
  * @details argument は expected とおよそ等しい
 */
 template<typename T>
-inline detail::NanSensitiveFloatingPointEqMatcher<T> NanSensitiveFloatingPointEq(T expected)
+inline detail::NanSensitiveFloatingPointEqMatcher<T> NanSensitiveFloatingPointEq(T expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::NanSensitiveFloatingPointEqMatcher<T>(expected);
 }
@@ -2112,7 +2113,7 @@ inline detail::NanSensitiveFloatingPointEqMatcher<T> NanSensitiveFloatingPointEq
  * @brief   Make NanSensitive Float Eq matcher
  * @details argument は expected とおよそ等しい（NaN 同士は等しいとされる）
 */
-inline detail::NanSensitiveFloatingPointEqMatcher<float> NanSensitiveFloatEq(float expected)
+inline detail::NanSensitiveFloatingPointEqMatcher<float> NanSensitiveFloatEq(float expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::NanSensitiveFloatingPointEqMatcher<float>(expected);
 }
@@ -2121,7 +2122,8 @@ inline detail::NanSensitiveFloatingPointEqMatcher<float> NanSensitiveFloatEq(flo
  * @brief   Make NanSensitive Double Eq matcher
  * @details argument は expected とおよそ等しい（NaN 同士は等しいとされる）
 */
-inline detail::NanSensitiveFloatingPointEqMatcher<double> NanSensitiveDoubleEq(double expected)
+inline detail::NanSensitiveFloatingPointEqMatcher<double> NanSensitiveDoubleEq(
+    double expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::NanSensitiveFloatingPointEqMatcher<double>(expected);
 }
@@ -2132,7 +2134,8 @@ inline detail::NanSensitiveFloatingPointEqMatcher<double> NanSensitiveDoubleEq(d
  * @brief   Make NanSensitive LongDouble Eq matcher
  * @details argument は expected とおよそ等しい（NaN 同士は等しいとされる）
 */
-inline detail::NanSensitiveFloatingPointEqMatcher<long double> NanSensitiveLongDoubleEq(long double expected)
+inline detail::NanSensitiveFloatingPointEqMatcher<long double> NanSensitiveLongDoubleEq(
+    long double expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::NanSensitiveFloatingPointEqMatcher<long double>(expected);
 }
@@ -2146,7 +2149,7 @@ inline detail::NanSensitiveFloatingPointEqMatcher<long double> NanSensitiveLongD
  * @details argument は expected と max_abs_error 以内の差分
 */
 template<typename T>
-inline detail::FloatingPointNearMatcher<T> FloatingPointNear(T expected, T max_abs_error)
+inline detail::FloatingPointNearMatcher<T> FloatingPointNear(T expected, T max_abs_error) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::FloatingPointNearMatcher<T>(expected, max_abs_error);
 }
@@ -2155,7 +2158,7 @@ inline detail::FloatingPointNearMatcher<T> FloatingPointNear(T expected, T max_a
  * @brief   Make Float Near matcher
  * @details argument は expected と max_abs_error 以内の差分
 */
-inline detail::FloatingPointNearMatcher<float> FloatNear(float expected, float max_abs_error)
+inline detail::FloatingPointNearMatcher<float> FloatNear(float expected, float max_abs_error) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::FloatingPointNearMatcher<float>(expected, max_abs_error);
 }
@@ -2164,7 +2167,7 @@ inline detail::FloatingPointNearMatcher<float> FloatNear(float expected, float m
  * @brief   Make Double Near matcher
  * @details argument は expected と max_abs_error 以内の差分
 */
-inline detail::FloatingPointNearMatcher<double> DoubleNear(double expected, double max_abs_error)
+inline detail::FloatingPointNearMatcher<double> DoubleNear(double expected, double max_abs_error) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::FloatingPointNearMatcher<double>(expected, max_abs_error);
 }
@@ -2175,7 +2178,8 @@ inline detail::FloatingPointNearMatcher<double> DoubleNear(double expected, doub
  * @brief   Make Long Double Near matcher
  * @details argument は expected と max_abs_error 以内の差分
 */
-inline detail::FloatingPointNearMatcher<long double> LongDoubleNear(long double expected, long double max_abs_error)
+inline detail::FloatingPointNearMatcher<long double> LongDoubleNear(
+    long double expected, long double max_abs_error) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::FloatingPointNearMatcher<long double>(expected, max_abs_error);
 }
@@ -2187,7 +2191,8 @@ inline detail::FloatingPointNearMatcher<long double> LongDoubleNear(long double 
  * @details argument は expected と max_abs_error 以内の差分
 */
 template<typename T>
-inline detail::NanSensitiveFloatingPointNearMatcher<T> NanSensitiveFloatingPointNear(T expected, T max_abs_error)
+inline detail::NanSensitiveFloatingPointNearMatcher<T> NanSensitiveFloatingPointNear(
+    T expected, T max_abs_error) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::NanSensitiveFloatingPointNearMatcher<T>(expected, max_abs_error);
 }
@@ -2196,7 +2201,8 @@ inline detail::NanSensitiveFloatingPointNearMatcher<T> NanSensitiveFloatingPoint
  * @brief   Make NanSensitive Float Near matcher
  * @details argument は expected と max_abs_error 以内の差分（NaN 同士は等しいとされる）
 */
-inline detail::NanSensitiveFloatingPointNearMatcher<float> NanSensitiveFloatNear(float expected, float max_abs_error)
+inline detail::NanSensitiveFloatingPointNearMatcher<float> NanSensitiveFloatNear(
+    float expected, float max_abs_error) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::NanSensitiveFloatingPointNearMatcher<float>(expected, max_abs_error);
 }
@@ -2205,7 +2211,8 @@ inline detail::NanSensitiveFloatingPointNearMatcher<float> NanSensitiveFloatNear
  * @brief   Make NanSensitive Double Near matcher
  * @details argument は expected と max_abs_error 以内の差分（NaN 同士は等しいとされる）
 */
-inline detail::NanSensitiveFloatingPointNearMatcher<double> NanSensitiveDoubleNear(double expected, double max_abs_error)
+inline detail::NanSensitiveFloatingPointNearMatcher<double> NanSensitiveDoubleNear(
+    double expected, double max_abs_error) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::NanSensitiveFloatingPointNearMatcher<double>(expected, max_abs_error);
 }
@@ -2216,7 +2223,8 @@ inline detail::NanSensitiveFloatingPointNearMatcher<double> NanSensitiveDoubleNe
  * @brief   Make NanSensitive LongDouble Near matcher
  * @details argument は expected と max_abs_error 以内の差分（NaN 同士は等しいとされる）
 */
-inline detail::NanSensitiveFloatingPointNearMatcher<long double> NanSensitiveLongDoubleNear(long double expected, long double max_abs_error)
+inline detail::NanSensitiveFloatingPointNearMatcher<long double> NanSensitiveLongDoubleNear(
+    long double expected, long double max_abs_error) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::NanSensitiveFloatingPointNearMatcher<long double>(expected, max_abs_error);
 }
@@ -2230,7 +2238,7 @@ inline detail::NanSensitiveFloatingPointNearMatcher<long double> NanSensitiveLon
  * @details argument == expected
 */
 template<typename T>
-detail::StrEqMatcher<T> StrEq(const T& expected)
+detail::StrEqMatcher<T> StrEq(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::StrEqMatcher<T>(expected);
 }
@@ -2240,7 +2248,7 @@ detail::StrEqMatcher<T> StrEq(const T& expected)
  * @details argument != expected
 */
 template<typename T>
-detail::StrNeMatcher<T> StrNe(const T& expected)
+detail::StrNeMatcher<T> StrNe(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::StrNeMatcher<T>(expected);
 }
@@ -2250,7 +2258,7 @@ detail::StrNeMatcher<T> StrNe(const T& expected)
  * @details argument == expected (ignore case)
 */
 template<typename T>
-detail::StrCaseEqMatcher<T> StrCaseEq(const T& expected)
+detail::StrCaseEqMatcher<T> StrCaseEq(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::StrCaseEqMatcher<T>(expected);
 }
@@ -2260,7 +2268,7 @@ detail::StrCaseEqMatcher<T> StrCaseEq(const T& expected)
  * @details argument != expected (ignore case)
 */
 template<typename T>
-detail::StrCaseNeMatcher<T> StrCaseNe(const T& expected)
+detail::StrCaseNeMatcher<T> StrCaseNe(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::StrCaseNeMatcher<T>(expected);
 }
@@ -2270,7 +2278,7 @@ detail::StrCaseNeMatcher<T> StrCaseNe(const T& expected)
  * @details argument の先頭が str である
 */
 template<typename T>
-detail::StartsWithMatcher<const T&> StartsWith(const T& str)
+detail::StartsWithMatcher<const T&> StartsWith(const T& str) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::StartsWithMatcher<const T&>(str);
 }
@@ -2280,7 +2288,7 @@ detail::StartsWithMatcher<const T&> StartsWith(const T& str)
  * @details argument が str を含む
 */
 template<typename T>
-detail::HasSubstrMatcher<const T&> HasSubstr(const T& str)
+detail::HasSubstrMatcher<const T&> HasSubstr(const T& str) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::HasSubstrMatcher<const T&>(str);
 }
@@ -2290,7 +2298,7 @@ detail::HasSubstrMatcher<const T&> HasSubstr(const T& str)
  * @details argument の末尾が str である
 */
 template<typename T>
-detail::EndsWithMatcher<const T&> EndsWith(const T& str)
+detail::EndsWithMatcher<const T&> EndsWith(const T& str) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::EndsWithMatcher<const T&>(str);
 }
@@ -2300,7 +2308,7 @@ detail::EndsWithMatcher<const T&> EndsWith(const T& str)
  * @details argument は expected にマッチする要素を含む
 */
 template<typename T>
-detail::ContainsMatcher<T> Contains(const T& expected)
+detail::ContainsMatcher<T> Contains(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::ContainsMatcher<T>(expected);
 }
@@ -2312,7 +2320,7 @@ detail::ContainsMatcher<T> Contains(const T& expected)
  * @details argument はすべての要素が expected にマッチする
 */
 template<typename T>
-detail::EachMatcher<T> Each(const T& expected)
+detail::EachMatcher<T> Each(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::EachMatcher<T>(expected);
 }
@@ -2324,7 +2332,7 @@ detail::EachMatcher<T> Each(const T& expected)
  * @details argument コンテナは expected コンテナにマッチする
 */
 template<typename T>
-detail::ContainerEqMatcher<T> ContainerEq(const T& expected)
+detail::ContainerEqMatcher<T> ContainerEq(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::ContainerEqMatcher<T>(expected);
 }
@@ -2336,7 +2344,7 @@ detail::ContainerEqMatcher<T> ContainerEq(const T& expected)
  * @details argument コンテナは expected コンテナの各要素と matcher にマッチする
 */
 template<typename M, typename T>
-detail::PointwiseMatcher<M, T> Pointwise(const M& matcher, const T& expected)
+detail::PointwiseMatcher<M, T> Pointwise(const M& matcher, const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::PointwiseMatcher<M, T>(matcher, expected);
 }
@@ -2350,7 +2358,7 @@ detail::PointwiseMatcher<M, T> Pointwise(const M& matcher, const T& expected)
  * @details argument は expected にマッチする
 */
 template<typename T>
-detail::OptionalMatcher<T> Optional(const T& expected)
+detail::OptionalMatcher<T> Optional(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::OptionalMatcher<T>(expected);
 }
@@ -2361,7 +2369,7 @@ detail::OptionalMatcher<T> Optional(const T& expected)
  * @brief   Make IsEmpty matcher
  * @details argument.empty()
 */
-inline detail::IsEmptyMatcher IsEmpty()
+inline detail::IsEmptyMatcher IsEmpty() IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::IsEmptyMatcher();
 }
@@ -2371,7 +2379,7 @@ inline detail::IsEmptyMatcher IsEmpty()
  * @details argument の要素数が expected にマッチする
 */
 template<typename T>
-detail::SizeIsMatcher<T> SizeIs(const T& expected)
+detail::SizeIsMatcher<T> SizeIs(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::SizeIsMatcher<T>(expected);
 }
@@ -2381,7 +2389,7 @@ detail::SizeIsMatcher<T> SizeIs(const T& expected)
  * @details argument[index] は expected にマッチする
 */
 template<typename T>
-detail::AtMatcher<T> At(size_t index, const T& expected)
+detail::AtMatcher<T> At(size_t index, const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::AtMatcher<T>(index, expected);
 }
@@ -2391,7 +2399,7 @@ detail::AtMatcher<T> At(size_t index, const T& expected)
  * @details argument はの各要素が a の要素とマッチする
 */
 template<typename Container>
-detail::ElementsAreArrayMatcher< typename Container::value_type > ElementsAreArray(const Container& container)
+detail::ElementsAreArrayMatcher< typename Container::value_type > ElementsAreArray(const Container& container) IUTEST_CXX_NOEXCEPT_SPEC
 {
     IUTEST_USING_BEGIN_END();
     return detail::ElementsAreArrayMatcher<typename Container::value_type>(container.begin(), container.end());
@@ -2400,7 +2408,7 @@ detail::ElementsAreArrayMatcher< typename Container::value_type > ElementsAreArr
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 /** @overload */
 template<typename T, size_t SIZE>
-detail::ElementsAreArrayMatcher<T> ElementsAreArray(const T(&v)[SIZE])
+detail::ElementsAreArrayMatcher<T> ElementsAreArray(const T(&v)[SIZE]) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::ElementsAreArrayMatcher<T>(v, v + SIZE);
 }
@@ -2408,7 +2416,7 @@ detail::ElementsAreArrayMatcher<T> ElementsAreArray(const T(&v)[SIZE])
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 /** @overload */
 template<typename Ite>
-detail::ElementsAreArrayMatcher< typename detail::IteratorTraits<Ite>::type > ElementsAreArray(Ite begin, Ite end)
+detail::ElementsAreArrayMatcher< typename detail::IteratorTraits<Ite>::type > ElementsAreArray(Ite begin, Ite end) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::ElementsAreArrayMatcher< typename detail::IteratorTraits<Ite>::type >(begin, end);
 }
@@ -2417,7 +2425,7 @@ detail::ElementsAreArrayMatcher< typename detail::IteratorTraits<Ite>::type > El
 #if IUTEST_HAS_INITIALIZER_LIST
 /** @overload */
 template<typename T>
-detail::ElementsAreArrayMatcher<T> ElementsAreArray(::std::initializer_list<T> l)
+detail::ElementsAreArrayMatcher<T> ElementsAreArray(::std::initializer_list<T> l) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::ElementsAreArrayMatcher<T>(l.begin(), l.end());
 }
@@ -2430,7 +2438,7 @@ detail::ElementsAreArrayMatcher<T> ElementsAreArray(::std::initializer_list<T> l
  * @details argument は count 個の要素があり、 a の要素とマッチする
 */
 template<typename T>
-detail::ElementsAreArrayMatcher<T> ElementsAreArray(const T* a, int count)
+detail::ElementsAreArrayMatcher<T> ElementsAreArray(const T* a, int count) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::ElementsAreArrayMatcher<T>(a, a + count);
 }
@@ -2442,7 +2450,7 @@ detail::ElementsAreArrayMatcher<T> ElementsAreArray(const T* a, int count)
  * @details argument の各要素が a の要素とマッチする
 */
 template<typename Container>
-detail::ElementsAreArrayMatcher< typename Container::value_type > ElementsAreArrayForward(const Container& container)
+detail::ElementsAreArrayMatcher< typename Container::value_type > ElementsAreArrayForward(const Container& container) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::ElementsAreArrayMatcher<typename Container::value_type>(container.begin(), container.end(), false);
 }
@@ -2458,7 +2466,7 @@ detail::ElementsAreArrayMatcher<T> ElementsAreArrayForward(const T(&v)[SIZE])
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 /** @overload */
 template<typename Ite>
-detail::ElementsAreArrayMatcher< typename detail::IteratorTraits<Ite>::type > ElementsAreArrayForward(Ite begin, Ite end)
+detail::ElementsAreArrayMatcher< typename detail::IteratorTraits<Ite>::type > ElementsAreArrayForward(Ite begin, Ite end) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::ElementsAreArrayMatcher< typename detail::IteratorTraits<Ite>::type >(begin, end, false);
 }
@@ -2467,7 +2475,7 @@ detail::ElementsAreArrayMatcher< typename detail::IteratorTraits<Ite>::type > El
 #if IUTEST_HAS_INITIALIZER_LIST
 /** @overload */
 template<typename T>
-detail::ElementsAreArrayMatcher<T> ElementsAreArrayForward(::std::initializer_list<T> l)
+detail::ElementsAreArrayMatcher<T> ElementsAreArrayForward(::std::initializer_list<T> l) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::ElementsAreArrayMatcher<T>(l.begin(), l.end(), false);
 }
@@ -2480,7 +2488,7 @@ detail::ElementsAreArrayMatcher<T> ElementsAreArrayForward(::std::initializer_li
  * @details argument は count 個の以上の要素があり、 a の要素とマッチする
 */
 template<typename T>
-detail::ElementsAreArrayMatcher<T> ElementsAreArrayForward(const T* a, int count)
+detail::ElementsAreArrayMatcher<T> ElementsAreArrayForward(const T* a, int count) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::ElementsAreArrayMatcher<T>(a, a + count, false);
 }
@@ -2495,7 +2503,7 @@ detail::ElementsAreArrayMatcher<T> ElementsAreArrayForward(const T* a, int count
  * @brief   Make ElementsAre matcher
 */
 template<typename ...T>
-detail::ElementsAreMatcher<T...> ElementsAre(const T&... m)
+detail::ElementsAreMatcher<T...> ElementsAre(const T&... m) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::ElementsAreMatcher<T...>(m...);
 }
@@ -2533,7 +2541,7 @@ IIUT_DECL_ELEMENTSARE(10)
  * @details argument.first は expedted にマッチする
 */
 template<typename T>
-detail::KeyMatcher<T> Key(const T& expected)
+detail::KeyMatcher<T> Key(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::KeyMatcher<T>(expected);
 }
@@ -2543,7 +2551,7 @@ detail::KeyMatcher<T> Key(const T& expected)
  * @details argument.first は m1 にマッチし、arugment.second が m2 にマッチする
 */
 template<typename T1, typename T2>
-detail::PairMatcher<T1, T2> Pair(const T1& m1, const T2& m2)
+detail::PairMatcher<T1, T2> Pair(const T1& m1, const T2& m2) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::PairMatcher<T1, T2>(m1, m2);
 }
@@ -2553,7 +2561,7 @@ detail::PairMatcher<T1, T2> Pair(const T1& m1, const T2& m2)
  * @details argument.*field は expedted にマッチする
 */
 template<typename F, typename T>
-detail::FieldMatcher<F, T> Field(const F& field, const T& expected)
+detail::FieldMatcher<F, T> Field(const F& field, const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::FieldMatcher<F, T>(field, expected);
 }
@@ -2563,7 +2571,7 @@ detail::FieldMatcher<F, T> Field(const F& field, const T& expected)
  * @details argument.*property() は expedted にマッチする
 */
 template<typename P, typename T>
-detail::PropertyMatcher<P, T> Property(const P& prop, const T& expected)
+detail::PropertyMatcher<P, T> Property(const P& prop, const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::PropertyMatcher<P, T>(prop, expected);
 }
@@ -2573,7 +2581,7 @@ detail::PropertyMatcher<P, T> Property(const P& prop, const T& expected)
  * @details func(argument) の戻り値は expedted にマッチする
 */
 template<typename F, typename T>
-detail::ResultOfMatcher<F, T> ResultOf(const F& func, const T& expected)
+detail::ResultOfMatcher<F, T> ResultOf(const F& func, const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::ResultOfMatcher<F, T>(func, expected);
 }
@@ -2582,7 +2590,7 @@ detail::ResultOfMatcher<F, T> ResultOf(const F& func, const T& expected)
  * @brief   Make Pointee matcher
 */
 template<typename T>
-detail::PointeeMatcher<T> Pointee(const T& expected)
+detail::PointeeMatcher<T> Pointee(const T& expected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::PointeeMatcher<T>(expected);
 }
@@ -2591,7 +2599,7 @@ detail::PointeeMatcher<T> Pointee(const T& expected)
  * @brief   Make Not matcher
 */
 template<typename T>
-detail::NotMatcher<T> Not(const T& unexpected)
+detail::NotMatcher<T> Not(const T& unexpected) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::NotMatcher<T>(unexpected);
 }
@@ -2600,7 +2608,7 @@ detail::NotMatcher<T> Not(const T& unexpected)
  * @brief   Make Any matcher
 */
 template<typename T>
-detail::AnyMatcher<T> A()
+detail::AnyMatcher<T> A() IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::AnyMatcher<T>();
 }
@@ -2640,7 +2648,7 @@ inline detail::RegexMatcher ContainsRegex(const ::std::string& str)
  * @details argument が全ての matcher にマッチする
 */
 template<typename ...T>
-detail::AllOfMatcher<T...> AllOf(const T&... m)
+detail::AllOfMatcher<T...> AllOf(const T&... m) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::AllOfMatcher<T...>(m...);
 }
@@ -2650,7 +2658,7 @@ detail::AllOfMatcher<T...> AllOf(const T&... m)
  * @details argument がいずれかの matcher にマッチする
 */
 template<typename ...T>
-detail::AnyOfMatcher<T...> AnyOf(const T&... m)
+detail::AnyOfMatcher<T...> AnyOf(const T&... m) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return detail::AnyOfMatcher<T...>(m...);
 }
