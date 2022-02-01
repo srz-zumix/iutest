@@ -156,7 +156,7 @@ class ExpressionLHS
     typedef ExpressionLHS<T> _Myt;
 public:
 #if IUTEST_HAS_RVALUE_REFS
-    explicit ExpressionLHS(T&& lhs) IUTEST_CXX_NOEXCEPT_SPEC : m_lhs( ::std::forward<T>(lhs) )
+    explicit ExpressionLHS(T&& lhs) : m_lhs( ::std::forward<T>(lhs) )
     {
         AppendMessage(m_lhs);
     }
@@ -257,20 +257,20 @@ public:
 #if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
 #if IUTEST_HAS_RVALUE_REFS
     template<typename T>
-    ExpressionLHS<T> operator ->*(T&& expr)
+    ExpressionLHS<T> operator ->*(T&& expr) IUTEST_CXX_NOEXCEPT_SPEC
     {
         return ExpressionLHS<T>(::std::forward<T>(expr));
     }
 #else
     template<typename T>
-    ExpressionLHS<const T&> operator ->*(const T& expr)
+    ExpressionLHS<const T&> operator ->*(const T& expr) IUTEST_CXX_NOEXCEPT_SPEC
     {
         return ExpressionLHS<const T&>(expr);
     }
 #endif
 #else
     template<typename T>
-    ExpressionLHS<const T&> operator >>(const T& expr)
+    ExpressionLHS<const T&> operator >>(const T& expr) IUTEST_CXX_NOEXCEPT_SPEC
     {
         return ExpressionLHS<const T&>(expr);
     }
