@@ -157,7 +157,8 @@ orbs:
 
 jobs:
   gcc_fanalzyer_test:
-    <<: *default
+    machine:
+      image: ubuntu-2004
     parameters: *job-parameters
     environment:
       CXX: g++
@@ -188,7 +189,7 @@ jobs:
     steps: *build-test-steps
   arm:
     machine:
-      image: ubuntu-2004:202101-01
+      image: ubuntu-2004
     resource_class: arm.medium
     parameters: *job-parameters
     environment:
