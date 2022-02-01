@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -25,7 +25,7 @@ namespace detail
 
 //======================================================================
 // function
-IUTEST_IPP_INLINE bool Localtime(time_t sec, struct tm* dst)
+IUTEST_IPP_INLINE bool Localtime(time_t sec, struct tm* dst) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if IUTEST_HAS_CTIME
 
@@ -34,23 +34,23 @@ IUTEST_IPP_INLINE bool Localtime(time_t sec, struct tm* dst)
     return localtime_s(dst, &sec) == 0;
 #  else
     struct tm* t = localtime(&sec); // NOLINT
-    if( t == NULL )
+    if( t == IUTEST_NULLPTR )
     {
         return false;
     }
-    if( dst != NULL ) *dst = *t;
+    if( dst != IUTEST_NULLPTR ) *dst = *t;
     return true;
 #  endif
 #elif defined(__MINGW32__) || defined(__MINGW64__)
     const struct tm* const t = localtime(&sec); // NOLINT
-    if( t == NULL || dst == NULL )
+    if( t == IUTEST_NULLPTR || dst == IUTEST_NULLPTR )
     {
         return false;
     }
     *dst = *t;
     return true;
 #else
-    return localtime_r(&sec, dst) != NULL;
+    return localtime_r(&sec, dst) != IUTEST_NULLPTR;
 #endif
 
 #else
@@ -81,7 +81,7 @@ IUTEST_IPP_INLINE ::std::string FormatTimeInMillisecAsSecond(TimeInMillisec msec
 IUTEST_IPP_INLINE ::std::string FormatTimeInMillisecAsIso8601(TimeInMillisec msec)
 {
 #if IUTEST_HAS_CTIME
-    time_t sec = static_cast<time_t>(msec / 1000);
+    const time_t sec = static_cast<time_t>(msec / 1000);
     struct tm t;
     if( !Localtime(sec, &t) )
     {
@@ -102,10 +102,10 @@ IUTEST_IPP_INLINE ::std::string FormatTimeInMillisecAsIso8601(TimeInMillisec mse
 #endif
 }
 
-IUTEST_IPP_INLINE time_t GetTime()
+IUTEST_IPP_INLINE time_t GetTime() IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if IUTEST_HAS_CTIME
-    return time(NULL);
+    return time(IUTEST_NULLPTR);
 #else
     return 0;
 #endif
@@ -122,7 +122,7 @@ IUTEST_IPP_INLINE TimeInMillisec GetTimeInMillis()
 
 #elif IUTEST_HAS_GETTIMEOFDAY
     timeval tv;
-    gettimeofday(&tv, NULL);
+    gettimeofday(&tv, IUTEST_NULLPTR);
     return static_cast<TimeInMillisec>(tv.tv_sec) * 1000 + static_cast<TimeInMillisec>(tv.tv_usec) / 1000;
 
 #elif defined(IUTEST_OS_WINDOWS)
