@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -90,7 +90,7 @@ IUTEST_MAKE_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, ::iutes
 #define IUTEST_P(testsuite_, testname_)                                                     \
     class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) : public testsuite_ {              \
     public: IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)() {}                             \
-    protected: virtual void Body() {}                                                       \
+    protected: IUTEST_PRAGMA_WARN_SUPPRESS_DECLARE_NOEXCEPT() virtual void Body() {}        \
         IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)); \
     };                                                                                      \
     IUTEST_P_VCUNIT_I(testsuite_, testname_, testsuite_##testname_##_class, testsuite_##_##testname_)
@@ -340,7 +340,7 @@ public:
         char* buf = new char [length];
         vsprintf_s(buf, length, fmt, va);
         m_log += buf;
-        delete [] buf;
+        delete[] buf;
 
         int pos = m_log.find('\n');
         while(pos >= 0) {
