@@ -133,7 +133,7 @@ public:
     /**
      * @brief   理由
     */
-    const char* summary() const { return message(); }
+    const char* summary() const IUTEST_CXX_NOEXCEPT_SPEC { return message(); }
 
     /**
      * @brief   結果のタイプ取得

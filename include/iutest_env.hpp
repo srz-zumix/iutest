@@ -535,7 +535,7 @@ private:
     /**
      * @brief   color オプションを設定
     */
-    static void set_color_option(const char* str)
+    static void set_color_option(const char* str) IUTEST_CXX_NOEXCEPT_SPEC
     {
         ParseColorOption(str);
     }

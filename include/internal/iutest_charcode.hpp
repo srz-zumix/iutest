@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -182,7 +182,7 @@ namespace mbs_ptr_impl
 template<typename T>
 struct to_mbs_ptr
 {
-    const char* ptr(const char* arg) { return arg; }
+    const char* ptr(const char* arg) IUTEST_CXX_NOEXCEPT_SPEC { return arg; }
 };
 struct wcs_to_mbs_ptr
 {

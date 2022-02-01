@@ -91,10 +91,10 @@ const char* GetEnv(const char* name) IUTEST_CXX_NOEXCEPT_SPEC;
 int PutEnv(const char* expr) IUTEST_CXX_NOEXCEPT_SPEC;
 int SetEnv(const char* name, const char* value, int overwrite);
 
-const char* GetCWD(char* buf, size_t length);
+const char* GetCWD(char* buf, size_t length) IUTEST_CXX_NOEXCEPT_SPEC;
 ::std::string GetCWD();
 
-void SleepMillisec(unsigned int millisec);
+void SleepMillisec(unsigned int millisec) IUTEST_CXX_NOEXCEPT_SPEC;
 
 IUTEST_ATTRIBUTE_NORETURN_ void Abort() IUTEST_CXX_NOEXCEPT_SPEC;
 #if !defined(IUTEST_OS_WINDOWS_MOBILE)

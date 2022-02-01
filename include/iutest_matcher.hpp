@@ -1541,7 +1541,7 @@ template<typename T>
 class AnyMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    AssertionResult operator ()(const T&) const
+    AssertionResult operator ()(const T&) const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return AssertionSuccess();
     }
@@ -1566,7 +1566,7 @@ public:
     AnythingMatcher() IUTEST_CXX_NOEXCEPT_SPEC {}
 public:
     template<typename U>
-    AssertionResult operator ()(const U&) const
+    AssertionResult operator ()(const U&) const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return AssertionSuccess();
     }

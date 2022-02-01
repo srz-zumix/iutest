@@ -148,7 +148,7 @@ IUTEST_IPP_INLINE int SetEnv(const char* name, const char* value, int overwrite)
 }
 
 
-IUTEST_IPP_INLINE const char* GetCWD(char* buf, size_t length)
+IUTEST_IPP_INLINE const char* GetCWD(char* buf, size_t length) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if   defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE) \
         || defined(IUTEST_OS_AVR32) || defined(__arm__) || defined(IUTEST_NO_GETCWD)
@@ -201,7 +201,7 @@ IUTEST_IPP_INLINE int SleepMillisecFor(unsigned int millisec) IUTEST_CXX_NOEXCEP
     return x;
 }
 
-IUTEST_IPP_INLINE void SleepMillisec(unsigned int millisec)
+IUTEST_IPP_INLINE void SleepMillisec(unsigned int millisec) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if   defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)
     Sleep(millisec);

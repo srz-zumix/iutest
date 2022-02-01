@@ -295,7 +295,7 @@ public:
 
 private:
     template<typename T>
-    IParamTestSuiteInfo* FindTestSuitePatternHolder(const T& testsuite, const T& package)
+    IParamTestSuiteInfo* FindTestSuitePatternHolder(const T& testsuite, const T& package) IUTEST_CXX_NOEXCEPT_SPEC
     {
         for( TestSuiteInfoContainer::iterator it=m_testsuite_infos.begin(), end=m_testsuite_infos.end(); it != end; ++it )
         {

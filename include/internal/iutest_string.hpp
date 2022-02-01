@@ -150,9 +150,9 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2) IUTEST_CXX_NOE
 namespace wrapper
 {
 
-int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 0);
+int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va) IUTEST_CXX_NOEXCEPT_SPEC IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 0);
 
-inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
+inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va) IUTEST_CXX_NOEXCEPT_SPEC
 {
     char buffer[4096] = {0};
     char* write_buffer = dst != IUTEST_NULLPTR && size >= 4096 ? dst : buffer;

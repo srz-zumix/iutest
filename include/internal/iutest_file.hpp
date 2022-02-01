@@ -107,7 +107,7 @@ public:
         IFile* p = fs->Create();
         return p;
     }
-    static void Free(IFile* ptr)
+    static void Free(IFile* ptr) IUTEST_CXX_NOEXCEPT_SPEC
     {
         IFileSystem* fs = GetInstance();
         if( fs == IUTEST_NULLPTR )
