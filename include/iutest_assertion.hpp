@@ -548,15 +548,15 @@ inline AssertionResult CmpHelperOpFailure(const char* expr1, const char* expr2, 
 
 #endif
 
-template<typename T1, typename T2>
-bool iuOperatorEQ(const T1& v1, const T2& v2) IUTEST_CXX_NOEXCEPT_AS(v1 == v2)
-{
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
 IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_INT_FLOAT_CONVERSION()
+template<typename T1, typename T2>
+bool iuOperatorEQ(const T1& v1, const T2& v2) IUTEST_CXX_NOEXCEPT_AS(v1 == v2)
+{
     return v1 == v2;
-IUTEST_PRAGMA_WARN_POP()
 }
+IUTEST_PRAGMA_WARN_POP()
 IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_VARIANT_(EQ, ==)
 
 IIUT_DECL_COMPARE_HELPER_(NE, !=)
