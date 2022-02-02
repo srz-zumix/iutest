@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -59,10 +59,10 @@ class iuParamGenerator IUTEST_CXX_FINAL : public iuIParamGenerator<T>
 public:
     typedef T type;
 public:
-    iuParamGenerator(_Interface* pInterface=NULL) : m_pInterface(pInterface) {} // NOLINT
+    iuParamGenerator(_Interface* pInterface=IUTEST_NULLPTR) IUTEST_CXX_NOEXCEPT_SPEC : m_pInterface(pInterface) {} // NOLINT
 
 public:
-    operator iuIParamGenerator<T>* () const { return m_pInterface; }
+    operator iuIParamGenerator<T>* () const IUTEST_CXX_NOEXCEPT_SPEC { return m_pInterface; }
 
 public:
 #if IUTEST_HAS_CONCAT
@@ -100,7 +100,7 @@ public:
      * @param [in]  end     = 終了値
      * @param [in]  step    = 増値
     */
-    iuRangeParamsGenerator(T begin, T end, T step)
+    iuRangeParamsGenerator(T begin, T end, T step) IUTEST_CXX_NOEXCEPT_SPEC
         : m_begin(begin)
         , m_end(end)
         , m_step(step)
@@ -109,10 +109,15 @@ public:
     }
 
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void    Begin() IUTEST_CXX_OVERRIDE { m_cur = m_begin; }
     virtual T       GetCurrent() const IUTEST_CXX_OVERRIDE { return m_cur; }
     virtual void    Next() IUTEST_CXX_OVERRIDE { m_cur = static_cast<T>(m_cur + m_step); }
     virtual bool    IsEnd() const IUTEST_CXX_OVERRIDE { return !(m_cur < m_end); }
+
+IUTEST_PRAGMA_WARN_POP()
 };
 
 /**
@@ -123,16 +128,21 @@ class iuBoolParamsGenerator IUTEST_CXX_FINAL : public iuIParamGenerator<bool>
     int m_n;
     bool m_cur;
 public:
-    iuBoolParamsGenerator()
+    iuBoolParamsGenerator() IUTEST_CXX_NOEXCEPT_SPEC
         : m_n(0)
         , m_cur(false)
     {}
 
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void    Begin() IUTEST_CXX_OVERRIDE { m_cur = false; m_n = 0; }
     virtual bool    GetCurrent() const IUTEST_CXX_OVERRIDE { return m_cur; }
     virtual void    Next() IUTEST_CXX_OVERRIDE { ++m_n; m_cur = !m_cur; }
     virtual bool    IsEnd() const IUTEST_CXX_OVERRIDE { return m_n >= 2; }
+
+IUTEST_PRAGMA_WARN_POP()
 };
 
 /**
@@ -175,10 +185,15 @@ public:
 #endif
 
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void    Begin() IUTEST_CXX_OVERRIDE { m_it = m_values.begin(); }
     virtual T       GetCurrent() const IUTEST_CXX_OVERRIDE { return *m_it; }
     virtual void    Next() IUTEST_CXX_OVERRIDE { ++m_it; }
     virtual bool    IsEnd() const IUTEST_CXX_OVERRIDE { return (m_it == m_values.end()); }
+
+IUTEST_PRAGMA_WARN_POP()
 };
 
 
@@ -191,7 +206,7 @@ class iuConcatParamHolder
 {
     typedef iuConcatParamHolder<G1, G2> _Myt;
 public:
-    iuConcatParamHolder(const G1& g1, const G2& g2)
+    iuConcatParamHolder(const G1& g1, const G2& g2) IUTEST_CXX_NOEXCEPT_SPEC
         : m_g1(g1), m_g2(g2) {}
 
 private:
@@ -257,15 +272,16 @@ class iuValueArray
         T val[sizeof...(Args)];
 
         template<typename U>
-        void operator ()(int index, const U& value) { val[index] = value; }
+        void operator ()(int index, const U& value) IUTEST_CXX_NOEXCEPT_SPEC { gsl::at(val, index) = value; }
 
-        explicit make_array(const _MyTuple& t)
+        IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26495)
+        explicit make_array(const _MyTuple& t) IUTEST_CXX_NOEXCEPT_SPEC
         {
             tuples::tuple_foreach(t, *this);
         }
     };
 public:
-    explicit iuValueArray(const Args&... args)
+    explicit iuValueArray(const Args&... args) IUTEST_CXX_NOEXCEPT_SPEC
         : v(args...)
     {}
 
@@ -283,7 +299,7 @@ public:
     template<typename T>
     operator iuIParamGenerator<T>* () const
     {
-        make_array<T> ar(v);
+        const make_array<T> ar(v);
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
         return new iuValuesInParamsGenerator<T>(ar.val);
 #else
@@ -450,7 +466,7 @@ class iuCartesianProductGenerator IUTEST_CXX_FINAL : public iuIParamGenerator< t
     }
     template<int index, int end, typename Tuple>
     bool is_end_foreach(Tuple&
-        , typename detail::enable_if<index == end, void>::type*& = detail::enabler::value ) const
+        , typename detail::enable_if<index == end, void>::type*& = detail::enabler::value ) const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return true;
     }
@@ -471,7 +487,7 @@ class iuCartesianProductGenerator IUTEST_CXX_FINAL : public iuIParamGenerator< t
     }
     template<int index, int end, typename Tuple>
     void next_foreach(Tuple&
-        , typename detail::enable_if<index == end, void>::type*& = detail::enabler::value )
+        , typename detail::enable_if<index == end, void>::type*& = detail::enabler::value ) IUTEST_CXX_NOEXCEPT_SPEC
     {
     }
 
@@ -492,9 +508,12 @@ class iuCartesianProductGenerator IUTEST_CXX_FINAL : public iuIParamGenerator< t
 public:
     typedef tuples::tuple<Args...> ParamType;
 public:
-    iuCartesianProductGenerator() {}
+    iuCartesianProductGenerator() IUTEST_CXX_NOEXCEPT_SPEC {}
 
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void Begin() IUTEST_CXX_OVERRIDE
     {
         tuples::tuple_foreach(v, begin_func());
@@ -515,7 +534,9 @@ public:
         return current_foreach<0, kCount, Args...>();
     }
 
-    _MyTuple& generators() { return v; }
+IUTEST_PRAGMA_WARN_POP()
+
+    _MyTuple& generators() IUTEST_CXX_NOEXCEPT_SPEC { return v; }
 private:
     _MyTuple v;
 };
@@ -527,17 +548,18 @@ class iuCartesianProductHolder
     typedef tuples::tuple<const Generator...> _MyTuple;
 
 public:
-    iuCartesianProductHolder(const iuCartesianProductHolder& rhs)
+    iuCartesianProductHolder(const iuCartesianProductHolder& rhs) IUTEST_CXX_NOEXCEPT_SPEC
         : v(rhs.v)
     {
     }
-    explicit iuCartesianProductHolder(const Generator&... generators)
+    explicit iuCartesianProductHolder(const Generator&... generators) IUTEST_CXX_NOEXCEPT_SPEC
         : v(generators...) {}
 
 public:
     template<typename... Args>
     operator iuIParamGenerator< tuples::tuple<Args...> >* () const
     {
+        IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26400)
         iuCartesianProductGenerator<Args...>* p = new iuCartesianProductGenerator<Args...>();
         tuples::tuple_cast_copy(p->generators(), v);
         return p;
@@ -569,6 +591,9 @@ public:
         : m_g1(g1), m_g2(g2)
     {}
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void Begin() IUTEST_CXX_OVERRIDE
     {
         m_g1.Begin();
@@ -595,6 +620,7 @@ public:
         return m_g1.IsEnd() && m_g2.IsEnd();
     }
 
+IUTEST_PRAGMA_WARN_POP()
 protected:
     Generator1 m_g1;
     Generator2 m_g2;
@@ -803,12 +829,13 @@ protected:
     struct ParamIndexes
     {
         int index[N];
-        ParamIndexes() { for( int i=0; i < N; ++i ) index[i] = -1; }
+        ParamIndexes() IUTEST_CXX_NOEXCEPT_SPEC { for( int i=0; i < N; ++i ) index[i] = -1; }
     };
 
 private:
-    struct PairInfo {
-        PairInfo(int r1, int r2, int i1, int i2)
+    struct PairInfo
+    {
+        PairInfo(int r1, int r2, int i1, int i2) IUTEST_CXX_NOEXCEPT_SPEC
             : raw1(r1), raw2(r2), idx1(i1), idx2(i2) {}
         int raw1, raw2; // 列のペア
         int idx1, idx2; // インデックスのペア
@@ -1146,6 +1173,9 @@ public:
         return new iuPairwiseGenerator2<T1, T2>(g1, g2);
     }
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void Begin() IUTEST_CXX_OVERRIDE
     {
         m_g1.Begin();
@@ -1175,6 +1205,8 @@ public:
     {
         return ParamType(this->m_g1.GetCurrent(), this->m_g2.GetCurrent());
     }
+
+IUTEST_PRAGMA_WARN_POP()
 private:
     Generator1 m_g1;
     Generator2 m_g2;
@@ -1377,7 +1409,7 @@ class iuValuesParamsGeneratorHolder
 {
     typedef iuValuesParamsGeneratorHolder<StdGenerator> _Myt;
 public:
-    iuValuesParamsGeneratorHolder(size_t num, const StdGenerator& g)
+    iuValuesParamsGeneratorHolder(size_t num, const StdGenerator& g) IUTEST_CXX_NOEXCEPT_SPEC
         : m_num(num), m_g(g)
     {}
 public:
@@ -1446,7 +1478,7 @@ public:
         {
             seed = GetIndefiniteValue();
         }
-        iuValuesParamsGeneratorHolder< iuTypedRandom<T> > gen( m_num, iuTypedRandom<T>(seed) );
+        const iuValuesParamsGeneratorHolder< iuTypedRandom<T> > gen( m_num, iuTypedRandom<T>(seed) );
         return gen;
     }
 

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -32,28 +32,28 @@
 #if IUTEST_HAS_PACKAGE
 
 #define IUTEST_CONCAT_PACKAGE_(testsuitename_)   IIUT_CONCAT_PACKAGE_I(testsuitename_)
-#define IIUT_CONCAT_PACKAGE_I(testsuitename_)                    \
-    iuTest_ConcatTestSuiteName( iuTest_GetTestSuitePackageName(  \
-        static_cast<iuTest_TestSuitePackage*>(NULL))             \
+#define IIUT_CONCAT_PACKAGE_I(testsuitename_)                   \
+    iuTest_ConcatTestSuiteName( iuTest_GetTestSuitePackageName( \
+        static_cast<iuTest_TestSuitePackage*>(IUTEST_NULLPTR))  \
         , #testsuitename_)
 
 #define IUTEST_GET_PACKAGENAME_()   \
-    iuTest_GetTestSuitePackageName( static_cast<iuTest_TestSuitePackage*>(NULL) )
+    iuTest_GetTestSuitePackageName( static_cast<iuTest_TestSuitePackage*>(IUTEST_NULLPTR) )
 
 
 #if IUTEST_HAS_IF_EXISTS
 
 #define IIUT_PACKAGE_DECL_NAME_FUNC(name)               \
     static ::std::string IUTEST_ATTRIBUTE_UNUSED_       \
-    iuTest_GetTestSuitePackageName(const iuTest_TestSuitePackage*) {        \
+    iuTest_GetTestSuitePackageName(const iuTest_TestSuitePackage*) {    \
         return iuTest_GetTestSuiteParentPackageName(    \
-            static_cast<iuTest_TestSuiteParentPackage*>(NULL)) + #name "."; \
+            static_cast<iuTest_TestSuiteParentPackage*>(IUTEST_NULLPTR)) + #name ".";   \
     }
 
 #define IIUT_PACKAGE_DECL_PARENT_NAME_FUNC(name)        \
     static ::std::string IUTEST_ATTRIBUTE_UNUSED_       \
-    iuTest_GetTestSuiteParentPackageName(const iuTest_TestSuiteParentPackage*) {              \
-        return iuTest_GetTestSuitePackageName(static_cast<iuTest_TestSuitePackage*>(NULL));   \
+    iuTest_GetTestSuiteParentPackageName(const iuTest_TestSuiteParentPackage*) {    \
+        return iuTest_GetTestSuitePackageName(static_cast<iuTest_TestSuitePackage*>(IUTEST_NULLPTR));   \
     }
 
 
@@ -79,14 +79,14 @@
     namespace { const int IUTEST_PP_CAT(k_iutest_package_##name##_dummy_, IUTEST_PP_UNIQUEID)   \
         IUTEST_ATTRIBUTE_UNUSED_ = ::iutest::detail::package_name_server<                       \
                 iuTest_TestSuitePackage>::setname(iuTest_GetTestSuiteParentPackageName(         \
-                    static_cast<iuTest_TestSuiteParentPackage*>(NULL)) + #name ".");            \
+                    static_cast<iuTest_TestSuiteParentPackage*>(IUTEST_NULLPTR)) + #name ".");  \
     }
 
 #define IIUT_PACKAGE_PARENT_NAMESPACE_(name)                \
     class iuTest_TestSuiteParentPackage;                    \
-    namespace { const int IUTEST_PP_CAT(k_iutest_package_##name##_parent_dummy_, IUTEST_PP_UNIQUEID)    \
-        IUTEST_ATTRIBUTE_UNUSED_ = ::iutest::detail::package_name_server<iuTest_TestSuiteParentPackage> \
-        ::setname(iuTest_GetTestSuitePackageName(static_cast<iuTest_TestSuitePackage*>(NULL)));         \
+    namespace { const int IUTEST_PP_CAT(k_iutest_package_##name##_parent_dummy_, IUTEST_PP_UNIQUEID)        \
+        IUTEST_ATTRIBUTE_UNUSED_ = ::iutest::detail::package_name_server<iuTest_TestSuiteParentPackage>     \
+        ::setname(iuTest_GetTestSuitePackageName(static_cast<iuTest_TestSuitePackage*>(IUTEST_NULLPTR)));   \
     }
 
 #endif
