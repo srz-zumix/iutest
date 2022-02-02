@@ -503,7 +503,7 @@ inline AssertionResult CmpHelperOpFailure(const char* expr1, const char* expr2, 
 #if IUTEST_HAS_CXX_HDR_VARIANT && IUTEST_HAS_VARIADIC_TEMPLATES
 #define IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_VARIANT_(op_name, op)             \
     template<typename ...V1, typename ...V2>                                    \
-    bool iuOperator##op_name(const ::std::variant<V1...>&& v1, const ::std::variant<V2...>& v2) {    \
+    bool iuOperator##op_name(const ::std::variant<V1...>&& v1, const ::std::variant<V2...>& v2) IUTEST_CXX_NOEXCEPT_AS(v1 op v2) {  \
         return v1 op v2;                                                        \
     }                                                                           \
     template<typename T1, typename ...V>                                        \
@@ -549,7 +549,7 @@ inline AssertionResult CmpHelperOpFailure(const char* expr1, const char* expr2, 
 #endif
 
 template<typename T1, typename T2>
-bool iuOperatorEQ(const T1& v1, const T2& v2)
+bool iuOperatorEQ(const T1& v1, const T2& v2) IUTEST_CXX_NOEXCEPT_AS(v1 == v2)
 {
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()

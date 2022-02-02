@@ -357,13 +357,13 @@ public:
     /**
      * @brief   パラメータの取得
     */
-    static const ParamType& GetParam() { return WithParamInterface<any>::GetParam(); }
+    static const ParamType& GetParam() IUTEST_CXX_NOEXCEPT_SPEC { return WithParamInterface<any>::GetParam(); }
 
     /**
      * @brief   パラメータの取得
     */
     template<typename T>
-    static T GetParam() { return unsafe_any_cast<T>(WithParamInterface<any>::GetParam()); }
+    static T GetParam() IUTEST_CXX_NOEXCEPT_SPEC { return unsafe_any_cast<T>(WithParamInterface<any>::GetParam()); }
 };
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)

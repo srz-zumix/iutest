@@ -239,7 +239,7 @@ private:
     static bool IsSkipTest(const TestInfo* p) IUTEST_CXX_NOEXCEPT_SPEC { return !p->is_ran() || p->is_skipped(); }
     static bool IsReportableSkipTest(const TestInfo* p) IUTEST_CXX_NOEXCEPT_SPEC { return p->is_reportable() && IsSkipTest(p); }
     static bool IsRunSkippedTest(const TestInfo* p) IUTEST_CXX_NOEXCEPT_SPEC { return p->should_run() && p->is_skipped(); }
-    static bool IsReportableRunSkippedTest(const TestInfo* p) { return p->is_reportable() && IsRunSkippedTest(p); }
+    static bool IsReportableRunSkippedTest(const TestInfo* p) IUTEST_CXX_NOEXCEPT_SPEC { return p->is_reportable() && IsRunSkippedTest(p); }
     static bool IsReportableDisabledTest(const TestInfo* p) IUTEST_CXX_NOEXCEPT_SPEC { return p->is_reportable() && p->is_disabled_test(); }
 
 private:

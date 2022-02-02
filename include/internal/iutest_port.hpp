@@ -129,13 +129,13 @@ inline bool IsDir(const StatStruct& st) IUTEST_CXX_NOEXCEPT_SPEC { return (st.st
 
 typedef struct stat StatStruct;
 
-inline int FileStat(int fd, StatStruct* buf) { return fstat(fd, buf); }
-inline int Stat(const char* path, StatStruct* buf) { return stat(path, buf); }
-inline bool IsDir(const StatStruct& st) { return S_ISDIR(st.st_mode); }
+inline int FileStat(int fd, StatStruct* buf) IUTEST_CXX_NOEXCEPT_SPEC { return fstat(fd, buf); }
+inline int Stat(const char* path, StatStruct* buf) IUTEST_CXX_NOEXCEPT_SPEC { return stat(path, buf); }
+inline bool IsDir(const StatStruct& st) IUTEST_CXX_NOEXCEPT_SPEC { return S_ISDIR(st.st_mode); }
 
 #endif
 
-inline int Stat(FILE* fp, StatStruct* buf)
+inline int Stat(FILE* fp, StatStruct* buf) IUTEST_CXX_NOEXCEPT_SPEC
 {
     const int fd = Fileno(fp);
     return fd >= 0 ? FileStat(fd, buf) : fd;
@@ -145,7 +145,7 @@ inline int Stat(FILE* fp, StatStruct* buf)
 
 }   // end of namespace posix
 
-inline void SleepMilliseconds(int n) { posix::SleepMillisec(static_cast<unsigned int>(n)); }
+inline void SleepMilliseconds(int n) IUTEST_CXX_NOEXCEPT_SPEC { posix::SleepMillisec(static_cast<unsigned int>(n)); }
 
 }   // end of namespace internal
 

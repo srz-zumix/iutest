@@ -257,20 +257,20 @@ public:
 #if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
 #if IUTEST_HAS_RVALUE_REFS
     template<typename T>
-    ExpressionLHS<T> operator ->*(T&& expr) IUTEST_CXX_NOEXCEPT_SPEC
+    ExpressionLHS<T> operator ->*(T&& expr)
     {
         return ExpressionLHS<T>(::std::forward<T>(expr));
     }
 #else
     template<typename T>
-    ExpressionLHS<const T&> operator ->*(const T& expr) IUTEST_CXX_NOEXCEPT_SPEC
+    ExpressionLHS<const T&> operator ->*(const T& expr)
     {
         return ExpressionLHS<const T&>(expr);
     }
 #endif
 #else
     template<typename T>
-    ExpressionLHS<const T&> operator >>(const T& expr) IUTEST_CXX_NOEXCEPT_SPEC
+    ExpressionLHS<const T&> operator >>(const T& expr)
     {
         return ExpressionLHS<const T&>(expr);
     }

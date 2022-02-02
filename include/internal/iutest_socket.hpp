@@ -124,7 +124,7 @@ public:
         freeaddrinfo(servinfo);
         return (m_socket != INVALID_DESCRIPTOR);
     }
-    void Close()
+    void Close() IUTEST_CXX_NOEXCEPT_SPEC
     {
         Close(m_socket);
         m_socket = INVALID_DESCRIPTOR;
