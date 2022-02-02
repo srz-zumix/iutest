@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -52,7 +52,7 @@ public:
     virtual ~IParamTestInfoData() IUTEST_CXX_DEFAULT_FUNCTION
     virtual TestSuite* MakeTestSuite(const ::std::string& , TestTypeId , SetUpMethod , TearDownMethod ) const = 0;
     virtual EachTestBase* RegisterTest(TestSuite* , const ::std::string& ) const = 0;
-    const char* GetName() const { return m_name.c_str(); }
+    const char* GetName() const IUTEST_CXX_NOEXCEPT_SPEC { return m_name.c_str(); }
 protected:
     ::std::string m_name;
 };
@@ -92,7 +92,7 @@ public:
     ::std::string GetPackageName()      const { return m_package_name; }
 
 public:
-    bool is_same(const ::std::string& base_name, const ::std::string& package_name)
+    bool is_same(const ::std::string& base_name, const ::std::string& package_name) IUTEST_CXX_NOEXCEPT_SPEC
     {
         return m_testsuite_base_name == base_name && m_package_name == package_name;
     }
@@ -109,8 +109,9 @@ private:
 protected:
     ::std::string m_testsuite_base_name;
     ::std::string m_package_name;
-    const char* m_file;
-    int m_line;
+    // FIXME: https://github.com/srz-zumix/iutest/issues/629
+    // const char* m_file;
+    // int m_line;
 };
 
 /**
@@ -134,9 +135,9 @@ class ParamTestSuiteInfo IUTEST_CXX_FINAL : public IParamTestSuiteInfo
     class Functor
     {
     public:
-        Functor()
-            : CreateGen(NULL), ParamNameGen(NULL), m_file(NULL), m_line(0) {}
-        Functor(pfnCreateGeneratorFunc c, pfnParamNameGeneratorFunc p, const char* file, int line)
+        Functor() IUTEST_CXX_NOEXCEPT_SPEC
+            : CreateGen(IUTEST_NULLPTR), ParamNameGen(IUTEST_NULLPTR), m_file(IUTEST_NULLPTR), m_line(0) {}
+        Functor(pfnCreateGeneratorFunc c, pfnParamNameGeneratorFunc p, const char* file, int line) IUTEST_CXX_NOEXCEPT_SPEC
             : CreateGen(c), ParamNameGen(p), m_file(file), m_line(line) {}
         pfnCreateGeneratorFunc      CreateGen;
         pfnParamNameGeneratorFunc   ParamNameGen;
@@ -190,7 +191,7 @@ public:
                 , IUTEST_GET_SETUP_TESTSUITE(Tester, file, line)
                 , IUTEST_GET_TEARDOWN_TESTSUITE(Tester, file, line));
 
-            if( p.get() != NULL )
+            if( p.get() != IUTEST_NULLPTR )
             {
                 size_t i=0;
                 for( p->Begin(); !p->IsEnd(); p->Next() )
@@ -203,6 +204,7 @@ public:
                         IUTEST_LOG_(WARNING) << testsuite_name << "." << name << " is already exist.";
                     }
 #endif
+                    IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26466)
                     EachTest* test = static_cast<EachTest*>(infodata->RegisterTest(testsuite, name));
                     test->SetParam(p->GetCurrent());
                     ++i;
@@ -217,12 +219,12 @@ public:
     }
 
     template<typename ParamNameFunctor>
-    static ParamNameFunctor GetParamNameGen(ParamNameFunctor func)
+    static ParamNameFunctor GetParamNameGen(ParamNameFunctor func) IUTEST_CXX_NOEXCEPT_SPEC
     {
         return func;
     }
 
-    static pfnParamNameGeneratorFunc GetParamNameGen()
+    static pfnParamNameGeneratorFunc GetParamNameGen() IUTEST_CXX_NOEXCEPT_SPEC
     {
         return DefaultParamNameFunc;
     }
@@ -278,18 +280,22 @@ public:
     ParamTestSuiteInfo<T>* GetTestSuitePatternHolder(const ::std::string& testsuite
         , const ::std::string& package IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
     {
-        ParamTestSuiteInfo<T>* p = static_cast<ParamTestSuiteInfo<T>*>(FindTestSuitePatternHolder(testsuite, package));
-        if( p == NULL )
+        IParamTestSuiteInfo* holder = FindTestSuitePatternHolder(testsuite, package);
+        if( holder != IUTEST_NULLPTR )
         {
-            p = new ParamTestSuiteInfo<T>(testsuite, package);
-            m_testsuite_infos.push_back(p);
+            IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26466)
+            return static_cast<ParamTestSuiteInfo<T>*>(holder);
         }
+
+        IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26400)
+        ParamTestSuiteInfo<T>* p = new ParamTestSuiteInfo<T>(testsuite, package);
+        m_testsuite_infos.push_back(p);
         return p;
     }
 
 private:
     template<typename T>
-    IParamTestSuiteInfo* FindTestSuitePatternHolder(const T& testsuite, const T& package)
+    IParamTestSuiteInfo* FindTestSuitePatternHolder(const T& testsuite, const T& package) IUTEST_CXX_NOEXCEPT_SPEC
     {
         for( TestSuiteInfoContainer::iterator it=m_testsuite_infos.begin(), end=m_testsuite_infos.end(); it != end; ++it )
         {
@@ -298,11 +304,11 @@ private:
                 return (*it);
             }
         }
-        return NULL;
+        return IUTEST_NULLPTR;
     }
 
 public:
-    size_t count() const { return m_testsuite_infos.size(); }
+    size_t count() const IUTEST_CXX_NOEXCEPT_SPEC { return m_testsuite_infos.size(); }
 
 private:
     // テストを登録
