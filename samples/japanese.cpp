@@ -6,13 +6,15 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2018-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
 //-----------------------------------------------------------------------
 //======================================================================
 #include "../include/iutest.hpp"
+
+IUTEST_PRAGMA_SAMPLE_COREGUIDELINE_DISABLE_BEGIN()
 
 /* ---------------------------------------------------
  * 日本語テスト名
@@ -34,3 +36,5 @@ IUTEST_F(IUTEST_JAPANESE_NAME_F(あいうえお, JapaneseFixedTest), IUTEST_JAPA
 IUTEST_PRAGMA_MSC_WARN_POP()
 
 #endif
+
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()

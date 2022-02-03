@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -172,7 +172,7 @@ inline ::std::string TestFullName(const ::iutest::TestInfo* test_info)
 inline ::std::string TestNameRemoveIndexName(const char* name)
 {
     const char* const p = strrchr(name, '/');
-    if( p == NULL )
+    if( p == IUTEST_NULLPTR )
     {
         return name;
     }
@@ -198,11 +198,11 @@ inline ::std::string TestSuiteNameRemoveInstantiateAndIndexName(const char* name
     const char* const pkg = strrchr(name, '.');
     // 先頭にインスタンス名がある
     const char* const p1 = strchr(name, '/');
-    if( p1 == NULL )
+    if( p1 == IUTEST_NULLPTR )
     {
         return name;
     }
-    if( pkg == NULL )
+    if( pkg == IUTEST_NULLPTR )
     {
         return TestSuiteNameRemoveIndexName(p1 + 1);
     }
@@ -218,9 +218,9 @@ inline ::std::string TestSuiteNameRemoveInstantiateAndIndexName(const char* name
 */
 inline const ::iutest::TestSuite* FindTestSuite(const char* testsuite_name)
 {
-    if( testsuite_name == NULL )
+    if( testsuite_name == IUTEST_NULLPTR )
     {
-        return NULL;
+        return IUTEST_NULLPTR;
     }
     const int testsuite_count = ::iuutil::GetTotalTestSuiteCount();
     for( int i=0; i < testsuite_count; ++i )
@@ -231,7 +231,7 @@ inline const ::iutest::TestSuite* FindTestSuite(const char* testsuite_name)
             return testsuite;
         }
     }
-    return NULL;
+    return IUTEST_NULLPTR;
 }
 
 /**
@@ -239,15 +239,15 @@ inline const ::iutest::TestSuite* FindTestSuite(const char* testsuite_name)
  * @param   testsuite_name  = test suite name
  * @param   begin           = search begin
 */
-inline const ::iutest::TestSuite* FindParamTestSuite(const char* testsuite_name, const ::iutest::TestSuite* begin=NULL)
+inline const ::iutest::TestSuite* FindParamTestSuite(const char* testsuite_name, const ::iutest::TestSuite* begin=IUTEST_NULLPTR)
 {
-    if( testsuite_name == NULL )
+    if( testsuite_name == IUTEST_NULLPTR )
     {
-        return NULL;
+        return IUTEST_NULLPTR;
     }
     const int testsuite_count = ::iuutil::GetTotalTestSuiteCount();
     int i=0;
-    if( begin != NULL )
+    if( begin != IUTEST_NULLPTR )
     {
         for( ; i < testsuite_count; ++i )
         {
@@ -263,7 +263,7 @@ inline const ::iutest::TestSuite* FindParamTestSuite(const char* testsuite_name,
     {
         const ::iutest::TestSuite* testsuite = ::iuutil::GetTestSuite(i);
         const char* testsuite_origin_name = strchr(testsuite->name(), '/');
-        if( testsuite_origin_name != NULL )
+        if( testsuite_origin_name != IUTEST_NULLPTR )
         {
             if( strcmp(testsuite_origin_name+1, testsuite_name) == 0 )
             {
@@ -271,7 +271,7 @@ inline const ::iutest::TestSuite* FindParamTestSuite(const char* testsuite_name,
             }
         }
     }
-    return NULL;
+    return IUTEST_NULLPTR;
 }
 
 /**
@@ -279,15 +279,15 @@ inline const ::iutest::TestSuite* FindParamTestSuite(const char* testsuite_name,
  * @param   testsuite_name  = test suite name
  * @param   begin           = search begin
 */
-inline const ::iutest::TestSuite* FindTypedTestSuite(const char* testsuite_name, const ::iutest::TestSuite* begin=NULL)
+inline const ::iutest::TestSuite* FindTypedTestSuite(const char* testsuite_name, const ::iutest::TestSuite* begin=IUTEST_NULLPTR)
 {
-    if( testsuite_name == NULL )
+    if( testsuite_name == IUTEST_NULLPTR )
     {
-        return NULL;
+        return IUTEST_NULLPTR;
     }
     const int testsuite_count = ::iuutil::GetTotalTestSuiteCount();
     int i=0;
-    if( begin != NULL )
+    if( begin != IUTEST_NULLPTR )
     {
         for( ; i < testsuite_count; ++i )
         {
@@ -302,10 +302,10 @@ inline const ::iutest::TestSuite* FindTypedTestSuite(const char* testsuite_name,
     for( ; i < testsuite_count; ++i )
     {
         const ::iutest::TestSuite* testsuite = ::iuutil::GetTestSuite(i);
-        if( testsuite != NULL )
+        if( testsuite != IUTEST_NULLPTR )
         {
             const char* name = testsuite->name();
-            if( name != NULL
+            if( name != IUTEST_NULLPTR
                 && strstr(name, testsuite_name) == name
                 && name[strlen(testsuite_name)] == '/' )
             {
@@ -313,7 +313,7 @@ inline const ::iutest::TestSuite* FindTypedTestSuite(const char* testsuite_name,
             }
         }
     }
-    return NULL;
+    return IUTEST_NULLPTR;
 }
 
 /**
@@ -321,15 +321,15 @@ inline const ::iutest::TestSuite* FindTypedTestSuite(const char* testsuite_name,
  * @param   testsuite_name  = test suite name
  * @param   begin           = search begin
 */
-inline const ::iutest::TestSuite* FindParamTypedTestSuite(const char* testsuite_name, const ::iutest::TestSuite* begin=NULL)
+inline const ::iutest::TestSuite* FindParamTypedTestSuite(const char* testsuite_name, const ::iutest::TestSuite* begin=IUTEST_NULLPTR)
 {
-    if( testsuite_name == NULL )
+    if( testsuite_name == IUTEST_NULLPTR )
     {
-        return NULL;
+        return IUTEST_NULLPTR;
     }
     const int testsuite_count = ::iuutil::GetTotalTestSuiteCount();
     int i=0;
-    if( begin != NULL )
+    if( begin != IUTEST_NULLPTR )
     {
         for( ; i < testsuite_count; ++i )
         {
@@ -345,7 +345,7 @@ inline const ::iutest::TestSuite* FindParamTypedTestSuite(const char* testsuite_
     {
         const ::iutest::TestSuite* testsuite = ::iuutil::GetTestSuite(i);
         const char* name = strchr(testsuite->name(), '/');
-        if( name != NULL )
+        if( name != IUTEST_NULLPTR )
         {
             ++name;
             if( strstr(name, testsuite_name) == name
@@ -355,7 +355,7 @@ inline const ::iutest::TestSuite* FindParamTypedTestSuite(const char* testsuite_
             }
         }
     }
-    return NULL;
+    return IUTEST_NULLPTR;
 }
 
 /**
@@ -363,9 +363,9 @@ inline const ::iutest::TestSuite* FindParamTypedTestSuite(const char* testsuite_
 */
 inline const ::iutest::TestInfo* FindTestInfo(const ::iutest::TestSuite* testsuite, const char* testinfo_name)
 {
-    if( testsuite == NULL || testinfo_name == NULL )
+    if( testsuite == IUTEST_NULLPTR || testinfo_name == IUTEST_NULLPTR )
     {
-        return NULL;
+        return IUTEST_NULLPTR;
     }
 
     const int testinfo_count = testsuite->total_test_count();
@@ -377,7 +377,7 @@ inline const ::iutest::TestInfo* FindTestInfo(const ::iutest::TestSuite* testsui
             return testinfo;
         }
     }
-    return NULL;
+    return IUTEST_NULLPTR;
 }
 
 /**
@@ -385,9 +385,9 @@ inline const ::iutest::TestInfo* FindTestInfo(const ::iutest::TestSuite* testsui
 */
 inline const ::iutest::TestInfo* FindTestInfo(const char* testsuite_name, const char* testinfo_name)
 {
-    if( testsuite_name == NULL || testinfo_name == NULL )
+    if( testsuite_name == IUTEST_NULLPTR || testinfo_name == IUTEST_NULLPTR )
     {
-        return NULL;
+        return IUTEST_NULLPTR;
     }
     const ::iutest::TestSuite* testsuite = FindTestSuite(testsuite_name);
     return FindTestInfo(testsuite, testinfo_name);
@@ -397,16 +397,16 @@ inline const ::iutest::TestInfo* FindTestInfo(const char* testsuite_name, const 
  * @brief   TestInfo の検索
 */
 inline const ::iutest::TestInfo* FindParamTestInfo(const ::iutest::TestSuite* testsuite, const char* testinfo_name
-                                                    , const ::iutest::TestInfo* begin=NULL)
+                                                    , const ::iutest::TestInfo* begin=IUTEST_NULLPTR)
 {
-    if( testsuite == NULL || testinfo_name == NULL )
+    if( testsuite == IUTEST_NULLPTR || testinfo_name == IUTEST_NULLPTR )
     {
-        return NULL;
+        return IUTEST_NULLPTR;
     }
 
     const int testinfo_count = testsuite->total_test_count();
     int i=0;
-    if( begin != NULL )
+    if( begin != IUTEST_NULLPTR )
     {
         for( ; i < testinfo_count; ++i )
         {
@@ -422,10 +422,10 @@ inline const ::iutest::TestInfo* FindParamTestInfo(const ::iutest::TestSuite* te
     for( ; i < testinfo_count; ++i )
     {
         const ::iutest::TestInfo* testinfo = testsuite->GetTestInfo(i);
-        if( testinfo != NULL )
+        if( testinfo != IUTEST_NULLPTR )
         {
             const char* name = testinfo->name();
-            if( name != NULL
+            if( name != IUTEST_NULLPTR
                 && strstr(name, testinfo_name) == name
                 && name[strlen(testinfo_name)] == '/' )
             {
@@ -433,20 +433,20 @@ inline const ::iutest::TestInfo* FindParamTestInfo(const ::iutest::TestSuite* te
             }
         }
     }
-    return NULL;
+    return IUTEST_NULLPTR;
 }
 
 /**
  * @private
 */
-inline const ::iutest::TestResult* TestResultPointer(const ::iutest::TestResult* result)
+inline const ::iutest::TestResult* TestResultPointer(const ::iutest::TestResult* result) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return result;
 }
 /**
  * @private
 */
-inline const ::iutest::TestResult* TestResultPointer(const ::iutest::TestResult& result)
+inline const ::iutest::TestResult* TestResultPointer(const ::iutest::TestResult& result) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return &result;
 }
@@ -459,7 +459,7 @@ inline const ::iutest::TestResult* GetAdHocTestResult()
 #if !defined(IUTEST_NO_UNITEST_AD_HOC_TEST_RESULT_ACCESSOR)
     return TestResultPointer(::iutest::UnitTest::GetInstance()->ad_hoc_test_result());
 #else
-    return NULL;
+    return IUTEST_NULLPTR;
 #endif
 }
 
@@ -513,15 +513,15 @@ inline ::std::string TestCaseNameRemoveIndexName(const char* name) { return Test
 inline ::std::string TestCaseNameRemoveInstantiateAndIndexName(const char* name) { return TestSuiteNameRemoveInstantiateAndIndexName(name); }
 inline const ::iutest::TestCase* FindTestCase(const char* name) { return FindTestSuite(name); }
 
-inline const ::iutest::TestCase* FindParamTestCase(const char* name, const ::iutest::TestCase* begin=NULL)
+inline const ::iutest::TestCase* FindParamTestCase(const char* name, const ::iutest::TestCase* begin=IUTEST_NULLPTR)
 {
     return FindParamTestSuite(name, begin);
 }
-inline const ::iutest::TestCase* FindTypedTestCase(const char* name, const ::iutest::TestCase* begin=NULL)
+inline const ::iutest::TestCase* FindTypedTestCase(const char* name, const ::iutest::TestCase* begin=IUTEST_NULLPTR)
 {
     return FindTypedTestSuite(name, begin);
 }
-inline const ::iutest::TestCase* FindParamTypedTestCase(const char* name, const ::iutest::TestCase* begin=NULL)
+inline const ::iutest::TestCase* FindParamTypedTestCase(const char* name, const ::iutest::TestCase* begin=IUTEST_NULLPTR)
 {
     return FindParamTypedTestSuite(name, begin);
 }
