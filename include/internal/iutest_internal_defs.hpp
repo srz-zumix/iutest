@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -39,7 +39,7 @@
 #ifdef __INTEL_COMPILER
 #  define IUTEST_AMBIGUOUS_ELSE_BLOCKER_
 #else
-#  define IUTEST_AMBIGUOUS_ELSE_BLOCKER_    switch(::iutest::detail::AlwaysZero()) case 0: default:
+#  define IUTEST_AMBIGUOUS_ELSE_BLOCKER_    IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26818) switch(::iutest::detail::AlwaysZero()) case 0: default:
 #endif
 
 #define IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(statement) if( ::iutest::detail::AlwaysTrue() ) statement
@@ -103,6 +103,14 @@
 #  define IUTEST_STATIC_EXISTS(identifier_)
 #endif
 
+#if IUTEST_HAS_EXCEPTIONS
+#  define IUTEST_IGNORE_EXCEPTION_BEGIN()     try {
+#  define IUTEST_IGNORE_EXCEPTION_END()       } catch(...) {}
+#else
+#  define IUTEST_IGNORE_EXCEPTION_BEGIN()
+#  define IUTEST_IGNORE_EXCEPTION_END()
+#endif
+
 #if IUTEST_HAS_LIB && IUTEST_HAS_EXTERN_TEMPLATE
 
 IUTEST_PRAGMA_EXTERN_TEMPLATE_WARN_DISABLE_BEGIN()
@@ -136,22 +144,22 @@ typedef ::iutest_compatible::IsNullLiteralHelper::Object* iu_nullptr_convertible
 /**
  * @brief   true を返す(警告対策用)
 */
-inline bool AlwaysTrue() { return true; }
+inline bool AlwaysTrue() IUTEST_CXX_NOEXCEPT_SPEC { return true; }
 
 /**
  * @brief   false を返す(警告対策用)
 */
-inline bool AlwaysFalse() { return !AlwaysTrue(); }
+inline bool AlwaysFalse() IUTEST_CXX_NOEXCEPT_SPEC { return !AlwaysTrue(); }
 
 /**
  * @brief   0 を返す(警告対策用)
 */
-inline int  AlwaysZero() { return 0; }
+inline int  AlwaysZero() IUTEST_CXX_NOEXCEPT_SPEC { return 0; }
 
 /**
  * @brief   真偽値を返す(警告対策用)
 */
-inline bool IsTrue(bool b) { return b; }
+inline IUTEST_CXX_CONSTEXPR bool IsTrue(bool b) IUTEST_CXX_NOEXCEPT_SPEC { return b; }
 
 //======================================================================
 // class
@@ -187,7 +195,7 @@ struct IteratorTraits<const T*>
  * @brief   delete
 */
 template<typename T>
-inline void Delete(T* ptr)
+inline void Delete(T* ptr) IUTEST_CXX_NOEXCEPT_SPEC
 {
     delete ptr;
 }
@@ -242,16 +250,16 @@ class auto_ptr
 {
     mutable T* m_ptr;
 public:
-    explicit auto_ptr(T* p = NULL) : m_ptr(p) {}
-    auto_ptr(const auto_ptr& rhs) : m_ptr(rhs.m_ptr) { rhs.m_ptr = NULL; }
-    ~auto_ptr() { if( m_ptr != NULL ) delete m_ptr; }
+    explicit auto_ptr(T* p = IUTEST_NULLPTR) IUTEST_CXX_NOEXCEPT_SPEC : m_ptr(p) {}
+    auto_ptr(const auto_ptr& rhs) IUTEST_CXX_NOEXCEPT_SPEC : m_ptr(rhs.m_ptr) { rhs.m_ptr = IUTEST_NULLPTR; }
+    ~auto_ptr() { if( m_ptr != IUTEST_NULLPTR ) delete m_ptr; }
 
     T& operator *  () const { return *m_ptr; }
-    T* operator -> () const { return m_ptr; }
+    T* operator -> () const IUTEST_CXX_NOEXCEPT_SPEC { return m_ptr; }
 
-    auto_ptr& operator = (auto_ptr& rhs) { m_ptr = rhs.m_ptr; rhs.m_ptr = NULL; return *this; }
+    auto_ptr& operator = (auto_ptr& rhs) { m_ptr = rhs.m_ptr; rhs.m_ptr = IUTEST_NULLPTR; return *this; }
 
-    T* get() { return m_ptr; }
+    T* get() IUTEST_CXX_NOEXCEPT_SPEC { return m_ptr; }
 };
 
 /**
@@ -263,21 +271,21 @@ class scoped_ptr
 {
     T* m_ptr;
 public:
-    explicit scoped_ptr(T* p=NULL) : m_ptr(p) {}
+    explicit scoped_ptr(T* p=IUTEST_NULLPTR) IUTEST_CXX_NOEXCEPT_SPEC : m_ptr(p) {}
     ~scoped_ptr() { reset(); }
 
     T& operator *  () const { return *m_ptr; }
-    T* operator -> () const { return m_ptr; }
+    T* operator -> () const IUTEST_CXX_NOEXCEPT_SPEC { return m_ptr; }
 
-    T* get() const { return m_ptr; }
-    T* release()
+    T* get() const IUTEST_CXX_NOEXCEPT_SPEC { return m_ptr; }
+    T* release() IUTEST_CXX_NOEXCEPT_SPEC
     {
         T* const p = m_ptr;
-        m_ptr = NULL;
+        m_ptr = IUTEST_NULLPTR;
         return p;
     }
 
-    void reset(T* p=NULL)
+    void reset(T* p=IUTEST_NULLPTR) IUTEST_CXX_NOEXCEPT_SPEC
     {
         if( m_ptr != p )
         {
@@ -310,7 +318,7 @@ struct IsContainerHelper
 
     template<typename T>
     static IUTEST_CXX_CONSTEXPR yes_t IsContainer(int IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)
-        , typename T::iterator* =NULL, typename T::const_iterator* =NULL) { return 0; }
+        , typename T::iterator* =IUTEST_NULLPTR, typename T::const_iterator* =IUTEST_NULLPTR) { return 0; }
 
     template<typename T>
     static IUTEST_CXX_CONSTEXPR no_t  IsContainer(long IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)) { return 0; }
@@ -331,7 +339,8 @@ inline ::std::string GetTypeName()
     char* const read_name = __cxa_demangle(name, 0, 0, &status);
     ::std::string str(status == 0 ? read_name : name);
 #if defined(_IUTEST_DEBUG)
-    if( status != 0 ) {
+    if( status != 0 )
+    {
         fprintf(stderr, "Unable to demangle \"%s\" -> \"%s\". (status=%d)\n", name, read_name ? read_name : "", status);
         fflush(stderr);
     }
