@@ -144,7 +144,7 @@ public:
      * @brief   乱数の生成
      * @return  乱数
     */
-    result_type genrand()
+    result_type genrand() IUTEST_CXX_NOEXCEPT_SPEC
     {
         return m_engine();
     }

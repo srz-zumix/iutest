@@ -91,7 +91,7 @@ public:
         IUTEST_IGNORE_EXCEPTION_END()
     }
 public:
-    bool Open(const char* host, const char* port)
+    bool Open(const char* host, const char* port) IUTEST_CXX_NOEXCEPT_SPEC
     {
         if( m_socket != INVALID_DESCRIPTOR )
         {
