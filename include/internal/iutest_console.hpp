@@ -109,7 +109,7 @@ public:
      * @brief   標準出力
      * @note    no logger
     */
-    static inline void nl_voutput(const char* fmt, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 0);
+    static inline void nl_voutput(const char* fmt, va_list va) IUTEST_CXX_NOEXCEPT_AS(IUTEST_VPRINTF(fmt, va)) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 0);
 
 public:
     //! Logger のセット
