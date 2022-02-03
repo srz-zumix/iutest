@@ -142,7 +142,7 @@ public:
      * @note    乱数シードは --iutest_random_seed で指定した値になります。
      *          指定しなかった場合は実行時に決定します。
     */
-    unsigned int    genrand() { return m_random.genrand(); }
+    unsigned int    genrand() IUTEST_CXX_NOEXCEPT_SPEC { return m_random.genrand(); }
     /**
      * @overload
      * @param [in]  max = 上限値

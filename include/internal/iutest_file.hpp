@@ -250,7 +250,7 @@ IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
 IUTEST_PRAGMA_WARN_POP()
 
 public:
-    static size_t GetSize(FILE* fp)
+    static size_t GetSize(FILE* fp) IUTEST_CXX_NOEXCEPT_SPEC
     {
         if( fp == IUTEST_NULLPTR )
         {

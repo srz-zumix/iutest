@@ -155,7 +155,7 @@ public:
      * @param [in]  max = 上限値
      * @return  乱数
     */
-    result_type genrand(unsigned int max)
+    result_type genrand(unsigned int max) IUTEST_CXX_NOEXCEPT_SPEC
     {
 #if IUTEST_HAS_CXX_HDR_RANDOM
         IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26496)
@@ -173,7 +173,7 @@ public:
      * @return  乱数
     */
     template<typename T>
-    T genrand(T max)
+    T genrand(T max) IUTEST_CXX_NOEXCEPT_SPEC
     {
 #if IUTEST_HAS_CXX_HDR_RANDOM
         ::std::uniform_int_distribution<T> d(0, max-1);
@@ -206,7 +206,7 @@ public:
      * @return  乱数
     */
     template<typename T>
-    T genrand(IUTEST_EXPLICIT_TEMPLATE_TYPE_(T))
+    T genrand(IUTEST_EXPLICIT_TEMPLATE_TYPE_(T)) IUTEST_CXX_NOEXCEPT_SPEC
     {
         return static_cast<T>(genrand( static_cast<unsigned int>( static_cast<T>(-1) ) ));
     }

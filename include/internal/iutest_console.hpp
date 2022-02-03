@@ -160,7 +160,7 @@ public:
 
 private:
     static inline void color_output_impl(Color color, const char* fmt, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(2, 0);
-    static inline bool IsShouldUseColor(bool use_color);
+    static inline bool IsShouldUseColor(bool use_color) IUTEST_CXX_NOEXCEPT_SPEC;
     static inline bool HasColorConsole() IUTEST_CXX_NOEXCEPT_SPEC;
 #if IUTEST_HAS_COLORCONSOLE && !IUTEST_FORCE_COLORCONSOLE
     static inline bool IsStringEqual(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC { return strcmp(str1, str2) == 0; }
@@ -211,7 +211,7 @@ inline void iuConsole::color_output(Color color, const char *fmt, ...)
 
     iu_va_end(va);
 }
-inline void iuConsole::nl_output(const char *fmt, ...)
+inline void iuConsole::nl_output(const char *fmt, ...) IUTEST_CXX_NOEXCEPT_AS(nl_voutput(fmt, 0))
 {
     va_list va;
     iu_va_start(va, fmt);
@@ -266,7 +266,7 @@ inline void iuConsole::color_output_impl(Color color, const char* fmt, va_list v
     }
 }
 
-inline bool iuConsole::IsShouldUseColor(bool use_color)
+inline bool iuConsole::IsShouldUseColor(bool use_color) IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( IsColorModeOn() )
     {
