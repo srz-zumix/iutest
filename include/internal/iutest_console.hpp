@@ -103,7 +103,7 @@ public:
      * @brief   標準出力
      * @note    no logger
     */
-    static inline void nl_output(const char *fmt, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 2);
+    static inline void nl_output(const char *fmt, ...) IUTEST_CXX_NOEXCEPT_AS(nl_voutput(fmt, 0)) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 2);
 
     /**
      * @brief   標準出力
