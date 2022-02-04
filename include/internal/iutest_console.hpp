@@ -103,13 +103,13 @@ public:
      * @brief   標準出力
      * @note    no logger
     */
-    static inline void nl_output(const char *fmt, ...) IUTEST_CXX_NOEXCEPT_AS(nl_voutput(fmt, 0)) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 2);
+    static inline void nl_output(const char *fmt, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 2);
 
     /**
      * @brief   標準出力
      * @note    no logger
     */
-    static inline void nl_voutput(const char* fmt, va_list va) IUTEST_CXX_NOEXCEPT_AS(IUTEST_VPRINTF(fmt, va)) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 0);
+    static inline void nl_voutput(const char* fmt, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 0);
 
 public:
     //! Logger のセット
@@ -211,14 +211,14 @@ inline void iuConsole::color_output(Color color, const char *fmt, ...)
 
     iu_va_end(va);
 }
-inline void iuConsole::nl_output(const char *fmt, ...) IUTEST_CXX_NOEXCEPT_AS(nl_voutput(fmt, 0))
+inline void iuConsole::nl_output(const char *fmt, ...)
 {
     va_list va;
     iu_va_start(va, fmt);
     nl_voutput(fmt, va);
     iu_va_end(va);
 }
-inline void iuConsole::nl_voutput(const char* fmt, va_list va) IUTEST_CXX_NOEXCEPT_AS(IUTEST_VPRINTF(fmt, va))
+inline void iuConsole::nl_voutput(const char* fmt, va_list va)
 {
     IUTEST_VPRINTF(fmt, va);
 }
