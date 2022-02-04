@@ -11,7 +11,7 @@ resources:
         newCommit: true
         pullRequestUpdate: true
 pipelines:
-  - name: iutest_ubuntu_basic_test
+  - name: jfrog_iutest_ubuntu_basic_test
     configuration:
       nodePool: ubuntu-latest
       runtime:
