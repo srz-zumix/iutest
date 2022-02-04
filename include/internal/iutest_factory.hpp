@@ -65,7 +65,7 @@ template<typename ParamType>
 class iuParamTestFactoryBase : public iuFactoryBase
 {
 public:
-    iuParamTestFactoryBase() : m_param() {}
+    iuParamTestFactoryBase() IUTEST_CXX_NOEXCEPT_SPEC : m_param() {}
     explicit iuParamTestFactoryBase(ParamType param) : m_param(param) {}
 public:
     void                SetParam(ParamType param) { m_param = param; }

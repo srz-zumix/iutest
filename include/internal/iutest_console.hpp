@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -55,9 +55,9 @@ public:
     virtual void output(const char* fmt, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(2, 3)
     {
         va_list va;
-        va_start(va, fmt);
+        iu_va_start(va, fmt);
         voutput(fmt, va);
-        va_end(va);
+        iu_va_end(va);
     }
     virtual void voutput(const char* fmt, va_list va) = 0;
 };
@@ -103,17 +103,17 @@ public:
      * @brief   標準出力
      * @note    no logger
     */
-    static inline void nl_output(const char *fmt, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 2);
+    static inline void nl_output(const char *fmt, ...) IUTEST_CXX_NOEXCEPT_AS(nl_voutput(fmt, 0)) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 2);
 
     /**
      * @brief   標準出力
      * @note    no logger
     */
-    static inline void nl_voutput(const char* fmt, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 0);
+    static inline void nl_voutput(const char* fmt, va_list va) IUTEST_CXX_NOEXCEPT_AS(IUTEST_VPRINTF(fmt, va)) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 0);
 
 public:
     //! Logger のセット
-    static iuLogger* SetLogger(iuLogger* logger)
+    static iuLogger* SetLogger(iuLogger* logger) IUTEST_CXX_NOEXCEPT_SPEC
     {
         iuLogger* pre = GetLoggerInstanceVariable().pInstance;
         GetLoggerInstanceVariable().pInstance = logger;
@@ -125,7 +125,7 @@ public:
      * @brief 色付き表示が無効かどうか
      * @return 真偽値
     */
-    static bool IsColorModeOff()
+    static bool IsColorModeOff() IUTEST_CXX_NOEXCEPT_SPEC
     {
 #if defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
         return TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_OFF);
@@ -137,7 +137,7 @@ public:
      * @brief 色付き表示が有効かどうか
      * @return 真偽値
     */
-    static bool IsColorModeOn()
+    static bool IsColorModeOn() IUTEST_CXX_NOEXCEPT_SPEC
     {
 #if defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
         return TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ON);
@@ -149,7 +149,7 @@ public:
      * @brief 色付き表示が ANSI エスケープかどうか
      * @return 真偽値
     */
-    static bool IsColorModeAnsi()
+    static bool IsColorModeAnsi() IUTEST_CXX_NOEXCEPT_SPEC
     {
 #if defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
         return TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ANSI);
@@ -160,10 +160,10 @@ public:
 
 private:
     static inline void color_output_impl(Color color, const char* fmt, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(2, 0);
-    static inline bool IsShouldUseColor(bool use_color);
-    static inline bool HasColorConsole();
+    static inline bool IsShouldUseColor(bool use_color) IUTEST_CXX_NOEXCEPT_SPEC;
+    static inline bool HasColorConsole() IUTEST_CXX_NOEXCEPT_SPEC;
 #if IUTEST_HAS_COLORCONSOLE && !IUTEST_FORCE_COLORCONSOLE
-    static inline bool IsStringEqual(const char* str1, const char* str2) { return strcmp(str1, str2) == 0; }
+    static inline bool IsStringEqual(const char* str1, const char* str2) IUTEST_CXX_NOEXCEPT_SPEC { return strcmp(str1, str2) == 0; }
 #endif
 
 private:
@@ -172,21 +172,21 @@ private:
         iuLogger* pInstance;
     };
 
-    static LoggerInstanceVariable& GetLoggerInstanceVariable() { static LoggerInstanceVariable sLogger; return sLogger; }
-    static iuLogger* GetLogger() { return GetLoggerInstanceVariable().pInstance; }
+    static LoggerInstanceVariable& GetLoggerInstanceVariable() IUTEST_CXX_NOEXCEPT_SPEC { static LoggerInstanceVariable sLogger; return sLogger; }
+    static iuLogger* GetLogger() IUTEST_CXX_NOEXCEPT_SPEC { return GetLoggerInstanceVariable().pInstance; }
 };
 
 inline void iuConsole::output(const char *fmt, ...)
 {
     va_list va;
-    va_start(va, fmt);
+    iu_va_start(va, fmt);
     voutput(fmt, va);
-    va_end(va);
+    iu_va_end(va);
 }
 inline void iuConsole::voutput(const char* fmt, va_list va)
 {
     iuLogger* pLogger = GetLogger();
-    if(pLogger != NULL)
+    if(pLogger != IUTEST_NULLPTR)
     {
         pLogger->voutput(fmt, va);
     }
@@ -198,7 +198,7 @@ inline void iuConsole::voutput(const char* fmt, va_list va)
 inline void iuConsole::color_output(Color color, const char *fmt, ...)
 {
     va_list va;
-    va_start(va, fmt);
+    iu_va_start(va, fmt);
 
     if( IsShouldUseColor(true) )
     {
@@ -209,24 +209,22 @@ inline void iuConsole::color_output(Color color, const char *fmt, ...)
         voutput(fmt, va);
     }
 
-    va_end(va);
+    iu_va_end(va);
 }
-inline void iuConsole::nl_output(const char *fmt, ...)
+inline void iuConsole::nl_output(const char *fmt, ...) IUTEST_CXX_NOEXCEPT_AS(nl_voutput(fmt, 0))
 {
     va_list va;
-    va_start(va, fmt);
+    iu_va_start(va, fmt);
     nl_voutput(fmt, va);
-    va_end(va);
+    iu_va_end(va);
 }
-inline void iuConsole::nl_voutput(const char* fmt, va_list va)
+inline void iuConsole::nl_voutput(const char* fmt, va_list va) IUTEST_CXX_NOEXCEPT_AS(IUTEST_VPRINTF(fmt, va))
 {
     IUTEST_VPRINTF(fmt, va);
 }
 
 inline void iuConsole::color_output_impl(Color color, const char* fmt, va_list va)
 {
-    (void)(fmt);
-    (void)(va);
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE) \
         && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)
     if( !IsColorModeAnsi() )
@@ -250,7 +248,7 @@ inline void iuConsole::color_output_impl(Color color, const char* fmt, va_list v
                 const WORD wAttributes = csbi.wAttributes;
 
                 fflush(stdout);
-                ::SetConsoleTextAttribute(stdout_handle, attr[color] | FOREGROUND_INTENSITY);
+                ::SetConsoleTextAttribute(stdout_handle, gsl::at(attr, color) | FOREGROUND_INTENSITY);
 
                 voutput(fmt, va);
 
@@ -268,7 +266,7 @@ inline void iuConsole::color_output_impl(Color color, const char* fmt, va_list v
     }
 }
 
-inline bool iuConsole::IsShouldUseColor(bool use_color)
+inline bool iuConsole::IsShouldUseColor(bool use_color) IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( IsColorModeOn() )
     {
@@ -282,7 +280,7 @@ inline bool iuConsole::IsShouldUseColor(bool use_color)
     return use_color && has_color;
 }
 
-inline bool iuConsole::HasColorConsole()
+inline bool iuConsole::HasColorConsole() IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if   !IUTEST_HAS_COLORCONSOLE
     return false;
@@ -299,7 +297,7 @@ inline bool iuConsole::HasColorConsole()
     }
 #endif
     const char* env = internal::posix::GetEnv("TERM");
-    const bool term_conf = (env != NULL) && (
+    const bool term_conf = (env != IUTEST_NULLPTR) && (
         IsStringEqual(env, "xterm")
         || IsStringEqual(env, "xterm-color")
         || IsStringEqual(env, "xterm-256color")
@@ -317,7 +315,7 @@ inline bool iuConsole::HasColorConsole()
         return true;
     }
     // for CI
-    if( internal::posix::GetEnv("GITHUB_ACTIONS") != NULL )
+    if( internal::posix::GetEnv("GITHUB_ACTIONS") != IUTEST_NULLPTR )
     {
         return true;
     }
