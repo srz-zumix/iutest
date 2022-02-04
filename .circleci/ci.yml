@@ -83,7 +83,7 @@ aliases:
     working_directory: test
   - &build-step
     name: build
-    no_output_timeout: parameters.no_output_timeout
+    no_output_timeout: << parameters.no_output_timeout >>
     command: |
       make clean $MAKE_OPTION $MAKE_ADD_OPTION
       case $CIRCLE_NODE_INDEX in \
