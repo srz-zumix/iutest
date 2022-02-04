@@ -33,7 +33,7 @@ aliases:
       type: string
       default: ""
     no_output_timeout:
-      typed: string
+      type: string
       default: "10m"
   - &restore_cache
       keys:
