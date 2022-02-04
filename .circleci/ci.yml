@@ -32,6 +32,9 @@ aliases:
     clang-version:
       type: string
       default: ""
+    no_output_timeout:
+      typed: string
+      default: "10m"
   - &restore_cache
       keys:
       # This branch if available
@@ -80,6 +83,7 @@ aliases:
     working_directory: test
   - &build-step
     name: build
+    no_output_timeout: parameters.no_output_timeout
     command: |
       make clean $MAKE_OPTION $MAKE_ADD_OPTION
       case $CIRCLE_NODE_INDEX in \
@@ -264,6 +268,7 @@ workflows:
     jobs:
       - gcc_fanalzyer_test:
           filters: *branch-filter
+          no_output_timeout: 30m
       - gcc_optimize_test:
           filters: *branch-filter
       - clang_optimize_test:
