@@ -12,7 +12,7 @@ aliases:
     working_directory: ~/srz-zumix/iutest
     shell: /bin/bash --login
     docker:
-      - image: circleci/buildpack-deps:focal-curl
+      - image: cimg/base:stable
         environment:
           MAKE_OPTION: -j4 OUTPUTXML=1
           MAKE_TARGET: default
@@ -32,6 +32,9 @@ aliases:
     clang-version:
       type: string
       default: ""
+    no_output_timeout:
+      typed: string
+      default: "10m"
   - &restore_cache
       keys:
       # This branch if available
@@ -80,6 +83,7 @@ aliases:
     working_directory: test
   - &build-step
     name: build
+    no_output_timeout: parameters.no_output_timeout
     command: |
       make clean $MAKE_OPTION $MAKE_ADD_OPTION
       case $CIRCLE_NODE_INDEX in \
@@ -128,6 +132,23 @@ aliases:
         path: << parameters.artifacts-path >>
     - store_artifacts:
         path: << parameters.test-reports-path >>
+  - &container-build-test-steps
+    - checkout
+    - run: *check-version-step
+    - run: *dump-macros-step
+    - run: *min-tests-and-spec-step
+    - run: *build-step
+    - run: *test-step
+    - run: *report-step
+    - run: *move-result-step
+    # Teardown
+    - store_test_results:
+        path: /tmp/circleci-test-results
+    # Save artifacts
+    - store_artifacts:
+        path: /tmp/circleci-artifacts
+    - store_artifacts:
+        path: /tmp/circleci-test-results
 
 parameters:
   build:
@@ -139,13 +160,25 @@ orbs:
   docker: circleci/docker@1.4.0
 
 jobs:
+  gcc_fanalzyer_test:
+    machine:
+      image: ubuntu-2004:202111-02
+    parameters: *job-parameters
+    environment:
+      CXX: g++
+      GCC_VERSION: "11"
+      DEFS: "-fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference -Wno-analyzer-malloc-leak -Wno-analyzer-null-dereference"
+      MAKE_ADD_OPTION: -j1
+      GGC_MIN_EXPAND: 1
+      GGC_MIN_HEAPSIZE: 2048
+    steps: *build-test-steps
   gcc_optimize_test:
     parallelism: 4
     <<: *default
     parameters: *job-parameters
     environment:
       CXX: g++
-      GCC_VERSION: "8"
+      GCC_VERSION: "11"
       FAST_OPTIMIZE: -Og
       # FAST_OPTIMIZE: -Ofast # https://github.com/srz-zumix/iutest/issues/396
     steps: *build-test-steps
@@ -160,30 +193,14 @@ jobs:
     steps: *build-test-steps
   arm:
     machine:
-      image: ubuntu-2004:202101-01
+      image: ubuntu-2004:202111-02
     resource_class: arm.medium
     parameters: *job-parameters
     environment:
       MAKE_OPTION: -j4 OUTPUTXML=1
       MAKE_TARGET: default
       MAKE_RUN_TARGET: test
-    steps:
-      - checkout
-      - run: *check-version-step
-      - run: *dump-macros-step
-      - run: *min-tests-and-spec-step
-      - run: *build-step
-      - run: *test-step
-      - run: *report-step
-      - run: *move-result-step
-      # Teardown
-      - store_test_results:
-          path: /tmp/circleci-test-results
-      # Save artifacts
-      - store_artifacts:
-          path: /tmp/circleci-artifacts
-      - store_artifacts:
-          path: /tmp/circleci-test-results
+    steps: *container-build-test-steps
   vcperf:
     executor: win/default
     environment:
@@ -249,6 +266,9 @@ workflows:
   default-test:
     when: << pipeline.parameters.build >>
     jobs:
+      - gcc_fanalzyer_test:
+          filters: *branch-filter
+          no_output_timeout: 30m
       - gcc_optimize_test:
           filters: *branch-filter
       - clang_optimize_test:
