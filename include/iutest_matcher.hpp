@@ -536,15 +536,15 @@ public:
         return strm.str();
     }
 private:
-    template<typename A, typename B>
-    static bool Equals(const A& actual, const B& expected)
-    {
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
+    template<typename A, typename B>
+    static bool Equals(const A& actual, const B& expected) IUTEST_CXX_NOEXCEPT_AS(actual == expected)
+    {
         return actual == expected;
-IUTEST_PRAGMA_WARN_POP()
     }
-    static bool Equals(const char* actual, const char* expected)
+IUTEST_PRAGMA_WARN_POP()
+    static bool Equals(const char* actual, const char* expected) IUTEST_CXX_NOEXCEPT_SPEC
     {
         return strcmp(actual, expected) == 0;
     }

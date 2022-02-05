@@ -211,6 +211,10 @@ inline void iuConsole::color_output(Color color, const char *fmt, ...)
 
     iu_va_end(va);
 }
+
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
 inline void iuConsole::nl_output(const char *fmt, ...)
 {
     va_list va;
@@ -222,6 +226,8 @@ inline void iuConsole::nl_voutput(const char* fmt, va_list va)
 {
     IUTEST_VPRINTF(fmt, va);
 }
+
+IUTEST_PRAGMA_WARN_POP()
 
 inline void iuConsole::color_output_impl(Color color, const char* fmt, va_list va)
 {
