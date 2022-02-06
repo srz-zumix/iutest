@@ -870,7 +870,7 @@ private:
      * @param [in]  def     = 引数なしの場合のオペレーション
      * @return  成否
     */
-    static bool ParseYesNoFlagCommandLine(const char* str, TestFlag::Kind flag, int def);
+    static bool ParseYesNoFlagCommandLine(const char* str, TestFlag::Kind flag, int def) IUTEST_CXX_NOEXCEPT_SPEC;
 
     /**
      * @brief   yes オプションか no オプションかの判定

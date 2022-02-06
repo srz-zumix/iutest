@@ -79,6 +79,9 @@ class TestEventListener : public ::iutest::TestEventListener
 //======================================================================
 // function
 
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
 /**
  * @brief   Get TestSuite by index
  * @param   index = test suite index
@@ -535,6 +538,8 @@ inline const ::iutest::TestResult* GetCurrentTestCaseAdHocResult()
 }
 
 #endif
+
+IUTEST_PRAGMA_WARN_POP()
 
 }   // end of namespace iuutil
 

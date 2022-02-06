@@ -532,7 +532,7 @@ IUTEST_IPP_INLINE bool TestEnv::LoadFlagFile()
     return true;
 }
 
-IUTEST_IPP_INLINE bool TestEnv::ParseYesNoFlagCommandLine(const char* str, TestFlag::Kind flag, int def)
+IUTEST_IPP_INLINE bool TestEnv::ParseYesNoFlagCommandLine(const char* str, TestFlag::Kind flag, int def) IUTEST_CXX_NOEXCEPT_SPEC
 {
     const char* option = ParseOptionSettingStr(str);
     const int yesno = option != IUTEST_NULLPTR ? ParseYesNoOption(option) : def;

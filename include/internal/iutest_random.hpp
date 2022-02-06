@@ -206,7 +206,7 @@ public:
      * @return  乱数
     */
     template<typename T>
-    T genrand(IUTEST_EXPLICIT_TEMPLATE_TYPE_(T)) IUTEST_CXX_NOEXCEPT_SPEC
+    T genrand(IUTEST_EXPLICIT_TEMPLATE_TYPE_(T))
     {
         return static_cast<T>(genrand( static_cast<unsigned int>( static_cast<T>(-1) ) ));
     }
@@ -243,8 +243,8 @@ public:
 #define IIUT_WORKAROUND_GENRAND(type)   \
     template<> inline type  iuRandom::genrand<type>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(type))
 
-IIUT_WORKAROUND_GENRAND(Int64)  { return (static_cast<Int64>(genrand()) << 32) | genrand(); }
-IIUT_WORKAROUND_GENRAND(UInt64) { return (static_cast<UInt64>(genrand()) << 32) | genrand(); }
+IIUT_WORKAROUND_GENRAND(Int64)  IUTEST_CXX_NOEXCEPT_SPEC { return (static_cast<Int64>(genrand()) << 32) | genrand(); }
+IIUT_WORKAROUND_GENRAND(UInt64) IUTEST_CXX_NOEXCEPT_SPEC { return (static_cast<UInt64>(genrand()) << 32) | genrand(); }
 IIUT_WORKAROUND_GENRAND(float)  { return genrandf(); }
 IIUT_WORKAROUND_GENRAND(double) { return static_cast<double>(genrandf()); }
 
