@@ -169,8 +169,8 @@ jobs:
       GCC_VERSION: "11"
       DEFS: "-fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference -Wno-analyzer-malloc-leak -Wno-analyzer-null-dereference"
       MAKE_ADD_OPTION: -j1
-      GGC_MIN_EXPAND: 1
-      GGC_MIN_HEAPSIZE: 32768
+      # GGC_MIN_EXPAND: 1
+      # GGC_MIN_HEAPSIZE: 32768
     steps: *build-test-steps
   gcc_optimize_test:
     parallelism: 4
@@ -268,7 +268,7 @@ workflows:
     jobs:
       - gcc_fanalzyer_test:
           filters: *branch-filter
-          no_output_timeout: 30m
+          no_output_timeout: 40m
       - gcc_optimize_test:
           filters: *branch-filter
       - clang_optimize_test:
