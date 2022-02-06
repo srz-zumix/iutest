@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -100,14 +100,27 @@ inline ::std::string EnvironmentString(const char* name)
 class Environment
 {
 public:
-    virtual ~Environment() { Release(); }
+    virtual ~Environment()
+    {
+        IUTEST_IGNORE_EXCEPTION_BEGIN()
+        {
+            Release();
+        }
+        IUTEST_IGNORE_EXCEPTION_END()
+    }
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void SetUp() {}     //!< 事前処理
     virtual void TearDown() {}  //!< 事後処理
+
+IUTEST_PRAGMA_WARN_POP()
+
 private:
     void Release();
 private:
     struct should_be_SetUp {};
-    virtual should_be_SetUp* Setup() IUTEST_CXX_FINAL { return NULL; }
+    virtual should_be_SetUp* Setup() IUTEST_CXX_NOEXCEPT_SPEC IUTEST_CXX_FINAL { return IUTEST_NULLPTR; }
 };
 
 /**
@@ -126,7 +139,7 @@ public:
 
         int m_test_flags;
     public:
-        ScopedGuard()
+        ScopedGuard() IUTEST_CXX_NOEXCEPT_SPEC
         {
             m_test_flags = TestFlag::GetInstance().m_test_flags;
         }
@@ -188,7 +201,7 @@ private:
 
 public:
     /** @private */
-    static TestFlag& GetInstance() { static TestFlag flag; return flag; }
+    static TestFlag& GetInstance() IUTEST_CXX_NOEXCEPT_SPEC { static TestFlag flag; return flag; }
 public:
     /**
      * @brief   フラグのビット操作
@@ -196,7 +209,7 @@ public:
      * @param [in]  enable  = 論理和
      * @param [in]  mask    = マスク値
     */
-    static void SetFlag(int enable, int mask=-1)
+    static void SetFlag(int enable, int mask=-1) IUTEST_CXX_NOEXCEPT_SPEC
     {
         GetInstance().m_test_flags |= enable;
         GetInstance().m_test_flags &= mask;
@@ -206,7 +219,7 @@ public:
      * @param [in]  flag    = 検査対象フラグ
      * @return  真偽値
     */
-    static bool IsEnableFlag(int flag) { return (GetInstance().m_test_flags & flag) ? true : false; }
+    static bool IsEnableFlag(int flag) IUTEST_CXX_NOEXCEPT_SPEC { return (GetInstance().m_test_flags & flag) ? true : false; }
 
 private:
     template<int KIND>
@@ -215,9 +228,9 @@ private:
         typedef Fragment<KIND> _Myt;
     public:
         Fragment() IUTEST_CXX_NOEXCEPT_SPEC {}
-        Fragment(bool enabled) { SetFlag(KIND, enabled ? -1 : ~KIND); } // NOLINT
-        _Myt& operator = (bool enabled) { SetFlag(KIND, enabled ? -1 : ~KIND); return *this; }
-        operator bool() const { return IsEnableFlag(KIND); }
+        Fragment(bool enabled) IUTEST_CXX_NOEXCEPT_SPEC { SetFlag(KIND, enabled ? -1 : ~KIND); } // NOLINT
+        _Myt& operator = (bool enabled) IUTEST_CXX_NOEXCEPT_SPEC { SetFlag(KIND, enabled ? -1 : ~KIND); return *this; }
+        operator bool() const IUTEST_CXX_NOEXCEPT_SPEC { return IsEnableFlag(KIND); }
     };
 
 private:
@@ -272,9 +285,9 @@ public:
     {
     public:
         RandomSeedSet() IUTEST_CXX_NOEXCEPT_SPEC {}
-        RandomSeedSet(unsigned int seed) { init_random(seed); }
-        RandomSeedSet& operator = (unsigned int seed) { init_random(seed); return *this; }
-        operator unsigned int() const { return get_random_seed(); }
+        RandomSeedSet(unsigned int seed) IUTEST_CXX_NOEXCEPT_SPEC { init_random(seed); }
+        RandomSeedSet& operator = (unsigned int seed) IUTEST_CXX_NOEXCEPT_SPEC { init_random(seed); return *this; }
+        operator unsigned int() const IUTEST_CXX_NOEXCEPT_SPEC { return get_random_seed(); }
     } random_seed;
 
     /**
@@ -285,9 +298,9 @@ public:
     {
     public:
         RepeatCountSet() IUTEST_CXX_NOEXCEPT_SPEC {}
-        RepeatCountSet(int count) { set_repeat_count(count); }
-        RepeatCountSet& operator = (int count) { set_repeat_count(count); return *this; }
-        operator int() const { return get_repeat_count(); }
+        RepeatCountSet(int count) IUTEST_CXX_NOEXCEPT_SPEC { set_repeat_count(count); }
+        RepeatCountSet& operator = (int count) IUTEST_CXX_NOEXCEPT_SPEC { set_repeat_count(count); return *this; }
+        operator int() const IUTEST_CXX_NOEXCEPT_SPEC { return get_repeat_count(); }
     } repeat;
 
 #if defined(IUTEST_NO_PRIVATE_IN_AGGREGATE)
@@ -301,24 +314,25 @@ public:
         bool m_dirty;
         T   m_value;
     public:
-        StateVariable& operator = (const T& rhs) { m_value = rhs; m_dirty = true; return *this; }
-        operator const T& () const { return m_value; }
-        const T& operator ()() const { return m_value; }
-        bool is_dirty() const { return m_dirty; }
-        void flush() { m_dirty = false; }
-        T& get() { return m_value; }
-        const T& get() const { return m_value; }
+        StateVariable() IUTEST_CXX_NOEXCEPT_SPEC : m_dirty(false), m_value(T()) {}
+        StateVariable& operator = (const T& rhs) IUTEST_CXX_NOEXCEPT_SPEC { m_value = rhs; m_dirty = true; return *this; }
+        operator const T& () const IUTEST_CXX_NOEXCEPT_SPEC { return m_value; }
+        const T& operator ()() const IUTEST_CXX_NOEXCEPT_SPEC { return m_value; }
+        bool is_dirty() const IUTEST_CXX_NOEXCEPT_SPEC { return m_dirty; }
+        void flush() IUTEST_CXX_NOEXCEPT_SPEC { m_dirty = false; }
+        T& get() IUTEST_CXX_NOEXCEPT_SPEC { return m_value; }
+        const T& get() const IUTEST_CXX_NOEXCEPT_SPEC { return m_value; }
     };
 
 private:
     struct Variable
     {
-        Variable()
+        Variable() IUTEST_CXX_NOEXCEPT_SPEC
             : m_random_seed(0)
             , m_current_random_seed(0)
             , m_before_origin_random_seed(0)
             , m_repeat_count(1)
-            , m_testpartresult_reporter(NULL)
+            , m_testpartresult_reporter(IUTEST_NULLPTR)
         {}
         unsigned int        m_random_seed;
         unsigned int        m_current_random_seed;
@@ -341,31 +355,73 @@ private:
         ::std::string       m_locale_ctype;
     };
 
-    static Variable& get_vars() { static Variable sVars; return sVars; }
+    static Variable& get_vars() IUTEST_CXX_NOEXCEPT_SPEC { static Variable sVars; return sVars; }
 
 private:
-    static const char*          get_output_option_c_str() { return get_vars().m_output_option.get().c_str(); }
+    static const char*          get_output_option_c_str() IUTEST_CXX_NOEXCEPT_SPEC { return get_vars().m_output_option.get().c_str(); }
 #if IUTEST_HAS_STREAM_RESULT
-    static const char*          get_stream_result_to_c_str() { return get_vars().m_stream_result_to.get().c_str(); }
+    static const char*          get_stream_result_to_c_str() IUTEST_CXX_NOEXCEPT_SPEC { return get_vars().m_stream_result_to.get().c_str(); }
 #endif
 
 public:
-    static detail::iuRandom&    genrand() { return get_vars().m_genrand; }              //!< 乱数生成器
-    static unsigned int         get_random_seed() { return get_vars().m_random_seed; }              //!< 乱数シード
-    static unsigned int         current_random_seed() { return get_vars().m_current_random_seed; }  //!< 乱数シード
-    static int                  get_repeat_count() { return get_vars().m_repeat_count; }            //!< 繰り返し回数
-    static const StateVariable< ::std::string >& get_output_option() { return get_vars().m_output_option; }  //!< 出力オプション
-    static const char*          get_default_package_name() { return get_vars().m_default_package_name.c_str(); }    //!< root package オプション
-    static const char*          test_filter() { return get_vars().m_test_filter.c_str(); }      //!< フィルター文字列
-    static const char*          get_flagfile() { return get_vars().m_flagfile.c_str(); }        //!< flag file
+    //! get random generator
+    static detail::iuRandom& genrand() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return get_vars().m_genrand;
+    }
+     //! random seed
+    static unsigned int get_random_seed() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return get_vars().m_random_seed;
+    }
+     //! current test random seed
+    static unsigned int current_random_seed() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return get_vars().m_current_random_seed;
+    }
+    //! repeat count
+    static int get_repeat_count() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return get_vars().m_repeat_count;
+    }
+    //! output option
+    static const StateVariable< ::std::string >& get_output_option() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return get_vars().m_output_option;
+    }
+    //! root package option
+    static const char* get_default_package_name() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return get_vars().m_default_package_name.c_str();
+    }
+    //! filter string
+    static const char* test_filter() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return get_vars().m_test_filter.c_str();
+    }
+    //! flag file
+    static const char* get_flagfile() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return get_vars().m_flagfile.c_str();
+    }
 #if IUTEST_HAS_STREAM_RESULT
-    static const StateVariable< ::std::string >& get_stream_result_to() { return get_vars().m_stream_result_to; }
+    static const StateVariable< ::std::string >& get_stream_result_to() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return get_vars().m_stream_result_to;
+    }
 #endif
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
     static void                 global_ostream_copyfmt(iu_ostream& os) { os.copyfmt(get_vars().m_ostream_formatter); }  // NOLINT
 #endif
-    static const char*          get_locale_ctype() { return get_vars().m_locale_ctype.c_str(); }    //!< ctype locale オプション
-    static bool                 is_specific_locale_ctype() { return !get_vars().m_locale_ctype.empty(); }
+    //!< ctype locale option
+    static const char* get_locale_ctype() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return get_vars().m_locale_ctype.c_str();
+    }
+    static bool is_specific_locale_ctype() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return !get_vars().m_locale_ctype.empty();
+    }
 
     /**
      * @brief   xml 出力パスを取得
@@ -377,29 +433,29 @@ public:
     static ::std::string get_report_junit_xml_filepath();
 
     /** @private */
-    static TestEventListeners& event_listeners() { return get_vars().m_event_listeners; }
+    static TestEventListeners& event_listeners() IUTEST_CXX_NOEXCEPT_SPEC { return get_vars().m_event_listeners; }
     /** @private */
-    static TestPartResultReporterInterface* GetGlobalTestPartResultReporter()
+    static TestPartResultReporterInterface* GetGlobalTestPartResultReporter() IUTEST_CXX_NOEXCEPT_SPEC
     {
         return get_vars().m_testpartresult_reporter;
     }
     /** @private */
-    static void SetGlobalTestPartResultReporter(TestPartResultReporterInterface* ptr)
+    static void SetGlobalTestPartResultReporter(TestPartResultReporterInterface* ptr) IUTEST_CXX_NOEXCEPT_SPEC
     {
         get_vars().m_testpartresult_reporter = ptr;
     }
     /** @private */
-    static bool has_output_option()
+    static bool has_output_option() IUTEST_CXX_NOEXCEPT_SPEC
     {
         return !get_vars().m_output_option.get().empty();
     }
     /** @private */
-    static bool is_output_option_dirty()
+    static bool is_output_option_dirty() IUTEST_CXX_NOEXCEPT_SPEC
     {
         return get_vars().m_output_option.is_dirty();
     }
     /** @private */
-    static void flush_output_option()
+    static void flush_output_option() IUTEST_CXX_NOEXCEPT_SPEC
     {
         get_vars().m_output_option.flush();
     }
@@ -408,7 +464,7 @@ private:
     /**
      * @brief   乱数シードの設定
     */
-    static void init_random(unsigned int seed)
+    static void init_random(unsigned int seed) IUTEST_CXX_NOEXCEPT_SPEC
     {
         get_vars().m_random_seed = seed;
     }
@@ -416,7 +472,7 @@ private:
     /**
      * @brief   繰り返し回数の設定
     */
-    static void set_repeat_count(int count)
+    static void set_repeat_count(int count) IUTEST_CXX_NOEXCEPT_SPEC
     {
         get_vars().m_repeat_count = count;
     }
@@ -426,7 +482,7 @@ private:
     */
     static void set_test_filter(const char* str)
     {
-        get_vars().m_test_filter = str == NULL ? "*" : str;
+        get_vars().m_test_filter = str == IUTEST_NULLPTR ? "*" : str;
         TestFlag::SetFlag(TestFlag::FILTERING_TESTS);
     }
 
@@ -460,7 +516,7 @@ private:
     /**
      * @brief   color オプション文字列を取得
     */
-    static const char* get_color_option()
+    static const char* get_color_option() IUTEST_CXX_NOEXCEPT_SPEC
     {
         if( TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ANSI) )
         {
@@ -479,7 +535,7 @@ private:
     /**
      * @brief   color オプションを設定
     */
-    static void set_color_option(const char* str)
+    static void set_color_option(const char* str) IUTEST_CXX_NOEXCEPT_SPEC
     {
         ParseColorOption(str);
     }
@@ -606,13 +662,17 @@ public:
     {
         IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()
     public:
-        OStreamFormatter()
+        OStreamFormatter() IUTEST_CXX_NOEXCEPT(false)
         {
             copyfmt(get_vars().m_ostream_formatter);
         }
         virtual ~OStreamFormatter()
         {
-            get_vars().m_ostream_formatter.copyfmt(*this);
+            IUTEST_IGNORE_EXCEPTION_BEGIN()
+            {
+                get_vars().m_ostream_formatter.copyfmt(*this);
+            }
+            IUTEST_IGNORE_EXCEPTION_END()
         }
     } ostream_formatter;
 
@@ -623,7 +683,7 @@ public:
 #endif
 
 private:
-    static iuEnvironmentList& environments() { return get_vars().m_environment_list; }
+    static iuEnvironmentList& environments() IUTEST_CXX_NOEXCEPT_SPEC { return get_vars().m_environment_list; }
 
 public:
     /**
@@ -633,11 +693,10 @@ public:
     */
     static Environment* AddGlobalTestEnvironment(Environment* env)
     {
-        if( env == NULL )
+        if( env != IUTEST_NULLPTR )
         {
-            return NULL;
+            environments().push_back(env);
         }
-        environments().push_back(env);
         return env;
     }
 
@@ -648,15 +707,15 @@ public:
     */
     static Environment* ReleaseGlobalTestEnvironment(Environment* env)
     {
-        if( env == NULL )
+        if( env == IUTEST_NULLPTR )
         {
-            return NULL;
+            return IUTEST_NULLPTR;
         }
         iuEnvironmentList& list = environments();
         iuEnvironmentList::iterator it = ::std::find(list.begin(), list.end(), env);
         if( it == list.end() )
         {
-            return NULL;
+            return IUTEST_NULLPTR;
         }
         list.erase(it);
         return env;
@@ -671,7 +730,7 @@ private:
     /**
      * @brief   環境セットクラスの解放
     */
-    static void ReleaseGlobalTestEnvironment()
+    static void ReleaseGlobalTestEnvironment() IUTEST_CXX_NOEXCEPT_SPEC
     {
         // すべて解放する
         for( iuEnvironmentList::iterator it=environments().begin(); it != environments().end(); )
@@ -690,7 +749,7 @@ public:
     template<typename CharType>
     static void ParseCommandLine(int* pargc, CharType** argv)
     {
-        if( argv == NULL )
+        if( argv == IUTEST_NULLPTR )
         {
             return;
         }
@@ -753,7 +812,7 @@ private:
     }
     static bool ParseCommandLineElemA(const char* str);
     static bool ParseIutestOptionCommandLineElemA(const char* str);
-    static bool SetFlag(int enable, int mask = -1);
+    static bool SetFlag(int enable, int mask = -1) IUTEST_CXX_NOEXCEPT_SPEC;
 
 private:
     /**
@@ -770,19 +829,19 @@ private:
     /**
      * @brief   オプション文字列から設定文字列の先頭アドレスを取得
     */
-    static inline const char* ParseOptionSettingStr(const char* opt)
+    static inline const char* ParseOptionSettingStr(const char* opt) IUTEST_CXX_NOEXCEPT_SPEC
     {
         const char* eq = strchr(opt, '=');
-        if( eq == NULL )
+        if( eq == IUTEST_NULLPTR )
         {
-            return NULL;
+            return IUTEST_NULLPTR;
         }
         return eq+1;
     }
     /**
      * @brief   IUTEST_COLOR オプションの判定
     */
-    static bool ParseColorOption(const char* option);
+    static bool ParseColorOption(const char* option) IUTEST_CXX_NOEXCEPT_SPEC;
 
     /**
      * @brief   IUTEST_OUTPUT オプションの判定
@@ -792,7 +851,7 @@ private:
     /**
      * @brief   IUTEST_FILE_LOCATION オプションの判定
     */
-    static bool ParseFileLocationOption(const char* option);
+    static bool ParseFileLocationOption(const char* option) IUTEST_CXX_NOEXCEPT_SPEC;
 
     /**
      * @brief   IUTEST_FILTER オプションの判定
@@ -811,7 +870,7 @@ private:
      * @param [in]  def     = 引数なしの場合のオペレーション
      * @return  成否
     */
-    static bool ParseYesNoFlagCommandLine(const char* str, TestFlag::Kind flag, int def);
+    static bool ParseYesNoFlagCommandLine(const char* str, TestFlag::Kind flag, int def) IUTEST_CXX_NOEXCEPT_SPEC;
 
     /**
      * @brief   yes オプションか no オプションかの判定
@@ -820,42 +879,42 @@ private:
      * @retval  0   = NO
      * @retval  > 0 = YES
     */
-    static int ParseYesNoOption(const char* option);
+    static int ParseYesNoOption(const char* option) IUTEST_CXX_NOEXCEPT_SPEC;
 
     /**
      * @brief   yes オプションか判定
     */
-    static bool IsYes(const char* option);
+    static bool IsYes(const char* option) IUTEST_CXX_NOEXCEPT_SPEC;
     /**
      * @brief   no オプションか判定
     */
-    static bool IsNo(const char* option);
+    static bool IsNo(const char* option) IUTEST_CXX_NOEXCEPT_SPEC;
 
 private:
     friend class UnitTest;
 };
 
 /**
- * @brief   ostream_formatter オプションが適用されてた stringstream
+ * @brief   ostream_formatter オプションが適用された stringstream
 */
 class iu_global_format_stringstream : public iu_stringstream
 {
     IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()
 public:
-    iu_global_format_stringstream()
+    iu_global_format_stringstream() IUTEST_CXX_NOEXCEPT(false)
     {
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
         TestEnv::global_ostream_copyfmt(*this);
 #endif
     }
-    explicit iu_global_format_stringstream(const char* str)
+    explicit iu_global_format_stringstream(const char* str) IUTEST_CXX_NOEXCEPT(false)
         : iu_stringstream(str)
     {
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
         TestEnv::global_ostream_copyfmt(*this);
 #endif
     }
-    explicit iu_global_format_stringstream(const ::std::string& str)
+    explicit iu_global_format_stringstream(const ::std::string& str) IUTEST_CXX_NOEXCEPT(false)
         : iu_stringstream(str)
     {
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
