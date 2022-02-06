@@ -170,7 +170,7 @@ jobs:
       DEFS: "-fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference -Wno-analyzer-malloc-leak -Wno-analyzer-null-dereference"
       MAKE_ADD_OPTION: -j1
       GGC_MIN_EXPAND: 1
-      GGC_MIN_HEAPSIZE: 16384
+      GGC_MIN_HEAPSIZE: 32768
     steps: *build-test-steps
   gcc_optimize_test:
     parallelism: 4
