@@ -68,7 +68,7 @@ private:
     MiniDump() IUTEST_CXX_NOEXCEPT_SPEC;
     ~MiniDump();
 
-    bool Dump(HANDLE hFile, EXCEPTION_POINTERS* ep);
+    bool Dump(HANDLE hFile, EXCEPTION_POINTERS* ep) IUTEST_CXX_NOEXCEPT_SPEC;
 public:
     /**
      * @brief minidump 作成

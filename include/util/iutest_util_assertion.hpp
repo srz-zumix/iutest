@@ -914,11 +914,11 @@ namespace floationg_point_helper
 {
 
 template<typename T>
-::iutest::internal::FloatingPoint<float> CastToFloatingPoint(const T& x)
+::iutest::internal::FloatingPoint<float> CastToFloatingPoint(const T& x) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return ::iutest::internal::FloatingPoint<float>(static_cast<float>(x));
 }
-inline ::iutest::internal::FloatingPoint<double> CastToFloatingPoint(const double& x)
+inline ::iutest::internal::FloatingPoint<double> CastToFloatingPoint(const double& x) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return ::iutest::internal::FloatingPoint<double>(x);
 }

@@ -302,7 +302,7 @@ IUTEST_IPP_INLINE size_t FindLastPathSeparatorPosition(const char* path, size_t 
     return static_cast<size_t>(p - path);
 }
 
-IUTEST_IPP_INLINE bool SetEnvironmentVariable(const char* name, const char* value)
+IUTEST_IPP_INLINE bool SetEnvironmentVariable(const char* name, const char* value) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)
     return ::SetEnvironmentVariableA(name, value) ? true : false;
@@ -311,7 +311,7 @@ IUTEST_IPP_INLINE bool SetEnvironmentVariable(const char* name, const char* valu
 #endif
 }
 
-IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, char* buf, size_t size)
+IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, char* buf, size_t size) IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( buf == IUTEST_NULLPTR )
     {

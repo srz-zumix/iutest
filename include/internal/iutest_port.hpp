@@ -182,7 +182,7 @@ size_t FindLastPathSeparatorPosition(const char* path, size_t length) IUTEST_CXX
 /**
  * @brief   環境変数の設定
 */
-bool SetEnvironmentVariable(const char* name, const char* value);
+bool SetEnvironmentVariable(const char* name, const char* value) IUTEST_CXX_NOEXCEPT_SPEC;
 
 
 /**
@@ -191,7 +191,7 @@ bool SetEnvironmentVariable(const char* name, const char* value);
  * @param [out] buf     = 出力バッファ
  * @return  成否
 */
-bool GetEnvironmentVariable(const char* name, char* buf, size_t size);
+bool GetEnvironmentVariable(const char* name, char* buf, size_t size) IUTEST_CXX_NOEXCEPT_SPEC;
 
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 

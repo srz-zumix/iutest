@@ -616,7 +616,7 @@ template<>
 class NullHelper<true>
 {
 public:
-    static AssertionResult CompareEq(const char*, void*)
+    static AssertionResult CompareEq(const char*, void*) IUTEST_CXX_NOEXCEPT_SPEC
     {
         return AssertionSuccess();
     }
@@ -1088,7 +1088,7 @@ namespace StrEqHelper
 
 #define IIUT_DECL_STREQ_COMPARE_HELPER_SV_(T)   \
     inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(detail::iu_nullable_basic_string_view<T> val1  \
-        , detail::iu_nullable_basic_string_view<T> val2) {                                      \
+        , detail::iu_nullable_basic_string_view<T> val2) IUTEST_CXX_NOEXCEPT_AS(val1 == val2) { \
         return val1 == val2;                                                                    \
     }                                                                                           \
     inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const T* val1, const T* val2) {                \

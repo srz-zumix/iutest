@@ -54,7 +54,7 @@ IUTEST_IPP_INLINE MiniDump::~MiniDump()
     FreeLibrary(m_hModule);
 }
 
-IUTEST_IPP_INLINE bool MiniDump::Dump(HANDLE hFile, EXCEPTION_POINTERS* ep)
+IUTEST_IPP_INLINE bool MiniDump::Dump(HANDLE hFile, EXCEPTION_POINTERS* ep) IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( m_pfnMiniDumpWriteDump == IUTEST_NULLPTR )
     {
