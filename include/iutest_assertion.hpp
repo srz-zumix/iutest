@@ -492,13 +492,13 @@ inline AssertionResult CmpHelperOpFailure(const char* expr1, const char* expr2, 
  */
 
 #define IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_BASE_(op_name, op)    \
+    IUTEST_PRAGMA_WARN_PUSH()                                       \
+    IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_INT_FLOAT_CONVERSION()      \
     template<typename T1, typename T2>                              \
-    bool iuOperator##op_name(const T1& v1, const T2& v2) {          \
-        IUTEST_PRAGMA_WARN_PUSH()                                   \
-        IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_INT_FLOAT_CONVERSION()          \
+    bool iuOperator##op_name(const T1& v1, const T2& v2) IUTEST_CXX_NOEXCEPT_AS(v1 op v2) { \
         return v1 op v2;                                            \
-        IUTEST_PRAGMA_WARN_POP()                                    \
-    }
+    }                                                               \
+    IUTEST_PRAGMA_WARN_POP()
 
 #if IUTEST_HAS_CXX_HDR_VARIANT && IUTEST_HAS_VARIADIC_TEMPLATES
 #define IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_VARIANT_(op_name, op)             \
@@ -1207,7 +1207,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
 namespace StrCaseEqHelper
 {
 
-inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const char* val1, const char* val2)
+inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const char* val1, const char* val2) IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( val1 == IUTEST_NULLPTR || val2 == IUTEST_NULLPTR )
     {
@@ -1216,7 +1216,7 @@ inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const char* val1, const char* val2)
     return detail::iu_stricmp(val1, val2) == 0;
 }
 
-inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const wchar_t* val1, const wchar_t* val2)
+inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const wchar_t* val1, const wchar_t* val2) IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( val1 == IUTEST_NULLPTR || val2 == IUTEST_NULLPTR )
     {
