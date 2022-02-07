@@ -217,7 +217,7 @@ bool IUTEST_ATTRIBUTE_UNUSED_ GetEnvironmentVariable(const char* name, ::std::st
  * @param [out] var     = 出力数値
  * @return  成否
  */
-bool IUTEST_ATTRIBUTE_UNUSED_ GetEnvironmentInt(const char* name, int& var);
+bool IUTEST_ATTRIBUTE_UNUSED_ GetEnvironmentInt(const char* name, int& var) IUTEST_CXX_NOEXCEPT_SPEC;
 
 #if defined(IUTEST_OS_WINDOWS)
 namespace win

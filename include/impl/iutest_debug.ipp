@@ -75,7 +75,7 @@ IUTEST_IPP_INLINE bool MiniDump::Dump(HANDLE hFile, EXCEPTION_POINTERS* ep) IUTE
     return (*proc)( ::GetCurrentProcess(), ::GetCurrentProcessId(), hFile, MiniDumpNormal
         , &mdei, IUTEST_NULLPTR, IUTEST_NULLPTR) ? true : false;
 }
-IUTEST_IPP_INLINE bool MiniDump::Create(const char* filepath, EXCEPTION_POINTERS* ep)
+IUTEST_IPP_INLINE bool MiniDump::Create(const char* filepath, EXCEPTION_POINTERS* ep) IUTEST_CXX_NOEXCEPT_SPEC
 {
     HANDLE hFile = CreateFileA( filepath, GENERIC_READ|GENERIC_WRITE, FILE_SHARE_WRITE|FILE_SHARE_READ
         , IUTEST_NULLPTR, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, IUTEST_NULLPTR);

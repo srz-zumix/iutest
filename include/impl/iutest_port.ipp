@@ -362,7 +362,7 @@ IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, ::std::string& v
     return true;
 }
 
-IUTEST_IPP_INLINE bool GetEnvironmentInt(const char* name, int& var)
+IUTEST_IPP_INLINE bool GetEnvironmentInt(const char* name, int& var) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
     char buf[128] = {0};

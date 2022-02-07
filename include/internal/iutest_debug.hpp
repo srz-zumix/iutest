@@ -47,7 +47,7 @@ static void IUTEST_ATTRIBUTE_UNUSED_ iuDebugInitialize() IUTEST_CXX_NOEXCEPT_SPE
 #endif
 }
 
-static void IUTEST_ATTRIBUTE_UNUSED_ iuDebugBreakAlloc(long n)
+static void IUTEST_ATTRIBUTE_UNUSED_ iuDebugBreakAlloc(long n) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #ifdef _IUTEST_DEBUG
 #  if defined(_MSC_VER) && !defined(IUTEST_OS_WINDOWS_MOBILE)
@@ -73,7 +73,7 @@ public:
     /**
      * @brief minidump 作成
     */
-    static bool Create(const char* filepath, EXCEPTION_POINTERS* ep);
+    static bool Create(const char* filepath, EXCEPTION_POINTERS* ep) IUTEST_CXX_NOEXCEPT_SPEC;
 
 private:
     HMODULE m_hModule;

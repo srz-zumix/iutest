@@ -136,7 +136,7 @@ public:
      * @brief   成否の取得
     */
     template<typename T>
-    static AssertionResult Is(const T& b) { return AssertionResult(b ? true : false); }
+    static AssertionResult Is(const T& b) IUTEST_CXX_NOEXCEPT_AS(!!b) { return AssertionResult(b ? true : false); }
     /** @overload */
     static AssertionResult Is(const AssertionResult& ar) IUTEST_CXX_NOEXCEPT_SPEC { return AssertionResult(ar); }
 
@@ -1304,7 +1304,7 @@ namespace StrCaseNeHelper
 {
 
 template<typename T1, typename T2>
-inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const T1& val1, const T2& val2)
+inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const T1& val1, const T2& val2) IUTEST_CXX_NOEXCEPT_AS(StrCaseEqHelper::Compare(val1, val2))
 {
     return !StrCaseEqHelper::Compare(val1, val2);
 }
