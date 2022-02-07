@@ -268,7 +268,7 @@ workflows:
     jobs:
       - gcc_fanalzyer_test:
           filters: *branch-filter
-          no_output_timeout: 40m
+          no_output_timeout: 120m
       - gcc_optimize_test:
           filters: *branch-filter
       - clang_optimize_test:
