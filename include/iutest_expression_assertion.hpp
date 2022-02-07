@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -117,7 +117,7 @@ namespace detail
 class ExpressionResult
 {
 public:
-    explicit ExpressionResult(const AssertionResult& ar)
+    explicit ExpressionResult(const AssertionResult& ar) IUTEST_CXX_NOEXCEPT_SPEC
         : m_result(ar) {}
 
 public:
@@ -134,8 +134,8 @@ public:
         return AssertionResult(result()) << m_result.message();
     }
 private:
-    bool result() const { return m_result.passed(); }
-    const char* message() const { return m_result.message(); }
+    bool result() const IUTEST_CXX_NOEXCEPT_SPEC { return m_result.passed(); }
+    const char* message() const IUTEST_CXX_NOEXCEPT_SPEC { return m_result.message(); }
 private:
     AssertionResult m_result;
 };

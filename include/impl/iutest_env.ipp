@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -32,7 +32,7 @@ IUTEST_IPP_INLINE ::std::string TestEnv::get_report_xml_filepath()
 {
     const ::std::string& option = get_vars().m_output_option;
     const char spec[] = "xml";
-    const size_t length = sizeof(spec) - 1;
+    IUTEST_CXX_CONSTEXPR_OR_CONST size_t length = sizeof(spec) - 1;
     if( option.compare(0, length, spec) == 0 )
     {
         if( (option.length() > length + 1) && (option.at(length) == ':') )
@@ -48,7 +48,7 @@ IUTEST_IPP_INLINE::std::string TestEnv::get_report_junit_xml_filepath()
 {
     const ::std::string& option = get_vars().m_output_option;
     const char spec[] = "junit";
-    const size_t length = sizeof(spec) - 1;
+    IUTEST_CXX_CONSTEXPR_OR_CONST size_t length = sizeof(spec) - 1;
     if( option.compare(0, length, spec) == 0 )
     {
         if( (option.length() > length + 1) && (option.at(length) == ':') )
@@ -67,7 +67,7 @@ IUTEST_IPP_INLINE::std::string TestEnv::AddDefaultPackageName(const char* testsu
     {
         return testsuite_name;
     }
-    if( strchr(testsuite_name, '.') != NULL )
+    if( strchr(testsuite_name, '.') != IUTEST_NULLPTR )
     {
         return testsuite_name;
     }
@@ -99,9 +99,10 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
                     iuoption = true;
                 }
                 const char option_prefix[] = "test_";
-                for( int i=0, size=sizeof(option_prefix)/sizeof(option_prefix[0])-1; i < size; ++i, ++str )
+                IUTEST_CXX_CONSTEXPR_OR_CONST int size = sizeof(option_prefix)/sizeof(option_prefix[0])-1;
+                for( int i=0; i < size; ++i, ++str )
                 {
-                    if( *str != option_prefix[i] )
+                    if( *str != gsl::at(option_prefix, i) )
                     {
                         iuoption = false;
                         str = base_str;
@@ -184,9 +185,9 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
     if( detail::IsStringForwardMatching(str, "random_seed") )
     {
         const char* opt = ParseOptionSettingStr(str);
-        if( opt != NULL )
+        if( opt != IUTEST_NULLPTR )
         {
-            char* end = NULL;
+            char* end = IUTEST_NULLPTR;
             const long seed = strtol(opt, &end, 0);
             init_random(static_cast<unsigned int>(seed));
             return true;
@@ -219,9 +220,9 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
     if( detail::IsStringForwardMatching(str, "repeat") )
     {
         const char* opt = ParseOptionSettingStr(str);
-        if( opt != NULL )
+        if( opt != IUTEST_NULLPTR )
         {
-            char* end = NULL;
+            char* end = IUTEST_NULLPTR;
             const long count = strtol(opt, &end, 0);
             set_repeat_count(static_cast<int>(count));
             return true;
@@ -239,7 +240,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
     if( detail::IsStringForwardMatching(str, "stream_result_to") )
     {
         const char* opt = ParseOptionSettingStr(str);
-        if( opt != NULL )
+        if( opt != IUTEST_NULLPTR )
         {
             set_stream_result_to(opt);
             return true;
@@ -253,7 +254,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
     if( detail::IsStringForwardMatching(str, "default_package_name") )
     {
         const char* opt = ParseOptionSettingStr(str);
-        if (opt != NULL)
+        if (opt != IUTEST_NULLPTR)
         {
             set_default_package_name(opt);
             return true;
@@ -268,7 +269,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
     return false;
 }
 
-IUTEST_IPP_INLINE bool TestEnv::SetFlag(int enable, int mask)
+IUTEST_IPP_INLINE bool TestEnv::SetFlag(int enable, int mask) IUTEST_CXX_NOEXCEPT_SPEC
 {
     TestFlag::SetFlag(enable, mask);
     return true;
@@ -294,7 +295,7 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnvironmentVariable()
         if( detail::GetEnvironmentInt("IUTEST_RANDOM_SEED", var)
         ||  detail::GetEnvironmentInt("GTEST_RANDOM_SEED", var) )
         {
-            init_random((unsigned int)var);
+            init_random(static_cast<unsigned int>(var));
         }
         if( detail::GetEnvironmentInt("IUTEST_CATCH_EXCEPTIONS", var)
         ||  detail::GetEnvironmentInt("GTEST_CATCH_EXCEPTIONS", var) )
@@ -401,9 +402,9 @@ IUTEST_IPP_INLINE void TestEnv::SetUp()
     genrand().init(seed);
 }
 
-IUTEST_IPP_INLINE bool TestEnv::ParseColorOption(const char* option)
+IUTEST_IPP_INLINE bool TestEnv::ParseColorOption(const char* option) IUTEST_CXX_NOEXCEPT_SPEC
 {
-    if( option == NULL )
+    if( option == IUTEST_NULLPTR )
     {
         return false;
     }
@@ -435,7 +436,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseColorOption(const char* option)
 
 IUTEST_IPP_INLINE bool TestEnv::ParseOutputOption(const char* option)
 {
-    if(option == NULL)
+    if( option == IUTEST_NULLPTR )
     {
         get_vars().m_output_option = "";
         return false;
@@ -444,9 +445,9 @@ IUTEST_IPP_INLINE bool TestEnv::ParseOutputOption(const char* option)
     return true;
 }
 
-IUTEST_IPP_INLINE bool TestEnv::ParseFileLocationOption(const char* option)
+IUTEST_IPP_INLINE bool TestEnv::ParseFileLocationOption(const char* option) IUTEST_CXX_NOEXCEPT_SPEC
 {
-    if( option == NULL )
+    if( option == IUTEST_NULLPTR )
     {
         return false;
     }
@@ -476,7 +477,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseFileLocationOption(const char* option)
 
 IUTEST_IPP_INLINE bool TestEnv::ParseFilterOption(const char* option)
 {
-    if( option != NULL && *option == '@' )
+    if( option != IUTEST_NULLPTR && *option == '@' )
     {
         // file
         const char* path = option + 1;
@@ -501,7 +502,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseFilterOption(const char* option)
 
 IUTEST_IPP_INLINE bool TestEnv::ParseFlagFileOption(const char* option)
 {
-    if( option == NULL || option[0] == '\0' )
+    if( option == IUTEST_NULLPTR || option[0] == '\0' )
     {
         return false;
     }
@@ -512,7 +513,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseFlagFileOption(const char* option)
 IUTEST_IPP_INLINE bool TestEnv::LoadFlagFile()
 {
     const char* path = get_flagfile();
-    if( path == NULL || path[0] == '\0' )
+    if( path == IUTEST_NULLPTR || path[0] == '\0' )
     {
         return true;
     }
@@ -531,10 +532,10 @@ IUTEST_IPP_INLINE bool TestEnv::LoadFlagFile()
     return true;
 }
 
-IUTEST_IPP_INLINE bool TestEnv::ParseYesNoFlagCommandLine(const char* str, TestFlag::Kind flag, int def)
+IUTEST_IPP_INLINE bool TestEnv::ParseYesNoFlagCommandLine(const char* str, TestFlag::Kind flag, int def) IUTEST_CXX_NOEXCEPT_SPEC
 {
     const char* option = ParseOptionSettingStr(str);
-    const int yesno = option != NULL ? ParseYesNoOption(option) : def;
+    const int yesno = option != IUTEST_NULLPTR ? ParseYesNoOption(option) : def;
     if( yesno < 0 )
     {
         return false;
@@ -543,9 +544,9 @@ IUTEST_IPP_INLINE bool TestEnv::ParseYesNoFlagCommandLine(const char* str, TestF
     return true;
 }
 
-IUTEST_IPP_INLINE int TestEnv::ParseYesNoOption(const char* option)
+IUTEST_IPP_INLINE int TestEnv::ParseYesNoOption(const char* option) IUTEST_CXX_NOEXCEPT_SPEC
 {
-    if( option != NULL )
+    if( option != IUTEST_NULLPTR )
     {
         if( IsYes(option) )
         {
@@ -560,7 +561,7 @@ IUTEST_IPP_INLINE int TestEnv::ParseYesNoOption(const char* option)
     return -1;
 }
 
-IUTEST_IPP_INLINE bool TestEnv::IsYes(const char* option)
+IUTEST_IPP_INLINE bool TestEnv::IsYes(const char* option) IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( detail::IsStringCaseEqual(option, "yes")
         || detail::IsStringCaseEqual(option, "y")
@@ -574,7 +575,7 @@ IUTEST_IPP_INLINE bool TestEnv::IsYes(const char* option)
     return false;
 }
 
-IUTEST_IPP_INLINE bool TestEnv::IsNo(const char* option)
+IUTEST_IPP_INLINE bool TestEnv::IsNo(const char* option) IUTEST_CXX_NOEXCEPT_SPEC
 {
     if( detail::IsStringCaseEqual(option, "no")
         || detail::IsStringCaseEqual(option, "n")
