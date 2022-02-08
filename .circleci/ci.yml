@@ -168,7 +168,7 @@ jobs:
       CXX: g++
       GCC_VERSION: "11"
       DEFS: "-fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference -Wno-analyzer-malloc-leak -Wno-analyzer-null-dereference"
-      # MAKE_ADD_OPTION: -j1
+      MAKE_ADD_OPTION: -j2
       # GGC_MIN_EXPAND: 0 # full gc
       # GGC_MIN_HEAPSIZE: 32768
     steps: *build-test-steps
