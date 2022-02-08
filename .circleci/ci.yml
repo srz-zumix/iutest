@@ -79,6 +79,7 @@ aliases:
         fi
   - &min-tests-and-spec-step
     name: minimum_tests and show feature / spec
+    no_output_timeout: << parameters.no_output_timeout >>
     command: if [ "$CIRCLE_NODE_INDEX" == "0" ]; then make minimum_tests && ./minimum_tests --spec --feature; fi
     working_directory: test
   - &build-step
