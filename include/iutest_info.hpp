@@ -191,7 +191,7 @@ private:
 
 #if IUTEST_HAS_SEH && IUTEST_HAS_EXCEPTIONS
 #if IUTEST_HAS_MINIDUMP
-    void MiniDump(_EXCEPTION_POINTERS* ep);
+    void MiniDump(_EXCEPTION_POINTERS* ep) IUTEST_CXX_NOEXCEPT_SPEC;
 #endif
     void RunOnMSC(Test* test);
 #endif

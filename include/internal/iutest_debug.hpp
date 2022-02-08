@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -47,6 +47,7 @@ static void IUTEST_ATTRIBUTE_UNUSED_ iuDebugInitialize() IUTEST_CXX_NOEXCEPT_SPE
 #endif
 }
 
+IUTEST_ATTRIBUTE_GSL_SUPPRESS(f.4)
 static void IUTEST_ATTRIBUTE_UNUSED_ iuDebugBreakAlloc(long n) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #ifdef _IUTEST_DEBUG
