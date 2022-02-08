@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_list.hpp
- * @brief       iris unit test list 構造 ファイル
+ * @brief       iris unit test own list container
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -47,8 +47,8 @@ public:
     value_ptr prev;
 
 protected:
-    iu_list_node() IUTEST_CXX_NOEXCEPT_SPEC : next(NULL)
-        , prev(NULL)
+    iu_list_node() IUTEST_CXX_NOEXCEPT_SPEC : next(IUTEST_NULLPTR)
+        , prev(IUTEST_NULLPTR)
     {}
 };
 
@@ -71,7 +71,7 @@ public:
 public:
     value_ptr m_node;
 public:
-    iu_list_iterator(value_ptr p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : m_node(p) {}  // NOLINT
+    iu_list_iterator(value_ptr p=IUTEST_NULLPTR) IUTEST_CXX_NOEXCEPT_SPEC : m_node(p) {}  // NOLINT
     iu_list_iterator(const iu_list_iterator& rhs) IUTEST_CXX_NOEXCEPT_SPEC : m_node(rhs.m_node) {}
     iu_list_iterator& operator = (const iu_list_iterator& rhs) IUTEST_CXX_NOEXCEPT_SPEC
     {
@@ -103,7 +103,7 @@ public:
         }
         _Myt ret(*this);
         n = -n;
-        for( int i=0; i < n && ret.m_node != NULL; ++i )
+        for( int i=0; i < n && ret.m_node != IUTEST_NULLPTR; ++i )
         {
             ret.m_node = ret.m_node->prev;
         }
@@ -113,7 +113,7 @@ public:
     _Myt operator + (unsigned int n)
     {
         _Myt ret(*this);
-        for( unsigned int i=0; i < n && ret.m_node != NULL; ++i )
+        for( unsigned int i=0; i < n && ret.m_node != IUTEST_NULLPTR; ++i )
         {
             ret.m_node = ret.m_node->next;
         }
@@ -138,7 +138,7 @@ public:
     typedef iu_list_iterator<NODE, NODE*, NODE&> iterator;
     typedef iu_list_iterator<NODE, const NODE*, const NODE&> const_iterator;
 public:
-    explicit iu_list(node_ptr p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : m_node(p) {}
+    explicit iu_list(node_ptr p=IUTEST_NULLPTR) IUTEST_CXX_NOEXCEPT_SPEC : m_node(p) {}
 
 public:
     // リストの総数取得
@@ -159,18 +159,18 @@ public:
     }
     bool empty() const IUTEST_CXX_NOEXCEPT_SPEC
     {
-        return m_node == NULL;
+        return m_node == IUTEST_NULLPTR;
     }
 public:
     // ソートして挿入
     void sort_insert(node_ptr p)
     {
-        if( p == NULL )
+        if( p == IUTEST_NULLPTR )
         {
             return;
         }
 
-        if( m_node == NULL )
+        if( m_node == IUTEST_NULLPTR )
         {
             m_node = p;
             return;
@@ -188,7 +188,7 @@ public:
         {
             node_ptr prev = m_node;
             node_ptr cur = m_node->next;
-            while(cur != NULL)
+            while(cur != IUTEST_NULLPTR)
             {
                 if( *p < *cur )
                 {
@@ -200,7 +200,7 @@ public:
             prev->next = p;
             p->prev = prev;
             p->next = cur;
-            if( cur != NULL )
+            if( cur != IUTEST_NULLPTR )
             {
                 cur->prev = p;
             }
@@ -209,12 +209,12 @@ public:
     // 追加
     void push_back(node_ptr p)
     {
-        if( p == NULL )
+        if( p == IUTEST_NULLPTR )
         {
             return;
         }
 
-        if( m_node == NULL )
+        if( m_node == IUTEST_NULLPTR )
         {
             m_node = p;
             return;
@@ -222,7 +222,7 @@ public:
 
         node_ptr prev = m_node;
         node_ptr cur = m_node->next;
-        while(cur != NULL)
+        while(cur != IUTEST_NULLPTR)
         {
             if( prev == p )
             {
@@ -237,31 +237,31 @@ public:
     // 削除
     void remove(node_ptr p)
     {
-        if( p == NULL )
+        if( p == IUTEST_NULLPTR )
         {
             return;
         }
-        if( m_node == NULL )
+        if( m_node == IUTEST_NULLPTR )
         {
             return;
         }
-        if( p->prev == NULL )
+        if( p->prev == IUTEST_NULLPTR )
         {
             m_node = p->next;
-            if( m_node != NULL )
+            if( m_node != IUTEST_NULLPTR )
             {
-                m_node->prev = NULL;
+                m_node->prev = IUTEST_NULLPTR;
             }
         }
         else
         {
             p->prev->next = p->next;
-            if( p->next != NULL )
+            if( p->next != IUTEST_NULLPTR )
             {
                 p->next->prev = p->prev;
             }
         }
-        p->prev = p->next = NULL;
+        p->prev = p->next = IUTEST_NULLPTR;
     }
     void erase(iterator it)
     {
@@ -303,11 +303,11 @@ public:
             b->next = a.ptr();
             b->prev = a->prev;
             a->prev = b.ptr();
-            if( a->next != NULL )
+            if( a->next != IUTEST_NULLPTR )
             {
                 a->next->prev = a.ptr();
             }
-            if( b->prev != NULL )
+            if( b->prev != IUTEST_NULLPTR )
             {
                 b->prev->next = b.ptr();
             }
@@ -318,11 +318,11 @@ public:
             a->next = b.ptr();
             a->prev = b->prev;
             b->prev = a.ptr();
-            if( b->next != NULL )
+            if( b->next != IUTEST_NULLPTR )
             {
                 b->next->prev = b.ptr();
             }
-            if( a->prev != NULL )
+            if( a->prev != IUTEST_NULLPTR )
             {
                 a->prev->next = a.ptr();
             }
@@ -335,19 +335,19 @@ public:
             tmp = a->prev;
             a->prev = b->prev;
             b->prev = tmp;
-            if( a->next != NULL )
+            if( a->next != IUTEST_NULLPTR )
             {
                 a->next->prev = a.ptr();
             }
-            if( b->next != NULL )
+            if( b->next != IUTEST_NULLPTR )
             {
                 b->next->prev = b.ptr();
             }
-            if( a->prev != NULL )
+            if( a->prev != IUTEST_NULLPTR )
             {
                 a->prev->next = a.ptr();
             }
-            if( b->prev != NULL )
+            if( b->prev != IUTEST_NULLPTR )
             {
                 b->prev->next = b.ptr();
             }
@@ -361,7 +361,7 @@ public:
     }
     iterator end() IUTEST_CXX_NOEXCEPT_SPEC
     {
-        return iterator(NULL);
+        return iterator(IUTEST_NULLPTR);
     }
     const_iterator begin() const IUTEST_CXX_NOEXCEPT_SPEC
     {
@@ -369,7 +369,7 @@ public:
     }
     const_iterator end() const IUTEST_CXX_NOEXCEPT_SPEC
     {
-        return const_iterator(NULL);
+        return const_iterator(IUTEST_NULLPTR);
     }
 
 
@@ -381,10 +381,10 @@ public:
     };
 public:
     template<typename FUNC>
-    node_ptr find(node_ptr p, FUNC& f) const
+    node_ptr find(node_ptr p, FUNC& f) const  IUTEST_CXX_NOEXCEPT_AS(f)
     {
         node_ptr cur = m_node;
-        while( cur != NULL )
+        while( cur != IUTEST_NULLPTR )
         {
             if( f(cur, p) )
             {
@@ -392,13 +392,13 @@ public:
             }
             cur = cur->next;
         }
-        return NULL;
+        return IUTEST_NULLPTR;
     }
     template<typename FUNC>
-    node_ptr find(FUNC& f) const
+    node_ptr find(FUNC& f) const  IUTEST_CXX_NOEXCEPT_AS(f)
     {
         node_ptr cur = m_node;
-        while( cur != NULL )
+        while( cur != IUTEST_NULLPTR )
         {
             if( f(cur) )
             {
@@ -406,7 +406,21 @@ public:
             }
             cur = cur->next;
         }
-        return NULL;
+        return IUTEST_NULLPTR;
+    }
+
+    node_ptr at(int index) const
+    {
+        node_ptr cur = m_node;
+        for( int i=0; i < index; ++i )
+        {
+            cur = cur->next;
+            if( cur == IUTEST_NULLPTR )
+            {
+                break;
+            }
+        }
+        return cur;
     }
 
 public:
@@ -414,19 +428,7 @@ public:
     node_ptr    operator &  () { return m_node; }   // NOLINT
     NODE&       operator *  () { return *m_node; }
 
-    node_ptr    operator [] (int index) const
-    {
-        node_ptr cur = m_node;
-        for( int i=0; i < index; ++i )
-        {
-            cur = cur->next;
-            if( cur == NULL )
-            {
-                break;
-            }
-        }
-        return cur;
-    }
+    node_ptr    operator [] (int index) const { return at(index); }
 
     bool operator == (node_ptr p) const { return m_node == p; }
     bool operator != (node_ptr p) const { return m_node != p; }
@@ -436,13 +438,13 @@ private:
     // ノードの状態チェック
     bool check_node()
     {
-        if( m_node == NULL )
+        if( m_node == IUTEST_NULLPTR )
         {
             return true;
         }
         node_ptr prev = m_node;
         node_ptr curr = prev->next;
-        while( curr != NULL )
+        while( curr != IUTEST_NULLPTR )
         {
             assert( prev->next == curr );
             assert( curr->prev == prev );
@@ -483,13 +485,13 @@ void RandomShuffle(::std::vector<T>& list, Fn& r)
 
 #if IUTEST_USE_OWN_LIST
 template<typename Node, typename Fn>
-Node* FindList(const iu_list<Node>& list, Fn& f)
+Node* FindList(const iu_list<Node>& list, Fn& f) IUTEST_CXX_NOEXCEPT_AS(f)
 {
     return list.find(f);
 }
 #else
 template<typename T, typename Fn>
-T FindList(const ::std::vector<T>& list, Fn& f)
+T FindList(const ::std::vector<T>& list, Fn& f) IUTEST_CXX_NOEXCEPT_AS(f)
 {
     for(typename ::std::vector<T>::const_iterator it = list.begin(), end = list.end(); it != end; ++it)
     {
@@ -498,7 +500,7 @@ T FindList(const ::std::vector<T>& list, Fn& f)
             return *it;
         }
     }
-    return NULL;
+    return IUTEST_NULLPTR;
 }
 #endif
 
@@ -509,7 +511,7 @@ T FindList(const ::std::vector<T>& list, Fn& f)
 #if IUTEST_USE_OWN_LIST
 
 template<typename Node, typename Fn>
-int CountIf(const iu_list<Node>& list, Fn f)
+int CountIf(const iu_list<Node>& list, Fn f) IUTEST_CXX_NOEXCEPT_AS(f)
 {
     int count = 0;
     for( typename iu_list<Node>::const_iterator it = list.begin(), end=list.end(); it != end; ++it )
@@ -525,7 +527,7 @@ int CountIf(const iu_list<Node>& list, Fn f)
 #else
 
 template<typename T, typename Fn>
-int CountIf(const ::std::vector<T>& list, Fn f)
+int CountIf(const ::std::vector<T>& list, Fn f) IUTEST_CXX_NOEXCEPT_AS(f)
 {
     int count = 0;
     for(typename ::std::vector<T>::const_iterator it = list.begin(), end = list.end(); it != end; ++it)
@@ -547,7 +549,7 @@ int CountIf(const ::std::vector<T>& list, Fn f)
 #if IUTEST_USE_OWN_LIST
 
 template<typename Node, typename Fn>
-int SumOverList(const iu_list<Node>& list, Fn f)
+int SumOverList(const iu_list<Node>& list, Fn f) IUTEST_CXX_NOEXCEPT_AS(f)
 {
     int count = 0;
     for( typename iu_list<Node>::const_iterator it = list.begin(), end=list.end(); it != end; ++it )
@@ -560,7 +562,7 @@ int SumOverList(const iu_list<Node>& list, Fn f)
 #else
 
 template<typename T, typename Fn>
-int SumOverList(const ::std::vector<T>& list, Fn f)
+int SumOverList(const ::std::vector<T>& list, Fn f) IUTEST_CXX_NOEXCEPT_AS(f)
 {
     int count = 0;
     for(typename ::std::vector<T>::const_iterator it = list.begin(), end = list.end(); it != end; ++it)
@@ -579,7 +581,7 @@ int SumOverList(const ::std::vector<T>& list, Fn f)
 #if IUTEST_USE_OWN_LIST
 
 template<typename Node, typename Fn>
-int CountIfOverList(const iu_list<Node>& list, Fn f)
+int CountIfOverList(const iu_list<Node>& list, Fn f) IUTEST_CXX_NOEXCEPT_AS(f)
 {
     int count = 0;
     for( typename iu_list<Node>::const_iterator it = list.begin(), end=list.end(); it != end; ++it )
@@ -595,7 +597,7 @@ int CountIfOverList(const iu_list<Node>& list, Fn f)
 #else
 
 template<typename T, typename Fn>
-int CountIfOverList(const ::std::vector<T>& list, Fn f)
+int CountIfOverList(const ::std::vector<T>& list, Fn f) IUTEST_CXX_NOEXCEPT_AS(f)
 {
     int count = 0;
     for(typename ::std::vector<T>::const_iterator it = list.begin(), end = list.end(); it != end; ++it)
@@ -616,7 +618,7 @@ int CountIfOverList(const ::std::vector<T>& list, Fn f)
 #if IUTEST_USE_OWN_LIST
 
 template<typename Node, typename Fn>
-bool AnyOverList(const iu_list<Node>& list, Fn f)
+bool AnyOverList(const iu_list<Node>& list, Fn f) IUTEST_CXX_NOEXCEPT_AS(f)
 {
     for( typename iu_list<Node>::const_iterator it = list.begin(), end=list.end(); it != end; ++it )
     {
@@ -631,7 +633,7 @@ bool AnyOverList(const iu_list<Node>& list, Fn f)
 #else
 
 template<typename T, typename Fn>
-bool AnyOverList(const ::std::vector<T>& list, Fn f)
+bool AnyOverList(const ::std::vector<T>& list, Fn f) IUTEST_CXX_NOEXCEPT_AS(f)
 {
     for(typename ::std::vector<T>::const_iterator it = list.begin(), end = list.end(); it != end; ++it)
     {

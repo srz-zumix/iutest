@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -814,22 +814,22 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const
 namespace StrInHelper
 {
 
-inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const char* substr, const char* actual)
+inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const char* substr, const char* actual) IUTEST_CXX_NOEXCEPT_SPEC
 {
-    if( substr == NULL || actual == NULL )
+    if( substr == IUTEST_NULLPTR || actual == IUTEST_NULLPTR )
     {
         return substr == actual;
     }
-    return strstr(actual, substr) != NULL;
+    return strstr(actual, substr) != IUTEST_NULLPTR;
 }
 
-inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const wchar_t* substr, const wchar_t* actual)
+inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const wchar_t* substr, const wchar_t* actual) IUTEST_CXX_NOEXCEPT_SPEC
 {
-    if( substr == NULL || actual == NULL )
+    if( substr == IUTEST_NULLPTR || actual == IUTEST_NULLPTR )
     {
         return substr == actual;
     }
-    return wcsstr(actual, substr) != NULL;
+    return wcsstr(actual, substr) != IUTEST_NULLPTR;
 }
 
 template<typename Elem, typename Traits, typename Ax>
@@ -914,11 +914,11 @@ namespace floationg_point_helper
 {
 
 template<typename T>
-::iutest::internal::FloatingPoint<float> CastToFloatingPoint(const T& x)
+::iutest::internal::FloatingPoint<float> CastToFloatingPoint(const T& x) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return ::iutest::internal::FloatingPoint<float>(static_cast<float>(x));
 }
-inline ::iutest::internal::FloatingPoint<double> CastToFloatingPoint(const double& x)
+inline ::iutest::internal::FloatingPoint<double> CastToFloatingPoint(const double& x) IUTEST_CXX_NOEXCEPT_SPEC
 {
     return ::iutest::internal::FloatingPoint<double>(x);
 }
@@ -950,7 +950,7 @@ inline bool FullMatch(const ::std::string& str, const ::iutest::internal::RE& re
 }
 inline bool FullMatch(const char* str, const ::iutest::internal::RE& re)
 {
-    if( str == NULL )
+    if( str == IUTEST_NULLPTR )
     {
         return false;
     }
@@ -963,7 +963,7 @@ inline bool PartialMatch(const ::std::string& str, const ::iutest::internal::RE&
 }
 inline bool PartialMatch(const char* str, const ::iutest::internal::RE& re)
 {
-    if( str == NULL )
+    if( str == IUTEST_NULLPTR )
     {
         return false;
     }
