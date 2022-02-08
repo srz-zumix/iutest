@@ -168,9 +168,9 @@ jobs:
       CXX: g++
       GCC_VERSION: "11"
       DEFS: "-fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference -Wno-analyzer-malloc-leak -Wno-analyzer-null-dereference"
-      MAKE_ADD_OPTION: -j2
-      # GGC_MIN_EXPAND: 0 # full gc
-      # GGC_MIN_HEAPSIZE: 32768
+      MAKE_ADD_OPTION: -j1
+      GGC_MIN_EXPAND: 0 # full gc
+      GGC_MIN_HEAPSIZE: 32768
     steps: *build-test-steps
   gcc_optimize_test:
     parallelism: 4
@@ -268,7 +268,7 @@ workflows:
     jobs:
       - gcc_fanalzyer_test:
           filters: *branch-filter
-          no_output_timeout: 120m
+          no_output_timeout: 360m
       - gcc_optimize_test:
           filters: *branch-filter
       - clang_optimize_test:
