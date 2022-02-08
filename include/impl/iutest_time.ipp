@@ -111,7 +111,7 @@ IUTEST_IPP_INLINE time_t GetTime() IUTEST_CXX_NOEXCEPT_SPEC
 #endif
 }
 
-IUTEST_IPP_INLINE TimeInMillisec GetTimeInMillis()
+IUTEST_IPP_INLINE TimeInMillisec GetTimeInMillis() IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if   defined(IUTEST_GetMillisec)
     return IUTEST_GetMillisec();

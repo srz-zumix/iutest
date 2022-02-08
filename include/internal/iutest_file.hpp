@@ -91,7 +91,7 @@ public:
     }
 
 public:
-    virtual void Initialize() {}
+    virtual void Initialize() IUTEST_CXX_NOEXCEPT_SPEC {}
 
 public:
     static IFileSystem* GetInstance() IUTEST_CXX_NOEXCEPT_SPEC { return GetInstanceVariable().pInstance; }

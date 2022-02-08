@@ -84,7 +84,7 @@ time_t GetTime() IUTEST_CXX_NOEXCEPT_SPEC;
 /**
  * @brief   現在時刻のミリ秒取得
 */
-TimeInMillisec GetTimeInMillis();
+TimeInMillisec GetTimeInMillis() IUTEST_CXX_NOEXCEPT_SPEC;
 
 /**
  * @brief   不定な値の取得
