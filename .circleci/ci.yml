@@ -171,7 +171,7 @@ jobs:
       DEFS: "-fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference -Wno-analyzer-malloc-leak -Wno-analyzer-null-dereference"
       MAKE_ADD_OPTION: -j1
       # GGC_MIN_EXPAND: 0 # full gc は時間かかりすぎて無理っぽい
-      GGC_MIN_EXPAND: 1
+      GGC_MIN_EXPAND: 10
       GGC_MIN_HEAPSIZE: 32768
     steps: *build-test-steps
   gcc_optimize_test:
@@ -251,7 +251,7 @@ jobs:
           name: test
           command: |
             docker exec iutest-work /home/wine/.wine/drive_c/iutest_/.ci/msvc-wine-entrypoint iutest/.ci/msvc-wine-build.bat
-          no_output_timeout: 15m
+          no_output_timeout: 30m
       - run:
           name: docker teardown
           command: |
