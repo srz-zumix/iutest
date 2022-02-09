@@ -149,7 +149,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 #endif
 }
 
-IUTEST_IPP_INLINE unsigned int GetIndefiniteValue()
+IUTEST_IPP_INLINE unsigned int GetIndefiniteValue() IUTEST_CXX_NOEXCEPT_SPEC
 {
     // なるべく同じにならないようにする
     static unsigned int s = static_cast<unsigned int>(GetTimeInMillis());

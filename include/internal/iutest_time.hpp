@@ -89,7 +89,7 @@ TimeInMillisec GetTimeInMillis() IUTEST_CXX_NOEXCEPT_SPEC;
 /**
  * @brief   不定な値の取得
 */
-unsigned int GetIndefiniteValue();
+unsigned int GetIndefiniteValue() IUTEST_CXX_NOEXCEPT_SPEC;
 
 //======================================================================
 // class
@@ -106,7 +106,7 @@ public:
 
 public:
     // 現在の時間をミリ秒単位で取得
-    static TimeInMillisec get_millisec()
+    static TimeInMillisec get_millisec() IUTEST_CXX_NOEXCEPT_SPEC
     {
 #if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
         return 0;
@@ -115,11 +115,11 @@ public:
 #endif
     }
 public:
-    void start()
+    void start() IUTEST_CXX_NOEXCEPT_SPEC
     {
         m_begin = get_millisec();
     }
-    TimeInMillisec stop() const
+    TimeInMillisec stop() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return get_millisec() - m_begin;
     }
