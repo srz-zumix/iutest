@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -43,15 +43,15 @@ class TestMenu
     TestInfoMap m_TestInfoList;
     TestSuiteMap m_TestSuiteList;
 public:
-    explicit TestMenu(WORD nIDTop) : m_nIDTop(nIDTop), m_nID(nIDTop), m_hRootMenu(NULL) {}
+    explicit TestMenu(WORD nIDTop) : m_nIDTop(nIDTop), m_nID(nIDTop), m_hRootMenu(IUTEST_NULLPTR) {}
 public:
     bool Create(HMENU hMenu)
     {
-        if( hMenu == NULL )
+        if( hMenu == IUTEST_NULLPTR )
         {
             return false;
         }
-        if( m_hRootMenu == NULL )
+        if( m_hRootMenu == IUTEST_NULLPTR )
         {
             if( !Create() )
             {
@@ -64,7 +64,7 @@ public:
     {
         // テストを列挙
         HMENU hRoot = CreateMenu();
-        if( hRoot == NULL )
+        if( hRoot == IUTEST_NULLPTR )
         {
             return false;
         }
@@ -138,7 +138,7 @@ public:
             , point.x, point.y
             , 0
             , hWnd
-            , NULL
+            , IUTEST_NULLPTR
         ) )
         {
             return false;
@@ -187,7 +187,7 @@ private:
         if( !AppendPopup(hMenu, lpszName, hSubMenu) )
         {
             DestroyMenu(hSubMenu);
-            return NULL;
+            return IUTEST_NULLPTR;
         }
         return hSubMenu;
     }
