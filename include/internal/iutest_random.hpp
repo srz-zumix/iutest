@@ -243,8 +243,8 @@ public:
 #define IIUT_WORKAROUND_GENRAND(type)   \
     template<> inline type  iuRandom::genrand<type>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(type))
 
-IIUT_WORKAROUND_GENRAND(Int64)  IUTEST_CXX_NOEXCEPT_SPEC { return (static_cast<Int64>(genrand()) << 32) | genrand(); }
-IIUT_WORKAROUND_GENRAND(UInt64) IUTEST_CXX_NOEXCEPT_SPEC { return (static_cast<UInt64>(genrand()) << 32) | genrand(); }
+IIUT_WORKAROUND_GENRAND(Int64)  { return (static_cast<Int64>(genrand()) << 32) | genrand(); }
+IIUT_WORKAROUND_GENRAND(UInt64) { return (static_cast<UInt64>(genrand()) << 32) | genrand(); }
 IIUT_WORKAROUND_GENRAND(float)  { return genrandf(); }
 IIUT_WORKAROUND_GENRAND(double) { return static_cast<double>(genrandf()); }
 
