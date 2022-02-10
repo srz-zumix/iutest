@@ -81,36 +81,36 @@ namespace detail
 class IFileSystem
 {
 public:
-    IFileSystem()
+    IFileSystem() IUTEST_CXX_NOEXCEPT_SPEC
     {
         SetInstance(this);
     }
     virtual ~IFileSystem()
     {
-        SetInstance(NULL);
+        SetInstance(IUTEST_NULLPTR);
     }
 
 public:
-    virtual void Initialize() {}
+    virtual void Initialize() IUTEST_CXX_NOEXCEPT_SPEC {}
 
 public:
-    static IFileSystem* GetInstance() { return GetInstanceVariable().pInstance; }
+    static IFileSystem* GetInstance() IUTEST_CXX_NOEXCEPT_SPEC { return GetInstanceVariable().pInstance; }
 
 public:
     static IFile* New()
     {
         IFileSystem* fs = GetInstance();
-        if( fs == NULL )
+        if( fs == IUTEST_NULLPTR )
         {
-            return NULL;
+            return IUTEST_NULLPTR;
         }
         IFile* p = fs->Create();
         return p;
     }
-    static void Free(IFile* ptr)
+    static void Free(IFile* ptr) IUTEST_CXX_NOEXCEPT_SPEC
     {
         IFileSystem* fs = GetInstance();
-        if( fs == NULL )
+        if( fs == IUTEST_NULLPTR )
         {
             return;
         }
@@ -120,7 +120,7 @@ public:
     static bool ReadAll(const char* filename, ::std::string& dst)
     {
         IFile* fp = detail::IFileSystem::New();
-        if(fp == NULL)
+        if(fp == IUTEST_NULLPTR)
         {
             return false;
         }
@@ -138,7 +138,7 @@ public:
 
 private:
     virtual IFile*  Create() = 0;
-    virtual void    Delete(IFile*) = 0;
+    virtual void    Delete(IFile*) IUTEST_CXX_NOEXCEPT_SPEC = 0;
 
 private:
     struct InstanceVariable
@@ -146,8 +146,8 @@ private:
         IFileSystem* pInstance;
     };
 
-    static InstanceVariable& GetInstanceVariable() { static InstanceVariable v; return v; }
-    static void SetInstance(IFileSystem* pFileSystem) { GetInstanceVariable().pInstance = pFileSystem; }
+    static InstanceVariable& GetInstanceVariable() IUTEST_CXX_NOEXCEPT_SPEC { static InstanceVariable v; return v; }
+    static void SetInstance(IFileSystem* pFileSystem) IUTEST_CXX_NOEXCEPT_SPEC { GetInstanceVariable().pInstance = pFileSystem; }
 };
 
 }   // end of namespace detail
@@ -164,7 +164,8 @@ class FileSystem IUTEST_CXX_FINAL : public detail::IFileSystem
 {
 private:
     virtual IFile*  Create() IUTEST_CXX_OVERRIDE { return new FILE; }
-    virtual void    Delete(IFile* ptr) IUTEST_CXX_OVERRIDE { detail::Delete<FILE>(static_cast<FILE*>(ptr)); }
+    IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26466)
+    virtual void    Delete(IFile* ptr) IUTEST_CXX_NOEXCEPT_SPEC IUTEST_CXX_OVERRIDE { detail::Delete<FILE>(static_cast<FILE*>(ptr)); }
 };
 
 
@@ -178,18 +179,28 @@ class StdioFile : public IFile
 protected:
     FILE* m_fp;
 public:
-    StdioFile() IUTEST_CXX_NOEXCEPT_SPEC : m_fp(NULL) {}
-    virtual ~StdioFile() { Close(); }
+    StdioFile() IUTEST_CXX_NOEXCEPT_SPEC : m_fp(IUTEST_NULLPTR) {}
+    virtual ~StdioFile()
+    {
+        IUTEST_IGNORE_EXCEPTION_BEGIN()
+        {
+            Close();
+        }
+        IUTEST_IGNORE_EXCEPTION_END()
+    }
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     /**
      * @brief   閉じる
     */
     virtual void Close() IUTEST_CXX_OVERRIDE
     {
-        if( m_fp != NULL )
+        if( m_fp != IUTEST_NULLPTR )
         {
             fclose(m_fp);
-            m_fp = NULL;
+            m_fp = IUTEST_NULLPTR;
         }
     }
     /**
@@ -236,10 +247,12 @@ public:
 #endif
     }
 
+IUTEST_PRAGMA_WARN_POP()
+
 public:
-    static size_t GetSize(FILE* fp)
+    static size_t GetSize(FILE* fp) IUTEST_CXX_NOEXCEPT_SPEC
     {
-        if( fp == NULL )
+        if( fp == IUTEST_NULLPTR )
         {
             return 0;
         }
@@ -255,9 +268,9 @@ public:
         return GetSizeBySeekSet(fp);
 #endif
     }
-    static size_t GetSizeBySeekSet(FILE* fp)
+    static size_t GetSizeBySeekSet(FILE* fp) IUTEST_CXX_NOEXCEPT_SPEC
     {
-        if( fp == NULL )
+        if( fp == IUTEST_NULLPTR )
         {
             return 0;
         }
@@ -290,7 +303,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
             break;
         }
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
-        return m_fp != NULL;
+        return m_fp != IUTEST_NULLPTR;
     }
 };
 
@@ -298,14 +311,24 @@ class StdErrorFile : public StdioFile
 {
 public:
     StdErrorFile() IUTEST_CXX_NOEXCEPT_SPEC {}
-    virtual ~StdErrorFile() { Close(); }
+    virtual ~StdErrorFile()
+    {
+        IUTEST_IGNORE_EXCEPTION_BEGIN()
+        {
+            Close();
+        }
+        IUTEST_IGNORE_EXCEPTION_END()
+    }
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     /**
      * @brief   閉じる
     */
     virtual void Close() IUTEST_CXX_OVERRIDE
     {
-        m_fp = NULL;
+        m_fp = IUTEST_NULLPTR;
     }
 private:
     virtual bool OpenImpl(const char* , int ) IUTEST_CXX_OVERRIDE
@@ -313,6 +336,8 @@ private:
         m_fp = stderr;
         return true;
     }
+
+IUTEST_PRAGMA_WARN_POP()
 };
 
 #endif
@@ -325,13 +350,21 @@ private:
 class StringStreamFile : public IFile
 {
 public:
-    virtual ~StringStreamFile() { Close(); }
+    virtual ~StringStreamFile()
+    {
+        IUTEST_IGNORE_EXCEPTION_BEGIN()
+        {
+            Close();
+        }
+        IUTEST_IGNORE_EXCEPTION_END()
+    }
 public:
     /**
      * @brief   閉じる
     */
     virtual void Close() IUTEST_CXX_OVERRIDE
     {
+        ss.clear();
     }
 
     /**
@@ -369,9 +402,9 @@ public:
     //! サイズ取得
     virtual size_t GetSize() IUTEST_CXX_OVERRIDE
     {
-        ::std::stringstream::pos_type pre = ss.tellg();
+        const ::std::stringstream::pos_type pre = ss.tellg();
         ss.seekg(0, ::std::ios::end);
-        ::std::stringstream::pos_type size = ss.tellg();
+        const ::std::stringstream::pos_type size = ss.tellg();
         ss.seekg(pre, ::std::ios::beg);
         return static_cast<size_t>(size);
     }
@@ -402,12 +435,17 @@ namespace detail
 class NoEffectFile IUTEST_CXX_FINAL : public IFile
 {
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
     virtual void Close() IUTEST_CXX_OVERRIDE {}
     virtual bool Write(const void*, size_t, size_t) IUTEST_CXX_OVERRIDE { return true;  }
     virtual bool Read(void*, size_t, size_t) IUTEST_CXX_OVERRIDE { return true; }
     virtual size_t GetSize() IUTEST_CXX_OVERRIDE { return 0; }
 private:
     virtual bool OpenImpl(const char*, int) IUTEST_CXX_OVERRIDE { return true; }
+
+IUTEST_PRAGMA_WARN_POP()
 };
 
 }   // end of namespace detail
