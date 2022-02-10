@@ -823,7 +823,7 @@ private:
     /**
      * @brief   セットアップ
     */
-    static void SetUp();
+    static void SetUp() IUTEST_CXX_NOEXCEPT_SPEC;
 
 private:
     /**

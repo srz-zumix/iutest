@@ -383,7 +383,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 #endif
 }
 
-IUTEST_IPP_INLINE void TestEnv::SetUp()
+IUTEST_IPP_INLINE void TestEnv::SetUp() IUTEST_CXX_NOEXCEPT_SPEC
 {
     unsigned int seed = get_random_seed();
     if( (seed == 0)
