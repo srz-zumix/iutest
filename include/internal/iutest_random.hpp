@@ -240,6 +240,10 @@ public:
 
 #if !(defined(_MSC_VER) && _MSC_VER < 1300)
 
+// template の明示的特殊化の一部だけ noecept にはできない気がするのだが、VC++ のバグ？
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
 #define IIUT_WORKAROUND_GENRAND(type)   \
     template<> inline type  iuRandom::genrand<type>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(type))
 
@@ -249,6 +253,8 @@ IIUT_WORKAROUND_GENRAND(float)  { return genrandf(); }
 IIUT_WORKAROUND_GENRAND(double) { return static_cast<double>(genrandf()); }
 
 #undef IIUT_WORKAROUND_GENRAND
+
+IUTEST_PRAGMA_WARN_POP()
 
 #endif
 

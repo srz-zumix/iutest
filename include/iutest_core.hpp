@@ -156,7 +156,7 @@ private:
     /**
      * @brief   イテレーション毎のセットアップ
     */
-    void SetUpTestIteration();
+    void SetUpTestIteration() IUTEST_CXX_NOEXCEPT_SPEC;
 
     /**
      * @brief   環境セットアップ

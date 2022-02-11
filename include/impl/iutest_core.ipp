@@ -285,7 +285,7 @@ IUTEST_IPP_INLINE void UnitTest::TestProgramStart()
     listeners().OnTestProgramStart(*this);
 }
 
-IUTEST_IPP_INLINE void UnitTest::SetUpTestIteration()
+IUTEST_IPP_INLINE void UnitTest::SetUpTestIteration() IUTEST_CXX_NOEXCEPT_SPEC
 {
     TestEnv::SetUp();
 }
