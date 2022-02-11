@@ -268,9 +268,9 @@ workflows:
   default-test:
     when: << pipeline.parameters.build >>
     jobs:
-      - gcc_fanalzyer_test:
-          filters: *branch-filter
-          no_output_timeout: 360m
+      # - gcc_fanalzyer_test:
+      #     filters: *branch-filter
+      #     no_output_timeout: 360m
       - gcc_optimize_test:
           filters: *branch-filter
       - clang_optimize_test:
