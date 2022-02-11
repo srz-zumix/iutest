@@ -20,6 +20,19 @@ tasks:
       # - reports/junit:
       #     paths: [ "test/*.xml" ]
 
+  gcc-fanalyzer:
+    steps:
+    - checkout
+      - commands:
+        - export DEFS="-fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference"
+        - make -C test clean
+        - make -C test showcxxversion
+        - make -C test showcxxmacros
+        - make -C test check_stdlib
+        - make -C test -j1
+        - make -C test test
+
+
   lint-editorconfig:
     steps:
     - checkout
@@ -43,6 +56,9 @@ workflows:
   - name: gcc3-test
     tasks:
       - test
+  - name: gcc-fanalyzer
+    tasks:
+      - gcc-fanalyzer
   - name: lint
     tasks:
       - lint-editorconfig
