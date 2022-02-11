@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -51,7 +51,7 @@ public:
     bool FullMatch(const char* str) const;
     bool PartialMatch(const char* str) const;
 
-    const char* pattern() const { return m_pattern.c_str(); }
+    const char* pattern() const IUTEST_CXX_NOEXCEPT_SPEC { return m_pattern.c_str(); }
 
 private:
     void Init(const char* pattern);

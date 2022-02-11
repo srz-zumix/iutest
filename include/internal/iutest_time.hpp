@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -50,7 +50,7 @@ namespace detail
  * @param   [out]   dst = 時刻
  * @return  成否
 */
-bool Localtime(time_t sec, struct tm* dst);
+bool Localtime(time_t sec, struct tm* dst) IUTEST_CXX_NOEXCEPT_SPEC;
 
 /**
  * @internal
@@ -79,17 +79,17 @@ bool Localtime(time_t sec, struct tm* dst);
 /**
  * @brief   現在時刻の取得
 */
-time_t GetTime();
+time_t GetTime() IUTEST_CXX_NOEXCEPT_SPEC;
 
 /**
  * @brief   現在時刻のミリ秒取得
 */
-TimeInMillisec GetTimeInMillis();
+TimeInMillisec GetTimeInMillis() IUTEST_CXX_NOEXCEPT_SPEC;
 
 /**
  * @brief   不定な値の取得
 */
-unsigned int GetIndefiniteValue();
+unsigned int GetIndefiniteValue() IUTEST_CXX_NOEXCEPT_SPEC;
 
 //======================================================================
 // class
@@ -102,11 +102,11 @@ class iuStopWatch
 private:
     TimeInMillisec m_begin;
 public:
-    iuStopWatch() : m_begin(0) {}
+    iuStopWatch() IUTEST_CXX_NOEXCEPT_SPEC : m_begin(0) {}
 
 public:
     // 現在の時間をミリ秒単位で取得
-    static TimeInMillisec get_millisec()
+    static TimeInMillisec get_millisec() IUTEST_CXX_NOEXCEPT_SPEC
     {
 #if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
         return 0;
@@ -115,11 +115,11 @@ public:
 #endif
     }
 public:
-    void start()
+    void start() IUTEST_CXX_NOEXCEPT_SPEC
     {
         m_begin = get_millisec();
     }
-    TimeInMillisec stop() const
+    TimeInMillisec stop() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return get_millisec() - m_begin;
     }
