@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -45,16 +45,16 @@ public:
     /**
      * @brief   テスト中の TestSuite の取得
     */
-    const TestSuite*     current_test_suite() const { return m_current_testsuite; }
+    const TestSuite*     current_test_suite() const IUTEST_CXX_NOEXCEPT_SPEC { return m_current_testsuite; }
 
     /**
      * @brief   テスト中の TestInfo の取得
      * @note    互換性のため メンバ関数 にしています。
     */
-    const TestInfo*     current_test_info() const { return Test::GetCurrentTestInfo(); }
+    const TestInfo*     current_test_info() const IUTEST_CXX_NOEXCEPT_SPEC { return Test::GetCurrentTestInfo(); }
 
     /** 乱数シードの取得 */
-    unsigned int        random_seed()       const { return TestEnv::current_random_seed(); }
+    unsigned int        random_seed()       const IUTEST_CXX_NOEXCEPT_SPEC { return TestEnv::current_random_seed(); }
 
     /** 現在何回目のくり返しか取得 */
     int                 repeat_counter()    const IUTEST_CXX_NOEXCEPT_SPEC { return m_repeat_counter; }
@@ -66,34 +66,34 @@ public:
     /** テスト総数 */
     int             total_test_count()      const IUTEST_CXX_NOEXCEPT_SPEC { return m_total_test_num; }
     /** レポート対象のテスト総数 */
-    int             reportable_test_count() const;
+    int             reportable_test_count() const IUTEST_CXX_NOEXCEPT_SPEC;
     /** 実行した/するテスト総数 */
     int             test_to_run_count()     const IUTEST_CXX_NOEXCEPT_SPEC { return m_should_run_num; }
     /** 失敗テスト総数 */
-    int             failed_test_count()     const;
+    int             failed_test_count()     const IUTEST_CXX_NOEXCEPT_SPEC;
     /** 無効テスト総数 */
     int             disabled_test_count()   const IUTEST_CXX_NOEXCEPT_SPEC { return m_disable_num; }
     /** レポート対象の無効テスト総数 */
-    int             reportable_disabled_test_count() const;
+    int             reportable_disabled_test_count() const IUTEST_CXX_NOEXCEPT_SPEC;
     /** 成功テスト総数 */
-    int             successful_test_count() const;
+    int             successful_test_count() const IUTEST_CXX_NOEXCEPT_SPEC;
     /** スキップテスト総数 */
-    int             skip_test_count()       const;
+    int             skip_test_count()       const IUTEST_CXX_NOEXCEPT_SPEC;
     /** レポート対象のスキップテスト総数 */
-    int             reportable_skip_test_count() const;
+    int             reportable_skip_test_count() const IUTEST_CXX_NOEXCEPT_SPEC;
     /** 明示的にスキップされたテスト総数 (SKIP, ASSUME) */
-    int             test_run_skipped_count() const;
+    int             test_run_skipped_count() const IUTEST_CXX_NOEXCEPT_SPEC;
     /** レポート対象の明示的にスキップされたテスト総数 (SKIP, ASSUME) */
-    int             reportable_test_run_skipped_count() const;
+    int             reportable_test_run_skipped_count() const IUTEST_CXX_NOEXCEPT_SPEC;
 
     /** TestSuite 数の総数 */
-    int             total_test_suite_count() const { return static_cast<int>(m_testsuites.size()); }
+    int             total_test_suite_count() const IUTEST_CXX_NOEXCEPT_SPEC { return static_cast<int>(m_testsuites.size()); }
     /** 実行した TestSuite 総数 */
-    int             test_suite_to_run_count() const;
+    int             test_suite_to_run_count() const IUTEST_CXX_NOEXCEPT_SPEC;
     /** 成功した TestSuite 総数 */
-    int             successful_test_suite_count() const;
+    int             successful_test_suite_count() const IUTEST_CXX_NOEXCEPT_SPEC;
     /** 失敗した TestSuite 総数 */
-    int             failed_test_suite_count() const;
+    int             failed_test_suite_count() const IUTEST_CXX_NOEXCEPT_SPEC;
 
     /**
      * @brief テスト実行中じゃないときのリザルトの取得
@@ -111,23 +111,23 @@ public:
     TimeInMillisec  start_timestamp()   const IUTEST_CXX_NOEXCEPT_SPEC { return m_start_timestamp; }
 
     /** TestSuite の取得 */
-    const TestSuite* GetTestSuite(int index)  const { return m_testsuites[index]; }
+    const TestSuite* GetTestSuite(int index)  const { return m_testsuites.at(index); }
 
     /** テストが成功したかどうか */
-    bool            Passed()            const;
+    bool            Passed()            const IUTEST_CXX_NOEXCEPT_SPEC;
     /** テストが失敗したかどうか */
-    bool            Failed()            const { return !Passed(); }
+    bool            Failed()            const IUTEST_CXX_NOEXCEPT_SPEC { return !Passed(); }
 
     /** イベントリスナーの取得 */
-    TestEventListeners& listeners()     const { return TestEnv::event_listeners(); }
+    TestEventListeners& listeners()     const IUTEST_CXX_NOEXCEPT_SPEC { return TestEnv::event_listeners(); }
 
 #if IUTEST_HAS_TESTCASE
-    const TestCase*     GetTestCase(int index)  const { return m_testsuites[index]; }
-    const TestCase*     current_test_case() const { return m_current_testsuite; }
-    int                 total_test_case_count() const { return static_cast<int>(m_testsuites.size()); }
-    int                 test_case_to_run_count() const { return test_suite_to_run_count(); }
-    int                 successful_test_case_count() const { return successful_test_suite_count(); }
-    int                 failed_test_case_count() const { return failed_test_suite_count(); }
+    const TestCase*     GetTestCase(int index)  const { return GetTestSuite(index); }
+    const TestCase*     current_test_case() const IUTEST_CXX_NOEXCEPT_SPEC { return current_test_suite(); }
+    int                 total_test_case_count() const IUTEST_CXX_NOEXCEPT_SPEC { return total_test_suite_count(); }
+    int                 test_case_to_run_count() const IUTEST_CXX_NOEXCEPT_SPEC { return test_suite_to_run_count(); }
+    int                 successful_test_case_count() const IUTEST_CXX_NOEXCEPT_SPEC { return successful_test_suite_count(); }
+    int                 failed_test_case_count() const IUTEST_CXX_NOEXCEPT_SPEC { return failed_test_suite_count(); }
 #endif
 
 protected:
@@ -156,7 +156,7 @@ private:
     /**
      * @brief   イテレーション毎のセットアップ
     */
-    void SetUpTestIteration();
+    void SetUpTestIteration() IUTEST_CXX_NOEXCEPT_SPEC;
 
     /**
      * @brief   環境セットアップ
@@ -181,7 +181,7 @@ private:
     }
 
 private:
-    UnitTest()
+    UnitTest() IUTEST_CXX_NOEXCEPT(false)
         : m_repeat_counter(0)
         , m_init_iutest_count(0)
         , m_test_started(false)
@@ -197,8 +197,12 @@ public: // VC++6.0 bug
 #endif
     ~UnitTest()
     {
-        TestEnv::ReleaseGlobalTestEnvironment();
-        TestEnv::SetGlobalTestPartResultReporter(NULL);
+        IUTEST_IGNORE_EXCEPTION_BEGIN()
+        {
+            TestEnv::ReleaseGlobalTestEnvironment();
+            TestEnv::SetGlobalTestPartResultReporter(IUTEST_NULLPTR);
+        }
+        IUTEST_IGNORE_EXCEPTION_END()
     }
 
 private:
