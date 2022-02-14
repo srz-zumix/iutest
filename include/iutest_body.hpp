@@ -236,7 +236,7 @@ private:
 template<typename ParamType>
 struct TestParamInfo
 {
-    TestParamInfo(const ParamType& p, size_t i) IUTEST_CXX_NOEXCEPT_SPEC
+    TestParamInfo(const ParamType& p, size_t i) IUTEST_CXX_NOEXCEPT_AS(ParamType(p))
         : param(p), index(i) {}
     ParamType param;
     size_t index;

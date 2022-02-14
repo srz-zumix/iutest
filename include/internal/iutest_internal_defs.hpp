@@ -385,7 +385,21 @@ IIUT_GeTypeNameSpecialization(bool)     // NOLINT
 template<typename T>
 struct GetTypeNameProxy
 {
-    static ::std::string    GetTypeName() { return detail::GetTypeName<T>(); }
+    static ::std::string GetTypeName() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+#if IUTEST_HAS_EXCEPTIONS
+        try
+        {
+#endif
+            return detail::GetTypeName<T>();
+#if IUTEST_HAS_EXCEPTIONS
+        }
+        catch(...)
+        {
+            return "";
+        }
+#endif
+    }
 };
 
 }   // end of namespace detail
