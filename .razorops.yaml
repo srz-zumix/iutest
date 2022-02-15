@@ -20,6 +20,22 @@ tasks:
       # - reports/junit:
       #     paths: [ "test/*.xml" ]
 
+  gcc-fanalyzer:
+    steps:
+    - checkout
+    - commands:
+      - export GCC_VERSION="11"
+      - ./.ci/linux/install-gcc.sh
+    - commands:
+      - export DEFS="-fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference"
+      - make -C test clean
+      - make -C test showcxxversion
+      - make -C test showcxxmacros
+      - make -C test check_stdlib
+      - make -C test -j1
+      - make -C test test
+
+
   lint-editorconfig:
     steps:
     - checkout
@@ -34,7 +50,6 @@ tasks:
     #     paths: [node_modules]
 
 trigger:
-  ## triggers pipeline only on feature branches and on tags (mind the prefix)
   when: branch in ('master', 'develop') || branch =~ 'razorops.*'
 
 # Note:
@@ -43,6 +58,9 @@ workflows:
   - name: gcc3-test
     tasks:
       - test
+  - name: gcc-fanalyzer
+    tasks:
+      - gcc-fanalyzer
   - name: lint
     tasks:
       - lint-editorconfig
