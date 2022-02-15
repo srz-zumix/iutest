@@ -272,7 +272,7 @@ class iuValueArray
         T val[sizeof...(Args)];
 
         template<typename U>
-        void operator ()(int index, const U& value) IUTEST_CXX_NOEXCEPT_SPEC { gsl::at(val, index) = value; }
+        void operator ()(int index, const U& value) IUTEST_CXX_NOEXCEPT_AS(val[0] = value) { gsl::at(val, index) = value; }
 
         IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26495)
         explicit make_array(const _MyTuple& t) IUTEST_CXX_NOEXCEPT_SPEC
