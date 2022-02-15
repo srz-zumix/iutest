@@ -13,11 +13,12 @@ MAJOR_VERSION=$(echo ${VERSION_ID} | cut -d '.' -f1)
 if [ "${MAJOR_VERSION}" -lt 19 ]; then
   sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
 else
+  sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
   sudo add-apt-repository -y ppa:ubuntu-toolchain-r/ppa
 fi
 
 sudo apt-get -y --allow-unauthenticated update
-sudo apt-get -qq install "g++-${GCC_VERSION}"
+sudo apt-get -qq install "gcc-${GCC_VERSION}" "g++-${GCC_VERSION}"
 sudo update-alternatives --install /usr/bin/gcc gcc \
   "/usr/bin/gcc-${GCC_VERSION}" 1990 \
   --slave /usr/bin/g++ g++ "/usr/bin/g++-${GCC_VERSION}"
