@@ -10,9 +10,11 @@ fi
 . /etc/os-release
 MAJOR_VERSION=$(echo ${VERSION_ID} | cut -d '.' -f1)
 
-sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test || true
+sudo apt-get -y --allow-unauthenticated update
+sudo apt-get install software-properties-common
+sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
 if [ "${MAJOR_VERSION}" -ge 19 ]; then
-  sudo add-apt-repository -y ppa:ubuntu-toolchain-r/ppa || true
+  sudo add-apt-repository -y ppa:ubuntu-toolchain-r/ppa
 fi
 
 sudo apt-get -y --allow-unauthenticated update
