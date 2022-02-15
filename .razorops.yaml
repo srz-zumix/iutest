@@ -27,6 +27,8 @@ tasks:
       - export GCC_VERSION="11"
       - ./.ci/linux/install-gcc.sh
     - commands:
+      - export GGC_MIN_EXPAND=10
+      - export GGC_MIN_HEAPSIZE=32768
       - export DEFS="-fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference"
       - make -C test clean
       - make -C test showcxxversion
