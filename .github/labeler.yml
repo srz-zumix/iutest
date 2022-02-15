@@ -1,0 +1,45 @@
+CI:
+  - '*.yaml'
+  - '*.yml'
+  - '.ci/**/*'
+  - '.github/workflows/**/*'
+AppVeyor:
+  - 'appveyor.yml'
+AzurePipelines:
+  - '.ci/azure_pipelines/**/*'
+  - 'azure-pipelines.yml'
+Bitrise:
+  - 'bitrise.yml'
+Buddy:
+  - 'buddy.yml'
+CircleCI:
+  - '.circleci/**/*'
+Cirrus CI:
+  - '.cirrus.yml'
+Codefresh:
+  - 'codefresh.yml'
+Codeship:
+  - 'codeship-services.yml'
+  - 'codeship-steps.yml'
+Drone:
+  - '.drone.yml'
+GitHub Actions:
+  - '.github/workflows/**/*'
+JFrog Pipelines:
+  - 'jfrog-pipelines.yml'
+Peakflow:
+  - 'peak_flow.yml'
+Razorops:
+  - '.razorops.yaml'
+Scrutinizer:
+  - '.scrutinizer.yml'
+Semaphore:
+  - '.semaphore/**/*'
+Sider:
+  - 'sider.yml'
+Travis CI:
+  - '.travis.yml'
+Wercker:
+  - 'wercker.yml'
+iuwandbox:
+  - 'tools/wandbox/**/*'

@@ -6,8 +6,7 @@
     - master
     - develop
     - "(^buddy/.+$)"
-  trigger_conditions:
-  - trigger_condition: "ALWAYS"
+  priority: "NORMAL"
   auto_clear_cache: true
   fetch_all_refs: true
   # You can not change this option in Free mode.
@@ -22,7 +21,9 @@
     docker_image_tag: "10"
     execute_commands:
     - "cd projects/make && make run"
-    mount_filesystem_path: "/buddy/iutest"
+    volume_mappings:
+    - "/:/buddy/iutest"
+    cache_base_image: true
     shell: "SH"
 # - action: "Execute: make bench"
   #   type: "BUILD"
@@ -33,6 +34,7 @@
   #   - "cd test"
   #   - "make -C benchmark"
   #   - "make bench"
-  #   mount_filesystem_path: "/buddy/iutest"
+  #   volume_mappings:
+  #   - "/:/buddy/iutest"
   #   shell: "SH"
   #   trigger_condition: "ALWAYS"
