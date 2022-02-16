@@ -85,6 +85,9 @@ namespace iutest {
 namespace tuples
 {
 
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
 #if   IUTEST_HAS_STD_TUPLE
 namespace alias = ::std;
 #elif IUTEST_HAS_TR1_TUPLE
@@ -110,7 +113,7 @@ struct tuple_foreach_impl
     template<int N, int I>
     struct impl
     {
-        static void do_something(T& t, F fn) IUTEST_CXX_NOEXCEPT_AS(fn)
+        static void do_something(T& t, F fn)
         {
             fn(I, get<I>(t));
             impl<N, I + 1>::do_something(t, fn);
@@ -122,7 +125,7 @@ struct tuple_foreach_impl
         static void do_something(T&, F) IUTEST_CXX_NOEXCEPT_SPEC {}
     };
 
-    static void do_something(T& t, F fn) IUTEST_CXX_NOEXCEPT_AS(fn)
+    static void do_something(T& t, F fn)
     {
         impl<tuple_size<T>::value, Begin>::do_something(t, fn);
     }
@@ -155,22 +158,22 @@ struct tuple_cast_copy_impl
 }   // end of namespace detail
 
 template<int I, typename tuple_t, typename F>
-void tuple_foreach(tuple_t& t, F& fn) IUTEST_CXX_NOEXCEPT_AS(fn)
+void tuple_foreach(tuple_t& t, F& fn)
 {
     detail::tuple_foreach_impl<tuple_t, F&, I>::do_something(t, fn);
 }
 template<typename tuple_t, typename F>
-void tuple_foreach(tuple_t& t, F& fn) IUTEST_CXX_NOEXCEPT_AS(fn)
+void tuple_foreach(tuple_t& t, F& fn)
 {
     tuple_foreach<0>(t, fn);
 }
 template<int I, typename tuple_t, typename F>
-void tuple_foreach(tuple_t& t, const F& fn) IUTEST_CXX_NOEXCEPT_AS(fn)
+void tuple_foreach(tuple_t& t, const F& fn)
 {
     detail::tuple_foreach_impl<tuple_t, const F&, I>::do_something(t, fn);
 }
 template<typename tuple_t, typename F>
-void tuple_foreach(tuple_t& t, const F& fn) IUTEST_CXX_NOEXCEPT_AS(fn)
+void tuple_foreach(tuple_t& t, const F& fn)
 {
     tuple_foreach<0>(t, fn);
 }
@@ -188,6 +191,8 @@ using tuples::tuple_element;
 using tuples::tuple_foreach;
 using tuples::make_tuple;
 using tuples::get;
+
+IUTEST_PRAGMA_WARN_POP()
 
 }   // end of namespace iutest
 

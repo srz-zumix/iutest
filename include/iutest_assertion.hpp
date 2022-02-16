@@ -313,7 +313,7 @@ IUTEST_PRAGMA_WARN_DISABLE_HIDE_FUNCTION()
             return *this;
         }
         template<typename R>
-        ReturnTypedFixed<R> operator << (const AssertionReturnType<R>& ret)
+        ReturnTypedFixed<R> operator << (const AssertionReturnType<R>& ret) IUTEST_CXX_NOEXCEPT_SPEC
         {
             return ReturnTypedFixed<R>(*this, ret);
         }
