@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -126,7 +126,7 @@ namespace helper
 /** @private */
 template<bool b>struct static_assert_typeeq;
 /** @overload */
-template<>struct static_assert_typeeq<true> { operator bool() const { return true; } };
+template<>struct static_assert_typeeq<true> { operator bool() const IUTEST_CXX_NOEXCEPT_SPEC { return true; } };
 
 }
 
