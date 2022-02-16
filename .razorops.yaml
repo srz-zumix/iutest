@@ -38,7 +38,6 @@ tasks:
   #     - make -C test -j1
   #     - make -C test test
 
-
   lint-editorconfig:
     steps:
     - checkout
