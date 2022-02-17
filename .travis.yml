@@ -97,6 +97,7 @@ script:
   - |
     if [ "${COVERITY_SCAN}" != '1' ] && [ "${USE_CMAKE}" != '1' ]; then
       make showcxxversion &&
+      echo ${MAKE_JOBS} &&
       make -j${MAKE_JOBS} default &&
       make test &&
       make report
@@ -245,7 +246,9 @@ matrix:
     - compiler: gcc
       env:
         - DEFS="-fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference -Wno-analyzer-malloc-leak -Wno-analyzer-null-dereference"
-        - MAKE_JOBS: 1
+        # - GGC_MIN_EXPAND=10
+        # - GGC_MIN_HEAPSIZE=32768
+        - MAKE_JOBS=1
     # CoverityScan
     - compiler: gcc
       env:
