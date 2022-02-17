@@ -4,7 +4,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <DisableSpecificWarnings>26409;26426;26429;26432;26435;26472;26481;26482;26485;26490;26812;;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <PreprocessorDefinitions>IUTEST_HAS_CXX_HDR_CHRONO=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
 </Project>

@@ -482,6 +482,7 @@
 #if   defined(_MSC_VER)
 #  define IUTEST_PRAGMA_COREGUIDELINE_DISABLE_BEGIN()   IUTEST_PRAGMA_MSC_WARN_PUSH() \
                                                         IUTEST_PRAGMA_MSC_WARN_DISABLE(26426) \
+                                                        IUTEST_PRAGMA_MSC_WARN_DISABLE(26440) \
                                                         IUTEST_PRAGMA_MSC_WARN_DISABLE(26477) \
                                                         IUTEST_PRAGMA_MSC_WARN_DISABLE(26497) \
                                                         IUTEST_PRAGMA_MSC_WARN_DISABLE(26814)
