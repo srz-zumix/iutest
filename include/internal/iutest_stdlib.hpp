@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -19,6 +19,7 @@
 // include
 // IWYU pragma: begin_exports
 #include "iutest_stdlib_defs.hpp"
+#include "iutest_gsl.hpp"
 // IWYU pragma: end_exports
 
 //======================================================================
@@ -84,6 +85,9 @@ namespace iutest {
 namespace tuples
 {
 
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
 #if   IUTEST_HAS_STD_TUPLE
 namespace alias = ::std;
 #elif IUTEST_HAS_TR1_TUPLE
@@ -118,7 +122,7 @@ struct tuple_foreach_impl
     template<int N>
     struct impl<N, N>
     {
-        static void do_something(T&, F) {}
+        static void do_something(T&, F) IUTEST_CXX_NOEXCEPT_SPEC {}
     };
 
     static void do_something(T& t, F fn)
@@ -142,7 +146,7 @@ struct tuple_cast_copy_impl
     template<int N>
     struct impl<N, N>
     {
-        static void copy(T&, const U&) {}
+        static void copy(T&, const U&) IUTEST_CXX_NOEXCEPT_SPEC {}
     };
 
     static void copy(T& dst, const U& src)
@@ -187,6 +191,8 @@ using tuples::tuple_element;
 using tuples::tuple_foreach;
 using tuples::make_tuple;
 using tuples::get;
+
+IUTEST_PRAGMA_WARN_POP()
 
 }   // end of namespace iutest
 
@@ -268,7 +274,7 @@ private:
     T m_value;
 };
 
-inline bool uncaught_exception()
+inline bool uncaught_exception() IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if IUTEST_HAS_CXX1Z && (!defined(IUTEST_LIBSTDCXX_VERSION) || (IUTEST_LIBSTDCXX_VERSION >= 60000))
     return ::std::uncaught_exceptions() > 0;
@@ -506,25 +512,24 @@ struct type_fit_t : public type_t_helper::type_fit_t_select<SIZE>::type {};
 template<size_t SIZE>
 struct type_least_t : public type_t_helper::type_least_t_select<SIZE>::type {};
 
+/**
+ * @brief   type array
+*/
+template<typename T>
+struct type_array
+{
+    explicit type_array(size_t size) : m_ptr(new T[size]) {}
+    ~type_array()
+    {
+        IUTEST_ATTRIBUTE_GSL_SUPPRESS(i.11) delete[] m_ptr;
+    }
+    operator const T* () const IUTEST_CXX_NOEXCEPT_SPEC { return m_ptr; }
+    operator T* () IUTEST_CXX_NOEXCEPT_SPEC { return m_ptr; }
+    T* m_ptr;
+};
+
 //======================================================================
 // function
-/**
- * @internal
- * @brief   mbtowc
-*/
-inline int iu_mbtowc(wchar_t* dst, const char* src, size_t size)
-{
-#if defined(IUTEST_OS_LINUX_ANDROID) || defined(IUTEST_OS_WINDOWS_MOBILE)
-    // unimplimented
-    IUTEST_UNUSED_VAR(dst);
-    IUTEST_UNUSED_VAR(src);
-    IUTEST_UNUSED_VAR(size);
-    return 0;
-#else
-    return mbtowc(dst, src, size);
-#endif
-}
-
 template<typename T>
 T numeric_min()
 {
