@@ -241,13 +241,14 @@ matrix:
         - mkdir ./cmake-build && cd ./cmake-build && cmake ../projects/cmake
         - cmake --build .
         - ctest -C Debug -V
-    # gcc -fanalyzer
-    - compiler: gcc
-      env:
-        - DEFS="-v -fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference -Wno-analyzer-malloc-leak -Wno-analyzer-null-dereference"
-        # - GGC_MIN_EXPAND=10
-        # - GGC_MIN_HEAPSIZE=32768
-        - MAKE_JOBS=1
+    # # gcc -fanalyzer
+    # # No output has been received in the last 10m0s, this potentially indicates a stalled build or something wrong with the build itself.
+    # - compiler: gcc
+    #   env:
+    #     - DEFS="-v -fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference -Wno-analyzer-malloc-leak -Wno-analyzer-null-dereference"
+    #     # - GGC_MIN_EXPAND=10
+    #     # - GGC_MIN_HEAPSIZE=32768
+    #     - MAKE_JOBS=1
     # CoverityScan
     - compiler: gcc
       env:
