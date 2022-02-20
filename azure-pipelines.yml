@@ -154,6 +154,10 @@ stages:
           vmImage: ubuntu-latest
         steps:
           - script: |
+              ./.ci/linux/install-gcc.sh
+            env:
+              GCC_VERSION: 11
+          - script: |
               make -C test showcxxversion
           - script: |
               make -C test -j1 DEFS="-v -fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference -Wno-analyzer-malloc-leak -Wno-analyzer-null-dereference"
