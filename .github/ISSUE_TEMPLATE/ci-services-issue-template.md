@@ -13,7 +13,7 @@ assignees: ''
 * [ ] Azure Pipelines
 * [ ] Bitrise
 * [ ] Buddy
-* [ ] Circle CI
+* [ ] CircleCI
 * [ ] Cirrus CI
 * [ ] Codefresh
 * [ ] Codeship
