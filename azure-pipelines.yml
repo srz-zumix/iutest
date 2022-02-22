@@ -146,6 +146,25 @@ stages:
             generator_name: Visual Studio 16 2019
             platform: x64
             cmake_options: "${CMAKE_OPTIONS}"
+  - stage: GccAnalyzer
+    dependsOn: Precheck
+    jobs:
+      - job: gcc_fanalyzer
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - script: |
+              ./.ci/linux/install-gcc.sh
+            env:
+              GCC_VERSION: 11
+          - script: |
+              make -C test showcxxversion
+          - script: |
+              make -C test -j1 DEFS="-v -fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference -Wno-analyzer-malloc-leak -Wno-analyzer-null-dereference"
+            env:
+              GGC_MIN_EXPAND: 1
+              GGC_MIN_HEAPSIZE: 4096
+            displayName: 'gcc -fanalyzer test'
   - stage: DockerContaierTest
     dependsOn: Precheck
     jobs:
