@@ -150,6 +150,7 @@ stages:
     dependsOn: Precheck
     jobs:
       - job: gcc_fanalyzer
+        timeoutInMinutes: 360
         pool:
           vmImage: ubuntu-latest
         steps:
