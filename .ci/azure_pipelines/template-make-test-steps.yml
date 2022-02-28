@@ -20,6 +20,7 @@ steps:
     sudo apt-get update
     sudo apt-get install language-pack-ja
     sudo update-locale LANG=${{ parameters.LOCALE_CTYPE }}
+    sudo localectl set-locale LANG=${{ parameters.LOCALE_CTYPE }}
     locale -a
   displayName: 'setup'
   condition: eq(variables['Agent.OS'], 'Linux')
