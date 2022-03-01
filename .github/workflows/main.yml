@@ -333,6 +333,7 @@ jobs:
     needs: prepare
     steps:
       - uses: actions/checkout@v2
+      - uses: reviewdog/action-setup@v1
       - name: install clang-tidy
         run: |
           sudo apt-get install -y clang-tidy
@@ -340,9 +341,11 @@ jobs:
         run: |
             mkdir ./cmake-build
             cd ./cmake-build
-            cmake ../projects/cmake -DCMAKE_CXX_CLANG_TIDY:STRING="clang-tidy;-checks=*"
-      - name: cmake build
-        run: cmake --build cmake-build
+            cmake ../projects/cmake -DCMAKE_CXX_CLANG_TIDY:STRING="clang-tidy;-checks=*,-llvm-namespace-comment"
+      - name: cmake build clang-tidy
+        run: |
+          cmake --build cmake-build | reviewdog -reporter=github-pr-review -name="clang-tidy" -efm="%f:%l:%c: %m"
+
 
   #===================================================================
   lint-editorconfig:
