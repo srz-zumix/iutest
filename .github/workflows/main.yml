@@ -333,6 +333,9 @@ jobs:
     needs: prepare
     steps:
       - uses: actions/checkout@v2
+      - name: install clang-tidy
+        run: |
+          sudo apt-get install -y clang-tidy
       - name: cmake
         run: |
             mkdir ./cmake-build
