@@ -344,7 +344,7 @@ jobs:
             cmake ../projects/cmake -DCMAKE_CXX_CLANG_TIDY:STRING="clang-tidy;-checks=*,-llvm-namespace-comment"
       - name: cmake build clang-tidy
         run: |
-          cmake --build cmake-build | reviewdog -reporter=github-pr-review -name="clang-tidy" -efm="%f:%l:%c: %m"
+          cmake --build cmake-build | reviewdog -reporter=github-pr-review -name="clang-tidy" -efm="%f:%l:%c: %m" -tee
 
 
   #===================================================================
