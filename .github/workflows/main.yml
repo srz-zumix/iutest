@@ -328,6 +328,20 @@ jobs:
           reporter: github-pr-review
 
   #===================================================================
+  clang-tidy:
+    runs-on: ubuntu-latest
+    needs: prepare
+    steps:
+      - uses: actions/checkout@v2
+      - name: cmake
+        run: |
+            mkdir ./cmake-build
+            cd ./cmake-build
+            cmake ../projects/cmake -DCMAKE_CXX_CLANG_TIDY:STRING="clang-tidy;-checks=*"
+      - name: cmake build
+        run: cmake --build cmake-build
+
+  #===================================================================
   lint-editorconfig:
     runs-on: ubuntu-latest
     needs: prepare
