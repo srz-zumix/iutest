@@ -17,6 +17,7 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_compiler.hpp"
 #define __STDC_FORMAT_MACROS    1
 #include <inttypes.h>
@@ -52,6 +53,7 @@
 #if IUTEST_HAS_CXX_HDR_VERSION
 #include <version>
 #endif
+// IWYU pragma: end_exports
 
 //======================================================================
 // define
