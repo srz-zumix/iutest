@@ -640,6 +640,7 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include <iterator>
 
 #if IUTEST_HAS_CXX_HDR_ANY
@@ -660,5 +661,6 @@
 #if IUTEST_HAS_CXX_HDR_CHARCONV
 #  include <charconv>
 #endif
+// IWYU pragma: end_exports
 
 #endif // INCG_IRIS_IUTEST_STDLIB_DEFS_HPP_9C62C097_E5FB_49EE_9329_811F32C846A2_

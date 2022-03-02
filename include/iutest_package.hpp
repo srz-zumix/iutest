@@ -113,6 +113,8 @@
 
 #if IUTEST_HAS_PACKAGE
 
+// IWYU pragma: no_forward_declare iuTest_TestSuitePackage
+
 class iuTest_TestSuitePackage;           //!< パッケージ名参照用定義
 class iuTest_TestSuiteParentPackage;     //!< 親パッケージ名参照用定義
 
