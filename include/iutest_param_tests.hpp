@@ -159,7 +159,7 @@
         IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testsuite_)() { return generator_; }               \
     static ::std::string IIUT_TEST_P_PARAMGENERATOR_NAME_(prefix_, testsuite_)(                     \
         const ::iutest::TestParamInfo< basefixture_::ParamType >& pinfo_) IUTEST_CXX_NOEXCEPT_SPEC {\
-             return ::iutest::detail::ParamTestSuiteInfo< basefixture_ >::paramname_generator_(pinfo_); }       \
+            return ::iutest::detail::ParamTestSuiteInfo< basefixture_ >::paramname_generator_(pinfo_); }        \
     int IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testsuite_)() {                            \
         ::iutest::detail::ParamTestSuiteInfo< basefixture_ >* p = IIUT_GETTESTSUITEPATTERNHOLDER(   \
                 basefixture_, IIUT_TO_NAME_STR_(testsuite_), IUTEST_GET_PACKAGENAME_());            \

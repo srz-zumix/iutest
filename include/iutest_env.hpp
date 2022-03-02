@@ -369,12 +369,12 @@ public:
     {
         return get_vars().m_genrand;
     }
-     //! random seed
+    //! random seed
     static unsigned int get_random_seed() IUTEST_CXX_NOEXCEPT_SPEC
     {
         return get_vars().m_random_seed;
     }
-     //! current test random seed
+    //! current test random seed
     static unsigned int current_random_seed() IUTEST_CXX_NOEXCEPT_SPEC
     {
         return get_vars().m_current_random_seed;

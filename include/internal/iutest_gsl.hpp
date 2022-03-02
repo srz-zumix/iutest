@@ -1,4 +1,4 @@
-//======================================================================
+﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_gsl.hpp
@@ -51,7 +51,7 @@
 
 //! gsl::suppress
 #if !defined(IUTEST_ATTRIBUTE_GSL_SUPPRESS)
-#  if  defined(_MSC_VER) && IUTEST_HAS_ATTRIBUTE
+#  if  defined(_MSC_VER) && !defined(__clang__) && IUTEST_HAS_ATTRIBUTE
 #    define IUTEST_ATTRIBUTE_GSL_SUPPRESS(...)  [[gsl::suppress(__VA_ARGS__)]]
 #  endif
 #endif
