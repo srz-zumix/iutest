@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.5</span>
+   &#160;<span id="projectnumber">1.17.99.11</span>
    </div>
   </td>
  </tr>
@@ -68,8 +68,10 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">クラス</a> &#124;
+<a href="#pub-types">公開型</a> &#124;
 <a href="#pub-methods">公開メンバ関数</a> &#124;
 <a href="#pub-static-methods">静的公開メンバ関数</a> &#124;
+<a href="#pub-static-attribs">静的公開変数類</a> &#124;
 <a href="../../d5/db0/classiutest_1_1floating__point-members.html">全メンバ一覧</a>  </div>
   <div class="headertitle">
 <div class="title">iutest::floating_point&lt; RawType &gt; クラステンプレート</div>  </div>
@@ -81,6 +83,23 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="../../d1/d84/iutest__defs_8hpp_source.html">iutest_defs.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+クラス</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d25/unioniutest_1_1floating__point_1_1_f_int.html">FInt</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+公開型</h2></td></tr>
+<tr class="memitem:ac51ad4c4f7598e0e10121d315207ddf4"><td class="memItemLeft" align="right" valign="top"><a id="ac51ad4c4f7598e0e10121d315207ddf4"></a>
+typedef IntType::Int&#160;</td><td class="memItemRight" valign="bottom"><b>Int</b></td></tr>
+<tr class="separator:ac51ad4c4f7598e0e10121d315207ddf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1010867992944fcd4a9ccaf3a6d1689"><td class="memItemLeft" align="right" valign="top"><a id="aa1010867992944fcd4a9ccaf3a6d1689"></a>
+typedef IntType::UInt&#160;</td><td class="memItemRight" valign="bottom"><b>UInt</b></td></tr>
+<tr class="separator:aa1010867992944fcd4a9ccaf3a6d1689"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a283bbf29bf2c18f3addc48e6e99355f2"><td class="memItemLeft" align="right" valign="top"><a id="a283bbf29bf2c18f3addc48e6e99355f2"></a>
+typedef RawType&#160;</td><td class="memItemRight" valign="bottom"><b>Float</b></td></tr>
+<tr class="separator:a283bbf29bf2c18f3addc48e6e99355f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 公開メンバ関数</h2></td></tr>
 <tr class="memitem:a82fff93cfba296685e50a477223b9cb3"><td class="memItemLeft" align="right" valign="top"><a id="a82fff93cfba296685e50a477223b9cb3"></a>
@@ -116,6 +135,10 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 UInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d81/classiutest_1_1floating__point.html#a4aeff68bbc45cdae17e92ca94cb4f1cb">bits</a> () const</td></tr>
 <tr class="memdesc:a4aeff68bbc45cdae17e92ca94cb4f1cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">ビット列の取得 <br /></td></tr>
 <tr class="separator:a4aeff68bbc45cdae17e92ca94cb4f1cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7735cb49e31cf6d51cbd0e678c3cc2ca"><td class="memItemLeft" align="right" valign="top"><a id="a7735cb49e31cf6d51cbd0e678c3cc2ca"></a>
+UInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d81/classiutest_1_1floating__point.html#a7735cb49e31cf6d51cbd0e678c3cc2ca">enable_bits</a> () const</td></tr>
+<tr class="memdesc:a7735cb49e31cf6d51cbd0e678c3cc2ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">ビット列の取得 <br /></td></tr>
+<tr class="separator:a7735cb49e31cf6d51cbd0e678c3cc2ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a967fb11638f1b064f08b27eab71540a3"><td class="memItemLeft" align="right" valign="top"><a id="a967fb11638f1b064f08b27eab71540a3"></a>
 RawType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d81/classiutest_1_1floating__point.html#a967fb11638f1b064f08b27eab71540a3">raw</a> () const</td></tr>
 <tr class="memdesc:a967fb11638f1b064f08b27eab71540a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">raw データの取得 <br /></td></tr>
@@ -126,8 +149,16 @@ UInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="separator:a545b0dac97b35da355f213ce5d1cb909"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac63964fd8bba9166ace10fe1aeec8981"><td class="memItemLeft" align="right" valign="top"><a id="ac63964fd8bba9166ace10fe1aeec8981"></a>
 UInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d81/classiutest_1_1floating__point.html#ac63964fd8bba9166ace10fe1aeec8981">fraction_bits</a> () const</td></tr>
-<tr class="memdesc:ac63964fd8bba9166ace10fe1aeec8981"><td class="mdescLeft">&#160;</td><td class="mdescRight">fraction <br /></td></tr>
+<tr class="memdesc:ac63964fd8bba9166ace10fe1aeec8981"><td class="mdescLeft">&#160;</td><td class="mdescRight">fraction (mantissa) <br /></td></tr>
 <tr class="separator:ac63964fd8bba9166ace10fe1aeec8981"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af523b5fe6db526440a03f0dffd21ad3d"><td class="memItemLeft" align="right" valign="top"><a id="af523b5fe6db526440a03f0dffd21ad3d"></a>
+UInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d81/classiutest_1_1floating__point.html#af523b5fe6db526440a03f0dffd21ad3d">mantissa_bits</a> () const</td></tr>
+<tr class="memdesc:af523b5fe6db526440a03f0dffd21ad3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">mantissa <br /></td></tr>
+<tr class="separator:af523b5fe6db526440a03f0dffd21ad3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a080536a3566560ebd3af4e4bcd2a1044"><td class="memItemLeft" align="right" valign="top"><a id="a080536a3566560ebd3af4e4bcd2a1044"></a>
+UInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d81/classiutest_1_1floating__point.html#a080536a3566560ebd3af4e4bcd2a1044">economized_mantissa_bits</a> () const</td></tr>
+<tr class="memdesc:a080536a3566560ebd3af4e4bcd2a1044"><td class="mdescLeft">&#160;</td><td class="mdescRight">economized mantissa <br /></td></tr>
+<tr class="separator:a080536a3566560ebd3af4e4bcd2a1044"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a151ef573d3313f9539f13d26ce88995c"><td class="memItemLeft" align="right" valign="top"><a id="a151ef573d3313f9539f13d26ce88995c"></a>
 UInt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d81/classiutest_1_1floating__point.html#a151ef573d3313f9539f13d26ce88995c">sign_bit</a> () const</td></tr>
 <tr class="memdesc:a151ef573d3313f9539f13d26ce88995c"><td class="mdescLeft">&#160;</td><td class="mdescRight">sign <br /></td></tr>
@@ -167,6 +198,18 @@ static <a class="el" href="../../d3/d81/classiutest_1_1floating__point.html">_My
 static <a class="el" href="../../d3/d81/classiutest_1_1floating__point.html">_Myt</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d81/classiutest_1_1floating__point.html#acd9f47afc3451a20a496fa35f752a61c">NQNAN</a> ()</td></tr>
 <tr class="memdesc:acd9f47afc3451a20a496fa35f752a61c"><td class="mdescLeft">&#160;</td><td class="mdescRight">minus qnan <br /></td></tr>
 <tr class="separator:acd9f47afc3451a20a496fa35f752a61c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+静的公開変数類</h2></td></tr>
+<tr class="memitem:aadd9dfed74d335bfaef1636c8ec8a3d9"><td class="memItemLeft" align="right" valign="top"><a id="aadd9dfed74d335bfaef1636c8ec8a3d9"></a>
+static const int&#160;</td><td class="memItemRight" valign="bottom"><b>kEXP</b> = detail::ieee754_bits&lt;T&gt;::EXP</td></tr>
+<tr class="separator:aadd9dfed74d335bfaef1636c8ec8a3d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afeb598257144aa97d9fce90bf89dfad3"><td class="memItemLeft" align="right" valign="top"><a id="afeb598257144aa97d9fce90bf89dfad3"></a>
+static const int&#160;</td><td class="memItemRight" valign="bottom"><b>kMANT</b> = detail::ieee754_bits&lt;T&gt;::MANT</td></tr>
+<tr class="separator:afeb598257144aa97d9fce90bf89dfad3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8fe6190fc55e3dabe53d72df1b996d3"><td class="memItemLeft" align="right" valign="top"><a id="ac8fe6190fc55e3dabe53d72df1b996d3"></a>
+static const int&#160;</td><td class="memItemRight" valign="bottom"><b>kDIGITS</b> = detail::ieee754_bits&lt;T&gt;::MANT + detail::ieee754_bits&lt;T&gt;::MANT_HIDDEN</td></tr>
+<tr class="separator:ac8fe6190fc55e3dabe53d72df1b996d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
 <div class="textblock"><h3>template&lt;typename RawType&gt;<br />
@@ -240,21 +283,12 @@ template&lt;typename RawType &gt; </div>
 <p>浮動小数点数がほぼ一致するかどうか </p>
 <dl class="section see"><dt>参照</dt><dd><a href="https://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm">https://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm</a> </dd></dl>
 <div class="dynheader">
-呼び出し関係図:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d3/d81/classiutest_1_1floating__point_a3f2ae18e57eab77c668b51b4ebee5b82_cgraph.png" border="0" usemap="#d3/d81/classiutest_1_1floating__point_a3f2ae18e57eab77c668b51b4ebee5b82_cgraph" alt=""/></div>
-<map name="d3/d81/classiutest_1_1floating__point_a3f2ae18e57eab77c668b51b4ebee5b82_cgraph" id="d3/d81/classiutest_1_1floating__point_a3f2ae18e57eab77c668b51b4ebee5b82_cgraph">
-<area shape="rect" title="浮動小数点数がほぼ一致するかどうか" alt="" coords="5,5,211,47"/>
-<area shape="rect" href="../../d3/d81/classiutest_1_1floating__point.html#a4aeff68bbc45cdae17e92ca94cb4f1cb" title="ビット列の取得" alt="" coords="259,5,415,47"/>
-</map>
-</div>
-<div class="dynheader">
 被呼び出し関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/d81/classiutest_1_1floating__point_a3f2ae18e57eab77c668b51b4ebee5b82_icgraph.png" border="0" usemap="#d3/d81/classiutest_1_1floating__point_a3f2ae18e57eab77c668b51b4ebee5b82_icgraph" alt=""/></div>
 <map name="d3/d81/classiutest_1_1floating__point_a3f2ae18e57eab77c668b51b4ebee5b82_icgraph" id="d3/d81/classiutest_1_1floating__point_a3f2ae18e57eab77c668b51b4ebee5b82_icgraph">
-<area shape="rect" title="浮動小数点数がほぼ一致するかどうか" alt="" coords="209,5,415,47"/>
-<area shape="rect" href="../../d3/d81/classiutest_1_1floating__point.html#a3a0b3b918b9686b051988925db27dfe0" title="浮動小数点数がほぼ一致するかどうか" alt="" coords="5,5,161,47"/>
+<area shape="rect" title="浮動小数点数がほぼ一致するかどうか" alt="" coords="211,5,416,47"/>
+<area shape="rect" href="../../d3/d81/classiutest_1_1floating__point.html#a3a0b3b918b9686b051988925db27dfe0" title="浮動小数点数がほぼ一致するかどうか" alt="" coords="5,5,163,47"/>
 </map>
 </div>
 
@@ -266,7 +300,7 @@ template&lt;typename RawType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2021年03月22日(月) 11時27分30秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2022年03月03日(木) 13時00分13秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.5</span>
+   &#160;<span id="projectnumber">1.17.99.11</span>
    </div>
   </td>
  </tr>
@@ -217,8 +217,8 @@ iutest_internal.hpp の依存先関係図:</div>
 <tr class="separator:a7987a94a6f750be1a250a944fae4091d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39c6dc9109ca65f54a65625908e2a85e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_BOOLEAN_</b>(expression,  text,  actual,  expected,  on_failure)</td></tr>
 <tr class="separator:a39c6dc9109ca65f54a65625908e2a85e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8696d4733a86ddd9ebea68dedb0fa536"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_ASSERT_EXIT</b>(cond)</td></tr>
-<tr class="separator:a8696d4733a86ddd9ebea68dedb0fa536"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a591f6a89b40e5b36e82a68126699bdd0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TERMINATE_ON_FAILURE</b>(cond)</td></tr>
+<tr class="separator:a591f6a89b40e5b36e82a68126699bdd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a907669078d54b998e153d15bb017a01b"><td class="memItemLeft" align="right" valign="top"><a id="a907669078d54b998e153d15bb017a01b"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_THROUGH_ANALYSIS_ASSUME_</b>(expr,  todo)&#160;&#160;&#160;todo</td></tr>
 <tr class="separator:a907669078d54b998e153d15bb017a01b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -246,6 +246,8 @@ iutest_internal.hpp の依存先関係図:</div>
 <tr class="separator:a04c50fda725dd124ab04997c7d8ac268"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace0d30de4ef3eb378f9b0b2ed3e9173a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_DOUBLE_EQ</b>(expected,  actual,  on_failure)</td></tr>
 <tr class="separator:ace0d30de4ef3eb378f9b0b2ed3e9173a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44e3966202975686e2321da04bf679d8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_COMPLEX_EQ</b>(expected,  actual,  on_failure)</td></tr>
+<tr class="separator:a44e3966202975686e2321da04bf679d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a6405a3fea8c7aee016d2b5c333d061"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_NEAR</b>(v1,  v2,  abs_v,  on_failure)</td></tr>
 <tr class="separator:a2a6405a3fea8c7aee016d2b5c333d061"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2df39e3fb479d1a2ea1f64abb589faf6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_STREQ</b>(expected,  actual,  on_failure)</td></tr>
@@ -304,14 +306,14 @@ iutest_internal.hpp の依存先関係図:</div>
 <dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2011-2021, Takazumi Shirayanagi<br  />
 This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><h2 class="groupheader">マクロ定義詳解</h2>
-<a id="a8696d4733a86ddd9ebea68dedb0fa536"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8696d4733a86ddd9ebea68dedb0fa536">&#9670;&nbsp;</a></span>IUTEST_ASSERT_EXIT</h2>
+<a id="a591f6a89b40e5b36e82a68126699bdd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a591f6a89b40e5b36e82a68126699bdd0">&#9670;&nbsp;</a></span>IUTEST_TERMINATE_ON_FAILURE</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define IUTEST_ASSERT_EXIT</td>
+          <td class="memname">#define IUTEST_TERMINATE_ON_FAILURE</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">cond</td><td>)</td>
@@ -563,6 +565,42 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
   </dd>
 </dl>
 
+</div>
+</div>
+<a id="a44e3966202975686e2321da04bf679d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44e3966202975686e2321da04bf679d8">&#9670;&nbsp;</a></span>IUTEST_TEST_COMPLEX_EQ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_COMPLEX_EQ</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expected, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">actual, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">    IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperFloatingPointComplexEQ   \</div>
+<div class="line">        , expected, actual, on_failure )</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ace0d30de4ef3eb378f9b0b2ed3e9173a"></a>
@@ -1649,7 +1687,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 <div class="ttc" id="anamespaceiutest_html_a0538466708443c65f3c7b2c84b7fce0b"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a></div><div class="ttdeci">AssertionResult AssertionSuccess()</div><div class="ttdoc">テスト成功を示す AssertionResult オブジェクトの取得</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:406</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2021年03月22日(月) 11時27分30秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2022年03月03日(木) 13時00分13秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
