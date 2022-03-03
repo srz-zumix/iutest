@@ -346,6 +346,6 @@ jobs:
       - name: Include What You Use
         uses: ./.github/actions/iwyu
         env:
-          IWYU_TOOL_OPTION: -j2 --no_fwd_decls
+          IWYU_ARGS: --no_fwd_decls
         with:
           args: /work/projects/cmake -Dbuild_test_namespace_test=OFF
