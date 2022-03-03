@@ -19,7 +19,9 @@
 // include
 
 #if IUTEST_HAS_EXCEPTIONS
+// IWYU pragma: begin_exports
 #include <exception>
+// IWYU pragma: end_exports
 
 namespace iutest {
 namespace detail
