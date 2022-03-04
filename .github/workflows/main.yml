@@ -340,6 +340,11 @@ jobs:
           npm run lint:editorconfig
   iwyu:
     runs-on: ubuntu-latest
+    container:
+      image: docker://srzzumix/iwyu:latest
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
     needs: lint-editorconfig
     steps:
       - uses: actions/checkout@v3
@@ -354,9 +359,5 @@ jobs:
             cmake -DCMAKE_C_COMPILER="${CC}" -DCMAKE_CXX_COMPILER="${CXX}" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
               ../projects/cmake -Dbuild_test_namespace_test=OFF
       - name: Include What You Use
-        uses: ./.github/actions/iwyu
-        env:
-          IWYU_TOOL_OPTION: -j2 -v
-          IWYU_ARGS: --no_fwd_decls
-        with:
-          args: /work/projects/cmake -Dbuild_test_namespace_test=OFF
+        run: |
+          iwyu_tool.py -j2 -p .
