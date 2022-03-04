@@ -361,4 +361,4 @@ jobs:
               ../projects/cmake -Dbuild_test_namespace_test=OFF
       - name: Include What You Use
         run: |
-          iwyu_tool.py -j2 -- ./cmake-build
+          iwyu_tool.py -j2 -p ./cmake-build --
