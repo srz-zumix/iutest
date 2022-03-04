@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2019-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2019-2022, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -17,6 +17,7 @@
 // include
 #include "iutest.hpp"
 #include "logger_tests.hpp"
+struct StringViewConvertible;
 
 #if !defined(IUTEST_USE_GTEST)
 

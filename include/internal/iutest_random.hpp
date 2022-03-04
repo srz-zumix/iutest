@@ -17,11 +17,13 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_time.hpp"
 
 #if IUTEST_HAS_CXX_HDR_RANDOM
 #  include <random>
 #endif
+// IWYU pragma: end_exports
 
 namespace iutest {
 namespace detail
