@@ -360,4 +360,4 @@ jobs:
               -Dbuild_namespace_tests=OFF ../projects/cmake
       - name: Include What You Use
         run: |
-          iwyu_tool.py -j2 -p ./cmake-build -- -Xiwyu --no_fwd_decls
+          iwyu_tool.py -j2 -p ./cmake-build -- -Xiwyu --no_fwd_decls -Xiwyu --mapping_file=/opt/iwyu/gcc.symbols.imp
