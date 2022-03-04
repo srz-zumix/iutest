@@ -68,6 +68,7 @@ template<typename T, size_t SIZE> const T* end  (const T (&x)[SIZE]) { return be
 }   // end of namespace iutest
 
 #if IUTEST_HAS_TUPLE
+// IWYU pragma: begin_exports
 #if !IUTEST_USE_EXTERNAL_STD_TUPLE && !IUTEST_USE_EXTERNAL_TR1_TUPLE
 #  if   IUTEST_HAS_STD_TUPLE
 #    include <tuple>
@@ -79,6 +80,7 @@ template<typename T, size_t SIZE> const T* end  (const T (&x)[SIZE]) { return be
 #    endif
 #  endif
 #endif
+// IWYU pragma: end_exports
 
 namespace iutest {
 namespace tuples

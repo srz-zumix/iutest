@@ -17,6 +17,7 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_compiler.hpp"
 #include "iutest_pp.hpp"
 
@@ -47,6 +48,7 @@
 #    define IUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER   1
 #  endif
 #endif
+// IWYU pragma: end_exports
 
 /** iutest type traits */
 namespace iutest_type_traits

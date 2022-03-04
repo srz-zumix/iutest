@@ -19,7 +19,6 @@
 // include
 // IWYU pragma: begin_exports
 #include "iutest_string.hpp"
-// IWYU pragma: end_exports
 
 #if   IUTEST_HAS_STRINGSTREAM
 #  include <sstream>
@@ -32,6 +31,7 @@
 #if IUTEST_HAS_EXCEPTIONS
 #  include <stdexcept>
 #endif
+// IWYU pragma: end_exports
 
 namespace iutest
 {
