@@ -22,6 +22,9 @@
 #include "../iutest_package.hpp"
 // IWYU pragma: end_exports
 
+// IWYU pragma: no_forward_declare iuTest_TestSuitePackage
+// IWYU pragma: no_forward_declare iuTest_TestSuiteParentPackage
+
 #if defined(__clang_analyzer__)
 #  include <assert.h>
 #endif
