@@ -200,13 +200,12 @@
  * @brief   Parameterized test class defined macro
 */
 #define IIUT_TEST_PMZ_(testsuite_, testname_, method_, parent_class_, type_id_, ...)            \
-    class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_);                                       \
     class IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_) IUTEST_CXX_FINAL : public parent_class_ {  \
     IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_));     \
         public: IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_)() {}                         \
         static ::std::string MakeTestName() { return ::iutest::detail::MakeIndexTestName(       \
             IIUT_TO_NAME_STR_(testname_), ::iutest::detail::GetTypeUniqueCounter<               \
-                IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)>()); }                           \
+                class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)>()); }                     \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE { method_(__VA_ARGS__); }            \
     };                                                                                          \
     ::iutest::detail::TestInstance<IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_)>          \
