@@ -23,6 +23,7 @@
 #include "internal/iutest_stdlib.hpp"
 #include "iutest_config.hpp"
 #include <stdio.h>
+#include <utility>
 #include <vector>
 #include <algorithm>
 #include "internal/iutest_debug.hpp"
