@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -59,7 +59,6 @@ using ::std::get;
 // include
 // IWYU pragma: begin_exports
 #include "../iutest_ver.hpp"
-// IWYU pragma: end_exports
 
 // gtest 1.5 or less compatible
 #if !defined(IUTEST_HAS_CONCEPTS)
@@ -78,6 +77,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #include "iutest_gmock_ver.hpp"
 #endif
 #include "iutest_gtest_ver.hpp"
+// IWYU pragma: end_exports
 
 #if GTEST_VER < 0x01040000
 #  error google test 1.3.0 or less is not supported...
