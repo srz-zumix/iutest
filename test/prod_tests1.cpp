@@ -117,13 +117,13 @@ static ProdClass2 s_prod2;
 static ProtectedProdClass s_protected;
 
 // peep を使ってのアクセス
-IUTEST_MAKE_PEEP(int* ProdClass::*, ProdClass, m_b);
-IUTEST_MAKE_PEEP(int ProdClass::*, ProdClass, m_x);
-IUTEST_MAKE_PEEP(const int ProdClass::*, ProdClass, m_c);
+IUTEST_MAKE_PEEP(int* ProdClass::*, ProdClass, m_b);        // IWYU pragma: keep
+IUTEST_MAKE_PEEP(int ProdClass::*, ProdClass, m_x);         // IWYU pragma: keep
+IUTEST_MAKE_PEEP(const int ProdClass::*, ProdClass, m_c);   // IWYU pragma: keep
 
-IUTEST_MAKE_PEEP(int ProdClass2::*, ProdClass2, m_x);
+IUTEST_MAKE_PEEP(int ProdClass2::*, ProdClass2, m_x);       // IWYU pragma: keep
 
-IUTEST_MAKE_PEEP(int ProtectedProdClass::*, ProtectedProdClass, m_x);
+IUTEST_MAKE_PEEP(int ProtectedProdClass::*, ProtectedProdClass, m_x);   // IWYU pragma: keep
 
 IUTEST(PeepTest, PeepMacro)
 {
@@ -199,8 +199,8 @@ IUTEST(PeepClassTest, Const)
 }
 #endif
 
-IUTEST_MAKE_PEEP(int *, ProdClass, m_y);
-IUTEST_MAKE_PEEP(int *, ProtectedProdClass, m_y);
+IUTEST_MAKE_PEEP(int *, ProdClass, m_y);            // IWYU pragma: keep
+IUTEST_MAKE_PEEP(int *, ProtectedProdClass, m_y);   // IWYU pragma: keep
 
 IUTEST(PeepTest, StaticPeep)
 {
@@ -238,11 +238,11 @@ IUTEST(PeepClassTest, StaticPeep)
 
 #if IUTEST_HAS_PEEP_FUNC
 
-IUTEST_MAKE_PEEP(void (ProdClass::*)(int), ProdClass, SetX);
-IUTEST_MAKE_PEEP(int (ProdClass::*)() const, ProdClass, ConstGetX);
-IUTEST_MAKE_PEEP(void (ProtectedProdClass::*)(int), ProtectedProdClass, SetX);
+IUTEST_MAKE_PEEP(void (ProdClass::*)(int), ProdClass, SetX);                    // IWYU pragma: keep
+IUTEST_MAKE_PEEP(int (ProdClass::*)() const, ProdClass, ConstGetX);             // IWYU pragma: keep
+IUTEST_MAKE_PEEP(void (ProtectedProdClass::*)(int), ProtectedProdClass, SetX);  // IWYU pragma: keep
 #if IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_OVERLOAD_MEMBER_FUNCTION
-IUTEST_MAKE_PEEP(int (ProtectedProdClass::*)() const, ProtectedProdClass, GetProtectedX);
+IUTEST_MAKE_PEEP(int (ProtectedProdClass::*)() const, ProtectedProdClass, GetProtectedX);   // IWYU pragma: keep
 #endif
 
 IUTEST(PeepTest, Function)
@@ -278,8 +278,8 @@ IUTEST(PeepClassTest, Function)
 
 #if IUTEST_HAS_PEEP_STATIC_FUNC
 
-IUTEST_MAKE_PEEP(void (*)(int), ProdClass, SetY);
-IUTEST_MAKE_PEEP(void (*)(int), ProtectedProdClass, SetY);
+IUTEST_MAKE_PEEP(void (*)(int), ProdClass, SetY);           // IWYU pragma: keep
+IUTEST_MAKE_PEEP(void (*)(int), ProtectedProdClass, SetY);  // IWYU pragma: keep
 
 IUTEST(PeepTest, StaticFunction)
 {
@@ -313,8 +313,8 @@ IUTEST(PeepClassTest, StaticFunction)
 #if IUTEST_HAS_PEEP
 
 // peep を使ってのアクセス
-IUTEST_MAKE_PEEP(int prod_test::ProdClass::*, prod_test::ProdClass, m_z);
-IUTEST_MAKE_PEEP(int prod_test::ProdClass::*, prod_test::ProdClass, m_x);
+IUTEST_MAKE_PEEP(int prod_test::ProdClass::*, prod_test::ProdClass, m_z);   // IWYU pragma: keep
+IUTEST_MAKE_PEEP(int prod_test::ProdClass::*, prod_test::ProdClass, m_x);   // IWYU pragma: keep
 
 IUTEST(PeepTest, ScopedPeep)
 {
