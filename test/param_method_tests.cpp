@@ -23,15 +23,15 @@ void TestFunction(int x, int y)
 {
     IUTEST_ASSERT_EQ(x, y);
 }
-IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 0, 0);
-IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 1, 1);
-IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 2, 2);
+IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 0, 0);    // IWYU pragma: keep
+IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 1, 1);    // IWYU pragma: keep
+IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 2, 2);    // IWYU pragma: keep
 
 class ParamMethodTestFixed : public ::iutest::Test {};
 
-IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 0, 0);
-IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 1, 1);
-IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 2, 2);
+IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 0, 0); // IWYU pragma: keep
+IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 1, 1); // IWYU pragma: keep
+IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 2, 2); // IWYU pragma: keep
 
 #endif
 
