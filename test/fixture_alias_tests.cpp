@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2015-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -43,13 +43,13 @@ IUTEST_F((AliasName, FixtureTest), Test2)
 
 #if IUTEST_HAS_PARAM_TEST
 
-#define ParamTestAliasName  (AliasName, ParamFixtureTest)
-
 class ParamFixtureTest : public ::iutest::TestWithParam<int>
 {
 public:
     int GetX() { return 42; }
 };
+
+#define ParamTestAliasName  (AliasName, ParamFixtureTest)
 
 IUTEST_P(ParamTestAliasName, Test1)
 {
