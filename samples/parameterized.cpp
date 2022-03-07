@@ -6,18 +6,21 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
 //-----------------------------------------------------------------------
 //======================================================================
+#if !defined(IUTEST_BUILD_FOR_IWYU)
+
 #include "../include/iutest.hpp"
 
 /* ---------------------------------------------------
  * 値をパラメータ化したテスト
 *//*--------------------------------------------------*/
 #if IUTEST_HAS_PARAM_TEST
+
 // Param Test Range
 class TestP : public ::iutest::TestWithParam<int>
 {
@@ -273,5 +276,7 @@ typedef ParamMethodTestFixed DISABLED_TestFailureParamMethodFixed;
 IUTEST_PMZ_F(DISABLED_TestFailureParamMethodFixed, EQ, TestFunction, 0, 0);
 IUTEST_PMZ_F(DISABLED_TestFailureParamMethodFixed, EQ, TestFunction, 1, 1);
 IUTEST_PMZ_F(DISABLED_TestFailureParamMethodFixed, EQ, TestFunction, 2, 3);
+
+#endif
 
 #endif
