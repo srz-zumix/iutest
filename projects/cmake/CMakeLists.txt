@@ -10,6 +10,7 @@ option(build_gtest_samples "gtest sample build." OFF)
 option(build_use_gtest_configuration "use gtest build configuration." ON)
 option(build_tests "tests build." ON)
 option(build_namespace_tests "enable namespace test build." ON)
+option(build_for_iwyu "for include-what-you-use." OFF)
 
 include(xcode_version.cmake)
 # Xcode workarounds
@@ -29,6 +30,7 @@ if (CMAKE_VERSION VERSION_LESS 3.19)
             -Dbuild_use_gtest_configuration:BOOL=${build_use_gtest_configuration}
             -Dbuild_tests:BOOL=${build_tests}
             -Dbuild_namespace_tests:BOOL=${build_namespace_tests}
+            -Dbuild_for_iwyu:BOOL=${build_for_iwyu}
             ${CMAKE_SOURCE_DIR})
         message(STATUS "Recursive generate done")
     
@@ -97,6 +99,10 @@ config_compiler_and_linker()  # Defined in internal_utils.cmake.
 if (build_use_gtest_configuration)
   set(CMAKE_CONFIGURATION_TYPES "${CMAKE_CONFIGURATION_TYPES};Debug_gtest")
   message(STATUS "configuration types: ${CMAKE_CONFIGURATION_TYPES}")
+endif()
+
+if (build_for_iwyu)
+  add_definitions("-DIUTEST_BUILD_FOR_IWYU")
 endif()
 
 # include path
@@ -301,7 +307,6 @@ if (build_tests)
   cxx_executable_test(output_tests)
   cxx_executable_test(output_xml_invalid_path_tests)
   cxx_executable_test(output_xml_repeat_tests)
-  cxx_executable_test(own_string_view_tests)
   cxx_executable_test(param_test_name_invalid_tests)
   cxx_executable_test(param_test_name_tests)
   cxx_executable_test(no_yoda_tests)
@@ -313,6 +318,7 @@ if (build_tests)
   cxx_executable_test(type_param_register_exception_std_tests)
   cxx_executable_test(type_param_strict_failure_tests)
   cxx_executable_test(type_param_strict_tests)
+  cxx_executable_test(unit_own_string_view_tests)
   cxx_executable_test_with_main(unit_tests
     unit_file_tests.cpp
     unit_macro_tests.cpp
@@ -417,7 +423,6 @@ if (build_tests)
   cxx_add_test(output_tests)
   cxx_add_test(output_xml_invalid_path_tests)
   cxx_add_test(output_xml_repeat_tests)
-  cxx_add_test(own_string_view_tests)
   cxx_add_test(param_test_name_invalid_tests)
   cxx_add_test(param_test_name_tests)
   cxx_add_test(no_yoda_tests)
@@ -429,6 +434,7 @@ if (build_tests)
   cxx_add_test(type_param_register_exception_std_tests)
   cxx_add_test(type_param_strict_failure_tests)
   cxx_add_test(type_param_strict_tests)
+  cxx_add_test(unit_own_string_view_tests)
   cxx_add_test(unit_tests)
 
   file(COPY ${IUTEST_ROOT_DIR}/test/testdata DESTINATION .)

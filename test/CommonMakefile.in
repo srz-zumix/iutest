@@ -1,7 +1,7 @@
 #
 # Test Makefile Common
 #
-# Copyright (C) 2017-2019, Takazumi Shirayanagi
+# Copyright (C) 2017-2022, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
@@ -180,7 +180,6 @@ TARGETS_IUTEST_ONLY = \
 		$(OUTDIR)/output_tests \
 		$(OUTDIR)/output_xml_invalid_path_tests \
 		$(OUTDIR)/output_xml_repeat_tests \
-		$(OUTDIR)/own_string_view_tests \
 		$(OUTDIR)/param_test_name_invalid_tests \
 		$(OUTDIR)/param_test_name_tests \
 		$(OUTDIR)/no_yoda_tests \
@@ -190,7 +189,8 @@ TARGETS_IUTEST_ONLY = \
 		$(OUTDIR)/type_param_register_exception_int_tests \
 		$(OUTDIR)/type_param_register_exception_std_tests \
 		$(OUTDIR)/type_param_strict_failure_tests \
-		$(OUTDIR)/type_param_strict_tests
+		$(OUTDIR)/type_param_strict_tests \
+		$(OUTDIR)/unit_own_string_view_tests
 
 COMPILEERROR_TARGETS=\
 		$(OUTDIR)/check_strict_tests \
