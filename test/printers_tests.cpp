@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,6 +17,14 @@
 // include
 #include "iutest.hpp"
 #include "logger_tests.hpp"
+
+struct AlwaysThrow;
+struct Bar;
+struct BigVar;
+struct Hoge;
+struct Point0;
+struct Point1;
+struct Point2;
 
 #if !defined(IUTEST_USE_GTEST)
 
