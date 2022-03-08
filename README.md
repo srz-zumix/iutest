@@ -14,7 +14,6 @@
 [![Scrutinizer Build Status](https://scrutinizer-ci.com/g/srz-zumix/iutest/badges/build.png?b=master)](https://scrutinizer-ci.com/g/srz-zumix/iutest/build-status/master)
 [![Semaphore Build Status](https://semaphoreci.com/api/v1/srz_zumix/iutest/branches/master/badge.svg)](https://semaphoreci.com/srz_zumix/iutest)
 [![Semaphore 2.0 Build Status](https://srz-zumix.semaphoreci.com/badges/iutest/branches/master.svg)](https://srz-zumix.semaphoreci.com/projects/iutest)
-[![Shippable Run Status](https://api.shippable.com/projects/541904d2ac22859af743f867/badge?branch=master)](https://app.shippable.com/github/srz-zumix/iutest)
 [![Travis-CI Build Status](https://travis-ci.com/srz-zumix/iutest.svg?branch=master)](https://travis-ci.com/srz-zumix/iutest)
 [![Wercker status](https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/s/master "wercker status")](https://app.wercker.com/project/bykey/d385156052aa4118a7f24affe4a8f851)  
   
