@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -16,7 +16,7 @@
 //======================================================================
 // include
 #include "../include/gtest/iutest_spi_switch.hpp"
-#include "pred_tests.hpp"
+#include "pred_tests.hpp"   // IWYU pragma: keep
 
 namespace spi_test
 {
