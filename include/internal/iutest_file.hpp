@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -325,7 +325,7 @@ private:
 class StringStreamFile : public IFile
 {
 public:
-    virtual ~StringStreamFile() { Close(); }
+    virtual ~StringStreamFile() { StringStreamFile::Close(); }
 public:
     /**
      * @brief   閉じる
