@@ -1,0 +1,10 @@
+Checks: >-
+    *
+    ,-llvm-namespace-comment
+    ,-cppcoreguidelines-macro-usage
+    ,-modernize-use-trailing-return-type
+    ,-llvm-include-order
+    ,-clang-analyzer-core.NonNullParamChecker
+    ,-clang-analyzer-security*
+# WarningsAsErrors: >
+#     *
