@@ -108,7 +108,7 @@ if (build_for_iwyu)
 endif()
 
 if (build_for_clang_tidy)
-  set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=*,-llvm-namespace-comment,-cppcoreguidelines-macro-usage")
+  set(CMAKE_CXX_CLANG_TIDY "clang-tidy")
 endif()
 
 # include path
