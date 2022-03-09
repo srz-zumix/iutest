@@ -1,4 +1,4 @@
-Checks: >
+Checks: >-
     *
     ,-llvm-namespace-comment
     ,-cppcoreguidelines-macro-usage
