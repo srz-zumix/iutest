@@ -179,7 +179,7 @@ protected:
     FILE* m_fp;
 public:
     StdioFile() IUTEST_CXX_NOEXCEPT_SPEC : m_fp(NULL) {}
-    virtual ~StdioFile() { Close(); }
+    virtual ~StdioFile() { StdioFile::Close(); }
 public:
     /**
      * @brief   閉じる

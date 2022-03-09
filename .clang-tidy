@@ -4,5 +4,5 @@ Checks: >
     ,-cppcoreguidelines-macro-usage
     ,-modernize-use-trailing-return-type
     ,-llvm-include-order
-WarningsAsErrors: >
-    *
+# WarningsAsErrors: >
+#     *
