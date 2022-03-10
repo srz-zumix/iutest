@@ -1,0 +1,13 @@
+Checks: "*\
+    ,-llvm-namespace-comment\
+    ,-cppcoreguidelines-macro-usage\
+    ,cppcoreguidelines-explicit-virtual-functions\
+    ,-modernize-use-trailing-return-type\
+    ,-readability-isolate-declaration\
+    ,cert-err58-cpp\
+    ,-llvm-include-order\
+    ,-clang-analyzer-*\
+    ,-__llvm_libc-*\
+    "
+# WarningsAsErrors: >
+#     *
