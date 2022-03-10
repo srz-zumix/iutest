@@ -337,6 +337,10 @@ jobs:
       - name: install clang-tidy
         run: |
           sudo apt-get install -y clang-tidy
+      - name: clang-tidy info
+        run: |
+          clang-tidy --version
+          clang-tidy -list-checks --config-file=.clang-tidy
       - name: cmake
         run: |
             mkdir ./cmake-build
