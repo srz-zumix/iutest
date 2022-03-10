@@ -340,7 +340,8 @@ jobs:
       - name: clang-tidy info
         run: |
           clang-tidy --version
-          clang-tidy -list-checks --config-file=.clang-tidy
+          # clang-tidy -list-checks --config-file=.clang-tidy
+          clang-tidy -list-checks -checks=*,-llvm-namespace-comment,-cppcoreguidelines-macro-usage,-modernize-use-trailing-return-type,-llvm-include-order,-clang-analyzer-*
       - name: cmake
         run: |
             mkdir ./cmake-build
