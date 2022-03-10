@@ -1,9 +1,9 @@
-Checks: >-
-    *
-    ,-llvm-namespace-comment
-    ,-cppcoreguidelines-macro-usage
-    ,-modernize-use-trailing-return-type
-    ,-llvm-include-order
-    ,-clang-analyzer-*
+Checks: "*\
+    ,-llvm-namespace-comment\
+    ,-cppcoreguidelines-macro-usage\
+    ,-modernize-use-trailing-return-type\
+    ,-llvm-include-order\
+    ,-clang-analyzer-*\
+    "
 # WarningsAsErrors: >
 #     *
