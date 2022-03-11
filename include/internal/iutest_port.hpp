@@ -21,6 +21,7 @@
 #  define _MSL_USING_NAMESPACE
 #endif
 
+// IWYU pragma: begin_exports
 #include "iutest_internal_defs.hpp"
 
 #if defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN) || defined(IUTEST_OS_MAC) || defined(IUTEST_OS_IOS) || defined(IUTEST_OS_FREEBSD)
@@ -31,6 +32,7 @@
 #if IUTEST_HAS_FILE_STAT
 #  include <sys/stat.h>
 #endif
+// IWYU pragma: end_exports
 
 //======================================================================
 // define

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -39,7 +39,9 @@
 
 #else // !defined(IUTEST_USE_GTEST)
 
+// IWYU pragma: begin_exports
 #include <gtest/gtest-spi.h>
+// IWYU pragma: end_exports
 
 #if defined(_MSC_VER) && !defined(__clang__)
 // /ZI オプションだと __LINE__ が __LINE__Var+N(Nは番号) になりコンパイルエラーになるための対応

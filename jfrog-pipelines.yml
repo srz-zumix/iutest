@@ -11,9 +11,9 @@ resources:
         newCommit: true
         pullRequestUpdate: true
 pipelines:
-  - name: iutest_centos_basic_test
+  - name: jfrog_iutest_ubuntu_basic_test
     configuration:
-      nodePool: centos-latest
+      nodePool: ubuntu-latest
       runtime:
         type: image
         image:
@@ -27,12 +27,11 @@ pipelines:
         configuration:
           inputResources:
             - name: iutest_gitRepo
-        execution: &basic-test-execution
+        execution: &ubuntu-basic-test-execution
           onStart:
             - update_commit_status iutest_gitRepo # Status: "processing"
           onExecute:
             - update_commit_status iutest_gitRepo # Status: "processing"
-            - yum install -y make
             - pushd ${res_iutest_gitRepo_resourcePath}
             - make -C test showcxxversion showcxxmacros
             - make -C test -j4
@@ -51,7 +50,7 @@ pipelines:
             CXX: clang++
           inputResources:
             - name: iutest_gitRepo
-        execution: *basic-test-execution
+        execution: *ubuntu-basic-test-execution
 
 # ビルド時間制限的に無理なので disable
   # - name: gtest_compatible_released

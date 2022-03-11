@@ -21,6 +21,7 @@
 #  define _MBSTATE_T
 #endif
 
+// IWYU pragma: begin_exports
 #include "iutest_stdlib.hpp"
 #include <wchar.h>
 #include <wctype.h>
@@ -32,6 +33,7 @@
 #include <string>
 #include <cstring>
 #include <cmath>
+// IWYU pragma: end_exports
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 

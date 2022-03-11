@@ -6,12 +6,14 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
 //-----------------------------------------------------------------------
 //======================================================================
+#if !defined(IUTEST_BUILD_FOR_IWYU)
+
 #include "../include/iutest.hpp"
 
 IUTEST_PRAGMA_SAMPLE_COREGUIDELINE_DISABLE_BEGIN()
@@ -20,6 +22,7 @@ IUTEST_PRAGMA_SAMPLE_COREGUIDELINE_DISABLE_BEGIN()
  * 値をパラメータ化したテスト
 *//*--------------------------------------------------*/
 #if IUTEST_HAS_PARAM_TEST
+
 // Param Test Range
 class TestP : public ::iutest::TestWithParam<int>
 {
@@ -279,3 +282,5 @@ IUTEST_PMZ_F(DISABLED_TestFailureParamMethodFixed, EQ, TestFunction, 2, 3);
 #endif
 
 IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()
+
+#endif
