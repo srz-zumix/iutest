@@ -116,49 +116,49 @@ class IutestFused:
         line = self.StoreStrings(line, str_l)
 
         # remove comment and strip
-        line = re.sub('//[\S \t]*', '', line)
+        line = re.sub(r'//[\S \t]*', '', line)
         line = line.strip(' \t')
         # remvoe \r
         line = line.rstrip()
         line += '\n'
         # remove preprocessor directive unnecessary whitespace
-        line = re.sub('^\s*#\s*', '#', line)
-        line = re.sub('^\s*#(.+?)[ \t]+', r'#\1 ', line)
+        line = re.sub(r'^\s*#\s*', '#', line)
+        line = re.sub(r'^\s*#(.+?)[ \t]+', r'#\1 ', line)
 
         # remove unnecessary whitespace
-        line = re.sub('\s+(".*?")', r' \1', line)
+        line = re.sub(r'\s+(".*?")', r' \1', line)
         line = re.sub(r'\)\s+>', r')>', line)
-        line = re.sub(';[ \t]+', ';', line)
-        line = re.sub('[ \t]+', ' ', line)
-        line = re.sub('([\w)\]]+)\s+([&|\+\-<>=\?]+)[ \t]+([^>])', r'\1\2\3', line)
-        line = re.sub('\s*([{\+\-\*/%=<>&|!]+=)[ \t]*', r'\1', line)
-        line = re.sub('<\s+(\w)', r'<\1', line)
-        line = re.sub('\s+:[ \t]+(\w)', r':\1', line)
-        line = re.sub('\s*,[ \t]*', ',', line)
-        line = re.sub('\s*\)', ')', line)
-        line = re.sub('\)\s+{', '){', line)
-        line = re.sub('\)\s+const', ')const', line)
-        if not re.match('#define\s+.*\s+{.*', line):
-            line = re.sub('\s*{[ \t]*', '{', line)
-            line = re.sub('\s*}[ \t]*', '}', line)
+        line = re.sub(r';[ \t]+', ';', line)
+        line = re.sub(r'[ \t]+', ' ', line)
+        line = re.sub(r'([\w)\]]+)\s+([&|\+\-<>=\?]+)[ \t]+([^>])', r'\1\2\3', line)
+        line = re.sub(r'\s*([{\+\-\*/%=<>&|!]+=)[ \t]*', r'\1', line)
+        line = re.sub(r'<\s+(\w)', r'<\1', line)
+        line = re.sub(r'\s+:[ \t]+(\w)', r':\1', line)
+        line = re.sub(r'\s*,[ \t]*', ',', line)
+        line = re.sub(r'\s*\)', ')', line)
+        line = re.sub(r'\)\s+{', '){', line)
+        line = re.sub(r'\)\s+const', ')const', line)
+        if not re.match(r'#define\s+.*\s+{.*', line):   # for warning: whitespace recommended after macro name
+            line = re.sub(r'\s*{[ \t]*', '{', line)
+            line = re.sub(r'\s*}[ \t]*', '}', line)
 
         # define HOGE(x) vs define HOGE (x)
-        m = re.match('^#define\s+(\w+)\s+(\([^)]*?\))$', line)
-        line = re.sub('\s*\([ \t]*', '(', line)
+        m = re.match(r'^#define\s+(\w+)\s+(\([^)]*?\))$', line)
+        line = re.sub(r'\s*\([ \t]*', '(', line)
         if m:
-            line = re.sub('^#define\s+(\w+)(\([^)]*?\))$', r'#define \1 \2', line)
+            line = re.sub(r'^#define\s+(\w+)(\([^)]*?\))$', r'#define \1 \2', line)
         else:
-            line = re.sub('^#define\s+(\w+\([^)]*?\))(\S+)', r'#define \1 \2', line)
+            line = re.sub(r'^#define\s+(\w+\([^)]*?\))(\S+)', r'#define \1 \2', line)
 
         # 0x00000X => 0xX
-        line = re.sub('0x0+([0-9A-Fa-f])', r'0x\1', line)
+        line = re.sub(r'0x0+([0-9A-Fa-f])', r'0x\1', line)
         # 0x0 => 0
-        line = re.sub('0x([0-9])([^0-9A-Fa-f])', r'\1\2', line)
+        line = re.sub(r'0x([0-9])([^0-9A-Fa-f])', r'\1\2', line)
 
         # string restore
         line = self.RestoreStrings(line, str_l)
 
-        line = re.sub('^#define\s+(\w+)=', r'#define \1 =', line)
+        line = re.sub(r'^#define\s+(\w+)=', r'#define \1 =', line)
         return line
 
     def Flush(self, output_file):
