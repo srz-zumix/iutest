@@ -139,8 +139,8 @@ class IutestFused:
         line = re.sub('\)\s+{', '){', line)
         line = re.sub('\)\s+const', ')const', line)
         if not re.match('#define\s+.*\s+{.*', line):
-            line = re.sub('\s*{\s*', '{', line)
-            line = re.sub('\s*}\s*', '}', line)
+            line = re.sub('\s*{[ \t]*', '{', line)
+            line = re.sub('\s*}[ \t]*', '}', line)
 
         # define HOGE(x) vs define HOGE (x)
         m = re.match('^#define\s+(\w+)\s+(\([^)]*?\))$', line)
