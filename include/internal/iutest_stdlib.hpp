@@ -473,14 +473,10 @@ struct type_fit_t_select
 {
     typedef typename conditional<(SIZE & (SIZE - 1)) == 0, type_fit_t<SIZE>
         , typename conditional<(SIZE > 8), type_fit_t<16>
-            , typename conditional<(SIZE > 4), type_fit_t<8>
-                , typename conditional<(SIZE > 2), type_fit_t<4>
-                    , typename conditional<(SIZE > 1), type_fit_t<2>
-                        , type_fit_t<1>
-                    >::type
-                >::type
-            >::type
-        >::type
+        , typename conditional<(SIZE > 4), type_fit_t<8>
+        , typename conditional<(SIZE > 2), type_fit_t<4>
+        , typename conditional<(SIZE > 1), type_fit_t<2>
+        , type_fit_t<1> >::type >::type >::type >::type
     >::type type;
 };
 
@@ -489,14 +485,10 @@ struct type_least_t_select
 {
     typedef typename conditional<(SIZE & (SIZE - 1)) == 0, type_least_t<SIZE>
         , typename conditional<(SIZE > 8), type_least_t<16>
-            , typename conditional<(SIZE > 4), type_least_t<8>
-                , typename conditional<(SIZE > 2), type_least_t<4>
-                    , typename conditional<(SIZE > 1), type_least_t<2>
-                        , type_least_t<1>
-                    >::type
-                >::type
-            >::type
-        >::type
+        , typename conditional<(SIZE > 4), type_least_t<8>
+        , typename conditional<(SIZE > 2), type_least_t<4>
+        , typename conditional<(SIZE > 1), type_least_t<2>
+        , type_least_t<1> >::type >::type >::type >::type
     >::type type;
 };
 
