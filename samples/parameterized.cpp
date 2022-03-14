@@ -16,6 +16,8 @@
 
 #include "../include/iutest.hpp"
 
+IUTEST_PRAGMA_SAMPLE_COREGUIDELINE_DISABLE_BEGIN()
+
 /* ---------------------------------------------------
  * 値をパラメータ化したテスト
 *//*--------------------------------------------------*/
@@ -168,9 +170,9 @@ class TestPCombine : public ::iutest::TestWithParam< ::iutest::tuples::tuple<boo
 
 IUTEST_P(TestPCombine, TestA)
 {
-    bool b = ::iutest::tuples::get<0>(GetParam());
-    int i1 = ::iutest::tuples::get<1>(GetParam());
-    int i2 = ::iutest::tuples::get<2>(GetParam());
+    const bool b = ::iutest::tuples::get<0>(GetParam());
+    const int i1 = ::iutest::tuples::get<1>(GetParam());
+    const int i2 = ::iutest::tuples::get<2>(GetParam());
     IUTEST_SUCCEED() << b << ", " << i1 << ", " << i2;
 
 #if !defined(IUTEST_USE_GTEST)
@@ -190,7 +192,7 @@ class InitializerListValuesTest : public ::iutest::TestWithParam<int> {};
 
 IUTEST_P(InitializerListValuesTest, Test)
 {
-    int v = GetParam();
+    const int v = GetParam();
     IUTEST_SUCCEED() << v;
 }
 IUTEST_INSTANTIATE_TEST_SUITE_P(A, InitializerListValuesTest, ::iutest::ValuesIn({1, 9, 8, 6, 3, 9}));
@@ -203,7 +205,7 @@ class RandomValuesTest : public ::iutest::TestWithParam<int> {};
 
 IUTEST_P(RandomValuesTest, Test)
 {
-    int v = GetParam();
+    const int v = GetParam();
     IUTEST_SUCCEED() << v;
 }
 IUTEST_INSTANTIATE_TEST_SUITE_P(A, RandomValuesTest, ::iutest::RandomValues(5));
@@ -216,7 +218,7 @@ class CSVValuesTest : public ::iutest::TestWithParam<int> {};
 
 IUTEST_P(CSVValuesTest, Test)
 {
-    int v = GetParam();
+    const int v = GetParam();
     IUTEST_SUCCEED() << v;
 }
 IUTEST_INSTANTIATE_TEST_SUITE_P(A, CSVValuesTest, ::iutest::CSV<int>("csvparams.csv", __FILE__));
@@ -257,7 +259,7 @@ class TestPFailure : public ::iutest::TestWithParam< int >
 typedef TestPFailure DISABLED_TestPFailure;
 IUTEST_P(DISABLED_TestPFailure, Test)
 {
-    int v = GetParam();
+    const int v = GetParam();
     IUTEST_FAIL() << v;
 }
 IUTEST_INSTANTIATE_TEST_SUITE_P(A, DISABLED_TestPFailure, ::iutest::Values(0, 1, 2, 3));
@@ -278,5 +280,7 @@ IUTEST_PMZ_F(DISABLED_TestFailureParamMethodFixed, EQ, TestFunction, 1, 1);
 IUTEST_PMZ_F(DISABLED_TestFailureParamMethodFixed, EQ, TestFunction, 2, 3);
 
 #endif
+
+IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()
 
 #endif

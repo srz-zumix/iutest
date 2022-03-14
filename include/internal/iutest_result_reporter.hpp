@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -60,10 +60,14 @@ class NoTestPartResultReporter : public TestPartResultReporterInterface
 {
 public:
     virtual ~NoTestPartResultReporter() IUTEST_CXX_OVERRIDE {}
+
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
     virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
     {
         IUTEST_UNUSED_VAR(result);
     }
+IUTEST_PRAGMA_WARN_POP()
 };
 
 /**
@@ -75,7 +79,7 @@ public:
     template<TestPartResult::Type Type>
     struct CondEq
     {
-        bool operator ()(const TestPartResult& result)
+        bool operator ()(const TestPartResult& result) IUTEST_CXX_NOEXCEPT_SPEC
         {
             return result.type() == Type;
         }
@@ -84,7 +88,7 @@ public:
     template<TestPartResult::Type Type>
     struct CondNe
     {
-        bool operator ()(const TestPartResult& result)
+        bool operator ()(const TestPartResult& result) IUTEST_CXX_NOEXCEPT_SPEC
         {
             return result.type() != Type;
         }
@@ -93,7 +97,7 @@ public:
     template<TestPartResult::Type Type>
     struct CondGt
     {
-        bool operator ()(const TestPartResult& result)
+        bool operator ()(const TestPartResult& result) IUTEST_CXX_NOEXCEPT_SPEC
         {
             return result.type() > Type;
         }
@@ -102,17 +106,17 @@ public:
     class ReporterHolder
     {
     public:
-        ReporterHolder() : m_origin(NULL) {}
+        ReporterHolder() IUTEST_CXX_NOEXCEPT_SPEC : m_origin(IUTEST_NULLPTR) {}
         virtual ~ReporterHolder()
         {
             Detach();
         }
-        void Attach(TestPartResultReporterInterface* p)
+        void Attach(TestPartResultReporterInterface* p) IUTEST_CXX_NOEXCEPT_SPEC
         {
             m_origin = TestEnv::GetGlobalTestPartResultReporter();
             TestEnv::SetGlobalTestPartResultReporter(p);
         }
-        void Detach()
+        void Detach() IUTEST_CXX_NOEXCEPT_SPEC
         {
             TestEnv::SetGlobalTestPartResultReporter(m_origin);
         }
@@ -134,7 +138,7 @@ public:
     {
         typedef REPORTER _Mybase;
     public:
-        Counter() : m_count(0)
+        Counter() IUTEST_CXX_NOEXCEPT_SPEC : m_count(0)
         {
             m_holder.Attach(this);
         }
@@ -161,7 +165,7 @@ public:
         typedef REPORTER _Mybase;
         typedef ::std::vector<TestPartResult> TestPartResults;
     public:
-        Collector()
+        Collector() IUTEST_CXX_NOEXCEPT_SPEC
         {
             m_holder.Attach(this);
         }

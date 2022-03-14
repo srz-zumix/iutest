@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -102,23 +102,18 @@ struct enable_if : public helper::enable_if_impl_<B>::template inner<T>
 
 #endif
 
-template<class COND, typename T = type_defined_void>
-struct enable_if_t : public enable_if<COND::value, T> {};
-
 /**
  * @brief   disable_if
 */
 template<bool B, typename T = type_defined_void>
 struct disable_if : public enable_if<!B, T> {};
-template<class COND, typename T = type_defined_void>
-struct disable_if_t : public disable_if<COND::value, T> {};
 
 template<typename T>
 struct enabler_t
 {
     static void* value;
 };
-template<typename T>void* enabler_t<T>::value = NULL;
+template<typename T>void* enabler_t<T>::value = IUTEST_NULLPTR;
 
 typedef enabler_t<void> enabler;
 
