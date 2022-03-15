@@ -727,7 +727,9 @@ class WandboxPreprocessor:
         return dst
 
     def remove_gsl(self, code):
-        return re.sub(r'IUTEST_ATTRIBUTE_GSL_SUPPRESS\(.*?\)', '', code)
+        dst = re.sub(r'#\s*define\s*IUTEST_ATTRIBUTE_GSL_SUPPRESS\(.*?\).*', '', code)
+        dst = re.sub(r'IUTEST_ATTRIBUTE_GSL_SUPPRESS\(.*?\)', '', dst)
+        return dst
 
     def trancate_line(self, code):
         return self.pp.trancate_line(code)
