@@ -138,6 +138,7 @@ predefined_macros = {
     'IUTEST_ATTRIBUTE_FORMAT_PRINTF': None,
     'IUTEST_ATTRIBUTE_FORMAT': None,
     'IUTEST_HAS_GSL': '0',
+    'IUTEST_ATTRIBUTE_GSL_SUPPRESS': None,
     # no overridable
     'IUTEST_SUCCEED': None,
     'IUTEST_FAIL': None,
@@ -725,6 +726,9 @@ class WandboxPreprocessor:
             dst += line
         return dst
 
+    def remove_gsl(self, code):
+        return re.sub(r'IUTEST_ATTRIBUTE_GSL_SUPPRESS\(.*?\)', '', code)
+
     def trancate_line(self, code):
         return self.pp.trancate_line(code)
 
@@ -743,6 +747,7 @@ def default_pp():
     code = pp.remove_redudant(code)
     code = pp.rename_macros(code)
     code = pp.remove_redudant_pragma(code)
+    code = pp.remove_gsl(code)
     code = pp.trancate_line(code)
     output_file.write(code)
     output_file.close()
