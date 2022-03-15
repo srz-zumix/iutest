@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_debug.ipp
- * @brief       iris unit test debug help ファイル
+ * @brief       iris unit test debug help implementation
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -39,11 +39,11 @@ namespace detail
 
 #if defined(_MSC_VER) && IUTEST_HAS_MINIDUMP
 
-IUTEST_IPP_INLINE MiniDump::MiniDump()
-    : m_hModule(NULL), m_pfnMiniDumpWriteDump(NULL)
+IUTEST_IPP_INLINE MiniDump::MiniDump() IUTEST_CXX_NOEXCEPT_SPEC
+    : m_hModule(IUTEST_NULLPTR), m_pfnMiniDumpWriteDump(IUTEST_NULLPTR)
 {
     m_hModule = ::LoadLibraryA("dbghelp.dll");
-    if( m_hModule != NULL )
+    if( m_hModule != IUTEST_NULLPTR )
     {
         m_pfnMiniDumpWriteDump = ::GetProcAddress(m_hModule, "MiniDumpWriteDump");
     }
@@ -54,9 +54,9 @@ IUTEST_IPP_INLINE MiniDump::~MiniDump()
     FreeLibrary(m_hModule);
 }
 
-IUTEST_IPP_INLINE bool MiniDump::Dump(HANDLE hFile, EXCEPTION_POINTERS* ep)
+IUTEST_IPP_INLINE bool MiniDump::Dump(HANDLE hFile, EXCEPTION_POINTERS* ep) IUTEST_CXX_NOEXCEPT_SPEC
 {
-    if( m_pfnMiniDumpWriteDump == NULL )
+    if( m_pfnMiniDumpWriteDump == IUTEST_NULLPTR )
     {
         return false;
     }
@@ -73,13 +73,13 @@ IUTEST_IPP_INLINE bool MiniDump::Dump(HANDLE hFile, EXCEPTION_POINTERS* ep)
         );
     const pfnMiniDumpWriteDump proc = reinterpret_cast<const pfnMiniDumpWriteDump>(m_pfnMiniDumpWriteDump);
     return (*proc)( ::GetCurrentProcess(), ::GetCurrentProcessId(), hFile, MiniDumpNormal
-        , &mdei, NULL, NULL) ? true : false;
+        , &mdei, IUTEST_NULLPTR, IUTEST_NULLPTR) ? true : false;
 }
-IUTEST_IPP_INLINE bool MiniDump::Create(const char* filepath, EXCEPTION_POINTERS* ep)
+IUTEST_IPP_INLINE bool MiniDump::Create(const char* filepath, EXCEPTION_POINTERS* ep) IUTEST_CXX_NOEXCEPT_SPEC
 {
     HANDLE hFile = CreateFileA( filepath, GENERIC_READ|GENERIC_WRITE, FILE_SHARE_WRITE|FILE_SHARE_READ
-        , NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-    if( hFile == NULL || hFile == INVALID_HANDLE_VALUE )
+        , IUTEST_NULLPTR, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, IUTEST_NULLPTR);
+    if( hFile == IUTEST_NULLPTR || hFile == INVALID_HANDLE_VALUE )
     {
         return false;
     }
