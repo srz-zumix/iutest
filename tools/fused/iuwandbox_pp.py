@@ -110,6 +110,7 @@ predefined_macros = {
     'IUTEST_HAS_TESTSUITE': '1',
     'IUTEST_HAS_TESTCASE': '1',
     'IUTEST_CXX_NOEXCEPT': UNUSED_,
+    'IUTEST_CXX_NOEXCEPT_SPEC': UNUSED_,
     'IUTEST_CXX_NOEXCEPT_AS': UNUSED_,
     'IUTEST_CXX_NOTHROW': UNUSED_,
     'IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY': UNUSED_,
@@ -136,6 +137,8 @@ predefined_macros = {
     'IUTEST_ATTRIBUTE_NORETURN_': None,
     'IUTEST_ATTRIBUTE_FORMAT_PRINTF': None,
     'IUTEST_ATTRIBUTE_FORMAT': None,
+    'IUTEST_HAS_GSL': '0',
+    'IUTEST_ATTRIBUTE_GSL_SUPPRESS': None,
     # no overridable
     'IUTEST_SUCCEED': None,
     'IUTEST_FAIL': None,
@@ -531,6 +534,7 @@ rename_macro = {
     'IUTEST_ATTRIBUTE_FORMAT_PRINTF': 'II_ATR_F_P',
     'IUTEST_ATTRIBUTE_FORMAT': 'II_ATR_F',
     'IUTEST_CXX_OVERRIDE': 'II_CXX_O',
+    'IUTEST_CXX_NOEXCEPT_AS': 'II_CXX_NEX_AS',
     'IUTEST_CXX_NOEXCEPT_SPEC': 'II_CXX_NEX_S',
     'IUTEST_CXX_DEFAULT_FUNCTION': 'II_CXX_DF_F',
     'IUTEST_CXX_DELETED_FUNCTION': 'II_CXX_DL_F',
@@ -722,6 +726,11 @@ class WandboxPreprocessor:
             dst += line
         return dst
 
+    def remove_gsl(self, code):
+        dst = re.sub(r'#\s*define\s*IUTEST_ATTRIBUTE_GSL_SUPPRESS\(.*?\).*', '', code)
+        dst = re.sub(r'IUTEST_ATTRIBUTE_GSL_SUPPRESS\(.*?\)', '', dst)
+        return dst
+
     def trancate_line(self, code):
         return self.pp.trancate_line(code)
 
@@ -740,6 +749,7 @@ def default_pp():
     code = pp.remove_redudant(code)
     code = pp.rename_macros(code)
     code = pp.remove_redudant_pragma(code)
+    code = pp.remove_gsl(code)
     code = pp.trancate_line(code)
     output_file.write(code)
     output_file.close()

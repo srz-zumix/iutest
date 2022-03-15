@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -37,7 +37,7 @@ namespace detail
 IUTEST_IPP_INLINE void PostMessage(const pp::Var& var)
 {
     ::pp::Module* module = ::pp::Module::Get();
-    if( module != NULL )
+    if( module != IUTEST_NULLPTR )
     {
         if( module->current_instances().size() > 0 )
         {
@@ -53,18 +53,18 @@ IUTEST_IPP_INLINE void vprint_message(const char *fmt, va_list va)
     char msg[1024];
     vsnprintf(msg, sizeof(msg), fmt, va);
     char* tp = strtok(msg, "\n");   // NOLINT
-    while( tp != NULL )
+    while( tp != IUTEST_NULLPTR )
     {
         detail::PostMessage(pp::Var(tp));
-        tp = strtok(NULL, "\n");    // NOLINT
+        tp = strtok(IUTEST_NULLPTR, "\n");    // NOLINT
     }
 }
 IUTEST_IPP_INLINE void print_message(const char *fmt, ...)
 {
     va_list va;
-    va_start(va, fmt);
+    iu_va_start(va, fmt);
     vprint_message(fmt, va);
-    va_end(va);
+    iu_va_end(va);
 }
 
 }   // end of namespace nacl
@@ -76,21 +76,21 @@ namespace posix
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
-IUTEST_IPP_INLINE const char* GetEnv(const char* name)
+IUTEST_IPP_INLINE const char* GetEnv(const char* name) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if defined(IUTEST_NO_GETENV) \
     || defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE)
     IUTEST_UNUSED_VAR(name);
-    return NULL;
+    return IUTEST_NULLPTR;
 #elif defined(__BORLANDC__) || defined(__SunOS)
     const char* env = getenv(name);
-    return (env != NULL && env[0] != '\0') ? env : NULL;
+    return (env != IUTEST_NULLPTR && env[0] != '\0') ? env : IUTEST_NULLPTR;
 #else
     return getenv(name);
 #endif
 }
 
-IUTEST_IPP_INLINE int PutEnv(const char* expr)
+IUTEST_IPP_INLINE int PutEnv(const char* expr) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if defined(IUTEST_NO_PUTENV) \
     || defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE) \
@@ -123,7 +123,7 @@ IUTEST_IPP_INLINE int SetEnv(const char* name, const char* value, int overwrite)
 #elif defined(IUTEST_OS_WINDOWS)
     if( overwrite == 0 )
     {
-        if( GetEnv(name) != NULL )
+        if( GetEnv(name) != IUTEST_NULLPTR )
         {
             return 0;
         }
@@ -148,28 +148,28 @@ IUTEST_IPP_INLINE int SetEnv(const char* name, const char* value, int overwrite)
 }
 
 
-IUTEST_IPP_INLINE const char* GetCWD(char* buf, size_t length)
+IUTEST_IPP_INLINE const char* GetCWD(char* buf, size_t length) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if   defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE) \
         || defined(IUTEST_OS_AVR32) || defined(__arm__) || defined(IUTEST_NO_GETCWD)
-    if( buf == NULL || length < 3 )
+    if( buf == IUTEST_NULLPTR || length < 3 )
     {
-        return NULL;
+        return IUTEST_NULLPTR;
     }
     buf[0] = '.';
     buf[1] = '/';
     buf[2] = '\0';
     return buf;
 #elif defined(IUTEST_OS_WINDOWS)
-    return ::GetCurrentDirectoryA(static_cast<DWORD>(length), buf) == 0 ? NULL : buf;
+    return ::GetCurrentDirectoryA(static_cast<DWORD>(length), buf) == 0 ? IUTEST_NULLPTR : buf;
 #else
     const char* result = getcwd(buf, length);
-    if( result == NULL && buf != NULL && length >= 1 )
+    if( result == IUTEST_NULLPTR && buf != IUTEST_NULLPTR && length >= 1 )
     {
 #if defined(IUTEST_OS_NACL)
         if( length < 3 )
         {
-            return NULL;
+            return NUIUTEST_NULLPTRLL;
         }
         buf[0] = '.';
         buf[1] = '/';
@@ -190,7 +190,8 @@ IUTEST_IPP_INLINE ::std::string GetCWD()
     return GetCWD(buf, sizeof(buf));
 }
 
-IUTEST_IPP_INLINE int SleepMillisecFor(unsigned int millisec)
+IUTEST_ATTRIBUTE_GSL_SUPPRESS(f.4)
+IUTEST_IPP_INLINE int SleepMillisecFor(unsigned int millisec) IUTEST_CXX_NOEXCEPT_SPEC
 {
     volatile int x=0;
     for( unsigned int i=0; i < millisec; ++i )
@@ -200,7 +201,7 @@ IUTEST_IPP_INLINE int SleepMillisecFor(unsigned int millisec)
     return x;
 }
 
-IUTEST_IPP_INLINE void SleepMillisec(unsigned int millisec)
+IUTEST_IPP_INLINE void SleepMillisec(unsigned int millisec) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if   defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)
     Sleep(millisec);
@@ -208,7 +209,7 @@ IUTEST_IPP_INLINE void SleepMillisec(unsigned int millisec)
 
 #if   defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 199309L
     const timespec time = { 0, static_cast<long>(millisec) * 1000 * 1000 };
-    nanosleep(&time, NULL);
+    nanosleep(&time, IUTEST_NULLPTR);
 #elif (defined(_BSD_SOURCE) && _BSD_SOURCE)
     || (defined(_XOPEN_SOURCE)
         && (_XOPEN_SOURCE >= 500 || _XOPEN_SOURCE && _XOPEN_SOURCE_EXTENDED)
@@ -288,20 +289,20 @@ IUTEST_IPP_INLINE const char* FindLastPathSeparator(const char* path, size_t len
         }
         --pe;
     }
-    return NULL;
+    return IUTEST_NULLPTR;
 }
 
 IUTEST_IPP_INLINE size_t FindLastPathSeparatorPosition(const char* path, size_t length) IUTEST_CXX_NOEXCEPT_SPEC
 {
     const char* p = FindLastPathSeparator(path, length);
-    if( p == NULL )
+    if( p == IUTEST_NULLPTR )
     {
         return ::std::string::npos;
     }
     return static_cast<size_t>(p - path);
 }
 
-IUTEST_IPP_INLINE bool SetEnvironmentVariable(const char* name, const char* value)
+IUTEST_IPP_INLINE bool SetEnvironmentVariable(const char* name, const char* value) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)
     return ::SetEnvironmentVariableA(name, value) ? true : false;
@@ -310,9 +311,9 @@ IUTEST_IPP_INLINE bool SetEnvironmentVariable(const char* name, const char* valu
 #endif
 }
 
-IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, char* buf, size_t size)
+IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, char* buf, size_t size) IUTEST_CXX_NOEXCEPT_SPEC
 {
-    if( buf == NULL )
+    if( buf == IUTEST_NULLPTR )
     {
         return false;
     }
@@ -329,7 +330,7 @@ IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, char* buf, size_
     return true;
 #else
     const char* env = internal::posix::GetEnv(name);
-    if( env == NULL )
+    if( env == IUTEST_NULLPTR )
     {
         return false;
     }
@@ -353,7 +354,7 @@ IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, ::std::string& v
     }
 #endif
     const char* env = internal::posix::GetEnv(name);
-    if( env == NULL )
+    if( env == IUTEST_NULLPTR )
     {
         return false;
     }
@@ -361,7 +362,7 @@ IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, ::std::string& v
     return true;
 }
 
-IUTEST_IPP_INLINE bool GetEnvironmentInt(const char* name, int& var)
+IUTEST_IPP_INLINE bool GetEnvironmentInt(const char* name, int& var) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
     char buf[128] = {0};
@@ -369,16 +370,16 @@ IUTEST_IPP_INLINE bool GetEnvironmentInt(const char* name, int& var)
     {
         return false;
     }
-    char* end = NULL;
+    char* end = IUTEST_NULLPTR;
     var = static_cast<int>(strtol(buf, &end, 0));
     return true;
 #else
     const char* env = internal::posix::GetEnv(name);
-    if( env == NULL )
+    if( env == IUTEST_NULLPTR )
     {
         return false;
     }
-    char* end = NULL;
+    char* end = IUTEST_NULLPTR;
     var = static_cast<int>(strtol(env, &end, 0));
     return true;
 #endif
@@ -390,13 +391,12 @@ namespace win
 
 IUTEST_IPP_INLINE ::std::string WideStringToMultiByteString(const wchar_t* wide_c_str)
 {
-    if( wide_c_str == NULL ) return "";
+    if( wide_c_str == IUTEST_NULLPTR ) return "";
     ::std::string str;
     const int length = static_cast<int>(wcslen(wide_c_str)) * 2 + 1;
-    char* mbs = new char [length];
-    WideCharToMultiByte(932, 0, wide_c_str, static_cast<int>(wcslen(wide_c_str))+1, mbs, length, NULL, NULL);
+    type_array<char> mbs(length);
+    WideCharToMultiByte(932, 0, wide_c_str, static_cast<int>(wcslen(wide_c_str))+1, mbs, length, IUTEST_NULLPTR, IUTEST_NULLPTR);
     str = mbs;
-    delete [] mbs;
     return str;
 }
 
@@ -405,7 +405,7 @@ IUTEST_IPP_INLINE ::std::string GetHResultString(HRESULT hr)
 #if !defined(IUTEST_OS_WINDOWS_MOBILE)
 
 #if defined(FORMAT_MESSAGE_ALLOCATE_BUFFER)
-    LPSTR buf = NULL;
+    LPSTR buf = IUTEST_NULLPTR;
 #else
     CHAR buf[4096];
 #endif
@@ -414,7 +414,7 @@ IUTEST_IPP_INLINE ::std::string GetHResultString(HRESULT hr)
         FORMAT_MESSAGE_ALLOCATE_BUFFER |
 #endif
         FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS
-        , NULL
+        , IUTEST_NULLPTR
         , hr
         , MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT) // デフォルト ユーザー言語
 #if defined(FORMAT_MESSAGE_ALLOCATE_BUFFER)
@@ -424,30 +424,30 @@ IUTEST_IPP_INLINE ::std::string GetHResultString(HRESULT hr)
         , buf
         , IUTEST_PP_COUNTOF(buf)
 #endif
-        , NULL ) == 0 )
+        , IUTEST_NULLPTR ) == 0 )
     {
         return "";
     }
 
-    ::std::string str = (buf == NULL) ? "" : buf;
+    ::std::string str = (buf == IUTEST_NULLPTR) ? "" : buf;
 #if defined(FORMAT_MESSAGE_ALLOCATE_BUFFER)
     LocalFree(buf);
 #endif
 #else
-    LPWSTR buf = NULL;
+    LPWSTR buf = IUTEST_NULLPTR;
     if( FormatMessageW(
         FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS
-        , NULL
+        , IUTEST_NULLPTR
         , hr
         , MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT) // デフォルト ユーザー言語
         , (LPWSTR)&buf
         , 0
-        , NULL ) == 0 )
+        , IUTEST_NULLPTR ) == 0 )
     {
         return "";
     }
 
-    ::std::string str = (buf == NULL) ? "" : WideStringToMultiByteString(buf);
+    ::std::string str = (buf == IUTEST_NULLPTR) ? "" : WideStringToMultiByteString(buf);
     LocalFree(buf);
 #endif
     return str;
@@ -473,20 +473,24 @@ IUTEST_IPP_INLINE IUTestLog::IUTestLog(Level level, const char* file, int line)
 
 IUTEST_IPP_INLINE IUTestLog::~IUTestLog()
 {
-    GetStream() << "\n";
-    fprintf(stderr, "%s", m_stream.str().c_str());
-    if( kLevel == LOG_FATAL )
+    IUTEST_IGNORE_EXCEPTION_BEGIN()
     {
-        fflush(stderr);
-        IUTEST_ABORT();
+        GetStream() << "\n";
+        fprintf(stderr, "%s", m_stream.str().c_str());
+        if( kLevel == LOG_FATAL )
+        {
+            fflush(stderr);
+            IUTEST_ABORT();
+        }
     }
+    IUTEST_IGNORE_EXCEPTION_END()
 }
 
 IUTEST_IPP_INLINE void IUTestLog::CountUp(int level)
 {
     if( level < LOG_LEVEL_NUM && level >= 0 )
     {
-        ++GetCountTable().count[level];
+        ++gsl::at(GetCountTable().count, level);
     }
 }
 

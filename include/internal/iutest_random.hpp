@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -48,27 +48,27 @@ class iuRandom
         {
             seed(s);
         }
-        result_type operator ()()
+        result_type operator ()() IUTEST_CXX_NOEXCEPT_SPEC
         {
             return gen();
         }
-        bool operator == (const Engine& rhs)
+        bool operator == (const Engine& rhs) IUTEST_CXX_NOEXCEPT_SPEC
         {
             return m_v1 == rhs.m_v1 && m_v2 == rhs.m_v2 && m_v3 == rhs.m_v3 && m_v4 == rhs.m_v4;
         }
-        bool operator != (const Engine& rhs)
+        bool operator != (const Engine& rhs) IUTEST_CXX_NOEXCEPT_SPEC
         {
             return m_v1 != rhs.m_v1 || m_v2 != rhs.m_v2 || m_v3 != rhs.m_v3 || m_v4 != rhs.m_v4;
         }
     public:
-        void seed(unsigned int s)
+        void seed(unsigned int s) IUTEST_CXX_NOEXCEPT_SPEC
         {
             m_v4 = s;
             m_v3 = 1812433253 * ((m_v4 ^ (m_v4 >> 30)) + 1);
             m_v2 = 1812433253 * ((m_v3 ^ (m_v3 >> 30)) + 2);
             m_v1 = 1812433253 * ((m_v2 ^ (m_v2 >> 30)) + 3);
         }
-        void discard(unsigned int z)
+        void discard(unsigned int z) IUTEST_CXX_NOEXCEPT_SPEC
         {
             for(unsigned int i=0; i < z; ++i)
             {
@@ -85,7 +85,7 @@ class iuRandom
         static IUTEST_CXX_CONSTEXPR result_type (max)() { return static_cast<result_type>(-1); }
 
     private:
-        result_type gen()
+        result_type gen() IUTEST_CXX_NOEXCEPT_SPEC
         {
             const unsigned int t = (m_v1 ^ (m_v1 << 11));
             m_v1 = m_v2;
@@ -113,12 +113,12 @@ public:
 #endif
 
 public:
-    iuRandom()
+    iuRandom() IUTEST_CXX_NOEXCEPT_AS(GetIndefiniteValue())
     {
         init();
     }
 
-    explicit iuRandom(unsigned int seed)
+    explicit iuRandom(unsigned int seed) IUTEST_CXX_NOEXCEPT_SPEC
     {
         init(seed);
     }
@@ -128,7 +128,7 @@ public:
      * @brief   初期化
      * @details 時間でシードを決定
     */
-    void init()
+    void init() IUTEST_CXX_NOEXCEPT_AS(GetIndefiniteValue())
     {
         init(GetIndefiniteValue());
     }
@@ -136,7 +136,7 @@ public:
      * @brief   初期化
      * @param [in]  seed    = シード
     */
-    void init(unsigned int seed)
+    void init(unsigned int seed) IUTEST_CXX_NOEXCEPT_SPEC
     {
         m_engine = Engine(seed);
     }
@@ -146,7 +146,7 @@ public:
      * @brief   乱数の生成
      * @return  乱数
     */
-    result_type genrand()
+    result_type genrand() IUTEST_CXX_NOEXCEPT_SPEC
     {
         return m_engine();
     }
@@ -160,6 +160,7 @@ public:
     result_type genrand(unsigned int max)
     {
 #if IUTEST_HAS_CXX_HDR_RANDOM
+        IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26496)
         ::std::uniform_int_distribution<unsigned int> d(0, max-1);
         return d(m_engine);
 #else
@@ -218,7 +219,7 @@ public:
 #endif
 
 public:
-    result_type operator ()()
+    result_type operator ()() IUTEST_CXX_NOEXCEPT_SPEC
     {
         return genrand();
     }
@@ -241,6 +242,10 @@ public:
 
 #if !(defined(_MSC_VER) && _MSC_VER < 1300)
 
+// template の明示的特殊化の一部だけ noecept にはできない気がするのだが、VC++ のバグ？
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+
 #define IIUT_WORKAROUND_GENRAND(type)   \
     template<> inline type  iuRandom::genrand<type>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(type))
 
@@ -250,6 +255,8 @@ IIUT_WORKAROUND_GENRAND(float)  { return genrandf(); }
 IIUT_WORKAROUND_GENRAND(double) { return static_cast<double>(genrandf()); }
 
 #undef IIUT_WORKAROUND_GENRAND
+
+IUTEST_PRAGMA_WARN_POP()
 
 #endif
 
@@ -261,8 +268,8 @@ class iuTypedRandom
 {
     typedef T result_type;
 public:
-    iuTypedRandom() {}
-    explicit iuTypedRandom(unsigned int seed)
+    iuTypedRandom() IUTEST_CXX_NOEXCEPT_SPEC {}
+    explicit iuTypedRandom(unsigned int seed) IUTEST_CXX_NOEXCEPT_SPEC
         : m_rnd(seed) {}
 
     result_type operator ()()
