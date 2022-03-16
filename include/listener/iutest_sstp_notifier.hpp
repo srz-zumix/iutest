@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -78,7 +78,7 @@ private:
             if( !detail::IsStringForwardMatching(str, "SSTP/") ) {
                 return false;
             }
-            char* p=NULL;
+            char* p=IUTEST_NULLPTR;
             m_major = strtol(str+5, &p, 10);
             m_minor = strtol(p+1, &p, 10);
             m_code = strtol(p+1, &p, 10);
@@ -456,7 +456,7 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestStart(const TestInfo& test_info)
 IUTEST_IPP_INLINE void SSTPNotifier::OnTestPartResult(const TestPartResult& test_part_result)
 {
     const char* filename = test_part_result.file_name();
-    if( filename == NULL )
+    if( filename == IUTEST_NULLPTR )
     {
         filename = "";
     }

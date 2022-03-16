@@ -31,17 +31,17 @@ OUTPUTS=$(OUTPUTS_TARGETS:%=$(FUSED_DIR)/%)
 
 default: fused wandbox
 
-fused: iutest.hpp iutest.min.hpp
+fused: iutest.hpp iutest.min.hpp ## make fused-src
 
 $(FUSED_TARGETS): fused_impl
 
 fused_impl: $(FUSED_DIR) $(IUTEST_HEADERS) fused_iutest_files.py Makefile
 	python fused_iutest_files.py $(FUSED_DIR)
 
-min: fused
+min: fused ## use minimize fused-src
 	mv $(FUSED_DIR)/iutest.min.hpp $(FUSED_DIR)/iutest.hpp
 
-wandbox: iutest.wandbox.min.hpp
+wandbox: iutest.wandbox.min.hpp ## make fused-src for wandbox
 
 $(FUSED_WANDBOX_TARGET): fused
 	python iuwandbox_pp.py
@@ -55,15 +55,17 @@ ls:
 # tests
 TEST_TARGETS=min_test wandbox_test
 
-min_test: fused
+test: $(TEST_TARGETS) ## test
+
+min_test: fused ## test fused-src
 	g++ tests/test.min.cpp -o $@
 	./$@
 
-wandbox_test: wandbox
+wandbox_test: wandbox ## test fused-src for wandbox
 	g++ tests/test.wandbox.min.cpp -o $@
 	./$@
 
-clean:
+clean: ## clean
 	$(RM) -rf $(OUTPUTS)
 	$(RM) -rf $(TEST_TARGETS)
 
@@ -71,3 +73,6 @@ $(FUSED_DIR):
 	@if [ ! -d $@ ]; then \
 		mkdir -p $@; \
 	fi
+
+help: ## Display this help screen
+	@grep -E '^[a-zA-Z][a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sed -e 's/^GNUmakefile://' | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
