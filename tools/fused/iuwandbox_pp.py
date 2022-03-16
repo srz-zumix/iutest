@@ -109,10 +109,10 @@ predefined_macros = {
     'IUTEST_USE_CXX_FILESYSTEM': '0',
     'IUTEST_HAS_TESTSUITE': '1',
     'IUTEST_HAS_TESTCASE': '1',
-    'IUTEST_CXX_NOEXCEPT': UNUSED_,
-    'IUTEST_CXX_NOEXCEPT_SPEC': UNUSED_,
-    'IUTEST_CXX_NOEXCEPT_AS': UNUSED_,
-    'IUTEST_CXX_NOTHROW': UNUSED_,
+    'IUTEST_CXX_NOEXCEPT': None,
+    'IUTEST_CXX_NOEXCEPT_SPEC': None,
+    'IUTEST_CXX_NOEXCEPT_AS': None,
+    'IUTEST_CXX_NOTHROW': None,
     'IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY': UNUSED_,
     'IUTEST_PRAGMA_WARN_DISABLE_FORMAT_NONLITERAL': UNUSED_,
     'IUTEST_PRAGMA_WARN_DISABLE_CXX14_CONSTEXPR_NOT_IMPLY_CONST': UNUSED_,
@@ -549,7 +549,7 @@ rename_macro = {
     'IUTEST_PRAGMA_ASSIGNMENT_OPERATOR_COULD_NOT_GENERATE_WARN_DISABLE_BEGIN': 'II_PGM_A_O_CN_G_W_D_B',
     'IUTEST_PRAGMA_ASSIGNMENT_OPERATOR_COULD_NOT_GENERATE_WARN_DISABLE_END': 'II_PGM_A_O_CN_G_W_D_E',
     # 'IUTEST_PRAGMA_WARN_DISABLE_FLOAT_EQUAL': 'II_PGM_W_FE',
-    'IUTEST_PRAGMA_WARN_DISABLE_CAST_ALIGN': 'II_PGM_W_CA',
+    # 'IUTEST_PRAGMA_WARN_DISABLE_CAST_ALIGN': 'II_PGM_W_CA',
     'IUTEST_PRAGMA_WARN_DISABLE_NOEXCEPT_TPYE': 'II_PGM_W_D_NE_T',
     'IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE': 'II_PGM_W_D_S_C',
     # 'IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE': 'II_PGM_W_D_D_E',
@@ -713,6 +713,10 @@ class WandboxPreprocessor:
             dst += line
         for k, v in found_macros.items():
             dst += "#define " + k + " " + v + "\n"
+        if len(rename_macro) > 0:
+            print("not found rename_macros")
+            for k, v in rename_macro.items():
+                print(k)
         return dst
 
     def remove_redudant_pragma(self, code):
