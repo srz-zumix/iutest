@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.11</span>
+   &#160;<span id="projectnumber">1.17.99.12</span>
    </div>
   </td>
  </tr>
@@ -70,12 +70,15 @@ $(function() {
 <div class="line"><span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><span class="comment">//======================================================================</span></div>
+<div class="line"><span class="preprocessor">#if !defined(IUTEST_BUILD_FOR_IWYU)</span></div>
+<div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &quot;../include/iutest.hpp&quot;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="comment">/* ---------------------------------------------------</span></div>
 <div class="line"><span class="comment"> * 値をパラメータ化したテスト</span></div>
 <div class="line"><span class="comment">*/</span><span class="comment">/*--------------------------------------------------*/</span></div>
 <div class="line"><span class="preprocessor">#if IUTEST_HAS_PARAM_TEST</span></div>
+<div class="line"> </div>
 <div class="line"><span class="comment">// Param Test Range</span></div>
 <div class="line"><span class="keyword">class </span>TestP : <span class="keyword">public</span> <a name="_a0"></a><a class="code" href="../../d6/d09/classiutest_1_1_test_with_param.html">::iutest::TestWithParam</a>&lt;int&gt;</div>
 <div class="line">{</div>
@@ -333,6 +336,8 @@ $(function() {
 <div class="line"><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga0b3be4098907aca1af2205d61038681f">IUTEST_PMZ_F</a>(DISABLED_TestFailureParamMethodFixed, EQ, TestFunction, 2, 3);</div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#endif</span></div>
 </div><!-- fragment --> </div><!-- contents -->
 <div class="ttc" id="aclassiutest_1_1_test_html"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html">iutest::Test</a></div><div class="ttdoc">テストベース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:43</div></div>
 <div class="ttc" id="agroup___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_gaacdf79d0e2f53df64d498f3edbb5c008"><div class="ttname"><a href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#gaacdf79d0e2f53df64d498f3edbb5c008">IUTEST_PMZ</a></div><div class="ttdeci">#define IUTEST_PMZ(testsuite_, testname_, method_,...)</div><div class="ttdoc">パラメタライズ関数コールテスト定義マクロ</div><div class="ttdef"><b>Definition:</b> iutest.hpp:91</div></div>
@@ -353,7 +358,7 @@ $(function() {
 <div class="ttc" id="aclassiutest_1_1_with_param_interface_html"><div class="ttname"><a href="../../df/d22/classiutest_1_1_with_param_interface.html">iutest::WithParamInterface</a></div><div class="ttdoc">パラメータテストインターフェース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:28</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2022年02月21日(月) 02時23分03秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2022年03月17日(木) 23時32分32秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
