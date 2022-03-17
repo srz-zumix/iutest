@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -23,7 +23,9 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "../iutest.hpp"
+// IWYU pragma: end_exports
 
 //======================================================================
 // define
