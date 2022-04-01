@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        random_seed_tests.cpp
- * @brief       乱数シード対応テスト
+ * @brief       randmom seed test
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -85,6 +85,10 @@ int main(int argc, char* argv[])
     ::iutest::IUTEST_FLAG(repeat) = kRepeatCount;
     ::iutest::IUTEST_FLAG(shuffle) = true;
     ::iutest::IUTEST_FLAG(random_seed) = kSeed;
+
+#if defined(IUTEST_USE_GTEST) && GTEST_LATEST
+    ::iutest::IUTEST_FLAG(recreate_environments_when_repeating) = true;
+#endif
 
     const int ret = IUTEST_RUN_ALL_TESTS();
     if( ret != 0 ) return ret;
