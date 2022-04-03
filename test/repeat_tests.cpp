@@ -145,6 +145,10 @@ int main(int argc, char* argv[])
     IUTEST_TERMINATE_ON_FAILURE( ::iutest::AddGlobalTestEnvironment(env) == env );
     IUTEST_INIT(&argc, argv);
 
+#if defined(IUTEST_USE_GTEST) && GTEST_LATEST
+    ::iutest::IUTEST_FLAG(recreate_environments_when_repeating) = true;
+#endif
+
     IUTEST_TERMINATE_ON_FAILURE( RepeatTestUnspecified() );
     IUTEST_TERMINATE_ON_FAILURE( RepeatTestNonFilter(0) );
     IUTEST_TERMINATE_ON_FAILURE( RepeatTestNonFilter(2) );
