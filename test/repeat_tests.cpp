@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -144,6 +144,10 @@ int main(int argc, char* argv[])
     MyEnvironment* const env = new MyEnvironment();
     IUTEST_TERMINATE_ON_FAILURE( ::iutest::AddGlobalTestEnvironment(env) == env );
     IUTEST_INIT(&argc, argv);
+
+#if defined(IUTEST_USE_GTEST) && GTEST_LATEST
+    ::iutest::IUTEST_FLAG(recreate_environments_when_repeating) = true;
+#endif
 
     IUTEST_TERMINATE_ON_FAILURE( RepeatTestUnspecified() );
     IUTEST_TERMINATE_ON_FAILURE( RepeatTestNonFilter(0) );
