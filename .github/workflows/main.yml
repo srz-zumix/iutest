@@ -23,13 +23,15 @@ on:
 
 jobs:
   prepare:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
+    env:
+      HEAD_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
     if: >
-      ! contains(github.event.head_commit.message, '[ci skip]') &&
-      ! contains(github.event.head_commit.message, '[skip ci]')
+      ! contains(github.event.head_commit.message, '[gh skip]') &&
+      ! contains(github.event.head_commit.message, '[skip gh]')
     steps:
       - run: |
-          echo "${{ github.event.head_commit.message }}"
+          echo "$HEAD_COMMIT_MESSAGE"
 
   login:
     runs-on: ubuntu-latest
@@ -54,29 +56,26 @@ jobs:
     defaults:
       run:
         shell: cmd
+    env:
+      CXX: clang++
+      CC: clang
+      OUTPUTXML: junit
     steps:
-    - uses: actions/checkout@v2
-    - name: choco-install
-      run: |
-        choco install -y llvm || exit 1
-        call refreshenv
-    - name: set path
-      shell: bash
-      run: |
-        echo "C:\Program Files\LLVM\bin" >> $GITHUB_PATH
-    - name: llvm clang info
-      run: |
-        path
-        make -C test clean
-        make -C test CXX=clang++ CC=clang showcxxversion
-        make -C test CXX=clang++ CC=clang showcxxmacros
-        make -C test CXX=clang++ CC=clang check_stdlib
-    - name: llvm clang build
-      run: |
-        make -C test CXX=clang++ CC=clang -j8
-    - name: llvm clang test
-      run: |
-        make -C test CXX=clang++ CC=clang test
+      - uses: actions/checkout@v3
+      - name: Setup Windows LLVM
+        uses: ./.github/actions/composite/setup-win-llvm
+      - name: info
+        uses: ./.github/actions/composite/test-info
+      - name: llvm clang build
+        run: |
+          make -C test -j8
+      - name: llvm clang test
+        run: |
+          make -C test test
+      - name: report
+        uses: mikepenz/action-junit-report@v2
+        with:
+          report_paths: test/*.xml
 
   mingw-basic-test:
     runs-on: windows-latest
@@ -84,99 +83,168 @@ jobs:
     defaults:
       run:
         shell: cmd
+    env:
+      OUTPUTXML: junit
     steps:
-    - uses: actions/checkout@v2
-    - name: mingw info
-      run: |
-        make -C test clean
-        make -C test showcxxversion
-        make -C test showcxxmacros
-        make -C test check_stdlib
-    - name: mingw build
-      run: |
-        make -C test -j8
-    - name: mingw test
-      run: |
-        make -C test test
+      - uses: actions/checkout@v3
+      - name: info
+        uses: ./.github/actions/composite/test-info
+      - name: mingw build
+        run: |
+          make -C test -j8
+      - name: mingw test
+        run: |
+          make -C test test
+      - name: report
+        uses: mikepenz/action-junit-report@v2
+        with:
+          report_paths: test/*.xml
 
   cmake-basic-test:
     runs-on: ubuntu-latest
     needs: prepare
     steps:
-    - uses: actions/checkout@master
-    - name: cmake
-      run: |
-          mkdir ./cmake-build
-          cd ./cmake-build
-          cmake ../projects/cmake
-    - name: cmake build
-      run: cmake --build cmake-build
-    - name: cmake test
-      run: |
-        cd cmake-build
-        ctest -C Debug -V
+      - uses: actions/checkout@master
+      - name: cmake
+        run: |
+            mkdir ./cmake-build
+            cd ./cmake-build
+            cmake ../projects/cmake
+      - name: cmake build
+        run: cmake --build cmake-build
+      - name: cmake test
+        run: |
+          cd cmake-build
+          ctest -C Debug -V
+
+  xcodebuild-test:
+    runs-on: macos-latest
+    needs: prepare
+    steps:
+      - uses: actions/checkout@master
+      - name: cmake
+        run: |
+            mkdir ./cmake-build
+            cd ./cmake-build
+            cmake -G Xcode ../projects/cmake
+      - name: cmake build
+        run: cmake --build cmake-build -- -resultBundlePath TestResults
+      - name: cmake test
+        run: |
+          cd cmake-build
+          ctest -C Debug -V
+      - run: ls cmake-build
+      - uses: kishikawakatsumi/xcresulttool@v1.0.3
+        with:
+          path: cmake-build/TestResults.xcresult
+        if: success() || failure()
+
+  # # g++: fatal error: Killed signal terminated program cc1plus
+  # # kill されちゃうので comment out
+  # gcc-fanalyzer:
+  #   runs-on: ubuntu-latest
+  #   needs: prepare
+  #   container:
+  #     image: docker://gcc:11
+  #     credentials:
+  #       username: ${{ secrets.DOCKERHUB_USERNAME }}
+  #       password: ${{ secrets.DOCKERHUB_TOKEN }}
+  #   env:
+  #     DEFS: -fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference
+  #     OUTPUTXML: junit
+  #   steps:
+  #     - uses: actions/checkout@master
+  #     - name: gcc info
+  #       run: |
+  #         make -C test clean
+  #         make -C test showcxxversion
+  #         make -C test showcxxmacros
+  #         make -C test check_stdlib
+  #     - name: gcc build
+  #       run: |
+  #         # If you increase the number of parallels (-jN), it will be SIGKILL(137).
+  #         make -C test -j1
+  #     - name: gcc test
+  #       run: |
+  #         make -C test test
+  #     - name: report
+  #       uses: mikepenz/action-junit-report@v2
+  #       with:
+  #         report_paths: test/*.xml
 
   zapcc-basic-test:
     runs-on: ubuntu-18.04
+    needs: prepare
     container:
       image: docker://srzzumix/zapcc:bionic
       credentials:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    needs: prepare
     env:
+      OUTPUTXML: junit
       PYTHON_VERSION: 3.8
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-python@v2
-      with:
-        python-version: ${{ env.PYTHON_VERSION }}
-    - name: Set Python environment variable
-      run: echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> $GITHUB_ENV
-    - name: zapcc info
-      run: |
-        make -C test clean
-        make -C test showcxxversion
-        make -C test showcxxmacros
-        make -C test check_stdlib
-    - name: zapcc build
-      run: |
-        make -C test -j1 IUTEST_REQUIRE_PYTHON=1
-    - name: zapcc test
-      run: |
-        make -C test test
+      - uses: actions/checkout@master
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Set Python environment variable
+        run: echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> "$GITHUB_ENV"
+      - name: zapcc info
+        run: |
+          make -C test clean
+          make -C test showcxxversion
+          make -C test showcxxmacros
+          make -C test check_stdlib
+      - name: zapcc build
+        run: |
+          make -C test -j1 IUTEST_REQUIRE_PYTHON=1
+      - name: zapcc test
+        run: |
+          make -C test test
+      - name: report
+        uses: mikepenz/action-junit-report@v2
+        with:
+          report_paths: test/*.xml
 
   icpc-basic-test:
     runs-on: ubuntu-latest
+    needs: prepare
     container:
       image: docker://srzzumix/oneapi-cxx:latest
       credentials:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    needs: prepare
     env:
       CC: icpc
       CXX: icpc
+      OUTPUTXML: junit
+      # DEFS: -DIUTEST_FORCE_COLORCONSOLE=1
+      # RUN_OPTION: "--iutest_color=yes"
     defaults:
       run:
         shell: bash -e -o pipefail -l {0}
     steps:
-    - uses: actions/checkout@master
-    - name: set .bash_profile
-      run: |
-        echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
-    - name: icpc info
-      run: |
-        make -C test clean
-        make -C test showcxxversion
-        make -C test showcxxmacros
-        make -C test check_stdlib
-    - name: icpc build
-      run: |
-        make -C test -j8
-    - name: icpc test
-      run: |
-        make -C test test
+      - uses: actions/checkout@master
+      - name: set .bash_profile
+        run: |
+          echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
+      - name: icpc info
+        run: |
+          make -C test clean
+          make -C test showcxxversion
+          make -C test showcxxmacros
+          make -C test check_stdlib
+      - name: icpc build
+        run: |
+          make -C test -j8
+      - name: icpc test
+        run: |
+          make -C test test
+      - name: report
+        uses: mikepenz/action-junit-report@v2
+        with:
+          report_paths: test/*.xml
 
   arm-none-eabi:
     strategy:
@@ -189,66 +257,107 @@ jobs:
           - "9-2019q4"
           - "latest"
     runs-on: ubuntu-latest
+    needs: prepare
     container:
       image: docker://srzzumix/arm-none-eabi:${{ matrix.container-version }}
       credentials:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    needs: prepare
     env:
       DEFS: --specs=nosys.specs -march=armv8-a
       LIBS: nosys
+      OUTPUTXML: junit
     steps:
-    - uses: actions/checkout@v2
-    - name: info
-      run: |
-        make -C test showcxxversion showcxxmacros
-    - name: build
-      run: |
-        make -C test -j8
+      - uses: actions/checkout@v3
+      - name: arm-none-eabi info
+        run: |
+          make -C test clean
+          make -C test showcxxversion
+          make -C test showcxxmacros
+      - name: build
+        run: |
+          make -C test -j8
+      - name: report
+        uses: mikepenz/action-junit-report@v2
+        with:
+          report_paths: test/*.xml
 
   arm-linux-gnueabi:
     runs-on: ubuntu-latest
     needs: prepare
     env:
       DEFS: --static
+      OUTPUTXML: junit
     steps:
-    - name: Login to DockerHub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - uses: actions/checkout@v2
-    - name: info
-      uses: ./.github/actions/arm-linux-gnueabi
-      with:
-        args: "make -C test showcxxversion showcxxmacros"
-    - name: build
-      uses: ./.github/actions/arm-linux-gnueabi
-      with:
-        args: "make -C test -j8"
-    - name: test
-      uses: ./.github/actions/arm-linux-gnueabi
-      with:
-        args: "make -C test test QEMU_COMMAND=qemu-arm-static"
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: actions/checkout@v3
+      - name: info
+        uses: ./.github/actions/arm-linux-gnueabi
+        with:
+          args: "make -C test QEMU_COMMAND=qemu-arm-static showcxxversion showcxxmacros check_stdlib"
+      - name: build
+        uses: ./.github/actions/arm-linux-gnueabi
+        with:
+          args: "make -C test -j8"
+      - name: test
+        uses: ./.github/actions/arm-linux-gnueabi
+        with:
+          args: "make -C test test QEMU_COMMAND=qemu-arm-static"
+      - name: report
+        uses: mikepenz/action-junit-report@v2
+        with:
+          report_paths: test/*.xml
+
+  #===================================================================
+  infer:
+    runs-on: ubuntu-latest
+    needs: prepare
+    steps:
+      - uses: actions/checkout@v3
+      - uses: srz-zumix/setup-infer@v1
+      - name: infer
+        run: |
+          infer -- make -C test IUTEST_USE_PYTHON=0
+      - name: Check Infer report
+        uses: srz-zumix/reviewdog-action-infer@v1
+        with:
+          reporter: github-pr-review
 
   #===================================================================
   lint-editorconfig:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     needs: prepare
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-    - name: lint:editorconfig
-      run: |
-        npm install
-        npm run lint:editorconfig
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v1
+      - name: lint:editorconfig
+        run: |
+          npm install
+          npm run lint:editorconfig
   iwyu:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
+    container:
+      image: docker://srzzumix/iwyu:latest
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
     needs: lint-editorconfig
     steps:
-    - uses: actions/checkout@v2
-    - name: Include What You Use
-      uses: ./.github/actions/iwyu
-      with:
-        args: /work/projects/cmake -Dbuild_test_namespace_test=OFF
+      - uses: actions/checkout@v3
+      - name: CMake
+        env:
+          CC: clang
+          CXX: clang++
+        run: |
+            clang --version
+            mkdir ./cmake-build
+            cd ./cmake-build
+            cmake -DCMAKE_C_COMPILER="${CC}" -DCMAKE_CXX_COMPILER="${CXX}" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+              -Dbuild_namespace_tests=OFF -Dbuild_for_iwyu=ON ../projects/cmake
+      - name: Include What You Use
+        run: |
+          iwyu_tool.py -j2 -p ./cmake-build -- -Xiwyu --no_fwd_decls -Xiwyu --mapping_file=/opt/iwyu/gcc.symbols.imp

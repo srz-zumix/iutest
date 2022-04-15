@@ -33,7 +33,6 @@
 
 
 #if EXCEPTION_CATCH_TEST
-#include <stdexcept>
 
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_MISSING_NORETURN()
@@ -84,7 +83,7 @@ int main(int argc, char* argv[])
     IUTEST_ASSERT_EQ(2, ::iutest::UnitTest::GetInstance()->failed_test_count())
         << ::iutest::AssertionReturn<int>(1);
 #else
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 2 );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->failed_test_count() == 2 );
 #endif
 
 #else

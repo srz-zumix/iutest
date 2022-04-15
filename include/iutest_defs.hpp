@@ -23,6 +23,7 @@
 #include "internal/iutest_stdlib.hpp"
 #include "iutest_config.hpp"
 #include <stdio.h>
+#include <utility>
 #include <vector>
 #include <algorithm>
 #include "internal/iutest_debug.hpp"
@@ -469,7 +470,7 @@ const typename floating_point<T>::UInt floating_point<T>::kEnableBitMask
 
 // googletest compat
 
-namespace detail
+namespace internal
 {
 
 template<typename T>
@@ -489,7 +490,7 @@ typedef FloatingPoint<long double> LongDouble;
 typedef FloatingPoint<__float128> Float128;
 #endif
 
-}   // end of namespace detail
+}   // end of namespace internal
 
 //======================================================================
 // typedef

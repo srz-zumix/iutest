@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file        own_string_view_tests.cpp
+ * @file        unit_own_string_view_tests.cpp
  * @brief       iutest test
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2019-2022, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -17,6 +17,7 @@
 
 //======================================================================
 // include
+#include "iutest.hpp"
 #include "unit_string_view_tests.cpp"
 
 #ifdef UNICODE

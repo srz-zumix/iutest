@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
  *
@@ -165,10 +165,31 @@ IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
 
 /**
  * @ingroup     IUTEST_UTIL
+ * @brief       get iutest flag
+ * @name        name = flag name
+*/
+#ifndef IUTEST_FLAG_GET
+#  define IUTEST_FLAG_GET(name)   ::iutest::IUTEST_FLAG(name)
+#endif
+
+/**
+ * @ingroup     IUTEST_UTIL
+ * @brief       set iutest flag
+ * @name        name  = flag name
+ * @param       value = flag value
+*/
+#ifndef IUTEST_FLAG_SET
+#  define IUTEST_FLAG_SET(name, value)   (void)(::iutest::IUTEST_FLAG(name) = value)
+#endif
+
+/**
+ * @ingroup     IUTEST_UTIL
  * @brief       スコープ内のテストメッセージへのメッセージ追加
  * @param       msg = メッセージ
 */
-#define IUTEST_SCOPED_TRACE(msg)                IIUT_SCOPED_MESSAGE(msg)
+#ifndef IUTEST_SCOPED_TRAC
+#  define IUTEST_SCOPED_TRACE(msg)                IIUT_SCOPED_MESSAGE(msg)
+#endif
 
 /**
  * @ingroup     IUTEST_UTIL
@@ -425,6 +446,17 @@ IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
 #  define IUTEST_ASSERT_LONG_DOUBLE_EQ(expected, actual)    \
     IUTEST_TEST_LONG_DOUBLE_EQ(expected, actual, IUTEST_ASSERT_FAILURE)
 #endif
+#endif
+
+/**
+ * @ingroup IUTEST_ASSERT_
+ * @brief   float の比較 テスト
+ * @param   expected    = 期待値
+ * @param   actual      = 検査対象
+*/
+#ifndef IUTEST_ASSERT_COMPLEX_EQ
+#  define IUTEST_ASSERT_COMPLEX_EQ(expected, actual)    \
+    IUTEST_TEST_COMPLEX_EQ(expected, actual, IUTEST_ASSERT_FAILURE)
 #endif
 
 /**
@@ -825,6 +857,17 @@ IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
 #  define IUTEST_EXPECT_LONG_DOUBLE_EQ(expected, actual)    \
     IUTEST_TEST_LONG_DOUBLE_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
 #endif
+#endif
+
+/**
+ * @ingroup IUTEST_EXPECT_
+ * @brief   std::complex の比較 テスト
+ * @param   expected    = 期待値
+ * @param   actual      = 検査対象
+*/
+#ifndef IUTEST_EXPECT_COMPLEX_EQ
+#  define IUTEST_EXPECT_COMPLEX_EQ(expected, actual)    \
+    IUTEST_TEST_COMPLEX_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
 #endif
 
 /**
@@ -1236,6 +1279,16 @@ IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
     IUTEST_TEST_LONG_DOUBLE_EQ(expected, actual, IUTEST_INFORM_FAILURE)
 #endif
 #endif
+/**
+ * @ingroup IUTEST_INFORM_
+ * @brief   float の比較 テスト
+ * @param   expected    = 期待値
+ * @param   actual      = 検査対象
+*/
+#ifndef IUTEST_INFORM_COMPLEX_EQ
+#  define IUTEST_INFORM_COMPLEX_EQ(expected, actual)    \
+    IUTEST_TEST_COMPLEX_EQ(expected, actual, IUTEST_INFORM_FAILURE)
+#endif
 
 /**
  * @ingroup IUTEST_INFORM_
@@ -1627,6 +1680,17 @@ IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
 #  define IUTEST_ASSUME_LONG_DOUBLE_EQ(expected, actual)    \
     IUTEST_TEST_LONG_DOUBLE_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
 #endif
+#endif
+
+/**
+ * @ingroup IUTEST_ASSUME_
+ * @brief   float の比較 テスト
+ * @param   expected    = 期待値
+ * @param   actual      = 検査対象
+*/
+#ifndef IUTEST_ASSUME_COMPLEX_EQ
+#  define IUTEST_ASSUME_COMPLEX_EQ(expected, actual)    \
+    IUTEST_TEST_COMPLEX_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
 #endif
 
 /**

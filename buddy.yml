@@ -1,9 +1,14 @@
 - pipeline: "test"
-  trigger_mode: "ON_EVERY_PUSH"
-  ref_name: "(^(master$|develop$|buddy/.+$))"
-  ref_type: "WILDCARD"
-  trigger_condition: "ALWAYS"
+  on: "EVENT"
+  events:
+  - type: "PUSH"
+    refs:
+    - master
+    - develop
+    - "(^buddy/.+$)"
+  priority: "NORMAL"
   auto_clear_cache: true
+  fetch_all_refs: true
   # You can not change this option in Free mode.
   # no_skip_to_most_recent: true
   actions:
@@ -16,7 +21,9 @@
     docker_image_tag: "10"
     execute_commands:
     - "cd projects/make && make run"
-    mount_filesystem_path: "/buddy/iutest"
+    volume_mappings:
+    - "/:/buddy/iutest"
+    cache_base_image: true
     shell: "SH"
 # - action: "Execute: make bench"
   #   type: "BUILD"
@@ -27,6 +34,7 @@
   #   - "cd test"
   #   - "make -C benchmark"
   #   - "make bench"
-  #   mount_filesystem_path: "/buddy/iutest"
+  #   volume_mappings:
+  #   - "/:/buddy/iutest"
   #   shell: "SH"
   #   trigger_condition: "ALWAYS"

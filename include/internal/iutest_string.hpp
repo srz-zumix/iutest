@@ -21,6 +21,7 @@
 #  define _MBSTATE_T
 #endif
 
+// IWYU pragma: begin_exports
 #include <wchar.h>
 #include <wctype.h>
 #include <stdarg.h>
@@ -31,6 +32,7 @@
 #include <string>
 #include <cstring>
 #include <cmath>
+// IWYU pragma: end_exports
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
@@ -374,12 +376,31 @@ inline ::std::string ToHexString(const T* str, int length)
     return r;
 }
 
+inline ::std::string FormatIntWidthN(int value, int digit)
+{
+    char buf[128] = { 0 };
+    int idx = IUTEST_PP_COUNTOF(buf) - 2;
+    int x = value;
+    for( int i=0; i < digit; ++i, --idx )
+    {
+        buf[idx] = static_cast<char>(::std::abs(x%10) + '0');
+        x /= 10;
+    }
+    for( ; x; --idx )
+    {
+        buf[idx] = static_cast<char>(::std::abs(x%10) + '0');
+        x /= 10;
+    }
+    if( value < 0 )
+    {
+        buf[idx--] = '-';
+    }
+    return buf + idx + 1;
+}
+
 inline ::std::string FormatIntWidth2(int value)
 {
-    char buf[3] = "00";
-    buf[0] = static_cast<char>((value/10)%10 + '0');
-    buf[1] = static_cast<char>((value   )%10 + '0');
-    return buf;
+    return FormatIntWidthN(value, 2);
 }
 
 #if IUTEST_HAS_STD_TO_CHARS

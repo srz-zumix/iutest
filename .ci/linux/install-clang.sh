@@ -2,7 +2,7 @@
 
 set -ex
 
-if [ -z ${CLANG_VERSION+x} ]; then
+if [ -z "${CLANG_VERSION}" ]; then
   echo "CLANG_VERSION is empty. skip install clang..."
   return
 fi
@@ -19,10 +19,10 @@ if $INSATLL_CLANG_TOOLS; then
   CLANG_SLAVES="--slave /usr/bin/scan-build scan-build /usr/bin/scan-build-${CLANG_VERSION}"
 fi
 
-sudo update-alternatives --install /usr/bin/clang clang \
-  /"usr/bin/clang-${CLANG_VERSION}" 1990 \
-  --slave /usr/bin/clang++ clang++ "/usr/bin/clang++-${CLANG_VERSION}" \
-  ${CLANG_SLAVES}
+# shellcheck disable=SC2086
+sudo update-alternatives --install /usr/bin/clang   clang   "/usr/bin/clang-${CLANG_VERSION}" 1990  \
+                         --slave   /usr/bin/clang++ clang++ "/usr/bin/clang++-${CLANG_VERSION}"     \
+                        ${CLANG_SLAVES}
 
 update-alternatives --display clang
 

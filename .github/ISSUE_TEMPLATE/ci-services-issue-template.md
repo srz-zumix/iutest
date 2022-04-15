@@ -13,18 +13,18 @@ assignees: ''
 * [ ] Azure Pipelines
 * [ ] Bitrise
 * [ ] Buddy
-* [ ] Circle CI
+* [ ] CircleCI
 * [ ] Cirrus CI
 * [ ] Codefresh
 * [ ] Codeship
 * [ ] Drone
 * [ ] GitHub Actions
 * [ ] GitLab CI
+* [ ] JFrog Pipelines
 * [ ] Peakflow
 * [ ] Razorops
 * [ ] Scrutinizer
 * [ ] Semaphore
-* [ ] Shippable
 * [ ] TeamCity Cloud
 * [ ] Travis CI
 * [ ] Wercker

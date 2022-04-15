@@ -529,13 +529,16 @@
 #      define IUTEST_HAS_INITIALIZER_LIST   1
 #    elif (_MSC_FULL_VER == 170051025)
 #      define IUTEST_HAS_INITIALIZER_LIST   1
-#      include <initializer_list>
 #    endif
 #  endif
 #endif
 
 #if !defined(IUTEST_HAS_INITIALIZER_LIST)
 #  define IUTEST_HAS_INITIALIZER_LIST       0
+#endif
+
+#if IUTEST_HAS_INITIALIZER_LIST
+#  include <initializer_list>   // IWYU pragma: export
 #endif
 
 //! has variadic template

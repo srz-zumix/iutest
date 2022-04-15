@@ -17,6 +17,7 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_compiler.hpp"
 #define __STDC_FORMAT_MACROS    1
 #include <inttypes.h>
@@ -34,6 +35,7 @@
 #include <cstdlib>
 #include <cstddef>
 #include <limits>
+#include <complex>
 
 // <version> header
 #if !defined(IUTEST_HAS_CXX_HDR_VERSION)
@@ -51,6 +53,7 @@
 #if IUTEST_HAS_CXX_HDR_VERSION
 #include <version>
 #endif
+// IWYU pragma: end_exports
 
 //======================================================================
 // define
@@ -455,7 +458,7 @@
 #endif
 
 #if !defined(IUTEST_HAS_STD_TO_CHARS)
-#  if defined(__cpp_lib_to_chars) && __cpp_lib_to_chars >= 201611
+#  if IUTEST_HAS_CXX_HDR_CHARCONV && defined(__cpp_lib_to_chars) && __cpp_lib_to_chars >= 201611
 #    define IUTEST_HAS_STD_TO_CHARS         1
 #  endif
 #endif
@@ -656,6 +659,7 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include <iterator>
 
 #if IUTEST_HAS_CXX_HDR_ANY
@@ -676,5 +680,6 @@
 #if IUTEST_HAS_CXX_HDR_CHARCONV
 #  include <charconv>
 #endif
+// IWYU pragma: end_exports
 
 #endif // INCG_IRIS_IUTEST_STDLIB_DEFS_HPP_9C62C097_E5FB_49EE_9329_811F32C846A2_

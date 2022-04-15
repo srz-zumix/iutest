@@ -19,7 +19,6 @@
 // include
 // IWYU pragma: begin_exports
 #include "iutest_string.hpp"
-// IWYU pragma: end_exports
 
 #if   IUTEST_HAS_STRINGSTREAM
 #  include <sstream>
@@ -32,6 +31,7 @@
 #if IUTEST_HAS_EXCEPTIONS
 #  include <stdexcept>
 #endif
+// IWYU pragma: end_exports
 
 namespace iutest
 {
@@ -384,7 +384,7 @@ IUTEST_PRAGMA_WARN_POP()
     }
 #endif
 #if IUTEST_HAS_FLOAT128
-    inline _Myt& operator<< (detail::Float128::Float v)
+    inline _Myt& operator<< (internal::Float128::Float v)
     {
         _Elem a[64];
         const double d = static_cast<double>(v);

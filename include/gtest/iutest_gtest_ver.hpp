@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -27,9 +27,11 @@
 
 //!< Minor Version
 #ifndef GTEST_MINORVER
-#  if   defined(GTEST_TEST_NO_THROW_CATCH_STD_EXCEPTION_)
-#    define GTEST_MINORVER  0x10
+#  if   defined(GTEST_FLAG_GET)
+#    define GTEST_MINORVER  0x11
 #    define GTEST_LATEST    1
+#  elif defined(GTEST_TEST_NO_THROW_CATCH_STD_EXCEPTION_)
+#    define GTEST_MINORVER  0x11
 #  elif defined(GTEST_SKIP)
 #    define GTEST_MINORVER  0x10
 #  elif defined(GTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS_)
