@@ -227,7 +227,8 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const ch
 
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteString(const char8_t* str, int num)
 {
-#if IUTEST_HAS_CXX_HDR_CUCHAR && IUTEST_HAS_STD_CHAR8_T
+#if IUTEST_HAS_CXX_HDR_CUCHAR && IUTEST_HAS_STD_CHAR8_T \
+    && (!defined(_MSC_VER)) // visual studio stdlib is not defeined c8rtomb
     const size_t length = num < 0 ? ::std::char_traits<char8_t>::length(str) : static_cast<size_t>(num);
     char mbs[IU_MB_CUR_MAX];
     mbstate_t state = {};

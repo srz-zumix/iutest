@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2022, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -83,7 +83,7 @@ IUTEST_P(UnitLocaleTest, ScopedEncoding)
     const char* p = setlocale(LC_CTYPE, GetParam<0>());
     IUTEST_ASSUME_NOTNULL(p);
     ::iutest::detail::ScopedEncoding loc(LC_CTYPE, GetParam<1>());
-    IUTEST_ASSERT_TRUE(loc);
+    IUTEST_ASSERT_TRUE(loc) << "Before: " << p;
     IUTEST_EXPECT_CONTAINS_REGEXEQ("\\.[Uu][Tt][Ff](8|-8)", setlocale(LC_CTYPE, NULL)) << "Before: " << p;
 }
 
