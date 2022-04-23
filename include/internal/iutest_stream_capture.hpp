@@ -34,7 +34,7 @@ namespace detail
 class IUStreamCapture
 {
 public:
-    IUStreamCapture(int fd)
+    explicit IUStreamCapture(int fd)
         : m_fd(fd), m_prev_fd(dup(fd))
     {
         TempFile temp;
@@ -55,7 +55,7 @@ public:
     ::std::string GetStreamString()
     {
         StdioFile captured_file;
-        if( !captured_file.Open(m_filename, iutest::IFile::OpenRead) )
+        if( !captured_file.Open(m_filename.c_str(), iutest::IFile::OpenRead) )
         {
             return "";
         }
