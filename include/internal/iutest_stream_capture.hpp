@@ -35,16 +35,16 @@ class IUStreamCapture
 {
 public:
     explicit IUStreamCapture(int fd)
-        : m_fd(fd), m_prev_fd(dup(fd))
+        : m_fd(fd), m_prev_fd(internal::posix::Dup(fd))
     {
         TempFile temp;
         if( !temp.Create("iutest_stream_capture") )
         {
             IUTEST_LOG_(WARNING) << "temp file open failed";
         }
-        int nfd = temp.GetDescriptor();
+        const int nfd = temp.GetDescriptor();
         m_filename = temp.GetFileName();
-        dup2(nfd, fd);
+        internal::posix::Dup2(nfd, fd);
     }
     ~IUStreamCapture()
     {
@@ -67,8 +67,8 @@ private:
     {
         if( m_prev_fd != -1 )
         {
-            dup2(m_prev_fd, m_fd);
-            close(m_prev_fd);
+            internal::posix::Dup2(m_prev_fd, m_fd);
+            internal::posix::FdClose(m_prev_fd);
             m_prev_fd = -1;
         }
         remove(m_filename.c_str());

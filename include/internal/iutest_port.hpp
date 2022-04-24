@@ -104,6 +104,24 @@ IUTEST_ATTRIBUTE_NORETURN_ void Abort();
 inline void Abort() { abort(); }
 #endif
 
+#if defined(_MSC_VER)
+int FdClose(int fd) { return _close(fd); }
+#else
+int FdClose(int fd) { return close(fd); }
+#endif
+
+#if defined(_MSC_VER)
+int Dup(int fd) { return _dup(fd); }
+#else
+int Dup(int fd) { return dup(fd); }
+#endif
+
+#if defined(_MSC_VER)
+int Dup2(int fd1, int fd2) { return _dup2(fd1, fd2); }
+#else
+int Dup2(int fd1, int fd2) { return dup2(fd1, fd2); }
+#endif
+
 #if IUTEST_HAS_FILENO
 
 #if defined(_MSC_VER)

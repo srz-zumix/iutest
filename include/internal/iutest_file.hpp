@@ -229,11 +229,7 @@ public:
     //! サイズ取得
     virtual size_t GetSize() IUTEST_CXX_OVERRIDE
     {
-#if IUTEST_HAS_FILE_STAT
         return GetSize(m_fp);
-#else
-        return GetSizeBySeekSet(m_fp);
-#endif
     }
 
 public:
@@ -338,7 +334,7 @@ public:
         m_file.Close();
         if( m_fd != -1 )
         {
-            close(m_fd);
+            internal::posix::FdClose(m_fd);
             m_fd = -1;
         }
     }

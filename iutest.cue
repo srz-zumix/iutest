@@ -65,10 +65,10 @@ dagger.#Plan & {
                     cmake ../projects/cmake 
                 """#
             }
-			contents: core.#Subdir & {
-				input: run.output.rootfs
-				path:  "/src/dagger-cmake-build"
-			}
+            contents: core.#Subdir & {
+                input: run.output.rootfs
+                path:  "/src/dagger-cmake-build"
+            }
         }
 
         cmake_build: bash.#Run & {
