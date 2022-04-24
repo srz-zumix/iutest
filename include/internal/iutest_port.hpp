@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -32,6 +32,7 @@
 #if IUTEST_HAS_FILE_STAT
 #  include <sys/stat.h>
 #endif
+
 // IWYU pragma: end_exports
 
 //======================================================================
@@ -101,6 +102,24 @@ void SleepMillisec(unsigned int millisec);
 IUTEST_ATTRIBUTE_NORETURN_ void Abort();
 #if !defined(IUTEST_OS_WINDOWS_MOBILE)
 inline void Abort() { abort(); }
+#endif
+
+#if defined(_MSC_VER)
+int FdClose(int fd) { return _close(fd); }
+#else
+int FdClose(int fd) { return close(fd); }
+#endif
+
+#if defined(_MSC_VER)
+int Dup(int fd) { return _dup(fd); }
+#else
+int Dup(int fd) { return dup(fd); }
+#endif
+
+#if defined(_MSC_VER)
+int Dup2(int fd1, int fd2) { return _dup2(fd1, fd2); }
+#else
+int Dup2(int fd1, int fd2) { return dup2(fd1, fd2); }
 #endif
 
 #if IUTEST_HAS_FILENO
@@ -285,10 +304,16 @@ private:
 
 #if IUTEST_HAS_STREAM_BUFFER
 
+#if defined(BUFSIZ) && BUFSIZ > 1024
+#  define IUTEST_DEFAULT_STREAM_BUFFER_SIZE BUFSIZ
+#else
+#  define IUTEST_DEFAULT_STREAM_BUFFER_SIZE 1024
+#endif
+
 /**
  * @brief   stream buffer
 */
-template<int SIZE=BUFSIZ>
+template<int SIZE=IUTEST_DEFAULT_STREAM_BUFFER_SIZE>
 class IUStreamBuffer
 {
 public:
@@ -297,27 +322,34 @@ public:
     {
         m_buf[0] = '\0';
         fflush(fp);
-        setvbuf(fp, m_buf, _IOFBF, SIZE);
+        const int r = setvbuf(fp, m_buf, _IOFBF, SIZE);
+        if( r != 0 )
+        {
+            IUTEST_LOG_(WARNING) << "setvbuf failed: " << r;
+            m_fp = NULL;
+        }
     }
 
     ~IUStreamBuffer()
     {
-        fflush(m_fp);
-        setvbuf(m_fp, NULL, _IONBF, 0);
+        if( m_fp != NULL )
+        {
+            fflush(m_fp);
+            setvbuf(m_fp, NULL, _IONBF, 0);
+        }
     }
 
 public:
-    ::std::string GetStreamString() { return m_buf; }
+    ::std::string GetStreamString() const
+    {
+        return m_buf;
+    }
+    bool IsValid() const { return m_fp != NULL; }
 
 private:
     FILE* m_fp;
     char m_buf[SIZE];
 };
-
-/**
-* @brief    stream capture
-*/
-
 
 #endif
 
