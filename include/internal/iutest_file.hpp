@@ -393,7 +393,11 @@ public:
 #endif
         name_template += basename;
         name_template += ".XXXXXX";
+#if defined(__arm__) && defined(_REENT_ONLY)
+        const int fd = -1;
+#else
         const int fd = mkstemp(const_cast<char*>(name_template.data()));
+#endif
 #endif
         m_fd = fd;
         m_filename = name_template;
