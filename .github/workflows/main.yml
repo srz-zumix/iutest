@@ -313,6 +313,19 @@ jobs:
           report_paths: test/*.xml
 
   #===================================================================
+  dagger:
+    runs-on: ubuntu-latest
+    needs: prepare
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dagger/dagger-for-github@v2
+        with:
+          cmds: |
+            project init
+            project update
+            do ctest
+
+  #===================================================================
   infer:
     runs-on: ubuntu-latest
     needs: prepare
