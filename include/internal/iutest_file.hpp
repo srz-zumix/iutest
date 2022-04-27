@@ -393,7 +393,7 @@ public:
 #endif
         name_template += basename;
         name_template += ".XXXXXX";
-#if defined(__arm__) && defined(_REENT_ONLY)
+#if defined(__arm__) && defined(_REENT_ONLY) && (__MISC_VISIBLE || __POSIX_VISIBLE >= 200112 || __XSI_VISIBLE >= 4)
         const int fd = -1;
 #else
         const int fd = mkstemp(const_cast<char*>(name_template.data()));
