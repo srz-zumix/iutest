@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2015-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -43,11 +43,11 @@ int main(int argc, char* argv[])
     targv.push_back("--iutest_flagfile=invalid_FLAGFILE_TEST.txt");
 
     {
-#if IUTEST_HAS_STREAM_BUFFER
-        ::iutest::detail::IUStreamBuffer<> stderr_capture(stderr);
+#if IUTEST_HAS_STREAM_CAPTURE
+        ::iutest::detail::IUStreamCaptureStderr stderr_capture;
 #endif
         ::iutest::InitIrisUnitTest(targv);
-#if IUTEST_HAS_STREAM_BUFFER && IUTEST_HAS_ASSERTION_RETURN
+#if IUTEST_HAS_STREAM_CAPTURE && IUTEST_HAS_ASSERTION_RETURN
         IUTEST_ASSERT_STRIN("Unable to open flag file \"invalid_FLAGFILE_TEST.txt\".", stderr_capture.GetStreamString())
             << ::iutest::AssertionReturn<int>(1);
 #endif
