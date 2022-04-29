@@ -26,7 +26,7 @@
 
 int main()
 {
-    #include "show_macros.i"
+    #include "show_macros.i"    // NOLINT
     return 0;
 }
 
