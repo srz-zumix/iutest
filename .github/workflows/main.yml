@@ -274,6 +274,7 @@ jobs:
           make -C test clean
           make -C test showcxxversion
           make -C test showcxxmacros
+          make -C test showstdlbfeatures
       - name: build
         run: |
           make -C test -j8
