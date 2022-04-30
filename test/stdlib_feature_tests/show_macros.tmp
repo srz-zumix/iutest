@@ -1,0 +1,5 @@
+#ifdef @DEF
+define "@DEF" @DEF
+#else
+unedf "@DEF"
+#endif
