@@ -20,9 +20,13 @@
 
 #define PP_TOSTRING(x)      PP_TOSTRING_(x)
 #define PP_TOSTRING_(x)     #x
-#define SHOW_MACRO(macro)   SHOW_MACRO_I(#macro, PP_TOSTRING(macro))
-#define SHOW_MACRO_I(name, value)   printf("#define %s  %s\n", name, value)
-#define SHOW_UNDEF(macro)           printf("#undef  %s\n", #macro)
+#ifdef FEATURE_TEST_EXECUTABLE
+#define SHOW_MACRO(macro)   printf("#define %s  %s\n", #macro, PP_TOSTRING(macro))
+#define SHOW_UNDEF(macro)   printf("#undef  %s\n", #macro)
+#else
+#define SHOW_MACRO(macro)   define #macro macro
+#define SHOW_UNDEF(macro)   undef  #macro
+#endif
 
 int main()
 {

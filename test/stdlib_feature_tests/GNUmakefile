@@ -6,26 +6,39 @@
 # see LICENSE
 #
 
-TARGET=stdlib_feature_test
+EXECUTE_TARGET=stdlib_feature_test
+TARGET=stdlib_feature_test.pp
 MAKEFILE=GNUmakefile
 
-.PHONY: clean default all test
+.PHONY: clean default all test show
 
 default : all
 
-all : clean default test ## clean and build, run
+all : clean default show ## clean and build, run
 
 # dir :
 # 	@if [ ! -e `dirname $(OUTDIR)` ]; then mkdir -p `dirname $(OUTDIR)`; fi
 
 clean : ## clean
-	$(RM) $(TARGET) show_macros.i
+	$(RM) $(TARGET) $(EXECUTE_TARGET) show_macros.i
 
-test : $(TARGET) ## run tests
-	./$(TARGET)
+test : $(EXECUTE_TARGET) ## run tests
+	./${EXECUTE_TARGET}
 
-${TARGET}: % : %.cpp show_macros.i $(MAKEFILE)
-	$(CXX) $(CXXFLAGS) -Wno-unused-macros -o $@ $<
+${EXECUTE_TARGET}: % : %.cpp show_macros.i $(MAKEFILE)
+	$(CXX) $(CXXFLAGS) -Wno-unused-macros -DFEATURE_TEST_EXECUTABLE -o $@ $<
+
+show : $(TARGET) ## show feature macros
+	@cat -s ./$(TARGET) \
+		| grep -A 256 show_macros.i \
+		| grep -B 256 stdlib_feature_test.cpp \
+		| sed '/^$$/d' \
+		| sed '/^#/d' \
+		| sed 's/[";]//g' \
+		| sed 's/^/#/g'
+
+${TARGET}: %.pp : %.cpp show_macros.i $(MAKEFILE)
+	$(CXX) $(CXXFLAGS) -Wno-unused-macros -E -x c++ -o $@ $<
 
 FEATURE_MACROS=\
 	_POSIX_C_SOURCE \
