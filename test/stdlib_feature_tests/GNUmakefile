@@ -29,6 +29,7 @@ ${EXECUTE_TARGET}: % : %.cpp show_macros.i $(MAKEFILE)
 	$(CXX) $(CXXFLAGS) -Wno-unused-macros -DFEATURE_TEST_EXECUTABLE -o $@ $<
 
 show : $(TARGET) ## show feature macros
+	@cat -s ./$(TARGET)
 	@cat -s ./$(TARGET) \
 		| grep -A 256 show_macros.i \
 		| grep -B 256 stdlib_feature_test.cpp \
