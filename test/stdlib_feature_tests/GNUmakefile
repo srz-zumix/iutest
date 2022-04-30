@@ -6,7 +6,6 @@
 # see LICENSE
 #
 
-EXECUTE_TARGET=stdlib_feature_test
 TARGET=stdlib_feature_test.pp
 MAKEFILE=GNUmakefile
 
@@ -20,13 +19,7 @@ all : clean default show ## clean and build, run
 # 	@if [ ! -e `dirname $(OUTDIR)` ]; then mkdir -p `dirname $(OUTDIR)`; fi
 
 clean : ## clean
-	$(RM) $(TARGET) $(EXECUTE_TARGET) show_macros.i
-
-test : $(EXECUTE_TARGET) ## run tests
-	./${EXECUTE_TARGET}
-
-${EXECUTE_TARGET}: % : %.cpp show_macros.i $(MAKEFILE)
-	$(CXX) $(CXXFLAGS) -Wno-unused-macros -DFEATURE_TEST_EXECUTABLE -o $@ $<
+	$(RM) $(TARGET) show_macros.i
 
 show : $(TARGET) ## show feature macros
 	@cat -s ./$(TARGET) \
