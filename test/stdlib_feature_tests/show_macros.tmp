@@ -1,5 +1,5 @@
 #ifdef @DEF
-define "@DEF" @DEF
+SHOW_MACRO(@DEF);
 #else
-unedf "@DEF"
+SHOW_UNDEF(@DEF);
 #endif
