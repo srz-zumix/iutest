@@ -29,14 +29,18 @@ ${EXECUTE_TARGET}: % : %.cpp show_macros.i $(MAKEFILE)
 	$(CXX) $(CXXFLAGS) -Wno-unused-macros -DFEATURE_TEST_EXECUTABLE -o $@ $<
 
 show : $(TARGET) ## show feature macros
-	@cat -s ./$(TARGET)
 	@cat -s ./$(TARGET) \
 		| grep -A 256 show_macros.i \
 		| grep -B 256 stdlib_feature_test.cpp \
 		| sed '/^$$/d' \
 		| sed '/^#/d' \
 		| sed 's/[";]//g' \
-		| sed 's/^/#/g'
+		| sed '/^\s*$$/d' \
+		| tr -d '\n' \
+		| sed -e 's/define/\ndefine/g' -e 's/undef/\nundef/g' \
+		| sed '/^$$/d' \
+		| sed 's/^/#/g' \
+		| paste -
 
 ${TARGET}: %.pp : %.cpp show_macros.i $(MAKEFILE)
 	$(CXX) $(CXXFLAGS) -Wno-unused-macros -E -x c++ -o $@ $<
