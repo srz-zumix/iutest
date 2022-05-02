@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -393,12 +393,7 @@ public:
 #endif
         name_template += basename;
         name_template += ".XXXXXX";
-#if defined(__arm__) && \
-        (!defined(__STRICT_ANSI__) && !defined(_REENT_ONLY) && (__MISC_VISIBLE || __POSIX_VISIBLE >= 200112 || __XSI_VISIBLE >= 4))
-        const int fd = -1;
-#else
-        const int fd = mkstemp(const_cast<char*>(name_template.data()));
-#endif
+        const int fd = internal::posix::Mkstemp(const_cast<char*>(name_template.data()));
 #endif
         m_fd = fd;
         m_filename = name_template;
