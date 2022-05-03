@@ -682,6 +682,12 @@
 #  define IUTEST_HAS_STREAM_BUFFER  1
 #endif
 
+/**
+ * @brief   stdout/stderr の StreamCapture が使用可能かどうか
+*/
+#if !defined(IUTEST_HAS_STREAM_CAPTURE)
+#  define IUTEST_HAS_STREAM_CAPTURE  IUTEST_HAS_FOPEN
+#endif
 
 /**
  * @brief   テストの所持を独自リストクラスで行う
