@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -385,6 +385,15 @@
 #  endif
 #endif
 
+#if   defined(__has_include) && __has_include(<unistd.h>)
+#  define IUTEST_HAS_HDR_UNISTD             1
+#elif defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN) \
+    || defined(IUTEST_OS_MAC) || defined(IUTEST_OS_IOS) \
+    || defined(IUTEST_OS_FREEBSD) \
+    || defined(__arm__)
+#  define IUTEST_HAS_HDR_UNISTD             1
+#endif
+
 // defaults for include
 //! has any header
 #if !defined(IUTEST_HAS_CXX_HDR_ANY)
@@ -445,6 +454,10 @@
 //! has cxxabi header
 #if !defined(IUTEST_HAS_HDR_CXXABI)
 #  define IUTEST_HAS_HDR_CXXABI             0
+#endif
+//! has unistd.h header
+#if !defined(IUTEST_HAS_HDR_UNISTD)
+#  define IUTEST_HAS_HDR_UNISTD             0
 #endif
 
 #if !defined(IUTEST_HAS_STD_FILESYSTEM)
