@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_option_message.hpp
- * @brief       iris unit test コマンドラインメッセージ ファイル
+ * @brief       iris unit test commandline option message
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -150,6 +150,7 @@ inline void iuOptionMessage::ShowVersion()
     m (IUTEST_HAS_STATIC_ASSERT); \
     m (IUTEST_HAS_STATIC_ASSERT_TYPEEQ); \
     m (IUTEST_HAS_STREAM_BUFFER); \
+    m (IUTEST_HAS_STREAM_CAPTURE); \
     m (IUTEST_HAS_STREAM_RESULT); \
     m (IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE); \
     m (IUTEST_HAS_TESTNAME_ALIAS); \
