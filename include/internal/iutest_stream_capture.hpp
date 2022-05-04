@@ -37,14 +37,21 @@ public:
     explicit IUStreamCapture(int fd)
         : m_fd(fd), m_prev_fd(internal::posix::Dup(fd))
     {
-        TempFile temp;
-        if( !temp.Create("iutest_stream_capture") )
+        if( m_prev_fd == -1 )
         {
-            IUTEST_LOG_(WARNING) << "temp file open failed";
+            IUTEST_LOG_(WARNING) << "file descriptor duplicate failed";
         }
-        const int nfd = temp.GetDescriptor();
-        m_filename = temp.GetFileName();
-        internal::posix::Dup2(nfd, fd);
+        else
+        {
+            TempFile temp;
+            if( !temp.Create("iutest_stream_capture") )
+            {
+                IUTEST_LOG_(WARNING) << "temp file open failed";
+            }
+            const int nfd = temp.GetDescriptor();
+            m_filename = temp.GetFileName();
+            internal::posix::Dup2(nfd, fd);
+        }
     }
     ~IUStreamCapture()
     {

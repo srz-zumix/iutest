@@ -111,6 +111,11 @@ inline int FdClose(int fd) { return _close(fd); }
 #else
 inline int FdClose(int fd) { return close(fd); }
 #endif
+#else
+inline int FdClose(int) { return -1; }
+#endif
+
+#if IUTEST_HAS_HDR_UNISTD && !defined(__arm__)
 
 #if defined(_MSC_VER)
 inline int Dup(int fd) { return _dup(fd); }
@@ -125,7 +130,6 @@ inline int Dup2(int fd1, int fd2) { return dup2(fd1, fd2); }
 #endif
 
 #else
-inline int FdClose(int) { return -1; }
 inline int Dup(int) { return -1; }
 inline int Dup2(int, int) { return -1; }
 #endif
