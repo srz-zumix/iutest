@@ -265,7 +265,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     env:
       DEFS: --specs=nosys.specs -march=armv8-a
-      LIBS: nosys
+      LIBS: nosys c
       OUTPUTXML: junit
     steps:
       - uses: actions/checkout@v3
