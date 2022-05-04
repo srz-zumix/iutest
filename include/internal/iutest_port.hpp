@@ -24,7 +24,7 @@
 // IWYU pragma: begin_exports
 #include "iutest_internal_defs.hpp"
 
-#if defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN) || defined(IUTEST_OS_MAC) || defined(IUTEST_OS_IOS) || defined(IUTEST_OS_FREEBSD) || defined(__arm__)
+#if IUTEST_HAS_HDR_UNISTD
 #  include <unistd.h>
 #  include <locale.h>
 #endif
@@ -104,6 +104,8 @@ IUTEST_ATTRIBUTE_NORETURN_ void Abort();
 inline void Abort() { abort(); }
 #endif
 
+#if IUTEST_HAS_HDR_UNISTD
+
 #if defined(_MSC_VER)
 inline int FdClose(int fd) { return _close(fd); }
 #else
@@ -120,6 +122,12 @@ inline int Dup(int fd) { return dup(fd); }
 inline int Dup2(int fd1, int fd2) { return _dup2(fd1, fd2); }
 #else
 inline int Dup2(int fd1, int fd2) { return dup2(fd1, fd2); }
+#endif
+
+#else
+inline int FdClose(int) { return -1; }
+inline int Dup(int) { return -1; }
+inline int Dup2(int, int) { return -1; }
 #endif
 
 #if IUTEST_HAS_FILENO
