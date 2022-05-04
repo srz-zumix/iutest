@@ -265,7 +265,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     env:
       DEFS: --specs=rdimon.specs -march=armv8-a
-      LIBS: rdimon
+      LIBS: gcc c m rdimon
       OUTPUTXML: junit
     steps:
       - uses: actions/checkout@v3
