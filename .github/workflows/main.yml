@@ -264,8 +264,8 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     env:
-      DEFS: --specs=nosys.specs -march=armv8-a
-      LIBS: nosys c
+      DEFS: --specs=rdimon.specs -march=armv8-a
+      LIBS: rdimon
       OUTPUTXML: junit
     steps:
       - uses: actions/checkout@v3
