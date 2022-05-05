@@ -111,8 +111,11 @@ inline int FdClose(int fd) { return _close(fd); }
 #else
 inline int FdClose(int fd) { return close(fd); }
 #endif
+
+inline int Mkstemp(char* template_path) { return mkstemp(template_path); }
 #else
 inline int FdClose(int) { return -1; }
+inline int Mkstemp(char*) { return -1; }
 #endif
 
 #if IUTEST_HAS_HDR_UNISTD && !defined(__arm__)
@@ -175,20 +178,6 @@ inline int Stat(FILE* fp, StatStruct* buf)
 }
 
 #endif
-
-inline int Mkstemp(char* template_path)
-{
-#if defined(__arm__)
-#if !defined(_REENT_ONLY) && (__MISC_VISIBLE || __POSIX_VISIBLE >= 200112 || __XSI_VISIBLE >= 4)
-    return mkstemp(template_path);
-#else
-    (void)template_path;
-    return -1;
-#endif
-#else
-    return mkstemp(template_path);
-#endif
-}
 
 }   // end of namespace posix
 
