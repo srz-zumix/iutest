@@ -111,7 +111,7 @@ inline int FdClose(int fd) { return _close(fd); }
 inline int FdFlush(int fd) { return _commit(fd); }
 #else
 inline int FdClose(int fd) { return close(fd); }
-inline int FdFlush(int fd) { return fdatasync(fd); }
+inline int FdFlush(int fd) { return fsync(fd); }
 #endif
 #else
 inline int FdClose(int) { return -1; }
