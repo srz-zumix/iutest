@@ -667,7 +667,7 @@
  * @brief   stdout/stderr の StreamBuffer が使用可能かどうか
 */
 #if !defined(IUTEST_HAS_STREAM_BUFFER)
-#  define IUTEST_HAS_STREAM_BUFFER  1
+#  define IUTEST_HAS_STREAM_BUFFER      1
 #endif
 
 /**
@@ -675,7 +675,12 @@
 */
 #if !defined(IUTEST_HAS_STREAM_CAPTURE)
 #  if IUTEST_HAS_FOPEN && IUTEST_HAS_FD_DUP && IUTEST_HAS_MKSTEMP
-#  define IUTEST_HAS_STREAM_CAPTURE 1
+#    define IUTEST_HAS_STREAM_CAPTURE   1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_STREAM_CAPTURE)
+#  define IUTEST_HAS_STREAM_CAPTURE     0
 #endif
 
 /**
