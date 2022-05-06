@@ -106,7 +106,7 @@ inline void Abort() { abort(); }
 
 #if IUTEST_HAS_HDR_UNISTD
 
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) || defined(IUTEST_OS_WINDOWS_MINGW)
 inline int FdClose(int fd) { return _close(fd); }
 inline int FdFlush(int fd) { return _commit(fd); }
 #else
