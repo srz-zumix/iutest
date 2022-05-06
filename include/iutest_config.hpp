@@ -521,18 +521,6 @@
  * @{
 */
 
-#if !defined(IUTEST_HAS_FOPEN)
-#  define IUTEST_HAS_FOPEN          1   //!< fopen が使用可能かどうか
-#endif
-
-#if !defined(IUTEST_HAS_FILE_STAT)
-#  define IUTEST_HAS_FILE_STAT      0   //!< stat が使用可能かどうか
-#endif
-
-#if !defined(IUTEST_HAS_FILENO)
-#  define IUTEST_HAS_FILENO         0   //!< fileno が使用可能かどうか
-#endif
-
 //! ::std::filesystem を使用するかどうか
 #if !defined(IUTEST_USE_CXX_FILESYSTEM)
 #  if IUTEST_HAS_STD_FILESYSTEM
@@ -686,7 +674,8 @@
  * @brief   stdout/stderr の StreamCapture が使用可能かどうか
 */
 #if !defined(IUTEST_HAS_STREAM_CAPTURE)
-#  define IUTEST_HAS_STREAM_CAPTURE  IUTEST_HAS_FOPEN
+#  if IUTEST_HAS_FOPEN && IUTEST_HAS_FD_DUP && IUTEST_HAS_MKSTEMP
+#  define IUTEST_HAS_STREAM_CAPTURE 1
 #endif
 
 /**

@@ -624,6 +624,64 @@
 #  define IUTEST_HAS_INVALID_PARAMETER_HANDLER      0
 #endif
 
+//! has fopen
+#if !defined(IUTEST_HAS_FOPEN)
+#  define IUTEST_HAS_FOPEN                          1
+#endif
+
+
+//! has file stat
+#if !defined(IUTEST_HAS_FILE_STAT)
+#  if !defined(IUTEST_OS_WINDOWS_MOBILE)
+#    define IUTEST_HAS_FILE_STAT                    1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_FILE_STAT)
+#  define IUTEST_HAS_FILE_STAT                      0
+#endif
+
+//! has fileno
+#if !defined(IUTEST_HAS_FILENO)
+#  if !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(__STRICT_ANSI__)
+#    define IUTEST_HAS_FILENO                       1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_FILENO)
+#  define IUTEST_HAS_FILENO                         0
+#endif
+
+//! has fd dup/dup2
+#if !defined(IUTEST_HAS_FD_DUP)
+#  if IUTEST_HAS_HDR_UNISTD && !defined(__arm__)
+#    define IUTEST_HAS_FD_DUP                       1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_FD_DUP)
+#  define IUTEST_HAS_FD_DUP                         0
+#endif
+
+//! has mkstemp
+#if !defined(IUTEST_HAS_MKSTEMP)
+#  if  defined(__arm__) && \
+      !defined(_REENT_ONLY) \
+      && ( \
+           (defined(__MISC_VISIBLE) && __MISC_VISIBLE) \
+        || (defined(__POSIX_VISIBLE) && __POSIX_VISIBLE >= 200112) \
+        || (defined(__XSI_VISIBLE) && __XSI_VISIBLE >= 4) \
+      )
+#    define IUTEST_HAS_MKSTEMP                      1
+#  elif IUTEST_HAS_HDR_UNISTD
+#    define IUTEST_HAS_MKSTEMP                      1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_MKSTEMP)
+#  define IUTEST_HAS_MKSTEMP                        0
+#endif
+
 //! size_t format macros
 #if !defined(IUPRzu)
 #  if defined(_MSC_VER) && (_MSC_VER < 1900)

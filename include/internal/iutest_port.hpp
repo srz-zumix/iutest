@@ -115,7 +115,7 @@ inline int FdClose(int fd) { return close(fd); }
 inline int FdClose(int) { return -1; }
 #endif
 
-#if IUTEST_HAS_HDR_UNISTD && !defined(__arm__)
+#if IUTEST_HAS_FD_DUP
 
 #if defined(_MSC_VER)
 inline int Dup(int fd) { return _dup(fd); }
@@ -176,24 +176,11 @@ inline int Stat(FILE* fp, StatStruct* buf)
 
 #endif
 
-inline int Mkstemp(char* template_path)
-{
-#if defined(__arm__)
-#if !defined(_REENT_ONLY) \
-    && ( \
-           (defined(__MISC_VISIBLE) && __MISC_VISIBLE) \
-        || (defined(__POSIX_VISIBLE) && __POSIX_VISIBLE >= 200112) \
-        || (defined(__XSI_VISIBLE) && __XSI_VISIBLE >= 4) \
-    )
-    return mkstemp(template_path);
+#if IUTEST_HAS_MKSTEMP
+inline int Mkstemp(char* template_path) { return mkstemp(template_path); }
 #else
-    (void)template_path;
-    return -1;
+inline int Mkstemp(char*) { return -1; }
 #endif
-#else
-    return mkstemp(template_path);
-#endif
-}
 
 }   // end of namespace posix
 
