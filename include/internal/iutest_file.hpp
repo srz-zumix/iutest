@@ -379,7 +379,7 @@ public:
         GetTempPathA(sizeof(tmp_dir), tmp_dir);
         UINT ret = GetTempFileNameA(tmp_dir, basename, 0, name_template);
         IUTEST_CHECK_(ret != 0) << "Unable to create a temporary file in " << tmp_dir;
-        const int fd = creat(name_template, _S_IREAD | _S_IWRITE);
+        const int fd = _creat(name_template, _S_IREAD | _S_IWRITE);
 #else
 #if   defined(IUTEST_OS_LINUX_ANDROID)
         ::std::string name_template = "/data/local/tmp/";
