@@ -108,11 +108,14 @@ inline void Abort() { abort(); }
 
 #if defined(_MSC_VER)
 inline int FdClose(int fd) { return _close(fd); }
+inline int FdFlush(int fd) { return _commit(fd); }
 #else
 inline int FdClose(int fd) { return close(fd); }
+inline int FdFlush(int fd) { return fdatasync(fd); }
 #endif
 #else
 inline int FdClose(int) { return -1; }
+inline int FdFlush(int) { return -1; }
 #endif
 
 #if IUTEST_HAS_FD_DUP

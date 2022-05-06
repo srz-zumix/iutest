@@ -35,7 +35,7 @@ class IUStreamCapture
 {
 public:
     explicit IUStreamCapture(int fd)
-        : m_fd(fd), m_prev_fd(internal::posix::Dup(fd))
+        : m_fd(fd), m_prev_fd(internal::posix::Dup(fd)), m_new_fd(-1)
     {
         if( m_prev_fd == -1 )
         {
@@ -48,9 +48,9 @@ public:
             {
                 IUTEST_LOG_(WARNING) << "temp file open failed";
             }
-            const int nfd = temp.GetDescriptor();
+            m_new_fd = temp.GetDescriptor();
             m_filename = temp.GetFileName();
-            if( internal::posix::Dup2(nfd, fd) == -1 )
+            if( internal::posix::Dup2(m_new_fd, fd) == -1 )
             {
                 IUTEST_LOG_(WARNING) << "file descriptor dup2 failed";
                 Close();
@@ -65,6 +65,7 @@ public:
 public:
     ::std::string GetStreamString()
     {
+        internal::posix::FdFlush(m_new_fd);
         StdioFile captured_file;
         if( !captured_file.Open(m_filename.c_str(), iutest::IFile::OpenRead) )
         {
@@ -90,6 +91,7 @@ private:
     ::std::string m_filename;
     int m_fd;
     int m_prev_fd;
+    int m_new_fd;
 
     IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUStreamCapture);
 };
