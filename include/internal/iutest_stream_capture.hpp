@@ -39,7 +39,7 @@ public:
     {
         if( m_prev_fd == -1 )
         {
-            IUTEST_LOG_(WARNING) << "file descriptor duplicate failed";
+            IUTEST_LOG_(WARNING) << "file descriptor dup failed";
         }
         else
         {
@@ -50,7 +50,11 @@ public:
             }
             const int nfd = temp.GetDescriptor();
             m_filename = temp.GetFileName();
-            internal::posix::Dup2(nfd, fd);
+            if( internal::posix::Dup2(nfd, fd) == -1 )
+            {
+                IUTEST_LOG_(WARNING) << "file descriptor dup2 failed";
+                Close();
+            }
         }
     }
     ~IUStreamCapture()
@@ -64,6 +68,7 @@ public:
         StdioFile captured_file;
         if( !captured_file.Open(m_filename.c_str(), iutest::IFile::OpenRead) )
         {
+            IUTEST_LOG_(WARNING) << "temp file open failed: " << m_filename;
             return "";
         }
         return captured_file.ReadAll();

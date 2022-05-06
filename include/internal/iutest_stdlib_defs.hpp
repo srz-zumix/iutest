@@ -667,8 +667,7 @@
 #if !defined(IUTEST_HAS_MKSTEMP)
 #  if  defined(__arm__)
 #    if !defined(_REENT_ONLY) \
-      && ( \
-           (defined(__MISC_VISIBLE) && __MISC_VISIBLE) \
+      && ( (defined(__MISC_VISIBLE) && __MISC_VISIBLE) \
         || (defined(__POSIX_VISIBLE) && __POSIX_VISIBLE >= 200112) \
         || (defined(__XSI_VISIBLE) && __XSI_VISIBLE >= 4) \
       )
