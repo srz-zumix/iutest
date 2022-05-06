@@ -665,14 +665,15 @@
 
 //! has mkstemp
 #if !defined(IUTEST_HAS_MKSTEMP)
-#  if  defined(__arm__) && \
-      !defined(_REENT_ONLY) \
+#  if  defined(__arm__)
+#    if !defined(_REENT_ONLY) \
       && ( \
            (defined(__MISC_VISIBLE) && __MISC_VISIBLE) \
         || (defined(__POSIX_VISIBLE) && __POSIX_VISIBLE >= 200112) \
         || (defined(__XSI_VISIBLE) && __XSI_VISIBLE >= 4) \
       )
-#    define IUTEST_HAS_MKSTEMP                      1
+#      define IUTEST_HAS_MKSTEMP                    1
+#    endif
 #  elif IUTEST_HAS_HDR_UNISTD
 #    define IUTEST_HAS_MKSTEMP                      1
 #  endif
