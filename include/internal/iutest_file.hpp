@@ -375,17 +375,12 @@ public:
 #if defined(IUTEST_OS_WINDOWS)
         char tmp_dir[IUTEST_MAX_PATH] = { '\0' };
         GetTempPathA(sizeof(tmp_dir), tmp_dir);
-#if IUTEST_HAS_MKSTEMP
-        ::std::string name_template =tmp_dir;
-        name_template += basename;
-        name_template += ".XXXXXX";
-        const int fd = internal::posix::Mkstemp(const_cast<char*>(name_template.data()));
-#else
+
         char name_template[IUTEST_MAX_PATH] = { '\0' };
         UINT ret = GetTempFileNameA(tmp_dir, basename, 0, name_template);
         IUTEST_CHECK_(ret != 0) << "Unable to create a temporary file in " << tmp_dir;
-        const int fd = _creat(name_template, _S_IREAD | _S_IWRITE);
-#endif
+        int fd = -1;
+        _sopen_s(&fd, name_template, _O_CREAT | _O_TEMPORARY, _SH_DENYNO, _S_IREAD | _S_IWRITE);
 #else
 #if   defined(IUTEST_OS_LINUX_ANDROID)
         ::std::string name_template = "/data/local/tmp/";
