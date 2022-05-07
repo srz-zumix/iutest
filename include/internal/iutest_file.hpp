@@ -23,6 +23,7 @@
 
 #if defined(IUTEST_OS_WINDOWS)
 #include <fcntl.h>
+#include <share.h>
 #endif
 // IWYU pragma: end_exports
 
