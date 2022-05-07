@@ -98,3 +98,7 @@ cmake-build*/
 
 # Infer
 infer-out/
+
+# Dagger
+cue.mod/
+dagger-cmake-build/
