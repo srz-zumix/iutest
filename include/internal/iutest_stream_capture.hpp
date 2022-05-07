@@ -36,6 +36,9 @@ class IUStreamCapture
 public:
     explicit IUStreamCapture(int fd)
         : m_fd(fd), m_prev_fd(internal::posix::Dup(fd)), m_new_fd(-1)
+#if IUTEST_HAS_STREAM_BUFFER
+        , m_buffering(internal::posix::FdOpen(fd, "w"))
+#endif
     {
         if( m_prev_fd == -1 )
         {
@@ -65,15 +68,23 @@ public:
 public:
     ::std::string GetStreamString()
     {
-        Close();
-
         StdioFile captured_file;
         if( !captured_file.Open(m_filename.c_str(), iutest::IFile::OpenRead) )
         {
             IUTEST_LOG_(WARNING) << "temp file open failed: " << m_filename;
             return "";
         }
+
+#if IUTEST_HAS_STREAM_BUFFER
+        ::std::string str = captured_file.ReadAll();
+        if( str.empty() )
+        {
+            return m_buffering.GetStreamString();
+        }
+        return str;
+#else
         return captured_file.ReadAll();
+#endif
     }
 
 private:
@@ -98,6 +109,10 @@ private:
     int m_fd;
     int m_prev_fd;
     int m_new_fd;
+
+#if IUTEST_HAS_STREAM_BUFFER
+    IUStreamBuffer<>  m_buffering;
+#endif
 
     IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUStreamCapture);
 };

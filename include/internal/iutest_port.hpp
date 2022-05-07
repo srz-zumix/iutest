@@ -107,13 +107,16 @@ inline void Abort() { abort(); }
 #if IUTEST_HAS_HDR_UNISTD
 
 #if defined(_MSC_VER) || defined(IUTEST_OS_WINDOWS_MINGW)
+inline FILE* FdOpen(int fd, const char* mode) { return _fdopen(fd, mode); }
 inline int FdClose(int fd) { return _close(fd); }
 inline int FdFlush(int fd) { return _commit(fd); }
 #else
+inline FILE* FdOpen(int fd, const char* mode) { return fdopen(fd, mode); }
 inline int FdClose(int fd) { return close(fd); }
 inline int FdFlush(int fd) { return fsync(fd); }
 #endif
 #else
+inline FILE* FdOpen(int, const char*) { return IUTEST_NULLPTR; }
 inline int FdClose(int) { return -1; }
 inline int FdFlush(int) { return -1; }
 #endif
