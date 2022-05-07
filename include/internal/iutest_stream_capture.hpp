@@ -59,7 +59,7 @@ public:
     }
     ~IUStreamCapture()
     {
-        Close();
+        Delete();
     }
 
 public:
@@ -86,6 +86,10 @@ private:
             m_prev_fd = -1;
             m_new_fd = -1;
         }
+    }
+    void Delete()
+    {
+        Close();
         remove(m_filename.c_str());
     }
 
