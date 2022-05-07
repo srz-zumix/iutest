@@ -17,8 +17,14 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_internal_defs.hpp"
 #include "iutest_stream.hpp"
+
+#if defined(IUTEST_OS_WINDOWS)
+#include <fcntl.h>
+#endif
+// IWYU pragma: end_exports
 
 namespace iutest
 {
