@@ -65,7 +65,8 @@ public:
 public:
     ::std::string GetStreamString()
     {
-        internal::posix::FdFlush(m_new_fd);
+        Close();
+
         StdioFile captured_file;
         if( !captured_file.Open(m_filename.c_str(), iutest::IFile::OpenRead) )
         {
@@ -83,6 +84,7 @@ private:
             internal::posix::Dup2(m_prev_fd, m_fd);
             internal::posix::FdClose(m_prev_fd);
             m_prev_fd = -1;
+            m_new_fd = -1;
         }
         remove(m_filename.c_str());
     }
