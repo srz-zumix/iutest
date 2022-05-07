@@ -134,9 +134,9 @@ class IUStreamCaptureStdout : public IUStreamCaputreWithBuffer
 public:
     IUStreamCaptureStdout()
 #if defined(STDOUT_FILENO)
-        : IUStreamCapture(STDOUT_FILENO, stdout)
+        : IUStreamCaputreWithBuffer(STDOUT_FILENO, stdout)
 #else
-        : IUStreamCapture(1, stdout)
+        : IUStreamCaputreWithBuffer(1, stdout)
 #endif
     {
     }
@@ -147,9 +147,9 @@ class IUStreamCaptureStderr : public IUStreamCaputreWithBuffer
 public:
     IUStreamCaptureStderr()
 #if defined(STDERR_FILENO)
-        : IUStreamCapture(STDERR_FILENO, stderr)
+        : IUStreamCaputreWithBuffer(STDERR_FILENO, stderr)
 #else
-        : IUStreamCapture(2, stderr)
+        : IUStreamCaputreWithBuffer(2, stderr)
 #endif
     {
     }
