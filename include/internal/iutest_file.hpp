@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,8 +17,14 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_internal_defs.hpp"
 #include "iutest_stream.hpp"
+
+#if defined(IUTEST_OS_WINDOWS)
+#include <fcntl.h>
+#endif
+// IWYU pragma: end_exports
 
 namespace iutest
 {
@@ -229,11 +235,13 @@ public:
     //! サイズ取得
     virtual size_t GetSize() IUTEST_CXX_OVERRIDE
     {
-#if IUTEST_HAS_FILE_STAT
         return GetSize(m_fp);
-#else
-        return GetSizeBySeekSet(m_fp);
-#endif
+    }
+
+public:
+    void Flush()
+    {
+        fflush(m_fp);
     }
 
 public:
@@ -313,6 +321,102 @@ private:
         m_fp = stderr;
         return true;
     }
+};
+
+class TempFile : public IFile
+{
+public:
+    TempFile() IUTEST_CXX_NOEXCEPT_SPEC
+        : m_fd(-1)
+    {
+    }
+
+public:
+    /**
+     * @brief   閉じる
+    */
+    virtual void Close() IUTEST_CXX_OVERRIDE
+    {
+        m_file.Close();
+        if( m_fd != -1 )
+        {
+            internal::posix::FdClose(m_fd);
+            m_fd = -1;
+        }
+    }
+    /**
+     * @brief   書き込み
+     * @param [in]  buf     = 書き込みバッファ
+     * @param [in]  size    = バッファサイズ
+     * @param [in]  cnt     = 書き込み回数
+    */
+    virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
+    {
+        return m_file.Write(buf, size, cnt);
+    }
+
+    /**
+     * @brief   読み込み
+     * @param [in]  buf     = 読み込みバッファ
+     * @param [in]  size    = 読み込みデータサイズ
+     * @param [in]  cnt     = 読み込み回数
+    */
+    virtual bool Read(void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
+    {
+        return m_file.Read(buf, size, cnt);
+    }
+
+    //! サイズ取得
+    virtual size_t GetSize() IUTEST_CXX_OVERRIDE
+    {
+        return m_file.GetSize();
+    }
+
+public:
+    int GetDescriptor() const { return m_fd; }
+    const ::std::string& GetFileName() const { return m_filename; }
+
+    bool Create(const char* basename)
+    {
+#if defined(IUTEST_OS_WINDOWS)
+        char tmp_dir[IUTEST_MAX_PATH] = { '\0' };
+        GetTempPathA(sizeof(tmp_dir), tmp_dir);
+
+        char name_template[IUTEST_MAX_PATH] = { '\0' };
+        UINT ret = GetTempFileNameA(tmp_dir, basename, 0, name_template);
+        IUTEST_CHECK_(ret != 0) << "Unable to create a temporary file in " << tmp_dir;
+        int fd = -1;
+        _sopen_s(&fd, name_template, _O_CREAT | _O_TEMPORARY, _SH_DENYNO, _S_IREAD | _S_IWRITE);
+#else
+#if   defined(IUTEST_OS_LINUX_ANDROID)
+        ::std::string name_template = "/data/local/tmp/";
+#elif defined(IUTEST_OS_IOS)
+        char user_tmp_dir[IUTEST_MAX_PATH];
+        ::confstr(_CS_DARWIN_USER_TEMP_DIR, user_temp_dir, sizeof(user_temp_dir));
+        ::std::string name_template = user_tmp_dir;
+        name_template += "/";
+#else
+        ::std::string name_template = "/tmp/";
+#endif
+        name_template += basename;
+        name_template += ".XXXXXX";
+        const int fd = internal::posix::Mkstemp(const_cast<char*>(name_template.data()));
+#endif
+        m_fd = fd;
+        m_filename = name_template;
+        return m_fd != -1;
+    }
+
+private:
+    virtual bool OpenImpl(const char*, int mode) IUTEST_CXX_OVERRIDE
+    {
+        return m_file.Open(m_filename.c_str(), mode);
+    }
+
+private:
+    StdioFile m_file;
+    int m_fd;
+    ::std::string m_filename;
 };
 
 #endif
