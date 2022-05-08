@@ -387,7 +387,8 @@ public:
         UINT ret = GetTempFileNameA(tmp_dir, basename, 0, name_template);
         IUTEST_CHECK_(ret != 0) << "Unable to create a temporary file in " << tmp_dir;
         int fd = -1;
-        _sopen_s(&fd, name_template, _O_CREAT | _O_TEMPORARY, _SH_DENYNO, _S_IREAD | _S_IWRITE);
+        _sopen_s(&fd, name_template, _O_CREAT | _O_RDWR, _SH_DENYNO, _S_IREAD | _S_IWRITE);
+        IUTEST_CHECK_(fd != -1) << "Unable to create a temporary file in " << tmp_dir << ": errno=" << errno;
 #else
 #if   defined(IUTEST_OS_LINUX_ANDROID)
         ::std::string name_template = "/data/local/tmp/";
