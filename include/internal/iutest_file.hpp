@@ -386,9 +386,12 @@ public:
         char name_template[IUTEST_MAX_PATH] = { '\0' };
         UINT ret = GetTempFileNameA(tmp_dir, basename, 0, name_template);
         IUTEST_CHECK_(ret != 0) << "Unable to create a temporary file in " << tmp_dir;
+#if defined(__llvm__)
+        const int fd = _creat(name_template, _S_IREAD | _S_IWRITE);
+#else
         int fd = -1;
         _sopen_s(&fd, name_template, _O_CREAT | _O_RDWR, _SH_DENYNO, _S_IREAD | _S_IWRITE);
-        IUTEST_CHECK_(fd != -1) << "Unable to create a temporary file in " << tmp_dir << ": errno=" << errno;
+#endif
 #else
 #if   defined(IUTEST_OS_LINUX_ANDROID)
         ::std::string name_template = "/data/local/tmp/";
