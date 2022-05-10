@@ -386,7 +386,7 @@ public:
         char name_template[IUTEST_MAX_PATH] = { '\0' };
         UINT ret = GetTempFileNameA(tmp_dir, basename, 0, name_template);
         IUTEST_CHECK_(ret != 0) << "Unable to create a temporary file in " << tmp_dir;
-#if defined(__llvm__)
+#if defined(_CRT_FUNCTIONS_REQUIRED)
         const int fd = _creat(name_template, _S_IREAD | _S_IWRITE);
 #else
         int fd = -1;
