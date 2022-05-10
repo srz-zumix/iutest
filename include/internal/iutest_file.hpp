@@ -22,6 +22,7 @@
 #include "iutest_stream.hpp"
 
 #if defined(IUTEST_OS_WINDOWS)
+#include <io.h>
 #include <fcntl.h>
 #include <share.h>
 #endif

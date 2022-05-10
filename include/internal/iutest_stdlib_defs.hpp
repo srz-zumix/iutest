@@ -663,6 +663,17 @@
 #  define IUTEST_HAS_FD_DUP                         0
 #endif
 
+//! has fdopen
+#if !defined(IUTEST_HAS_FD_OPEN)
+#  if IUTEST_HAS_HDR_UNISTD && !defined(__arm__)
+#    define IUTEST_HAS_FD_OPEN                      1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_FD_OPEN)
+#  define IUTEST_HAS_FD_OPEN                        0
+#endif
+
 //! has mkstemp
 #if !defined(IUTEST_HAS_MKSTEMP)
 #  if  defined(__arm__)
