@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -66,8 +66,8 @@
 #endif
 
 #ifndef IUTEST_BREAK
-#  if   defined(__MINGW32__)
-#    define IUTEST_BREAK()  DebugBreak()
+#  if   defined(IUTEST_OS_WINDOWS_MINGW)
+#    define IUTEST_BREAK()      DebugBreak()
 #  elif defined(_MSC_VER)
 #    if _MSC_VER >= 1310
 #      define IUTEST_BREAK()    __debugbreak()
