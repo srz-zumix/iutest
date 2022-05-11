@@ -388,7 +388,9 @@ public:
         UINT ret = GetTempFileNameA(tmp_dir, basename, 0, name_template);
         IUTEST_CHECK_(ret != 0) << "Unable to create a temporary file in " << tmp_dir;
 #if defined(_CRT_FUNCTIONS_REQUIRED)
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         const int fd = _creat(name_template, _S_IREAD | _S_IWRITE);
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 #else
         int fd = -1;
         _sopen_s(&fd, name_template, _O_CREAT | _O_RDWR, _SH_DENYNO, _S_IREAD | _S_IWRITE);
