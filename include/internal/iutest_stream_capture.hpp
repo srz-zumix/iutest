@@ -100,7 +100,7 @@ private:
     IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUStreamCapture);
 };
 
-#if IUTEST_HAS_STREAM_BUFFER && 0
+#if IUTEST_HAS_STREAM_BUFFER && defined(IUTEST_OS_WINDOWS_MINGW)
 class IUStreamCaputreWithBuffer : public IUStreamCapture
 {
 public:
