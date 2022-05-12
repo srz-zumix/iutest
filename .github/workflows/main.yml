@@ -321,7 +321,7 @@ jobs:
     needs: prepare
     steps:
       - uses: actions/checkout@v3
-      - uses: dagger/dagger-for-github@v2
+      - uses: dagger/dagger-for-github@v3
         with:
           cmds: |
             project init
