@@ -389,6 +389,7 @@
 #  if defined(__has_include)
 #    if __has_include(<unistd.h>)
 #      define IUTEST_HAS_HDR_UNISTD         1
+#    endif
 #  endif
 #endif
 
