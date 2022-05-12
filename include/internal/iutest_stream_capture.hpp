@@ -100,7 +100,7 @@ private:
     IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUStreamCapture);
 };
 
-#if IUTEST_HAS_STREAM_BUFFER
+#if IUTEST_HAS_STREAM_BUFFER && 0
 class IUStreamCaputreWithBuffer : public IUStreamCapture
 {
 public:
