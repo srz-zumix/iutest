@@ -385,13 +385,20 @@
 #  endif
 #endif
 
-#if   defined(__has_include) && __has_include(<unistd.h>)
-#  define IUTEST_HAS_HDR_UNISTD             1
-#elif defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN) \
+#if !defined(IUTEST_HAS_HDR_UNISTD)
+#  if defined(__has_include)
+#    if __has_include(<unistd.h>)
+#      define IUTEST_HAS_HDR_UNISTD         1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_HDR_UNISTD)
+#  if defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN) \
     || defined(IUTEST_OS_MAC) || defined(IUTEST_OS_IOS) \
     || defined(IUTEST_OS_FREEBSD) \
     || defined(__arm__)
-#  define IUTEST_HAS_HDR_UNISTD             1
+#    define IUTEST_HAS_HDR_UNISTD           1
+#  endif
 #endif
 
 // defaults for include
