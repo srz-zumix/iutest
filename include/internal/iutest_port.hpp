@@ -120,7 +120,7 @@ inline int FdFlush(int) { return -1; }
 
 #if IUTEST_HAS_FD_OPEN
 
-#if defined(_MSC_VER) || defined(IUTEST_OS_WINDOWS_MINGW)
+#if defined(_MSC_VER) || defined(IUTEST_OS_WINDOWS_MINGW) || defined(IUTEST_OS_CYGWIN)
 inline FILE* FdOpen(int fd, const char* mode) { return _fdopen(fd, mode); }
 #else
 inline FILE* FdOpen(int fd, const char* mode) { return fdopen(fd, mode); }
@@ -195,7 +195,13 @@ inline int Stat(FILE* fp, StatStruct* buf)
 #endif
 
 #if IUTEST_HAS_MKSTEMP
+
+#if defined(_MSC_VER) || defined(IUTEST_OS_WINDOWS_MINGW) || defined(IUTEST_OS_CYGWIN)
+inline int Mkstemp(char* template_path) { return _mkstemp(template_path); }
+#else
 inline int Mkstemp(char* template_path) { return mkstemp(template_path); }
+#endif
+
 #else
 inline int Mkstemp(char*) { return -1; }
 #endif
