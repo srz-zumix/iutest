@@ -673,8 +673,16 @@
 
 //! has fdopen
 #if !defined(IUTEST_HAS_FD_OPEN)
-#  if IUTEST_HAS_HDR_UNISTD && !defined(__arm__)
-#    define IUTEST_HAS_FD_OPEN                      1
+#  if IUTEST_HAS_HDR_UNISTD
+#    if defined(__arm__)
+#      define IUTEST_HAS_FD_OPEN                    0
+#    elif defined(IUTEST_OS_CYGWIN)
+#      if !defined(__STRICT_ANSI__)
+#        define IUTEST_HAS_FD_OPEN                  1
+#      endif
+#    else
+#      define IUTEST_HAS_FD_OPEN                    1
+#    endif
 #  endif
 #endif
 
@@ -684,7 +692,9 @@
 
 //! has mkstemp
 #if !defined(IUTEST_HAS_MKSTEMP)
-#  if  defined(__arm__)
+#  if   defined(HAVE_MKSTEMP)
+#      define IUTEST_HAS_MKSTEMP                    HAVE_MKSTEMP
+#  elif defined(__arm__)
 #    if !defined(_REENT_ONLY) \
       && ( (defined(__MISC_VISIBLE) && __MISC_VISIBLE) \
         || (defined(__POSIX_VISIBLE) && __POSIX_VISIBLE >= 200112) \

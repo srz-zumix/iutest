@@ -196,7 +196,7 @@ inline int Stat(FILE* fp, StatStruct* buf)
 
 #if IUTEST_HAS_MKSTEMP
 
-#if defined(_MSC_VER) || defined(IUTEST_OS_WINDOWS_MINGW) || defined(IUTEST_OS_CYGWIN)
+#if defined(_MSC_VER) || defined(IUTEST_OS_CYGWIN)
 inline int Mkstemp(char* template_path) { return _mkstemp(template_path); }
 #else
 inline int Mkstemp(char* template_path) { return mkstemp(template_path); }
