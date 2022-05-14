@@ -702,6 +702,10 @@
       )
 #      define IUTEST_HAS_MKSTEMP                    1
 #    endif
+#  elif defined(IUTEST_OS_CYGWIN)
+#    if !defined(__STRICT_ANSI__)
+#      define IUTEST_HAS_MKSTEMP                    1
+#    endif
 #  elif IUTEST_HAS_HDR_UNISTD
 #    define IUTEST_HAS_MKSTEMP                      1
 #  endif
