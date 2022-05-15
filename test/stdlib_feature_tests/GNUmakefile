@@ -72,6 +72,9 @@ FEATURE_MACROS=\
 	__POSIX_VISIBLE \
 	__SVID_VISIBLE \
 	__XSI_VISIBLE \
+	__MINGW__ \
+	__MINGW32__	\
+	__MINGW64__ \
 	__STRICT_ANSI__
 
 show_macros.i: show_macros.tmp $(MAKEFILE)
