@@ -207,8 +207,12 @@ jobs:
           make -C test test
       - name: ls
         run: |
-          ls -l ./.github/actions/composite/
-          ls -l ./.github/actions/composite/test-report
+          pwd
+          ls -la
+          ls -la ./.github
+          ls -la ./.github/actions/
+          ls -la ./.github/actions/composite/
+          ls -la ./.github/actions/composite/test-report
         if: always()
       - name: report
         uses: ./.github/actions/composite/test-report
