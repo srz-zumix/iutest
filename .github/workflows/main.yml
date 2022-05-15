@@ -187,7 +187,7 @@ jobs:
       OUTPUTXML: junit
       PYTHON_VERSION: 3.8
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v3
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ env.PYTHON_VERSION }}
@@ -229,7 +229,7 @@ jobs:
       run:
         shell: bash -e -o pipefail -l {0}
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v3
       - name: set .bash_profile
         run: |
           echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
