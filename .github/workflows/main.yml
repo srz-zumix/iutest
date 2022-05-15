@@ -205,6 +205,11 @@ jobs:
       - name: zapcc test
         run: |
           make -C test test
+      - name: ls
+        run: |
+          ls -l ./.github/actions/composite/
+          ls -l ./.github/actions/composite/test-report
+        if: always()
       - name: report
         uses: ./.github/actions/composite/test-report
         with:
