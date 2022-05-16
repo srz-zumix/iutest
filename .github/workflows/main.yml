@@ -73,7 +73,7 @@ jobs:
         run: |
           make -C test test
       - name: report
-        uses: ./.github/actions/composite/test-report
+        uses: mikepenz/action-junit-report@v2
         with:
           report_paths: test/*.xml
         if: always()
@@ -97,7 +97,7 @@ jobs:
         run: |
           make -C test test
       - name: report
-        uses: ./.github/actions/composite/test-report
+        uses: mikepenz/action-junit-report@v2
         with:
           report_paths: test/*.xml
         if: always()
@@ -170,7 +170,7 @@ jobs:
   #       run: |
   #         make -C test test
   #     - name: report
-  #       uses: ./.github/actions/composite/test-report
+  #       uses: mikepenz/action-junit-report@v2
   #       with:
   #         report_paths: test/*.xml
   #       if: always()
@@ -205,17 +205,8 @@ jobs:
       - name: zapcc test
         run: |
           make -C test test
-      - name: ls
-        run: |
-          pwd
-          ls -la
-          ls -la ./.github
-          ls -la ./.github/actions/
-          ls -la ./.github/actions/composite/
-          ls -la ./.github/actions/composite/test-report
-        if: always()
       - name: report
-        uses: ./.github/actions/composite/test-report
+        uses: mikepenz/action-junit-report@v2
         with:
           report_paths: test/*.xml
         if: always()
@@ -255,7 +246,7 @@ jobs:
         run: |
           make -C test test
       - name: report
-        uses: ./.github/actions/composite/test-report
+        uses: mikepenz/action-junit-report@v2
         with:
           report_paths: test/*.xml
         if: always()
@@ -295,7 +286,7 @@ jobs:
         run: |
           make -C test -j8
       - name: report
-        uses: ./.github/actions/composite/test-report
+        uses: mikepenz/action-junit-report@v2
         with:
           report_paths: test/*.xml
         if: always()
@@ -326,7 +317,7 @@ jobs:
         with:
           args: "make -C test test QEMU_COMMAND=qemu-arm-static"
       - name: report
-        uses: ./.github/actions/composite/test-report
+        uses: mikepenz/action-junit-report@v2
         with:
           report_paths: test/*.xml
         if: always()
