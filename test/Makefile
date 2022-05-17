@@ -81,6 +81,9 @@ showcxxmacros: ## show compiler predefined macros
 	$(CXX) /c /Bxcl-dME.bat main.cpp || true
 	# $(CXX) /c /B1cl-dME.bat main.c || true
 
+showstdlbfeatures:
+	${MAKE} -C stdlib_feature_tests CXXFLAGS="${CXXFLAGS} ${LDFLAGS}"
+
 $(RUNNER) : $(@:_tests_run=_tests)
 	@echo $@
 !ifdef OUTPUTXML
