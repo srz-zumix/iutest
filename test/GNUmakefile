@@ -269,7 +269,7 @@ ifdef CLANGMAJOR
 endif
 
 showstdlbfeatures:
-	${MAKE} -C stdlib_feature_tests -fMakefile CXXFLAGS="${CXXFLAGS} ${LDFLAGS}"
+	${MAKE} -C stdlib_feature_tests CXXFLAGS="${CXXFLAGS} ${LDFLAGS}"
 
 list-xml:
 	@ls | grep *.xml || true
