@@ -73,9 +73,10 @@ jobs:
         run: |
           make -C test test
       - name: report
-        uses: mikepenz/action-junit-report@v2
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
+        if: always()
 
   mingw-basic-test:
     runs-on: windows-latest
@@ -96,9 +97,10 @@ jobs:
         run: |
           make -C test test
       - name: report
-        uses: mikepenz/action-junit-report@v2
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
+        if: always()
 
   cmake-basic-test:
     runs-on: ubuntu-latest
@@ -168,9 +170,10 @@ jobs:
   #       run: |
   #         make -C test test
   #     - name: report
-  #       uses: mikepenz/action-junit-report@v2
+  #       uses: ./.github/actions/composite/test-report
   #       with:
   #         report_paths: test/*.xml
+  #       if: always()
 
   zapcc-basic-test:
     runs-on: ubuntu-18.04
@@ -184,7 +187,7 @@ jobs:
       OUTPUTXML: junit
       PYTHON_VERSION: 3.8
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v3
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ env.PYTHON_VERSION }}
@@ -203,9 +206,10 @@ jobs:
         run: |
           make -C test test
       - name: report
-        uses: mikepenz/action-junit-report@v2
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
+        if: always()
 
   icpc-basic-test:
     runs-on: ubuntu-latest
@@ -218,6 +222,7 @@ jobs:
     env:
       CC: icpc
       CXX: icpc
+      LIBS: stdc++fs
       OUTPUTXML: junit
       # DEFS: -DIUTEST_FORCE_COLORCONSOLE=1
       # RUN_OPTION: "--iutest_color=yes"
@@ -225,7 +230,7 @@ jobs:
       run:
         shell: bash -e -o pipefail -l {0}
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v3
       - name: set .bash_profile
         run: |
           echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
@@ -242,9 +247,10 @@ jobs:
         run: |
           make -C test test
       - name: report
-        uses: mikepenz/action-junit-report@v2
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
+        if: always()
 
   arm-none-eabi:
     strategy:
@@ -278,9 +284,10 @@ jobs:
         run: |
           make -C test -j8
       - name: report
-        uses: mikepenz/action-junit-report@v2
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
+        if: always()
 
   arm-linux-gnueabi:
     runs-on: ubuntu-latest
@@ -308,9 +315,10 @@ jobs:
         with:
           args: "make -C test test QEMU_COMMAND=qemu-arm-static"
       - name: report
-        uses: mikepenz/action-junit-report@v2
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
+        if: always()
 
   #===================================================================
   infer:
