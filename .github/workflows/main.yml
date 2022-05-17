@@ -222,6 +222,7 @@ jobs:
     env:
       CC: icpc
       CXX: icpc
+      LIBS: stdc++fs
       OUTPUTXML: junit
       # DEFS: -DIUTEST_FORCE_COLORCONSOLE=1
       # RUN_OPTION: "--iutest_color=yes"
