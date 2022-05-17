@@ -73,7 +73,7 @@ jobs:
         run: |
           make -C test test
       - name: report
-        uses: mikepenz/action-junit-report@v2
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: always()
@@ -97,7 +97,7 @@ jobs:
         run: |
           make -C test test
       - name: report
-        uses: mikepenz/action-junit-report@v2
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: always()
@@ -170,7 +170,7 @@ jobs:
   #       run: |
   #         make -C test test
   #     - name: report
-  #       uses: mikepenz/action-junit-report@v2
+  #       uses: ./.github/actions/composite/test-report
   #       with:
   #         report_paths: test/*.xml
   #       if: always()
@@ -206,7 +206,7 @@ jobs:
         run: |
           make -C test test
       - name: report
-        uses: mikepenz/action-junit-report@v2
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: always()
@@ -246,7 +246,7 @@ jobs:
         run: |
           make -C test test
       - name: report
-        uses: mikepenz/action-junit-report@v2
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: always()
@@ -286,7 +286,7 @@ jobs:
         run: |
           make -C test -j8
       - name: report
-        uses: mikepenz/action-junit-report@v2
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: always()
@@ -317,7 +317,7 @@ jobs:
         with:
           args: "make -C test test QEMU_COMMAND=qemu-arm-static"
       - name: report
-        uses: mikepenz/action-junit-report@v2
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: always()
