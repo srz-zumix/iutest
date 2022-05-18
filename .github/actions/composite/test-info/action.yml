@@ -27,3 +27,7 @@ runs:
       # shell: ${{ inputs.shell-cmd }}
       run: |
         make -C test check_stdlib
+    - name: stdlib features
+      shell: bash
+      run: |
+        make -C test showstdlbfeatures
