@@ -295,7 +295,7 @@ jobs:
       - name: info
         uses: ./.github/actions/arm-linux-gnueabi
         with:
-          args: "make -C test QEMU_COMMAND=qemu-arm-static showcxxversion showcxxmacros check_stdlib"
+          args: "make -C test QEMU_COMMAND=qemu-arm-static showcxxversion showcxxmacros check_stdlib showstdlbfeatures"
       - name: build
         uses: ./.github/actions/arm-linux-gnueabi
         with:
