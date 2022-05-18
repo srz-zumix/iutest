@@ -224,17 +224,16 @@ clean-cov : ## clean coverages
 	$(RM) *.xml *.gcov *.gcno *.gcda coverage.info
 
 clean-all : clean clean-xml clean-cov ## clean all
-	${MAKE} -C $(MAKEFILE_DIR)/benchmark clean
-	${MAKE} -C $(MAKEFILE_DIR)/configcheck clean
-	${MAKE} -C $(MAKEFILE_DIR)/cpplint clean
-	${MAKE} -C $(MAKEFILE_DIR)/stdlib_feature_tests clean
+	${MAKE} -C benchmark clean
+	${MAKE} -C configcheck clean
+	${MAKE} -C cpplint clean
 
 check : test
 run : test ## run tests
 test : $(BUILD_ONLY) $(RUNNER) ## run tests
 
 lint : cpplint/Makefile $(IUTEST_HEADERS) $(MAKEFILE) ## lint
-	${MAKE} -C $(MAKEFILE_DIR)/cpplint
+	${MAKE} -C cpplint
 
 showcxxversion: ## show compiler version
 	$(CXX) --version
@@ -272,7 +271,7 @@ ifdef CLANGMAJOR
 endif
 
 showstdlbfeatures:
-	${MAKE} -C $(MAKEFILE_DIR)/stdlib_feature_tests CXXFLAGS="${CXXFLAGS} ${LDFLAGS}"
+	${MAKE} -C stdlib_feature_tests CXXFLAGS="${CXXFLAGS} ${LDFLAGS}"
 
 list-xml:
 	@ls | grep *.xml || true
@@ -328,10 +327,10 @@ coverity_scan: $(COVERITY_SCAN_BUILD_TARGETS)
 FUSED_PY= ../tools/fused/*.py
 
 fused: $(IUTEST_HEADERS) $(MAKEFILE) ../tools/fused/Makefile $(FUSED_PY) ## create fused-src
-	${MAKE} -C $(MAKEFILE_DIR)/../tools/fused
+	${MAKE} -C ../tools/fused
 
 fused_min: $(IUTEST_HEADERS) $(MAKEFILE) ../tools/fused/Makefile $(FUSED_PY) ## create minimize fused-src
-	${MAKE} -C $(MAKEFILE_DIR)/../tools/fused min
+	${MAKE} -C ../tools/fused min
 
 #
 #
@@ -537,7 +536,7 @@ check_incg: $(IUTEST_INCLUDE_GUARD_CHECK)
 #
 
 cppcheck: ## cppcheck
-	${MAKE} -C $(MAKEFILE_DIR)/cppcheck
+	${MAKE} -C cppcheck
 
 #
 # report
