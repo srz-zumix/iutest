@@ -208,7 +208,7 @@ all : clean default test ## clean and build, run
 # 	@if [ ! -e `dirname $(OUTDIR)` ]; then mkdir -p `dirname $(OUTDIR)`; fi
 
 clean : ## clean
-	$(RM) $(TARGETS) $(NO_DEFAULT_TARGETS) $(ALL_OBJS) *.o *.stackdump *.core *.exe *.log *.ns.cpp check_stdlib
+	$(RM) $(TARGETS) $(NO_DEFAULT_TARGETS) $(ALL_OBJS) *.o *.stackdump *.core *.exe *.log *.ns.cpp
 	$(RM) -R *.dSYM
 ifdef OUTPUTXML
 	$(RM) *.xml
@@ -272,6 +272,9 @@ endif
 
 showstdlbfeatures:
 	${MAKE} -C stdlib_feature_tests CXXFLAGS="${CXXFLAGS} ${LDFLAGS}"
+
+check_stdlib: $(IUTEST_HEADERS) $(MAKEFILE)
+	${MAKE} -C stdlib_config_check CXXFLAGS="$(IUTEST_INCLUDE) $(CXXFLAGS)"
 
 list-xml:
 	@ls | grep *.xml || true
@@ -511,10 +514,6 @@ $(OUTDIR)/%.o: %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 .cpp: $(IUTEST_HEADERS) $(MAKEFILE)
 	$(BUILD4ZAPCC)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp main.cpp $(LDFLAGS)
-
-check_stdlib: % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
-	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -v -o $@ $<
-	${RUN_PREFIX} ./$@
 
 #
 #

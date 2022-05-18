@@ -32,10 +32,8 @@ show : $(TARGET) ## show feature macros
 	@cat -s ./$(TARGET) \
 		| grep -A 256 show_macros.i \
 		| grep -B 256 stdlib_feature_test.cpp \
-		| sed '/^$$/d' \
 		| sed '/^#/d' \
 		| sed 's/[";]//g' \
-		| sed '/^\s*$$/d' \
 		| tr -d '\n' \
 		| sed -e 's/define/\ndefine/g' -e 's/undef/\nundef/g' \
 		| sed '/^$$/d' \
