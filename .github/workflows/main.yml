@@ -193,12 +193,8 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Set Python environment variable
         run: echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> "$GITHUB_ENV"
-      - name: zapcc info
-        run: |
-          make -C test clean
-          make -C test showcxxversion
-          make -C test showcxxmacros
-          make -C test check_stdlib
+      - name: info
+        uses: ./.github/actions/composite/test-info
       - name: zapcc build
         run: |
           make -C test -j1 IUTEST_REQUIRE_PYTHON=1
@@ -233,12 +229,8 @@ jobs:
       - name: set .bash_profile
         run: |
           echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
-      - name: icpc info
-        run: |
-          make -C test clean
-          make -C test showcxxversion
-          make -C test showcxxmacros
-          make -C test check_stdlib
+      - name: info
+        uses: ./.github/actions/composite/test-info
       - name: icpc build
         run: |
           make -C test -j8
@@ -276,12 +268,8 @@ jobs:
       OUTPUTXML: junit
     steps:
       - uses: actions/checkout@v3
-      - name: arm-none-eabi info
-        run: |
-          make -C test clean
-          make -C test showcxxversion
-          make -C test showcxxmacros
-          make -C test showstdlbfeatures
+      - name: info
+        uses: ./.github/actions/composite/test-info
       - name: build
         run: |
           make -C test -j8
