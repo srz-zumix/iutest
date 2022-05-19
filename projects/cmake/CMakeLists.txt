@@ -11,6 +11,7 @@ option(build_use_gtest_configuration "use gtest build configuration." ON)
 option(build_tests "tests build." ON)
 option(build_namespace_tests "enable namespace test build." ON)
 option(build_for_iwyu "for include-what-you-use." OFF)
+option(build_for_clang_tidy, "for clang-tidy" OFF)
 
 include(xcode_version.cmake)
 # Xcode workarounds
@@ -31,6 +32,7 @@ if (CMAKE_VERSION VERSION_LESS 3.19)
             -Dbuild_tests:BOOL=${build_tests}
             -Dbuild_namespace_tests:BOOL=${build_namespace_tests}
             -Dbuild_for_iwyu:BOOL=${build_for_iwyu}
+            -Dbuild_for_clang_tidy:BOOL=${build_for_clang_tidy}
             ${CMAKE_SOURCE_DIR})
         message(STATUS "Recursive generate done")
     
@@ -103,6 +105,10 @@ endif()
 
 if (build_for_iwyu)
   add_definitions("-DIUTEST_BUILD_FOR_IWYU")
+endif()
+
+if (build_for_clang_tidy)
+  set(CMAKE_CXX_CLANG_TIDY "clang-tidy")
 endif()
 
 # include path
