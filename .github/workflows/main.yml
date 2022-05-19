@@ -228,7 +228,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: set .bashrc
         run: |
-          ls /opt/intel/oneapi
+          whoami
           echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bashrc
       - name: info
         uses: ./.github/actions/composite/test-info

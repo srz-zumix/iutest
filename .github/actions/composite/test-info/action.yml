@@ -14,8 +14,7 @@ runs:
     - name: test
       shell: bash
       run: |
-        ls -l ~/
-        env
+        whoami
     - name: clean
       shell: bash
       # shell: ${{ inputs.shell-cmd }}
