@@ -448,7 +448,9 @@
 #endif
 
 #if !defined(IUTEST_HAS_STD_FILESYSTEM)
-#  if defined(ANDROID) || defined(__ANDROID__) || defined(__ARM_EABI__)
+#  if   defined(ANDROID) || defined(__ANDROID__) || defined(__ARM_EABI__)
+#    define IUTEST_HAS_STD_FILESYSTEM       0
+#  elif defined(__INTEL_COMPILER)
 #    define IUTEST_HAS_STD_FILESYSTEM       0
 #  elif IUTEST_HAS_CXX_HDR_FILESYSTEM && defined(__cpp_lib_filesystem) && __cpp_lib_filesystem >= 201703
 #    if !defined(__cpp_lib_experimental_filesystem)

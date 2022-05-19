@@ -130,7 +130,8 @@
 			"cinttypes": "cpp",
 			"queue": "cpp",
 			"numbers": "cpp",
-			"semaphore": "cpp"
+			"semaphore": "cpp",
+			"version": "cpp"
 		},
 		"bracketLens.minBracketScopeLines": 12
 	},
