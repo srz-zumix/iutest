@@ -193,12 +193,8 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Set Python environment variable
         run: echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> "$GITHUB_ENV"
-      - name: zapcc info
-        run: |
-          make -C test clean
-          make -C test showcxxversion
-          make -C test showcxxmacros
-          make -C test check_stdlib
+      - name: info
+        uses: ./.github/actions/composite/test-info
       - name: zapcc build
         run: |
           make -C test -j1 IUTEST_REQUIRE_PYTHON=1
@@ -230,15 +226,12 @@ jobs:
         shell: bash -e -o pipefail -l {0}
     steps:
       - uses: actions/checkout@v3
-      - name: set .bash_profile
+      - name: set .bashrc
         run: |
-          echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
-      - name: icpc info
-        run: |
-          make -C test clean
-          make -C test showcxxversion
-          make -C test showcxxmacros
-          make -C test check_stdlib
+          ls /opt/intel/oneapi
+          echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bashrc
+      - name: info
+        uses: ./.github/actions/composite/test-info
       - name: icpc build
         run: |
           make -C test -j8
@@ -270,15 +263,14 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     env:
       DEFS: --specs=nosys.specs -march=armv8-a
-      LIBS: nosys
+      LIBS: gcc c m nosys
+      # DEFS: --specs=rdimon.specs -march=armv8-a
+      # LIBS: gcc c m rdimon
       OUTPUTXML: junit
     steps:
       - uses: actions/checkout@v3
-      - name: arm-none-eabi info
-        run: |
-          make -C test clean
-          make -C test showcxxversion
-          make -C test showcxxmacros
+      - name: info
+        uses: ./.github/actions/composite/test-info
       - name: build
         run: |
           make -C test -j8
@@ -304,7 +296,7 @@ jobs:
       - name: info
         uses: ./.github/actions/arm-linux-gnueabi
         with:
-          args: "make -C test QEMU_COMMAND=qemu-arm-static showcxxversion showcxxmacros check_stdlib"
+          args: "make -C test QEMU_COMMAND=qemu-arm-static showcxxversion showcxxmacros check_stdlib showstdlbfeatures"
       - name: build
         uses: ./.github/actions/arm-linux-gnueabi
         with:
@@ -318,6 +310,19 @@ jobs:
         with:
           report_paths: test/*.xml
         if: always()
+
+  #===================================================================
+  dagger:
+    runs-on: ubuntu-latest
+    needs: prepare
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dagger/dagger-for-github@v3
+        with:
+          cmds: |
+            project init
+            project update
+            do ctest
 
   #===================================================================
   infer:
