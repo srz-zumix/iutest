@@ -2,6 +2,7 @@
 *
 
 # includes
+!.git*
 !*.cpp
 !*.hpp
 !*.in
@@ -14,6 +15,7 @@
 !cpplint/**/*
 !docs/**/*
 !testdata/**/*
+!stdlib_feature_tests/**
 
 # excludes
 *.ns.cpp
