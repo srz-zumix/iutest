@@ -30,7 +30,7 @@ ${EXECUTE_TARGET}: % : %.cpp $(MAKEFILE)
 
 show : $(TARGET) ## show feature macros
 	@cat -s ./$(TARGET) \
-		| grep -A 256 stdlib_config_check_macros.cpp \
+		| grep -A 256 stdlib_config_check.defs \
 		| grep -B 256 $(EXECUTE_TARGET).cpp \
 		| sed '/^#/d' \
 		| sed 's/[";]//g' \

@@ -31,7 +31,7 @@ int wmain(int , wchar_t* [])
 int main(int , char* [])
 #endif
 {
-    #include "stdlib_config_check_macros.cpp"
+    #include "stdlib_config_check.defs"
     return 0;
 }
 
