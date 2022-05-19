@@ -11,12 +11,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: test
-      shell: bash
-      run: |
-        whoami
     - name: clean
-      shell: bash
+      # shell: bash
       # shell: ${{ inputs.shell-cmd }}
       if: ${{ inputs.before-clean }}
       run: |
