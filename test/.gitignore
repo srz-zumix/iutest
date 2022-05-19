@@ -5,6 +5,7 @@
 !.git*
 !*.cpp
 !*.hpp
+!*.defs
 !*.in
 !Makefile
 !GNUMakefile

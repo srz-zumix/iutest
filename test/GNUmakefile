@@ -270,7 +270,7 @@ endif
 ifdef CLANGMAJOR
 endif
 
-showstdlbfeatures:
+showstdlbfeatures: $(IUTEST_HEADERS) $(MAKEFILE)
 	${MAKE} -C stdlib_feature_tests CXXFLAGS="${CXXFLAGS} ${LDFLAGS}"
 
 check_stdlib: $(IUTEST_HEADERS) $(MAKEFILE)

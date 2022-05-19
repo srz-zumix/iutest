@@ -226,9 +226,9 @@ jobs:
         shell: bash -e -o pipefail -l {0}
     steps:
       - uses: actions/checkout@v3
-      - name: set .bash_profile
+      - name: set .bashrc
         run: |
-          echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
+          echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bashrc
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: icpc build
