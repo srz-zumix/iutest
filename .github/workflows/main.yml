@@ -231,8 +231,8 @@ jobs:
           echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
       - name: info
         uses: ./.github/actions/composite/test-info
-          with:
-            shell-cmd: bash -e -o pipefail -l {0}
+        with:
+          shell-cmd: bash -e -o pipefail -l {0}
       - name: icpc build
         run: |
           make -C test -j8
