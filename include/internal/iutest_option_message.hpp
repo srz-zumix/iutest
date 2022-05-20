@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_option_message.hpp
- * @brief       iris unit test コマンドラインメッセージ ファイル
+ * @brief       iris unit test commandline option message
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -150,6 +150,7 @@ inline void iuOptionMessage::ShowVersion()
     m (IUTEST_HAS_STATIC_ASSERT); \
     m (IUTEST_HAS_STATIC_ASSERT_TYPEEQ); \
     m (IUTEST_HAS_STREAM_BUFFER); \
+    m (IUTEST_HAS_STREAM_CAPTURE); \
     m (IUTEST_HAS_STREAM_RESULT); \
     m (IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE); \
     m (IUTEST_HAS_TESTNAME_ALIAS); \
@@ -224,7 +225,11 @@ inline void iuOptionMessage::ShowSpec()
     IIUT_SHOW_MACRO(IUTEST_HAS_EXCEPTIONS);
     IIUT_SHOW_MACRO(IUTEST_HAS_EXPLICIT_CONVERSION);
     IIUT_SHOW_MACRO(IUTEST_HAS_EXTERN_TEMPLATE);
+    IIUT_SHOW_MACRO(IUTEST_HAS_FD_DUP);
+    IIUT_SHOW_MACRO(IUTEST_HAS_FILENO);
+    IIUT_SHOW_MACRO(IUTEST_HAS_FILE_STAT);
     IIUT_SHOW_MACRO(IUTEST_HAS_FLOAT128);
+    IIUT_SHOW_MACRO(IUTEST_HAS_FOPEN);
     IIUT_SHOW_MACRO(IUTEST_HAS_GETTIMEOFDAY);
     IIUT_SHOW_MACRO(IUTEST_HAS_HDR_CXXABI);
     IIUT_SHOW_MACRO(IUTEST_HAS_HDR_SYSTIME);
@@ -236,6 +241,7 @@ inline void iuOptionMessage::ShowSpec()
     IIUT_SHOW_MACRO(IUTEST_HAS_LAMBDA);
     IIUT_SHOW_MACRO(IUTEST_HAS_LAMBDA_STATEMENTS);
     IIUT_SHOW_MACRO(IUTEST_HAS_LONG_DOUBLE);
+    IIUT_SHOW_MACRO(IUTEST_HAS_MKSTEMP);
     IIUT_SHOW_MACRO(IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION);
     IIUT_SHOW_MACRO(IUTEST_HAS_NOEXCEPT);
     IIUT_SHOW_MACRO(IUTEST_HAS_NULLPTR);
