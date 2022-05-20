@@ -385,7 +385,7 @@ public:
         return OpenImpl(m_filename.c_str(), mode);
     }
 
-    bool Delete()
+    void Delete()
     {
         Close();
         if( !m_filename.empty() )
@@ -433,6 +433,8 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     }
 
 private:
+    bool Open(const char*, int);
+
     virtual bool OpenImpl(const char* filename, int mode) IUTEST_CXX_OVERRIDE
     {
         return m_file.Open(filename, mode);
