@@ -43,7 +43,6 @@ public:
         }
         else
         {
-            m_tempfile;
             if( !m_tempfile.Create("iutest_stream_capture") )
             {
                 IUTEST_LOG_(WARNING) << "temp file open failed";
