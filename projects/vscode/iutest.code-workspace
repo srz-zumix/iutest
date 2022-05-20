@@ -131,7 +131,9 @@
 			"queue": "cpp",
 			"numbers": "cpp",
 			"semaphore": "cpp",
-			"version": "cpp"
+			"__memory": "cpp",
+			"version": "cpp",
+			"*.defs": "cpp"
 		},
 		"bracketLens.minBracketScopeLines": 12
 	},
