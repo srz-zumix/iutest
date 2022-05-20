@@ -43,18 +43,18 @@ public:
         }
         else
         {
-            TempFile temp;
-            if( !temp.Create("iutest_stream_capture") )
+            m_tempfile;
+            if( !m_tempfile.Create("iutest_stream_capture") )
             {
                 IUTEST_LOG_(WARNING) << "temp file open failed";
             }
-            m_new_fd = temp.GetDescriptor();
-            m_filename = temp.GetFileName();
+            m_new_fd = m_tempfile.GetDescriptor();
             if( internal::posix::Dup2(m_new_fd, fd) == -1 )
             {
                 IUTEST_LOG_(WARNING) << "file descriptor dup2 failed";
                 Close();
             }
+            m_tempfile.Close();
         }
     }
     ~IUStreamCapture()
@@ -65,13 +65,12 @@ public:
 public:
     ::std::string GetStreamString()
     {
-        StdioFile captured_file;
-        if( !captured_file.Open(m_filename.c_str(), iutest::IFile::OpenRead) )
+        if( !m_tempfile.Open(iutest::IFile::OpenRead) )
         {
-            IUTEST_LOG_(WARNING) << "temp file open failed: " << m_filename;
+            IUTEST_LOG_(WARNING) << "temp file open failed: " << m_tempfile.GetFileName();
             return "";
         }
-        return captured_file.ReadAll();
+        return m_tempfile.ReadAll();
     }
 
 private:
@@ -88,11 +87,11 @@ private:
     void Delete()
     {
         Close();
-        remove(m_filename.c_str());
+        m_tempfile.Delete();
     }
 
 private:
-    ::std::string m_filename;
+    TempFile m_tempfile;
     int m_fd;
     int m_prev_fd;
     int m_new_fd;

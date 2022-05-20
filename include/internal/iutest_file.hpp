@@ -333,6 +333,8 @@ public:
     {
     }
 
+    virtual ~TempFile() { Close(); }
+
 public:
     /**
      * @brief   閉じる
@@ -378,6 +380,21 @@ public:
     int GetDescriptor() const { return m_fd; }
     const ::std::string& GetFileName() const { return m_filename; }
 
+    bool Open(int mode)
+    {
+        return OpenImpl(m_filename.c_str(), mode);
+    }
+
+    bool Delete()
+    {
+        Close();
+        if( !m_filename.empty() )
+        {
+            remove(m_filename.c_str());
+            m_filename = "";
+        }
+    }
+
     bool Create(const char* basename)
     {
 #if defined(IUTEST_OS_WINDOWS)
@@ -416,9 +433,9 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     }
 
 private:
-    virtual bool OpenImpl(const char*, int mode) IUTEST_CXX_OVERRIDE
+    virtual bool OpenImpl(const char* filename, int mode) IUTEST_CXX_OVERRIDE
     {
-        return m_file.Open(m_filename.c_str(), mode);
+        return m_file.Open(filename, mode);
     }
 
 private:

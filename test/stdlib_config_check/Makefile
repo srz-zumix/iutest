@@ -41,4 +41,4 @@ show : $(TARGET) ## show feature macros
 		| paste -
 
 ${TARGET}: %.pp : %.cpp $(MAKEFILE)
-	$(CXX) $(CXXFLAGS) -Wno-unused-macros -E -x c++ -o $@ $<
+	$(CXX) $(CXXFLAGS) -E -x c++ -o $@ $<
