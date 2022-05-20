@@ -13,7 +13,7 @@ runs:
   steps:
     - name: clean
       # shell: bash
-      # shell: ${{ inputs.shell-cmd }}
+      shell: ${{ inputs.shell-cmd }}
       if: ${{ inputs.before-clean }}
       run: |
         make -C test clean
