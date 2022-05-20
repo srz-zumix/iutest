@@ -25,6 +25,13 @@
 #define SHOW_UNDEF(macro)   undef  #macro
 #endif
 
+#define SUPPRESS_WARNING    1
+void f()
+{
+    SHOW_MACRO(SUPPRESS_WARNING)
+    SHOW_UNDEF(SUPPRESS_WARNING)
+}
+
 int main()
 {
     #include "show_macros.i"    // NOLINT
