@@ -26,7 +26,7 @@ test : $(EXECUTE_TARGET) ## run tests
 	./${EXECUTE_TARGET}
 
 ${EXECUTE_TARGET}: % : %.cpp show_macros.i $(MAKEFILE)
-	$(CXX) $(CXXFLAGS) -Wno-unused-macros -DFEATURE_TEST_EXECUTABLE -o $@ $<
+	$(CXX) $(CXXFLAGS) -DFEATURE_TEST_EXECUTABLE -o $@ $<
 
 show : $(TARGET) ## show feature macros
 	@cat -s ./$(TARGET) \
@@ -41,7 +41,7 @@ show : $(TARGET) ## show feature macros
 		| paste -
 
 ${TARGET}: %.pp : %.cpp show_macros.i $(MAKEFILE)
-	$(CXX) $(CXXFLAGS) -Wno-unused-macros -E -x c++ -o $@ $<
+	$(CXX) $(CXXFLAGS) -E -x c++ -o $@ $<
 
 FEATURE_MACROS=\
 	_POSIX_C_SOURCE \

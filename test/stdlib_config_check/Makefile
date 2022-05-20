@@ -26,7 +26,7 @@ test : $(EXECUTE_TARGET) ## run tests
 	./${EXECUTE_TARGET}
 
 ${EXECUTE_TARGET}: % : %.cpp $(MAKEFILE)
-	$(CXX) $(CXXFLAGS) -Wno-unused-macros -DSTDLIB_CONFIG_CHECK_EXECUTABLE -o $@ $<
+	$(CXX) $(CXXFLAGS) -DSTDLIB_CONFIG_CHECK_EXECUTABLE -o $@ $<
 
 show : $(TARGET) ## show feature macros
 	@cat -s ./$(TARGET) \
@@ -41,4 +41,4 @@ show : $(TARGET) ## show feature macros
 		| paste -
 
 ${TARGET}: %.pp : %.cpp $(MAKEFILE)
-	$(CXX) $(CXXFLAGS) -Wno-unused-macros -E -x c++ -o $@ $<
+	$(CXX) $(CXXFLAGS) -E -x c++ -o $@ $<

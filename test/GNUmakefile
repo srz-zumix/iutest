@@ -256,24 +256,24 @@ showcxxmacros: ## show compiler predefined macros
 showcxxflags: ## show cxxflags
 	@echo $(CXXFLAGS)
 
-showcxxwarn:
+showcxxwarn: ## show cxx warnings
 ifdef GCCMAJOR
 	$(CXX) -Q $(CXXWARNFLAGS) $(IUTEST_CXX_NOWARN_FLAGS) --help=c++
 endif
 ifdef CLANGMAJOR
 endif
 
-showcxxwarn-disabled:
+showcxxwarn-disabled:  ## show cxx disabled warnings
 ifdef GCCMAJOR
 	$(CXX) -Q $(CXXWARNFLAGS) $(IUTEST_CXX_NOWARN_FLAGS) --help=c++ | grep disabled
 endif
 ifdef CLANGMAJOR
 endif
 
-showstdlbfeatures: $(IUTEST_HEADERS) $(MAKEFILE)
+showstdlbfeatures: $(IUTEST_HEADERS) $(MAKEFILE) ## show stdlib feature macros
 	${MAKE} -C stdlib_feature_tests CXXFLAGS="${CXXFLAGS} ${LDFLAGS}"
 
-check_stdlib: $(IUTEST_HEADERS) $(MAKEFILE)
+check_stdlib: $(IUTEST_HEADERS) $(MAKEFILE) ## check stdlib config
 	${MAKE} -C stdlib_config_check CXXFLAGS="$(IUTEST_INCLUDE) $(CXXFLAGS)"
 
 list-xml:
