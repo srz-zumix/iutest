@@ -10,6 +10,8 @@
 
 PATH=$(PATH);$(MAKEDIR)\..\tools\VisualStudio
 
+MAKEFILE=Makefile CommonMakefile.in
+
 #
 # Config
 #
@@ -81,6 +83,12 @@ showcxxmacros: ## show compiler predefined macros
 	$(CXX) /c /Bxcl-dME.bat main.cpp || true
 	# $(CXX) /c /B1cl-dME.bat main.c || true
 
+showstdlbfeatures: $(IUTEST_HEADERS) $(MAKEFILE)
+	${MAKE} -C stdlib_feature_tests CXXFLAGS="$(CXXFLAGS) $(LDFLAGS)"
+
+check_stdlib: $(IUTEST_HEADERS) $(MAKEFILE)
+	${MAKE} -C stdlib_config_check CXXFLAGS="$(IUTEST_INCLUDE) $(CXXFLAGS)"
+
 $(RUNNER) : $(@:_tests_run=_tests)
 	@echo $@
 !ifdef OUTPUTXML
@@ -96,7 +104,7 @@ $(RUNNER) : $(@:_tests_run=_tests)
 #
 # NAMESPACETESTS_SRCS
 
-$(NAMESPACETESTS_TEST_SRCS): $(ALLTESTS_TEST_SRCS) Makefile
+$(NAMESPACETESTS_TEST_SRCS): $(ALLTESTS_TEST_SRCS) $(MAKEFILE)
 	@echo #include ^<cmath^> > $@
 	@echo #include "../include/gtest/iutest_spi_switch.hpp" >> $@
 	@echo #include "../include/internal/iutest_filepath.hpp" >> $@
@@ -119,22 +127,22 @@ IUTEST_COMPILE_ERROR_TEST_OPTION+= --verbose
 
 TARGETS_EXCLUDE_ALLTESTS=$(TEST_TARGETS) $(ASSERTION_ONLY_TARGETS) $(TARGETS_IUTEST_ONLY) $(BUILD_ONLY)
 
-$(ALLTESTS_TARGET) : $(ALLTESTS_SRCS) $(IUTEST_HEADERS) Makefile
+$(ALLTESTS_TARGET) : $(ALLTESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) /Fe$@ $(ALLTESTS_SRCS) $(LDFLAGS)
 
-$(EXTENSIONTESTS_TARGET) : $(EXTENSIONTESTS_SRCS) $(IUTEST_HEADERS) Makefile
+$(EXTENSIONTESTS_TARGET) : $(EXTENSIONTESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) /Fe$@ $(EXTENSIONTESTS_SRCS) $(LDFLAGS)
 
-$(UNITTESTS_TARGET) : $(UNITTESTS_SRCS) $(IUTEST_HEADERS) Makefile
+$(UNITTESTS_TARGET) : $(UNITTESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) /Fe$@ $(UNITTESTS_SRCS) $(LDFLAGS)
 
-$(NAMESPACETESTS_TARGET) : $(NAMESPACETESTS_SRCS) $(IUTEST_HEADERS) Makefile
+$(NAMESPACETESTS_TARGET) : $(NAMESPACETESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) /Fe$@ $(NAMESPACETESTS_SRCS) $(LDFLAGS)
 
-$(TARGETS_EXCLUDE_ALLTESTS) : $(IUTEST_HEADERS) Makefile
+$(TARGETS_EXCLUDE_ALLTESTS) : $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) /Fe$@ $@.cpp $(LDFLAGS)
 
-$(COMPILEERROR_TARGETS) : $(IUTEST_HEADERS) Makefile
+$(COMPILEERROR_TARGETS) : $(IUTEST_HEADERS) $(MAKEFILE)
 #	-$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) /Fe$@ $@.cpp $(LDFLAGS)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) /Fe$@ $@.cpp $(LDFLAGS) | python ../tools/python/iutest_compile_error_test.py $(IUTEST_COMPILE_ERROR_TEST_OPTION)
 
