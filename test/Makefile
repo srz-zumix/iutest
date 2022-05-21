@@ -84,7 +84,7 @@ showcxxmacros: ## show compiler predefined macros
 	# $(CXX) /c /B1cl-dME.bat main.c || true
 
 showstdlbfeatures: $(IUTEST_HEADERS) $(MAKEFILE)
-	${MAKE} -C stdlib_feature_tests CXXFLAGS="${CXXFLAGS} ${LDFLAGS}"
+	${MAKE} -C stdlib_feature_tests CXXFLAGS="$(CXXFLAGS) $(LDFLAGS)"
 
 check_stdlib: $(IUTEST_HEADERS) $(MAKEFILE)
 	${MAKE} -C stdlib_config_check CXXFLAGS="$(IUTEST_INCLUDE) $(CXXFLAGS)"
