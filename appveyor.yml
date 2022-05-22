@@ -205,9 +205,11 @@ for:
       if($env:PLATFORM -eq "Win32"){
         $env:CYGWIN_PATH="C:\cygwin"
         $env:CYGWIN_SETUP_EXE="setup-x86.exe"
+        (New-Object Net.WebClient).DownloadFile('https://cygwin.com/setup-x86.exe', 'C:\cygwin\setup-x86.exe')
       } else {
         $env:CYGWIN_PATH="C:\cygwin64"
         $env:CYGWIN_SETUP_EXE="setup-x86_64.exe"
+        (New-Object Net.WebClient).DownloadFile('https://cygwin.com/setup-x86_64.exe', 'C:\cygwin64\setup-x86_64.exe')
       }
       $env:PATH=$env:CYGWIN_PATH + "\bin;" + $env:PATH
   install:
