@@ -154,6 +154,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #undef IUTEST_HAS_LONG_DOUBLE
 
 #undef IUTEST_HAS_STREAM_BUFFER
+#undef IUTEST_HAS_STREAM_CAPTURE
 
 #undef IUTEST_HAS_STD_FILESYSTEM
 
@@ -222,6 +223,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #define IUTEST_HAS_STD_FILESYSTEM       0
 
 #define IUTEST_HAS_STREAM_BUFFER        0
+#define IUTEST_HAS_STREAM_CAPTURE       0
 
 #define IUTEST_HAS_VARIADIC_TEMPLATES   0
 #define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES  0
