@@ -70,6 +70,12 @@ FEATURE_MACROS=\
 	__POSIX_VISIBLE \
 	__SVID_VISIBLE \
 	__XSI_VISIBLE \
+	__APPLE__ \
+	__CUDACC__ \
+	WIN32 \
+	_WIN32 \
+	__WIN32__ \
+	__WINE__ \
 	__MINGW__ \
 	__MINGW32__	\
 	__MINGW64__ \
