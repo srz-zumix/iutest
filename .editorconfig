@@ -101,3 +101,8 @@ indent_style = tab
 
 [Dockerfile]
 indent_size = 2
+
+# Dagger
+[*.cue]
+indent_style = space
+indent_size = 4

@@ -2,8 +2,10 @@
 *
 
 # includes
+!.git*
 !*.cpp
 !*.hpp
+!*.defs
 !*.in
 !Makefile
 !GNUMakefile
@@ -14,6 +16,7 @@
 !cpplint/**/*
 !docs/**/*
 !testdata/**/*
+!stdlib_feature_tests/**
 
 # excludes
 *.ns.cpp
