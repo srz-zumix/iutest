@@ -1,0 +1,5 @@
+Checks: "
+    ,-modernize-use-nullptr\
+    ,-cppcoreguidelines-pro-type-reinterpret-cast\
+    "
+InheritParentConfig: true

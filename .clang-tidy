@@ -1,0 +1,15 @@
+Checks: "*\
+    ,-__llvm_libc-*\
+    ,-cert-err58-cpp\
+    ,-clang-analyzer-*\
+    ,-cppcoreguidelines-macro-usage\
+    ,-cppcoreguidelines-explicit-virtual-functions\
+    ,-hicpp-use-override\
+    ,-llvm-namespace-comment\
+    ,-llvm-include-order\
+    ,-modernize-use-override\
+    ,-modernize-use-trailing-return-type\
+    ,-readability-isolate-declaration\
+    "
+# WarningsAsErrors: >
+#     *
