@@ -212,6 +212,7 @@ for:
       $env:PATH=$env:CYGWIN_PATH + "\bin;" + $env:PATH
   install:
     cmd: |
+      curl -sSL -o %CYGWIN_PATH%\%CYGWIN_SETUP_EXE% "https://cygwin.com/%CYGWIN_SETUP_EXE%"
       %CYGWIN_PATH%\%CYGWIN_SETUP_EXE% -qnNdO -R %CYGWIN_PATH% -s http://cygwin.mirror.constant.com -l %CYGWIN_PATH%/var/cache/setup -P make -P clang
   before_build: *noop
   build_script:
