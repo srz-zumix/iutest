@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -24,7 +24,7 @@
 // IWYU pragma: begin_exports
 #include "iutest_internal_defs.hpp"
 
-#if defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN) || defined(IUTEST_OS_MAC) || defined(IUTEST_OS_IOS) || defined(IUTEST_OS_FREEBSD)
+#if IUTEST_HAS_HDR_UNISTD
 #  include <unistd.h>
 #  include <locale.h>
 #endif
@@ -32,6 +32,7 @@
 #if IUTEST_HAS_FILE_STAT
 #  include <sys/stat.h>
 #endif
+
 // IWYU pragma: end_exports
 
 //======================================================================
@@ -103,6 +104,54 @@ IUTEST_ATTRIBUTE_NORETURN_ void Abort();
 inline void Abort() { abort(); }
 #endif
 
+#if IUTEST_HAS_HDR_UNISTD
+
+#if defined(_MSC_VER) || defined(IUTEST_OS_WINDOWS_MINGW)
+inline int FdClose(int fd) { return _close(fd); }
+inline int FdFlush(int fd) { return _commit(fd); }
+#else
+inline int FdClose(int fd) { return close(fd); }
+inline int FdFlush(int fd) { return fsync(fd); }
+#endif
+#else
+inline int FdClose(int) { return -1; }
+inline int FdFlush(int) { return -1; }
+#endif
+
+#if IUTEST_HAS_FD_OPEN
+
+#if defined(_MSC_VER) || (defined(IUTEST_OS_WINDOWS_MINGW) && !defined(IUTEST_OS_WINDOWS64))
+inline FILE* FdOpen(int fd, const char* mode) { return _fdopen(fd, mode); }
+#else
+inline FILE* FdOpen(int fd, const char* mode) { return fdopen(fd, mode); }
+#endif
+
+#else
+
+inline FILE* FdOpen(int, const char*) { return IUTEST_NULLPTR; }
+
+#endif
+
+
+#if IUTEST_HAS_FD_DUP
+
+#if defined(_MSC_VER)
+inline int Dup(int fd) { return _dup(fd); }
+#else
+inline int Dup(int fd) { return dup(fd); }
+#endif
+
+#if defined(_MSC_VER)
+inline int Dup2(int fd1, int fd2) { return _dup2(fd1, fd2); }
+#else
+inline int Dup2(int fd1, int fd2) { return dup2(fd1, fd2); }
+#endif
+
+#else
+inline int Dup(int) { return -1; }
+inline int Dup2(int, int) { return -1; }
+#endif
+
 #if IUTEST_HAS_FILENO
 
 #if defined(_MSC_VER)
@@ -143,6 +192,18 @@ inline int Stat(FILE* fp, StatStruct* buf)
     return fd >= 0 ? FileStat(fd, buf) : fd;
 }
 
+#endif
+
+#if IUTEST_HAS_MKSTEMP
+
+#if defined(_MSC_VER)
+inline int Mkstemp(char* template_path) { return _mkstemp(template_path); }
+#else
+inline int Mkstemp(char* template_path) { return mkstemp(template_path); }
+#endif
+
+#else
+inline int Mkstemp(char*) { return -1; }
 #endif
 
 }   // end of namespace posix
@@ -285,10 +346,16 @@ private:
 
 #if IUTEST_HAS_STREAM_BUFFER
 
+#if defined(BUFSIZ) && BUFSIZ > 1024
+#  define IUTEST_DEFAULT_STREAM_BUFFER_SIZE BUFSIZ
+#else
+#  define IUTEST_DEFAULT_STREAM_BUFFER_SIZE 1024
+#endif
+
 /**
  * @brief   stream buffer
 */
-template<int SIZE=BUFSIZ>
+template<int SIZE=IUTEST_DEFAULT_STREAM_BUFFER_SIZE>
 class IUStreamBuffer
 {
 public:
@@ -297,27 +364,34 @@ public:
     {
         m_buf[0] = '\0';
         fflush(fp);
-        setvbuf(fp, m_buf, _IOFBF, SIZE);
+        const int r = setvbuf(fp, m_buf, _IOFBF, SIZE);
+        if( r != 0 )
+        {
+            IUTEST_LOG_(WARNING) << "setvbuf failed: " << r;
+            m_fp = NULL;
+        }
     }
 
     ~IUStreamBuffer()
     {
-        fflush(m_fp);
-        setvbuf(m_fp, NULL, _IONBF, 0);
+        if( m_fp != NULL )
+        {
+            fflush(m_fp);
+            setvbuf(m_fp, NULL, _IONBF, 0);
+        }
     }
 
 public:
-    ::std::string GetStreamString() { return m_buf; }
+    ::std::string GetStreamString() const
+    {
+        return m_buf;
+    }
+    bool IsValid() const { return m_fp != NULL; }
 
 private:
     FILE* m_fp;
     char m_buf[SIZE];
 };
-
-/**
-* @brief    stream capture
-*/
-
 
 #endif
 
