@@ -75,6 +75,9 @@ FEATURE_MACROS=\
 	WIN32 \
 	_WIN32 \
 	__WIN32__ \
+	WIN64 \
+	_WIN64 \
+	__WIN64__ \
 	__WINE__ \
 	__MINGW__ \
 	__MINGW32__	\
