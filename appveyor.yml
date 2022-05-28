@@ -252,7 +252,7 @@ for:
   build_script:
     cmd: |
       cd test
-      mingw32-make showcxxmacros showstdlbfeatures
+      mingw32-make showcxxversion showcxxmacros showstdlbfeatures
       mingw32-make -j4 %MAKE_OPTIONS% OUTPUTXML=%OUTPUTXML_TYPE%
   test_script:
     cmd: mingw32-make test %MAKE_OPTIONS% OUTPUTXML=%OUTPUTXML_TYPE% && mingw32-make report
