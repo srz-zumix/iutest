@@ -682,6 +682,8 @@
 #      if !defined(__STRICT_ANSI__)
 #        define IUTEST_HAS_FD_OPEN                  1
 #      endif
+#    elif defined(IUTEST_OS_WINDOWS_MINGW) && !defined(__MINGW64__)
+#      define IUTEST_HAS_FD_OPEN                    0
 #    else
 #      define IUTEST_HAS_FD_OPEN                    1
 #    endif
