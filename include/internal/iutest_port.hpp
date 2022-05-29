@@ -120,7 +120,7 @@ inline int FdFlush(int) { return -1; }
 
 #if IUTEST_HAS_FD_OPEN
 
-#if defined(_MSC_VER) || (defined(IUTEST_OS_WINDOWS_MINGW) && !defined(IUTEST_OS_WINDOWS64))
+#if defined(_MSC_VER) || defined(__MINGW64__)
 inline FILE* FdOpen(int fd, const char* mode) { return _fdopen(fd, mode); }
 #else
 inline FILE* FdOpen(int fd, const char* mode) { return fdopen(fd, mode); }

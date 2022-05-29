@@ -242,10 +242,10 @@ for:
   install:
     ps: |
       if($env:PLATFORM -eq "Win32"){
+        $env:MINGW_PATH="C:\mingw\bin"
+      } else {
         $env:MAKE_OPTIONS="LIBS=ws2_32"
         $env:MINGW_PATH="C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin"
-      } else {
-        $env:MINGW_PATH="C:\mingw\bin"
       }
       $env:PATH=$env:MINGW_PATH + ";" + $env:PATH
   before_build: *noop
