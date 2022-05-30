@@ -409,8 +409,12 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         const int fd = _creat(name_template, _S_IREAD | _S_IWRITE);
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 #else
+#if defined(IUTEST_OS_WINDOWS_MINGW)
+        const int fd = _sopen(name_template, _O_CREAT | _O_RDWR, _SH_DENYNO, _S_IREAD | _S_IWRITE);
+#else
         int fd = -1;
         _sopen_s(&fd, name_template, _O_CREAT | _O_RDWR, _SH_DENYNO, _S_IREAD | _S_IWRITE);
+#endif
 #endif
 #else
 #if   defined(IUTEST_OS_LINUX_ANDROID)

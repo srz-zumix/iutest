@@ -710,6 +710,8 @@
 #    if !defined(__STRICT_ANSI__)
 #      define IUTEST_HAS_MKSTEMP                    1
 #    endif
+#  elif defined(IUTEST_OS_WINDOWS_MINGW) && !defined(__MINGW64__)
+#    define IUTEST_HAS_MKSTEMP                      0
 #  elif IUTEST_HAS_HDR_UNISTD
 #    define IUTEST_HAS_MKSTEMP                      1
 #  endif
