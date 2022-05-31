@@ -187,7 +187,7 @@ protected:
     FILE* m_fp;
 public:
     StdioFile() IUTEST_CXX_NOEXCEPT_SPEC : m_fp(NULL) {}
-    virtual ~StdioFile() { Close(); }
+    virtual ~StdioFile() { StdioFile::Close(); }
 public:
     /**
      * @brief   閉じる
@@ -460,7 +460,7 @@ private:
 class StringStreamFile : public IFile
 {
 public:
-    virtual ~StringStreamFile() { Close(); }
+    virtual ~StringStreamFile() { StringStreamFile::Close(); }
 public:
     /**
      * @brief   閉じる
