@@ -41,11 +41,15 @@ IUTEST(PortableTest, PutGetEnv)
     IUTEST_ASSERT_STREQ("hoge", ::iutest::internal::posix::GetEnv(env_name));
 }
 
+#if IUTEST_HAS_FILE_STAT
+
 IUTEST(PortableTest, FileStat)
 {
     ::iutest::internal::posix::StatStruct st;
     IUTEST_ASSERT_EQ(0, ::iutest::internal::posix::FileStat(0, &st));
 }
+
+#endif
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
