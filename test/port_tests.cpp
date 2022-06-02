@@ -41,7 +41,7 @@ IUTEST(PortableTest, PutGetEnv)
     IUTEST_ASSERT_STREQ("hoge", ::iutest::internal::posix::GetEnv(env_name));
 }
 
-#if IUTEST_HAS_FILE_STAT
+#if IUTEST_HAS_FILE_STAT && !defined(IUTEST_USE_GTEST)
 
 IUTEST(PortableTest, FileStat)
 {
