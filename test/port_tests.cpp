@@ -21,7 +21,7 @@
 IUTEST(PortableTest, SetGetEnv)
 {
     const char* env_name = "IUTEST_PORT_TEST_SETENV";
-    IUTEST_ASSUME_NE(0, ::iutest::internal::posix::SetEnv(env_name, "test", 0));
+    IUTEST_ASSUME_EQ(0, ::iutest::internal::posix::SetEnv(env_name, "test", 0));
     IUTEST_ASSERT_STREQ("test", ::iutest::internal::posix::GetEnv(env_name));
 
     IUTEST_EXPECT_EQ(0, ::iutest::internal::posix::SetEnv(env_name, "hoge", 0));
@@ -34,7 +34,7 @@ IUTEST(PortableTest, SetGetEnv)
 IUTEST(PortableTest, PutGetEnv)
 {
     const char* env_name = "IUTEST_PORT_TEST_PUTENV";
-    IUTEST_ASSUME_NE(0, ::iutest::internal::posix::PutEnv("IUTEST_PORT_TEST_PUTENV=test"));
+    IUTEST_ASSUME_EQ(0, ::iutest::internal::posix::PutEnv("IUTEST_PORT_TEST_PUTENV=test"));
     IUTEST_ASSERT_STREQ("test", ::iutest::internal::posix::GetEnv(env_name));
 
     IUTEST_EXPECT_NE(-1, ::iutest::internal::posix::PutEnv("IUTEST_PORT_TEST_PUTENV=hoge"));
