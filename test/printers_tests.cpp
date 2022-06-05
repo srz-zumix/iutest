@@ -326,6 +326,8 @@ IUTEST(PrintToTest, WideString)
     }
 }
 
+#if !defined(NO_TEST_SURROGATEPAIR)
+
 IUTEST_PRAGMA_MSC_WARN_PUSH()
 IUTEST_PRAGMA_MSC_WARN_DISABLE(4566)
 
@@ -373,6 +375,8 @@ IUTEST(PrintToTest, SurrogatePair)
 }
 
 IUTEST_PRAGMA_MSC_WARN_POP()
+
+#endif
 
 #if IUTEST_HAS_CXX_HDR_STRING_VIEW
 IUTEST(PrintToTest, WideStringStringView)
