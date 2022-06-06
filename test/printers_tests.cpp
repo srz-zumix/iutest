@@ -357,6 +357,8 @@ IUTEST(PrintToTest, SurrogatePair)
 }
 #endif
 
+#endif
+
 #if IUTEST_HAS_CHAR16_T_PRINTABLE
 IUTEST(PrintToTest, SurrogatePairChar16T)
 {
@@ -377,8 +379,6 @@ IUTEST(PrintToTest, SurrogatePairChar16T)
 #endif
 
 IUTEST_PRAGMA_MSC_WARN_POP()
-
-#endif
 
 #if IUTEST_HAS_CXX_HDR_STRING_VIEW
 IUTEST(PrintToTest, WideStringStringView)
