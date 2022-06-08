@@ -4,6 +4,10 @@ before_script:
   - gcc --version || true
   - clang --version || true
 script:
+  - sudo apt-get update
+  - sudo apt-get install language-pack-ja
+  - sudo update-locale LANG=ja_JP.UTF-8
+  - sudo localectl set-locale LANG=ja_JP.UTF-8
   - make -C test showcxxversion showcxxmacros showstdlbfeatures
   - make -C test test DEFS=-DNO_TEST_SURROGATEPAIR
   # - make -C test fused

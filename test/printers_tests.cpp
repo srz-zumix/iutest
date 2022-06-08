@@ -326,6 +326,9 @@ IUTEST(PrintToTest, WideString)
     }
 }
 
+// #if !defined(NO_TEST_SURROGATEPAIR)
+#if 1
+
 IUTEST_PRAGMA_MSC_WARN_PUSH()
 IUTEST_PRAGMA_MSC_WARN_DISABLE(4566)
 
@@ -354,8 +357,6 @@ IUTEST(PrintToTest, SurrogatePair)
     }
 }
 #endif
-
-#if !defined(NO_TEST_SURROGATEPAIR)
 
 #if IUTEST_HAS_CHAR16_T_PRINTABLE
 IUTEST(PrintToTest, SurrogatePairChar16T)
