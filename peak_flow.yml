@@ -4,12 +4,18 @@ before_script:
   - gcc --version || true
   - clang --version || true
 script:
-  - make -C test fused
-  - make -C test -j4 USE_FUSED=1
-  - make -C test test
-  - make -C test clean
-  - make -C test fused_min
-  - make -C test -j4 USE_FUSED=1
-  - make -C test test
+  - sudo apt-get update
+  - sudo apt-get install -qq -y language-pack-ja
+  - sudo update-locale LANG=ja_JP.UTF-8
+  # - sudo localectl set-locale LANG=ja_JP.UTF-8
+  - make -C test showcxxversion showcxxmacros showstdlbfeatures
+  - make -C test test DEFS=-DNO_TEST_SURROGATEPAIR
+  # - make -C test fused
+  # - make -C test -j4 USE_FUSED=1
+  # - make -C test test
+  # - make -C test clean
+  # - make -C test fused_min
+  # - make -C test -j4 USE_FUSED=1
+  # - make -C test test
 
 # CXXFLAGS=-ftime-report

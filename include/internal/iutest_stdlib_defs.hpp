@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -385,6 +385,23 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_HAS_HDR_UNISTD)
+#  if defined(__has_include)
+#    if __has_include(<unistd.h>)
+#      define IUTEST_HAS_HDR_UNISTD         1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_HDR_UNISTD)
+#  if defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN) \
+    || defined(IUTEST_OS_MAC) || defined(IUTEST_OS_IOS) \
+    || defined(IUTEST_OS_FREEBSD) \
+    || defined(__arm__)
+#    define IUTEST_HAS_HDR_UNISTD           1
+#  endif
+#endif
+
 // defaults for include
 //! has any header
 #if !defined(IUTEST_HAS_CXX_HDR_ANY)
@@ -445,6 +462,10 @@
 //! has cxxabi header
 #if !defined(IUTEST_HAS_HDR_CXXABI)
 #  define IUTEST_HAS_HDR_CXXABI             0
+#endif
+//! has unistd.h header
+#if !defined(IUTEST_HAS_HDR_UNISTD)
+#  define IUTEST_HAS_HDR_UNISTD             0
 #endif
 
 #if !defined(IUTEST_HAS_STD_FILESYSTEM)
@@ -611,6 +632,93 @@
 
 #if !defined(IUTEST_HAS_INVALID_PARAMETER_HANDLER)
 #  define IUTEST_HAS_INVALID_PARAMETER_HANDLER      0
+#endif
+
+//! has fopen
+#if !defined(IUTEST_HAS_FOPEN)
+#  define IUTEST_HAS_FOPEN                          1
+#endif
+
+
+//! has file stat
+#if !defined(IUTEST_HAS_FILE_STAT)
+#  if !defined(IUTEST_OS_WINDOWS_MOBILE)
+#    define IUTEST_HAS_FILE_STAT                    1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_FILE_STAT)
+#  define IUTEST_HAS_FILE_STAT                      0
+#endif
+
+//! has fileno
+#if !defined(IUTEST_HAS_FILENO)
+#  if !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(__STRICT_ANSI__)
+#    define IUTEST_HAS_FILENO                       1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_FILENO)
+#  define IUTEST_HAS_FILENO                         0
+#endif
+
+//! has fd dup/dup2
+#if !defined(IUTEST_HAS_FD_DUP)
+#  if IUTEST_HAS_HDR_UNISTD && !defined(__arm__)
+#    define IUTEST_HAS_FD_DUP                       1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_FD_DUP)
+#  define IUTEST_HAS_FD_DUP                         0
+#endif
+
+//! has fdopen
+#if !defined(IUTEST_HAS_FD_OPEN)
+#  if IUTEST_HAS_HDR_UNISTD
+#    if defined(__arm__)
+#      define IUTEST_HAS_FD_OPEN                    0
+#    elif defined(IUTEST_OS_CYGWIN)
+#      if !defined(__STRICT_ANSI__)
+#        define IUTEST_HAS_FD_OPEN                  1
+#      endif
+#    elif defined(IUTEST_OS_WINDOWS_MINGW) && !defined(__MINGW64__)
+#      define IUTEST_HAS_FD_OPEN                    0
+#    else
+#      define IUTEST_HAS_FD_OPEN                    1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_FD_OPEN)
+#  define IUTEST_HAS_FD_OPEN                        0
+#endif
+
+//! has mkstemp
+#if !defined(IUTEST_HAS_MKSTEMP)
+#  if   defined(HAVE_MKSTEMP)
+#      define IUTEST_HAS_MKSTEMP                    HAVE_MKSTEMP
+#  elif defined(__arm__)
+#    if !defined(_REENT_ONLY) \
+      && ( (defined(__MISC_VISIBLE) && __MISC_VISIBLE) \
+        || (defined(__POSIX_VISIBLE) && __POSIX_VISIBLE >= 200112) \
+        || (defined(__XSI_VISIBLE) && __XSI_VISIBLE >= 4) \
+      )
+#      define IUTEST_HAS_MKSTEMP                    1
+#    endif
+#  elif defined(IUTEST_OS_CYGWIN)
+#    if !defined(__STRICT_ANSI__)
+#      define IUTEST_HAS_MKSTEMP                    1
+#    endif
+#  elif defined(IUTEST_OS_WINDOWS_MINGW) && !defined(__MINGW64__)
+#    define IUTEST_HAS_MKSTEMP                      0
+#  elif IUTEST_HAS_HDR_UNISTD
+#    define IUTEST_HAS_MKSTEMP                      1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_MKSTEMP)
+#  define IUTEST_HAS_MKSTEMP                        0
 #endif
 
 //! size_t format macros
