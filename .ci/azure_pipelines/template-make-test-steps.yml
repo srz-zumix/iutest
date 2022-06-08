@@ -18,7 +18,7 @@ steps:
     echo unpackaged=true >> ~/.config/apport/settings
     cat ~/.config/apport/settings
     sudo apt-get update
-    sudo apt-get install language-pack-ja
+    sudo apt-get install -qq -y language-pack-ja
     sudo update-locale LANG=${{ parameters.LOCALE_CTYPE }}
     sudo localectl set-locale LANG=${{ parameters.LOCALE_CTYPE }}
     locale -a
@@ -39,7 +39,7 @@ steps:
         secureFile: hub
     - script: |
         sudo apt-get update
-        sudo apt-get install -y rubygems
+        sudo apt-get install -qq -y rubygems
         sudo gem install hub
         hub --version
         cp $(Agent.TempDirectory)/hub ~/.config/hub

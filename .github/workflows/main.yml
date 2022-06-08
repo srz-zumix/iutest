@@ -349,7 +349,7 @@ jobs:
       - uses: reviewdog/action-setup@v1
       - name: install clang-tidy
         run: |
-          sudo apt-get install -y clang-tidy
+          sudo apt-get install -qq -y clang-tidy
       - name: clang-tidy info
         run: |
           clang-tidy --version
