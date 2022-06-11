@@ -326,9 +326,6 @@ IUTEST(PrintToTest, WideString)
     }
 }
 
-// #if !defined(NO_TEST_SURROGATEPAIR)
-#if 1
-
 IUTEST_PRAGMA_MSC_WARN_PUSH()
 IUTEST_PRAGMA_MSC_WARN_DISABLE(4566)
 
@@ -351,12 +348,16 @@ IUTEST(PrintToTest, SurrogatePair)
     }
     else
     {
+#if !defined(NO_TEST_SURROGATEPAIR)
         LogChecker ck("\U00020BB7");
         IUTEST_PRINTTOSTRING_EQ(ck, s);
         IUTEST_STREAMOUT_CHECK(p);
+#endif
     }
 }
 #endif
+
+#if !defined(NO_TEST_SURROGATEPAIR)
 
 #if IUTEST_HAS_CHAR16_T_PRINTABLE
 IUTEST(PrintToTest, SurrogatePairChar16T)
