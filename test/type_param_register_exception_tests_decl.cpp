@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2021-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -15,8 +15,8 @@
 
 #include <stdexcept>
 
-#if IUTEST_HAS_STREAM_BUFFER
-    ::iutest::detail::IUStreamBuffer<> stderr_capture(stderr);
+#if IUTEST_HAS_STREAM_CAPTURE
+::iutest::detail::IUStreamCaptureStderr stderr_capture;
 #endif
 
 #if REGISTER_EXCEPTION_TEST
@@ -73,7 +73,7 @@ int main(int argc, char* argv[])
     IUTEST_INIT(&argc, argv);
 #if REGISTER_EXCEPTION_TEST
     ::iutest::IUTEST_FLAG(warning_into_error) = false;
-#if IUTEST_HAS_STREAM_BUFFER
+#if IUTEST_HAS_STREAM_CAPTURE
 #if REGISTER_EXCEPTION_TEST_THROW_INT
     IUTEST_EXPECT_STRIN(
         "IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P register tests failed...\n"
