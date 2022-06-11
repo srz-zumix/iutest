@@ -349,10 +349,10 @@ IUTEST(PrintToTest, SurrogatePair)
     else
     {
         LogChecker ck("\U00020BB7");
-        IUTEST_PRINTTOSTRING_EQ(ck, s);
 #if !defined(NO_TEST_SURROGATEPAIR)
-        IUTEST_STREAMOUT_CHECK(p);
+        IUTEST_PRINTTOSTRING_EQ(ck, s);
 #endif
+        IUTEST_STREAMOUT_CHECK(p);
     }
 }
 #endif
@@ -370,10 +370,10 @@ IUTEST(PrintToTest, SurrogatePairChar16T)
     else
     {
         LogChecker ck("\U00020BB7");
-        IUTEST_PRINTTOSTRING_EQ(ck, s);
 #if !defined(NO_TEST_SURROGATEPAIR)
-        IUTEST_STREAMOUT_CHECK(p);
+        IUTEST_PRINTTOSTRING_EQ(ck, s);
 #endif
+        IUTEST_STREAMOUT_CHECK(p);
     }
 }
 
