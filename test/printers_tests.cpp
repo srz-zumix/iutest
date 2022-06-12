@@ -329,48 +329,58 @@ IUTEST(PrintToTest, WideString)
 IUTEST_PRAGMA_MSC_WARN_PUSH()
 IUTEST_PRAGMA_MSC_WARN_DISABLE(4566)
 
+#if !defined(IUTEST_USE_GTEST)
 IUTEST(PrintToTest, SurrogatePair)
 {
-#if !defined(IUTEST_USE_GTEST)
+    const wchar_t* p = L"\U00020BB7";
+    const ::std::string s = ::iutest::PrintToString(p);
+    if( s[0] == '0' )
     {
-        const wchar_t* p = L"\U00020BB7";
-        const ::std::string s = ::iutest::PrintToString(p);
-        if( s[0] == '0' )
-        {
-            // LogChecker ck("00020BB7000091CE00005BB6");
-            LogChecker ck("00020BB7");
-            IUTEST_PRINTTOSTRING_CONTAIN(ck, s);
-            IUTEST_STREAMOUT_CHECK(p);
-        }
-        else if( s[0] == '?' )
-        {
-            // FIXME
-        }
-        else
-        {
-            LogChecker ck("\U00020BB7");
-            IUTEST_PRINTTOSTRING_EQ(ck, s);
-            IUTEST_STREAMOUT_CHECK(p);
-        }
+        // LogChecker ck("00020BB7000091CE00005BB6");
+        LogChecker ck("00020BB7");
+        IUTEST_PRINTTOSTRING_CONTAIN(ck, s);
+        IUTEST_STREAMOUT_CHECK(p);
     }
-#endif
-#if IUTEST_HAS_CHAR16_T_PRINTABLE
+    else if( s[0] == '?' )
     {
-        const char16_t* p = u"\U00020BB7";
-        const ::std::string s = ::iutest::PrintToString(p);
-        if( s[0] == '?' )
-        {
-            // FIXME
-        }
-        else
-        {
-            LogChecker ck("\U00020BB7");
-            IUTEST_PRINTTOSTRING_EQ(ck, s);
-            IUTEST_STREAMOUT_CHECK(p);
-        }
+        // FIXME
+        IUTEST_SKIP();
     }
+    else
+    {
+#if !defined(NO_TEST_SURROGATEPAIR)
+        LogChecker ck("\U00020BB7");
+#else
+        LogChecker ck("x");
 #endif
+        IUTEST_PRINTTOSTRING_EQ(ck, s);
+        IUTEST_STREAMOUT_CHECK(p);
+    }
 }
+#endif
+
+#if IUTEST_HAS_CHAR16_T_PRINTABLE
+IUTEST(PrintToTest, SurrogatePairChar16T)
+{
+    const char16_t* p = u"\U00020BB7";
+    const ::std::string s = ::iutest::PrintToString(p);
+    if( s[0] == '?' )
+    {
+        // FIXME
+        IUTEST_SKIP();
+    }
+    else
+    {
+#if !defined(NO_TEST_SURROGATEPAIR)
+        LogChecker ck("\U00020BB7");
+        (void)ck;
+        IUTEST_PRINTTOSTRING_EQ(ck, s);
+        IUTEST_STREAMOUT_CHECK(p);
+#endif
+    }
+}
+
+#endif
 
 IUTEST_PRAGMA_MSC_WARN_POP()
 
