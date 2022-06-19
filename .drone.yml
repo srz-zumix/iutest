@@ -130,7 +130,7 @@ steps:
     image: teeks99/clang-ubuntu:13
     # pull: if-not-exists
     commands:
-      - apt-get update && apt-get -qq -y install curl
+      - apt-get update && apt-get install -qq -y curl
       - export CC=clang-$${DRONE_STEP_NAME}
       - export CXX=clang++-$${DRONE_STEP_NAME}
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
@@ -195,7 +195,7 @@ steps:
     image: teeks99/clang-ubuntu:3.9
     # pull: if-not-exists
     commands:
-      - apt-get update && apt-get -qq -y install curl
+      - apt-get update && apt-get install -qq -y curl
       - export CC=clang-$${DRONE_STEP_NAME}
       - export CXX=clang++-$${DRONE_STEP_NAME}
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
@@ -332,7 +332,7 @@ steps:
     image: teeks99/clang-ubuntu:13
     # pull: if-not-exists
     commands:
-      - apt-get update && apt-get -qq -y install curl
+      - apt-get update && apt-get install -qq -y curl
       - export CC=clang-$${DRONE_STEP_NAME}
       - export CXX=clang++-$${DRONE_STEP_NAME}
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"

@@ -64,7 +64,7 @@ jobs:
     - uses: actions/checkout@master
     - name: install dependencies
       run: |
-        sudo apt-get install lcov
+        sudo apt-get install -qq -y lcov
     - name: info
       run: |
         make -C test showcxxmacros
