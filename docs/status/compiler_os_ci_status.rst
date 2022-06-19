@@ -112,12 +112,6 @@ OS
 .. |TravisCI| image:: https://travis-ci.com/srz-zumix/iutest.svg?branch=master&.svg
   :target: https://travis-ci.com/srz-zumix/iutest
 
-.. |Wercker| image:: https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/s/master?.svg
-  :target: https://app.wercker.com/project/bykey/d385156052aa4118a7f24affe4a8f851
-
-.. |WerckerLarge| image:: https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/m/master?.svg
-  :target: https://app.wercker.com/project/bykey/d385156052aa4118a7f24affe4a8f851
-
 
 .. |Codacy| image:: https://api.codacy.com/project/badge/Grade/e6407b63c9c844d080ed71c7707bded9?branch=master&.svg
   :target: https://www.codacy.com/app/srz-zumix/iutest?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=srz-zumix/iutest&amp;utm_campaign=Badge_Grade

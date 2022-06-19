@@ -27,4 +27,3 @@ assignees: ''
 * [ ] Semaphore
 * [ ] TeamCity Cloud
 * [ ] Travis CI
-* [ ] Wercker
