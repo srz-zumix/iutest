@@ -15,7 +15,6 @@
 [![Semaphore Build Status](https://semaphoreci.com/api/v1/srz_zumix/iutest/branches/master/badge.svg)](https://semaphoreci.com/srz_zumix/iutest)
 [![Semaphore 2.0 Build Status](https://srz-zumix.semaphoreci.com/badges/iutest/branches/master.svg)](https://srz-zumix.semaphoreci.com/projects/iutest)
 [![Travis-CI Build Status](https://travis-ci.com/srz-zumix/iutest.svg?branch=master)](https://travis-ci.com/srz-zumix/iutest)
-[![Wercker status](https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/s/master "wercker status")](https://app.wercker.com/project/bykey/d385156052aa4118a7f24affe4a8f851)  
   
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e6407b63c9c844d080ed71c7707bded9?branch=master)](https://www.codacy.com/app/srz-zumix/iutest?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=srz-zumix/iutest&amp;utm_campaign=Badge_Grade)
 [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/srz-zumix/iutest.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/srz-zumix/iutest/context:cpp)
@@ -147,7 +146,6 @@ Tests
 |[Semaphore 2.0](https://semaphoreci.com/)|[![Semaphore 2.0 Build Status](https://srz-zumix.semaphoreci.com/badges/iutest/branches/master.svg)](https://srz-zumix.semaphoreci.com/projects/iutest)|[![Semaphore 2.0 Build Status](https://srz-zumix.semaphoreci.com/badges/iutest/branches/develop.svg)](https://srz-zumix.semaphoreci.com/projects/iutest)|Scan-build, Basic test, sample run|
 |[Sider](https://sider.review/gh/repos/3447984/pulls)||styelint, Flake8, Cppcheck, cpplint, Clang-Tidy, Misspell, Goodcheck, Secret Scan|
 |[Travis CI](https://travis-ci.com/)|[![Travis-CI Build Status](https://travis-ci.com/srz-zumix/iutest.svg?branch=master)](https://travis-ci.com/srz-zumix/iutest)|[![Travis-CI Build Status](https://travis-ci.com/srz-zumix/iutest.svg?branch=develop)](https://travis-ci.com/srz-zumix/iutest)|Basic tests, Coverity-scan|
-|[Wercker](https://www.wercker.com/)|[![wercker status](https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/s/master "wercker status")](https://app.wercker.com/project/byKey/d385156052aa4118a7f24affe4a8f851)|[![wercker status](https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/s/develop "wercker status")](https://app.wercker.com/project/byKey/d385156052aa4118a7f24affe4a8f851)|test/cmake project check, iuwandbox make build|
 
 Basic test
 
