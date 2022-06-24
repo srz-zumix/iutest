@@ -3,6 +3,8 @@
 
 .PHONY: default clean all iutest internal util listener impl gtest src samples test
 
+PYTHON:=python
+
 IUTEST_HPP=$(wildcard ../../include/*.hpp)
 INTERNAL_HPP=$(wildcard ../../include/internal/*.hpp)
 UTIL_HPP=$(wildcard ../../include/util/*.hpp)
@@ -25,35 +27,35 @@ default: iutest internal impl listener util gtest src samples test
 all: clean default
 
 iutest: $(IUTEST_HPP) cpplint.py Makefile
-	python cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS) $(IUTEST_HPP)
+	$(PYTHON) cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS) $(IUTEST_HPP)
 
 internal: $(INTERNAL_HPP) cpplint.py Makefile
-	python cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS) $(INTERNAL_HPP)
+	$(PYTHON) cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS) $(INTERNAL_HPP)
 
 util: $(UTIL_HPP) cpplint.py Makefile
-	python cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS) $(UTIL_HPP)
+	$(PYTHON) cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS) $(UTIL_HPP)
 
 listener: $(LISTENER_HPP) cpplint.py Makefile
-	python cpplint.py --extensions=hpp,cpp --linelength=120 --filter=$(SUPPRESS) $(LISTENER_HPP)
+	$(PYTHON) cpplint.py --extensions=hpp,cpp --linelength=120 --filter=$(SUPPRESS) $(LISTENER_HPP)
 
 impl: $(IMPL_HPP) cpplint.py Makefile
-	python cpplint.py --extensions=ipp	   --linelength=150 --filter=$(SUPPRESS) $(IMPL_HPP)
+	$(PYTHON) cpplint.py --extensions=ipp	   --linelength=150 --filter=$(SUPPRESS) $(IMPL_HPP)
 
 gtest: $(GTEST_HPP) cpplint.py Makefile
-	python cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS),-build/include $(GTEST_HPP)
+	$(PYTHON) cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS),-build/include $(GTEST_HPP)
 
 src: $(SRC_CPP) cpplint.py Makefile
-	python cpplint.py --extensions=hpp,cpp --filter=$(SUPPRESS) $(SRC_CPP)
+	$(PYTHON) cpplint.py --extensions=hpp,cpp --filter=$(SUPPRESS) $(SRC_CPP)
 
 samples: $(SAMPLES) cpplint.py Makefile
-	python cpplint.py --extensions=hpp,cpp --linelength=120 --filter=$(SUPPRESS),-build/namespace,-runtime/printf $(SAMPLES)
+	$(PYTHON) cpplint.py --extensions=hpp,cpp --linelength=120 --filter=$(SUPPRESS),-build/namespace,-runtime/printf $(SAMPLES)
 
 test: $(SRC_CPP) cpplint.py Makefile
-	python cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS),-build/namespace,-build/include $(TESTS)
+	$(PYTHON) cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS),-build/namespace,-build/include $(TESTS)
 
 sider:
 	cd ../../ && \
-	python test/cpplint/cpplint.py --extensions=hpp,cpp,c,h --linelength=150 --quiet --output vs7 \
+	$(PYTHON) test/cpplint/cpplint.py --extensions=hpp,cpp,c,h --linelength=150 --quiet --output vs7 \
 		--filter="-build/c++11\
 		,-build/c++tr1\
 		,-build/header_guard\
@@ -72,7 +74,7 @@ sider:
 		" --recursive . \
 
 help:
-	python cpplint.py
+	$(PYTHON) cpplint.py
 
 clean:
 	rm -rf cpplint.py
