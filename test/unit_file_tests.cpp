@@ -101,6 +101,7 @@ IUTEST_F(FileSystemTest, FileSize64bit)
 
     ::iutest::StdioFile file;
     IUTEST_ASSERT_TRUE( file.Open(largefile, iutest::IFile::OpenRead) );
+    IUTEST_EXPECT_EQ(0x100000000ull, ::std::filesystem::file_size(largefile));
     IUTEST_EXPECT_EQ(0x100000000ull, file.GetSize());
 }
 
