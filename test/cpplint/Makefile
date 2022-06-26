@@ -17,7 +17,7 @@ TESTS=$(wildcard ../../test/*.cpp) $(wildcard ../../test/*.hpp)
 
 SUPPRESS_WHITESPACE_SUB=/indent,/braces,/comments,/newline,/labels,/operators,/parens
 SUPPRESS_WHITESPACE=$(subst /,-whitespace/,$(SUPPRESS_WHITESPACE_SUB))
-SUPPRESS_BUILD_SUB=/include_what_you_use,/c++11,/c++tr1,/header_guard
+SUPPRESS_BUILD_SUB=/include_what_you_use,/c++11,/c++tr1,/header_guard,/include_subdir
 SUPPRESS_BUILD=$(subst /,-build/,$(SUPPRESS_BUILD_SUB))
 SUPPRESS_READABILITY=-readability/todo,-readability/braces,-readability/function
 SUPPRESS_RUNTIME=-runtime/int,-runtime/references,-runtime/string
