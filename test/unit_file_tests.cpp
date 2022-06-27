@@ -97,7 +97,7 @@ public:
 
 IUTEST_F(FileSystemTest, FileStat)
 {
-    FILE* fp = fopen(largefile.c_str(), "rb");
+    FILE* fp = fopen(largefile.string().c_str(), "rb");
     IUTEST_ASSUME_NOTNULL(fp);
 
     ::iutest::internal::posix::StatStruct st = {};
