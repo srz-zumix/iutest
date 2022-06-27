@@ -95,6 +95,18 @@ public:
 
 #if IUTEST_HAS_FOPEN
 
+IUTEST_F(FileSystemTest, FileStat)
+{
+    FILE* fp = fopen(largefile.string().c_str(), "rb");
+    IUTEST_ASSUME_NOTNULL(fp);
+
+    ::iutest::internal::posix::StatStruct st = {};
+    IUTEST_EXPECT_EQ(0, ::iutest::internal::posix::Stat(fp, &st));
+    IUTEST_EXPECT_EQ(0x100000000ull, st.st_size);
+
+    fclose(fp);
+}
+
 IUTEST_F(FileSystemTest, FileSize64bit)
 {
     IUTEST_ASSUME_EQ(0x100000000ull, ::std::filesystem::file_size(largefile));
