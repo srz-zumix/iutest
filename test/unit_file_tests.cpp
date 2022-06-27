@@ -101,8 +101,16 @@ IUTEST_F(FileSystemTest, FileStat)
     IUTEST_ASSUME_NOTNULL(fp);
 
     ::iutest::internal::posix::StatStruct st = {};
-    IUTEST_EXPECT_EQ(0, ::iutest::internal::posix::Stat(fp, &st));
-    IUTEST_EXPECT_EQ(0x100000000ull, st.st_size);
+    {
+        const long pre = ftell(fp);
+        IUTEST_EXPECT_EQ(0, pre);
+        if( (pre != -1) && (fseek(fp, 0, SEEK_END) == 0) )
+        {
+            const size_t size = static_cast<size_t>(ftell(fp));
+            IUTEST_EXPECT_EQ(0x100000000ull, size);
+            IUTEST_UNUSED_RETURN(fseek(fp, pre, SEEK_SET));
+        }
+    }
 
     fclose(fp);
 }
