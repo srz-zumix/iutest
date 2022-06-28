@@ -104,6 +104,28 @@ IUTEST_ATTRIBUTE_NORETURN_ void Abort();
 inline void Abort() { abort(); }
 #endif
 
+#if IUTEST_HAS_FOPEN
+
+inline off_t FileSeek(FILE* fp, off_t pos, int where)
+{
+#if (defined(_FILE_OFFSET_BITS) && _FILE_OFFSET_BITS == 64) || (defined(defined) && _POSIX_C_SOURCE >= 200112L)
+    return fseeko(fp, pos, where);
+#else
+    return fseek(fp, pos, where);
+#endif
+}
+
+inline off_t FileTell(FILE* fp)
+{
+#if (defined(_FILE_OFFSET_BITS) && _FILE_OFFSET_BITS == 64) || (defined(defined) && _POSIX_C_SOURCE >= 200112L)
+    return ftello(fp);
+#else
+    return ftell(fp);
+#endif
+}
+
+#endif
+
 #if IUTEST_HAS_HDR_UNISTD
 
 #if defined(_MSC_VER) || defined(IUTEST_OS_WINDOWS_MINGW)

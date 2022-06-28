@@ -235,7 +235,7 @@ public:
     }
 
     //! サイズ取得
-    virtual size_t GetSize() IUTEST_CXX_OVERRIDE
+    virtual off_t GetSize() IUTEST_CXX_OVERRIDE
     {
         return GetSize(m_fp);
     }
@@ -247,7 +247,7 @@ public:
     }
 
 public:
-    static size_t GetSize(FILE* fp)
+    static off_t GetSize(FILE* fp)
     {
         if( fp == NULL )
         {
@@ -259,23 +259,22 @@ public:
         {
             return GetSizeBySeekSet(fp);
         }
-        // FIXME: https://github.com/srz-zumix/iutest/issues/227
-        return static_cast<size_t>(st.st_size);
+        return st.st_size;
 #else
         return GetSizeBySeekSet(fp);
 #endif
     }
-    static size_t GetSizeBySeekSet(FILE* fp)
+    static off_t GetSizeBySeekSet(FILE* fp)
     {
         if( fp == NULL )
         {
             return 0;
         }
-        const long pre = ftell(fp);
-        if( (pre != -1) && (fseek(fp, 0, SEEK_END) == 0) )
+        const off_t pre = internal::posix::FileTell(fp);
+        if( (pre != -1) && (internal::posix::FileSeek(fp, 0, SEEK_END) == 0) )
         {
-            const size_t size = static_cast<size_t>(ftell(fp));
-            IUTEST_UNUSED_RETURN(fseek(fp, pre, SEEK_SET));
+            const off_t size = internal::posix::FileTell(fp);
+            IUTEST_UNUSED_RETURN(internal::posix::FileSeek(fp, pre, SEEK_SET));
             return size;
         }
         return 0;
@@ -371,7 +370,7 @@ public:
     }
 
     //! サイズ取得
-    virtual size_t GetSize() IUTEST_CXX_OVERRIDE
+    virtual off_t GetSize() IUTEST_CXX_OVERRIDE
     {
         return m_file.GetSize();
     }
@@ -502,13 +501,13 @@ public:
     }
 
     //! サイズ取得
-    virtual size_t GetSize() IUTEST_CXX_OVERRIDE
+    virtual off_t GetSize() IUTEST_CXX_OVERRIDE
     {
         ::std::stringstream::pos_type pre = ss.tellg();
         ss.seekg(0, ::std::ios::end);
         ::std::stringstream::pos_type size = ss.tellg();
         ss.seekg(pre, ::std::ios::beg);
-        return static_cast<size_t>(size);
+        return static_cast<off_t>(size);
     }
 
     //! 全読み込み
@@ -540,7 +539,7 @@ public:
     virtual void Close() IUTEST_CXX_OVERRIDE {}
     virtual bool Write(const void*, size_t, size_t) IUTEST_CXX_OVERRIDE { return true;  }
     virtual bool Read(void*, size_t, size_t) IUTEST_CXX_OVERRIDE { return true; }
-    virtual size_t GetSize() IUTEST_CXX_OVERRIDE { return 0; }
+    virtual off_t GetSize() IUTEST_CXX_OVERRIDE { return 0; }
 private:
     virtual bool OpenImpl(const char*, int) IUTEST_CXX_OVERRIDE { return true; }
 };
