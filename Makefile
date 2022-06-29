@@ -11,3 +11,6 @@ fused:
 
 editorconfig-self-lint:
 	make -C tools/python editorconfig
+
+dagger-ctest:
+	dagger do ctest --log-format=plain
