@@ -85,6 +85,7 @@ dagger.#Plan & {
             }
         }
 
+        // cmake build
         cmake_build: {
             run: bash.#Run & {
                 input:   cmake.run.output
@@ -101,6 +102,7 @@ dagger.#Plan & {
             }
         }
 
+        // ctest
         ctest: {
             run: bash.#Run & {
                 input:   cmake_build.run.output
@@ -113,9 +115,19 @@ dagger.#Plan & {
                     ctest -C Debug --output-on-failure
                 """#
             }
+            test_result: bash.#Run & {
+                input:   run.output
+                workdir: cmake_build_path
+                mounts: _cmakeBuildDirMount
+                always: true
+                script: contents: #"""
+                    ls TestResults
+                """#
+            }
+
             contents: core.#Subdir & {
-                input: run.output.rootfs
-                path: cmake_build_path + "TestResults"
+                input: test_result.output.rootfs
+                path: cmake_build_path + "/TestResults"
             }
         }
     }
