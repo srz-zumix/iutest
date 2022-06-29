@@ -102,6 +102,13 @@ IUTEST_F(FileSystemTest, GetSizeBySeekSet)
     FILE* fp = fopen(largefile.string().c_str(), "rb");
     IUTEST_ASSUME_NOTNULL(fp);
     IUTEST_EXPECT_EQ(0x100000000ull, ::iutest::StdioFile::GetSizeBySeekSet(fp)) << ": " << sizeof(size_t);
+
+    const off_t pre = ::iutest::internal::posix::FileTell(fp);
+    IUTEST_EXPECT_EQ(0, pre);
+    IUTEST_EXPECT_EQ(0, ::iutest::internal::posix::FileSeek(fp, 0, SEEK_END));
+    const off_t size = ::iutest::internal::posix::FileTell(fp);
+    IUTEST_EXPECT_EQ(0x100000000ll, size);
+    IUTEST_EXPECT_EQ(0, ::iutest::internal::posix::FileSeek(fp, pre, SEEK_SET));
 }
 
 IUTEST_F(FileSystemTest, FileSize64bit)
