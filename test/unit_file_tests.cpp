@@ -101,7 +101,7 @@ IUTEST_F(FileSystemTest, GetSizeBySeekSet)
 
     FILE* fp = fopen(largefile.string().c_str(), "rb");
     IUTEST_ASSUME_NOTNULL(fp);
-    IUTEST_EXPECT_EQ(0x100000000ull, ::iutest::StdioFile::GetSizeBySeekSet(fp));
+    IUTEST_EXPECT_EQ(0x100000000ull, ::iutest::StdioFile::GetSizeBySeekSet(fp)) << ": " << sizeof(size_t);
 }
 
 IUTEST_F(FileSystemTest, FileSize64bit)
