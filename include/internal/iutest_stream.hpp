@@ -62,7 +62,7 @@ public:
     virtual bool Read(void* buf, size_t size, size_t cnt) = 0;
 
     //! サイズ取得
-    virtual off_t GetSize() = 0;
+    virtual size_t GetSize() = 0;
 
 public:
     //! 全読み込み
