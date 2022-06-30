@@ -106,18 +106,22 @@ inline void Abort() { abort(); }
 
 #if IUTEST_HAS_FOPEN
 
-inline off_t FileSeek(FILE* fp, off_t pos, int where)
+inline off_t FileSeek(FILE* fp, off_t pos, int origin)
 {
-#if (defined(_FILE_OFFSET_BITS) && _FILE_OFFSET_BITS == 64) || (defined(defined) && _POSIX_C_SOURCE >= 200112L)
-    return fseeko(fp, pos, where);
+#if defined(_MSC_VER) || defined(IUTEST_OS_WINDOWS_MINGW)
+    return _fseeki64(fp, pos, origin);
+#elif (defined(_FILE_OFFSET_BITS) && _FILE_OFFSET_BITS == 64) || (defined(defined) && _POSIX_C_SOURCE >= 200112L)
+    return fseeko(fp, pos, origin);
 #else
-    return fseek(fp, pos, where);
+    return fseek(fp, pos, origin);
 #endif
 }
 
 inline off_t FileTell(FILE* fp)
 {
-#if (defined(_FILE_OFFSET_BITS) && _FILE_OFFSET_BITS == 64) || (defined(defined) && _POSIX_C_SOURCE >= 200112L)
+#if defined(_MSC_VER) || defined(IUTEST_OS_WINDOWS_MINGW)
+    return _ftelli64(fp);
+#elif (defined(_FILE_OFFSET_BITS) && _FILE_OFFSET_BITS == 64) || (defined(defined) && _POSIX_C_SOURCE >= 200112L)
     return ftello(fp);
 #else
     return ftell(fp);
