@@ -84,12 +84,12 @@ const std::filesystem::path largefile("./testdata/largefile.bin");
 class FileSystemTest : public ::iutest::TestWithParam<uintmax_t>
 {
 public:
-    static void SetUpTestCase()
+    void SetUp() IUTEST_CXX_OVERRIDE
     {
         IUTEST_ASSERT_TRUE(::std::filesystem::copy_file("./testdata/empty.bin", largefile, ::std::filesystem::copy_options::overwrite_existing));
         ::std::filesystem::resize_file(largefile, GetParam());
     }
-    static void TearDownTestCase()
+    void TearDown() IUTEST_CXX_OVERRIDE
     {
         ::std::filesystem::remove(largefile);
     }
