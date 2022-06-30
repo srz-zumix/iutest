@@ -75,17 +75,19 @@ IUTEST(NoEffectFileUnitTest, Call)
     IUTEST_EXPECT_EQ(0u, file.GetSize());
 }
 
+#if IUTEST_HAS_PARAM_TEST
+
 #if IUTEST_HAS_STD_FILESYSTEM
 
 const std::filesystem::path largefile("./testdata/largefile.bin");
 
-class FileSystemTest : public ::iuutil::backward::Test<FileSystemTest>
+class FileSystemTest : public ::iutest::TestWithParam<uintmax_t>
 {
 public:
     static void SetUpTestCase()
     {
         IUTEST_ASSERT_TRUE(::std::filesystem::copy_file("./testdata/empty.bin", largefile, ::std::filesystem::copy_options::overwrite_existing));
-        ::std::filesystem::resize_file(largefile, 0x100000000ull);
+        ::std::filesystem::resize_file(largefile, GetParam());
     }
     static void TearDownTestCase()
     {
@@ -95,7 +97,7 @@ public:
 
 #if IUTEST_HAS_FOPEN
 
-IUTEST_F(FileSystemTest, GetSizeBySeekSet)
+IUTEST_P(FileSystemTest, GetSizeBySeekSet)
 {
     IUTEST_ASSUME_EQ(0x100000000ull, ::std::filesystem::file_size(largefile));
 
@@ -111,7 +113,7 @@ IUTEST_F(FileSystemTest, GetSizeBySeekSet)
     IUTEST_EXPECT_EQ(0, ::iutest::internal::posix::FileSeek(fp, pre, SEEK_SET));
 }
 
-IUTEST_F(FileSystemTest, FileSize64bit)
+IUTEST_P(FileSystemTest, FileSize64bit)
 {
     IUTEST_ASSUME_EQ(0x100000000ull, ::std::filesystem::file_size(largefile));
 
@@ -119,6 +121,10 @@ IUTEST_F(FileSystemTest, FileSize64bit)
     IUTEST_ASSERT_TRUE( file.Open(largefile, iutest::IFile::OpenRead) );
     IUTEST_EXPECT_EQ(0x100000000ull, file.GetSize());
 }
+
+#endif
+
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, FileSystemTest, ::iutest::Values(0x100000000ull, 0x10000ull));
 
 #endif
 
