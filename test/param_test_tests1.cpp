@@ -35,6 +35,28 @@ IUTEST_INSTANTIATE_TEST_SUITE_P(ValuesInVector, ParamTest, ::iutest::ValuesIn(va
 IUTEST_INSTANTIATE_TEST_SUITE_P(ValuesInInitializerList, ParamTest, ::iutest::ValuesIn({ 3, 2, 1, 0 }));
 #endif
 
+class TestSuiteGetParamTest : public ::iutest::TestWithParam<int>
+{
+public:
+    IUTEST_CLASS_INITIALIZE(OnSetUpTestSuite)
+    {
+        const int current = GetParam();
+        IUTEST_EXPECT_NE(m_prev, current);
+        m_prev = current;
+    }
+private:
+    static int m_prev;
+};
+
+int TestSuiteGetParamTest::m_prev = -1;
+
+IUTEST_P(TestSuiteGetParamTest, Test)
+{
+}
+
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, TestSuiteGetParamTest, ::iutest::Values(42, 100));
+
+
 #if !defined(IUTEST_USE_GTEST)
 
 enum TestEnum
