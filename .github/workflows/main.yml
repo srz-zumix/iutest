@@ -32,10 +32,12 @@ jobs:
     steps:
       - run: |
           echo "$HEAD_COMMIT_MESSAGE"
-      - env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
+      # dump github.event for https://github.com/nektos/act
+      - name: dump github.event
+        env:
+          GITHUB_EVENT_CONTEXT: ${{ toJson(github.event) }}
         run: |
-          echo "${GITHUB_CONTEXT}" > github_event.json
+          echo "${GITHUB_EVENT_CONTEXT}" > github_event.json
       - name: store event
         uses: actions/upload-artifact@v1
         with:
