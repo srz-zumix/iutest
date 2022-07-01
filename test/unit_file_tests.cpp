@@ -81,17 +81,24 @@ IUTEST(NoEffectFileUnitTest, Call)
 
 const std::filesystem::path largefile("./testdata/largefile.bin");
 
-class FileSystemTest : public ::iutest::TestWithParam<uintmax_t>
+class FileSystemTest : public ::iuutil::backward::Test<FileSystemTest>, public ::iutest::WithParamInterface<uintmax_t>
 {
 public:
-    void SetUp() IUTEST_CXX_OVERRIDE
+    static void SetUpTestCase(void)
     {
         IUTEST_ASSERT_TRUE(::std::filesystem::copy_file("./testdata/empty.bin", largefile, ::std::filesystem::copy_options::overwrite_existing));
+    }
+    static void TearDownTestCase(void)
+    {
+        ::std::filesystem::remove(largefile);
+    }
+
+    void SetUp() IUTEST_CXX_OVERRIDE
+    {
         ::std::filesystem::resize_file(largefile, GetParam());
     }
     void TearDown() IUTEST_CXX_OVERRIDE
     {
-        ::std::filesystem::remove(largefile);
     }
 };
 
@@ -111,6 +118,8 @@ IUTEST_P(FileSystemTest, GetSizeBySeekSet)
     const off_t size = ::iutest::internal::posix::FileTell(fp);
     IUTEST_EXPECT_EQ(0x100000000ll, size);
     IUTEST_EXPECT_EQ(0, ::iutest::internal::posix::FileSeek(fp, pre, SEEK_SET));
+
+    fclose(fp);
 }
 
 IUTEST_P(FileSystemTest, FileSize64bit)
