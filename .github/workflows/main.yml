@@ -32,6 +32,15 @@ jobs:
     steps:
       - run: |
           echo "$HEAD_COMMIT_MESSAGE"
+      - env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "${GITHUB_CONTEXT}" > github_event.json
+      - name: store event
+        uses: actions/upload-artifact@v1
+        with:
+          name: github_event.json
+          path: github_event.json
 
   login:
     runs-on: ubuntu-latest
