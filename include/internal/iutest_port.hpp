@@ -104,6 +104,28 @@ IUTEST_ATTRIBUTE_NORETURN_ void Abort();
 inline void Abort() { abort(); }
 #endif
 
+#if IUTEST_HAS_FOPEN
+
+inline off_t FileSeek(FILE* fp, off_t pos, int origin)
+{
+#if defined(_MSC_VER)
+    return _fseeki64(fp, pos, origin);
+#else
+    return fseeko(fp, pos, origin);
+#endif
+}
+
+inline off_t FileTell(FILE* fp)
+{
+#if defined(_MSC_VER)
+    return _ftelli64(fp);
+#else
+    return ftello(fp);
+#endif
+}
+
+#endif
+
 #if IUTEST_HAS_HDR_UNISTD
 
 #if defined(_MSC_VER) || defined(IUTEST_OS_WINDOWS_MINGW)
