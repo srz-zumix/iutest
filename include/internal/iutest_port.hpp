@@ -108,8 +108,10 @@ inline void Abort() { abort(); }
 
 inline off_t FileSeek(FILE* fp, off_t pos, int origin)
 {
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) || defined(IUTEST_OS_WINDOWS_MINGW)
     return _fseeki64(fp, pos, origin);
+#elif (!defined(_FILE_OFFSET_BITS) || _FILE_OFFSET_BITS != 64) || (defined(defined) && _POSIX_C_SOURCE >= 200112L)
+    return fseeko64(fp, pos, origin);
 #else
     return fseeko(fp, pos, origin);
 #endif
@@ -117,8 +119,10 @@ inline off_t FileSeek(FILE* fp, off_t pos, int origin)
 
 inline off_t FileTell(FILE* fp)
 {
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) || defined(IUTEST_OS_WINDOWS_MINGW)
     return _ftelli64(fp);
+#elif (!defined(_FILE_OFFSET_BITS) || _FILE_OFFSET_BITS != 64) || (defined(defined) && _POSIX_C_SOURCE >= 200112L)
+    return ftello64(fp);
 #else
     return ftello(fp);
 #endif
