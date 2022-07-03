@@ -234,9 +234,18 @@ endfunction()
 # CTest
 #
 function(cxx_add_test name)
-  add_test(
-    NAME ${name}
-    COMMAND $<TARGET_FILE:${name}>
+  if(test_output_xml)
+    add_test(
+      NAME ${name}
+      COMMAND $<TARGET_FILE:${name}>
     )
+  else()
+    get_filename_component(test_output_dir "${TEST_OUTPUT_DIR}/${name}.xml" DIRECTORY)
+    add_test(
+      NAME ${name}
+      COMMAND $<TARGET_FILE:${name}> "--iutest_output=xml:${test_output_dir}/${name}.xml"
+    )
+    # message(STATUS "$<TARGET_FILE:${name}> --iutest_output=xml:${test_output_dir}/${name}.xml")
+endif()
 endfunction()
 
