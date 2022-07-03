@@ -10,17 +10,25 @@ import (
     "universe.dagger.io/docker"
 )
 
-// 定数化
-cmake_build_path: "/src/dagger-cmake-build"  
+iutest_root_dir: "/iutest"
+test_result_dir: "/iutest/TestResults"
+cmake_build_path_name: "dagger-cmake-build"
 
 // パイプラインは Plan に書く
 dagger.#Plan & {
-    // cmake での out-of-source build のパスをキャッシュ
-    _cmakeBuildDirMount: cmake_build_path: {
-        dest:     "/src/dagger-cmake-build"
-        type:     "cache"
-        contents: core.#CacheDir & {
-            id: "iutest-cmake-builddir-cache"
+    // cmake での out-of-source build のパスをマウント
+    _cmakeBuildDirMount: {
+        mounts: (cmake_build_path_name): {
+            dest: "/\(cmake_build_path_name)"
+            type: "cache"
+            contents: core.#CacheDir & {
+                id: "iutest-cmake-builddir-cache"
+            }
+        }
+        workdir: mounts[(cmake_build_path_name)].dest
+        env: {
+            IUTEST_ROOT_DIR: (iutest_root_dir)
+            IUTEST_OUTPUT_DIR: (test_result_dir)
         }
     }
 
@@ -33,17 +41,19 @@ dagger.#Plan & {
                     "README.md",
                     "build",
                     "cmake-build",
-                    "dagger-cmake-build",
+                    (cmake_build_path_name),
                     ".ci",
                     ".circleci",
+                    ".git",
                     ".github",
                     ".idea",
                     ".semaphore",
                     ".vscode",
+                    "cue.mod",
                 ]
             }
-            "./dagger-cmake-build": write: contents: actions.cmake.contents.output
-            "./dagger-cmake-build/TestResults": write: contents: actions.ctest.contents.output
+            "./\(cmake_build_path_name)/cmake-build": write: contents: actions.cmake.contents.output
+            "./\(cmake_build_path_name)/TestResults": write: contents: actions.ctest.contents.output
         }
     }
     actions: {
@@ -53,17 +63,16 @@ dagger.#Plan & {
                 alpine.#Build & {
                     // iutest のビルドに必要な追加パッケージ
                     packages: {
-                        bash: {}
-                        make: {}
-                        cmake: {}
-                        "g++": {}
-                        clang: {}
+                        bash: _
+                        make: _
+                        cmake: _
+                        "g++": _
+                        clang: _
                     }
                 },
-
                 docker.#Copy & {
                     contents: client.filesystem."./".read.contents
-                    dest:     "/src"
+                    dest:     (iutest_root_dir)
                 },
             ]
         }
@@ -71,63 +80,60 @@ dagger.#Plan & {
         // cmake generate project
         cmake: {
             run: bash.#Run & {
-                input:   deps.output
-                workdir: cmake_build_path
-                mounts: _cmakeBuildDirMount
+                _cmakeBuildDirMount
+
+                input:  deps.output
                 script: contents: #"""
-                    ls
-                    cmake ../projects/cmake 
+                    cmake "${IUTEST_ROOT_DIR}/projects/cmake" -DTEST_OUTPUT_DIR=${IUTEST_OUTPUT_DIR}
                 """#
             }
             contents: core.#Subdir & {
                 input: run.output.rootfs
-                path: cmake_build_path
+                path: _cmakeBuildDirMount.workdir
             }
         }
 
         // cmake build
         cmake_build: {
             run: bash.#Run & {
-                input:   cmake.run.output
-                workdir: cmake_build_path
-                mounts: _cmakeBuildDirMount
+                _cmakeBuildDirMount
+
+                input:  cmake.run.output
                 script: contents: #"""
-                    ls
                     cmake --build .
                 """#
             }
             contents: core.#Subdir & {
                 input: run.output.rootfs
-                path: cmake_build_path
+                path: _cmakeBuildDirMount.workdir
             }
         }
 
         // ctest
         ctest: {
             run: bash.#Run & {
-                input:   cmake_build.run.output
-                workdir: cmake_build_path
-                mounts: _cmakeBuildDirMount
-                env: {
-                    IUTEST_OUTPUT: "xml:TestResults"
-                }
+                _cmakeBuildDirMount
+
+                input: cmake_build.run.output
                 script: contents: #"""
-                    ctest -C Debug --output-on-failure
+                    rm -rf "${IUTEST_OUTPUT_DIR}"
+                    mkdir -p "${IUTEST_OUTPUT_DIR}"
+                    ctest -C Debug --output-on-failure || :
                 """#
+                exit: 0
             }
+
             test_result: bash.#Run & {
                 input:   run.output
-                workdir: cmake_build_path
-                mounts: _cmakeBuildDirMount
-                always: true
+                workdir: (test_result_dir)
                 script: contents: #"""
-                    ls TestResults
+                    ls
                 """#
             }
 
             contents: core.#Subdir & {
                 input: test_result.output.rootfs
-                path: cmake_build_path + "/TestResults"
+                path: (test_result_dir)
             }
         }
     }
