@@ -109,7 +109,7 @@ IUTEST_P(FileSystemTest, GetSizeBySeekSet)
     const uintmax_t expectedSize = GetParam();
     IUTEST_ASSUME_EQ(expectedSize, ::std::filesystem::file_size(largefile));
 
-    FILE* fp = fopen(largefile.string().c_str(), "rb");
+    FILE* fp = ::iutest::internal::posix::FileOpen(largefile.string().c_str(), "rb");
     IUTEST_ASSUME_NOTNULL(fp);
     IUTEST_EXPECT_EQ(expectedSize, ::iutest::StdioFile::GetSizeBySeekSet(fp)) << ": " << sizeof(size_t);
 

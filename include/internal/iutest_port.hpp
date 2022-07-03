@@ -106,11 +106,21 @@ inline void Abort() { abort(); }
 
 #if IUTEST_HAS_FOPEN
 
+inline FILE* FileOpen(const char* filename, const char* mode)
+{
+#if defined(_MSC_VER)
+#elif (!defined(_FILE_OFFSET_BITS) || _FILE_OFFSET_BITS == 64) || (defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 200112L)
+    return fopen64(filename, mode);
+#else
+    return fopen(filename, mode);
+#endif
+}
+
 inline off_t FileSeek(FILE* fp, off_t pos, int origin)
 {
 #if defined(_MSC_VER)
     return _fseeki64(fp, pos, origin);
-#elif (!defined(_FILE_OFFSET_BITS) || _FILE_OFFSET_BITS != 64) || (defined(defined) && _POSIX_C_SOURCE >= 200112L)
+#elif (!defined(_FILE_OFFSET_BITS) || _FILE_OFFSET_BITS != 64) || (defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 200112L)
     return fseeko64(fp, pos, origin);
 #else
     return fseeko(fp, pos, origin);
@@ -121,7 +131,7 @@ inline off_t FileTell(FILE* fp)
 {
 #if defined(_MSC_VER)
     return _ftelli64(fp);
-#elif (!defined(_FILE_OFFSET_BITS) || _FILE_OFFSET_BITS != 64) || (defined(defined) && _POSIX_C_SOURCE >= 200112L)
+#elif (!defined(_FILE_OFFSET_BITS) || _FILE_OFFSET_BITS != 64) || (defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 200112L)
     return ftello64(fp);
 #else
     return ftello(fp);
