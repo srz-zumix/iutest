@@ -102,3 +102,6 @@ infer-out/
 # Dagger
 cue.mod/
 dagger-cmake-build/
+
+# netos/act
+.github/event/*.json
