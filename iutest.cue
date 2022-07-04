@@ -10,25 +10,33 @@ import (
     "universe.dagger.io/docker"
 )
 
+// cmake_build_dir は mounts して cache する
+// テスト結果を client に書き出したいので mounts path 以外にテスト結果を出力する
+// mounts 配下の path を client に write する方法は不明
 iutest_root_dir: "/iutest"
 test_result_dir: "/iutest/TestResults"
-cmake_build_path_name: "dagger-cmake-build"
+cmake_build_dir: "/dagger-cmake-build"
 
 // パイプラインは Plan に書く
 dagger.#Plan & {
-    // cmake での out-of-source build のパスをマウント
-    _cmakeBuildDirMount: {
-        mounts: (cmake_build_path_name): {
-            dest: "/\(cmake_build_path_name)"
+    // 共通設定をまとめておく
+    _cmakeBuildDirConfig: {    
+        // cmake での out-of-source build のパスをマウント
+        mounts: (cmake_build_dir): {
+            dest: (cmake_build_dir)
             type: "cache"
             contents: core.#CacheDir & {
                 id: "iutest-cmake-builddir-cache"
             }
         }
-        workdir: mounts[(cmake_build_path_name)].dest
+        // 作業ディレクトリを out-of-source build のパスにセット
+        workdir: mounts[(cmake_build_dir)].dest
+        // 必要な環境変数をセット
         env: {
+            // string は () で囲んで展開する
             IUTEST_ROOT_DIR: (iutest_root_dir)
-            IUTEST_OUTPUT_DIR: (test_result_dir)
+            // 文字列の中で変数展開する場合は ( をエスケープする
+            IUTEST_OUTPUT_DIR: "\(test_result_dir)"
         }
     }
 
@@ -41,7 +49,7 @@ dagger.#Plan & {
                     "README.md",
                     "build",
                     "cmake-build",
-                    (cmake_build_path_name),
+                    "dagger-out",
                     ".ci",
                     ".circleci",
                     ".git",
@@ -52,8 +60,8 @@ dagger.#Plan & {
                     "cue.mod",
                 ]
             }
-            "./\(cmake_build_path_name)/cmake-build": write: contents: actions.cmake.contents.output
-            "./\(cmake_build_path_name)/TestResults": write: contents: actions.ctest.contents.output
+            // ctest の結果を client に書き出し
+            "./dagger-out/TestResults": write: contents: actions.ctest.contents.output
         }
     }
     actions: {
@@ -70,6 +78,7 @@ dagger.#Plan & {
                         clang: _
                     }
                 },
+                // client から container に copy
                 docker.#Copy & {
                     contents: client.filesystem."./".read.contents
                     dest:     (iutest_root_dir)
@@ -78,57 +87,45 @@ dagger.#Plan & {
         }
 
         // cmake generate project
-        cmake: {
-            run: bash.#Run & {
-                _cmakeBuildDirMount
+        cmake: bash.#Run & {
+            _cmakeBuildDirConfig
 
-                input:  deps.output
-                script: contents: #"""
-                    cmake "${IUTEST_ROOT_DIR}/projects/cmake" -DTEST_OUTPUT_DIR=${IUTEST_OUTPUT_DIR}
-                """#
-            }
-            contents: core.#Subdir & {
-                input: run.output.rootfs
-                path: _cmakeBuildDirMount.workdir
-            }
+            input:  deps.output
+            script: contents: """
+                cmake "${IUTEST_ROOT_DIR}/projects/cmake" -DTEST_OUTPUT_DIR=${IUTEST_OUTPUT_DIR}
+            """
         }
 
         // cmake build
-        cmake_build: {
-            run: bash.#Run & {
-                _cmakeBuildDirMount
+        cmake_build: bash.#Run & {
+            _cmakeBuildDirConfig
 
-                input:  cmake.run.output
-                script: contents: #"""
-                    cmake --build .
-                """#
-            }
-            contents: core.#Subdir & {
-                input: run.output.rootfs
-                path: _cmakeBuildDirMount.workdir
-            }
+            input:  cmake.output
+            script: contents: """
+                cmake --build .
+            """
         }
 
         // ctest
         ctest: {
             run: bash.#Run & {
-                _cmakeBuildDirMount
+                _cmakeBuildDirConfig
 
-                input: cmake_build.run.output
-                script: contents: #"""
+                input: cmake_build.output
+                script: contents: """
                     rm -rf "${IUTEST_OUTPUT_DIR}"
                     mkdir -p "${IUTEST_OUTPUT_DIR}"
                     ctest -C Debug --output-on-failure || :
-                """#
+                """
                 exit: 0
             }
 
             test_result: bash.#Run & {
                 input:   run.output
                 workdir: (test_result_dir)
-                script: contents: #"""
+                script: contents: """
                     ls
-                """#
+                """
             }
 
             contents: core.#Subdir & {
