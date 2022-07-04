@@ -120,6 +120,9 @@ IUTEST_P(FileSystemTest, GetSizeBySeekSet)
     IUTEST_EXPECT_EQ(expectedSize, size);
     IUTEST_EXPECT_EQ(0, ::iutest::internal::posix::FileSeek(fp, pre, SEEK_SET));
 
+#if (!defined(_FILE_OFFSET_BITS) || _FILE_OFFSET_BITS != 64) || (defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 200112L)
+    IUTEST_EXPECT_FAIL();
+#endif
     fclose(fp);
 }
 

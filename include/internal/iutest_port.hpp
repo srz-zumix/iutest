@@ -109,6 +109,7 @@ inline void Abort() { abort(); }
 inline FILE* FileOpen(const char* filename, const char* mode)
 {
 #if defined(_MSC_VER)
+    return fopen(filename, mode);
 #elif (!defined(_FILE_OFFSET_BITS) || _FILE_OFFSET_BITS == 64) || (defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 200112L)
     return fopen64(filename, mode);
 #else
