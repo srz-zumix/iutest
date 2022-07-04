@@ -101,4 +101,4 @@ infer-out/
 
 # Dagger
 cue.mod/
-dagger-cmake-build/
+dagger-out/
