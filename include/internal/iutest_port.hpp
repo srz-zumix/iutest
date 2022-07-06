@@ -207,18 +207,18 @@ inline int Fileno(FILE*) { return -1; }
 
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_WINE)
 
-typedef struct _stat StatStruct;
+typedef struct _stat64 StatStruct;
 
-inline int FileStat(int fd, StatStruct* buf) { return _fstat(fd, buf); }
-inline int Stat(const char* path, StatStruct* buf) { return _stat(path, buf); }
+inline int FileStat(int fd, StatStruct* buf) { return _fstat64(fd, buf); }
+inline int Stat(const char* path, StatStruct* buf) { return _stat64(path, buf); }
 inline bool IsDir(const StatStruct& st) { return (st.st_mode & _S_IFDIR) != 0; }
 
 #else
 
-typedef struct stat StatStruct;
+typedef struct stat64 StatStruct;
 
-inline int FileStat(int fd, StatStruct* buf) { return fstat(fd, buf); }
-inline int Stat(const char* path, StatStruct* buf) { return stat(path, buf); }
+inline int FileStat(int fd, StatStruct* buf) { return fstat64(fd, buf); }
+inline int Stat(const char* path, StatStruct* buf) { return stat64(path, buf); }
 inline bool IsDir(const StatStruct& st) { return S_ISDIR(st.st_mode); }
 
 #endif
