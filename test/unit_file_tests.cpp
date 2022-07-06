@@ -111,7 +111,7 @@ IUTEST_P(FileSystemTest, GetSizeBySeekSet)
 
     FILE* fp = ::iutest::internal::posix::FileOpen(largefile.string().c_str(), "rb");
     IUTEST_ASSUME_NOTNULL(fp);
-    IUTEST_EXPECT_EQ(expectedSize, ::iutest::StdioFile::GetSizeBySeekSet(fp)) << ": " << sizeof(size_t);
+    IUTEST_EXPECT_EQ(expectedSize, ::iutest::StdioFile::GetSizeBySeekSet(fp)) << ": " << sizeof(size_t) << sizeof(off_t);
 
     const off_t pre = ::iutest::internal::posix::FileTell(fp);
     IUTEST_EXPECT_EQ(0, pre);
