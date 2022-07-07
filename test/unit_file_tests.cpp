@@ -138,7 +138,7 @@ IUTEST_P(FileSystemTest, FileSize64bit)
 
 #endif
 
-IUTEST_INSTANTIATE_TEST_SUITE_P(A, FileSystemTest, ::iutest::Values(0x100000000ull, 0x10000ull));
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, FileSystemTest, ::iutest::Values(0x100000000ull, 0x100001111ull, 0x10000ull));
 
 #endif
 
