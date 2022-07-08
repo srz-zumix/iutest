@@ -102,3 +102,6 @@ infer-out/
 # Dagger
 cue.mod/
 dagger-out/
+
+# netos/act
+.github/event/*.json
