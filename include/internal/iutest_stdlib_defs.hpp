@@ -653,7 +653,7 @@
 
 //! has fileno
 #if !defined(IUTEST_HAS_FILENO)
-#  if !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(__STRICT_ANSI__)
+#  if !defined(IUTEST_OS_WINDOWS_MOBILE)
 #    define IUTEST_HAS_FILENO                       1
 #  endif
 #endif
