@@ -113,16 +113,13 @@ IUTEST_P(FileSystemTest, GetSizeBySeekSet)
     IUTEST_ASSUME_NOTNULL(fp);
     IUTEST_EXPECT_EQ(expectedSize, ::iutest::StdioFile::GetSizeBySeekSet(fp)) << ": " << sizeof(size_t) << sizeof(off_t);
 
-    const off_t pre = ::iutest::internal::posix::FileTell(fp);
+    const ssize_t pre = ::iutest::internal::posix::FileTell(fp);
     IUTEST_EXPECT_EQ(0, pre);
     IUTEST_EXPECT_EQ(0, ::iutest::internal::posix::FileSeek(fp, 0, SEEK_END));
-    const off_t size = ::iutest::internal::posix::FileTell(fp);
-    IUTEST_EXPECT_EQ(expectedSize, size);
+    const ssize_t size = ::iutest::internal::posix::FileTell(fp);
+    IUTEST_EXPECT_EQ(expectedSize, static_cast<uintmax_t>(size));
     IUTEST_EXPECT_EQ(0, ::iutest::internal::posix::FileSeek(fp, pre, SEEK_SET));
 
-#if (!defined(_FILE_OFFSET_BITS) || _FILE_OFFSET_BITS != 64) || (defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 200112L)
-    IUTEST_EXPECT_FAIL();
-#endif
     fclose(fp);
 }
 

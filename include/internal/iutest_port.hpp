@@ -117,7 +117,7 @@ inline FILE* FileOpen(const char* filename, const char* mode)
 #endif
 }
 
-inline off_t FileSeek(FILE* fp, off_t pos, int origin)
+inline int FileSeek(FILE* fp, size_t pos, int origin)
 {
 #if defined(_MSC_VER)
     return _fseeki64(fp, pos, origin);
@@ -128,14 +128,14 @@ inline off_t FileSeek(FILE* fp, off_t pos, int origin)
 #endif
 }
 
-inline off_t FileTell(FILE* fp)
+inline ssize_t FileTell(FILE* fp)
 {
 #if defined(_MSC_VER)
-    return _ftelli64(fp);
+    return static_cast<ssize_t>(_ftelli64(fp));
 #elif (!defined(_FILE_OFFSET_BITS) || _FILE_OFFSET_BITS != 64) || (defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 200112L)
-    return ftello64(fp);
+    return static_cast<ssize_t>(ftello64(fp));
 #else
-    return ftello(fp);
+    return static_cast<ssize_t>(ftello(fp));
 #endif
 }
 
