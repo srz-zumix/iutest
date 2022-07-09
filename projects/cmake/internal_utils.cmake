@@ -177,7 +177,7 @@ endfunction()
 # for sample
 #
 function(cxx_executable_sample name)
-iutest_add_executable(${name} ${ARGN})
+  iutest_add_executable(${name} ${ARGN})
   set_target_properties(${name}
     PROPERTIES
     COMPILE_FLAGS "${cxx_default}")
@@ -203,6 +203,9 @@ function(cxx_executable_test name)
     set(SRCS ${SRCS} ${IUTEST_ROOT_DIR}/test/${src})
   endforeach()
   iutest_add_executable(${name} ${SRCS})
+  set_target_properties(${name}
+    PROPERTIES
+    COMPILE_FLAGS "${cxx_default}")
 endfunction()
 
 function(cxx_executable_test_with_main name)
@@ -211,6 +214,9 @@ function(cxx_executable_test_with_main name)
     set(SRCS ${SRCS} ${IUTEST_ROOT_DIR}/test/${src})
   endforeach()
   iutest_add_executable(${name} ${SRCS})
+  set_target_properties(${name}
+    PROPERTIES
+    COMPILE_FLAGS "${cxx_default}")
 endfunction()
 
 
@@ -232,6 +238,9 @@ function(cxx_executable_test_ns name)
     set(SRCS ${SRCS} ${ns_src})
   endforeach()
   iutest_add_executable(${name} ${SRCS})
+  set_target_properties(${name}
+    PROPERTIES
+    COMPILE_FLAGS "${cxx_default}")
 endfunction()
 
 #
@@ -239,17 +248,17 @@ endfunction()
 #
 function(cxx_add_test name)
   if(test_output_xml)
-    add_test(
-      NAME ${name}
-      COMMAND $<TARGET_FILE:${name}>
-    )
-  else()
     get_filename_component(test_output_dir "${TEST_OUTPUT_DIR}/${name}.xml" DIRECTORY)
     add_test(
       NAME ${name}
       COMMAND $<TARGET_FILE:${name}> "--iutest_output=xml:${test_output_dir}/${name}.xml"
     )
     # message(STATUS "$<TARGET_FILE:${name}> --iutest_output=xml:${test_output_dir}/${name}.xml")
-endif()
+  else()
+    add_test(
+        NAME ${name}
+        COMMAND $<TARGET_FILE:${name}>
+      )
+  endif()
 endfunction()
 
