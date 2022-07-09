@@ -100,6 +100,10 @@ macro(config_compiler_and_linker)
     set(cxx_no_rtti_flags "")
   endif()
 
+  if(test_output_xml)
+    set(cxx_base_flags "${cxx_base_flags} -DDISABLE_FALSE_POSITIVE_XML")
+  endif()
+
   # For building gtest's own tests and samples.
   set(cxx_exception "${CMAKE_CXX_FLAGS} ${cxx_base_flags} ${cxx_exception_flags}")
   set(cxx_no_exception

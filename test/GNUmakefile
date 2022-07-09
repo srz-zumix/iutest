@@ -125,7 +125,7 @@ endif
 #
 
 ifdef OUTPUTXML
-override CXXFLAGS +=-DOUTPUTXML
+override CXXFLAGS +=-DDISABLE_FALSE_POSITIVE_XML
 endif
 
 ifdef IUTEST_DEBUG
