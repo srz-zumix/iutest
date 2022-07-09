@@ -102,7 +102,7 @@ dagger.#Plan & {
 
             input:  cmake.output
             script: contents: """
-                cmake --build .
+                cmake --build . -j 4
             """
         }
 
