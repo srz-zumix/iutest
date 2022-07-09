@@ -341,11 +341,12 @@ jobs:
         run: earthly +build
       - name: Test
         run: earthly +test
-      - name: Report
-        uses: ./.github/actions/composite/test-report
-        with:
-          report_paths: earthly-out/TestResults/*.xml
-        if: always()
+      # FIXME: expected array of testsuites
+      # - name: Report
+      #   uses: ./.github/actions/composite/test-report
+      #   with:
+      #     report_paths: earthly-out/TestResults/*.xml
+      #   if: always()
 
   #===================================================================
   dagger:
@@ -359,11 +360,12 @@ jobs:
             project init
             project update
             do ctest
-      - name: Report
-        uses: ./.github/actions/composite/test-report
-        with:
-          report_paths: dagger-out/TestResults/*.xml
-        if: always()
+      # FIXME: expected array of testsuites
+      # - name: Report
+      #   uses: ./.github/actions/composite/test-report
+      #   with:
+      #     report_paths: dagger-out/TestResults/*.xml
+      #   if: always()
 
   #===================================================================
   infer:
