@@ -341,7 +341,9 @@ jobs:
         run: earthly --ci +build
       - name: Test
         run: earthly --ci +test
-      - run: ls earthly-out/TestResults
+      - run: |
+          ls earthly-out
+          ls earthly-out/TestResults
       - name: Report
         uses: ./.github/actions/composite/test-report
         with:
@@ -361,6 +363,10 @@ jobs:
             project update
             do ctest
       - run: ls dagger-out/TestResults
+      - name: Test Summary
+        uses: test-summary/action@v1
+        with:
+          paths: dagger-out/TestResults/*.xml
       - name: Report
         uses: ./.github/actions/composite/test-report
         with:
