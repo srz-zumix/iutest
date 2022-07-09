@@ -4,7 +4,8 @@
 
 
 # iutest root directory
-IUTEST_DIR = ../..
+MAKEFILE_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+IUTEST_DIR = $(MAKEFILE_DIR)/../..
 IUTEST_INCLUDE = -I$(IUTEST_DIR)/include
 
 IUTEST_HEADERS =$(IUTEST_DIR)/include/*.hpp \
@@ -19,7 +20,7 @@ IUTEST_HEADERS =$(IUTEST_DIR)/include/*.hpp \
 # cppcheck configuration
 #
 
-include Config.mk
+include $(MAKEFILE_DIR)/Config.mk
 
 CPPCHECK_DEFINES_OPTIONS=$(patsubst %,-D%,$(CPPCHECK_DEFINES))
 CPPCHECK_UNDEFINES_OPTIONS=$(patsubst %,-U%,$(CPPCHECK_UNDEFINES))
