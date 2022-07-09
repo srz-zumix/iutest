@@ -100,6 +100,10 @@ macro(config_compiler_and_linker)
     set(cxx_no_rtti_flags "")
   endif()
 
+  if(test_output_xml)
+    set(cxx_base_flags "${cxx_base_flags} -DDISABLE_FALSE_POSITIVE_XML")
+  endif()
+
   # For building gtest's own tests and samples.
   set(cxx_exception "${CMAKE_CXX_FLAGS} ${cxx_base_flags} ${cxx_exception_flags}")
   set(cxx_no_exception
@@ -173,7 +177,7 @@ endfunction()
 # for sample
 #
 function(cxx_executable_sample name)
-iutest_add_executable(${name} ${ARGN})
+  iutest_add_executable(${name} ${ARGN})
   set_target_properties(${name}
     PROPERTIES
     COMPILE_FLAGS "${cxx_default}")
@@ -199,6 +203,9 @@ function(cxx_executable_test name)
     set(SRCS ${SRCS} ${IUTEST_ROOT_DIR}/test/${src})
   endforeach()
   iutest_add_executable(${name} ${SRCS})
+  set_target_properties(${name}
+    PROPERTIES
+    COMPILE_FLAGS "${cxx_default}")
 endfunction()
 
 function(cxx_executable_test_with_main name)
@@ -207,6 +214,9 @@ function(cxx_executable_test_with_main name)
     set(SRCS ${SRCS} ${IUTEST_ROOT_DIR}/test/${src})
   endforeach()
   iutest_add_executable(${name} ${SRCS})
+  set_target_properties(${name}
+    PROPERTIES
+    COMPILE_FLAGS "${cxx_default}")
 endfunction()
 
 
@@ -228,6 +238,9 @@ function(cxx_executable_test_ns name)
     set(SRCS ${SRCS} ${ns_src})
   endforeach()
   iutest_add_executable(${name} ${SRCS})
+  set_target_properties(${name}
+    PROPERTIES
+    COMPILE_FLAGS "${cxx_default}")
 endfunction()
 
 #
@@ -235,17 +248,17 @@ endfunction()
 #
 function(cxx_add_test name)
   if(test_output_xml)
-    add_test(
-      NAME ${name}
-      COMMAND $<TARGET_FILE:${name}>
-    )
-  else()
     get_filename_component(test_output_dir "${TEST_OUTPUT_DIR}/${name}.xml" DIRECTORY)
     add_test(
       NAME ${name}
       COMMAND $<TARGET_FILE:${name}> "--iutest_output=xml:${test_output_dir}/${name}.xml"
     )
     # message(STATUS "$<TARGET_FILE:${name}> --iutest_output=xml:${test_output_dir}/${name}.xml")
-endif()
+  else()
+    add_test(
+        NAME ${name}
+        COMMAND $<TARGET_FILE:${name}>
+      )
+  endif()
 endfunction()
 
