@@ -338,9 +338,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build
-        run: earthly --ci +build
+        run: earthly +build
       - name: Test
-        run: earthly --ci +test
+        run: earthly +test
       - run: |
           ls earthly-out
           ls earthly-out/TestResults
