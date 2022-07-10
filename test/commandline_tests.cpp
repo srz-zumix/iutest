@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 #endif
 {
     (void)argc;
-#if defined(OUTPUTXML)
+#if defined(DISABLE_FALSE_POSITIVE_XML)
     // 実行対象テストがないので xml 出力しない
     ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
