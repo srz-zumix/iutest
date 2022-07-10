@@ -62,62 +62,61 @@ macro(config_compiler_and_linker)
   if (MSVC)
     # Newlines inside flags variables break CMake's NMake generator.
     # TODO(vladl@google.com): Add -RTCs and -RTCu to debug builds.
-    set(cxx_base_flags "-GS -nologo -J -Zi")
-    set(cxx_base_flags "${cxx_base_flags} -D_UNICODE -DUNICODE -DWIN32 -D_WIN32")
-    set(cxx_base_flags "${cxx_base_flags} -DSTRICT -DWIN32_LEAN_AND_MEAN")
-    set(cxx_exception_flags "-EHsc -D_HAS_EXCEPTIONS=1")
-    set(cxx_no_exception_flags "-EHs-c- -D_HAS_EXCEPTIONS=0")
-    set(cxx_no_rtti_flags "-GR-")
+    set(cxx_base_flags -GS -nologo -J -Zi)
+    set(cxx_base_flags ${cxx_base_flags} -D_UNICODE -DUNICODE -DWIN32 -D_WIN32)
+    set(cxx_base_flags ${cxx_base_flags} -DSTRICT -DWIN32_LEAN_AND_MEAN)
+    set(cxx_exception_flags -EHsc -D_HAS_EXCEPTIONS=1)
+    set(cxx_no_exception_flags -EHs-c- -D_HAS_EXCEPTIONS=0)
+    set(cxx_no_rtti_flags -GR-)
   elseif (CMAKE_COMPILER_IS_GNUCXX)
-    set(cxx_base_flags "-Wall -Wshadow")
-    set(cxx_exception_flags "-fexceptions")
-    set(cxx_no_exception_flags "-fno-exceptions")
+    set(cxx_base_flags -Wall -Wshadow)
+    set(cxx_exception_flags -fexceptions)
+    set(cxx_no_exception_flags -fno-exceptions)
     # Until version 4.3.2, GCC doesn't define a macro to indicate
     # whether RTTI is enabled.  Therefore we define IUTEST_HAS_RTTI
     # explicitly.
-    set(cxx_no_rtti_flags "-fno-rtti -DIUTEST_HAS_RTTI=0")
-    set(cxx_strict_flags "-Wextra")
+    set(cxx_no_rtti_flags -fno-rtti -DIUTEST_HAS_RTTI=0)
+    set(cxx_strict_flags -Wextra)
   elseif (CMAKE_CXX_COMPILER_ID STREQUAL "SunPro")
-    set(cxx_exception_flags "-features=except")
+    set(cxx_exception_flags -features=except)
     # Sun Pro doesn't provide macros to indicate whether exceptions and
     # RTTI are enabled, so we define IUTEST_HAS_* explicitly.
-    set(cxx_no_exception_flags "-features=no%except -DIUTEST_HAS_EXCEPTIONS=0")
-    set(cxx_no_rtti_flags "-features=no%rtti -DIUTEST_HAS_RTTI=0")
+    set(cxx_no_exception_flags -features=no%except -DIUTEST_HAS_EXCEPTIONS=0)
+    set(cxx_no_rtti_flags -features=no%rtti -DIUTEST_HAS_RTTI=0)
   elseif (CMAKE_CXX_COMPILER_ID STREQUAL "VisualAge" OR
       CMAKE_CXX_COMPILER_ID STREQUAL "XL")
     # CMake 2.8 changes Visual Age's compiler ID to "XL".
-    set(cxx_exception_flags "-qeh")
-    set(cxx_no_exception_flags "-qnoeh")
+    set(cxx_exception_flags -qeh)
+    set(cxx_no_exception_flags -qnoeh)
     # Until version 9.0, Visual Age doesn't define a macro to indicate
     # whether RTTI is enabled.  Therefore we define IUTEST_HAS_RTTI
     # explicitly.
-    set(cxx_no_rtti_flags "-qnortti -DIUTEST_HAS_RTTI=0")
+    set(cxx_no_rtti_flags -qnortti -DIUTEST_HAS_RTTI=0)
   elseif (CMAKE_CXX_COMPILER_ID STREQUAL "HP")
-    set(cxx_base_flags "-AA -mt")
-    set(cxx_exception_flags "-DIUTEST_HAS_EXCEPTIONS=1")
-    set(cxx_no_exception_flags "+noeh -DIUTEST_HAS_EXCEPTIONS=0")
+    set(cxx_base_flags -AA -mt)
+    set(cxx_exception_flags -DIUTEST_HAS_EXCEPTIONS=1)
+    set(cxx_no_exception_flags +noeh -DIUTEST_HAS_EXCEPTIONS=0)
     # RTTI can not be disabled in HP aCC compiler.
     set(cxx_no_rtti_flags "")
   endif()
 
   if(test_output_xml)
-    set(cxx_base_flags "${cxx_base_flags} -DDISABLE_FALSE_POSITIVE_XML")
+    set(cxx_base_flags ${cxx_base_flags} -DDISABLE_FALSE_POSITIVE_XML)
   endif()
 
   # For building gtest's own tests and samples.
-  set(cxx_exception "${CMAKE_CXX_FLAGS} ${cxx_base_flags} ${cxx_exception_flags}")
-  set(cxx_no_exception
-    "${CMAKE_CXX_FLAGS} ${cxx_base_flags} ${cxx_no_exception_flags}")
+  set(cxx_exception ${CMAKE_CXX_FLAGS} ${cxx_base_flags} ${cxx_exception_flags})
+  set(cxx_no_exception ${CMAKE_CXX_FLAGS} ${cxx_base_flags} ${cxx_no_exception_flags})
   if (build_no_exceptions)
-    set(cxx_default "${cxx_no_exception}")
+    set(cxx_default ${cxx_no_exception})
   else()
-    set(cxx_default "${cxx_exception}")
+    set(cxx_default ${cxx_exception})
   endif()
-  set(cxx_no_rtti "${cxx_default} ${cxx_no_rtti_flags}")
-  set(cxx_use_own_tuple "${cxx_default}")
+  set(cxx_no_rtti ${cxx_default} ${cxx_no_rtti_flags})
+  set(cxx_use_own_tuple ${cxx_default})
 
   # For building the iutest libraries.
-  set(cxx_strict "${cxx_default} ${cxx_strict_flags}")
+  set(cxx_strict ${cxx_default} ${cxx_strict_flags})
 endmacro()
 
 #
@@ -127,9 +126,7 @@ function(cxx_library_with_type name type cxx_flags)
   # type can be either STATIC or SHARED to denote a static or shared library.
   # ARGN refers to additional arguments after 'cxx_flags'.
   add_library(${name} ${type} ${ARGN})
-  set_target_properties(${name}
-    PROPERTIES
-    COMPILE_FLAGS "${cxx_flags}")
+  target_compile_options(${name} PRIVATE ${cxx_flags})
   if (BUILD_SHARED_LIBS OR type STREQUAL "SHARED")
     set_target_properties(${name}
       PROPERTIES
@@ -163,9 +160,7 @@ function(cxx_executable_with_flags name cxx_flags libs)
   # sources
   iutest_add_executable(${name} ${ARGN})
   if (cxx_flags)
-    set_target_properties(${name}
-      PROPERTIES
-      COMPILE_FLAGS "${cxx_flags}")
+    target_compile_options(${name} PRIVATE ${cxx_default})
   endif()
   # libraries
   foreach (lib "${libs}")
@@ -178,9 +173,8 @@ endfunction()
 #
 function(cxx_executable_sample name)
   iutest_add_executable(${name} ${ARGN})
-  set_target_properties(${name}
-    PROPERTIES
-    COMPILE_FLAGS "${cxx_default}")
+  add_compile_definitions()
+  target_compile_options(${name} PRIVATE ${cxx_default})
 endfunction()
 
 #
@@ -203,9 +197,7 @@ function(cxx_executable_test name)
     set(SRCS ${SRCS} ${IUTEST_ROOT_DIR}/test/${src})
   endforeach()
   iutest_add_executable(${name} ${SRCS})
-  set_target_properties(${name}
-    PROPERTIES
-    COMPILE_FLAGS "${cxx_default}")
+  target_compile_options(${name} PRIVATE ${cxx_default})
 endfunction()
 
 function(cxx_executable_test_with_main name)
@@ -214,9 +206,7 @@ function(cxx_executable_test_with_main name)
     set(SRCS ${SRCS} ${IUTEST_ROOT_DIR}/test/${src})
   endforeach()
   iutest_add_executable(${name} ${SRCS})
-  set_target_properties(${name}
-    PROPERTIES
-    COMPILE_FLAGS "${cxx_default}")
+  target_compile_options(${name} PRIVATE ${cxx_default})
 endfunction()
 
 
@@ -238,9 +228,7 @@ function(cxx_executable_test_ns name)
     set(SRCS ${SRCS} ${ns_src})
   endforeach()
   iutest_add_executable(${name} ${SRCS})
-  set_target_properties(${name}
-    PROPERTIES
-    COMPILE_FLAGS "${cxx_default}")
+  target_compile_options(${name} PRIVATE ${cxx_default})
 endfunction()
 
 #
