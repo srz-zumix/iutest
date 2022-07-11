@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -90,9 +90,9 @@ const char list_test_with_where_str[] =
 #endif
 
 #ifdef UNICODE
-#  define DECAL_ARGV(cmd) const wchar_t* targv[] = { argv[0], L cmd }
+#  define DECAL_ARGV(cmd) const wchar_t* targv[] = { argv[0], L##cmd }
 #else
-#  define DECAL_ARGV(cmd) const char*    targv[] = { argv[0],   cmd }
+#  define DECAL_ARGV(cmd) const char*    targv[] = { argv[0],    cmd }
 #endif
 
 #ifdef UNICODE

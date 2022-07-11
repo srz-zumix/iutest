@@ -23,9 +23,9 @@ IUTEST(Foo, NotRun)
 }
 
 #ifdef UNICODE
-#  define DECAL_ARGV(cmd) const wchar_t* targv[] = { argv[0], L cmd }
+#  define DECAL_ARGV(cmd) const wchar_t* targv[] = { argv[0], L##cmd }
 #else
-#  define DECAL_ARGV(cmd) const char*    targv[] = { argv[0],   cmd }
+#  define DECAL_ARGV(cmd) const char*    targv[] = { argv[0],    cmd }
 #endif
 
 
