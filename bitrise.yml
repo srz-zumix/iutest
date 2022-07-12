@@ -1,5 +1,5 @@
 ---
-format_version: '6'
+format_version: '11'
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 project_type: other
 trigger_map:
@@ -137,8 +137,8 @@ workflows:
             # fail if any commands fails
             set -ex
             cmake --version
-            mkdir xcode
-            cd xcode
+            mkdir ios
+            cd ios
             cmake ../projects/cmake -G "Xcode" -DCMAKE_XCODE_GENERATE_SCHEME=TRUE \
               -Dbuild_use_gtest_configuration=OFF \
               -DCMAKE_TOOLCHAIN_FILE=../ios-cmake/ios.toolchain.cmake -DPLATFORM=OS64COMBINED
@@ -146,16 +146,16 @@ workflows:
         title: Xcodebuild
         inputs:
         - content: |
-            xcodebuild -project xcode/iutest.xcodeproj -list
-            #xcodebuild -project xcode/iutest.xcodeproj -IDEBuildOperationMaxNumberOfConcurrentCompileTasks=2 build  | xcpretty -c
-            xcodebuild -project xcode/iutest.xcodeproj build  | xcpretty -c
+            xcodebuild -project ios/iutest.xcodeproj -list
+            #xcodebuild -project ios/iutest.xcodeproj -IDEBuildOperationMaxNumberOfConcurrentCompileTasks=2 build  | xcpretty -c
+            xcodebuild -project ios/iutest.xcodeproj build  | xcpretty -c
     - script:
         title: Tests
         inputs:
         - content: |-
-            #xcodebuild -project xcode/iutest.xcodeproj -scheme all_tests test
-            #xcodebuild -project xcode/iutest.xcodeproj -scheme all_tests -destination 'platform=iOS' test
-            cd xcode
+            #xcodebuild -project ios/iutest.xcodeproj -scheme all_tests test
+            #xcodebuild -project ios/iutest.xcodeproj -scheme all_tests -destination 'platform=iOS' test
+            cd ios
             # ctest -C Debug -V
     - cache-push:
         inputs:
@@ -246,3 +246,7 @@ workflows:
     after_run:
     - iOS
     - Android
+
+meta:
+  bitrise.io:
+    stack: osx-xcode-14.0.x
