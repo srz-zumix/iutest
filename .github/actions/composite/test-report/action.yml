@@ -11,8 +11,8 @@ runs:
     - name: Test Report
       uses: mikepenz/action-junit-report@v2
       with:
-        report_paths: ${{ inputs.report_paths }}
+        report_paths: "${{ inputs.report_paths }}"
     - name: Test Summary
       uses: test-summary/action@v1
       with:
-        paths:  ${{ inputs.report_paths }}
+        paths: "${{ inputs.report_paths }}"
