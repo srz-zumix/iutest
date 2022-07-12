@@ -134,7 +134,7 @@
 #  endif
 #  if defined(_GLIBCXX_HAVE_QUICK_EXIT) && defined(_GLIBCXX_HAVE_AT_QUICK_EXIT)
 #    if !defined(IUTEST_HAS_STD_QUICK_EXIT)
-#      if defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
+#      if defined(__APPLE__)
 #        define IUTEST_HAS_STD_QUICK_EXIT   0   // xcode clang
 #      else
 #        define IUTEST_HAS_STD_QUICK_EXIT   1
