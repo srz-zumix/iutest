@@ -134,11 +134,7 @@
 #  endif
 #  if defined(_GLIBCXX_HAVE_QUICK_EXIT) && defined(_GLIBCXX_HAVE_AT_QUICK_EXIT)
 #    if !defined(IUTEST_HAS_STD_QUICK_EXIT)
-#      if defined(__APPLE__)
-#        define IUTEST_HAS_STD_QUICK_EXIT   0   // xcode clang
-#      else
-#        define IUTEST_HAS_STD_QUICK_EXIT   1
-#      endif
+#      define IUTEST_HAS_STD_QUICK_EXIT   1
 #    endif
 #  endif
 #  if defined(__has_include)
@@ -207,7 +203,11 @@
 #    define IUTEST_HAS_CXX_HDR_ARRAY      1
 #  endif
 #  if !defined(IUTEST_HAS_STD_QUICK_EXIT) && defined(_LIBCPP_HAS_QUICK_EXIT)
-#    define IUTEST_HAS_STD_QUICK_EXIT     1
+#    if defined(__APPLE__)
+#      define IUTEST_HAS_STD_QUICK_EXIT   0   // xcode clang
+#    else
+#      define IUTEST_HAS_STD_QUICK_EXIT   1
+#    endif
 #  endif
 #  if   defined(__has_include)
 #    if !defined(IUTEST_HAS_CXX_HDR_CUCHAR) && __has_include( <cuchar> )
