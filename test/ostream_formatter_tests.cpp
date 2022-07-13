@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
 #endif
 {
     IUTEST_INIT(&argc, argv);
-#if defined(OUTPUTXML)
+#if defined(DISABLE_FALSE_POSITIVE_XML)
     // 実行対象テストがないので xml 出力しない
     ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
