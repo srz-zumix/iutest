@@ -81,7 +81,9 @@ workflows:
     - script:
         title: Xcodebuild
         inputs:
-        - content: |
+        - content: |-
+            #!/bin/bash
+            set -euo pipefail
             xcodebuild -project xcode/iutest.xcodeproj -list
             #xcodebuild -project xcode/iutest.xcodeproj -IDEBuildOperationMaxNumberOfConcurrentCompileTasks=2 build  | xcpretty -c
             xcodebuild -project xcode/iutest.xcodeproj build  | xcpretty -c
@@ -89,6 +91,8 @@ workflows:
         title: Tests
         inputs:
         - content: |-
+            #!/bin/bash
+            set -euo pipefail
             #xcodebuild -project xcode/iutest.xcodeproj -scheme all_tests test
             #xcodebuild -project xcode/iutest.xcodeproj -scheme all_tests -destination 'platform=iOS' test
             cd xcode
@@ -145,7 +149,9 @@ workflows:
     - script:
         title: Xcodebuild
         inputs:
-        - content: |
+        - content: |-
+            #!/bin/bash
+            set -euo pipefail
             xcodebuild -project ios/iutest.xcodeproj -list
             #xcodebuild -project ios/iutest.xcodeproj -IDEBuildOperationMaxNumberOfConcurrentCompileTasks=2 build  | xcpretty -c
             xcodebuild -project ios/iutest.xcodeproj build  | xcpretty -c
@@ -153,6 +159,8 @@ workflows:
         title: Tests
         inputs:
         - content: |-
+            #!/bin/bash
+            set -euo pipefail
             #xcodebuild -project ios/iutest.xcodeproj -scheme all_tests test
             #xcodebuild -project ios/iutest.xcodeproj -scheme all_tests -destination 'platform=iOS' test
             cd ios
