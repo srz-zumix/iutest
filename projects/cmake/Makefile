@@ -46,6 +46,9 @@ mac-example: ## mac example
 	&& cmake ../../../../projects/cmake -G "Xcode" -DCMAKE_XCODE_GENERATE_SCHEME=TRUE -Dbuild_use_gtest_configuration=OFF \
 	&& xcodebuild -project iutest.xcodeproj -list
 
+mac-ctest: mac
+	cd tmp/mac && ctest -C Debug -V
+
 #
 #
 default: ## cmake default
