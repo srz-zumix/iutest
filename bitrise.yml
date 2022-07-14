@@ -1,5 +1,5 @@
 ---
-format_version: '6'
+format_version: '11'
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 project_type: other
 trigger_map:
@@ -32,12 +32,19 @@ workflows:
             bitrise run ${BITRISE_APP_TITLE}-${BITRISE_TRIGGERED_WORKFLOW_ID}
   iutest-ci:
     after_run:
+    - Mac
+    - iOS
+  iutest-mac-ci:
+    after_run:
+    - Mac
+  iutest-ios-ci:
+    after_run:
     - iOS
   iutest-android-ci:
     after_run:
     - Android
 
-  iOS:
+  Mac:
     steps:
     - activate-ssh-key:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
@@ -69,11 +76,14 @@ workflows:
             cmake --version
             mkdir xcode
             cd xcode
-            cmake ../projects/cmake -G "Xcode" -DCMAKE_XCODE_GENERATE_SCHEME=TRUE -Dbuild_use_gtest_configuration=OFF
+            cmake ../projects/cmake -G "Xcode" -DCMAKE_XCODE_GENERATE_SCHEME=TRUE \
+              -Dbuild_use_gtest_configuration=OFF
     - script:
         title: Xcodebuild
         inputs:
-        - content: |
+        - content: |-
+            #!/bin/bash
+            set -euo pipefail
             xcodebuild -project xcode/iutest.xcodeproj -list
             #xcodebuild -project xcode/iutest.xcodeproj -IDEBuildOperationMaxNumberOfConcurrentCompileTasks=2 build  | xcpretty -c
             xcodebuild -project xcode/iutest.xcodeproj build  | xcpretty -c
@@ -81,6 +91,8 @@ workflows:
         title: Tests
         inputs:
         - content: |-
+            #!/bin/bash
+            set -euo pipefail
             #xcodebuild -project xcode/iutest.xcodeproj -scheme all_tests test
             #xcodebuild -project xcode/iutest.xcodeproj -scheme all_tests -destination 'platform=iOS' test
             cd xcode
@@ -92,6 +104,75 @@ workflows:
             $GEM_HOME
             $BREW_CMAKE
             $BREW_OPT_CMAKE
+
+  iOS:
+    steps:
+    - activate-ssh-key:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone: {}
+    - script:
+        title: Set CACHE env var
+        inputs:
+        - content: |
+            #!/bin/bash
+            set -ev
+            envman add --key GEM_HOME --value "$(gem environment gemdir)"
+            envman add --key BREW_CMAKE --value "$(brew --cellar)/cmake"
+            envman add --key BREW_OPT_CMAKE --value "/usr/local/opt/cmake"
+            #envman add --key BREW_CACHE_CMAKE --value "$(brew --cache)/cmake"
+    - cache-pull: {}
+    - script:
+        title: gem install
+        inputs:
+        - content: |-
+            system_profiler SPHardwareDataType
+            gem install xcpretty
+    - script:
+        title: Clone iOS CMake toolchain
+        inputs:
+        - content: |-
+            #!/bin/bash
+            git clone https://github.com/leetal/ios-cmake.git
+    - script:
+        title: CMake
+        inputs:
+        - content: |-
+            #!/bin/bash
+            # fail if any commands fails
+            set -ex
+            cmake --version
+            mkdir ios
+            cd ios
+            cmake ../projects/cmake -G "Xcode" -DCMAKE_XCODE_GENERATE_SCHEME=TRUE \
+              -Dbuild_use_gtest_configuration=OFF \
+              -DCMAKE_TOOLCHAIN_FILE=../ios-cmake/ios.toolchain.cmake -DPLATFORM=OS64COMBINED
+    - script:
+        title: Xcodebuild
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -euo pipefail
+            xcodebuild -project ios/iutest.xcodeproj -list
+            #xcodebuild -project ios/iutest.xcodeproj -IDEBuildOperationMaxNumberOfConcurrentCompileTasks=2 build  | xcpretty -c
+            xcodebuild -project ios/iutest.xcodeproj build  | xcpretty -c
+    - script:
+        title: Tests
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -euo pipefail
+            #xcodebuild -project ios/iutest.xcodeproj -scheme all_tests test
+            #xcodebuild -project ios/iutest.xcodeproj -scheme all_tests -destination 'platform=iOS' test
+            cd ios
+            # ctest -C Debug -V
+    - cache-push:
+        inputs:
+        - cache_paths: |
+            $BITRISE_CACHE_DIR
+            $GEM_HOME
+            $BREW_CMAKE
+            $BREW_OPT_CMAKE
+
   Android:
     steps:
     - script:
@@ -173,3 +254,7 @@ workflows:
     after_run:
     - iOS
     - Android
+
+meta:
+  bitrise.io:
+    stack: osx-xcode-13.4.x
