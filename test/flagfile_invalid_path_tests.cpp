@@ -35,12 +35,12 @@ int main(int argc, char* argv[])
 #endif
 {
 #if FLAGFILE_TEST
-    ::std::vector< ::std::string > targv;
+    ::std::vector< ::iutest::detail::iu_tstring > targv;
     for( int i=0; i < argc; ++i )
     {
         targv.push_back(argv[i]);
     }
-    targv.push_back("--iutest_flagfile=invalid_FLAGFILE_TEST.txt");
+    targv.push_back(IU_TSTR("--iutest_flagfile=invalid_FLAGFILE_TEST.txt"));
 
     {
 #if IUTEST_HAS_STREAM_CAPTURE
