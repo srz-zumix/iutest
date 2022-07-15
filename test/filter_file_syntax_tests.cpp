@@ -60,7 +60,7 @@ MAKE_TEST(Foo, Baz)
 MAKE_TEST(Foo, BarTest)
 MAKE_TEST(Foo, Qux)
 
-bool FilterTest( ::std::vector< ::iutest::detail::tstring > targv
+bool FilterTest( ::std::vector< ::iutest::detail::iu_tstring > targv
     , const char* filter
     , TestHoge::STATE ranTestHoge
     , HogeTest::STATE ranHogeTest

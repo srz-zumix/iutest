@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
 #endif
 {
 #if FILTER_FILE_TEST
-    ::std::vector< ::iutest::detail::tstring > targv;
+    ::std::vector< ::iutest::detail::iu_tstring > targv;
     for( int i=0; i < argc; ++i )
     {
         targv.push_back(argv[i]);
