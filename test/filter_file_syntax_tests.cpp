@@ -121,7 +121,7 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-    ::std::vector< ::iutest::detail::tstring > targv;
+    ::std::vector< ::iutest::detail::iu_tstring > targv;
     for( int i=0; i < argc; ++i )
     {
         targv.push_back(argv[i]);
