@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
 #endif
 {
 #if FLAG_FILE_TEST
-    ::std::vector< ::iutest::detail::iut_tstring > targv;
+    ::std::vector< ::iutest::detail::iu_tstring > targv;
     for( int i=0; i < argc; ++i )
     {
         targv.push_back(argv[i]);
