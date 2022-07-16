@@ -24,10 +24,8 @@ IUTEST(Foo, NotRun)
 
 #ifdef UNICODE
 #  define DECAL_ARGV(cmd) const wchar_t* targv[] = { argv[0], L ##cmd }
-#  define DECAL_ARGV3(cmd, cmd2, cmd3) const wchar_t* targv[] = { argv[0], L ##cmd, L ##cmd2, L ##cmd3 }
 #else
 #  define DECAL_ARGV(cmd) const char*    targv[] = { argv[0],     cmd }
-#  define DECAL_ARGV3(cmd, cmd2, cmd3) const char*    targv[] = { argv[0],     cmd,     cmd2,     cmd3 }
 #endif
 
 
@@ -89,11 +87,11 @@ int main(int argc, char* argv[])
     {
         IUTEST_EXPECT_FALSE(::iutest::TestFlag::IsEnableFlag(::iutest::TestFlag::SHOW_SPEC));
         int targc = 4;
-        DECAL_ARGV3("test1", "-v", "test2");
+        const iutest::detail::iu_tchar* targv[] = { argv[0], IU_TSTR("test1"), IU_TSTR("-v"), IU_TSTR("test2") }
         IUTEST_INIT(&targc, targv);
         IUTEST_EXPECT_EQ(3, targc);
-        IUTEST_EXPECT_STREQ("test1", targv[1]);
-        IUTEST_EXPECT_STREQ("test2", targv[2]);
+        IUTEST_EXPECT_STREQ(IU_TSTR("test1"), targv[1]);
+        IUTEST_EXPECT_STREQ(IU_TSTR("test2"), targv[2]);
         if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
     }
     {
