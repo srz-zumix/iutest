@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2015-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -51,12 +51,12 @@ int main(int argc, char* argv[])
 #endif
 {
 #if FLAG_FILE_TEST
-    ::std::vector< ::std::string > targv;
+    ::std::vector< ::iutest::detail::iu_tstring > targv;
     for( int i=0; i < argc; ++i )
     {
         targv.push_back(argv[i]);
     }
-    targv.push_back("--iutest_flagfile=testdata/flagfile.txt");
+    targv.push_back(IU_TSTR("--iutest_flagfile=testdata/flagfile.txt"));
     ::iutest::InitIrisUnitTest(targv);
 #else
     IUTEST_INIT(&argc, argv);
