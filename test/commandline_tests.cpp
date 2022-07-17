@@ -87,7 +87,7 @@ int main(int argc, char* argv[])
     {
         IUTEST_EXPECT_FALSE(::iutest::TestFlag::IsEnableFlag(::iutest::TestFlag::SHOW_SPEC));
         int targc = 4;
-        const iutest::detail::iu_tchar* targv[] = { argv[0], IU_TSTR("test1"), IU_TSTR("-v"), IU_TSTR("test2") }
+        const iutest::detail::iu_tchar* targv[] = { argv[0], IU_TSTR("test1"), IU_TSTR("-v"), IU_TSTR("test2") };
         IUTEST_INIT(&targc, targv);
         IUTEST_EXPECT_EQ(3, targc);
         IUTEST_EXPECT_STREQ(IU_TSTR("test1"), targv[1]);
