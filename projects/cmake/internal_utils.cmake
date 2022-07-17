@@ -66,7 +66,7 @@ macro(config_compiler_and_linker)
     # experimental
     if (build_use_experimental)
       if((NOT (MSVC_VERSION LESS 1910)) AND (MSVC_VERSION LESS 1925) )
-        set(cxx_base_flags "${cxx_base_flags} -experimental:preprocessor -Wv:18")
+        set(cxx_base_flags "${cxx_base_flags} -experimental:preprocessor -Wv:18 -wd5105")
       endif()
     endif()
     set(cxx_exception_flags "-EHsc -D_HAS_EXCEPTIONS=1")
