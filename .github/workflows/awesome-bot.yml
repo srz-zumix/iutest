@@ -23,4 +23,4 @@ jobs:
       - name: check
         run: |
           # shellcheck disable=SC2086
-          awesome_bot README.md    ${ASESOME_BOT_OPTION}
+          .ci/awesome_bot.sh README.md    ${ASESOME_BOT_OPTION}
