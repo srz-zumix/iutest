@@ -7,6 +7,7 @@ awesome_bot_with_retry() {
       if ((attempt_num == attempt_max)); then
           exit 1
       fi
+      echo "retry ${attempt_num}"
       ((attempt_num++))
   done
 }
