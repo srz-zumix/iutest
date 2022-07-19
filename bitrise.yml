@@ -104,6 +104,9 @@ workflows:
             $GEM_HOME
             $BREW_CMAKE
             $BREW_OPT_CMAKE
+    meta:
+      bitrise.io:
+        stack: osx-xcode-13.4.x
 
   iOS:
     steps:
@@ -172,6 +175,9 @@ workflows:
             $GEM_HOME
             $BREW_CMAKE
             $BREW_OPT_CMAKE
+    meta:
+      bitrise.io:
+        stack: osx-xcode-13.4.x
 
   Android:
     steps:
@@ -236,6 +242,7 @@ workflows:
     meta:
       bitrise.io:
         stack: linux-docker-android-20.04
+
   primary:
     steps:
     - activate-ssh-key:
@@ -250,11 +257,9 @@ workflows:
             git remote rm fork || true
             bitrise run iOS
             bitrise run Android
+
   test:
     after_run:
+    - Mac
     - iOS
     - Android
-
-meta:
-  bitrise.io:
-    stack: osx-xcode-13.4.x
