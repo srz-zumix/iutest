@@ -186,7 +186,6 @@ workflows:
         title: Set cache directory
         inputs:
         - content: |-
-            apt-get install software-properties-common
             eval $(apt-config shell CACHE Dir::Cache)
             eval $(apt-config shell ARCHIVES Dir::Cache::archives)
             echo /${CACHE}${ARCHIVES}
