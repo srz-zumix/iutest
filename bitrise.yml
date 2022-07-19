@@ -252,9 +252,10 @@ workflows:
             bitrise run Android
   test:
     after_run:
+    - Mac
     - iOS
     - Android
 
-meta:
-  bitrise.io:
-    stack: osx-xcode-13.4.x
+# meta:
+#   bitrise.io:
+#     stack: osx-xcode-13.4.x
