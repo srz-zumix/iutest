@@ -58,26 +58,6 @@ samples: $(SAMPLES) cpplint.py Makefile
 test: $(SRC_CPP) cpplint.py Makefile
 	$(PYTHON) cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS),-build/namespace,-build/include $(EXCLUDE_NS_TESTS)
 
-sider:
-	cd ../../ && \
-	$(PYTHON) test/cpplint/cpplint.py --extensions=hpp,cpp,c,h --linelength=150 --quiet --output vs7 \
-		--filter="-build/c++11\
-		,-build/c++tr1\
-		,-build/header_guard\
-		,-build/include_what_you_use\
-		,-readability/braces\
-		,-readability/todo\
-		,-runtime/int\
-		,-runtime/references\
-		,-runtime/string\
-		,-whitespace/braces\
-		,-whitespace/comments\
-		,-whitespace/indent\
-		,-whitespace/newline\
-		,-whitespace/operators\
-		,-whitespace/parens\
-		" --recursive . \
-
 help:
 	$(PYTHON) cpplint.py
 
