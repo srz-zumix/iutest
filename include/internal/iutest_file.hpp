@@ -419,9 +419,9 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 #if   defined(IUTEST_OS_LINUX_ANDROID)
         ::std::string name_template = "/data/local/tmp/";
 #elif defined(IUTEST_OS_IOS)
-        char user_tmp_dir[IUTEST_MAX_PATH];
+        char user_temp_dir[IUTEST_MAX_PATH];
         ::confstr(_CS_DARWIN_USER_TEMP_DIR, user_temp_dir, sizeof(user_temp_dir));
-        ::std::string name_template = user_tmp_dir;
+        ::std::string name_template = user_temp_dir;
         name_template += "/";
 #else
         ::std::string name_template = "/tmp/";

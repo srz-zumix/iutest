@@ -11,7 +11,9 @@ option(build_use_gtest_configuration "use gtest build configuration." ON)
 option(build_tests "tests build." ON)
 option(build_namespace_tests "enable namespace test build." ON)
 option(build_for_iwyu "for include-what-you-use." OFF)
-option(build_for_clang_tidy, "for clang-tidy" OFF)
+option(build_for_clang_tidy "for clang-tidy" OFF)
+
+option(test_output_xml "test result output" ON)
 
 include(xcode_version.cmake)
 # Xcode workarounds
@@ -26,11 +28,13 @@ if (CMAKE_VERSION VERSION_LESS 3.19)
             -G "${CMAKE_GENERATOR}"
             -T "${CMAKE_GENERATOR_TOOLSET}"
             -A "${CMAKE_GENERATOR_PLATFORM}" 
-            -DRECURSIVE_GENERATE:BOOL=ON 
+            -DRECURSIVE_GENERATE:BOOL=ON
             -Dbuild_gtest_samples:BOOL=${build_gtest_samples}
             -Dbuild_use_gtest_configuration:BOOL=${build_use_gtest_configuration}
             -Dbuild_tests:BOOL=${build_tests}
             -Dbuild_namespace_tests:BOOL=${build_namespace_tests}
+            -DTEST_OUTPUT_DIR:STRING=${TEST_OUTPUT_DIR}
+            -Dtest_output_xml:BOOL=${test_output_xml}
             -Dbuild_for_iwyu:BOOL=${build_for_iwyu}
             -Dbuild_for_clang_tidy:BOOL=${build_for_clang_tidy}
             ${CMAKE_SOURCE_DIR})
@@ -98,7 +102,7 @@ endif()
 include(internal_utils.cmake)
 config_compiler_and_linker()  # Defined in internal_utils.cmake.
 
-if (build_use_gtest_configuration)
+if (build_use_gtest_configuration AND (NOT "${CMAKE_CONFIGURATION_TYPES}" STREQUAL ""))
   set(CMAKE_CONFIGURATION_TYPES "${CMAKE_CONFIGURATION_TYPES};Debug_gtest")
   message(STATUS "configuration types: ${CMAKE_CONFIGURATION_TYPES}")
 endif()

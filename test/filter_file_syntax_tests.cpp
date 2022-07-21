@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2015-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -60,7 +60,7 @@ MAKE_TEST(Foo, Baz)
 MAKE_TEST(Foo, BarTest)
 MAKE_TEST(Foo, Qux)
 
-bool FilterTest( ::std::vector< ::std::string > targv
+bool FilterTest( ::std::vector< ::iutest::detail::iu_tstring > targv
     , const char* filter
     , TestHoge::STATE ranTestHoge
     , HogeTest::STATE ranHogeTest
@@ -121,12 +121,12 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-    ::std::vector< ::std::string > targv;
+    ::std::vector< ::iutest::detail::iu_tstring > targv;
     for( int i=0; i < argc; ++i )
     {
         targv.push_back(argv[i]);
     }
-    targv.push_back("--iutest_filter=@test.txt");
+    targv.push_back(IU_TSTR("--iutest_filter=@test.txt"));
 
     if( !FilterTest(targv
         , "*Test*"

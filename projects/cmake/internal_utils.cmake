@@ -4,14 +4,6 @@
 #
 macro(fix_default_compiler_settings_)
   if (MSVC)
-    if(NOT (MSVC_VERSION LESS 1910))
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /permissive-")
-    endif()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX")
-    if (MSVC_VERSION LESS 1900)
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -wd4505")
-    endif()
-
     foreach (flag_var
               CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
               CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO
@@ -39,15 +31,6 @@ macro(fix_default_compiler_settings_)
             )
       message(STATUS "${flag_var}=${${flag_var}}")
     endforeach()
-
-    # experimental
-    if (build_use_experimental)
-      if(NOT (MSVC_VERSION LESS 1910))
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /experimental:preprocessor /Wv:18")
-      endif()
-    endif()
-  elseif (APPLE)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_LIBCPP_DISABLE_AVAILABILITY")
   endif()
   set(CMAKE_CXX_FLAGS_DEBUG_GTEST "${CMAKE_CXX_FLAGS_DEBUG} -DIUTEST_USE_GTEST")
   set(CMAKE_EXE_LINKER_FLAGS_DEBUG_GTEST ${CMAKE_EXE_LINKER_FLAGS_DEBUG})
@@ -62,12 +45,35 @@ macro(config_compiler_and_linker)
   if (MSVC)
     # Newlines inside flags variables break CMake's NMake generator.
     # TODO(vladl@google.com): Add -RTCs and -RTCu to debug builds.
-    set(cxx_base_flags "-GS -nologo -J -Zi")
+    set(cxx_base_flags "-GS -nologo -J -Zi -WX")
+    if(NOT (MSVC_VERSION LESS 1910))
+      set(cxx_base_flags "${cxx_base_flags} -permissive-")
+    endif()
+    if (MSVC_VERSION LESS 1900)
+      set(cxx_base_flags "${cxx_base_flags} -wd4505")
+    endif()
     set(cxx_base_flags "${cxx_base_flags} -D_UNICODE -DUNICODE -DWIN32 -D_WIN32")
     set(cxx_base_flags "${cxx_base_flags} -DSTRICT -DWIN32_LEAN_AND_MEAN")
+    if (build_use_msvc_c_preprocessor)
+      if(NOT (MSVC_VERSION LESS 1925))
+        # >= 2019 (16.5)
+        set(cxx_base_flags "${cxx_base_flags} -Zc:preprocessor -wd5105")
+      elseif(NOT (MSVC_VERSION LESS 1915))
+        # >= 2017 (15.8)
+        set(cxx_base_flags "${cxx_base_flags} -experimental:preprocessor -Wv:18")
+      endif()
+    endif()
+    # experimental
+    if (build_use_experimental)
+      if((NOT (MSVC_VERSION LESS 1910)) AND (MSVC_VERSION LESS 1925) )
+        set(cxx_base_flags "${cxx_base_flags} -experimental:preprocessor -Wv:18")
+      endif()
+    endif()
     set(cxx_exception_flags "-EHsc -D_HAS_EXCEPTIONS=1")
     set(cxx_no_exception_flags "-EHs-c- -D_HAS_EXCEPTIONS=0")
     set(cxx_no_rtti_flags "-GR-")
+  elseif (APPLE)
+    set(cxx_base_flags "-D_LIBCPP_DISABLE_AVAILABILITY")
   elseif (CMAKE_COMPILER_IS_GNUCXX)
     set(cxx_base_flags "-Wall -Wshadow")
     set(cxx_exception_flags "-fexceptions")
@@ -98,6 +104,10 @@ macro(config_compiler_and_linker)
     set(cxx_no_exception_flags "+noeh -DIUTEST_HAS_EXCEPTIONS=0")
     # RTTI can not be disabled in HP aCC compiler.
     set(cxx_no_rtti_flags "")
+  endif()
+
+  if(test_output_xml)
+    set(cxx_base_flags "${cxx_base_flags} -DDISABLE_FALSE_POSITIVE_XML")
   endif()
 
   # For building gtest's own tests and samples.
@@ -173,7 +183,7 @@ endfunction()
 # for sample
 #
 function(cxx_executable_sample name)
-iutest_add_executable(${name} ${ARGN})
+  iutest_add_executable(${name} ${ARGN})
   set_target_properties(${name}
     PROPERTIES
     COMPILE_FLAGS "${cxx_default}")
@@ -199,6 +209,9 @@ function(cxx_executable_test name)
     set(SRCS ${SRCS} ${IUTEST_ROOT_DIR}/test/${src})
   endforeach()
   iutest_add_executable(${name} ${SRCS})
+  set_target_properties(${name}
+    PROPERTIES
+    COMPILE_FLAGS "${cxx_default}")
 endfunction()
 
 function(cxx_executable_test_with_main name)
@@ -207,6 +220,9 @@ function(cxx_executable_test_with_main name)
     set(SRCS ${SRCS} ${IUTEST_ROOT_DIR}/test/${src})
   endforeach()
   iutest_add_executable(${name} ${SRCS})
+  set_target_properties(${name}
+    PROPERTIES
+    COMPILE_FLAGS "${cxx_default}")
 endfunction()
 
 
@@ -228,15 +244,27 @@ function(cxx_executable_test_ns name)
     set(SRCS ${SRCS} ${ns_src})
   endforeach()
   iutest_add_executable(${name} ${SRCS})
+  set_target_properties(${name}
+    PROPERTIES
+    COMPILE_FLAGS "${cxx_default}")
 endfunction()
 
 #
 # CTest
 #
 function(cxx_add_test name)
-  add_test(
-    NAME ${name}
-    COMMAND $<TARGET_FILE:${name}>
+  if(test_output_xml)
+    get_filename_component(test_output_dir "${TEST_OUTPUT_DIR}/${name}.xml" DIRECTORY)
+    add_test(
+      NAME ${name}
+      COMMAND $<TARGET_FILE:${name}> "--iutest_output=xml:${test_output_dir}/${name}.xml"
     )
+    # message(STATUS "$<TARGET_FILE:${name}> --iutest_output=xml:${test_output_dir}/${name}.xml")
+  else()
+    add_test(
+        NAME ${name}
+        COMMAND $<TARGET_FILE:${name}>
+      )
+  endif()
 endfunction()
 

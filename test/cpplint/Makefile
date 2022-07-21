@@ -1,5 +1,9 @@
 #
 # Makefile
+#
+# Copyright (C) 2022, Takazumi Shirayanagi
+# This software is released under the new BSD License,
+# see LICENSE
 
 .PHONY: default clean all iutest internal util listener impl gtest src samples test
 
@@ -14,6 +18,7 @@ GTEST_HPP=$(wildcard ../../include/gtest/*.hpp) $(wildcard ../../include/gtest/s
 SRC_CPP=$(wildcard ../../src/*.cpp)
 SAMPLES=$(wildcard ../../samples/*.cpp)
 TESTS=$(wildcard ../../test/*.cpp) $(wildcard ../../test/*.hpp)
+EXCLUDE_NS_TESTS=$(subst ns.cpp,.cpp,$(TESTS))
 
 SUPPRESS_WHITESPACE_SUB=/indent,/braces,/comments,/newline,/labels,/operators,/parens
 SUPPRESS_WHITESPACE=$(subst /,-whitespace/,$(SUPPRESS_WHITESPACE_SUB))
@@ -51,27 +56,7 @@ samples: $(SAMPLES) cpplint.py Makefile
 	$(PYTHON) cpplint.py --extensions=hpp,cpp --linelength=120 --filter=$(SUPPRESS),-build/namespace,-runtime/printf $(SAMPLES)
 
 test: $(SRC_CPP) cpplint.py Makefile
-	$(PYTHON) cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS),-build/namespace,-build/include $(TESTS)
-
-sider:
-	cd ../../ && \
-	$(PYTHON) test/cpplint/cpplint.py --extensions=hpp,cpp,c,h --linelength=150 --quiet --output vs7 \
-		--filter="-build/c++11\
-		,-build/c++tr1\
-		,-build/header_guard\
-		,-build/include_what_you_use\
-		,-readability/braces\
-		,-readability/todo\
-		,-runtime/int\
-		,-runtime/references\
-		,-runtime/string\
-		,-whitespace/braces\
-		,-whitespace/comments\
-		,-whitespace/indent\
-		,-whitespace/newline\
-		,-whitespace/operators\
-		,-whitespace/parens\
-		" --recursive . \
+	$(PYTHON) cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS),-build/namespace,-build/include $(EXCLUDE_NS_TESTS)
 
 help:
 	$(PYTHON) cpplint.py
