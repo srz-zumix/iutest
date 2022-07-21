@@ -110,7 +110,7 @@ inline FILE* FileOpen(const char* filename, const char* mode)
 {
 #if defined(_MSC_VER)
     return fopen(filename, mode);
-#elif (!defined(_FILE_OFFSET_BITS) || _FILE_OFFSET_BITS == 64) || (defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 200112L)
+#elif defined(_LARGEFILE64_SOURCE)
     return fopen64(filename, mode);
 #else
     return fopen(filename, mode);
@@ -121,7 +121,7 @@ inline int FileSeek(FILE* fp, size_t pos, int origin)
 {
 #if defined(_MSC_VER)
     return _fseeki64(fp, pos, origin);
-#elif (!defined(_FILE_OFFSET_BITS) || _FILE_OFFSET_BITS != 64) || (defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 200112L)
+#elif defined(_LARGEFILE64_SOURCE)
     return fseeko64(fp, pos, origin);
 #else
     return fseeko(fp, pos, origin);
@@ -132,7 +132,7 @@ inline ssize_t FileTell(FILE* fp)
 {
 #if defined(_MSC_VER)
     return static_cast<ssize_t>(_ftelli64(fp));
-#elif (!defined(_FILE_OFFSET_BITS) || _FILE_OFFSET_BITS != 64) || (defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 200112L)
+#elif defined(_LARGEFILE64_SOURCE)
     return static_cast<ssize_t>(ftello64(fp));
 #else
     return static_cast<ssize_t>(ftello(fp));
@@ -215,10 +215,22 @@ inline bool IsDir(const StatStruct& st) { return (st.st_mode & _S_IFDIR) != 0; }
 
 #else
 
+#if defined(_LARGEFILE64_SOURCE)
+
 typedef struct stat64 StatStruct;
 
 inline int FileStat(int fd, StatStruct* buf) { return fstat64(fd, buf); }
 inline int Stat(const char* path, StatStruct* buf) { return stat64(path, buf); }
+
+#else
+
+typedef struct stat StatStruct;
+
+inline int FileStat(int fd, StatStruct* buf) { return fstat(fd, buf); }
+inline int Stat(const char* path, StatStruct* buf) { return stat(path, buf); }
+
+#endif
+
 inline bool IsDir(const StatStruct& st) { return S_ISDIR(st.st_mode); }
 
 #endif
