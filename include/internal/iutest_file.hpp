@@ -259,8 +259,7 @@ public:
         {
             return GetSizeBySeekSet(fp);
         }
-        // FIXME: https://github.com/srz-zumix/iutest/issues/227
-        return static_cast<size_t>(st.st_size);
+        return st.st_size;
 #else
         return GetSizeBySeekSet(fp);
 #endif
@@ -271,12 +270,12 @@ public:
         {
             return 0;
         }
-        const long pre = ftell(fp);
-        if( (pre != -1) && (fseek(fp, 0, SEEK_END) == 0) )
+        const off_t pre = internal::posix::FileTell(fp);
+        if( (pre != -1) && (internal::posix::FileSeek(fp, 0, SEEK_END) == 0) )
         {
-            const size_t size = static_cast<size_t>(ftell(fp));
-            IUTEST_UNUSED_RETURN(fseek(fp, pre, SEEK_SET));
-            return size;
+            const off_t size = internal::posix::FileTell(fp);
+            IUTEST_UNUSED_RETURN(internal::posix::FileSeek(fp, pre, SEEK_SET));
+            return static_cast<size_t>(size);
         }
         return 0;
     }
