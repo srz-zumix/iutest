@@ -123,8 +123,10 @@ inline int FileSeek(FILE* fp, size_t pos, int origin)
     return _fseeki64(fp, pos, origin);
 #elif defined(_LARGEFILE64_SOURCE)
     return fseeko64(fp, pos, origin);
-#else
+#elif IUTEST_HAS_LARGEFILE_API
     return fseeko(fp, pos, origin);
+#else
+    return fseek(fp, pos, origin);
 #endif
 }
 
@@ -134,8 +136,10 @@ inline ssize_t FileTell(FILE* fp)
     return static_cast<ssize_t>(_ftelli64(fp));
 #elif defined(_LARGEFILE64_SOURCE)
     return static_cast<ssize_t>(ftello64(fp));
-#else
+#elif IUTEST_HAS_LARGEFILE_API
     return static_cast<ssize_t>(ftello(fp));
+#else
+    return static_cast<ssize_t>(ftell(fp));
 #endif
 }
 
