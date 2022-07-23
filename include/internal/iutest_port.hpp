@@ -109,7 +109,9 @@ inline void Abort() { abort(); }
 inline FILE* FileOpen(const char* filename, const char* mode)
 {
 #if defined(_MSC_VER)
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
     return fopen(filename, mode);
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 #elif defined(_LARGEFILE64_SOURCE)
     return fopen64(filename, mode);
 #else
@@ -117,7 +119,7 @@ inline FILE* FileOpen(const char* filename, const char* mode)
 #endif
 }
 
-inline int FileSeek(FILE* fp, size_t pos, int origin)
+inline int FileSeek(FILE* fp, iu_off_t pos, int origin)
 {
 #if defined(_MSC_VER)
     return _fseeki64(fp, pos, origin);
@@ -130,16 +132,16 @@ inline int FileSeek(FILE* fp, size_t pos, int origin)
 #endif
 }
 
-inline ssize_t FileTell(FILE* fp)
+inline iu_off_t FileTell(FILE* fp)
 {
 #if defined(_MSC_VER)
-    return static_cast<ssize_t>(_ftelli64(fp));
+    return static_cast<iu_off_t>(_ftelli64(fp));
 #elif defined(_LARGEFILE64_SOURCE)
-    return static_cast<ssize_t>(ftello64(fp));
+    return static_cast<iu_off_t>(ftello64(fp));
 #elif IUTEST_HAS_LARGEFILE_API
-    return static_cast<ssize_t>(ftello(fp));
+    return static_cast<iu_off_t>(ftello(fp));
 #else
-    return static_cast<ssize_t>(ftell(fp));
+    return static_cast<iu_off_t>(ftell(fp));
 #endif
 }
 

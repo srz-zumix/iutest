@@ -283,22 +283,20 @@ private:
     virtual bool OpenImpl(const char* filename, int mode) IUTEST_CXX_OVERRIDE
     {
         Close();
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         switch( mode )
         {
         case IFile::OpenRead:
-            m_fp = fopen(filename, "rb");
+            m_fp = internal::posix::FileOpen(filename, "rb");
             break;
         case IFile::OpenWrite:
-            m_fp = fopen(filename, "wb");
+            m_fp = internal::posix::FileOpen(filename, "wb");
             break;
         case IFile::OpenAppend:
-            m_fp = fopen(filename, "ab");
+            m_fp = internal::posix::FileOpen(filename, "ab");
             break;
         default:
             break;
         }
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
         return m_fp != NULL;
     }
 };
