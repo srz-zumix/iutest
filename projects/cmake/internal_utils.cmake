@@ -24,6 +24,11 @@ macro(fix_default_compiler_settings_)
       if (build_no_exceptions)
         string(REPLACE "/EHsc" "/EHs-c- /D_HAS_EXCEPTIONS=0" ${flag_var} "${${flag_var}}")
       endif()
+
+      # c++latest
+      if (build_cpp_latest)
+        string(REPLACE "/std:c\+\+[0-9a-zA-Z]*" "/std:c++latest" ${flag_var} "${${flag_var}}")
+      endif()
     endforeach()
 
     foreach (flag_var
