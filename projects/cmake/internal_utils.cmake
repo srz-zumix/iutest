@@ -27,7 +27,7 @@ macro(fix_default_compiler_settings_)
 
       # c++latest
       if (build_cpp_latest)
-        string(REPLACE "/std:c\+\+[0-9a-zA-Z]*" "/std:c++latest" ${flag_var} "${${flag_var}}")
+        string(REGEX REPLACE "/std:c\+\+[0-9a-zA-Z]*" "/std:c++latest" ${flag_var} "${${flag_var}}")
       endif()
     endforeach()
 
@@ -67,6 +67,9 @@ macro(config_compiler_and_linker)
         # >= 2017 (15.8)
         set(cxx_base_flags "${cxx_base_flags} -experimental:preprocessor -Wv:18")
       endif()
+    endif()
+    if (build_cpp_latest)
+      set(cxx_base_flags "${cxx_base_flags} -std:c++latest")
     endif()
     # experimental
     if (build_use_experimental)
