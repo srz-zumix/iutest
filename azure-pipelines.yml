@@ -141,7 +141,7 @@ stages:
             USE_EXPERIMENTAL:
               CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -Dbuild_use_experimental=ON
             CPP_LATEST:
-              CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -Dbuild_cpp_latest
+              CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -Dbuild_cpp_latest=ON
         pool:
           vmImage: windows-2019
         steps:
