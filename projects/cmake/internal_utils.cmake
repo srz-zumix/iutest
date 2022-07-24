@@ -69,7 +69,7 @@ macro(config_compiler_and_linker)
       endif()
     endif()
     if (build_cpp_latest)
-      set(cxx_base_flags "${cxx_base_flags} -std:c++latest")
+      set(cxx_base_flags "${cxx_base_flags} -std:c++latest -verbosity:d")
     endif()
     # experimental
     if (build_use_experimental)
