@@ -278,6 +278,9 @@ inline void iuOptionMessage::ShowSpec()
 #ifdef _MSC_FULL_VER
     IIUT_SHOW_MACRO(_MSC_FULL_VER);
 #endif
+#ifdef _MSVC_LANG
+    IIUT_SHOW_MACRO(_MSVC_LANG);
+#endif
 #ifdef __GLIBCXX__
     IIUT_SHOW_MACRO(__GLIBCXX__);
 #endif
