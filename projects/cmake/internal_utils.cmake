@@ -27,7 +27,7 @@ macro(fix_default_compiler_settings_)
 
       # c++latest
       if (build_cpp_latest)
-        string(REGEX REPLACE "/std:c\+\+[0-9a-zA-Z]*" "/std:c++latest" ${flag_var} "${${flag_var}}")
+        string(REGEX REPLACE "/std:c\\+\\+[0-9a-zA-Z]*" "/std:c++latest" ${flag_var} "${${flag_var}}")
       endif()
     endforeach()
 
