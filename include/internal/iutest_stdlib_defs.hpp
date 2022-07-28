@@ -669,7 +669,9 @@
 
 //! has fileno
 #if !defined(IUTEST_HAS_FILENO)
-#  if !defined(IUTEST_OS_WINDOWS_MOBILE)
+#  if defined(__POSIX_VISIBLE) && __POSIX_VISIBLE == 0
+#    define IUTEST_HAS_FILENO                       0
+#  elif !defined(IUTEST_OS_WINDOWS_MOBILE)
 #    define IUTEST_HAS_FILENO                       1
 #  endif
 #endif
