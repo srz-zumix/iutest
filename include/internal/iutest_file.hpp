@@ -270,10 +270,10 @@ public:
         {
             return 0;
         }
-        const off_t pre = internal::posix::FileTell(fp);
+        const iu_off_t pre = internal::posix::FileTell(fp);
         if( (pre != -1) && (internal::posix::FileSeek(fp, 0, SEEK_END) == 0) )
         {
-            const off_t size = internal::posix::FileTell(fp);
+            const iu_off_t size = internal::posix::FileTell(fp);
             IUTEST_UNUSED_RETURN(internal::posix::FileSeek(fp, pre, SEEK_SET));
             return static_cast<size_t>(size);
         }
