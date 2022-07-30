@@ -259,7 +259,7 @@ public:
         {
             return GetSizeBySeekSet(fp);
         }
-        return st.st_size;
+        return static_cast<size_t>(st.st_size);
 #else
         return GetSizeBySeekSet(fp);
 #endif
