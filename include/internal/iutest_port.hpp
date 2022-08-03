@@ -213,7 +213,7 @@ inline int Fileno(FILE*) { return -1; }
 
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_WINE)
 
-typedef struct _stat64 StatStruct;
+typedef struct __stat64 StatStruct;
 
 inline int FileStat(int fd, StatStruct* buf) { return _fstat64(fd, buf); }
 inline int Stat(const char* path, StatStruct* buf) { return _stat64(path, buf); }
