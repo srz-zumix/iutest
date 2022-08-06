@@ -75,9 +75,38 @@ IUTEST(NoEffectFileUnitTest, Call)
     IUTEST_EXPECT_EQ(0u, file.GetSize());
 }
 
-#if IUTEST_HAS_PARAM_TEST
+#if IUTEST_HAS_FOPEN
 
-#if IUTEST_HAS_STD_FILESYSTEM
+IUTEST_P(FileSizeTest, GetSizeBySeekSet)
+{
+    const ::iutest::iu_off_t expectedSize = 0x100000000ll;
+
+    FILE* fp = ::iutest::internal::posix::FileOpen("./testdata/4gb.bin", "rb");
+    IUTEST_ASSUME_NOTNULL(fp);
+    IUTEST_EXPECT_EQ(expectedSize, ::iutest::StdioFile::GetSizeBySeekSet(fp)) << ": " << sizeof(size_t) << sizeof(off_t) << sizeof(ssize_t);
+
+    const ::iutest::iu_off_t pre = ::iutest::internal::posix::FileTell(fp);
+    IUTEST_EXPECT_EQ(0, pre);
+    IUTEST_EXPECT_EQ(0, ::iutest::internal::posix::FileSeek(fp, 0, SEEK_END));
+    const ::iutest::iu_off_t size = ::iutest::internal::posix::FileTell(fp);
+    IUTEST_EXPECT_EQ(expectedSize, size);
+    IUTEST_EXPECT_EQ(0, ::iutest::internal::posix::FileSeek(fp, pre, SEEK_SET));
+
+    fclose(fp);
+}
+
+
+IUTEST_P(FileSystemTest, FileSize64bit)
+{
+    const ::iutest::iu_off_t expectedSize = 0x100000000ll;
+    ::iutest::StdioFile file;
+    IUTEST_ASSUME_TRUE( file.Open("./testdata/4gb.bin", iutest::IFile::OpenRead) );
+    IUTEST_EXPECT_EQ(expectedSize, file.GetSize());
+}
+
+#endif
+
+#if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_STD_FILESYSTEM
 
 const std::filesystem::path largefile("./testdata/largefile.bin");
 
@@ -102,27 +131,6 @@ public:
     }
 };
 
-#if IUTEST_HAS_FOPEN
-
-IUTEST_P(FileSystemTest, GetSizeBySeekSet)
-{
-    const uintmax_t expectedSize = GetParam();
-    IUTEST_ASSUME_EQ(expectedSize, ::std::filesystem::file_size(largefile));
-
-    FILE* fp = ::iutest::internal::posix::FileOpen(largefile.string().c_str(), "rb");
-    IUTEST_ASSUME_NOTNULL(fp);
-    IUTEST_EXPECT_EQ(expectedSize, ::iutest::StdioFile::GetSizeBySeekSet(fp)) << ": " << sizeof(size_t) << sizeof(off_t) << sizeof(ssize_t);
-
-    const ssize_t pre = ::iutest::internal::posix::FileTell(fp);
-    IUTEST_EXPECT_EQ(0, pre);
-    IUTEST_EXPECT_EQ(0, ::iutest::internal::posix::FileSeek(fp, 0, SEEK_END));
-    const ssize_t size = ::iutest::internal::posix::FileTell(fp);
-    IUTEST_EXPECT_EQ(expectedSize, static_cast<uintmax_t>(size));
-    IUTEST_EXPECT_EQ(0, ::iutest::internal::posix::FileSeek(fp, pre, SEEK_SET));
-
-    fclose(fp);
-}
-
 IUTEST_P(FileSystemTest, FileSize64bit)
 {
     const uintmax_t expectedSize = GetParam();
@@ -133,10 +141,6 @@ IUTEST_P(FileSystemTest, FileSize64bit)
     IUTEST_EXPECT_EQ(expectedSize, file.GetSize());
 }
 
-#endif
-
 IUTEST_INSTANTIATE_TEST_SUITE_P(A, FileSystemTest, ::iutest::Values(0x100000000ull, 0x100001111ull, 0x10000ull));
-
-#endif
 
 #endif
