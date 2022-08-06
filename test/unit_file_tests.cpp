@@ -83,7 +83,7 @@ IUTEST_P(FileSizeTest, GetSizeBySeekSet)
 
     FILE* fp = ::iutest::internal::posix::FileOpen("./testdata/4gb.bin", "rb");
     IUTEST_ASSUME_NOTNULL(fp);
-    IUTEST_EXPECT_EQ(expectedSize, ::iutest::StdioFile::GetSizeBySeekSet(fp)) << ": " << sizeof(size_t) << sizeof(off_t) << sizeof(ssize_t);
+    IUTEST_EXPECT_EQ(expectedSize, ::iutest::StdioFile::GetSizeBySeekSet(fp));
 
     const ::iutest::iu_off_t pre = ::iutest::internal::posix::FileTell(fp);
     IUTEST_EXPECT_EQ(0, pre);
