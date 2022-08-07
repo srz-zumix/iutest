@@ -638,6 +638,18 @@
 #  define IUTEST_HAS_INVALID_PARAMETER_HANDLER      0
 #endif
 
+//! has largefile api
+#if !defined(IUTEST_HAS_LARGEFILE_API)
+#  if   defined(__LARGEFILE_VISIBLE) && __LARGEFILE_VISIBLE
+#    define IUTEST_HAS_LARGEFILE_API                1
+#  elif defined(__POSIX_VISIBLE) && __POSIX_VISIBLE >= 200112
+#    define IUTEST_HAS_LARGEFILE_API                1
+#  else
+#    define IUTEST_HAS_LARGEFILE_API                0
+#  endif
+#endif
+
+
 //! has fopen
 #if !defined(IUTEST_HAS_FOPEN)
 #  define IUTEST_HAS_FOPEN                          1
@@ -657,7 +669,11 @@
 
 //! has fileno
 #if !defined(IUTEST_HAS_FILENO)
-#  if !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(__STRICT_ANSI__)
+#  if defined(__POSIX_VISIBLE) && __POSIX_VISIBLE == 0
+#    define IUTEST_HAS_FILENO                       0
+#  elif defined(IUTEST_OS_WINDOWS_MINGW) && defined(__STRICT_ANSI__)
+#    define IUTEST_HAS_FILENO                       0
+#  elif !defined(IUTEST_OS_WINDOWS_MOBILE)
 #    define IUTEST_HAS_FILENO                       1
 #  endif
 #endif
