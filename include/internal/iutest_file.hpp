@@ -249,57 +249,30 @@ public:
 public:
     static size_t GetSize(FILE* fp)
     {
-        if( fp == NULL )
-        {
-            return 0;
-        }
-#if IUTEST_HAS_FILE_STAT
-        internal::posix::StatStruct st;
-        if (internal::posix::Stat(fp, &st) != 0)
-        {
-            return GetSizeBySeekSet(fp);
-        }
-        // FIXME: https://github.com/srz-zumix/iutest/issues/227
-        return static_cast<size_t>(st.st_size);
-#else
-        return GetSizeBySeekSet(fp);
-#endif
+        return internal::posix::FileSize(fp);
     }
     static size_t GetSizeBySeekSet(FILE* fp)
     {
-        if( fp == NULL )
-        {
-            return 0;
-        }
-        const long pre = ftell(fp);
-        if( (pre != -1) && (fseek(fp, 0, SEEK_END) == 0) )
-        {
-            const size_t size = static_cast<size_t>(ftell(fp));
-            IUTEST_UNUSED_RETURN(fseek(fp, pre, SEEK_SET));
-            return size;
-        }
-        return 0;
+        return internal::posix::FileSizeBySeekSet(fp);
     }
 private:
     virtual bool OpenImpl(const char* filename, int mode) IUTEST_CXX_OVERRIDE
     {
         Close();
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         switch( mode )
         {
         case IFile::OpenRead:
-            m_fp = fopen(filename, "rb");
+            m_fp = internal::posix::FileOpen(filename, "rb");
             break;
         case IFile::OpenWrite:
-            m_fp = fopen(filename, "wb");
+            m_fp = internal::posix::FileOpen(filename, "wb");
             break;
         case IFile::OpenAppend:
-            m_fp = fopen(filename, "ab");
+            m_fp = internal::posix::FileOpen(filename, "ab");
             break;
         default:
             break;
         }
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
         return m_fp != NULL;
     }
 };
@@ -451,6 +424,7 @@ private:
 };
 
 #endif
+
 
 #if IUTEST_HAS_STRINGSTREAM
 

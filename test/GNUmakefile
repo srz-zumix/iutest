@@ -183,6 +183,8 @@ endif
 COVERITY_SCAN_BUILD_TARGETS = $(ALLTESTS_TARGET) $(EXTENSIONTESTS_TARGET) \
 	$(TEST_TARGETS) $(ASSERTION_ONLY_TARGETS) $(TARGETS_IUTEST_ONLY) $(UNITTESTS_TARGET)
 
+GENERATE_TESTDATA=testdata/4gb.bin
+
 #
 # exec options
 #
@@ -208,7 +210,7 @@ all : clean default test ## clean and build, run
 # 	@if [ ! -e `dirname $(OUTDIR)` ]; then mkdir -p `dirname $(OUTDIR)`; fi
 
 clean : ## clean
-	$(RM) $(TARGETS) $(NO_DEFAULT_TARGETS) $(ALL_OBJS) *.o *.stackdump *.core *.exe *.log *.ns.cpp
+	$(RM) $(TARGETS) $(NO_DEFAULT_TARGETS) $(ALL_OBJS) $(GENERATE_TESTDATA) *.o *.stackdump *.core *.exe *.log *.ns.cpp
 	$(RM) -R *.dSYM
 ifdef OUTPUTXML
 	$(RM) *.xml
@@ -321,6 +323,17 @@ prepare: $(NAMESPACETESTS_TEST_SRCS) ## test code prepare
 gtest-version: clean gtest_version_tests_run ## gtest version test
 
 coverity_scan: $(COVERITY_SCAN_BUILD_TARGETS)
+
+#
+#
+# test data
+#
+
+testdata: $(GENERATE_TESTDATA)
+
+testdata/4gb.bin: testdata/empty.bin
+	cp $< $@
+	truncate -s 4G $@
 
 #
 #
@@ -444,7 +457,7 @@ override CXXFLAGS += -DIUTEST_USE_LIB=1 -L../lib
 override LDFLAGS:= -liutest $(LDFLAGS)
 endif
 
-$(TARGETS_EXCLUDE_ALLTESTS) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
+$(TARGETS_EXCLUDE_ALLTESTS) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) testdata $(MAKEFILE)
 	$(BUILD4ZAPCC)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $< $(LDFLAGS)
 
@@ -478,29 +491,29 @@ endif
 $(BUILD_ONLY) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $< $(LDFLAGS)
 
-$(TEST_TARGETS) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
+$(TEST_TARGETS) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) testdata $(MAKEFILE)
 	$(BUILD4ZAPCC)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $< $(LDFLAGS)
 
-$(ASSERTION_ONLY_TARGETS) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
+$(ASSERTION_ONLY_TARGETS) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) testdata $(MAKEFILE)
 	$(BUILD4ZAPCC)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $<
 
 endif
 
-$(ALLTESTS_TARGET) : $(ALLTESTS_SRC_OBJS) $(IUTEST_HEADERS) $(MAKEFILE)
+$(ALLTESTS_TARGET) : $(ALLTESTS_SRC_OBJS) $(IUTEST_HEADERS) testdata $(MAKEFILE)
 	$(BUILD4ZAPCC)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $(ALLTESTS_SRC_OBJS) $(LDFLAGS)
 
-$(NAMESPACETESTS_TARGET) : $(NAMESPACETESTS_SRC_AND_OBJS) $(IUTEST_HEADERS) $(MAKEFILE)
+$(NAMESPACETESTS_TARGET) : $(NAMESPACETESTS_SRC_AND_OBJS) $(IUTEST_HEADERS) testdata $(MAKEFILE)
 	$(BUILD4ZAPCC)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $(NAMESPACETESTS_SRC_AND_OBJS) $(LDFLAGS)
 
-$(EXTENSIONTESTS_TARGET) : $(EXTENSIONTESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
+$(EXTENSIONTESTS_TARGET) : $(EXTENSIONTESTS_SRCS) $(IUTEST_HEADERS) testdata $(MAKEFILE)
 	$(BUILD4ZAPCC)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $(EXTENSIONTESTS_SRCS) $(LDFLAGS)
 
-$(UNITTESTS_TARGET) : $(UNITTESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
+$(UNITTESTS_TARGET) : $(UNITTESTS_SRCS) $(IUTEST_HEADERS) testdata $(MAKEFILE)
 	$(BUILD4ZAPCC)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $(UNITTESTS_SRCS) $(LDFLAGS)
 
