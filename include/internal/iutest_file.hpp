@@ -249,35 +249,11 @@ public:
 public:
     static size_t GetSize(FILE* fp)
     {
-        if( fp == NULL )
-        {
-            return 0;
-        }
-#if IUTEST_HAS_FILE_STAT
-        internal::posix::StatStruct st;
-        if (internal::posix::Stat(fp, &st) != 0)
-        {
-            return GetSizeBySeekSet(fp);
-        }
-        return static_cast<size_t>(st.st_size);
-#else
-        return GetSizeBySeekSet(fp);
-#endif
+        return internal::posix::FileSize(fp);
     }
     static size_t GetSizeBySeekSet(FILE* fp)
     {
-        if( fp == NULL )
-        {
-            return 0;
-        }
-        const iu_off_t pre = internal::posix::FileTell(fp);
-        if( (pre != -1) && (internal::posix::FileSeek(fp, 0, SEEK_END) == 0) )
-        {
-            const iu_off_t size = internal::posix::FileTell(fp);
-            IUTEST_UNUSED_RETURN(internal::posix::FileSeek(fp, pre, SEEK_SET));
-            return static_cast<size_t>(size);
-        }
-        return 0;
+        return internal::posix::FileSizeBySeekSet(fp);
     }
 private:
     virtual bool OpenImpl(const char* filename, int mode) IUTEST_CXX_OVERRIDE
@@ -448,6 +424,7 @@ private:
 };
 
 #endif
+
 
 #if IUTEST_HAS_STRINGSTREAM
 

@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file        unit_filepath_tests.cpp
+ * @file        unit_file_tests.cpp
  * @brief       iutest test
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2022, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -44,32 +44,44 @@ IUTEST(StdFileUnitTest, FileSize)
     IUTEST_EXPECT_EQ(0u, ::iutest::StdioFile::GetSize(NULL));
 }
 
+IUTEST(StdFileUnitTest, ReadWrite)
+{
+    char wbuf[] = "test1234abcdWXYZ";
+    char rbuf[32] = { 0 };
+    ::iutest::StdioFile file;
+    ::iutest::internal::FilePath filename("./testdata/unit_file_tests.tmp");
+    IUTEST_ASSERT_TRUE( file.Open(filename.string().c_str(), iutest::IFile::OpenWrite) );
+    IUTEST_ASSERT_TRUE( file.Write(wbuf, 4, 4));
+    IUTEST_ASSERT_TRUE( file.Open(filename.string().c_str(), iutest::IFile::OpenRead) );
+    IUTEST_ASSERT_TRUE( file.Read(rbuf, 4, 4));
+    IUTEST_EXPECT_STREQ(wbuf, rbuf);
+    IUTEST_EXPECT_LT(0u, file.GetSize());
+    IUTEST_EXPECT_EQ(0u, ::iutest::StdioFile::GetSize(NULL));
+}
+
 IUTEST(StdFileUnitTest, FileSize64bit)
 {
     const ::iutest::iu_off_t expectedSize = 0x100000000ll;
     ::iutest::StdioFile file;
     IUTEST_ASSUME_TRUE( file.Open("./testdata/4gb.bin", iutest::IFile::OpenRead) );
+#if IUTEST_HAS_FILENO
     IUTEST_EXPECT_EQ(expectedSize, file.GetSize());
+#else
+    IUTEST_INFORM_EQ(expectedSize, file.GetSize());
+#endif
 }
 
-IUTEST(StdFileUnitTest, GetSizeBySeekSet)
+#endif
+
+#if IUTEST_HAS_FILE_STAT || IUTEST_HAS_STD_FILESYSTEM
+
+IUTEST(StdFileUnitTest, FileSizeFromPath)
 {
-    IUTEST_EXPECT_EQ(0u, ::iutest::StdioFile::GetSizeBySeekSet(NULL));
-
-    const ::iutest::iu_off_t expectedSize = 0x100000000ll;
-
-    FILE* fp = ::iutest::internal::posix::FileOpen("./testdata/4gb.bin", "rb");
-    IUTEST_ASSUME_NOTNULL(fp);
-    IUTEST_EXPECT_EQ(expectedSize, ::iutest::StdioFile::GetSizeBySeekSet(fp));
-
-    const ::iutest::iu_off_t pre = ::iutest::internal::posix::FileTell(fp);
-    IUTEST_EXPECT_EQ(0, pre);
-    IUTEST_EXPECT_EQ(0, ::iutest::internal::posix::FileSeek(fp, 0, SEEK_END));
-    const ::iutest::iu_off_t size = ::iutest::internal::posix::FileTell(fp);
-    IUTEST_EXPECT_EQ(expectedSize, size);
-    IUTEST_EXPECT_EQ(0, ::iutest::internal::posix::FileSeek(fp, pre, SEEK_SET));
-
-    fclose(fp);
+    const ::iutest::iu_uint_max_t expectedSize = 0x100000000ull;
+    ::iutest::StdioFile file;
+    const char* path = "./testdata/4gb.bin";
+    IUTEST_ASSUME_TRUE( file.Open(path, iutest::IFile::OpenRead) );
+    IUTEST_ASSERT_EQ(expectedSize, ::iutest::internal::posix::FileSizeFromPath(path));
 }
 
 #endif

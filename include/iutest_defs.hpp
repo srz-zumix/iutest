@@ -505,8 +505,10 @@ typedef detail::type_fit_t<8>::UInt UInt64; //!< 64 bit 符号なし整数型
 
 #if IUTEST_HAS_CXX11 && IUTEST_HAS_CXX_HDR_CSTDINT
 typedef ::std::intmax_t     iu_off_t;
+typedef ::std::uintmax_t    iu_uint_max_t;
 #else
 typedef Int64               iu_off_t;
+typedef UInt64              iu_uint_max_t;
 #endif
 
 #if IUTEST_HAS_CXX11 && IUTEST_HAS_CXX_HDR_CSTDINT

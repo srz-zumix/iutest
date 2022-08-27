@@ -249,6 +249,72 @@ inline int Stat(FILE* fp, StatStruct* buf)
 
 #endif
 
+inline size_t FileSizeBySeekSet(FILE* fp)
+{
+    if( fp == NULL )
+    {
+        return 0;
+    }
+    const iu_off_t pre = FileTell(fp);
+    if( (pre != -1) && (FileSeek(fp, 0, SEEK_END) == 0) )
+    {
+        const iu_off_t size = FileTell(fp);
+        IUTEST_UNUSED_RETURN(FileSeek(fp, pre, SEEK_SET));
+        return static_cast<size_t>(size);
+    }
+    return 0;
+}
+
+inline size_t FileSize(FILE* fp)
+{
+    if( fp == NULL )
+    {
+        return 0;
+    }
+#if IUTEST_HAS_FILE_STAT
+    StatStruct st;
+    if (Stat(fp, &st) == 0)
+    {
+        return static_cast<size_t>(st.st_size);
+    }
+#endif
+    return FileSizeBySeekSet(fp);
+}
+
+inline size_t FdSize(int fd)
+{
+    if( fd == -1 )
+    {
+        return 0;
+    }
+#if IUTEST_HAS_FILE_STAT
+    StatStruct st;
+    if (FileStat(fd, &st) == 0)
+    {
+        return static_cast<size_t>(st.st_size);
+    }
+#endif
+    return 0;
+}
+
+inline iu_uint_max_t FileSizeFromPath(const char* filename)
+{
+#if IUTEST_HAS_STD_FILESYSTEM
+    return ::std::filesystem::file_size(filename);
+#else
+
+#if IUTEST_HAS_FILE_STAT
+    StatStruct st;
+    if (Stat(filename, &st) == 0)
+    {
+        return static_cast<iu_uint_max_t>(st.st_size);
+    }
+#endif
+    return 0;
+
+#endif
+}
+
 #if IUTEST_HAS_MKSTEMP
 
 #if defined(_MSC_VER)
