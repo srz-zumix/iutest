@@ -64,7 +64,7 @@ IUTEST(StdFileUnitTest, FileSize64bit)
     const ::iutest::iu_off_t expectedSize = 0x100000000ll;
     ::iutest::StdioFile file;
     IUTEST_ASSUME_TRUE( file.Open("./testdata/4gb.bin", iutest::IFile::OpenRead) );
-#if IUTEST_HAS_FILENO
+#if IUTEST_HAS_FILENO && IUTEST_HAS_FILE_STAT
     IUTEST_EXPECT_EQ(expectedSize, file.GetSize());
 #else
     IUTEST_INFORM_EQ(expectedSize, file.GetSize());

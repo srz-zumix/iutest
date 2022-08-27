@@ -249,6 +249,8 @@ inline int Stat(FILE* fp, StatStruct* buf)
 
 #endif
 
+#if IUTEST_HAS_FD_OPEN
+
 inline size_t FileSizeBySeekSet(FILE* fp)
 {
     if( fp == NULL )
@@ -280,6 +282,8 @@ inline size_t FileSize(FILE* fp)
 #endif
     return FileSizeBySeekSet(fp);
 }
+
+#endif
 
 inline size_t FdSize(int fd)
 {
