@@ -15,7 +15,7 @@ fused: ## create fused src
 	make -C tools/fused
 
 editorconfig-self-lint:
-	make -C tools/python editorconfig
+	make -C tools/python editorconfig-self-lint
 
 DAGGER_OPTS:=--log-format=plain
 dagger-ctest:

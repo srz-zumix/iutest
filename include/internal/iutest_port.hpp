@@ -104,6 +104,49 @@ IUTEST_ATTRIBUTE_NORETURN_ void Abort();
 inline void Abort() { abort(); }
 #endif
 
+#if IUTEST_HAS_FOPEN
+
+inline FILE* FileOpen(const char* filename, const char* mode)
+{
+#if defined(_MSC_VER)
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+    return fopen(filename, mode);
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+#elif defined(_LARGEFILE64_SOURCE)
+    return fopen64(filename, mode);
+#else
+    return fopen(filename, mode);
+#endif
+}
+
+inline int FileSeek(FILE* fp, iu_off_t pos, int origin)
+{
+#if defined(_MSC_VER)
+    return _fseeki64(fp, pos, origin);
+#elif defined(_LARGEFILE64_SOURCE)
+    return fseeko64(fp, pos, origin);
+#elif IUTEST_HAS_LARGEFILE_API
+    return fseeko(fp, pos, origin);
+#else
+    return fseek(fp, pos, origin);
+#endif
+}
+
+inline iu_off_t FileTell(FILE* fp)
+{
+#if defined(_MSC_VER)
+    return static_cast<iu_off_t>(_ftelli64(fp));
+#elif defined(_LARGEFILE64_SOURCE)
+    return static_cast<iu_off_t>(ftello64(fp));
+#elif IUTEST_HAS_LARGEFILE_API
+    return static_cast<iu_off_t>(ftello(fp));
+#else
+    return static_cast<iu_off_t>(ftell(fp));
+#endif
+}
+
+#endif
+
 #if IUTEST_HAS_HDR_UNISTD
 
 #if defined(_MSC_VER) || defined(IUTEST_OS_WINDOWS_MINGW)
@@ -170,11 +213,20 @@ inline int Fileno(FILE*) { return -1; }
 
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_WINE)
 
-typedef struct _stat StatStruct;
+typedef struct __stat64 StatStruct;
 
-inline int FileStat(int fd, StatStruct* buf) { return _fstat(fd, buf); }
-inline int Stat(const char* path, StatStruct* buf) { return _stat(path, buf); }
+inline int FileStat(int fd, StatStruct* buf) { return _fstat64(fd, buf); }
+inline int Stat(const char* path, StatStruct* buf) { return _stat64(path, buf); }
 inline bool IsDir(const StatStruct& st) { return (st.st_mode & _S_IFDIR) != 0; }
+
+#else
+
+#if defined(_LARGEFILE64_SOURCE)
+
+typedef struct stat64 StatStruct;
+
+inline int FileStat(int fd, StatStruct* buf) { return fstat64(fd, buf); }
+inline int Stat(const char* path, StatStruct* buf) { return stat64(path, buf); }
 
 #else
 
@@ -182,6 +234,9 @@ typedef struct stat StatStruct;
 
 inline int FileStat(int fd, StatStruct* buf) { return fstat(fd, buf); }
 inline int Stat(const char* path, StatStruct* buf) { return stat(path, buf); }
+
+#endif
+
 inline bool IsDir(const StatStruct& st) { return S_ISDIR(st.st_mode); }
 
 #endif
@@ -193,6 +248,76 @@ inline int Stat(FILE* fp, StatStruct* buf)
 }
 
 #endif
+
+#if IUTEST_HAS_FD_OPEN
+
+inline size_t FileSizeBySeekSet(FILE* fp)
+{
+    if( fp == NULL )
+    {
+        return 0;
+    }
+    const iu_off_t pre = FileTell(fp);
+    if( (pre != -1) && (FileSeek(fp, 0, SEEK_END) == 0) )
+    {
+        const iu_off_t size = FileTell(fp);
+        IUTEST_UNUSED_RETURN(FileSeek(fp, pre, SEEK_SET));
+        return static_cast<size_t>(size);
+    }
+    return 0;
+}
+
+inline size_t FileSize(FILE* fp)
+{
+    if( fp == NULL )
+    {
+        return 0;
+    }
+#if IUTEST_HAS_FILE_STAT
+    StatStruct st;
+    if (Stat(fp, &st) == 0)
+    {
+        return static_cast<size_t>(st.st_size);
+    }
+#endif
+    return FileSizeBySeekSet(fp);
+}
+
+#endif
+
+inline size_t FdSize(int fd)
+{
+    if( fd == -1 )
+    {
+        return 0;
+    }
+#if IUTEST_HAS_FILE_STAT
+    StatStruct st;
+    if (FileStat(fd, &st) == 0)
+    {
+        return static_cast<size_t>(st.st_size);
+    }
+#endif
+    return 0;
+}
+
+inline iu_uint_max_t FileSizeFromPath(const char* filename)
+{
+#if IUTEST_HAS_STD_FILESYSTEM
+    return ::std::filesystem::file_size(filename);
+#else
+
+#if IUTEST_HAS_FILE_STAT
+    StatStruct st;
+    if (Stat(filename, &st) == 0)
+    {
+        return static_cast<iu_uint_max_t>(st.st_size);
+    }
+#endif
+    return 0;
+
+#endif
+}
 
 #if IUTEST_HAS_MKSTEMP
 
