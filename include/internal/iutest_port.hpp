@@ -249,7 +249,7 @@ inline int Stat(FILE* fp, StatStruct* buf)
 
 #endif
 
-#if IUTEST_HAS_FD_OPEN
+#if IUTEST_HAS_FOPEN
 
 inline size_t FileSizeBySeekSet(FILE* fp)
 {
