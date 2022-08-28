@@ -235,7 +235,7 @@ public:
     }
 
     //! サイズ取得
-    virtual size_t GetSize() IUTEST_CXX_OVERRIDE
+    virtual iu_uint_max_t GetSize() IUTEST_CXX_OVERRIDE
     {
         return GetSize(m_fp);
     }
@@ -247,11 +247,11 @@ public:
     }
 
 public:
-    static size_t GetSize(FILE* fp)
+    static iu_uint_max_t GetSize(FILE* fp)
     {
         return internal::posix::FileSize(fp);
     }
-    static size_t GetSizeBySeekSet(FILE* fp)
+    static iu_uint_max_t GetSizeBySeekSet(FILE* fp)
     {
         return internal::posix::FileSizeBySeekSet(fp);
     }
@@ -476,13 +476,13 @@ public:
     }
 
     //! サイズ取得
-    virtual size_t GetSize() IUTEST_CXX_OVERRIDE
+    virtual iu_uint_max_t GetSize() IUTEST_CXX_OVERRIDE
     {
         ::std::stringstream::pos_type pre = ss.tellg();
         ss.seekg(0, ::std::ios::end);
         ::std::stringstream::pos_type size = ss.tellg();
         ss.seekg(pre, ::std::ios::beg);
-        return static_cast<size_t>(size);
+        return static_cast<iu_uint_max_t>(size);
     }
 
     //! 全読み込み

@@ -251,7 +251,7 @@ inline int Stat(FILE* fp, StatStruct* buf)
 
 #if IUTEST_HAS_FOPEN
 
-inline size_t FileSizeBySeekSet(FILE* fp)
+inline iu_uint_max_t FileSizeBySeekSet(FILE* fp)
 {
     if( fp == NULL )
     {
@@ -262,12 +262,12 @@ inline size_t FileSizeBySeekSet(FILE* fp)
     {
         const iu_off_t size = FileTell(fp);
         IUTEST_UNUSED_RETURN(FileSeek(fp, pre, SEEK_SET));
-        return static_cast<size_t>(size);
+        return static_cast<iu_uint_max_t>(size);
     }
     return 0;
 }
 
-inline size_t FileSize(FILE* fp)
+inline iu_uint_max_t FileSize(FILE* fp)
 {
     if( fp == NULL )
     {
@@ -277,7 +277,7 @@ inline size_t FileSize(FILE* fp)
     StatStruct st;
     if (Stat(fp, &st) == 0)
     {
-        return static_cast<size_t>(st.st_size);
+        return static_cast<iu_uint_max_t>(st.st_size);
     }
 #endif
     return FileSizeBySeekSet(fp);
@@ -285,7 +285,7 @@ inline size_t FileSize(FILE* fp)
 
 #endif
 
-inline size_t FdSize(int fd)
+inline iu_uint_max_t FdSize(int fd)
 {
     if( fd == -1 )
     {
@@ -295,7 +295,7 @@ inline size_t FdSize(int fd)
     StatStruct st;
     if (FileStat(fd, &st) == 0)
     {
-        return static_cast<size_t>(st.st_size);
+        return static_cast<iu_uint_max_t>(st.st_size);
     }
 #endif
     return 0;
