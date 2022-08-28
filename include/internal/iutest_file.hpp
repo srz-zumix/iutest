@@ -344,7 +344,7 @@ public:
     }
 
     //! サイズ取得
-    virtual size_t GetSize() IUTEST_CXX_OVERRIDE
+    virtual iu_uint_max_t GetSize() IUTEST_CXX_OVERRIDE
     {
         return m_file.GetSize();
     }
@@ -514,7 +514,7 @@ public:
     virtual void Close() IUTEST_CXX_OVERRIDE {}
     virtual bool Write(const void*, size_t, size_t) IUTEST_CXX_OVERRIDE { return true;  }
     virtual bool Read(void*, size_t, size_t) IUTEST_CXX_OVERRIDE { return true; }
-    virtual size_t GetSize() IUTEST_CXX_OVERRIDE { return 0; }
+    virtual iu_uint_max_t GetSize() IUTEST_CXX_OVERRIDE { return 0; }
 private:
     virtual bool OpenImpl(const char*, int) IUTEST_CXX_OVERRIDE { return true; }
 };
