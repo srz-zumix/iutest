@@ -331,9 +331,12 @@ coverity_scan: $(COVERITY_SCAN_BUILD_TARGETS)
 
 testdata: $(GENERATE_TESTDATA)
 
-testdata/4gb.bin: testdata/empty.bin
-	cp $< $@
-	truncate -s 4G $@
+testdata/4gb.bin:
+	mkfile -n 4g $@
+
+# testdata/4gb.bin: testdata/empty.bin
+# 	cp $< $@
+# 	truncate -s 4G $@
 
 #
 #
