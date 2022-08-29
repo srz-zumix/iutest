@@ -1,7 +1,7 @@
 #
 # Makefile
 
-.PHONY: sample clean editorconfig
+.PHONY: sample clean editorconfig-self-lint
 TOOLS=eval_line.py
 
 sample: $(TOOLS) Makefile
