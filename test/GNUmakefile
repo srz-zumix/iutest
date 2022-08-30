@@ -332,7 +332,7 @@ coverity_scan: $(COVERITY_SCAN_BUILD_TARGETS)
 testdata: $(GENERATE_TESTDATA)
 
 testdata/4gb.bin:
-	dd if=/dev/zero of=$@ bs=1G count=4
+	dd if=/dev/zero of=$@ bs=1048576 count=4096
 
 # testdata/4gb.bin: testdata/empty.bin
 # 	cp $< $@
