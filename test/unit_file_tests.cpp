@@ -78,9 +78,9 @@ IUTEST(StdFileUnitTest, FileSize64bit)
 IUTEST(StdFileUnitTest, FileSizeFromPath)
 {
     const ::iutest::iu_uint_max_t expectedSize = 0x100000000ull;
-    ::iutest::StdioFile file;
     const char* path = "./testdata/4gb.bin";
-    IUTEST_ASSUME_TRUE( file.Open(path, iutest::IFile::OpenRead) );
+    ::iutest::internal::FilePath file_path = ::iutest::internal::FilePath(path);
+    IUTEST_ASSUME_TRUE (file_path.FileOrDirectoryExists());
     IUTEST_ASSERT_EQ(expectedSize, ::iutest::internal::posix::FileSizeFromPath(path));
 }
 
