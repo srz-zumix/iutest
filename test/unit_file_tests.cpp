@@ -71,6 +71,46 @@ IUTEST(StdFileUnitTest, FileSize64bit)
 #endif
 }
 
+
+#if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_STD_FILESYSTEM
+
+const std::filesystem::path largefile("./testdata/largefile.bin");
+
+class FileSystemTest : public ::iuutil::backward::Test<FileSystemTest>, public ::iutest::WithParamInterface<uintmax_t>
+{
+public:
+    static void SetUpTestCase(void)
+    {
+        IUTEST_ASSERT_TRUE(::std::filesystem::copy_file("./testdata/empty.bin", largefile, ::std::filesystem::copy_options::overwrite_existing));
+    }
+    static void TearDownTestCase(void)
+    {
+        ::std::filesystem::remove(largefile);
+    }
+
+    void SetUp() IUTEST_CXX_OVERRIDE
+    {
+        ::std::filesystem::resize_file(largefile, GetParam());
+    }
+    void TearDown() IUTEST_CXX_OVERRIDE
+    {
+    }
+};
+
+IUTEST_P(FileSystemTest, FileSize64bit)
+{
+    const uintmax_t expectedSize = GetParam();
+    IUTEST_ASSUME_EQ(expectedSize, ::std::filesystem::file_size(largefile));
+
+    ::iutest::StdioFile file;
+    IUTEST_ASSERT_TRUE( file.Open(largefile, iutest::IFile::OpenRead) );
+    IUTEST_EXPECT_EQ(expectedSize, file.GetSize());
+}
+
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, FileSystemTest, ::iutest::Values(0x100000000ull, 0x100001111ull, 0x10000ull));
+
+#endif
+
 #endif
 
 #if IUTEST_HAS_FILE_STAT || IUTEST_HAS_STD_FILESYSTEM
@@ -113,42 +153,3 @@ IUTEST(NoEffectFileUnitTest, Call)
     IUTEST_EXPECT_TRUE( file.Read(NULL, 0, 0) );
     IUTEST_EXPECT_EQ(0u, file.GetSize());
 }
-
-#if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_STD_FILESYSTEM
-
-const std::filesystem::path largefile("./testdata/largefile.bin");
-
-class FileSystemTest : public ::iuutil::backward::Test<FileSystemTest>, public ::iutest::WithParamInterface<uintmax_t>
-{
-public:
-    static void SetUpTestCase(void)
-    {
-        IUTEST_ASSERT_TRUE(::std::filesystem::copy_file("./testdata/empty.bin", largefile, ::std::filesystem::copy_options::overwrite_existing));
-    }
-    static void TearDownTestCase(void)
-    {
-        ::std::filesystem::remove(largefile);
-    }
-
-    void SetUp() IUTEST_CXX_OVERRIDE
-    {
-        ::std::filesystem::resize_file(largefile, GetParam());
-    }
-    void TearDown() IUTEST_CXX_OVERRIDE
-    {
-    }
-};
-
-IUTEST_P(FileSystemTest, FileSize64bit)
-{
-    const uintmax_t expectedSize = GetParam();
-    IUTEST_ASSUME_EQ(expectedSize, ::std::filesystem::file_size(largefile));
-
-    ::iutest::StdioFile file;
-    IUTEST_ASSERT_TRUE( file.Open(largefile, iutest::IFile::OpenRead) );
-    IUTEST_EXPECT_EQ(expectedSize, file.GetSize());
-}
-
-IUTEST_INSTANTIATE_TEST_SUITE_P(A, FileSystemTest, ::iutest::Values(0x100000000ull, 0x100001111ull, 0x10000ull));
-
-#endif
