@@ -136,8 +136,12 @@ stages:
           matrix:
             NO_EXCEPTION_HANDLER:
               CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -Dbuild_no_exceptions=ON
+            USE_C_PREPROCESSOR:
+              CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -Dbuild_use_msvc_c_preprocessor=ON
             USE_EXPERIMENTAL:
               CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -Dbuild_use_experimental=ON
+            CPP_LATEST:
+              CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -Dbuild_cpp_latest=ON
         pool:
           vmImage: windows-2019
         steps:

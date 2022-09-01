@@ -98,3 +98,13 @@ cmake-build*/
 
 # Infer
 infer-out/
+
+# Earthly
+earthly-out/
+
+# Dagger
+cue.mod/
+dagger-out/
+
+# netos/act
+.github/event/*.json
