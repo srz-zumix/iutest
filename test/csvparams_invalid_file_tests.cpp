@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2018-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2018-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -46,19 +46,19 @@ int main(int argc, char* argv[])
 {
 #if CAN_CSVPARAMS_INVALID_FILE_TEST
 
-#if IUTEST_HAS_STREAM_BUFFER
-    ::iutest::detail::IUStreamBuffer<> stderr_capture(stderr);
+#if IUTEST_HAS_STREAM_CAPTURE
+    ::iutest::detail::IUStreamCaptureStderr stderr_capture;
 #endif
 
     IUTEST_INIT(&argc, argv);
-#if defined(OUTPUTXML)
+#if defined(DISABLE_FALSE_POSITIVE_XML)
     // 失敗テストを含むので xml 出力しない
     ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
 
     const int ret = IUTEST_RUN_ALL_TESTS();
     if( ret != 0 ) return 1;
-#if IUTEST_HAS_STREAM_BUFFER && IUTEST_HAS_ASSERTION_RETURN
+#if IUTEST_HAS_STREAM_CAPTURE && IUTEST_HAS_ASSERTION_RETURN
     ::std::string stderr_message = stderr_capture.GetStreamString();
     IUTEST_ASSERT_STRIN("Unable to open file \"testdata/not-exist?.csv\".", stderr_message)
         << ::iutest::AssertionReturn<int>(1);

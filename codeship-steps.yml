@@ -5,7 +5,7 @@
   steps:
     - name: cpplint
       service: iutest
-      command: make -C /work/test/cpplint
+      command: make -C /work/test/cpplint PYTHON=python3
     - name: check-include-guard
       service: iutest
       command: make -C /work/test check_incg

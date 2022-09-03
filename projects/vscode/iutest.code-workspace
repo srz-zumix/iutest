@@ -14,6 +14,7 @@
 			"*.ipp": "cpp",
 			"*.inl": "cpp",
 			"*.in": "makefile",
+			"Earthfile": "dockerfile",
 			".ecrc": "json",
 			".nuspec": "xml",
 			".targets": "xml",
@@ -130,7 +131,10 @@
 			"cinttypes": "cpp",
 			"queue": "cpp",
 			"numbers": "cpp",
-			"semaphore": "cpp"
+			"semaphore": "cpp",
+			"__memory": "cpp",
+			"version": "cpp",
+			"*.defs": "cpp"
 		},
 		"bracketLens.minBracketScopeLines": 12
 	},
