@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: util/iutest_util_vc_unittest.hpp ソースファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.12</span>
+   &#160;<span id="projectnumber">1.17.99.13</span>
    </div>
   </td>
  </tr>
@@ -30,10 +30,10 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.8.17 -->
+<!-- 構築: Doxygen 1.9.1 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
+var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
@@ -161,11 +161,11 @@ $(function() {
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">#define IIUT_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName)    \</span></div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor">    BEGIN_TEST_METHOD_ATTRIBUTE(methodName)                     \</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor">        TEST_METHOD_ATTRIBUTE(L&quot;TestSuite&quot;, L#testsuite_)       \</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor">    END_TEST_METHOD_ATTRIBUTE()</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor">        TEST_METHOD_ATTRIBUTE(L&quot;TestSuite&quot;</span>, L#testsuite_)       \</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    END_TEST_METHOD_ATTRIBUTE()</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">#define IUTEST_VCUNIT_EXEC_(testsuite_, testname_)   \</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">    Body( &quot;*&quot; #testsuite_ &quot;.&quot; #testname_ &quot;*&quot; )</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">    Body( &quot;*&quot;</span> #testsuite_ &quot;.&quot; #testname_ &quot;*&quot; )</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">#define IUTEST_VCUNIT_TEST_CLASS(className) \</span></div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor">    ONLY_USED_AT_NAMESPACE_SCOPE class className : public ::iuutil::VisualStudio::TestClass&lt;className&gt;</span></div>
@@ -268,7 +268,7 @@ $(function() {
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#aba002696b25a0c3f5ea0bea1a1521ea0">OnEnvironmentsSetUpEnd</a>(const ::iutest::UnitTest&amp; ) {}</div>
 <div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTestSuiteStart(const ::iutest::TestSuite&amp; ) {}</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#a4172902670887c7adc1e8f2253bd59e6">OnTestSuiteStart</a>(const ::iutest::TestSuite&amp; ) {}</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#aaf42e1561c98dfb75a4fe344bad55103">OnTestStart</a>(const ::iutest::TestInfo&amp; test_info)</div>
 <div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    {</div>
@@ -283,7 +283,7 @@ $(function() {
 <div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        m_default_printer-&gt;<a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#a06d31520f32847d3297b9ce3438f9f52">OnTestEnd</a>(test_info);</div>
 <div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    }</div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160; </div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTestSuiteEnd(const ::iutest::TestSuite&amp; ) {}</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#a8a54fe8628dbd8644ad7f7f81faf3043">OnTestSuiteEnd</a>(const ::iutest::TestSuite&amp; ) {}</div>
 <div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
 <div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html#aec9999966cd8f4907a6ba006b606b1d0">OnEnvironmentsTearDownStart</a>(const ::iutest::UnitTest&amp; ) {}</div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
@@ -330,37 +330,36 @@ $(function() {
 <div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;}   <span class="comment">// end of namespace VisualStudio</span></div>
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;}   <span class="comment">// end of namespace iuutil</span></div>
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160; </div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;<span class="preprocessor">#endif  // INCG_IRIS_IUTEST_UTIL_VC_UNITTEST_HPP_5CA7C30C_2D2A_40A1_A9DE_83EAB4527787_</span></div>
-</div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclassiutest_1_1_test_event_listener_html_acba428b01c69baac5421bb72d2d31b1c"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#acba428b01c69baac5421bb72d2d31b1c">iutest::TestEventListener::OnEnvironmentsSetUpStart</a></div><div class="ttdeci">virtual void OnEnvironmentsSetUpStart(const UnitTest &amp;test)=0</div><div class="ttdoc">グローバル環境設定 SetUp 前に呼ばれます</div></div>
-<div class="ttc" id="aclassiutest_1_1_empty_test_event_listener_html"><div class="ttname"><a href="../../d6/d68/classiutest_1_1_empty_test_event_listener.html">iutest::EmptyTestEventListener</a></div><div class="ttdoc">空のイベントリスナー</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:101</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_event_listener_html"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html">iutest::TestEventListener</a></div><div class="ttdoc">イベントリスナー</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:63</div></div>
-<div class="ttc" id="aclassiutest_1_1_unit_test_html_a1154caf184eb447dd0fe5fbde60e1868"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">iutest::UnitTest::GetInstance</a></div><div class="ttdeci">static UnitTest * GetInstance()</div><div class="ttdoc">UnitTest インスタンスの取得</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:43</div></div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// INCG_IRIS_IUTEST_UTIL_VC_UNITTEST_HPP_5CA7C30C_2D2A_40A1_A9DE_83EAB4527787_</span></div>
+<div class="ttc" id="aclassiutest_1_1_empty_test_event_listener_html"><div class="ttname"><a href="../../d6/d68/classiutest_1_1_empty_test_event_listener.html">iutest::EmptyTestEventListener</a></div><div class="ttdoc">空のイベントリスナー</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:102</div></div>
+<div class="ttc" id="aclassiutest_1_1_empty_test_event_listener_html_a9b347ec0fe2ea40e23edd5a849fbcb46"><div class="ttname"><a href="../../d6/d68/classiutest_1_1_empty_test_event_listener.html#a9b347ec0fe2ea40e23edd5a849fbcb46">iutest::EmptyTestEventListener::OnTestPartResult</a></div><div class="ttdeci">virtual void OnTestPartResult(const TestPartResult &amp;) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">テスト失敗時に呼ばれます</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:111</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_event_listener_html"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html">iutest::TestEventListener</a></div><div class="ttdoc">イベントリスナー</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:64</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_event_listener_html_a06d31520f32847d3297b9ce3438f9f52"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#a06d31520f32847d3297b9ce3438f9f52">iutest::TestEventListener::OnTestEnd</a></div><div class="ttdeci">virtual void OnTestEnd(const TestInfo &amp;test_info)=0</div><div class="ttdoc">テスト終了時にに呼ばれます</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_event_listener_html_a1bc7b7d3712bba690ece6ac29c671e20"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#a1bc7b7d3712bba690ece6ac29c671e20">iutest::TestEventListener::OnTestIterationEnd</a></div><div class="ttdeci">virtual void OnTestIterationEnd(const UnitTest &amp;test, int iteration)=0</div><div class="ttdoc">単体テスト終了時に毎回呼ばれます</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_event_listener_html_a3fa87c8f3be5b08b7fb364507dda90ba"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#a3fa87c8f3be5b08b7fb364507dda90ba">iutest::TestEventListener::OnEnvironmentsTearDownEnd</a></div><div class="ttdeci">virtual void OnEnvironmentsTearDownEnd(const UnitTest &amp;test)=0</div><div class="ttdoc">グローバル環境設定 TearDown 前に呼ばれます</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_event_listener_html_a4172902670887c7adc1e8f2253bd59e6"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#a4172902670887c7adc1e8f2253bd59e6">iutest::TestEventListener::OnTestSuiteStart</a></div><div class="ttdeci">virtual void OnTestSuiteStart(const TestSuite &amp;test_suite)</div><div class="ttdoc">TestSuite 開始時に呼ばれます</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:76</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listener_html_a54df6ee45fe317351615a7e43040229b"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#a54df6ee45fe317351615a7e43040229b">iutest::TestEventListener::OnTestPartResult</a></div><div class="ttdeci">virtual void OnTestPartResult(const TestPartResult &amp;test_part_result)=0</div><div class="ttdoc">テスト失敗時に呼ばれます</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listener_html_a61ace35095f019c107f164120b4b36e0"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#a61ace35095f019c107f164120b4b36e0">iutest::TestEventListener::OnTestProgramStart</a></div><div class="ttdeci">virtual void OnTestProgramStart(const UnitTest &amp;test)=0</div><div class="ttdoc">テストプログラム開始時に呼ばれます</div></div>
-<div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_event_listener_html_a8a54fe8628dbd8644ad7f7f81faf3043"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#a8a54fe8628dbd8644ad7f7f81faf3043">iutest::TestEventListener::OnTestSuiteEnd</a></div><div class="ttdeci">virtual void OnTestSuiteEnd(const TestSuite &amp;test_suite)</div><div class="ttdoc">TestSuite 終了時にに呼ばれます</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:86</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_event_listener_html_aa978db4007d239ae961ca8ee0e340a67"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#aa978db4007d239ae961ca8ee0e340a67">iutest::TestEventListener::OnTestIterationStart</a></div><div class="ttdeci">virtual void OnTestIterationStart(const UnitTest &amp;test, int iteration)=0</div><div class="ttdoc">単体テスト開始時に毎回呼ばれます</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_event_listener_html_aaf42e1561c98dfb75a4fe344bad55103"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#aaf42e1561c98dfb75a4fe344bad55103">iutest::TestEventListener::OnTestStart</a></div><div class="ttdeci">virtual void OnTestStart(const TestInfo &amp;test_info)=0</div><div class="ttdoc">テスト開始時に呼ばれます</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listener_html_ab64ba395ab8eea50c8a401fe892156f6"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#ab64ba395ab8eea50c8a401fe892156f6">iutest::TestEventListener::OnTestProgramEnd</a></div><div class="ttdeci">virtual void OnTestProgramEnd(const UnitTest &amp;test)=0</div><div class="ttdoc">テストプログラム終了時に呼ばれます</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listener_html_aba002696b25a0c3f5ea0bea1a1521ea0"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#aba002696b25a0c3f5ea0bea1a1521ea0">iutest::TestEventListener::OnEnvironmentsSetUpEnd</a></div><div class="ttdeci">virtual void OnEnvironmentsSetUpEnd(const UnitTest &amp;test)=0</div><div class="ttdoc">グローバル環境設定 SetUp 後に呼ばれます</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_event_listener_html_a06d31520f32847d3297b9ce3438f9f52"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#a06d31520f32847d3297b9ce3438f9f52">iutest::TestEventListener::OnTestEnd</a></div><div class="ttdeci">virtual void OnTestEnd(const TestInfo &amp;test_info)=0</div><div class="ttdoc">テスト終了時にに呼ばれます</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_event_listener_html_acba428b01c69baac5421bb72d2d31b1c"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#acba428b01c69baac5421bb72d2d31b1c">iutest::TestEventListener::OnEnvironmentsSetUpStart</a></div><div class="ttdeci">virtual void OnEnvironmentsSetUpStart(const UnitTest &amp;test)=0</div><div class="ttdoc">グローバル環境設定 SetUp 前に呼ばれます</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listener_html_aec9999966cd8f4907a6ba006b606b1d0"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#aec9999966cd8f4907a6ba006b606b1d0">iutest::TestEventListener::OnEnvironmentsTearDownStart</a></div><div class="ttdeci">virtual void OnEnvironmentsTearDownStart(const UnitTest &amp;test)=0</div><div class="ttdoc">グローバル環境設定 TearDown 前に呼ばれます</div></div>
-<div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga650662dc23cc31b5bee68981633a4a75"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75">IUTEST_FLAG</a></div><div class="ttdeci">#define IUTEST_FLAG(name)</div><div class="ttdoc">フラグセット</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:57</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_event_listeners_html"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html">iutest::TestEventListeners</a></div><div class="ttdoc">イベントリスナーの管理クラス</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:169</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listeners_html_a1cfc2c7548e26395bd1be19928d6fe8c"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a1cfc2c7548e26395bd1be19928d6fe8c">iutest::TestEventListeners::Release</a></div><div class="ttdeci">TestEventListener * Release(TestEventListener *listener)</div><div class="ttdoc">リスナーの解放</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:184</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_event_listener_html_a3fa87c8f3be5b08b7fb364507dda90ba"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#a3fa87c8f3be5b08b7fb364507dda90ba">iutest::TestEventListener::OnEnvironmentsTearDownEnd</a></div><div class="ttdeci">virtual void OnEnvironmentsTearDownEnd(const UnitTest &amp;test)=0</div><div class="ttdoc">グローバル環境設定 TearDown 前に呼ばれます</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_event_listener_html_aaf42e1561c98dfb75a4fe344bad55103"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#aaf42e1561c98dfb75a4fe344bad55103">iutest::TestEventListener::OnTestStart</a></div><div class="ttdeci">virtual void OnTestStart(const TestInfo &amp;test_info)=0</div><div class="ttdoc">テスト開始時に呼ばれます</div></div>
-<div class="ttc" id="aclassiutest_1_1_empty_test_event_listener_html_a9b347ec0fe2ea40e23edd5a849fbcb46"><div class="ttname"><a href="../../d6/d68/classiutest_1_1_empty_test_event_listener.html#a9b347ec0fe2ea40e23edd5a849fbcb46">iutest::EmptyTestEventListener::OnTestPartResult</a></div><div class="ttdeci">virtual void OnTestPartResult(const TestPartResult &amp;) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">テスト失敗時に呼ばれます</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:111</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_event_listener_html_a1bc7b7d3712bba690ece6ac29c671e20"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#a1bc7b7d3712bba690ece6ac29c671e20">iutest::TestEventListener::OnTestIterationEnd</a></div><div class="ttdeci">virtual void OnTestIterationEnd(const UnitTest &amp;test, int iteration)=0</div><div class="ttdoc">単体テスト終了時に毎回呼ばれます</div></div>
-<div class="ttc" id="anamespaceiuutil_html"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html">iuutil</a></div><div class="ttdoc">iutest utility namespace</div><div class="ttdef"><b>Definition:</b> iutest_util.hpp:35</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listeners_html_a40d861fd66ce3f69d40e015dfbc4cbd3"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a40d861fd66ce3f69d40e015dfbc4cbd3">iutest::TestEventListeners::Append</a></div><div class="ttdeci">void Append(TestEventListener *listener)</div><div class="ttdoc">リスナーの追加</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:179</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_event_listener_html_aa978db4007d239ae961ca8ee0e340a67"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html#aa978db4007d239ae961ca8ee0e340a67">iutest::TestEventListener::OnTestIterationStart</a></div><div class="ttdeci">virtual void OnTestIterationStart(const UnitTest &amp;test, int iteration)=0</div><div class="ttdoc">単体テスト開始時に毎回呼ばれます</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_event_listeners_html"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html">iutest::TestEventListeners</a></div><div class="ttdoc">イベントリスナーの管理クラス</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:168</div></div>
-<div class="ttc" id="aclassiutest_1_1_unit_test_html_ae09115bd12edb303535b0ab93ade6005"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#ae09115bd12edb303535b0ab93ade6005">iutest::UnitTest::listeners</a></div><div class="ttdeci">TestEventListeners &amp; listeners() const</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:123</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listeners_html_a8fb5ced0c4ab6319f8845caf32b68ef6"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a8fb5ced0c4ab6319f8845caf32b68ef6">iutest::TestEventListeners::default_result_printer</a></div><div class="ttdeci">TestEventListener * default_result_printer() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">デフォルト出力リスナーの取得</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:201</div></div>
-<div class="ttc" id="agroup___t_e_s_t_d_e_f_html_ga8a327cf27dd6c68be0943a4863197982"><div class="ttname"><a href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga8a327cf27dd6c68be0943a4863197982">IUTEST_RUN_ALL_TESTS</a></div><div class="ttdeci">#define IUTEST_RUN_ALL_TESTS()</div><div class="ttdoc">すべてのテストを実行する</div><div class="ttdef"><b>Definition:</b> iutest.hpp:159</div></div>
+<div class="ttc" id="aclassiutest_1_1_unit_test_html_a1154caf184eb447dd0fe5fbde60e1868"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">iutest::UnitTest::GetInstance</a></div><div class="ttdeci">static UnitTest * GetInstance()</div><div class="ttdoc">UnitTest インスタンスの取得</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:43</div></div>
+<div class="ttc" id="aclassiutest_1_1_unit_test_html_ae09115bd12edb303535b0ab93ade6005"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#ae09115bd12edb303535b0ab93ade6005">iutest::UnitTest::listeners</a></div><div class="ttdeci">TestEventListeners &amp; listeners() const</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:123</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga650662dc23cc31b5bee68981633a4a75"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75">IUTEST_FLAG</a></div><div class="ttdeci">#define IUTEST_FLAG(name)</div><div class="ttdoc">フラグセット</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:57</div></div>
+<div class="ttc" id="agroup___t_e_s_t_d_e_f_html_ga8a327cf27dd6c68be0943a4863197982"><div class="ttname"><a href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga8a327cf27dd6c68be0943a4863197982">IUTEST_RUN_ALL_TESTS</a></div><div class="ttdeci">#define IUTEST_RUN_ALL_TESTS()</div><div class="ttdoc">すべてのテストを実行する</div><div class="ttdef"><b>Definition:</b> iutest.hpp:160</div></div>
+<div class="ttc" id="anamespaceiuutil_html"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html">iuutil</a></div><div class="ttdoc">iutest utility namespace</div><div class="ttdef"><b>Definition:</b> iutest_util.hpp:36</div></div>
+</div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2022年03月17日(木) 23時32分38秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="../../doxygen.png" alt="doxygen"/>
-</a> 1.8.17
+2022年09月03日(土) 12時43分54秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

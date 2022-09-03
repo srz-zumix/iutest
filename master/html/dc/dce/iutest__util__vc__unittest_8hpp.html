@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: util/iutest_util_vc_unittest.hpp ファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.12</span>
+   &#160;<span id="projectnumber">1.17.99.13</span>
    </div>
   </td>
  </tr>
@@ -30,10 +30,10 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.8.17 -->
+<!-- 構築: Doxygen 1.9.1 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
+var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
@@ -82,8 +82,8 @@ $(function() {
 </div><div class="textblock"><div class="dynheader">
 iutest_util_vc_unittest.hpp の依存先関係図:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d4/d39/iutest__util__vc__unittest_8hpp__incl.png" border="0" usemap="#util_2iutest__util__vc__unittest_8hpp" alt=""/></div>
-<map name="util_2iutest__util__vc__unittest_8hpp" id="util_2iutest__util__vc__unittest_8hpp">
+<div class="center"><img src="../../d4/d39/iutest__util__vc__unittest_8hpp__incl.png" border="0" usemap="#autil_2iutest__util__vc__unittest_8hpp" alt=""/></div>
+<map name="autil_2iutest__util__vc__unittest_8hpp" id="autil_2iutest__util__vc__unittest_8hpp">
 <area shape="rect" title="iris unit test, visual studio 11 C++ Unit Test Framework 対応 ファイル" alt="" coords="87,5,222,47"/>
 <area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="163,184,296,211"/>
 <area shape="rect" title=" " alt="" coords="25,102,137,129"/>
@@ -116,10 +116,10 @@ iutest_util_vc_unittest.hpp の依存先関係図:</div>
 <tr class="memitem:a050f986184d48179da854c3b7a5475c5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_VCUNIT_I</b>(testsuite_,  testname_,  className,  methodName)</td></tr>
 <tr class="separator:a050f986184d48179da854c3b7a5475c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca6cf6696cf8c87ffddbc8e842838cc9"><td class="memItemLeft" align="right" valign="top"><a id="aca6cf6696cf8c87ffddbc8e842838cc9"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_VCUNIT_EXEC_</b>(testsuite_,  testname_)&#160;&#160;&#160;Body( &quot;*&quot; #testsuite_ &quot;.&quot; #testname_ &quot;*&quot; )</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_VCUNIT_EXEC_</b>(testsuite_,  testname_)&#160;&#160;&#160;    Body( &quot;*&quot; #testsuite_ &quot;.&quot; #testname_ &quot;*&quot; )</td></tr>
 <tr class="separator:aca6cf6696cf8c87ffddbc8e842838cc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9acb14451a80ad384877d66b0f12e45b"><td class="memItemLeft" align="right" valign="top"><a id="a9acb14451a80ad384877d66b0f12e45b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_VCUNIT_TEST_CLASS</b>(className)&#160;&#160;&#160;ONLY_USED_AT_NAMESPACE_SCOPE class className : public ::iuutil::VisualStudio::TestClass&lt;className&gt;</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_VCUNIT_TEST_CLASS</b>(className)&#160;&#160;&#160;    ONLY_USED_AT_NAMESPACE_SCOPE class className : public ::iuutil::VisualStudio::TestClass&lt;className&gt;</td></tr>
 <tr class="separator:a9acb14451a80ad384877d66b0f12e45b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
@@ -155,6 +155,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><div class="memdoc">
 <b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_I(testsuite_, testname_, testsuite_##testname_##_class, testsuite_##<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">_</a>##testname_);        \</div>
 <div class="line">    IUTEST_TEST(testsuite_, testname_)</div>
+<div class="ttc" id="agroup___m_a_t_c_h_e_r_s_html_gad2cb56dba55586fba899a4785616081b"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">iutest::matchers::_</a></div><div class="ttdeci">const detail::AnythingMatcher _</div><div class="ttdoc">Anything matcher</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2613</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -324,12 +325,9 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div>
 </div>
 </div><!-- contents -->
-<div class="ttc" id="agroup___m_a_t_c_h_e_r_s_html_gad2cb56dba55586fba899a4785616081b"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">iutest::matchers::_</a></div><div class="ttdeci">const detail::AnythingMatcher _</div><div class="ttdoc">Anything matcher</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2613</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2022年03月17日(木) 23時32分38秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="../../doxygen.png" alt="doxygen"/>
-</a> 1.8.17
+2022年09月03日(土) 12時43分54秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

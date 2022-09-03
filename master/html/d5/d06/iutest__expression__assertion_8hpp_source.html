@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: iutest_expression_assertion.hpp ソースファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.12</span>
+   &#160;<span id="projectnumber">1.17.99.13</span>
    </div>
   </td>
  </tr>
@@ -30,10 +30,10 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.8.17 -->
+<!-- 構築: Doxygen 1.9.1 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
+var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
@@ -104,24 +104,24 @@ $(function() {
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">    template&lt;typename RHS&gt;ExpressionResult operator op (const RHS&amp; rhs) const { \</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">        const bool b = result() op rhs ? true : false;                          \</span></div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">        return ExpressionResult(AssertionResult(b)                              \</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">                    &lt;&lt; m_result.message() &lt;&lt; &quot; &quot; #op &quot; &quot; &lt;&lt; rhs);               \</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">    }                                                                           \</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">    ExpressionResult operator op (const ExpressionResult&amp; rhs) const {          \</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">        const bool b = result() op rhs.result() ? true : false;                 \</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">        return ExpressionResult(AssertionResult(b)                              \</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">                    &lt;&lt; m_result.message() &lt;&lt; &quot; &quot; #op &quot; &quot; &lt;&lt; rhs.message());     \</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">    }                                                                           \</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">    ExpressionResult operator op (const AssertionResult&amp; rhs) const {           \</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">        const bool b = result() op rhs.passed() ? true : false;                 \</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">        return ExpressionResult(AssertionResult(b)                              \</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">                    &lt;&lt; m_result.message() &lt;&lt; &quot; &quot; #op &quot; &quot; &lt;&lt; rhs.message());     \</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">    }</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">                    &lt;&lt; m_result.message() &lt;&lt; &quot; &quot;</span> #op &quot; &quot; &lt;&lt; rhs);               \</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }                                                                           \</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    ExpressionResult operator op (const ExpressionResult&amp; rhs) const {          \</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        const bool b = result() op rhs.result() ? true : false;                 \</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        return ExpressionResult(AssertionResult(b)                              \</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                    &lt;&lt; m_result.message() &lt;&lt; &quot; &quot; #op &quot; &quot; &lt;&lt; rhs.message());     \</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }                                                                           \</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    ExpressionResult operator op (const AssertionResult&amp; rhs) const {           \</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        const bool b = result() op rhs.passed() ? true : false;                 \</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        return ExpressionResult(AssertionResult(b)                              \</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                    &lt;&lt; m_result.message() &lt;&lt; &quot; &quot; #op &quot; &quot; &lt;&lt; rhs.message());     \</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    }</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#define IIUT_DECL_EXPRESSION_OP(op)                                                     \</span></div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">    template&lt;typename RHS&gt;ExpressionResult operator op (const RHS&amp; rhs) const {         \</span></div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">        const bool b = (m_lhs op rhs) ? true : false;                                   \</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">        return ExpressionResult(AssertionResult(b) &lt;&lt; m_message &lt;&lt; &quot; &quot; #op &quot; &quot; &lt;&lt; rhs); \</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">    }</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">        return ExpressionResult(AssertionResult(b) &lt;&lt; m_message &lt;&lt; &quot; &quot;</span> #op &quot; &quot; &lt;&lt; rhs); \</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    }</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE || IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE</span></div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
@@ -131,15 +131,15 @@ $(function() {
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">    template&lt;typename RHS&gt;auto operator op (const RHS&amp; rhs) const       \</span></div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">    -&gt; ExpressionLHS&lt; decltype( expression_op_helper::operand_result(   \</span></div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">        ( ::std::declval&lt;T&gt;() op rhs ) ) )&gt; {                           \</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">        return OperandResult(m_lhs op rhs) &lt;&lt; &quot; &quot; #op &quot; &quot; &lt;&lt; rhs;       \</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">    }</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">        return OperandResult(m_lhs op rhs) &lt;&lt; &quot; &quot;</span> #op &quot; &quot; &lt;&lt; rhs;       \</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    }</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#define IIUT_DECL_EXPRESSION_OP_LHS(op) \</span></div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">    template&lt;typename RHS&gt;ExpressionLHS&lt;RHS&gt; operator op (const RHS&amp; rhs) const {   \</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor">    return OperandResult(m_lhs op rhs) &lt;&lt; &quot; &quot; #op &quot; &quot; &lt;&lt; rhs;   \</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor">    }</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor">    return OperandResult(m_lhs op rhs) &lt;&lt; &quot; &quot;</span> #op &quot; &quot; &lt;&lt; rhs;   \</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    }</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
@@ -307,17 +307,14 @@ $(function() {
 <div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
 <div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160; </div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_EXPRESSION_ASSERTION_HPP_B9783316_33CF_4CA7_81D0_0BF44B048A4A_</span></div>
-</div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// INCG_IRIS_IUTEST_EXPRESSION_ASSERTION_HPP_B9783316_33CF_4CA7_81D0_0BF44B048A4A_</span></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_a42fd5b126100cbf2e505fec4f669f3ba"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a42fd5b126100cbf2e505fec4f669f3ba">IUTEST_CXX_DELETED_FUNCTION</a></div><div class="ttdeci">#define IUTEST_CXX_DELETED_FUNCTION</div><div class="ttdoc">delete function</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:445</div></div>
 <div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
 <div class="ttc" id="anamespaceiutest_html_a543a2a28ba663224cb511a4ae93877dc"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a543a2a28ba663224cb511a4ae93877dc">iutest::Message</a></div><div class="ttdeci">detail::iuStreamMessage Message</div><div class="ttdoc">Message クラス</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:33</div></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_a42fd5b126100cbf2e505fec4f669f3ba"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a42fd5b126100cbf2e505fec4f669f3ba">IUTEST_CXX_DELETED_FUNCTION</a></div><div class="ttdeci">#define IUTEST_CXX_DELETED_FUNCTION</div><div class="ttdoc">delete function</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:445</div></div>
+</div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2022年03月17日(木) 23時32分35秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="../../doxygen.png" alt="doxygen"/>
-</a> 1.8.17
+2022年09月03日(土) 12時43分52秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

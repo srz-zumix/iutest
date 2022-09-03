@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: iutest_legacy.hpp ソースファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.12</span>
+   &#160;<span id="projectnumber">1.17.99.13</span>
    </div>
   </td>
  </tr>
@@ -30,10 +30,10 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.8.17 -->
+<!-- 構築: Doxygen 1.9.1 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
+var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
@@ -128,7 +128,7 @@ $(function() {
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">static</span> SetUpTearDownTestSuiteFuncType GetSetUpCaseOrSuite(<span class="keyword">const</span> <span class="keywordtype">char</span>* file, <span class="keywordtype">int</span> line)</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    {</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        SetUpTearDownTestSuiteFuncType testcase = GetNotDefaultOrNull(&amp;T::SetUpTestCase, &amp;Tester::SetUpTestCase);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        SetUpTearDownTestSuiteFuncType testsuite = GetNotDefaultOrNull(&amp;T::SetUpTestSuite, &amp;Tester::SetUpTestSuite);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        SetUpTearDownTestSuiteFuncType testsuite = GetNotDefaultOrNull(&amp;T::SetUpTestSuite, &amp;<a class="code" href="../../dc/d0e/classiutest_1_1_test.html#ade21ac33749db88ee4ff3a1de531ec45">Tester::SetUpTestSuite</a>);</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <a class="code" href="../../d1/d2a/iutest__port_8hpp.html#ace4f988a8127594f5c65ee322e6c88fd">IUTEST_CHECK_</a>( testcase == NULL || testsuite == NULL )</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            &lt;&lt; <span class="stringliteral">&quot;Test can not provide both SetUpTestSuite and SetUpTestCase, please make sure there is only one present at &quot;</span></div>
@@ -139,7 +139,7 @@ $(function() {
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">static</span> SetUpTearDownTestSuiteFuncType GetTearDownCaseOrSuite(<span class="keyword">const</span> <span class="keywordtype">char</span>* file, <span class="keywordtype">int</span> line)</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    {</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        SetUpTearDownTestSuiteFuncType testcase = GetNotDefaultOrNull(&amp;T::TearDownTestCase, &amp;Tester::TearDownTestCase);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        SetUpTearDownTestSuiteFuncType testsuite = GetNotDefaultOrNull(&amp;T::TearDownTestSuite, &amp;Tester::TearDownTestSuite);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        SetUpTearDownTestSuiteFuncType testsuite = GetNotDefaultOrNull(&amp;T::TearDownTestSuite, &amp;<a class="code" href="../../dc/d0e/classiutest_1_1_test.html#a72c7c759833a161f1fdf54785cf8a153">Tester::TearDownTestSuite</a>);</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <a class="code" href="../../d1/d2a/iutest__port_8hpp.html#ace4f988a8127594f5c65ee322e6c88fd">IUTEST_CHECK_</a>( testcase == NULL || testsuite == NULL )</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            &lt;&lt; <span class="stringliteral">&quot;Test can not provide both TearDownTestSuite and TearDownTestCase, please make sure there is only one present at &quot;</span></div>
@@ -162,19 +162,17 @@ $(function() {
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_LEGACY_HPP_E7B75232_2AB9_44F5_B9C5_CF62CD3FF958_</span></div>
-</div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclassiutest_1_1_test_html"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html">iutest::Test</a></div><div class="ttdoc">テストベース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:43</div></div>
-<div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
-<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
-<div class="ttc" id="astructiutest_1_1legacy_1_1_suite_api_resolver_html"><div class="ttname"><a href="../../d9/d29/structiutest_1_1legacy_1_1_suite_api_resolver.html">iutest::legacy::SuiteApiResolver</a></div><div class="ttdef"><b>Definition:</b> iutest_legacy.hpp:67</div></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// INCG_IRIS_IUTEST_LEGACY_HPP_E7B75232_2AB9_44F5_B9C5_CF62CD3FF958_</span></div>
+<div class="ttc" id="aclassiutest_1_1_test_html"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html">iutest::Test</a></div><div class="ttdoc">テストベース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:44</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_html_a72c7c759833a161f1fdf54785cf8a153"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html#a72c7c759833a161f1fdf54785cf8a153">iutest::Test::TearDownTestSuite</a></div><div class="ttdeci">static void TearDownTestSuite()</div><div class="ttdoc">test suite tear down</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:173</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_html_ade21ac33749db88ee4ff3a1de531ec45"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html#ade21ac33749db88ee4ff3a1de531ec45">iutest::Test::SetUpTestSuite</a></div><div class="ttdeci">static void SetUpTestSuite()</div><div class="ttdoc">test suite setup</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:172</div></div>
 <div class="ttc" id="aiutest__port_8hpp_html"><div class="ttname"><a href="../../d1/d2a/iutest__port_8hpp.html">iutest_port.hpp</a></div><div class="ttdoc">portable</div></div>
-<div class="ttc" id="aiutest__port_8hpp_html_ace4f988a8127594f5c65ee322e6c88fd"><div class="ttname"><a href="../../d1/d2a/iutest__port_8hpp.html#ace4f988a8127594f5c65ee322e6c88fd">IUTEST_CHECK_</a></div><div class="ttdeci">#define IUTEST_CHECK_(condition)</div><div class="ttdoc">内部エラーチェック</div><div class="ttdef"><b>Definition:</b> iutest_port.hpp:62</div></div>
+<div class="ttc" id="aiutest__port_8hpp_html_ace4f988a8127594f5c65ee322e6c88fd"><div class="ttname"><a href="../../d1/d2a/iutest__port_8hpp.html#ace4f988a8127594f5c65ee322e6c88fd">IUTEST_CHECK_</a></div><div class="ttdeci">#define IUTEST_CHECK_(condition)</div><div class="ttdoc">内部エラーチェック</div><div class="ttdef"><b>Definition:</b> iutest_port.hpp:63</div></div>
+<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
+</div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2022年03月17日(木) 23時32分36秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="../../doxygen.png" alt="doxygen"/>
-</a> 1.8.17
+2022年09月03日(土) 12時43分52秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

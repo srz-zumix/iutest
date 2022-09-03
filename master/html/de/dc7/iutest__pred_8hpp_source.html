@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: iutest_pred.hpp ソースファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.12</span>
+   &#160;<span id="projectnumber">1.17.99.13</span>
    </div>
   </td>
  </tr>
@@ -30,10 +30,10 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.8.17 -->
+<!-- 構築: Doxygen 1.9.1 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
+var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
@@ -84,100 +84,76 @@ $(function() {
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#define IUTEST_ASSERT_PRED1(pred, v1)       \</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#gad47790a3fec7352ffc329de96c5bfb82">   34</a></span>&#160;<span class="preprocessor">    IUTEST_PRED1_(pred, v1, IUTEST_ASSERT_FAILURE)</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#define IUTEST_EXPECT_PRED1(pred, v1)       \</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga370b8d672ce7f7a2e7e57bbbff1f9ad4">   42</a></span>&#160;<span class="preprocessor">    IUTEST_PRED1_(pred, v1, IUTEST_EXPECT_FAILURE)</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#define IUTEST_INFORM_PRED1(pred, v1)       \</span></div>
 <div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#gae82a04cba006c37683d89d1a06bf4808">   50</a></span>&#160;<span class="preprocessor">    IUTEST_PRED1_(pred, v1, IUTEST_INFORM_FAILURE)</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#define IUTEST_ASSUME_PRED1(pred, v1)       \</span></div>
 <div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="../../d9/ddb/group___i_u_t_e_s_t___a_s_s_u_m_e__.html#ga972d8c83351f5193b314585e64411a44">   58</a></span>&#160;<span class="preprocessor">    IUTEST_PRED1_(pred, v1, IUTEST_ASSUME_FAILURE)</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#define IUTEST_ASSERT_PRED_FORMAT1(pred_formatter, v1)      \</span></div>
 <div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga22d2497275ad58cbc1bc5d3aae5e58df">   67</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT1_(pred_formatter, v1, IUTEST_ASSERT_FAILURE)</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#define IUTEST_EXPECT_PRED_FORMAT1(pred_formatter, v1)      \</span></div>
 <div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga6c3a06af1722339a23dec9705180ca86">   75</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT1_(pred_formatter, v1, IUTEST_EXPECT_FAILURE)</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#define IUTEST_INFORM_PRED_FORMAT1(pred_formatter, v1)      \</span></div>
 <div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#gabcd22974153787df17eb3438685ebd8b">   83</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT1_(pred_formatter, v1, IUTEST_INFORM_FAILURE)</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#define IUTEST_ASSUME_PRED_FORMAT1(pred_formatter, v1)      \</span></div>
 <div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="../../d9/ddb/group___i_u_t_e_s_t___a_s_s_u_m_e__.html#ga92c55149af0b55c32d96088037d037de">   91</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT1_(pred_formatter, v1, IUTEST_ASSUME_FAILURE)</span></div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#define IUTEST_ASSERT_PRED2(pred, v1, v2)       \</span></div>
 <div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga5924b2cf20520861abc0ebba3c83206a">  102</a></span>&#160;<span class="preprocessor">    IUTEST_PRED2_(pred, v1, v2, IUTEST_ASSERT_FAILURE)</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">#define IUTEST_EXPECT_PRED2(pred, v1, v2)       \</span></div>
 <div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga027655c6bb439be4c7d2a7b71eb93357">  111</a></span>&#160;<span class="preprocessor">    IUTEST_PRED2_(pred, v1, v2, IUTEST_EXPECT_FAILURE)</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">#define IUTEST_INFORM_PRED2(pred, v1, v2)       \</span></div>
 <div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#gae148195507d838a011f1cc27bb04163a">  120</a></span>&#160;<span class="preprocessor">    IUTEST_PRED2_(pred, v1, v2, IUTEST_INFORM_FAILURE)</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="preprocessor">#define IUTEST_ASSUME_PRED2(pred, v1, v2)       \</span></div>
 <div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="../../d9/ddb/group___i_u_t_e_s_t___a_s_s_u_m_e__.html#ga8aa6bf158428448434561e60f3214e1e">  129</a></span>&#160;<span class="preprocessor">    IUTEST_PRED2_(pred, v1, v2, IUTEST_ASSUME_FAILURE)</span></div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">#define IUTEST_ASSERT_PRED_FORMAT2(pred_formatter, v1, v2)      \</span></div>
 <div class="line"><a name="l00139"></a><span class="lineno"><a class="line" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#gae40030bda70d7dc795dc95cb1fbe8a16">  139</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT2_(pred_formatter, v1, v2, IUTEST_ASSERT_FAILURE)</span></div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="preprocessor">#define IUTEST_EXPECT_PRED_FORMAT2(pred_formatter, v1, v2)      \</span></div>
 <div class="line"><a name="l00148"></a><span class="lineno"><a class="line" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#gab28858a551370a39d533bd81d2141afc">  148</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT2_(pred_formatter, v1, v2, IUTEST_EXPECT_FAILURE)</span></div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="preprocessor">#define IUTEST_INFORM_PRED_FORMAT2(pred_formatter, v1, v2)      \</span></div>
 <div class="line"><a name="l00157"></a><span class="lineno"><a class="line" href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#ga9e80e3e2c2fd1cd1a7407c9b530e1d2c">  157</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT2_(pred_formatter, v1, v2, IUTEST_INFORM_FAILURE)</span></div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="preprocessor">#define IUTEST_ASSUME_PRED_FORMAT2(pred_formatter, v1, v2)      \</span></div>
 <div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="../../d9/ddb/group___i_u_t_e_s_t___a_s_s_u_m_e__.html#gae653715b7183a98211f70a7ad0e013af">  166</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT2_(pred_formatter, v1, v2, IUTEST_ASSUME_FAILURE)</span></div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="preprocessor">#define IUTEST_ASSERT_PRED3(pred, v1, v2, v3)       \</span></div>
 <div class="line"><a name="l00178"></a><span class="lineno"><a class="line" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#gac466b5a2e4f2e4ccdf4c9452c8f92168">  178</a></span>&#160;<span class="preprocessor">    IUTEST_PRED3_(pred, v1, v2, v3, IUTEST_ASSERT_FAILURE)</span></div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="preprocessor">#define IUTEST_EXPECT_PRED3(pred, v1, v2, v3)       \</span></div>
 <div class="line"><a name="l00188"></a><span class="lineno"><a class="line" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#gaf2e35453898b5dd64b082ef7d195b11b">  188</a></span>&#160;<span class="preprocessor">    IUTEST_PRED3_(pred, v1, v2, v3, IUTEST_EXPECT_FAILURE)</span></div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="preprocessor">#define IUTEST_INFORM_PRED3(pred, v1, v2, v3)       \</span></div>
 <div class="line"><a name="l00198"></a><span class="lineno"><a class="line" href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#gaf9c4e5cf494e51009fd0ec3498bbea19">  198</a></span>&#160;<span class="preprocessor">    IUTEST_PRED3_(pred, v1, v2, v3, IUTEST_INFORM_FAILURE)</span></div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="preprocessor">#define IUTEST_ASSUME_PRED3(pred, v1, v2, v3)       \</span></div>
 <div class="line"><a name="l00208"></a><span class="lineno"><a class="line" href="../../d9/ddb/group___i_u_t_e_s_t___a_s_s_u_m_e__.html#gaf17d73d21fc8425c8c9a20e6640fade7">  208</a></span>&#160;<span class="preprocessor">    IUTEST_PRED3_(pred, v1, v2, v3, IUTEST_ASSUME_FAILURE)</span></div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;<span class="preprocessor">#define IUTEST_ASSERT_PRED_FORMAT3(pred_formatter, v1, v2, v3)      \</span></div>
 <div class="line"><a name="l00219"></a><span class="lineno"><a class="line" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#gaa9463d3f041d4738e654fd79a9695cfc">  219</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT3_(pred_formatter, v1, v2, v3, IUTEST_ASSERT_FAILURE)</span></div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="preprocessor">#define IUTEST_EXPECT_PRED_FORMAT3(pred_formatter, v1, v2, v3)      \</span></div>
 <div class="line"><a name="l00229"></a><span class="lineno"><a class="line" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#gab0e2e669adeb1202561f7febc6b05d76">  229</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT3_(pred_formatter, v1, v2, v3, IUTEST_EXPECT_FAILURE)</span></div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;<span class="preprocessor">#define IUTEST_INFORM_PRED_FORMAT3(pred_formatter, v1, v2, v3)      \</span></div>
 <div class="line"><a name="l00239"></a><span class="lineno"><a class="line" href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#gacb8c3a9f166292a9c0ebdd186b59279c">  239</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT3_(pred_formatter, v1, v2, v3, IUTEST_INFORM_FAILURE)</span></div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160; </div>
 <div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="preprocessor">#define IUTEST_ASSUME_PRED_FORMAT3(pred_formatter, v1, v2, v3)      \</span></div>
 <div class="line"><a name="l00249"></a><span class="lineno"><a class="line" href="../../d9/ddb/group___i_u_t_e_s_t___a_s_s_u_m_e__.html#gae9092265189fc10c8bd92dd6cb9bbcce">  249</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT3_(pred_formatter, v1, v2, v3, IUTEST_ASSUME_FAILURE)</span></div>
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
 <div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;<span class="preprocessor">#define IUTEST_ASSERT_PRED4(pred, v1, v2, v3, v4)       \</span></div>
 <div class="line"><a name="l00262"></a><span class="lineno"><a class="line" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga23ec995ce9cc3a3479e593705bf44a5e">  262</a></span>&#160;<span class="preprocessor">    IUTEST_PRED4_(pred, v1, v2, v3, v4, IUTEST_ASSERT_FAILURE)</span></div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160; </div>
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;<span class="preprocessor">#define IUTEST_EXPECT_PRED4(pred, v1, v2, v3, v4)       \</span></div>
 <div class="line"><a name="l00273"></a><span class="lineno"><a class="line" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#gab90b5ce15fa4a498619d56087a3d57e4">  273</a></span>&#160;<span class="preprocessor">    IUTEST_PRED4_(pred, v1, v2, v3, v4, IUTEST_EXPECT_FAILURE)</span></div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160; </div>
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;<span class="preprocessor">#define IUTEST_INFORM_PRED4(pred, v1, v2, v3, v4)       \</span></div>
 <div class="line"><a name="l00284"></a><span class="lineno"><a class="line" href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#gaccbf0945852eed1ba0b0c04340b7811e">  284</a></span>&#160;<span class="preprocessor">    IUTEST_PRED4_(pred, v1, v2, v3, v4, IUTEST_INFORM_FAILURE)</span></div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160; </div>
 <div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;<span class="preprocessor">#define IUTEST_ASSUME_PRED4(pred, v1, v2, v3, v4)       \</span></div>
 <div class="line"><a name="l00295"></a><span class="lineno"><a class="line" href="../../d9/ddb/group___i_u_t_e_s_t___a_s_s_u_m_e__.html#ga4b55a6a69f7ddf65c98854e5a2ea2f29">  295</a></span>&#160;<span class="preprocessor">    IUTEST_PRED4_(pred, v1, v2, v3, v4, IUTEST_ASSUME_FAILURE)</span></div>
 <div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160; </div>
 <div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;<span class="preprocessor">#define IUTEST_ASSERT_PRED_FORMAT4(pred_formatter, v1, v2, v3, v4)      \</span></div>
 <div class="line"><a name="l00307"></a><span class="lineno"><a class="line" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#gae391eb96213a030cf32e4b84c775289f">  307</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT4_(pred_formatter, v1, v2, v3, v4, IUTEST_ASSERT_FAILURE)</span></div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160; </div>
 <div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="preprocessor">#define IUTEST_EXPECT_PRED_FORMAT4(pred_formatter, v1, v2, v3, v4)      \</span></div>
 <div class="line"><a name="l00318"></a><span class="lineno"><a class="line" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga421119098dd94008fbb7520c0ef3fb00">  318</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT4_(pred_formatter, v1, v2, v3, v4, IUTEST_EXPECT_FAILURE)</span></div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160; </div>
 <div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;<span class="preprocessor">#define IUTEST_INFORM_PRED_FORMAT4(pred_formatter, v1, v2, v3, v4)      \</span></div>
 <div class="line"><a name="l00329"></a><span class="lineno"><a class="line" href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#ga30d7759f2d34efc6b1189584786579cf">  329</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT4_(pred_formatter, v1, v2, v3, v4, IUTEST_INFORM_FAILURE)</span></div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160; </div>
 <div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="preprocessor">#define IUTEST_ASSUME_PRED_FORMAT4(pred_formatter, v1, v2, v3, v4)      \</span></div>
 <div class="line"><a name="l00340"></a><span class="lineno"><a class="line" href="../../d9/ddb/group___i_u_t_e_s_t___a_s_s_u_m_e__.html#ga09376a8758d44e55702493c18efa76e7">  340</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT4_(pred_formatter, v1, v2, v3, v4, IUTEST_ASSUME_FAILURE)</span></div>
 <div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160; </div>
@@ -185,25 +161,19 @@ $(function() {
 <div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160; </div>
 <div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;<span class="preprocessor">#define IUTEST_ASSERT_PRED5(pred, v1, v2, v3, v4, v5)       \</span></div>
 <div class="line"><a name="l00355"></a><span class="lineno"><a class="line" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#gae3bc34e76efdfbcdb126dd7566f0ddfd">  355</a></span>&#160;<span class="preprocessor">    IUTEST_PRED5_(pred, v1, v2, v3, v4, v5, IUTEST_ASSERT_FAILURE)</span></div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160; </div>
 <div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;<span class="preprocessor">#define IUTEST_EXPECT_PRED5(pred, v1, v2, v3, v4, v5)       \</span></div>
 <div class="line"><a name="l00367"></a><span class="lineno"><a class="line" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga5c33b8c300ecae0f3737cde458ab5e67">  367</a></span>&#160;<span class="preprocessor">    IUTEST_PRED5_(pred, v1, v2, v3, v4, v5, IUTEST_EXPECT_FAILURE)</span></div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160; </div>
 <div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;<span class="preprocessor">#define IUTEST_INFORM_PRED5(pred, v1, v2, v3, v4, v5)       \</span></div>
 <div class="line"><a name="l00379"></a><span class="lineno"><a class="line" href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#ga4e207e81314dd0157a14dc4abf651234">  379</a></span>&#160;<span class="preprocessor">    IUTEST_PRED5_(pred, v1, v2, v3, v4, v5, IUTEST_INFORM_FAILURE)</span></div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160; </div>
 <div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="preprocessor">#define IUTEST_ASSUME_PRED5(pred, v1, v2, v3, v4, v5)       \</span></div>
 <div class="line"><a name="l00391"></a><span class="lineno"><a class="line" href="../../d9/ddb/group___i_u_t_e_s_t___a_s_s_u_m_e__.html#ga581bb8ccae6b5892d9a57eedebbf3a5c">  391</a></span>&#160;<span class="preprocessor">    IUTEST_PRED5_(pred, v1, v2, v3, v4, v5, IUTEST_ASSUME_FAILURE)</span></div>
 <div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160; </div>
 <div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;<span class="preprocessor">#define IUTEST_ASSERT_PRED_FORMAT5(pred_formatter, v1, v2, v3, v4, v5)      \</span></div>
 <div class="line"><a name="l00404"></a><span class="lineno"><a class="line" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga38eabe50ce6838b07b7b4c6fcf8646b0">  404</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT5_(pred_formatter, v1, v2, v3, v4, v5, IUTEST_ASSERT_FAILURE)</span></div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160; </div>
 <div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;<span class="preprocessor">#define IUTEST_EXPECT_PRED_FORMAT5(pred_formatter, v1, v2, v3, v4, v5)      \</span></div>
 <div class="line"><a name="l00416"></a><span class="lineno"><a class="line" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga231d4b195185ff3c59756541a0b8157c">  416</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT5_(pred_formatter, v1, v2, v3, v4, v5, IUTEST_EXPECT_FAILURE)</span></div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160; </div>
 <div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="preprocessor">#define IUTEST_INFORM_PRED_FORMAT5(pred_formatter, v1, v2, v3, v4, v5)      \</span></div>
 <div class="line"><a name="l00428"></a><span class="lineno"><a class="line" href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#gae25570f67c7488af8feab201876a13ea">  428</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT5_(pred_formatter, v1, v2, v3, v4, v5, IUTEST_INFORM_FAILURE)</span></div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160; </div>
 <div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;<span class="preprocessor">#define IUTEST_ASSUME_PRED_FORMAT5(pred_formatter, v1, v2, v3, v4, v5)      \</span></div>
 <div class="line"><a name="l00440"></a><span class="lineno"><a class="line" href="../../d9/ddb/group___i_u_t_e_s_t___a_s_s_u_m_e__.html#ga23dbafc4237acee7ecb22835082c0c13">  440</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT5_(pred_formatter, v1, v2, v3, v4, v5, IUTEST_ASSUME_FAILURE)</span></div>
 <div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160; </div>
@@ -214,13 +184,10 @@ $(function() {
 <div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160; </div>
 <div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;<span class="preprocessor">#define IUTEST_ASSERT_PRED(pred, ...)       \</span></div>
 <div class="line"><a name="l00454"></a><span class="lineno"><a class="line" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#gaec40fdc97ef7ca0c8479d75b91c50dfa">  454</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_(pred, IUTEST_ASSERT_FAILURE, __VA_ARGS__)</span></div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160; </div>
 <div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;<span class="preprocessor">#define IUTEST_EXPECT_PRED(pred, ...)       \</span></div>
 <div class="line"><a name="l00462"></a><span class="lineno"><a class="line" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga067585e6e5041cac3048d5845f5f029e">  462</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_(pred, IUTEST_EXPECT_FAILURE, __VA_ARGS__)</span></div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160; </div>
 <div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;<span class="preprocessor">#define IUTEST_INFORM_PRED(pred, ...)       \</span></div>
 <div class="line"><a name="l00470"></a><span class="lineno"><a class="line" href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#ga00dfb04220ea6f9f98d0cdf19319cbff">  470</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_(pred, IUTEST_INFORM_FAILURE, __VA_ARGS__)</span></div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160; </div>
 <div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;<span class="preprocessor">#define IUTEST_ASSUME_PRED(pred, ...)       \</span></div>
 <div class="line"><a name="l00478"></a><span class="lineno"><a class="line" href="../../d9/ddb/group___i_u_t_e_s_t___a_s_s_u_m_e__.html#ga88f770cd16cf581549306ac3fbe3df4a">  478</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_(pred, IUTEST_ASSUME_FAILURE, __VA_ARGS__)</span></div>
 <div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160; </div>
@@ -228,13 +195,10 @@ $(function() {
 <div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160; </div>
 <div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;<span class="preprocessor">#define IUTEST_ASSERT_PRED_FORMAT(pred_formatter, ...)      \</span></div>
 <div class="line"><a name="l00489"></a><span class="lineno"><a class="line" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga21401b7f37d616597bf583afeabb97af">  489</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT_(pred_formatter, IUTEST_ASSERT_FAILURE, __VA_ARGS__)</span></div>
-<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160; </div>
 <div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;<span class="preprocessor">#define IUTEST_EXPECT_PRED_FORMAT(pred_formatter, ...)      \</span></div>
 <div class="line"><a name="l00497"></a><span class="lineno"><a class="line" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#gae378abb3116c58b154172a92b7ddfb0a">  497</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT_(pred_formatter, IUTEST_EXPECT_FAILURE, __VA_ARGS__)</span></div>
-<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160; </div>
 <div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;<span class="preprocessor">#define IUTEST_INFORM_PRED_FORMAT(pred_formatter, ...)      \</span></div>
 <div class="line"><a name="l00505"></a><span class="lineno"><a class="line" href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#gaa819d09e5cea32279630809389d87e5a">  505</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT_(pred_formatter, IUTEST_INFORM_FAILURE, __VA_ARGS__)</span></div>
-<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160; </div>
 <div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;<span class="preprocessor">#define IUTEST_ASSUME_PRED_FORMAT(pred_formatter, ...)      \</span></div>
 <div class="line"><a name="l00513"></a><span class="lineno"><a class="line" href="../../d9/ddb/group___i_u_t_e_s_t___a_s_s_u_m_e__.html#ga06bf1f8a02f36f4f0174257c9c1a8b8f">  513</a></span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT_(pred_formatter, IUTEST_ASSUME_FAILURE, __VA_ARGS__)</span></div>
 <div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160; </div>
@@ -243,13 +207,10 @@ $(function() {
 <div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160; </div>
 <div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;<span class="preprocessor">#define IUTEST_ASSERT_THROW_PRED_FORMAT2(pred_formatter, statement, expected_exception, expected_exception_value)       \</span></div>
 <div class="line"><a name="l00527"></a><span class="lineno"><a class="line" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga6524dff36ae184150cad9b800ebac9a4">  527</a></span>&#160;<span class="preprocessor">    IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, IUTEST_ASSERT_FAILURE)</span></div>
-<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160; </div>
 <div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;<span class="preprocessor">#define IUTEST_EXPECT_THROW_PRED_FORMAT2(pred_formatter, statement, expected_exception, expected_exception_value)       \</span></div>
 <div class="line"><a name="l00537"></a><span class="lineno"><a class="line" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga1a7daef248e3cd9c18b50a65f7b9d94e">  537</a></span>&#160;<span class="preprocessor">    IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, IUTEST_EXPECT_FAILURE)</span></div>
-<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160; </div>
 <div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;<span class="preprocessor">#define IUTEST_INFORM_THROW_PRED_FORMAT2(pred_formatter, statement, expected_exception, expected_exception_value)       \</span></div>
 <div class="line"><a name="l00547"></a><span class="lineno"><a class="line" href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#gadde77530cf0d40482eb7f8a010168b12">  547</a></span>&#160;<span class="preprocessor">    IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, IUTEST_INFORM_FAILURE)</span></div>
-<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160; </div>
 <div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;<span class="preprocessor">#define IUTEST_ASSUME_THROW_PRED_FORMAT2(pred_formatter, statement, expected_exception, expected_exception_value)       \</span></div>
 <div class="line"><a name="l00557"></a><span class="lineno"><a class="line" href="../../d9/ddb/group___i_u_t_e_s_t___a_s_s_u_m_e__.html#gab2a7fb07e357947ec0c4d2015a4fb562">  557</a></span>&#160;<span class="preprocessor">    IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, IUTEST_ASSUME_FAILURE)</span></div>
 <div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160; </div>
@@ -405,19 +366,16 @@ $(function() {
 <div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160; </div>
 <div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
 <div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160; </div>
-<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_PRED_HPP_ADF851F3_C89B_4CA4_B9A0_A2B2229945C6_</span></div>
-</div><!-- fragment --></div><!-- contents -->
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// INCG_IRIS_IUTEST_PRED_HPP_ADF851F3_C89B_4CA4_B9A0_A2B2229945C6_</span></div>
 <div class="ttc" id="aiutest__assertion_8hpp_html"><div class="ttname"><a href="../../d0/d42/iutest__assertion_8hpp.html">iutest_assertion.hpp</a></div><div class="ttdoc">iris unit test assertion 定義 ファイル</div></div>
-<div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
 <div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
-<div class="ttc" id="anamespaceiutest_html_ae4fa9663c60e0130393ded072932fea8"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#ae4fa9663c60e0130393ded072932fea8">iutest::PrintToStrings</a></div><div class="ttdeci">inline ::std::string PrintToStrings(const char *separate, const T &amp;v)</div><div class="ttdoc">文字列化</div><div class="ttdef"><b>Definition:</b> iutest_printers.hpp:779</div></div>
-<div class="ttc" id="anamespaceiutest_html_a49b30d45309d9c8e820b2252082e0c99"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">iutest::AssertionFailure</a></div><div class="ttdeci">AssertionResult AssertionFailure()</div><div class="ttdoc">テスト失敗を示す AssertionResult オブジェクトの取得</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:410</div></div>
 <div class="ttc" id="anamespaceiutest_html_a0538466708443c65f3c7b2c84b7fce0b"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a></div><div class="ttdeci">AssertionResult AssertionSuccess()</div><div class="ttdoc">テスト成功を示す AssertionResult オブジェクトの取得</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:406</div></div>
+<div class="ttc" id="anamespaceiutest_html_a49b30d45309d9c8e820b2252082e0c99"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">iutest::AssertionFailure</a></div><div class="ttdeci">AssertionResult AssertionFailure()</div><div class="ttdoc">テスト失敗を示す AssertionResult オブジェクトの取得</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:410</div></div>
+<div class="ttc" id="anamespaceiutest_html_ae4fa9663c60e0130393ded072932fea8"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#ae4fa9663c60e0130393ded072932fea8">iutest::PrintToStrings</a></div><div class="ttdeci">inline ::std::string PrintToStrings(const char *separate, const T &amp;v)</div><div class="ttdoc">文字列化</div><div class="ttdef"><b>Definition:</b> iutest_printers.hpp:779</div></div>
+</div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2022年03月17日(木) 23時32分36秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="../../doxygen.png" alt="doxygen"/>
-</a> 1.8.17
+2022年09月03日(土) 12時43分53秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: fixture.cpp</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.12</span>
+   &#160;<span id="projectnumber">1.17.99.13</span>
    </div>
   </td>
  </tr>
@@ -30,10 +30,10 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.8.17 -->
+<!-- 構築: Doxygen 1.9.1 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
+var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
@@ -80,20 +80,20 @@ $(function() {
 <div class="line"><span class="keyword">protected</span>:</div>
 <div class="line">    <span class="keyword">static</span> <span class="keywordtype">int</span> x;</div>
 <div class="line"><span class="keyword">public</span>:</div>
-<div class="line">    <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetUp()</div>
+<div class="line">    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a name="a1"></a><a class="code" href="../../dc/d0e/classiutest_1_1_test.html#add00e8fa58b0ac5db8dbc07157841d47">SetUp</a>()</div>
 <div class="line">    {</div>
 <div class="line">        ++x;</div>
 <div class="line">    }</div>
-<div class="line">    <span class="keyword">static</span> <span class="keywordtype">void</span> SetUpTestSuite()</div>
+<div class="line">    <span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a2"></a><a class="code" href="../../dc/d0e/classiutest_1_1_test.html#ade21ac33749db88ee4ff3a1de531ec45">SetUpTestSuite</a>()</div>
 <div class="line">    {</div>
 <div class="line">        x = 0;</div>
 <div class="line">    }</div>
 <div class="line">};</div>
 <div class="line"><span class="keywordtype">int</span> TestFixed::x = -1;</div>
 <div class="line"> </div>
-<div class="line"><a name="a1"></a><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga7b67b40915d1674f2ae6342c47ea5689">IUTEST_F</a>(TestFixed, Test1)</div>
+<div class="line"><a name="a3"></a><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga7b67b40915d1674f2ae6342c47ea5689">IUTEST_F</a>(TestFixed, Test1)</div>
 <div class="line">{</div>
-<div class="line">    <a name="a2"></a><a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a>(1, x);</div>
+<div class="line">    <a name="a4"></a><a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a>(1, x);</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga7b67b40915d1674f2ae6342c47ea5689">IUTEST_F</a>(TestFixed, Test2)</div>
@@ -116,7 +116,7 @@ $(function() {
 <div class="line">    {</div>
 <div class="line">        Point a = {0, 0};</div>
 <div class="line">        Point b = {0, 0};</div>
-<div class="line">        <a name="a3"></a><a class="code" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a>(a, b); <span class="comment">// operator == があれば可能.</span></div>
+<div class="line">        <a name="a5"></a><a class="code" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a>(a, b); <span class="comment">// operator == があれば可能.</span></div>
 <div class="line">    }</div>
 <div class="line">}</div>
 <div class="line"> </div>
@@ -124,19 +124,19 @@ $(function() {
 <div class="line">{</div>
 <div class="line">    <a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a>(2, x);</div>
 <div class="line">    <a class="code" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a>(2, x);</div>
-<div class="line">    <a name="a4"></a><a class="code" href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#ga550f43526ea08e7375887bcc0d5b9f21">IUTEST_INFORM_EQ</a>(2, x);</div>
+<div class="line">    <a name="a6"></a><a class="code" href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#ga550f43526ea08e7375887bcc0d5b9f21">IUTEST_INFORM_EQ</a>(2, x);</div>
 <div class="line">}</div>
+<div class="ttc" id="aclassiutest_1_1_test_html"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html">iutest::Test</a></div><div class="ttdoc">テストベース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:44</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_html_add00e8fa58b0ac5db8dbc07157841d47"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html#add00e8fa58b0ac5db8dbc07157841d47">iutest::Test::SetUp</a></div><div class="ttdeci">virtual void SetUp()</div><div class="ttdoc">実行前処理</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:167</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_html_ade21ac33749db88ee4ff3a1de531ec45"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html#ade21ac33749db88ee4ff3a1de531ec45">iutest::Test::SetUpTestSuite</a></div><div class="ttdeci">static void SetUpTestSuite()</div><div class="ttdoc">test suite setup</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:172</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___a_s_s_e_r_t___html_ga2efc1300f1fa10aa4a83161967493bf5"><div class="ttname"><a href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a></div><div class="ttdeci">#define IUTEST_ASSERT_EQ(expected, actual)</div><div class="ttdoc">== テスト</div><div class="ttdef"><b>Definition:</b> iutest.hpp:308</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___e_x_p_e_c_t___html_ga8506ae7f9175652fbe66b6e3eeab5cdf"><div class="ttname"><a href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a></div><div class="ttdeci">#define IUTEST_EXPECT_EQ(expected, actual)</div><div class="ttdoc">== テスト</div><div class="ttdef"><b>Definition:</b> iutest.hpp:719</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___i_n_f_o_r_m___html_ga550f43526ea08e7375887bcc0d5b9f21"><div class="ttname"><a href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#ga550f43526ea08e7375887bcc0d5b9f21">IUTEST_INFORM_EQ</a></div><div class="ttdeci">#define IUTEST_INFORM_EQ(expected, actual)</div><div class="ttdoc">== テスト</div><div class="ttdef"><b>Definition:</b> iutest.hpp:1140</div></div>
+<div class="ttc" id="agroup___t_e_s_t_d_e_f_html_ga7b67b40915d1674f2ae6342c47ea5689"><div class="ttname"><a href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga7b67b40915d1674f2ae6342c47ea5689">IUTEST_F</a></div><div class="ttdeci">#define IUTEST_F(testfixture_, testname_)</div><div class="ttdoc">ユーザー指定テスト関数定義マクロ</div><div class="ttdef"><b>Definition:</b> iutest.hpp:81</div></div>
 </div><!-- fragment --> </div><!-- contents -->
-<div class="ttc" id="agroup___i_u_t_e_s_t___i_n_f_o_r_m___html_ga550f43526ea08e7375887bcc0d5b9f21"><div class="ttname"><a href="../../d4/d7c/group___i_u_t_e_s_t___i_n_f_o_r_m__.html#ga550f43526ea08e7375887bcc0d5b9f21">IUTEST_INFORM_EQ</a></div><div class="ttdeci">#define IUTEST_INFORM_EQ(expected, actual)</div><div class="ttdoc">== テスト</div><div class="ttdef"><b>Definition:</b> iutest.hpp:1139</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_html"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html">iutest::Test</a></div><div class="ttdoc">テストベース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:43</div></div>
-<div class="ttc" id="agroup___i_u_t_e_s_t___e_x_p_e_c_t___html_ga8506ae7f9175652fbe66b6e3eeab5cdf"><div class="ttname"><a href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a></div><div class="ttdeci">#define IUTEST_EXPECT_EQ(expected, actual)</div><div class="ttdoc">== テスト</div><div class="ttdef"><b>Definition:</b> iutest.hpp:718</div></div>
-<div class="ttc" id="agroup___i_u_t_e_s_t___a_s_s_e_r_t___html_ga2efc1300f1fa10aa4a83161967493bf5"><div class="ttname"><a href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a></div><div class="ttdeci">#define IUTEST_ASSERT_EQ(expected, actual)</div><div class="ttdoc">== テスト</div><div class="ttdef"><b>Definition:</b> iutest.hpp:307</div></div>
-<div class="ttc" id="agroup___t_e_s_t_d_e_f_html_ga7b67b40915d1674f2ae6342c47ea5689"><div class="ttname"><a href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga7b67b40915d1674f2ae6342c47ea5689">IUTEST_F</a></div><div class="ttdeci">#define IUTEST_F(testfixture_, testname_)</div><div class="ttdoc">ユーザー指定テスト関数定義マクロ</div><div class="ttdef"><b>Definition:</b> iutest.hpp:80</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2022年03月17日(木) 23時32分32秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="../../doxygen.png" alt="doxygen"/>
-</a> 1.8.17
+2022年09月03日(土) 12時43分49秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

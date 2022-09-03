@@ -1,5 +1,6 @@
 <map id="iutest::Test" name="iutest::Test">
-<area shape="rect" id="node1" title="テストベース" alt="" coords="131,5,225,32"/>
+<area shape="rect" id="node1" title="テストベース" alt="" coords="233,5,326,32"/>
 <area shape="rect" id="node2" href="$dd/d91/classiutest_1_1_test_with_any.html" title="any パラメータテストフィクスチャ" alt="" coords="5,80,153,107"/>
-<area shape="rect" id="node3" href="$d8/dcb/classiuutil_1_1backward_1_1_test.html" title=" " alt="" coords="177,80,376,107"/>
+<area shape="rect" id="node3" href="$d6/d09/classiutest_1_1_test_with_param.html" title="パラメータテストベース" alt="" coords="178,80,381,107"/>
+<area shape="rect" id="node4" href="$d8/dcb/classiuutil_1_1backward_1_1_test.html" title=" " alt="" coords="405,80,604,107"/>
 </map>

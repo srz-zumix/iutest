@@ -1,10 +1,10 @@
 <map id="iutest::TestResult::Failed" name="iutest::TestResult::Failed">
-<area shape="rect" id="node1" title="失敗したかどうか" alt="" coords="691,41,825,83"/>
-<area shape="rect" id="node2" href="$d8/d3d/classiutest_1_1_test_info.html#a6a48d61ecc30802312fe62ae5b22f102" title="エラーが出たかどうか" alt="" coords="448,17,643,43"/>
-<area shape="rect" id="node5" href="$d0/d7b/classiutest_1_1_test_result.html#a54b0d9258545f81f3da76aea86181071" title="成功したかどうか" alt="" coords="478,71,613,112"/>
+<area shape="rect" id="node1" title="失敗したかどうか" alt="" coords="691,35,825,76"/>
+<area shape="rect" id="node2" href="$d8/d3d/classiutest_1_1_test_info.html#a6a48d61ecc30802312fe62ae5b22f102" title="エラーが出たかどうか" alt="" coords="448,13,643,39"/>
+<area shape="rect" id="node5" href="$d0/d7b/classiutest_1_1_test_result.html#a54b0d9258545f81f3da76aea86181071" title="成功したかどうか" alt="" coords="478,64,613,105"/>
 <area shape="rect" id="node3" href="$d6/d0f/classiutest_1_1_t_a_p_print_listener.html#a4f6c10af8ddd13cab947bbe4ae0a000e" title="TestSuite 毎の処理" alt="" coords="227,5,400,47"/>
 <area shape="rect" id="node4" href="$d6/d0f/classiutest_1_1_t_a_p_print_listener.html#a7ddbe8a0b6823eadee5ac19a07572752" title="テストプログラム終了時に呼ばれます" alt="" coords="5,5,179,47"/>
-<area shape="rect" id="node6" href="$d3/d87/classiutest_1_1_test_suite.html#a85f8c70d022c90b6102fea93b537f67f" title=" " alt="" coords="246,71,381,112"/>
-<area shape="rect" id="node8" href="$d8/d3d/classiutest_1_1_test_info.html#ac733f26b2979fa7d7543f6f7db5bc358" title="成功したかどうか" alt="" coords="228,137,399,163"/>
-<area shape="rect" id="node7" href="$d3/d87/classiutest_1_1_test_suite.html#ada6ef9dd63f6a16db920ab6c3e8e324d" title=" " alt="" coords="25,71,159,112"/>
+<area shape="rect" id="node6" href="$d8/d3d/classiutest_1_1_test_info.html#ac733f26b2979fa7d7543f6f7db5bc358" title="成功したかどうか" alt="" coords="228,71,399,98"/>
+<area shape="rect" id="node7" href="$d3/d87/classiutest_1_1_test_suite.html#a85f8c70d022c90b6102fea93b537f67f" title=" " alt="" coords="246,123,381,164"/>
+<area shape="rect" id="node8" href="$d3/d87/classiutest_1_1_test_suite.html#ada6ef9dd63f6a16db920ab6c3e8e324d" title=" " alt="" coords="25,123,159,164"/>
 </map>

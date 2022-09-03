@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: iutest_param_tests.hpp ソースファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.12</span>
+   &#160;<span id="projectnumber">1.17.99.13</span>
    </div>
   </td>
  </tr>
@@ -30,10 +30,10 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.8.17 -->
+<!-- 構築: Doxygen 1.9.1 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
+var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
@@ -197,18 +197,18 @@ $(function() {
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="preprocessor">#define IIUT_TEST_P_I_IGNORE_(classname_, testsuite_, testsuitename_, testname_)            \</span></div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="preprocessor">    class classname_ IUTEST_CXX_FINAL : public testsuite_ {                                 \</span></div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="preprocessor">        public: classname_() {}                                                             \</span></div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="preprocessor">        protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() &lt;&lt; &quot;ignored test...&quot;; }  \</span></div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="preprocessor">        template&lt;typename T&gt;void Body();                                                    \</span></div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="preprocessor">        private: static int AddRegister() {                                                 \</span></div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="preprocessor">            static ::iutest::detail::ParamTestInstance&lt; classname_ &gt; testinfo(testname_);   \</span></div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="preprocessor">            IIUT_GETTESTSUITEPATTERNHOLDER(testsuite_, testsuitename_                       \</span></div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="preprocessor">                , IUTEST_GET_PACKAGENAME_())-&gt;AddTestPattern(&amp;testinfo); return 0;          \</span></div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="preprocessor">        }                                                                                   \</span></div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="preprocessor">        static int dummy_;                                                                  \</span></div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="preprocessor">        IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(classname_);                                     \</span></div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="preprocessor">    };                                                                                      \</span></div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="preprocessor">    int classname_::dummy_ IUTEST_ATTRIBUTE_UNUSED_ = classname_::AddRegister();            \</span></div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="preprocessor">    template&lt;typename T&gt;void classname_::Body()</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="preprocessor">        protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() &lt;&lt; &quot;ignored test...&quot;</span>; }  \</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        template&lt;typename T&gt;void Body();                                                    \</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        private: static int AddRegister() {                                                 \</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;            static ::iutest::detail::ParamTestInstance&lt; classname_ &gt; testinfo(testname_);   \</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;            IIUT_GETTESTSUITEPATTERNHOLDER(testsuite_, testsuitename_                       \</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                , IUTEST_GET_PACKAGENAME_())-&gt;AddTestPattern(&amp;testinfo); return 0;          \</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        }                                                                                   \</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        static int dummy_;                                                                  \</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(classname_);                                     \</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    };                                                                                      \</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    int classname_::dummy_ IUTEST_ATTRIBUTE_UNUSED_ = classname_::AddRegister();            \</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    template&lt;typename T&gt;void classname_::Body()</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160; </div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
@@ -404,9 +404,8 @@ $(function() {
 <div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160; </div>
 <div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;<span class="preprocessor">#if IUTEST_HAS_RANDOMVALUES</span></div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160; </div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;<span class="keyword">inline</span> detail::iuRandomParamsHolder IUTEST_ATTRIBUTE_UNUSED_ RandomValues(<span class="keywordtype">size_t</span> num, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> seed=0)</div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;{</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;<span class="keyword">inline</span> detail::iuRandomParamsHolder IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac93012a573d46ad7eba4201f8bb40851">RandomValues</a>(<span class="keywordtype">size_t</span> num, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> seed=0)</div>
+<div class="line"><a name="l00452"></a><span class="lineno"><a class="line" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac93012a573d46ad7eba4201f8bb40851">  452</a></span>&#160;{</div>
 <div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    <span class="keywordflow">return</span> detail::iuRandomParamsHolder(num, seed);</div>
 <div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;}</div>
 <div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;<span class="preprocessor">#endif</span></div>
@@ -418,7 +417,6 @@ $(function() {
 <div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;}</div>
 <div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160; </div>
 <div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;<span class="preprocessor">#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)</span></div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160; </div>
 <div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keywordtype">size_t</span> SIZE&gt;</div>
 <div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;<span class="keyword">inline</span> detail::iuParamGenerator&lt;T&gt; IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac6abe955506654f40f5f3aa68aa2349d">ValuesIn</a>(<span class="keyword">const</span> T (&amp;v)[SIZE])</div>
 <div class="line"><a name="l00470"></a><span class="lineno"><a class="line" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga31104d78b00aff01e352ead33f06aae0">  470</a></span>&#160;{</div>
@@ -426,7 +424,6 @@ $(function() {
 <div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;}</div>
 <div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160; </div>
 <div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;<span class="preprocessor">#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)</span></div>
-<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160; </div>
 <div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Ite&gt;</div>
 <div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;<span class="keyword">inline</span> detail::iuParamGenerator&lt; typename detail::IteratorTraits&lt;Ite&gt;::type &gt; IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac6abe955506654f40f5f3aa68aa2349d">ValuesIn</a>(Ite begin, Ite end)</div>
 <div class="line"><a name="l00478"></a><span class="lineno"><a class="line" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gad7bc6d96181e3e7209be2c07ddc909f7">  478</a></span>&#160;{</div>
@@ -436,7 +433,6 @@ $(function() {
 <div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160; </div>
 <div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;<span class="preprocessor">#if IUTEST_HAS_INITIALIZER_LIST</span></div>
-<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160; </div>
 <div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;<span class="keyword">inline</span> detail::iuParamGenerator&lt;T&gt; IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac6abe955506654f40f5f3aa68aa2349d">ValuesIn</a>(::std::initializer_list&lt;T&gt; l)</div>
 <div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;{</div>
@@ -447,7 +443,6 @@ $(function() {
 <div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160; </div>
 <div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;<span class="preprocessor">#if IUTEST_HAS_VARIADIC_VALUES</span></div>
-<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160; </div>
 <div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...Args&gt;</div>
 <div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;<span class="keyword">inline</span> detail::iuValueArray&lt;Args...&gt; IUTEST_ATTRIBUTE_UNUSED_ Values(Args... args)</div>
 <div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;{</div>
@@ -518,7 +513,6 @@ $(function() {
 <div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160; </div>
 <div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;<span class="preprocessor">#if IUTEST_HAS_CONCAT</span></div>
-<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160; </div>
 <div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Generator1, <span class="keyword">typename</span> Generator2&gt;</div>
 <div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;detail::iuConcatParamHolder&lt;Generator1, Generator2&gt; <a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaa6075f95d9a7a1784623e0aebf6488bb">Concat</a>(<span class="keyword">const</span> Generator1&amp; g1, <span class="keyword">const</span> Generator2&amp; g2)</div>
 <div class="line"><a name="l00578"></a><span class="lineno"><a class="line" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaa6075f95d9a7a1784623e0aebf6488bb">  578</a></span>&#160;{</div>
@@ -529,7 +523,6 @@ $(function() {
 <div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;<span class="preprocessor">#if IUTEST_HAS_COMBINE</span></div>
 <div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160; </div>
 <div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;<span class="preprocessor">#if IUTEST_HAS_VARIADIC_COMBINE</span></div>
-<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160; </div>
 <div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...Generator&gt;</div>
 <div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;detail::iuCartesianProductHolder&lt;Generator...&gt; Combine(<span class="keyword">const</span> Generator&amp;... generators)</div>
 <div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;{</div>
@@ -621,42 +614,37 @@ $(function() {
 <div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
 <div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160; </div>
 <div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;<span class="preprocessor">#if IUTEST_HAS_ANY_PARAM_TEST</span></div>
-<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160; </div>
 <div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;typedef ::iutest::TestWithAny <a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#gaf27cb6dcf37042c9c8123217eab523c6">iuTestWithAny</a>;</div>
 <div class="line"><a name="l00704"></a><span class="lineno"><a class="line" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#gaf27cb6dcf37042c9c8123217eab523c6">  704</a></span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160; </div>
-<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;<span class="preprocessor">#endif // IUTEST_HAS_PARAM_TEST</span></div>
+<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// IUTEST_HAS_PARAM_TEST</span></div>
 <div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160; </div>
-<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_PARAM_TESTS_HPP_3DBBF55E_A076_4207_B49E_34734EE333EE_</span></div>
-</div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_gac281649a8a25d90ab0b421d8b1582143"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac281649a8a25d90ab0b421d8b1582143">iutest::ValuesGen</a></div><div class="ttdeci">detail::iuValuesParamsGeneratorHolder&lt; StdGenerator &gt; IUTEST_ATTRIBUTE_UNUSED_ ValuesGen(size_t num, const StdGenerator &amp;generator)</div><div class="ttdoc">ユーザー定義ジェネレータ利用パラメータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:425</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_html"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html">iutest::Test</a></div><div class="ttdoc">テストベース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:43</div></div>
+<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// INCG_IRIS_IUTEST_PARAM_TESTS_HPP_3DBBF55E_A076_4207_B49E_34734EE333EE_</span></div>
+<div class="ttc" id="aclassiutest_1_1_test_with_any_html"><div class="ttname"><a href="../../dd/d91/classiutest_1_1_test_with_any.html">iutest::TestWithAny</a></div><div class="ttdoc">any パラメータテストフィクスチャ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:353</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_with_any_html_abdb39ec3894f7abd03cb2b2d83b539f9"><div class="ttname"><a href="../../dd/d91/classiutest_1_1_test_with_any.html#abdb39ec3894f7abd03cb2b2d83b539f9">iutest::TestWithAny::GetParam</a></div><div class="ttdeci">static const ParamType &amp; GetParam()</div><div class="ttdoc">パラメータの取得</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:358</div></div>
+<div class="ttc" id="aclassiutest_1_1_with_param_interface_html"><div class="ttname"><a href="../../df/d22/classiutest_1_1_with_param_interface.html">iutest::WithParamInterface</a></div><div class="ttdoc">パラメータテストインターフェース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:248</div></div>
 <div class="ttc" id="aclassiutest_1_1_with_param_interface_html_a230d2274b605bbc146785fddc1402c23"><div class="ttname"><a href="../../df/d22/classiutest_1_1_with_param_interface.html#a230d2274b605bbc146785fddc1402c23">iutest::WithParamInterface::GetParam</a></div><div class="ttdeci">static const ParamType &amp; GetParam()</div><div class="ttdoc">パラメータの取得</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:259</div></div>
-<div class="ttc" id="aclassiutest_1_1any_html"><div class="ttname"><a href="../../d6/d7f/classiutest_1_1any.html">iutest::any</a></div><div class="ttdoc">any</div><div class="ttdef"><b>Definition:</b> iutest_any.hpp:33</div></div>
-<div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_gafe52fa82b3a1ff61cd1b1ea3732d4208"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gafe52fa82b3a1ff61cd1b1ea3732d4208">iutest::Range</a></div><div class="ttdeci">detail::iuParamGenerator&lt; T &gt; IUTEST_ATTRIBUTE_UNUSED_ Range(T begin, T end, T step=static_cast&lt; T &gt;(1))</div><div class="ttdoc">範囲パラメータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:405</div></div>
-<div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
-<div class="ttc" id="anamespaceiutest_html_a089d4c220696dc46e2ef184fc945367c"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">iutest::PrintToString</a></div><div class="ttdeci">std::string PrintToString(const T &amp;v)</div><div class="ttdoc">文字列化</div><div class="ttdef"><b>Definition:</b> iutest_printers.hpp:767</div></div>
-<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_with_any_html"><div class="ttname"><a href="../../dd/d91/classiutest_1_1_test_with_any.html">iutest::TestWithAny</a></div><div class="ttdoc">any パラメータテストフィクスチャ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:352</div></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_aaf362ab17fd8e57646fc5d56216486d0"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#aaf362ab17fd8e57646fc5d56216486d0">IUTEST_CXX_FINAL</a></div><div class="ttdeci">#define IUTEST_CXX_FINAL</div><div class="ttdoc">final definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:756</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_with_any_html_a84d8994adc67c79ff618bc32b9fc229a"><div class="ttname"><a href="../../dd/d91/classiutest_1_1_test_with_any.html#a84d8994adc67c79ff618bc32b9fc229a">iutest::TestWithAny::GetParam</a></div><div class="ttdeci">static T GetParam()</div><div class="ttdoc">パラメータの取得</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:364</div></div>
-<div class="ttc" id="agroup___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_gaf27cb6dcf37042c9c8123217eab523c6"><div class="ttname"><a href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#gaf27cb6dcf37042c9c8123217eab523c6">iuTestWithAny</a></div><div class="ttdeci">::iutest::TestWithAny iuTestWithAny</div><div class="ttdoc">any param test fixture</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:704</div></div>
-<div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_gac6abe955506654f40f5f3aa68aa2349d"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac6abe955506654f40f5f3aa68aa2349d">iutest::ValuesIn</a></div><div class="ttdeci">detail::iuParamGenerator&lt; typename Container::value_type &gt; IUTEST_ATTRIBUTE_UNUSED_ ValuesIn(Container container)</div><div class="ttdoc">値配列パラメータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:462</div></div>
-<div class="ttc" id="anamespaceiutest_html_add3d75edff7febed1ad134ae3235f5dc"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">iutest::TestTypeId</a></div><div class="ttdeci">internal::TypeId TestTypeId</div><div class="ttdoc">テスト識別型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:519</div></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:747</div></div>
+<div class="ttc" id="aclassiutest_1_1any_html"><div class="ttname"><a href="../../d6/d7f/classiutest_1_1any.html">iutest::any</a></div><div class="ttdoc">any</div><div class="ttdef"><b>Definition:</b> iutest_any.hpp:34</div></div>
+<div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_ga274fc86cc505ac05302a35617180caa4"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga274fc86cc505ac05302a35617180caa4">iutest::Bool</a></div><div class="ttdeci">detail::iuParamGenerator&lt; bool &gt; IUTEST_ATTRIBUTE_UNUSED_ Bool()</div><div class="ttdoc">真偽値パラメータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:413</div></div>
 <div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_ga2f0d56dbeb39611fc7f569d84739912f"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga2f0d56dbeb39611fc7f569d84739912f">iutest::RandomGenerator</a></div><div class="ttdeci">detail::iuRandomFilterParamGenerator&lt; T, Filter &gt; IUTEST_ATTRIBUTE_UNUSED_ RandomGenerator(const Filter &amp;filter, unsigned int seed=0)</div><div class="ttdoc">乱数ジェネレータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:437</div></div>
 <div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_gaa6075f95d9a7a1784623e0aebf6488bb"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaa6075f95d9a7a1784623e0aebf6488bb">iutest::Concat</a></div><div class="ttdeci">detail::iuConcatParamHolder&lt; Generator1, Generator2 &gt; Concat(const Generator1 &amp;g1, const Generator2 &amp;g2)</div><div class="ttdoc">値配列パラメータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:578</div></div>
+<div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_gac281649a8a25d90ab0b421d8b1582143"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac281649a8a25d90ab0b421d8b1582143">iutest::ValuesGen</a></div><div class="ttdeci">detail::iuValuesParamsGeneratorHolder&lt; StdGenerator &gt; IUTEST_ATTRIBUTE_UNUSED_ ValuesGen(size_t num, const StdGenerator &amp;generator)</div><div class="ttdoc">ユーザー定義ジェネレータ利用パラメータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:425</div></div>
+<div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_gac6abe955506654f40f5f3aa68aa2349d"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac6abe955506654f40f5f3aa68aa2349d">iutest::ValuesIn</a></div><div class="ttdeci">detail::iuParamGenerator&lt; typename Container::value_type &gt; IUTEST_ATTRIBUTE_UNUSED_ ValuesIn(Container container)</div><div class="ttdoc">値配列パラメータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:462</div></div>
+<div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_gac93012a573d46ad7eba4201f8bb40851"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac93012a573d46ad7eba4201f8bb40851">iutest::RandomValues</a></div><div class="ttdeci">detail::iuRandomParamsHolder IUTEST_ATTRIBUTE_UNUSED_ RandomValues(size_t num, unsigned int seed=0)</div><div class="ttdoc">乱数値パラメータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:452</div></div>
+<div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_gafe52fa82b3a1ff61cd1b1ea3732d4208"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gafe52fa82b3a1ff61cd1b1ea3732d4208">iutest::Range</a></div><div class="ttdeci">detail::iuParamGenerator&lt; T &gt; IUTEST_ATTRIBUTE_UNUSED_ Range(T begin, T end, T step=static_cast&lt; T &gt;(1))</div><div class="ttdoc">範囲パラメータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:405</div></div>
+<div class="ttc" id="agroup___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_gaf27cb6dcf37042c9c8123217eab523c6"><div class="ttname"><a href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#gaf27cb6dcf37042c9c8123217eab523c6">iuTestWithAny</a></div><div class="ttdeci">::iutest::TestWithAny iuTestWithAny</div><div class="ttdoc">any param test fixture</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:704</div></div>
 <div class="ttc" id="aiutest__any_8hpp_html"><div class="ttname"><a href="../../d4/d63/iutest__any_8hpp.html">iutest_any.hpp</a></div><div class="ttdoc">iris unit test any object</div></div>
-<div class="ttc" id="anamespaceiutest_html_a4b4e0725aff84c407822b9009ae75b12"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a4b4e0725aff84c407822b9009ae75b12">iutest::TearDownMethod</a></div><div class="ttdeci">void(* TearDownMethod)()</div><div class="ttdoc">TearDown 関数型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:522</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_aaf362ab17fd8e57646fc5d56216486d0"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#aaf362ab17fd8e57646fc5d56216486d0">IUTEST_CXX_FINAL</a></div><div class="ttdeci">#define IUTEST_CXX_FINAL</div><div class="ttdoc">final definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:756</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:747</div></div>
+<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
+<div class="ttc" id="anamespaceiutest_html_a089d4c220696dc46e2ef184fc945367c"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">iutest::PrintToString</a></div><div class="ttdeci">std::string PrintToString(const T &amp;v)</div><div class="ttdoc">文字列化</div><div class="ttdef"><b>Definition:</b> iutest_printers.hpp:767</div></div>
 <div class="ttc" id="anamespaceiutest_html_a3d4347414b4f9246d02cc912beead66d"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a3d4347414b4f9246d02cc912beead66d">iutest::SetUpMethod</a></div><div class="ttdeci">void(* SetUpMethod)()</div><div class="ttdoc">SetUp 関数型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:521</div></div>
-<div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_ga274fc86cc505ac05302a35617180caa4"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga274fc86cc505ac05302a35617180caa4">iutest::Bool</a></div><div class="ttdeci">detail::iuParamGenerator&lt; bool &gt; IUTEST_ATTRIBUTE_UNUSED_ Bool()</div><div class="ttdoc">真偽値パラメータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:413</div></div>
-<div class="ttc" id="aclassiutest_1_1_with_param_interface_html"><div class="ttname"><a href="../../df/d22/classiutest_1_1_with_param_interface.html">iutest::WithParamInterface</a></div><div class="ttdoc">パラメータテストインターフェース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:28</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_with_any_html_abdb39ec3894f7abd03cb2b2d83b539f9"><div class="ttname"><a href="../../dd/d91/classiutest_1_1_test_with_any.html#abdb39ec3894f7abd03cb2b2d83b539f9">iutest::TestWithAny::GetParam</a></div><div class="ttdeci">static const ParamType &amp; GetParam()</div><div class="ttdoc">パラメータの取得</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:358</div></div>
+<div class="ttc" id="anamespaceiutest_html_a4b4e0725aff84c407822b9009ae75b12"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a4b4e0725aff84c407822b9009ae75b12">iutest::TearDownMethod</a></div><div class="ttdeci">void(* TearDownMethod)()</div><div class="ttdoc">TearDown 関数型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:522</div></div>
+<div class="ttc" id="anamespaceiutest_html_add3d75edff7febed1ad134ae3235f5dc"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">iutest::TestTypeId</a></div><div class="ttdeci">internal::TypeId TestTypeId</div><div class="ttdoc">テスト識別型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:519</div></div>
+</div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2022年03月17日(木) 23時32分36秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="../../doxygen.png" alt="doxygen"/>
-</a> 1.8.17
+2022年09月03日(土) 12時43分53秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

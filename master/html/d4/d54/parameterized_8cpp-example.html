@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: parameterized.cpp</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.12</span>
+   &#160;<span id="projectnumber">1.17.99.13</span>
    </div>
   </td>
  </tr>
@@ -30,10 +30,10 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.8.17 -->
+<!-- 構築: Doxygen 1.9.1 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
+var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
@@ -86,7 +86,7 @@ $(function() {
 <div class="line">    <span class="keyword">static</span> <span class="keywordtype">int</span> a;</div>
 <div class="line">    <span class="keyword">static</span> <span class="keywordtype">int</span> b;</div>
 <div class="line"><span class="keyword">public</span>:</div>
-<div class="line">    <span class="keyword">static</span> <span class="keywordtype">void</span> SetUpTestSuite()</div>
+<div class="line">    <span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a1"></a><a class="code" href="../../dc/d0e/classiutest_1_1_test.html#ade21ac33749db88ee4ff3a1de531ec45">SetUpTestSuite</a>()</div>
 <div class="line">    {</div>
 <div class="line">        a = 0;</div>
 <div class="line">        b = 0;</div>
@@ -95,15 +95,15 @@ $(function() {
 <div class="line"><span class="keywordtype">int</span> TestP::a = 0;</div>
 <div class="line"><span class="keywordtype">int</span> TestP::b = 0;</div>
 <div class="line"> </div>
-<div class="line"><a name="a1"></a><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga9e52856f31a546e407a91b0027021166">IUTEST_INSTANTIATE_TEST_SUITE_P</a>(TestPInstance, TestP, ::iutest::Range&lt;int&gt;(0, 10));</div>
+<div class="line"><a name="a2"></a><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga9e52856f31a546e407a91b0027021166">IUTEST_INSTANTIATE_TEST_SUITE_P</a>(TestPInstance, TestP, ::iutest::Range&lt;int&gt;(0, 10));</div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#if IUTEST_HAS_CONCAT</span></div>
-<div class="line"><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga9e52856f31a546e407a91b0027021166">IUTEST_INSTANTIATE_TEST_SUITE_P</a>(TestPInstance2, TestP, ::<a name="a2"></a><a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaa6075f95d9a7a1784623e0aebf6488bb">iutest::Concat</a>( ::<a name="a3"></a><a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga274fc86cc505ac05302a35617180caa4">iutest::Bool</a>(), ::<a name="a4"></a><a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gafe52fa82b3a1ff61cd1b1ea3732d4208">iutest::Range</a>(2, 4)));</div>
+<div class="line"><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga9e52856f31a546e407a91b0027021166">IUTEST_INSTANTIATE_TEST_SUITE_P</a>(TestPInstance2, TestP, ::<a name="a3"></a><a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaa6075f95d9a7a1784623e0aebf6488bb">iutest::Concat</a>( ::<a name="a4"></a><a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga274fc86cc505ac05302a35617180caa4">iutest::Bool</a>(), ::<a name="a5"></a><a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gafe52fa82b3a1ff61cd1b1ea3732d4208">iutest::Range</a>(2, 4)));</div>
 <div class="line"><span class="preprocessor">#endif</span></div>
 <div class="line"> </div>
-<div class="line"><a name="a5"></a><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga4e4ed763e41980f829340e2778f99545">IUTEST_P</a>(TestP, TestA)</div>
+<div class="line"><a name="a6"></a><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga4e4ed763e41980f829340e2778f99545">IUTEST_P</a>(TestP, TestA)</div>
 <div class="line">{</div>
-<div class="line">    <a name="a6"></a><a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a>(a, GetParam());</div>
+<div class="line">    <a name="a7"></a><a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a>(a, GetParam());</div>
 <div class="line">    ++a;</div>
 <div class="line">}</div>
 <div class="line"> </div>
@@ -114,13 +114,13 @@ $(function() {
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Param Test Range (WithParamInterface)</span></div>
-<div class="line"><span class="keyword">class </span>TestPIBase : <span class="keyword">public</span> <a name="_a7"></a><a class="code" href="../../dc/d0e/classiutest_1_1_test.html">::iutest::Test</a></div>
+<div class="line"><span class="keyword">class </span>TestPIBase : <span class="keyword">public</span> <a name="_a8"></a><a class="code" href="../../dc/d0e/classiutest_1_1_test.html">::iutest::Test</a></div>
 <div class="line">{</div>
 <div class="line"><span class="keyword">protected</span>:</div>
 <div class="line">    <span class="keyword">static</span> <span class="keywordtype">int</span> a;</div>
 <div class="line">    <span class="keyword">static</span> <span class="keywordtype">int</span> b;</div>
 <div class="line"><span class="keyword">public</span>:</div>
-<div class="line">    <span class="keyword">static</span> <span class="keywordtype">void</span> SetUpTestSuite()</div>
+<div class="line">    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="../../dc/d0e/classiutest_1_1_test.html#ade21ac33749db88ee4ff3a1de531ec45">SetUpTestSuite</a>()</div>
 <div class="line">    {</div>
 <div class="line">        a = 0;</div>
 <div class="line">        b = 0;</div>
@@ -129,7 +129,7 @@ $(function() {
 <div class="line"><span class="keywordtype">int</span> TestPIBase::a = 0;</div>
 <div class="line"><span class="keywordtype">int</span> TestPIBase::b = 0;</div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">class </span>TestPI : <span class="keyword">public</span> TestPIBase, <span class="keyword">public</span> <a name="_a8"></a><a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html">::iutest::WithParamInterface</a>&lt;int&gt; {};</div>
+<div class="line"><span class="keyword">class </span>TestPI : <span class="keyword">public</span> TestPIBase, <span class="keyword">public</span> <a name="_a9"></a><a class="code" href="../../df/d22/classiutest_1_1_with_param_interface.html">::iutest::WithParamInterface</a>&lt;int&gt; {};</div>
 <div class="line"> </div>
 <div class="line"><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga9e52856f31a546e407a91b0027021166">IUTEST_INSTANTIATE_TEST_SUITE_P</a>(TestPInstance, TestPI, ::iutest::Range&lt;int&gt;(0, 10));</div>
 <div class="line"> </div>
@@ -163,13 +163,13 @@ $(function() {
 <div class="line"><span class="keyword">protected</span>:</div>
 <div class="line">    <span class="keyword">static</span> <span class="keywordtype">int</span> a;</div>
 <div class="line"><span class="keyword">public</span>:</div>
-<div class="line">    <span class="keyword">static</span> <span class="keywordtype">void</span> SetUpTestSuite()</div>
+<div class="line">    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="../../dc/d0e/classiutest_1_1_test.html#ade21ac33749db88ee4ff3a1de531ec45">SetUpTestSuite</a>()</div>
 <div class="line">    {</div>
 <div class="line">        a = 0;</div>
 <div class="line">    }</div>
 <div class="line">};</div>
 <div class="line"><span class="keywordtype">int</span> TestPValueIn::a = 0;</div>
-<div class="line"><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga9e52856f31a546e407a91b0027021166">IUTEST_INSTANTIATE_TEST_SUITE_P</a>(TestPValueInInstance, TestPValueIn, ::<a name="a9"></a><a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac6abe955506654f40f5f3aa68aa2349d">iutest::ValuesIn</a>(ValueInTestText));</div>
+<div class="line"><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga9e52856f31a546e407a91b0027021166">IUTEST_INSTANTIATE_TEST_SUITE_P</a>(TestPValueInInstance, TestPValueIn, ::<a name="a10"></a><a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac6abe955506654f40f5f3aa68aa2349d">iutest::ValuesIn</a>(ValueInTestText));</div>
 <div class="line"> </div>
 <div class="line"><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga4e4ed763e41980f829340e2778f99545">IUTEST_P</a>(TestPValueIn, TestA)</div>
 <div class="line">{</div>
@@ -182,7 +182,7 @@ $(function() {
 <div class="line"> </div>
 <div class="line"><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga4e4ed763e41980f829340e2778f99545">IUTEST_P</a>(TestPValues1, TestA)</div>
 <div class="line">{</div>
-<div class="line">    <a name="a10"></a><a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga8618d938ef5235d95366b57daa94ea47">IUTEST_ASSERT_FLOAT_EQ</a>(1.0f, GetParam());</div>
+<div class="line">    <a name="a11"></a><a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga8618d938ef5235d95366b57daa94ea47">IUTEST_ASSERT_FLOAT_EQ</a>(1.0f, GetParam());</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">class </span>TestPValuesN : <span class="keyword">public</span> <a class="code" href="../../d6/d09/classiutest_1_1_test_with_param.html">::iutest::TestWithParam</a>&lt;int&gt;</div>
@@ -190,7 +190,7 @@ $(function() {
 <div class="line"><span class="keyword">protected</span>:</div>
 <div class="line">    <span class="keyword">static</span> <span class="keywordtype">int</span> a;</div>
 <div class="line"><span class="keyword">public</span>:</div>
-<div class="line">    <span class="keyword">static</span> <span class="keywordtype">void</span> SetUpTestSuite()</div>
+<div class="line">    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="../../dc/d0e/classiutest_1_1_test.html#ade21ac33749db88ee4ff3a1de531ec45">SetUpTestSuite</a>()</div>
 <div class="line">    {</div>
 <div class="line">        a = 1;</div>
 <div class="line">    }</div>
@@ -229,10 +229,10 @@ $(function() {
 <div class="line">    <span class="keywordtype">bool</span> b = ::iutest::tuples::get&lt;0&gt;(GetParam());</div>
 <div class="line">    <span class="keywordtype">int</span> i1 = ::iutest::tuples::get&lt;1&gt;(GetParam());</div>
 <div class="line">    <span class="keywordtype">int</span> i2 = ::iutest::tuples::get&lt;2&gt;(GetParam());</div>
-<div class="line">    <a name="a11"></a><a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; b &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; i1 &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; i2;</div>
+<div class="line">    <a name="a12"></a><a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; b &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; i1 &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; i2;</div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#if !defined(IUTEST_USE_GTEST)</span></div>
-<div class="line">    <a name="a12"></a><a class="code" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a>( b, GetParam&lt;0&gt;());</div>
+<div class="line">    <a name="a13"></a><a class="code" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a>( b, GetParam&lt;0&gt;());</div>
 <div class="line">    <a class="code" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a>(i1, GetParam&lt;1&gt;());</div>
 <div class="line">    <a class="code" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a>(i2, GetParam&lt;2&gt;());</div>
 <div class="line"><span class="preprocessor">#endif</span></div>
@@ -251,7 +251,7 @@ $(function() {
 <div class="line">    <span class="keywordtype">int</span> v = GetParam();</div>
 <div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; v;</div>
 <div class="line">}</div>
-<div class="line"><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga9e52856f31a546e407a91b0027021166">IUTEST_INSTANTIATE_TEST_SUITE_P</a>(<a name="a13"></a><a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga7dff43861c1c0e66369395115b2b4e42">A</a>, InitializerListValuesTest, ::<a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac6abe955506654f40f5f3aa68aa2349d">iutest::ValuesIn</a>({1, 9, 8, 6, 3, 9}));</div>
+<div class="line"><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga9e52856f31a546e407a91b0027021166">IUTEST_INSTANTIATE_TEST_SUITE_P</a>(<a name="a14"></a><a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga7dff43861c1c0e66369395115b2b4e42">A</a>, InitializerListValuesTest, ::<a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac6abe955506654f40f5f3aa68aa2349d">iutest::ValuesIn</a>({1, 9, 8, 6, 3, 9}));</div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#endif</span></div>
 <div class="line"> </div>
@@ -264,7 +264,7 @@ $(function() {
 <div class="line">    <span class="keywordtype">int</span> v = GetParam();</div>
 <div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; v;</div>
 <div class="line">}</div>
-<div class="line"><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga9e52856f31a546e407a91b0027021166">IUTEST_INSTANTIATE_TEST_SUITE_P</a>(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga7dff43861c1c0e66369395115b2b4e42">A</a>, RandomValuesTest, ::iutest::RandomValues(5));</div>
+<div class="line"><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga9e52856f31a546e407a91b0027021166">IUTEST_INSTANTIATE_TEST_SUITE_P</a>(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga7dff43861c1c0e66369395115b2b4e42">A</a>, RandomValuesTest, ::<a name="a15"></a><a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac93012a573d46ad7eba4201f8bb40851">iutest::RandomValues</a>(5));</div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#endif</span></div>
 <div class="line"> </div>
@@ -292,13 +292,13 @@ $(function() {
 <div class="line">{</div>
 <div class="line">    <a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a>(x, y);</div>
 <div class="line">}</div>
-<div class="line"><a name="a14"></a><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#gaacdf79d0e2f53df64d498f3edbb5c008">IUTEST_PMZ</a>(ParamMethodTest, EQ, TestFunction, 0, 0);</div>
+<div class="line"><a name="a16"></a><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#gaacdf79d0e2f53df64d498f3edbb5c008">IUTEST_PMZ</a>(ParamMethodTest, EQ, TestFunction, 0, 0);</div>
 <div class="line"><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#gaacdf79d0e2f53df64d498f3edbb5c008">IUTEST_PMZ</a>(ParamMethodTest, EQ, TestFunction, 1, 1);</div>
 <div class="line"><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#gaacdf79d0e2f53df64d498f3edbb5c008">IUTEST_PMZ</a>(ParamMethodTest, EQ, TestFunction, 2, 2);</div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">class </span>ParamMethodTestFixed : <span class="keyword">public</span> <a class="code" href="../../dc/d0e/classiutest_1_1_test.html">::iutest::Test</a> {};</div>
 <div class="line"> </div>
-<div class="line"><a name="a15"></a><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga0b3be4098907aca1af2205d61038681f">IUTEST_PMZ_F</a>(ParamMethodTestFixed, EQ, TestFunction, 0, 0);</div>
+<div class="line"><a name="a17"></a><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga0b3be4098907aca1af2205d61038681f">IUTEST_PMZ_F</a>(ParamMethodTestFixed, EQ, TestFunction, 0, 0);</div>
 <div class="line"><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga0b3be4098907aca1af2205d61038681f">IUTEST_PMZ_F</a>(ParamMethodTestFixed, EQ, TestFunction, 1, 1);</div>
 <div class="line"><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga0b3be4098907aca1af2205d61038681f">IUTEST_PMZ_F</a>(ParamMethodTestFixed, EQ, TestFunction, 2, 2);</div>
 <div class="line"> </div>
@@ -316,7 +316,7 @@ $(function() {
 <div class="line"><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga4e4ed763e41980f829340e2778f99545">IUTEST_P</a>(DISABLED_TestPFailure, Test)</div>
 <div class="line">{</div>
 <div class="line">    <span class="keywordtype">int</span> v = GetParam();</div>
-<div class="line">    <a name="a16"></a><a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9575e6fc375dbd9609d8a27b8783ef37">IUTEST_FAIL</a>() &lt;&lt; v;</div>
+<div class="line">    <a name="a18"></a><a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9575e6fc375dbd9609d8a27b8783ef37">IUTEST_FAIL</a>() &lt;&lt; v;</div>
 <div class="line">}</div>
 <div class="line"><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga9e52856f31a546e407a91b0027021166">IUTEST_INSTANTIATE_TEST_SUITE_P</a>(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga7dff43861c1c0e66369395115b2b4e42">A</a>, DISABLED_TestPFailure, ::iutest::Values(0, 1, 2, 3));</div>
 <div class="line"> </div>
@@ -338,29 +338,29 @@ $(function() {
 <div class="line"><span class="preprocessor">#endif</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#endif</span></div>
-</div><!-- fragment --> </div><!-- contents -->
-<div class="ttc" id="aclassiutest_1_1_test_html"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html">iutest::Test</a></div><div class="ttdoc">テストベース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:43</div></div>
-<div class="ttc" id="agroup___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_gaacdf79d0e2f53df64d498f3edbb5c008"><div class="ttname"><a href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#gaacdf79d0e2f53df64d498f3edbb5c008">IUTEST_PMZ</a></div><div class="ttdeci">#define IUTEST_PMZ(testsuite_, testname_, method_,...)</div><div class="ttdoc">パラメタライズ関数コールテスト定義マクロ</div><div class="ttdef"><b>Definition:</b> iutest.hpp:91</div></div>
-<div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga02da50530b96ac2d6fc4f23dcd28fb9a"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a></div><div class="ttdeci">#define IUTEST_SUCCEED()</div><div class="ttdoc">明示的な成功</div><div class="ttdef"><b>Definition:</b> iutest.hpp:201</div></div>
-<div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_gafe52fa82b3a1ff61cd1b1ea3732d4208"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gafe52fa82b3a1ff61cd1b1ea3732d4208">iutest::Range</a></div><div class="ttdeci">detail::iuParamGenerator&lt; T &gt; IUTEST_ATTRIBUTE_UNUSED_ Range(T begin, T end, T step=static_cast&lt; T &gt;(1))</div><div class="ttdoc">範囲パラメータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:405</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_html"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html">iutest::Test</a></div><div class="ttdoc">テストベース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:44</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_html_ade21ac33749db88ee4ff3a1de531ec45"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html#ade21ac33749db88ee4ff3a1de531ec45">iutest::Test::SetUpTestSuite</a></div><div class="ttdeci">static void SetUpTestSuite()</div><div class="ttdoc">test suite setup</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:172</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_with_param_html"><div class="ttname"><a href="../../d6/d09/classiutest_1_1_test_with_param.html">iutest::TestWithParam</a></div><div class="ttdoc">パラメータテストベース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:301</div></div>
+<div class="ttc" id="aclassiutest_1_1_with_param_interface_html"><div class="ttname"><a href="../../df/d22/classiutest_1_1_with_param_interface.html">iutest::WithParamInterface</a></div><div class="ttdoc">パラメータテストインターフェース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:248</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___a_s_s_e_r_t___html_ga2efc1300f1fa10aa4a83161967493bf5"><div class="ttname"><a href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a></div><div class="ttdeci">#define IUTEST_ASSERT_EQ(expected, actual)</div><div class="ttdoc">== テスト</div><div class="ttdef"><b>Definition:</b> iutest.hpp:308</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___a_s_s_e_r_t___html_ga8618d938ef5235d95366b57daa94ea47"><div class="ttname"><a href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga8618d938ef5235d95366b57daa94ea47">IUTEST_ASSERT_FLOAT_EQ</a></div><div class="ttdeci">#define IUTEST_ASSERT_FLOAT_EQ(expected, actual)</div><div class="ttdoc">float の比較 テスト</div><div class="ttdef"><b>Definition:</b> iutest.hpp:428</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___e_x_p_e_c_t___html_ga8506ae7f9175652fbe66b6e3eeab5cdf"><div class="ttname"><a href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a></div><div class="ttdeci">#define IUTEST_EXPECT_EQ(expected, actual)</div><div class="ttdoc">== テスト</div><div class="ttdef"><b>Definition:</b> iutest.hpp:719</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga02da50530b96ac2d6fc4f23dcd28fb9a"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a></div><div class="ttdeci">#define IUTEST_SUCCEED()</div><div class="ttdoc">明示的な成功</div><div class="ttdef"><b>Definition:</b> iutest.hpp:202</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga9575e6fc375dbd9609d8a27b8783ef37"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9575e6fc375dbd9609d8a27b8783ef37">IUTEST_FAIL</a></div><div class="ttdeci">#define IUTEST_FAIL()</div><div class="ttdoc">明示的な失敗</div><div class="ttdef"><b>Definition:</b> iutest.hpp:211</div></div>
 <div class="ttc" id="agroup___m_a_t_c_h_e_r_s_html_ga7dff43861c1c0e66369395115b2b4e42"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga7dff43861c1c0e66369395115b2b4e42">iutest::matchers::A</a></div><div class="ttdeci">detail::AnyMatcher&lt; T &gt; A()</div><div class="ttdoc">Make Any matcher</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2604</div></div>
-<div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga9575e6fc375dbd9609d8a27b8783ef37"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9575e6fc375dbd9609d8a27b8783ef37">IUTEST_FAIL</a></div><div class="ttdeci">#define IUTEST_FAIL()</div><div class="ttdoc">明示的な失敗</div><div class="ttdef"><b>Definition:</b> iutest.hpp:210</div></div>
-<div class="ttc" id="agroup___i_u_t_e_s_t___e_x_p_e_c_t___html_ga8506ae7f9175652fbe66b6e3eeab5cdf"><div class="ttname"><a href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a></div><div class="ttdeci">#define IUTEST_EXPECT_EQ(expected, actual)</div><div class="ttdoc">== テスト</div><div class="ttdef"><b>Definition:</b> iutest.hpp:718</div></div>
-<div class="ttc" id="agroup___i_u_t_e_s_t___a_s_s_e_r_t___html_ga2efc1300f1fa10aa4a83161967493bf5"><div class="ttname"><a href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a></div><div class="ttdeci">#define IUTEST_ASSERT_EQ(expected, actual)</div><div class="ttdoc">== テスト</div><div class="ttdef"><b>Definition:</b> iutest.hpp:307</div></div>
-<div class="ttc" id="agroup___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_ga0b3be4098907aca1af2205d61038681f"><div class="ttname"><a href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga0b3be4098907aca1af2205d61038681f">IUTEST_PMZ_F</a></div><div class="ttdeci">#define IUTEST_PMZ_F(testfixture_, testname_, method_,...)</div><div class="ttdoc">パラメタライズ関数コールテスト定義マクロ</div><div class="ttdef"><b>Definition:</b> iutest.hpp:103</div></div>
-<div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_gac6abe955506654f40f5f3aa68aa2349d"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac6abe955506654f40f5f3aa68aa2349d">iutest::ValuesIn</a></div><div class="ttdeci">detail::iuParamGenerator&lt; typename Container::value_type &gt; IUTEST_ATTRIBUTE_UNUSED_ ValuesIn(Container container)</div><div class="ttdoc">値配列パラメータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:462</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_with_param_html"><div class="ttname"><a href="../../d6/d09/classiutest_1_1_test_with_param.html">iutest::TestWithParam</a></div><div class="ttdoc">パラメータテストベース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:29</div></div>
-<div class="ttc" id="agroup___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_ga4e4ed763e41980f829340e2778f99545"><div class="ttname"><a href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga4e4ed763e41980f829340e2778f99545">IUTEST_P</a></div><div class="ttdeci">#define IUTEST_P(testfixture_, testname_)</div><div class="ttdoc">パラメータユーザー指定テスト関数定義マクロ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:62</div></div>
-<div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_gaa6075f95d9a7a1784623e0aebf6488bb"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaa6075f95d9a7a1784623e0aebf6488bb">iutest::Concat</a></div><div class="ttdeci">detail::iuConcatParamHolder&lt; Generator1, Generator2 &gt; Concat(const Generator1 &amp;g1, const Generator2 &amp;g2)</div><div class="ttdoc">値配列パラメータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:578</div></div>
-<div class="ttc" id="agroup___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_ga9e52856f31a546e407a91b0027021166"><div class="ttname"><a href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga9e52856f31a546e407a91b0027021166">IUTEST_INSTANTIATE_TEST_SUITE_P</a></div><div class="ttdeci">#define IUTEST_INSTANTIATE_TEST_SUITE_P(prefix_, testfixture_, generator_,...)</div><div class="ttdoc">パラメータテストインスタンス化マクロ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:44</div></div>
-<div class="ttc" id="agroup___i_u_t_e_s_t___a_s_s_e_r_t___html_ga8618d938ef5235d95366b57daa94ea47"><div class="ttname"><a href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga8618d938ef5235d95366b57daa94ea47">IUTEST_ASSERT_FLOAT_EQ</a></div><div class="ttdeci">#define IUTEST_ASSERT_FLOAT_EQ(expected, actual)</div><div class="ttdoc">float の比較 テスト</div><div class="ttdef"><b>Definition:</b> iutest.hpp:427</div></div>
 <div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_ga274fc86cc505ac05302a35617180caa4"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga274fc86cc505ac05302a35617180caa4">iutest::Bool</a></div><div class="ttdeci">detail::iuParamGenerator&lt; bool &gt; IUTEST_ATTRIBUTE_UNUSED_ Bool()</div><div class="ttdoc">真偽値パラメータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:413</div></div>
-<div class="ttc" id="aclassiutest_1_1_with_param_interface_html"><div class="ttname"><a href="../../df/d22/classiutest_1_1_with_param_interface.html">iutest::WithParamInterface</a></div><div class="ttdoc">パラメータテストインターフェース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:28</div></div>
+<div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_gaa6075f95d9a7a1784623e0aebf6488bb"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaa6075f95d9a7a1784623e0aebf6488bb">iutest::Concat</a></div><div class="ttdeci">detail::iuConcatParamHolder&lt; Generator1, Generator2 &gt; Concat(const Generator1 &amp;g1, const Generator2 &amp;g2)</div><div class="ttdoc">値配列パラメータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:578</div></div>
+<div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_gac6abe955506654f40f5f3aa68aa2349d"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac6abe955506654f40f5f3aa68aa2349d">iutest::ValuesIn</a></div><div class="ttdeci">detail::iuParamGenerator&lt; typename Container::value_type &gt; IUTEST_ATTRIBUTE_UNUSED_ ValuesIn(Container container)</div><div class="ttdoc">値配列パラメータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:462</div></div>
+<div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_gac93012a573d46ad7eba4201f8bb40851"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac93012a573d46ad7eba4201f8bb40851">iutest::RandomValues</a></div><div class="ttdeci">detail::iuRandomParamsHolder IUTEST_ATTRIBUTE_UNUSED_ RandomValues(size_t num, unsigned int seed=0)</div><div class="ttdoc">乱数値パラメータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:452</div></div>
+<div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_gafe52fa82b3a1ff61cd1b1ea3732d4208"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gafe52fa82b3a1ff61cd1b1ea3732d4208">iutest::Range</a></div><div class="ttdeci">detail::iuParamGenerator&lt; T &gt; IUTEST_ATTRIBUTE_UNUSED_ Range(T begin, T end, T step=static_cast&lt; T &gt;(1))</div><div class="ttdoc">範囲パラメータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:405</div></div>
+<div class="ttc" id="agroup___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_ga0b3be4098907aca1af2205d61038681f"><div class="ttname"><a href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga0b3be4098907aca1af2205d61038681f">IUTEST_PMZ_F</a></div><div class="ttdeci">#define IUTEST_PMZ_F(testfixture_, testname_, method_,...)</div><div class="ttdoc">パラメタライズ関数コールテスト定義マクロ</div><div class="ttdef"><b>Definition:</b> iutest.hpp:104</div></div>
+<div class="ttc" id="agroup___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_ga4e4ed763e41980f829340e2778f99545"><div class="ttname"><a href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga4e4ed763e41980f829340e2778f99545">IUTEST_P</a></div><div class="ttdeci">#define IUTEST_P(testfixture_, testname_)</div><div class="ttdoc">パラメータユーザー指定テスト関数定義マクロ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:62</div></div>
+<div class="ttc" id="agroup___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_ga9e52856f31a546e407a91b0027021166"><div class="ttname"><a href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga9e52856f31a546e407a91b0027021166">IUTEST_INSTANTIATE_TEST_SUITE_P</a></div><div class="ttdeci">#define IUTEST_INSTANTIATE_TEST_SUITE_P(prefix_, testfixture_, generator_,...)</div><div class="ttdoc">パラメータテストインスタンス化マクロ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:44</div></div>
+<div class="ttc" id="agroup___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_gaacdf79d0e2f53df64d498f3edbb5c008"><div class="ttname"><a href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#gaacdf79d0e2f53df64d498f3edbb5c008">IUTEST_PMZ</a></div><div class="ttdeci">#define IUTEST_PMZ(testsuite_, testname_, method_,...)</div><div class="ttdoc">パラメタライズ関数コールテスト定義マクロ</div><div class="ttdef"><b>Definition:</b> iutest.hpp:92</div></div>
+</div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2022年03月17日(木) 23時32分32秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="../../doxygen.png" alt="doxygen"/>
-</a> 1.8.17
+2022年09月03日(土) 12時43分49秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

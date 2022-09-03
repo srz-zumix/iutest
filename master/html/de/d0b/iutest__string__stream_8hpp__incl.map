@@ -1,10 +1,8 @@
 <map id="internal/iutest_string_stream.hpp" name="internal/iutest_string_stream.hpp">
-<area shape="rect" id="node1" title="iris unit test iu_basic_ostream implimentaion" alt="" coords="451,5,608,47"/>
+<area shape="rect" id="node1" title="iris unit test iu_basic_ostream implimentaion" alt="" coords="324,5,481,47"/>
 <area shape="rect" id="node2" href="$d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="5,169,139,196"/>
 <area shape="rect" id="node3" href="$d7/d86/iutest__string_8hpp.html" title="iris unit test string utilities" alt="" coords="337,95,468,121"/>
-<area shape="rect" id="node11" title=" " alt="" coords="492,95,567,121"/>
-<area shape="rect" id="node12" title=" " alt="" coords="591,95,665,121"/>
-<area shape="rect" id="node13" title=" " alt="" coords="690,95,777,121"/>
+<area shape="rect" id="node11" title=" " alt="" coords="493,95,579,121"/>
 <area shape="rect" id="node4" title=" " alt="" coords="163,169,235,196"/>
 <area shape="rect" id="node5" title=" " alt="" coords="259,169,341,196"/>
 <area shape="rect" id="node6" title=" " alt="" coords="365,169,440,196"/>

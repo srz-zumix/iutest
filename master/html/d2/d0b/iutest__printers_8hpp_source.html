@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: iutest_printers.hpp ソースファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.12</span>
+   &#160;<span id="projectnumber">1.17.99.13</span>
    </div>
   </td>
  </tr>
@@ -30,10 +30,10 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.8.17 -->
+<!-- 構築: Doxygen 1.9.1 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
+var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
@@ -796,14 +796,13 @@ $(function() {
 <div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160; </div>
 <div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;inline ::std::string <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">PrintToString</a>(<span class="keyword">const</span> T&amp; v)</div>
-<div class="line"><a name="l00767"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#aea88e2bda2f483b0781d7985060acbfe">  767</a></span>&#160;{</div>
+<div class="line"><a name="l00767"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">  767</a></span>&#160;{</div>
 <div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;    <a class="code" href="../../d0/dc6/classiutest_1_1iu__global__format__stringstream.html">iu_global_format_stringstream</a> strm;</div>
 <div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;    detail::UniversalTersePrint(v, &amp;strm);</div>
 <div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;    <span class="keywordflow">return</span> strm.str();</div>
 <div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;}</div>
 <div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160; </div>
 <div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;<span class="preprocessor">#if IUTEST_HAS_VARIADIC_TEMPLATES</span></div>
-<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160; </div>
 <div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;inline ::std::string <a class="code" href="../../d3/dda/namespaceiutest.html#ae4fa9663c60e0130393ded072932fea8">PrintToStrings</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* separate, <span class="keyword">const</span> T&amp; v)</div>
 <div class="line"><a name="l00779"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#ae4fa9663c60e0130393ded072932fea8">  779</a></span>&#160;{</div>
@@ -822,24 +821,21 @@ $(function() {
 <div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160; </div>
 <div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
 <div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160; </div>
-<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_PRINTERS_HPP_A6A321C9_9279_4336_8167_058C59EC0FD0_</span></div>
-</div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclassiutest_1_1_test_html"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html">iutest::Test</a></div><div class="ttdoc">テストベース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:43</div></div>
-<div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
-<div class="ttc" id="anamespaceiutest_html_a089d4c220696dc46e2ef184fc945367c"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">iutest::PrintToString</a></div><div class="ttdeci">std::string PrintToString(const T &amp;v)</div><div class="ttdoc">文字列化</div><div class="ttdef"><b>Definition:</b> iutest_printers.hpp:767</div></div>
+<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// INCG_IRIS_IUTEST_PRINTERS_HPP_A6A321C9_9279_4336_8167_058C59EC0FD0_</span></div>
+<div class="ttc" id="aclassiutest_1_1_test_html"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html">iutest::Test</a></div><div class="ttdoc">テストベース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:44</div></div>
+<div class="ttc" id="aclassiutest_1_1iu__global__format__stringstream_html"><div class="ttname"><a href="../../d0/dc6/classiutest_1_1iu__global__format__stringstream.html">iutest::iu_global_format_stringstream</a></div><div class="ttdoc">ostream_formatter オプションが適用されてた stringstream</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:843</div></div>
 <div class="ttc" id="aiutest__defs_8hpp_html"><div class="ttname"><a href="../../d1/d84/iutest__defs_8hpp.html">iutest_defs.hpp</a></div><div class="ttdoc">iris unit test definition</div></div>
-<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
 <div class="ttc" id="aiutest__string__stream_8hpp_html"><div class="ttname"><a href="../../d2/d9e/iutest__string__stream_8hpp.html">iutest_string_stream.hpp</a></div><div class="ttdoc">iris unit test iu_basic_ostream implimentaion</div></div>
-<div class="ttc" id="aclassiutest_1_1iu__global__format__stringstream_html"><div class="ttname"><a href="../../d0/dc6/classiutest_1_1iu__global__format__stringstream.html">iutest::iu_global_format_stringstream</a></div><div class="ttdoc">ostream_formatter オプションが適用されてた stringstream</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:842</div></div>
-<div class="ttc" id="anamespaceiutest_html_ae4fa9663c60e0130393ded072932fea8"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#ae4fa9663c60e0130393ded072932fea8">iutest::PrintToStrings</a></div><div class="ttdeci">inline ::std::string PrintToStrings(const char *separate, const T &amp;v)</div><div class="ttdoc">文字列化</div><div class="ttdef"><b>Definition:</b> iutest_printers.hpp:779</div></div>
-<div class="ttc" id="anamespaceiutest_html_a59de77dc10130fce6e48fde0024fd10b"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a59de77dc10130fce6e48fde0024fd10b">iutest::Int32</a></div><div class="ttdeci">detail::type_fit_t&lt; 4 &gt;::Int Int32</div><div class="ttdoc">32 bit 符号付き整数型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:502</div></div>
 <div class="ttc" id="aiutest__string__view_8hpp_html"><div class="ttname"><a href="../../d8/dc8/iutest__string__view_8hpp.html">iutest_string_view.hpp</a></div><div class="ttdoc">string_view</div></div>
+<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
+<div class="ttc" id="anamespaceiutest_html_a089d4c220696dc46e2ef184fc945367c"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">iutest::PrintToString</a></div><div class="ttdeci">std::string PrintToString(const T &amp;v)</div><div class="ttdoc">文字列化</div><div class="ttdef"><b>Definition:</b> iutest_printers.hpp:767</div></div>
+<div class="ttc" id="anamespaceiutest_html_a59de77dc10130fce6e48fde0024fd10b"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a59de77dc10130fce6e48fde0024fd10b">iutest::Int32</a></div><div class="ttdeci">detail::type_fit_t&lt; 4 &gt;::Int Int32</div><div class="ttdoc">32 bit 符号付き整数型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:502</div></div>
+<div class="ttc" id="anamespaceiutest_html_ae4fa9663c60e0130393ded072932fea8"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#ae4fa9663c60e0130393ded072932fea8">iutest::PrintToStrings</a></div><div class="ttdeci">inline ::std::string PrintToStrings(const char *separate, const T &amp;v)</div><div class="ttdoc">文字列化</div><div class="ttdef"><b>Definition:</b> iutest_printers.hpp:779</div></div>
 <div class="ttc" id="anamespaceiutest_html_af0a26182ebcee67d79f27f7c9b248448"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#af0a26182ebcee67d79f27f7c9b248448">iutest::BiggestInt</a></div><div class="ttdeci">detail::type_least_t&lt; 8 &gt;::Int BiggestInt</div><div class="ttdoc">Biggest Int</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:525</div></div>
+</div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2022年03月17日(木) 23時32分36秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="../../doxygen.png" alt="doxygen"/>
-</a> 1.8.17
+2022年09月03日(土) 12時43分53秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

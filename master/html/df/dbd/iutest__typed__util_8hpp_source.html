@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: internal/iutest_typed_util.hpp ソースファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.12</span>
+   &#160;<span id="projectnumber">1.17.99.13</span>
    </div>
   </td>
  </tr>
@@ -30,10 +30,10 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.8.17 -->
+<!-- 構築: Doxygen 1.9.1 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
+var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
@@ -110,18 +110,18 @@ $(function() {
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#undef IIUT_DECL_DEFAULT_ARG_</span></div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#define IIUT_DECL_TYPES_CONCATTYPENAME_(i, param)  GetTypeNameProxy&lt;IUTEST_PP_CAT(param, i)&gt;::GetTypeName() + &quot;, &quot; +</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#define IIUT_DECL_TYPES_CONCATTYPENAME_(i, param)  GetTypeNameProxy&lt;IUTEST_PP_CAT(param, i)&gt;::GetTypeName() + &quot;, &quot;</span> +</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#define IIUT_DECL_TYPES_GETTYPENAME_I_(n, m)                        \</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">        template&lt;IUTEST_PP_ENUM_PARAMS(n, typename T)&gt;struct        \</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">            GetTypeNameProxy&lt;Types&lt; IUTEST_PP_ENUM_PARAMS(n, T)     \</span></div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">            , IUTEST_PP_ENUM(m, IIUT_DECL_SPEC_NONE_, detail::None)&gt; &gt; {  \</span></div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">            static ::std::string GetTypeName() {                    \</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">                ::std::string name = &quot;iutest::Types&lt;&quot;;              \</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">                name += IUTEST_PP_REPEAT(IUTEST_PP_DEC(n), IIUT_DECL_TYPES_CONCATTYPENAME_, T)      \</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">                        GetTypeNameProxy&lt;IUTEST_PP_CAT(T, IUTEST_PP_DEC(n))&gt;::GetTypeName() + &quot;&gt;&quot;;  \</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">                return name;                                        \</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">            }                                                       \</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">        }</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">                ::std::string name = &quot;iutest::Types&lt;&quot;</span>;              \</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                name += IUTEST_PP_REPEAT(IUTEST_PP_DEC(n), IIUT_DECL_TYPES_CONCATTYPENAME_, T)      \</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                        GetTypeNameProxy&lt;IUTEST_PP_CAT(T, IUTEST_PP_DEC(n))&gt;::GetTypeName() + &quot;&gt;&quot;;  \</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                return name;                                        \</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            }                                                       \</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        }</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#define IIUT_DECL_TYPES_GETTYPENAME_(n, m)                          \</span></div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">    namespace detail {                                              \</span></div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">        IIUT_DECL_TYPES_GETTYPENAME_I_(n, m);                       \</span></div>
@@ -297,7 +297,7 @@ $(function() {
 <div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160; </div>
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;<span class="preprocessor">#endif // #if !defined(IUTEST_NO_TEMPLATE_TEMPLATES)</span></div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// #if !defined(IUTEST_NO_TEMPLATE_TEMPLATES)</span></div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160; </div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;<span class="keyword">struct </span>TypeList</div>
@@ -325,22 +325,19 @@ $(function() {
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160; </div>
 <div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160; </div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="preprocessor">#endif // #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)</span></div>
 <div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160; </div>
 <div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
 <div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160; </div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_TYPED_UTIL_HPP_32A6F7CF_36C6_4EDE_AD19_04965FBFBB37_</span></div>
-</div><!-- fragment --></div><!-- contents -->
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// INCG_IRIS_IUTEST_TYPED_UTIL_HPP_32A6F7CF_36C6_4EDE_AD19_04965FBFBB37_</span></div>
 <div class="ttc" id="aiutest__typelist_8hpp_html"><div class="ttname"><a href="../../d5/d5c/iutest__typelist_8hpp.html">iutest_typelist.hpp</a></div><div class="ttdoc">type list</div></div>
-<div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
 <div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
-<div class="ttc" id="astructiutest_1_1_types_html"><div class="ttname"><a href="../../da/d5c/structiutest_1_1_types.html">iutest::Types</a></div><div class="ttdoc">Type List</div><div class="ttdef"><b>Definition:</b> iutest_typed_util.hpp:39</div></div>
 <div class="ttc" id="astructiutest_1_1_types_1_1get_html"><div class="ttname"><a href="../../d3/d35/structiutest_1_1_types_1_1get.html">iutest::Types::get</a></div><div class="ttdef"><b>Definition:</b> iutest_typed_util.hpp:42</div></div>
+<div class="ttc" id="astructiutest_1_1_types_html"><div class="ttname"><a href="../../da/d5c/structiutest_1_1_types.html">iutest::Types</a></div><div class="ttdoc">Type List</div><div class="ttdef"><b>Definition:</b> iutest_typed_util.hpp:40</div></div>
+</div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2022年03月17日(木) 23時32分35秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="../../doxygen.png" alt="doxygen"/>
-</a> 1.8.17
+2022年09月03日(土) 12時43分51秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

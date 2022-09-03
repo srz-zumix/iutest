@@ -1,5 +1,5 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -8,93 +8,189 @@
     <style>
 
     </style>
-    <script language="javascript">
-      function getStyle(el,styleProp) {
-        if (el.currentStyle)
-          var y = el.currentStyle[styleProp];
-        else if (window.getComputedStyle)
-          var y = document.defaultView.getComputedStyle(el,null).getPropertyValue(styleProp);
+    <script>
+      function getStyle(el, styleProp) {
+        var y;
+
+        if (el.currentStyle) {
+          y = el.currentStyle[styleProp];
+        } else if (window.getComputedStyle) {
+          y = document.defaultView.getComputedStyle(el, null).getPropertyValue(styleProp);
+        }
+
         return y;
       }
+
       function toggle() {
         var el = this.expandable_content;
         var mark = this.expandable_marker;
-        if (el.style.display == "block") {
+
+        if (el.style.display === "block") {
           el.style.display = "none";
-          mark.innerHTML = "[+]";
+          mark.textContent = "[+]";
         } else {
           el.style.display = "block";
-          mark.innerHTML = "[-]";
+          mark.textContent = "[-]";
         }
       }
-      function init_expandables() {
-        var elts = document.getElementsByClassName("expandable");
-        for (var i = 0; i < elts.length; i++) {
-          var el = elts[i];
-          var clickable = el.getElementsByTagName("span")[0];
-          var marker = clickable.getElementsByClassName("marker")[0];
-          var content = el.getElementsByClassName("content")[0];
+
+      function initExpandables() {
+        var elements = document.querySelectorAll(".expandable");
+
+        for (var i = 0, len = elements.length; i < len; i++) {
+          var el = elements[i];
+          var clickable = el.querySelector("span");
+          var marker = clickable.querySelector(".marker");
+          var content = el.querySelector(".content");
           var width = clickable.clientWidth - parseInt(getStyle(content, "padding-left")) - parseInt(getStyle(content, "padding-right"));
           content.style.width = width + "px";
           clickable.expandable_content = content;
           clickable.expandable_marker = marker;
-          clickable.onclick = toggle;
+          clickable.addEventListener("click", toggle);
         }
-      }
-      function set_class_display(c, st) {
-        var elements = document.querySelectorAll('.' + c),
-            len = elements.length;
-        for (i = 0; i < len; i++) {
-            elements[i].style.display = st;
-        }
-      }
-      function toggle_class_visibility(id) {
-        var box = document.getElementById(id);
-        set_class_display(id, box.checked ? '' : 'none');
-      }
-      function toggle_all(){
-        var elts = document.getElementsByTagName("input");
-        for (var i = 1; i < elts.length; i++) {           
-          var el = elts[i];
-          el.checked ? el.checked=false : el.checked=true;
-          toggle_class_visibility(el.id);        
-        }            
       }
 
+      function toggleDisplay(cb) {
+        var elements = document.querySelectorAll("." + cb.id);
+
+        for (var i = 0, len = elements.length; i < len; i++) {
+          elements[i].classList.toggle("id-filtered", !cb.checked);
+        }
+
+        updateFileRows();
+      }
+
+      function toggleSeverity(cb) {
+        cb.parentElement.classList.toggle("unchecked", !cb.checked);
+        var elements = document.querySelectorAll(".sev_" + cb.id);
+
+        for (var i = 0, len = elements.length; i < len; i++) {
+          elements[i].classList.toggle("severity-filtered", !cb.checked);
+        }
+
+        updateFileRows();
+      }
+
+      function toggleTool(cb) {
+        cb.parentElement.classList.toggle("unchecked", !cb.checked);
+
+        var elements;
+        if (cb.id == "clang-tidy")
+            elements = document.querySelectorAll("[class^=clang-tidy-]");
+        else
+            elements = document.querySelectorAll(".issue:not([class^=clang-tidy-])");
+
+        for (var i = 0, len = elements.length; i < len; i++) {
+          elements[i].classList.toggle("tool-filtered", !cb.checked);
+        }
+
+        updateFileRows();
+      }
+
+      function toggleAll() {
+        var elements = document.querySelectorAll(".idToggle");
+
+        // starting from 1 since 0 is the "toggle all" input
+        for (var i = 1, len = elements.length; i < len; i++) {
+          var changed = elements[i].checked != elements[0].checked;
+          if (changed) {
+            elements[i].checked = elements[0].checked;
+            toggleDisplay(elements[i]);
+          }
+        }
+      }
+
+      function filterFile(filter) {
+        var elements = document.querySelectorAll(".fileEntry");
+
+        for (var i = 0, len = elements.length; i < len; i++) {
+          var visible = elements[i].querySelector("tr").querySelector("td").textContent.toLowerCase().includes(filter.toLowerCase());
+          elements[i].classList.toggle("text-filtered", !visible);
+        }
+      }
+
+      function filterText(text) {
+        filter = text.toLowerCase();
+        var elements = document.querySelectorAll(".issue");
+
+        for (var i = 0, len = elements.length; i < len; i++) {
+          var visible = false;
+          var fields = elements[i].querySelectorAll("td");
+          for (var n = 0, num = fields.length; n < num; n++) {
+            if (fields[n].textContent.toLowerCase().includes(filter)) {
+              visible = true;
+              break;
+            }
+          }
+          elements[i].classList.toggle("text-filtered", !visible);
+        }
+
+        updateFileRows();
+      }
+
+      function updateFileRows(element) {
+        var elements = document.querySelectorAll(".fileEntry");
+
+        for (var i = 0, len = elements.length; i < len; i++) {
+          var visible = elements[i].querySelector(".issue:not(.id-filtered):not(.severity-filtered):not(.tool-filtered):not(.text-filtered)");
+          elements[i].classList.toggle("file-filtered", !visible);
+        }
+      }
+
+      window.addEventListener("load", initExpandables);
     </script>
   </head>
-  <body onload="init_expandables()">
-      <div id="header">
-        <h1>Cppcheck report - iutest:  </h1>
-      </div>
-      <div id="menu_index">
-       <p id="filename"><a href="index.html">Defect summary;</a> </p>
+  <body>
+    <div id="wrapper">
+    <div id="header" class="header">
+      <h1>Cppcheck report - iutest</h1>
+      <div id="filters">
 
-       <label><input type="checkbox" onclick="toggle_all()" checked> Toggle all</label>
+        <label class="checkBtn"><input type="checkbox" onclick="toggleSeverity(this)" id="error"checked/>error</label>
+        <label class="checkBtn disabled"><input type="checkbox" onclick="toggleSeverity(this)" id="warning"disabled/>warning</label>
+        <label class="checkBtn disabled"><input type="checkbox" onclick="toggleSeverity(this)" id="portability"disabled/>portability</label>
+        <label class="checkBtn disabled"><input type="checkbox" onclick="toggleSeverity(this)" id="performance"disabled/>performance</label>
+        <label class="checkBtn disabled"><input type="checkbox" onclick="toggleSeverity(this)" id="style"disabled/>style</label>
+        <label class="checkBtn disabled"><input type="checkbox" onclick="toggleSeverity(this)" id="information"disabled/>information</label>
+        | 
+        <label class="checkBtn"><input type="checkbox" onclick="toggleTool(this)" id="cppcheck"checked/>cppcheck</label>
+        <label class="checkBtn disabled"><input type="checkbox" onclick="toggleTool(this)" id="clang-tidy"disabled/>clang-tidy</label>
+        | 
+        <label class="severityHeader">File: <input type="text" oninput="filterFile(this.value)"/></label>
+        <label class="severityHeader">Filter: <input type="text" oninput="filterText(this.value)"/></label>
+      </div>
+
+    </div>
+
+    <div id="menu_index">
+     <p><a href="index.html">Defect summary</a> </p>
+
+       <label><input type="checkbox" class="idToggle" onclick="toggleAll()" checked> Toggle all</label>
        <table>
            <tr><th>Show</th><th>#</th><th>Defect ID</th></tr>
-            <tr><td><input type='checkbox' onclick='toggle_class_visibility(this.id)' id='preprocessorErrorDirective' name='preprocessorErrorDirective' checked></td><td>2</td><td>preprocessorErrorDirective</td></tr>
+            <tr><td><input type="checkbox" class="idToggle" onclick="toggleDisplay(this)" id="preprocessorErrorDirective" name="preprocessorErrorDirective" checked></td><td>2</td><td>preprocessorErrorDirective</td></tr>
            <tr><td></td><td>2</td><td>total</td></tr>
        </table>
        <p><a href="stats.html">Statistics</a></p>
-      </div>
-      <div id="content_index">
+    </div>
+    <div id="content_index">
 
-       <table>
+       <table class="summaryTable">
        <tr><th>Line</th><th>Id</th><th>CWE</th><th>Severity</th><th>Message</th></tr>
-       <tr><td colspan='5'><a href='0.html'>../../include/internal/iutest_internal.hpp</a></td></tr>
-       <tr class="preprocessorErrorDirective"><td><a href="0.html#line-40">40</a></td><td>preprocessorErrorDirective</td><td></td><td>error</td><td class="error">failed to expand &apos;IUTEST_P&apos;, Invalid ## usage when expanding &apos;IIUT_TEST_CLASS_NAME_I_&apos;.</td></tr>
-       <tr><td colspan='5'><a href='1.html'>../../test/spi_tests_decl.cpp</a></td></tr>
-       <tr class="preprocessorErrorDirective"><td><a href="1.html#line-17">17</a></td><td>preprocessorErrorDirective</td><td></td><td>error</td><td class="error">#error FAILURE_MACRO</td></tr>
+      <tbody class="fileEntry">
+       <tr><td colspan="5"><a href="0.html">../../include/internal/iutest_stdlib_defs.hpp</a></td></tr>
+         <tr class="preprocessorErrorDirective sev_error issue"><td><a href="0.html#line-43">43</a></td><td>preprocessorErrorDirective</td><td></td><td>error</td><td class="error">failed to evaluate #if condition</td></tr>
+      <tbody class="fileEntry">
+       <tr><td colspan="5"><a href="1.html">../../test/spi_tests_decl.cpp</a></td></tr>
+         <tr class="preprocessorErrorDirective sev_error issue"><td><a href="1.html#line-17">17</a></td><td>preprocessorErrorDirective</td><td></td><td>error</td><td class="error">#error FAILURE_MACRO</td></tr>
+      </tbody>
        </table>
-      </div>
-      <div id="footer">
-        <p>
-         Cppcheck 1.90 - a tool for static C/C++ code analysis</br>
-         </br>
-         Internet: <a href="http://cppcheck.net">http://cppcheck.net</a></br>
-         IRC: <a href="irc://irc.freenode.net/cppcheck">irc://irc.freenode.net/cppcheck</a></br>
-        </p>
-      </div>
+    </div>
+    <div id="footer" class="footer">
+      <p>
+        Created by Cppcheck 2.7 (<a href="https://cppcheck.sourceforge.io">Sourceforge</a>, <a href="irc://irc.freenode.net/cppcheck">IRC</a>)
+      </p>
+    </div>
+    </div>
   </body>
 </html>

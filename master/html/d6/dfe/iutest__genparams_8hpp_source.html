@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: internal/iutest_genparams.hpp ソースファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.12</span>
+   &#160;<span id="projectnumber">1.17.99.13</span>
    </div>
   </td>
  </tr>
@@ -30,10 +30,10 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.8.17 -->
+<!-- 構築: Doxygen 1.9.1 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
+var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
@@ -222,7 +222,6 @@ $(function() {
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="preprocessor">#if IUTEST_HAS_CONCAT</span></div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> G1, <span class="keyword">typename</span> G2&gt;</div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="keyword">class </span>iuConcatParamHolder</div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;{</div>
@@ -395,7 +394,6 @@ $(function() {
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="preprocessor">        IIUT_DECL_VALUEARRAY_CONCAT_()                                              \</span></div>
 <div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;<span class="preprocessor">    private: IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_VALUEARRAY_VARIABLE_, A, v)       \</span></div>
 <div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;<span class="preprocessor">    }</span></div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160; </div>
 <div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;IIUT_DECL_VALUEARRAY_(1);</div>
 <div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;IIUT_DECL_VALUEARRAY_(2);</div>
 <div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;IIUT_DECL_VALUEARRAY_(3);</div>
@@ -710,7 +708,6 @@ $(function() {
 <div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;<span class="preprocessor">                , IIUT_DECL_CARTESIAN_PRODUCT_GENERATOR_TUPLEGET_, params) );           \</span></div>
 <div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;<span class="preprocessor">        }                                                                   \</span></div>
 <div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;<span class="preprocessor">    }</span></div>
-<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160; </div>
 <div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;IIUT_DECL_CARTESIAN_PRODUCT_GENERATOR_(3);</div>
 <div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;IIUT_DECL_CARTESIAN_PRODUCT_GENERATOR_(4);</div>
 <div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;IIUT_DECL_CARTESIAN_PRODUCT_GENERATOR_(5);</div>
@@ -886,7 +883,7 @@ $(function() {
 <div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160; </div>
 <div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160;        <span class="comment">// シャッフル</span></div>
 <div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160;        iuRandom random;</div>
-<div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> seed = TestEnv::get_random_seed();</div>
+<div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> seed = <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#ac45dd301c78db3de83b0c1e3ee177a83">TestEnv::get_random_seed</a>();</div>
 <div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160;        <span class="keywordflow">if</span>( seed != 0 )</div>
 <div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;        {</div>
 <div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160;            random.init(seed);</div>
@@ -935,7 +932,7 @@ $(function() {
 <div class="line"><a name="l00921"></a><span class="lineno">  921</span>&#160;    <span class="keyword">template</span>&lt;<span class="keywordtype">int</span> N, <span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00922"></a><span class="lineno">  922</span>&#160;    <span class="keyword">static</span> T GetParam(const ::std::vector&lt;T&gt;&amp; params, <span class="keyword">const</span> ParamIndexes&lt;N&gt;&amp; indexes, <span class="keywordtype">int</span> raw)</div>
 <div class="line"><a name="l00923"></a><span class="lineno">  923</span>&#160;    {</div>
-<div class="line"><a name="l00924"></a><span class="lineno">  924</span>&#160;        iuTypedRandom&lt;int&gt; rnd(TestEnv::genrand()());</div>
+<div class="line"><a name="l00924"></a><span class="lineno">  924</span>&#160;        iuTypedRandom&lt;int&gt; rnd(<a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a9f187ecf76c59e5b77dbc39bf454dd22">TestEnv::genrand</a>()());</div>
 <div class="line"><a name="l00925"></a><span class="lineno">  925</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> index = GetParamIndex(indexes, raw, <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(params.size()), rnd);</div>
 <div class="line"><a name="l00926"></a><span class="lineno">  926</span>&#160;        <span class="keywordflow">return</span> params[index];</div>
 <div class="line"><a name="l00927"></a><span class="lineno">  927</span>&#160;    }</div>
@@ -1467,20 +1464,19 @@ $(function() {
 <div class="line"><a name="l01471"></a><span class="lineno"> 1471</span>&#160; </div>
 <div class="line"><a name="l01472"></a><span class="lineno"> 1472</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l01473"></a><span class="lineno"> 1473</span>&#160; </div>
-<div class="line"><a name="l01474"></a><span class="lineno"> 1474</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_GENPARAMS_HPP_7845F59A_825C_426A_B451_573245408998_</span></div>
-</div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
+<div class="line"><a name="l01474"></a><span class="lineno"> 1474</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// INCG_IRIS_IUTEST_GENPARAMS_HPP_7845F59A_825C_426A_B451_573245408998_</span></div>
+<div class="ttc" id="aclassiutest_1_1_test_env_html_a9f187ecf76c59e5b77dbc39bf454dd22"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a9f187ecf76c59e5b77dbc39bf454dd22">iutest::TestEnv::genrand</a></div><div class="ttdeci">static detail::iuRandom &amp; genrand()</div><div class="ttdoc">乱数生成器</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:354</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_env_html_ac45dd301c78db3de83b0c1e3ee177a83"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#ac45dd301c78db3de83b0c1e3ee177a83">iutest::TestEnv::get_random_seed</a></div><div class="ttdeci">static unsigned int get_random_seed()</div><div class="ttdoc">乱数シード</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:355</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_a42fd5b126100cbf2e505fec4f669f3ba"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a42fd5b126100cbf2e505fec4f669f3ba">IUTEST_CXX_DELETED_FUNCTION</a></div><div class="ttdeci">#define IUTEST_CXX_DELETED_FUNCTION</div><div class="ttdoc">delete function</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:445</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_aaf362ab17fd8e57646fc5d56216486d0"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#aaf362ab17fd8e57646fc5d56216486d0">IUTEST_CXX_FINAL</a></div><div class="ttdeci">#define IUTEST_CXX_FINAL</div><div class="ttdoc">final definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:756</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:747</div></div>
 <div class="ttc" id="aiutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:811</div></div>
 <div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_aaf362ab17fd8e57646fc5d56216486d0"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#aaf362ab17fd8e57646fc5d56216486d0">IUTEST_CXX_FINAL</a></div><div class="ttdeci">#define IUTEST_CXX_FINAL</div><div class="ttdoc">final definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:756</div></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_a42fd5b126100cbf2e505fec4f669f3ba"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a42fd5b126100cbf2e505fec4f669f3ba">IUTEST_CXX_DELETED_FUNCTION</a></div><div class="ttdeci">#define IUTEST_CXX_DELETED_FUNCTION</div><div class="ttdoc">delete function</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:445</div></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:747</div></div>
 <div class="ttc" id="anamespaceiutest_html_a5310e5fc6c9c1a8b16f75992fbc947ee"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a5310e5fc6c9c1a8b16f75992fbc947ee">iutest::UInt32</a></div><div class="ttdeci">detail::type_fit_t&lt; 4 &gt;::UInt UInt32</div><div class="ttdoc">32 bit 符号なし整数型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:503</div></div>
+</div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2022年03月17日(木) 23時32分32秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="../../doxygen.png" alt="doxygen"/>
-</a> 1.8.17
+2022年09月03日(土) 12時43分50秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
