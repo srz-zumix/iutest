@@ -104,7 +104,11 @@ IUTEST_P(FileSystemTest, FileSize64bit)
 
     ::iutest::StdioFile file;
     IUTEST_ASSERT_TRUE( file.Open(largefile, iutest::IFile::OpenRead) );
+#if IUTEST_HAS_FILENO && IUTEST_HAS_FILE_STAT
     IUTEST_EXPECT_EQ(expectedSize, file.GetSize());
+#else
+    IUTEST_INFORM_EQ(expectedSize, file.GetSize());
+#endif
 }
 
 IUTEST_INSTANTIATE_TEST_SUITE_P(A, FileSystemTest, ::iutest::Values(0x100000000ull, 0x100001111ull, 0x10000ull));
