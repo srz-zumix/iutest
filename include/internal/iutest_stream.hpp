@@ -69,12 +69,12 @@ public:
     virtual ::std::string ReadAll()
     {
         ::std::string str;
-        const size_t size = GetSize();
+        const iu_uint_max_t size = GetSize();
         if( size != 0 )
         {
             char* buf = new char[size+1];
             buf[size] = '\0';
-            if( Read(buf, size, 1) )
+            if( Read(buf, static_cast<size_t>(size), 1) )
             {
                 str = buf;
             }
