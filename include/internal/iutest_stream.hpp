@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -62,19 +62,19 @@ public:
     virtual bool Read(void* buf, size_t size, size_t cnt) = 0;
 
     //! サイズ取得
-    virtual size_t GetSize() = 0;
+    virtual iu_uint_max_t GetSize() = 0;
 
 public:
     //! 全読み込み
     virtual ::std::string ReadAll()
     {
         ::std::string str;
-        const size_t size = GetSize();
+        const iu_uint_max_t size = GetSize();
         if( size != 0 )
         {
             char* buf = new char[size+1];
             buf[size] = '\0';
-            if( Read(buf, size, 1) )
+            if( Read(buf, static_cast<size_t>(size), 1) )
             {
                 str = buf;
             }
