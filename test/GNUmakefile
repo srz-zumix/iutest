@@ -329,7 +329,16 @@ coverity_scan: $(COVERITY_SCAN_BUILD_TARGETS)
 # test data
 #
 
+ifdef NO_TESTDATA
+
+testdata:
+	@echo skip generate testdata
+
+else
+
 testdata: $(GENERATE_TESTDATA)
+
+endif
 
 testdata/4gb.bin:
 	dd if=/dev/zero of=$@ bs=1048576 count=4096
