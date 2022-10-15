@@ -27,7 +27,7 @@
 
 //!< Minor Version
 #ifndef GTEST_MINORVER
-#  if   defined(GOOGLETEST_INCLUDE_GTEST_GTEST_ASSERTION_RESULT_H_)
+#  if   defined(GTEST_HAVE_ATTRIBUTE_)
 #    define GTEST_MINORVER  0x12
 #    define GTEST_LATEST    1
 #  elif defined(GTEST_FLAG_GET)
