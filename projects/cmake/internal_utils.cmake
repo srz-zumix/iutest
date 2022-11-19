@@ -24,6 +24,11 @@ macro(fix_default_compiler_settings_)
       if (build_no_exceptions)
         string(REPLACE "/EHsc" "/EHs-c- /D_HAS_EXCEPTIONS=0" ${flag_var} "${${flag_var}}")
       endif()
+
+      # c++latest
+      if (build_cpp_latest)
+        string(REGEX REPLACE "/std:c\\+\\+[0-9a-zA-Z]*" "/std:c++latest" ${flag_var} "${${flag_var}}")
+      endif()
     endforeach()
 
     foreach (flag_var
@@ -57,11 +62,15 @@ macro(config_compiler_and_linker)
     if (build_use_msvc_c_preprocessor)
       if(NOT (MSVC_VERSION LESS 1925))
         # >= 2019 (16.5)
-        set(cxx_base_flags "${cxx_base_flags} -Zc:preprocessor")
+        set(cxx_base_flags "${cxx_base_flags} -Zc:preprocessor -wd5105")
       elseif(NOT (MSVC_VERSION LESS 1915))
         # >= 2017 (15.8)
         set(cxx_base_flags "${cxx_base_flags} -experimental:preprocessor -Wv:18")
       endif()
+    endif()
+    if (build_cpp_latest)
+      set(CMAKE_CXX_STANDARD)
+      set(cxx_base_flags "${cxx_base_flags} -std:c++latest")
     endif()
     # experimental
     if (build_use_experimental)

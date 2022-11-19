@@ -46,10 +46,23 @@ mac-example: ## mac example
 	&& cmake ../../../../projects/cmake -G "Xcode" -DCMAKE_XCODE_GENERATE_SCHEME=TRUE -Dbuild_use_gtest_configuration=OFF \
 	&& xcodebuild -project iutest.xcodeproj -list
 
+mac-ctest: mac
+	cd tmp/mac && ctest -C Debug -V
+
+#
+# Win
+#
+
+win: ## windows visual studio
+	mkdir -p tmp/vs && cd tmp/vs \
+	&& cmake ../../../../projects/cmake -Dbuild_use_gtest_configuration=OFF -Dbuild_cpp_latest=ON \
+	&& cmake --build . \
+	&& ctest -T Test .
+
 #
 #
 default: ## cmake default
 	mkdir -p tmp/default && cd tmp/default \
-	&& cmake ../../../../projects/cmake -Dbuild_use_gtest_configuration=OFF \
+	&& cmake ../../../../projects/cmake -Dbuild_use_gtest_configuration=OFF -Dbuild_cpp_latest=ON \
 	&& cmake --build . \
 	&& ctest -T Test .

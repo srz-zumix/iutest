@@ -265,6 +265,7 @@ jobs:
           - "7-2017q4"
           - "8-2018q4"
           - "9-2019q4"
+          - "10-2020q4"
           - "latest"
     runs-on: ubuntu-latest
     needs: prepare

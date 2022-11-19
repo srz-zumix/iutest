@@ -43,12 +43,13 @@ IUTEST(Foo, Bar)
 
 static ::std::vector<int> order[kRepeatCount];
 
+#define NUMBEROF_PARAMTESTS 30
+
 #if IUTEST_HAS_PARAM_TEST
-const int kNumberOfParamTests = 10;
 
 class OrderTest : public ::iutest::TestWithParam<int> {};
 
-IUTEST_INSTANTIATE_TEST_SUITE_P(Foo, OrderTest, ::iutest::Range<int>(0, kNumberOfParamTests));
+IUTEST_INSTANTIATE_TEST_SUITE_P(Foo, OrderTest, ::iutest::Range<int>(0, NUMBEROF_PARAMTESTS));
 
 IUTEST_P(OrderTest, Bar)
 {
@@ -57,18 +58,9 @@ IUTEST_P(OrderTest, Bar)
 
 #else
 
-#define DECL_ORDER_TEST(n) IUTEST(OrderTest, IUTEST_PP_CAT(Bar, n)) { order[random_speed_test_count].push_back(n); }
+#define DECL_ORDER_TEST(n, _x) IUTEST(OrderTest, IUTEST_PP_CAT(Bar, n)) { order[random_speed_test_count].push_back(n); }
 
-DECL_ORDER_TEST(0)
-DECL_ORDER_TEST(1)
-DECL_ORDER_TEST(2)
-DECL_ORDER_TEST(3)
-DECL_ORDER_TEST(4)
-DECL_ORDER_TEST(5)
-DECL_ORDER_TEST(6)
-DECL_ORDER_TEST(7)
-DECL_ORDER_TEST(8)
-DECL_ORDER_TEST(9)
+IUTEST_PP_REPEAT(NUMBEROF_PARAMTESTS, DECL_ORDER_TEST, 0)
 
 #endif
 
