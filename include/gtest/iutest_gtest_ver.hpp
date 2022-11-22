@@ -59,7 +59,9 @@
 
 //!< Micro Version
 #ifndef GTEST_MICROVER
-#  if   GTEST_MINORVER == 0x08 && defined(GTEST_STRINGIFY_)
+#  if   GTEST_MINORVER == 0x12 && defined(GTEST_HAVE_ATTRIBUTE_)
+#    define GTEST_MICROVER    0x01
+#  elif GTEST_MINORVER == 0x08 && defined(GTEST_STRINGIFY_)
 #    define GTEST_MICROVER    0x01
 #  elif GTEST_MINORVER == 0x02 && defined(GTEST_HAS_CLONE)
 #    define GTEST_MICROVER  0x01

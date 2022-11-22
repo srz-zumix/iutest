@@ -72,15 +72,14 @@ int main(int argc, char* argv[])
 {
     MyEnvironment* const env = new MyEnvironment();
     IUTEST_TERMINATE_ON_FAILURE( ::iutest::AddGlobalTestEnvironment(env) == env );
-    IUTEST_INIT(&argc, argv);
-
+#if defined(IUTEST_USE_GTEST) && GTEST_LATEST
+    ::iutest::IUTEST_FLAG(recreate_environments_when_repeating) = true;
+#endif
     ::iutest::IUTEST_FLAG(repeat) = kRepeatCount;
     ::iutest::IUTEST_FLAG(shuffle) = true;
     ::iutest::IUTEST_FLAG(random_seed) = kSeed;
 
-#if defined(IUTEST_USE_GTEST) && GTEST_LATEST
-    ::iutest::IUTEST_FLAG(recreate_environments_when_repeating) = true;
-#endif
+    IUTEST_INIT(&argc, argv);
 
     const int ret = IUTEST_RUN_ALL_TESTS();
     if( ret != 0 ) return ret;
