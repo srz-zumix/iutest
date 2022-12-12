@@ -7,8 +7,8 @@
 !*.hpp
 !*.defs
 !*.in
-!Makefile
-!GNUMakefile
+![Mm]akefile
+!GNU[Mm]akefile
 !**/
 # !benchmark/**/*
 !configcheck/**/*
