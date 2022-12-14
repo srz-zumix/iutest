@@ -149,7 +149,7 @@ int main(int argc, char* argv[])
 #endif
 
     no_throw = true;
-#if defined(IUTEST_USE_GTEST)
+#if !defined(IUTEST_USE_GTEST)
     logger.clear();
 #endif
     {
