@@ -107,8 +107,10 @@ int main(int argc, char* argv[])
     IUTEST_ASSERT_NE(IUTEST_RUN_ALL_TESTS(), 0)
         << ::iutest::AssertionReturn<int>(1);
 
+#if !defined(IUTEST_USE_GTEST)
     TestLogger logger;
     ::iutest::detail::iuConsole::SetLogger(&logger);
+#endif
 
     try
     {
@@ -147,7 +149,9 @@ int main(int argc, char* argv[])
 #endif
 
     no_throw = true;
+#if defined(IUTEST_USE_GTEST)
     logger.clear();
+#endif
     {
         const int ret = IUTEST_RUN_ALL_TESTS();
         if( ret != 0 ) return 1;
