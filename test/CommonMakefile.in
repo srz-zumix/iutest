@@ -141,6 +141,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/random_seed_tests \
 		$(OUTDIR)/record_property_tests \
 		$(OUTDIR)/repeat_tests \
+		$(OUTDIR)/scoped_trace_exception_tests \
 		$(OUTDIR)/scoped_trace_tests \
 		$(OUTDIR)/set_up_failure_tests \
 		$(OUTDIR)/set_up_global_failure_tests \
@@ -184,7 +185,6 @@ TARGETS_IUTEST_ONLY = \
 		$(OUTDIR)/param_test_name_invalid_tests \
 		$(OUTDIR)/param_test_name_tests \
 		$(OUTDIR)/no_yoda_tests \
-		$(OUTDIR)/scoped_trace_exception_tests \
 		$(OUTDIR)/tap_file_generator_listener_tests \
 		$(OUTDIR)/tap_printer_listener_tests \
 		$(OUTDIR)/type_param_register_exception_int_tests \
