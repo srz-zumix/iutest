@@ -30,8 +30,6 @@
 #  endif
 #endif
 
-#if EXCEPTION_CATCH_TEST
-
 bool no_throw = false;
 
 IUTEST(ScopedTraceExceptionTest, Exception)
@@ -92,15 +90,12 @@ IUTEST_F(DISABLED_ScopedTraceExceptionSetUpTest, Empty)
 {
 }
 
-#endif
-
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else
 int main(int argc, char* argv[])
 #endif
 {
-#if EXCEPTION_CATCH_TEST
     IUTEST_INIT(&argc, argv);
     ::iutest::IUTEST_FLAG(catch_exceptions) = true;
 #if defined(DISABLE_FALSE_POSITIVE_XML)
@@ -130,6 +125,7 @@ int main(int argc, char* argv[])
         if( ret == 0 ) return 1;
     }
 
+#if EXCEPTION_CATCH_TEST
     IUTEST_ASSERT_STRIN(   "ScopedTraceExceptionTest Scoped Exception A", logger.c_str())
         << ::iutest::AssertionReturn<int>(1);
     IUTEST_ASSERT_STRNOTIN("ScopedTraceExceptionTest Scoped Exception B", logger.c_str())
@@ -148,6 +144,7 @@ int main(int argc, char* argv[])
         << ::iutest::AssertionReturn<int>(1);
     IUTEST_ASSERT_STRNOTIN("ScopedTraceExceptionTest Scoped Assertion B", logger.c_str())
         << ::iutest::AssertionReturn<int>(1);
+#endif
 
     no_throw = true;
     logger.clear();
@@ -156,6 +153,7 @@ int main(int argc, char* argv[])
         if( ret != 0 ) return 1;
     }
 
+#if EXCEPTION_CATCH_TEST
     IUTEST_ASSERT_STRNOTIN("ScopedTraceExceptionTest Scoped Exception A", logger.c_str())
         << ::iutest::AssertionReturn<int>(1);
     IUTEST_ASSERT_STRNOTIN("ScopedTraceExceptionTest Scoped Exception B", logger.c_str())
@@ -164,11 +162,8 @@ int main(int argc, char* argv[])
         << ::iutest::AssertionReturn<int>(1);
     IUTEST_ASSERT_STRNOTIN("ScopedTraceExceptionTest Scoped Exception D", logger.c_str())
         << ::iutest::AssertionReturn<int>(1);
-
-#else
-    IUTEST_UNUSED_VAR(argc);
-    IUTEST_UNUSED_VAR(argv);
 #endif
+
     printf("*** Successful ***\n");
     return 0;
 }
