@@ -79,6 +79,7 @@ jobs:
         run: |
           make -C test clean
           make -C test OUTPUTXML=1 "${GTEST_OPTION}" GTEST_EXPECT_VER=${{ matrix.GTEST_EXPECT_VER }} GTEST_EXPECT_LATEST=${{ matrix.GTEST_EXPECT_LATEST }} "${MAKE_OPTION}" test
+      # FIXME: expected array of testsuites
       - name: report
         uses: ./.github/actions/composite/test-report
         with:
