@@ -19,6 +19,16 @@
 #include "logger_tests.hpp"
 
 #if defined(IUTEST_USE_GTEST)
+#  if GTEST_VER <= 0x01080000
+#    define SCOPED_TRACE_EXCEPTION_TEST     0
+#  endif
+#endif
+
+#if !defined(SCOPED_TRACE_EXCEPTION_TEST)
+#  define SCOPED_TRACE_EXCEPTION_TEST       1
+#endif
+
+#if defined(IUTEST_USE_GTEST)
 #  define EXCEPTION_CATCH_TEST  0
 #endif
 
@@ -96,6 +106,7 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
+#if SCOPED_TRACE_EXCEPTION_TEST
     IUTEST_INIT(&argc, argv);
     ::iutest::IUTEST_FLAG(catch_exceptions) = true;
 #if defined(DISABLE_FALSE_POSITIVE_XML)
@@ -168,6 +179,10 @@ int main(int argc, char* argv[])
         << ::iutest::AssertionReturn<int>(1);
 #endif
 
+#else
+    IUTEST_UNUSED_VAR(argc);
+    IUTEST_UNUSED_VAR(argv);
+#endif
     printf("*** Successful ***\n");
     return 0;
 }
