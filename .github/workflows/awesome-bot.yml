@@ -15,11 +15,16 @@ jobs:
       ASESOME_BOT_OPTION: --allow-redirect --allow-ssl --allow-dupe -t 60
     steps:
       - uses: actions/checkout@v3
+      - name: Create Gemfile
+        run: |
+          {
+            echo 'source "http://rubygems.org"'
+            echo "gem 'awesome_bot'"
+          } > Gemfile
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.6
-      - name: install
-        run: gem install awesome_bot
+          ruby-version: 3.1
+          bundler-cache: true
       - name: check
         run: |
           # shellcheck disable=SC2086
