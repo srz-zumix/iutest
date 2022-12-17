@@ -72,7 +72,7 @@ jobs:
       with:
         args: -o lizard.html --html ./include
     - name: Archive code metrics results
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: lizard.html
         path: lizard.html
