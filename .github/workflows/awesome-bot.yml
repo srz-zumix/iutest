@@ -10,9 +10,9 @@ on:
 name: AsesomeBot
 jobs:
   check:
-    # act の場合 github.actor_id がないのでそれを利用
+    # act の場合 github.ref_protected がないのでそれを利用
     # act の image に libssl1.1 が入ってないので 20.04 を使う
-    runs-on: ${{ (github.actor_id == null && 'ubuntu-20.04') || 'ubuntu-latest' }}
+    runs-on: ${{ (github.ref_protected == null && 'ubuntu-20.04') || 'ubuntu-latest' }}
     env:
       ASESOME_BOT_OPTION: --allow-redirect --allow-ssl --allow-dupe -t 60
     steps:
