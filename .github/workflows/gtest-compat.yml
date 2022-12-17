@@ -16,6 +16,8 @@ on:
       - '*.yaml'
       - '.circleci/**'
       - '.semaphore/**'
+      - '.github/**'
+      - '!.github/workflows/gtest-compat.yml'
   push:
     branches:
       - master
