@@ -1,9 +1,9 @@
 #!/bin/bash
 
 if type awesome_bot >/dev/null 2>&1; then
-  AWESOME_BOT_EXEC=awesome_bot
+  AWESOME_BOT_EXEC="awesome_bot"
 else
-  AWESOME_BOT_EXEC=bundle exec awesome_bot
+  AWESOME_BOT_EXEC="bundle exec awesome_bot"
 fi
 
 awesome_bot_with_retry() {
