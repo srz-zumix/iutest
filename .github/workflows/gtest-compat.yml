@@ -18,6 +18,7 @@ on:
       - '.semaphore/**'
       - '.github/**'
       - '!.github/workflows/gtest-compat.yml'
+      - 'docs/**'
   push:
     branches:
       - master
