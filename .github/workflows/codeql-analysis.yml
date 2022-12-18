@@ -25,6 +25,10 @@ jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
+    # jobs.*.if では env 参照できない
+    # act の場合 github.ref_protected がないのでそれを利用
+    # act では実行しない
+    if: github.ref_protected != null
 
     strategy:
       fail-fast: false

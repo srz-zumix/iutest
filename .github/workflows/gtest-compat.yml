@@ -16,6 +16,9 @@ on:
       - '*.yaml'
       - '.circleci/**'
       - '.semaphore/**'
+      - '.github/**'
+      - '!.github/workflows/gtest-compat.yml'
+      - 'docs/**'
   push:
     branches:
       - master
@@ -38,8 +41,13 @@ jobs:
       matrix:
         include:
           - gtest-version: "latest"
-            GTEST_EXPECT_VER: 0x01110000
+            GTEST_EXPECT_VER: 0x01120100
             GTEST_EXPECT_LATEST: 1
+          - gtest-version: "release-1.12.1"
+            # 1.12.1 only change the version number
+            GTEST_EXPECT_VER: 0x01120000
+          - gtest-version: "release-1.12.0"
+            GTEST_EXPECT_VER: 0x01120000
           - gtest-version: "release-1.11.0"
             GTEST_EXPECT_VER: 0x01110000
           - gtest-version: "release-1.10.0"
