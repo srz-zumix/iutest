@@ -27,9 +27,11 @@
 
 //!< Minor Version
 #ifndef GTEST_MINORVER
-#  if   defined(GTEST_FLAG_GET)
-#    define GTEST_MINORVER  0x11
+#  if   defined(GTEST_HAVE_ATTRIBUTE_)
+#    define GTEST_MINORVER  0x12
 #    define GTEST_LATEST    1
+#  elif defined(GTEST_FLAG_GET)
+#    define GTEST_MINORVER  0x12
 #  elif defined(GTEST_TEST_NO_THROW_CATCH_STD_EXCEPTION_)
 #    define GTEST_MINORVER  0x11
 #  elif defined(GTEST_SKIP)
@@ -57,7 +59,9 @@
 
 //!< Micro Version
 #ifndef GTEST_MICROVER
-#  if   GTEST_MINORVER == 0x08 && defined(GTEST_STRINGIFY_)
+#  if   GTEST_MINORVER == 0x12 && defined(GTEST_HAVE_ATTRIBUTE_)
+#    define GTEST_MICROVER    0x01
+#  elif GTEST_MINORVER == 0x08 && defined(GTEST_STRINGIFY_)
 #    define GTEST_MICROVER    0x01
 #  elif GTEST_MINORVER == 0x02 && defined(GTEST_HAS_CLONE)
 #    define GTEST_MICROVER  0x01
