@@ -187,7 +187,7 @@ jobs:
   #       if: always()
 
   zapcc-basic-test:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     needs: prepare
     container:
       image: docker://srzzumix/zapcc:bionic
