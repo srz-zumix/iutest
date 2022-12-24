@@ -21,7 +21,7 @@ on:
 
 jobs:
   prepare:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     env:
       HEAD_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
     if: >
@@ -32,7 +32,7 @@ jobs:
           echo "$HEAD_COMMIT_MESSAGE"
 
   fused:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     needs: prepare
     steps:
     - uses: actions/checkout@v3
@@ -63,7 +63,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
   lizard:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     needs: login
     steps:
     - uses: actions/checkout@v3
