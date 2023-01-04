@@ -199,11 +199,13 @@ jobs:
       PYTHON_VERSION: 3.8
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Set Python environment variable
-        run: echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> "$GITHUB_ENV"
+        run: |
+          python --version
+          echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> "$GITHUB_ENV"
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: zapcc build
