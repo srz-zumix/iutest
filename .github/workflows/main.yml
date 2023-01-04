@@ -203,7 +203,9 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Set Python environment variable
-        run: echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> "$GITHUB_ENV"
+        run: |
+          python --version
+          echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> "$GITHUB_ENV"
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: zapcc build
