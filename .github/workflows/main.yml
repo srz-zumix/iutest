@@ -158,7 +158,7 @@ jobs:
   #   runs-on: ubuntu-latest
   #   needs: prepare
   #   container:
-  #     image: docker://gcc:11
+  #     image: gcc:11
   #     credentials:
   #       username: ${{ secrets.DOCKERHUB_USERNAME }}
   #       password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -190,7 +190,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: prepare
     container:
-      image: docker://srzzumix/zapcc:bionic
+      image: srzzumix/zapcc:bionic
       credentials:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -199,11 +199,13 @@ jobs:
       PYTHON_VERSION: 3.8
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Set Python environment variable
-        run: echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> "$GITHUB_ENV"
+        run: |
+          python --version
+          echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> "$GITHUB_ENV"
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: zapcc build
@@ -222,7 +224,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: prepare
     container:
-      image: docker://srzzumix/oneapi-cxx:latest
+      image: srzzumix/oneapi-cxx:latest
       credentials:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -270,7 +272,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: prepare
     container:
-      image: docker://srzzumix/arm-none-eabi:${{ matrix.container-version }}
+      image: srzzumix/arm-none-eabi:${{ matrix.container-version }}
       credentials:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -424,7 +426,7 @@ jobs:
   iwyu:
     runs-on: ubuntu-latest
     container:
-      image: docker://srzzumix/iwyu:latest
+      image: srzzumix/iwyu:latest
       credentials:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
