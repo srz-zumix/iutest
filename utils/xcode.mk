@@ -31,11 +31,39 @@ ifeq (1,$(shell expr \( $(APPLE_CLANGMAJOR) \>= 7 \)))
 
 # https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
 
-ifeq (1,$(shell expr \( $(APPLE_CLANGMAJOR) \>= 12 \)))
-CLANGMAJOR:=10
+ifeq (1,$(shell expr \( $(APPLE_CLANGMAJOR) \>= 14 \)))
+CLANGMAJOR:=14
 CLANGMINOR:=0
+
 else
 
+# 13
+ifeq (1,$(shell expr \( $(APPLE_CLANGMAJOR) \>= 13 \)))
+
+ifeq (1,$(shell expr \( $(APPLE_CLANGMINOR) \>= 3 \)))
+CLANGMAJOR:=13
+CLANGMINOR:=0
+else
+CLANGMAJOR:=12
+CLANGMINOR:=0
+endif
+
+else
+
+# 12
+ifeq (1,$(shell expr \( $(APPLE_CLANGMAJOR) \>= 12 \)))
+
+ifeq (1,$(shell expr \( $(APPLE_CLANGMINOR) \>= 5 \)))
+CLANGMAJOR:=11
+CLANGMINOR:=0
+else
+CLANGMAJOR:=10
+CLANGMINOR:=0
+endif
+
+else
+
+# 11
 ifeq (1,$(shell expr \( $(APPLE_CLANGMAJOR) \>= 11 \)))
 
 ifeq (1,$(shell expr \( $(APPLE_CLANGMINOR) \>= 4 \)))
@@ -48,6 +76,7 @@ endif
 
 else
 
+# 10
 ifeq (1,$(shell expr \( $(APPLE_CLANGMAJOR) \>= 10 \)))
 
 ifeq (1,$(shell expr \( $(APPLE_CLANGMINOR) \>= 2 \)))
@@ -60,6 +89,7 @@ endif
 
 else
 
+# 9
 ifeq (1,$(shell expr \( $(APPLE_CLANGMAJOR) \>= 9 \)))
 
 ifeq (1,$(shell expr \( $(APPLE_CLANGMINOR) \>= 3 \)))
@@ -74,6 +104,7 @@ else
 
 CLANGMAJOR:=3
 
+# 8
 ifeq (1,$(shell expr \( $(APPLE_CLANGMAJOR) \>= 8 \)))
 CLANGMINOR:=9
 else
@@ -86,6 +117,8 @@ endif	# >= 9
 endif	# >= 10
 endif	# >= 11
 endif	# >= 12
+endif	# >= 13
+endif	# >= 14
 endif	# >= 7
 
 else
