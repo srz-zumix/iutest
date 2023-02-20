@@ -24,11 +24,15 @@ on:
 jobs:
   codecov:
     runs-on: ubuntu-latest
+    # jobs.*.if では env 参照できない
+    # act の場合 github.ref_protected がないのでそれを利用
+    # act では実行しない
+    if: github.ref_protected != null
     env:
       USE_COVERAGE: gcov
       DEFS: -DIUTEST_FORCE_COLORCONSOLE=1
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v3
     - name: info
       run: |
         make -C test showcxxmacros
@@ -44,7 +48,7 @@ jobs:
     - name: test
       run: |
         make -C test test
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: test-result
         path: test/*.xml
@@ -58,10 +62,14 @@ jobs:
 
   coveralls:
     runs-on: ubuntu-latest
+    # jobs.*.if では env 参照できない
+    # act の場合 github.ref_protected がないのでそれを利用
+    # act では実行しない
+    if: github.ref_protected != null
     env:
       USE_COVERAGE: lcov
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v3
     - name: install dependencies
       run: |
         sudo apt-get install -qq -y lcov
@@ -80,7 +88,7 @@ jobs:
     - name: test
       run: |
         make -C test test
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: test-result
         path: test/*.xml
