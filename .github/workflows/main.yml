@@ -39,7 +39,7 @@ jobs:
         run: |
           echo "${GITHUB_EVENT_CONTEXT}" > github_event.json
       - name: store event
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: github_event.json
           path: github_event.json
@@ -187,7 +187,7 @@ jobs:
   #       if: always()
 
   zapcc-basic-test:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     needs: prepare
     container:
       image: docker://srzzumix/zapcc:bionic
