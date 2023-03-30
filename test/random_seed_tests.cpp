@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        random_seed_tests.cpp
- * @brief       乱数シード対応テスト
+ * @brief       randmom seed test
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -43,12 +43,13 @@ IUTEST(Foo, Bar)
 
 static ::std::vector<int> order[kRepeatCount];
 
+#define NUMBEROF_PARAMTESTS 30
+
 #if IUTEST_HAS_PARAM_TEST
-const int kNumberOfParamTests = 10;
 
 class OrderTest : public ::iutest::TestWithParam<int> {};
 
-IUTEST_INSTANTIATE_TEST_SUITE_P(Foo, OrderTest, ::iutest::Range<int>(0, kNumberOfParamTests));
+IUTEST_INSTANTIATE_TEST_SUITE_P(Foo, OrderTest, ::iutest::Range<int>(0, NUMBEROF_PARAMTESTS));
 
 IUTEST_P(OrderTest, Bar)
 {
@@ -57,18 +58,9 @@ IUTEST_P(OrderTest, Bar)
 
 #else
 
-#define DECL_ORDER_TEST(n) IUTEST(OrderTest, IUTEST_PP_CAT(Bar, n)) { order[random_speed_test_count].push_back(n); }
+#define DECL_ORDER_TEST(n, _x) IUTEST(OrderTest, IUTEST_PP_CAT(Bar, n)) { order[random_speed_test_count].push_back(n); }
 
-DECL_ORDER_TEST(0)
-DECL_ORDER_TEST(1)
-DECL_ORDER_TEST(2)
-DECL_ORDER_TEST(3)
-DECL_ORDER_TEST(4)
-DECL_ORDER_TEST(5)
-DECL_ORDER_TEST(6)
-DECL_ORDER_TEST(7)
-DECL_ORDER_TEST(8)
-DECL_ORDER_TEST(9)
+IUTEST_PP_REPEAT(NUMBEROF_PARAMTESTS, DECL_ORDER_TEST, 0)
 
 #endif
 
@@ -80,11 +72,14 @@ int main(int argc, char* argv[])
 {
     MyEnvironment* const env = new MyEnvironment();
     IUTEST_TERMINATE_ON_FAILURE( ::iutest::AddGlobalTestEnvironment(env) == env );
-    IUTEST_INIT(&argc, argv);
-
+#if defined(IUTEST_USE_GTEST) && (GTEST_VER >= 0x01120000)
+    ::iutest::IUTEST_FLAG(recreate_environments_when_repeating) = true;
+#endif
     ::iutest::IUTEST_FLAG(repeat) = kRepeatCount;
     ::iutest::IUTEST_FLAG(shuffle) = true;
     ::iutest::IUTEST_FLAG(random_seed) = kSeed;
+
+    IUTEST_INIT(&argc, argv);
 
     const int ret = IUTEST_RUN_ALL_TESTS();
     if( ret != 0 ) return ret;

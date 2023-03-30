@@ -62,14 +62,14 @@ public:
     virtual bool Read(void* buf, size_t size, size_t cnt) = 0;
 
     //! サイズ取得
-    virtual size_t GetSize() = 0;
+    virtual iu_uint_max_t GetSize() = 0;
 
 public:
     //! 全読み込み
     virtual ::std::string ReadAll()
     {
         ::std::string str;
-        const size_t size = GetSize();
+        const size_t size = static_cast<size_t>(GetSize());
         if( size != 0 )
         {
             type_array<char> buf(size+1);

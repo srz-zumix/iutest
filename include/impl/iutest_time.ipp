@@ -41,7 +41,7 @@ IUTEST_IPP_INLINE bool Localtime(time_t sec, struct tm* dst) IUTEST_CXX_NOEXCEPT
     if( dst != IUTEST_NULLPTR ) *dst = *t;
     return true;
 #  endif
-#elif defined(__MINGW32__) || defined(__MINGW64__)
+#elif defined(IUTEST_OS_WINDOWS_MINGW)
     const struct tm* const t = localtime(&sec); // NOLINT
     if( t == IUTEST_NULLPTR || dst == IUTEST_NULLPTR )
     {

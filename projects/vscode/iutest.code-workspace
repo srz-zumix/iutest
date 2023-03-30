@@ -14,6 +14,7 @@
 			"*.ipp": "cpp",
 			"*.inl": "cpp",
 			"*.in": "makefile",
+			"Earthfile": "dockerfile",
 			".ecrc": "json",
 			".nuspec": "xml",
 			".targets": "xml",
@@ -130,9 +131,34 @@
 			"cinttypes": "cpp",
 			"queue": "cpp",
 			"numbers": "cpp",
-			"semaphore": "cpp"
+			"semaphore": "cpp",
+			"__memory": "cpp",
+			"version": "cpp",
+			"*.defs": "cpp"
 		},
-		"bracketLens.minBracketScopeLines": 12
+		"bracketLens.minBracketScopeLines": 12,
+		"editor.tokenColorCustomizations": {
+			"textMateRules": [
+				{
+					"scope": "googletest.failed",
+					"settings": {
+						"foreground": "#f00"
+					}
+				},
+				{
+					"scope": "googletest.passed",
+					"settings": {
+						"foreground": "#0f0"
+					}
+				},
+				{
+					"scope": "googletest.run",
+					"settings": {
+						"foreground": "#0f0"
+					}
+				}
+			]
+		}
 	},
 	"launch": {
 		"configurations": [

@@ -10,17 +10,24 @@ on:
 name: AsesomeBot
 jobs:
   check:
-    runs-on: ubuntu-latest
+    # act の場合 github.ref_protected がないのでそれを利用
+    # act の image に libssl1.1 が入ってないので 20.04 を使う
+    runs-on: ${{ (github.ref_protected == null && 'ubuntu-20.04') || 'ubuntu-latest' }}
     env:
       ASESOME_BOT_OPTION: --allow-redirect --allow-ssl --allow-dupe -t 60
     steps:
       - uses: actions/checkout@v3
+      - name: Create Gemfile
+        run: |
+          {
+            echo 'source "http://rubygems.org"'
+            echo "gem 'awesome_bot'"
+          } > Gemfile
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.6
-      - name: install
-        run: gem install awesome_bot
+          ruby-version: 3.1
+          bundler-cache: true
       - name: check
         run: |
           # shellcheck disable=SC2086
-          awesome_bot README.md    ${ASESOME_BOT_OPTION}
+          .ci/awesome_bot.sh README.md    ${ASESOME_BOT_OPTION}

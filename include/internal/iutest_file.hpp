@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,8 +17,16 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_internal_defs.hpp"
 #include "iutest_stream.hpp"
+
+#if defined(IUTEST_OS_WINDOWS)
+#include <io.h>
+#include <fcntl.h>
+#include <share.h>
+#endif
+// IWYU pragma: end_exports
 
 namespace iutest
 {
@@ -184,7 +192,7 @@ public:
     {
         IUTEST_IGNORE_EXCEPTION_BEGIN()
         {
-            Close();
+            StdioFile::Close()();
         }
         IUTEST_IGNORE_EXCEPTION_END()
     }
@@ -238,71 +246,46 @@ IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
     }
 
     //! サイズ取得
-    virtual size_t GetSize() IUTEST_CXX_OVERRIDE
+    virtual iu_uint_max_t GetSize() IUTEST_CXX_OVERRIDE
     {
-#if IUTEST_HAS_FILE_STAT
         return GetSize(m_fp);
-#else
-        return GetSizeBySeekSet(m_fp);
-#endif
     }
 
 IUTEST_PRAGMA_WARN_POP()
 
 public:
-    static size_t GetSize(FILE* fp) IUTEST_CXX_NOEXCEPT_SPEC
+    void Flush()
     {
-        if( fp == IUTEST_NULLPTR )
-        {
-            return 0;
-        }
-#if IUTEST_HAS_FILE_STAT
-        internal::posix::StatStruct st;
-        if (internal::posix::Stat(fp, &st) != 0)
-        {
-            return GetSizeBySeekSet(fp);
-        }
-        // FIXME: https://github.com/srz-zumix/iutest/issues/227
-        return static_cast<size_t>(st.st_size);
-#else
-        return GetSizeBySeekSet(fp);
-#endif
+        fflush(m_fp);
     }
-    static size_t GetSizeBySeekSet(FILE* fp) IUTEST_CXX_NOEXCEPT_SPEC
+
+public:
+    static iu_uint_max_t GetSize(FILE* fp) IUTEST_CXX_NOEXCEPT_SPEC
     {
-        if( fp == IUTEST_NULLPTR )
-        {
-            return 0;
-        }
-        const long pre = ftell(fp);
-        if( (pre != -1) && (fseek(fp, 0, SEEK_END) == 0) )
-        {
-            const size_t size = static_cast<size_t>(ftell(fp));
-            IUTEST_UNUSED_RETURN(fseek(fp, pre, SEEK_SET));
-            return size;
-        }
-        return 0;
+        return internal::posix::FileSize(fp);
+    }
+    static iu_uint_max_t GetSizeBySeekSet(FILE* fp) IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return internal::posix::FileSizeBySeekSet(fp);
     }
 private:
     virtual bool OpenImpl(const char* filename, int mode) IUTEST_CXX_OVERRIDE
     {
         Close();
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         switch( mode )
         {
         case IFile::OpenRead:
-            m_fp = fopen(filename, "rb");
+            m_fp = internal::posix::FileOpen(filename, "rb");
             break;
         case IFile::OpenWrite:
-            m_fp = fopen(filename, "wb");
+            m_fp = internal::posix::FileOpen(filename, "wb");
             break;
         case IFile::OpenAppend:
-            m_fp = fopen(filename, "ab");
+            m_fp = internal::posix::FileOpen(filename, "ab");
             break;
         default:
             break;
         }
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
         return m_fp != IUTEST_NULLPTR;
     }
 };
@@ -340,7 +323,133 @@ private:
 IUTEST_PRAGMA_WARN_POP()
 };
 
+class TempFile : public IFile
+{
+public:
+    TempFile() IUTEST_CXX_NOEXCEPT_SPEC
+        : m_fd(-1)
+    {
+    }
+
+    virtual ~TempFile() { Close(); }
+
+public:
+    /**
+     * @brief   閉じる
+    */
+    virtual void Close() IUTEST_CXX_OVERRIDE
+    {
+        m_file.Close();
+        if( m_fd != -1 )
+        {
+            internal::posix::FdClose(m_fd);
+            m_fd = -1;
+        }
+    }
+    /**
+     * @brief   書き込み
+     * @param [in]  buf     = 書き込みバッファ
+     * @param [in]  size    = バッファサイズ
+     * @param [in]  cnt     = 書き込み回数
+    */
+    virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
+    {
+        return m_file.Write(buf, size, cnt);
+    }
+
+    /**
+     * @brief   読み込み
+     * @param [in]  buf     = 読み込みバッファ
+     * @param [in]  size    = 読み込みデータサイズ
+     * @param [in]  cnt     = 読み込み回数
+    */
+    virtual bool Read(void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
+    {
+        return m_file.Read(buf, size, cnt);
+    }
+
+    //! サイズ取得
+    virtual iu_uint_max_t GetSize() IUTEST_CXX_OVERRIDE
+    {
+        return m_file.GetSize();
+    }
+
+public:
+    int GetDescriptor() const { return m_fd; }
+    const ::std::string& GetFileName() const { return m_filename; }
+
+    bool Open(int mode)
+    {
+        return OpenImpl(m_filename.c_str(), mode);
+    }
+
+    void Delete()
+    {
+        Close();
+        if( !m_filename.empty() )
+        {
+            remove(m_filename.c_str());
+            m_filename = "";
+        }
+    }
+
+    bool Create(const char* basename)
+    {
+#if defined(IUTEST_OS_WINDOWS)
+        char tmp_dir[IUTEST_MAX_PATH] = { '\0' };
+        GetTempPathA(sizeof(tmp_dir), tmp_dir);
+
+        char name_template[IUTEST_MAX_PATH] = { '\0' };
+        UINT ret = GetTempFileNameA(tmp_dir, basename, 0, name_template);
+        IUTEST_CHECK_(ret != 0) << "Unable to create a temporary file in " << tmp_dir;
+#if defined(_CRT_FUNCTIONS_REQUIRED)
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+        const int fd = _creat(name_template, _S_IREAD | _S_IWRITE);
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+#else
+#if defined(IUTEST_OS_WINDOWS_MINGW)
+        const int fd = _sopen(name_template, _O_CREAT | _O_RDWR, _SH_DENYNO, _S_IREAD | _S_IWRITE);
+#else
+        int fd = -1;
+        _sopen_s(&fd, name_template, _O_CREAT | _O_RDWR, _SH_DENYNO, _S_IREAD | _S_IWRITE);
 #endif
+#endif
+#else
+#if   defined(IUTEST_OS_LINUX_ANDROID)
+        ::std::string name_template = "/data/local/tmp/";
+#elif defined(IUTEST_OS_IOS)
+        char user_temp_dir[IUTEST_MAX_PATH];
+        ::confstr(_CS_DARWIN_USER_TEMP_DIR, user_temp_dir, sizeof(user_temp_dir));
+        ::std::string name_template = user_temp_dir;
+        name_template += "/";
+#else
+        ::std::string name_template = "/tmp/";
+#endif
+        name_template += basename;
+        name_template += ".XXXXXX";
+        const int fd = internal::posix::Mkstemp(const_cast<char*>(name_template.data()));
+#endif
+        m_fd = fd;
+        m_filename = name_template;
+        return m_fd != -1;
+    }
+
+private:
+    bool Open(const char*, int);
+
+    virtual bool OpenImpl(const char* filename, int mode) IUTEST_CXX_OVERRIDE
+    {
+        return m_file.Open(filename, mode);
+    }
+
+private:
+    StdioFile m_file;
+    int m_fd;
+    ::std::string m_filename;
+};
+
+#endif
+
 
 #if IUTEST_HAS_STRINGSTREAM
 
@@ -354,7 +463,7 @@ public:
     {
         IUTEST_IGNORE_EXCEPTION_BEGIN()
         {
-            Close();
+            StringStreamFile::Close();
         }
         IUTEST_IGNORE_EXCEPTION_END()
     }
@@ -400,13 +509,13 @@ public:
     }
 
     //! サイズ取得
-    virtual size_t GetSize() IUTEST_CXX_OVERRIDE
+    virtual iu_uint_max_t GetSize() IUTEST_CXX_OVERRIDE
     {
         const ::std::stringstream::pos_type pre = ss.tellg();
         ss.seekg(0, ::std::ios::end);
         const ::std::stringstream::pos_type size = ss.tellg();
         ss.seekg(pre, ::std::ios::beg);
-        return static_cast<size_t>(size);
+        return static_cast<iu_uint_max_t>(size);
     }
 
     //! 全読み込み
@@ -441,7 +550,7 @@ IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
     virtual void Close() IUTEST_CXX_OVERRIDE {}
     virtual bool Write(const void*, size_t, size_t) IUTEST_CXX_OVERRIDE { return true;  }
     virtual bool Read(void*, size_t, size_t) IUTEST_CXX_OVERRIDE { return true; }
-    virtual size_t GetSize() IUTEST_CXX_OVERRIDE { return 0; }
+    virtual iu_uint_max_t GetSize() IUTEST_CXX_OVERRIDE { return 0; }
 private:
     virtual bool OpenImpl(const char*, int) IUTEST_CXX_OVERRIDE { return true; }
 

@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_option_message.hpp
- * @brief       iris unit test コマンドラインメッセージ ファイル
+ * @brief       iris unit test commandline option message
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -150,6 +150,7 @@ inline void iuOptionMessage::ShowVersion()
     m (IUTEST_HAS_STATIC_ASSERT); \
     m (IUTEST_HAS_STATIC_ASSERT_TYPEEQ); \
     m (IUTEST_HAS_STREAM_BUFFER); \
+    m (IUTEST_HAS_STREAM_CAPTURE); \
     m (IUTEST_HAS_STREAM_RESULT); \
     m (IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE); \
     m (IUTEST_HAS_TESTNAME_ALIAS); \
@@ -224,7 +225,11 @@ inline void iuOptionMessage::ShowSpec()
     IIUT_SHOW_MACRO(IUTEST_HAS_EXCEPTIONS);
     IIUT_SHOW_MACRO(IUTEST_HAS_EXPLICIT_CONVERSION);
     IIUT_SHOW_MACRO(IUTEST_HAS_EXTERN_TEMPLATE);
+    IIUT_SHOW_MACRO(IUTEST_HAS_FD_DUP);
+    IIUT_SHOW_MACRO(IUTEST_HAS_FILENO);
+    IIUT_SHOW_MACRO(IUTEST_HAS_FILE_STAT);
     IIUT_SHOW_MACRO(IUTEST_HAS_FLOAT128);
+    IIUT_SHOW_MACRO(IUTEST_HAS_FOPEN);
     IIUT_SHOW_MACRO(IUTEST_HAS_GETTIMEOFDAY);
     IIUT_SHOW_MACRO(IUTEST_HAS_GSL);
     IIUT_SHOW_MACRO(IUTEST_HAS_HDR_CXXABI);
@@ -236,7 +241,9 @@ inline void iuOptionMessage::ShowSpec()
     IIUT_SHOW_MACRO(IUTEST_HAS_IOMANIP);
     IIUT_SHOW_MACRO(IUTEST_HAS_LAMBDA);
     IIUT_SHOW_MACRO(IUTEST_HAS_LAMBDA_STATEMENTS);
+    IIUT_SHOW_MACRO(IUTEST_HAS_LARGEFILE_API);
     IIUT_SHOW_MACRO(IUTEST_HAS_LONG_DOUBLE);
+    IIUT_SHOW_MACRO(IUTEST_HAS_MKSTEMP);
     IIUT_SHOW_MACRO(IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION);
     IIUT_SHOW_MACRO(IUTEST_HAS_NOEXCEPT);
     IIUT_SHOW_MACRO(IUTEST_HAS_NULLPTR);
@@ -260,6 +267,7 @@ inline void iuOptionMessage::ShowSpec()
     IIUT_SHOW_MACRO(IUTEST_HAS_VARIADIC_TUPLES);
     IIUT_SHOW_MACRO(IUTEST_HAS_WANT_SECURE_LIB);
     IIUT_SHOW_MACRO(IUTEST_LONG_DOUBLE_AS_IS_DOUBLE);
+    IIUT_SHOW_MACRO(IUTEST_UNICODE);
     IIUT_SHOW_MACRO(IUTEST_USE_OWN_LIST);
     IIUT_SHOW_MACRO(IUTEST_USE_OWN_STRING_VIEW);
     IIUT_SHOW_MACRO(IUTEST_USE_THROW_ON_ASSERTION_FAILURE);
@@ -271,6 +279,9 @@ inline void iuOptionMessage::ShowSpec()
 
 #ifdef _MSC_FULL_VER
     IIUT_SHOW_MACRO(_MSC_FULL_VER);
+#endif
+#ifdef _MSVC_LANG
+    IIUT_SHOW_MACRO(_MSVC_LANG);
 #endif
 #ifdef __GLIBCXX__
     IIUT_SHOW_MACRO(__GLIBCXX__);

@@ -47,7 +47,7 @@ aliases:
       name: SetUp
       command: |
         sudo apt-get -y --allow-unauthenticated update && \
-        sudo apt-get install software-properties-common && \
+        sudo apt-get install -qq -y software-properties-common && \
         CLANG_VERSION="<< parameters.clang-version >>" ./.ci/linux/install-clang.sh && \
         ./.ci/linux/install-gcc.sh
   - &save_cache
@@ -163,7 +163,7 @@ orbs:
 jobs:
   gcc_fanalzyer_test:
     machine:
-      image: ubuntu-2004:202111-02
+      image: ubuntu-2004:current
     parameters: *job-parameters
     environment:
       CXX: g++
@@ -195,7 +195,7 @@ jobs:
     steps: *build-test-steps
   arm:
     machine:
-      image: ubuntu-2004:202111-02
+      image: ubuntu-2004:current
     resource_class: arm.medium
     parameters: *job-parameters
     environment:
@@ -229,7 +229,8 @@ jobs:
       - store_artifacts:
           path: .\iutest.etl
   msvc_wine:
-    machine: true
+    machine:
+      image: ubuntu-2004:current
     steps:
       - checkout
       - docker/check:
@@ -257,7 +258,8 @@ jobs:
           command: |
             docker stop iutest-work
   noop:
-    machine: true
+    machine:
+      image: ubuntu-2004:current
     steps:
       - run:
           name: halt

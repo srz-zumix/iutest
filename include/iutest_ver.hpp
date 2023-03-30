@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01179911u     //!< iutest version 1.17.99.11
+#define IUTEST_VER          0x01179914u     //!< iutest version 1.17.99.14
 #define IUTEST_MAJORVER     0x01u           //!< Major Version
 #define IUTEST_MINORVER     0x17u           //!< Minor Version
 #define IUTEST_MICROVER     0x99u           //!< Micro Version
-#define IUTEST_REVISION     0x11u           //!< Revision
+#define IUTEST_REVISION     0x14u           //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -33,7 +33,7 @@
  *          google group: https://groups.google.com/forum/?fromgroups#!forum/g-iutest \n
  *
  * @par     copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License.
  *
  * @par     LICENSE

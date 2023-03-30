@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -97,7 +97,7 @@ int main(int argc, char* argv[])
     (void)argv;
 
 #ifdef UNICODE
-    wchar_t a[] = "";
+    wchar_t a[] = L"";
     wchar_t* targv[] = { a };
 #else
     char a[] = "";

@@ -125,7 +125,8 @@ public:
         return fixed.ret.value;
     }
 private:
-    GTEST_DISALLOW_COPY_AND_ASSIGN_(AssertHelperEx);
+    AssertHelperEx(const AssertHelperEx&);
+    AssertHelperEx& operator = (const AssertHelperEx&);
 };
 
 }   // end of namespace internal

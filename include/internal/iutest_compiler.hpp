@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -1104,20 +1104,6 @@
 
 #if !defined(IUTEST_HAS_COUNTER_MACRO)
 #  define IUTEST_HAS_COUNTER_MACRO          0
-#endif
-
-//! has file stat
-#if !defined(IUTEST_HAS_FILE_STAT)
-#  if !defined(IUTEST_OS_WINDOWS_MOBILE)
-#    define IUTEST_HAS_FILE_STAT            1
-#  endif
-#endif
-
-//! has fileno
-#if !defined(IUTEST_HAS_FILENO)
-#  if !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(__STRICT_ANSI__)
-#    define IUTEST_HAS_FILENO               1
-#  endif
 #endif
 
 //! explicit class member template specialization

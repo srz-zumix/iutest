@@ -24,7 +24,7 @@
 // IWYU pragma: begin_exports
 #include "iutest_internal_defs.hpp"
 
-#if defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN) || defined(IUTEST_OS_MAC) || defined(IUTEST_OS_IOS) || defined(IUTEST_OS_FREEBSD)
+#if IUTEST_HAS_HDR_UNISTD
 #  include <unistd.h>
 #  include <locale.h>
 #endif
@@ -32,6 +32,7 @@
 #if IUTEST_HAS_FILE_STAT
 #  include <sys/stat.h>
 #endif
+
 // IWYU pragma: end_exports
 
 //======================================================================
@@ -103,6 +104,97 @@ IUTEST_ATTRIBUTE_NORETURN_ void Abort() IUTEST_CXX_NOEXCEPT_SPEC;
 inline void Abort() IUTEST_CXX_NOEXCEPT_SPEC { abort(); }
 #endif
 
+#if IUTEST_HAS_FOPEN
+
+inline FILE* FileOpen(const char* filename, const char* mode)
+{
+#if defined(_MSC_VER)
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+    return fopen(filename, mode);
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+#elif defined(_LARGEFILE64_SOURCE)
+    return fopen64(filename, mode);
+#else
+    return fopen(filename, mode);
+#endif
+}
+
+inline int FileSeek(FILE* fp, iu_off_t pos, int origin)
+{
+#if defined(_MSC_VER)
+    return _fseeki64(fp, pos, origin);
+#elif defined(_LARGEFILE64_SOURCE)
+    return fseeko64(fp, pos, origin);
+#elif IUTEST_HAS_LARGEFILE_API
+    return fseeko(fp, pos, origin);
+#else
+    return fseek(fp, pos, origin);
+#endif
+}
+
+inline iu_off_t FileTell(FILE* fp)
+{
+#if defined(_MSC_VER)
+    return static_cast<iu_off_t>(_ftelli64(fp));
+#elif defined(_LARGEFILE64_SOURCE)
+    return static_cast<iu_off_t>(ftello64(fp));
+#elif IUTEST_HAS_LARGEFILE_API
+    return static_cast<iu_off_t>(ftello(fp));
+#else
+    return static_cast<iu_off_t>(ftell(fp));
+#endif
+}
+
+#endif
+
+#if IUTEST_HAS_HDR_UNISTD
+
+#if defined(_MSC_VER) || defined(IUTEST_OS_WINDOWS_MINGW)
+inline int FdClose(int fd) { return _close(fd); }
+inline int FdFlush(int fd) { return _commit(fd); }
+#else
+inline int FdClose(int fd) { return close(fd); }
+inline int FdFlush(int fd) { return fsync(fd); }
+#endif
+#else
+inline int FdClose(int) { return -1; }
+inline int FdFlush(int) { return -1; }
+#endif
+
+#if IUTEST_HAS_FD_OPEN
+
+#if defined(_MSC_VER) || defined(__MINGW64__)
+inline FILE* FdOpen(int fd, const char* mode) { return _fdopen(fd, mode); }
+#else
+inline FILE* FdOpen(int fd, const char* mode) { return fdopen(fd, mode); }
+#endif
+
+#else
+
+inline FILE* FdOpen(int, const char*) { return IUTEST_NULLPTR; }
+
+#endif
+
+
+#if IUTEST_HAS_FD_DUP
+
+#if defined(_MSC_VER)
+inline int Dup(int fd) { return _dup(fd); }
+#else
+inline int Dup(int fd) { return dup(fd); }
+#endif
+
+#if defined(_MSC_VER)
+inline int Dup2(int fd1, int fd2) { return _dup2(fd1, fd2); }
+#else
+inline int Dup2(int fd1, int fd2) { return dup2(fd1, fd2); }
+#endif
+
+#else
+inline int Dup(int) { return -1; }
+inline int Dup2(int, int) { return -1; }
+#endif
+
 #if IUTEST_HAS_FILENO
 
 #if defined(_MSC_VER)
@@ -121,11 +213,20 @@ inline int Fileno(FILE*) IUTEST_CXX_NOEXCEPT_SPEC { return -1; }
 
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_WINE)
 
-typedef struct _stat StatStruct;
+typedef struct __stat64 StatStruct;
 
-inline int FileStat(int fd, StatStruct* buf) IUTEST_CXX_NOEXCEPT_SPEC { return _fstat(fd, buf); }
-inline int Stat(const char* path, StatStruct* buf) IUTEST_CXX_NOEXCEPT_SPEC { return _stat(path, buf); }
+inline int FileStat(int fd, StatStruct* buf) IUTEST_CXX_NOEXCEPT_SPEC { return _fstat64(fd, buf); }
+inline int Stat(const char* path, StatStruct* buf) IUTEST_CXX_NOEXCEPT_SPEC { return _stat64(path, buf); }
 inline bool IsDir(const StatStruct& st) IUTEST_CXX_NOEXCEPT_SPEC { return (st.st_mode & _S_IFDIR) != 0; }
+
+#else
+
+#if defined(_LARGEFILE64_SOURCE)
+
+typedef struct stat64 StatStruct;
+
+inline int FileStat(int fd, StatStruct* buf) { return fstat64(fd, buf); }
+inline int Stat(const char* path, StatStruct* buf) { return stat64(path, buf); }
 
 #else
 
@@ -133,6 +234,9 @@ typedef struct stat StatStruct;
 
 inline int FileStat(int fd, StatStruct* buf) IUTEST_CXX_NOEXCEPT_SPEC { return fstat(fd, buf); }
 inline int Stat(const char* path, StatStruct* buf) IUTEST_CXX_NOEXCEPT_SPEC { return stat(path, buf); }
+
+#endif
+
 inline bool IsDir(const StatStruct& st) IUTEST_CXX_NOEXCEPT_SPEC { return S_ISDIR(st.st_mode); }
 
 #endif
@@ -143,6 +247,88 @@ inline int Stat(FILE* fp, StatStruct* buf) IUTEST_CXX_NOEXCEPT_SPEC
     return fd >= 0 ? FileStat(fd, buf) : fd;
 }
 
+#endif
+
+#if IUTEST_HAS_FOPEN
+
+inline iu_uint_max_t FileSizeBySeekSet(FILE* fp)
+{
+    if( fp == NULL )
+    {
+        return 0;
+    }
+    const iu_off_t pre = FileTell(fp);
+    if( (pre != -1) && (FileSeek(fp, 0, SEEK_END) == 0) )
+    {
+        const iu_off_t size = FileTell(fp);
+        IUTEST_UNUSED_RETURN(FileSeek(fp, pre, SEEK_SET));
+        return static_cast<iu_uint_max_t>(size);
+    }
+    return 0;
+}
+
+inline iu_uint_max_t FileSize(FILE* fp)
+{
+    if( fp == NULL )
+    {
+        return 0;
+    }
+#if IUTEST_HAS_FILE_STAT
+    StatStruct st;
+    if (Stat(fp, &st) == 0)
+    {
+        return static_cast<iu_uint_max_t>(st.st_size);
+    }
+#endif
+    return FileSizeBySeekSet(fp);
+}
+
+#endif
+
+inline iu_uint_max_t FdSize(int fd)
+{
+    if( fd == -1 )
+    {
+        return 0;
+    }
+#if IUTEST_HAS_FILE_STAT
+    StatStruct st;
+    if (FileStat(fd, &st) == 0)
+    {
+        return static_cast<iu_uint_max_t>(st.st_size);
+    }
+#endif
+    return 0;
+}
+
+inline iu_uint_max_t FileSizeFromPath(const char* filename)
+{
+#if IUTEST_HAS_STD_FILESYSTEM
+    return ::std::filesystem::file_size(filename);
+#else
+
+#if IUTEST_HAS_FILE_STAT
+    StatStruct st;
+    if (Stat(filename, &st) == 0)
+    {
+        return static_cast<iu_uint_max_t>(st.st_size);
+    }
+#endif
+    return 0;
+
+#endif
+}
+
+#if IUTEST_HAS_MKSTEMP
+
+#if defined(_MSC_VER)
+inline int Mkstemp(char* template_path) { return _mkstemp(template_path); }
+#else
+inline int Mkstemp(char* template_path) { return mkstemp(template_path); }
+#endif
+
+#else
+inline int Mkstemp(char*) { return -1; }
 #endif
 
 }   // end of namespace posix
@@ -285,10 +471,16 @@ private:
 
 #if IUTEST_HAS_STREAM_BUFFER
 
+#if defined(BUFSIZ) && BUFSIZ > 1024
+#  define IUTEST_DEFAULT_STREAM_BUFFER_SIZE BUFSIZ
+#else
+#  define IUTEST_DEFAULT_STREAM_BUFFER_SIZE 1024
+#endif
+
 /**
  * @brief   stream buffer
 */
-template<int SIZE=BUFSIZ>
+template<int SIZE=IUTEST_DEFAULT_STREAM_BUFFER_SIZE>
 class IUStreamBuffer
 {
 public:
@@ -297,27 +489,34 @@ public:
     {
         m_buf[0] = '\0';
         fflush(fp);
-        setvbuf(fp, m_buf, _IOFBF, SIZE);
+        const int r = setvbuf(fp, m_buf, _IOFBF, SIZE);
+        if( r != 0 )
+        {
+            IUTEST_LOG_(WARNING) << "setvbuf failed: " << r;
+            m_fp = NULL;
+        }
     }
 
     ~IUStreamBuffer()
     {
-        fflush(m_fp);
-        setvbuf(m_fp, NULL, _IONBF, 0);
+        if( m_fp != NULL )
+        {
+            fflush(m_fp);
+            setvbuf(m_fp, NULL, _IONBF, 0);
+        }
     }
 
 public:
-    ::std::string GetStreamString() { return m_buf; }
+    ::std::string GetStreamString() const
+    {
+        return m_buf;
+    }
+    bool IsValid() const { return m_fp != NULL; }
 
 private:
     FILE* m_fp;
     char m_buf[SIZE];
 };
-
-/**
-* @brief    stream capture
-*/
-
 
 #endif
 

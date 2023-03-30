@@ -217,12 +217,13 @@ for:
       $env:PATH=$env:CYGWIN_PATH + "\bin;" + $env:PATH
   install:
     cmd: |
-      %CYGWIN_PATH%\%CYGWIN_SETUP_EXE% -qnNdO -R %CYGWIN_PATH% -s http://cygwin.mirror.constant.com -l %CYGWIN_PATH%/var/cache/setup -P make -P clang
+      curl -sSL -o %CYGWIN_PATH%\%CYGWIN_SETUP_EXE% "https://cygwin.com/%CYGWIN_SETUP_EXE%"
+      %CYGWIN_PATH%\%CYGWIN_SETUP_EXE% -qnNdO --allow-unsupported-windows -R %CYGWIN_PATH% -s http://cygwin.mirror.constant.com -l %CYGWIN_PATH%/var/cache/setup -P make -P clang
   before_build: *noop
   build_script:
     cmd: |
       cd test
-      make showcxxmacros
+      make showcxxmacros check_stdlib showstdlbfeatures
       make -j4 OUTPUTXML=%OUTPUTXML_TYPE%
   test_script:
     cmd: make test OUTPUTXML=%OUTPUTXML_TYPE% && make report
@@ -246,17 +247,17 @@ for:
   install:
     ps: |
       if($env:PLATFORM -eq "Win32"){
+        $env:MINGW_PATH="C:\mingw\bin"
+      } else {
         $env:MAKE_OPTIONS="LIBS=ws2_32"
         $env:MINGW_PATH="C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin"
-      } else {
-        $env:MINGW_PATH="C:\mingw\bin"
       }
       $env:PATH=$env:MINGW_PATH + ";" + $env:PATH
   before_build: *noop
   build_script:
     cmd: |
       cd test
-      mingw32-make showcxxmacros
+      mingw32-make showcxxversion showcxxmacros check_stdlib showstdlbfeatures
       mingw32-make -j4 %MAKE_OPTIONS% OUTPUTXML=%OUTPUTXML_TYPE%
   test_script:
     cmd: mingw32-make test %MAKE_OPTIONS% OUTPUTXML=%OUTPUTXML_TYPE% && mingw32-make report
@@ -269,7 +270,7 @@ for:
   before_build:
     cmd: |
       "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat"
-      cd test && nmake showcxxmacros
+      cd test && nmake showcxxmacros check_stdlib showstdlbfeatures
       nmake minimum_tests && minimum_tests.exe --spec
       nmake clean
   build_script:
