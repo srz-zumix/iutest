@@ -54,9 +54,10 @@ environment:
       OUTPUTXML_TYPE: xml
     # Prefast
     - job_group: VisualStudio
-      job_depends_on: VS2015
+      job_depends_on: VS2022
       BUILD_PREFAST: yes
-      PROJECT_DIR: vs2015
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
+      PROJECT_DIR: vs2022
     # Menu
     - job_group: VisualStudio
       BUILD_MENU: yes
@@ -285,9 +286,10 @@ for:
   environment:
     MSBUILD_LOGGER_OPTION: /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
     MSBUILD_PREFAST_OPTION: /p:RunCodeAnalysis=true /p:EnablePREfast=true /p:CodeAnalysisTreatWarningsAsErrors=true
+    CPPCORE_CHECK_OPTION: /p:CodeAnalysisRuleSet=CppCoreCheckRules.ruleset
   before_build: *noop
   build_script:
-    cmd: msbuild "projects\%PROJECT_DIR%\iutest_sample.vcxproj" /m %MSBUILD_LOGGER_OPTION% %MSBUILD_PREFAST_OPTION%
+    cmd: msbuild "projects\%PROJECT_DIR%\iutest_sample.vcxproj" /m %MSBUILD_LOGGER_OPTION% %MSBUILD_PREFAST_OPTION% %CPPCORE_CHECK_OPTION% /p:ForceImportBeforeCppTargets=%APPVEYOR_BUILD_FOLDER%/utils/props/CppCoreCheckDisableSpecificWarnings.props
   test: off
   on_finish: *noop
 # Menu

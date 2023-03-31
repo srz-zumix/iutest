@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -44,6 +44,9 @@
 #endif
 #ifndef IUTEST_PRAGMA_MSC_WARN_DISABLE
 #  define IUTEST_PRAGMA_MSC_WARN_DISABLE(x)
+#endif
+#ifndef IUTEST_PRAGMA_MSC_WARN_SUPPRESS
+#  define IUTEST_PRAGMA_MSC_WARN_SUPPRESS(x)
 #endif
 #ifndef IUTEST_PRAGMA_MSC_WARN_POP
 #  define IUTEST_PRAGMA_MSC_WARN_POP()
@@ -370,7 +373,7 @@
 #    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 6)
-#      define IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE()  IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wdangling-else")
+#      define IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE()    IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wdangling-else")
 #    endif
 #  elif defined(_MSC_VER)
 #    define IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE()
@@ -383,12 +386,32 @@
 
 #if !defined(IUTEST_PRAGMA_WARN_DISABLE_NOEXCEPT_TPYE)
 #  if defined(__GNUC__) && (__GNUC__ > 6)
-#    define IUTEST_PRAGMA_WARN_DISABLE_NOEXCEPT_TPYE()  IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wnoexcept-type")
+#    define IUTEST_PRAGMA_WARN_DISABLE_NOEXCEPT_TPYE()      IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wnoexcept-type")
 #  endif
 #endif
 
 #if !defined(IUTEST_PRAGMA_WARN_DISABLE_NOEXCEPT_TPYE)
 #  define IUTEST_PRAGMA_WARN_DISABLE_NOEXCEPT_TPYE()
+#endif
+
+#if !defined(IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT)
+#  if defined(_MSC_VER)
+#    define IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()   IUTEST_PRAGMA_MSC_WARN_DISABLE(26440)
+#  endif
+#endif
+
+#if !defined(IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT)
+#  define IUTEST_PRAGMA_WARN_DISABLE_DECLARE_NOEXCEPT()
+#endif
+
+#if !defined(IUTEST_PRAGMA_WARN_SUPPRESS_DECLARE_NOEXCEPT)
+#  if defined(_MSC_VER)
+#    define IUTEST_PRAGMA_WARN_SUPPRESS_DECLARE_NOEXCEPT()  IUTEST_PRAGMA_MSC_WARN_SUPPRESS(26440)
+#  endif
+#endif
+
+#if !defined(IUTEST_PRAGMA_WARN_SUPPRESS_DECLARE_NOEXCEPT)
+#  define IUTEST_PRAGMA_WARN_SUPPRESS_DECLARE_NOEXCEPT()
 #endif
 
 #if !defined(IUTEST_PRAGMA_WARN_DISABLE_NONNULL)
@@ -403,6 +426,20 @@
 
 #if !defined(IUTEST_PRAGMA_WARN_DISABLE_NONNULL)
 #  define IUTEST_PRAGMA_WARN_DISABLE_NONNULL()
+#endif
+
+#if !defined(IUTEST_PRAGMA_WARN_DISABLE_HIDE_FUNCTION)
+#  if   defined(__clang__)
+#    define IUTEST_PRAGMA_WARN_DISABLE_HIDE_FUNCTION()
+#  elif defined(__GNUC__)
+#    define IUTEST_PRAGMA_WARN_DISABLE_HIDE_FUNCTION()
+#  elif defined(_MSC_VER)
+#    define IUTEST_PRAGMA_WARN_DISABLE_HIDE_FUNCTION()  IUTEST_PRAGMA_MSC_WARN_DISABLE(26434)
+#  endif
+#endif
+
+#if !defined(IUTEST_PRAGMA_WARN_DISABLE_HIDE_FUNCTION)
+#  define IUTEST_PRAGMA_WARN_DISABLE_HIDE_FUNCTION()
 #endif
 
 #if   defined(__clang__)
@@ -440,6 +477,27 @@
 #else
 #  define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
 #  define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_END()
+#endif
+
+#if   defined(_MSC_VER)
+#  define IUTEST_PRAGMA_COREGUIDELINE_DISABLE_BEGIN()   IUTEST_PRAGMA_MSC_WARN_PUSH() \
+                                                        IUTEST_PRAGMA_MSC_WARN_DISABLE(26426) \
+                                                        IUTEST_PRAGMA_MSC_WARN_DISABLE(26440) \
+                                                        IUTEST_PRAGMA_MSC_WARN_DISABLE(26477) \
+                                                        IUTEST_PRAGMA_MSC_WARN_DISABLE(26497) \
+                                                        IUTEST_PRAGMA_MSC_WARN_DISABLE(26814)
+#  define IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()     IUTEST_PRAGMA_MSC_WARN_POP()
+
+#  define IUTEST_PRAGMA_SAMPLE_COREGUIDELINE_DISABLE_BEGIN()    \
+                                                        IUTEST_PRAGMA_COREGUIDELINE_DISABLE_BEGIN() \
+                                                        IUTEST_PRAGMA_MSC_WARN_DISABLE(26496)
+#  define IUTEST_PRAGMA_SAMPLE_COREGUIDELINE_DISABLE_END()      \
+                                                        IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()
+#else
+#  define IUTEST_PRAGMA_COREGUIDELINE_DISABLE_BEGIN()
+#  define IUTEST_PRAGMA_COREGUIDELINE_DISABLE_END()
+#  define IUTEST_PRAGMA_SAMPLE_COREGUIDELINE_DISABLE_BEGIN()
+#  define IUTEST_PRAGMA_SAMPLE_COREGUIDELINE_DISABLE_END()
 #endif
 
 #endif // INCG_IRIS_IUTEST_PRAGMA_HPP_FBC5A1DE_3D0C_443E_84B1_5F0618DF9A6B_

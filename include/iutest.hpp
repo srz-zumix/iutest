@@ -1898,7 +1898,7 @@ public:
     static UnitTestSource& GetInstance() { static UnitTestSource inst; return inst; }
 
 private:
-    UnitTestSource()
+    UnitTestSource() IUTEST_CXX_NOEXCEPT(false)
     {
 #if defined(_IUTEST_DEBUG)
         detail::iuDebugInitialize();
@@ -1913,8 +1913,12 @@ public:
     /** @private */
     ~UnitTestSource()
     {
-        TestEnv::event_listeners().set_default_result_printer(NULL);
-        TestEnv::event_listeners().set_default_xml_generator(NULL);
+        IUTEST_IGNORE_EXCEPTION_BEGIN()
+        {
+            TestEnv::event_listeners().set_default_result_printer(IUTEST_NULLPTR);
+            TestEnv::event_listeners().set_default_xml_generator(IUTEST_NULLPTR);
+        }
+        IUTEST_IGNORE_EXCEPTION_END()
     }
 
 public:
@@ -2010,10 +2014,15 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, char** argv)  
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, wchar_t** argv)   { detail::InitIrisUnitTest(pargc, argv); }      //!< @overload
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const char** argv)    { detail::InitIrisUnitTest(pargc, argv); }  //!< @overload
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const wchar_t** argv) { detail::InitIrisUnitTest(pargc, argv); }  //!< @overload
-inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest() { detail::InitIrisUnitTest<char**>(NULL, NULL); }   //!< @overload
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest() { detail::InitIrisUnitTest<char**>(IUTEST_NULLPTR, IUTEST_NULLPTR); }   //!< @overload
 
 #if IUTEST_HAS_NULLPTR
-inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, ::std::nullptr_t) { detail::InitIrisUnitTest<char**>(pargc, NULL); }  //!< @overload
+//! @overload
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, ::std::nullptr_t)
+{
+    detail::InitIrisUnitTest<char**>(pargc, IUTEST_NULLPTR);
+}
+
 #endif
 
 /** @overload */

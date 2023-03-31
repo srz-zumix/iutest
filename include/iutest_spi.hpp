@@ -191,7 +191,7 @@ public:
                 << "\"\n  Actual:\n" << tr;
         }
 
-        if( strstr(tr.message(), substr.c_str()) == NULL )
+        if( strstr(tr.message(), substr.c_str()) == IUTEST_NULLPTR )
         {
             return AssertionFailure() << "error: Expected: " << expected
                 << " containing \"" << substr

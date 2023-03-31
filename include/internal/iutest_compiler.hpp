@@ -371,10 +371,15 @@
 #  define IUTEST_CXX_CONSTEXPR
 #endif
 
-#if IUTEST_HAS_CONSTEXPR && \
-        (defined(__cpp_constexpr) && __cpp_constexpr >= 201304 || IUTEST_HAS_CXX14)
-#  define IUTEST_CXX14_CONSTEXPR        constexpr
-#else
+#if IUTEST_HAS_CONSTEXPR
+#  if   defined(_MSC_VER) && _MSC_VER < 1910
+#    define IUTEST_CXX14_CONSTEXPR
+#  elif (defined(__cpp_constexpr) && __cpp_constexpr >= 201304) || IUTEST_HAS_CXX14
+#    define IUTEST_CXX14_CONSTEXPR        constexpr
+#  endif
+#endif
+
+#if !defined(IUTEST_CXX14_CONSTEXPR)
 #  define IUTEST_CXX14_CONSTEXPR
 #endif
 
@@ -811,12 +816,9 @@
 #  endif
 #endif
 
+//! noexcept(noexcept(expr_))
 #if !defined(IUTEST_CXX_NOEXCEPT_AS)
-#  if IUTEST_HAS_NOEXCEPT
-#    define IUTEST_CXX_NOEXCEPT_AS(expr_)   noexcept( noexcept(expr_) )
-#  else
-#    define IUTEST_CXX_NOEXCEPT_AS(expr_)
-#  endif
+#  define IUTEST_CXX_NOEXCEPT_AS(expr_)   IUTEST_CXX_NOEXCEPT( IUTEST_CXX_NOEXCEPT(expr_) )
 #endif
 
 //! nothrow definition
@@ -1611,9 +1613,9 @@
 
 #if defined(_MSC_VER)
 // https://stackoverflow.com/questions/14487241/avoiding-an-inheritance-by-dominance-warning-for-a-mocked-stdfstream-class
-#  define IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()   \
-    void _Add_vtordisp1() {}    \
-    void _Add_vtordisp2() {}
+#  define IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()       \
+    void _Add_vtordisp1() IUTEST_CXX_NOEXCEPT_SPEC {}   \
+    void _Add_vtordisp2() IUTEST_CXX_NOEXCEPT_SPEC {}
 #else
 #  define IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()
 #endif
