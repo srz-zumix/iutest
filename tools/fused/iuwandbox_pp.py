@@ -109,9 +109,10 @@ predefined_macros = {
     'IUTEST_USE_CXX_FILESYSTEM': '0',
     'IUTEST_HAS_TESTSUITE': '1',
     'IUTEST_HAS_TESTCASE': '1',
-    'IUTEST_CXX_NOEXCEPT': UNUSED_,
-    'IUTEST_CXX_NOEXCEPT_AS': UNUSED_,
-    'IUTEST_CXX_NOTHROW': UNUSED_,
+    'IUTEST_CXX_NOEXCEPT': None,
+    'IUTEST_CXX_NOEXCEPT_SPEC': None,
+    'IUTEST_CXX_NOEXCEPT_AS': None,
+    'IUTEST_CXX_NOTHROW': None,
     'IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY': UNUSED_,
     'IUTEST_PRAGMA_WARN_DISABLE_FORMAT_NONLITERAL': UNUSED_,
     'IUTEST_PRAGMA_WARN_DISABLE_CXX14_CONSTEXPR_NOT_IMPLY_CONST': UNUSED_,
@@ -136,6 +137,8 @@ predefined_macros = {
     'IUTEST_ATTRIBUTE_NORETURN_': None,
     'IUTEST_ATTRIBUTE_FORMAT_PRINTF': None,
     'IUTEST_ATTRIBUTE_FORMAT': None,
+    'IUTEST_HAS_GSL': '0',
+    'IUTEST_ATTRIBUTE_GSL_SUPPRESS': None,
     # no overridable
     'IUTEST_SUCCEED': None,
     'IUTEST_FAIL': None,
@@ -531,6 +534,7 @@ rename_macro = {
     'IUTEST_ATTRIBUTE_FORMAT_PRINTF': 'II_ATR_F_P',
     'IUTEST_ATTRIBUTE_FORMAT': 'II_ATR_F',
     'IUTEST_CXX_OVERRIDE': 'II_CXX_O',
+    'IUTEST_CXX_NOEXCEPT_AS': 'II_CXX_NEX_AS',
     'IUTEST_CXX_NOEXCEPT_SPEC': 'II_CXX_NEX_S',
     'IUTEST_CXX_DEFAULT_FUNCTION': 'II_CXX_DF_F',
     'IUTEST_CXX_DELETED_FUNCTION': 'II_CXX_DL_F',
@@ -545,7 +549,7 @@ rename_macro = {
     'IUTEST_PRAGMA_ASSIGNMENT_OPERATOR_COULD_NOT_GENERATE_WARN_DISABLE_BEGIN': 'II_PGM_A_O_CN_G_W_D_B',
     'IUTEST_PRAGMA_ASSIGNMENT_OPERATOR_COULD_NOT_GENERATE_WARN_DISABLE_END': 'II_PGM_A_O_CN_G_W_D_E',
     # 'IUTEST_PRAGMA_WARN_DISABLE_FLOAT_EQUAL': 'II_PGM_W_FE',
-    'IUTEST_PRAGMA_WARN_DISABLE_CAST_ALIGN': 'II_PGM_W_CA',
+    # 'IUTEST_PRAGMA_WARN_DISABLE_CAST_ALIGN': 'II_PGM_W_CA',
     'IUTEST_PRAGMA_WARN_DISABLE_NOEXCEPT_TPYE': 'II_PGM_W_D_NE_T',
     'IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE': 'II_PGM_W_D_S_C',
     # 'IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE': 'II_PGM_W_D_D_E',
@@ -709,6 +713,10 @@ class WandboxPreprocessor:
             dst += line
         for k, v in found_macros.items():
             dst += "#define " + k + " " + v + "\n"
+        if len(rename_macro) > 0:
+            print("not found rename_macros")
+            for k, v in rename_macro.items():
+                print(k)
         return dst
 
     def remove_redudant_pragma(self, code):
@@ -720,6 +728,11 @@ class WandboxPreprocessor:
                     line = line.replace(m.group(0), m.group(1))
             line += "\n"
             dst += line
+        return dst
+
+    def remove_gsl(self, code):
+        dst = re.sub(r'#\s*define\s*IUTEST_ATTRIBUTE_GSL_SUPPRESS\(.*?\).*', '', code)
+        dst = re.sub(r'IUTEST_ATTRIBUTE_GSL_SUPPRESS\(.*?\)', '', dst)
         return dst
 
     def trancate_line(self, code):
@@ -740,6 +753,7 @@ def default_pp():
     code = pp.remove_redudant(code)
     code = pp.rename_macros(code)
     code = pp.remove_redudant_pragma(code)
+    code = pp.remove_gsl(code)
     code = pp.trancate_line(code)
     output_file.write(code)
     output_file.close()
