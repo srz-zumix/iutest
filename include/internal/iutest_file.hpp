@@ -192,7 +192,7 @@ public:
     {
         IUTEST_IGNORE_EXCEPTION_BEGIN()
         {
-            StdioFile::Close()();
+            StdioFile::Close();
         }
         IUTEST_IGNORE_EXCEPTION_END()
     }
