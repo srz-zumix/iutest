@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -35,7 +35,7 @@ namespace detail
 inline ::std::string FormatCxxException(const char* description)
 {
     iu_stringstream strm;
-    if( description != NULL )
+    if( description != IUTEST_NULLPTR )
     {
         strm << "C++ exception with description \"" << description << "\"";
     }
@@ -62,10 +62,10 @@ namespace detail
 class seh_exception : public ::std::exception
 {
 public:
-    seh_exception() : ::std::exception() {}
-    explicit seh_exception(const char *const& what) : ::std::exception(what) {}
+    seh_exception() IUTEST_CXX_NOEXCEPT_SPEC : ::std::exception() {}
+    explicit seh_exception(const char *const& what) IUTEST_CXX_NOEXCEPT_SPEC : ::std::exception(what) {}
 public:
-    static void translator(DWORD code, _EXCEPTION_POINTERS* ep)
+    static void translator(DWORD code, const _EXCEPTION_POINTERS* ep)
     {
         IUTEST_UNUSED_VAR(ep);
         iu_stringstream strm;
@@ -76,14 +76,18 @@ public:
 #endif
         throw seh_exception(strm.str().c_str());
     }
-    static int should_process_through_break_and_cppexceptions(DWORD code)
+    static IUTEST_CXX14_CONSTEXPR int should_process_through_break_and_cppexceptions(DWORD code) IUTEST_CXX_NOEXCEPT_SPEC
     {
         bool should_handle = true;
         // break point と C++ 例外はハンドリングしない
         if( code == EXCEPTION_BREAKPOINT )
+        {
             should_handle = false;
+        }
         if( code == kCxxExceptionCode )
+        {
             should_handle = false;
+        }
         return should_handle ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH;
     }
 public:
@@ -93,7 +97,7 @@ public:
 template<typename T>
 void seh_passthrough(T func)
 {
-    _EXCEPTION_POINTERS* ep = NULL;
+    _EXCEPTION_POINTERS* ep = IUTEST_NULLPTR;
     __try
     {
         (func)();

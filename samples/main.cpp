@@ -23,6 +23,8 @@
 */
 #include "../include/iutest.hpp"
 
+IUTEST_PRAGMA_SAMPLE_COREGUIDELINE_DISABLE_BEGIN()
+
 #if defined(USE_TAP)
 #include "../include/listener/iutest_tap_printer.hpp"
 #endif
@@ -90,3 +92,5 @@ int main(int argc, char* argv[])
 }
 
 #endif
+
+IUTEST_PRAGMA_SAMPLE_COREGUIDELINE_DISABLE_END()
