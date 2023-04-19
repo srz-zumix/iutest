@@ -303,6 +303,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const ch
 #if IUTEST_HAS_CXX_HDR_CUCHAR
     const size_t length = num < 0 ? ::std::char_traits<char32_t>::length(str) : num;
     char mbs[6];
+    char* pmbs = mbs;
     mbstate_t state = {};
     IUTEST_CHECK_(mbsinit(&state) != 0);
     ::std::string ret;
@@ -310,7 +311,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const ch
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
     for( size_t i = 0; i < length; ++i )
     {
-        const size_t len = ::std::c32rtomb(mbs, str[i], &state);
+        const size_t len = ::std::c32rtomb(pmbs, str[i], &state);
         if( len != static_cast<size_t>(-1) )
         {
             mbs[len] = '\0';
