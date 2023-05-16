@@ -45,7 +45,7 @@ cirrus_osx_17_test_task: &osx_task
   only_if: *default-condition
   auto_cancellation: true
   osx_instance:
-    image: ghcr.io/cirruslabs/macos-ventura-base:latest
+    image: ghcr.io/cirruslabs/macos-ventura-xcode:latest
   env:
     - STDFLAG: -std=c++17
   version_script: make -C test showcxxversion
