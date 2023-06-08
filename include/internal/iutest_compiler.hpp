@@ -31,32 +31,50 @@
 #if defined(__clang__)
 #  if !defined(IUTEST_CLANG_MAJOR)
 #    if defined(__APPLE__)
-#      if __clang_major__ > 11
-#        define IUTEST_CLANG_MAJOR      10
-#      elif __clang_major__ > 10
-#        if __clang_minor__ > 3
+#      if __clang_major__ > 14
+#        define IUTEST_CLANG_MAJOR      15
+#      elif __clang_major__ == 14
+#        if __clang_patchlevel__ >= 3
+#          define IUTEST_CLANG_MAJOR    15
+#        else
+#          define IUTEST_CLANG_MAJOR    14
+#        endif
+#      elif __clang_major__ == 13
+#        if __clang_minor__ >= 1
+#          define IUTEST_CLANG_MAJOR    13
+#        else
+#          define IUTEST_CLANG_MAJOR    12
+#        endif
+#      elif __clang_major__ == 12
+#        if __clang_patchlevel__ >= 5
+#          define IUTEST_CLANG_MAJOR    11
+#        else
+#          define IUTEST_CLANG_MAJOR    10
+#        endif
+#      elif __clang_major__ == 11
+#        if __clang_patchlevel__ >= 3
 #          define IUTEST_CLANG_MAJOR    9
 #        else
 #          define IUTEST_CLANG_MAJOR    8
 #        endif
-#      elif __clang_major__ > 9
-#        if __clang_minor__ > 1
+#      elif __clang_major__ == 10
+#        if __clang_minor__ >= 1
 #          define IUTEST_CLANG_MAJOR    7
 #        else
 #          define IUTEST_CLANG_MAJOR    6
 #        endif
-#      elif __clang_major__ > 8
-#        if __clang_minor__ > 2
+#      elif __clang_major__ == 9
+#        if __clang_minor__ >= 1
 #          define IUTEST_CLANG_MAJOR    5
 #        else
 #          define IUTEST_CLANG_MAJOR    4
 #        endif
 #      else
 #        define IUTEST_CLANG_MAJOR      3
-#        if __clang_major__ > 7
+#        if __clang_major__ == 8
 #          define IUTEST_CLANG_MINOR    9
-#        elif __clang_major__ > 6
-#          if __clang_minor__ > 2
+#        elif __clang_major__ == 7
+#          if __clang_minor__ >= 3
 #            define IUTEST_CLANG_MINOR  8
 #          else
 #            define IUTEST_CLANG_MINOR  7
