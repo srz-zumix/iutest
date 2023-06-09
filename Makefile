@@ -5,6 +5,8 @@
 # This software is released under the new BSD License,
 # see LICENSE
 
+.PHONY: help test fused editorconfig-self-lint dagger-ctest dagger-format
+
 #
 # help
 #
@@ -23,3 +25,6 @@ dagger-ctest:
 
 dagger-format:
 	cue fmt -s
+
+test:
+	make -C test test
