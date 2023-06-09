@@ -212,7 +212,7 @@
 #  if   defined(__has_include)
 #    if !defined(IUTEST_HAS_CXX_HDR_CUCHAR) && __has_include( <cuchar> )
 #      if defined(__APPLE__) && IUTEST_CLANG_MAJOR == 15
-         // https://github.com/llvm/llvm-project/issues/62573
+// https://github.com/llvm/llvm-project/issues/62573
 #        define IUTEST_HAS_CXX_HDR_CUCHAR 0
 #      else
 #        define IUTEST_HAS_CXX_HDR_CUCHAR 1
