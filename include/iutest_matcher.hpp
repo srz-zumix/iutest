@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2023, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -1092,7 +1092,7 @@ protected:
         return Check<0, tuples::tuple_size<T>::value - 1>(begin(actual), end(actual), matchers);
     }
     template<int N, typename T>
-    static ::std::string WhichIs(const T& matchers)
+    static ::std::string WhichIsT(const T& matchers)
     {
         ::std::string str = "ElementsAre: {";
         str += WhichIs_<T, N, tuples::tuple_size<T>::value-1>(matchers);
@@ -1179,7 +1179,7 @@ public:
     }
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
-        return ElementsAreMatcherBase::WhichIs<0>(m_matchers);
+        return ElementsAreMatcherBase::WhichIsT<0>(m_matchers);
     }
 
 private:
@@ -1645,7 +1645,7 @@ protected:
         return Check_<T, U, 0, tuples::tuple_size<T>::value-1>(matchers, actual);
     }
     template<int N, typename T>
-    static ::std::string WhichIs(const T& matchers)
+    static ::std::string WhichIsT(const T& matchers)
     {
         return WhichIs_<T, N, tuples::tuple_size<T>::value-1>(matchers);
     }
@@ -1702,7 +1702,7 @@ public:
     }
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
-        return AllOfMatcherBase::WhichIs<0>(m_matchers);
+        return AllOfMatcherBase::WhichIsT<0>(m_matchers);
     }
 
 private:
@@ -1772,7 +1772,7 @@ protected:
         return Check_<T, U, 0, tuples::tuple_size<T>::value-1>(matchers, actual);
     }
     template<int N, typename T>
-    static ::std::string WhichIs(const T& matchers)
+    static ::std::string WhichIsT(const T& matchers)
     {
         return WhichIs_<T, N, tuples::tuple_size<T>::value-1>(matchers);
     }
@@ -1829,7 +1829,7 @@ public:
     }
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
-        return AnyOfMatcherBase::WhichIs<0>(m_matchers);
+        return AnyOfMatcherBase::WhichIsT<0>(m_matchers);
     }
 
 private:
