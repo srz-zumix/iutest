@@ -1203,7 +1203,7 @@ public:
     }
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
-        return ElementsAreMatcherBase::WhichIs<0>(m_matchers);
+        return ElementsAreMatcherBase::WhichIsT<0>(m_matchers);
     }
 private:
     tuples::tuple<T0, T1> m_matchers;
@@ -1218,7 +1218,7 @@ private:
     template<typename U>AssertionResult operator ()(const U& actual) {                  \
         return Check(m_matchers, actual); }                                             \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                                 \
-        return ElementsAreMatcherBase::WhichIs<0>(m_matchers); }                        \
+        return ElementsAreMatcherBase::WhichIsT<0>(m_matchers); }                       \
     private:                                                                            \
     tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > m_matchers;                            \
     }
@@ -1726,7 +1726,7 @@ public:
     }
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
-        return AllOfMatcherBase::WhichIs<0>(m_matchers);
+        return AllOfMatcherBase::WhichIsT<0>(m_matchers);
     }
 private:
     tuples::tuple<T0, T1> m_matchers;
@@ -1741,7 +1741,7 @@ private:
     template<typename U>AssertionResult operator ()(const U& actual) {              \
         return Check(m_matchers, actual); }                                         \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                             \
-        return AllOfMatcherBase::WhichIs<0>(m_matchers); }                          \
+        return AllOfMatcherBase::WhichIsT<0>(m_matchers); }                         \
     private:                                                                        \
     tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > m_matchers;                        \
     }
@@ -1853,7 +1853,7 @@ public:
     }
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
-        return AnyOfMatcherBase::WhichIs<0>(m_matchers);
+        return AnyOfMatcherBase::WhichIsT<0>(m_matchers);
     }
 private:
     tuples::tuple<T0, T1> m_matchers;
@@ -1868,7 +1868,7 @@ private:
     template<typename U>AssertionResult operator ()(const U& actual) {              \
         return Check(m_matchers, actual); }                                         \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                             \
-        return AnyOfMatcherBase::WhichIs<0>(m_matchers); }                          \
+        return AnyOfMatcherBase::WhichIsT<0>(m_matchers); }                         \
     private:                                                                        \
     tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > m_matchers;                        \
     }
