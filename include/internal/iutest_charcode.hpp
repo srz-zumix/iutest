@@ -146,6 +146,9 @@ template<typename CharType>
 
 #if IUTEST_HAS_CXX_HDR_CODECVT
 
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DEPRECATED()
+
 template<typename In, typename Out, typename State>
 struct codecvt : public ::std::codecvt<In, Out, State> { ~codecvt() {} };
 
@@ -170,6 +173,8 @@ template<typename In, typename Out, typename State>
     return conv.to_bytes(str);
 }
 #endif
+
+IUTEST_PRAGMA_WARN_POP()
 
 #endif
 
