@@ -405,6 +405,21 @@
 #  define IUTEST_PRAGMA_WARN_DISABLE_NONNULL()
 #endif
 
+
+#if !defined(IUTEST_PRAGMA_WARN_DISABLE_DEPRECATED)
+#  if   defined(__clang__)
+#    define IUTEST_PRAGMA_WARN_DISABLE_DEPRECATED() IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wdeprecated-declarations")
+#  elif defined(__GNUC__)
+#    define IUTEST_PRAGMA_WARN_DISABLE_DEPRECATED() IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wdeprecated-declarations")
+#  elif defined(_MSC_VER)
+#    define IUTEST_PRAGMA_WARN_DISABLE_DEPRECATED()
+#  endif
+#endif
+
+#if !defined(IUTEST_PRAGMA_WARN_DISABLE_DEPRECATED)
+#  define IUTEST_PRAGMA_WARN_DISABLE_DEPRECATED()
+#endif
+
 #if   defined(__clang__)
 #  if IUTEST_CLANG_MAJOR > 10
 #    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_11()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wsuggest-destructor-override")
