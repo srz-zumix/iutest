@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2023, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -140,12 +140,13 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 {
     char buffer[4096] = {0};
     char* write_buffer = dst != NULL && size >= 4096 ? dst : buffer;
-    const int ret = vsprintf(write_buffer, format, va);
+    const int ret = vsnprintf(write_buffer, size, format, va);
     if( dst != NULL )
     {
         const size_t length = static_cast<size_t>(ret);
         const size_t write = (size <= length) ? size - 1 : length;
-        if( write_buffer == buffer ) {
+        if( write_buffer == buffer )
+        {
             strncpy(dst, buffer, write);
         }
         dst[write] = '\0';
