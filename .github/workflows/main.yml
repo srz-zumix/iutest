@@ -129,6 +129,11 @@ jobs:
         run: |
           cd cmake-build
           ctest -C Debug -V
+      - name: report
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: cmake-build/*.xml
+        if: always()
 
   xcodebuild-test:
     runs-on: macos-latest
@@ -345,11 +350,11 @@ jobs:
       - name: Test
         run: earthly +test
       # FIXME: expected array of testsuites
-      # - name: Report
-      #   uses: ./.github/actions/composite/test-report
-      #   with:
-      #     report_paths: earthly-out/TestResults/*.xml
-      #   if: always()
+      - name: Report
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: earthly-out/TestResults/*.xml
+        if: always()
 
   #===================================================================
   dagger:
@@ -364,11 +369,11 @@ jobs:
             project update
             do ctest
       # FIXME: expected array of testsuites
-      # - name: Report
-      #   uses: ./.github/actions/composite/test-report
-      #   with:
-      #     report_paths: dagger-out/TestResults/*.xml
-      #   if: always()
+      - name: Report
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: dagger-out/TestResults/*.xml
+        if: always()
 
   #===================================================================
   infer:
