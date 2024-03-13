@@ -41,8 +41,12 @@ jobs:
       matrix:
         include:
           - gtest-version: "latest"
-            GTEST_EXPECT_VER: 0x01120100
+            GTEST_EXPECT_VER: 0x01140000
             GTEST_EXPECT_LATEST: 1
+          - gtest-version: "release-1.14.0"
+            GTEST_EXPECT_VER: 0x01140000
+          - gtest-version: "release-1.13.0"
+            GTEST_EXPECT_VER: 0x01130000
           - gtest-version: "release-1.12.1"
             # 1.12.1 only change the version number
             GTEST_EXPECT_VER: 0x01120000
@@ -71,7 +75,7 @@ jobs:
     env:
       MAKE_OPTION: "-j4"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Google Test
         env:
           GTEST_OPTION: "USE_GTEST=1"
