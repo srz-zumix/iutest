@@ -161,7 +161,7 @@ jobs:
   #     DEFS: -fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference
   #     OUTPUTXML: junit
   #   steps:
-  #     - uses: actions/checkout@master
+  #     - uses: actions/checkout@v4
   #     - name: gcc info
   #       run: |
   #         make -C test clean
@@ -193,7 +193,7 @@ jobs:
   #     OUTPUTXML: junit
   #     PYTHON_VERSION: 3.8
   #   steps:
-  #     - uses: actions/checkout@v3
+  #     - uses: actions/checkout@v4
   #     - uses: actions/setup-python@v4
   #       with:
   #         python-version: ${{ env.PYTHON_VERSION }}
