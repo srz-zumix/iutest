@@ -183,6 +183,7 @@ if (build_tests)
     pred_tests.cpp
     prod_tests1.cpp
     prod_tests2.cpp
+    prod_tests3.cpp
     spi_tests.cpp
     static_assertion_tests.cpp
     string_assertion_tests.cpp
@@ -285,6 +286,7 @@ if (build_tests)
       pred_tests.cpp
       prod_tests1.cpp
       prod_tests2.cpp
+      prod_tests3.cpp
       spi_tests.cpp
       static_assertion_tests.cpp
       string_assertion_tests.cpp
