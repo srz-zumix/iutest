@@ -1,9 +1,10 @@
 <map id="internal/iutest_file.hpp" name="internal/iutest_file.hpp">
-<area shape="rect" id="node1" title="iris unit test ファイルクラス ファイル" alt="" coords="225,5,393,32"/>
-<area shape="rect" id="node2" href="$d0/db5/iutest__core_8hpp.html" title="iris unit test core" alt="" coords="247,80,370,107"/>
-<area shape="rect" id="node3" href="$d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="19,162,105,189"/>
-<area shape="rect" id="node5" href="$dc/d5d/iutest__progress__printer_8hpp.html" title="iris unit test プログレス出力イベントリスナー ファイル" alt="" coords="129,155,304,196"/>
-<area shape="rect" id="node6" href="$d3/d80/iutest__sstp__notifier_8hpp.html" title="iris unit test SSTP 通知 ファイル" alt="" coords="329,155,475,196"/>
-<area shape="rect" id="node7" href="$d8/d0f/iutest__tap__printer_8hpp.html" title="iris unit test Test Anything Protocol 出力イベントリスナー ファイル" alt="" coords="500,155,640,196"/>
-<area shape="rect" id="node4" href="$d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="5,244,119,271"/>
+<area shape="rect" id="node1" title="iris unit test ファイルクラス ファイル" alt="" coords="89,5,257,32"/>
+<area shape="rect" id="node2" href="$d7/d00/iutest__stream__capture_8hpp.html" title="iris unit test stream capture" alt="" coords="5,80,172,121"/>
+<area shape="rect" id="node5" href="$d0/db5/iutest__core_8hpp.html" title="iris unit test core" alt="" coords="197,87,319,114"/>
+<area shape="rect" id="node3" href="$d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="45,177,132,203"/>
+<area shape="rect" id="node4" href="$d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="32,259,145,285"/>
+<area shape="rect" id="node6" href="$dc/d5d/iutest__progress__printer_8hpp.html" title="iris unit test プログレス出力イベントリスナー ファイル" alt="" coords="156,169,331,211"/>
+<area shape="rect" id="node7" href="$d3/d80/iutest__sstp__notifier_8hpp.html" title="iris unit test SSTP 通知 ファイル" alt="" coords="355,169,502,211"/>
+<area shape="rect" id="node8" href="$d8/d0f/iutest__tap__printer_8hpp.html" title="iris unit test Test Anything Protocol 出力イベントリスナー ファイル" alt="" coords="527,169,667,211"/>
 </map>

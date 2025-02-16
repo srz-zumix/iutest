@@ -1,5 +1,6 @@
 <map id="iutest::TestSuite::testsuite_name_with_default_package_name" name="iutest::TestSuite::testsuite_name_with_default_package_name">
 <area shape="rect" id="node1" title=" " alt="" coords="5,27,185,83"/>
 <area shape="rect" id="node2" href="$d7/d8c/classiutest_1_1_test_env.html#af1aed0bd741f7b3213025c95fecd6fae" title="default package name を追加" alt="" coords="233,5,431,47"/>
-<area shape="rect" id="node3" href="$d3/d87/classiutest_1_1_test_suite.html#aa960e404c373dfecbaf789471bf04ef4" title=" " alt="" coords="247,71,417,98"/>
+<area shape="rect" id="node4" href="$d3/d87/classiutest_1_1_test_suite.html#aa960e404c373dfecbaf789471bf04ef4" title=" " alt="" coords="247,71,417,98"/>
+<area shape="rect" id="node3" href="$d7/d8c/classiutest_1_1_test_env.html#a3972fd7b7e3b611a41c840ab249f85d2" title="グローバル環境セットクラスの削除" alt="" coords="479,5,655,47"/>
 </map>

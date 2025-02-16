@@ -1,6 +1,6 @@
 var indexSectionsWithContent =
 {
-  0: "_abcdefghijklmnopqrstuvw~ãåçé",
+  0: "_abcdefghijklmnopqrstuvw~アコテ値型変環非",
   1: "abcdefgijmnopqstuw",
   2: "i",
   3: "i",
@@ -11,8 +11,8 @@ var indexSectionsWithContent =
   8: "bcdfkmoprstvw",
   9: "au",
   10: "ai",
-  11: "acefilmoptãå",
-  12: "ãåçé"
+  11: "acefilmoptアテ値型",
+  12: "コ変環非"
 };
 
 var indexSectionNames =
