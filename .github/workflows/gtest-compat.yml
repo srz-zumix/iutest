@@ -71,7 +71,7 @@ jobs:
     env:
       MAKE_OPTION: "-j4"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Google Test
         env:
           GTEST_OPTION: "USE_GTEST=1"
