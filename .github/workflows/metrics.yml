@@ -40,9 +40,11 @@ jobs:
       id: fused
       run: |
         make -C tools/fused
-        echo "size=$(wc -c < fused-src/iutest.hpp)" >> "${GITHUB_OUTPUT}"
-        echo "min_size=$(wc -c < fused-src/iutest.min.hpp)" >> "${GITHUB_OUTPUT}"
-        echo "wandbox_min_size=$(wc -c < fused-src/iutest.wandbox.min.hpp)" >> "${GITHUB_OUTPUT}"
+        {
+          echo "size=$(wc -c < fused-src/iutest.hpp)"
+          echo "min_size=$(wc -c < fused-src/iutest.min.hpp)"
+          echo "wandbox_min_size=$(wc -c < fused-src/iutest.wandbox.min.hpp)"
+        } >> "${GITHUB_OUTPUT}"
     - name: send metrics
       run: |
         curl \
