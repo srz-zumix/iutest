@@ -142,7 +142,7 @@ jobs:
           cd cmake-build
           ctest -C Debug -V
       - run: ls cmake-build
-      - uses: kishikawakatsumi/xcresulttool@v1.0.3
+      - uses: kishikawakatsumi/xcresulttool@v1
         with:
           path: cmake-build/TestResults.xcresult
         if: success() || failure()
