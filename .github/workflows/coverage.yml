@@ -55,7 +55,7 @@ jobs:
     - name: coverage
       run: |
         make -C test coverage
-    - uses: codecov/codecov-action@v3
+    - uses: codecov/codecov-action@v5
       with:
         fail_ci_if_error: true
         verbose: true
@@ -96,7 +96,7 @@ jobs:
       run: |
         make -C test coverage
     - name: Coveralls
-      uses: coverallsapp/github-action@master
+      uses: coverallsapp/github-action@v2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: test/coverage.info
