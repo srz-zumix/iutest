@@ -64,8 +64,19 @@ do_main() {
   fi
 
   if [ -z "${INTEGROMAT_WEBHOOK_URL}" ]; then
-    export INTEGROMAT_WEBHOOK_URL="https://hook.integromat.com/cthwc5562x2xzx2r5ytzepi5aks9gqis"
+    export INTEGROMAT_WEBHOOK_URL="https://hook.us1.make.com/nv9jgpjtzvy8wix11jlt9nglwemogbv3"
   fi
+
+  # Sample JSON output:
+  # {
+  #   "time": "2023-10-05T12:34:56Z",
+  #   "ci": "GitHub Actions",
+  #   "commit": "abc123def456",
+  #   "os": "linux",
+  #   "cxx": "g++",
+  #   "version": "9.3.0",
+  #   "std": "c++17"
+  # }
 
   curl -k \
     -H "Content-Type: application/json" \
