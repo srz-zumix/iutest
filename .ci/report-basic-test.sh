@@ -67,6 +67,17 @@ do_main() {
     export INTEGROMAT_WEBHOOK_URL="https://hook.integromat.com/cthwc5562x2xzx2r5ytzepi5aks9gqis"
   fi
 
+  # Sample JSON output:
+  # {
+  #   "time": "2023-10-05T12:34:56Z",
+  #   "ci": "GitHub Actions",
+  #   "commit": "abc123def456",
+  #   "os": "linux",
+  #   "cxx": "g++",
+  #   "version": "9.3.0",
+  #   "std": "c++17"
+  # }
+
   curl -k \
     -H "Content-Type: application/json" \
     -X POST \
