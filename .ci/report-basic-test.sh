@@ -1,15 +1,15 @@
 #!/bin/sh
 
-BASEDIR=$(dirname $0)
-
 if command -v wget > /dev/null ; then
   wget -qO ci-env.sh --no-check-certificate "https://raw.githubusercontent.com/srz-zumix/ci-normalize-envvars/master/ci-env.sh"
 else
   curl -sOL "https://raw.githubusercontent.com/srz-zumix/ci-normalize-envvars/master/ci-env.sh"
 fi
+# shellcheck source=/dev/null
 . ./ci-env.sh
 rm -f ./ci-env.sh
 
+# shellcheck disable=SC2120
 lower() {
     if [ $# -eq 0 ]; then
         cat <&0
@@ -25,6 +25,7 @@ lower() {
 }
 
 ostype() {
+    # shellcheck disable=SC2119
     uname | lower
 }
 
@@ -82,7 +83,7 @@ do_main() {
     -H "Content-Type: application/json" \
     -X POST \
     -d "{\"time\": \"${DATE}\", \"ci\": \"${CI_ENV_NAME}\", \"commit\": \"${CI_ENV_GIT_COMMIT}\", \"os\": \"${PLATFORM}\", \"cxx\":\"${CXX_NAME}\", \"version\":\"${CXX_VERSION}\", \"std\":\"${STDFLAG}\" }" \
-    ${INTEGROMAT_WEBHOOK_URL}
+    "${INTEGROMAT_WEBHOOK_URL}"
 }
 
 do_main
