@@ -75,8 +75,7 @@ cirrus_osx_20_test_task:
 cirrus_freebsd_clang_test_task:
   only_if: *default-condition
   freebsd_instance:
-    image_family: freebsd-12-1-snap
-    # image_family: freebsd-13-0-snap
+    image_family: freebsd-15-0-snap
   env:
     matrix:
       - STDFLAG: -std=c++14

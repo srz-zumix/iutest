@@ -35,14 +35,16 @@ jobs:
     runs-on: ubuntu-latest
     needs: prepare
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: fused
       id: fused
       run: |
         make -C tools/fused
-        echo "size=$(wc -c < fused-src/iutest.hpp)" >> "${GITHUB_OUTPUT}"
-        echo "min_size=$(wc -c < fused-src/iutest.min.hpp)" >> "${GITHUB_OUTPUT}"
-        echo "wandbox_min_size=$(wc -c < fused-src/iutest.wandbox.min.hpp)" >> "${GITHUB_OUTPUT}"
+        {
+          echo "size=$(wc -c < fused-src/iutest.hpp)"
+          echo "min_size=$(wc -c < fused-src/iutest.min.hpp)"
+          echo "wandbox_min_size=$(wc -c < fused-src/iutest.wandbox.min.hpp)"
+        } >> "${GITHUB_OUTPUT}"
     - name: send metrics
       run: |
         curl \
@@ -57,7 +59,7 @@ jobs:
     steps:
       -
         name: Login to DockerHub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -66,13 +68,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: login
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Lizard
       uses: docker://srzzumix/lizard
       with:
         args: -o lizard.html --html ./include
     - name: Archive code metrics results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: lizard.html
         path: lizard.html

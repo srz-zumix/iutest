@@ -16,7 +16,7 @@ jobs:
     env:
       ASESOME_BOT_OPTION: --allow-redirect --allow-ssl --allow-dupe -t 60
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Create Gemfile
         run: |
           {
