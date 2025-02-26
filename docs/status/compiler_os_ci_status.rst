@@ -88,9 +88,6 @@ OS
 .. |Codefresh| image:: https://g.codefresh.io/api/badges/pipeline/srz-zumix/srz-zumix%2Fiutest%2Fiutest_unittest?branch=master&type=cf-1&.svg
   :target: https://g.codefresh.io/pipelines/iutest_unittest/builds?repoOwner=srz-zumix&repoName=iutest&serviceName=srz-zumix%2Fiutest&filter=trigger:build~Build;branch:master;pipeline:58a933be9d1bd40100495882~iutest_unittest
 
-.. |Codeship| image:: https://codeship.com/projects/5bc87030-5b41-0133-6000-4242aa07dce3/status?branch=master&.svg
-  :target: https://codeship.com/projects/110695
-
 .. |GitHubActions| image:: https://github.com/srz-zumix/iutest/workflows/GitHub%20Actions/badge.svg
   :target: https://github.com/srz-zumix/iutest/actions
 
