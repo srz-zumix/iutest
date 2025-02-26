@@ -22,6 +22,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        CXX:
+          - g++12
+          - g++13
+          - g++14
+          - clang++16
+          - clang++17
+          - clang++18
         STDFLAG:
           - -std=c++20
           - -std=c++17
