@@ -1,0 +1,59 @@
+name: Std C++ Version Tests
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+      - 'feature/**'
+      - 'fix/**'
+      - 'gh/**'
+      - 'github/**'
+      - 'githubactions/**'
+    paths-ignore:
+      - '*.ini'
+      - '*.md'
+      - '*.yml'
+      - '*.yaml'
+      - '.circleci/**'
+      - '.semaphore/**'
+
+jobs:
+  stdc-versions-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        CXX:
+          - g++12
+          - g++13
+          - g++14
+          - clang++16
+          - clang++17
+          - clang++18
+        STDFLAG:
+          - -std=c++20
+          - -std=c++17
+          - -std=c++14
+          - -std=c++11
+    env:
+      CXX: ${{ matrix.CXX }}
+      STDFLAG: ${{ matrix.STDFLAG }}
+      OUTPUTXML: junit
+    steps:
+      - uses: actions/checkout@v4
+      - name: info
+        uses: ./.github/actions/composite/test-info
+      - name: build
+        run: |
+          make -C test -j8
+      - name: test
+        run: |
+          make -C test test
+      - name: report
+        run: |
+          make -C test report
+        if: always()
+      - name: report summary
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: test/*.xml
+        if: always()
