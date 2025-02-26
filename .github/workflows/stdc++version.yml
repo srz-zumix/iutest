@@ -35,6 +35,7 @@ jobs:
           - -std=c++14
           - -std=c++11
     env:
+      CXX: ${{ matrix.CXX }}
       STDFLAG: ${{ matrix.STDFLAG }}
       OUTPUTXML: junit
     steps:
