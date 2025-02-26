@@ -11,7 +11,7 @@ cirrus_gcc_test_task:
     matrix:
       - STDFLAG: -std=c++14
       - STDFLAG: -std=c++17
-      - STDFLAG: -std=c++2a
+      - STDFLAG: -std=c++20
   version_script: make -C test showcxxversion
   # NOTE: -j$((`nproc`)): Container errored with 'OOMKilled'
   build_script: make -C test -j4
@@ -80,7 +80,7 @@ cirrus_freebsd_clang_test_task:
     matrix:
       - STDFLAG: -std=c++14
       - STDFLAG: -std=c++17
-      - STDFLAG: -std=c++2a
+      - STDFLAG: -std=c++20
   install_script: pkg install -y gmake
   version_script: gmake --version && gmake -C test showcxxversion
   build_script: gmake -C test -j4
