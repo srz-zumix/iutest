@@ -76,7 +76,7 @@ int main(int argc, char* argv[])
     ::iutest::IUTEST_FLAG(repeat) = 3;
     ::iutest::IUTEST_FLAG(shuffle) = true;
 
-#if defined(IUTEST_USE_GTEST) && GTEST_LATEST
+#if defined(IUTEST_USE_GTEST) && (GTEST_VER >= 0x01120000)
     ::iutest::IUTEST_FLAG(recreate_environments_when_repeating) = true;
 #endif
 

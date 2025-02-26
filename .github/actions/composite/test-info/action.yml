@@ -12,18 +12,20 @@ runs:
   using: "composite"
   steps:
     - name: clean
-      shell: bash
-      # shell: ${{ inputs.shell-cmd }}
+      shell: ${{ inputs.shell-cmd }}
+      if: ${{ inputs.before-clean }}
       run: |
-        if ${{ inputs.before-clean }}; then make -C test clean; fi
+        make -C test clean
     - name: compiler info
-      shell: bash
-      # shell: ${{ inputs.shell-cmd }}
+      shell: ${{ inputs.shell-cmd }}
       run: |
         make -C test showcxxversion
         make -C test showcxxmacros
     - name: stdlib
-      shell: bash
-      # shell: ${{ inputs.shell-cmd }}
+      shell: ${{ inputs.shell-cmd }}
       run: |
         make -C test check_stdlib
+    - name: stdlib features
+      shell: ${{ inputs.shell-cmd }}
+      run: |
+        make -C test showstdlbfeatures

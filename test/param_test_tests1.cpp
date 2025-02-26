@@ -25,6 +25,11 @@ IUTEST_P(ParamTest, Test)
     IUTEST_SUCCEED() << GetParam();
 }
 
+IUTEST_F(ParamTest, NoParam)
+{
+    IUTEST_SUCCEED();
+}
+
 int param_test_array[] = { 3, 2, 1, 0 };
 ::std::vector<int> va(param_test_array, param_test_array+(sizeof(param_test_array)/sizeof(param_test_array[0])));
 IUTEST_INSTANTIATE_TEST_SUITE_P(Range, ParamTest, ::iutest::Range<int>(0, 10));

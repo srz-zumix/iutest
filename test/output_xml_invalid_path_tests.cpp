@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -40,12 +40,12 @@ int main(int argc, char* argv[])
     ::iutest::IUTEST_FLAG(output) = "xml:invalid_path?/test.xml";
 
     {
-#if IUTEST_HAS_STREAM_BUFFER
-        ::iutest::detail::IUStreamBuffer<> stderr_capture(stderr);
+#if IUTEST_HAS_STREAM_CAPTURE
+        ::iutest::detail::IUStreamCaptureStderr stderr_capture;
 #endif
         const int ret = IUTEST_RUN_ALL_TESTS();
         if( ret != 0 ) return 1;
-#if IUTEST_HAS_STREAM_BUFFER && IUTEST_HAS_ASSERTION_RETURN
+#if IUTEST_HAS_STREAM_CAPTURE && IUTEST_HAS_ASSERTION_RETURN
         IUTEST_ASSERT_STRIN("Unable to open file \"invalid_path?/test.xml\".", stderr_capture.GetStreamString())
             << ::iutest::AssertionReturn<int>(1);
 #endif

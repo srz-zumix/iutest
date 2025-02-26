@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -21,8 +21,8 @@
 
 #if IUTEST_HAS_TYPED_TEST_P
 
-#if IUTEST_HAS_STREAM_BUFFER
-    ::iutest::detail::IUStreamBuffer<> stderr_capture(stderr);
+#if IUTEST_HAS_STREAM_CAPTURE
+::iutest::detail::IUStreamCaptureStderr stderr_capture;
 #endif
 
 #if IUTEST_TYPED_TEST_P_STRICT
@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
 #if !defined(IUTEST_USE_GTEST)
     ::iutest::IUTEST_FLAG(warning_into_error) = false;
 #endif
-#if IUTEST_HAS_TYPED_TEST_P && IUTEST_HAS_STREAM_BUFFER
+#if IUTEST_HAS_TYPED_TEST_P && IUTEST_HAS_STREAM_CAPTURE
 #if IUTEST_TYPED_TEST_P_STRICT
     IUTEST_EXPECT_STRIN("Test \"B\" has not been registered.", stderr_capture.GetStreamString());
 #endif

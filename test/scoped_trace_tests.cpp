@@ -35,7 +35,7 @@ IUTEST(ScopedTraceTest, Failed)
 IUTEST(ScopedTraceTest, Test)
 {
 #if !defined(IUTEST_USE_GTEST)
-    TestLogger logger1, logger2, logger3;
+    static TestLogger logger1, logger2, logger3;
     ::iutest::detail::iuConsole::SetLogger(&logger1);
 #endif
 

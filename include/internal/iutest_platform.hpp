@@ -24,6 +24,9 @@
 #  define IUTEST_PLATFORM               "CYGWIN"
 #elif defined(_WIN32) || defined(WIN32) || defined(__WIN32__) || defined(WINAPI_FAMILY)
 #  define IUTEST_OS_WINDOWS             1
+#  if defined(_WIN64) || defined(WIN64) || defined(__WIN64__)
+#    define IUTEST_OS_WINDOWS64         1
+#  endif
 #  if !defined(WIN32_LEAN_AND_MEAN)
 #    define WIN32_LEAN_AND_MEAN
 #  endif

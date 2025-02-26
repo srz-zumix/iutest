@@ -161,6 +161,7 @@ ASSERTION_ONLY_TARGETS= \
 		$(OUTDIR)/assertion_only_tests \
 
 TARGETS_IUTEST_ONLY = \
+		$(OUTDIR)/debug_tests \
 		$(OUTDIR)/default_main_tests \
 		$(OUTDIR)/default_printer_listener_tests \
 		$(OUTDIR)/env_var_tests \

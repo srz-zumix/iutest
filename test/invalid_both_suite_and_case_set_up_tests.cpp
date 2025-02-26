@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2020-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -30,8 +30,8 @@
 
 #if HAS_INVALID_TESTSUITE_AND_TESTCASE
 
-#if IUTEST_HAS_STREAM_BUFFER
-::iutest::detail::IUStreamBuffer<2048> stderr_capture(stderr);
+#if IUTEST_HAS_STREAM_CAPTURE
+::iutest::detail::IUStreamCaptureStderr stderr_capture;
 #endif
 
 class BothTest : public ::iutest::Test
@@ -67,7 +67,7 @@ int main(int argc, char* argv[])
 #if HAS_INVALID_TESTSUITE_AND_TESTCASE
     int ret = IUTEST_RUN_ALL_TESTS();
 #if IUTEST_HAS_ASSERTION_RETURN
-#if IUTEST_HAS_STREAM_BUFFER
+#if IUTEST_HAS_STREAM_CAPTURE
     IUTEST_ASSERT_STRIN(
         "Test can not provide both SetUpTestSuite and SetUpTestCase"
         ", please make sure there is only one present at "

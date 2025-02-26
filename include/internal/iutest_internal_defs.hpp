@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -21,6 +21,7 @@
 #include "../iutest_defs.hpp"
 #include "iutest_string_stream.hpp"
 #include "iutest_string_view.hpp"
+#include "iutest_tchar.hpp"
 #include "iutest_type_traits.hpp"
 #include "iutest_compatible_defs.hpp"
 #include "iutest_exception.hpp"
@@ -66,8 +67,8 @@
 #endif
 
 #ifndef IUTEST_BREAK
-#  if   defined(__MINGW32__)
-#    define IUTEST_BREAK()  DebugBreak()
+#  if   defined(IUTEST_OS_WINDOWS_MINGW)
+#    define IUTEST_BREAK()      DebugBreak()
 #  elif defined(_MSC_VER)
 #    if _MSC_VER >= 1310
 #      define IUTEST_BREAK()    __debugbreak()
@@ -78,6 +79,8 @@
 // https://www.cocoawithlove.com/2008/03/break-into-debugger.html
 #    if defined(__ppc64__) || defined(__ppc__)
 #      define IUTEST_BREAK()    __asm__("li r0, 20\nsc\nnop\nli r0, 37\nli r4, 2\nsc\nnop\n" : : : "memory", "r0", "r3", "r4" )
+#    elif defined(__aarch64__)
+#      define IUTEST_BREAK()    __asm__(".inst 0xd4200000")
 #    else
 #      define IUTEST_BREAK()    __asm__("int $3\n" : : )
 #    endif
