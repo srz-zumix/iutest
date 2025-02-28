@@ -108,3 +108,4 @@ dagger-out/
 
 # netos/act
 .github/event/*.json
+.secrets

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2023, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -211,10 +211,15 @@
 #  endif
 #  if   defined(__has_include)
 #    if !defined(IUTEST_HAS_CXX_HDR_CUCHAR) && __has_include( <cuchar> )
-#      define IUTEST_HAS_CXX_HDR_CUCHAR   1
+#      if defined(__APPLE__) && IUTEST_CLANG_MAJOR == 15
+// https://github.com/llvm/llvm-project/issues/62573
+#        define IUTEST_HAS_CXX_HDR_CUCHAR 0
+#      else
+#        define IUTEST_HAS_CXX_HDR_CUCHAR 1
+#      endif
 #    endif
 #    if !defined(IUTEST_HAS_STD_TUPLE) && __has_include( <tuple> )
-#      define IUTEST_HAS_STD_TUPLE          1
+#      define IUTEST_HAS_STD_TUPLE        1
 #    endif
 #  endif
 #endif
