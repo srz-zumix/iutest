@@ -16,6 +16,17 @@ on:
       - '*.yaml'
       - '.circleci/**'
       - '.semaphore/**'
+  push:
+    branches:
+      - master
+      - develop
+    paths-ignore:
+      - '*.ini'
+      - '*.md'
+      - '*.yml'
+      - '*.yaml'
+      - '.circleci/**'
+      - '.semaphore/**'
 
 jobs:
   stdc-versions-test:
