@@ -65,10 +65,13 @@ jobs:
       fail-fast: false
     container:
       image: "srzzumix/googletest:${{ matrix.gtest-version }}"
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
     env:
       MAKE_OPTION: "-j4"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Google Test
         env:
           GTEST_OPTION: "USE_GTEST=1"

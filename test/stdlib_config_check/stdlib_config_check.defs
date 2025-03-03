@@ -40,6 +40,9 @@ SHOW_MACRO(__GLIBCPP__);
 SHOW_MACRO(_LIBCPP_VERSION);
 #endif
 
+#if defined(__cpp_lib_char8_t)
+SHOW_MACRO(__cpp_lib_char8_t);
+#endif
 #if defined(__cpp_lib_filesystem)
 SHOW_MACRO(__cpp_lib_filesystem);
 #endif
