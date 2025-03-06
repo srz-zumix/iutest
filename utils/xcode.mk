@@ -21,13 +21,20 @@ empty:=
 space:=$(empty) $(empty)
 APPLE_CLANGVERSION:=$(subst -,$(dot), $(APPLE_CLANGVERSION))
 APPLE_CLANGVERSION:=$(subst $(dot),$(space), $(APPLE_CLANGVERSION))
+APPLE_CLANGVERSION:=$(subst version,, $(APPLE_CLANGVERSION))
 
 # $(warning ${APPLE_CLANGVERSION})
 
+APPLE_CLANGMAJOR:=$(word 1, $(APPLE_CLANGVERSION))
+APPLE_CLANGMINOR:=$(word 2, $(APPLE_CLANGVERSION))
+APPLE_CLANGPATCH:=$(word 3, $(APPLE_CLANGVERSION))
+
+# $(warning ${APPLE_CLANGMAJOR})
+# $(warning ${APPLE_CLANGMINOR})
+# $(warning ${APPLE_CLANGPATCH})
+
 ifeq ($(words $(APPLE_CLANGVERSION)), 3)
-APPLE_CLANGMAJOR:=$(word 2, $(APPLE_CLANGVERSION))
-APPLE_CLANGMINOR:=$(word 3, $(APPLE_CLANGVERSION))
-APPLE_CLANGPATCH:=$(word 4, $(APPLE_CLANGVERSION))
+
 ifeq (1,$(shell expr \( $(APPLE_CLANGMAJOR) \>= 7 \)))
 
 # https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
@@ -147,4 +154,4 @@ IUTEST_CXX_STRICT_NOWARN_FLAGS+=-Wno-inconsistent-missing-destructor-override
 endif
 
 
-endif
+endif # Apple
