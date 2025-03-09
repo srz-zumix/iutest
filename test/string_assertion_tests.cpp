@@ -38,9 +38,9 @@ template<> const wchar_t*   text<wchar_t>::Test = L"Test";
 template<> const wchar_t*   text<wchar_t>::host = L"host";
 
 #if IUTEST_HAS_CHAR8_T
-template<> const char8_t*  text<char8_t>::test = u"test";
-template<> const char8_t*  text<char8_t>::Test = u"Test";
-template<> const char8_t*  text<char8_t>::host = u"host";
+template<> const char8_t*  text<char8_t>::test = u8"test";
+template<> const char8_t*  text<char8_t>::Test = u8"Test";
+template<> const char8_t*  text<char8_t>::host = u8"host";
 #endif
 
 #if IUTEST_HAS_CHAR16_T
