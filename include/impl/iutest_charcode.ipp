@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2025, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -230,7 +230,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
 #if IUTEST_HAS_CXX_HDR_CUCHAR && IUTEST_HAS_STD_CHAR8_T \
     && (!defined(_MSC_VER)) // visual studio stdlib is not defeined c8rtomb
     const size_t length = num < 0 ? ::std::char_traits<char8_t>::length(str) : static_cast<size_t>(num);
-    char mbs[IU_MB_CUR_MAX];
+    char mbs[32];
     mbstate_t state = {};
     IUTEST_CHECK_(mbsinit(&state) != 0);
     ::std::string ret;
@@ -276,7 +276,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
     const size_t length = num < 0 ? ::std::char_traits<char16_t>::length(str) : static_cast<size_t>(num);
     char16_t lead = 0, trail = 0;
     char32_t cp;
-    char mbs[IU_MB_CUR_MAX];
+    char mbs[32];
     mbstate_t state = {};
     IUTEST_CHECK_(mbsinit(&state) != 0);
     ::std::string ret;
@@ -329,7 +329,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
 {
 #if IUTEST_HAS_CXX_HDR_CUCHAR
     const size_t length = num < 0 ? ::std::char_traits<char32_t>::length(str) : static_cast<size_t>(num);
-    char mbs[IU_MB_CUR_MAX];
+    char mbs[32];
     mbstate_t state = {};
     IUTEST_CHECK_(mbsinit(&state) != 0);
     ::std::string ret;
