@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2025, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -309,6 +309,17 @@ void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t(&str)[N], iu_ost
 {
     UniversalPrint(detail::ShowAnyCString(str), os);
 }
+#if IUTEST_HAS_CHAR8_T
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char8_t* str, iu_ostream* os)
+{
+    UniversalPrint(detail::ShowAnyCString(str), os);
+}
+template<size_t N>
+void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char8_t(&str)[N], iu_ostream* os)
+{
+    UniversalPrint(detail::ShowAnyCString(str), os);
+}
+#endif
 #if IUTEST_HAS_CHAR16_T
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char16_t* str, iu_ostream* os)
 {
@@ -453,6 +464,12 @@ inline void PrintTo(const wchar_t value, iu_ostream* os)
 {
     PrintToChar(value, os);
 }
+#if IUTEST_HAS_CHAR8_T
+inline void PrintTo(const char8_t value, iu_ostream* os)
+{
+    PrintToChar(value, os);
+}
+#endif
 #if IUTEST_HAS_CHAR16_T
 inline void PrintTo(const char16_t value, iu_ostream* os)
 {
