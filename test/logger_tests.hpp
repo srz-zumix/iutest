@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2023, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,7 +31,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         char buf[4096] = { 0 };
         va_list va2;
         iu_va_copy(va2, va);
-        vsprintf(buf, fmt, va2);
+        vsnprintf(buf, sizeof(buf), fmt, va2);
         va_end(va2);
         m_log += buf;
         ::iutest::detail::iuConsole::nl_voutput(fmt, va);
