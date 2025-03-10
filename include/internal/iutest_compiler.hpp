@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2023, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2025, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,8 +31,12 @@
 #if defined(__clang__)
 #  if !defined(IUTEST_CLANG_MAJOR)
 #    if defined(__APPLE__)
-#      if __clang_major__ > 14
-#        define IUTEST_CLANG_MAJOR      15
+#      if __clang_major__ > 16
+#        define IUTEST_CLANG_MAJOR      19
+#      elif __clang_major__ > 15
+#        define IUTEST_CLANG_MAJOR      17
+#      elif __clang_major__ > 14
+#        define IUTEST_CLANG_MAJOR      16
 #      elif __clang_major__ == 14
 #        if __clang_patchlevel__ >= 3
 #          define IUTEST_CLANG_MAJOR    15
@@ -216,7 +220,11 @@
 #  define IUTEST_HAS_CHAR8_T        0
 #endif
 
-
+#if !defined(IUTEST_NO_CHAR8_T_TYPEINFO)
+#  if IUTEST_HAS_CHAR8_T && defined(__arm64__) && defined(__APPLE__)
+#    define IUTEST_NO_CHAR8_T_TYPEINFO      1
+#  endif
+#endif
 
 // c++17 features
 
