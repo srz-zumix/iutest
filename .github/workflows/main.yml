@@ -82,7 +82,7 @@ jobs:
         uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
-        if: always()
+        if: success() || failure()
 
   mingw-basic-test:
     runs-on: windows-latest
@@ -106,7 +106,7 @@ jobs:
         uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
-        if: always()
+        if: success() || failure()
 
   cmake-basic-test:
     runs-on: ubuntu-latest
@@ -146,6 +146,25 @@ jobs:
         with:
           path: cmake-build/TestResults.xcresult
           upload-bundles: never
+        if: success() || failure()
+
+  macos-test:
+    runs-on: macos-latest
+    needs: prepare
+    steps:
+      - uses: actions/checkout@v4
+      - name: info
+        uses: ./.github/actions/composite/test-info
+      - name: build
+        run: |
+          make -C test -j8
+      - name: test
+        run: |
+          make -C test test
+      - name: report
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: test/*.xml
         if: success() || failure()
 
   # # g++: fatal error: Killed signal terminated program cc1plus
