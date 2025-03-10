@@ -83,6 +83,7 @@ cirrus_freebsd_clang_test_task:
       - STDFLAG: -std=c++20
   install_script: pkg install -y gmake
   version_script: gmake --version && gmake -C test showcxxversion
+  stdlib_check_script: gmake -C test check_stdlib && gmake -C test check_stdlib
   build_script: gmake -C test -j4
   test_script : gmake -C test test
   report_script: gmake -C test report
