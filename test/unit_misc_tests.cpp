@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2022, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2025, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -74,7 +74,7 @@ IUTEST(UnitFileLoacation, NullFilePath)
     IUTEST_EXPECT_STREQ("unknown file", ::iutest::detail::FormatCompilerIndependentFileLocation(NULL, -1));
 }
 
-#if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_REGEX
+#if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_REGEX && IUTEST_HAS_COMBINE
 
 class UnitLocaleTest : public ::iutest::TestWithParam<iutest::tuples::tuple<const char*, const char*>> {};
 
