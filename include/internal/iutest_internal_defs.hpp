@@ -361,7 +361,9 @@ inline ::std::string GetTypeName()
     IIUT_GeTypeNameSpecialization(unsigned type)
 
 #if IUTEST_NO_CHAR8_T_TYPEINFO
-IIUT_GeTypeNameSpecialization2(char8_t)    // NOLINT
+
+IIUT_GeTypeNameSpecialization(char8_t)  // NOLINT
+
 #endif
 
 #if !IUTEST_HAS_RTTI
