@@ -80,11 +80,11 @@ class UnitLocaleTest : public ::iutest::TestWithParam<iutest::tuples::tuple<cons
 
 IUTEST_P(UnitLocaleTest, ScopedEncoding)
 {
-    const char* p = setlocale(LC_CTYPE, GetParam<0>());
+    const char* p = setlocale(LC_ALL, GetParam<0>());
     IUTEST_ASSUME_NOTNULL(p);
-    ::iutest::detail::ScopedEncoding loc(LC_CTYPE, GetParam<1>());
+    ::iutest::detail::ScopedEncoding loc(LC_ALL, GetParam<1>());
     IUTEST_ASSERT_TRUE(loc) << "Before: " << p;
-    IUTEST_EXPECT_CONTAINS_REGEXEQ("\\.[Uu][Tt][Ff](8|-8)", setlocale(LC_CTYPE, NULL)) << "Before: " << p;
+    IUTEST_EXPECT_CONTAINS_REGEXEQ("\\.[Uu][Tt][Ff](8|-8)", setlocale(LC_ALL, NULL)) << "Before: " << p;
 }
 
 IUTEST_INSTANTIATE_TEST_SUITE_P(My1, UnitLocaleTest, ::iutest::Combine(::iutest::Values("", "C", "ja_JP.932"), ::iutest::Values("UTF-8")));
