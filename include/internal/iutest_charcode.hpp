@@ -161,7 +161,6 @@ template<typename CharType>
     {
         return kStrings::Null;
     }
-    ScopedEncoding(LC_CTYPE, "UTF-8");
     return AnyStringToMultiByteString(any_c_str);
 }
 
