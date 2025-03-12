@@ -80,7 +80,7 @@ class UnitLocaleTest : public ::iutest::TestWithParam<iutest::tuples::tuple<cons
 
 IUTEST_P(UnitLocaleTest, ScopedEncoding)
 {
-    const char* origin = setlocale(LC_CTYPE, NULL);
+    const ::std::string origin = setlocale(LC_CTYPE, NULL);
     {
         ::iutest::detail::ScopedLocale loc(LC_CTYPE, GetParam<0>());
         IUTEST_ASSUME_TRUE(loc) << "Before: " << origin;
