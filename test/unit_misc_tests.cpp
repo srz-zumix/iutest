@@ -91,12 +91,12 @@ IUTEST_P(UnitLocaleTest, ScopedEncoding)
 #endif
 }
 
-IUTEST_INSTANTIATE_TEST_SUITE_P(My1, UnitLocaleTest, ::iutest::Combine(::iutest::Values("", "C", "ja_JP.932")
 #if defined(IUTEST_OS_WINDOWS)
-    , ::iutest::Values("932")
+#  define SCOPEDENCODING_TEST_CP  "932"
 #else
-    , ::iutest::Values("UTF-8")
+#  define SCOPEDENCODING_TEST_CP  "UTF-8"
 #endif
-));
+IUTEST_INSTANTIATE_TEST_SUITE_P(My1, UnitLocaleTest
+    , ::iutest::Combine(::iutest::Values("", "C", "ja_JP.932"), ::iutest::Values(SCOPEDENCODING_TEST_CP)));
 
 #endif
