@@ -102,7 +102,7 @@ public:
     }
 
 private:
-#if !defined(_MSC_VER)
+#if !defined(_MSC_VER) || !defined(IUTEST_OS_WINDOWS_MINGW)
     static ::std::string GetLocaleWithEncoding_(int category, const char* encoding)
     {
         const char* curr = setlocale(category, NULL);
