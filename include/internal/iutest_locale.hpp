@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2020-2025, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -88,7 +88,7 @@ public:
             ScopedLocale loc(category, list[i], true);
             if( !loc )
             {
-                IUTEST_LOG_(WARNING) << "Failed setlocale: " << category << ", " << list[i];
+                IUTEST_LOG_(INFO) << "Failed setlocale: " << category << ", " << list[i];
                 continue;
             }
             ::std::string locale = GetLocaleWithEncoding_(category, encoding);
@@ -117,7 +117,7 @@ private:
             {
                 return locale;
             }
-            IUTEST_LOG_(WARNING) << "Failed setlocale: " << category << ", " << locale;
+            IUTEST_LOG_(INFO) << "Failed setlocale: " << category << ", " << locale;
         }
         return "";
     }
