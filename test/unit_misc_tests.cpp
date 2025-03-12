@@ -80,23 +80,30 @@ class UnitLocaleTest : public ::iutest::TestWithParam<iutest::tuples::tuple<cons
 
 IUTEST_P(UnitLocaleTest, ScopedEncoding)
 {
-    const char* p = setlocale(LC_CTYPE, GetParam<0>());
-    IUTEST_ASSUME_NOTNULL(p);
-    ::iutest::detail::ScopedEncoding loc(LC_CTYPE, GetParam<1>());
-    IUTEST_ASSERT_TRUE(loc) << "Before: " << p;
-#if defined(IUTEST_OS_WINDOWS)
-    IUTEST_EXPECT_CONTAINS_REGEXEQ("\\.932", setlocale(LC_CTYPE, NULL)) << "Before: " << p;
-#else
-    IUTEST_EXPECT_CONTAINS_REGEXEQ("\\.[Uu][Tt][Ff](8|-8)", setlocale(LC_CTYPE, NULL)) << "Before: " << p;
-#endif
+    const char* origin = setlocale(LC_CTYPE, GetParam<0>());
+    IUTEST_ASSUME_NOTNULL(origin);
+    ::std::string cp = ".";
+    cp += GetParam<1>();
+    const char* codepage = setlocale(LC_CTYPE, cp.c_str());
+    IUTEST_ASSERT_NOTNULL(codepage) << "Before: " << origin;
+
+    {
+        ::iutest::detail::ScopedEncoding loc(LC_CTYPE, GetParam<1>());
+        IUTEST_ASSERT_TRUE(loc) << "Before: " << origin;
+        if( cp == ".932" )
+        {
+            IUTEST_EXPECT_CONTAINS_REGEXEQ("\\.932", setlocale(LC_CTYPE, NULL)) << "Before: " << origin;
+        }
+        else if( cp == ".UTF-8" )
+        {
+            IUTEST_EXPECT_CONTAINS_REGEXEQ("\\.[Uu][Tt][Ff](8|-8)", setlocale(LC_CTYPE, NULL)) << "Before: " << origin;
+        }
+    }
+
+    IUTEST_ASSERT_STREQ(origin, setlocale(LC_CTYPE, NULL));
 }
 
-#if defined(IUTEST_OS_WINDOWS)
-#  define SCOPEDENCODING_TEST_CP  "932"
-#else
-#  define SCOPEDENCODING_TEST_CP  "UTF-8"
-#endif
 IUTEST_INSTANTIATE_TEST_SUITE_P(My1, UnitLocaleTest
-    , ::iutest::Combine(::iutest::Values("", "C", "ja_JP.932"), ::iutest::Values(SCOPEDENCODING_TEST_CP)));
+    , ::iutest::Combine(::iutest::Values("", "C", "ja_JP.932"), ::iutest::Values("UTF-8", "932")));
 
 #endif
