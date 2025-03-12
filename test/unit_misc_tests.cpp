@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2025, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -73,3 +73,39 @@ IUTEST(UnitFileLoacation, NullFilePath)
     IUTEST_EXPECT_STREQ("unknown file", ::iutest::detail::FormatFileLocation(NULL, -1));
     IUTEST_EXPECT_STREQ("unknown file", ::iutest::detail::FormatCompilerIndependentFileLocation(NULL, -1));
 }
+
+#if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_REGEX && IUTEST_HAS_COMBINE
+
+class UnitLocaleTest : public ::iutest::TestWithParam<iutest::tuples::tuple<const char*, const char*>> {};
+
+IUTEST_P(UnitLocaleTest, ScopedEncoding)
+{
+    const char* origin = setlocale(LC_CTYPE, NULL);
+    {
+        ::iutest::detail::ScopedLocale loc(LC_CTYPE, GetParam<0>());
+        IUTEST_ASSUME_TRUE(loc) << "Before: " << origin;
+
+        {
+            ::std::string cp = GetParam<1>();
+            ::iutest::detail::ScopedEncoding encoding(LC_CTYPE, cp.c_str());
+            if( encoding )
+            {
+                if( cp == "932" )
+                {
+                    IUTEST_EXPECT_CONTAINS_REGEXEQ("\\.932", setlocale(LC_CTYPE, NULL));
+                }
+                else if( cp == "UTF-8" )
+                {
+                    IUTEST_EXPECT_CONTAINS_REGEXEQ("\\.[Uu][Tt][Ff](8|-8)", setlocale(LC_CTYPE, NULL));
+                }
+            }
+        }
+    }
+
+    IUTEST_ASSERT_STREQ(origin, setlocale(LC_CTYPE, NULL));
+}
+
+IUTEST_INSTANTIATE_TEST_SUITE_P(My1, UnitLocaleTest
+    , ::iutest::Combine(::iutest::Values("", "C", "ja_JP.932"), ::iutest::Values("UTF-8", "932")));
+
+#endif
