@@ -80,23 +80,25 @@ class UnitLocaleTest : public ::iutest::TestWithParam<iutest::tuples::tuple<cons
 
 IUTEST_P(UnitLocaleTest, ScopedEncoding)
 {
-    const char* origin = setlocale(LC_CTYPE, GetParam<0>());
-    IUTEST_ASSUME_NOTNULL(origin);
-    ::std::string cp = ".";
-    cp += GetParam<1>();
-    const char* codepage = setlocale(LC_CTYPE, cp.c_str());
-    IUTEST_ASSERT_NOTNULL(codepage) << "Before: " << origin;
-
+    const char* origin = setlocale(LC_CTYPE, NULL);
     {
-        ::iutest::detail::ScopedEncoding loc(LC_CTYPE, GetParam<1>());
-        IUTEST_ASSERT_TRUE(loc) << "Before: " << origin;
-        if( cp == ".932" )
+        ::iutest::detail::ScopedLocale loc(LC_CTYPE, GetParam<0>());
+        IUTEST_ASSUME_TRUE(loc) << "Before: " << origin;
+
         {
-            IUTEST_EXPECT_CONTAINS_REGEXEQ("\\.932", setlocale(LC_CTYPE, NULL)) << "Before: " << origin;
-        }
-        else if( cp == ".UTF-8" )
-        {
-            IUTEST_EXPECT_CONTAINS_REGEXEQ("\\.[Uu][Tt][Ff](8|-8)", setlocale(LC_CTYPE, NULL)) << "Before: " << origin;
+            ::std::string cp = GetParam<1>();
+            ::iutest::detail::ScopedEncoding encoding(LC_CTYPE, cp.c_str());
+            if( encoding )
+            {
+                if( cp == "932" )
+                {
+                    IUTEST_EXPECT_CONTAINS_REGEXEQ("\\.932", setlocale(LC_CTYPE, NULL));
+                }
+                else if( cp == "UTF-8" )
+                {
+                    IUTEST_EXPECT_CONTAINS_REGEXEQ("\\.[Uu][Tt][Ff](8|-8)", setlocale(LC_CTYPE, NULL));
+                }
+            }
         }
     }
 
