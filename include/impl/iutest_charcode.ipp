@@ -216,7 +216,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const char8_t* str, int num)
 {
-    ScopedEncoding loc(LC_CTYPE, "UTF8");
+    ScopedUTF8 utf8(LC_CTYPE);
 #if IUTEST_HAS_CXX_HDR_CUCHAR && IUTEST_HAS_STD_CHAR8_T
     return AnyStringToMultiByteString(str, num);
 #else
@@ -260,7 +260,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const char16_t* str, int num)
 {
 #if IUTEST_HAS_CXX_HDR_CUCHAR || IUTEST_HAS_CXX_HDR_CODECVT
-    ScopedEncoding loc(LC_CTYPE, "UTF8");
+    ScopedUTF8 utf8(LC_CTYPE);
     return AnyStringToMultiByteString(str, num);
 #else
 IUTEST_PRAGMA_WARN_PUSH()
@@ -321,7 +321,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const char32_t* str, int num)
 {
-    ScopedEncoding loc(LC_CTYPE, "UTF8");
+    ScopedUTF8 utf8(LC_CTYPE);
     return AnyStringToMultiByteString(str, num);
 }
 

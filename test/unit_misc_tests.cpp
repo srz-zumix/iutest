@@ -80,10 +80,11 @@ class UnitLocaleTest : public ::iutest::TestWithParam<iutest::tuples::tuple<cons
 
 IUTEST_P(UnitLocaleTest, ScopedEncoding)
 {
-    const ::std::string origin = setlocale(LC_CTYPE, NULL);
+    const ::std::string origin = setlocale(LC_CTYPE, IUTEST_NULLPTR);
     {
         ::iutest::detail::ScopedLocale loc(LC_CTYPE, GetParam<0>());
         IUTEST_ASSUME_TRUE(loc) << "Before: " << origin;
+        IUTEST_ASSERT_STREQ(origin, loc.GetPrevLocale());
 
         {
             ::std::string cp = GetParam<1>();

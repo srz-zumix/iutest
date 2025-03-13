@@ -26,31 +26,46 @@ namespace detail
 
 class ScopedLocale
 {
-    int m_Category;
-    const char* m_pLocale;
+    int m_category;
+    ::std::string m_prev_locale;
+    bool m_valid;
 public:
     ScopedLocale(int category, const char* locale)
-        : m_Category(category)
-        , m_pLocale(setlocale(category, locale))
+        : m_category(category)
+        , m_prev_locale(setlocale(category, IUTEST_NULLPTR))
+        , m_valid(false)
     {
-        if( m_pLocale == NULL )
+        if( !SetLocale(category, locale) )
         {
             IUTEST_LOG_(WARNING) << "Failed setlocale: " << category << ", " << locale;
         }
     }
     ~ScopedLocale()
     {
-        if( m_pLocale != NULL )
+        if( m_valid )
         {
-            setlocale(m_Category, m_pLocale);
+            // IUTEST_LOG_(INFO) << "Restore locale: " << m_category << ", " << m_prev_locale;
+            if( setlocale(m_category, m_prev_locale.c_str()) == NULL )
+            {
+                IUTEST_LOG_(ERROR) << "Failed restore locale: " << m_category << ", " << m_prev_locale;
+            }
         }
     }
-    operator bool() const { return m_pLocale != NULL; }
+    operator bool() const { return m_valid; }
+    ::std::string GetPrevLocale() const { return m_prev_locale; }
+private:
+    bool SetLocale(int category, const char* locale)
+    {
+        m_valid = (setlocale(category, locale) != NULL);
+        return m_valid;
+    }
 protected:
     ScopedLocale(int category, const char* locale, bool)
-        : m_Category(category)
-        , m_pLocale(setlocale(category, locale))
+        : m_category(category)
+        , m_prev_locale(setlocale(category, IUTEST_NULLPTR))
+        , m_valid(false)
     {
+        SetLocale(category, locale);
     }
 
     friend class ScopedEncoding;
@@ -105,11 +120,11 @@ private:
 #if !defined(_MSC_VER) || !defined(IUTEST_OS_WINDOWS_MINGW)
     static ::std::string GetLocaleWithEncoding_(int category, const char* encoding)
     {
-        const char* curr = setlocale(category, NULL);
-        if( curr != NULL )
+        const char* curr = setlocale(category, IUTEST_NULLPTR);
+        if( curr != IUTEST_NULLPTR )
         {
             const char* p = strchr(curr, '.');
-            ::std::string locale = p == NULL ? curr : ::std::string(curr, p);
+            ::std::string locale = p == IUTEST_NULLPTR ? curr : ::std::string(curr, p);
             locale += ".";
             locale += encoding;
             ScopedLocale loc(category, locale.c_str(), true);
@@ -122,6 +137,15 @@ private:
         return "";
     }
 #endif
+};
+
+class ScopedUTF8 : public ScopedEncoding
+{
+public:
+    ScopedUTF8(int category)
+    : ScopedEncoding(category, "UTF-8")
+    {
+    }
 };
 
 }   // end of namespace detail
