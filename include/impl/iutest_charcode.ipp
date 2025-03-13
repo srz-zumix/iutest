@@ -116,7 +116,7 @@ IUTEST_IPP_INLINE char* CodePointToUtf8(UInt32 code_point, char* buf, size_t siz
 }
 
 #if defined(_MSC_VER)
-IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToSJIS(const char* str, int length)
+IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToSJIS(const char* str, int length)
 {
     const int lengthWideChar = MultiByteToWideChar(CP_UTF8, 0, str, length, NULL, 0);
     if( lengthWideChar <= 0 )
@@ -144,13 +144,13 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToSJIS(const char* s
     delete[] buf;
     return ret;
 }
-IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToSJIS(const ::std::string& str)
+IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToSJIS(const ::std::string& str)
 {
     const int src_length = static_cast<int>(str.length() + 1);
     return UTF8ToSJIS(str.c_str(), src_length);
 }
 #if IUTEST_HAS_CHAR8_T
-IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToSJIS(const char8_t* str, int length)
+IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToSJIS(const char8_t* str, int length)
 {
     const int src_length = length < 0 ? static_cast<int>(::std::char_traits<char8_t>::length(str)) : length;
     return UTF8ToSJIS(reinterpret_cast<const char*>(str), src_length);
@@ -216,7 +216,6 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const char8_t* str, int num)
 {
-    ScopedUTF8 utf8(LC_CTYPE);
 #if IUTEST_HAS_CXX_HDR_CUCHAR && IUTEST_HAS_STD_CHAR8_T
     return AnyStringToMultiByteString(str, num);
 #else
@@ -260,7 +259,6 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const char16_t* str, int num)
 {
 #if IUTEST_HAS_CXX_HDR_CUCHAR || IUTEST_HAS_CXX_HDR_CODECVT
-    ScopedUTF8 utf8(LC_CTYPE);
     return AnyStringToMultiByteString(str, num);
 #else
 IUTEST_PRAGMA_WARN_PUSH()
@@ -321,7 +319,6 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const char32_t* str, int num)
 {
-    ScopedUTF8 utf8(LC_CTYPE);
     return AnyStringToMultiByteString(str, num);
 }
 
