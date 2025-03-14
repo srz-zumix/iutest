@@ -142,7 +142,7 @@ private:
 class ScopedUTF8 : public ScopedEncoding
 {
 public:
-    ScopedUTF8(int category)
+    explicit ScopedUTF8(int category)
     : ScopedEncoding(category, "UTF-8")
     {
     }

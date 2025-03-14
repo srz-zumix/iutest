@@ -201,7 +201,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
     if( written == static_cast<size_t>(-1))
     {
         delete [] mbs;
-        IUTEST_LOG_(WARNING) << "AnyStringToMultiByteString: convert error";
+        IUTEST_LOG_(WARNING) << "AnyStringToMultiByteString: convert error: " << num << ":" << ToHexString(str, num);
         return ToHexString(str, num);
     }
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()

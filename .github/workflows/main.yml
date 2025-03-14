@@ -21,6 +21,11 @@ on:
       - master
       - develop
 
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
 jobs:
   prepare:
     runs-on: ubuntu-latest
