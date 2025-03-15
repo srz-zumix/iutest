@@ -272,6 +272,28 @@ IUTEST_PRAGMA_WARN_POP()
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteString(const char16_t* str, int num)
 {
 #if IUTEST_HAS_CXX_HDR_CUCHAR
+
+#if 1
+    const size_t length = num < 0 ? ::std::char_traits<char16_t>::length(str) : static_cast<size_t>(num);
+    char mbs[32];
+    mbstate_t state = {};
+    IUTEST_CHECK_(mbsinit(&state) != 0);
+    ::std::string ret;
+
+    IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+    for( size_t i = 0; i < length; ++i )
+    {
+        const size_t len = ::std::c16rtomb(mbs, str[i], &state);
+        if( len != static_cast<size_t>(-1) )
+        {
+            mbs[len] = '\0';
+            ret += mbs;
+        }
+    }
+    IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+    return ret;
+
+#else
     const size_t length = num < 0 ? ::std::char_traits<char16_t>::length(str) : static_cast<size_t>(num);
     char16_t lead = 0, trail = 0;
     char32_t cp;
@@ -280,7 +302,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
     IUTEST_CHECK_(mbsinit(&state) != 0);
     ::std::string ret;
 
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+    IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
     for( size_t i = 0; i < length; ++i )
     {
         lead = str[i];
@@ -302,8 +324,9 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
             ret += mbs;
         }
     }
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+    IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     return ret;
+#endif
 #elif IUTEST_HAS_CXX_HDR_CODECVT
     IUTEST_UNUSED_VAR(num);
     return CodeConvert<char16_t, char, ::std::mbstate_t>(str);
@@ -340,8 +363,8 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
         {
             mbs[len] = '\0';
             ret += mbs;
+        }
     }
-}
     IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     return ret;
 #elif IUTEST_HAS_CXX_HDR_CODECVT
