@@ -116,44 +116,44 @@ IUTEST_IPP_INLINE char* CodePointToUtf8(UInt32 code_point, char* buf, size_t siz
 }
 
 #if defined(_MSC_VER)
-IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToSJIS(const char* str, int length)
+IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToCurrentACP(const char* str, int length)
 {
     const int lengthWideChar = MultiByteToWideChar(CP_UTF8, 0, str, length, NULL, 0);
     if( lengthWideChar <= 0 )
     {
-        IUTEST_LOG_(WARNING) << "UTF8ToSJIS: convert error";
+        IUTEST_LOG_(WARNING) << "UTF8ToCurrentACP: convert error";
         return "(convert error)";
     }
 
     wchar_t* wbuf = new wchar_t[lengthWideChar];
     MultiByteToWideChar(CP_UTF8, 0, str, length, wbuf, lengthWideChar);
 
-    const int lengthSJIS = WideCharToMultiByte(CP_THREAD_ACP, 0, wbuf, -1, NULL, 0, NULL, NULL);
-    if( lengthSJIS <= 0 )
+    const int lengthACP = WideCharToMultiByte(CP_THREAD_ACP, 0, wbuf, -1, NULL, 0, NULL, NULL);
+    if( lengthACP <= 0 )
     {
         delete[] wbuf;
-        IUTEST_LOG_(WARNING) << "UTF8ToSJIS: convert error";
+        IUTEST_LOG_(WARNING) << "UTF8ToCurrentACP: convert error";
         return "(convert error)";
     }
 
-    char* buf = new char[lengthSJIS];
-    WideCharToMultiByte(CP_THREAD_ACP, 0, wbuf, -1, buf, lengthSJIS, NULL, NULL);
+    char* buf = new char[lengthACP];
+    WideCharToMultiByte(CP_THREAD_ACP, 0, wbuf, -1, buf, lengthACP, NULL, NULL);
 
     ::std::string ret(buf);
     delete[] wbuf;
     delete[] buf;
     return ret;
 }
-IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToSJIS(const ::std::string& str)
+IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToCurrentACP(const ::std::string& str)
 {
     const int src_length = static_cast<int>(str.length() + 1);
-    return UTF8ToSJIS(str.c_str(), src_length);
+    return UTF8ToCurrentACP(str.c_str(), src_length);
 }
 #if IUTEST_HAS_CHAR8_T
-IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToSJIS(const char8_t* str, int length)
+IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToCurrentACP(const char8_t* str, int length)
 {
     const int src_length = length < 0 ? static_cast<int>(::std::char_traits<char8_t>::length(str)) : length;
-    return UTF8ToSJIS(reinterpret_cast<const char*>(str), src_length);
+    return UTF8ToCurrentACP(reinterpret_cast<const char*>(str), src_length);
 }
 #endif
 #endif
@@ -239,7 +239,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
     for( size_t i = 0; i < length; ++i )
     {
         const size_t len = ::std::c8rtomb(mbs, str[i], &state);
-        if( len != static_cast<size_t>(-1) )
+        if( len > 0 && len < IUTEST_PP_COUNTOF(mbs) )
         {
             mbs[len] = '\0';
             ret += mbs;
@@ -284,10 +284,14 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
     for( size_t i = 0; i < length; ++i )
     {
         const size_t len = ::std::c16rtomb(mbs, str[i], &state);
-        if( len != static_cast<size_t>(-1) && len != 0 )
+        if( len > 0 && len < IUTEST_PP_COUNTOF(mbs) )
         {
             mbs[len] = '\0';
             ret += mbs;
+        }
+        else
+        {
+            IUTEST_LOG_(WARNING) << "AnyStringToMultiByteString: convert error: " << state << ": " << len;
         }
     }
     IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
@@ -331,7 +335,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
     IUTEST_UNUSED_VAR(num);
     return CodeConvert<char16_t, char, ::std::mbstate_t>(str);
 #elif defined(_MSC_VER)
-    return UTF8ToSJIS(AnyStringToUTF8(str, num));
+    return UTF8ToCurrentACP(AnyStringToUTF8(str, num));
 #else
     return AnyStringToMultiByteString(reinterpret_cast<const wchar_t*>(str), num);
 #endif
@@ -359,7 +363,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
     for( size_t i = 0; i < length; ++i )
     {
         const size_t len = ::std::c32rtomb(mbs, str[i], &state);
-        if( len != static_cast<size_t>(-1) )
+        if( len > 0 && len < IUTEST_PP_COUNTOF(mbs) )
         {
             mbs[len] = '\0';
             ret += mbs;
