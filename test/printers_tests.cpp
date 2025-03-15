@@ -371,7 +371,14 @@ IUTEST(PrintToTest, SurrogatePairChar16T)
 {
     const char16_t* p = u"\U00020BB7";
     const ::std::string s = ::iutest::PrintToString(p);
-    if( s[0] == '?' )
+    if( s[0] == '0' )
+    {
+        // LogChecker ck("00020BB7000091CE00005BB6");
+        LogChecker ck("00020BB7");
+        IUTEST_PRINTTOSTRING_CONTAIN(ck, s);
+        IUTEST_STREAMOUT_CHECK(p);
+    }
+    else if( s[0] == '?' )
     {
         // FIXME
         IUTEST_SKIP();
