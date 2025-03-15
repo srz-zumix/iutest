@@ -284,7 +284,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
     for( size_t i = 0; i < length; ++i )
     {
         const size_t len = ::std::c16rtomb(mbs, str[i], &state);
-        if( len != static_cast<size_t>(-1) )
+        if( len != static_cast<size_t>(-1) && len != 0 )
         {
             mbs[len] = '\0';
             ret += mbs;
