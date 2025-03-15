@@ -289,12 +289,12 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
             mbs[len] = '\0';
             ret += mbs;
         }
-        else
-        {
-            IUTEST_LOG_(WARNING) << "AnyStringToMultiByteString: convert error: " << state << ": " << len;
-        }
     }
     IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+    if( ret.empty() )
+    {
+        return AnyStringToMultiByteString(reinterpret_cast<const wchar_t*>(str), num);
+    }
     return ret;
 
 #else
