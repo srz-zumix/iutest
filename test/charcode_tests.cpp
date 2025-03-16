@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2018-2025, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -18,9 +18,9 @@
 #include "iutest.hpp"
 
 #if defined(_MSC_VER)
-IUTEST(CharCodeTest, UTF8ToSJIS)
+IUTEST(CharCodeTest, UTF8ToCurrentACP)
 {
-    (void)iutest::detail::UTF8ToSJIS("test");
+    (void)iutest::detail::UTF8ToCurrentACP("test");
 }
 #endif
 
