@@ -352,7 +352,7 @@ IUTEST(PrintToTest, SurrogatePair)
     }
     else if( s[0] == 'D' )
     {
-        LogChecker ck("DFB7D842");
+        LogChecker ck("D842DFB7");
         IUTEST_PRINTTOSTRING_CONTAIN(ck, s);
         IUTEST_STREAMOUT_CHECK(p);
     }
