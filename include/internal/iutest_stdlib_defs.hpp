@@ -535,6 +535,13 @@
 #    define IUTEST_HAS_STD_CHAR8_T      0
 #  endif
 #endif
+#if !defined(IUTEST_NO_CHAR8_T_TYPEINFO) && IUTEST_HAS_CHAR8_T
+#  if defined(__arm64__) && defined(__APPLE__)
+#    define IUTEST_NO_CHAR8_T_TYPEINFO    1
+#  elif defined(_LIBCPP_HAS_NO_C8RTOMB_MBRTOC8)
+#    define IUTEST_NO_CHAR8_T_TYPEINFO    1
+#  endif
+#endif
 
 //! use external include tr1::tuple
 #if !defined(IUTEST_USE_EXTERNAL_TR1_TUPLE)

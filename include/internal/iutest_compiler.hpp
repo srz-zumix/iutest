@@ -220,12 +220,6 @@
 #  define IUTEST_HAS_CHAR8_T        0
 #endif
 
-#if !defined(IUTEST_NO_CHAR8_T_TYPEINFO)
-#  if IUTEST_HAS_CHAR8_T && defined(__arm64__) && defined(__APPLE__)
-#    define IUTEST_NO_CHAR8_T_TYPEINFO      1
-#  endif
-#endif
-
 // c++17 features
 
 //! inline variable
