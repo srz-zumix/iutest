@@ -1008,6 +1008,15 @@
 #  include <typeinfo>
 #endif
 
+//! wchar_t size
+#if !defined(IUTEST_WCHAR_T_SIZE)
+#  if defined(__SIZEOF_WCHAR_T__)
+#    define IUTEST_WCHAR_T_SIZE    __SIZEOF_WCHAR_T__
+#  elif defined(_MSC_VER)
+#    define IUTEST_WCHAR_T_SIZE    2
+#  endif
+#endif
+
 #if !defined(IUTEST_WCHAR_UNSIGNED)
 #  if defined(__WCHAR_UNSIGNED__) && __WCHAR_UNSIGNED__
 #    define IUTEST_WCHAR_UNSIGNED   1
