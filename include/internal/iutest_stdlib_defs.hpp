@@ -527,7 +527,9 @@
 #endif
 //! has char8_t support lib
 #if !defined(IUTEST_HAS_STD_CHAR8_T)
-#  if defined(__cpp_lib_char8_t) && __cpp_lib_char8_t >= 201907
+#  if defined(_LIBCPP_HAS_NO_C8RTOMB_MBRTOC8)
+#    define IUTEST_HAS_STD_CHAR8_T      0
+#  elif defined(__cpp_lib_char8_t) && __cpp_lib_char8_t >= 201907
 #    define IUTEST_HAS_STD_CHAR8_T      1
 #  else
 #    define IUTEST_HAS_STD_CHAR8_T      0
