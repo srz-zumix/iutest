@@ -350,6 +350,12 @@ IUTEST(PrintToTest, SurrogatePair)
         IUTEST_PRINTTOSTRING_CONTAIN(ck, s);
         IUTEST_STREAMOUT_CHECK(p);
     }
+    else if( s[0] == 'D' )
+    {
+        LogChecker ck("DFB7D842");
+        IUTEST_PRINTTOSTRING_CONTAIN(ck, s);
+        IUTEST_STREAMOUT_CHECK(p);
+    }
     else if( s[0] == '?' )
     {
         // FIXME
@@ -371,10 +377,9 @@ IUTEST(PrintToTest, SurrogatePairChar16T)
 {
     const char16_t* p = u"\U00020BB7";
     const ::std::string s = ::iutest::PrintToString(p);
-    if( s[0] == '0' )
+    if( s[0] == 'D' )
     {
-        // LogChecker ck("00020BB7000091CE00005BB6");
-        LogChecker ck("00020BB7");
+        LogChecker ck("DFB7D842");
         IUTEST_PRINTTOSTRING_CONTAIN(ck, s);
         IUTEST_STREAMOUT_CHECK(p);
     }

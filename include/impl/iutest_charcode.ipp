@@ -293,7 +293,11 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
     IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     if( ret.empty() )
     {
-        return AnyStringToMultiByteString(reinterpret_cast<const wchar_t*>(str), num);
+        if( sizeof(char16_t) == sizeof(wchar_t) )
+        {
+            return AnyStringToMultiByteString(reinterpret_cast<const wchar_t*>(str), num);
+        }
+        return ToHexString(str, num);
     }
     return ret;
 
