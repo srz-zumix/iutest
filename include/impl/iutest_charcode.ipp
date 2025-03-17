@@ -128,7 +128,8 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToCurrentACP(const 
     wchar_t* wbuf = new wchar_t[lengthWideChar];
     MultiByteToWideChar(CP_UTF8, 0, str, length, wbuf, lengthWideChar);
 
-    const int lengthACP = WideCharToMultiByte(CP_THREAD_ACP, 0, wbuf, -1, NULL, 0, NULL, NULL);
+    const UINT cp = GetConsoleCP();
+    const int lengthACP = WideCharToMultiByte(cp, 0, wbuf, -1, NULL, 0, NULL, NULL);
     if( lengthACP <= 0 )
     {
         delete[] wbuf;
@@ -137,7 +138,7 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToCurrentACP(const 
     }
 
     char* buf = new char[lengthACP];
-    WideCharToMultiByte(CP_THREAD_ACP, 0, wbuf, -1, buf, lengthACP, NULL, NULL);
+    WideCharToMultiByte(cp, 0, wbuf, -1, buf, lengthACP, NULL, NULL);
 
     ::std::string ret(buf);
     delete[] wbuf;
