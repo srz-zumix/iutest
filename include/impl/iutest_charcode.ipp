@@ -116,6 +116,10 @@ IUTEST_IPP_INLINE char* CodePointToUtf8(UInt32 code_point, char* buf, size_t siz
 }
 
 #if defined(_MSC_VER)
+
+namespace win
+{
+
 IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToMultiByteString(const char* str, int length)
 {
     const int lengthWideChar = MultiByteToWideChar(CP_UTF8, 0, str, length, NULL, 0);
@@ -172,6 +176,8 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToCurrentACP(const 
     return UTF8ToCurrentACP(reinterpret_cast<const char*>(str), src_length);
 }
 #endif
+
+}   // end of namespace win
 #endif
 
 IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const wchar_t* str, int num)
@@ -363,7 +369,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
     IUTEST_UNUSED_VAR(num);
     return CodeConvert<char16_t, char, ::std::mbstate_t>(str);
 #elif defined(_MSC_VER)
-    return UTF8ToMultiByteString(AnyStringToUTF8(str, num));
+    return win::UTF8ToMultiByteString(AnyStringToUTF8(str, num));
 #else
     return AnyStringToMultiByteString(reinterpret_cast<const wchar_t*>(str), num);
 #endif
