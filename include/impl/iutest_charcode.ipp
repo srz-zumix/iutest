@@ -49,6 +49,7 @@ IUTEST_IPP_INLINE IUTEST_CXX_CONSTEXPR bool IsUtf16SurrogatePair(wchar_t first, 
         ((first & 0xFC00) == 0xD800) && ((second & 0xFC00) == 0xDC00);
 #endif
 }
+
 /**
  * @brief   サロゲートペアからコードポイントへ変換
 */
@@ -63,6 +64,7 @@ IUTEST_IPP_INLINE IUTEST_CXX_CONSTEXPR UInt32 CreateCodePointFromUtf16SurrogateP
         static_cast<UInt32>(first); // こっちは未対応
 #endif
 }
+
 /**
  * @brief   下位から指定ビット数のビットを取得してシフトする
 */
