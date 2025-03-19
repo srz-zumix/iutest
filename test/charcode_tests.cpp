@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2018-2025, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -17,12 +17,13 @@
 // include
 #include "iutest.hpp"
 
-#if defined(_MSC_VER)
-IUTEST(CharCodeTest, UTF8ToSJIS)
+IUTEST(CharCodeTest, IsUtf16SurrogatePair)
 {
-    (void)iutest::detail::UTF8ToSJIS("test");
+    IUTEST_EXPECT_TRUE(iutest::detail::IsUtf16SurrogatePair(0xD800, 0xDC00));
+    IUTEST_EXPECT_TRUE(iutest::detail::IsUtf16SurrogatePair(0xDBFF, 0xDFFF));
+    IUTEST_EXPECT_FALSE(iutest::detail::IsUtf16SurrogatePair(0xD7FF, 0xDC00));
+    IUTEST_EXPECT_FALSE(iutest::detail::IsUtf16SurrogatePair(0xD800, 0xDBFF));
 }
-#endif
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
@@ -33,4 +34,3 @@ int main(int argc, char* argv[])
     IUTEST_INIT(&argc, argv);
     return IUTEST_RUN_ALL_TESTS();
 }
-

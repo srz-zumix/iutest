@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2025, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -861,7 +861,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* 
     }
 
     return ::iutest::AssertionFailure() << "error: Expected: " << "strstr(" << actual_str << ", " << substr_str << ") != NULL"
-        << "\n  Actual: " << "strstr(\"" << actual << "\", " << substr << ") == NULL";
+        << "\n  Actual: " << "strstr(\"" << actual << "\", \"" << substr << "\") == NULL";
 }
 
 }   // end of namespace StrInHelper
@@ -895,7 +895,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* 
     }
 
     return ::iutest::AssertionFailure() << "error: Expected: " << "strstr(" << actual_str << ", " << substr_str << ") == NULL"
-        << "\n  Actual: " << "strstr(\"" << actual << "\", " << substr << ") != NULL";
+        << "\n  Actual: " << "strstr(\"" << actual << "\", \"" << substr << "\") != NULL";
 }
 
 }   // end of namespace StrNotInHelper
