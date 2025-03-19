@@ -215,7 +215,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 
 IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteString(const wchar_t* str, int num)
 {
-    const size_t length = num < 0 ? (wcslen(str) * static_cast<size_t>(MB_CUR_MAX) + 1) : static_cast<size_t>(num);
+    const size_t length = num < 0 ? (wcslen(str) * static_cast<size_t>(IU_MB_CUR_MAX) + 1) : static_cast<size_t>(num);
     char* mbs = new char [length];
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
     const size_t written = wcstombs(mbs, str, length - 1);
@@ -448,7 +448,7 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToUTF8(c
     for(const char* end = str + num; p < end; )
     {
         wchar_t wc=0;
-        const int len = iu_mbtowc(&wc, p, MB_CUR_MAX);
+        const int len = iu_mbtowc(&wc, p, IU_MB_CUR_MAX);
         if( len > 1 )
         {
             ret += AnyStringToUTF8(&wc, 1);
