@@ -31,11 +31,17 @@ IUTEST(CharCodeTest, AnyStringToMultiByteStringWchar)
 {
     IUTEST_EXPECT_STREQ("TEST", ::iutest::detail::AnyStringToMultiByteString(L"TEST", -1));
 #if defined(IUTEST_OS_WINDOWS)
+IUTEST_PRAGMA_MSC_WARN_PUSH()
+IUTEST_PRAGMA_MSC_WARN_DISABLE(4566)
+
     IUTEST_EXPECT_STREQ("TEST", ::iutest::detail::win::WideStringToMultiByteString(L"TEST", -1));
     IUTEST_EXPECT_STREQ(::iutest::detail::AnyStringToMultiByteString(L"テスト", -1)
         , ::iutest::detail::win::WideStringToMultiByteString(L"テスト", -1));
     IUTEST_EXPECT_STREQ(::iutest::detail::AnyStringToMultiByteString(L"\U00020BB7", -1)
         , ::iutest::detail::win::WideStringToMultiByteString(L"\U00020BB7", -1));
+
+IUTEST_PRAGMA_MSC_WARN_POP()
+
 #endif
 }
 
