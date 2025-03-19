@@ -133,7 +133,7 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToMultiByteString(c
 
     wchar_t* wbuf = new wchar_t[lengthWideChar];
     MultiByteToWideChar(CP_UTF8, 0, str, length, wbuf, lengthWideChar);
-    ::std::string ret = WideStringToMultiByteString(wbuf, lengthWideChar);
+    ::std::string ret = AnyStringToMultiByteString(wbuf, lengthWideChar);
     delete[] wbuf;
     return ret;
 }
@@ -215,7 +215,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 
 IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteString(const wchar_t* str, int num)
 {
-#if defined(IUTEST_OS_WINDOWS) && IUTEST_MBS_CODE == IUTEST_MBS_CODE_WINDOWS31J
+#if defined(IUTEST_OS_WINDOWS) && IUTEST_MBS_CODE == IUTEST_MBS_CODE_WINDOWS31J && 0
     return win::WideStringToMultiByteString(str, num);
 #else
     const size_t length = num < 0 ? (wcslen(str) * static_cast<size_t>(MB_CUR_MAX) + 1) : static_cast<size_t>(num);
