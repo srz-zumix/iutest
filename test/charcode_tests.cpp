@@ -25,6 +25,16 @@ IUTEST(CharCodeTest, IsUtf16SurrogatePair)
     IUTEST_EXPECT_FALSE(iutest::detail::IsUtf16SurrogatePair(0xD800, 0xDBFF));
 }
 
+IUTEST(CharCodeTest, AnyStringToMultiByteStringWchar)
+{
+    IUTEST_EXPECT_STREQ("TEST", ::iutest::detail::AnyStringToMultiByteString(L"TEST", -1));
+#if defined(IUTEST_OS_WINDOWS)
+    IUTEST_EXPECT_STREQ("TEST", ::iutest::detail::win::WideStringToMultiByteString(L"TEST", -1));
+    IUTEST_EXPECT_STREQ(::iutest::detail::AnyStringToMultiByteString(L"\U00020BB7", -1)
+        , ::iutest::detail::win::WideStringToMultiByteString(L"\U00020BB7", -1));
+#endif
+}
+
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else

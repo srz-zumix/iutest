@@ -391,7 +391,14 @@ IUTEST(PrintToTest, SurrogatePairChar16T)
     else
     {
 #if !defined(NO_TEST_SURROGATEPAIR)
-        LogChecker ck("\U00020BB7");
+        const char c[5] = {
+            static_cast<char>(0xf0),
+            static_cast<char>(0xa0),
+            static_cast<char>(0xae),
+            static_cast<char>(0xb7),
+            0
+        };
+        LogChecker ck(c);
         (void)ck;
         IUTEST_PRINTTOSTRING_EQ(ck, s);
         IUTEST_STREAMOUT_CHECK(p);

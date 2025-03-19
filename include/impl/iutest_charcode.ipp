@@ -215,9 +215,6 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 
 IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteString(const wchar_t* str, int num)
 {
-#if defined(IUTEST_OS_WINDOWS) && IUTEST_MBS_CODE == IUTEST_MBS_CODE_WINDOWS31J && 0
-    return win::WideStringToMultiByteString(str, num);
-#else
     const size_t length = num < 0 ? (wcslen(str) * static_cast<size_t>(MB_CUR_MAX) + 1) : static_cast<size_t>(num);
     char* mbs = new char [length];
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
@@ -234,7 +231,6 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     ::std::string ret = mbs;
     delete [] mbs;
     return ret;
-#endif
 }
 
 #if IUTEST_HAS_CHAR8_T
