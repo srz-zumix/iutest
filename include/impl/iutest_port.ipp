@@ -397,14 +397,8 @@ IUTEST_IPP_INLINE ::std::string WideStringToMultiByteString(const wchar_t* wide_
     ::std::string str;
     const int length = num < 0 ? static_cast<int>(wcslen(wide_c_str) * 2 + 1) : num;
     char* mbs = new char [length];
-    if( WideCharToMultiByte(CP_THREAD_ACP, 0, wide_c_str, static_cast<int>(wcslen(wide_c_str))+1, mbs, length, NULL, NULL) > 0 )
-    {
-        str = mbs;
-    }
-    else
-    {
-        str = ToHexString(wide_c_str, num);
-    }
+    WideCharToMultiByte(CP_THREAD_ACP, 0, wide_c_str, static_cast<int>(wcslen(wide_c_str))+1, mbs, length, NULL, NULL);
+    str = mbs;
     delete [] mbs;
     return str;
 }
