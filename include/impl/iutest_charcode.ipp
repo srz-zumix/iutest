@@ -124,46 +124,50 @@ namespace win
 
 IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToMultiByteString(const char* str, int length)
 {
+    ::std::string ret;
     const int lengthWideChar = MultiByteToWideChar(CP_UTF8, 0, str, length, NULL, 0);
-    if( lengthWideChar <= 0 )
+    if( lengthWideChar > 0 )
     {
-        IUTEST_LOG_(WARNING) << "UTF8ToCurrentACP: convert error";
-        return "(convert error)";
+        wchar_t* wbuf = new wchar_t[lengthWideChar];
+        if( MultiByteToWideChar(CP_UTF8, 0, str, length, wbuf, lengthWideChar) > 0 )
+        {
+            ret = AnyStringToMultiByteString(wbuf, lengthWideChar);
+            delete[] wbuf;
+            return ret;
+        }
+        delete[] wbuf;
     }
-
-    wchar_t* wbuf = new wchar_t[lengthWideChar];
-    MultiByteToWideChar(CP_UTF8, 0, str, length, wbuf, lengthWideChar);
-    ::std::string ret = AnyStringToMultiByteString(wbuf, lengthWideChar);
-    delete[] wbuf;
+    ret = ToHexString(str, length);
+    IUTEST_LOG_(WARNING) << "UTF8ToMultiByteString: convert error: " << ret;
     return ret;
 }
 
 IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToCurrentACP(const char* str, int length)
 {
     const int lengthWideChar = MultiByteToWideChar(CP_UTF8, 0, str, length, NULL, 0);
-    if( lengthWideChar <= 0 )
+    if( lengthWideChar > 0 )
     {
-        IUTEST_LOG_(WARNING) << "UTF8ToCurrentACP: convert error";
-        return "(convert error)";
-    }
-
-    wchar_t* wbuf = new wchar_t[lengthWideChar];
-    MultiByteToWideChar(CP_UTF8, 0, str, length, wbuf, lengthWideChar);
-
-    const int lengthACP = WideCharToMultiByte(CP_THREAD_ACP, 0, wbuf, -1, NULL, 0, NULL, NULL);
-    if( lengthACP <= 0 )
-    {
+        wchar_t* wbuf = new wchar_t[lengthWideChar];
+        if( MultiByteToWideChar(CP_UTF8, 0, str, length, wbuf, lengthWideChar) > 0 )
+        {
+            const int lengthACP = WideCharToMultiByte(CP_THREAD_ACP, 0, wbuf, -1, NULL, 0, NULL, NULL);
+            if( lengthACP > 0 )
+            {
+                char* buf = new char[lengthACP];
+                if( WideCharToMultiByte(CP_THREAD_ACP, 0, wbuf, -1, buf, lengthACP, NULL, NULL) > 0 )
+                {
+                    ::std::string ret(buf);
+                    delete[] buf;
+                    delete[] wbuf;
+                    return ret;
+                }
+                delete[] buf;
+            }
+        }
         delete[] wbuf;
-        IUTEST_LOG_(WARNING) << "UTF8ToCurrentACP: convert error";
-        return "(convert error)";
     }
-
-    char* buf = new char[lengthACP];
-    WideCharToMultiByte(CP_THREAD_ACP, 0, wbuf, -1, buf, lengthACP, NULL, NULL);
-
-    ::std::string ret(buf);
-    delete[] wbuf;
-    delete[] buf;
+    ::std::string ret = ToHexString(str, length);
+    IUTEST_LOG_(WARNING) << "UTF8ToCurrentACP: convert error: " << ret;
     return ret;
 }
 IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToCurrentACP(const ::std::string& str)
@@ -182,13 +186,53 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToCurrentACP(const 
 }   // end of namespace win
 #endif
 
-IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const wchar_t* str, int num)
+IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF16ToUTF8(const UInt16* str, int num)
 {
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
-    if(num == -1)
+    std::string s;
+    for(int i=0; i < num; ++i )
+    {
+        UInt32 code_point = 0;
+        if( str[i] == 0 )
+        {
+            break;
+        }
+        else if( i + 1 < num && IsUtf16SurrogatePair(str[i], str[i+1]) )
+        {
+            code_point = CreateCodePointFromUtf16SurrogatePair(str[i], str[i+1]);
+            ++i;
+        }
+        else
+        {
+            code_point = static_cast<UInt32>(str[i]);
+        }
+        char buf[32];
+        s += CodePointToUtf8(code_point, buf, sizeof(buf));
+    }
+    return s;
+IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
+}
+
+IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF32ToUTF8(const UInt32* str, int num)
+{
+IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
+    std::string s;
+    for(int i=0; i < num; ++i )
+    {
+        char buf[32];
+        s += CodePointToUtf8(str[i], buf, sizeof(buf));
+    }
+    return s;
+IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
+}
+
+IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const wchar_t* str, int num)
+{
+   if(num == -1)
     {
         num = static_cast<int>(wcslen(str));
     }
+    IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
     std::string s;
     for(int i=0; i < num; ++i )
     {
@@ -212,7 +256,6 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
     return s;
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 }
-
 IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteString(const wchar_t* str, int num)
 {
     const size_t length = num < 0 ? (wcslen(str) * static_cast<size_t>(IU_MB_CUR_MAX) + 1) : static_cast<size_t>(num);
@@ -237,12 +280,8 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const char8_t* str, int num)
 {
-#if IUTEST_HAS_CXX_HDR_CUCHAR && IUTEST_HAS_STD_CHAR8_T
-    return AnyStringToMultiByteString(str, num);
-#else
     const char* p = reinterpret_cast<const char*>(str);
     return (num < 0) ? p : std::string(p, num);
-#endif
 }
 
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteString(const char8_t* str, int num)
@@ -279,14 +318,11 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
 
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const char16_t* str, int num)
 {
-#if IUTEST_HAS_CXX_HDR_CUCHAR || IUTEST_HAS_CXX_HDR_CODECVT
-    return AnyStringToMultiByteString(str, num);
-#else
-IUTEST_PRAGMA_WARN_PUSH()
-IUTEST_PRAGMA_WARN_DISABLE_CAST_ALIGN()
-    return AnyStringToUTF8(reinterpret_cast<const wchar_t*>(str), num);
-IUTEST_PRAGMA_WARN_POP()
-#endif
+    if(num == -1)
+    {
+        num = static_cast<int>(::std::char_traits<char16_t>::length(str));
+    }
+    return UTF16ToUTF8(reinterpret_cast<const UInt16*>(str), num);
 }
 
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteString(const char16_t* str, int num)
@@ -328,7 +364,6 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
 #endif
     }
     return ret;
-
 #else
     const size_t length = num < 0 ? ::std::char_traits<char16_t>::length(str) : static_cast<size_t>(num);
     char16_t lead = 0, trail = 0;
@@ -367,9 +402,9 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
     IUTEST_UNUSED_VAR(num);
     return CodeConvert<char16_t, char, ::std::mbstate_t>(str);
 #elif defined(_MSC_VER)
-    return win::UTF8ToMultiByteString(AnyStringToUTF8(str, num));
-#else
     return AnyStringToMultiByteString(reinterpret_cast<const wchar_t*>(str), num);
+#else
+    return AnyStringToUTF8(str, num);
 #endif
 }
 
@@ -379,7 +414,11 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
 
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const char32_t* str, int num)
 {
-    return AnyStringToMultiByteString(str, num);
+    if(num == -1)
+    {
+        num = static_cast<int>(::std::char_traits<char32_t>::length(str));
+    }
+    return UTF32ToUTF8(reinterpret_cast<const UInt32*>(str), num);
 }
 
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteString(const char32_t* str, int num)
@@ -407,8 +446,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
     IUTEST_UNUSED_VAR(num);
     return CodeConvert<char32_t, char, ::std::mbstate_t>(str);
 #else
-    IUTEST_LOG_(WARNING) << "AnyStringToMultiByteString: convert error";
-    return ToHexString(str, num);
+    return AnyStringToUTF8(str, num);
 #endif
 }
 

@@ -41,7 +41,27 @@ IUTEST_PRAGMA_MSC_WARN_DISABLE(4566)
         , ::iutest::detail::win::WideStringToMultiByteString(L"\U00020BB7", -1));
 
 IUTEST_PRAGMA_MSC_WARN_POP()
+#endif
+}
 
+IUTEST(CharCodeTest, ToUTF8)
+{
+    const char c[5] = {
+        static_cast<char>(0xf0),
+        static_cast<char>(0xa0),
+        static_cast<char>(0xae),
+        static_cast<char>(0xb7),
+        0
+    };
+    IUTEST_EXPECT_STREQ(c, ::iutest::detail::AnyStringToUTF8(L"\U00020BB7", -1));
+#if IUTEST_HAS_CHAR8_T
+    IUTEST_EXPECT_STREQ(c, ::iutest::detail::AnyStringToUTF8(u8"\U00020BB7", -1));
+#endif
+#if IUTEST_HAS_CHAR16_T
+    IUTEST_EXPECT_STREQ(c, ::iutest::detail::AnyStringToUTF8(u"\U00020BB7", -1));
+#endif
+#if IUTEST_HAS_CHAR32_T
+    IUTEST_EXPECT_STREQ(c, ::iutest::detail::AnyStringToUTF8(U"\U00020BB7", -1));
 #endif
 }
 
