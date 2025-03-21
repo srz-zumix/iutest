@@ -246,6 +246,7 @@ for:
   install:
     ps: |
       if($env:PLATFORM -eq "Win32"){
+        $env:MAKE_OPTIONS="DEFS=-D__USE_MINGW_ANSI_STDIO=1"
         $env:MINGW_PATH="C:\mingw\bin"
       } else {
         $env:MAKE_OPTIONS="LIBS=ws2_32"
