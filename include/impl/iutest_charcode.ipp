@@ -189,7 +189,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
         {
             break;
         }
-        else if( i + 1 < num && IsUtf16SurrogatePair(str[i], str[i+1]) )
+        else if( i + 1 < length && IsUtf16SurrogatePair(str[i], str[i+1]) )
         {
             code_point = CreateCodePointFromUtf16SurrogatePair(str[i], str[i+1]);
             ++i;
@@ -230,7 +230,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
         {
             break;
         }
-        else if( i + 1 < num && IsUtf16SurrogatePair(str[i], str[i+1]) )
+        else if( i + 1 < length && IsUtf16SurrogatePair(str[i], str[i+1]) )
         {
             code_point = CreateCodePointFromUtf16SurrogatePair(str[i], str[i+1]);
             ++i;
