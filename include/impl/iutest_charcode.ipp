@@ -178,11 +178,11 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToCurrentACP(const 
 }   // end of namespace win
 #endif
 
-IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF16ToUTF8(const UInt16* str, int num)
+IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF16ToUTF8(const UInt16* str, size_t length)
 {
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
     std::string s;
-    for(int i=0; i < num; ++i )
+    for(size_t i=0; i < length; ++i )
     {
         UInt32 code_point = 0;
         if( str[i] == 0 )
@@ -205,11 +205,11 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 }
 
-IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF32ToUTF8(const UInt32* str, int num)
+IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF32ToUTF8(const UInt32* str, size_t length)
 {
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
     std::string s;
-    for(int i=0; i < num; ++i )
+    for(size_t i=0; i < length; ++i )
     {
         char buf[32];
         s += CodePointToUtf8(str[i], buf, sizeof(buf));
@@ -220,13 +220,10 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 
 IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const wchar_t* str, int num)
 {
-   if(num < 0)
-    {
-        num = static_cast<int>(wcslen(str));
-    }
+    const size_t length = num < 0 ? wcslen(str) : static_cast<size_t>(num);
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
     std::string s;
-    for(int i=0; i < num; ++i )
+    for(size_t i=0; i < length; ++i )
     {
         UInt32 code_point = 0;
         if( str[i] == L'\0' )
@@ -254,15 +251,12 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStr
 #if defined(_MSC_VER) && 0
     return win::WideStringToMultiByteString(str, num);
 #else
-    if(num < 0)
-    {
-        num = wcslen(str);
-    }
+    const size_t length = num < 0 ? wcslen(str) : static_cast<size_t>(num);
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
     {
-        const size_t length = num * static_cast<size_t>(IU_MB_CUR_MAX);
-        char* mbs = new char [length + 1];
-        const size_t written = wcstombs(mbs, str, length);
+        const size_t wcs_length = length * static_cast<size_t>(IU_MB_CUR_MAX);
+        char* mbs = new char [wcs_length + 1];
+        const size_t written = wcstombs(mbs, str, wcs_length);
         if( written != static_cast<size_t>(-1))
         {
             mbs[written] = '\0';
@@ -277,7 +271,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         mbstate_t state = {};
         IUTEST_CHECK_(mbsinit(&state) != 0);
         ::std::string ret;
-        for( int i=0; i < num; ++i )
+        for( size_t i=0; i < length; ++i )
         {
             const size_t len = ::std::wcrtomb(mbs, str[i], &state);
             if( len > 0 && len < IUTEST_PP_COUNTOF(mbs) )
@@ -344,11 +338,8 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const char16_t* str, int num)
 {
-    if(num < 0)
-    {
-        num = static_cast<int>(::std::char_traits<char16_t>::length(str));
-    }
-    return UTF16ToUTF8(reinterpret_cast<const UInt16*>(str), num);
+    const size_t length = num < 0 ? ::std::char_traits<char16_t>::length(str) : static_cast<size_t>(num);
+    return UTF16ToUTF8(reinterpret_cast<const UInt16*>(str), length);
 }
 
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteString(const char16_t* str, int num)
@@ -450,11 +441,8 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const char32_t* str, int num)
 {
-    if(num < 0)
-    {
-        num = static_cast<int>(::std::char_traits<char32_t>::length(str));
-    }
-    return UTF32ToUTF8(reinterpret_cast<const UInt32*>(str), num);
+    const size_t length = num < 0 ? ::std::char_traits<char32_t>::length(str) : static_cast<size_t>(num);
+    return UTF32ToUTF8(reinterpret_cast<const UInt32*>(str), length);
 }
 
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteString(const char32_t* str, int num)
@@ -537,14 +525,11 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToUTF8(const char* str, int num)
 {
 #if (defined(__STDC_ISO_10646__) || defined(_MSC_VER)) && !defined(IUTEST_OS_WINDOWS_MOBILE)
-    if( num < 0 )
-    {
-        num = static_cast<int>(strlen(str));
-    }
+    const size_t length = num < 0 ? strlen(str) : static_cast<size_t>(num);
     ::std::string ret;
     const char* p = str;
     //char* locale = setlocale(LC_CTYPE, "JPN");
-    for(const char* end = str + num; p < end; )
+    for(const char* end = str + length; p < end; )
     {
         wchar_t wc=0;
         const int len = iu_mbtowc(&wc, p, IU_MB_CUR_MAX);
