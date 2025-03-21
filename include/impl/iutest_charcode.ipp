@@ -521,10 +521,12 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
             if( len > 0 )
             {
                 ret += wc;
+                p += len;
             }
             else
             {
                 ret += L'?';
+                ++p;
             }
         }
         return ret;
