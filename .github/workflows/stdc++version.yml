@@ -28,6 +28,11 @@ on:
       - '.circleci/**'
       - '.semaphore/**'
 
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
 jobs:
   stdc-versions-test:
     runs-on: ubuntu-latest

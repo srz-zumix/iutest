@@ -14,6 +14,7 @@ option(build_for_iwyu "for include-what-you-use." OFF)
 option(build_for_clang_tidy "for clang-tidy" OFF)
 
 option(test_output_xml "test result output" ON)
+set(TEST_OUTPUT_DIR "." CACHE STRING "test result output directory")
 
 include(xcode_version.cmake)
 # Xcode workarounds
