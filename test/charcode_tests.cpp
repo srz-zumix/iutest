@@ -19,6 +19,8 @@
 
 #if !defined(IUTEST_USE_GTEST)
 
+#if !IUTEST_HAS_LIB
+
 IUTEST(CharCodeTest, IsUtf16SurrogatePair)
 {
     IUTEST_EXPECT_TRUE(iutest::detail::IsUtf16SurrogatePair(0xD800, 0xDC00));
@@ -26,6 +28,8 @@ IUTEST(CharCodeTest, IsUtf16SurrogatePair)
     IUTEST_EXPECT_FALSE(iutest::detail::IsUtf16SurrogatePair(0xD7FF, 0xDC00));
     IUTEST_EXPECT_FALSE(iutest::detail::IsUtf16SurrogatePair(0xD800, 0xDBFF));
 }
+
+#endif
 
 IUTEST(CharCodeTest, AnyStringToMultiByteStringWchar)
 {
