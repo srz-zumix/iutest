@@ -140,7 +140,7 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 {
     char buffer[4096] = {0};
     char* write_buffer = dst != NULL && size >= 4096 ? dst : buffer;
-    const int ret = vsnprintf(write_buffer, size, format, va);
+    const int ret = vsprintf(write_buffer, format, va);
     if( dst != NULL )
     {
         const size_t length = static_cast<size_t>(ret);
