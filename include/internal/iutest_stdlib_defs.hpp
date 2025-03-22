@@ -763,6 +763,16 @@
 #  define IUTEST_HAS_MKSTEMP                        0
 #endif
 
+#if !defined(IUTEST_NO_VSNPRINTF)
+#  if defined(__CYGWIN__) \
+        && (defined(__STRICT_ANSI__) && (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) && (__cplusplus >= 201103L))
+#    define IUTEST_NO_VSNPRINTF                     1
+#  endif
+#  if (defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)) && defined(__STRICT_ANSI__)
+#    define IUTEST_NO_VSNPRINTF                     1
+#  endif
+#endif
+
 //! size_t format macros
 #if !defined(IUPRzu)
 #  if defined(_MSC_VER) && (_MSC_VER < 1900)
