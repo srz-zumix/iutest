@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2025, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -79,6 +79,8 @@
 // https://www.cocoawithlove.com/2008/03/break-into-debugger.html
 #    if defined(__ppc64__) || defined(__ppc__)
 #      define IUTEST_BREAK()    __asm__("li r0, 20\nsc\nnop\nli r0, 37\nli r4, 2\nsc\nnop\n" : : : "memory", "r0", "r3", "r4" )
+#    elif defined(__aarch64__)
+#      define IUTEST_BREAK()    __asm__(".inst 0xd4200000")
 #    else
 #      define IUTEST_BREAK()    __asm__("int $3\n" : : )
 #    endif
@@ -348,7 +350,7 @@ inline ::std::string GetTypeName()
 #endif
 }
 
-#if !IUTEST_HAS_RTTI
+#if !IUTEST_HAS_RTTI || defined(IUTEST_NO_CHAR8_T_TYPEINFO)
 
 #define IIUT_GeTypeNameSpecialization(type) \
     template<>inline ::std::string GetTypeName<type>() { return #type; }    \
@@ -358,6 +360,14 @@ inline ::std::string GetTypeName()
     IIUT_GeTypeNameSpecialization(type)         \
     IIUT_GeTypeNameSpecialization(unsigned type)
 
+#if IUTEST_NO_CHAR8_T_TYPEINFO
+
+IIUT_GeTypeNameSpecialization(char8_t)  // NOLINT
+
+#endif
+
+#if !IUTEST_HAS_RTTI
+
 IIUT_GeTypeNameSpecialization2(char)    // NOLINT
 IIUT_GeTypeNameSpecialization2(short)   // NOLINT
 IIUT_GeTypeNameSpecialization2(int)     // NOLINT
@@ -365,6 +375,8 @@ IIUT_GeTypeNameSpecialization2(long)    // NOLINT
 IIUT_GeTypeNameSpecialization(float)    // NOLINT
 IIUT_GeTypeNameSpecialization(double)   // NOLINT
 IIUT_GeTypeNameSpecialization(bool)     // NOLINT
+
+#endif
 
 #undef IIUT_GeTypeNameSpecialization
 #undef IIUT_GeTypeNameSpecialization2

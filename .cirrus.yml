@@ -11,9 +11,11 @@ cirrus_gcc_test_task:
     matrix:
       - STDFLAG: -std=c++14
       - STDFLAG: -std=c++17
-      - STDFLAG: -std=c++2a
+      - STDFLAG: -std=c++20
   version_script: make -C test showcxxversion
   # NOTE: -j$((`nproc`)): Container errored with 'OOMKilled'
+  feature_check_script: make -C test showcxxmacros
+  stdlib_check_script: make -C test check_stdlib showstdlbfeatures
   build_script: make -C test -j4
   test_script: make -C test test
   report_script: make -C test report
@@ -41,27 +43,33 @@ cirrus_use_lib_task:
   depends_on:
     - cirrus_gcc_test
 
-cirrus_osx_14_test_task: &osx_task
+cirrus_osx_17_test_task: &osx_task
   only_if: *default-condition
   auto_cancellation: true
   osx_instance:
-    image: catalina-xcode
+    image: ghcr.io/cirruslabs/macos-ventura-base:latest
   env:
-    - STDFLAG: -std=c++14
+    - STDFLAG: -std=c++17
   version_script: make -C test showcxxversion
+  feature_check_script: make -C test showcxxmacros
+  stdlib_check_script: make -C test check_stdlib showstdlbfeatures
   build_script: make -C test -j$((`getconf _NPROCESSORS_ONLN`))
   test_script : make -C test test
   report_script: make -C test report
 
-cirrus_osx_17_test_task:
+cirrus_osx_14_test_task:
   <<: *osx_task
   env:
-    - STDFLAG: -std=c++17
-    # https://stackoverflow.com/questions/56924853/why-xcode-11-beta-cant-use-c17s-filesystem-header
-    # ** Comment out because the image is mojave **
-    # CXXFLAGS: -mmacosx-version-min=10.15
+    - STDFLAG: -std=c++14
   depends_on:
-    - cirrus_osx_14_test
+    - cirrus_osx_17_test
+
+cirrus_osx_20_test_task:
+  <<: *osx_task
+  env:
+    - STDFLAG: -std=c++20
+  depends_on:
+    - cirrus_osx_17_test
 
 # cirrus_worker_info_task:
 #   container:
@@ -71,15 +79,16 @@ cirrus_osx_17_test_task:
 cirrus_freebsd_clang_test_task:
   only_if: *default-condition
   freebsd_instance:
-    image_family: freebsd-12-1-snap
-    # image_family: freebsd-13-0-snap
+    image_family: freebsd-15-0-snap
   env:
     matrix:
       - STDFLAG: -std=c++14
       - STDFLAG: -std=c++17
-      - STDFLAG: -std=c++2a
+      - STDFLAG: -std=c++20
   install_script: pkg install -y gmake
   version_script: gmake --version && gmake -C test showcxxversion
+  feature_check_script: gmake -C test showcxxmacros
+  stdlib_check_script: gmake -C test check_stdlib showstdlbfeatures
   build_script: gmake -C test -j4
   test_script : gmake -C test test
   report_script: gmake -C test report

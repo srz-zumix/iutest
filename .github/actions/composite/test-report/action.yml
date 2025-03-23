@@ -4,15 +4,19 @@ inputs:
   report_paths:
     description: 'test report path'
     required: true
+  token:
+    description: 'github token'
+    default: ${{ github.token }}
 
 runs:
   using: "composite"
   steps:
     - name: Test Report
-      uses: mikepenz/action-junit-report@v2
+      uses: mikepenz/action-junit-report@v5
       with:
         report_paths: "${{ inputs.report_paths }}"
+        token: ${{ inputs.token }}
     - name: Test Summary
-      uses: test-summary/action@v1
+      uses: test-summary/action@v2
       with:
         paths: "${{ inputs.report_paths }}"

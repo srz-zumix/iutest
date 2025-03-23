@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2023, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -230,8 +230,7 @@ IUTEST_PRAGMA_WARN_DISABLE_FORMAT_NONLITERAL()
         static int vastring(E* dst, const E* fmt, va_list va);
         static int vastring(char* dst, size_t len, const char* fmt, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 0)
         {
-            (void)len;
-            return vsprintf(dst, fmt, va);
+            return vsnprintf(dst, len, fmt, va);
         }
         static int vastring(wchar_t* dst, size_t len, const wchar_t* fmt, va_list va)
         {
