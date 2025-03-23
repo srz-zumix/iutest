@@ -294,435 +294,436 @@ $(function() {
 <div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;            , m_before_origin_random_seed(0)</div>
 <div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;            , m_repeat_count(1)</div>
 <div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;            , m_testpartresult_reporter(NULL)</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        {}</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>        m_random_seed;</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>        m_current_random_seed;</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>        m_before_origin_random_seed;</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        <span class="keywordtype">int</span>                 m_repeat_count;</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;        <a class="code" href="../../d2/d42/classiutest_1_1_test_env_1_1_state_variable.html">StateVariable&lt; ::std::string &gt;</a>  m_output_option;</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        ::std::string       m_test_filter;</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;        ::std::string       m_flagfile;</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STREAM_RESULT</span></div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;        <a class="code" href="../../d2/d42/classiutest_1_1_test_env_1_1_state_variable.html">StateVariable&lt; ::std::string &gt;</a>  m_stream_result_to;</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        ::std::string       m_default_package_name;</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        detail::iuRandom    m_genrand;</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;        iuEnvironmentList   m_environment_list;</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        <a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html">TestEventListeners</a>  m_event_listeners;</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;        <a class="code" href="../../dc/d5e/classiutest_1_1_test_part_result_reporter_interface.html">TestPartResultReporterInterface</a>*    m_testpartresult_reporter;</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM</span></div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        iu_stringstream     m_ostream_formatter;</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;        ::std::string       m_locale_ctype;</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    };</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160; </div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    <span class="keyword">static</span> Variable&amp; get_vars() { <span class="keyword">static</span> Variable sVars; <span class="keywordflow">return</span> sVars; }</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160; </div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>*          get_output_option_c_str() { <span class="keywordflow">return</span> get_vars().m_output_option.get().c_str(); }</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STREAM_RESULT</span></div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>*          get_stream_result_to_c_str() { <span class="keywordflow">return</span> get_vars().m_stream_result_to.get().c_str(); }</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160; </div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    <span class="keyword">static</span> detail::iuRandom&amp;    <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a9f187ecf76c59e5b77dbc39bf454dd22">genrand</a>() { <span class="keywordflow">return</span> get_vars().m_genrand; }              </div>
-<div class="line"><a name="l00354"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#a9f187ecf76c59e5b77dbc39bf454dd22">  354</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>         <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#ac45dd301c78db3de83b0c1e3ee177a83">get_random_seed</a>() { <span class="keywordflow">return</span> get_vars().m_random_seed; }              </div>
-<div class="line"><a name="l00355"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#ac45dd301c78db3de83b0c1e3ee177a83">  355</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>         <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#ab84ca4d3ed8482904d418bf76ebdb656">current_random_seed</a>() { <span class="keywordflow">return</span> get_vars().m_current_random_seed; }  </div>
-<div class="line"><a name="l00356"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#ab84ca4d3ed8482904d418bf76ebdb656">  356</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span>                  <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a96f7e9e3229ebd7f29573f26c1d7173e">get_repeat_count</a>() { <span class="keywordflow">return</span> get_vars().m_repeat_count; }            </div>
-<div class="line"><a name="l00357"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#a96f7e9e3229ebd7f29573f26c1d7173e">  357</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="../../d2/d42/classiutest_1_1_test_env_1_1_state_variable.html">StateVariable&lt; ::std::string &gt;</a>&amp; <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a4a2b375cb3b8dd1e97f5746384cd2130">get_output_option</a>() { <span class="keywordflow">return</span> get_vars().m_output_option; }  </div>
-<div class="line"><a name="l00358"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#a4a2b375cb3b8dd1e97f5746384cd2130">  358</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>*          <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a2109bd04603abf8cf57114fabe0add80">get_default_package_name</a>() { <span class="keywordflow">return</span> get_vars().m_default_package_name.c_str(); }    </div>
-<div class="line"><a name="l00359"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#a2109bd04603abf8cf57114fabe0add80">  359</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>*          <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a5908831d1f400180f97a687ec1d21928">test_filter</a>() { <span class="keywordflow">return</span> get_vars().m_test_filter.c_str(); }      </div>
-<div class="line"><a name="l00360"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#a5908831d1f400180f97a687ec1d21928">  360</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>*          <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a3dff21f193032a3e9ba2dbadf555be45">get_flagfile</a>() { <span class="keywordflow">return</span> get_vars().m_flagfile.c_str(); }        </div>
-<div class="line"><a name="l00361"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#a3dff21f193032a3e9ba2dbadf555be45">  361</a></span>&#160;<span class="preprocessor">#if IUTEST_HAS_STREAM_RESULT</span></div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="../../d2/d42/classiutest_1_1_test_env_1_1_state_variable.html">StateVariable&lt; ::std::string &gt;</a>&amp; get_stream_result_to() { <span class="keywordflow">return</span> get_vars().m_stream_result_to; }</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM</span></div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span>                 global_ostream_copyfmt(iu_ostream&amp; os) { os.copyfmt(get_vars().m_ostream_formatter); }  <span class="comment">// NOLINT</span></div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>*          <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a21c71821471bc6e9c5418c575be2c6dc">get_locale_ctype</a>() { <span class="keywordflow">return</span> get_vars().m_locale_ctype.c_str(); }    </div>
-<div class="line"><a name="l00368"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#a21c71821471bc6e9c5418c575be2c6dc">  368</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span>                 is_specific_locale_ctype() { <span class="keywordflow">return</span> !get_vars().m_locale_ctype.empty(); }</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160; </div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    static ::std::string <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#af1e05e9d523724f9210f149583226179">get_report_xml_filepath</a>();</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    static ::std::string <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a4da536e15bf20b8e5d4a82f84c6fafe4">get_report_junit_xml_filepath</a>();</div>
-<div class="line"><a name="l00378"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#a4da536e15bf20b8e5d4a82f84c6fafe4">  378</a></span>&#160; </div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    <span class="keyword">static</span> <a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html">TestEventListeners</a>&amp; event_listeners() { <span class="keywordflow">return</span> get_vars().m_event_listeners; }</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    <span class="keyword">static</span> <a class="code" href="../../dc/d5e/classiutest_1_1_test_part_result_reporter_interface.html">TestPartResultReporterInterface</a>* GetGlobalTestPartResultReporter()</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    {</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;        <span class="keywordflow">return</span> get_vars().m_testpartresult_reporter;</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;    }</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> SetGlobalTestPartResultReporter(TestPartResultReporterInterface* ptr)</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    {</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;        get_vars().m_testpartresult_reporter = ptr;</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    }</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> has_output_option()</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    {</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;        <span class="keywordflow">return</span> !get_vars().m_output_option.get().empty();</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    }</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> is_output_option_dirty()</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    {</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;        <span class="keywordflow">return</span> get_vars().m_output_option.is_dirty();</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    }</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> flush_output_option()</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    {</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        get_vars().m_output_option.flush();</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    }</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160; </div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> init_random(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> seed)</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    {</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;        get_vars().m_random_seed = seed;</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    }</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160; </div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> set_repeat_count(<span class="keywordtype">int</span> count)</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    {</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;        get_vars().m_repeat_count = count;</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    }</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160; </div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> set_test_filter(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)</div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    {</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        get_vars().m_test_filter = str == NULL ? <span class="stringliteral">&quot;*&quot;</span> : str;</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;        <a class="code" href="../../d8/d00/classiutest_1_1_test_flag.html#aadd952de9809e7bfb8fcd5e2a11847f7">TestFlag::SetFlag</a>(<a class="code" href="../../d8/d00/classiutest_1_1_test_flag.html#a397f885a4bd35c356163b4cf0eab2ac8a0ecd8271165109eb1c27c8764bd18224">TestFlag::FILTERING_TESTS</a>);</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    }</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160; </div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> set_flagfile_path(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    {</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;        get_vars().m_flagfile = str;</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;    }</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160; </div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> set_flagfile(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)</div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    {</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;        ParseFlagFileOption(str);</div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;        <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#aa78aa2f004d67eeabecfb1ac74648701">LoadFlagFile</a>();</div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;    }</div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160; </div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STREAM_RESULT</span></div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> set_stream_result_to(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)</div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;    {</div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;        get_vars().m_stream_result_to = detail::NullableString(str);</div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;    }</div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160; </div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* get_color_option()</div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;    {</div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;        <span class="keywordflow">if</span>( <a class="code" href="../../d8/d00/classiutest_1_1_test_flag.html#aa8b8153e11a8439174a98058eb54274f">TestFlag::IsEnableFlag</a>(<a class="code" href="../../d8/d00/classiutest_1_1_test_flag.html#a397f885a4bd35c356163b4cf0eab2ac8a0540fd4b4bb914346bfaeb8a6ac45bd5">TestFlag::CONSOLE_COLOR_ANSI</a>) )</div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;        {</div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;ansi&quot;</span>;</div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;        }</div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>( <a class="code" href="../../d8/d00/classiutest_1_1_test_flag.html#aa8b8153e11a8439174a98058eb54274f">TestFlag::IsEnableFlag</a>(<a class="code" href="../../d8/d00/classiutest_1_1_test_flag.html#a397f885a4bd35c356163b4cf0eab2ac8a9a6814f5b69d8d425dee27e3c75aee39">TestFlag::CONSOLE_COLOR_ON</a>) )</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;        {</div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;yes&quot;</span>;</div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;        }</div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>( <a class="code" href="../../d8/d00/classiutest_1_1_test_flag.html#aa8b8153e11a8439174a98058eb54274f">TestFlag::IsEnableFlag</a>(<a class="code" href="../../d8/d00/classiutest_1_1_test_flag.html#a397f885a4bd35c356163b4cf0eab2ac8a21505f9122e7353f358be4d658249305">TestFlag::CONSOLE_COLOR_OFF</a>) )</div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;        {</div>
-<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;no&quot;</span>;</div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;        }</div>
-<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;auto&quot;</span>;</div>
-<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;    }</div>
-<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> set_color_option(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)</div>
-<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;    {</div>
-<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;        ParseColorOption(str);</div>
-<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;    }</div>
-<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160; </div>
-<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> set_output_option(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)</div>
-<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;    {</div>
-<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;        get_vars().m_output_option = detail::NullableString(str);</div>
-<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;    }</div>
-<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160; </div>
-<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> set_default_package_name(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)</div>
-<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;    {</div>
-<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;        get_vars().m_default_package_name = detail::NullableString(str);</div>
-<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;    }</div>
-<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160; </div>
-<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> set_locale_ctype(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)</div>
-<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;    {</div>
-<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;        get_vars().m_locale_ctype = detail::NullableString(str);</div>
-<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;    }</div>
-<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160; </div>
-<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* (*pfnOptionStringGet)();</div>
-<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;    <span class="keyword">typedef</span> void(*pfnOptionStringSet)(<span class="keyword">const</span> <span class="keywordtype">char</span>*);</div>
-<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;    <span class="keyword">template</span>&lt;pfnOptionStringGet G, pfnOptionStringSet S&gt;</div>
-<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;    <span class="keyword">class </span>OptionString</div>
-<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;    {</div>
-<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;        <span class="keyword">typedef</span> OptionString&lt;G, S&gt; _Myt;</div>
-<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;        <span class="keyword">typedef</span> <span class="keyword">const</span> _Myt&amp; _Argt;</div>
-<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;    <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;        ::std::string m_option;</div>
-<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;        <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator == (<span class="keyword">const</span> <span class="keywordtype">char</span>* c_str_, _Argt rhs)         { <span class="keywordflow">return</span> rhs.m_option == c_str_; }</div>
-<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;        <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator == (const ::std::string&amp; str, _Argt rhs)   { <span class="keywordflow">return</span> rhs.m_option == str; }</div>
-<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;        <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator == (_Argt lhs, <span class="keyword">const</span> <span class="keywordtype">char</span>* c_str_)         { <span class="keywordflow">return</span> lhs.m_option == c_str_; }</div>
-<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;        <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator == (_Argt lhs, const ::std::string&amp; str)   { <span class="keywordflow">return</span> lhs.m_option == str; }</div>
-<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;        <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator != (<span class="keyword">const</span> <span class="keywordtype">char</span>* c_str_, _Argt rhs)         { <span class="keywordflow">return</span> rhs.m_option != c_str_; }</div>
-<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;        <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator != (const ::std::string&amp; str, _Argt rhs)   { <span class="keywordflow">return</span> rhs.m_option != str; }</div>
-<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;        <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator != (_Argt lhs, <span class="keyword">const</span> <span class="keywordtype">char</span>* c_str_)         { <span class="keywordflow">return</span> lhs.m_option != c_str_; }</div>
-<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;        <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator != (_Argt lhs, const ::std::string&amp; str)   { <span class="keywordflow">return</span> lhs.m_option != str; }</div>
-<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160; </div>
-<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;        operator ::std::string()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_option; }</div>
-<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;        <span class="keywordtype">bool</span> empty()<span class="keyword"> const          </span>{ <span class="keywordflow">return</span> m_option.empty(); }</div>
-<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span>* c_str()<span class="keyword"> const   </span>{ <span class="keywordflow">return</span> m_option.c_str(); }</div>
-<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;        <span class="keywordtype">size_t</span> length()<span class="keyword"> const       </span>{ <span class="keywordflow">return</span> m_option.length(); }</div>
-<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;        OptionString()</div>
-<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;            : m_option(G())</div>
-<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;        {</div>
-<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;        }</div>
-<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;        <span class="keyword">const</span> _Myt&amp; operator = (<span class="keyword">const</span> <span class="keywordtype">char</span>* c_str_)</div>
-<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;        {</div>
-<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;            m_option = detail::NullableString(c_str_);</div>
-<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;            S(c_str_);</div>
-<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;        }</div>
-<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;        <span class="keyword">const</span> _Myt&amp; operator = (const ::std::string&amp; str)</div>
-<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;        {</div>
-<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;            m_option = str;</div>
-<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;            S(str.c_str());</div>
-<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;        }</div>
-<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;    };</div>
-<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160; </div>
-<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;    <span class="keyword">typedef</span> OptionString&lt;get_color_option, set_color_option&gt; color;</div>
-<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160; </div>
-<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;    <span class="keyword">typedef</span> OptionString&lt;test_filter, set_test_filter&gt; filter;</div>
-<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160; </div>
-<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;    <span class="keyword">typedef</span> OptionString&lt;get_flagfile, set_flagfile&gt; flagfile;</div>
-<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160; </div>
-<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;    <span class="keyword">typedef</span> OptionString&lt;get_output_option_c_str, set_output_option&gt; output;</div>
-<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160; </div>
-<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STREAM_RESULT</span></div>
-<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;    <span class="keyword">typedef</span> OptionString&lt;get_stream_result_to_c_str, set_stream_result_to&gt; stream_result_to;</div>
-<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160; </div>
-<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;    <span class="keyword">typedef</span> OptionString&lt;get_default_package_name, set_default_package_name&gt; default_package_name;</div>
-<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160; </div>
-<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;    <span class="keyword">typedef</span> OptionString&lt;get_locale_ctype, set_locale_ctype&gt; locale_ctype;</div>
-<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160; </div>
-<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM</span></div>
-<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">class </span>OStreamFormatter : <span class="keyword">public</span> iu_stringstream</div>
-<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;    {</div>
-<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;        IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()</div>
-<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;    public:</div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;        OStreamFormatter()</div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;        {</div>
-<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;            copyfmt(get_vars().m_ostream_formatter);</div>
-<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;        }</div>
-<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;        <span class="keyword">virtual</span> ~OStreamFormatter()</div>
-<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;        {</div>
-<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;            get_vars().m_ostream_formatter.copyfmt(*<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;        }</div>
-<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;    } ostream_formatter;</div>
-<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160; </div>
-<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;<span class="preprocessor">#if defined(IUTEST_NO_PRIVATE_IN_AGGREGATE)</span></div>
-<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>OStreamFormatter;</div>
-<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160; </div>
-<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160; </div>
-<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;    <span class="keyword">static</span> iuEnvironmentList&amp; environments() { <span class="keywordflow">return</span> get_vars().m_environment_list; }</div>
-<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160; </div>
-<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;    <span class="keyword">static</span> Environment* <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#aa4ad04d5148c7d8226ae00b8ae53ac77">AddGlobalTestEnvironment</a>(Environment* env)</div>
-<div class="line"><a name="l00635"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#aa4ad04d5148c7d8226ae00b8ae53ac77">  635</a></span>&#160;    {</div>
-<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;        <span class="keywordflow">if</span>( env == NULL )</div>
-<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;        {</div>
-<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;            <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;        }</div>
-<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;        environments().push_back(env);</div>
-<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;        <span class="keywordflow">return</span> env;</div>
-<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;    }</div>
-<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160; </div>
-<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;    <span class="keyword">static</span> <a class="code" href="../../d3/d17/classiutest_1_1_environment.html">Environment</a>* ReleaseGlobalTestEnvironment(<a class="code" href="../../d3/d17/classiutest_1_1_environment.html">Environment</a>* env)</div>
-<div class="line"><a name="l00650"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#a3972fd7b7e3b611a41c840ab249f85d2">  650</a></span>&#160;    {</div>
-<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;        <span class="keywordflow">if</span>( env == NULL )</div>
-<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;        {</div>
-<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;            <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;        }</div>
-<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;        iuEnvironmentList&amp; list = environments();</div>
-<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;        iuEnvironmentList::iterator it = ::std::find(list.begin(), list.end(), env);</div>
-<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;        <span class="keywordflow">if</span>( it == list.end() )</div>
-<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;        {</div>
-<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;            <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;        }</div>
-<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;        list.erase(it);</div>
-<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;        <span class="keywordflow">return</span> env;</div>
-<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;    }</div>
-<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160; </div>
-<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;    static ::std::string <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#af1aed0bd741f7b3213025c95fecd6fae">AddDefaultPackageName</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* testsuite_name);</div>
-<div class="line"><a name="l00669"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#af1aed0bd741f7b3213025c95fecd6fae">  669</a></span>&#160; </div>
-<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a3972fd7b7e3b611a41c840ab249f85d2">ReleaseGlobalTestEnvironment</a>()</div>
-<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;    {</div>
-<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;        <span class="comment">// すべて解放する</span></div>
-<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;        <span class="keywordflow">for</span>( iuEnvironmentList::iterator it=environments().begin(); it != environments().end(); )</div>
-<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;        {</div>
-<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;            <a class="code" href="../../d3/d17/classiutest_1_1_environment.html">Environment</a>* p = *it;</div>
-<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;            it = environments().erase(it);</div>
-<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;            <span class="keyword">delete</span> p;</div>
-<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;        }</div>
-<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;    }</div>
-<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160; </div>
-<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> CharType&gt;</div>
-<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> ParseCommandLine(<span class="keywordtype">int</span>* pargc, CharType** argv)</div>
-<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;    {</div>
-<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;        <span class="keywordflow">if</span>( argv == NULL )</div>
-<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;        {</div>
-<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;            <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;        }</div>
-<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;        <span class="keywordtype">int</span> argc = *pargc;</div>
-<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160; </div>
-<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;        <span class="keywordflow">for</span>( <span class="keywordtype">int</span> i=0; i &lt; argc; )</div>
-<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;        {</div>
-<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;            <span class="keywordflow">if</span>( ParseCommandLineElem(argv[i]) )</div>
-<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;            {</div>
-<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;                --argc;</div>
-<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;                <span class="comment">// 見つかった場合、オプションを末尾に移動</span></div>
-<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;                <span class="keywordflow">for</span>( <span class="keywordtype">int</span> k=i; k &lt; argc; ++k )</div>
-<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;                {</div>
-<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;                    CharType* tmp = argv[k];</div>
-<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;                    argv[k] = argv[k+1];</div>
-<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;                    argv[k+1] = tmp;</div>
-<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;                }</div>
-<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;            }</div>
-<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;            {</div>
-<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;                ++i;</div>
-<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;            }</div>
-<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;        }</div>
-<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;        *pargc = argc;</div>
-<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;    }</div>
-<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160; </div>
-<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> CharType&gt;</div>
-<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> ParseCommandLine(::std::vector&lt; ::std::basic_string&lt;CharType&gt; &gt;&amp; argv)</div>
-<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;    {</div>
-<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;        typedef ::std::vector&lt; ::std::basic_string&lt;CharType&gt; &gt; argv_t;</div>
-<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;        <span class="keywordflow">for</span>( <span class="keyword">typename</span> argv_t::iterator it = argv.begin(); it != argv.end(); )</div>
-<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;        {</div>
-<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;            <span class="keywordflow">if</span>( ParseCommandLineElem(it-&gt;c_str()) )</div>
-<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;            {</div>
-<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;                it = argv.erase(it);</div>
-<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;            }</div>
-<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;            {</div>
-<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;                ++it;</div>
-<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;            }</div>
-<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;        }</div>
-<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;    }</div>
-<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160; </div>
-<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#aa78aa2f004d67eeabecfb1ac74648701">LoadFlagFile</a>();</div>
-<div class="line"><a name="l00743"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#aa78aa2f004d67eeabecfb1ac74648701">  743</a></span>&#160; </div>
-<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> CharType&gt;</div>
-<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> ParseCommandLineElem(CharType* argv)</div>
-<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;    {</div>
-<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;        <span class="keyword">typedef</span> <span class="keyword">typename</span> detail::mbs_ptr&lt;CharType&gt; formatter;</div>
-<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160; </div>
-<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;        formatter argv_format;</div>
-<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span>* str = argv_format.ptr(argv);</div>
-<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;        <span class="keywordflow">return</span> ParseCommandLineElemA(str);</div>
-<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;    }</div>
-<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> ParseCommandLineElemA(<span class="keyword">const</span> <span class="keywordtype">char</span>* str);</div>
-<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> ParseIutestOptionCommandLineElemA(<span class="keyword">const</span> <span class="keywordtype">char</span>* str);</div>
-<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> SetFlag(<span class="keywordtype">int</span> enable, <span class="keywordtype">int</span> mask = -1);</div>
-<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160; </div>
-<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> LoadEnvironmentVariable();</div>
-<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160; </div>
-<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> SetUp();</div>
-<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160; </div>
-<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* ParseOptionSettingStr(<span class="keyword">const</span> <span class="keywordtype">char</span>* opt)</div>
-<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;    {</div>
-<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span>* eq = strchr(opt, <span class="charliteral">&#39;=&#39;</span>);</div>
-<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;        <span class="keywordflow">if</span>( eq == NULL )</div>
-<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;        {</div>
-<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;            <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;        }</div>
-<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;        <span class="keywordflow">return</span> eq+1;</div>
-<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;    }</div>
-<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> ParseColorOption(<span class="keyword">const</span> <span class="keywordtype">char</span>* option);</div>
-<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160; </div>
-<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> ParseOutputOption(<span class="keyword">const</span> <span class="keywordtype">char</span>* option);</div>
-<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160; </div>
-<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> ParseFileLocationOption(<span class="keyword">const</span> <span class="keywordtype">char</span>* option);</div>
-<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160; </div>
-<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> ParseFilterOption(<span class="keyword">const</span> <span class="keywordtype">char</span>* option);</div>
-<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160; </div>
-<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> ParseFlagFileOption(<span class="keyword">const</span> <span class="keywordtype">char</span>* option);</div>
-<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160; </div>
-<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> ParseYesNoFlagCommandLine(<span class="keyword">const</span> <span class="keywordtype">char</span>* str, <a class="code" href="../../d8/d00/classiutest_1_1_test_flag.html#a397f885a4bd35c356163b4cf0eab2ac8">TestFlag::Kind</a> flag, <span class="keywordtype">int</span> def);</div>
-<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160; </div>
-<div class="line"><a name="l00823"></a><span class="lineno">  823</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> ParseYesNoOption(<span class="keyword">const</span> <span class="keywordtype">char</span>* option);</div>
-<div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160; </div>
-<div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> IsYes(<span class="keyword">const</span> <span class="keywordtype">char</span>* option);</div>
-<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> IsNo(<span class="keyword">const</span> <span class="keywordtype">char</span>* option);</div>
-<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160; </div>
-<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>UnitTest;</div>
-<div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;};</div>
-<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160; </div>
-<div class="line"><a name="l00841"></a><span class="lineno">  841</span>&#160;<span class="keyword">class </span>iu_global_format_stringstream : <span class="keyword">public</span> iu_stringstream</div>
-<div class="line"><a name="l00842"></a><span class="lineno"><a class="line" href="../../d0/dc6/classiutest_1_1iu__global__format__stringstream.html">  842</a></span>&#160;{</div>
-<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;    IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()</div>
-<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160;    <a class="code" href="../../d0/dc6/classiutest_1_1iu__global__format__stringstream.html">iu_global_format_stringstream</a>()</div>
-<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;    {</div>
-<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM</span></div>
-<div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;        TestEnv::global_ostream_copyfmt(*<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;    }</div>
-<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="../../d0/dc6/classiutest_1_1iu__global__format__stringstream.html">iu_global_format_stringstream</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)</div>
-<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;        : iu_stringstream(str)</div>
-<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;    {</div>
-<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM</span></div>
-<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;        TestEnv::global_ostream_copyfmt(*<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;    }</div>
-<div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="../../d0/dc6/classiutest_1_1iu__global__format__stringstream.html">iu_global_format_stringstream</a>(const ::std::string&amp; str)</div>
-<div class="line"><a name="l00859"></a><span class="lineno">  859</span>&#160;        : iu_stringstream(str)</div>
-<div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;    {</div>
-<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM</span></div>
-<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;        TestEnv::global_ostream_copyfmt(*<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;    }</div>
-<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;};</div>
-<div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160; </div>
-<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;<span class="keyword">inline</span> iu_ostream&amp; operator &lt;&lt; (iu_ostream&amp; os, <span class="keyword">const</span> <a class="code" href="../../d2/d42/classiutest_1_1_test_env_1_1_state_variable.html">TestEnv::StateVariable&lt;T&gt;</a>&amp; value)</div>
-<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;{</div>
-<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;    <span class="keywordflow">return</span> os &lt;&lt; value.get();</div>
-<div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;}</div>
-<div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160; </div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;            , m_locale_ctype(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        {}</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>        m_random_seed;</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>        m_current_random_seed;</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>        m_before_origin_random_seed;</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;        <span class="keywordtype">int</span>                 m_repeat_count;</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        <a class="code" href="../../d2/d42/classiutest_1_1_test_env_1_1_state_variable.html">StateVariable&lt; ::std::string &gt;</a>  m_output_option;</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;        ::std::string       m_test_filter;</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;        ::std::string       m_flagfile;</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STREAM_RESULT</span></div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        <a class="code" href="../../d2/d42/classiutest_1_1_test_env_1_1_state_variable.html">StateVariable&lt; ::std::string &gt;</a>  m_stream_result_to;</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        ::std::string       m_default_package_name;</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;        detail::iuRandom    m_genrand;</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        iuEnvironmentList   m_environment_list;</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;        <a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html">TestEventListeners</a>  m_event_listeners;</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        <a class="code" href="../../dc/d5e/classiutest_1_1_test_part_result_reporter_interface.html">TestPartResultReporterInterface</a>*    m_testpartresult_reporter;</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM</span></div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;        iu_stringstream     m_ostream_formatter;</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;        ::std::string       m_locale_ctype;</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    };</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160; </div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    <span class="keyword">static</span> Variable&amp; get_vars() { <span class="keyword">static</span> Variable sVars; <span class="keywordflow">return</span> sVars; }</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160; </div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>*          get_output_option_c_str() { <span class="keywordflow">return</span> get_vars().m_output_option.get().c_str(); }</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STREAM_RESULT</span></div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>*          get_stream_result_to_c_str() { <span class="keywordflow">return</span> get_vars().m_stream_result_to.get().c_str(); }</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160; </div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;    <span class="keyword">static</span> detail::iuRandom&amp;    <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a9f187ecf76c59e5b77dbc39bf454dd22">genrand</a>() { <span class="keywordflow">return</span> get_vars().m_genrand; }              </div>
+<div class="line"><a name="l00355"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#a9f187ecf76c59e5b77dbc39bf454dd22">  355</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>         <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#ac45dd301c78db3de83b0c1e3ee177a83">get_random_seed</a>() { <span class="keywordflow">return</span> get_vars().m_random_seed; }              </div>
+<div class="line"><a name="l00356"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#ac45dd301c78db3de83b0c1e3ee177a83">  356</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>         <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#ab84ca4d3ed8482904d418bf76ebdb656">current_random_seed</a>() { <span class="keywordflow">return</span> get_vars().m_current_random_seed; }  </div>
+<div class="line"><a name="l00357"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#ab84ca4d3ed8482904d418bf76ebdb656">  357</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span>                  <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a96f7e9e3229ebd7f29573f26c1d7173e">get_repeat_count</a>() { <span class="keywordflow">return</span> get_vars().m_repeat_count; }            </div>
+<div class="line"><a name="l00358"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#a96f7e9e3229ebd7f29573f26c1d7173e">  358</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="../../d2/d42/classiutest_1_1_test_env_1_1_state_variable.html">StateVariable&lt; ::std::string &gt;</a>&amp; <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a4a2b375cb3b8dd1e97f5746384cd2130">get_output_option</a>() { <span class="keywordflow">return</span> get_vars().m_output_option; }  </div>
+<div class="line"><a name="l00359"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#a4a2b375cb3b8dd1e97f5746384cd2130">  359</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>*          <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a2109bd04603abf8cf57114fabe0add80">get_default_package_name</a>() { <span class="keywordflow">return</span> get_vars().m_default_package_name.c_str(); }    </div>
+<div class="line"><a name="l00360"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#a2109bd04603abf8cf57114fabe0add80">  360</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>*          <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a5908831d1f400180f97a687ec1d21928">test_filter</a>() { <span class="keywordflow">return</span> get_vars().m_test_filter.c_str(); }      </div>
+<div class="line"><a name="l00361"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#a5908831d1f400180f97a687ec1d21928">  361</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>*          <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a3dff21f193032a3e9ba2dbadf555be45">get_flagfile</a>() { <span class="keywordflow">return</span> get_vars().m_flagfile.c_str(); }        </div>
+<div class="line"><a name="l00362"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#a3dff21f193032a3e9ba2dbadf555be45">  362</a></span>&#160;<span class="preprocessor">#if IUTEST_HAS_STREAM_RESULT</span></div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="../../d2/d42/classiutest_1_1_test_env_1_1_state_variable.html">StateVariable&lt; ::std::string &gt;</a>&amp; get_stream_result_to() { <span class="keywordflow">return</span> get_vars().m_stream_result_to; }</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM</span></div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span>                 global_ostream_copyfmt(iu_ostream&amp; os) { os.copyfmt(get_vars().m_ostream_formatter); }  <span class="comment">// NOLINT</span></div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>*          <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a21c71821471bc6e9c5418c575be2c6dc">get_locale_ctype</a>() { <span class="keywordflow">return</span> get_vars().m_locale_ctype.c_str(); }    </div>
+<div class="line"><a name="l00369"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#a21c71821471bc6e9c5418c575be2c6dc">  369</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span>                 is_specific_locale_ctype() { <span class="keywordflow">return</span> !get_vars().m_locale_ctype.empty(); }</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160; </div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    static ::std::string <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#af1e05e9d523724f9210f149583226179">get_report_xml_filepath</a>();</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    static ::std::string <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a4da536e15bf20b8e5d4a82f84c6fafe4">get_report_junit_xml_filepath</a>();</div>
+<div class="line"><a name="l00379"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#a4da536e15bf20b8e5d4a82f84c6fafe4">  379</a></span>&#160; </div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    <span class="keyword">static</span> <a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html">TestEventListeners</a>&amp; event_listeners() { <span class="keywordflow">return</span> get_vars().m_event_listeners; }</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    <span class="keyword">static</span> <a class="code" href="../../dc/d5e/classiutest_1_1_test_part_result_reporter_interface.html">TestPartResultReporterInterface</a>* GetGlobalTestPartResultReporter()</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    {</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;        <span class="keywordflow">return</span> get_vars().m_testpartresult_reporter;</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    }</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> SetGlobalTestPartResultReporter(TestPartResultReporterInterface* ptr)</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;    {</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;        get_vars().m_testpartresult_reporter = ptr;</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    }</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> has_output_option()</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    {</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;        <span class="keywordflow">return</span> !get_vars().m_output_option.get().empty();</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    }</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> is_output_option_dirty()</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    {</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;        <span class="keywordflow">return</span> get_vars().m_output_option.is_dirty();</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    }</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> flush_output_option()</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    {</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;        get_vars().m_output_option.flush();</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    }</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160; </div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> init_random(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> seed)</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;    {</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;        get_vars().m_random_seed = seed;</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    }</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160; </div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> set_repeat_count(<span class="keywordtype">int</span> count)</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    {</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;        get_vars().m_repeat_count = count;</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    }</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160; </div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> set_test_filter(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;    {</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;        get_vars().m_test_filter = str == NULL ? <span class="stringliteral">&quot;*&quot;</span> : str;</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;        <a class="code" href="../../d8/d00/classiutest_1_1_test_flag.html#aadd952de9809e7bfb8fcd5e2a11847f7">TestFlag::SetFlag</a>(<a class="code" href="../../d8/d00/classiutest_1_1_test_flag.html#a397f885a4bd35c356163b4cf0eab2ac8a0ecd8271165109eb1c27c8764bd18224">TestFlag::FILTERING_TESTS</a>);</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;    }</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160; </div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> set_flagfile_path(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;    {</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;        get_vars().m_flagfile = str;</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    }</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160; </div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> set_flagfile(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    {</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;        ParseFlagFileOption(str);</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;        <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#aa78aa2f004d67eeabecfb1ac74648701">LoadFlagFile</a>();</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;    }</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160; </div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STREAM_RESULT</span></div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> set_stream_result_to(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;    {</div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;        get_vars().m_stream_result_to = detail::NullableString(str);</div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;    }</div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160; </div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* get_color_option()</div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;    {</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;        <span class="keywordflow">if</span>( <a class="code" href="../../d8/d00/classiutest_1_1_test_flag.html#aa8b8153e11a8439174a98058eb54274f">TestFlag::IsEnableFlag</a>(<a class="code" href="../../d8/d00/classiutest_1_1_test_flag.html#a397f885a4bd35c356163b4cf0eab2ac8a0540fd4b4bb914346bfaeb8a6ac45bd5">TestFlag::CONSOLE_COLOR_ANSI</a>) )</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;        {</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;ansi&quot;</span>;</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;        }</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>( <a class="code" href="../../d8/d00/classiutest_1_1_test_flag.html#aa8b8153e11a8439174a98058eb54274f">TestFlag::IsEnableFlag</a>(<a class="code" href="../../d8/d00/classiutest_1_1_test_flag.html#a397f885a4bd35c356163b4cf0eab2ac8a9a6814f5b69d8d425dee27e3c75aee39">TestFlag::CONSOLE_COLOR_ON</a>) )</div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;        {</div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;yes&quot;</span>;</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;        }</div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>( <a class="code" href="../../d8/d00/classiutest_1_1_test_flag.html#aa8b8153e11a8439174a98058eb54274f">TestFlag::IsEnableFlag</a>(<a class="code" href="../../d8/d00/classiutest_1_1_test_flag.html#a397f885a4bd35c356163b4cf0eab2ac8a21505f9122e7353f358be4d658249305">TestFlag::CONSOLE_COLOR_OFF</a>) )</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;        {</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;no&quot;</span>;</div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;        }</div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;auto&quot;</span>;</div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;    }</div>
+<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> set_color_option(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)</div>
+<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;    {</div>
+<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;        ParseColorOption(str);</div>
+<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;    }</div>
+<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160; </div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> set_output_option(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)</div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;    {</div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;        get_vars().m_output_option = detail::NullableString(str);</div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;    }</div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160; </div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> set_default_package_name(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)</div>
+<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;    {</div>
+<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;        get_vars().m_default_package_name = detail::NullableString(str);</div>
+<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;    }</div>
+<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160; </div>
+<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> set_locale_ctype(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)</div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;    {</div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;        get_vars().m_locale_ctype = detail::NullableString(str);</div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;    }</div>
+<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160; </div>
+<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* (*pfnOptionStringGet)();</div>
+<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;    <span class="keyword">typedef</span> void(*pfnOptionStringSet)(<span class="keyword">const</span> <span class="keywordtype">char</span>*);</div>
+<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;    <span class="keyword">template</span>&lt;pfnOptionStringGet G, pfnOptionStringSet S&gt;</div>
+<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;    <span class="keyword">class </span>OptionString</div>
+<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;    {</div>
+<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;        <span class="keyword">typedef</span> OptionString&lt;G, S&gt; _Myt;</div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;        <span class="keyword">typedef</span> <span class="keyword">const</span> _Myt&amp; _Argt;</div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;        ::std::string m_option;</div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;        <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator == (<span class="keyword">const</span> <span class="keywordtype">char</span>* c_str_, _Argt rhs)         { <span class="keywordflow">return</span> rhs.m_option == c_str_; }</div>
+<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;        <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator == (const ::std::string&amp; str, _Argt rhs)   { <span class="keywordflow">return</span> rhs.m_option == str; }</div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;        <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator == (_Argt lhs, <span class="keyword">const</span> <span class="keywordtype">char</span>* c_str_)         { <span class="keywordflow">return</span> lhs.m_option == c_str_; }</div>
+<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;        <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator == (_Argt lhs, const ::std::string&amp; str)   { <span class="keywordflow">return</span> lhs.m_option == str; }</div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;        <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator != (<span class="keyword">const</span> <span class="keywordtype">char</span>* c_str_, _Argt rhs)         { <span class="keywordflow">return</span> rhs.m_option != c_str_; }</div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;        <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator != (const ::std::string&amp; str, _Argt rhs)   { <span class="keywordflow">return</span> rhs.m_option != str; }</div>
+<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;        <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator != (_Argt lhs, <span class="keyword">const</span> <span class="keywordtype">char</span>* c_str_)         { <span class="keywordflow">return</span> lhs.m_option != c_str_; }</div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;        <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator != (_Argt lhs, const ::std::string&amp; str)   { <span class="keywordflow">return</span> lhs.m_option != str; }</div>
+<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160; </div>
+<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;        operator ::std::string()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_option; }</div>
+<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;        <span class="keywordtype">bool</span> empty()<span class="keyword"> const          </span>{ <span class="keywordflow">return</span> m_option.empty(); }</div>
+<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span>* c_str()<span class="keyword"> const   </span>{ <span class="keywordflow">return</span> m_option.c_str(); }</div>
+<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;        <span class="keywordtype">size_t</span> length()<span class="keyword"> const       </span>{ <span class="keywordflow">return</span> m_option.length(); }</div>
+<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;        OptionString()</div>
+<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;            : m_option(G())</div>
+<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;        {</div>
+<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;        }</div>
+<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;        <span class="keyword">const</span> _Myt&amp; operator = (<span class="keyword">const</span> <span class="keywordtype">char</span>* c_str_)</div>
+<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;        {</div>
+<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;            m_option = detail::NullableString(c_str_);</div>
+<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;            S(c_str_);</div>
+<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;        }</div>
+<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;        <span class="keyword">const</span> _Myt&amp; operator = (const ::std::string&amp; str)</div>
+<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;        {</div>
+<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;            m_option = str;</div>
+<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;            S(str.c_str());</div>
+<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;        }</div>
+<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;    };</div>
+<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160; </div>
+<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;    <span class="keyword">typedef</span> OptionString&lt;get_color_option, set_color_option&gt; color;</div>
+<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160; </div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;    <span class="keyword">typedef</span> OptionString&lt;test_filter, set_test_filter&gt; filter;</div>
+<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160; </div>
+<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;    <span class="keyword">typedef</span> OptionString&lt;get_flagfile, set_flagfile&gt; flagfile;</div>
+<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160; </div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;    <span class="keyword">typedef</span> OptionString&lt;get_output_option_c_str, set_output_option&gt; output;</div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160; </div>
+<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STREAM_RESULT</span></div>
+<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;    <span class="keyword">typedef</span> OptionString&lt;get_stream_result_to_c_str, set_stream_result_to&gt; stream_result_to;</div>
+<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160; </div>
+<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;    <span class="keyword">typedef</span> OptionString&lt;get_default_package_name, set_default_package_name&gt; default_package_name;</div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160; </div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;    <span class="keyword">typedef</span> OptionString&lt;get_locale_ctype, set_locale_ctype&gt; locale_ctype;</div>
+<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160; </div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM</span></div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">class </span>OStreamFormatter : <span class="keyword">public</span> iu_stringstream</div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;    {</div>
+<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;        IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()</div>
+<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;    public:</div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;        OStreamFormatter()</div>
+<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;        {</div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;            copyfmt(get_vars().m_ostream_formatter);</div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;        }</div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;        <span class="keyword">virtual</span> ~OStreamFormatter()</div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;        {</div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;            get_vars().m_ostream_formatter.copyfmt(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;        }</div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;    } ostream_formatter;</div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160; </div>
+<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;<span class="preprocessor">#if defined(IUTEST_NO_PRIVATE_IN_AGGREGATE)</span></div>
+<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>OStreamFormatter;</div>
+<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160; </div>
+<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160; </div>
+<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;    <span class="keyword">static</span> iuEnvironmentList&amp; environments() { <span class="keywordflow">return</span> get_vars().m_environment_list; }</div>
+<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160; </div>
+<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;    <span class="keyword">static</span> Environment* <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#aa4ad04d5148c7d8226ae00b8ae53ac77">AddGlobalTestEnvironment</a>(Environment* env)</div>
+<div class="line"><a name="l00636"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#aa4ad04d5148c7d8226ae00b8ae53ac77">  636</a></span>&#160;    {</div>
+<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;        <span class="keywordflow">if</span>( env == NULL )</div>
+<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;        {</div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;            <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;        }</div>
+<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;        environments().push_back(env);</div>
+<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;        <span class="keywordflow">return</span> env;</div>
+<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;    }</div>
+<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160; </div>
+<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;    <span class="keyword">static</span> <a class="code" href="../../d3/d17/classiutest_1_1_environment.html">Environment</a>* ReleaseGlobalTestEnvironment(<a class="code" href="../../d3/d17/classiutest_1_1_environment.html">Environment</a>* env)</div>
+<div class="line"><a name="l00651"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#a3972fd7b7e3b611a41c840ab249f85d2">  651</a></span>&#160;    {</div>
+<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;        <span class="keywordflow">if</span>( env == NULL )</div>
+<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;        {</div>
+<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;            <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;        }</div>
+<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;        iuEnvironmentList&amp; list = environments();</div>
+<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;        iuEnvironmentList::iterator it = ::std::find(list.begin(), list.end(), env);</div>
+<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;        <span class="keywordflow">if</span>( it == list.end() )</div>
+<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;        {</div>
+<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;            <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;        }</div>
+<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;        list.erase(it);</div>
+<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;        <span class="keywordflow">return</span> env;</div>
+<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;    }</div>
+<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160; </div>
+<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;    static ::std::string <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#af1aed0bd741f7b3213025c95fecd6fae">AddDefaultPackageName</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* testsuite_name);</div>
+<div class="line"><a name="l00670"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#af1aed0bd741f7b3213025c95fecd6fae">  670</a></span>&#160; </div>
+<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a3972fd7b7e3b611a41c840ab249f85d2">ReleaseGlobalTestEnvironment</a>()</div>
+<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;    {</div>
+<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;        <span class="comment">// すべて解放する</span></div>
+<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;        <span class="keywordflow">for</span>( iuEnvironmentList::iterator it=environments().begin(); it != environments().end(); )</div>
+<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;        {</div>
+<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;            <a class="code" href="../../d3/d17/classiutest_1_1_environment.html">Environment</a>* p = *it;</div>
+<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;            it = environments().erase(it);</div>
+<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;            <span class="keyword">delete</span> p;</div>
+<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;        }</div>
+<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;    }</div>
+<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160; </div>
+<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> CharType&gt;</div>
+<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> ParseCommandLine(<span class="keywordtype">int</span>* pargc, CharType** argv)</div>
+<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;    {</div>
+<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;        <span class="keywordflow">if</span>( argv == NULL )</div>
+<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;        {</div>
+<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;        }</div>
+<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;        <span class="keywordtype">int</span> argc = *pargc;</div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160; </div>
+<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;        <span class="keywordflow">for</span>( <span class="keywordtype">int</span> i=0; i &lt; argc; )</div>
+<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;        {</div>
+<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;            <span class="keywordflow">if</span>( ParseCommandLineElem(argv[i]) )</div>
+<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;            {</div>
+<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;                --argc;</div>
+<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;                <span class="comment">// 見つかった場合、オプションを末尾に移動</span></div>
+<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;                <span class="keywordflow">for</span>( <span class="keywordtype">int</span> k=i; k &lt; argc; ++k )</div>
+<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;                {</div>
+<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;                    CharType* tmp = argv[k];</div>
+<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;                    argv[k] = argv[k+1];</div>
+<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;                    argv[k+1] = tmp;</div>
+<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;                }</div>
+<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;            }</div>
+<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;            {</div>
+<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;                ++i;</div>
+<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;            }</div>
+<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;        }</div>
+<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;        *pargc = argc;</div>
+<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;    }</div>
+<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160; </div>
+<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> CharType&gt;</div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> ParseCommandLine(::std::vector&lt; ::std::basic_string&lt;CharType&gt; &gt;&amp; argv)</div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;    {</div>
+<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;        typedef ::std::vector&lt; ::std::basic_string&lt;CharType&gt; &gt; argv_t;</div>
+<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;        <span class="keywordflow">for</span>( <span class="keyword">typename</span> argv_t::iterator it = argv.begin(); it != argv.end(); )</div>
+<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;        {</div>
+<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;            <span class="keywordflow">if</span>( ParseCommandLineElem(it-&gt;c_str()) )</div>
+<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;            {</div>
+<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;                it = argv.erase(it);</div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;            }</div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;            {</div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;                ++it;</div>
+<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;            }</div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;        }</div>
+<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;    }</div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160; </div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#aa78aa2f004d67eeabecfb1ac74648701">LoadFlagFile</a>();</div>
+<div class="line"><a name="l00744"></a><span class="lineno"><a class="line" href="../../d7/d8c/classiutest_1_1_test_env.html#aa78aa2f004d67eeabecfb1ac74648701">  744</a></span>&#160; </div>
+<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> CharType&gt;</div>
+<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> ParseCommandLineElem(CharType* argv)</div>
+<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;    {</div>
+<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;        <span class="keyword">typedef</span> <span class="keyword">typename</span> detail::mbs_ptr&lt;CharType&gt; formatter;</div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160; </div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;        formatter argv_format;</div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span>* str = argv_format.ptr(argv);</div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;        <span class="keywordflow">return</span> ParseCommandLineElemA(str);</div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;    }</div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> ParseCommandLineElemA(<span class="keyword">const</span> <span class="keywordtype">char</span>* str);</div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> ParseIutestOptionCommandLineElemA(<span class="keyword">const</span> <span class="keywordtype">char</span>* str);</div>
+<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> SetFlag(<span class="keywordtype">int</span> enable, <span class="keywordtype">int</span> mask = -1);</div>
+<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160; </div>
+<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> LoadEnvironmentVariable();</div>
+<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160; </div>
+<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> SetUp();</div>
+<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160; </div>
+<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* ParseOptionSettingStr(<span class="keyword">const</span> <span class="keywordtype">char</span>* opt)</div>
+<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;    {</div>
+<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span>* eq = strchr(opt, <span class="charliteral">&#39;=&#39;</span>);</div>
+<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;        <span class="keywordflow">if</span>( eq == NULL )</div>
+<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;        {</div>
+<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;            <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;        }</div>
+<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;        <span class="keywordflow">return</span> eq+1;</div>
+<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;    }</div>
+<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> ParseColorOption(<span class="keyword">const</span> <span class="keywordtype">char</span>* option);</div>
+<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160; </div>
+<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> ParseOutputOption(<span class="keyword">const</span> <span class="keywordtype">char</span>* option);</div>
+<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160; </div>
+<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> ParseFileLocationOption(<span class="keyword">const</span> <span class="keywordtype">char</span>* option);</div>
+<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160; </div>
+<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> ParseFilterOption(<span class="keyword">const</span> <span class="keywordtype">char</span>* option);</div>
+<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160; </div>
+<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> ParseFlagFileOption(<span class="keyword">const</span> <span class="keywordtype">char</span>* option);</div>
+<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160; </div>
+<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> ParseYesNoFlagCommandLine(<span class="keyword">const</span> <span class="keywordtype">char</span>* str, <a class="code" href="../../d8/d00/classiutest_1_1_test_flag.html#a397f885a4bd35c356163b4cf0eab2ac8">TestFlag::Kind</a> flag, <span class="keywordtype">int</span> def);</div>
+<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160; </div>
+<div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> ParseYesNoOption(<span class="keyword">const</span> <span class="keywordtype">char</span>* option);</div>
+<div class="line"><a name="l00825"></a><span class="lineno">  825</span>&#160; </div>
+<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> IsYes(<span class="keyword">const</span> <span class="keywordtype">char</span>* option);</div>
+<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> IsNo(<span class="keyword">const</span> <span class="keywordtype">char</span>* option);</div>
+<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160; </div>
+<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>UnitTest;</div>
+<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;};</div>
+<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160; </div>
+<div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160;<span class="keyword">class </span>iu_global_format_stringstream : <span class="keyword">public</span> iu_stringstream</div>
+<div class="line"><a name="l00843"></a><span class="lineno"><a class="line" href="../../d0/dc6/classiutest_1_1iu__global__format__stringstream.html">  843</a></span>&#160;{</div>
+<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;    IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()</div>
+<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;    <a class="code" href="../../d0/dc6/classiutest_1_1iu__global__format__stringstream.html">iu_global_format_stringstream</a>()</div>
+<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;    {</div>
+<div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM</span></div>
+<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;        TestEnv::global_ostream_copyfmt(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;    }</div>
+<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="../../d0/dc6/classiutest_1_1iu__global__format__stringstream.html">iu_global_format_stringstream</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)</div>
+<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;        : iu_stringstream(str)</div>
+<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;    {</div>
+<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM</span></div>
+<div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;        TestEnv::global_ostream_copyfmt(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;    }</div>
+<div class="line"><a name="l00859"></a><span class="lineno">  859</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="../../d0/dc6/classiutest_1_1iu__global__format__stringstream.html">iu_global_format_stringstream</a>(const ::std::string&amp; str)</div>
+<div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;        : iu_stringstream(str)</div>
+<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;    {</div>
+<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM</span></div>
+<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;        TestEnv::global_ostream_copyfmt(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;    }</div>
+<div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;};</div>
+<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160; </div>
+<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;<span class="keyword">inline</span> iu_ostream&amp; operator &lt;&lt; (iu_ostream&amp; os, <span class="keyword">const</span> <a class="code" href="../../d2/d42/classiutest_1_1_test_env_1_1_state_variable.html">TestEnv::StateVariable&lt;T&gt;</a>&amp; value)</div>
+<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;{</div>
+<div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;    <span class="keywordflow">return</span> os &lt;&lt; value.get();</div>
+<div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;}</div>
 <div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160; </div>
-<div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
-<div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160; </div>
-<div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160;<span class="preprocessor">#if !IUTEST_HAS_LIB</span></div>
-<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;<span class="preprocessor">#  include &quot;impl/iutest_env.ipp&quot;</span> <span class="comment">// IWYU pragma: export</span></div>
-<div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00879"></a><span class="lineno">  879</span>&#160; </div>
-<div class="line"><a name="l00880"></a><span class="lineno">  880</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// INCG_IRIS_IUTEST_ENV_HPP_F4017EAB_6CA3_4E6E_8983_059393DADD04_</span></div>
+<div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160; </div>
+<div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160; </div>
+<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;<span class="preprocessor">#if !IUTEST_HAS_LIB</span></div>
+<div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160;<span class="preprocessor">#  include &quot;impl/iutest_env.ipp&quot;</span> <span class="comment">// IWYU pragma: export</span></div>
+<div class="line"><a name="l00879"></a><span class="lineno">  879</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00880"></a><span class="lineno">  880</span>&#160; </div>
+<div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// INCG_IRIS_IUTEST_ENV_HPP_F4017EAB_6CA3_4E6E_8983_059393DADD04_</span></div>
 <div class="ttc" id="aclassiutest_1_1_environment_html"><div class="ttname"><a href="../../d3/d17/classiutest_1_1_environment.html">iutest::Environment</a></div><div class="ttdoc">環境セットクラス</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:102</div></div>
 <div class="ttc" id="aclassiutest_1_1_environment_html_a43492193c9cb2d97a5a32bf533f52387"><div class="ttname"><a href="../../d3/d17/classiutest_1_1_environment.html#a43492193c9cb2d97a5a32bf533f52387">iutest::Environment::SetUp</a></div><div class="ttdeci">virtual void SetUp()</div><div class="ttdoc">事前処理</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:105</div></div>
 <div class="ttc" id="aclassiutest_1_1_environment_html_ad06062d195c8218c7f6b50fccac6da24"><div class="ttname"><a href="../../d3/d17/classiutest_1_1_environment.html#ad06062d195c8218c7f6b50fccac6da24">iutest::Environment::TearDown</a></div><div class="ttdeci">virtual void TearDown()</div><div class="ttdoc">事後処理</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:106</div></div>
 <div class="ttc" id="aclassiutest_1_1_i_u_t_e_s_t___c_x_x___f_i_n_a_l_html"><div class="ttname"><a href="../../df/d4b/classiutest_1_1_i_u_t_e_s_t___c_x_x___f_i_n_a_l.html">iutest::IUTEST_CXX_FINAL</a></div><div class="ttdoc">ファイル処理クラスインターフェイス</div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:173</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_env_1_1_state_variable_html"><div class="ttname"><a href="../../d2/d42/classiutest_1_1_test_env_1_1_state_variable.html">iutest::TestEnv::StateVariable</a></div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:301</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_env_html"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html">iutest::TestEnv</a></div><div class="ttdoc">テスト環境</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:240</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_env_html_a2109bd04603abf8cf57114fabe0add80"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a2109bd04603abf8cf57114fabe0add80">iutest::TestEnv::get_default_package_name</a></div><div class="ttdeci">static const char * get_default_package_name()</div><div class="ttdoc">root package オプション</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:359</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_env_html_a21c71821471bc6e9c5418c575be2c6dc"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a21c71821471bc6e9c5418c575be2c6dc">iutest::TestEnv::get_locale_ctype</a></div><div class="ttdeci">static const char * get_locale_ctype()</div><div class="ttdoc">ctype locale オプション</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:368</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_env_html_a3972fd7b7e3b611a41c840ab249f85d2"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a3972fd7b7e3b611a41c840ab249f85d2">iutest::TestEnv::ReleaseGlobalTestEnvironment</a></div><div class="ttdeci">static Environment * ReleaseGlobalTestEnvironment(Environment *env)</div><div class="ttdoc">グローバル環境セットクラスの削除</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:650</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_env_html_a3dff21f193032a3e9ba2dbadf555be45"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a3dff21f193032a3e9ba2dbadf555be45">iutest::TestEnv::get_flagfile</a></div><div class="ttdeci">static const char * get_flagfile()</div><div class="ttdoc">flag file</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:361</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_env_html_a4a2b375cb3b8dd1e97f5746384cd2130"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a4a2b375cb3b8dd1e97f5746384cd2130">iutest::TestEnv::get_output_option</a></div><div class="ttdeci">static const StateVariable&lt; ::std::string &gt; &amp; get_output_option()</div><div class="ttdoc">出力オプション</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:358</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_env_html_a2109bd04603abf8cf57114fabe0add80"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a2109bd04603abf8cf57114fabe0add80">iutest::TestEnv::get_default_package_name</a></div><div class="ttdeci">static const char * get_default_package_name()</div><div class="ttdoc">root package オプション</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:360</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_env_html_a21c71821471bc6e9c5418c575be2c6dc"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a21c71821471bc6e9c5418c575be2c6dc">iutest::TestEnv::get_locale_ctype</a></div><div class="ttdeci">static const char * get_locale_ctype()</div><div class="ttdoc">ctype locale オプション</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:369</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_env_html_a3972fd7b7e3b611a41c840ab249f85d2"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a3972fd7b7e3b611a41c840ab249f85d2">iutest::TestEnv::ReleaseGlobalTestEnvironment</a></div><div class="ttdeci">static Environment * ReleaseGlobalTestEnvironment(Environment *env)</div><div class="ttdoc">グローバル環境セットクラスの削除</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:651</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_env_html_a3dff21f193032a3e9ba2dbadf555be45"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a3dff21f193032a3e9ba2dbadf555be45">iutest::TestEnv::get_flagfile</a></div><div class="ttdeci">static const char * get_flagfile()</div><div class="ttdoc">flag file</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:362</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_env_html_a4a2b375cb3b8dd1e97f5746384cd2130"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a4a2b375cb3b8dd1e97f5746384cd2130">iutest::TestEnv::get_output_option</a></div><div class="ttdeci">static const StateVariable&lt; ::std::string &gt; &amp; get_output_option()</div><div class="ttdoc">出力オプション</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:359</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_env_html_a4da536e15bf20b8e5d4a82f84c6fafe4"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a4da536e15bf20b8e5d4a82f84c6fafe4">iutest::TestEnv::get_report_junit_xml_filepath</a></div><div class="ttdeci">::std::string get_report_junit_xml_filepath()</div><div class="ttdoc">junit xml 出力パスを取得</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_env_html_a5908831d1f400180f97a687ec1d21928"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a5908831d1f400180f97a687ec1d21928">iutest::TestEnv::test_filter</a></div><div class="ttdeci">static const char * test_filter()</div><div class="ttdoc">フィルター文字列</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:360</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_env_html_a96f7e9e3229ebd7f29573f26c1d7173e"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a96f7e9e3229ebd7f29573f26c1d7173e">iutest::TestEnv::get_repeat_count</a></div><div class="ttdeci">static int get_repeat_count()</div><div class="ttdoc">繰り返し回数</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:357</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_env_html_a9f187ecf76c59e5b77dbc39bf454dd22"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a9f187ecf76c59e5b77dbc39bf454dd22">iutest::TestEnv::genrand</a></div><div class="ttdeci">static detail::iuRandom &amp; genrand()</div><div class="ttdoc">乱数生成器</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:354</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_env_html_aa4ad04d5148c7d8226ae00b8ae53ac77"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#aa4ad04d5148c7d8226ae00b8ae53ac77">iutest::TestEnv::AddGlobalTestEnvironment</a></div><div class="ttdeci">static Environment * AddGlobalTestEnvironment(Environment *env)</div><div class="ttdoc">グローバル環境セットクラスの追加</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:635</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_env_html_a5908831d1f400180f97a687ec1d21928"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a5908831d1f400180f97a687ec1d21928">iutest::TestEnv::test_filter</a></div><div class="ttdeci">static const char * test_filter()</div><div class="ttdoc">フィルター文字列</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:361</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_env_html_a96f7e9e3229ebd7f29573f26c1d7173e"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a96f7e9e3229ebd7f29573f26c1d7173e">iutest::TestEnv::get_repeat_count</a></div><div class="ttdeci">static int get_repeat_count()</div><div class="ttdoc">繰り返し回数</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:358</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_env_html_a9f187ecf76c59e5b77dbc39bf454dd22"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a9f187ecf76c59e5b77dbc39bf454dd22">iutest::TestEnv::genrand</a></div><div class="ttdeci">static detail::iuRandom &amp; genrand()</div><div class="ttdoc">乱数生成器</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:355</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_env_html_aa4ad04d5148c7d8226ae00b8ae53ac77"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#aa4ad04d5148c7d8226ae00b8ae53ac77">iutest::TestEnv::AddGlobalTestEnvironment</a></div><div class="ttdeci">static Environment * AddGlobalTestEnvironment(Environment *env)</div><div class="ttdoc">グローバル環境セットクラスの追加</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:636</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_env_html_aa78aa2f004d67eeabecfb1ac74648701"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#aa78aa2f004d67eeabecfb1ac74648701">iutest::TestEnv::LoadFlagFile</a></div><div class="ttdeci">static bool LoadFlagFile()</div><div class="ttdoc">フラグファイルをロード</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_env_html_ab84ca4d3ed8482904d418bf76ebdb656"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#ab84ca4d3ed8482904d418bf76ebdb656">iutest::TestEnv::current_random_seed</a></div><div class="ttdeci">static unsigned int current_random_seed()</div><div class="ttdoc">乱数シード</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:356</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_env_html_ac45dd301c78db3de83b0c1e3ee177a83"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#ac45dd301c78db3de83b0c1e3ee177a83">iutest::TestEnv::get_random_seed</a></div><div class="ttdeci">static unsigned int get_random_seed()</div><div class="ttdoc">乱数シード</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:355</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_env_html_ab84ca4d3ed8482904d418bf76ebdb656"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#ab84ca4d3ed8482904d418bf76ebdb656">iutest::TestEnv::current_random_seed</a></div><div class="ttdeci">static unsigned int current_random_seed()</div><div class="ttdoc">乱数シード</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:357</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_env_html_ac45dd301c78db3de83b0c1e3ee177a83"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#ac45dd301c78db3de83b0c1e3ee177a83">iutest::TestEnv::get_random_seed</a></div><div class="ttdeci">static unsigned int get_random_seed()</div><div class="ttdoc">乱数シード</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:356</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_env_html_af1aed0bd741f7b3213025c95fecd6fae"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#af1aed0bd741f7b3213025c95fecd6fae">iutest::TestEnv::AddDefaultPackageName</a></div><div class="ttdeci">::std::string AddDefaultPackageName(const char *testsuite_name)</div><div class="ttdoc">default package name を追加</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_env_html_af1e05e9d523724f9210f149583226179"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#af1e05e9d523724f9210f149583226179">iutest::TestEnv::get_report_xml_filepath</a></div><div class="ttdeci">::std::string get_report_xml_filepath()</div><div class="ttdoc">xml 出力パスを取得</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_event_listeners_html"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html">iutest::TestEventListeners</a></div><div class="ttdoc">イベントリスナーの管理クラス</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:169</div></div>
@@ -756,9 +757,9 @@ $(function() {
 <div class="ttc" id="aclassiutest_1_1_test_flag_html_aa8b8153e11a8439174a98058eb54274f"><div class="ttname"><a href="../../d8/d00/classiutest_1_1_test_flag.html#aa8b8153e11a8439174a98058eb54274f">iutest::TestFlag::IsEnableFlag</a></div><div class="ttdeci">static bool IsEnableFlag(int flag)</div><div class="ttdoc">フラグが立っているかどうか</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:210</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_flag_html_aadd952de9809e7bfb8fcd5e2a11847f7"><div class="ttname"><a href="../../d8/d00/classiutest_1_1_test_flag.html#aadd952de9809e7bfb8fcd5e2a11847f7">iutest::TestFlag::SetFlag</a></div><div class="ttdeci">static void SetFlag(int enable, int mask=-1)</div><div class="ttdoc">フラグのビット操作</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:200</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_part_result_reporter_interface_html"><div class="ttname"><a href="../../dc/d5e/classiutest_1_1_test_part_result_reporter_interface.html">iutest::TestPartResultReporterInterface</a></div><div class="ttdoc">テスト結果の通知処理インターフェイス</div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:43</div></div>
-<div class="ttc" id="aclassiutest_1_1iu__global__format__stringstream_html"><div class="ttname"><a href="../../d0/dc6/classiutest_1_1iu__global__format__stringstream.html">iutest::iu_global_format_stringstream</a></div><div class="ttdoc">ostream_formatter オプションが適用されてた stringstream</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:843</div></div>
+<div class="ttc" id="aclassiutest_1_1iu__global__format__stringstream_html"><div class="ttname"><a href="../../d0/dc6/classiutest_1_1iu__global__format__stringstream.html">iutest::iu_global_format_stringstream</a></div><div class="ttdoc">ostream_formatter オプションが適用されてた stringstream</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:844</div></div>
 <div class="ttc" id="aiutest__charcode_8hpp_html"><div class="ttname"><a href="../../d5/dd3/iutest__charcode_8hpp.html">iutest_charcode.hpp</a></div><div class="ttdoc">iris unit test 文字コード対応 ファイル</div></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:829</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:846</div></div>
 <div class="ttc" id="aiutest__listener_8hpp_html"><div class="ttname"><a href="../../d8/def/iutest__listener_8hpp.html">iutest_listener.hpp</a></div><div class="ttdoc">iris unit test イベントリスナー 定義 ファイル</div></div>
 <div class="ttc" id="aiutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義</div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:31</div></div>
 <div class="ttc" id="aiutest__random_8hpp_html"><div class="ttname"><a href="../../d7/d8c/iutest__random_8hpp.html">iutest_random.hpp</a></div><div class="ttdoc">iris unit test 乱数生成器 定義 ファイル</div></div>
@@ -768,7 +769,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2025年03月09日(日) 13時33分20秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2025年03月23日(日) 15時15分05秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

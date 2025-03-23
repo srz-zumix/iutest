@@ -1027,7 +1027,43 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <span class="normal">800</span>
 <span class="normal">801</span>
 <span class="normal">802</span>
-<span class="normal">803</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><a id="line-1" name="line-1"></a><span class="c1">//======================================================================</span>
+<span class="normal">803</span>
+<span class="normal">804</span>
+<span class="normal">805</span>
+<span class="normal">806</span>
+<span class="normal">807</span>
+<span class="normal">808</span>
+<span class="normal">809</span>
+<span class="normal">810</span>
+<span class="normal">811</span>
+<span class="normal">812</span>
+<span class="normal">813</span>
+<span class="normal">814</span>
+<span class="normal">815</span>
+<span class="normal">816</span>
+<span class="normal">817</span>
+<span class="normal">818</span>
+<span class="normal">819</span>
+<span class="normal">820</span>
+<span class="normal">821</span>
+<span class="normal">822</span>
+<span class="normal">823</span>
+<span class="normal">824</span>
+<span class="normal">825</span>
+<span class="normal">826</span>
+<span class="normal">827</span>
+<span class="normal">828</span>
+<span class="normal">829</span>
+<span class="normal">830</span>
+<span class="normal">831</span>
+<span class="normal">832</span>
+<span class="normal">833</span>
+<span class="normal">834</span>
+<span class="normal">835</span>
+<span class="normal">836</span>
+<span class="normal">837</span>
+<span class="normal">838</span>
+<span class="normal">839</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><a id="line-1" name="line-1"></a><span class="c1">//======================================================================</span>
 <a id="line-2" name="line-2"></a><span class="c1">//-----------------------------------------------------------------------</span>
 <a id="line-3" name="line-3"></a><span class="cm">/**</span>
 <a id="line-4" name="line-4"></a><span class="cm"> * @file        iutest_stdlib_defs.hpp</span>
@@ -1035,7 +1071,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <a id="line-6" name="line-6"></a><span class="cm"> *</span>
 <a id="line-7" name="line-7"></a><span class="cm"> * @author      t.shirayanagi</span>
 <a id="line-8" name="line-8"></a><span class="cm"> * @par         copyright</span>
-<a id="line-9" name="line-9"></a><span class="cm"> * Copyright (C) 2012-2023, Takazumi Shirayanagi\n</span>
+<a id="line-9" name="line-9"></a><span class="cm"> * Copyright (C) 2012-2025, Takazumi Shirayanagi\n</span>
 <a id="line-10" name="line-10"></a><span class="cm"> * This software is released under the new BSD License,</span>
 <a id="line-11" name="line-11"></a><span class="cm"> * see LICENSE</span>
 <a id="line-12" name="line-12"></a><span class="cm">*/</span><span class="w"></span>
@@ -1240,7 +1276,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <a id="line-211" name="line-211"></a><span class="cp">#  endif</span>
 <a id="line-212" name="line-212"></a><span class="cp">#  if   defined(__has_include)</span>
 <a id="line-213" name="line-213"></a><span class="cp">#    if !defined(IUTEST_HAS_CXX_HDR_CUCHAR) &amp;&amp; __has_include( &lt;cuchar&gt; )</span>
-<a id="line-214" name="line-214"></a><span class="cp">#      if defined(__APPLE__) &amp;&amp; IUTEST_CLANG_MAJOR == 15</span>
+<a id="line-214" name="line-214"></a><span class="cp">#      if defined(__APPLE__) &amp;&amp; defined(_LIBCPP_VERSION)</span>
 <a id="line-215" name="line-215"></a><span class="c1">// https://github.com/llvm/llvm-project/issues/62573</span>
 <a id="line-216" name="line-216"></a><span class="cp">#        define IUTEST_HAS_CXX_HDR_CUCHAR 0</span>
 <a id="line-217" name="line-217"></a><span class="cp">#      else</span>
@@ -1554,282 +1590,318 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <a id="line-525" name="line-525"></a><span class="cp">#if !defined(IUTEST_HAS_STD_TO_CHARS)</span>
 <a id="line-526" name="line-526"></a><span class="cp">#  define IUTEST_HAS_STD_TO_CHARS       0</span>
 <a id="line-527" name="line-527"></a><span class="cp">#endif</span>
-<a id="line-528" name="line-528"></a>
-<a id="line-529" name="line-529"></a><span class="c1">//! use external include tr1::tuple</span>
-<a id="line-530" name="line-530"></a><span class="cp">#if !defined(IUTEST_USE_EXTERNAL_TR1_TUPLE)</span>
-<a id="line-531" name="line-531"></a><span class="cp">#  define IUTEST_USE_EXTERNAL_TR1_TUPLE 0</span>
-<a id="line-532" name="line-532"></a><span class="cp">#endif</span>
-<a id="line-533" name="line-533"></a><span class="c1">//! use external include ::std::tuple</span>
-<a id="line-534" name="line-534"></a><span class="cp">#ifndef IUTEST_USE_EXTERNAL_STD_TUPLE</span>
-<a id="line-535" name="line-535"></a><span class="cp">#  define IUTEST_USE_EXTERNAL_STD_TUPLE 0</span>
-<a id="line-536" name="line-536"></a><span class="cp">#endif</span>
-<a id="line-537" name="line-537"></a><span class="c1">//! has ::std::tuple</span>
-<a id="line-538" name="line-538"></a><span class="cp">#if !defined(IUTEST_HAS_STD_TUPLE)</span>
-<a id="line-539" name="line-539"></a><span class="cp">#  define IUTEST_HAS_STD_TUPLE          0</span>
-<a id="line-540" name="line-540"></a><span class="cp">#endif</span>
-<a id="line-541" name="line-541"></a><span class="c1">//! has ::std::tr1::tuple</span>
-<a id="line-542" name="line-542"></a><span class="cp">#if !defined(IUTEST_HAS_TR1_TUPLE)</span>
-<a id="line-543" name="line-543"></a><span class="cp">#  define IUTEST_HAS_TR1_TUPLE          0</span>
+<a id="line-528" name="line-528"></a><span class="c1">//! has char8_t support lib</span>
+<a id="line-529" name="line-529"></a><span class="cp">#if !defined(IUTEST_HAS_STD_CHAR8_T)</span>
+<a id="line-530" name="line-530"></a><span class="cp">#  if defined(_LIBCPP_HAS_NO_C8RTOMB_MBRTOC8)</span>
+<a id="line-531" name="line-531"></a><span class="cp">#    define IUTEST_HAS_STD_CHAR8_T      0</span>
+<a id="line-532" name="line-532"></a><span class="cp">#  elif defined(__cpp_lib_char8_t) &amp;&amp; __cpp_lib_char8_t &gt;= 201907</span>
+<a id="line-533" name="line-533"></a><span class="cp">#    define IUTEST_HAS_STD_CHAR8_T      1</span>
+<a id="line-534" name="line-534"></a><span class="cp">#  else</span>
+<a id="line-535" name="line-535"></a><span class="cp">#    define IUTEST_HAS_STD_CHAR8_T      0</span>
+<a id="line-536" name="line-536"></a><span class="cp">#  endif</span>
+<a id="line-537" name="line-537"></a><span class="cp">#endif</span>
+<a id="line-538" name="line-538"></a><span class="cp">#if !defined(IUTEST_NO_CHAR8_T_TYPEINFO) &amp;&amp; IUTEST_HAS_CHAR8_T</span>
+<a id="line-539" name="line-539"></a><span class="cp">#  if defined(__arm64__) &amp;&amp; defined(__APPLE__)</span>
+<a id="line-540" name="line-540"></a><span class="cp">#    define IUTEST_NO_CHAR8_T_TYPEINFO    1</span>
+<a id="line-541" name="line-541"></a><span class="cp">#  elif defined(_LIBCPP_HAS_NO_C8RTOMB_MBRTOC8)</span>
+<a id="line-542" name="line-542"></a><span class="cp">#    define IUTEST_NO_CHAR8_T_TYPEINFO    1</span>
+<a id="line-543" name="line-543"></a><span class="cp">#  endif</span>
 <a id="line-544" name="line-544"></a><span class="cp">#endif</span>
-<a id="line-545" name="line-545"></a><span class="c1">//! has tuple</span>
-<a id="line-546" name="line-546"></a><span class="cp">#if IUTEST_HAS_STD_TUPLE || IUTEST_HAS_TR1_TUPLE || IUTEST_USE_EXTERNAL_TR1_TUPLE || IUTEST_USE_EXTERNAL_STD_TUPLE</span>
-<a id="line-547" name="line-547"></a><span class="cp">#  if !defined(IUTEST_HAS_TUPLE)</span>
-<a id="line-548" name="line-548"></a><span class="cp">#    define IUTEST_HAS_TUPLE            1</span>
-<a id="line-549" name="line-549"></a><span class="cp">#  endif</span>
-<a id="line-550" name="line-550"></a><span class="cp">#else</span>
-<a id="line-551" name="line-551"></a><span class="cp">#  if defined(IUTEST_HAS_TUPLE)</span>
-<a id="line-552" name="line-552"></a><span class="cp">#    undef IUTEST_HAS_TUPLE</span>
-<a id="line-553" name="line-553"></a><span class="cp">#  endif</span>
-<a id="line-554" name="line-554"></a><span class="cp">#  define IUTEST_HAS_TUPLE              0</span>
-<a id="line-555" name="line-555"></a><span class="cp">#endif</span>
-<a id="line-556" name="line-556"></a><span class="cp">#if !defined(IUTEST_HAS_VARIADIC_TUPLES) &amp;&amp; IUTEST_HAS_VARIADIC_TEMPLATES &amp;&amp; IUTEST_HAS_TUPLE &amp;&amp; IUTEST_HAS_STD_TUPLE</span>
-<a id="line-557" name="line-557"></a><span class="cp">#  if defined(__clang__)</span>
-<a id="line-558" name="line-558"></a><span class="cp">#    if (IUTEST_CLANG_MAJOR &gt; 3 || (IUTEST_CLANG_MAJOR == 3 &amp;&amp; IUTEST_CLANG_MINOR &gt; 7))</span>
-<a id="line-559" name="line-559"></a><span class="cp">#      define IUTEST_HAS_VARIADIC_TUPLES    1</span>
-<a id="line-560" name="line-560"></a><span class="cp">#    endif</span>
-<a id="line-561" name="line-561"></a><span class="cp">#  else</span>
-<a id="line-562" name="line-562"></a><span class="cp">#    define IUTEST_HAS_VARIADIC_TUPLES      1</span>
-<a id="line-563" name="line-563"></a><span class="cp">#  endif</span>
-<a id="line-564" name="line-564"></a><span class="cp">#endif</span>
-<a id="line-565" name="line-565"></a><span class="cp">#if !defined(IUTEST_HAS_VARIADIC_TUPLES)</span>
-<a id="line-566" name="line-566"></a><span class="cp">#  define IUTEST_HAS_VARIADIC_TUPLES        0</span>
-<a id="line-567" name="line-567"></a><span class="cp">#endif</span>
-<a id="line-568" name="line-568"></a>
-<a id="line-569" name="line-569"></a><span class="c1">//! ::std::sto* が使用可能かどうか</span>
-<a id="line-570" name="line-570"></a><span class="cp">#if !defined(IUTEST_HAS_STD_STR_TO_VALUE)</span>
-<a id="line-571" name="line-571"></a><span class="cp">#  if IUTEST_HAS_CXX11</span>
-<a id="line-572" name="line-572"></a><span class="cp">#    if defined(IUTEST_OS_WINDOWS_MINGW)</span>
-<a id="line-573" name="line-573"></a><span class="cp">#      if defined(__MINGW64__) &amp;&amp; (defined(__GNUC__) &amp;&amp; (__GNUC__ &gt; 4 || (__GNUC__ == 4 &amp;&amp; __GNUC_MINOR__ &gt;= 8)))</span>
-<a id="line-574" name="line-574"></a><span class="cp">#        define IUTEST_HAS_STD_STR_TO_VALUE 1</span>
-<a id="line-575" name="line-575"></a><span class="cp">#      endif</span>
-<a id="line-576" name="line-576"></a><span class="cp">#    else</span>
-<a id="line-577" name="line-577"></a><span class="cp">#      define IUTEST_HAS_STD_STR_TO_VALUE   1</span>
-<a id="line-578" name="line-578"></a><span class="cp">#    endif</span>
-<a id="line-579" name="line-579"></a><span class="cp">#  endif</span>
-<a id="line-580" name="line-580"></a><span class="cp">#endif</span>
-<a id="line-581" name="line-581"></a>
-<a id="line-582" name="line-582"></a><span class="cp">#if !defined(IUTEST_HAS_STD_STR_TO_VALUE)</span>
-<a id="line-583" name="line-583"></a><span class="cp">#  define IUTEST_HAS_STD_STR_TO_VALUE   0</span>
+<a id="line-545" name="line-545"></a>
+<a id="line-546" name="line-546"></a><span class="c1">//! use external include tr1::tuple</span>
+<a id="line-547" name="line-547"></a><span class="cp">#if !defined(IUTEST_USE_EXTERNAL_TR1_TUPLE)</span>
+<a id="line-548" name="line-548"></a><span class="cp">#  define IUTEST_USE_EXTERNAL_TR1_TUPLE 0</span>
+<a id="line-549" name="line-549"></a><span class="cp">#endif</span>
+<a id="line-550" name="line-550"></a><span class="c1">//! use external include ::std::tuple</span>
+<a id="line-551" name="line-551"></a><span class="cp">#ifndef IUTEST_USE_EXTERNAL_STD_TUPLE</span>
+<a id="line-552" name="line-552"></a><span class="cp">#  define IUTEST_USE_EXTERNAL_STD_TUPLE 0</span>
+<a id="line-553" name="line-553"></a><span class="cp">#endif</span>
+<a id="line-554" name="line-554"></a><span class="c1">//! has ::std::tuple</span>
+<a id="line-555" name="line-555"></a><span class="cp">#if !defined(IUTEST_HAS_STD_TUPLE)</span>
+<a id="line-556" name="line-556"></a><span class="cp">#  define IUTEST_HAS_STD_TUPLE          0</span>
+<a id="line-557" name="line-557"></a><span class="cp">#endif</span>
+<a id="line-558" name="line-558"></a><span class="c1">//! has ::std::tr1::tuple</span>
+<a id="line-559" name="line-559"></a><span class="cp">#if !defined(IUTEST_HAS_TR1_TUPLE)</span>
+<a id="line-560" name="line-560"></a><span class="cp">#  define IUTEST_HAS_TR1_TUPLE          0</span>
+<a id="line-561" name="line-561"></a><span class="cp">#endif</span>
+<a id="line-562" name="line-562"></a><span class="c1">//! has tuple</span>
+<a id="line-563" name="line-563"></a><span class="cp">#if IUTEST_HAS_STD_TUPLE || IUTEST_HAS_TR1_TUPLE || IUTEST_USE_EXTERNAL_TR1_TUPLE || IUTEST_USE_EXTERNAL_STD_TUPLE</span>
+<a id="line-564" name="line-564"></a><span class="cp">#  if !defined(IUTEST_HAS_TUPLE)</span>
+<a id="line-565" name="line-565"></a><span class="cp">#    define IUTEST_HAS_TUPLE            1</span>
+<a id="line-566" name="line-566"></a><span class="cp">#  endif</span>
+<a id="line-567" name="line-567"></a><span class="cp">#else</span>
+<a id="line-568" name="line-568"></a><span class="cp">#  if defined(IUTEST_HAS_TUPLE)</span>
+<a id="line-569" name="line-569"></a><span class="cp">#    undef IUTEST_HAS_TUPLE</span>
+<a id="line-570" name="line-570"></a><span class="cp">#  endif</span>
+<a id="line-571" name="line-571"></a><span class="cp">#  define IUTEST_HAS_TUPLE              0</span>
+<a id="line-572" name="line-572"></a><span class="cp">#endif</span>
+<a id="line-573" name="line-573"></a><span class="cp">#if !defined(IUTEST_HAS_VARIADIC_TUPLES) &amp;&amp; IUTEST_HAS_VARIADIC_TEMPLATES &amp;&amp; IUTEST_HAS_TUPLE &amp;&amp; IUTEST_HAS_STD_TUPLE</span>
+<a id="line-574" name="line-574"></a><span class="cp">#  if defined(__clang__)</span>
+<a id="line-575" name="line-575"></a><span class="cp">#    if (IUTEST_CLANG_MAJOR &gt; 3 || (IUTEST_CLANG_MAJOR == 3 &amp;&amp; IUTEST_CLANG_MINOR &gt; 7))</span>
+<a id="line-576" name="line-576"></a><span class="cp">#      define IUTEST_HAS_VARIADIC_TUPLES    1</span>
+<a id="line-577" name="line-577"></a><span class="cp">#    endif</span>
+<a id="line-578" name="line-578"></a><span class="cp">#  else</span>
+<a id="line-579" name="line-579"></a><span class="cp">#    define IUTEST_HAS_VARIADIC_TUPLES      1</span>
+<a id="line-580" name="line-580"></a><span class="cp">#  endif</span>
+<a id="line-581" name="line-581"></a><span class="cp">#endif</span>
+<a id="line-582" name="line-582"></a><span class="cp">#if !defined(IUTEST_HAS_VARIADIC_TUPLES)</span>
+<a id="line-583" name="line-583"></a><span class="cp">#  define IUTEST_HAS_VARIADIC_TUPLES        0</span>
 <a id="line-584" name="line-584"></a><span class="cp">#endif</span>
 <a id="line-585" name="line-585"></a>
-<a id="line-586" name="line-586"></a><span class="c1">//! has sys/time.h header</span>
-<a id="line-587" name="line-587"></a><span class="cp">#if !defined(IUTEST_HAS_HDR_SYSTIME)</span>
-<a id="line-588" name="line-588"></a><span class="cp">#  if defined(IUTEST_OS_WINDOWS) &amp;&amp; !defined(IUTEST_OS_WINDOWS_MINGW) &amp;&amp; !defined(IUTEST_OS_WINDOWS_WINE)</span>
-<a id="line-589" name="line-589"></a><span class="cp">#    define IUTEST_HAS_HDR_SYSTIME      0</span>
-<a id="line-590" name="line-590"></a><span class="cp">#  endif</span>
-<a id="line-591" name="line-591"></a><span class="cp">#endif</span>
-<a id="line-592" name="line-592"></a>
-<a id="line-593" name="line-593"></a><span class="cp">#if !defined(IUTEST_HAS_HDR_SYSTIME)</span>
-<a id="line-594" name="line-594"></a><span class="cp">#  define IUTEST_HAS_HDR_SYSTIME        1</span>
-<a id="line-595" name="line-595"></a><span class="cp">#endif</span>
-<a id="line-596" name="line-596"></a>
-<a id="line-597" name="line-597"></a><span class="c1">// socklen_t</span>
-<a id="line-598" name="line-598"></a><span class="cp">#if defined(IUTEST_OS_WINDOWS_WINE)</span>
-<a id="line-599" name="line-599"></a><span class="cp">#  define __socklen_t_defined</span>
-<a id="line-600" name="line-600"></a><span class="cp">#endif</span>
-<a id="line-601" name="line-601"></a>
-<a id="line-602" name="line-602"></a><span class="c1">//! ::std::stringstream が使用可能かどうか</span>
-<a id="line-603" name="line-603"></a><span class="cp">#if !defined(IUTEST_HAS_STRINGSTREAM)</span>
-<a id="line-604" name="line-604"></a><span class="cp">#  if !defined(_STLP_NO_IOSTREAMS)</span>
-<a id="line-605" name="line-605"></a><span class="cp">#    define IUTEST_HAS_STRINGSTREAM 1</span>
-<a id="line-606" name="line-606"></a><span class="cp">#  endif</span>
-<a id="line-607" name="line-607"></a><span class="cp">#endif</span>
-<a id="line-608" name="line-608"></a>
-<a id="line-609" name="line-609"></a><span class="cp">#if !defined(IUTEST_HAS_STRINGSTREAM)</span>
-<a id="line-610" name="line-610"></a><span class="cp">#  define IUTEST_HAS_STRINGSTREAM   0</span>
-<a id="line-611" name="line-611"></a><span class="cp">#endif</span>
-<a id="line-612" name="line-612"></a>
+<a id="line-586" name="line-586"></a><span class="c1">//! ::std::sto* が使用可能かどうか</span>
+<a id="line-587" name="line-587"></a><span class="cp">#if !defined(IUTEST_HAS_STD_STR_TO_VALUE)</span>
+<a id="line-588" name="line-588"></a><span class="cp">#  if IUTEST_HAS_CXX11</span>
+<a id="line-589" name="line-589"></a><span class="cp">#    if defined(IUTEST_OS_WINDOWS_MINGW)</span>
+<a id="line-590" name="line-590"></a><span class="cp">#      if defined(__MINGW64__) &amp;&amp; (defined(__GNUC__) &amp;&amp; (__GNUC__ &gt; 4 || (__GNUC__ == 4 &amp;&amp; __GNUC_MINOR__ &gt;= 8)))</span>
+<a id="line-591" name="line-591"></a><span class="cp">#        define IUTEST_HAS_STD_STR_TO_VALUE 1</span>
+<a id="line-592" name="line-592"></a><span class="cp">#      endif</span>
+<a id="line-593" name="line-593"></a><span class="cp">#    else</span>
+<a id="line-594" name="line-594"></a><span class="cp">#      define IUTEST_HAS_STD_STR_TO_VALUE   1</span>
+<a id="line-595" name="line-595"></a><span class="cp">#    endif</span>
+<a id="line-596" name="line-596"></a><span class="cp">#  endif</span>
+<a id="line-597" name="line-597"></a><span class="cp">#endif</span>
+<a id="line-598" name="line-598"></a>
+<a id="line-599" name="line-599"></a><span class="cp">#if !defined(IUTEST_HAS_STD_STR_TO_VALUE)</span>
+<a id="line-600" name="line-600"></a><span class="cp">#  define IUTEST_HAS_STD_STR_TO_VALUE   0</span>
+<a id="line-601" name="line-601"></a><span class="cp">#endif</span>
+<a id="line-602" name="line-602"></a>
+<a id="line-603" name="line-603"></a><span class="c1">//! has sys/time.h header</span>
+<a id="line-604" name="line-604"></a><span class="cp">#if !defined(IUTEST_HAS_HDR_SYSTIME)</span>
+<a id="line-605" name="line-605"></a><span class="cp">#  if defined(IUTEST_OS_WINDOWS) &amp;&amp; !defined(IUTEST_OS_WINDOWS_MINGW) &amp;&amp; !defined(IUTEST_OS_WINDOWS_WINE)</span>
+<a id="line-606" name="line-606"></a><span class="cp">#    define IUTEST_HAS_HDR_SYSTIME      0</span>
+<a id="line-607" name="line-607"></a><span class="cp">#  endif</span>
+<a id="line-608" name="line-608"></a><span class="cp">#endif</span>
+<a id="line-609" name="line-609"></a>
+<a id="line-610" name="line-610"></a><span class="cp">#if !defined(IUTEST_HAS_HDR_SYSTIME)</span>
+<a id="line-611" name="line-611"></a><span class="cp">#  define IUTEST_HAS_HDR_SYSTIME        1</span>
+<a id="line-612" name="line-612"></a><span class="cp">#endif</span>
 <a id="line-613" name="line-613"></a>
-<a id="line-614" name="line-614"></a><span class="cm">/**</span>
-<a id="line-615" name="line-615"></a><span class="cm"> * @brief   ::std::strstream が使用可能かどうか</span>
-<a id="line-616" name="line-616"></a><span class="cm"> * @note    IUTEST_HAS_STRINGSTREAM が優先されます</span>
-<a id="line-617" name="line-617"></a><span class="cm"> * @deprecated</span>
-<a id="line-618" name="line-618"></a><span class="cm">*/</span><span class="w"></span>
-<a id="line-619" name="line-619"></a><span class="cp">#if !defined(IUTEST_HAS_STRSTREAM)</span>
-<a id="line-620" name="line-620"></a><span class="cp">#  define IUTEST_HAS_STRSTREAM      0</span>
-<a id="line-621" name="line-621"></a><span class="cp">#endif</span>
-<a id="line-622" name="line-622"></a>
-<a id="line-623" name="line-623"></a><span class="c1">//! iomanip が使用可能かどうか</span>
-<a id="line-624" name="line-624"></a><span class="cp">#if !defined(IUTEST_HAS_IOMANIP)</span>
-<a id="line-625" name="line-625"></a><span class="cp">#  if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM</span>
-<a id="line-626" name="line-626"></a><span class="cp">#    define IUTEST_HAS_IOMANIP      1</span>
-<a id="line-627" name="line-627"></a><span class="cp">#  endif</span>
+<a id="line-614" name="line-614"></a><span class="c1">// socklen_t</span>
+<a id="line-615" name="line-615"></a><span class="cp">#if defined(IUTEST_OS_WINDOWS_WINE)</span>
+<a id="line-616" name="line-616"></a><span class="cp">#  define __socklen_t_defined</span>
+<a id="line-617" name="line-617"></a><span class="cp">#endif</span>
+<a id="line-618" name="line-618"></a>
+<a id="line-619" name="line-619"></a><span class="c1">//! ::std::stringstream が使用可能かどうか</span>
+<a id="line-620" name="line-620"></a><span class="cp">#if !defined(IUTEST_HAS_STRINGSTREAM)</span>
+<a id="line-621" name="line-621"></a><span class="cp">#  if !defined(_STLP_NO_IOSTREAMS)</span>
+<a id="line-622" name="line-622"></a><span class="cp">#    define IUTEST_HAS_STRINGSTREAM 1</span>
+<a id="line-623" name="line-623"></a><span class="cp">#  endif</span>
+<a id="line-624" name="line-624"></a><span class="cp">#endif</span>
+<a id="line-625" name="line-625"></a>
+<a id="line-626" name="line-626"></a><span class="cp">#if !defined(IUTEST_HAS_STRINGSTREAM)</span>
+<a id="line-627" name="line-627"></a><span class="cp">#  define IUTEST_HAS_STRINGSTREAM   0</span>
 <a id="line-628" name="line-628"></a><span class="cp">#endif</span>
 <a id="line-629" name="line-629"></a>
-<a id="line-630" name="line-630"></a><span class="cp">#if !defined(IUTEST_HAS_IOMANIP)</span>
-<a id="line-631" name="line-631"></a><span class="cp">#  define IUTEST_HAS_IOMANIP        0</span>
-<a id="line-632" name="line-632"></a><span class="cp">#endif</span>
-<a id="line-633" name="line-633"></a>
-<a id="line-634" name="line-634"></a>
-<a id="line-635" name="line-635"></a><span class="c1">//! _set_invalid_parameter_handler が使用可能かどうか</span>
-<a id="line-636" name="line-636"></a><span class="cp">#if !defined(IUTEST_HAS_INVALID_PARAMETER_HANDLER)</span>
-<a id="line-637" name="line-637"></a><span class="cp">#  if IUTEST_HAS_EXCEPTIONS &amp;&amp; (defined(_MSC_VER) &amp;&amp; (_MSC_VER &gt;= 1400)) &amp;&amp; !defined(IUTEST_OS_WINDOWS_MOBILE)</span>
-<a id="line-638" name="line-638"></a><span class="cp">#    define IUTEST_HAS_INVALID_PARAMETER_HANDLER    1</span>
-<a id="line-639" name="line-639"></a><span class="cp">#  endif</span>
-<a id="line-640" name="line-640"></a><span class="cp">#endif</span>
-<a id="line-641" name="line-641"></a>
-<a id="line-642" name="line-642"></a><span class="cp">#if !defined(IUTEST_HAS_INVALID_PARAMETER_HANDLER)</span>
-<a id="line-643" name="line-643"></a><span class="cp">#  define IUTEST_HAS_INVALID_PARAMETER_HANDLER      0</span>
-<a id="line-644" name="line-644"></a><span class="cp">#endif</span>
-<a id="line-645" name="line-645"></a>
-<a id="line-646" name="line-646"></a><span class="c1">//! has largefile api</span>
-<a id="line-647" name="line-647"></a><span class="cp">#if !defined(IUTEST_HAS_LARGEFILE_API)</span>
-<a id="line-648" name="line-648"></a><span class="cp">#  if   defined(__LARGEFILE_VISIBLE) &amp;&amp; __LARGEFILE_VISIBLE</span>
-<a id="line-649" name="line-649"></a><span class="cp">#    define IUTEST_HAS_LARGEFILE_API                1</span>
-<a id="line-650" name="line-650"></a><span class="cp">#  elif defined(__POSIX_VISIBLE) &amp;&amp; __POSIX_VISIBLE &gt;= 200112</span>
-<a id="line-651" name="line-651"></a><span class="cp">#    define IUTEST_HAS_LARGEFILE_API                1</span>
-<a id="line-652" name="line-652"></a><span class="cp">#  else</span>
-<a id="line-653" name="line-653"></a><span class="cp">#    define IUTEST_HAS_LARGEFILE_API                0</span>
-<a id="line-654" name="line-654"></a><span class="cp">#  endif</span>
-<a id="line-655" name="line-655"></a><span class="cp">#endif</span>
-<a id="line-656" name="line-656"></a>
-<a id="line-657" name="line-657"></a>
-<a id="line-658" name="line-658"></a><span class="c1">//! has fopen</span>
-<a id="line-659" name="line-659"></a><span class="cp">#if !defined(IUTEST_HAS_FOPEN)</span>
-<a id="line-660" name="line-660"></a><span class="cp">#  define IUTEST_HAS_FOPEN                          1</span>
+<a id="line-630" name="line-630"></a>
+<a id="line-631" name="line-631"></a><span class="cm">/**</span>
+<a id="line-632" name="line-632"></a><span class="cm"> * @brief   ::std::strstream が使用可能かどうか</span>
+<a id="line-633" name="line-633"></a><span class="cm"> * @note    IUTEST_HAS_STRINGSTREAM が優先されます</span>
+<a id="line-634" name="line-634"></a><span class="cm"> * @deprecated</span>
+<a id="line-635" name="line-635"></a><span class="cm">*/</span><span class="w"></span>
+<a id="line-636" name="line-636"></a><span class="cp">#if !defined(IUTEST_HAS_STRSTREAM)</span>
+<a id="line-637" name="line-637"></a><span class="cp">#  define IUTEST_HAS_STRSTREAM      0</span>
+<a id="line-638" name="line-638"></a><span class="cp">#endif</span>
+<a id="line-639" name="line-639"></a>
+<a id="line-640" name="line-640"></a><span class="c1">//! iomanip が使用可能かどうか</span>
+<a id="line-641" name="line-641"></a><span class="cp">#if !defined(IUTEST_HAS_IOMANIP)</span>
+<a id="line-642" name="line-642"></a><span class="cp">#  if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM</span>
+<a id="line-643" name="line-643"></a><span class="cp">#    define IUTEST_HAS_IOMANIP      1</span>
+<a id="line-644" name="line-644"></a><span class="cp">#  endif</span>
+<a id="line-645" name="line-645"></a><span class="cp">#endif</span>
+<a id="line-646" name="line-646"></a>
+<a id="line-647" name="line-647"></a><span class="cp">#if !defined(IUTEST_HAS_IOMANIP)</span>
+<a id="line-648" name="line-648"></a><span class="cp">#  define IUTEST_HAS_IOMANIP        0</span>
+<a id="line-649" name="line-649"></a><span class="cp">#endif</span>
+<a id="line-650" name="line-650"></a>
+<a id="line-651" name="line-651"></a>
+<a id="line-652" name="line-652"></a><span class="c1">//! _set_invalid_parameter_handler が使用可能かどうか</span>
+<a id="line-653" name="line-653"></a><span class="cp">#if !defined(IUTEST_HAS_INVALID_PARAMETER_HANDLER)</span>
+<a id="line-654" name="line-654"></a><span class="cp">#  if IUTEST_HAS_EXCEPTIONS &amp;&amp; (defined(_MSC_VER) &amp;&amp; (_MSC_VER &gt;= 1400)) &amp;&amp; !defined(IUTEST_OS_WINDOWS_MOBILE)</span>
+<a id="line-655" name="line-655"></a><span class="cp">#    define IUTEST_HAS_INVALID_PARAMETER_HANDLER    1</span>
+<a id="line-656" name="line-656"></a><span class="cp">#  endif</span>
+<a id="line-657" name="line-657"></a><span class="cp">#endif</span>
+<a id="line-658" name="line-658"></a>
+<a id="line-659" name="line-659"></a><span class="cp">#if !defined(IUTEST_HAS_INVALID_PARAMETER_HANDLER)</span>
+<a id="line-660" name="line-660"></a><span class="cp">#  define IUTEST_HAS_INVALID_PARAMETER_HANDLER      0</span>
 <a id="line-661" name="line-661"></a><span class="cp">#endif</span>
 <a id="line-662" name="line-662"></a>
-<a id="line-663" name="line-663"></a>
-<a id="line-664" name="line-664"></a><span class="c1">//! has file stat</span>
-<a id="line-665" name="line-665"></a><span class="cp">#if !defined(IUTEST_HAS_FILE_STAT)</span>
-<a id="line-666" name="line-666"></a><span class="cp">#  if !defined(IUTEST_OS_WINDOWS_MOBILE)</span>
-<a id="line-667" name="line-667"></a><span class="cp">#    define IUTEST_HAS_FILE_STAT                    1</span>
-<a id="line-668" name="line-668"></a><span class="cp">#  endif</span>
-<a id="line-669" name="line-669"></a><span class="cp">#endif</span>
-<a id="line-670" name="line-670"></a>
-<a id="line-671" name="line-671"></a><span class="cp">#if !defined(IUTEST_HAS_FILE_STAT)</span>
-<a id="line-672" name="line-672"></a><span class="cp">#  define IUTEST_HAS_FILE_STAT                      0</span>
-<a id="line-673" name="line-673"></a><span class="cp">#endif</span>
+<a id="line-663" name="line-663"></a><span class="c1">//! has largefile api</span>
+<a id="line-664" name="line-664"></a><span class="cp">#if !defined(IUTEST_HAS_LARGEFILE_API)</span>
+<a id="line-665" name="line-665"></a><span class="cp">#  if   defined(__LARGEFILE_VISIBLE) &amp;&amp; __LARGEFILE_VISIBLE</span>
+<a id="line-666" name="line-666"></a><span class="cp">#    define IUTEST_HAS_LARGEFILE_API                1</span>
+<a id="line-667" name="line-667"></a><span class="cp">#  elif defined(__POSIX_VISIBLE) &amp;&amp; __POSIX_VISIBLE &gt;= 200112</span>
+<a id="line-668" name="line-668"></a><span class="cp">#    define IUTEST_HAS_LARGEFILE_API                1</span>
+<a id="line-669" name="line-669"></a><span class="cp">#  else</span>
+<a id="line-670" name="line-670"></a><span class="cp">#    define IUTEST_HAS_LARGEFILE_API                0</span>
+<a id="line-671" name="line-671"></a><span class="cp">#  endif</span>
+<a id="line-672" name="line-672"></a><span class="cp">#endif</span>
+<a id="line-673" name="line-673"></a>
 <a id="line-674" name="line-674"></a>
-<a id="line-675" name="line-675"></a><span class="c1">//! has fileno</span>
-<a id="line-676" name="line-676"></a><span class="cp">#if !defined(IUTEST_HAS_FILENO)</span>
-<a id="line-677" name="line-677"></a><span class="cp">#  if defined(__POSIX_VISIBLE) &amp;&amp; __POSIX_VISIBLE == 0</span>
-<a id="line-678" name="line-678"></a><span class="cp">#    define IUTEST_HAS_FILENO                       0</span>
-<a id="line-679" name="line-679"></a><span class="cp">#  elif defined(IUTEST_OS_WINDOWS_MINGW) &amp;&amp; defined(__STRICT_ANSI__)</span>
-<a id="line-680" name="line-680"></a><span class="cp">#    define IUTEST_HAS_FILENO                       0</span>
-<a id="line-681" name="line-681"></a><span class="cp">#  elif !defined(IUTEST_OS_WINDOWS_MOBILE)</span>
-<a id="line-682" name="line-682"></a><span class="cp">#    define IUTEST_HAS_FILENO                       1</span>
-<a id="line-683" name="line-683"></a><span class="cp">#  endif</span>
-<a id="line-684" name="line-684"></a><span class="cp">#endif</span>
-<a id="line-685" name="line-685"></a>
-<a id="line-686" name="line-686"></a><span class="cp">#if !defined(IUTEST_HAS_FILENO)</span>
-<a id="line-687" name="line-687"></a><span class="cp">#  define IUTEST_HAS_FILENO                         0</span>
-<a id="line-688" name="line-688"></a><span class="cp">#endif</span>
-<a id="line-689" name="line-689"></a>
-<a id="line-690" name="line-690"></a><span class="c1">//! has fd dup/dup2</span>
-<a id="line-691" name="line-691"></a><span class="cp">#if !defined(IUTEST_HAS_FD_DUP)</span>
-<a id="line-692" name="line-692"></a><span class="cp">#  if IUTEST_HAS_HDR_UNISTD &amp;&amp; !defined(__arm__)</span>
-<a id="line-693" name="line-693"></a><span class="cp">#    define IUTEST_HAS_FD_DUP                       1</span>
-<a id="line-694" name="line-694"></a><span class="cp">#  endif</span>
-<a id="line-695" name="line-695"></a><span class="cp">#endif</span>
-<a id="line-696" name="line-696"></a>
-<a id="line-697" name="line-697"></a><span class="cp">#if !defined(IUTEST_HAS_FD_DUP)</span>
-<a id="line-698" name="line-698"></a><span class="cp">#  define IUTEST_HAS_FD_DUP                         0</span>
-<a id="line-699" name="line-699"></a><span class="cp">#endif</span>
-<a id="line-700" name="line-700"></a>
-<a id="line-701" name="line-701"></a><span class="c1">//! has fdopen</span>
-<a id="line-702" name="line-702"></a><span class="cp">#if !defined(IUTEST_HAS_FD_OPEN)</span>
-<a id="line-703" name="line-703"></a><span class="cp">#  if IUTEST_HAS_HDR_UNISTD</span>
-<a id="line-704" name="line-704"></a><span class="cp">#    if defined(__arm__)</span>
-<a id="line-705" name="line-705"></a><span class="cp">#      define IUTEST_HAS_FD_OPEN                    0</span>
-<a id="line-706" name="line-706"></a><span class="cp">#    elif defined(IUTEST_OS_CYGWIN)</span>
-<a id="line-707" name="line-707"></a><span class="cp">#      if !defined(__STRICT_ANSI__)</span>
-<a id="line-708" name="line-708"></a><span class="cp">#        define IUTEST_HAS_FD_OPEN                  1</span>
-<a id="line-709" name="line-709"></a><span class="cp">#      endif</span>
-<a id="line-710" name="line-710"></a><span class="cp">#    elif defined(IUTEST_OS_WINDOWS_MINGW) &amp;&amp; !defined(__MINGW64__)</span>
-<a id="line-711" name="line-711"></a><span class="cp">#      define IUTEST_HAS_FD_OPEN                    0</span>
-<a id="line-712" name="line-712"></a><span class="cp">#    else</span>
-<a id="line-713" name="line-713"></a><span class="cp">#      define IUTEST_HAS_FD_OPEN                    1</span>
-<a id="line-714" name="line-714"></a><span class="cp">#    endif</span>
-<a id="line-715" name="line-715"></a><span class="cp">#  endif</span>
+<a id="line-675" name="line-675"></a><span class="c1">//! has fopen</span>
+<a id="line-676" name="line-676"></a><span class="cp">#if !defined(IUTEST_HAS_FOPEN)</span>
+<a id="line-677" name="line-677"></a><span class="cp">#  define IUTEST_HAS_FOPEN                          1</span>
+<a id="line-678" name="line-678"></a><span class="cp">#endif</span>
+<a id="line-679" name="line-679"></a>
+<a id="line-680" name="line-680"></a>
+<a id="line-681" name="line-681"></a><span class="c1">//! has file stat</span>
+<a id="line-682" name="line-682"></a><span class="cp">#if !defined(IUTEST_HAS_FILE_STAT)</span>
+<a id="line-683" name="line-683"></a><span class="cp">#  if !defined(IUTEST_OS_WINDOWS_MOBILE)</span>
+<a id="line-684" name="line-684"></a><span class="cp">#    define IUTEST_HAS_FILE_STAT                    1</span>
+<a id="line-685" name="line-685"></a><span class="cp">#  endif</span>
+<a id="line-686" name="line-686"></a><span class="cp">#endif</span>
+<a id="line-687" name="line-687"></a>
+<a id="line-688" name="line-688"></a><span class="cp">#if !defined(IUTEST_HAS_FILE_STAT)</span>
+<a id="line-689" name="line-689"></a><span class="cp">#  define IUTEST_HAS_FILE_STAT                      0</span>
+<a id="line-690" name="line-690"></a><span class="cp">#endif</span>
+<a id="line-691" name="line-691"></a>
+<a id="line-692" name="line-692"></a><span class="c1">//! has fileno</span>
+<a id="line-693" name="line-693"></a><span class="cp">#if !defined(IUTEST_HAS_FILENO)</span>
+<a id="line-694" name="line-694"></a><span class="cp">#  if defined(__POSIX_VISIBLE) &amp;&amp; __POSIX_VISIBLE == 0</span>
+<a id="line-695" name="line-695"></a><span class="cp">#    define IUTEST_HAS_FILENO                       0</span>
+<a id="line-696" name="line-696"></a><span class="cp">#  elif defined(IUTEST_OS_WINDOWS_MINGW) &amp;&amp; defined(__STRICT_ANSI__)</span>
+<a id="line-697" name="line-697"></a><span class="cp">#    define IUTEST_HAS_FILENO                       0</span>
+<a id="line-698" name="line-698"></a><span class="cp">#  elif !defined(IUTEST_OS_WINDOWS_MOBILE)</span>
+<a id="line-699" name="line-699"></a><span class="cp">#    define IUTEST_HAS_FILENO                       1</span>
+<a id="line-700" name="line-700"></a><span class="cp">#  endif</span>
+<a id="line-701" name="line-701"></a><span class="cp">#endif</span>
+<a id="line-702" name="line-702"></a>
+<a id="line-703" name="line-703"></a><span class="cp">#if !defined(IUTEST_HAS_FILENO)</span>
+<a id="line-704" name="line-704"></a><span class="cp">#  define IUTEST_HAS_FILENO                         0</span>
+<a id="line-705" name="line-705"></a><span class="cp">#endif</span>
+<a id="line-706" name="line-706"></a>
+<a id="line-707" name="line-707"></a><span class="c1">//! has fd dup/dup2</span>
+<a id="line-708" name="line-708"></a><span class="cp">#if !defined(IUTEST_HAS_FD_DUP)</span>
+<a id="line-709" name="line-709"></a><span class="cp">#  if IUTEST_HAS_HDR_UNISTD &amp;&amp; !defined(__arm__)</span>
+<a id="line-710" name="line-710"></a><span class="cp">#    define IUTEST_HAS_FD_DUP                       1</span>
+<a id="line-711" name="line-711"></a><span class="cp">#  endif</span>
+<a id="line-712" name="line-712"></a><span class="cp">#endif</span>
+<a id="line-713" name="line-713"></a>
+<a id="line-714" name="line-714"></a><span class="cp">#if !defined(IUTEST_HAS_FD_DUP)</span>
+<a id="line-715" name="line-715"></a><span class="cp">#  define IUTEST_HAS_FD_DUP                         0</span>
 <a id="line-716" name="line-716"></a><span class="cp">#endif</span>
 <a id="line-717" name="line-717"></a>
-<a id="line-718" name="line-718"></a><span class="cp">#if !defined(IUTEST_HAS_FD_OPEN)</span>
-<a id="line-719" name="line-719"></a><span class="cp">#  define IUTEST_HAS_FD_OPEN                        0</span>
-<a id="line-720" name="line-720"></a><span class="cp">#endif</span>
-<a id="line-721" name="line-721"></a>
-<a id="line-722" name="line-722"></a><span class="c1">//! has mkstemp</span>
-<a id="line-723" name="line-723"></a><span class="cp">#if !defined(IUTEST_HAS_MKSTEMP)</span>
-<a id="line-724" name="line-724"></a><span class="cp">#  if   defined(HAVE_MKSTEMP)</span>
-<a id="line-725" name="line-725"></a><span class="cp">#      define IUTEST_HAS_MKSTEMP                    HAVE_MKSTEMP</span>
-<a id="line-726" name="line-726"></a><span class="cp">#  elif defined(__arm__)</span>
-<a id="line-727" name="line-727"></a><span class="cp">#    if !defined(_REENT_ONLY) \</span>
-<a id="line-728" name="line-728"></a><span class="cp">      &amp;&amp; ( (defined(__MISC_VISIBLE) &amp;&amp; __MISC_VISIBLE) \</span>
-<a id="line-729" name="line-729"></a><span class="cp">        || (defined(__POSIX_VISIBLE) &amp;&amp; __POSIX_VISIBLE &gt;= 200112) \</span>
-<a id="line-730" name="line-730"></a><span class="cp">        || (defined(__XSI_VISIBLE) &amp;&amp; __XSI_VISIBLE &gt;= 4) \</span>
-<a id="line-731" name="line-731"></a><span class="cp">      )</span>
-<a id="line-732" name="line-732"></a><span class="cp">#      define IUTEST_HAS_MKSTEMP                    1</span>
-<a id="line-733" name="line-733"></a><span class="cp">#    endif</span>
-<a id="line-734" name="line-734"></a><span class="cp">#  elif defined(IUTEST_OS_CYGWIN)</span>
-<a id="line-735" name="line-735"></a><span class="cp">#    if !defined(__STRICT_ANSI__)</span>
-<a id="line-736" name="line-736"></a><span class="cp">#      define IUTEST_HAS_MKSTEMP                    1</span>
-<a id="line-737" name="line-737"></a><span class="cp">#    endif</span>
-<a id="line-738" name="line-738"></a><span class="cp">#  elif defined(IUTEST_OS_WINDOWS_MINGW) &amp;&amp; !defined(__MINGW64__)</span>
-<a id="line-739" name="line-739"></a><span class="cp">#    define IUTEST_HAS_MKSTEMP                      0</span>
-<a id="line-740" name="line-740"></a><span class="cp">#  elif IUTEST_HAS_HDR_UNISTD</span>
-<a id="line-741" name="line-741"></a><span class="cp">#    define IUTEST_HAS_MKSTEMP                      1</span>
-<a id="line-742" name="line-742"></a><span class="cp">#  endif</span>
-<a id="line-743" name="line-743"></a><span class="cp">#endif</span>
-<a id="line-744" name="line-744"></a>
-<a id="line-745" name="line-745"></a><span class="cp">#if !defined(IUTEST_HAS_MKSTEMP)</span>
-<a id="line-746" name="line-746"></a><span class="cp">#  define IUTEST_HAS_MKSTEMP                        0</span>
-<a id="line-747" name="line-747"></a><span class="cp">#endif</span>
-<a id="line-748" name="line-748"></a>
-<a id="line-749" name="line-749"></a><span class="c1">//! size_t format macros</span>
-<a id="line-750" name="line-750"></a><span class="cp">#if !defined(IUPRzu)</span>
-<a id="line-751" name="line-751"></a><span class="cp">#  if defined(_MSC_VER) &amp;&amp; (_MSC_VER &lt; 1900)</span>
-<a id="line-752" name="line-752"></a><span class="cp">#    define IUPRzu  &quot;Iu&quot;</span>
-<a id="line-753" name="line-753"></a><span class="cp">#  elif defined(IUTEST_OS_WINDOWS_MINGW)</span>
-<a id="line-754" name="line-754"></a><span class="cp">#    if !defined(__STRICT_ANSI__)</span>
-<a id="line-755" name="line-755"></a><span class="cp">#      if defined(__MINGW64__)</span>
-<a id="line-756" name="line-756"></a><span class="cp">#        define IUPRzu  PRIu64</span>
-<a id="line-757" name="line-757"></a><span class="cp">#      elif defined(__MINGW32__)</span>
-<a id="line-758" name="line-758"></a><span class="cp">#        define IUPRzu  PRIu32</span>
-<a id="line-759" name="line-759"></a><span class="cp">#      endif</span>
-<a id="line-760" name="line-760"></a><span class="cp">#    endif</span>
-<a id="line-761" name="line-761"></a><span class="cp">#  endif</span>
-<a id="line-762" name="line-762"></a><span class="cp">#endif</span>
-<a id="line-763" name="line-763"></a>
-<a id="line-764" name="line-764"></a><span class="cp">#if !defined(IUPRzu)</span>
-<a id="line-765" name="line-765"></a><span class="cp">#  define IUPRzu  &quot;zu&quot;</span>
-<a id="line-766" name="line-766"></a><span class="cp">#endif</span>
-<a id="line-767" name="line-767"></a>
-<a id="line-768" name="line-768"></a><span class="cp">#if !defined(iu_va_copy)</span>
-<a id="line-769" name="line-769"></a><span class="cp">#  if defined(va_copy)</span>
-<a id="line-770" name="line-770"></a><span class="cp">#    define iu_va_copy              va_copy</span>
-<a id="line-771" name="line-771"></a><span class="cp">#  elif defined(__GNUC__) || defined(__clang__)</span>
-<a id="line-772" name="line-772"></a><span class="cp">#    define iu_va_copy(dest, src)   __builtin_va_copy(dest, src)</span>
-<a id="line-773" name="line-773"></a><span class="cp">#  else</span>
-<a id="line-774" name="line-774"></a><span class="cp">#    define iu_va_copy(dest, src)   (dest = src)</span>
-<a id="line-775" name="line-775"></a><span class="cp">#  endif</span>
-<a id="line-776" name="line-776"></a><span class="cp">#endif</span>
-<a id="line-777" name="line-777"></a>
-<a id="line-778" name="line-778"></a><span class="c1">//======================================================================</span>
-<a id="line-779" name="line-779"></a><span class="c1">// include</span>
-<a id="line-780" name="line-780"></a><span class="c1">// IWYU pragma: begin_exports</span>
-<a id="line-781" name="line-781"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iterator&gt;</span><span class="cp"></span>
-<a id="line-782" name="line-782"></a>
-<a id="line-783" name="line-783"></a><span class="cp">#if IUTEST_HAS_CXX_HDR_ANY</span>
-<a id="line-784" name="line-784"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;any&gt;</span><span class="cp"></span>
-<a id="line-785" name="line-785"></a><span class="cp">#endif</span>
-<a id="line-786" name="line-786"></a><span class="cp">#if IUTEST_HAS_CXX_HDR_CSTDINT</span>
-<a id="line-787" name="line-787"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;cstdint&gt;</span><span class="cp"></span>
-<a id="line-788" name="line-788"></a><span class="cp">#endif</span>
-<a id="line-789" name="line-789"></a><span class="cp">#if IUTEST_HAS_CXX_HDR_FILESYSTEM &amp;&amp; IUTEST_HAS_STD_FILESYSTEM</span>
-<a id="line-790" name="line-790"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;filesystem&gt;</span><span class="cp"></span>
-<a id="line-791" name="line-791"></a><span class="cp">#endif</span>
-<a id="line-792" name="line-792"></a><span class="cp">#if IUTEST_HAS_CXX_HDR_OPTIONAL</span>
-<a id="line-793" name="line-793"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;optional&gt;</span><span class="cp"></span>
-<a id="line-794" name="line-794"></a><span class="cp">#endif</span>
-<a id="line-795" name="line-795"></a><span class="cp">#if IUTEST_HAS_CXX_HDR_VARIANT</span>
-<a id="line-796" name="line-796"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;variant&gt;</span><span class="cp"></span>
-<a id="line-797" name="line-797"></a><span class="cp">#endif</span>
-<a id="line-798" name="line-798"></a><span class="cp">#if IUTEST_HAS_CXX_HDR_CHARCONV</span>
-<a id="line-799" name="line-799"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;charconv&gt;</span><span class="cp"></span>
-<a id="line-800" name="line-800"></a><span class="cp">#endif</span>
-<a id="line-801" name="line-801"></a><span class="c1">// IWYU pragma: end_exports</span>
-<a id="line-802" name="line-802"></a>
-<a id="line-803" name="line-803"></a><span class="cp">#endif </span><span class="c1">// INCG_IRIS_IUTEST_STDLIB_DEFS_HPP_9C62C097_E5FB_49EE_9329_811F32C846A2_</span>
+<a id="line-718" name="line-718"></a><span class="c1">//! has fdopen</span>
+<a id="line-719" name="line-719"></a><span class="cp">#if !defined(IUTEST_HAS_FD_OPEN)</span>
+<a id="line-720" name="line-720"></a><span class="cp">#  if IUTEST_HAS_HDR_UNISTD</span>
+<a id="line-721" name="line-721"></a><span class="cp">#    if defined(__arm__)</span>
+<a id="line-722" name="line-722"></a><span class="cp">#      define IUTEST_HAS_FD_OPEN                    0</span>
+<a id="line-723" name="line-723"></a><span class="cp">#    elif defined(IUTEST_OS_CYGWIN)</span>
+<a id="line-724" name="line-724"></a><span class="cp">#      if !defined(__STRICT_ANSI__)</span>
+<a id="line-725" name="line-725"></a><span class="cp">#        define IUTEST_HAS_FD_OPEN                  1</span>
+<a id="line-726" name="line-726"></a><span class="cp">#      endif</span>
+<a id="line-727" name="line-727"></a><span class="cp">#    elif defined(IUTEST_OS_WINDOWS_MINGW) &amp;&amp; !defined(__MINGW64__)</span>
+<a id="line-728" name="line-728"></a><span class="cp">#      define IUTEST_HAS_FD_OPEN                    0</span>
+<a id="line-729" name="line-729"></a><span class="cp">#    else</span>
+<a id="line-730" name="line-730"></a><span class="cp">#      define IUTEST_HAS_FD_OPEN                    1</span>
+<a id="line-731" name="line-731"></a><span class="cp">#    endif</span>
+<a id="line-732" name="line-732"></a><span class="cp">#  endif</span>
+<a id="line-733" name="line-733"></a><span class="cp">#endif</span>
+<a id="line-734" name="line-734"></a>
+<a id="line-735" name="line-735"></a><span class="cp">#if !defined(IUTEST_HAS_FD_OPEN)</span>
+<a id="line-736" name="line-736"></a><span class="cp">#  define IUTEST_HAS_FD_OPEN                        0</span>
+<a id="line-737" name="line-737"></a><span class="cp">#endif</span>
+<a id="line-738" name="line-738"></a>
+<a id="line-739" name="line-739"></a><span class="c1">//! has mkstemp</span>
+<a id="line-740" name="line-740"></a><span class="cp">#if !defined(IUTEST_HAS_MKSTEMP)</span>
+<a id="line-741" name="line-741"></a><span class="cp">#  if   defined(HAVE_MKSTEMP)</span>
+<a id="line-742" name="line-742"></a><span class="cp">#      define IUTEST_HAS_MKSTEMP                    HAVE_MKSTEMP</span>
+<a id="line-743" name="line-743"></a><span class="cp">#  elif defined(__arm__)</span>
+<a id="line-744" name="line-744"></a><span class="cp">#    if !defined(_REENT_ONLY) \</span>
+<a id="line-745" name="line-745"></a><span class="cp">      &amp;&amp; ( (defined(__MISC_VISIBLE) &amp;&amp; __MISC_VISIBLE) \</span>
+<a id="line-746" name="line-746"></a><span class="cp">        || (defined(__POSIX_VISIBLE) &amp;&amp; __POSIX_VISIBLE &gt;= 200112) \</span>
+<a id="line-747" name="line-747"></a><span class="cp">        || (defined(__XSI_VISIBLE) &amp;&amp; __XSI_VISIBLE &gt;= 4) \</span>
+<a id="line-748" name="line-748"></a><span class="cp">      )</span>
+<a id="line-749" name="line-749"></a><span class="cp">#      define IUTEST_HAS_MKSTEMP                    1</span>
+<a id="line-750" name="line-750"></a><span class="cp">#    endif</span>
+<a id="line-751" name="line-751"></a><span class="cp">#  elif defined(IUTEST_OS_CYGWIN)</span>
+<a id="line-752" name="line-752"></a><span class="cp">#    if !defined(__STRICT_ANSI__)</span>
+<a id="line-753" name="line-753"></a><span class="cp">#      define IUTEST_HAS_MKSTEMP                    1</span>
+<a id="line-754" name="line-754"></a><span class="cp">#    endif</span>
+<a id="line-755" name="line-755"></a><span class="cp">#  elif defined(IUTEST_OS_WINDOWS_MINGW) &amp;&amp; !defined(__MINGW64__)</span>
+<a id="line-756" name="line-756"></a><span class="cp">#    define IUTEST_HAS_MKSTEMP                      0</span>
+<a id="line-757" name="line-757"></a><span class="cp">#  elif IUTEST_HAS_HDR_UNISTD</span>
+<a id="line-758" name="line-758"></a><span class="cp">#    define IUTEST_HAS_MKSTEMP                      1</span>
+<a id="line-759" name="line-759"></a><span class="cp">#  endif</span>
+<a id="line-760" name="line-760"></a><span class="cp">#endif</span>
+<a id="line-761" name="line-761"></a>
+<a id="line-762" name="line-762"></a><span class="cp">#if !defined(IUTEST_HAS_MKSTEMP)</span>
+<a id="line-763" name="line-763"></a><span class="cp">#  define IUTEST_HAS_MKSTEMP                        0</span>
+<a id="line-764" name="line-764"></a><span class="cp">#endif</span>
+<a id="line-765" name="line-765"></a>
+<a id="line-766" name="line-766"></a><span class="cp">#if !defined(IUTEST_NO_VSNPRINTF)</span>
+<a id="line-767" name="line-767"></a><span class="cp">#  if defined(__CYGWIN__) \</span>
+<a id="line-768" name="line-768"></a><span class="cp">        &amp;&amp; (defined(__STRICT_ANSI__) &amp;&amp; (defined(__STDC_VERSION__) &amp;&amp; (__STDC_VERSION__ &gt;= 199901L)) &amp;&amp; (__cplusplus &gt;= 201103L))</span>
+<a id="line-769" name="line-769"></a><span class="cp">#    define IUTEST_NO_VSNPRINTF                     1</span>
+<a id="line-770" name="line-770"></a><span class="cp">#  endif</span>
+<a id="line-771" name="line-771"></a><span class="cp">#  if (defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)) &amp;&amp; defined(__STRICT_ANSI__)</span>
+<a id="line-772" name="line-772"></a><span class="cp">#    define IUTEST_NO_VSNPRINTF                     1</span>
+<a id="line-773" name="line-773"></a><span class="cp">#  endif</span>
+<a id="line-774" name="line-774"></a><span class="cp">#endif</span>
+<a id="line-775" name="line-775"></a>
+<a id="line-776" name="line-776"></a><span class="c1">//! size_t format macros</span>
+<a id="line-777" name="line-777"></a><span class="cp">#if !defined(IUPRzu)</span>
+<a id="line-778" name="line-778"></a><span class="cp">#  if defined(_MSC_VER) &amp;&amp; (_MSC_VER &lt; 1900)</span>
+<a id="line-779" name="line-779"></a><span class="cp">#    define IUPRzu  &quot;Iu&quot;</span>
+<a id="line-780" name="line-780"></a><span class="cp">#  elif defined(IUTEST_OS_WINDOWS_MINGW)</span>
+<a id="line-781" name="line-781"></a><span class="cp">#    if !defined(__STRICT_ANSI__)</span>
+<a id="line-782" name="line-782"></a><span class="cp">#      if defined(__MINGW64__)</span>
+<a id="line-783" name="line-783"></a><span class="cp">#        define IUPRzu  PRIu64</span>
+<a id="line-784" name="line-784"></a><span class="cp">#      elif defined(__MINGW32__)</span>
+<a id="line-785" name="line-785"></a><span class="cp">#        define IUPRzu  PRIu32</span>
+<a id="line-786" name="line-786"></a><span class="cp">#      endif</span>
+<a id="line-787" name="line-787"></a><span class="cp">#    endif</span>
+<a id="line-788" name="line-788"></a><span class="cp">#  endif</span>
+<a id="line-789" name="line-789"></a><span class="cp">#endif</span>
+<a id="line-790" name="line-790"></a>
+<a id="line-791" name="line-791"></a><span class="cp">#if !defined(IUPRzu)</span>
+<a id="line-792" name="line-792"></a><span class="cp">#  define IUPRzu  &quot;zu&quot;</span>
+<a id="line-793" name="line-793"></a><span class="cp">#endif</span>
+<a id="line-794" name="line-794"></a>
+<a id="line-795" name="line-795"></a><span class="cp">#if !defined(iu_va_copy)</span>
+<a id="line-796" name="line-796"></a><span class="cp">#  if defined(va_copy)</span>
+<a id="line-797" name="line-797"></a><span class="cp">#    define iu_va_copy              va_copy</span>
+<a id="line-798" name="line-798"></a><span class="cp">#  elif defined(__GNUC__) || defined(__clang__)</span>
+<a id="line-799" name="line-799"></a><span class="cp">#    define iu_va_copy(dest, src)   __builtin_va_copy(dest, src)</span>
+<a id="line-800" name="line-800"></a><span class="cp">#  else</span>
+<a id="line-801" name="line-801"></a><span class="cp">#    define iu_va_copy(dest, src)   (dest = src)</span>
+<a id="line-802" name="line-802"></a><span class="cp">#  endif</span>
+<a id="line-803" name="line-803"></a><span class="cp">#endif</span>
+<a id="line-804" name="line-804"></a>
+<a id="line-805" name="line-805"></a><span class="cp">#if !defined(IU_MB_CUR_MAX)</span>
+<a id="line-806" name="line-806"></a><span class="cp">#  if defined(MB_CUR_MAX)</span>
+<a id="line-807" name="line-807"></a><span class="cp">#    define IU_MB_CUR_MAX   MB_CUR_MAX</span>
+<a id="line-808" name="line-808"></a><span class="cp">#  endif</span>
+<a id="line-809" name="line-809"></a><span class="cp">#endif</span>
+<a id="line-810" name="line-810"></a><span class="cp">#if !defined(IU_MB_CUR_MAX)</span>
+<a id="line-811" name="line-811"></a><span class="cp">#  define IU_MB_CUR_MAX   6</span>
+<a id="line-812" name="line-812"></a><span class="cp">#endif</span>
+<a id="line-813" name="line-813"></a>
+<a id="line-814" name="line-814"></a><span class="c1">//======================================================================</span>
+<a id="line-815" name="line-815"></a><span class="c1">// include</span>
+<a id="line-816" name="line-816"></a><span class="c1">// IWYU pragma: begin_exports</span>
+<a id="line-817" name="line-817"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iterator&gt;</span><span class="cp"></span>
+<a id="line-818" name="line-818"></a>
+<a id="line-819" name="line-819"></a><span class="cp">#if IUTEST_HAS_CXX_HDR_ANY</span>
+<a id="line-820" name="line-820"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;any&gt;</span><span class="cp"></span>
+<a id="line-821" name="line-821"></a><span class="cp">#endif</span>
+<a id="line-822" name="line-822"></a><span class="cp">#if IUTEST_HAS_CXX_HDR_CSTDINT</span>
+<a id="line-823" name="line-823"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;cstdint&gt;</span><span class="cp"></span>
+<a id="line-824" name="line-824"></a><span class="cp">#endif</span>
+<a id="line-825" name="line-825"></a><span class="cp">#if IUTEST_HAS_CXX_HDR_FILESYSTEM &amp;&amp; IUTEST_HAS_STD_FILESYSTEM</span>
+<a id="line-826" name="line-826"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;filesystem&gt;</span><span class="cp"></span>
+<a id="line-827" name="line-827"></a><span class="cp">#endif</span>
+<a id="line-828" name="line-828"></a><span class="cp">#if IUTEST_HAS_CXX_HDR_OPTIONAL</span>
+<a id="line-829" name="line-829"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;optional&gt;</span><span class="cp"></span>
+<a id="line-830" name="line-830"></a><span class="cp">#endif</span>
+<a id="line-831" name="line-831"></a><span class="cp">#if IUTEST_HAS_CXX_HDR_VARIANT</span>
+<a id="line-832" name="line-832"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;variant&gt;</span><span class="cp"></span>
+<a id="line-833" name="line-833"></a><span class="cp">#endif</span>
+<a id="line-834" name="line-834"></a><span class="cp">#if IUTEST_HAS_CXX_HDR_CHARCONV</span>
+<a id="line-835" name="line-835"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;charconv&gt;</span><span class="cp"></span>
+<a id="line-836" name="line-836"></a><span class="cp">#endif</span>
+<a id="line-837" name="line-837"></a><span class="c1">// IWYU pragma: end_exports</span>
+<a id="line-838" name="line-838"></a>
+<a id="line-839" name="line-839"></a><span class="cp">#endif </span><span class="c1">// INCG_IRIS_IUTEST_STDLIB_DEFS_HPP_9C62C097_E5FB_49EE_9329_811F32C846A2_</span>
 </pre></div>
 </td></tr></table>
     </div>

@@ -425,7 +425,7 @@ $(function() {
 <div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="keyword">namespace </span>win</div>
 <div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;{</div>
 <div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160; </div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(<span class="keyword">const</span> <span class="keywordtype">wchar_t</span>* wide_c_str);</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(<span class="keyword">const</span> <span class="keywordtype">wchar_t</span>* wide_c_str, <span class="keywordtype">int</span> num=-1);</div>
 <div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160; </div>
 <div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;    ::std::string IUTEST_ATTRIBUTE_UNUSED_ GetHResultString(HRESULT hr);</div>
 <div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160; </div>
@@ -528,8 +528,8 @@ $(function() {
 <div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160; </div>
 <div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// INCG_IRIS_IUTEST_PORT_HPP_7893F685_A1A9_477A_82E8_BF06237697FF_</span></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:829</div></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_ae77bae4c5720c1d321484985bbfc763d"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae77bae4c5720c1d321484985bbfc763d">IUTEST_ATTRIBUTE_NORETURN_</a></div><div class="ttdeci">#define IUTEST_ATTRIBUTE_NORETURN_</div><div class="ttdoc">noreturn</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:1451</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:846</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_ae77bae4c5720c1d321484985bbfc763d"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae77bae4c5720c1d321484985bbfc763d">IUTEST_ATTRIBUTE_NORETURN_</a></div><div class="ttdeci">#define IUTEST_ATTRIBUTE_NORETURN_</div><div class="ttdoc">noreturn</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:1477</div></div>
 <div class="ttc" id="aiutest__internal__defs_8hpp_html"><div class="ttname"><a href="../../d3/d4c/iutest__internal__defs_8hpp.html">iutest_internal_defs.hpp</a></div><div class="ttdoc">internal definition</div></div>
 <div class="ttc" id="aiutest__port_8hpp_html_a967848348e16a7d0ab2a31c1593ca9ef"><div class="ttname"><a href="../../d1/d2a/iutest__port_8hpp.html#a967848348e16a7d0ab2a31c1593ca9ef">IUTEST_LOG_</a></div><div class="ttdeci">#define IUTEST_LOG_(level)</div><div class="ttdoc">ログメッセージストリーム</div><div class="ttdef"><b>Definition:</b> iutest_port.hpp:56</div></div>
 <div class="ttc" id="aiutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義</div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:31</div></div>
@@ -537,7 +537,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2025年03月09日(日) 13時33分18秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2025年03月23日(日) 15時15分03秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

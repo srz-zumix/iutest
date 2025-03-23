@@ -1014,309 +1014,312 @@ $(function() {
 <div class="line"><a name="l01095"></a><span class="lineno"> 1095</span>&#160; </div>
 <div class="line"><a name="l01096"></a><span class="lineno"> 1096</span>&#160;IIUT_DECL_STREQ_COMPARE_HELPER_(<span class="keywordtype">char</span>)</div>
 <div class="line"><a name="l01097"></a><span class="lineno"> 1097</span>&#160;IIUT_DECL_STREQ_COMPARE_HELPER_(<span class="keywordtype">wchar_t</span>)</div>
-<div class="line"><a name="l01098"></a><span class="lineno"> 1098</span>&#160;<span class="preprocessor">#if IUTEST_HAS_CHAR16_T</span></div>
-<div class="line"><a name="l01099"></a><span class="lineno"> 1099</span>&#160;IIUT_DECL_STREQ_COMPARE_HELPER_(char16_t)</div>
+<div class="line"><a name="l01098"></a><span class="lineno"> 1098</span>&#160;<span class="preprocessor">#if IUTEST_HAS_CHAR8_T</span></div>
+<div class="line"><a name="l01099"></a><span class="lineno"> 1099</span>&#160;IIUT_DECL_STREQ_COMPARE_HELPER_(char8_t)</div>
 <div class="line"><a name="l01100"></a><span class="lineno"> 1100</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01101"></a><span class="lineno"> 1101</span>&#160;<span class="preprocessor">#if IUTEST_HAS_CHAR32_T</span></div>
-<div class="line"><a name="l01102"></a><span class="lineno"> 1102</span>&#160;IIUT_DECL_STREQ_COMPARE_HELPER_(char32_t)</div>
+<div class="line"><a name="l01101"></a><span class="lineno"> 1101</span>&#160;<span class="preprocessor">#if IUTEST_HAS_CHAR16_T</span></div>
+<div class="line"><a name="l01102"></a><span class="lineno"> 1102</span>&#160;IIUT_DECL_STREQ_COMPARE_HELPER_(char16_t)</div>
 <div class="line"><a name="l01103"></a><span class="lineno"> 1103</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01104"></a><span class="lineno"> 1104</span>&#160; </div>
-<div class="line"><a name="l01105"></a><span class="lineno"> 1105</span>&#160;<span class="preprocessor">#undef IIUT_DECL_STREQ_COMPARE_HELPER_</span></div>
-<div class="line"><a name="l01106"></a><span class="lineno"> 1106</span>&#160;<span class="preprocessor">#undef IIUT_DECL_STREQ_COMPARE_HELPER_SV_</span></div>
+<div class="line"><a name="l01104"></a><span class="lineno"> 1104</span>&#160;<span class="preprocessor">#if IUTEST_HAS_CHAR32_T</span></div>
+<div class="line"><a name="l01105"></a><span class="lineno"> 1105</span>&#160;IIUT_DECL_STREQ_COMPARE_HELPER_(char32_t)</div>
+<div class="line"><a name="l01106"></a><span class="lineno"> 1106</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l01107"></a><span class="lineno"> 1107</span>&#160; </div>
-<div class="line"><a name="l01108"></a><span class="lineno"> 1108</span>&#160;}   <span class="comment">// end of namespace StrEqHelper</span></div>
-<div class="line"><a name="l01109"></a><span class="lineno"> 1109</span>&#160; </div>
-<div class="line"><a name="l01110"></a><span class="lineno"> 1110</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</div>
-<div class="line"><a name="l01111"></a><span class="lineno"> 1111</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(</div>
-<div class="line"><a name="l01112"></a><span class="lineno"> 1112</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
-<div class="line"><a name="l01113"></a><span class="lineno"> 1113</span>&#160;    , T1 val1, T2 val2, <span class="keyword">typename</span> detail::enable_if&lt;</div>
-<div class="line"><a name="l01114"></a><span class="lineno"> 1114</span>&#160;        !detail::is_integral&lt;T1&gt;::value || !detail::is_pointer&lt;T2&gt;::value, <span class="keywordtype">void</span>&gt;::type*&amp; = detail::enabler::value)</div>
-<div class="line"><a name="l01115"></a><span class="lineno"> 1115</span>&#160;{</div>
-<div class="line"><a name="l01116"></a><span class="lineno"> 1116</span>&#160;    <span class="keywordflow">if</span> IUTEST_COND_LIKELY( StrEqHelper::Compare(val1, val2) )</div>
-<div class="line"><a name="l01117"></a><span class="lineno"> 1117</span>&#160;    {</div>
-<div class="line"><a name="l01118"></a><span class="lineno"> 1118</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
-<div class="line"><a name="l01119"></a><span class="lineno"> 1119</span>&#160;    }</div>
-<div class="line"><a name="l01120"></a><span class="lineno"> 1120</span>&#160; </div>
-<div class="line"><a name="l01121"></a><span class="lineno"> 1121</span>&#160;    <span class="keywordflow">return</span> EqFailure(expr1, expr2</div>
-<div class="line"><a name="l01122"></a><span class="lineno"> 1122</span>&#160;        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2))</div>
-<div class="line"><a name="l01123"></a><span class="lineno"> 1123</span>&#160;        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1)));</div>
-<div class="line"><a name="l01124"></a><span class="lineno"> 1124</span>&#160;}</div>
-<div class="line"><a name="l01125"></a><span class="lineno"> 1125</span>&#160; </div>
-<div class="line"><a name="l01126"></a><span class="lineno"> 1126</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l01127"></a><span class="lineno"> 1127</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(</div>
-<div class="line"><a name="l01128"></a><span class="lineno"> 1128</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
-<div class="line"><a name="l01129"></a><span class="lineno"> 1129</span>&#160;    , detail::iu_nullptr_convertible_t, T val2)</div>
-<div class="line"><a name="l01130"></a><span class="lineno"> 1130</span>&#160;{</div>
-<div class="line"><a name="l01131"></a><span class="lineno"> 1131</span>&#160;    <span class="keywordflow">if</span> IUTEST_COND_LIKELY( StrEqHelper::Compare(IUTEST_NULLPTR, val2) )</div>
-<div class="line"><a name="l01132"></a><span class="lineno"> 1132</span>&#160;    {</div>
-<div class="line"><a name="l01133"></a><span class="lineno"> 1133</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
-<div class="line"><a name="l01134"></a><span class="lineno"> 1134</span>&#160;    }</div>
-<div class="line"><a name="l01135"></a><span class="lineno"> 1135</span>&#160; </div>
-<div class="line"><a name="l01136"></a><span class="lineno"> 1136</span>&#160;    <span class="keywordflow">return</span> EqFailure(expr1, expr2</div>
-<div class="line"><a name="l01137"></a><span class="lineno"> 1137</span>&#160;        , detail::ShowStringQuoted(FormatForComparisonFailureMessage&lt;T, T&gt;(IUTEST_NULLPTR, val2))</div>
-<div class="line"><a name="l01138"></a><span class="lineno"> 1138</span>&#160;        , detail::ShowStringQuoted(FormatForComparisonFailureMessage&lt;T, T&gt;(val2, IUTEST_NULLPTR)));</div>
-<div class="line"><a name="l01139"></a><span class="lineno"> 1139</span>&#160;}</div>
-<div class="line"><a name="l01140"></a><span class="lineno"> 1140</span>&#160; </div>
-<div class="line"><a name="l01141"></a><span class="lineno"> 1141</span>&#160;<span class="keyword">namespace </span>StrNeHelper</div>
-<div class="line"><a name="l01142"></a><span class="lineno"> 1142</span>&#160;{</div>
+<div class="line"><a name="l01108"></a><span class="lineno"> 1108</span>&#160;<span class="preprocessor">#undef IIUT_DECL_STREQ_COMPARE_HELPER_</span></div>
+<div class="line"><a name="l01109"></a><span class="lineno"> 1109</span>&#160;<span class="preprocessor">#undef IIUT_DECL_STREQ_COMPARE_HELPER_SV_</span></div>
+<div class="line"><a name="l01110"></a><span class="lineno"> 1110</span>&#160; </div>
+<div class="line"><a name="l01111"></a><span class="lineno"> 1111</span>&#160;}   <span class="comment">// end of namespace StrEqHelper</span></div>
+<div class="line"><a name="l01112"></a><span class="lineno"> 1112</span>&#160; </div>
+<div class="line"><a name="l01113"></a><span class="lineno"> 1113</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</div>
+<div class="line"><a name="l01114"></a><span class="lineno"> 1114</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(</div>
+<div class="line"><a name="l01115"></a><span class="lineno"> 1115</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
+<div class="line"><a name="l01116"></a><span class="lineno"> 1116</span>&#160;    , T1 val1, T2 val2, <span class="keyword">typename</span> detail::enable_if&lt;</div>
+<div class="line"><a name="l01117"></a><span class="lineno"> 1117</span>&#160;        !detail::is_integral&lt;T1&gt;::value || !detail::is_pointer&lt;T2&gt;::value, <span class="keywordtype">void</span>&gt;::type*&amp; = detail::enabler::value)</div>
+<div class="line"><a name="l01118"></a><span class="lineno"> 1118</span>&#160;{</div>
+<div class="line"><a name="l01119"></a><span class="lineno"> 1119</span>&#160;    <span class="keywordflow">if</span> IUTEST_COND_LIKELY( StrEqHelper::Compare(val1, val2) )</div>
+<div class="line"><a name="l01120"></a><span class="lineno"> 1120</span>&#160;    {</div>
+<div class="line"><a name="l01121"></a><span class="lineno"> 1121</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
+<div class="line"><a name="l01122"></a><span class="lineno"> 1122</span>&#160;    }</div>
+<div class="line"><a name="l01123"></a><span class="lineno"> 1123</span>&#160; </div>
+<div class="line"><a name="l01124"></a><span class="lineno"> 1124</span>&#160;    <span class="keywordflow">return</span> EqFailure(expr1, expr2</div>
+<div class="line"><a name="l01125"></a><span class="lineno"> 1125</span>&#160;        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2))</div>
+<div class="line"><a name="l01126"></a><span class="lineno"> 1126</span>&#160;        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1)));</div>
+<div class="line"><a name="l01127"></a><span class="lineno"> 1127</span>&#160;}</div>
+<div class="line"><a name="l01128"></a><span class="lineno"> 1128</span>&#160; </div>
+<div class="line"><a name="l01129"></a><span class="lineno"> 1129</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l01130"></a><span class="lineno"> 1130</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(</div>
+<div class="line"><a name="l01131"></a><span class="lineno"> 1131</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
+<div class="line"><a name="l01132"></a><span class="lineno"> 1132</span>&#160;    , detail::iu_nullptr_convertible_t, T val2)</div>
+<div class="line"><a name="l01133"></a><span class="lineno"> 1133</span>&#160;{</div>
+<div class="line"><a name="l01134"></a><span class="lineno"> 1134</span>&#160;    <span class="keywordflow">if</span> IUTEST_COND_LIKELY( StrEqHelper::Compare(IUTEST_NULLPTR, val2) )</div>
+<div class="line"><a name="l01135"></a><span class="lineno"> 1135</span>&#160;    {</div>
+<div class="line"><a name="l01136"></a><span class="lineno"> 1136</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
+<div class="line"><a name="l01137"></a><span class="lineno"> 1137</span>&#160;    }</div>
+<div class="line"><a name="l01138"></a><span class="lineno"> 1138</span>&#160; </div>
+<div class="line"><a name="l01139"></a><span class="lineno"> 1139</span>&#160;    <span class="keywordflow">return</span> EqFailure(expr1, expr2</div>
+<div class="line"><a name="l01140"></a><span class="lineno"> 1140</span>&#160;        , detail::ShowStringQuoted(FormatForComparisonFailureMessage&lt;T, T&gt;(IUTEST_NULLPTR, val2))</div>
+<div class="line"><a name="l01141"></a><span class="lineno"> 1141</span>&#160;        , detail::ShowStringQuoted(FormatForComparisonFailureMessage&lt;T, T&gt;(val2, IUTEST_NULLPTR)));</div>
+<div class="line"><a name="l01142"></a><span class="lineno"> 1142</span>&#160;}</div>
 <div class="line"><a name="l01143"></a><span class="lineno"> 1143</span>&#160; </div>
-<div class="line"><a name="l01144"></a><span class="lineno"> 1144</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</div>
-<div class="line"><a name="l01145"></a><span class="lineno"> 1145</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> IUTEST_ATTRIBUTE_UNUSED_ Compare(<span class="keyword">const</span> T1&amp; val1, <span class="keyword">const</span> T2&amp; val2)</div>
-<div class="line"><a name="l01146"></a><span class="lineno"> 1146</span>&#160;{</div>
-<div class="line"><a name="l01147"></a><span class="lineno"> 1147</span>&#160;    <span class="keywordflow">return</span> !StrEqHelper::Compare(val1, val2);</div>
-<div class="line"><a name="l01148"></a><span class="lineno"> 1148</span>&#160;}</div>
-<div class="line"><a name="l01149"></a><span class="lineno"> 1149</span>&#160; </div>
-<div class="line"><a name="l01150"></a><span class="lineno"> 1150</span>&#160;}   <span class="comment">// end of namespace StrNeHelper</span></div>
-<div class="line"><a name="l01151"></a><span class="lineno"> 1151</span>&#160; </div>
-<div class="line"><a name="l01152"></a><span class="lineno"> 1152</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</div>
-<div class="line"><a name="l01153"></a><span class="lineno"> 1153</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(</div>
-<div class="line"><a name="l01154"></a><span class="lineno"> 1154</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
-<div class="line"><a name="l01155"></a><span class="lineno"> 1155</span>&#160;    , T1 val1, T2 val2, <span class="keyword">typename</span> detail::enable_if&lt;</div>
-<div class="line"><a name="l01156"></a><span class="lineno"> 1156</span>&#160;        ((!detail::is_integral&lt;T2&gt;::value || !detail::is_pointer&lt;T1&gt;::value) &amp;&amp;</div>
-<div class="line"><a name="l01157"></a><span class="lineno"> 1157</span>&#160;        (!detail::is_integral&lt;T1&gt;::value || !detail::is_pointer&lt;T2&gt;::value)), <span class="keywordtype">void</span>&gt;::type*&amp; = detail::enabler::value)</div>
-<div class="line"><a name="l01158"></a><span class="lineno"> 1158</span>&#160;{</div>
-<div class="line"><a name="l01159"></a><span class="lineno"> 1159</span>&#160;    <span class="keywordflow">if</span> IUTEST_COND_LIKELY( StrNeHelper::Compare(val1, val2) )</div>
-<div class="line"><a name="l01160"></a><span class="lineno"> 1160</span>&#160;    {</div>
-<div class="line"><a name="l01161"></a><span class="lineno"> 1161</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
-<div class="line"><a name="l01162"></a><span class="lineno"> 1162</span>&#160;    }</div>
-<div class="line"><a name="l01163"></a><span class="lineno"> 1163</span>&#160; </div>
-<div class="line"><a name="l01164"></a><span class="lineno"> 1164</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; <span class="stringliteral">&quot;error: Expected: &quot;</span> &lt;&lt; expr1 &lt;&lt; <span class="stringliteral">&quot; != &quot;</span> &lt;&lt; expr2</div>
-<div class="line"><a name="l01165"></a><span class="lineno"> 1165</span>&#160;        &lt;&lt; <span class="stringliteral">&quot;\n  Actual: &quot;</span> &lt;&lt; detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))</div>
-<div class="line"><a name="l01166"></a><span class="lineno"> 1166</span>&#160;        &lt;&lt; <span class="stringliteral">&quot; vs &quot;</span> &lt;&lt; detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));</div>
-<div class="line"><a name="l01167"></a><span class="lineno"> 1167</span>&#160;}</div>
-<div class="line"><a name="l01168"></a><span class="lineno"> 1168</span>&#160; </div>
-<div class="line"><a name="l01169"></a><span class="lineno"> 1169</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l01170"></a><span class="lineno"> 1170</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(</div>
-<div class="line"><a name="l01171"></a><span class="lineno"> 1171</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
-<div class="line"><a name="l01172"></a><span class="lineno"> 1172</span>&#160;    , detail::iu_nullptr_convertible_t, T val2)</div>
-<div class="line"><a name="l01173"></a><span class="lineno"> 1173</span>&#160;{</div>
-<div class="line"><a name="l01174"></a><span class="lineno"> 1174</span>&#160;    <span class="keywordflow">if</span> IUTEST_COND_LIKELY( !StrEqHelper::Compare(IUTEST_NULLPTR, val2) )</div>
-<div class="line"><a name="l01175"></a><span class="lineno"> 1175</span>&#160;    {</div>
-<div class="line"><a name="l01176"></a><span class="lineno"> 1176</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
-<div class="line"><a name="l01177"></a><span class="lineno"> 1177</span>&#160;    }</div>
-<div class="line"><a name="l01178"></a><span class="lineno"> 1178</span>&#160; </div>
-<div class="line"><a name="l01179"></a><span class="lineno"> 1179</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; <span class="stringliteral">&quot;error: Expected: &quot;</span> &lt;&lt; expr1 &lt;&lt; <span class="stringliteral">&quot; != &quot;</span> &lt;&lt; expr2</div>
-<div class="line"><a name="l01180"></a><span class="lineno"> 1180</span>&#160;        &lt;&lt; <span class="stringliteral">&quot;\n  Actual: &quot;</span> &lt;&lt; detail::ShowStringQuoted(FormatForComparisonFailureMessage&lt;T, T&gt;(val2, IUTEST_NULLPTR))</div>
-<div class="line"><a name="l01181"></a><span class="lineno"> 1181</span>&#160;        &lt;&lt; <span class="stringliteral">&quot; vs &quot;</span> &lt;&lt; detail::ShowStringQuoted(FormatForComparisonFailureMessage&lt;T, T&gt;(IUTEST_NULLPTR, val2));</div>
-<div class="line"><a name="l01182"></a><span class="lineno"> 1182</span>&#160;}</div>
-<div class="line"><a name="l01183"></a><span class="lineno"> 1183</span>&#160; </div>
-<div class="line"><a name="l01184"></a><span class="lineno"> 1184</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l01185"></a><span class="lineno"> 1185</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(</div>
-<div class="line"><a name="l01186"></a><span class="lineno"> 1186</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
-<div class="line"><a name="l01187"></a><span class="lineno"> 1187</span>&#160;    , T val1, detail::iu_nullptr_convertible_t)</div>
-<div class="line"><a name="l01188"></a><span class="lineno"> 1188</span>&#160;{</div>
-<div class="line"><a name="l01189"></a><span class="lineno"> 1189</span>&#160;    <span class="keywordflow">if</span> IUTEST_COND_LIKELY( !StrEqHelper::Compare(val1, IUTEST_NULLPTR) )</div>
-<div class="line"><a name="l01190"></a><span class="lineno"> 1190</span>&#160;    {</div>
-<div class="line"><a name="l01191"></a><span class="lineno"> 1191</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
-<div class="line"><a name="l01192"></a><span class="lineno"> 1192</span>&#160;    }</div>
-<div class="line"><a name="l01193"></a><span class="lineno"> 1193</span>&#160; </div>
-<div class="line"><a name="l01194"></a><span class="lineno"> 1194</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; <span class="stringliteral">&quot;error: Expected: &quot;</span> &lt;&lt; expr1 &lt;&lt; <span class="stringliteral">&quot; != &quot;</span> &lt;&lt; expr2</div>
-<div class="line"><a name="l01195"></a><span class="lineno"> 1195</span>&#160;        &lt;&lt; <span class="stringliteral">&quot;\n  Actual: &quot;</span> &lt;&lt; detail::ShowStringQuoted(FormatForComparisonFailureMessage&lt;T, T&gt;(IUTEST_NULLPTR, val1))</div>
-<div class="line"><a name="l01196"></a><span class="lineno"> 1196</span>&#160;        &lt;&lt; <span class="stringliteral">&quot; vs &quot;</span> &lt;&lt; detail::ShowStringQuoted(FormatForComparisonFailureMessage&lt;T, T&gt;(val1, IUTEST_NULLPTR));</div>
-<div class="line"><a name="l01197"></a><span class="lineno"> 1197</span>&#160;}</div>
-<div class="line"><a name="l01198"></a><span class="lineno"> 1198</span>&#160; </div>
-<div class="line"><a name="l01199"></a><span class="lineno"> 1199</span>&#160;<span class="keyword">namespace </span>StrCaseEqHelper</div>
-<div class="line"><a name="l01200"></a><span class="lineno"> 1200</span>&#160;{</div>
+<div class="line"><a name="l01144"></a><span class="lineno"> 1144</span>&#160;<span class="keyword">namespace </span>StrNeHelper</div>
+<div class="line"><a name="l01145"></a><span class="lineno"> 1145</span>&#160;{</div>
+<div class="line"><a name="l01146"></a><span class="lineno"> 1146</span>&#160; </div>
+<div class="line"><a name="l01147"></a><span class="lineno"> 1147</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</div>
+<div class="line"><a name="l01148"></a><span class="lineno"> 1148</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> IUTEST_ATTRIBUTE_UNUSED_ Compare(<span class="keyword">const</span> T1&amp; val1, <span class="keyword">const</span> T2&amp; val2)</div>
+<div class="line"><a name="l01149"></a><span class="lineno"> 1149</span>&#160;{</div>
+<div class="line"><a name="l01150"></a><span class="lineno"> 1150</span>&#160;    <span class="keywordflow">return</span> !StrEqHelper::Compare(val1, val2);</div>
+<div class="line"><a name="l01151"></a><span class="lineno"> 1151</span>&#160;}</div>
+<div class="line"><a name="l01152"></a><span class="lineno"> 1152</span>&#160; </div>
+<div class="line"><a name="l01153"></a><span class="lineno"> 1153</span>&#160;}   <span class="comment">// end of namespace StrNeHelper</span></div>
+<div class="line"><a name="l01154"></a><span class="lineno"> 1154</span>&#160; </div>
+<div class="line"><a name="l01155"></a><span class="lineno"> 1155</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</div>
+<div class="line"><a name="l01156"></a><span class="lineno"> 1156</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(</div>
+<div class="line"><a name="l01157"></a><span class="lineno"> 1157</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
+<div class="line"><a name="l01158"></a><span class="lineno"> 1158</span>&#160;    , T1 val1, T2 val2, <span class="keyword">typename</span> detail::enable_if&lt;</div>
+<div class="line"><a name="l01159"></a><span class="lineno"> 1159</span>&#160;        ((!detail::is_integral&lt;T2&gt;::value || !detail::is_pointer&lt;T1&gt;::value) &amp;&amp;</div>
+<div class="line"><a name="l01160"></a><span class="lineno"> 1160</span>&#160;        (!detail::is_integral&lt;T1&gt;::value || !detail::is_pointer&lt;T2&gt;::value)), <span class="keywordtype">void</span>&gt;::type*&amp; = detail::enabler::value)</div>
+<div class="line"><a name="l01161"></a><span class="lineno"> 1161</span>&#160;{</div>
+<div class="line"><a name="l01162"></a><span class="lineno"> 1162</span>&#160;    <span class="keywordflow">if</span> IUTEST_COND_LIKELY( StrNeHelper::Compare(val1, val2) )</div>
+<div class="line"><a name="l01163"></a><span class="lineno"> 1163</span>&#160;    {</div>
+<div class="line"><a name="l01164"></a><span class="lineno"> 1164</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
+<div class="line"><a name="l01165"></a><span class="lineno"> 1165</span>&#160;    }</div>
+<div class="line"><a name="l01166"></a><span class="lineno"> 1166</span>&#160; </div>
+<div class="line"><a name="l01167"></a><span class="lineno"> 1167</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; <span class="stringliteral">&quot;error: Expected: &quot;</span> &lt;&lt; expr1 &lt;&lt; <span class="stringliteral">&quot; != &quot;</span> &lt;&lt; expr2</div>
+<div class="line"><a name="l01168"></a><span class="lineno"> 1168</span>&#160;        &lt;&lt; <span class="stringliteral">&quot;\n  Actual: &quot;</span> &lt;&lt; detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))</div>
+<div class="line"><a name="l01169"></a><span class="lineno"> 1169</span>&#160;        &lt;&lt; <span class="stringliteral">&quot; vs &quot;</span> &lt;&lt; detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));</div>
+<div class="line"><a name="l01170"></a><span class="lineno"> 1170</span>&#160;}</div>
+<div class="line"><a name="l01171"></a><span class="lineno"> 1171</span>&#160; </div>
+<div class="line"><a name="l01172"></a><span class="lineno"> 1172</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l01173"></a><span class="lineno"> 1173</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(</div>
+<div class="line"><a name="l01174"></a><span class="lineno"> 1174</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
+<div class="line"><a name="l01175"></a><span class="lineno"> 1175</span>&#160;    , detail::iu_nullptr_convertible_t, T val2)</div>
+<div class="line"><a name="l01176"></a><span class="lineno"> 1176</span>&#160;{</div>
+<div class="line"><a name="l01177"></a><span class="lineno"> 1177</span>&#160;    <span class="keywordflow">if</span> IUTEST_COND_LIKELY( !StrEqHelper::Compare(IUTEST_NULLPTR, val2) )</div>
+<div class="line"><a name="l01178"></a><span class="lineno"> 1178</span>&#160;    {</div>
+<div class="line"><a name="l01179"></a><span class="lineno"> 1179</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
+<div class="line"><a name="l01180"></a><span class="lineno"> 1180</span>&#160;    }</div>
+<div class="line"><a name="l01181"></a><span class="lineno"> 1181</span>&#160; </div>
+<div class="line"><a name="l01182"></a><span class="lineno"> 1182</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; <span class="stringliteral">&quot;error: Expected: &quot;</span> &lt;&lt; expr1 &lt;&lt; <span class="stringliteral">&quot; != &quot;</span> &lt;&lt; expr2</div>
+<div class="line"><a name="l01183"></a><span class="lineno"> 1183</span>&#160;        &lt;&lt; <span class="stringliteral">&quot;\n  Actual: &quot;</span> &lt;&lt; detail::ShowStringQuoted(FormatForComparisonFailureMessage&lt;T, T&gt;(val2, IUTEST_NULLPTR))</div>
+<div class="line"><a name="l01184"></a><span class="lineno"> 1184</span>&#160;        &lt;&lt; <span class="stringliteral">&quot; vs &quot;</span> &lt;&lt; detail::ShowStringQuoted(FormatForComparisonFailureMessage&lt;T, T&gt;(IUTEST_NULLPTR, val2));</div>
+<div class="line"><a name="l01185"></a><span class="lineno"> 1185</span>&#160;}</div>
+<div class="line"><a name="l01186"></a><span class="lineno"> 1186</span>&#160; </div>
+<div class="line"><a name="l01187"></a><span class="lineno"> 1187</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l01188"></a><span class="lineno"> 1188</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(</div>
+<div class="line"><a name="l01189"></a><span class="lineno"> 1189</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
+<div class="line"><a name="l01190"></a><span class="lineno"> 1190</span>&#160;    , T val1, detail::iu_nullptr_convertible_t)</div>
+<div class="line"><a name="l01191"></a><span class="lineno"> 1191</span>&#160;{</div>
+<div class="line"><a name="l01192"></a><span class="lineno"> 1192</span>&#160;    <span class="keywordflow">if</span> IUTEST_COND_LIKELY( !StrEqHelper::Compare(val1, IUTEST_NULLPTR) )</div>
+<div class="line"><a name="l01193"></a><span class="lineno"> 1193</span>&#160;    {</div>
+<div class="line"><a name="l01194"></a><span class="lineno"> 1194</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
+<div class="line"><a name="l01195"></a><span class="lineno"> 1195</span>&#160;    }</div>
+<div class="line"><a name="l01196"></a><span class="lineno"> 1196</span>&#160; </div>
+<div class="line"><a name="l01197"></a><span class="lineno"> 1197</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; <span class="stringliteral">&quot;error: Expected: &quot;</span> &lt;&lt; expr1 &lt;&lt; <span class="stringliteral">&quot; != &quot;</span> &lt;&lt; expr2</div>
+<div class="line"><a name="l01198"></a><span class="lineno"> 1198</span>&#160;        &lt;&lt; <span class="stringliteral">&quot;\n  Actual: &quot;</span> &lt;&lt; detail::ShowStringQuoted(FormatForComparisonFailureMessage&lt;T, T&gt;(IUTEST_NULLPTR, val1))</div>
+<div class="line"><a name="l01199"></a><span class="lineno"> 1199</span>&#160;        &lt;&lt; <span class="stringliteral">&quot; vs &quot;</span> &lt;&lt; detail::ShowStringQuoted(FormatForComparisonFailureMessage&lt;T, T&gt;(val1, IUTEST_NULLPTR));</div>
+<div class="line"><a name="l01200"></a><span class="lineno"> 1200</span>&#160;}</div>
 <div class="line"><a name="l01201"></a><span class="lineno"> 1201</span>&#160; </div>
-<div class="line"><a name="l01202"></a><span class="lineno"> 1202</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> IUTEST_ATTRIBUTE_UNUSED_ Compare(<span class="keyword">const</span> <span class="keywordtype">char</span>* val1, <span class="keyword">const</span> <span class="keywordtype">char</span>* val2)</div>
+<div class="line"><a name="l01202"></a><span class="lineno"> 1202</span>&#160;<span class="keyword">namespace </span>StrCaseEqHelper</div>
 <div class="line"><a name="l01203"></a><span class="lineno"> 1203</span>&#160;{</div>
-<div class="line"><a name="l01204"></a><span class="lineno"> 1204</span>&#160;    <span class="keywordflow">if</span>( val1 == IUTEST_NULLPTR || val2 == IUTEST_NULLPTR )</div>
-<div class="line"><a name="l01205"></a><span class="lineno"> 1205</span>&#160;    {</div>
-<div class="line"><a name="l01206"></a><span class="lineno"> 1206</span>&#160;        <span class="keywordflow">return</span> val1 == val2;</div>
-<div class="line"><a name="l01207"></a><span class="lineno"> 1207</span>&#160;    }</div>
-<div class="line"><a name="l01208"></a><span class="lineno"> 1208</span>&#160;    <span class="keywordflow">return</span> detail::iu_stricmp(val1, val2) == 0;</div>
-<div class="line"><a name="l01209"></a><span class="lineno"> 1209</span>&#160;}</div>
-<div class="line"><a name="l01210"></a><span class="lineno"> 1210</span>&#160; </div>
-<div class="line"><a name="l01211"></a><span class="lineno"> 1211</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> IUTEST_ATTRIBUTE_UNUSED_ Compare(<span class="keyword">const</span> <span class="keywordtype">wchar_t</span>* val1, <span class="keyword">const</span> <span class="keywordtype">wchar_t</span>* val2)</div>
-<div class="line"><a name="l01212"></a><span class="lineno"> 1212</span>&#160;{</div>
-<div class="line"><a name="l01213"></a><span class="lineno"> 1213</span>&#160;    <span class="keywordflow">if</span>( val1 == IUTEST_NULLPTR || val2 == IUTEST_NULLPTR )</div>
-<div class="line"><a name="l01214"></a><span class="lineno"> 1214</span>&#160;    {</div>
-<div class="line"><a name="l01215"></a><span class="lineno"> 1215</span>&#160;        <span class="keywordflow">return</span> val1 == val2;</div>
-<div class="line"><a name="l01216"></a><span class="lineno"> 1216</span>&#160;    }</div>
-<div class="line"><a name="l01217"></a><span class="lineno"> 1217</span>&#160;    <span class="keywordflow">return</span> detail::iu_wcsicmp(val1, val2) == 0;</div>
-<div class="line"><a name="l01218"></a><span class="lineno"> 1218</span>&#160;}</div>
-<div class="line"><a name="l01219"></a><span class="lineno"> 1219</span>&#160; </div>
-<div class="line"><a name="l01220"></a><span class="lineno"> 1220</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Elem, <span class="keyword">typename</span> Traits, <span class="keyword">typename</span> Ax&gt;</div>
-<div class="line"><a name="l01221"></a><span class="lineno"> 1221</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> IUTEST_ATTRIBUTE_UNUSED_ Compare(</div>
-<div class="line"><a name="l01222"></a><span class="lineno"> 1222</span>&#160;    const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val1</div>
-<div class="line"><a name="l01223"></a><span class="lineno"> 1223</span>&#160;        , const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val2)</div>
-<div class="line"><a name="l01224"></a><span class="lineno"> 1224</span>&#160;{</div>
-<div class="line"><a name="l01225"></a><span class="lineno"> 1225</span>&#160;    <span class="keywordflow">return</span> Compare(val1.c_str(), val2.c_str());</div>
-<div class="line"><a name="l01226"></a><span class="lineno"> 1226</span>&#160;}</div>
-<div class="line"><a name="l01227"></a><span class="lineno"> 1227</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Elem, <span class="keyword">typename</span> Traits, <span class="keyword">typename</span> Ax&gt;</div>
-<div class="line"><a name="l01228"></a><span class="lineno"> 1228</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> IUTEST_ATTRIBUTE_UNUSED_ Compare(</div>
-<div class="line"><a name="l01229"></a><span class="lineno"> 1229</span>&#160;    <span class="keyword">const</span> Elem* val1</div>
-<div class="line"><a name="l01230"></a><span class="lineno"> 1230</span>&#160;        , const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val2)</div>
-<div class="line"><a name="l01231"></a><span class="lineno"> 1231</span>&#160;{</div>
-<div class="line"><a name="l01232"></a><span class="lineno"> 1232</span>&#160;    <span class="keywordflow">return</span> Compare(val1, val2.c_str());</div>
-<div class="line"><a name="l01233"></a><span class="lineno"> 1233</span>&#160;}</div>
-<div class="line"><a name="l01234"></a><span class="lineno"> 1234</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Elem, <span class="keyword">typename</span> Traits, <span class="keyword">typename</span> Ax&gt;</div>
-<div class="line"><a name="l01235"></a><span class="lineno"> 1235</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> IUTEST_ATTRIBUTE_UNUSED_ Compare(</div>
-<div class="line"><a name="l01236"></a><span class="lineno"> 1236</span>&#160;    const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val1</div>
-<div class="line"><a name="l01237"></a><span class="lineno"> 1237</span>&#160;        , <span class="keyword">const</span> Elem* val2)</div>
-<div class="line"><a name="l01238"></a><span class="lineno"> 1238</span>&#160;{</div>
-<div class="line"><a name="l01239"></a><span class="lineno"> 1239</span>&#160;    <span class="keywordflow">return</span> Compare(val1.c_str(), val2);</div>
-<div class="line"><a name="l01240"></a><span class="lineno"> 1240</span>&#160;}</div>
-<div class="line"><a name="l01241"></a><span class="lineno"> 1241</span>&#160; </div>
-<div class="line"><a name="l01242"></a><span class="lineno"> 1242</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</div>
-<div class="line"><a name="l01243"></a><span class="lineno"> 1243</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(</div>
-<div class="line"><a name="l01244"></a><span class="lineno"> 1244</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
-<div class="line"><a name="l01245"></a><span class="lineno"> 1245</span>&#160;        , <span class="keyword">const</span> T1&amp; val1, <span class="keyword">const</span> T2&amp; val2)</div>
-<div class="line"><a name="l01246"></a><span class="lineno"> 1246</span>&#160;{</div>
-<div class="line"><a name="l01247"></a><span class="lineno"> 1247</span>&#160;    <span class="keywordflow">if</span> IUTEST_COND_LIKELY( Compare(val1, val2) )</div>
-<div class="line"><a name="l01248"></a><span class="lineno"> 1248</span>&#160;    {</div>
-<div class="line"><a name="l01249"></a><span class="lineno"> 1249</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
-<div class="line"><a name="l01250"></a><span class="lineno"> 1250</span>&#160;    }</div>
-<div class="line"><a name="l01251"></a><span class="lineno"> 1251</span>&#160; </div>
-<div class="line"><a name="l01252"></a><span class="lineno"> 1252</span>&#160;    <span class="keywordflow">return</span> EqFailure(expr1, expr2</div>
-<div class="line"><a name="l01253"></a><span class="lineno"> 1253</span>&#160;        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2))</div>
-<div class="line"><a name="l01254"></a><span class="lineno"> 1254</span>&#160;        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))</div>
-<div class="line"><a name="l01255"></a><span class="lineno"> 1255</span>&#160;        , <span class="keyword">true</span>);</div>
-<div class="line"><a name="l01256"></a><span class="lineno"> 1256</span>&#160;}</div>
-<div class="line"><a name="l01257"></a><span class="lineno"> 1257</span>&#160; </div>
-<div class="line"><a name="l01258"></a><span class="lineno"> 1258</span>&#160;}   <span class="comment">// end of namespace StrCaseEqHelper</span></div>
-<div class="line"><a name="l01259"></a><span class="lineno"> 1259</span>&#160; </div>
-<div class="line"><a name="l01260"></a><span class="lineno"> 1260</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(</div>
-<div class="line"><a name="l01261"></a><span class="lineno"> 1261</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
-<div class="line"><a name="l01262"></a><span class="lineno"> 1262</span>&#160;        , <span class="keyword">const</span> <span class="keywordtype">char</span>* val1, <span class="keyword">const</span> <span class="keywordtype">char</span>* val2)</div>
-<div class="line"><a name="l01263"></a><span class="lineno"> 1263</span>&#160;{</div>
-<div class="line"><a name="l01264"></a><span class="lineno"> 1264</span>&#160;    <span class="keywordflow">return</span> StrCaseEqHelper::Assertion(expr1, expr2, val1, val2);</div>
-<div class="line"><a name="l01265"></a><span class="lineno"> 1265</span>&#160;}</div>
-<div class="line"><a name="l01266"></a><span class="lineno"> 1266</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(</div>
-<div class="line"><a name="l01267"></a><span class="lineno"> 1267</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
-<div class="line"><a name="l01268"></a><span class="lineno"> 1268</span>&#160;        , <span class="keyword">const</span> <span class="keywordtype">wchar_t</span>* val1, <span class="keyword">const</span> <span class="keywordtype">wchar_t</span>* val2)</div>
-<div class="line"><a name="l01269"></a><span class="lineno"> 1269</span>&#160;{</div>
-<div class="line"><a name="l01270"></a><span class="lineno"> 1270</span>&#160;    <span class="keywordflow">return</span> StrCaseEqHelper::Assertion(expr1, expr2, val1, val2);</div>
-<div class="line"><a name="l01271"></a><span class="lineno"> 1271</span>&#160;}</div>
-<div class="line"><a name="l01272"></a><span class="lineno"> 1272</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Elem, <span class="keyword">typename</span> Traits, <span class="keyword">typename</span> Ax&gt;</div>
-<div class="line"><a name="l01273"></a><span class="lineno"> 1273</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(</div>
-<div class="line"><a name="l01274"></a><span class="lineno"> 1274</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
-<div class="line"><a name="l01275"></a><span class="lineno"> 1275</span>&#160;        , const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val1</div>
-<div class="line"><a name="l01276"></a><span class="lineno"> 1276</span>&#160;        , const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val2)</div>
-<div class="line"><a name="l01277"></a><span class="lineno"> 1277</span>&#160;{</div>
-<div class="line"><a name="l01278"></a><span class="lineno"> 1278</span>&#160;    <span class="keywordflow">return</span> CmpHelperSTRCASEEQ(expr1, expr2, val1.c_str(), val2.c_str());</div>
-<div class="line"><a name="l01279"></a><span class="lineno"> 1279</span>&#160;}</div>
-<div class="line"><a name="l01280"></a><span class="lineno"> 1280</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Elem, <span class="keyword">typename</span> Traits, <span class="keyword">typename</span> Ax&gt;</div>
-<div class="line"><a name="l01281"></a><span class="lineno"> 1281</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(</div>
-<div class="line"><a name="l01282"></a><span class="lineno"> 1282</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
-<div class="line"><a name="l01283"></a><span class="lineno"> 1283</span>&#160;        , <span class="keyword">const</span> Elem* val1, const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val2)</div>
-<div class="line"><a name="l01284"></a><span class="lineno"> 1284</span>&#160;{</div>
-<div class="line"><a name="l01285"></a><span class="lineno"> 1285</span>&#160;    <span class="keywordflow">return</span> CmpHelperSTRCASEEQ(expr1, expr2, val1, val2.c_str());</div>
-<div class="line"><a name="l01286"></a><span class="lineno"> 1286</span>&#160;}</div>
-<div class="line"><a name="l01287"></a><span class="lineno"> 1287</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Elem, <span class="keyword">typename</span> Traits, <span class="keyword">typename</span> Ax&gt;</div>
-<div class="line"><a name="l01288"></a><span class="lineno"> 1288</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(</div>
-<div class="line"><a name="l01289"></a><span class="lineno"> 1289</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
-<div class="line"><a name="l01290"></a><span class="lineno"> 1290</span>&#160;        , const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val1, <span class="keyword">const</span> Elem* val2)</div>
-<div class="line"><a name="l01291"></a><span class="lineno"> 1291</span>&#160;{</div>
-<div class="line"><a name="l01292"></a><span class="lineno"> 1292</span>&#160;    <span class="keywordflow">return</span> CmpHelperSTRCASEEQ(expr1, expr2, val1.c_str(), val2);</div>
-<div class="line"><a name="l01293"></a><span class="lineno"> 1293</span>&#160;}</div>
-<div class="line"><a name="l01294"></a><span class="lineno"> 1294</span>&#160; </div>
-<div class="line"><a name="l01295"></a><span class="lineno"> 1295</span>&#160;<span class="keyword">namespace </span>StrCaseNeHelper</div>
-<div class="line"><a name="l01296"></a><span class="lineno"> 1296</span>&#160;{</div>
+<div class="line"><a name="l01204"></a><span class="lineno"> 1204</span>&#160; </div>
+<div class="line"><a name="l01205"></a><span class="lineno"> 1205</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> IUTEST_ATTRIBUTE_UNUSED_ Compare(<span class="keyword">const</span> <span class="keywordtype">char</span>* val1, <span class="keyword">const</span> <span class="keywordtype">char</span>* val2)</div>
+<div class="line"><a name="l01206"></a><span class="lineno"> 1206</span>&#160;{</div>
+<div class="line"><a name="l01207"></a><span class="lineno"> 1207</span>&#160;    <span class="keywordflow">if</span>( val1 == IUTEST_NULLPTR || val2 == IUTEST_NULLPTR )</div>
+<div class="line"><a name="l01208"></a><span class="lineno"> 1208</span>&#160;    {</div>
+<div class="line"><a name="l01209"></a><span class="lineno"> 1209</span>&#160;        <span class="keywordflow">return</span> val1 == val2;</div>
+<div class="line"><a name="l01210"></a><span class="lineno"> 1210</span>&#160;    }</div>
+<div class="line"><a name="l01211"></a><span class="lineno"> 1211</span>&#160;    <span class="keywordflow">return</span> detail::iu_stricmp(val1, val2) == 0;</div>
+<div class="line"><a name="l01212"></a><span class="lineno"> 1212</span>&#160;}</div>
+<div class="line"><a name="l01213"></a><span class="lineno"> 1213</span>&#160; </div>
+<div class="line"><a name="l01214"></a><span class="lineno"> 1214</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> IUTEST_ATTRIBUTE_UNUSED_ Compare(<span class="keyword">const</span> <span class="keywordtype">wchar_t</span>* val1, <span class="keyword">const</span> <span class="keywordtype">wchar_t</span>* val2)</div>
+<div class="line"><a name="l01215"></a><span class="lineno"> 1215</span>&#160;{</div>
+<div class="line"><a name="l01216"></a><span class="lineno"> 1216</span>&#160;    <span class="keywordflow">if</span>( val1 == IUTEST_NULLPTR || val2 == IUTEST_NULLPTR )</div>
+<div class="line"><a name="l01217"></a><span class="lineno"> 1217</span>&#160;    {</div>
+<div class="line"><a name="l01218"></a><span class="lineno"> 1218</span>&#160;        <span class="keywordflow">return</span> val1 == val2;</div>
+<div class="line"><a name="l01219"></a><span class="lineno"> 1219</span>&#160;    }</div>
+<div class="line"><a name="l01220"></a><span class="lineno"> 1220</span>&#160;    <span class="keywordflow">return</span> detail::iu_wcsicmp(val1, val2) == 0;</div>
+<div class="line"><a name="l01221"></a><span class="lineno"> 1221</span>&#160;}</div>
+<div class="line"><a name="l01222"></a><span class="lineno"> 1222</span>&#160; </div>
+<div class="line"><a name="l01223"></a><span class="lineno"> 1223</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Elem, <span class="keyword">typename</span> Traits, <span class="keyword">typename</span> Ax&gt;</div>
+<div class="line"><a name="l01224"></a><span class="lineno"> 1224</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> IUTEST_ATTRIBUTE_UNUSED_ Compare(</div>
+<div class="line"><a name="l01225"></a><span class="lineno"> 1225</span>&#160;    const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val1</div>
+<div class="line"><a name="l01226"></a><span class="lineno"> 1226</span>&#160;        , const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val2)</div>
+<div class="line"><a name="l01227"></a><span class="lineno"> 1227</span>&#160;{</div>
+<div class="line"><a name="l01228"></a><span class="lineno"> 1228</span>&#160;    <span class="keywordflow">return</span> Compare(val1.c_str(), val2.c_str());</div>
+<div class="line"><a name="l01229"></a><span class="lineno"> 1229</span>&#160;}</div>
+<div class="line"><a name="l01230"></a><span class="lineno"> 1230</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Elem, <span class="keyword">typename</span> Traits, <span class="keyword">typename</span> Ax&gt;</div>
+<div class="line"><a name="l01231"></a><span class="lineno"> 1231</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> IUTEST_ATTRIBUTE_UNUSED_ Compare(</div>
+<div class="line"><a name="l01232"></a><span class="lineno"> 1232</span>&#160;    <span class="keyword">const</span> Elem* val1</div>
+<div class="line"><a name="l01233"></a><span class="lineno"> 1233</span>&#160;        , const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val2)</div>
+<div class="line"><a name="l01234"></a><span class="lineno"> 1234</span>&#160;{</div>
+<div class="line"><a name="l01235"></a><span class="lineno"> 1235</span>&#160;    <span class="keywordflow">return</span> Compare(val1, val2.c_str());</div>
+<div class="line"><a name="l01236"></a><span class="lineno"> 1236</span>&#160;}</div>
+<div class="line"><a name="l01237"></a><span class="lineno"> 1237</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Elem, <span class="keyword">typename</span> Traits, <span class="keyword">typename</span> Ax&gt;</div>
+<div class="line"><a name="l01238"></a><span class="lineno"> 1238</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> IUTEST_ATTRIBUTE_UNUSED_ Compare(</div>
+<div class="line"><a name="l01239"></a><span class="lineno"> 1239</span>&#160;    const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val1</div>
+<div class="line"><a name="l01240"></a><span class="lineno"> 1240</span>&#160;        , <span class="keyword">const</span> Elem* val2)</div>
+<div class="line"><a name="l01241"></a><span class="lineno"> 1241</span>&#160;{</div>
+<div class="line"><a name="l01242"></a><span class="lineno"> 1242</span>&#160;    <span class="keywordflow">return</span> Compare(val1.c_str(), val2);</div>
+<div class="line"><a name="l01243"></a><span class="lineno"> 1243</span>&#160;}</div>
+<div class="line"><a name="l01244"></a><span class="lineno"> 1244</span>&#160; </div>
+<div class="line"><a name="l01245"></a><span class="lineno"> 1245</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</div>
+<div class="line"><a name="l01246"></a><span class="lineno"> 1246</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(</div>
+<div class="line"><a name="l01247"></a><span class="lineno"> 1247</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
+<div class="line"><a name="l01248"></a><span class="lineno"> 1248</span>&#160;        , <span class="keyword">const</span> T1&amp; val1, <span class="keyword">const</span> T2&amp; val2)</div>
+<div class="line"><a name="l01249"></a><span class="lineno"> 1249</span>&#160;{</div>
+<div class="line"><a name="l01250"></a><span class="lineno"> 1250</span>&#160;    <span class="keywordflow">if</span> IUTEST_COND_LIKELY( Compare(val1, val2) )</div>
+<div class="line"><a name="l01251"></a><span class="lineno"> 1251</span>&#160;    {</div>
+<div class="line"><a name="l01252"></a><span class="lineno"> 1252</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
+<div class="line"><a name="l01253"></a><span class="lineno"> 1253</span>&#160;    }</div>
+<div class="line"><a name="l01254"></a><span class="lineno"> 1254</span>&#160; </div>
+<div class="line"><a name="l01255"></a><span class="lineno"> 1255</span>&#160;    <span class="keywordflow">return</span> EqFailure(expr1, expr2</div>
+<div class="line"><a name="l01256"></a><span class="lineno"> 1256</span>&#160;        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2))</div>
+<div class="line"><a name="l01257"></a><span class="lineno"> 1257</span>&#160;        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))</div>
+<div class="line"><a name="l01258"></a><span class="lineno"> 1258</span>&#160;        , <span class="keyword">true</span>);</div>
+<div class="line"><a name="l01259"></a><span class="lineno"> 1259</span>&#160;}</div>
+<div class="line"><a name="l01260"></a><span class="lineno"> 1260</span>&#160; </div>
+<div class="line"><a name="l01261"></a><span class="lineno"> 1261</span>&#160;}   <span class="comment">// end of namespace StrCaseEqHelper</span></div>
+<div class="line"><a name="l01262"></a><span class="lineno"> 1262</span>&#160; </div>
+<div class="line"><a name="l01263"></a><span class="lineno"> 1263</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(</div>
+<div class="line"><a name="l01264"></a><span class="lineno"> 1264</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
+<div class="line"><a name="l01265"></a><span class="lineno"> 1265</span>&#160;        , <span class="keyword">const</span> <span class="keywordtype">char</span>* val1, <span class="keyword">const</span> <span class="keywordtype">char</span>* val2)</div>
+<div class="line"><a name="l01266"></a><span class="lineno"> 1266</span>&#160;{</div>
+<div class="line"><a name="l01267"></a><span class="lineno"> 1267</span>&#160;    <span class="keywordflow">return</span> StrCaseEqHelper::Assertion(expr1, expr2, val1, val2);</div>
+<div class="line"><a name="l01268"></a><span class="lineno"> 1268</span>&#160;}</div>
+<div class="line"><a name="l01269"></a><span class="lineno"> 1269</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(</div>
+<div class="line"><a name="l01270"></a><span class="lineno"> 1270</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
+<div class="line"><a name="l01271"></a><span class="lineno"> 1271</span>&#160;        , <span class="keyword">const</span> <span class="keywordtype">wchar_t</span>* val1, <span class="keyword">const</span> <span class="keywordtype">wchar_t</span>* val2)</div>
+<div class="line"><a name="l01272"></a><span class="lineno"> 1272</span>&#160;{</div>
+<div class="line"><a name="l01273"></a><span class="lineno"> 1273</span>&#160;    <span class="keywordflow">return</span> StrCaseEqHelper::Assertion(expr1, expr2, val1, val2);</div>
+<div class="line"><a name="l01274"></a><span class="lineno"> 1274</span>&#160;}</div>
+<div class="line"><a name="l01275"></a><span class="lineno"> 1275</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Elem, <span class="keyword">typename</span> Traits, <span class="keyword">typename</span> Ax&gt;</div>
+<div class="line"><a name="l01276"></a><span class="lineno"> 1276</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(</div>
+<div class="line"><a name="l01277"></a><span class="lineno"> 1277</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
+<div class="line"><a name="l01278"></a><span class="lineno"> 1278</span>&#160;        , const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val1</div>
+<div class="line"><a name="l01279"></a><span class="lineno"> 1279</span>&#160;        , const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val2)</div>
+<div class="line"><a name="l01280"></a><span class="lineno"> 1280</span>&#160;{</div>
+<div class="line"><a name="l01281"></a><span class="lineno"> 1281</span>&#160;    <span class="keywordflow">return</span> CmpHelperSTRCASEEQ(expr1, expr2, val1.c_str(), val2.c_str());</div>
+<div class="line"><a name="l01282"></a><span class="lineno"> 1282</span>&#160;}</div>
+<div class="line"><a name="l01283"></a><span class="lineno"> 1283</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Elem, <span class="keyword">typename</span> Traits, <span class="keyword">typename</span> Ax&gt;</div>
+<div class="line"><a name="l01284"></a><span class="lineno"> 1284</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(</div>
+<div class="line"><a name="l01285"></a><span class="lineno"> 1285</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
+<div class="line"><a name="l01286"></a><span class="lineno"> 1286</span>&#160;        , <span class="keyword">const</span> Elem* val1, const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val2)</div>
+<div class="line"><a name="l01287"></a><span class="lineno"> 1287</span>&#160;{</div>
+<div class="line"><a name="l01288"></a><span class="lineno"> 1288</span>&#160;    <span class="keywordflow">return</span> CmpHelperSTRCASEEQ(expr1, expr2, val1, val2.c_str());</div>
+<div class="line"><a name="l01289"></a><span class="lineno"> 1289</span>&#160;}</div>
+<div class="line"><a name="l01290"></a><span class="lineno"> 1290</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Elem, <span class="keyword">typename</span> Traits, <span class="keyword">typename</span> Ax&gt;</div>
+<div class="line"><a name="l01291"></a><span class="lineno"> 1291</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(</div>
+<div class="line"><a name="l01292"></a><span class="lineno"> 1292</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
+<div class="line"><a name="l01293"></a><span class="lineno"> 1293</span>&#160;        , const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val1, <span class="keyword">const</span> Elem* val2)</div>
+<div class="line"><a name="l01294"></a><span class="lineno"> 1294</span>&#160;{</div>
+<div class="line"><a name="l01295"></a><span class="lineno"> 1295</span>&#160;    <span class="keywordflow">return</span> CmpHelperSTRCASEEQ(expr1, expr2, val1.c_str(), val2);</div>
+<div class="line"><a name="l01296"></a><span class="lineno"> 1296</span>&#160;}</div>
 <div class="line"><a name="l01297"></a><span class="lineno"> 1297</span>&#160; </div>
-<div class="line"><a name="l01298"></a><span class="lineno"> 1298</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</div>
-<div class="line"><a name="l01299"></a><span class="lineno"> 1299</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> IUTEST_ATTRIBUTE_UNUSED_ Compare(<span class="keyword">const</span> T1&amp; val1, <span class="keyword">const</span> T2&amp; val2)</div>
-<div class="line"><a name="l01300"></a><span class="lineno"> 1300</span>&#160;{</div>
-<div class="line"><a name="l01301"></a><span class="lineno"> 1301</span>&#160;    <span class="keywordflow">return</span> !StrCaseEqHelper::Compare(val1, val2);</div>
-<div class="line"><a name="l01302"></a><span class="lineno"> 1302</span>&#160;}</div>
-<div class="line"><a name="l01303"></a><span class="lineno"> 1303</span>&#160; </div>
-<div class="line"><a name="l01304"></a><span class="lineno"> 1304</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</div>
-<div class="line"><a name="l01305"></a><span class="lineno"> 1305</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(</div>
-<div class="line"><a name="l01306"></a><span class="lineno"> 1306</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
-<div class="line"><a name="l01307"></a><span class="lineno"> 1307</span>&#160;        , <span class="keyword">const</span> T1&amp; val1, <span class="keyword">const</span> T2&amp; val2)</div>
-<div class="line"><a name="l01308"></a><span class="lineno"> 1308</span>&#160;{</div>
-<div class="line"><a name="l01309"></a><span class="lineno"> 1309</span>&#160;    <span class="keywordflow">if</span> IUTEST_COND_LIKELY( Compare(val1, val2) )</div>
-<div class="line"><a name="l01310"></a><span class="lineno"> 1310</span>&#160;    {</div>
-<div class="line"><a name="l01311"></a><span class="lineno"> 1311</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
-<div class="line"><a name="l01312"></a><span class="lineno"> 1312</span>&#160;    }</div>
-<div class="line"><a name="l01313"></a><span class="lineno"> 1313</span>&#160; </div>
-<div class="line"><a name="l01314"></a><span class="lineno"> 1314</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; <span class="stringliteral">&quot;error: Expected: &quot;</span> &lt;&lt; expr1 &lt;&lt; <span class="stringliteral">&quot; != &quot;</span> &lt;&lt; expr2 &lt;&lt; <span class="stringliteral">&quot; (ignoring case)&quot;</span></div>
-<div class="line"><a name="l01315"></a><span class="lineno"> 1315</span>&#160;        &lt;&lt; <span class="stringliteral">&quot;\n  Actual: &quot;</span> &lt;&lt; detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))</div>
-<div class="line"><a name="l01316"></a><span class="lineno"> 1316</span>&#160;        &lt;&lt; <span class="stringliteral">&quot; vs &quot;</span> &lt;&lt; detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));</div>
-<div class="line"><a name="l01317"></a><span class="lineno"> 1317</span>&#160;}</div>
-<div class="line"><a name="l01318"></a><span class="lineno"> 1318</span>&#160; </div>
-<div class="line"><a name="l01319"></a><span class="lineno"> 1319</span>&#160;}   <span class="comment">// end of namespace StrCaseNeHelper</span></div>
-<div class="line"><a name="l01320"></a><span class="lineno"> 1320</span>&#160; </div>
-<div class="line"><a name="l01321"></a><span class="lineno"> 1321</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(</div>
-<div class="line"><a name="l01322"></a><span class="lineno"> 1322</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
-<div class="line"><a name="l01323"></a><span class="lineno"> 1323</span>&#160;        , <span class="keyword">const</span> <span class="keywordtype">char</span>* val1, <span class="keyword">const</span> <span class="keywordtype">char</span>* val2)</div>
-<div class="line"><a name="l01324"></a><span class="lineno"> 1324</span>&#160;{</div>
-<div class="line"><a name="l01325"></a><span class="lineno"> 1325</span>&#160;    <span class="keywordflow">return</span> StrCaseNeHelper::Assertion(expr1, expr2, val1, val2);</div>
-<div class="line"><a name="l01326"></a><span class="lineno"> 1326</span>&#160;}</div>
-<div class="line"><a name="l01327"></a><span class="lineno"> 1327</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(</div>
-<div class="line"><a name="l01328"></a><span class="lineno"> 1328</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
-<div class="line"><a name="l01329"></a><span class="lineno"> 1329</span>&#160;        , <span class="keyword">const</span> <span class="keywordtype">wchar_t</span>* val1, <span class="keyword">const</span> <span class="keywordtype">wchar_t</span>* val2)</div>
-<div class="line"><a name="l01330"></a><span class="lineno"> 1330</span>&#160;{</div>
-<div class="line"><a name="l01331"></a><span class="lineno"> 1331</span>&#160;    <span class="keywordflow">return</span> StrCaseNeHelper::Assertion(expr1, expr2, val1, val2);</div>
-<div class="line"><a name="l01332"></a><span class="lineno"> 1332</span>&#160;}</div>
-<div class="line"><a name="l01333"></a><span class="lineno"> 1333</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Elem, <span class="keyword">typename</span> Traits, <span class="keyword">typename</span> Ax&gt;</div>
-<div class="line"><a name="l01334"></a><span class="lineno"> 1334</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(</div>
-<div class="line"><a name="l01335"></a><span class="lineno"> 1335</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
-<div class="line"><a name="l01336"></a><span class="lineno"> 1336</span>&#160;        , const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val1</div>
-<div class="line"><a name="l01337"></a><span class="lineno"> 1337</span>&#160;        , const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val2)</div>
-<div class="line"><a name="l01338"></a><span class="lineno"> 1338</span>&#160;{</div>
-<div class="line"><a name="l01339"></a><span class="lineno"> 1339</span>&#160;    <span class="keywordflow">return</span> CmpHelperSTRCASENE(expr1, expr2, val1.c_str(), val2.c_str());</div>
-<div class="line"><a name="l01340"></a><span class="lineno"> 1340</span>&#160;}</div>
-<div class="line"><a name="l01341"></a><span class="lineno"> 1341</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Elem, <span class="keyword">typename</span> Traits, <span class="keyword">typename</span> Ax&gt;</div>
-<div class="line"><a name="l01342"></a><span class="lineno"> 1342</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(</div>
-<div class="line"><a name="l01343"></a><span class="lineno"> 1343</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
-<div class="line"><a name="l01344"></a><span class="lineno"> 1344</span>&#160;        , <span class="keyword">const</span> Elem* val1</div>
-<div class="line"><a name="l01345"></a><span class="lineno"> 1345</span>&#160;        , const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val2)</div>
-<div class="line"><a name="l01346"></a><span class="lineno"> 1346</span>&#160;{</div>
-<div class="line"><a name="l01347"></a><span class="lineno"> 1347</span>&#160;    <span class="keywordflow">return</span> CmpHelperSTRCASENE(expr1, expr2, val1, val2.c_str());</div>
-<div class="line"><a name="l01348"></a><span class="lineno"> 1348</span>&#160;}</div>
-<div class="line"><a name="l01349"></a><span class="lineno"> 1349</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Elem, <span class="keyword">typename</span> Traits, <span class="keyword">typename</span> Ax&gt;</div>
-<div class="line"><a name="l01350"></a><span class="lineno"> 1350</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(</div>
-<div class="line"><a name="l01351"></a><span class="lineno"> 1351</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
-<div class="line"><a name="l01352"></a><span class="lineno"> 1352</span>&#160;        , const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val1</div>
-<div class="line"><a name="l01353"></a><span class="lineno"> 1353</span>&#160;        , <span class="keyword">const</span> Elem* val2)</div>
-<div class="line"><a name="l01354"></a><span class="lineno"> 1354</span>&#160;{</div>
-<div class="line"><a name="l01355"></a><span class="lineno"> 1355</span>&#160;    <span class="keywordflow">return</span> CmpHelperSTRCASENE(expr1, expr2, val1.c_str(), val2);</div>
-<div class="line"><a name="l01356"></a><span class="lineno"> 1356</span>&#160;}</div>
-<div class="line"><a name="l01357"></a><span class="lineno"> 1357</span>&#160; </div>
-<div class="line"><a name="l01358"></a><span class="lineno"> 1358</span>&#160;<span class="preprocessor">#if defined(IUTEST_OS_WINDOWS)</span></div>
-<div class="line"><a name="l01359"></a><span class="lineno"> 1359</span>&#160; </div>
-<div class="line"><a name="l01360"></a><span class="lineno"> 1360</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ IsHRESULTSuccess(<span class="keyword">const</span> <span class="keywordtype">char</span>* expr, HRESULT hr)</div>
-<div class="line"><a name="l01361"></a><span class="lineno"> 1361</span>&#160;{</div>
-<div class="line"><a name="l01362"></a><span class="lineno"> 1362</span>&#160;    <span class="keywordflow">if</span> IUTEST_COND_LIKELY( SUCCEEDED(hr) )</div>
-<div class="line"><a name="l01363"></a><span class="lineno"> 1363</span>&#160;    {</div>
-<div class="line"><a name="l01364"></a><span class="lineno"> 1364</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
-<div class="line"><a name="l01365"></a><span class="lineno"> 1365</span>&#160;    }</div>
-<div class="line"><a name="l01366"></a><span class="lineno"> 1366</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; <span class="stringliteral">&quot;error: Expected: SUCCEEDED(&quot;</span> &lt;&lt; expr &lt;&lt; <span class="stringliteral">&quot;)&quot;</span></div>
-<div class="line"><a name="l01367"></a><span class="lineno"> 1367</span>&#160;        &lt;&lt; <span class="stringliteral">&quot;\n  Actual: &quot;</span> &lt;&lt; hr &lt;&lt; <span class="stringliteral">&quot;: &quot;</span> &lt;&lt; detail::win::GetHResultString(hr);</div>
-<div class="line"><a name="l01368"></a><span class="lineno"> 1368</span>&#160;}</div>
-<div class="line"><a name="l01369"></a><span class="lineno"> 1369</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ IsHRESULTFailure(<span class="keyword">const</span> <span class="keywordtype">char</span>* expr, HRESULT hr)</div>
-<div class="line"><a name="l01370"></a><span class="lineno"> 1370</span>&#160;{</div>
-<div class="line"><a name="l01371"></a><span class="lineno"> 1371</span>&#160;    <span class="keywordflow">if</span> IUTEST_COND_LIKELY( FAILED(hr) )</div>
-<div class="line"><a name="l01372"></a><span class="lineno"> 1372</span>&#160;    {</div>
-<div class="line"><a name="l01373"></a><span class="lineno"> 1373</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
-<div class="line"><a name="l01374"></a><span class="lineno"> 1374</span>&#160;    }</div>
-<div class="line"><a name="l01375"></a><span class="lineno"> 1375</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; <span class="stringliteral">&quot;error: Expected : FAILED(&quot;</span> &lt;&lt; expr &lt;&lt; <span class="stringliteral">&quot;)&quot;</span></div>
-<div class="line"><a name="l01376"></a><span class="lineno"> 1376</span>&#160;        &lt;&lt; <span class="stringliteral">&quot;\n  Actual: &quot;</span> &lt;&lt; hr;</div>
-<div class="line"><a name="l01377"></a><span class="lineno"> 1377</span>&#160;}</div>
-<div class="line"><a name="l01378"></a><span class="lineno"> 1378</span>&#160; </div>
-<div class="line"><a name="l01379"></a><span class="lineno"> 1379</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01380"></a><span class="lineno"> 1380</span>&#160; </div>
-<div class="line"><a name="l01381"></a><span class="lineno"> 1381</span>&#160;}   <span class="comment">// end of namespace internal</span></div>
-<div class="line"><a name="l01382"></a><span class="lineno"> 1382</span>&#160; </div>
-<div class="line"><a name="l01387"></a><span class="lineno"> 1387</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#a1321b4a46ed9da0895a47f0370875e38">FloatLE</a>(</div>
-<div class="line"><a name="l01388"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#a1321b4a46ed9da0895a47f0370875e38"> 1388</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
-<div class="line"><a name="l01389"></a><span class="lineno"> 1389</span>&#160;        , <span class="keywordtype">float</span> val1, <span class="keywordtype">float</span> val2)</div>
-<div class="line"><a name="l01390"></a><span class="lineno"> 1390</span>&#160;{</div>
-<div class="line"><a name="l01391"></a><span class="lineno"> 1391</span>&#160;    <span class="keywordflow">return</span> internal::CmpHelperFloatingPointLE&lt;float&gt;(expr1, expr2, val1, val2);</div>
-<div class="line"><a name="l01392"></a><span class="lineno"> 1392</span>&#160;}</div>
-<div class="line"><a name="l01393"></a><span class="lineno"> 1393</span>&#160; </div>
-<div class="line"><a name="l01398"></a><span class="lineno"> 1398</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#a8ceceea2f7b45e7f7e337c01387e3d97">DoubleLE</a>(</div>
-<div class="line"><a name="l01399"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#a8ceceea2f7b45e7f7e337c01387e3d97"> 1399</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
-<div class="line"><a name="l01400"></a><span class="lineno"> 1400</span>&#160;        , <span class="keywordtype">double</span> val1, <span class="keywordtype">double</span> val2)</div>
-<div class="line"><a name="l01401"></a><span class="lineno"> 1401</span>&#160;{</div>
-<div class="line"><a name="l01402"></a><span class="lineno"> 1402</span>&#160;    <span class="keywordflow">return</span> internal::CmpHelperFloatingPointLE&lt;double&gt;(expr1, expr2, val1, val2);</div>
-<div class="line"><a name="l01403"></a><span class="lineno"> 1403</span>&#160;}</div>
-<div class="line"><a name="l01404"></a><span class="lineno"> 1404</span>&#160; </div>
-<div class="line"><a name="l01405"></a><span class="lineno"> 1405</span>&#160; </div>
-<div class="line"><a name="l01406"></a><span class="lineno"> 1406</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l01298"></a><span class="lineno"> 1298</span>&#160;<span class="keyword">namespace </span>StrCaseNeHelper</div>
+<div class="line"><a name="l01299"></a><span class="lineno"> 1299</span>&#160;{</div>
+<div class="line"><a name="l01300"></a><span class="lineno"> 1300</span>&#160; </div>
+<div class="line"><a name="l01301"></a><span class="lineno"> 1301</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</div>
+<div class="line"><a name="l01302"></a><span class="lineno"> 1302</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> IUTEST_ATTRIBUTE_UNUSED_ Compare(<span class="keyword">const</span> T1&amp; val1, <span class="keyword">const</span> T2&amp; val2)</div>
+<div class="line"><a name="l01303"></a><span class="lineno"> 1303</span>&#160;{</div>
+<div class="line"><a name="l01304"></a><span class="lineno"> 1304</span>&#160;    <span class="keywordflow">return</span> !StrCaseEqHelper::Compare(val1, val2);</div>
+<div class="line"><a name="l01305"></a><span class="lineno"> 1305</span>&#160;}</div>
+<div class="line"><a name="l01306"></a><span class="lineno"> 1306</span>&#160; </div>
+<div class="line"><a name="l01307"></a><span class="lineno"> 1307</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</div>
+<div class="line"><a name="l01308"></a><span class="lineno"> 1308</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(</div>
+<div class="line"><a name="l01309"></a><span class="lineno"> 1309</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
+<div class="line"><a name="l01310"></a><span class="lineno"> 1310</span>&#160;        , <span class="keyword">const</span> T1&amp; val1, <span class="keyword">const</span> T2&amp; val2)</div>
+<div class="line"><a name="l01311"></a><span class="lineno"> 1311</span>&#160;{</div>
+<div class="line"><a name="l01312"></a><span class="lineno"> 1312</span>&#160;    <span class="keywordflow">if</span> IUTEST_COND_LIKELY( Compare(val1, val2) )</div>
+<div class="line"><a name="l01313"></a><span class="lineno"> 1313</span>&#160;    {</div>
+<div class="line"><a name="l01314"></a><span class="lineno"> 1314</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
+<div class="line"><a name="l01315"></a><span class="lineno"> 1315</span>&#160;    }</div>
+<div class="line"><a name="l01316"></a><span class="lineno"> 1316</span>&#160; </div>
+<div class="line"><a name="l01317"></a><span class="lineno"> 1317</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; <span class="stringliteral">&quot;error: Expected: &quot;</span> &lt;&lt; expr1 &lt;&lt; <span class="stringliteral">&quot; != &quot;</span> &lt;&lt; expr2 &lt;&lt; <span class="stringliteral">&quot; (ignoring case)&quot;</span></div>
+<div class="line"><a name="l01318"></a><span class="lineno"> 1318</span>&#160;        &lt;&lt; <span class="stringliteral">&quot;\n  Actual: &quot;</span> &lt;&lt; detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))</div>
+<div class="line"><a name="l01319"></a><span class="lineno"> 1319</span>&#160;        &lt;&lt; <span class="stringliteral">&quot; vs &quot;</span> &lt;&lt; detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));</div>
+<div class="line"><a name="l01320"></a><span class="lineno"> 1320</span>&#160;}</div>
+<div class="line"><a name="l01321"></a><span class="lineno"> 1321</span>&#160; </div>
+<div class="line"><a name="l01322"></a><span class="lineno"> 1322</span>&#160;}   <span class="comment">// end of namespace StrCaseNeHelper</span></div>
+<div class="line"><a name="l01323"></a><span class="lineno"> 1323</span>&#160; </div>
+<div class="line"><a name="l01324"></a><span class="lineno"> 1324</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(</div>
+<div class="line"><a name="l01325"></a><span class="lineno"> 1325</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
+<div class="line"><a name="l01326"></a><span class="lineno"> 1326</span>&#160;        , <span class="keyword">const</span> <span class="keywordtype">char</span>* val1, <span class="keyword">const</span> <span class="keywordtype">char</span>* val2)</div>
+<div class="line"><a name="l01327"></a><span class="lineno"> 1327</span>&#160;{</div>
+<div class="line"><a name="l01328"></a><span class="lineno"> 1328</span>&#160;    <span class="keywordflow">return</span> StrCaseNeHelper::Assertion(expr1, expr2, val1, val2);</div>
+<div class="line"><a name="l01329"></a><span class="lineno"> 1329</span>&#160;}</div>
+<div class="line"><a name="l01330"></a><span class="lineno"> 1330</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(</div>
+<div class="line"><a name="l01331"></a><span class="lineno"> 1331</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
+<div class="line"><a name="l01332"></a><span class="lineno"> 1332</span>&#160;        , <span class="keyword">const</span> <span class="keywordtype">wchar_t</span>* val1, <span class="keyword">const</span> <span class="keywordtype">wchar_t</span>* val2)</div>
+<div class="line"><a name="l01333"></a><span class="lineno"> 1333</span>&#160;{</div>
+<div class="line"><a name="l01334"></a><span class="lineno"> 1334</span>&#160;    <span class="keywordflow">return</span> StrCaseNeHelper::Assertion(expr1, expr2, val1, val2);</div>
+<div class="line"><a name="l01335"></a><span class="lineno"> 1335</span>&#160;}</div>
+<div class="line"><a name="l01336"></a><span class="lineno"> 1336</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Elem, <span class="keyword">typename</span> Traits, <span class="keyword">typename</span> Ax&gt;</div>
+<div class="line"><a name="l01337"></a><span class="lineno"> 1337</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(</div>
+<div class="line"><a name="l01338"></a><span class="lineno"> 1338</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
+<div class="line"><a name="l01339"></a><span class="lineno"> 1339</span>&#160;        , const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val1</div>
+<div class="line"><a name="l01340"></a><span class="lineno"> 1340</span>&#160;        , const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val2)</div>
+<div class="line"><a name="l01341"></a><span class="lineno"> 1341</span>&#160;{</div>
+<div class="line"><a name="l01342"></a><span class="lineno"> 1342</span>&#160;    <span class="keywordflow">return</span> CmpHelperSTRCASENE(expr1, expr2, val1.c_str(), val2.c_str());</div>
+<div class="line"><a name="l01343"></a><span class="lineno"> 1343</span>&#160;}</div>
+<div class="line"><a name="l01344"></a><span class="lineno"> 1344</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Elem, <span class="keyword">typename</span> Traits, <span class="keyword">typename</span> Ax&gt;</div>
+<div class="line"><a name="l01345"></a><span class="lineno"> 1345</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(</div>
+<div class="line"><a name="l01346"></a><span class="lineno"> 1346</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
+<div class="line"><a name="l01347"></a><span class="lineno"> 1347</span>&#160;        , <span class="keyword">const</span> Elem* val1</div>
+<div class="line"><a name="l01348"></a><span class="lineno"> 1348</span>&#160;        , const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val2)</div>
+<div class="line"><a name="l01349"></a><span class="lineno"> 1349</span>&#160;{</div>
+<div class="line"><a name="l01350"></a><span class="lineno"> 1350</span>&#160;    <span class="keywordflow">return</span> CmpHelperSTRCASENE(expr1, expr2, val1, val2.c_str());</div>
+<div class="line"><a name="l01351"></a><span class="lineno"> 1351</span>&#160;}</div>
+<div class="line"><a name="l01352"></a><span class="lineno"> 1352</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Elem, <span class="keyword">typename</span> Traits, <span class="keyword">typename</span> Ax&gt;</div>
+<div class="line"><a name="l01353"></a><span class="lineno"> 1353</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(</div>
+<div class="line"><a name="l01354"></a><span class="lineno"> 1354</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
+<div class="line"><a name="l01355"></a><span class="lineno"> 1355</span>&#160;        , const ::std::basic_string&lt;Elem, Traits, Ax&gt;&amp; val1</div>
+<div class="line"><a name="l01356"></a><span class="lineno"> 1356</span>&#160;        , <span class="keyword">const</span> Elem* val2)</div>
+<div class="line"><a name="l01357"></a><span class="lineno"> 1357</span>&#160;{</div>
+<div class="line"><a name="l01358"></a><span class="lineno"> 1358</span>&#160;    <span class="keywordflow">return</span> CmpHelperSTRCASENE(expr1, expr2, val1.c_str(), val2);</div>
+<div class="line"><a name="l01359"></a><span class="lineno"> 1359</span>&#160;}</div>
+<div class="line"><a name="l01360"></a><span class="lineno"> 1360</span>&#160; </div>
+<div class="line"><a name="l01361"></a><span class="lineno"> 1361</span>&#160;<span class="preprocessor">#if defined(IUTEST_OS_WINDOWS)</span></div>
+<div class="line"><a name="l01362"></a><span class="lineno"> 1362</span>&#160; </div>
+<div class="line"><a name="l01363"></a><span class="lineno"> 1363</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ IsHRESULTSuccess(<span class="keyword">const</span> <span class="keywordtype">char</span>* expr, HRESULT hr)</div>
+<div class="line"><a name="l01364"></a><span class="lineno"> 1364</span>&#160;{</div>
+<div class="line"><a name="l01365"></a><span class="lineno"> 1365</span>&#160;    <span class="keywordflow">if</span> IUTEST_COND_LIKELY( SUCCEEDED(hr) )</div>
+<div class="line"><a name="l01366"></a><span class="lineno"> 1366</span>&#160;    {</div>
+<div class="line"><a name="l01367"></a><span class="lineno"> 1367</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
+<div class="line"><a name="l01368"></a><span class="lineno"> 1368</span>&#160;    }</div>
+<div class="line"><a name="l01369"></a><span class="lineno"> 1369</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; <span class="stringliteral">&quot;error: Expected: SUCCEEDED(&quot;</span> &lt;&lt; expr &lt;&lt; <span class="stringliteral">&quot;)&quot;</span></div>
+<div class="line"><a name="l01370"></a><span class="lineno"> 1370</span>&#160;        &lt;&lt; <span class="stringliteral">&quot;\n  Actual: &quot;</span> &lt;&lt; hr &lt;&lt; <span class="stringliteral">&quot;: &quot;</span> &lt;&lt; detail::win::GetHResultString(hr);</div>
+<div class="line"><a name="l01371"></a><span class="lineno"> 1371</span>&#160;}</div>
+<div class="line"><a name="l01372"></a><span class="lineno"> 1372</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ IsHRESULTFailure(<span class="keyword">const</span> <span class="keywordtype">char</span>* expr, HRESULT hr)</div>
+<div class="line"><a name="l01373"></a><span class="lineno"> 1373</span>&#160;{</div>
+<div class="line"><a name="l01374"></a><span class="lineno"> 1374</span>&#160;    <span class="keywordflow">if</span> IUTEST_COND_LIKELY( FAILED(hr) )</div>
+<div class="line"><a name="l01375"></a><span class="lineno"> 1375</span>&#160;    {</div>
+<div class="line"><a name="l01376"></a><span class="lineno"> 1376</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
+<div class="line"><a name="l01377"></a><span class="lineno"> 1377</span>&#160;    }</div>
+<div class="line"><a name="l01378"></a><span class="lineno"> 1378</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; <span class="stringliteral">&quot;error: Expected : FAILED(&quot;</span> &lt;&lt; expr &lt;&lt; <span class="stringliteral">&quot;)&quot;</span></div>
+<div class="line"><a name="l01379"></a><span class="lineno"> 1379</span>&#160;        &lt;&lt; <span class="stringliteral">&quot;\n  Actual: &quot;</span> &lt;&lt; hr;</div>
+<div class="line"><a name="l01380"></a><span class="lineno"> 1380</span>&#160;}</div>
+<div class="line"><a name="l01381"></a><span class="lineno"> 1381</span>&#160; </div>
+<div class="line"><a name="l01382"></a><span class="lineno"> 1382</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01383"></a><span class="lineno"> 1383</span>&#160; </div>
+<div class="line"><a name="l01384"></a><span class="lineno"> 1384</span>&#160;}   <span class="comment">// end of namespace internal</span></div>
+<div class="line"><a name="l01385"></a><span class="lineno"> 1385</span>&#160; </div>
+<div class="line"><a name="l01390"></a><span class="lineno"> 1390</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#a1321b4a46ed9da0895a47f0370875e38">FloatLE</a>(</div>
+<div class="line"><a name="l01391"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#a1321b4a46ed9da0895a47f0370875e38"> 1391</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
+<div class="line"><a name="l01392"></a><span class="lineno"> 1392</span>&#160;        , <span class="keywordtype">float</span> val1, <span class="keywordtype">float</span> val2)</div>
+<div class="line"><a name="l01393"></a><span class="lineno"> 1393</span>&#160;{</div>
+<div class="line"><a name="l01394"></a><span class="lineno"> 1394</span>&#160;    <span class="keywordflow">return</span> internal::CmpHelperFloatingPointLE&lt;float&gt;(expr1, expr2, val1, val2);</div>
+<div class="line"><a name="l01395"></a><span class="lineno"> 1395</span>&#160;}</div>
+<div class="line"><a name="l01396"></a><span class="lineno"> 1396</span>&#160; </div>
+<div class="line"><a name="l01401"></a><span class="lineno"> 1401</span>&#160;<span class="keyword">inline</span> AssertionResult IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d3/dda/namespaceiutest.html#a8ceceea2f7b45e7f7e337c01387e3d97">DoubleLE</a>(</div>
+<div class="line"><a name="l01402"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#a8ceceea2f7b45e7f7e337c01387e3d97"> 1402</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* expr1, <span class="keyword">const</span> <span class="keywordtype">char</span>* expr2</div>
+<div class="line"><a name="l01403"></a><span class="lineno"> 1403</span>&#160;        , <span class="keywordtype">double</span> val1, <span class="keywordtype">double</span> val2)</div>
+<div class="line"><a name="l01404"></a><span class="lineno"> 1404</span>&#160;{</div>
+<div class="line"><a name="l01405"></a><span class="lineno"> 1405</span>&#160;    <span class="keywordflow">return</span> internal::CmpHelperFloatingPointLE&lt;double&gt;(expr1, expr2, val1, val2);</div>
+<div class="line"><a name="l01406"></a><span class="lineno"> 1406</span>&#160;}</div>
 <div class="line"><a name="l01407"></a><span class="lineno"> 1407</span>&#160; </div>
-<div class="line"><a name="l01408"></a><span class="lineno"> 1408</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// INCG_IRIS_IUTEST_ASSERTION_HPP_E6AF3476_DA81_46F7_A961_ACCEF7363932_</span></div>
+<div class="line"><a name="l01408"></a><span class="lineno"> 1408</span>&#160; </div>
+<div class="line"><a name="l01409"></a><span class="lineno"> 1409</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l01410"></a><span class="lineno"> 1410</span>&#160; </div>
+<div class="line"><a name="l01411"></a><span class="lineno"> 1411</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// INCG_IRIS_IUTEST_ASSERTION_HPP_E6AF3476_DA81_46F7_A961_ACCEF7363932_</span></div>
 <div class="ttc" id="aclassiutest_1_1_assertion_result_html"><div class="ttname"><a href="../../d9/d5f/classiutest_1_1_assertion_result.html">iutest::AssertionResult</a></div><div class="ttdoc">Assertion Result</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:67</div></div>
 <div class="ttc" id="aclassiutest_1_1_assertion_result_html_a05672e70c237b8db038faae0cd053eb7"><div class="ttname"><a href="../../d9/d5f/classiutest_1_1_assertion_result.html#a05672e70c237b8db038faae0cd053eb7">iutest::AssertionResult::passed</a></div><div class="ttdeci">bool passed() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">成否</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:85</div></div>
 <div class="ttc" id="aclassiutest_1_1_assertion_result_html_a0b27b38e705754b70d230208f29ef46c"><div class="ttname"><a href="../../d9/d5f/classiutest_1_1_assertion_result.html#a0b27b38e705754b70d230208f29ef46c">iutest::AssertionResult::Success</a></div><div class="ttdeci">static AssertionResult Success()</div><div class="ttdoc">成功結果の作成</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:131</div></div>
@@ -1336,21 +1339,21 @@ $(function() {
 <div class="ttc" id="aclassiutest_1_1_test_part_result_html_a611b78a968052b144546b58d83a686e5a81b189615c5da276536705d46827d8b3"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5a81b189615c5da276536705d46827d8b3">iutest::TestPartResult::kAssumeFailure</a></div><div class="ttdeci">@ kAssumeFailure</div><div class="ttdoc">前提条件エラー</div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:64</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_part_result_html_a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6">iutest::TestPartResult::kFatalFailure</a></div><div class="ttdeci">@ kFatalFailure</div><div class="ttdoc">致命的な失敗</div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:69</div></div>
 <div class="ttc" id="agroup___m_a_t_c_h_e_r_s_html_ga7dff43861c1c0e66369395115b2b4e42"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga7dff43861c1c0e66369395115b2b4e42">iutest::matchers::A</a></div><div class="ttdeci">detail::AnyMatcher&lt; T &gt; A()</div><div class="ttdoc">Make Any matcher</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2604</div></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_a4582554323adda45e92a0f70680126b6"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a4582554323adda45e92a0f70680126b6">IUTEST_CXX_EXPLICIT_CONVERSION</a></div><div class="ttdeci">#define IUTEST_CXX_EXPLICIT_CONVERSION</div><div class="ttdoc">explicit conversion definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:731</div></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:829</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_a4582554323adda45e92a0f70680126b6"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a4582554323adda45e92a0f70680126b6">IUTEST_CXX_EXPLICIT_CONVERSION</a></div><div class="ttdeci">#define IUTEST_CXX_EXPLICIT_CONVERSION</div><div class="ttdoc">explicit conversion definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:748</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:846</div></div>
 <div class="ttc" id="aiutest__list_8hpp_html"><div class="ttname"><a href="../../da/d27/iutest__list_8hpp.html">iutest_list.hpp</a></div><div class="ttdoc">iris unit test list 構造 ファイル</div></div>
 <div class="ttc" id="aiutest__pp_8hpp_html_a3c642ed23feb078394fe73bc48b8a261"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#a3c642ed23feb078394fe73bc48b8a261">IUTEST_PP_DISALLOW_MOVE_AND_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_MOVE_AND_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー/ムーブ禁止定義</div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:52</div></div>
 <div class="ttc" id="aiutest__printers_8hpp_html"><div class="ttname"><a href="../../d2/d0b/iutest__printers_8hpp.html">iutest_printers.hpp</a></div><div class="ttdoc">iris unit test print 出力ヘルパー ファイル</div></div>
 <div class="ttc" id="aiutest__result_8hpp_html"><div class="ttname"><a href="../../d5/dd2/iutest__result_8hpp.html">iutest_result.hpp</a></div><div class="ttdoc">iris unit test result</div></div>
 <div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
 <div class="ttc" id="anamespaceiutest_html_a0538466708443c65f3c7b2c84b7fce0b"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a></div><div class="ttdeci">AssertionResult AssertionSuccess()</div><div class="ttdoc">テスト成功を示す AssertionResult オブジェクトの取得</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:406</div></div>
-<div class="ttc" id="anamespaceiutest_html_a089d4c220696dc46e2ef184fc945367c"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">iutest::PrintToString</a></div><div class="ttdeci">std::string PrintToString(const T &amp;v)</div><div class="ttdoc">文字列化</div><div class="ttdef"><b>Definition:</b> iutest_printers.hpp:767</div></div>
-<div class="ttc" id="anamespaceiutest_html_a1321b4a46ed9da0895a47f0370875e38"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a1321b4a46ed9da0895a47f0370875e38">iutest::FloatLE</a></div><div class="ttdeci">AssertionResult IUTEST_ATTRIBUTE_UNUSED_ FloatLE(const char *expr1, const char *expr2, float val1, float val2)</div><div class="ttdoc">Float LE Formatter</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:1388</div></div>
+<div class="ttc" id="anamespaceiutest_html_a089d4c220696dc46e2ef184fc945367c"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">iutest::PrintToString</a></div><div class="ttdeci">std::string PrintToString(const T &amp;v)</div><div class="ttdoc">文字列化</div><div class="ttdef"><b>Definition:</b> iutest_printers.hpp:785</div></div>
+<div class="ttc" id="anamespaceiutest_html_a1321b4a46ed9da0895a47f0370875e38"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a1321b4a46ed9da0895a47f0370875e38">iutest::FloatLE</a></div><div class="ttdeci">AssertionResult IUTEST_ATTRIBUTE_UNUSED_ FloatLE(const char *expr1, const char *expr2, float val1, float val2)</div><div class="ttdoc">Float LE Formatter</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:1391</div></div>
 <div class="ttc" id="anamespaceiutest_html_a49b30d45309d9c8e820b2252082e0c99"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">iutest::AssertionFailure</a></div><div class="ttdeci">AssertionResult AssertionFailure()</div><div class="ttdoc">テスト失敗を示す AssertionResult オブジェクトの取得</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:410</div></div>
 <div class="ttc" id="anamespaceiutest_html_a543a2a28ba663224cb511a4ae93877dc"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a543a2a28ba663224cb511a4ae93877dc">iutest::Message</a></div><div class="ttdeci">detail::iuStreamMessage Message</div><div class="ttdoc">Message クラス</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:33</div></div>
 <div class="ttc" id="anamespaceiutest_html_a58cf9f6611f8a453aba8c89d4f7465f3"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a58cf9f6611f8a453aba8c89d4f7465f3">iutest::AssertionReturn</a></div><div class="ttdeci">AssertionReturnType&lt; T &gt; AssertionReturn(const T &amp;ret)</div><div class="ttdoc">Assetion Return 設定</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:181</div></div>
 <div class="ttc" id="anamespaceiutest_html_a8378a13fea823d34999165f7f4dba302"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a8378a13fea823d34999165f7f4dba302">iutest::GetAssertionResultMessage</a></div><div class="ttdeci">const char * GetAssertionResultMessage(const AssertionResult &amp;ar)</div><div class="ttdoc">テスト結果のメッセージを取得する（for compatible）</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:415</div></div>
-<div class="ttc" id="anamespaceiutest_html_a8ceceea2f7b45e7f7e337c01387e3d97"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a8ceceea2f7b45e7f7e337c01387e3d97">iutest::DoubleLE</a></div><div class="ttdeci">AssertionResult IUTEST_ATTRIBUTE_UNUSED_ DoubleLE(const char *expr1, const char *expr2, double val1, double val2)</div><div class="ttdoc">Double LE Formatter</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:1399</div></div>
+<div class="ttc" id="anamespaceiutest_html_a8ceceea2f7b45e7f7e337c01387e3d97"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a8ceceea2f7b45e7f7e337c01387e3d97">iutest::DoubleLE</a></div><div class="ttdeci">AssertionResult IUTEST_ATTRIBUTE_UNUSED_ DoubleLE(const char *expr1, const char *expr2, double val1, double val2)</div><div class="ttdoc">Double LE Formatter</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:1402</div></div>
 <div class="ttc" id="astructiutest_1_1_assertion_return_type_3_01void_01_4_html"><div class="ttname"><a href="../../d7/d4c/structiutest_1_1_assertion_return_type_3_01void_01_4.html">iutest::AssertionReturnType&lt; void &gt;</a></div><div class="ttdoc">Assetion Return Type (void)</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:172</div></div>
 <div class="ttc" id="astructiutest_1_1_assertion_return_type_html"><div class="ttname"><a href="../../dd/d41/structiutest_1_1_assertion_return_type.html">iutest::AssertionReturnType</a></div><div class="ttdoc">Assetion Return Type</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:157</div></div>
 <div class="ttc" id="astructiutest_1_1_assertion_return_type_html_a478cf3f98bea5a5fbf7ab4e94019bf2b"><div class="ttname"><a href="../../dd/d41/structiutest_1_1_assertion_return_type.html#a478cf3f98bea5a5fbf7ab4e94019bf2b">iutest::AssertionReturnType::AssertionReturnType</a></div><div class="ttdeci">AssertionReturnType()</div><div class="ttdoc">コンストラクタ</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:160</div></div>
@@ -1358,7 +1361,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2025年03月09日(日) 13時33分20秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2025年03月23日(日) 15時15分05秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
