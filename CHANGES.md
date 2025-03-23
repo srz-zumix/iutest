@@ -5,6 +5,7 @@
 ## Changes for 1.17.99
 
 * New
+  * char8_t 対応
   * IUTEST_*_COMPLEX_EQ アサーションを追加
 
 * Improved

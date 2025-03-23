@@ -123,6 +123,7 @@ modification, are permitted provided that the following conditions are met: \n
  <ul>
   <li>v1.18.0.0
     <ul>
+      <li>char8_t 対応</li>
       <li>IUTEST_*_COMPLEX_EQ アサーションを追加</li>
       <li>IUTEST_*_ALMOST_EQ が ::std::complex に対応</li>
       <li>TestCase の別名 TestSuite に対応（iutest はどちらもサポートし続けます）</li>
