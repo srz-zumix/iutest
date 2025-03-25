@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2023, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2025, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -211,7 +211,7 @@
 #  endif
 #  if   defined(__has_include)
 #    if !defined(IUTEST_HAS_CXX_HDR_CUCHAR) && __has_include( <cuchar> )
-#      if defined(__APPLE__) && IUTEST_CLANG_MAJOR == 15
+#      if defined(__APPLE__) && defined(_LIBCPP_VERSION)
 // https://github.com/llvm/llvm-project/issues/62573
 #        define IUTEST_HAS_CXX_HDR_CUCHAR 0
 #      else
@@ -525,6 +525,23 @@
 #if !defined(IUTEST_HAS_STD_TO_CHARS)
 #  define IUTEST_HAS_STD_TO_CHARS       0
 #endif
+//! has char8_t support lib
+#if !defined(IUTEST_HAS_STD_CHAR8_T)
+#  if defined(_LIBCPP_HAS_NO_C8RTOMB_MBRTOC8)
+#    define IUTEST_HAS_STD_CHAR8_T      0
+#  elif defined(__cpp_lib_char8_t) && __cpp_lib_char8_t >= 201907
+#    define IUTEST_HAS_STD_CHAR8_T      1
+#  else
+#    define IUTEST_HAS_STD_CHAR8_T      0
+#  endif
+#endif
+#if !defined(IUTEST_NO_CHAR8_T_TYPEINFO) && IUTEST_HAS_CHAR8_T
+#  if defined(__arm64__) && defined(__APPLE__)
+#    define IUTEST_NO_CHAR8_T_TYPEINFO    1
+#  elif defined(_LIBCPP_HAS_NO_C8RTOMB_MBRTOC8)
+#    define IUTEST_NO_CHAR8_T_TYPEINFO    1
+#  endif
+#endif
 
 //! use external include tr1::tuple
 #if !defined(IUTEST_USE_EXTERNAL_TR1_TUPLE)
@@ -746,6 +763,16 @@
 #  define IUTEST_HAS_MKSTEMP                        0
 #endif
 
+#if !defined(IUTEST_NO_VSNPRINTF)
+#  if defined(__CYGWIN__) \
+        && (defined(__STRICT_ANSI__) && (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) && (__cplusplus >= 201103L))
+#    define IUTEST_NO_VSNPRINTF                     1
+#  endif
+#  if (defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)) && defined(__STRICT_ANSI__)
+#    define IUTEST_NO_VSNPRINTF                     1
+#  endif
+#endif
+
 //! size_t format macros
 #if !defined(IUPRzu)
 #  if defined(_MSC_VER) && (_MSC_VER < 1900)
@@ -773,6 +800,15 @@
 #  else
 #    define iu_va_copy(dest, src)   (dest = src)
 #  endif
+#endif
+
+#if !defined(IU_MB_CUR_MAX)
+#  if defined(MB_CUR_MAX)
+#    define IU_MB_CUR_MAX   MB_CUR_MAX
+#  endif
+#endif
+#if !defined(IU_MB_CUR_MAX)
+#  define IU_MB_CUR_MAX   6
 #endif
 
 //======================================================================
