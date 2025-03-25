@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -59,7 +59,6 @@ using ::std::get;
 // include
 // IWYU pragma: begin_exports
 #include "../iutest_ver.hpp"
-// IWYU pragma: end_exports
 
 // gtest 1.5 or less compatible
 #if !defined(IUTEST_HAS_CONCEPTS)
@@ -78,6 +77,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #include "iutest_gmock_ver.hpp"
 #endif
 #include "iutest_gtest_ver.hpp"
+// IWYU pragma: end_exports
 
 #if GTEST_VER < 0x01040000
 #  error google test 1.3.0 or less is not supported...
@@ -144,6 +144,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #undef IUTEST_HAS_VARIADIC_TEMPLATES
 #undef IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES
 #undef IUTEST_HAS_INITIALIZER_LIST
+#undef IUTEST_HAS_CHAR8_T
 #undef IUTEST_HAS_CHAR16_T
 #undef IUTEST_HAS_CHAR32_T
 
@@ -154,6 +155,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #undef IUTEST_HAS_LONG_DOUBLE
 
 #undef IUTEST_HAS_STREAM_BUFFER
+#undef IUTEST_HAS_STREAM_CAPTURE
 
 #undef IUTEST_HAS_STD_FILESYSTEM
 
@@ -222,10 +224,12 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #define IUTEST_HAS_STD_FILESYSTEM       0
 
 #define IUTEST_HAS_STREAM_BUFFER        0
+#define IUTEST_HAS_STREAM_CAPTURE       0
 
 #define IUTEST_HAS_VARIADIC_TEMPLATES   0
 #define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES  0
 #define IUTEST_HAS_INITIALIZER_LIST     0
+#define IUTEST_HAS_CHAR8_T              0
 #define IUTEST_HAS_CHAR16_T             0
 #define IUTEST_HAS_CHAR32_T             0
 
@@ -288,13 +292,11 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #  define IUTEST_STATIC_ASSERT(...) IUTEST_STATIC_ASSERT_MSG((__VA_ARGS__), "")
 #endif
 
-#ifdef IUTEST_ASSERT_EXIT
-#  undef IUTEST_ASSERT_EXIT
-#endif
-#define IUTEST_ASSERT_EXIT(cond)    do { if( !(cond) ) {                                                    \
-                                        GTEST_MESSAGE_(#cond, ::testing::TestPartResult::kFatalFailure);    \
-                                        exit(1);                                                            \
-                                    } } while(::testing::internal::AlwaysFalse())
+#undef IUTEST_TERMINATE_ON_FAILURE
+#define IUTEST_TERMINATE_ON_FAILURE(cond)   do { if( !(cond) ) {                                                    \
+                                                GTEST_MESSAGE_(#cond, ::testing::TestPartResult::kFatalFailure);    \
+                                                exit(1);                                                            \
+                                            } } while(::testing::internal::AlwaysFalse())
 
 #define IUTEST_OPERAND(op)          op
 #define IUTEST_EXPRESSION(expr)     expr
@@ -536,7 +538,7 @@ const T* WithParamInterface<T>::parameter_ = NULL;
 #if IUTEST_HAS_PRINT_TO
 
 template <typename T>
-inline void GTestStreamToHelperForCompatible(std::ostream* os, const T& val) {
+inline void GTestStreamToHelperForCompatible(::std::ostream* os, const T& val) {
     *os << val;
 }
 
@@ -553,6 +555,11 @@ void GTestStreamTo(std::ostream* os, const T& val)
     *os << val;
 }
 inline void GTestStreamTo(std::ostream* os, const ::std::string& val)
+{
+    *os << val;
+}
+template<typename T>
+inline void GTestStreamTo(std::ostream* os, const ::std::complex<T>& val)
 {
     *os << val;
 }

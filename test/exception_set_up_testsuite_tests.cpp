@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2020-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2020-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
     IUTEST_INIT(&argc, argv);
     ::iutest::IUTEST_FLAG(catch_exceptions) = true;
 
-#if defined(OUTPUTXML)
+#if defined(DISABLE_FALSE_POSITIVE_XML)
     // 失敗テストを含むので xml 出力しない
     ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
@@ -80,7 +80,7 @@ int main(int argc, char* argv[])
     IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->failed_test_count())
         << ::iutest::AssertionReturn<int>(1);
 #else
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 0 );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->failed_test_count() == 0 );
 #endif
 
 #else

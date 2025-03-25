@@ -19,7 +19,6 @@
 // include
 // IWYU pragma: begin_exports
 #include "../iutest_defs.hpp"
-// IWYU pragma: end_exports
 
 #if IUTEST_HAS_CXX_HDR_STRING_VIEW
 #  include <string_view>
@@ -29,6 +28,7 @@
 #  include <stdexcept>
 #endif
 #include <climits>
+// IWYU pragma: end_exports
 
 //======================================================================
 // class

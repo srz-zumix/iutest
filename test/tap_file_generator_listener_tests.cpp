@@ -1,7 +1,7 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file        tap_printer_listener_tests.cpp
+ * @file        tap_file_generator_listener_tests.cpp
  * @brief       TAPPrintListener test
  *
  * @author      t.shirayanagi

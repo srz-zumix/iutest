@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2025, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -311,7 +311,7 @@ class TypeParamTestInstance
     {
         typedef typename TT::Head           TypeParam;
         typedef Tester<TypeParam>           TestBody;
-        typedef TypedTestSuite<TypeParam>    _MyTestSuite;
+        typedef TypedTestSuite<TypeParam>   _MyTestSuite;
     public:
         // コンストラクタ
         EachTest(const char* testsuite, const char* name, size_t index, const char* file, int line)
@@ -523,7 +523,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
         }
     private:
-        TestSuiteMediator    m_mediator;
+        TestSuiteMediator   m_mediator;
         Factory             m_factory;
         TestInfo            m_info;
     };
@@ -551,8 +551,8 @@ public:
         }
         catch (const ::std::exception& e)
         {
-            IUTEST_LOG_(FATAL) << "IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P register tests failed...\n"
-                << e.what();
+            IUTEST_LOG_(FATAL) << "IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P register tests failed... (what: "
+                << e.what() << ")\n";
         }
         catch(...)
         {

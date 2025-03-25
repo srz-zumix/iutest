@@ -1,0 +1,8 @@
+# ignore all
+*
+
+# includes
+!.git*
+!*.tmp
+!*.cpp
+!*[mM]akefile

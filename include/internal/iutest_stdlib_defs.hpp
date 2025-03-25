@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2025, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,6 +17,7 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_compiler.hpp"
 #define __STDC_FORMAT_MACROS    1
 #include <inttypes.h>
@@ -34,6 +35,7 @@
 #include <cstdlib>
 #include <cstddef>
 #include <limits>
+#include <complex>
 
 // <version> header
 #if !defined(IUTEST_HAS_CXX_HDR_VERSION)
@@ -51,6 +53,7 @@
 #if IUTEST_HAS_CXX_HDR_VERSION
 #include <version>
 #endif
+// IWYU pragma: end_exports
 
 //======================================================================
 // define
@@ -131,7 +134,7 @@
 #  endif
 #  if defined(_GLIBCXX_HAVE_QUICK_EXIT) && defined(_GLIBCXX_HAVE_AT_QUICK_EXIT)
 #    if !defined(IUTEST_HAS_STD_QUICK_EXIT)
-#      define IUTEST_HAS_STD_QUICK_EXIT     1
+#      define IUTEST_HAS_STD_QUICK_EXIT   1
 #    endif
 #  endif
 #  if defined(__has_include)
@@ -200,14 +203,23 @@
 #    define IUTEST_HAS_CXX_HDR_ARRAY      1
 #  endif
 #  if !defined(IUTEST_HAS_STD_QUICK_EXIT) && defined(_LIBCPP_HAS_QUICK_EXIT)
-#    define IUTEST_HAS_STD_QUICK_EXIT     1
+#    if defined(__APPLE__)
+#      define IUTEST_HAS_STD_QUICK_EXIT   0   // xcode clang
+#    else
+#      define IUTEST_HAS_STD_QUICK_EXIT   1
+#    endif
 #  endif
 #  if   defined(__has_include)
 #    if !defined(IUTEST_HAS_CXX_HDR_CUCHAR) && __has_include( <cuchar> )
-#      define IUTEST_HAS_CXX_HDR_CUCHAR   1
+#      if defined(__APPLE__) && defined(_LIBCPP_VERSION)
+// https://github.com/llvm/llvm-project/issues/62573
+#        define IUTEST_HAS_CXX_HDR_CUCHAR 0
+#      else
+#        define IUTEST_HAS_CXX_HDR_CUCHAR 1
+#      endif
 #    endif
 #    if !defined(IUTEST_HAS_STD_TUPLE) && __has_include( <tuple> )
-#      define IUTEST_HAS_STD_TUPLE          1
+#      define IUTEST_HAS_STD_TUPLE        1
 #    endif
 #  endif
 #endif
@@ -382,6 +394,23 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_HAS_HDR_UNISTD)
+#  if defined(__has_include)
+#    if __has_include(<unistd.h>)
+#      define IUTEST_HAS_HDR_UNISTD         1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_HDR_UNISTD)
+#  if defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN) \
+    || defined(IUTEST_OS_MAC) || defined(IUTEST_OS_IOS) \
+    || defined(IUTEST_OS_FREEBSD) \
+    || defined(__arm__)
+#    define IUTEST_HAS_HDR_UNISTD           1
+#  endif
+#endif
+
 // defaults for include
 //! has any header
 #if !defined(IUTEST_HAS_CXX_HDR_ANY)
@@ -443,34 +472,15 @@
 #if !defined(IUTEST_HAS_HDR_CXXABI)
 #  define IUTEST_HAS_HDR_CXXABI             0
 #endif
-
-//======================================================================
-// include
-#include <iterator>
-
-#if IUTEST_HAS_CXX_HDR_ANY
-#  include <any>
-#endif
-#if IUTEST_HAS_CXX_HDR_CSTDINT
-#  include <cstdint>
-#endif
-#if IUTEST_HAS_CXX_HDR_FILESYSTEM
-#  include <filesystem>
-#endif
-#if IUTEST_HAS_CXX_HDR_OPTIONAL
-#  include <optional>
-#endif
-#if IUTEST_HAS_CXX_HDR_VARIANT
-#  include <variant>
-#endif
-#if IUTEST_HAS_CXX_HDR_CHARCONV
-#  include <charconv>
+//! has unistd.h header
+#if !defined(IUTEST_HAS_HDR_UNISTD)
+#  define IUTEST_HAS_HDR_UNISTD             0
 #endif
 
-//======================================================================
-// define
 #if !defined(IUTEST_HAS_STD_FILESYSTEM)
-#  if defined(ANDROID) || defined(__ANDROID__)
+#  if   defined(ANDROID) || defined(__ANDROID__) || defined(__ARM_EABI__)
+#    define IUTEST_HAS_STD_FILESYSTEM       0
+#  elif defined(__INTEL_COMPILER)
 #    define IUTEST_HAS_STD_FILESYSTEM       0
 #  elif IUTEST_HAS_CXX_HDR_FILESYSTEM && defined(__cpp_lib_filesystem) && __cpp_lib_filesystem >= 201703
 #    if !defined(__cpp_lib_experimental_filesystem)
@@ -480,7 +490,7 @@
 #endif
 
 #if !defined(IUTEST_HAS_STD_TO_CHARS)
-#  if defined(__cpp_lib_to_chars) && __cpp_lib_to_chars >= 201611
+#  if IUTEST_HAS_CXX_HDR_CHARCONV && defined(__cpp_lib_to_chars) && __cpp_lib_to_chars >= 201611
 #    define IUTEST_HAS_STD_TO_CHARS         1
 #  endif
 #endif
@@ -514,6 +524,23 @@
 //! has to_chars
 #if !defined(IUTEST_HAS_STD_TO_CHARS)
 #  define IUTEST_HAS_STD_TO_CHARS       0
+#endif
+//! has char8_t support lib
+#if !defined(IUTEST_HAS_STD_CHAR8_T)
+#  if defined(_LIBCPP_HAS_NO_C8RTOMB_MBRTOC8)
+#    define IUTEST_HAS_STD_CHAR8_T      0
+#  elif defined(__cpp_lib_char8_t) && __cpp_lib_char8_t >= 201907
+#    define IUTEST_HAS_STD_CHAR8_T      1
+#  else
+#    define IUTEST_HAS_STD_CHAR8_T      0
+#  endif
+#endif
+#if !defined(IUTEST_NO_CHAR8_T_TYPEINFO) && IUTEST_HAS_CHAR8_T
+#  if defined(__arm64__) && defined(__APPLE__)
+#    define IUTEST_NO_CHAR8_T_TYPEINFO    1
+#  elif defined(_LIBCPP_HAS_NO_C8RTOMB_MBRTOC8)
+#    define IUTEST_NO_CHAR8_T_TYPEINFO    1
+#  endif
 #endif
 
 //! use external include tr1::tuple
@@ -633,6 +660,119 @@
 #  define IUTEST_HAS_INVALID_PARAMETER_HANDLER      0
 #endif
 
+//! has largefile api
+#if !defined(IUTEST_HAS_LARGEFILE_API)
+#  if   defined(__LARGEFILE_VISIBLE) && __LARGEFILE_VISIBLE
+#    define IUTEST_HAS_LARGEFILE_API                1
+#  elif defined(__POSIX_VISIBLE) && __POSIX_VISIBLE >= 200112
+#    define IUTEST_HAS_LARGEFILE_API                1
+#  else
+#    define IUTEST_HAS_LARGEFILE_API                0
+#  endif
+#endif
+
+
+//! has fopen
+#if !defined(IUTEST_HAS_FOPEN)
+#  define IUTEST_HAS_FOPEN                          1
+#endif
+
+
+//! has file stat
+#if !defined(IUTEST_HAS_FILE_STAT)
+#  if !defined(IUTEST_OS_WINDOWS_MOBILE)
+#    define IUTEST_HAS_FILE_STAT                    1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_FILE_STAT)
+#  define IUTEST_HAS_FILE_STAT                      0
+#endif
+
+//! has fileno
+#if !defined(IUTEST_HAS_FILENO)
+#  if defined(__POSIX_VISIBLE) && __POSIX_VISIBLE == 0
+#    define IUTEST_HAS_FILENO                       0
+#  elif defined(IUTEST_OS_WINDOWS_MINGW) && defined(__STRICT_ANSI__)
+#    define IUTEST_HAS_FILENO                       0
+#  elif !defined(IUTEST_OS_WINDOWS_MOBILE)
+#    define IUTEST_HAS_FILENO                       1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_FILENO)
+#  define IUTEST_HAS_FILENO                         0
+#endif
+
+//! has fd dup/dup2
+#if !defined(IUTEST_HAS_FD_DUP)
+#  if IUTEST_HAS_HDR_UNISTD && !defined(__arm__)
+#    define IUTEST_HAS_FD_DUP                       1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_FD_DUP)
+#  define IUTEST_HAS_FD_DUP                         0
+#endif
+
+//! has fdopen
+#if !defined(IUTEST_HAS_FD_OPEN)
+#  if IUTEST_HAS_HDR_UNISTD
+#    if defined(__arm__)
+#      define IUTEST_HAS_FD_OPEN                    0
+#    elif defined(IUTEST_OS_CYGWIN)
+#      if !defined(__STRICT_ANSI__)
+#        define IUTEST_HAS_FD_OPEN                  1
+#      endif
+#    elif defined(IUTEST_OS_WINDOWS_MINGW) && !defined(__MINGW64__)
+#      define IUTEST_HAS_FD_OPEN                    0
+#    else
+#      define IUTEST_HAS_FD_OPEN                    1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_FD_OPEN)
+#  define IUTEST_HAS_FD_OPEN                        0
+#endif
+
+//! has mkstemp
+#if !defined(IUTEST_HAS_MKSTEMP)
+#  if   defined(HAVE_MKSTEMP)
+#      define IUTEST_HAS_MKSTEMP                    HAVE_MKSTEMP
+#  elif defined(__arm__)
+#    if !defined(_REENT_ONLY) \
+      && ( (defined(__MISC_VISIBLE) && __MISC_VISIBLE) \
+        || (defined(__POSIX_VISIBLE) && __POSIX_VISIBLE >= 200112) \
+        || (defined(__XSI_VISIBLE) && __XSI_VISIBLE >= 4) \
+      )
+#      define IUTEST_HAS_MKSTEMP                    1
+#    endif
+#  elif defined(IUTEST_OS_CYGWIN)
+#    if !defined(__STRICT_ANSI__)
+#      define IUTEST_HAS_MKSTEMP                    1
+#    endif
+#  elif defined(IUTEST_OS_WINDOWS_MINGW) && !defined(__MINGW64__)
+#    define IUTEST_HAS_MKSTEMP                      0
+#  elif IUTEST_HAS_HDR_UNISTD
+#    define IUTEST_HAS_MKSTEMP                      1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_MKSTEMP)
+#  define IUTEST_HAS_MKSTEMP                        0
+#endif
+
+#if !defined(IUTEST_NO_VSNPRINTF)
+#  if defined(__CYGWIN__) \
+        && (defined(__STRICT_ANSI__) && (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) && (__cplusplus >= 201103L))
+#    define IUTEST_NO_VSNPRINTF                     1
+#  endif
+#  if (defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)) && defined(__STRICT_ANSI__)
+#    define IUTEST_NO_VSNPRINTF                     1
+#  endif
+#endif
+
 //! size_t format macros
 #if !defined(IUPRzu)
 #  if defined(_MSC_VER) && (_MSC_VER < 1900)
@@ -661,5 +801,39 @@
 #    define iu_va_copy(dest, src)   (dest = src)
 #  endif
 #endif
+
+#if !defined(IU_MB_CUR_MAX)
+#  if defined(MB_CUR_MAX)
+#    define IU_MB_CUR_MAX   MB_CUR_MAX
+#  endif
+#endif
+#if !defined(IU_MB_CUR_MAX)
+#  define IU_MB_CUR_MAX   6
+#endif
+
+//======================================================================
+// include
+// IWYU pragma: begin_exports
+#include <iterator>
+
+#if IUTEST_HAS_CXX_HDR_ANY
+#  include <any>
+#endif
+#if IUTEST_HAS_CXX_HDR_CSTDINT
+#  include <cstdint>
+#endif
+#if IUTEST_HAS_CXX_HDR_FILESYSTEM && IUTEST_HAS_STD_FILESYSTEM
+#  include <filesystem>
+#endif
+#if IUTEST_HAS_CXX_HDR_OPTIONAL
+#  include <optional>
+#endif
+#if IUTEST_HAS_CXX_HDR_VARIANT
+#  include <variant>
+#endif
+#if IUTEST_HAS_CXX_HDR_CHARCONV
+#  include <charconv>
+#endif
+// IWYU pragma: end_exports
 
 #endif // INCG_IRIS_IUTEST_STDLIB_DEFS_HPP_9C62C097_E5FB_49EE_9329_811F32C846A2_

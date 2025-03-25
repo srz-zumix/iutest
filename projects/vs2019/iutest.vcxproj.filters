@@ -180,6 +180,9 @@
     <ClInclude Include="..\..\include\internal\iutest_stdlib.hpp">
       <Filter>iutest\internal</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\internal\iutest_stream_capture.hpp">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\internal\iutest_stream.hpp">
       <Filter>iutest\internal</Filter>
     </ClInclude>
@@ -347,6 +350,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\gtest\iutest_switch_for_iutest.hpp">
       <Filter>iutest\gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\internal\iutest_locale.hpp">
+      <Filter>iutest\internal</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\iutest_legacy.hpp">
       <Filter>iutest</Filter>

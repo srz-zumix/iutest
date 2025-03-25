@@ -14,6 +14,7 @@
 			"*.ipp": "cpp",
 			"*.inl": "cpp",
 			"*.in": "makefile",
+			"Earthfile": "dockerfile",
 			".ecrc": "json",
 			".nuspec": "xml",
 			".targets": "xml",
@@ -116,9 +117,48 @@
 			"mutex": "cpp",
 			"numeric": "cpp",
 			"stack": "cpp",
-			"unordered_map": "cpp"
+			"unordered_map": "cpp",
+			"hash_map": "cpp",
+			"*.tcc": "cpp",
+			"clocale": "cpp",
+			"compare": "cpp",
+			"condition_variable": "cpp",
+			"memory_resource": "cpp",
+			"ranges": "cpp",
+			"shared_mutex": "cpp",
+			"stop_token": "cpp",
+			"thread": "cpp",
+			"cinttypes": "cpp",
+			"queue": "cpp",
+			"numbers": "cpp",
+			"semaphore": "cpp",
+			"__memory": "cpp",
+			"version": "cpp",
+			"*.defs": "cpp"
 		},
-		"bracketLens.minBracketScopeLines": 12
+		"bracketLens.minBracketScopeLines": 12,
+		"editor.tokenColorCustomizations": {
+			"textMateRules": [
+				{
+					"scope": "googletest.failed",
+					"settings": {
+						"foreground": "#f00"
+					}
+				},
+				{
+					"scope": "googletest.passed",
+					"settings": {
+						"foreground": "#0f0"
+					}
+				},
+				{
+					"scope": "googletest.run",
+					"settings": {
+						"foreground": "#0f0"
+					}
+				}
+			]
+		}
 	},
 	"launch": {
 		"configurations": [

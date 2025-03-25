@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_switch_assume.hpp
- * @brief       ASSUME フレーバー切り替え ファイル
+ * @brief       ASSUME flavor iutest/gtest switch file
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -30,6 +30,7 @@
 #define ASSUME_NEAR         IUTEST_ASSUME_NEAR
 #define ASSUME_FLOAT_EQ     IUTEST_ASSUME_FLOAT_EQ
 #define ASSUME_DOUBLE_EQ    IUTEST_ASSUME_DOUBLE_EQ
+#define ASSUME_COMPLEX_EQ   IUTEST_ASSUME_COMPLEX_EQ
 #define ASSUME_STREQ        IUTEST_ASSUME_STREQ
 #define ASSUME_STRNE        IUTEST_ASSUME_STRNE
 #define ASSUME_STRCASEEQ    IUTEST_ASSUME_STRCASEEQ
@@ -84,6 +85,7 @@
 #undef IUTEST_ASSUME_SAME
 #undef IUTEST_ASSUME_FLOAT_EQ
 #undef IUTEST_ASSUME_DOUBLE_EQ
+#undef IUTEST_ASSUME_COMPLEX_EQ
 #undef IUTEST_ASSUME_STREQ
 #undef IUTEST_ASSUME_STRNE
 #undef IUTEST_ASSUME_STRCASEEQ
@@ -175,6 +177,9 @@
 #define ASSUME_DOUBLE_EQ(expected, actual)\
     ASSUME_PRED_FORMAT2(::testing::internal::CmpHelperFloatingPointEQ<double>, \
     expected, actual)
+#define ASSUME_COMPLEX_EQ(expected, actual)\
+    ASSUME_PRED_FORMAT2(::testing::internal::CmpHelperFloatingPointComplexEQ, \
+    expected, actual)
 #define ASSUME_NEAR(val1, val2, abs_error)\
     ASSUME_PRED_FORMAT3(::testing::internal::DoubleNearPredFormat, \
     val1, val2, abs_error)
@@ -207,6 +212,7 @@
 #define IUTEST_ASSUME_NEAR                  ASSUME_NEAR
 #define IUTEST_ASSUME_FLOAT_EQ              ASSUME_FLOAT_EQ
 #define IUTEST_ASSUME_DOUBLE_EQ             ASSUME_DOUBLE_EQ
+#define IUTEST_ASSUME_COMPLEX_EQ            ASSUME_COMPLEX_EQ
 #define IUTEST_ASSUME_STREQ                 ASSUME_STREQ
 #define IUTEST_ASSUME_STRNE                 ASSUME_STRNE
 #define IUTEST_ASSUME_STRCASEEQ             ASSUME_STRCASEEQ

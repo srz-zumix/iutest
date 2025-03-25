@@ -22,12 +22,6 @@
 static bool is_call_create = false;
 static bool is_call_delete = false;
 
-void FileSystemCallTest()
-{
-    IUTEST_EXPECT_TRUE(is_call_create);
-    IUTEST_EXPECT_FALSE(is_call_delete);
-}
-
 class TestFileSystem : public ::iutest::detail::IFileSystem
 {
 private:
@@ -51,6 +45,10 @@ int RegisterFileSystem()
 #endif
 
 
+#ifndef IUTEST_EXPECT_NO_THROW
+#  define IUTEST_EXPECT_NO_THROW void
+#endif
+
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else
@@ -62,6 +60,7 @@ int main(int argc, char* argv[])
         IUTEST_EXPECT_NULL(::iutest::detail::IFileSystem::New());
         ::std::string str;
         IUTEST_EXPECT_FALSE(::iutest::detail::IFileSystem::ReadAll("iutest_file_system_test.cpp", str));
+        IUTEST_EXPECT_NO_THROW(::iutest::detail::IFileSystem::Free(NULL));
     }
 
     RegisterFileSystem();
@@ -71,7 +70,13 @@ int main(int argc, char* argv[])
 
     const int ret = IUTEST_RUN_ALL_TESTS();
     if( ret != 0 ) return ret;
-    FileSystemCallTest();
+
+    IUTEST_EXPECT_TRUE(is_call_create);
+    IUTEST_EXPECT_FALSE(is_call_delete);
+
+    IUTEST_EXPECT_NO_THROW(::iutest::detail::IFileSystem::Free(NULL));
+    IUTEST_EXPECT_TRUE(is_call_delete);
+
     return ::iutest::UnitTest::GetInstance()->Failed() ? 1 : 0;
 #else
     IUTEST_INIT(&argc, argv);

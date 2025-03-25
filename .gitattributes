@@ -61,7 +61,7 @@ Dockerfile  text eol=lf
 .ci         export-ignore
 .circleci   export-ignore
 .github     export-ignore
-.semaphre   export-ignore
+.semaphore  export-ignore
 *.yml       export-ignore
 *.yaml      export-ignore
 Jenkinsfile export-ignore
@@ -79,4 +79,3 @@ docs/* linguist-documentation
 .circleci/* linguist-documentation
 .semaphore/* linguist-documentation
 .github/* linguist-documentation
-.semaphore/* linguist-documentation

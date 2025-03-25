@@ -122,6 +122,12 @@ stages:
       - template: .ci/azure_pipelines/template-make-mix-test.yml
         parameters:
           name: mix
+  - stage: ConfigTest
+    dependsOn: Precheck
+    jobs:
+      - template: .ci/azure_pipelines/template-make-config-test.yml
+        parameters:
+          name: config
   - stage: VisualStudio
     dependsOn: Precheck
     jobs:
@@ -130,8 +136,12 @@ stages:
           matrix:
             NO_EXCEPTION_HANDLER:
               CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -Dbuild_no_exceptions=ON
+            USE_C_PREPROCESSOR:
+              CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -Dbuild_use_msvc_c_preprocessor=ON
             USE_EXPERIMENTAL:
               CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -Dbuild_use_experimental=ON
+            CPP_LATEST:
+              CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -Dbuild_cpp_latest=ON
         pool:
           vmImage: windows-2019
         steps:
@@ -140,6 +150,27 @@ stages:
             generator_name: Visual Studio 16 2019
             platform: x64
             cmake_options: "${CMAKE_OPTIONS}"
+  # timeout するので commentout
+  # - stage: GccAnalyzer
+  #   dependsOn: Precheck
+  #   jobs:
+  #     - job: gcc_fanalyzer
+  #       timeoutInMinutes: 360
+  #       pool:
+  #         vmImage: ubuntu-latest
+  #       steps:
+  #         - script: |
+  #             ./.ci/linux/install-gcc.sh
+  #           env:
+  #             GCC_VERSION: 11
+  #         - script: |
+  #             make -C test showcxxversion
+  #         - script: |
+  #             make -C test -j1 DEFS="-v -fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference -Wno-analyzer-malloc-leak -Wno-analyzer-null-dereference"
+  #           env:
+  #             GGC_MIN_EXPAND: 0
+  #             # GGC_MIN_HEAPSIZE: 4096
+  #           displayName: 'gcc -fanalyzer test'
   - stage: DockerContaierTest
     dependsOn: Precheck
     jobs:

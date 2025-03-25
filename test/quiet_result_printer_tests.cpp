@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -34,13 +34,13 @@ int main(int argc, char* argv[])
 #endif
 {
     IUTEST_INIT(&argc, argv);
-#if defined(OUTPUTXML)
+#if defined(DISABLE_FALSE_POSITIVE_XML)
     // 実行対象テストがないので xml 出力しない
     ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
 
 #if !defined(IUTEST_USE_GTEST)
-    TestLogger logger;
+    static TestLogger logger;
     ::iutest::detail::iuConsole::SetLogger(&logger);
 #endif
 
@@ -50,11 +50,14 @@ int main(int argc, char* argv[])
     IUTEST_ASSERT_NOTNULL( listener ) << ::iutest::AssertionReturn<int>(1);
     IUTEST_ASSERT_NULL( listeners.default_result_printer() ) << ::iutest::AssertionReturn<int>(1);
 #else
-    IUTEST_ASSERT_EXIT(listener != NULL);
-    IUTEST_ASSERT_EXIT(listeners.default_result_printer() == NULL);
+    IUTEST_TERMINATE_ON_FAILURE(listener != NULL);
+    IUTEST_TERMINATE_ON_FAILURE(listeners.default_result_printer() == NULL);
 #endif
 
-    if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
+    if( IUTEST_RUN_ALL_TESTS() == 0 )
+    {
+        return 1;
+    }
 #if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_ASSERTION_RETURN
     IUTEST_ASSERT_STRNOTIN("[       OK ]", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
     IUTEST_ASSERT_STRIN   ("[  FAILED  ]", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
@@ -66,7 +69,10 @@ int main(int argc, char* argv[])
 #if IUTEST_HAS_ASSERTION_RETURN
     IUTEST_ASSERT_NULL( listener ) << ::iutest::AssertionReturn<int>(1);
 #else
-    if( listener != NULL ) return 1;
+    if( listener != NULL )
+    {
+        return 1;
+    }
 #endif
 
     printf("*** Successful ***\n");

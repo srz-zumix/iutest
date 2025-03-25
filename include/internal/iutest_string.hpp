@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2023, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -21,16 +21,18 @@
 #  define _MBSTATE_T
 #endif
 
+// IWYU pragma: begin_exports
 #include <wchar.h>
 #include <wctype.h>
 #include <stdarg.h>
 #include <errno.h>
-#if defined(IUTEST_OS_CYGWIN) || defined(IUTEST_OS_ARM)
+#if defined(IUTEST_OS_CYGWIN) || defined(__arm__)
 #include <strings.h>
 #endif
 #include <string>
 #include <cstring>
 #include <cmath>
+// IWYU pragma: end_exports
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
@@ -122,13 +124,14 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 {
 #if   defined(_MSC_VER)
     return _wcsicmp(str1, str2);
-#elif defined(IUTEST_OS_LINUX) && !defined(IUTEST_OS_LINUX_ANDROID)
+#elif defined(IUTEST_OS_LINUX) && !defined(IUTEST_ARCH_ARM)
     return wcscasecmp(str1, str2);
 #else
     return wrapper::iu_wcsicmp(str1, str2);
 #endif
 }
 
+#if defined(IUTEST_NO_VSNPRINTF) && IUTEST_NO_VSNPRINTF
 namespace wrapper
 {
 
@@ -143,7 +146,8 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
     {
         const size_t length = static_cast<size_t>(ret);
         const size_t write = (size <= length) ? size - 1 : length;
-        if( write_buffer == buffer ) {
+        if( write_buffer == buffer )
+        {
             strncpy(dst, buffer, write);
         }
         dst[write] = '\0';
@@ -152,6 +156,8 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 }
 
 } // end of namespace wrapper
+
+#endif
 
 int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 0);
 int iu_snprintf(char* dst, size_t size, const char* format, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 4);
@@ -176,10 +182,7 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 #  else
     return _vsnprintf(dst, size, format, va);
 #  endif
-#elif defined(__CYGWIN__) \
-        && (defined(__STRICT_ANSI__) && (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) && (__cplusplus >= 201103L))
-    return wrapper::iu_vsnprintf(dst, size, format, va);
-#elif (defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)) && defined(__STRICT_ANSI__)
+#elif defined(IUTEST_NO_VSNPRINTF) && IUTEST_NO_VSNPRINTF
     return wrapper::iu_vsnprintf(dst, size, format, va);
 #else
     return vsnprintf(dst, size, format, va);
@@ -374,12 +377,31 @@ inline ::std::string ToHexString(const T* str, int length)
     return r;
 }
 
+inline ::std::string FormatIntWidthN(int value, int digit)
+{
+    char buf[128] = { 0 };
+    int idx = IUTEST_PP_COUNTOF(buf) - 2;
+    int x = value;
+    for( int i=0; i < digit; ++i, --idx )
+    {
+        buf[idx] = static_cast<char>(::std::abs(x%10) + '0');
+        x /= 10;
+    }
+    for( ; x; --idx )
+    {
+        buf[idx] = static_cast<char>(::std::abs(x%10) + '0');
+        x /= 10;
+    }
+    if( value < 0 )
+    {
+        buf[idx--] = '-';
+    }
+    return buf + idx + 1;
+}
+
 inline ::std::string FormatIntWidth2(int value)
 {
-    char buf[3] = "00";
-    buf[0] = static_cast<char>((value/10)%10 + '0');
-    buf[1] = static_cast<char>((value   )%10 + '0');
-    return buf;
+    return FormatIntWidthN(value, 2);
 }
 
 #if IUTEST_HAS_STD_TO_CHARS

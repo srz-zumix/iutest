@@ -10,6 +10,11 @@ option(build_gtest_samples "gtest sample build." OFF)
 option(build_use_gtest_configuration "use gtest build configuration." ON)
 option(build_tests "tests build." ON)
 option(build_namespace_tests "enable namespace test build." ON)
+option(build_for_iwyu "for include-what-you-use." OFF)
+option(build_for_clang_tidy "for clang-tidy" OFF)
+
+option(test_output_xml "test result output" ON)
+set(TEST_OUTPUT_DIR "." CACHE STRING "test result output directory")
 
 include(xcode_version.cmake)
 # Xcode workarounds
@@ -24,11 +29,15 @@ if (CMAKE_VERSION VERSION_LESS 3.19)
             -G "${CMAKE_GENERATOR}"
             -T "${CMAKE_GENERATOR_TOOLSET}"
             -A "${CMAKE_GENERATOR_PLATFORM}" 
-            -DRECURSIVE_GENERATE:BOOL=ON 
+            -DRECURSIVE_GENERATE:BOOL=ON
             -Dbuild_gtest_samples:BOOL=${build_gtest_samples}
             -Dbuild_use_gtest_configuration:BOOL=${build_use_gtest_configuration}
             -Dbuild_tests:BOOL=${build_tests}
             -Dbuild_namespace_tests:BOOL=${build_namespace_tests}
+            -DTEST_OUTPUT_DIR:STRING=${TEST_OUTPUT_DIR}
+            -Dtest_output_xml:BOOL=${test_output_xml}
+            -Dbuild_for_iwyu:BOOL=${build_for_iwyu}
+            -Dbuild_for_clang_tidy:BOOL=${build_for_clang_tidy}
             ${CMAKE_SOURCE_DIR})
         message(STATUS "Recursive generate done")
     
@@ -94,9 +103,17 @@ endif()
 include(internal_utils.cmake)
 config_compiler_and_linker()  # Defined in internal_utils.cmake.
 
-if (build_use_gtest_configuration)
+if (build_use_gtest_configuration AND (NOT "${CMAKE_CONFIGURATION_TYPES}" STREQUAL ""))
   set(CMAKE_CONFIGURATION_TYPES "${CMAKE_CONFIGURATION_TYPES};Debug_gtest")
   message(STATUS "configuration types: ${CMAKE_CONFIGURATION_TYPES}")
+endif()
+
+if (build_for_iwyu)
+  add_definitions("-DIUTEST_BUILD_FOR_IWYU")
+endif()
+
+if (build_for_clang_tidy)
+  set(CMAKE_CXX_CLANG_TIDY "clang-tidy")
 endif()
 
 # include path
@@ -160,7 +177,6 @@ if (build_tests)
     compatibility_tests.cpp
     filepath_tests.cpp
     fixture_tests.cpp
-    floatingpoint_tests.cpp
     no_failure_tests.cpp
     nullptr_tests.cpp
     param_test_tests1.cpp
@@ -215,6 +231,7 @@ if (build_tests)
   cxx_executable_test(file_system_tests)
   cxx_executable_test(filter_tests)
   cxx_executable_test(flagfile_gtest_tests)
+  cxx_executable_test(floatingpoint_tests)
   cxx_executable_test(gtest_version_tests)
   cxx_executable_test(help_tests)
   cxx_executable_test(inform_tests)
@@ -230,6 +247,7 @@ if (build_tests)
   cxx_executable_test(no_fatalfailure_tests)
   cxx_executable_test(no_test_tests)
   cxx_executable_test(output_env_var_tests)
+  cxx_executable_test(output_junit_xml_empty_tests)
   cxx_executable_test(output_junit_xml_tests)
   cxx_executable_test(output_xml_tests)
   cxx_executable_test(port_tests)
@@ -261,7 +279,6 @@ if (build_tests)
       compatibility_tests.cpp
       filepath_tests.cpp
       fixture_tests.cpp
-      floatingpoint_tests.cpp
       no_failure_tests.cpp
       nullptr_tests.cpp
       param_test_tests1.cpp
@@ -301,7 +318,6 @@ if (build_tests)
   cxx_executable_test(output_tests)
   cxx_executable_test(output_xml_invalid_path_tests)
   cxx_executable_test(output_xml_repeat_tests)
-  cxx_executable_test(own_string_view_tests)
   cxx_executable_test(param_test_name_invalid_tests)
   cxx_executable_test(param_test_name_tests)
   cxx_executable_test(no_yoda_tests)
@@ -309,7 +325,11 @@ if (build_tests)
   cxx_executable_test(spec_tests)
   cxx_executable_test(tap_file_generator_listener_tests)
   cxx_executable_test(tap_printer_listener_tests)
+  cxx_executable_test(type_param_register_exception_int_tests)
+  cxx_executable_test(type_param_register_exception_std_tests)
+  cxx_executable_test(type_param_strict_failure_tests)
   cxx_executable_test(type_param_strict_tests)
+  cxx_executable_test(unit_own_string_view_tests)
   cxx_executable_test_with_main(unit_tests
     unit_file_tests.cpp
     unit_macro_tests.cpp
@@ -351,6 +371,7 @@ if (build_tests)
   cxx_add_test(file_system_tests)
   cxx_add_test(filter_tests)
   cxx_add_test(flagfile_gtest_tests)
+  cxx_add_test(floatingpoint_tests)
   cxx_add_test(gtest_version_tests)
   cxx_add_test(help_tests)
   cxx_add_test(inform_tests)
@@ -366,6 +387,7 @@ if (build_tests)
   cxx_add_test(no_fatalfailure_tests)
   cxx_add_test(no_test_tests)
   cxx_add_test(output_env_var_tests)
+  cxx_add_test(output_junit_xml_empty_tests)
   cxx_add_test(output_junit_xml_tests)
   cxx_add_test(output_xml_tests)
   cxx_add_test(port_tests)
@@ -412,7 +434,6 @@ if (build_tests)
   cxx_add_test(output_tests)
   cxx_add_test(output_xml_invalid_path_tests)
   cxx_add_test(output_xml_repeat_tests)
-  cxx_add_test(own_string_view_tests)
   cxx_add_test(param_test_name_invalid_tests)
   cxx_add_test(param_test_name_tests)
   cxx_add_test(no_yoda_tests)
@@ -420,7 +441,11 @@ if (build_tests)
   cxx_add_test(spec_tests)
   cxx_add_test(tap_file_generator_listener_tests)
   cxx_add_test(tap_printer_listener_tests)
+  cxx_add_test(type_param_register_exception_int_tests)
+  cxx_add_test(type_param_register_exception_std_tests)
+  cxx_add_test(type_param_strict_failure_tests)
   cxx_add_test(type_param_strict_tests)
+  cxx_add_test(unit_own_string_view_tests)
   cxx_add_test(unit_tests)
 
   file(COPY ${IUTEST_ROOT_DIR}/test/testdata DESTINATION .)

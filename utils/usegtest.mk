@@ -1,7 +1,7 @@
 #
 # usegtest.mk
 #
-# Copyright (C) 2017-2018, Takazumi Shirayanagi
+# Copyright (C) 2017-2022, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
@@ -49,9 +49,9 @@ GTEST_INC_=-isystem$(GTEST_ROOT_)/include
 GTEST_SYSTEM_INCLUDED=1
 #GTEST_LIB_=$(GTEST_ROOT_)/make/gtest.a
 
-ifeq ($(findstring yes, $(shell test -e $(GTEST_ROOT_)/make/gtest-all.o && echo -n yes)), yes)
+ifeq ($(findstring yes, $(shell test -e $(GTEST_GMOCK_ROOT)/lib/libgtest.a && echo -n yes)), yes)
 
-GTEST_LIB_=$(GTEST_ROOT_)/make/gtest-all.o
+GTEST_LIB_=-L $(GTEST_GMOCK_ROOT)/lib/ -lgtest
 
 else
 
@@ -61,7 +61,15 @@ GTEST_LIB_=-L $(GTEST_GMOCK_ROOT)/build/lib/ -lgtest
 
 else
 
+ifeq ($(findstring yes, $(shell test -e $(GTEST_ROOT_)/make/gtest-all.o && echo -n yes)), yes)
+
+GTEST_LIB_=$(GTEST_ROOT_)/make/gtest-all.o
+
+else
+
 GTEST_LIB_=-lgtest
+
+endif
 
 endif
 
@@ -75,12 +83,12 @@ GTEST_LIB_=-lgtest -lpthread
 
 endif
 
-LDFLAGS += $(GTEST_LIB_)
-CXXFLAGS += -DIUTEST_USE_GTEST -DIUTEST_HAS_SOCKET=0 $(NO_UNUSED_LOCAL_TYPEDEFS) -Wno-sign-compare $(GTEST_INC_)
+override LDFLAGS += $(GTEST_LIB_)
+override CXXFLAGS += -DIUTEST_USE_GTEST -DIUTEST_HAS_SOCKET=0 $(NO_UNUSED_LOCAL_TYPEDEFS) -Wno-sign-compare $(GTEST_INC_)
 ifeq ($(findstring suggest-override, $(CXXFLAGS)), suggest-override)
-CXXFLAGS += -Wno-suggest-override
+override CXXFLAGS += -Wno-suggest-override
 endif
-# CXXFLAGS += -DGTEST_REMOVE_LEGACY_TEST_CASEAPI_
+# override CXXFLAGS += -DGTEST_REMOVE_LEGACY_TEST_CASEAPI_
 
 endif
 
@@ -116,9 +124,9 @@ GMOCK_LIB_=-lgmock -lgtest -lpthread
 
 endif
 
-LDFLAGS += $(GMOCK_LIB_)
-CXXFLAGS += -DIUTEST_USE_GTEST -DIUTEST_USE_GMOCK -DIUTEST_HAS_SOCKET=0 $(NO_UNUSED_LOCAL_TYPEDEFS) $(GMOCK_INC_)
-# CXXFLAGS += -DGTEST_REMOVE_LEGACY_TEST_CASEAPI_
+override LDFLAGS += $(GMOCK_LIB_)
+override CXXFLAGS += -DIUTEST_USE_GTEST -DIUTEST_USE_GMOCK -DIUTEST_HAS_SOCKET=0 $(NO_UNUSED_LOCAL_TYPEDEFS) $(GMOCK_INC_)
+# override CXXFLAGS += -DGTEST_REMOVE_LEGACY_TEST_CASEAPI_
 
 endif
 

@@ -22,6 +22,9 @@
 #include "../iutest_package.hpp"
 // IWYU pragma: end_exports
 
+// IWYU pragma: no_forward_declare iuTest_TestSuitePackage
+// IWYU pragma: no_forward_declare iuTest_TestSuiteParentPackage
+
 #if defined(__clang_analyzer__)
 #  include <assert.h>
 #endif
@@ -425,7 +428,7 @@
  * @internal
  * @brief   assert
 */
-#define IUTEST_ASSERT_EXIT(cond)            do { if IUTEST_COND_UNLIKELY( !(cond) ) {                           \
+#define IUTEST_TERMINATE_ON_FAILURE(cond)   do { if IUTEST_COND_UNLIKELY( !(cond) ) {                           \
                                                 IUTEST_MESSAGE(#cond, ::iutest::TestPartResult::kFatalFailure); \
                                                 exit(1);                                                        \
                                             } } while(::iutest::detail::AlwaysFalse())
@@ -532,6 +535,10 @@
         , expected, actual, on_failure )
 
 #endif
+
+#define IUTEST_TEST_COMPLEX_EQ(expected, actual, on_failure) \
+    IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperFloatingPointComplexEQ   \
+        , expected, actual, on_failure )
 
 #define IUTEST_TEST_NEAR(v1, v2, abs_v, on_failure)         \
     IUTEST_PRED_FORMAT3_( ::iutest::internal::CmpHelperNear \

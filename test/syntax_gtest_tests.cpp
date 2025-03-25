@@ -204,6 +204,35 @@ TEST(GTestSyntaxTest, Double)
         ASSUME_DOUBLE_EQ(1.0, d) << d;
 }
 
+#if IUTEST_HAS_LONG_DOUBLE
+
+TEST(SyntaxTest, LongDouble)
+{
+    if( long double d = 1.0l )
+        ASSERT_LONG_DOUBLE_EQ(1.0l, d) << d;
+    if( long double d = 1.0l )
+        EXPECT_LONG_DOUBLE_EQ(1.0l, d) << d;
+    if( long double d = 1.0l )
+        INFORM_LONG_DOUBLE_EQ(1.0l, d) << d;
+    if( long double d = 1.0l )
+        ASSUME_LONG_DOUBLE_EQ(1.0l, d) << d;
+}
+
+#endif
+
+TEST(SyntaxTest, Complex)
+{
+    ::std::complex<float> c(1.0f, 1.0f);
+    if( float d = 1.0f )
+        ASSERT_COMPLEX_EQ(::std::complex<float>(d, d), c) << c;
+    if( float d = 1.0f )
+        EXPECT_COMPLEX_EQ(::std::complex<float>(d, d), c) << c;
+    if( float d = 1.0f )
+        INFORM_COMPLEX_EQ(::std::complex<float>(d, d), c) << c;
+    if( float d = 1.0f )
+        ASSUME_COMPLEX_EQ(::std::complex<float>(d, d), c) << c;
+}
+
 TEST(GTestSyntaxTest, Near)
 {
     if( int x = 1 )
@@ -250,6 +279,35 @@ TEST(SyntaxTest, AlmostDoubleEq)
         INFORM_ALMOST_EQ(1.0, x);
     if( double x = 1.0 )
         ASSUME_ALMOST_EQ(1.0, x);
+}
+
+#if IUTEST_HAS_LONG_DOUBLE
+
+TEST(SyntaxTest, AlmostLongDoubleEq)
+{
+    if( long double x = 1.0l )
+        ASSERT_ALMOST_EQ(1.0l, x);
+    if( long double x = 1.0l )
+        EXPECT_ALMOST_EQ(1.0l, x);
+    if( long double x = 1.0l )
+        INFORM_ALMOST_EQ(1.0l, x);
+    if( long double x = 1.0l )
+        ASSUME_ALMOST_EQ(1.0l, x);
+}
+
+#endif
+
+TEST(SyntaxTest, AlmostComplexEq)
+{
+    ::std::complex<double> c(1.0, 0.0);
+    if( double x = 1.0 )
+        ASSERT_ALMOST_EQ(c, x);
+    if( double x = 1.0 )
+        EXPECT_ALMOST_EQ(x, c);
+    if( double x = 1.0 )
+        INFORM_ALMOST_EQ(::std::complex<double>(x, x), c);
+    if( double x = 1.0 )
+        ASSUME_ALMOST_EQ(c, ::std::complex<double>(x, x));
 }
 
 TEST(GTestSyntaxTest, Null)

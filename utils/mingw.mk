@@ -20,5 +20,5 @@ endif
 
 ifeq ($(IUTEST_MKFLAG_MINGW),1)
 LIBS+=ws2_32
-CXXFLAGS += -static-libgcc -static-libstdc++
+override CXXFLAGS += -static-libgcc -static-libstdc++
 endif

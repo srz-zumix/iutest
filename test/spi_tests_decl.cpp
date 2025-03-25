@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2015-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -57,6 +57,12 @@
     FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::FloatLE , 2, 0), "" );
     FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::DoubleLE, 2, 0), "" );
 #endif
+#if IUTEST_HAS_LONG_DOUBLE
+    FAILURE_MACRO( FLAVOR(_LONG_DOUBLE_EQ)(0, 1), "(0x" );
+    FAILURE_MACRO( FLAVOR(_LONG_DOUBLE_EQ)(Div(0.0l, lda), Div(0.0l, lda)), "(0x" );
+    // FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::LongDoubleLE, 2, 0), "(0x" );
+#endif
+    FAILURE_MACRO( FLAVOR(_COMPLEX_EQ)(::std::complex<float>(1.0f, 1.0f), 1.0f), "" );
     FAILURE_MACRO( FLAVOR(_NEAR)(0, 100, 2), "" );
 
     FAILURE_MACRO( FLAVOR(_STREQ)("A", "a"), "" );
@@ -113,6 +119,7 @@
     FAILURE_MACRO( FLAVOR(_STRNOTIN)("a", "a"), "strstr" );
 
     FAILURE_MACRO( FLAVOR(_STRLNEQ)(1, "ab"), "strlen" );
+    FAILURE_MACRO( FLAVOR(_STRLNEQ)(4, sa), "strlen" );
 
     FAILURE_MACRO( FLAVOR(_EQ_COLLECTIONS)(aa, aa+(sizeof(aa)/sizeof(aa[0])), ab, ab+(sizeof(ab)/sizeof(ab[0]))), "Mismatch element" );
     FAILURE_MACRO( FLAVOR(_EQ_COLLECTIONS)(ab, ab+(sizeof(ab)/sizeof(ab[0])), aa, aa+(sizeof(aa)/sizeof(aa[0]))), "Mismatch element" );
@@ -125,6 +132,8 @@
     FAILURE_MACRO( FLAVOR(_EQ_RANGE)(aa, ac), "Mismatch in a position" );
 
     FAILURE_MACRO( FLAVOR(_NE_RANGE)(aa, aa2), "!=" );
+
+    FAILURE_MACRO( FLAVOR(_NAN)(1), "Expected: NaN" );
 
 #if IUTEST_HAS_REGEX
     FAILURE_MACRO( FLAVOR(_MATCHES_REGEXEQ)("te[0-9]*st", "te0123sta"), "Matches Regex (\"te[0-9]*st\")" );

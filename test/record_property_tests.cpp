@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -15,7 +15,6 @@
 
 //======================================================================
 // include
-#include "iutest.hpp"
 #include "../include/iutest_spi.hpp"
 
 #if !IUTEST_HAS_ASSERTION_RETURN

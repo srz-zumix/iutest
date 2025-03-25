@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2025, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -22,6 +22,11 @@
 #include "internal/iutest_string_stream.hpp"
 #include "internal/iutest_string_view.hpp"
 // IWYU pragma: end_exports
+
+#if IUTEST_USE_QUADMATH
+#  include <quadmath.h>
+#endif
+
 
 namespace iutest
 {
@@ -304,6 +309,17 @@ void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t(&str)[N], iu_ost
 {
     UniversalPrint(detail::ShowAnyCString(str), os);
 }
+#if IUTEST_HAS_CHAR8_T
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char8_t* str, iu_ostream* os)
+{
+    UniversalPrint(detail::ShowAnyCString(str), os);
+}
+template<size_t N>
+void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char8_t(&str)[N], iu_ostream* os)
+{
+    UniversalPrint(detail::ShowAnyCString(str), os);
+}
+#endif
 #if IUTEST_HAS_CHAR16_T
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char16_t* str, iu_ostream* os)
 {
@@ -347,18 +363,28 @@ inline void PrintTo(int v, iu_ostream* os)  { *os << v; }
 #endif
 inline void PrintTo(const ::std::string& str, iu_ostream* os)   { *os << str.c_str(); }
 template<typename CharT, typename Traits, typename Alloc>
-inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os)   { UniversalTersePrint(str.c_str(), os); }
+inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os) { UniversalTersePrint(str.c_str(), os); }
+inline void PrintTo(const ::std::locale& l, iu_ostream* os) { *os << l.name(); }
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+template<typename T>
+inline void PrintToFloatingPoint(const floating_point<T>& f, iu_ostream* os)
+{
+    iu_stringstream ss;
+#if IUTEST_HAS_IOMANIP
+    ss << ::std::setprecision(::std::numeric_limits<T>::digits10 + 2);
+#endif
+    UniversalPrint(f.raw(), &ss);
+    *os << ss.str() << "(0x" << ToHexString(f.bits()) << ")";
+}
 template<typename T>
 inline void PrintTo(const floating_point<T>& f, iu_ostream* os)
 {
-#if IUTEST_HAS_IOMANIP
-    iu_stringstream ss;
-    ss << ::std::setprecision(::std::numeric_limits<T>::digits10 + 2) << f.raw();
-    *os << ss.str() << "(0x" << ToHexString(f.bits()) << ")";
-#else
-    *os << f.raw()  << "(0x" << ToHexString(f.bits()) << ")";
-#endif
+    PrintToFloatingPoint(f, os);
+}
+template<typename T>
+inline void PrintTo(const internal::FloatingPoint<T>& f, iu_ostream* os)
+{
+    PrintToFloatingPoint(f, os);
 }
 template<typename T1, typename T2>
 inline void PrintTo(const ::std::pair<T1, T2>& value, iu_ostream* os)
@@ -371,6 +397,47 @@ inline void PrintTo(const ::std::pair<T1, T2>& value, iu_ostream* os)
 }
 #endif
 
+#if IUTEST_HAS_INT128
+inline void PrintTo(detail::type_fit_t<16>::Int v, iu_ostream* os)
+{
+    *os << "0x" << ToHexString(v);
+}
+inline void PrintTo(detail::type_fit_t<16>::UInt v, iu_ostream* os)
+{
+    *os << "0x" << ToHexString(v);
+}
+#endif
+
+#if IUTEST_HAS_FLOAT128
+template<typename T>
+inline void PrintToFloat128(const T v, iu_ostream* os)
+{
+#if   IUTEST_USE_QUADMATH
+    char buf[256] = {0};
+    quadmath_snprintf(buf, sizeof(buf), "%Qf", v);
+    *os << buf;
+#elif IUTEST_HAS_LONG_DOUBLE && IUTEST_LONG_DOUBLE_AS_IS_DOUBLE
+    *os << static_cast<long double>(v);
+#else
+    *os << static_cast<double>(v);
+#endif
+}
+
+// NOTE: need libquadmath
+inline void PrintTo(const internal::Float128::Float v, iu_ostream* os)
+{
+    PrintToFloat128(v, os);
+}
+
+#if IUTEST_HAS_LONG_DOUBLE && !IUTEST_LONG_DOUBLE_AS_IS_DOUBLE
+inline void PrintTo(const long double v, iu_ostream* os)
+{
+    PrintToFloat128(v, os);
+}
+#endif
+
+#endif
+
 template<typename T>
 void PrintToChar(const T value, iu_ostream* os)
 {
@@ -379,9 +446,9 @@ void PrintToChar(const T value, iu_ostream* os)
     {
         *os << "\\0";
     }
-    else if( value < 0x20 )
+    else if( static_cast<int>(value) < 0x20 )
     {
-        *os << static_cast<int>(value);
+        *os << "0x" << ToHexString(value);
     }
     else
     {
@@ -391,12 +458,18 @@ void PrintToChar(const T value, iu_ostream* os)
 }
 inline void PrintTo(const char value, iu_ostream* os)
 {
-    PrintToChar(value, os);
+    PrintToChar(static_cast<signed char>(value), os);
 }
 inline void PrintTo(const wchar_t value, iu_ostream* os)
 {
     PrintToChar(value, os);
 }
+#if IUTEST_HAS_CHAR8_T
+inline void PrintTo(const char8_t value, iu_ostream* os)
+{
+    PrintToChar(value, os);
+}
+#endif
 #if IUTEST_HAS_CHAR16_T
 inline void PrintTo(const char16_t value, iu_ostream* os)
 {

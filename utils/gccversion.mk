@@ -221,4 +221,14 @@ endif
 
 IUTEST_CXX_STRICT_FLAGS+=-Wformat-nonliteral -Winit-self
 
+ifdef CI
+# 4.9 later
+ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 9 \)))
+IUTEST_CXX_DIAGNOSTICS_FLAGS+=-fno-diagnostics-color
+endif
+endif
+
+## for __float128 Q literal
+# -fext-numeric-literals
+
 endif

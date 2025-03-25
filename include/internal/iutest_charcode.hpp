@@ -19,11 +19,11 @@
 // include
 // IWYU pragma: begin_exports
 #include "iutest_port.hpp"
+#include "iutest_locale.hpp"
 #include "iutest_constant.hpp"
 // IWYU pragma: end_exports
 
 #if IUTEST_HAS_CXX_HDR_CODECVT
-#  include <locale>
 #  include <codecvt>
 #endif
 
@@ -48,6 +48,17 @@ inline ::std::string AnyStringToMultiByteString(const char* str, int num = -1)
 }
 
 /**
+ * @brief   マルチバイト文字列をそのまま返す
+ * @param [in]  str = 入力
+ * @param [in]  num = 入力バッファサイズ
+ * @return  マルチバイト文字列
+*/
+inline ::std::string AnyStringToMultiByteString(const signed char* str, int num = -1)
+{
+    return AnyStringToMultiByteString(reinterpret_cast<const char*>(str), num);
+}
+
+/**
  * @brief   ワイド文字列からUTF8へ変換
  * @param [in]  str = 入力
  * @param [in]  num = 入力バッファサイズ
@@ -62,6 +73,26 @@ inline ::std::string AnyStringToMultiByteString(const char* str, int num = -1)
  * @return  マルチバイト文字列
 */
 ::std::string AnyStringToMultiByteString(const wchar_t* str, int num=-1);
+
+#if IUTEST_HAS_CHAR8_T
+
+/**
+ * @brief   ワイド文字列からマルチバイトへ変換
+ * @param [in]  str = 入力
+ * @param [in]  num = 入力バッファサイズ
+ * @return  マルチバイト文字列
+*/
+::std::string AnyStringToUTF8(const char8_t* str, int num = -1);
+
+/**
+ * @brief   ワイド文字列からマルチバイトへ変換
+ * @param [in]  str = 入力
+ * @param [in]  num = 入力バッファサイズ
+ * @return  マルチバイト文字列
+*/
+::std::string AnyStringToMultiByteString(const char8_t* str, int num = -1);
+
+#endif
 
 #if IUTEST_HAS_CHAR16_T
 
@@ -135,6 +166,9 @@ template<typename CharType>
 
 #if IUTEST_HAS_CXX_HDR_CODECVT
 
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DEPRECATED()
+
 template<typename In, typename Out, typename State>
 struct codecvt : public ::std::codecvt<In, Out, State> { ~codecvt() {} };
 
@@ -159,6 +193,8 @@ template<typename In, typename Out, typename State>
     return conv.to_bytes(str);
 }
 #endif
+
+IUTEST_PRAGMA_WARN_POP()
 
 #endif
 

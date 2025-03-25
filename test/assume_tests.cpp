@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -155,19 +155,19 @@ int main(int argc, char** argv)
 #endif
 {
     IUTEST_INIT(&argc, argv);
-#if defined(OUTPUTXML)
+#if defined(DISABLE_FALSE_POSITIVE_XML)
     // 失敗テストを含むので xml 出力しない
     ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
     const int ret = IUTEST_RUN_ALL_TESTS();
     if( ret == 0 ) return 1;
 #if !defined(IUTEST_USE_GTEST)
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->test_run_skipped_count() == assume_test_count );
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == assume_test_count );
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->skip_test_count() == assume_test_count );
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == assume_test_count );
-    IUTEST_ASSERT_EXIT( ::iuutil::GetSuccessfulTestSuiteCount() == 0 );
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->test_run_skipped_count() == assume_test_count );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == assume_test_count );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->skip_test_count() == assume_test_count );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == assume_test_count );
+    IUTEST_TERMINATE_ON_FAILURE( ::iuutil::GetSuccessfulTestSuiteCount() == 0 );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
 #endif
     printf("*** Successful ***\n");
     return 0;

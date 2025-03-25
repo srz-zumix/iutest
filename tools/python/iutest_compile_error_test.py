@@ -202,6 +202,11 @@ def parse_command_line():
         help='print input message when failed.'
     )
     parser.add_argument(
+        '--allow-unknown-compiler',
+        action='store_true',
+        help='ignore unknown compiler.'
+    )
+    parser.add_argument(
         '--debug',
         action='store_true',
         help='debug.'
@@ -553,7 +558,14 @@ def parse_output(options):
         format_gcc = False
         l = parse_vc(options, f)
     else:
-        raise Exception("sorry, %s compiler is not supported", (options.compiler))
+        try:
+            raise Exception("sorry, {0} compiler is not supported".format(options.compiler))
+        except Exception as e:
+            if options.allow_unknown_compiler:
+                print(e)
+                return True
+            else:
+                raise
 
     if options.debug:
         dump_list(l)

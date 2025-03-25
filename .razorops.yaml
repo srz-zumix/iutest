@@ -1,33 +1,42 @@
 version: v2
 
 tasks:
-  build-image:
-    steps:
-      - checkout
-      - docker/build:
-          image: iutest/razorops_test
-          push: false
-          tags: [ "latest" ]
-          dockerfile: .ci/docker/centos/Dockerfile
-
   test:
-    depends: [build-image]
     containers:
-      - image: iutest/razorops_test
+      - image: srzzumix/gcc3:centos5
     steps:
       - checkout
       - commands:
-          - uname -a
+          # gcc 3 is not support UTF8-BOM
+          - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) -exec sed -i -e '1s/^\xEF\xBB\xBF//' {} \;
           - cd test
-          - make OUTPUTXML=junit
-          - make OUTPUTXML=junit test
+          - make showcxxversion showcxxmacros
+          - make
+          - make test
           - make report
-          - cd ..
       # Note:
       # Failed to check if bucket(throbbing-shape-1474) exists: Missing fields in request.
       # bucket throbbing-shape-1474: Missing fields in request.
       # - reports/junit:
       #     paths: [ "test/*.xml" ]
+
+  # # g++: fatal error: Killed signal terminated program cc1plus
+  # gcc-fanalyzer:
+  #   steps:
+  #   - checkout
+  #   - commands:
+  #     - export GCC_VERSION="11"
+  #     - ./.ci/linux/install-gcc.sh
+  #   - commands:
+  #     - export GGC_MIN_EXPAND=10
+  #     - export GGC_MIN_HEAPSIZE=32768
+  #     - export DEFS="-fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference"
+  #     - make -C test clean
+  #     - make -C test showcxxversion
+  #     - make -C test showcxxmacros
+  #     - make -C test check_stdlib
+  #     - make -C test -j1
+  #     - make -C test test
 
   lint-editorconfig:
     steps:
@@ -43,16 +52,17 @@ tasks:
     #     paths: [node_modules]
 
 trigger:
-  ## triggers pipeline only on feature branches and on tags (mind the prefix)
   when: branch in ('master', 'develop') || branch =~ 'razorops.*'
 
 # Note:
 # workflows seems to be unsupported GitHub Checks
-# workflows:
-#   - name: centos-test
-#     tasks:
-#       - build-image
-#       - test
-#   - name: lint
-#     tasks:
-#       - lint-editorconfig
+workflows:
+  - name: gcc3-test
+    tasks:
+      - test
+  # - name: gcc-fanalyzer
+  #   tasks:
+  #     - gcc-fanalyzer
+  - name: lint
+    tasks:
+      - lint-editorconfig

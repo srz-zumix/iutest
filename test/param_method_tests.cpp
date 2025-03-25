@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -15,9 +15,9 @@
 
 //======================================================================
 // include
-#include "iutest.hpp"
+#include "iutest.hpp"    // IWYU pragma: keep
 
-#if IUTEST_HAS_PARAM_METHOD_TEST
+#if IUTEST_HAS_PARAM_METHOD_TEST && !defined(IUTEST_BUILD_FOR_IWYU)
 
 void TestFunction(int x, int y)
 {

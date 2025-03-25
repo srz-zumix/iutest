@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2021, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -46,6 +46,8 @@ IUTEST(Matcher, Null)
     IUTEST_EXPECT_THAT(p2, Pointee(IsNull()));
 }
 
+IUTEST_PRAGMA_MSC_WARN_PUSH()
+IUTEST_PRAGMA_MSC_WARN_DISABLE(4723)
 IUTEST(Matcher, FloatingPoint)
 {
     IUTEST_EXPECT_THAT(f0, FloatEq(0.0f));
@@ -55,6 +57,7 @@ IUTEST(Matcher, FloatingPoint)
     IUTEST_EXPECT_THAT(d0, NanSensitiveDoubleEq(0.0));
     IUTEST_EXPECT_THAT(0.0 / d0, NanSensitiveDoubleEq(0.0 / d0));
 }
+IUTEST_PRAGMA_MSC_WARN_POP()
 
 IUTEST(Matcher, String)
 {

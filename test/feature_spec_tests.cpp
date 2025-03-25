@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2018-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -21,15 +21,15 @@
 TestLogger logger;
 
 #ifdef UNICODE
-#  define DECAL_ARGV(cmd) const wchar_t* targv[] = { argv[0], L cmd }
+#  define DECAL_ARGV(cmd) const wchar_t* targv[] = { argv[0], L##cmd }
 #else
-#  define DECAL_ARGV(cmd) const char*    targv[] = { argv[0],   cmd }
+#  define DECAL_ARGV(cmd) const char*    targv[] = { argv[0],    cmd }
 #endif
 
 #ifdef UNICODE
-#  define DECAL_ARGV2(cmd1, cmd2) const wchar_t* targv[] = { argv[0], L cmd1, L cmd2 }
+#  define DECAL_ARGV2(cmd1, cmd2) const wchar_t* targv[] = { argv[0], L##cmd1, L##cmd2 }
 #else
-#  define DECAL_ARGV2(cmd1, cmd2) const char*    targv[] = { argv[0],   cmd1,   cmd2 }
+#  define DECAL_ARGV2(cmd1, cmd2) const char*    targv[] = { argv[0],    cmd1,    cmd2 }
 #endif
 
 #ifdef UNICODE

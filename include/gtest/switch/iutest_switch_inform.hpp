@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_switch_inform.hpp
- * @brief       INFORM フレーバー切り替え ファイル
+ * @brief       INFORM flavor iutest/gtest switch file
  *
  * @author      t.shirayanagi
  * @par         copyright
@@ -30,6 +30,7 @@
 #define INFORM_NEAR         IUTEST_INFORM_NEAR
 #define INFORM_FLOAT_EQ     IUTEST_INFORM_FLOAT_EQ
 #define INFORM_DOUBLE_EQ    IUTEST_INFORM_DOUBLE_EQ
+#define INFORM_COMPLEX_EQ   IUTEST_INFORM_COMPLEX_EQ
 #define INFORM_STREQ        IUTEST_INFORM_STREQ
 #define INFORM_STRNE        IUTEST_INFORM_STRNE
 #define INFORM_STRCASEEQ    IUTEST_INFORM_STRCASEEQ
@@ -84,6 +85,7 @@
 #undef IUTEST_INFORM_SAME
 #undef IUTEST_INFORM_FLOAT_EQ
 #undef IUTEST_INFORM_DOUBLE_EQ
+#undef IUTEST_INFORM_COMPLEX_EQ
 #undef IUTEST_INFORM_STREQ
 #undef IUTEST_INFORM_STRNE
 #undef IUTEST_INFORM_STRCASEEQ
@@ -182,6 +184,9 @@
 #define INFORM_DOUBLE_EQ(expected, actual)\
     INFORM_PRED_FORMAT2(::testing::internal::CmpHelperFloatingPointEQ<double>, \
     expected, actual)
+#define INFORM_COMPLEX_EQ(expected, actual)\
+    INFORM_PRED_FORMAT2(::testing::internal::CmpHelperFloatingPointComplexEQ, \
+    expected, actual)
 #define INFORM_NEAR(val1, val2, abs_error)\
     INFORM_PRED_FORMAT3(::testing::internal::DoubleNearPredFormat, \
     val1, val2, abs_error)
@@ -214,6 +219,7 @@
 #define IUTEST_INFORM_NEAR                  INFORM_NEAR
 #define IUTEST_INFORM_FLOAT_EQ              INFORM_FLOAT_EQ
 #define IUTEST_INFORM_DOUBLE_EQ             INFORM_DOUBLE_EQ
+#define IUTEST_INFORM_COMPLEX_EQ            INFORM_COMPLEX_EQ
 #define IUTEST_INFORM_STREQ                 INFORM_STREQ
 #define IUTEST_INFORM_STRNE                 INFORM_STRNE
 #define IUTEST_INFORM_STRCASEEQ             INFORM_STRCASEEQ

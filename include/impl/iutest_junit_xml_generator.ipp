@@ -27,7 +27,8 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 IUTEST_IPP_INLINE bool JunitXmlGeneratorListener::IsReportable(const UnitTest& test)
 {
     const int reportable_test_count = test.reportable_test_count();
-    if( reportable_test_count <= 0 ) {
+    if( reportable_test_count <= 0 )
+    {
         return false;
     }
     return true;

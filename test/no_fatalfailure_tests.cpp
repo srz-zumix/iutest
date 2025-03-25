@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
 #endif
 {
     IUTEST_INIT(&argc, argv);
-#if defined(OUTPUTXML)
+#if defined(DISABLE_FALSE_POSITIVE_XML)
     // 失敗テストを含むので xml 出力しない
     ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
@@ -64,9 +64,9 @@ int main(int argc, char* argv[])
     IUTEST_ASSERT_EQ(3, ::iutest::UnitTest::GetInstance()->failed_test_count()) << ::iutest::AssertionReturn(1);
     IUTEST_ASSERT_TRUE(bTest) << ::iutest::AssertionReturn(1);
 #else
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->successful_test_count() == 0 );
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 3 );
-    IUTEST_ASSERT_EXIT( bTest );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->successful_test_count() == 0 );
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->failed_test_count() == 3 );
+    IUTEST_TERMINATE_ON_FAILURE( bTest );
 #endif
     printf("*** Successful ***\n");
     return 0;

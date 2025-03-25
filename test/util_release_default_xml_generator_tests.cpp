@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2021-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -18,9 +18,9 @@
 #include "iutest.hpp"
 
 #ifdef UNICODE
-#  define DECAL_ARGV(cmd) const wchar_t* targv[] = { argv[0], L cmd }
+#  define DECAL_ARGV(cmd) const wchar_t* targv[] = { argv[0], L##cmd }
 #else
-#  define DECAL_ARGV(cmd) const char*    targv[] = { argv[0],   cmd }
+#  define DECAL_ARGV(cmd) const char*    targv[] = { argv[0],    cmd }
 #endif
 
 #if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_STRINGSTREAM && IUTEST_HAS_ASSERTION_RETURN
@@ -60,11 +60,11 @@ int main(int argc, char* argv[])
     IUTEST_INIT(&targc, targv);
 
     ::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
-    IUTEST_ASSERT_EXIT(listeners.default_xml_generator() != NULL);
+    IUTEST_TERMINATE_ON_FAILURE(listeners.default_xml_generator() != NULL);
 
     ::iuutil::ReleaseDefaultXmlGenerator();
 
-    IUTEST_ASSERT_EXIT(listeners.default_xml_generator() == NULL);
+    IUTEST_TERMINATE_ON_FAILURE(listeners.default_xml_generator() == NULL);
 
     if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
 

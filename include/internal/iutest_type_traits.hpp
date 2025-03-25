@@ -17,6 +17,7 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_compiler.hpp"
 #include "iutest_pp.hpp"
 
@@ -47,6 +48,7 @@
 #    define IUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER   1
 #  endif
 #endif
+// IWYU pragma: end_exports
 
 /** iutest type traits */
 namespace iutest_type_traits
@@ -164,6 +166,7 @@ using ::std::is_class;
 using ::std::is_convertible;
 using ::std::is_base_of;
 using ::std::is_signed;
+using ::std::is_unsigned;
 using ::std::add_lvalue_reference;
 #if IUTEST_HAS_RVALUE_REFS
 using ::std::add_rvalue_reference;
@@ -343,6 +346,11 @@ class is_integral<signed long long> : public true_type {};
 #if 1
 template<>
 class is_integral<wchar_t> : public true_type {};
+#endif
+
+#if IUTEST_HAS_CHAR8_T
+template<>
+class is_integral<char8_t> : public true_type {};
 #endif
 
 #if IUTEST_HAS_CHAR16_T
@@ -700,6 +708,12 @@ struct is_signed
 {
 };
 
+template<typename T>
+struct is_unsigned
+    : public bool_constant<!is_signed<T>::value>
+{
+};
+
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 /**
@@ -970,7 +984,14 @@ using namespace has_equal_to_operator_helper;   // NOLINT
 template<typename T>
 struct has_equal_to_operator
 {
+#if IUTEST_HAS_DECLTYPE
+    typedef bool_constant< (sizeof(::std::declval<T>() == ::std::declval<T>()) != sizeof(has_equal_to_operator_helper::no_t) ) > type;    // NOLINT
+#else
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_NONNULL()
     typedef bool_constant< (sizeof(*(T*)0 == *(T*)0) != sizeof(has_equal_to_operator_helper::no_t) ) > type;    // NOLINT
+IUTEST_PRAGMA_WARN_POP()
+#endif
 };
 
 IUTEST_PRAGMA_WARN_POP()

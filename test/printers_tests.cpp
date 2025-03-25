@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,6 +17,14 @@
 // include
 #include "iutest.hpp"
 #include "logger_tests.hpp"
+
+struct AlwaysThrow;
+struct Bar;
+struct BigVar;
+struct Hoge;
+struct Point0;
+struct Point1;
+struct Point2;
 
 #if !defined(IUTEST_USE_GTEST)
 
@@ -32,8 +40,9 @@
     (void)(expect); \
     (void)(val)
 
-// unused
-// #define IUTEST_PRINTTOSTRING_CONTAIN(expect, val)
+#define IUTEST_PRINTTOSTRING_CONTAIN(expect, val)   \
+    (void)(expect); \
+    (void)(val)
 
 #endif
 
@@ -89,6 +98,58 @@ IUTEST(PrintToTest, Bar)
 }
 
 #if !defined(IUTEST_USE_GTEST)
+
+IUTEST(PrintToTest, FloatingPoint)
+{
+    ::iutest::floating_point<float> f = 1.0f;
+    ::iutest::internal::FloatingPoint<float> F(1.0f);
+    IUTEST_ASSERT_STREQ(::iutest::PrintToString(f), ::iutest::PrintToString(F));
+}
+
+#if IUTEST_HAS_INT128
+IUTEST(PrintToTest, Int128)
+{
+    typedef ::iutest::internal::TypeWithSize<16>::Int i128_t;
+    IUTEST_ASSUME_EQ(16u, sizeof(i128_t));
+    i128_t i128 = ::iutest::detail::numeric_min< ::iutest::internal::TypeWithSize<8>::Int >(); // -9223372036854775808
+    i128 -= 1;
+    LogChecker ck("0xFFFFFFFFFFFFFFFF7FFFFFFFFFFFFFFF");
+    IUTEST_PRINTTOSTRING_EQ(ck, i128);
+    IUTEST_STREAMOUT_CHECK(i128);
+}
+
+IUTEST(PrintToTest, UInt128)
+{
+    typedef ::iutest::internal::TypeWithSize<16>::UInt i128_t;
+    IUTEST_ASSUME_EQ(16u, sizeof(i128_t));
+    i128_t i128 = ::iutest::detail::numeric_max< ::iutest::internal::TypeWithSize<8>::UInt >(); // 18446744073709551615;
+    i128 += 1;
+    LogChecker ck("0x00000000000000010000000000000000");
+    IUTEST_PRINTTOSTRING_EQ(ck, i128);
+    IUTEST_STREAMOUT_CHECK(i128);
+}
+#endif
+
+#if IUTEST_HAS_LONG_DOUBLE
+IUTEST(PrintToTest, LongDouble)
+{
+    ::iutest::internal::LongDouble ld(static_cast< ::iutest::internal::LongDouble::Float>(1.0f));
+    LogChecker ck("1");
+    IUTEST_PRINTTOSTRING_CONTAIN(ck, ld);
+    IUTEST_STREAMOUT_CHECK(ld);
+}
+#endif
+
+#if IUTEST_HAS_FLOAT128
+IUTEST(PrintToTest, Float128)
+{
+    ::iutest::internal::Float128 f128(static_cast< ::iutest::internal::Float128::Float>(1.0f));
+    LogChecker ck("1");
+    IUTEST_PRINTTOSTRING_CONTAIN(ck, f128);
+    IUTEST_STREAMOUT_CHECK(f128);
+}
+#endif
+
 
 IUTEST(PrintToTest, IutestAnyNotInitialized)
 {
@@ -180,6 +241,15 @@ IUTEST(PrintToTest, Null)
     IUTEST_STREAMOUT_CHECK(p);
 }
 
+IUTEST(PrintToTest, Locale)
+{
+    {
+        ::std::locale loc;
+        LogChecker ck(loc.name());
+        IUTEST_SUCCEED() << ::iutest::PrintToString(loc);
+    }
+}
+
 IUTEST(PrintToTest, String)
 {
     {
@@ -194,7 +264,7 @@ IUTEST(PrintToTest, String)
         IUTEST_STREAMOUT_CHECK(c);
     }
     {
-        LogChecker ck("10");
+        LogChecker ck("0x0A");
         char c = '\n';
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_STREAMOUT_CHECK(c);
@@ -202,6 +272,13 @@ IUTEST(PrintToTest, String)
     {
         LogChecker ck("\'A\'");
         char c = 'A';
+        IUTEST_PRINTTOSTRING_EQ(ck, c);
+        IUTEST_STREAMOUT_CHECK(c);
+    }
+    {
+        LogChecker ck("0x80");
+        unsigned char uc = 0x80;
+        char c = static_cast<char>(uc);
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_STREAMOUT_CHECK(c);
     }
@@ -239,9 +316,9 @@ IUTEST(PrintToTest, WideString)
         IUTEST_STREAMOUT_CHECK(c);
     }
     {
-        LogChecker ck("10");
+        LogChecker ck("000A");
         wchar_t c = L'\n';
-        IUTEST_PRINTTOSTRING_EQ(ck, c);
+        IUTEST_PRINTTOSTRING_CONTAIN(ck, c);
         IUTEST_STREAMOUT_CHECK(c);
     }
     {
@@ -261,48 +338,75 @@ IUTEST(PrintToTest, WideString)
 IUTEST_PRAGMA_MSC_WARN_PUSH()
 IUTEST_PRAGMA_MSC_WARN_DISABLE(4566)
 
+#if !defined(IUTEST_USE_GTEST)
 IUTEST(PrintToTest, SurrogatePair)
 {
-#if !defined(IUTEST_USE_GTEST)
+    const wchar_t* p = L"\U00020BB7";
+    const ::std::string s = ::iutest::PrintToString(p);
+    if( s[0] == '0' )
     {
-        const wchar_t* p = L"\U00020BB7野家";
-        const ::std::string s = ::iutest::PrintToString(p);
-        if( s[0] == '0' )
-        {
-            // LogChecker ck("00020BB7000091CE00005BB6");
-            LogChecker ck("00020BB7");
-            IUTEST_PRINTTOSTRING_CONTAIN(ck, s);
-            IUTEST_STREAMOUT_CHECK(p);
-        }
-        else if( s[0] == '?' )
-        {
-            // FIXME
-        }
-        else
-        {
-            LogChecker ck("\U00020BB7野家");
-            IUTEST_PRINTTOSTRING_EQ(ck, s);
-            IUTEST_STREAMOUT_CHECK(p);
-        }
+        // LogChecker ck("00020BB7000091CE00005BB6");
+        LogChecker ck("00020BB7");
+        IUTEST_PRINTTOSTRING_CONTAIN(ck, s);
+        IUTEST_STREAMOUT_CHECK(p);
     }
-#endif
-#if IUTEST_HAS_CHAR16_T_PRINTABLE
+    else if( s[0] == 'D' )
     {
-        const char16_t* p = u"\U00020BB7野家";
-        const ::std::string s = ::iutest::PrintToString(p);
-        if( s[0] == '?' )
-        {
-            // FIXME
-        }
-        else
-        {
-            LogChecker ck("\U00020BB7野家");
-            IUTEST_PRINTTOSTRING_EQ(ck, s);
-            IUTEST_STREAMOUT_CHECK(p);
-        }
+        LogChecker ck("D842DFB7");
+        IUTEST_PRINTTOSTRING_CONTAIN(ck, s);
+        IUTEST_STREAMOUT_CHECK(p);
     }
+    else if( s[0] == '?' )
+    {
+        // FIXME
+        IUTEST_SKIP();
+    }
+    else
+    {
+#if !defined(NO_TEST_SURROGATEPAIR)
+        LogChecker ck("\U00020BB7");
+        IUTEST_PRINTTOSTRING_EQ(ck, s);
+        IUTEST_STREAMOUT_CHECK(p);
 #endif
+    }
 }
+#endif
+
+#if IUTEST_HAS_CHAR16_T_PRINTABLE
+IUTEST(PrintToTest, SurrogatePairChar16T)
+{
+    const char16_t* p = u"\U00020BB7";
+    const ::std::string s = ::iutest::PrintToString(p);
+    if( s[0] == 'D' )
+    {
+        LogChecker ck("D842DFB7");
+        IUTEST_PRINTTOSTRING_CONTAIN(ck, s);
+        IUTEST_STREAMOUT_CHECK(p);
+    }
+    else if( s[0] == '?' )
+    {
+        // FIXME
+        IUTEST_SKIP();
+    }
+    else
+    {
+#if !defined(NO_TEST_SURROGATEPAIR)
+        const char c[5] = {
+            static_cast<char>(0xf0),
+            static_cast<char>(0xa0),
+            static_cast<char>(0xae),
+            static_cast<char>(0xb7),
+            0
+        };
+        LogChecker ck(c);
+        (void)ck;
+        IUTEST_PRINTTOSTRING_EQ(ck, s);
+        IUTEST_STREAMOUT_CHECK(p);
+#endif
+    }
+}
+
+#endif
 
 IUTEST_PRAGMA_MSC_WARN_POP()
 
@@ -315,6 +419,23 @@ IUTEST(PrintToTest, WideStringStringView)
         IUTEST_PRINTTOSTRING_EQ(ck, view);
         IUTEST_STREAMOUT_CHECK(view);
     }
+}
+#endif
+
+#if IUTEST_HAS_CHAR8_T
+IUTEST(PrintToTest, U8String)
+{
+    IUTEST_SUCCEED() << ::iutest::PrintToString(u8"Test");
+    {
+        LogChecker ck("(null)");
+        char8_t* p = NULL;
+        IUTEST_SUCCEED() << ::iutest::PrintToString(p);
+    }
+}
+
+IUTEST(PrintToTest, U8StringJp)
+{
+    IUTEST_SUCCEED() << ::iutest::PrintToString(u8"テスト");
 }
 #endif
 
@@ -358,6 +479,11 @@ IUTEST(PrintToTest, U16StringStringView)
         IUTEST_STREAMOUT_CHECK(view);
     }
 }
+
+IUTEST(PrintToTest, U16StringJp)
+{
+    IUTEST_SUCCEED() << ::iutest::PrintToString(u"テスト");
+}
 #endif
 #endif
 
@@ -400,6 +526,11 @@ IUTEST(PrintToTest, U32StringStringView)
         IUTEST_PRINTTOSTRING_EQ(ck, view);
         IUTEST_STREAMOUT_CHECK(view);
     }
+}
+
+IUTEST(PrintToTest, U32StringJp)
+{
+    IUTEST_SUCCEED() << ::iutest::PrintToString(U"テスト");
 }
 #endif
 #endif

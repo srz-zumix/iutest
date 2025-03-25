@@ -6,15 +6,18 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
 //-----------------------------------------------------------------------
 //======================================================================
 
+#if !defined(IUTEST_BUILD_FOR_IWYU)
+
 //======================================================================
 // include
+#include "iutest.hpp"
 #include "prod_tests.hpp"
 
 namespace prod_test
@@ -351,6 +354,8 @@ IUTEST(PeepClassTest, ScopedPeep)
         IUTEST_EXPECT_EQ(5, prod_class_z);
     }
 }
+#endif
+
 #endif
 
 #endif

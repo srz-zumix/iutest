@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        csvparams_tests.cpp
- * @brief       CSV 対応テスト
+ * @brief       CSV file support test
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2015-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -26,7 +26,7 @@ using namespace ::iutest::matchers;
 #if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_CSVPARAMS && IUTEST_HAS_FOPEN
 
 static const int CsvParamsIntTest_Params[] = {
-    #include "testdata/intcsvparams.csv"
+    #include "testdata/intcsvparams.csv"    // IWYU pragma: keep
 };
 class CsvParamsIntTest : public ::iuutil::backward::Test<CsvParamsIntTest>, public ::iutest::WithParamInterface<int>
 {
@@ -78,7 +78,7 @@ IUTEST_PRAGMA_WARN_DISABLE_NARROWING()
 IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_FLOAT_CONVERSION()
 
 static const float CsvParamsFloatTest_Params[] = {
-    #include "testdata/floatcsvparams.csv"
+    #include "testdata/floatcsvparams.csv"  // IWYU pragma: keep
 };
 
 IUTEST_PRAGMA_WARN_POP()

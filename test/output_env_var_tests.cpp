@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2017-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2017-2022, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -16,7 +16,6 @@
 //======================================================================
 // include
 #include "iutest.hpp"
-#include <errno.h>
 
 int SetUpEnvironmentImpl(void)
 {
@@ -65,7 +64,7 @@ int main(int argc, char* argv[])
     (void)argv;
 
 #ifdef UNICODE
-    wchar_t a[] = "";
+    wchar_t a[] = L"";
     wchar_t* targv[] = { a };
 #else
     char a[] = "";
