@@ -61,6 +61,7 @@ STRICT_CXXFLAGS+= -Wno-invalid-constexpr -Wno-extra-semi
 STRICT_CXXFLAGS+= -Wno-builtin-declaration-mismatch -Wno-macro-redefined -Wno-pragmas -Wno-unused-function
 STRICT_CXXFLAGS+= -Wno-extra -Wno-c++98-compat -Wno-c++11-compat -Wno-c++98-compat-extra-semi
 STRICT_CXXFLAGS+= -Wno-unknown-warning-option
+STRICT_CXXFLAGS+= -Wno-inline-namespace-reopened-noninline
 
 CXXWARNFLAGS:= -Wall -Wextra $(STRICT_CXXFLAGS)
 override CXXFLAGS += -g $(CXXWARNFLAGS) $(OPTIMIZE) $(IUTEST_CXX_DIAGNOSTICS_FLAGS)
