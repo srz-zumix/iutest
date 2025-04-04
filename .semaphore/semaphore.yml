@@ -84,8 +84,7 @@ blocks:
           commands:
             - cd test
             - scan-build -k make CXX=clang++ CCC_CXX=clang++ showcxxversion
-            - scan-build -k --status-bugs make CXX=clang++ CCC_CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 all_tests $PARALLELS
-            # - scan-build -k --status-bugs make CXX=clang++ CCC_CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 $PARALLELS
+            - scan-build -k --status-bugs make CXX=clang++ CCC_CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 $PARALLELS
         - name: sample-run
           commands:
             - make -C projects/make run
