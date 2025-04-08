@@ -62,6 +62,7 @@ STRICT_CXXFLAGS+= -Wno-builtin-declaration-mismatch -Wno-macro-redefined -Wno-pr
 STRICT_CXXFLAGS+= -Wno-extra -Wno-c++98-compat -Wno-c++11-compat -Wno-c++98-compat-extra-semi
 STRICT_CXXFLAGS+= -Wno-unknown-warning-option
 STRICT_CXXFLAGS+= -Wno-inline-namespace-reopened-noninline
+STRICT_CXXFLAGS+= -Wno-double-promotion -Wno-char-subscripts
 
 CXXWARNFLAGS:= -Wall -Wextra $(STRICT_CXXFLAGS)
 override CXXFLAGS += -g $(CXXWARNFLAGS) $(OPTIMIZE) $(IUTEST_CXX_DIAGNOSTICS_FLAGS)
