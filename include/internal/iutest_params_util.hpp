@@ -51,7 +51,7 @@ public:
     explicit IParamTestInfoData(const char* name) : m_name(name) {}
     virtual ~IParamTestInfoData() IUTEST_CXX_DEFAULT_FUNCTION
     virtual TestSuite* MakeTestSuite(const ::std::string& , TestTypeId , SetUpMethod , TearDownMethod ) const = 0;
-    virtual EachTestBase* RegisterTest(TestSuite* , const ::std::string& ) const = 0;
+    virtual EachTestBase* RegisterTest(TestSuite* , const ::std::string& , const ::std::string& , int ) const = 0;
     const char* GetName() const { return m_name.c_str(); }
 protected:
     ::std::string m_name;
@@ -203,7 +203,7 @@ public:
                         IUTEST_LOG_(WARNING) << testsuite_name << "." << name << " is already exist.";
                     }
 #endif
-                    EachTest* test = static_cast<EachTest*>(infodata->RegisterTest(testsuite, name));
+                    EachTest* test = static_cast<EachTest*>(infodata->RegisterTest(testsuite, name, file, line));
                     test->SetParam(p->GetCurrent());
                     ++i;
                 }

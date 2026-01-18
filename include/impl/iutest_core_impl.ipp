@@ -62,16 +62,7 @@ IUTEST_IPP_INLINE bool UnitTestImpl::SkipTest()
 
 IUTEST_IPP_INLINE int UnitTestImpl::Listup() const
 {
-    detail::iuConsole::output("%d tests from %" IUPRzu " testsuite\n", m_total_test_num, m_testsuites.size() );
-    for( iuTestSuites::const_iterator it = m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
-    {
-        detail::iuConsole::output("%s.\n", (*it)->name());
-
-        for( TestSuite::iuTestInfos::const_iterator it2 = (*it)->begin(), end2=(*it)->end(); it2 != end2; ++it2 )
-        {
-            detail::iuConsole::output("  %s\n", (*it2)->name());
-        }
-    }
+    TestEnv::event_listeners().OnListup(m_total_test_num, m_testsuites);
     return 0;
 }
 

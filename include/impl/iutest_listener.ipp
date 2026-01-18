@@ -133,6 +133,13 @@ IUTEST_IPP_INLINE void TestEventRepeater::OnTestProgramEnd(const UnitTest& test)
         (*it)->OnTestProgramEnd(test);
     }
 }
+IUTEST_IPP_INLINE void TestEventRepeater::OnListup(int total_test_num, const ::std::vector<TestSuite*>& tests)
+{
+    for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
+    {
+        (*it)->OnListup(total_test_num, tests);
+    }
+}
 
 IUTEST_IPP_INLINE void TestEventListeners::set_default_result_printer(TestEventListener* listener)
 {

@@ -245,6 +245,20 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestProgramEnd(const UnitTe
 {
     IUTEST_UNUSED_VAR(test);
 }
+IUTEST_IPP_INLINE void DefaultResultPrintListener::OnListup(int total_test_num, const ::std::vector<TestSuite*>& tests)
+{
+    detail::iuConsole::output("%d tests from %" IUPRzu " testsuite\n", total_test_num, tests.size() );
+    for( ::std::vector<TestSuite*>::const_iterator it = tests.begin(), end=tests.end(); it != end; ++it )
+    {
+        detail::iuConsole::output("%s.\n", (*it)->name());
+
+        for( int i = 0; i < (*it)->total_test_count(); ++i )
+        {
+            const TestInfo* testinfo = (*it)->GetTestInfo(i);
+            detail::iuConsole::output("  %s\n", testinfo->name());
+        }
+    }
+}
 
 }   // end of namespace iutest
 
