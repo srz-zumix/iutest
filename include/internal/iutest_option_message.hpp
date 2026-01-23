@@ -63,7 +63,7 @@ inline void iuOptionMessage::ShowHelp()
         "\n"
         "    --help, -h                       : Generate help message.\n"
         "    --iutest_list_tests              : List the names of all tests instead of running them.\n"
-        "    --iutest_list_tests_with_where   : List the names of all tests with their locations instead of running them.\n"
+        "    --iutest_list_tests_with_where   : List the names of all tests with where instead of running them.\n"
         "    --iutest_color=<yes|no|auto|ansi>: Console color enable.\n"
         "    --iutest_flagfile=<file>         : Set the flag from the file.\n"
         "    --iutest_filter=<filter>         : Select the test run.\n"
