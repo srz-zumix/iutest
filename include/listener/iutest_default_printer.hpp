@@ -49,6 +49,8 @@ public:
     virtual void OnTestIterationEnd(const UnitTest& test
                                     , int iteration) IUTEST_CXX_OVERRIDE;
     virtual void OnTestProgramEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
+    virtual void OnListup(int total_test_num
+                          , const ::std::vector<TestSuite*>& tests) IUTEST_CXX_OVERRIDE;
 
 private:
     void PrintTestResult(const TestInfo& test_info) const;

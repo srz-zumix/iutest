@@ -55,14 +55,14 @@ const char list_test_str[] =
 #else
 "1 tests from 1 testsuite\n"
 #endif
-"Test\n"
+"Test.\n"
 "  A\n"
 #if IUTEST_HAS_TYPED_TEST
-"TypedTest/0\n"
+"TypedTest/0.\n"
 "  A\n"
 #endif
 #if IUTEST_HAS_PARAM_TEST
-"Test/ParamTest\n"
+"Test/ParamTest.\n"
 "  A/0\n"
 #endif
 "";
@@ -75,14 +75,14 @@ const char list_test_with_where_str[] =
 #else
 "1 tests from 1 testsuite\n"
 #endif
-"Test\n"
+"Test.\n"
 "  A\n"
 #if IUTEST_HAS_TYPED_TEST
-"TypedTest/0, where TypeParam = int\n"
+"TypedTest/0, where TypeParam = int.\n"
 "  A\n"
 #endif
 #if IUTEST_HAS_PARAM_TEST
-"Test/ParamTest\n"
+"Test/ParamTest.\n"
 "  A/0, where GetParam() = 42\n"
 #endif
 "";

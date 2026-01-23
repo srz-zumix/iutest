@@ -126,6 +126,10 @@ public:
     {
         m_default_printer->OnTestProgramEnd(unit_test);
     }
+    virtual void OnListup(int total_test_num, const ::std::vector< ::iutest::TestSuite*>& tests) IUTEST_CXX_OVERRIDE
+    {
+        m_default_printer->OnListup(total_test_num, tests);
+    }
 private:
     ::iutest::TestEventListener* m_default_printer;
 

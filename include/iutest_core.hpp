@@ -242,35 +242,35 @@ class TestInstance
 {
 public:
     /** コンストラクタ */
-    TestInstance(const char* testsuite, const char* name, TestTypeId id
+    TestInstance(const char* testsuite, const char* name, const char* file, int line, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown)
         : m_mediator(AddTestSuite(testsuite, id, setup, teardown))
-        , m_info(&m_mediator, name, &m_factory)
+        , m_info(&m_mediator, name, file, line, &m_factory)
     {
         UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
     }
     /** コンストラクタ */
-    TestInstance(const ::std::string& testsuite, const char* name, TestTypeId id
+    TestInstance(const ::std::string& testsuite, const char* name, const char* file, int line, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown)
         : m_mediator(AddTestSuite(testsuite, id, setup, teardown))
-        , m_info(&m_mediator, name, &m_factory)
+        , m_info(&m_mediator, name, file, line, &m_factory)
     {
         UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
     }
     /** コンストラクタ */
-    TestInstance(const char* testsuite, const char* name, const char*  value_params, TestTypeId id
+    TestInstance(const char* testsuite, const char* name, const char* file, int line, const char*  value_params, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown)
         : m_mediator(AddTestSuite(testsuite, id, setup, teardown))
-        , m_info(&m_mediator, name, &m_factory)
+        , m_info(&m_mediator, name, file, line, &m_factory)
     {
         m_info.set_value_param(value_params);
         UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
     }
     /** コンストラクタ */
-    TestInstance(const ::std::string& testsuite, const char* name, const char*  value_params, TestTypeId id
+    TestInstance(const ::std::string& testsuite, const char* name, const char* file, int line, const char*  value_params, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown)
         : m_mediator(AddTestSuite(testsuite, id, setup, teardown))
-        , m_info(&m_mediator, name, &m_factory)
+        , m_info(&m_mediator, name, file, line, &m_factory)
     {
         m_info.set_value_param(value_params);
         UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);

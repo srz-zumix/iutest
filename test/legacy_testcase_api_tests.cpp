@@ -185,6 +185,10 @@ public:
     virtual void OnTestProgramEnd(const ::iutest::UnitTest& /*test*/) IUTEST_CXX_OVERRIDE
     {
     }
+    virtual void OnListup(int /*total_test_num*/
+                          , const ::std::vector< ::iutest::TestSuite*>& /*tests*/) IUTEST_CXX_OVERRIDE
+    {
+    }
 };
 
 static MyTestEventListener* listener = NULL;

@@ -155,6 +155,7 @@
     ::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)>          \
     IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_)(                                      \
         IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testsuite_)), IIUT_TO_NAME_STR_(testname_)     \
+        , __FILE__, __LINE__                                                                \
         , type_id_, IUTEST_GET_SETUP_TESTSUITE(parent_class_, __FILE__, __LINE__)           \
         , IUTEST_GET_TEARDOWN_TESTSUITE(parent_class_, __FILE__, __LINE__));                \
     void IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)::Body()
@@ -176,6 +177,7 @@
     ::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)>          \
     IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_)(                                      \
         IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testsuite_)), IIUT_TO_NAME_STR_(testname_)     \
+        , __FILE__, __LINE__                                                                \
         , type_id_, IUTEST_GET_SETUP_TESTSUITE(parent_class_, __FILE__, __LINE__)           \
         , IUTEST_GET_TEARDOWN_TESTSUITE(parent_class_, __FILE__, __LINE__));                \
     template<typename T>void IUTEST_TEST_CLASS_NAME_(testsuite_, testname_ )::Body()
@@ -213,6 +215,7 @@
     IUTEST_PP_CAT( IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_), __LINE__)(                \
         IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testsuite_))                                       \
         , IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_)::MakeTestName().c_str()            \
+        , __FILE__, __LINE__                                                                    \
         , #__VA_ARGS__, type_id_, IUTEST_GET_SETUP_TESTSUITE(parent_class_, __FILE__, __LINE__) \
         , IUTEST_GET_TEARDOWN_TESTSUITE(parent_class_, __FILE__, __LINE__))
 
