@@ -103,9 +103,9 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestEnd(const TestInfo& tes
     if( TestFlag::IsEnableFlag(TestFlag::PRINT_TIME) )
     {
 #if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
-        detail::iuConsole::output(" (--ms)" );
+        detail::iuConsole::output(" (-- ms)" );
 #else
-        detail::iuConsole::output(" (%sms)", detail::FormatTimeInMillisec(test_info.elapsed_time()).c_str());
+        detail::iuConsole::output(" (%s ms)", detail::FormatTimeInMillisec(test_info.elapsed_time()).c_str());
 #endif
     }
     detail::iuConsole::output("\n");
@@ -117,9 +117,9 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestSuiteEnd(const TestSuit
     if( TestFlag::IsEnableFlag(TestFlag::PRINT_TIME) )
     {
 #if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
-        detail::iuConsole::output("(--ms total)");
+        detail::iuConsole::output("(-- ms total)");
 #else
-        detail::iuConsole::output("(%sms total)", detail::FormatTimeInMillisec(test_suite.elapsed_time()).c_str());
+        detail::iuConsole::output("(%s ms total)", detail::FormatTimeInMillisec(test_suite.elapsed_time()).c_str());
 #endif
     }
     detail::iuConsole::output("\n\n");
@@ -146,9 +146,9 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
     if( TestFlag::IsEnableFlag(TestFlag::PRINT_TIME) )
     {
 #if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
-        detail::iuConsole::output(" (--ms total)");
+        detail::iuConsole::output(" (-- ms total)");
 #else
-        detail::iuConsole::output(" (%sms total)", detail::FormatTimeInMillisec(test.elapsed_time()).c_str());
+        detail::iuConsole::output(" (%s ms total)", detail::FormatTimeInMillisec(test.elapsed_time()).c_str());
 #endif
     }
     detail::iuConsole::output("\n");
