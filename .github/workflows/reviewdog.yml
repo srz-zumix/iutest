@@ -6,8 +6,6 @@ on:
       - '*.md'
       - '*.yml'
       - '*.yaml'
-      - '.circleci/**'
-      - '.semaphore/**'
 
 jobs:
   cpplint:

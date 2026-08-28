@@ -1,0 +1,256 @@
+name: Windows Tests
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+      - 'feature/**'
+      - 'fix/**'
+      - 'gh/**'
+      - 'github/**'
+      - 'githubactions/**'
+    paths-ignore:
+      - '*.ini'
+      - '*.md'
+      - 'docs/**'
+  push:
+    branches:
+      - master
+      - develop
+
+permissions:
+  contents: read
+  checks: write
+
+jobs:
+  # AppVeyor VisualStudio job group migration
+  visualstudio:
+    name: ${{ matrix.os }} ${{ matrix.platform }} ${{ matrix.configuration }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2022, windows-2025]
+        platform: [Win32, x64]
+        configuration: [Debug, Release]
+    steps:
+      - uses: actions/checkout@v4
+      - name: cmake
+        run: |
+          cmake -S projects/cmake -B build -G "Visual Studio 17 2022" -A ${{ matrix.platform }} -Dbuild_gtest_samples=ON
+      - name: build
+        run: cmake --build build --config ${{ matrix.configuration }}
+      - name: test
+        run: ctest --test-dir build -C ${{ matrix.configuration }} -V
+
+  # AppVeyor Cygwin job group migration
+  cygwin:
+    name: cygwin (gnu extension ${{ matrix.use_gnu_extension }})
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: C:\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - use_gnu_extension: 0
+            outputxml: junit
+          - use_gnu_extension: 1
+            outputxml: xml
+    env:
+      USE_GNU_EXTENSION: ${{ matrix.use_gnu_extension }}
+      OUTPUTXML: ${{ matrix.outputxml }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cygwin/cygwin-install-action@v5
+        with:
+          packages: make clang gcc-g++ python3
+      - name: info
+        run: |
+          cd "${GITHUB_WORKSPACE}"
+          make -C test showcxxversion showcxxmacros check_stdlib showstdlbfeatures
+      - name: build
+        run: |
+          cd "${GITHUB_WORKSPACE}"
+          make -C test -j4
+      - name: test
+        run: |
+          cd "${GITHUB_WORKSPACE}"
+          make -C test test
+          make -C test report
+      - name: report summary
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: test/*.xml
+        if: success() || failure()
+
+  # AppVeyor MINGW job group migration
+  mingw:
+    name: mingw (gnu extension ${{ matrix.use_gnu_extension }})
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - use_gnu_extension: 0
+            outputxml: xml
+          - use_gnu_extension: 1
+            outputxml: junit
+    env:
+      USE_GNU_EXTENSION: ${{ matrix.use_gnu_extension }}
+      OUTPUTXML: ${{ matrix.outputxml }}
+      LIBS: ws2_32
+    steps:
+      - uses: actions/checkout@v4
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: >-
+            make
+            python
+            mingw-w64-x86_64-gcc
+      - name: info
+        run: make -C test showcxxversion showcxxmacros check_stdlib showstdlbfeatures
+      - name: build
+        run: make -C test -j4
+      - name: test
+        run: |
+          make -C test test
+          make -C test report
+      - name: report summary
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: test/*.xml
+        if: success() || failure()
+
+  # AppVeyor NMAKE job migration
+  nmake:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: cmd
+    env:
+      OUTPUTXML: xml
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: info
+        run: |
+          cd test
+          nmake showcxxmacros check_stdlib showstdlbfeatures
+      - name: minimum tests
+        run: |
+          cd test
+          nmake minimum_tests
+          minimum_tests.exe --spec
+          nmake clean
+      - name: build
+        run: |
+          cd test
+          nmake
+      - name: test
+        run: |
+          cd test
+          nmake test
+      - name: report summary
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: test/*.xml
+        if: success() || failure()
+
+  # AppVeyor Prefast (Code Analysis) job migration
+  prefast:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: microsoft/setup-msbuild@v2
+      - name: msbuild code analysis
+        run: >
+          msbuild projects\vs2022\iutest_sample.vcxproj /m /verbosity:minimal
+          /p:Configuration=Debug /p:Platform=Win32
+          /p:RunCodeAnalysis=true /p:EnablePREfast=true /p:CodeAnalysisTreatWarningsAsErrors=true
+
+  # AppVeyor Menu (windows sample) job migration
+  windows-sample:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: microsoft/setup-msbuild@v2
+      - name: build windows sample
+        run: msbuild samples\windows\iutest_windows_sample.sln /m /verbosity:minimal /p:Configuration=Release
+
+  # AppVeyor Package job migration
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: make package
+        run: bash ./.ci/make-package.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: package
+          path: package/
+
+  # AppVeyor NuGet job migration
+  nuget:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: NuGet/setup-nuget@v2
+      - name: nuget pack
+        run: nuget pack projects\nuget\iutest.nuspec -OutputDirectory .\
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nuget
+          path: '*.nupkg'
+
+  # CircleCI vcperf job migration
+  vcperf:
+    runs-on: windows-latest
+    env:
+      CMAKE: cmake
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ilammy/msvc-dev-cmd@v1
+      - name: cmake
+        run: cmake -S projects/cmake -B build -G "Visual Studio 17 2022" -A x64
+      - name: vcperf
+        shell: cmd
+        run: .ci\vcperf_build.bat
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vcperf
+          path: iutest.etl
+        if: always()
+
+  # CircleCI msvc_wine job migration
+  msvc-wine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: actions/checkout@v4
+      - name: docker setup
+        run: |
+          docker run --rm -d -i --name iutest-work -w /home/wine/.wine/drive_c/ madduci/docker-wine-msvc:16.7-2019
+          docker cp . iutest-work:/home/wine/.wine/drive_c/iutest_
+          docker exec iutest-work wine64 cmd /C xcopy /Y /I /H /S /Q iutest_ iutest
+      - name: test
+        run: |
+          docker exec iutest-work /home/wine/.wine/drive_c/iutest_/.ci/msvc-wine-entrypoint iutest/.ci/msvc-wine-build.bat
+      - name: docker teardown
+        run: docker stop iutest-work
+        if: always()

@@ -14,8 +14,6 @@ on:
       - '*.md'
       - '*.yml'
       - '*.yaml'
-      - '.circleci/**'
-      - '.semaphore/**'
       - '.github/**'
       - '!.github/workflows/gtest-compat.yml'
       - 'docs/**'
