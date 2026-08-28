@@ -1,0 +1,233 @@
+name: Compiler Matrix Tests
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+      - 'feature/**'
+      - 'fix/**'
+      - 'gh/**'
+      - 'github/**'
+      - 'githubactions/**'
+    paths-ignore:
+      - '*.ini'
+      - '*.md'
+      - 'docs/**'
+  push:
+    branches:
+      - master
+      - develop
+
+permissions:
+  contents: read
+  checks: write
+
+env:
+  BUILD_AND_TEST: >-
+    make -C test showcxxversion showcxxmacros
+    && make -C test clean
+    && make -C test -j4 OUTPUTXML=1 ${MAKE_OPTIONS}
+    && make -C test test OUTPUTXML=1
+    && make -C test report
+
+jobs:
+  # Drone gcc-matrix migration
+  gcc:
+    name: gcc ${{ matrix.version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ['6', '7', '8', '9', '10', '11', 'latest']
+    steps:
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: actions/checkout@v4
+      - name: build and test
+        run: |
+          docker run --rm -v "${PWD}:/iutest" -w /iutest "gcc:${{ matrix.version }}" \
+            bash -c "${BUILD_AND_TEST}"
+      - name: report summary
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: test/*.xml
+        if: always()
+
+  # Drone gcc-old-matrix migration
+  gcc-old:
+    name: gcc ${{ matrix.version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ['4.6', '4.7', '4.8', '4.9', '5.1', '5.5']
+    steps:
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: actions/checkout@v4
+      - name: build and test
+        run: |
+          docker run --rm -v "${PWD}:/iutest" -w /iutest "gcc:${{ matrix.version }}" \
+            bash -c "${BUILD_AND_TEST}"
+      - name: report summary
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: test/*.xml
+        if: always()
+
+  # Drone / RazorOps gcc3 test migration
+  gcc3:
+    name: gcc 3 (centos5)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: actions/checkout@v4
+      # gcc 3 does not support UTF8-BOM
+      - name: strip BOM
+        run: |
+          find . -type f \( -name '*.hpp' -or -name '*.cpp' -or -name '*.ipp' \) \
+            -exec sed -i -e '1s/^\xEF\xBB\xBF//' {} \;
+      - name: build and test
+        run: |
+          docker run --rm -v "${PWD}:/iutest" -w /iutest srzzumix/gcc3:centos5 \
+            bash -c "${BUILD_AND_TEST}"
+      - name: report summary
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: test/*.xml
+        if: always()
+
+  # Drone clang-matrix migration
+  clang:
+    name: clang ${{ matrix.version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ['4', '5', '6', '7', '8', '9', '10', '11', '12', '13']
+    steps:
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: actions/checkout@v4
+      - name: build and test
+        env:
+          CLANG_VERSION: ${{ matrix.version }}
+        run: |
+          docker run --rm -v "${PWD}:/iutest" -w /iutest \
+            -e "CC=clang-${CLANG_VERSION}" -e "CXX=clang++-${CLANG_VERSION}" \
+            "teeks99/clang-ubuntu:${CLANG_VERSION}" \
+            bash -c "${BUILD_AND_TEST}"
+      - name: report summary
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: test/*.xml
+        if: always()
+
+  # Drone clang-old-matrix migration
+  clang-old:
+    name: clang ${{ matrix.version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ['3.0', '3.1', '3.2', '3.3', '3.4', '3.5', '3.6', '3.7', '3.8', '3.9']
+    steps:
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: actions/checkout@v4
+      - name: build and test
+        env:
+          CLANG_VERSION: ${{ matrix.version }}
+        run: |
+          docker run --rm -v "${PWD}:/iutest" -w /iutest \
+            -e "CC=clang-${CLANG_VERSION}" -e "CXX=clang++-${CLANG_VERSION}" \
+            "teeks99/clang-ubuntu:${CLANG_VERSION}" \
+            bash -c "${BUILD_AND_TEST}"
+      - name: report summary
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: test/*.xml
+        if: always()
+
+  clang-2_9:
+    name: clang 2.9
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: actions/checkout@v4
+      - name: strip BOM
+        run: |
+          find . -type f \( -name '*.hpp' -or -name '*.cpp' -or -name '*.ipp' \) \
+            -exec sed -i -e '1s/^\xEF\xBB\xBF//' {} \;
+      - name: build and test
+        env:
+          MAKE_OPTIONS: STDFLAG=-std=c++98
+        run: |
+          docker run --rm -v "${PWD}:/iutest" -w /iutest \
+            -e "CC=clang-2.9" -e "CXX=clang++-2.9" -e "MAKE_OPTIONS=${MAKE_OPTIONS}" \
+            teeks99/clang-ubuntu:2.9 \
+            bash -c "${BUILD_AND_TEST}"
+      - name: report summary
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: test/*.xml
+        if: always()
+
+  # Drone cpp98 pipeline migration
+  cpp98-syntax:
+    name: c++98 syntax (${{ matrix.image }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        image:
+          - gcc:4.6
+          - gcc:4.7
+          - gcc:4.8
+          - gcc:4.9
+          - gcc:5
+          - gcc:6
+          - gcc:7
+          - gcc:8
+          - gcc:9
+          - gcc:10
+          - gcc:11
+          - teeks99/clang-ubuntu:3.9
+          - teeks99/clang-ubuntu:5
+          - teeks99/clang-ubuntu:9
+          - teeks99/clang-ubuntu:13
+    steps:
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: actions/checkout@v4
+      - name: syntax tests
+        run: |
+          docker run --rm -v "${PWD}:/iutest" -w /iutest "${{ matrix.image }}" bash -c '
+            set -e
+            make -C test showcxxversion showcxxmacros
+            make -C test clean && make -C test run_syntax_tests report STDFLAG_VALUE=c++98
+            make -C test clean && make -C test run_syntax_tests report STDFLAG_VALUE=c++98 USE_GNU_EXTENSION=1
+          '

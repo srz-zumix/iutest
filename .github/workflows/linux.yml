@@ -1,0 +1,246 @@
+name: Linux Tests
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+      - 'feature/**'
+      - 'fix/**'
+      - 'gh/**'
+      - 'github/**'
+      - 'githubactions/**'
+    paths-ignore:
+      - '*.ini'
+      - '*.md'
+      - 'docs/**'
+  push:
+    branches:
+      - master
+      - develop
+
+permissions:
+  contents: read
+  checks: write
+
+jobs:
+  # basic test (Travis CI / Shippable / JFrog Pipelines migration)
+  basic-test:
+    name: basic (${{ matrix.compiler }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - compiler: gcc
+            CC: gcc
+            CXX: g++
+          - compiler: clang
+            CC: clang
+            CXX: clang++
+    env:
+      CC: ${{ matrix.CC }}
+      CXX: ${{ matrix.CXX }}
+      OUTPUTXML: junit
+    steps:
+      - uses: actions/checkout@v4
+      - name: info
+        uses: ./.github/actions/composite/test-info
+      - name: build
+        run: make -C test -j4
+      - name: test
+        run: make -C test test
+      - name: report
+        run: make -C test report
+        if: always()
+      - name: report summary
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: test/*.xml
+        if: always()
+
+  # gcc container std version test (Cirrus CI migration)
+  gcc-container-test:
+    name: gcc container (${{ matrix.stdflag }})
+    runs-on: ubuntu-latest
+    container:
+      image: gcc:latest
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    strategy:
+      fail-fast: false
+      matrix:
+        stdflag:
+          - -std=c++14
+          - -std=c++17
+          - -std=c++20
+    env:
+      STDFLAG: ${{ matrix.stdflag }}
+      OUTPUTXML: junit
+    steps:
+      - uses: actions/checkout@v4
+      - name: info
+        uses: ./.github/actions/composite/test-info
+      # NOTE: -j$(nproc) makes the container OOMKilled
+      - name: build
+        run: make -C test -j4
+      - name: test
+        run: make -C test test
+      - name: report
+        run: make -C test report
+        if: always()
+      - name: report summary
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: test/*.xml
+        if: always()
+
+  # use lib test (Cirrus CI migration)
+  use-lib-test:
+    runs-on: ubuntu-latest
+    env:
+      USE_LIB: 1
+      OUTPUTXML: junit
+    steps:
+      - uses: actions/checkout@v4
+      - name: info
+        uses: ./.github/actions/composite/test-info
+      - name: build lib
+        run: make -C projects/make
+      - name: build
+        run: make -C test -j4
+      - name: test
+        run: make -C test test
+      - name: report
+        run: make -C test report
+        if: always()
+
+  # sample run (Semaphore / Buddy migration)
+  sample-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: gcc sample run
+        run: |
+          make -C projects/make run
+          make -C projects/make clean
+      - name: clang sample run
+        run: make -C projects/make CXX=clang++ run
+
+  # minimum tests (Semaphore migration)
+  minimum-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: minimum tests
+        run: make -C test CXX=clang++ run_minimum_tests RUN_OPTION=--spec
+      - name: ldd
+        run: ldd test/minimum_tests
+
+  # optimize option matrix (CircleCI migration)
+  optimize-test:
+    name: optimize ${{ matrix.compiler }} ${{ matrix.optimize }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [g++, clang++]
+        optimize: ['-O2', '-O3', '-Os', '-Og']
+    env:
+      CXX: ${{ matrix.compiler }}
+      OPTIMIZE: ${{ matrix.optimize }}
+      OUTPUTXML: junit
+    steps:
+      - uses: actions/checkout@v4
+      - name: info
+        uses: ./.github/actions/composite/test-info
+      - name: minimum tests and show feature / spec
+        run: |
+          make -C test minimum_tests
+          ./test/minimum_tests --spec --feature
+          make -C test clean
+      - name: build
+        run: make -C test -j4 default
+      - name: test
+        run: make -C test test
+      - name: report
+        run: make -C test report
+        if: always()
+      - name: report summary
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: test/*.xml
+        if: always()
+
+  # long double config test (Semaphore migration)
+  long-double-test:
+    name: long double (${{ matrix.defs }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        defs:
+          - '-m96bit-long-double'
+          - '-DIUTEST_USE_QUADMATH=1 -mlong-double-64'
+          - '-DIUTEST_USE_QUADMATH=1 -mlong-double-80'
+          - '-DIUTEST_USE_QUADMATH=1 -mlong-double-128'
+    env:
+      DEFS: ${{ matrix.defs }}
+      OUTPUTXML: 1
+    steps:
+      - uses: actions/checkout@v4
+      - name: info
+        uses: ./.github/actions/composite/test-info
+      - name: floatingpoint tests
+        run: make -C test LIBS=quadmath floatingpoint_tests_run
+
+  # clang static analyzer (Semaphore migration)
+  scan-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: install clang-tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -qq -y clang-tools
+      - name: scan-build version
+        run: scan-build -k make -C test CXX=clang++ CCC_CXX=clang++ showcxxversion
+      - name: scan-build
+        run: |
+          scan-build -k --status-bugs \
+            make -C test CXX=clang++ CCC_CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 all_tests -j4
+
+  # aarch64 native test (CircleCI arm migration)
+  arm64-test:
+    runs-on: ubuntu-24.04-arm
+    env:
+      OUTPUTXML: junit
+    steps:
+      - uses: actions/checkout@v4
+      - name: info
+        uses: ./.github/actions/composite/test-info
+      - name: build
+        run: make -C test -j4 default
+      - name: test
+        run: make -C test test
+      - name: report
+        run: make -C test report
+        if: always()
+      - name: report summary
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: test/*.xml
+        if: always()
+
+  # no surrogate pair test (Peakflow migration)
+  no-surrogatepair-test:
+    runs-on: ubuntu-latest
+    env:
+      DEFS: -DNO_TEST_SURROGATEPAIR
+    steps:
+      - uses: actions/checkout@v4
+      - name: info
+        run: |
+          make -C test showcxxversion showcxxmacros showstdlbfeatures
+      - name: test
+        run: make -C test test

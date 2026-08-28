@@ -1,0 +1,72 @@
+name: Benchmark
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+      - 'feature/**'
+      - 'fix/**'
+      - 'gh/**'
+      - 'github/**'
+      - 'githubactions/**'
+    paths-ignore:
+      - '*.ini'
+      - '*.md'
+      - 'docs/**'
+  push:
+    branches:
+      - master
+      - develop
+
+permissions:
+  contents: read
+  checks: write
+
+env:
+  GGC_MIN_EXPAND: 4
+  GGC_MIN_HEAPSIZ: 32768
+  CI_NODEBUG: 1
+  NO_TESTDATA: 1
+
+jobs:
+  # Codefresh BuildAllUnitTests / BuildOtherUnitTests / RunTests migration
+  all-tests:
+    name: all_tests (${{ matrix.image }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        image: ['gcc:8', 'gcc:9']
+    container:
+      image: ${{ matrix.image }}
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: prepare
+        run: |
+          make -C test clean
+          make -C test prepare
+      - name: build all_tests
+        run: make -C test all_tests_build
+      - name: build other tests
+        run: make -C test
+      - name: test
+        run: make -C test test
+      - name: report
+        run: make -C test report
+        if: always()
+
+  # Codefresh Benchmark stage migration
+  benchmark:
+    runs-on: ubuntu-latest
+    needs: all-tests
+    steps:
+      - uses: actions/checkout@v4
+      - name: build benchmark
+        run: |
+          make -C test clean
+          make -C test/benchmark
+      - name: benchmark
+        run: make -C test bench

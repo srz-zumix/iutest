@@ -14,8 +14,6 @@ on:
       - '*.md'
       - '*.yml'
       - '*.yaml'
-      - '.circleci/**'
-      - '.semaphore/**'
   push:
     branches:
       - master
@@ -25,8 +23,6 @@ on:
       - '*.md'
       - '*.yml'
       - '*.yaml'
-      - '.circleci/**'
-      - '.semaphore/**'
 
 permissions:
   contents: read
