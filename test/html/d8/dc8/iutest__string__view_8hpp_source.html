@@ -441,100 +441,105 @@ $(function() {
 <div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;        }</div>
 <div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    }</div>
 <div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160; </div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    <span class="keywordtype">void</span> out_of_range()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;<span class="preprocessor">#if IUTEST_HAS_EXCEPTIONS</span></div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;<span class="preprocessor">#if IUTEST_HAS_EXCEPTIONS</span></div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae77bae4c5720c1d321484985bbfc763d">IUTEST_ATTRIBUTE_NORETURN_</a> <span class="keywordtype">void</span> out_of_range()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;<span class="keyword">    </span>{</div>
 <div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;        <span class="keywordflow">throw</span> new ::std::out_of_range(<span class="stringliteral">&quot;invalid string_view position&quot;</span>);</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    }</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160; </div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator == (<span class="keyword">const</span> iu_basic_string_view lhs, <span class="keyword">const</span> iu_basic_string_view&amp; rhs)</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    {</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;        <span class="keywordflow">return</span> lhs.equal(rhs);</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    }</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator != (<span class="keyword">const</span> iu_basic_string_view lhs, <span class="keyword">const</span> iu_basic_string_view&amp; rhs)</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    }</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    <span class="keywordtype">void</span> out_of_range()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    }</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160; </div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator == (<span class="keyword">const</span> iu_basic_string_view lhs, <span class="keyword">const</span> iu_basic_string_view&amp; rhs)</div>
 <div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    {</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;        <span class="keywordflow">return</span> !lhs.equal(rhs);</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;        <span class="keywordflow">return</span> lhs.equal(rhs);</div>
 <div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    }</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160; </div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    const_pointer m_data;</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    size_type m_size;</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;};</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160; </div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160; </div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> CharT, <span class="keyword">typename</span> Traits = ::std::<span class="keywordtype">char</span>_traits&lt;CharT&gt; &gt;</div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="keyword">class </span>iu_nullable_basic_string_view : <span class="keyword">public</span> iu_basic_string_view&lt;CharT, Traits&gt;</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;{</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;    <span class="keyword">typedef</span> iu_basic_string_view&lt;CharT, Traits&gt; _Mybase;</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    <span class="keyword">typedef</span> Traits  traits_type;</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    <span class="keyword">typedef</span> CharT   value_type;</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;    <span class="keyword">typedef</span> value_type* pointer;</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">const</span> value_type* const_pointer;</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">size_t</span> size_type;</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a> iu_nullable_basic_string_view() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a> <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#af7bab3fb81df608a4d0a9263b0fc3af4">IUTEST_CXX_DEFAULT_FUNCTION</a></div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;<span class="preprocessor">#if IUTEST_HAS_NULLPTR</span></div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a> iu_nullable_basic_string_view(::std::nullptr_t)</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;        : _Mybase(IUTEST_NULLPTR, 0)</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    {</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    }</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;    <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a> iu_nullable_basic_string_view(const_pointer str)</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;        : _Mybase(str, str ? traits_type::length(str) : 0)</div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;    {</div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;    }</div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a> iu_nullable_basic_string_view(const_pointer str, size_type len)</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        : _Mybase(str, len)</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator != (<span class="keyword">const</span> iu_basic_string_view lhs, <span class="keyword">const</span> iu_basic_string_view&amp; rhs)</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    {</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;        <span class="keywordflow">return</span> !lhs.equal(rhs);</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    }</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160; </div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    const_pointer m_data;</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    size_type m_size;</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;};</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160; </div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160; </div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> CharT, <span class="keyword">typename</span> Traits = ::std::<span class="keywordtype">char</span>_traits&lt;CharT&gt; &gt;</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="keyword">class </span>iu_nullable_basic_string_view : <span class="keyword">public</span> iu_basic_string_view&lt;CharT, Traits&gt;</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;{</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    <span class="keyword">typedef</span> iu_basic_string_view&lt;CharT, Traits&gt; _Mybase;</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    <span class="keyword">typedef</span> Traits  traits_type;</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    <span class="keyword">typedef</span> CharT   value_type;</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    <span class="keyword">typedef</span> value_type* pointer;</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">const</span> value_type* const_pointer;</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">size_t</span> size_type;</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a> iu_nullable_basic_string_view() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a> <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#af7bab3fb81df608a4d0a9263b0fc3af4">IUTEST_CXX_DEFAULT_FUNCTION</a></div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="preprocessor">#if IUTEST_HAS_NULLPTR</span></div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a> iu_nullable_basic_string_view(::std::nullptr_t)</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;        : _Mybase(IUTEST_NULLPTR, 0)</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;    {</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;    }</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a> iu_nullable_basic_string_view(const_pointer str)</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        : _Mybase(str, str ? traits_type::length(str) : 0)</div>
 <div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    {</div>
 <div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    }</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;<span class="preprocessor">#if IUTEST_HAS_DEFAULT_FUNCTIONS</span></div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;    <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a> iu_nullable_basic_string_view(<span class="keyword">const</span> iu_nullable_basic_string_view&amp;) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a> iu_nullable_basic_string_view(<span class="keyword">const</span> iu_nullable_basic_string_view&amp; rhs) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;        : _Mybase(rhs)</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    {</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;    }</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160; </div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;    <span class="keyword">template</span>&lt;<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;    iu_nullable_basic_string_view(value_type(&amp;str)[N]) <span class="comment">// NOLINT</span></div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;        : _Mybase(str, N)</div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;    {</div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    }</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160; </div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;    iu_nullable_basic_string_view(<span class="keyword">const</span> _Mybase&amp; str_view) <span class="comment">// NOLINT</span></div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;        : _Mybase(str_view)</div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;    {</div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;    }</div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160; </div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Allocator&gt;</div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    iu_nullable_basic_string_view(const ::std::basic_string&lt;value_type, traits_type, Allocator&gt;&amp; str) <span class="comment">// NOLINT</span></div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;        : _Mybase(str.data(), str.length())</div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;    {</div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;    }</div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;};</div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160; </div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160; </div>
-<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;<span class="keyword">typedef</span> iu_basic_string_view&lt;char&gt;      iu_string_view;</div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;<span class="keyword">typedef</span> iu_basic_string_view&lt;wchar_t&gt;   iu_wstring_view;</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;    <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a> iu_nullable_basic_string_view(const_pointer str, size_type len)</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;        : _Mybase(str, len)</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;    {</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    }</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;<span class="preprocessor">#if IUTEST_HAS_DEFAULT_FUNCTIONS</span></div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a> iu_nullable_basic_string_view(<span class="keyword">const</span> iu_nullable_basic_string_view&amp;) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;    <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a> iu_nullable_basic_string_view(<span class="keyword">const</span> iu_nullable_basic_string_view&amp; rhs) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;        : _Mybase(rhs)</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;    {</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;    }</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160; </div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    <span class="keyword">template</span>&lt;<span class="keywordtype">size_t</span> N&gt;</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    iu_nullable_basic_string_view(value_type(&amp;str)[N]) <span class="comment">// NOLINT</span></div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;        : _Mybase(str, N)</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;    {</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;    }</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160; </div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;    iu_nullable_basic_string_view(<span class="keyword">const</span> _Mybase&amp; str_view) <span class="comment">// NOLINT</span></div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;        : _Mybase(str_view)</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    {</div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;    }</div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160; </div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Allocator&gt;</div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;    iu_nullable_basic_string_view(const ::std::basic_string&lt;value_type, traits_type, Allocator&gt;&amp; str) <span class="comment">// NOLINT</span></div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;        : _Mybase(str.data(), str.length())</div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    {</div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;    }</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;};</div>
 <div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160; </div>
 <div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160; </div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;<span class="keyword">typedef</span> iu_basic_string_view&lt;char&gt;      iu_string_view;</div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;<span class="keyword">typedef</span> iu_basic_string_view&lt;wchar_t&gt;   iu_wstring_view;</div>
 <div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160; </div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// INCG_IRIS_IUTEST_STRING_VIEW_HPP_46AEE8A4_996C_4925_ACBA_2A511909B38F_</span></div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160; </div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160; </div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// INCG_IRIS_IUTEST_STRING_VIEW_HPP_46AEE8A4_996C_4925_ACBA_2A511909B38F_</span></div>
 <div class="ttc" id="aiutest__compiler_8hpp_html_a83b2e224dac8ea0f2f882dc07da5bd04"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a></div><div class="ttdeci">#define IUTEST_CXX_CONSTEXPR</div><div class="ttdoc">constexpr</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:407</div></div>
 <div class="ttc" id="aiutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:846</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_ae77bae4c5720c1d321484985bbfc763d"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae77bae4c5720c1d321484985bbfc763d">IUTEST_ATTRIBUTE_NORETURN_</a></div><div class="ttdeci">#define IUTEST_ATTRIBUTE_NORETURN_</div><div class="ttdoc">noreturn</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:1477</div></div>
 <div class="ttc" id="aiutest__compiler_8hpp_html_af7bab3fb81df608a4d0a9263b0fc3af4"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#af7bab3fb81df608a4d0a9263b0fc3af4">IUTEST_CXX_DEFAULT_FUNCTION</a></div><div class="ttdeci">#define IUTEST_CXX_DEFAULT_FUNCTION</div><div class="ttdoc">default function</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:529</div></div>
 <div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2025年03月23日(日) 15時15分04秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2026年08月29日(土) 13時13分27秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
