@@ -198,7 +198,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: generate
-        run: cmake -S projects/cmake -B build -G "Visual Studio 17 2022" -A x64 ${{ matrix.cmake_options }}
+        run: cmake -S projects/cmake -B build -A x64 ${{ matrix.cmake_options }}
       - name: build
         run: cmake --build build
       - name: test
