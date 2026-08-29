@@ -5,7 +5,7 @@
 1. 変更するを commit する
 1. push
 1. プルリクする
-1. CI の結果を確認する（重要なのは Travis CI です。それ以外は気にしなくて良いです）
+1. CI の結果を確認する（重要なのは GitHub Actions です。それ以外は気にしなくて良いです）
 
 ----
 
@@ -16,5 +16,5 @@
 1. Commit your changes (git commit -am 'Add some feature')
 1. Push to the branch (git push origin my-new-feature)
 1. Create new Pull Request
-1. Please check the result of CI (Important is Travis CI. Other than that, you do not have to worry)
+1. Please check the result of CI (Important is GitHub Actions. Other than that, you do not have to worry)
 

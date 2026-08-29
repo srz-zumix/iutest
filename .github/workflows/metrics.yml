@@ -9,8 +9,6 @@ on:
       - '*.md'
       - '*.yml'
       - '*.yaml'
-      - '.circleci/**'
-      - '.semaphore/**'
       - 'docs/**'
       - 'projects/**'
       - 'samples/**'
