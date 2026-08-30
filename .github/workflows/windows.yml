@@ -68,7 +68,7 @@ jobs:
       OUTPUTXML: ${{ matrix.outputxml }}
     steps:
       - uses: actions/checkout@v4
-      - uses: cygwin/cygwin-install-action@v5
+      - uses: cygwin/cygwin-install-action@v6
         with:
           packages: make clang gcc-g++ python3
       - name: info

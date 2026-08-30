@@ -652,10 +652,9 @@ template<typename T1, typename T2>
 template<typename T1, typename T2>
 ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNeIterator(T1 b1, T1 e1, T2 b2, T2 e2)
 {
-    int elem=0;
     bool result = false;
     ::iutest::Message ar;
-    for(elem=0; b1 != e1 && b2 != e2; ++b1, ++b2, ++elem)
+    for(; b1 != e1 && b2 != e2; ++b1, ++b2)
     {
         if(!::iutest::internal::backward::NeHelper<false>::Compare("", "", *b1, *b2))
         {

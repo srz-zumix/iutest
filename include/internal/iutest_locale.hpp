@@ -32,7 +32,7 @@ class ScopedLocale
 public:
     ScopedLocale(int category, const char* locale)
         : m_category(category)
-        , m_prev_locale(setlocale(category, IUTEST_NULLPTR))
+        , m_prev_locale(GetCurrentLocale(category))
         , m_valid(false)
     {
         if( !SetLocale(category, locale) )
@@ -54,6 +54,11 @@ public:
     operator bool() const { return m_valid; }
     ::std::string GetPrevLocale() const { return m_prev_locale; }
 private:
+    static ::std::string GetCurrentLocale(int category)
+    {
+        const char* locale = setlocale(category, IUTEST_NULLPTR);
+        return locale == NULL ? ::std::string() : ::std::string(locale);
+    }
     bool SetLocale(int category, const char* locale)
     {
         m_valid = (setlocale(category, locale) != NULL);
@@ -62,7 +67,7 @@ private:
 protected:
     ScopedLocale(int category, const char* locale, bool)
         : m_category(category)
-        , m_prev_locale(setlocale(category, IUTEST_NULLPTR))
+        , m_prev_locale(GetCurrentLocale(category))
         , m_valid(false)
     {
         SetLocale(category, locale);
