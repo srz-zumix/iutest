@@ -33,11 +33,16 @@ jobs:
         os: [windows-2022, windows-2025]
         platform: [Win32, x64]
         configuration: [Debug, Release]
+        include:
+          - os: windows-2022
+            generator: Visual Studio 17 2022
+          - os: windows-2025
+            generator: Visual Studio 18 2026
     steps:
       - uses: actions/checkout@v4
       - name: cmake
         run: |
-          cmake -S projects/cmake -B build -G "Visual Studio 17 2022" -A ${{ matrix.platform }} -Dbuild_gtest_samples=ON
+          cmake -S projects/cmake -B build -G "${{ matrix.generator }}" -A ${{ matrix.platform }} -Dbuild_gtest_samples=ON
       - name: build
         run: cmake --build build --config ${{ matrix.configuration }}
       - name: test
@@ -63,7 +68,7 @@ jobs:
       OUTPUTXML: ${{ matrix.outputxml }}
     steps:
       - uses: actions/checkout@v4
-      - uses: cygwin/cygwin-install-action@v5
+      - uses: cygwin/cygwin-install-action@v6
         with:
           packages: make clang gcc-g++ python3
       - name: info
@@ -222,7 +227,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ilammy/msvc-dev-cmd@v1
       - name: cmake
-        run: cmake -S projects/cmake -B build -G "Visual Studio 17 2022" -A x64
+        run: cmake -S projects/cmake -B build -A x64
       - name: vcperf
         shell: cmd
         run: .ci\vcperf_build.bat
