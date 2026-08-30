@@ -179,16 +179,23 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        defs:
-          - '-m96bit-long-double'
-          - '-DIUTEST_USE_QUADMATH=1 -mlong-double-64'
-          - '-DIUTEST_USE_QUADMATH=1 -mlong-double-80'
-          - '-DIUTEST_USE_QUADMATH=1 -mlong-double-128'
+        include:
+          # -m96bit-long-double is only valid for the 32bit x86 ABI
+          - defs: '-m32 -m96bit-long-double'
+            multilib: true
+          - defs: '-DIUTEST_USE_QUADMATH=1 -mlong-double-64'
+          - defs: '-DIUTEST_USE_QUADMATH=1 -mlong-double-80'
+          - defs: '-DIUTEST_USE_QUADMATH=1 -mlong-double-128'
     env:
       DEFS: ${{ matrix.defs }}
       OUTPUTXML: 1
     steps:
       - uses: actions/checkout@v4
+      - name: install multilib
+        if: ${{ matrix.multilib }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -qq -y g++-multilib lib32quadmath0
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: floatingpoint tests
