@@ -268,7 +268,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
     }
     {
         char mbs[32];
-        mbstate_t state = {};
+        mbstate_t state = mbstate_t();
         IUTEST_CHECK_(mbsinit(&state) != 0);
         ::std::string ret;
         for( size_t i=0; i < length; ++i )
@@ -305,7 +305,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
     && (!defined(_MSC_VER)) // visual studio stdlib is not defeined c8rtomb
     const size_t length = num < 0 ? ::std::char_traits<char8_t>::length(str) : static_cast<size_t>(num);
     char mbs[32];
-    mbstate_t state = {};
+    mbstate_t state = mbstate_t();
     IUTEST_CHECK_(mbsinit(&state) != 0);
     ::std::string ret;
 
@@ -349,7 +349,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
 #if 1
     const size_t length = num < 0 ? ::std::char_traits<char16_t>::length(str) : static_cast<size_t>(num);
     char mbs[32];
-    mbstate_t state = {};
+    mbstate_t state = mbstate_t();
     IUTEST_CHECK_(mbsinit(&state) != 0);
     ::std::string ret;
 
@@ -391,7 +391,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     char16_t lead = 0, trail = 0;
     char32_t cp;
     char mbs[32];
-    mbstate_t state = {};
+    mbstate_t state = mbstate_t();
     IUTEST_CHECK_(mbsinit(&state) != 0);
     ::std::string ret;
 
@@ -450,7 +450,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
 #if IUTEST_HAS_CXX_HDR_CUCHAR
     const size_t length = num < 0 ? ::std::char_traits<char32_t>::length(str) : static_cast<size_t>(num);
     char mbs[32];
-    mbstate_t state = {};
+    mbstate_t state = mbstate_t();
     IUTEST_CHECK_(mbsinit(&state) != 0);
     ::std::string ret;
 

@@ -63,7 +63,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: ['4.6', '4.7', '4.8', '4.9', '5.1', '5.5']
+        version:
+          # Docker Image manifest v1 (schema 1) images are no longer pullable
+          # - '4.6'
+          # - '4.7'
+          # - '4.8'
+          - '4.9'
+          # - '5.1'
+          - '5.5'
     steps:
       - name: Login to DockerHub
         uses: docker/login-action@v3
@@ -115,6 +122,14 @@ jobs:
       fail-fast: false
       matrix:
         version: ['4', '5', '6', '7', '8', '9', '10', '11', '12', '13']
+        include:
+          # clang 4-6 packages install the binary with a x.0 suffix
+          - version: '4'
+            suffix: '4.0'
+          - version: '5'
+            suffix: '5.0'
+          - version: '6'
+            suffix: '6.0'
     steps:
       - name: Login to DockerHub
         uses: docker/login-action@v3
@@ -125,9 +140,10 @@ jobs:
       - name: build and test
         env:
           CLANG_VERSION: ${{ matrix.version }}
+          CLANG_SUFFIX: ${{ matrix.suffix || matrix.version }}
         run: |
           docker run --rm -v "${PWD}:/iutest" -w /iutest \
-            -e "CC=clang-${CLANG_VERSION}" -e "CXX=clang++-${CLANG_VERSION}" \
+            -e "CC=clang-${CLANG_SUFFIX}" -e "CXX=clang++-${CLANG_SUFFIX}" \
             "teeks99/clang-ubuntu:${CLANG_VERSION}" \
             bash -c "${BUILD_AND_TEST}"
       - name: report summary
@@ -201,9 +217,10 @@ jobs:
       fail-fast: false
       matrix:
         image:
-          - gcc:4.6
-          - gcc:4.7
-          - gcc:4.8
+          # Docker Image manifest v1 (schema 1) images are no longer pullable
+          # - gcc:4.6
+          # - gcc:4.7
+          # - gcc:4.8
           - gcc:4.9
           - gcc:5
           - gcc:6
