@@ -41,11 +41,13 @@ jobs:
         version: ['6', '7', '8', '9', '10', '11', 'latest']
     steps:
       - name: Login to DockerHub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: build and test
         run: |
           docker run --rm -v "${PWD}:/iutest" -w /iutest "gcc:${{ matrix.version }}" \
@@ -73,11 +75,13 @@ jobs:
           - '5.5'
     steps:
       - name: Login to DockerHub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: build and test
         run: |
           docker run --rm -v "${PWD}:/iutest" -w /iutest "gcc:${{ matrix.version }}" \
@@ -94,11 +98,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Login to DockerHub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       # gcc 3 does not support UTF8-BOM
       - name: strip BOM
         run: |
@@ -132,11 +138,13 @@ jobs:
             suffix: '6.0'
     steps:
       - name: Login to DockerHub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: build and test
         env:
           CLANG_VERSION: ${{ matrix.version }}
@@ -162,11 +170,13 @@ jobs:
         version: ['3.0', '3.1', '3.2', '3.3', '3.4', '3.5', '3.6', '3.7', '3.8', '3.9']
     steps:
       - name: Login to DockerHub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: build and test
         env:
           CLANG_VERSION: ${{ matrix.version }}
@@ -186,11 +196,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Login to DockerHub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: strip BOM
         run: |
           find . -type f \( -name '*.hpp' -or -name '*.cpp' -or -name '*.ipp' \) \
@@ -235,11 +247,13 @@ jobs:
           - teeks99/clang-ubuntu:13
     steps:
       - name: Login to DockerHub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: syntax tests
         run: |
           docker run --rm -v "${PWD}:/iutest" -w /iutest "${{ matrix.image }}" bash -c '

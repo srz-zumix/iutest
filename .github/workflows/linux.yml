@@ -42,7 +42,9 @@ jobs:
       CXX: ${{ matrix.CXX }}
       OUTPUTXML: junit
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: build
@@ -78,7 +80,9 @@ jobs:
       STDFLAG: ${{ matrix.stdflag }}
       OUTPUTXML: junit
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: info
         uses: ./.github/actions/composite/test-info
       # NOTE: -j$(nproc) makes the container OOMKilled
@@ -102,7 +106,9 @@ jobs:
       USE_LIB: 1
       OUTPUTXML: junit
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: build lib
@@ -119,7 +125,9 @@ jobs:
   sample-run:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: gcc sample run
         run: |
           make -C projects/make run
@@ -131,7 +139,9 @@ jobs:
   minimum-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: minimum tests
         run: make -C test CXX=clang++ run_minimum_tests RUN_OPTION=--spec
       - name: ldd
@@ -151,7 +161,9 @@ jobs:
       OPTIMIZE: ${{ matrix.optimize }}
       OUTPUTXML: junit
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: minimum tests and show feature / spec
@@ -190,7 +202,9 @@ jobs:
       DEFS: ${{ matrix.defs }}
       OUTPUTXML: 1
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: install multilib
         if: ${{ matrix.multilib }}
         run: |
@@ -205,7 +219,9 @@ jobs:
   scan-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: install clang-tools
         run: |
           sudo apt-get update
@@ -223,7 +239,9 @@ jobs:
     env:
       OUTPUTXML: junit
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: build
@@ -245,7 +263,9 @@ jobs:
     env:
       DEFS: -DNO_TEST_SURROGATEPAIR
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: info
         run: |
           make -C test showcxxversion showcxxmacros showstdlbfeatures

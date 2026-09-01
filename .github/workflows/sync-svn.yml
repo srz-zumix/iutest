@@ -19,14 +19,15 @@ jobs:
       CI_COMMIT_ID: ${{ github.sha }}
       CI_BRANCH: ${{ github.ref_name }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          persist-credentials: false
       - name: install subversion
         run: |
           sudo apt-get update
           sudo apt-get install -qq -y subversion
-      - uses: webfactory/ssh-agent@v0.9.0
+      - uses: webfactory/ssh-agent@v0.10.0
         with:
           ssh-private-key: ${{ secrets.OSDN_SSH_PRIVATE_KEY }}
       - name: sync trunk

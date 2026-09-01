@@ -39,7 +39,9 @@ jobs:
           - os: windows-2025
             generator: Visual Studio 18 2026
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: cmake
         run: |
           cmake -S projects/cmake -B build -G "${{ matrix.generator }}" -A ${{ matrix.platform }} -Dbuild_gtest_samples=ON
@@ -67,7 +69,9 @@ jobs:
       USE_GNU_EXTENSION: ${{ matrix.use_gnu_extension }}
       OUTPUTXML: ${{ matrix.outputxml }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: cygwin/cygwin-install-action@v6
         with:
           packages: make clang gcc-g++ python3
@@ -110,7 +114,9 @@ jobs:
       OUTPUTXML: ${{ matrix.outputxml }}
       LIBS: ws2_32
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: msys2/setup-msys2@v2
         with:
           msystem: MINGW64
@@ -142,7 +148,9 @@ jobs:
     env:
       OUTPUTXML: xml
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: x86
@@ -174,8 +182,10 @@ jobs:
   prefast:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: microsoft/setup-msbuild@v2
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: microsoft/setup-msbuild@v3
       - name: msbuild code analysis
         run: >
           msbuild projects\vs2022\iutest_sample.vcxproj /m /verbosity:minimal
@@ -186,8 +196,10 @@ jobs:
   windows-sample:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: microsoft/setup-msbuild@v2
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: microsoft/setup-msbuild@v3
       - name: build windows sample
         run: msbuild samples\windows\iutest_windows_sample.sln /m /verbosity:minimal /p:Configuration=Release
 
@@ -195,12 +207,13 @@ jobs:
   package:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          persist-credentials: false
       - name: make package
         run: bash ./.ci/make-package.sh
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: package
           path: package/
@@ -209,11 +222,13 @@ jobs:
   nuget:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: NuGet/setup-nuget@v2
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: NuGet/setup-nuget@v4
       - name: nuget pack
         run: nuget pack projects\nuget\iutest.nuspec -OutputDirectory .\
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: nuget
           path: '*.nupkg'
@@ -224,14 +239,16 @@ jobs:
     env:
       CMAKE: cmake
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: ilammy/msvc-dev-cmd@v1
       - name: cmake
         run: cmake -S projects/cmake -B build -A x64
       - name: vcperf
         shell: cmd
         run: .ci\vcperf_build.bat
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: vcperf
           path: iutest.etl
@@ -243,11 +260,13 @@ jobs:
     timeout-minutes: 60
     steps:
       - name: Login to DockerHub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: docker setup
         run: |
           docker run --rm -d -i --name iutest-work -w /home/wine/.wine/drive_c/ madduci/docker-wine-msvc:16.7-2019

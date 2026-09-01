@@ -30,7 +30,9 @@ jobs:
       USE_COVERAGE: gcov
       DEFS: -DIUTEST_FORCE_COLORCONSOLE=1
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
+      with:
+        persist-credentials: false
     - name: info
       run: |
         make -C test showcxxmacros
@@ -46,14 +48,14 @@ jobs:
     - name: test
       run: |
         make -C test test
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7
       with:
         name: test-result
         path: test/*.xml
     - name: coverage
       run: |
         make -C test coverage
-    - uses: codecov/codecov-action@v5
+    - uses: codecov/codecov-action@v7
       with:
         fail_ci_if_error: true
         verbose: true
@@ -67,7 +69,9 @@ jobs:
     env:
       USE_COVERAGE: lcov
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
+      with:
+        persist-credentials: false
     - name: install dependencies
       run: |
         sudo apt-get install -qq -y lcov
@@ -86,7 +90,7 @@ jobs:
     - name: test
       run: |
         make -C test test
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7
       with:
         name: test-result
         path: test/*.xml

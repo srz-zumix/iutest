@@ -52,7 +52,9 @@ jobs:
       STDFLAG: ${{ matrix.STDFLAG }}
       OUTPUTXML: junit
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: build
