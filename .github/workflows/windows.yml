@@ -91,7 +91,7 @@ jobs:
           make -C test test
           make -C test report
       - name: report summary
-        uses: $/.github/actions/composite/test-report
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: success() || failure()
@@ -139,7 +139,7 @@ jobs:
           make -C test test
           make -C test report
       - name: report summary
-        uses: $/.github/actions/composite/test-report
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: success() || failure()
@@ -181,7 +181,7 @@ jobs:
           cd test
           nmake test
       - name: report summary
-        uses: $/.github/actions/composite/test-report
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: success() || failure()

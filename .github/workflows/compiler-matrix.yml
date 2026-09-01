@@ -55,7 +55,7 @@ jobs:
           docker run --rm -v "${PWD}:/iutest" -w /iutest "gcc:${{ matrix.version }}" \
             bash -c "${BUILD_AND_TEST}"
       - name: report summary
-        uses: $/.github/actions/composite/test-report
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: always()
@@ -92,7 +92,7 @@ jobs:
           docker run --rm -v "${PWD}:/iutest" -w /iutest "gcc:${{ matrix.version }}" \
             bash -c "${BUILD_AND_TEST}"
       - name: report summary
-        uses: $/.github/actions/composite/test-report
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: always()
@@ -123,7 +123,7 @@ jobs:
           docker run --rm -v "${PWD}:/iutest" -w /iutest srzzumix/gcc3:centos5 \
             bash -c "${BUILD_AND_TEST}"
       - name: report summary
-        uses: $/.github/actions/composite/test-report
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: always()
@@ -166,7 +166,7 @@ jobs:
             "teeks99/clang-ubuntu:${CLANG_VERSION}" \
             bash -c "${BUILD_AND_TEST}"
       - name: report summary
-        uses: $/.github/actions/composite/test-report
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: always()
@@ -200,7 +200,7 @@ jobs:
             "teeks99/clang-ubuntu:${CLANG_VERSION}" \
             bash -c "${BUILD_AND_TEST}"
       - name: report summary
-        uses: $/.github/actions/composite/test-report
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: always()
@@ -233,7 +233,7 @@ jobs:
             teeks99/clang-ubuntu:2.9 \
             bash -c "${BUILD_AND_TEST}"
       - name: report summary
-        uses: $/.github/actions/composite/test-report
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: always()

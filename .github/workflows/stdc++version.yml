@@ -56,7 +56,7 @@ jobs:
         with:
           persist-credentials: false
       - name: info
-        uses: $/.github/actions/composite/test-info
+        uses: ./.github/actions/composite/test-info
       - name: build
         run: |
           make -C test -j8
@@ -68,7 +68,7 @@ jobs:
           make -C test report
         if: always()
       - name: report summary
-        uses: $/.github/actions/composite/test-report
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: always()

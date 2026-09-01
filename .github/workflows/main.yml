@@ -75,9 +75,9 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Windows LLVM
-        uses: $/.github/actions/composite/setup-win-llvm
+        uses: ./.github/actions/composite/setup-win-llvm
       - name: info
-        uses: $/.github/actions/composite/test-info
+        uses: ./.github/actions/composite/test-info
       - name: llvm clang build
         run: |
           make -C test -j8
@@ -85,7 +85,7 @@ jobs:
         run: |
           make -C test test
       - name: report
-        uses: $/.github/actions/composite/test-report
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: success() || failure()
@@ -106,7 +106,7 @@ jobs:
         with:
           persist-credentials: false
       - name: info
-        uses: $/.github/actions/composite/test-info
+        uses: ./.github/actions/composite/test-info
       - name: mingw build
         run: |
           make -C test -j8
@@ -114,7 +114,7 @@ jobs:
         run: |
           make -C test test
       - name: report
-        uses: $/.github/actions/composite/test-report
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: success() || failure()
@@ -177,7 +177,7 @@ jobs:
         with:
           persist-credentials: false
       - name: info
-        uses: $/.github/actions/composite/test-info
+        uses: ./.github/actions/composite/test-info
       - name: build
         run: |
           make -C test -j8
@@ -185,7 +185,7 @@ jobs:
         run: |
           make -C test test
       - name: report
-        uses: $/.github/actions/composite/test-report
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: success() || failure()
@@ -286,7 +286,7 @@ jobs:
         run: |
           echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
       - name: info
-        uses: $/.github/actions/composite/test-info
+        uses: ./.github/actions/composite/test-info
         with:
           shell-cmd: bash -e -o pipefail -l {0}
       - name: icpc build
@@ -296,7 +296,7 @@ jobs:
         run: |
           make -C test test
       - name: report
-        uses: $/.github/actions/composite/test-report
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: always()
@@ -333,12 +333,12 @@ jobs:
         with:
           persist-credentials: false
       - name: info
-        uses: $/.github/actions/composite/test-info
+        uses: ./.github/actions/composite/test-info
       - name: build
         run: |
           make -C test -j8
       - name: report
-        uses: $/.github/actions/composite/test-report
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: always()
@@ -362,19 +362,19 @@ jobs:
         with:
           persist-credentials: false
       - name: info
-        uses: $/.github/actions/arm-linux-gnueabi
+        uses: ./.github/actions/arm-linux-gnueabi
         with:
           args: "make -C test QEMU_COMMAND=qemu-arm-static showcxxversion showcxxmacros check_stdlib showstdlbfeatures"
       - name: build
-        uses: $/.github/actions/arm-linux-gnueabi
+        uses: ./.github/actions/arm-linux-gnueabi
         with:
           args: "make -C test -j8"
       - name: test
-        uses: $/.github/actions/arm-linux-gnueabi
+        uses: ./.github/actions/arm-linux-gnueabi
         with:
           args: "make -C test test QEMU_COMMAND=qemu-arm-static"
       - name: report
-        uses: $/.github/actions/composite/test-report
+        uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: always()

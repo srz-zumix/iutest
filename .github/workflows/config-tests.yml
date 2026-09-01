@@ -41,7 +41,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - uses: $/.github/actions/composite/make-config-test
+      - uses: ./.github/actions/composite/make-config-test
         with:
           package_name: default
 
@@ -116,7 +116,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - uses: $/.github/actions/composite/make-config-test
+      - uses: ./.github/actions/composite/make-config-test
         with:
           options: DEFS+=-D${{ matrix.config }}=0
           package_name: disabled-${{ matrix.config }}
@@ -141,7 +141,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - uses: $/.github/actions/composite/make-config-test
+      - uses: ./.github/actions/composite/make-config-test
         with:
           options: DEFS+=-D${{ matrix.config }} STDFLAG=-std=c++98
           package_name: nofeature-${{ matrix.config }}
@@ -165,7 +165,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - uses: $/.github/actions/composite/make-config-test
+      - uses: ./.github/actions/composite/make-config-test
         with:
           options: DEFS+="${{ matrix.defs }}"
           package_name: mix-${{ matrix.name }}
@@ -185,7 +185,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - uses: $/.github/actions/composite/make-config-test
+      - uses: ./.github/actions/composite/make-config-test
         with:
           options: DEFS+="${{ matrix.defs }}"
           package_name: config-${{ matrix.name }}
