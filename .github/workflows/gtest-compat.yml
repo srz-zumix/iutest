@@ -22,6 +22,9 @@ on:
       - master
       - develop
 
+permissions:
+  contents: read
+
 jobs:
   prepare:
     runs-on: ubuntu-latest

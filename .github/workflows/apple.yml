@@ -20,13 +20,15 @@ on:
 
 permissions:
   contents: read
-  checks: write
 
 jobs:
   # Cirrus CI macOS task migration
   macos-stdversion-test:
     name: macos (${{ matrix.stdflag }})
     runs-on: macos-latest
+    permissions:
+      contents: read
+      checks: write
     strategy:
       fail-fast: false
       matrix:
@@ -42,7 +44,7 @@ jobs:
         with:
           persist-credentials: false
       - name: info
-        uses: ./.github/actions/composite/test-info
+        uses: $/.github/actions/composite/test-info
       - name: build
         run: make -C test -j"$(getconf _NPROCESSORS_ONLN)"
       - name: test
@@ -51,7 +53,7 @@ jobs:
         run: make -C test report
         if: always()
       - name: report summary
-        uses: ./.github/actions/composite/test-report
+        uses: $/.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: always()

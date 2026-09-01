@@ -20,13 +20,15 @@ on:
 
 permissions:
   contents: read
-  checks: write
 
 jobs:
   # basic test (Travis CI / Shippable / JFrog Pipelines migration)
   basic-test:
     name: basic (${{ matrix.compiler }})
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
     strategy:
       fail-fast: false
       matrix:
@@ -46,7 +48,7 @@ jobs:
         with:
           persist-credentials: false
       - name: info
-        uses: ./.github/actions/composite/test-info
+        uses: $/.github/actions/composite/test-info
       - name: build
         run: make -C test -j4
       - name: test
@@ -55,7 +57,7 @@ jobs:
         run: make -C test report
         if: always()
       - name: report summary
-        uses: ./.github/actions/composite/test-report
+        uses: $/.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: always()
@@ -64,6 +66,9 @@ jobs:
   gcc-container-test:
     name: gcc container (${{ matrix.stdflag }})
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
     container:
       image: gcc:latest
       credentials:
@@ -84,7 +89,7 @@ jobs:
         with:
           persist-credentials: false
       - name: info
-        uses: ./.github/actions/composite/test-info
+        uses: $/.github/actions/composite/test-info
       # NOTE: -j$(nproc) makes the container OOMKilled
       - name: build
         run: make -C test -j4
@@ -94,7 +99,7 @@ jobs:
         run: make -C test report
         if: always()
       - name: report summary
-        uses: ./.github/actions/composite/test-report
+        uses: $/.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: always()
@@ -110,7 +115,7 @@ jobs:
         with:
           persist-credentials: false
       - name: info
-        uses: ./.github/actions/composite/test-info
+        uses: $/.github/actions/composite/test-info
       - name: build lib
         run: make -C projects/make
       - name: build
@@ -151,6 +156,9 @@ jobs:
   optimize-test:
     name: optimize ${{ matrix.compiler }} ${{ matrix.optimize }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
     strategy:
       fail-fast: false
       matrix:
@@ -165,7 +173,7 @@ jobs:
         with:
           persist-credentials: false
       - name: info
-        uses: ./.github/actions/composite/test-info
+        uses: $/.github/actions/composite/test-info
       - name: minimum tests and show feature / spec
         run: |
           make -C test minimum_tests
@@ -179,7 +187,7 @@ jobs:
         run: make -C test report
         if: always()
       - name: report summary
-        uses: ./.github/actions/composite/test-report
+        uses: $/.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: always()
@@ -211,7 +219,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -qq -y g++-multilib lib32quadmath0
       - name: info
-        uses: ./.github/actions/composite/test-info
+        uses: $/.github/actions/composite/test-info
       - name: floatingpoint tests
         run: make -C test LIBS=quadmath floatingpoint_tests_run
 
@@ -236,6 +244,9 @@ jobs:
   # aarch64 native test (CircleCI arm migration)
   arm64-test:
     runs-on: ubuntu-24.04-arm
+    permissions:
+      contents: read
+      checks: write
     env:
       OUTPUTXML: junit
     steps:
@@ -243,7 +254,7 @@ jobs:
         with:
           persist-credentials: false
       - name: info
-        uses: ./.github/actions/composite/test-info
+        uses: $/.github/actions/composite/test-info
       - name: build
         run: make -C test -j4 default
       - name: test
@@ -252,7 +263,7 @@ jobs:
         run: make -C test report
         if: always()
       - name: report summary
-        uses: ./.github/actions/composite/test-report
+        uses: $/.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: always()

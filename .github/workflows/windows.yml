@@ -20,7 +20,6 @@ on:
 
 permissions:
   contents: read
-  checks: write
 
 jobs:
   # AppVeyor VisualStudio job group migration
@@ -54,6 +53,9 @@ jobs:
   cygwin:
     name: cygwin (gnu extension ${{ matrix.use_gnu_extension }})
     runs-on: windows-latest
+    permissions:
+      contents: read
+      checks: write
     defaults:
       run:
         shell: C:\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
@@ -89,7 +91,7 @@ jobs:
           make -C test test
           make -C test report
       - name: report summary
-        uses: ./.github/actions/composite/test-report
+        uses: $/.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: success() || failure()
@@ -98,6 +100,9 @@ jobs:
   mingw:
     name: mingw (gnu extension ${{ matrix.use_gnu_extension }})
     runs-on: windows-latest
+    permissions:
+      contents: read
+      checks: write
     defaults:
       run:
         shell: msys2 {0}
@@ -134,7 +139,7 @@ jobs:
           make -C test test
           make -C test report
       - name: report summary
-        uses: ./.github/actions/composite/test-report
+        uses: $/.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: success() || failure()
@@ -142,6 +147,9 @@ jobs:
   # AppVeyor NMAKE job migration
   nmake:
     runs-on: windows-latest
+    permissions:
+      contents: read
+      checks: write
     defaults:
       run:
         shell: cmd
@@ -173,7 +181,7 @@ jobs:
           cd test
           nmake test
       - name: report summary
-        uses: ./.github/actions/composite/test-report
+        uses: $/.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
         if: success() || failure()

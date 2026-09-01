@@ -19,6 +19,9 @@ on:
       - master
       - develop
 
+permissions:
+  contents: read
+
 jobs:
   codecov:
     runs-on: ubuntu-latest

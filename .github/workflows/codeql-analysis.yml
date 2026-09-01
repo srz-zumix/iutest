@@ -21,10 +21,16 @@ on:
   schedule:
     - cron: '28 13 * * 5'
 
+permissions: {}
+
 jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
     # jobs.*.if では env 参照できない
     # act の場合 github.ref_protected がないのでそれを利用
     # act では実行しない

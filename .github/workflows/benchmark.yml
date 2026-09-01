@@ -20,7 +20,6 @@ on:
 
 permissions:
   contents: read
-  checks: write
 
 env:
   GGC_MIN_EXPAND: 4
