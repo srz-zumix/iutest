@@ -32,9 +32,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      # pull_request の ref_name (e.g. 725/merge) は docker タグとして不正なので変換する
+      - name: image tag
+        id: image_tag
+        env:
+          REF_NAME: ${{ github.ref_name }}
+        run: echo "tag=${REF_NAME//\//-}" >> "${GITHUB_OUTPUT}"
       - uses: docker/build-push-action@v7
         with:
           context: .
           file: ./tools/docker/Dockerfile
-          tags: srzzumix/iutest_dev_env:${{ github.ref_name }}
+          tags: srzzumix/iutest_dev_env:${{ steps.image_tag.outputs.tag }}
           push: ${{ github.event_name == 'push' }}
