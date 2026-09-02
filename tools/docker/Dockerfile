@@ -24,14 +24,14 @@ RUN apt-get update -q -y && \
         cppcheck \
         subversion \
         python3 python3-pip \
+        python3-virtualenv virtualenvwrapper \
         doxygen graphviz && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # pyenv
 RUN update-alternatives --install /usr/bin/python  python  /usr/bin/python3 1000 \
-                        --slave   /usr/bin/pip  pip  /usr/bin/pip3 && \
-    pip install virtualenv virtualenvwrapper
+                        --slave   /usr/bin/pip  pip  /usr/bin/pip3
 ENV PYENV_ROOT $HOME/.pyenv
 ENV PATH $HOME/.pyenv/shims:$HOME/.pyenv/bin:$PATH
 RUN wget https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer -O - | bash && \
