@@ -151,7 +151,7 @@
         <label class="checkBtn disabled"><input type="checkbox" onclick="toggleSeverity(this)" id="portability"disabled/>portability</label>
         <label class="checkBtn disabled"><input type="checkbox" onclick="toggleSeverity(this)" id="performance"disabled/>performance</label>
         <label class="checkBtn disabled"><input type="checkbox" onclick="toggleSeverity(this)" id="style"disabled/>style</label>
-        <label class="checkBtn disabled"><input type="checkbox" onclick="toggleSeverity(this)" id="information"disabled/>information</label>
+        <label class="checkBtn"><input type="checkbox" onclick="toggleSeverity(this)" id="information"checked/>information</label>
         | 
         <label class="checkBtn"><input type="checkbox" onclick="toggleTool(this)" id="cppcheck"checked/>cppcheck</label>
         <label class="checkBtn disabled"><input type="checkbox" onclick="toggleTool(this)" id="clang-tidy"disabled/>clang-tidy</label>
@@ -168,8 +168,10 @@
        <label><input type="checkbox" class="idToggle" onclick="toggleAll()" checked> Toggle all</label>
        <table>
            <tr><th>Show</th><th>#</th><th>Defect ID</th></tr>
-            <tr><td><input type="checkbox" class="idToggle" onclick="toggleDisplay(this)" id="preprocessorErrorDirective" name="preprocessorErrorDirective" checked></td><td>2</td><td>preprocessorErrorDirective</td></tr>
-           <tr><td></td><td>2</td><td>total</td></tr>
+            <tr><td><input type="checkbox" class="idToggle" onclick="toggleDisplay(this)" id="preprocessorErrorDirective" name="preprocessorErrorDirective" checked></td><td>6</td><td>preprocessorErrorDirective</td></tr>
+            <tr><td><input type="checkbox" class="idToggle" onclick="toggleDisplay(this)" id="checkersReport" name="checkersReport" checked></td><td>1</td><td>checkersReport</td></tr>
+            <tr><td><input type="checkbox" class="idToggle" onclick="toggleDisplay(this)" id="missingInclude" name="missingInclude" checked></td><td>1</td><td>missingInclude</td></tr>
+           <tr><td></td><td>8</td><td>total</td></tr>
        </table>
        <p><a href="stats.html">Statistics</a></p>
     </div>
@@ -178,17 +180,27 @@
        <table class="summaryTable">
        <tr><th>Line</th><th>Id</th><th>CWE</th><th>Severity</th><th>Message</th></tr>
       <tbody class="fileEntry">
-       <tr><td colspan="5"><a href="0.html">../../include/internal/iutest_stdlib_defs.hpp</a></td></tr>
-         <tr class="preprocessorErrorDirective sev_error issue"><td><a href="0.html#line-43">43</a></td><td>preprocessorErrorDirective</td><td></td><td>error</td><td class="error">failed to evaluate #if condition</td></tr>
+       <tr><td colspan="5"><a href="3.html"></a></td></tr>
+         <tr class="checkersReport sev_information issue"><td></td><td>checkersReport</td><td></td><td>information</td><td>Active checkers: There was critical errors (use --checkers-report=&lt;filename&gt; to see details)</td></tr>
       <tbody class="fileEntry">
-       <tr><td colspan="5"><a href="1.html">../../test/spi_tests_decl.cpp</a></td></tr>
-         <tr class="preprocessorErrorDirective sev_error issue"><td><a href="1.html#line-17">17</a></td><td>preprocessorErrorDirective</td><td></td><td>error</td><td class="error">#error FAILURE_MACRO</td></tr>
+       <tr><td colspan="5"><a href="0.html">../../include/internal/iutest_pp.hpp</a></td></tr>
+         <tr class="preprocessorErrorDirective sev_error issue"><td><a href="0.html#line-447">447</a></td><td>preprocessorErrorDirective</td><td></td><td>error</td><td class="error">failed to expand &apos;IUTEST_P&apos;, Wrong number of parameters for macro &apos;IIUT_PP_BOOL_I&apos;.</td></tr>
+         <tr class="preprocessorErrorDirective sev_error issue"><td><a href="0.html#line-447">447</a></td><td>preprocessorErrorDirective</td><td></td><td>error</td><td class="error">failed to expand &apos;IUTEST_TYPED_TEST_SUITE&apos;, Wrong number of parameters for macro &apos;IIUT_PP_BOOL_I&apos;.</td></tr>
+         <tr class="preprocessorErrorDirective sev_error issue"><td><a href="0.html#line-447">447</a></td><td>preprocessorErrorDirective</td><td></td><td>error</td><td class="error">failed to expand &apos;IUTEST_F&apos;, Wrong number of parameters for macro &apos;IIUT_PP_BOOL_I&apos;.</td></tr>
+         <tr class="preprocessorErrorDirective sev_error issue"><td><a href="0.html#line-447">447</a></td><td>preprocessorErrorDirective</td><td></td><td>error</td><td class="error">failed to expand &apos;IUTEST_INSTANTIATE_TEST_SUITE_P&apos;, Wrong number of parameters for macro &apos;IIUT_PP_BOOL_I&apos;.</td></tr>
+         <tr class="preprocessorErrorDirective sev_error issue"><td><a href="0.html#line-447">447</a></td><td>preprocessorErrorDirective</td><td></td><td>error</td><td class="error">failed to expand &apos;IUTEST_VALUETMP_TEST_SUITE&apos;, Wrong number of parameters for macro &apos;IIUT_PP_BOOL_I&apos;.</td></tr>
+      <tbody class="fileEntry">
+       <tr><td colspan="5"><a href="1.html">../../test/gtest_tap_tests.cpp</a></td></tr>
+         <tr class="missingInclude sev_information issue"><td><a href="1.html#line-20">20</a></td><td>missingInclude</td><td></td><td>information</td><td>Include file: &quot;tap.h&quot; not found.</td></tr>
+      <tbody class="fileEntry">
+       <tr><td colspan="5"><a href="2.html">../../test/spi_tests_decl.cpp</a></td></tr>
+         <tr class="preprocessorErrorDirective sev_error issue"><td><a href="2.html#line-17">17</a></td><td>preprocessorErrorDirective</td><td></td><td>error</td><td class="error">#error FAILURE_MACRO</td></tr>
       </tbody>
        </table>
     </div>
     <div id="footer" class="footer">
       <p>
-        Created by Cppcheck 2.7 (<a href="https://cppcheck.sourceforge.io">Sourceforge</a>, <a href="irc://irc.freenode.net/cppcheck">IRC</a>)
+        Created by Cppcheck 2.13.0 (<a href="https://cppcheck.sourceforge.io">Sourceforge</a>, <a href="irc://irc.freenode.net/cppcheck">IRC</a>)
       </p>
     </div>
     </div>

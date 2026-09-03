@@ -1,5 +1,7 @@
 <map id="iutest::any::empty" name="iutest::any::empty">
-<area shape="rect" id="node1" title="空かどうか" alt="" coords="217,31,357,57"/>
-<area shape="rect" id="node2" href="$d6/d7f/classiutest_1_1any.html#a0a3d4348d722a232bd9d16c493287dc0" title="要素があるかどうか" alt="" coords="5,5,169,32"/>
-<area shape="rect" id="node3" href="$d6/d7f/classiutest_1_1any.html#ab48b5b50df8291d9cc141e88c416f08c" title="所持している値の文字列化" alt="" coords="10,56,165,83"/>
+<area shape="rect" id="Node000001" title="空かどうか" alt="" coords="217,31,357,56"/>
+<area shape="rect" id="Node000002" href="$d6/d7f/classiutest_1_1any.html#a0a3d4348d722a232bd9d16c493287dc0" title="要素があるかどうか" alt="" coords="5,5,169,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,35,169,31,170,26,204,30"/>
+<area shape="rect" id="Node000003" href="$d6/d7f/classiutest_1_1any.html#ab48b5b50df8291d9cc141e88c416f08c" title="所持している値の文字列化" alt="" coords="10,55,165,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="204,56,165,61,164,55,203,51"/>
 </map>

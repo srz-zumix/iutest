@@ -1,6 +1,9 @@
 <map id="iutest::TestSuite::testsuite_name_with_default_package_name" name="iutest::TestSuite::testsuite_name_with_default_package_name">
-<area shape="rect" id="node1" title=" " alt="" coords="5,27,185,83"/>
-<area shape="rect" id="node2" href="$d7/d8c/classiutest_1_1_test_env.html#af1aed0bd741f7b3213025c95fecd6fae" title="default package name を追加" alt="" coords="233,5,431,47"/>
-<area shape="rect" id="node4" href="$d3/d87/classiutest_1_1_test_suite.html#aa960e404c373dfecbaf789471bf04ef4" title=" " alt="" coords="247,71,417,98"/>
-<area shape="rect" id="node3" href="$d7/d8c/classiutest_1_1_test_env.html#a3972fd7b7e3b611a41c840ab249f85d2" title="グローバル環境セットクラスの削除" alt="" coords="479,5,655,47"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,27,185,82"/>
+<area shape="rect" id="Node000002" href="$d7/d8c/classiutest_1_1_test_env.html#af1aed0bd741f7b3213025c95fecd6fae" title="default package name を追加" alt="" coords="233,5,431,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,41,220,37,220,42,186,46"/>
+<area shape="rect" id="Node000004" href="$d3/d87/classiutest_1_1_test_suite.html#a30c85db3dd4cb07be16fe9d678952bff" title=" " alt="" coords="247,70,417,95"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="186,63,233,68,233,74,185,68"/>
+<area shape="rect" id="Node000003" href="$d7/d8c/classiutest_1_1_test_env.html#aeec068a10e59465d5c2824429a9109b0" title="グローバル環境セットクラスの削除" alt="" coords="479,5,655,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="431,23,465,23,465,28,431,28"/>
 </map>

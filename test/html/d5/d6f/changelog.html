@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: 変更履歴</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -19,10 +19,9 @@
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.14</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">iutest<span id="projectnumber">&#160;1.17.99.14</span>
    </div>
   </td>
  </tr>
@@ -30,21 +29,22 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.9.1 -->
+<!-- 構築: Doxygen 1.9.8 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
 <script type="text/javascript" src="../../menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
   initMenu('../../',true,false,'search.php','検索');
   $(document).ready(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -55,15 +55,21 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
 </div>
 
 </div><!-- top -->
-<div class="PageDoc"><div class="header">
-  <div class="headertitle">
-<div class="title">変更履歴 </div>  </div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">変更履歴</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><dl class="section user"><dt>Changes</dt><dd><ul>
@@ -136,7 +142,7 @@ ALMOST_EQ アサーション を追加 </li>
 <li>
 &ndash;iutest_locale_ctype オプションを追加 </li>
 <li>
-setlocale(LC_CTYPE, IUTEST_FLAG(locale_ctype)) をテスト実行開始時に行うように修正 </li>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de" title="型アサーション">setlocale(LC_CTYPE, IUTEST_FLAG(locale_ctype))</a> をテスト実行開始時に行うように修正 </li>
 <li>
 iutest_main で setlocale していたものを廃止 </li>
 <li>
@@ -164,7 +170,7 @@ v1.16.6.0 <ul>
 <li>
 Matcher に (NanSensitive)FloatNear/DoubleNear を追加 </li>
 <li>
-Matcher に template 版の浮動小数点数比較を追加・(NanSensitive)FloatingPointEq/FloatingPointNear </li>
+Matcher に template <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de" title="型アサーション">版の浮動小数点数比較を追加・(NanSensitive)</a>FloatingPointEq/FloatingPointNear </li>
 <li>
 long double に対応 </li>
 <li>
@@ -286,7 +292,7 @@ IUTEST_TYPED_TEST_APPEND_TYPENAME を IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME に�
 <li>
 v1.14.0.0 <ul>
 <li>
-<a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gafe52fa82b3a1ff61cd1b1ea3732d4208" title="範囲パラメータ">iutest::Range</a> を Enum に対応 </li>
+<a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga831fcf8d9d01cf46cd1d6a030153ffbd" title="範囲パラメータ">iutest::Range</a> を Enum に対応 </li>
 <li>
 大幅なリファクタリング </li>
 </ul>
@@ -474,13 +480,13 @@ IUTEST_SCOPED_PEEP,IUTEST_MAKE_SCOPED_PEEP を廃止 </li>
 <li>
 v1.7.0.0 <ul>
 <li>
-テストフィクスチャの定義が省ける値のパラメータ化テストを追加(IUTEST_AP,IUTEST_INSTANTIATE_TEST_CASE_AP) </li>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de" title="型アサーション">テストフィクスチャの定義が省ける値のパラメータ化テストを追加(IUTEST_AP,IUTEST_INSTANTIATE_TEST_CASE_AP)</a> </li>
 <li>
 値のパラメータを operator + で連結できるように修正 </li>
 <li>
-値のパラメータを連結する <a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaa6075f95d9a7a1784623e0aebf6488bb" title="値配列パラメータ">iutest::Concat</a> を追加 </li>
+値のパラメータを連結する <a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaef7129517ac765b73a73c9820c2ae2eb" title="値配列パラメータ">iutest::Concat</a> を追加 </li>
 <li>
-IUTEST_TYPED_TEST,IUTEST_TYPED_TEST_P の別名マクロを追加(IUTEST_T, IUTEST_TP) </li>
+IUTEST_TYPED_TEST,IUTEST_TYPED_TEST_P <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de" title="型アサーション">の別名マクロを追加(IUTEST_T, IUTEST_TP)</a> </li>
 <li>
 xml 出力に timestamp を追加 </li>
 <li>
@@ -510,7 +516,7 @@ gtest モードで AssertionReturn が使えるように対応 </li>
 <li>
 AssertionReturn の仕様変更 </li>
 <li>
-<a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga2f0d56dbeb39611fc7f569d84739912f" title="乱数ジェネレータ">iutest::RandomGenerator</a> を追加 </li>
+<a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga7e30574529d8e38e27be59a045d994d2" title="乱数ジェネレータ">iutest::RandomGenerator</a> を追加 </li>
 <li>
 <a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac93012a573d46ad7eba4201f8bb40851" title="乱数値パラメータ">iutest::RandomValues</a> で乱数シードを指定できるように修正 </li>
 <li>
@@ -556,7 +562,7 @@ noexcept に対応 </li>
 <li>
 v1.4.0.0 <ul>
 <li>
-IUTEST_ASSERT_* で void 以外の戻り値を返せるように修正(::iutest::AssertionReturn) </li>
+IUTEST_ASSERT_* で void <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de" title="型アサーション">以外の戻り値を返せるように修正(::iutest::AssertionReturn)</a> </li>
 <li>
 <a class="el" href="../../da/d5c/structiutest_1_1_types.html" title="Type List">iutest::Types</a> メンバーに型を取得する get を追加 </li>
 <li>
@@ -570,7 +576,7 @@ extern template 対応 </li>
 <li>
 C++11 random ヘッダーが使用できるとき distribution を使うように変更 </li>
 <li>
-コード分析ツールのためのコードの追加情報(__analysis_assume) を IUTEST_*_NULL と IUTEST_*_NOTNULL に追加(MSVC) </li>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de" title="型アサーション">コード分析ツールのためのコードの追加情報(__analysis_assume)</a> を IUTEST_*_NULL と IUTEST_*_NOTNULL <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de" title="型アサーション">に追加(MSVC)</a> </li>
 <li>
 古いコンパイラへの対応 </li>
 </ul>
@@ -584,7 +590,7 @@ IUTEST_SKIP したときのログを追加 </li>
 <li>
 スキップしたテストのログ出力を修正 </li>
 <li>
-コンパイルの通らないテストコードを許可するテスト生成マクロ(*_IGNORE)を追加 </li>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de" title="型アサーション">コンパイルの通らないテストコードを許可するテスト生成マクロ(*_IGNORE)</a>を追加 </li>
 </ul>
 </li>
 <li>
@@ -678,7 +684,7 @@ v1.0.5.2 <ul>
 <li>
 実行すべきテストが実行されなかった場合に失敗を出力するように修正 </li>
 <li>
-Visual Studio UnitTest Framework で IUTEST_P,IUTEST_TYPED_TEST,IUTEST_TYPED_TEST_P が使用できるように修正(tr1) </li>
+Visual Studio UnitTest Framework で IUTEST_P,IUTEST_TYPED_TEST,IUTEST_TYPED_TEST_P <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de" title="型アサーション">が使用できるように修正(tr1)</a> </li>
 </ul>
 </li>
 <li>
@@ -820,7 +826,7 @@ EQ系アサーションのメッセージを修正 </li>
 <li>
 v0.29.1.0 <ul>
 <li>
-IUTEST_INSTANTIATE_TYPED_TEST_CASE_P の型リストに単一の型(int, char...)を使用できるように修正 </li>
+IUTEST_INSTANTIATE_TYPED_TEST_CASE_P <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de" title="型アサーション">の型リストに単一の型(int, char...)</a>を使用できるように修正 </li>
 <li>
 ASSERT マクロが例外を throw するか設定する IUTEST_THROW_ON_ASSERT_FAILURE を追加(default=1)  </li>
 <li>
@@ -842,7 +848,7 @@ v0.27.0.0 <ul>
 <li>
 namespace を考慮した IUTEST_MAKE_SCOPED_PEEP, IUTEST_SCOPED_PEEP マクロを追加 </li>
 <li>
-<a class="el" href="../../d3/dda/namespaceiutest.html#ae122192fab03fe831e82c32db2bbd3be" title="グローバル環境セットクラスの追加">iutest::AddGlobalTestEnvironment</a> を使うとコンパイルエラーになる問題を修正 </li>
+<a class="el" href="../../d3/dda/namespaceiutest.html#acdaea2cf5a6af9802ac84083b4442fe5" title="グローバル環境セットクラスの追加">iutest::AddGlobalTestEnvironment</a> を使うとコンパイルエラーになる問題を修正 </li>
 <li>
 <a class="el" href="../../d3/d17/classiutest_1_1_environment.html" title="環境セットクラス">iutest::Environment</a> は new して使うように仕様変更 </li>
 <li>
@@ -856,7 +862,7 @@ RecordProperty でキーが重複した場合に上書きするように修正 <
 <li>
 IUTEST_HAS_PEEP, IUTEST_HAS_PEEP_FUNC, IUTEST_PEEP_STATIC_FUNC コンフィグマクロを追加 </li>
 <li>
-<a class="el" href="../../d9/d06/iutest__prod_8hpp.html" title="iris unit test production code 対応用 ファイル">iutest_prod.hpp</a> に private メンバーへのアクセス機能を追加(IUTEST_MAKE_PEEP, IUTEST_PEEP_GET etc...) </li>
+<a class="el" href="../../d9/d06/iutest__prod_8hpp.html" title="iris unit test production code 対応用 ファイル">iutest_prod.hpp</a> に private <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de" title="型アサーション">メンバーへのアクセス機能を追加(IUTEST_MAKE_PEEP, IUTEST_PEEP_GET etc...)</a> </li>
 <li>
 IUTEST_FRIEND_TEST 不具合修正 </li>
 </ul>
@@ -1044,13 +1050,13 @@ IUTEST_FLAG マクロによるオプション指定に対応 </li>
 <li>
 イベントリスナー対応 </li>
 <li>
-グローバル環境セットに対応(iutest::AddGlobalTestEnvironment) </li>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de" title="型アサーション">グローバル環境セットに対応(iutest::AddGlobalTestEnvironment)</a> </li>
 <li>
-複合条件テスト用に述語アサーションのヘルパーを追加(iuutil::CmpHelperOR) </li>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de" title="型アサーション">複合条件テスト用に述語アサーションのヘルパーを追加(iuutil::CmpHelperOR)</a> </li>
 <li>
 型付けテスト対応 </li>
 <li>
-テストに乱数生成機能を追加( genrand ) </li>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de" title="型アサーション">テストに乱数生成機能を追加( genrand )</a> </li>
 <li>
 環境変数でのテストオプション指定に対応 </li>
 <li>
@@ -1079,7 +1085,7 @@ xml 出力に対応 </li>
 </div><!-- PageDoc -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2026年09月03日(木) 01時29分46秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2026年09月03日(木) 02時21分29秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

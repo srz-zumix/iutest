@@ -1,5 +1,7 @@
 <map id="iutest::IUTEST_CXX_FINAL&lt; FILE &gt;" name="iutest::IUTEST_CXX_FINAL&lt; FILE &gt;">
-<area shape="rect" id="node1" title="ファイル処理クラスインターフェイス" alt="" coords="117,80,263,121"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,193,32"/>
-<area shape="rect" id="node3" href="$d3/d87/classiutest_1_1_test_suite.html" title="TestSuite" alt="" coords="217,5,344,32"/>
+<area shape="rect" id="Node000001" title="ファイル処理クラスインターフェイス" alt="" coords="117,79,263,119"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,193,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,38,170,76,166,81,121,42"/>
+<area shape="rect" id="Node000003" href="$d3/d87/classiutest_1_1_test_suite.html" title="TestSuite" alt="" coords="217,5,344,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="259,42,214,81,210,76,255,38"/>
 </map>

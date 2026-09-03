@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: iutest_util.hpp ファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -19,10 +19,9 @@
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.14</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">iutest<span id="projectnumber">&#160;1.17.99.14</span>
    </div>
   </td>
  </tr>
@@ -30,21 +29,22 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.9.1 -->
+<!-- 構築: Doxygen 1.9.8 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
 <script type="text/javascript" src="../../menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
   initMenu('../../',true,false,'search.php','検索');
   $(document).ready(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -55,9 +55,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
 </div>
 
 </div><!-- top -->
@@ -66,8 +73,7 @@ $(function() {
 <a href="#namespaces">名前空間</a> &#124;
 <a href="#define-members">マクロ定義</a> &#124;
 <a href="#func-members">関数</a>  </div>
-  <div class="headertitle">
-<div class="title">iutest_util.hpp ファイル</div>  </div>
+  <div class="headertitle"><div class="title">iutest_util.hpp ファイル</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -83,17 +89,36 @@ iutest_util.hpp の依存先関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../da/db5/iutest__util_8hpp__incl.png" border="0" usemap="#aiutest__util_8hpp" alt=""/></div>
 <map name="aiutest__util_8hpp" id="aiutest__util_8hpp">
-<area shape="rect" title="iris unit test utility" alt="" coords="367,5,481,32"/>
-<area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="289,393,423,420"/>
-<area shape="rect" href="../../dc/dbb/iutest__util__assertion_8hpp.html" title="iris unit test assertion 拡張 ファイル" alt="" coords="138,80,345,107"/>
-<area shape="rect" href="../../df/de1/iutest__util__output_8hpp.html" title="iris unit test print 出力 utility ファイル" alt="" coords="329,162,519,189"/>
-<area shape="rect" href="../../df/d01/iutest__util__quiet__result__printer_8hpp.html" title="iris unit test quiet result printer" alt="" coords="543,155,695,196"/>
-<area shape="rect" href="../../d8/def/iutest__util__tests_8hpp.html" title="iris unit test テスト情報 utility ファイル" alt="" coords="609,80,788,107"/>
-<area shape="rect" href="../../d9/d0b/iutest__type__traits_8hpp_source.html" title=" " alt="" coords="178,155,305,196"/>
-<area shape="rect" href="../../dc/d2f/iutest__compiler_8hpp.html" title="iris unit test compiler 依存の吸収 ファイル" alt="" coords="181,244,331,271"/>
-<area shape="rect" href="../../d9/d6f/iutest__pp_8hpp.html" title="preprocessor definition" alt="" coords="413,244,523,271"/>
-<area shape="rect" href="../../da/d9f/iutest__platform_8hpp.html" title="iris unit test platform detection" alt="" coords="195,319,346,345"/>
-<area shape="rect" href="../../d7/d02/iutest__pragma_8hpp.html" title="pragma macros" alt="" coords="371,319,515,345"/>
+<area shape="rect" title="iris unit test utility" alt="" coords="367,5,481,31"/>
+<area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="289,387,423,412"/>
+<area shape="poly" title=" " alt="" coords="367,26,253,42,188,58,126,81,44,112,29,121,18,133,11,149,8,171,8,254,10,274,15,292,35,323,65,348,103,366,145,379,190,388,276,396,275,401,189,393,144,384,101,371,62,352,31,327,10,295,5,275,3,254,3,171,5,148,13,130,25,117,41,107,124,76,187,53,252,37,366,20"/>
+<area shape="rect" href="../../dc/dbb/iutest__util__assertion_8hpp.html" title="iris unit test assertion 拡張 ファイル" alt="" coords="138,79,345,104"/>
+<area shape="poly" title=" " alt="" coords="396,33,285,76,283,71,394,28"/>
+<area shape="rect" href="../../df/de1/iutest__util__output_8hpp.html" title="iris unit test print 出力 utility ファイル" alt="" coords="329,159,519,185"/>
+<area shape="poly" title=" " alt="" coords="427,31,427,146,421,146,421,31"/>
+<area shape="rect" href="../../df/d01/iutest__util__quiet__result__printer_8hpp.html" title="iris unit test quiet result printer" alt="" coords="543,152,695,192"/>
+<area shape="poly" title=" " alt="" coords="440,29,585,141,582,145,437,33"/>
+<area shape="rect" href="../../d8/def/iutest__util__tests_8hpp.html" title="iris unit test テスト情報 utility ファイル" alt="" coords="609,79,788,104"/>
+<area shape="poly" title=" " alt="" coords="469,28,642,73,640,78,467,33"/>
+<area shape="poly" title=" " alt="" coords="220,106,191,126,168,153,143,204,131,248,131,269,136,291,145,313,161,337,184,360,213,376,244,387,276,393,275,398,243,392,211,381,181,364,157,340,141,316,130,293,126,270,126,248,138,202,163,151,188,122,217,102"/>
+<area shape="rect" href="../../d9/d0b/iutest__type__traits_8hpp_source.html" title=" " alt="" coords="178,152,305,192"/>
+<area shape="poly" title=" " alt="" coords="244,104,244,138,239,138,239,104"/>
+<area shape="poly" title=" " alt="" coords="212,194,189,215,170,241,165,261,163,288,166,315,176,337,196,357,221,372,248,382,276,389,275,395,247,388,219,377,193,361,171,340,161,317,158,288,160,260,166,239,185,211,209,190"/>
+<area shape="rect" href="../../dc/d2f/iutest__compiler_8hpp.html" title="iris unit test compiler 依存の吸収 ファイル" alt="" coords="181,240,331,265"/>
+<area shape="poly" title=" " alt="" coords="248,192,254,226,249,227,242,193"/>
+<area shape="rect" href="../../d9/d6f/iutest__pp_8hpp.html" title="preprocessor definition" alt="" coords="413,240,523,265"/>
+<area shape="poly" title=" " alt="" coords="296,189,423,233,421,238,295,195"/>
+<area shape="poly" title=" " alt="" coords="235,268,212,282,192,299,181,318,181,328,185,337,203,356,226,371,277,389,275,394,223,376,200,360,180,340,175,329,176,317,188,296,209,278,232,263"/>
+<area shape="rect" href="../../da/d9f/iutest__platform_8hpp.html" title="iris unit test platform detection" alt="" coords="195,313,346,339"/>
+<area shape="poly" title=" " alt="" coords="261,265,268,299,263,300,256,266"/>
+<area shape="rect" href="../../d7/d02/iutest__pragma_8hpp.html" title="pragma macros" alt="" coords="371,313,515,339"/>
+<area shape="poly" title=" " alt="" coords="287,263,400,306,399,311,285,268"/>
+<area shape="poly" title=" " alt="" coords="286,337,333,376,330,380,283,341"/>
+<area shape="poly" title=" " alt="" coords="430,341,382,380,379,376,427,337"/>
+<area shape="poly" title=" " alt="" coords="488,263,507,278,524,297,534,318,534,329,529,340,510,360,488,375,437,393,435,388,485,370,507,356,524,337,529,328,529,319,520,300,503,282,485,268"/>
+<area shape="poly" title=" " alt="" coords="459,182,500,204,520,220,537,238,553,265,563,289,563,314,550,340,527,363,499,380,468,391,437,397,436,392,467,386,497,375,524,359,546,337,558,313,558,290,549,267,533,242,516,223,497,208,456,187"/>
+<area shape="poly" title=" " alt="" coords="622,192,620,224,614,264,600,305,575,341,545,364,509,381,473,391,437,398,436,392,471,386,508,376,542,360,571,337,595,302,609,262,615,223,616,192"/>
+<area shape="poly" title=" " alt="" coords="705,103,713,143,714,168,709,193,692,242,672,279,644,310,603,341,563,363,520,378,437,395,436,390,519,373,561,358,600,336,641,306,668,276,687,240,704,191,708,168,708,144,700,105"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -101,30 +126,32 @@ iutest_util.hpp の依存先関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d2/de9/iutest__util_8hpp__dep__incl.png" border="0" usemap="#aiutest__util_8hppdep" alt=""/></div>
 <map name="aiutest__util_8hppdep" id="aiutest__util_8hppdep">
-<area shape="rect" title="iris unit test utility" alt="" coords="5,5,120,32"/>
-<area shape="rect" href="../../d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="19,80,106,107"/>
-<area shape="rect" href="../../d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="6,155,119,181"/>
+<area shape="rect" title="iris unit test utility" alt="" coords="5,5,120,31"/>
+<area shape="rect" href="../../d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="19,79,106,104"/>
+<area shape="poly" title=" " alt="" coords="65,44,65,79,60,79,60,44"/>
+<area shape="rect" href="../../d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="6,152,119,177"/>
+<area shape="poly" title=" " alt="" coords="65,118,65,152,60,152,60,118"/>
 </map>
 </div>
 </div>
 <p><a href="../../de/dd4/iutest__util_8hpp_source.html">[ソースコード]</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 名前空間</h2></td></tr>
-<tr class="memitem:d8/dbf/namespaceiuutil"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html">iuutil</a></td></tr>
+<tr class="memitem:d8/dbf/namespaceiuutil" id="r_d8/dbf/namespaceiuutil"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html">iuutil</a></td></tr>
 <tr class="memdesc:d8/dbf/namespaceiuutil"><td class="mdescLeft">&#160;</td><td class="mdescRight">iutest utility namespace <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 マクロ定義</h2></td></tr>
-<tr class="memitem:ga8ba399df1d5004bcfe85532ea984b5e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga8ba399df1d5004bcfe85532ea984b5e7">IUTEST_FILESYSTEM_INSTANTIATE</a>(file_class_name)&#160;&#160;&#160;IIUT_FILESYSTEM_INSTANTIATE_(file_class_name)</td></tr>
-<tr class="memdesc:ga8ba399df1d5004bcfe85532ea984b5e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">ファイルシステムの設定  <a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga8ba399df1d5004bcfe85532ea984b5e7">[詳解]</a><br /></td></tr>
+<tr class="memitem:ga8ba399df1d5004bcfe85532ea984b5e7" id="r_ga8ba399df1d5004bcfe85532ea984b5e7"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga8ba399df1d5004bcfe85532ea984b5e7">IUTEST_FILESYSTEM_INSTANTIATE</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">file_class_name</a>)&#160;&#160;&#160;IIUT_FILESYSTEM_INSTANTIATE_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">file_class_name</a>)</td></tr>
+<tr class="memdesc:ga8ba399df1d5004bcfe85532ea984b5e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">ファイルシステムの設定  <br /></td></tr>
 <tr class="separator:ga8ba399df1d5004bcfe85532ea984b5e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 関数</h2></td></tr>
-<tr class="memitem:ga9af52b2856871d318fcaa65b1452e7e7"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9af52b2856871d318fcaa65b1452e7e7">iuutil::ReleaseDefaultXmlGenerator</a> ()</td></tr>
+<tr class="memitem:ga9af52b2856871d318fcaa65b1452e7e7" id="r_ga9af52b2856871d318fcaa65b1452e7e7"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memItemRight" valign="bottom"><b>iuutil::ReleaseDefaultXmlGenerator</b> ()</td></tr>
 <tr class="memdesc:ga9af52b2856871d318fcaa65b1452e7e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Xml Generator の解放 <br /></td></tr>
 <tr class="separator:ga9af52b2856871d318fcaa65b1452e7e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -136,7 +163,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2026年09月03日(木) 01時29分46秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2026年09月03日(木) 02時21分29秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

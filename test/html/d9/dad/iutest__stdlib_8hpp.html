@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: internal/iutest_stdlib.hpp ファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -19,10 +19,9 @@
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.14</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">iutest<span id="projectnumber">&#160;1.17.99.14</span>
    </div>
   </td>
  </tr>
@@ -30,21 +29,22 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.9.1 -->
+<!-- 構築: Doxygen 1.9.8 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
 <script type="text/javascript" src="../../menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
   initMenu('../../',true,false,'search.php','検索');
   $(document).ready(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -55,9 +55,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -71,8 +78,7 @@ $(function() {
 <a href="#namespaces">名前空間</a> &#124;
 <a href="#define-members">マクロ定義</a> &#124;
 <a href="#func-members">関数</a>  </div>
-  <div class="headertitle">
-<div class="title">iutest_stdlib.hpp ファイル</div>  </div>
+  <div class="headertitle"><div class="title">iutest_stdlib.hpp ファイル</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -85,19 +91,35 @@ iutest_stdlib.hpp の依存先関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../da/d8f/iutest__stdlib_8hpp__incl.png" border="0" usemap="#ainternal_2iutest__stdlib_8hpp" alt=""/></div>
 <map name="ainternal_2iutest__stdlib_8hpp" id="ainternal_2iutest__stdlib_8hpp">
-<area shape="rect" title="stdlib" alt="" coords="83,5,267,32"/>
-<area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="5,304,139,331"/>
-<area shape="rect" href="../../da/d92/iutest__stdlib__defs_8hpp.html" title="stdlib detect defines" alt="" coords="343,80,508,107"/>
-<area shape="rect" href="../../dc/d2f/iutest__compiler_8hpp.html" title="iris unit test compiler 依存の吸収 ファイル" alt="" coords="59,155,210,181"/>
-<area shape="rect" title=" " alt="" coords="234,155,321,181"/>
-<area shape="rect" title=" " alt="" coords="345,155,415,181"/>
-<area shape="rect" title=" " alt="" coords="439,155,505,181"/>
-<area shape="rect" title=" " alt="" coords="529,155,599,181"/>
-<area shape="rect" title=" " alt="" coords="624,155,683,181"/>
-<area shape="rect" title=" " alt="" coords="707,155,786,181"/>
-<area shape="rect" title=" " alt="" coords="810,155,881,181"/>
-<area shape="rect" href="../../da/d9f/iutest__platform_8hpp.html" title="iris unit test platform detection" alt="" coords="110,229,261,256"/>
-<area shape="rect" href="../../d7/d02/iutest__pragma_8hpp.html" title="pragma macros" alt="" coords="285,229,429,256"/>
+<area shape="rect" title="stdlib" alt="" coords="83,5,267,31"/>
+<area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="5,299,139,324"/>
+<area shape="poly" title=" " alt="" coords="155,33,125,52,90,79,57,113,32,153,25,189,26,218,33,250,42,269,54,287,50,290,38,272,28,252,21,218,20,189,27,151,53,110,86,75,122,48,152,29"/>
+<area shape="rect" href="../../da/d92/iutest__stdlib__defs_8hpp.html" title="stdlib detect defines" alt="" coords="343,79,508,104"/>
+<area shape="poly" title=" " alt="" coords="216,28,372,72,371,77,214,33"/>
+<area shape="poly" title=" " alt="" coords="343,96,260,101,172,110,95,127,67,139,49,154,40,168,35,185,36,220,47,256,60,285,56,288,42,258,31,221,30,184,35,166,45,150,65,135,94,122,171,105,259,95,343,91"/>
+<area shape="rect" href="../../dc/d2f/iutest__compiler_8hpp.html" title="iris unit test compiler 依存の吸収 ファイル" alt="" coords="59,152,210,177"/>
+<area shape="poly" title=" " alt="" coords="379,107,195,151,194,146,378,101"/>
+<area shape="rect" title=" " alt="" coords="234,152,321,177"/>
+<area shape="poly" title=" " alt="" coords="403,106,315,148,313,144,400,102"/>
+<area shape="rect" title=" " alt="" coords="345,152,415,177"/>
+<area shape="poly" title=" " alt="" coords="420,106,397,142,392,139,416,103"/>
+<area shape="rect" title=" " alt="" coords="439,152,505,177"/>
+<area shape="poly" title=" " alt="" coords="435,103,459,139,455,142,431,106"/>
+<area shape="rect" title=" " alt="" coords="529,152,599,177"/>
+<area shape="poly" title=" " alt="" coords="449,102,530,143,528,148,446,106"/>
+<area shape="rect" title=" " alt="" coords="624,152,683,177"/>
+<area shape="poly" title=" " alt="" coords="463,101,611,148,610,153,461,107"/>
+<area shape="rect" title=" " alt="" coords="707,152,786,177"/>
+<area shape="poly" title=" " alt="" coords="478,101,695,149,693,154,476,107"/>
+<area shape="rect" title=" " alt="" coords="810,152,881,177"/>
+<area shape="poly" title=" " alt="" coords="509,101,640,121,797,149,796,154,639,126,508,107"/>
+<area shape="poly" title=" " alt="" coords="128,179,100,226,80,286,75,284,95,224,124,176"/>
+<area shape="rect" href="../../da/d9f/iutest__platform_8hpp.html" title="iris unit test platform detection" alt="" coords="110,225,261,251"/>
+<area shape="poly" title=" " alt="" coords="145,176,171,213,167,216,141,179"/>
+<area shape="rect" href="../../d7/d02/iutest__pragma_8hpp.html" title="pragma macros" alt="" coords="285,225,429,251"/>
+<area shape="poly" title=" " alt="" coords="171,175,309,219,308,224,170,180"/>
+<area shape="poly" title=" " alt="" coords="169,253,103,294,100,289,166,248"/>
+<area shape="poly" title=" " alt="" coords="312,253,132,298,131,293,311,248"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -105,45 +127,90 @@ iutest_stdlib.hpp の依存先関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dd/db4/iutest__stdlib_8hpp__dep__incl.png" border="0" usemap="#ainternal_2iutest__stdlib_8hppdep" alt=""/></div>
 <map name="ainternal_2iutest__stdlib_8hppdep" id="ainternal_2iutest__stdlib_8hppdep">
-<area shape="rect" title="stdlib" alt="" coords="397,5,581,32"/>
-<area shape="rect" href="../../d2/d40/iutest__locale_8hpp.html" title="iris unit test locale utilities" alt="" coords="270,162,457,189"/>
-<area shape="rect" href="../../d1/d84/iutest__defs_8hpp.html" title="iris unit test definition" alt="" coords="493,80,615,107"/>
-<area shape="rect" href="../../d5/dd3/iutest__charcode_8hpp.html" title="iris unit test 文字コード対応 ファイル" alt="" coords="228,483,435,509"/>
-<area shape="rect" href="../../d0/dda/iutest__env_8hpp.html" title="iris unit test 環境 ファイル" alt="" coords="227,557,345,584"/>
-<area shape="rect" href="../../dc/d1c/iutest__log__stream_8hpp.html" title="iris unit test log io stream" alt="" coords="191,856,331,897"/>
-<area shape="rect" href="../../d3/d0c/iutest__message_8hpp.html" title="iris unit test メッセージ ファイル" alt="" coords="279,632,485,659"/>
-<area shape="rect" href="../../d8/d0f/iutest__tap__printer_8hpp.html" title="iris unit test Test Anything Protocol 出力イベントリスナー ファイル" alt="" coords="311,1288,451,1329"/>
-<area shape="rect" href="../../d5/dd2/iutest__result_8hpp.html" title="iris unit test result" alt="" coords="335,707,466,733"/>
-<area shape="rect" href="../../d0/d42/iutest__assertion_8hpp.html" title="iris unit test assertion 定義 ファイル" alt="" coords="361,781,515,808"/>
-<area shape="rect" href="../../de/dc7/iutest__pred_8hpp.html" title="iris unit test 述語 Assertion ファイル" alt="" coords="377,863,499,890"/>
-<area shape="rect" href="../../db/d32/iutest__internal_8hpp.html" title="iris unit test internal definition" alt="" coords="339,945,537,972"/>
-<area shape="rect" href="../../dc/d62/iutest__core__impl_8hpp.html" title="iris unit test UnitTest core" alt="" coords="369,1020,517,1061"/>
-<area shape="rect" href="../../d5/d65/iutest__result__reporter_8hpp.html" title="iris unit test TestPartResult リポーター ファイル" alt="" coords="573,1109,730,1151"/>
-<area shape="rect" href="../../d0/db5/iutest__core_8hpp.html" title="iris unit test core" alt="" coords="599,1206,722,1233"/>
-<area shape="rect" href="../../d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="845,1295,932,1322"/>
-<area shape="rect" href="../../dc/d5d/iutest__progress__printer_8hpp.html" title="iris unit test プログレス出力イベントリスナー ファイル" alt="" coords="475,1288,649,1329"/>
-<area shape="rect" href="../../d3/d80/iutest__sstp__notifier_8hpp.html" title="iris unit test SSTP 通知 ファイル" alt="" coords="674,1288,821,1329"/>
-<area shape="rect" href="../../d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="832,1377,945,1404"/>
-<area shape="rect" href="../../d3/d4c/iutest__internal__defs_8hpp.html" title="internal definition" alt="" coords="703,319,874,360"/>
-<area shape="rect" href="../../d8/dc8/iutest__string__view_8hpp.html" title="string_view" alt="" coords="534,155,691,196"/>
-<area shape="rect" href="../../d2/d0b/iutest__printers_8hpp.html" title="iris unit test print 出力ヘルパー ファイル" alt="" coords="426,326,570,353"/>
-<area shape="rect" href="../../d3/d0a/iutest__file_8hpp.html" title="iris unit test ファイルクラス ファイル" alt="" coords="805,1117,973,1143"/>
-<area shape="rect" href="../../d1/d2a/iutest__port_8hpp.html" title="portable" alt="" coords="651,408,825,435"/>
-<area shape="rect" href="../../dd/de1/iutest__socket_8hpp.html" title="soket" alt="" coords="1051,408,1241,435"/>
-<area shape="rect" href="../../d9/d00/iutest__time_8hpp.html" title="time utility" alt="" coords="87,408,266,435"/>
-<area shape="rect" href="../../d4/d63/iutest__any_8hpp.html" title="iris unit test any object" alt="" coords="911,408,1027,435"/>
-<area shape="rect" href="../../d7/d00/iutest__stream__capture_8hpp.html" title="iris unit test stream capture" alt="" coords="805,1199,972,1240"/>
-<area shape="rect" href="../../d5/d66/iutest__filepath_8hpp.html" title="iris unit test ファイルパスクラス ファイル" alt="" coords="561,557,758,584"/>
-<area shape="rect" href="../../d0/d23/iutest__legacy_8hpp.html" title="iris unit test legacy testcase support" alt="" coords="700,707,835,733"/>
-<area shape="rect" href="../../d7/d8c/iutest__random_8hpp.html" title="iris unit test 乱数生成器 定義 ファイル" alt="" coords="5,483,204,509"/>
-<area shape="rect" href="../../dc/df5/iutest__param__tests_8hpp.html" title="iris unit test parameter 定義 ファイル" alt="" coords="916,781,1091,808"/>
-<area shape="rect" href="../../dd/dc6/iutest__tchar_8hpp.html" title="iris unit test char/wchar_t mediator" alt="" coords="647,244,827,271"/>
+<area shape="rect" title="stdlib" alt="" coords="397,5,581,31"/>
+<area shape="rect" href="../../d2/d40/iutest__locale_8hpp.html" title="iris unit test locale utilities" alt="" coords="270,159,457,185"/>
+<area shape="poly" title=" " alt="" coords="472,43,375,161,371,157,468,40"/>
+<area shape="rect" href="../../d1/d84/iutest__defs_8hpp.html" title="iris unit test definition" alt="" coords="493,79,615,104"/>
+<area shape="poly" title=" " alt="" coords="511,39,545,77,541,80,507,43"/>
+<area shape="rect" href="../../d5/dd3/iutest__charcode_8hpp.html" title="iris unit test 文字コード対応 ファイル" alt="" coords="228,475,435,500"/>
+<area shape="poly" title=" " alt="" coords="363,199,335,474,330,474,358,198"/>
+<area shape="rect" href="../../d0/dda/iutest__env_8hpp.html" title="iris unit test 環境 ファイル" alt="" coords="227,548,345,573"/>
+<area shape="poly" title=" " alt="" coords="319,513,296,549,291,546,314,510"/>
+<area shape="rect" href="../../dc/d1c/iutest__log__stream_8hpp.html" title="iris unit test log io stream" alt="" coords="191,841,331,881"/>
+<area shape="poly" title=" " alt="" coords="279,587,269,622,261,684,259,746,262,841,257,841,254,746,256,684,263,621,273,585"/>
+<area shape="rect" href="../../d3/d0c/iutest__message_8hpp.html" title="iris unit test メッセージ ファイル" alt="" coords="279,621,485,647"/>
+<area shape="poly" title=" " alt="" coords="314,579,368,619,365,623,311,584"/>
+<area shape="rect" href="../../d8/d0f/iutest__tap__printer_8hpp.html" title="iris unit test Test Anything Protocol 出力イベントリスナー ファイル" alt="" coords="311,1267,451,1307"/>
+<area shape="poly" title=" " alt="" coords="270,894,280,953,285,1021,285,1112,287,1135,293,1158,313,1201,339,1237,363,1265,359,1268,335,1240,308,1203,288,1160,282,1136,279,1112,279,1021,274,954,265,895"/>
+<area shape="rect" href="../../d5/dd2/iutest__result_8hpp.html" title="iris unit test result" alt="" coords="335,695,466,720"/>
+<area shape="poly" title=" " alt="" coords="391,659,400,694,395,695,386,661"/>
+<area shape="rect" href="../../d0/d42/iutest__assertion_8hpp.html" title="iris unit test assertion 定義 ファイル" alt="" coords="361,768,515,793"/>
+<area shape="poly" title=" " alt="" coords="415,731,434,767,430,769,411,733"/>
+<area shape="rect" href="../../de/dc7/iutest__pred_8hpp.html" title="iris unit test 述語 Assertion ファイル" alt="" coords="377,849,499,874"/>
+<area shape="poly" title=" " alt="" coords="441,807,441,848,435,848,435,807"/>
+<area shape="rect" href="../../db/d32/iutest__internal_8hpp.html" title="iris unit test internal definition" alt="" coords="339,929,537,955"/>
+<area shape="poly" title=" " alt="" coords="441,888,441,929,435,929,435,888"/>
+<area shape="rect" href="../../dc/d62/iutest__core__impl_8hpp.html" title="iris unit test UnitTest core" alt="" coords="369,1003,517,1043"/>
+<area shape="poly" title=" " alt="" coords="442,968,445,1002,439,1003,437,969"/>
+<area shape="rect" href="../../d5/d65/iutest__result__reporter_8hpp.html" title="iris unit test TestPartResult リポーター ファイル" alt="" coords="573,1091,730,1131"/>
+<area shape="poly" title=" " alt="" coords="503,1045,607,1088,605,1093,501,1050"/>
+<area shape="rect" href="../../d0/db5/iutest__core_8hpp.html" title="iris unit test core" alt="" coords="599,1186,722,1211"/>
+<area shape="poly" title=" " alt="" coords="658,1144,662,1185,657,1186,652,1145"/>
+<area shape="poly" title=" " alt="" coords="610,1218,443,1269,442,1264,609,1213"/>
+<area shape="rect" href="../../d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="845,1274,932,1299"/>
+<area shape="poly" title=" " alt="" coords="705,1214,859,1271,857,1276,703,1219"/>
+<area shape="rect" href="../../dc/d5d/iutest__progress__printer_8hpp.html" title="iris unit test プログレス出力イベントリスナー ファイル" alt="" coords="475,1267,649,1307"/>
+<area shape="poly" title=" " alt="" coords="639,1222,586,1269,582,1264,635,1218"/>
+<area shape="rect" href="../../d3/d80/iutest__sstp__notifier_8hpp.html" title="iris unit test SSTP 通知 ファイル" alt="" coords="674,1267,821,1307"/>
+<area shape="poly" title=" " alt="" coords="684,1219,730,1264,726,1268,680,1223"/>
+<area shape="rect" href="../../d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="832,1355,945,1380"/>
+<area shape="poly" title=" " alt="" coords="891,1313,891,1354,886,1354,886,1313"/>
+<area shape="rect" href="../../d3/d4c/iutest__internal__defs_8hpp.html" title="internal definition" alt="" coords="703,313,874,353"/>
+<area shape="poly" title=" " alt="" coords="629,104,686,122,745,149,774,166,800,187,823,211,842,239,846,260,840,280,828,299,813,315,809,311,824,296,835,278,841,259,837,241,819,214,797,191,771,171,743,153,684,127,628,109"/>
+<area shape="rect" href="../../d8/dc8/iutest__string__view_8hpp.html" title="string_view" alt="" coords="534,152,691,192"/>
+<area shape="poly" title=" " alt="" coords="573,114,601,150,596,153,569,117"/>
+<area shape="rect" href="../../d2/d0b/iutest__printers_8hpp.html" title="iris unit test print 出力ヘルパー ファイル" alt="" coords="426,321,570,346"/>
+<area shape="poly" title=" " alt="" coords="541,117,525,153,513,201,505,248,501,320,495,320,500,248,507,199,519,151,536,115"/>
+<area shape="rect" href="../../d3/d0a/iutest__file_8hpp.html" title="iris unit test ファイルクラス ファイル" alt="" coords="805,1098,973,1123"/>
+<area shape="poly" title=" " alt="" coords="818,362,838,386,856,416,870,450,875,486,875,943,881,1032,889,1097,884,1098,875,1032,870,943,870,486,865,452,851,419,833,390,814,365"/>
+<area shape="rect" href="../../d1/d2a/iutest__port_8hpp.html" title="portable" alt="" coords="651,401,825,427"/>
+<area shape="poly" title=" " alt="" coords="771,366,748,402,743,400,767,364"/>
+<area shape="rect" href="../../dd/de1/iutest__socket_8hpp.html" title="soket" alt="" coords="1051,401,1241,427"/>
+<area shape="poly" title=" " alt="" coords="888,354,1094,399,1093,404,887,359"/>
+<area shape="rect" href="../../d9/d00/iutest__time_8hpp.html" title="time utility" alt="" coords="87,401,266,427"/>
+<area shape="poly" title=" " alt="" coords="690,350,266,404,265,399,689,345"/>
+<area shape="rect" href="../../d4/d63/iutest__any_8hpp.html" title="iris unit test any object" alt="" coords="911,401,1027,427"/>
+<area shape="poly" title=" " alt="" coords="845,356,943,399,941,404,843,361"/>
+<area shape="poly" title=" " alt="" coords="846,1131,692,1188,690,1183,844,1126"/>
+<area shape="rect" href="../../d7/d00/iutest__stream__capture_8hpp.html" title="iris unit test stream capture" alt="" coords="805,1179,972,1219"/>
+<area shape="poly" title=" " alt="" coords="891,1137,891,1178,886,1178,886,1137"/>
+<area shape="poly" title=" " alt="" coords="891,1233,891,1274,886,1274,886,1233"/>
+<area shape="poly" title=" " alt="" coords="660,432,397,477,396,472,659,426"/>
+<area shape="rect" href="../../d5/d66/iutest__filepath_8hpp.html" title="iris unit test ファイルパスクラス ファイル" alt="" coords="561,548,758,573"/>
+<area shape="poly" title=" " alt="" coords="727,440,668,549,663,547,723,438"/>
+<area shape="rect" href="../../d0/d23/iutest__legacy_8hpp.html" title="iris unit test legacy testcase support" alt="" coords="700,695,835,720"/>
+<area shape="poly" title=" " alt="" coords="748,439,762,489,773,548,775,632,771,695,766,694,770,632,767,548,757,490,743,440"/>
+<area shape="poly" title=" " alt="" coords="639,585,618,608,598,637,583,671,577,706,577,863,571,927,555,990,532,1051,505,1108,446,1205,399,1268,394,1265,441,1202,500,1106,528,1049,550,989,566,926,571,863,571,706,578,669,594,635,614,605,635,582"/>
+<area shape="poly" title=" " alt="" coords="770,734,770,860,770,1112,773,1168,781,1191,796,1217,811,1235,829,1250,865,1272,862,1276,826,1254,807,1238,792,1220,776,1193,768,1169,765,1112,765,860,765,734"/>
+<area shape="rect" href="../../d7/d8c/iutest__random_8hpp.html" title="iris unit test 乱数生成器 定義 ファイル" alt="" coords="5,475,204,500"/>
+<area shape="poly" title=" " alt="" coords="157,439,118,476,114,473,153,435"/>
+<area shape="poly" title=" " alt="" coords="147,502,257,545,255,550,145,507"/>
+<area shape="rect" href="../../dc/df5/iutest__param__tests_8hpp.html" title="iris unit test parameter 定義 ファイル" alt="" coords="916,768,1091,793"/>
+<area shape="poly" title=" " alt="" coords="975,440,982,495,986,559,986,635,993,711,1003,767,998,768,987,711,981,635,981,559,977,495,970,441"/>
+<area shape="poly" title=" " alt="" coords="1008,807,1013,941,1013,1112,1010,1169,1003,1193,987,1220,971,1238,953,1254,916,1276,913,1272,950,1250,968,1235,982,1217,998,1191,1005,1168,1007,1112,1007,941,1002,807"/>
+<area shape="poly" title=" " alt="" coords="616,205,623,236,637,264,671,292,711,311,709,316,668,296,633,267,618,237,611,206"/>
+<area shape="rect" href="../../dd/dc6/iutest__tchar_8hpp.html" title="iris unit test char/wchar_t mediator" alt="" coords="647,240,827,265"/>
+<area shape="poly" title=" " alt="" coords="656,197,720,238,717,242,653,202"/>
+<area shape="poly" title=" " alt="" coords="593,205,509,322,504,319,589,202"/>
+<area shape="poly" title=" " alt="" coords="754,275,778,312,774,315,750,278"/>
+<area shape="poly" title=" " alt="" coords="494,360,475,424,448,501,417,571,391,622,386,620,412,568,444,499,470,423,489,358"/>
+<area shape="poly" title=" " alt="" coords="507,359,519,417,526,486,526,636,518,677,498,715,474,747,453,769,449,766,470,743,494,713,513,676,521,635,521,486,514,417,502,360"/>
 </map>
 </div>
 </div>
 <p><a href="../../d9/dad/iutest__stdlib_8hpp_source.html">[ソースコード]</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 クラス</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dd4/structiutest_1_1tuples_1_1tuple__size.html">iutest::tuples::tuple_size&lt; T &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -173,43 +240,43 @@ iutest_stdlib.hpp の依存先関係図:</div>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/da2/classiutest_1_1stl_1_1optional.html">iutest::stl::optional&lt; T &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 名前空間</h2></td></tr>
-<tr class="memitem:d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
+<tr class="memitem:d3/dda/namespaceiutest" id="r_d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
 <tr class="memdesc:d3/dda/namespaceiutest"><td class="mdescLeft">&#160;</td><td class="mdescRight">iutest root namespace <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 マクロ定義</h2></td></tr>
-<tr class="memitem:a9323b8b4a8d3fab05f085b08de5ae9ac"><td class="memItemLeft" align="right" valign="top"><a id="a9323b8b4a8d3fab05f085b08de5ae9ac"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dad/iutest__stdlib_8hpp.html#a9323b8b4a8d3fab05f085b08de5ae9ac">IUTEST_USING_BEGIN_END</a>()&#160;&#160;&#160;    using ::iutest::detail::cxx::begin; using ::iutest::detail::cxx::end</td></tr>
+<tr class="memitem:a9323b8b4a8d3fab05f085b08de5ae9ac" id="r_a9323b8b4a8d3fab05f085b08de5ae9ac"><td class="memItemLeft" align="right" valign="top"><a id="a9323b8b4a8d3fab05f085b08de5ae9ac" name="a9323b8b4a8d3fab05f085b08de5ae9ac"></a>
+#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_USING_BEGIN_END</b>()&#160;&#160;&#160;    <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">using</a> ::iutest::detail::cxx::begin; <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">using</a> ::iutest::detail::cxx::end</td></tr>
 <tr class="memdesc:a9323b8b4a8d3fab05f085b08de5ae9ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">using begin,end <br /></td></tr>
 <tr class="separator:a9323b8b4a8d3fab05f085b08de5ae9ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 関数</h2></td></tr>
-<tr class="memitem:adbdd3fa9d2055488242289c7e0284202"><td class="memTemplParams" colspan="2"><a id="adbdd3fa9d2055488242289c7e0284202"></a>
-template&lt;int I, typename tuple_t , typename F &gt; </td></tr>
-<tr class="memitem:adbdd3fa9d2055488242289c7e0284202"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::tuples::tuple_foreach</b> (tuple_t &amp;t, F &amp;fn)</td></tr>
+<tr class="memitem:adbdd3fa9d2055488242289c7e0284202" id="r_adbdd3fa9d2055488242289c7e0284202"><td class="memTemplParams" colspan="2"><a id="adbdd3fa9d2055488242289c7e0284202" name="adbdd3fa9d2055488242289c7e0284202"></a>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> I, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">tuple_t</a> , <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">F</a> &gt; </td></tr>
+<tr class="memitem:adbdd3fa9d2055488242289c7e0284202"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::tuples::tuple_foreach</b> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">tuple_t</a> &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">t</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">F</a> &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">fn</a>)</td></tr>
 <tr class="separator:adbdd3fa9d2055488242289c7e0284202"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5edb56c171dfa1aa232c8ce6edcc391a"><td class="memTemplParams" colspan="2"><a id="a5edb56c171dfa1aa232c8ce6edcc391a"></a>
-template&lt;typename tuple_t , typename F &gt; </td></tr>
-<tr class="memitem:a5edb56c171dfa1aa232c8ce6edcc391a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::tuples::tuple_foreach</b> (tuple_t &amp;t, F &amp;fn)</td></tr>
+<tr class="memitem:a5edb56c171dfa1aa232c8ce6edcc391a" id="r_a5edb56c171dfa1aa232c8ce6edcc391a"><td class="memTemplParams" colspan="2"><a id="a5edb56c171dfa1aa232c8ce6edcc391a" name="a5edb56c171dfa1aa232c8ce6edcc391a"></a>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">tuple_t</a> , <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">F</a> &gt; </td></tr>
+<tr class="memitem:a5edb56c171dfa1aa232c8ce6edcc391a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::tuples::tuple_foreach</b> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">tuple_t</a> &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">t</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">F</a> &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">fn</a>)</td></tr>
 <tr class="separator:a5edb56c171dfa1aa232c8ce6edcc391a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe93e3e112c44b0e57b191b7015cdda2"><td class="memTemplParams" colspan="2"><a id="abe93e3e112c44b0e57b191b7015cdda2"></a>
-template&lt;int I, typename tuple_t , typename F &gt; </td></tr>
-<tr class="memitem:abe93e3e112c44b0e57b191b7015cdda2"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::tuples::tuple_foreach</b> (tuple_t &amp;t, const F &amp;fn)</td></tr>
+<tr class="memitem:abe93e3e112c44b0e57b191b7015cdda2" id="r_abe93e3e112c44b0e57b191b7015cdda2"><td class="memTemplParams" colspan="2"><a id="abe93e3e112c44b0e57b191b7015cdda2" name="abe93e3e112c44b0e57b191b7015cdda2"></a>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> I, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">tuple_t</a> , <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">F</a> &gt; </td></tr>
+<tr class="memitem:abe93e3e112c44b0e57b191b7015cdda2"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::tuples::tuple_foreach</b> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">tuple_t</a> &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">t</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">F</a> &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">fn</a>)</td></tr>
 <tr class="separator:abe93e3e112c44b0e57b191b7015cdda2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9b3b712bb4276f72a8fea54add20bc4"><td class="memTemplParams" colspan="2"><a id="ae9b3b712bb4276f72a8fea54add20bc4"></a>
-template&lt;typename tuple_t , typename F &gt; </td></tr>
-<tr class="memitem:ae9b3b712bb4276f72a8fea54add20bc4"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::tuples::tuple_foreach</b> (tuple_t &amp;t, const F &amp;fn)</td></tr>
+<tr class="memitem:ae9b3b712bb4276f72a8fea54add20bc4" id="r_ae9b3b712bb4276f72a8fea54add20bc4"><td class="memTemplParams" colspan="2"><a id="ae9b3b712bb4276f72a8fea54add20bc4" name="ae9b3b712bb4276f72a8fea54add20bc4"></a>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">tuple_t</a> , <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">F</a> &gt; </td></tr>
+<tr class="memitem:ae9b3b712bb4276f72a8fea54add20bc4"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::tuples::tuple_foreach</b> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">tuple_t</a> &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">t</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">F</a> &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">fn</a>)</td></tr>
 <tr class="separator:ae9b3b712bb4276f72a8fea54add20bc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1aaacab6000197d28a72357fb09ffc24"><td class="memTemplParams" colspan="2"><a id="a1aaacab6000197d28a72357fb09ffc24"></a>
-template&lt;typename T , typename U &gt; </td></tr>
-<tr class="memitem:a1aaacab6000197d28a72357fb09ffc24"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::tuples::tuple_cast_copy</b> (T &amp;dst, const U &amp;src)</td></tr>
+<tr class="memitem:a1aaacab6000197d28a72357fb09ffc24" id="r_a1aaacab6000197d28a72357fb09ffc24"><td class="memTemplParams" colspan="2"><a id="a1aaacab6000197d28a72357fb09ffc24" name="a1aaacab6000197d28a72357fb09ffc24"></a>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T , <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">U</a> &gt; </td></tr>
+<tr class="memitem:a1aaacab6000197d28a72357fb09ffc24"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::tuples::tuple_cast_copy</b> (T &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">dst</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">U</a> &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">src</a>)</td></tr>
 <tr class="separator:a1aaacab6000197d28a72357fb09ffc24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11e23d7951007a2cae6a37cb7b5480d6"><td class="memItemLeft" align="right" valign="top"><a id="a11e23d7951007a2cae6a37cb7b5480d6"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>iutest::stl::uncaught_exception</b> ()</td></tr>
+<tr class="memitem:a11e23d7951007a2cae6a37cb7b5480d6" id="r_a11e23d7951007a2cae6a37cb7b5480d6"><td class="memItemLeft" align="right" valign="top"><a id="a11e23d7951007a2cae6a37cb7b5480d6" name="a11e23d7951007a2cae6a37cb7b5480d6"></a>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><b>iutest::stl::uncaught_exception</b> ()</td></tr>
 <tr class="separator:a11e23d7951007a2cae6a37cb7b5480d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
@@ -220,7 +287,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2026年09月03日(木) 01時29分46秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2026年09月03日(木) 02時21分29秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

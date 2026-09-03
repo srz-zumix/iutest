@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: iutest_package.hpp ファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -19,10 +19,9 @@
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.14</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">iutest<span id="projectnumber">&#160;1.17.99.14</span>
    </div>
   </td>
  </tr>
@@ -30,21 +29,22 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.9.1 -->
+<!-- 構築: Doxygen 1.9.8 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
 <script type="text/javascript" src="../../menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
   initMenu('../../',true,false,'search.php','検索');
   $(document).ready(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -55,9 +55,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
 </div>
 
 </div><!-- top -->
@@ -66,8 +73,7 @@ $(function() {
 <a href="#namespaces">名前空間</a> &#124;
 <a href="#define-members">マクロ定義</a> &#124;
 <a href="#func-members">関数</a>  </div>
-  <div class="headertitle">
-<div class="title">iutest_package.hpp ファイル</div>  </div>
+  <div class="headertitle"><div class="title">iutest_package.hpp ファイル</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -79,8 +85,9 @@ iutest_package.hpp の依存先関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/d1f/iutest__package_8hpp__incl.png" border="0" usemap="#aiutest__package_8hpp" alt=""/></div>
 <map name="aiutest__package_8hpp" id="aiutest__package_8hpp">
-<area shape="rect" title="iris unit test testsuite package" alt="" coords="5,5,153,32"/>
-<area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="13,80,146,107"/>
+<area shape="rect" title="iris unit test testsuite package" alt="" coords="5,5,153,31"/>
+<area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="13,79,146,104"/>
+<area shape="poly" title=" " alt="" coords="82,31,82,65,77,65,77,31"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -88,52 +95,61 @@ iutest_package.hpp の依存先関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/d95/iutest__package_8hpp__dep__incl.png" border="0" usemap="#aiutest__package_8hppdep" alt=""/></div>
 <map name="aiutest__package_8hppdep" id="aiutest__package_8hppdep">
-<area shape="rect" title="iris unit test testsuite package" alt="" coords="235,5,383,32"/>
-<area shape="rect" href="../../db/d32/iutest__internal_8hpp.html" title="iris unit test internal definition" alt="" coords="209,80,408,107"/>
-<area shape="rect" href="../../dc/d62/iutest__core__impl_8hpp.html" title="iris unit test UnitTest core" alt="" coords="235,155,383,196"/>
-<area shape="rect" href="../../d5/d65/iutest__result__reporter_8hpp.html" title="iris unit test TestPartResult リポーター ファイル" alt="" coords="230,244,387,285"/>
-<area shape="rect" href="../../d0/db5/iutest__core_8hpp.html" title="iris unit test core" alt="" coords="247,333,370,360"/>
-<area shape="rect" href="../../d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="19,415,105,442"/>
-<area shape="rect" href="../../dc/d5d/iutest__progress__printer_8hpp.html" title="iris unit test プログレス出力イベントリスナー ファイル" alt="" coords="129,408,304,449"/>
-<area shape="rect" href="../../d3/d80/iutest__sstp__notifier_8hpp.html" title="iris unit test SSTP 通知 ファイル" alt="" coords="329,408,475,449"/>
-<area shape="rect" href="../../d8/d0f/iutest__tap__printer_8hpp.html" title="iris unit test Test Anything Protocol 出力イベントリスナー ファイル" alt="" coords="500,408,640,449"/>
-<area shape="rect" href="../../d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="5,497,119,524"/>
+<area shape="rect" title="iris unit test testsuite package" alt="" coords="235,5,383,31"/>
+<area shape="rect" href="../../db/d32/iutest__internal_8hpp.html" title="iris unit test internal definition" alt="" coords="209,79,408,104"/>
+<area shape="poly" title=" " alt="" coords="311,44,311,79,306,79,306,44"/>
+<area shape="rect" href="../../dc/d62/iutest__core__impl_8hpp.html" title="iris unit test UnitTest core" alt="" coords="235,152,383,192"/>
+<area shape="poly" title=" " alt="" coords="311,118,311,152,306,152,306,118"/>
+<area shape="rect" href="../../d5/d65/iutest__result__reporter_8hpp.html" title="iris unit test TestPartResult リポーター ファイル" alt="" coords="230,240,387,280"/>
+<area shape="poly" title=" " alt="" coords="311,206,311,240,306,240,306,206"/>
+<area shape="rect" href="../../d0/db5/iutest__core_8hpp.html" title="iris unit test core" alt="" coords="247,328,370,353"/>
+<area shape="poly" title=" " alt="" coords="311,294,311,328,306,328,306,294"/>
+<area shape="rect" href="../../d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="19,409,105,434"/>
+<area shape="poly" title=" " alt="" coords="259,360,119,404,97,411,95,406,117,399,258,355"/>
+<area shape="rect" href="../../dc/d5d/iutest__progress__printer_8hpp.html" title="iris unit test プログレス出力イベントリスナー ファイル" alt="" coords="129,401,304,441"/>
+<area shape="poly" title=" " alt="" coords="286,364,241,403,237,399,283,360"/>
+<area shape="rect" href="../../d3/d80/iutest__sstp__notifier_8hpp.html" title="iris unit test SSTP 通知 ファイル" alt="" coords="329,401,475,441"/>
+<area shape="poly" title=" " alt="" coords="335,360,381,399,378,403,331,364"/>
+<area shape="rect" href="../../d8/d0f/iutest__tap__printer_8hpp.html" title="iris unit test Test Anything Protocol 出力イベントリスナー ファイル" alt="" coords="500,401,640,441"/>
+<area shape="poly" title=" " alt="" coords="360,355,508,399,506,404,359,360"/>
+<area shape="rect" href="../../d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="5,489,119,515"/>
+<area shape="poly" title=" " alt="" coords="65,448,65,489,59,489,59,448"/>
 </map>
 </div>
 </div>
 <p><a href="../../d9/d87/iutest__package_8hpp_source.html">[ソースコード]</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 名前空間</h2></td></tr>
-<tr class="memitem:d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
+<tr class="memitem:d3/dda/namespaceiutest" id="r_d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
 <tr class="memdesc:d3/dda/namespaceiutest"><td class="mdescLeft">&#160;</td><td class="mdescRight">iutest root namespace <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 マクロ定義</h2></td></tr>
-<tr class="memitem:gae64e21d033c63b6e2223bff23449d8db"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d24/group___t_e_s_t_d_e_f.html#gae64e21d033c63b6e2223bff23449d8db">IUTEST_PACKAGE</a>(name)&#160;&#160;&#160;IIUT_PACKAGE_(name)</td></tr>
-<tr class="memdesc:gae64e21d033c63b6e2223bff23449d8db"><td class="mdescLeft">&#160;</td><td class="mdescRight">パッケージ名前空間の定義  <a href="../../d2/d24/group___t_e_s_t_d_e_f.html#gae64e21d033c63b6e2223bff23449d8db">[詳解]</a><br /></td></tr>
+<tr class="memitem:gae64e21d033c63b6e2223bff23449d8db" id="r_gae64e21d033c63b6e2223bff23449d8db"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d24/group___t_e_s_t_d_e_f.html#gae64e21d033c63b6e2223bff23449d8db">IUTEST_PACKAGE</a>(name)&#160;&#160;&#160;IIUT_PACKAGE_(name)</td></tr>
+<tr class="memdesc:gae64e21d033c63b6e2223bff23449d8db"><td class="mdescLeft">&#160;</td><td class="mdescRight">パッケージ名前空間の定義  <br /></td></tr>
 <tr class="separator:gae64e21d033c63b6e2223bff23449d8db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
-<tr class="memitem:a019486927408d7c29e758a33bcdfa6b6"><td class="memItemLeft" align="right" valign="top"><a id="a019486927408d7c29e758a33bcdfa6b6"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_CONCAT_PACKAGE_</b>(testsuitename_)&#160;&#160;&#160;IIUT_CONCAT_PACKAGE_I(testsuitename_)</td></tr>
+<tr class="memitem:a019486927408d7c29e758a33bcdfa6b6" id="r_a019486927408d7c29e758a33bcdfa6b6"><td class="memItemLeft" align="right" valign="top"><a id="a019486927408d7c29e758a33bcdfa6b6" name="a019486927408d7c29e758a33bcdfa6b6"></a>
+#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_CONCAT_PACKAGE_</b>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuitename_</a>)&#160;&#160;&#160;IIUT_CONCAT_PACKAGE_I(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuitename_</a>)</td></tr>
 <tr class="separator:a019486927408d7c29e758a33bcdfa6b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af33ead488caba555f14ea1d072f22f55"><td class="memItemLeft" align="right" valign="top"><a id="af33ead488caba555f14ea1d072f22f55"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_GET_PACKAGENAME_</b>()&#160;&#160;&#160;    <a class="el" href="../../d9/d87/iutest__package_8hpp.html#ad59e4b71505286cb7c72e31e2f25f61b">iuTest_GetTestSuitePackageName</a>( static_cast&lt;iuTest_TestSuitePackage*&gt;(NULL) )</td></tr>
+<tr class="memitem:af33ead488caba555f14ea1d072f22f55" id="r_af33ead488caba555f14ea1d072f22f55"><td class="memItemLeft" align="right" valign="top"><a id="af33ead488caba555f14ea1d072f22f55" name="af33ead488caba555f14ea1d072f22f55"></a>
+#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_GET_PACKAGENAME_</b>()&#160;&#160;&#160;    <a class="el" href="../../d9/d87/iutest__package_8hpp.html#ad59e4b71505286cb7c72e31e2f25f61b">iuTest_GetTestSuitePackageName</a>( static_cast&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">iuTest_TestSuitePackage</a>*&gt;(NULL) )</td></tr>
 <tr class="separator:af33ead488caba555f14ea1d072f22f55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 関数</h2></td></tr>
-<tr class="memitem:ad59e4b71505286cb7c72e31e2f25f61b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ad59e4b71505286cb7c72e31e2f25f61b" id="r_ad59e4b71505286cb7c72e31e2f25f61b"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T &gt; </td></tr>
 <tr class="memitem:ad59e4b71505286cb7c72e31e2f25f61b"><td class="memTemplItemLeft" align="right" valign="top">::std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d87/iutest__package_8hpp.html#ad59e4b71505286cb7c72e31e2f25f61b">iuTest_GetTestSuitePackageName</a> (T *)</td></tr>
-<tr class="memdesc:ad59e4b71505286cb7c72e31e2f25f61b"><td class="mdescLeft">&#160;</td><td class="mdescRight">パッケージ名の取得  <a href="../../d9/d87/iutest__package_8hpp.html#ad59e4b71505286cb7c72e31e2f25f61b">[詳解]</a><br /></td></tr>
+<tr class="memdesc:ad59e4b71505286cb7c72e31e2f25f61b"><td class="mdescLeft">&#160;</td><td class="mdescRight">パッケージ名の取得  <br /></td></tr>
 <tr class="separator:ad59e4b71505286cb7c72e31e2f25f61b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af83b430602e0794d413bda080788fe61"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:af83b430602e0794d413bda080788fe61" id="r_af83b430602e0794d413bda080788fe61"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T &gt; </td></tr>
 <tr class="memitem:af83b430602e0794d413bda080788fe61"><td class="memTemplItemLeft" align="right" valign="top">::std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d87/iutest__package_8hpp.html#af83b430602e0794d413bda080788fe61">iuTest_GetTestSuiteParentPackageName</a> (T *)</td></tr>
-<tr class="memdesc:af83b430602e0794d413bda080788fe61"><td class="mdescLeft">&#160;</td><td class="mdescRight">親空間のパッケージ名の取得  <a href="../../d9/d87/iutest__package_8hpp.html#af83b430602e0794d413bda080788fe61">[詳解]</a><br /></td></tr>
+<tr class="memdesc:af83b430602e0794d413bda080788fe61"><td class="mdescLeft">&#160;</td><td class="mdescRight">親空間のパッケージ名の取得  <br /></td></tr>
 <tr class="separator:af83b430602e0794d413bda080788fe61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4363cfe3d3dd81c0688ec63fb42de259"><td class="memItemLeft" align="right" valign="top">inline ::std::string IUTEST_ATTRIBUTE_UNUSED_&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d87/iutest__package_8hpp.html#a4363cfe3d3dd81c0688ec63fb42de259">iuTest_ConcatTestSuiteName</a> (const ::std::string &amp;package, const char *testsuite_name)</td></tr>
-<tr class="memdesc:a4363cfe3d3dd81c0688ec63fb42de259"><td class="mdescLeft">&#160;</td><td class="mdescRight">TestSuite 名との結合  <a href="../../d9/d87/iutest__package_8hpp.html#a4363cfe3d3dd81c0688ec63fb42de259">[詳解]</a><br /></td></tr>
+<tr class="memitem:a4363cfe3d3dd81c0688ec63fb42de259" id="r_a4363cfe3d3dd81c0688ec63fb42de259"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">inline</a> ::std::string <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">IUTEST_ATTRIBUTE_UNUSED_</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d87/iutest__package_8hpp.html#a4363cfe3d3dd81c0688ec63fb42de259">iuTest_ConcatTestSuiteName</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> ::std::string &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">package</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">char</a> *<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_name</a>)</td></tr>
+<tr class="memdesc:a4363cfe3d3dd81c0688ec63fb42de259"><td class="mdescLeft">&#160;</td><td class="mdescRight">TestSuite 名との結合  <br /></td></tr>
 <tr class="separator:a4363cfe3d3dd81c0688ec63fb42de259"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
@@ -142,22 +158,22 @@ iutest_package.hpp の依存先関係図:</div>
 <dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2011-2020, Takazumi Shirayanagi<br  />
 This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><h2 class="groupheader">関数詳解</h2>
-<a id="a4363cfe3d3dd81c0688ec63fb42de259"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4363cfe3d3dd81c0688ec63fb42de259">&#9670;&nbsp;</a></span>iuTest_ConcatTestSuiteName()</h2>
+<a id="a4363cfe3d3dd81c0688ec63fb42de259" name="a4363cfe3d3dd81c0688ec63fb42de259"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4363cfe3d3dd81c0688ec63fb42de259">&#9670;&#160;</a></span>iuTest_ConcatTestSuiteName()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_ConcatTestSuiteName </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">inline</a> ::std::string <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">IUTEST_ATTRIBUTE_UNUSED_</a> iuTest_ConcatTestSuiteName </td>
           <td>(</td>
-          <td class="paramtype">const ::std::string &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> ::std::string &amp;&#160;</td>
           <td class="paramname"><em>package</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">char</a> *&#160;</td>
           <td class="paramname"><em>testsuite_name</em>&#160;</td>
         </tr>
         <tr>
@@ -173,13 +189,13 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 
 </div>
 </div>
-<a id="ad59e4b71505286cb7c72e31e2f25f61b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad59e4b71505286cb7c72e31e2f25f61b">&#9670;&nbsp;</a></span>iuTest_GetTestSuitePackageName()</h2>
+<a id="ad59e4b71505286cb7c72e31e2f25f61b" name="ad59e4b71505286cb7c72e31e2f25f61b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad59e4b71505286cb7c72e31e2f25f61b">&#9670;&#160;</a></span>iuTest_GetTestSuitePackageName()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">::std::string iuTest_GetTestSuitePackageName </td>
@@ -196,13 +212,13 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="af83b430602e0794d413bda080788fe61"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af83b430602e0794d413bda080788fe61">&#9670;&nbsp;</a></span>iuTest_GetTestSuiteParentPackageName()</h2>
+<a id="af83b430602e0794d413bda080788fe61" name="af83b430602e0794d413bda080788fe61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af83b430602e0794d413bda080788fe61">&#9670;&#160;</a></span>iuTest_GetTestSuiteParentPackageName()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">::std::string iuTest_GetTestSuiteParentPackageName </td>
@@ -222,7 +238,7 @@ template&lt;typename T &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2026年09月03日(木) 01時29分46秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2026年09月03日(木) 02時21分29秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

@@ -1,3 +1,15 @@
 <map id="クラス階層図" name="クラス階層図">
-<area shape="rect" id="node1" href="$d3/d81/classiutest_1_1floating__point.html" title="浮動小数点数" alt="" coords="5,5,161,47"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="11,29,186,55"/>
+<area shape="rect" id="Node000001" href="$d9/d57/classiutest_1_1_i_file.html" title="ファイルクラスインターフェイス" alt="" coords="240,55,335,80"/>
+<area shape="poly" id="edge7_Node000000_Node000001" title=" " alt="" coords="200,53,240,58,239,64,199,58"/>
+<area shape="rect" id="Node000002" href="$de/d67/classiutest_1_1_stdio_file.html" title="標準ファイルクラス" alt="" coords="409,5,531,31"/>
+<area shape="poly" id="edge8_Node000001_Node000002" title=" " alt="" coords="347,49,421,28,423,33,349,54"/>
+<area shape="rect" id="Node000004" href="$da/d94/classiutest_1_1_string_stream_file.html" title="文字列バッファ書き込み IFile インターフェースクラス" alt="" coords="383,55,557,80"/>
+<area shape="poly" id="edge10_Node000001_Node000004" title=" " alt="" coords="348,65,383,65,383,70,348,70"/>
+<area shape="rect" id="Node000005" href="$d3/d61/classiutest_1_1_temp_file.html" title=" " alt="" coords="407,104,533,129"/>
+<area shape="poly" id="edge11_Node000001_Node000005" title=" " alt="" coords="349,81,423,101,421,106,347,86"/>
+<area shape="rect" id="Node000003" href="$d4/d62/classiutest_1_1_std_error_file.html" title=" " alt="" coords="605,5,748,31"/>
+<area shape="poly" id="edge9_Node000002_Node000003" title=" " alt="" coords="545,15,605,15,605,21,545,21"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="5,79,192,104"/>
+<area shape="poly" id="edge12_Node000006_Node000001" title=" " alt="" coords="206,75,239,71,240,76,206,80"/>
 </map>

@@ -1,5 +1,7 @@
 <map id="iutest::IFile" name="iutest::IFile">
-<area shape="rect" id="node1" title="ファイルクラスインターフェイス" alt="" coords="154,80,249,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,192,32"/>
-<area shape="rect" id="node3" title=" " alt="" coords="217,5,391,32"/>
+<area shape="rect" id="Node000001" title="ファイルクラスインターフェイス" alt="" coords="154,79,249,104"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,192,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,36,186,76,183,81,125,41"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="217,5,391,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="278,41,220,81,217,76,275,36"/>
 </map>

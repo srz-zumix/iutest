@@ -1,4 +1,5 @@
 <map id="iutest::TestSuite::testsuite_name_with_where" name="iutest::TestSuite::testsuite_name_with_where">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,211,47"/>
-<area shape="rect" id="node2" href="$d3/d87/classiutest_1_1_test_suite.html#a64113589b0f0f7ad8f8b0317e30f27e3" title=" " alt="" coords="259,5,393,47"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,211,45"/>
+<area shape="rect" id="Node000002" href="$d3/d87/classiutest_1_1_test_suite.html#abad5c6912dee2a503ffa7e9a39f4c0cb" title=" " alt="" coords="259,5,393,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="211,23,245,23,245,28,211,28"/>
 </map>

@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: iutest_prod.hpp ファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -19,10 +19,9 @@
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.14</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">iutest<span id="projectnumber">&#160;1.17.99.14</span>
    </div>
   </td>
  </tr>
@@ -30,21 +29,22 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.9.1 -->
+<!-- 構築: Doxygen 1.9.8 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
 <script type="text/javascript" src="../../menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
   initMenu('../../',true,false,'search.php','検索');
   $(document).ready(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -55,9 +55,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
 </div>
 
 </div><!-- top -->
@@ -65,8 +72,7 @@ $(function() {
   <div class="summary">
 <a href="#namespaces">名前空間</a> &#124;
 <a href="#define-members">マクロ定義</a>  </div>
-  <div class="headertitle">
-<div class="title">iutest_prod.hpp ファイル</div>  </div>
+  <div class="headertitle"><div class="title">iutest_prod.hpp ファイル</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -78,8 +84,9 @@ iutest_prod.hpp の依存先関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/d58/iutest__prod_8hpp__incl.png" border="0" usemap="#aiutest__prod_8hpp" alt=""/></div>
 <map name="aiutest__prod_8hpp" id="aiutest__prod_8hpp">
-<area shape="rect" title="iris unit test production code 対応用 ファイル" alt="" coords="11,5,133,32"/>
-<area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="5,80,139,107"/>
+<area shape="rect" title="iris unit test production code 対応用 ファイル" alt="" coords="11,5,133,31"/>
+<area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="5,79,139,104"/>
+<area shape="poly" title=" " alt="" coords="75,31,75,65,69,65,69,31"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -87,53 +94,56 @@ iutest_prod.hpp の依存先関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/d47/iutest__prod_8hpp__dep__incl.png" border="0" usemap="#aiutest__prod_8hppdep" alt=""/></div>
 <map name="aiutest__prod_8hppdep" id="aiutest__prod_8hppdep">
-<area shape="rect" title="iris unit test production code 対応用 ファイル" alt="" coords="67,5,190,32"/>
-<area shape="rect" href="../../d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="19,87,105,114"/>
-<area shape="rect" href="../../dc/dce/iutest__util__vc__unittest_8hpp.html" title="iris unit test, visual studio 11 C++ Unit Test Framework 対応 ファイル" alt="" coords="129,80,264,121"/>
-<area shape="rect" href="../../d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="5,169,119,196"/>
+<area shape="rect" title="iris unit test production code 対応用 ファイル" alt="" coords="67,5,190,31"/>
+<area shape="rect" href="../../d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="19,86,105,111"/>
+<area shape="poly" title=" " alt="" coords="112,43,74,88,70,84,108,40"/>
+<area shape="rect" href="../../dc/dce/iutest__util__vc__unittest_8hpp.html" title="iris unit test, visual studio 11 C++ Unit Test Framework 対応 ファイル" alt="" coords="129,79,264,119"/>
+<area shape="poly" title=" " alt="" coords="150,39,182,77,178,80,146,43"/>
+<area shape="rect" href="../../d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="5,167,119,192"/>
+<area shape="poly" title=" " alt="" coords="65,125,65,166,59,166,59,125"/>
 </map>
 </div>
 </div>
 <p><a href="../../d9/d06/iutest__prod_8hpp_source.html">[ソースコード]</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 名前空間</h2></td></tr>
-<tr class="memitem:d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
+<tr class="memitem:d3/dda/namespaceiutest" id="r_d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
 <tr class="memdesc:d3/dda/namespaceiutest"><td class="mdescLeft">&#160;</td><td class="mdescRight">iutest root namespace <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 マクロ定義</h2></td></tr>
-<tr class="memitem:aefaa85d6e5a269fca00f36810d1e966e"><td class="memItemLeft" align="right" valign="top"><a id="aefaa85d6e5a269fca00f36810d1e966e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#aefaa85d6e5a269fca00f36810d1e966e">IUTEST_FRIEND_TEST</a>(testsuitename_,  testname_)&#160;&#160;&#160;    friend class IUTEST_TEST_CLASS_NAME_(testsuitename_, testname_)</td></tr>
+<tr class="memitem:aefaa85d6e5a269fca00f36810d1e966e" id="r_aefaa85d6e5a269fca00f36810d1e966e"><td class="memItemLeft" align="right" valign="top"><a id="aefaa85d6e5a269fca00f36810d1e966e" name="aefaa85d6e5a269fca00f36810d1e966e"></a>
+#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_FRIEND_TEST</b>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuitename_</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)&#160;&#160;&#160;    <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">friend</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class</a> IUTEST_TEST_CLASS_NAME_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuitename_</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)</td></tr>
 <tr class="memdesc:aefaa85d6e5a269fca00f36810d1e966e"><td class="mdescLeft">&#160;</td><td class="mdescRight">テストから見えるように fried 登録 <br /></td></tr>
 <tr class="separator:aefaa85d6e5a269fca00f36810d1e966e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a814b239140e2b32c649db1e684d58928"><td class="memItemLeft" align="right" valign="top"><a id="a814b239140e2b32c649db1e684d58928"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#a814b239140e2b32c649db1e684d58928">IUTEST_FRIEND_TYPED_TEST</a>(testsuitename_,  testname_)&#160;&#160;&#160;    template&lt;typename T&gt;<a class="el" href="../../d9/d06/iutest__prod_8hpp.html#aefaa85d6e5a269fca00f36810d1e966e">IUTEST_FRIEND_TEST</a>(testsuitename_, testname_)</td></tr>
+<tr class="memitem:a814b239140e2b32c649db1e684d58928" id="r_a814b239140e2b32c649db1e684d58928"><td class="memItemLeft" align="right" valign="top"><a id="a814b239140e2b32c649db1e684d58928" name="a814b239140e2b32c649db1e684d58928"></a>
+#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_FRIEND_TYPED_TEST</b>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuitename_</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)&#160;&#160;&#160;    <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">template</a>&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T&gt;<a class="el" href="../../d9/d06/iutest__prod_8hpp.html#aefaa85d6e5a269fca00f36810d1e966e">IUTEST_FRIEND_TEST</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuitename_</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)</td></tr>
 <tr class="memdesc:a814b239140e2b32c649db1e684d58928"><td class="mdescLeft">&#160;</td><td class="mdescRight">テストから見えるように fried 登録(IUTEST_TYPED_TEST 用) <br /></td></tr>
 <tr class="separator:a814b239140e2b32c649db1e684d58928"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7261907761f9b8a96e11aa5648aa9539"><td class="memItemLeft" align="right" valign="top"><a id="a7261907761f9b8a96e11aa5648aa9539"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#a7261907761f9b8a96e11aa5648aa9539">IUTEST_FRIEND_TYPED_TEST_P_DECLARATION</a>(testsuitename_,  testname_)&#160;&#160;&#160;    namespace IIUT_TYPED_TEST_P_NAMESPACE_(testsuitename_) { template&lt;typename T&gt;class testname_; }</td></tr>
+<tr class="memitem:a7261907761f9b8a96e11aa5648aa9539" id="r_a7261907761f9b8a96e11aa5648aa9539"><td class="memItemLeft" align="right" valign="top"><a id="a7261907761f9b8a96e11aa5648aa9539" name="a7261907761f9b8a96e11aa5648aa9539"></a>
+#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_FRIEND_TYPED_TEST_P_DECLARATION</b>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuitename_</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)&#160;&#160;&#160;    <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">namespace</a> IIUT_TYPED_TEST_P_NAMESPACE_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuitename_</a>) { <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">template</a>&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T&gt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>; }</td></tr>
 <tr class="memdesc:a7261907761f9b8a96e11aa5648aa9539"><td class="mdescLeft">&#160;</td><td class="mdescRight">テストから見えるように fried 登録するための宣言 <br /></td></tr>
 <tr class="separator:a7261907761f9b8a96e11aa5648aa9539"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4abc82d1db9303a8c0097c6bdc386b76"><td class="memItemLeft" align="right" valign="top"><a id="a4abc82d1db9303a8c0097c6bdc386b76"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#a4abc82d1db9303a8c0097c6bdc386b76">IUTEST_FRIEND_TYPED_TEST_P</a>(testsuitename_,  testname_)&#160;&#160;&#160;    template&lt;typename T&gt;friend class IIUT_TYPED_TEST_P_NAMESPACE_(testsuitename_)::testname_</td></tr>
+<tr class="memitem:a4abc82d1db9303a8c0097c6bdc386b76" id="r_a4abc82d1db9303a8c0097c6bdc386b76"><td class="memItemLeft" align="right" valign="top"><a id="a4abc82d1db9303a8c0097c6bdc386b76" name="a4abc82d1db9303a8c0097c6bdc386b76"></a>
+#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_FRIEND_TYPED_TEST_P</b>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuitename_</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)&#160;&#160;&#160;    <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">template</a>&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T&gt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">friend</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class</a> IIUT_TYPED_TEST_P_NAMESPACE_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuitename_</a>)<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">::testname_</a></td></tr>
 <tr class="memdesc:a4abc82d1db9303a8c0097c6bdc386b76"><td class="mdescLeft">&#160;</td><td class="mdescRight">テストから見えるように fried 登録(IUTEST_TYPED_TEST_P 用) <br /></td></tr>
 <tr class="separator:a4abc82d1db9303a8c0097c6bdc386b76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a785124bcefaf5c6e494648c4fa581511"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#a785124bcefaf5c6e494648c4fa581511">IUTEST_MAKE_PEEP</a>(member_type,  class_name,  member_name)&#160;&#160;&#160;    IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name)</td></tr>
-<tr class="memdesc:a785124bcefaf5c6e494648c4fa581511"><td class="mdescLeft">&#160;</td><td class="mdescRight">private メンバーへのアクセス権を作成  <a href="../../d9/d06/iutest__prod_8hpp.html#a785124bcefaf5c6e494648c4fa581511">[詳解]</a><br /></td></tr>
+<tr class="memitem:a785124bcefaf5c6e494648c4fa581511" id="r_a785124bcefaf5c6e494648c4fa581511"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#a785124bcefaf5c6e494648c4fa581511">IUTEST_MAKE_PEEP</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_type</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>)&#160;&#160;&#160;    IUTEST_MAKE_PEEP_TAG_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_type</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>)</td></tr>
+<tr class="memdesc:a785124bcefaf5c6e494648c4fa581511"><td class="mdescLeft">&#160;</td><td class="mdescRight">private メンバーへのアクセス権を作成  <br /></td></tr>
 <tr class="separator:a785124bcefaf5c6e494648c4fa581511"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf3dc05618b1eeea337fa8d758d6534c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#abf3dc05618b1eeea337fa8d758d6534c">IUTEST_PEEP_GET</a>(v,  class_name,  member_name)&#160;&#160;&#160;    (v.*::iutest::detail::peep_tag&lt; IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::value)</td></tr>
-<tr class="memdesc:abf3dc05618b1eeea337fa8d758d6534c"><td class="mdescLeft">&#160;</td><td class="mdescRight">private メンバーへのアクセス  <a href="../../d9/d06/iutest__prod_8hpp.html#abf3dc05618b1eeea337fa8d758d6534c">[詳解]</a><br /></td></tr>
+<tr class="memitem:abf3dc05618b1eeea337fa8d758d6534c" id="r_abf3dc05618b1eeea337fa8d758d6534c"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#abf3dc05618b1eeea337fa8d758d6534c">IUTEST_PEEP_GET</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">v</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>)&#160;&#160;&#160;    (v.*::iutest::detail::peep_tag&lt; IIUT_PEEP_TAG_NAME_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>)&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>&gt; &gt;::value)</td></tr>
+<tr class="memdesc:abf3dc05618b1eeea337fa8d758d6534c"><td class="mdescLeft">&#160;</td><td class="mdescRight">private メンバーへのアクセス  <br /></td></tr>
 <tr class="separator:abf3dc05618b1eeea337fa8d758d6534c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11f5f182732f422d5ca214f37a13d371"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#a11f5f182732f422d5ca214f37a13d371">IUTEST_PEEP_STATIC_GET</a>(class_name,  member_name)&#160;&#160;&#160;    (*::iutest::detail::peep_tag&lt; IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::value)</td></tr>
-<tr class="memdesc:a11f5f182732f422d5ca214f37a13d371"><td class="mdescLeft">&#160;</td><td class="mdescRight">static private メンバーへのアクセス  <a href="../../d9/d06/iutest__prod_8hpp.html#a11f5f182732f422d5ca214f37a13d371">[詳解]</a><br /></td></tr>
+<tr class="memitem:a11f5f182732f422d5ca214f37a13d371" id="r_a11f5f182732f422d5ca214f37a13d371"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#a11f5f182732f422d5ca214f37a13d371">IUTEST_PEEP_STATIC_GET</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>)&#160;&#160;&#160;    (*::iutest::detail::peep_tag&lt; IIUT_PEEP_TAG_NAME_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>)&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>&gt; &gt;::value)</td></tr>
+<tr class="memdesc:a11f5f182732f422d5ca214f37a13d371"><td class="mdescLeft">&#160;</td><td class="mdescRight">static private メンバーへのアクセス  <br /></td></tr>
 <tr class="separator:a11f5f182732f422d5ca214f37a13d371"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2acb8952f9dc74b2c32ded455d13e480"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#a2acb8952f9dc74b2c32ded455d13e480">IUTEST_PEEP</a>(class_name,  member_name)&#160;&#160;&#160;    ::iutest::detail::peep::Peep&lt; class_name, IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::type</td></tr>
-<tr class="memdesc:a2acb8952f9dc74b2c32ded455d13e480"><td class="mdescLeft">&#160;</td><td class="mdescRight">private メンバーへのアクセスクラス宣言  <a href="../../d9/d06/iutest__prod_8hpp.html#a2acb8952f9dc74b2c32ded455d13e480">[詳解]</a><br /></td></tr>
+<tr class="memitem:a2acb8952f9dc74b2c32ded455d13e480" id="r_a2acb8952f9dc74b2c32ded455d13e480"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#a2acb8952f9dc74b2c32ded455d13e480">IUTEST_PEEP</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>)&#160;&#160;&#160;    ::iutest::detail::peep::Peep&lt; <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, IIUT_PEEP_TAG_NAME_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>)&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>&gt; &gt;::type</td></tr>
+<tr class="memdesc:a2acb8952f9dc74b2c32ded455d13e480"><td class="mdescLeft">&#160;</td><td class="mdescRight">private メンバーへのアクセスクラス宣言  <br /></td></tr>
 <tr class="separator:a2acb8952f9dc74b2c32ded455d13e480"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
-<tr class="memitem:ac3184d1717e7062dc9b9ba68ac72cc85"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_MAKE_PEEP_TAG_</b>(member_type,  class_name,  member_name)</td></tr>
+<tr class="memitem:ac3184d1717e7062dc9b9ba68ac72cc85" id="r_ac3184d1717e7062dc9b9ba68ac72cc85"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#ac3184d1717e7062dc9b9ba68ac72cc85">IUTEST_MAKE_PEEP_TAG_</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_type</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>)</td></tr>
 <tr class="separator:ac3184d1717e7062dc9b9ba68ac72cc85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
@@ -142,34 +152,34 @@ iutest_prod.hpp の依存先関係図:</div>
 <dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2012-2020, Takazumi Shirayanagi<br  />
 This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><h2 class="groupheader">マクロ定義詳解</h2>
-<a id="a785124bcefaf5c6e494648c4fa581511"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a785124bcefaf5c6e494648c4fa581511">&#9670;&nbsp;</a></span>IUTEST_MAKE_PEEP</h2>
+<a id="a785124bcefaf5c6e494648c4fa581511" name="a785124bcefaf5c6e494648c4fa581511"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a785124bcefaf5c6e494648c4fa581511">&#9670;&#160;</a></span>IUTEST_MAKE_PEEP</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define IUTEST_MAKE_PEEP</td>
+          <td class="memname">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a> IUTEST_MAKE_PEEP</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">member_type, </td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_type</a>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">class_name, </td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">member_name&#160;</td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;    IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name)</td>
+          <td></td><td>&#160;&#160;&#160;    IUTEST_MAKE_PEEP_TAG_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_type</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -183,34 +193,34 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section examples"><dt>各種例</dt><dd><a class="el" href="../../d9/d61/simple_8cpp-example.html#a16">simple.cpp</a>.</dd>
+<dl class="section examples"><dt>各種例</dt><dd><a class="el" href="../../d9/d61/simple_8cpp-example.html#a17">simple.cpp</a>.</dd>
 </dl>
 
 </div>
 </div>
-<a id="ac3184d1717e7062dc9b9ba68ac72cc85"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3184d1717e7062dc9b9ba68ac72cc85">&#9670;&nbsp;</a></span>IUTEST_MAKE_PEEP_TAG_</h2>
+<a id="ac3184d1717e7062dc9b9ba68ac72cc85" name="ac3184d1717e7062dc9b9ba68ac72cc85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3184d1717e7062dc9b9ba68ac72cc85">&#9670;&#160;</a></span>IUTEST_MAKE_PEEP_TAG_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define IUTEST_MAKE_PEEP_TAG_</td>
+          <td class="memname">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a> IUTEST_MAKE_PEEP_TAG_</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">member_type, </td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_type</a>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">class_name, </td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">member_name&#160;</td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -219,45 +229,46 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line">    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;<span class="keyword">struct </span>IIUT_PEEP_TAG_NAME_(class_name, member_name);                    \</div>
-<div class="line">    template&lt;&gt;<span class="keyword">struct </span>IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; {                 \</div>
+<b>値:</b><div class="fragment"><div class="line">    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;<span class="keyword">struct </span>IIUT_PEEP_TAG_NAME_(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>);                    \</div>
+<div class="line">    <span class="keyword">template</span>&lt;&gt;<span class="keyword">struct </span>IIUT_PEEP_TAG_NAME_(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>)&lt;<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>&gt; {                 \</div>
 <div class="line">                        typedef ::iutest_type_traits::identity&lt;member_type&gt;::type type; };      \</div>
-<div class="line">    template&lt;typename T, typename Tag, typename Tag::type X&gt;                                    \</div>
-<div class="line">    struct IIUT_PEEP_SETTER_NAME_(class_name, member_name) {                                    \</div>
-<div class="line">        IIUT_PEEP_SETTER_NAME_(class_name, member_name)() {                                     \</div>
-<div class="line">            ::iutest::detail::peep_tag&lt;Tag&gt;::value = X; }                                       \</div>
-<div class="line">        static IIUT_PEEP_SETTER_NAME_(class_name, member_name) instance;                        \</div>
-<div class="line">    };                                                                                          \</div>
-<div class="line">    template&lt;typename T, typename Tag, typename Tag::type X&gt;                                    \</div>
-<div class="line">    IIUT_PEEP_SETTER_NAME_(class_name, member_name)&lt;T, Tag, X&gt;                                  \</div>
-<div class="line">        IIUT_PEEP_SETTER_NAME_(class_name, member_name)&lt;T, Tag, X&gt;::instance;                   \</div>
-<div class="line">    template <span class="keyword">struct </span>IIUT_PEEP_SETTER_NAME_(class_name, member_name)&lt;class_name                  \</div>
-<div class="line">        , IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt;, &amp;class_name::member_name&gt;</div>
+<div class="line">    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> Tag, <span class="keyword">typename</span> Tag::type X&gt;                                    \</div>
+<div class="line">    <span class="keyword">struct </span>IIUT_PEEP_SETTER_NAME_(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>) {                                    <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">\</a></div>
+<div class="line"><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">        IIUT_PEEP_SETTER_NAME_</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>)() {                                     \</div>
+<div class="line">            ::iutest::detail::peep_tag&lt;Tag&gt;::value = <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">X</a>; }                                       \</div>
+<div class="line">        <span class="keyword">static</span> IIUT_PEEP_SETTER_NAME_(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>) instance;                        \</div>
+<div class="line">    };                                                                                          <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">\</a></div>
+<div class="line"><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">    template&lt;typename T, typename Tag, typename Tag::type X&gt;                                    \</a></div>
+<div class="line"><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">    IIUT_PEEP_SETTER_NAME_</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>)&lt;T, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">Tag</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">X</a>&gt;                                  <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">\</a></div>
+<div class="line"><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">        IIUT_PEEP_SETTER_NAME_</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>)&lt;T, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">Tag</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">X</a>&gt;::instance;                   \</div>
+<div class="line">    <span class="keyword">template</span> <span class="keyword">struct </span>IIUT_PEEP_SETTER_NAME_(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>)&lt;<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>                  \</div>
+<div class="line">        , IIUT_PEEP_TAG_NAME_(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>)&lt;<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>&gt;, &amp;class_name::member_name&gt;</div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga9111f6c99c043c607e4c7dc8d122d6de"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">StaticAssertTypeEq</a></div><div class="ttdeci">#define StaticAssertTypeEq</div><div class="ttdoc">型アサーション</div><div class="ttdef"><b>Definition</b> iutest_static_assertion.hpp:54</div></div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a2acb8952f9dc74b2c32ded455d13e480"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2acb8952f9dc74b2c32ded455d13e480">&#9670;&nbsp;</a></span>IUTEST_PEEP</h2>
+<a id="a2acb8952f9dc74b2c32ded455d13e480" name="a2acb8952f9dc74b2c32ded455d13e480"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2acb8952f9dc74b2c32ded455d13e480">&#9670;&#160;</a></span>IUTEST_PEEP</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define IUTEST_PEEP</td>
+          <td class="memname">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a> IUTEST_PEEP</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">class_name, </td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">member_name&#160;</td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;    ::iutest::detail::peep::Peep&lt; class_name, IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::type</td>
+          <td></td><td>&#160;&#160;&#160;    ::iutest::detail::peep::Peep&lt; <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, IIUT_PEEP_TAG_NAME_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>)&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>&gt; &gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -273,34 +284,34 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 
 </div>
 </div>
-<a id="abf3dc05618b1eeea337fa8d758d6534c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf3dc05618b1eeea337fa8d758d6534c">&#9670;&nbsp;</a></span>IUTEST_PEEP_GET</h2>
+<a id="abf3dc05618b1eeea337fa8d758d6534c" name="abf3dc05618b1eeea337fa8d758d6534c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf3dc05618b1eeea337fa8d758d6534c">&#9670;&#160;</a></span>IUTEST_PEEP_GET</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define IUTEST_PEEP_GET</td>
+          <td class="memname">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a> IUTEST_PEEP_GET</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">v, </td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">v</a>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">class_name, </td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">member_name&#160;</td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;    (v.*::iutest::detail::peep_tag&lt; IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::value)</td>
+          <td></td><td>&#160;&#160;&#160;    (v.*::iutest::detail::peep_tag&lt; IIUT_PEEP_TAG_NAME_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>)&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>&gt; &gt;::value)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -314,33 +325,33 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section examples"><dt>各種例</dt><dd><a class="el" href="../../d9/d61/simple_8cpp-example.html#a17">simple.cpp</a>.</dd>
+<dl class="section examples"><dt>各種例</dt><dd><a class="el" href="../../d9/d61/simple_8cpp-example.html#a18">simple.cpp</a>.</dd>
 </dl>
 
 </div>
 </div>
-<a id="a11f5f182732f422d5ca214f37a13d371"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11f5f182732f422d5ca214f37a13d371">&#9670;&nbsp;</a></span>IUTEST_PEEP_STATIC_GET</h2>
+<a id="a11f5f182732f422d5ca214f37a13d371" name="a11f5f182732f422d5ca214f37a13d371"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11f5f182732f422d5ca214f37a13d371">&#9670;&#160;</a></span>IUTEST_PEEP_STATIC_GET</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define IUTEST_PEEP_STATIC_GET</td>
+          <td class="memname">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a> IUTEST_PEEP_STATIC_GET</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">class_name, </td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">member_name&#160;</td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;    (*::iutest::detail::peep_tag&lt; IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::value)</td>
+          <td></td><td>&#160;&#160;&#160;    (*::iutest::detail::peep_tag&lt; IIUT_PEEP_TAG_NAME_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">member_name</a>)&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class_name</a>&gt; &gt;::value)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -359,7 +370,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2026年09月03日(木) 01時29分46秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2026年09月03日(木) 02時21分29秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

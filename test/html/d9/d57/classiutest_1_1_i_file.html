@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: iutest::IFile クラス</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -19,10 +19,9 @@
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.14</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">iutest<span id="projectnumber">&#160;1.17.99.14</span>
    </div>
   </td>
  </tr>
@@ -30,21 +29,22 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.9.1 -->
+<!-- 構築: Doxygen 1.9.8 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
 <script type="text/javascript" src="../../menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
   initMenu('../../',true,false,'search.php','検索');
   $(document).ready(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -55,9 +55,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -70,8 +77,7 @@ $(function() {
 <a href="#pub-types">公開型</a> &#124;
 <a href="#pub-methods">公開メンバ関数</a> &#124;
 <a href="../../d0/d0f/classiutest_1_1_i_file-members.html">全メンバ一覧</a>  </div>
-  <div class="headertitle">
-<div class="title">iutest::IFile クラス<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+  <div class="headertitle"><div class="title">iutest::IFile クラス<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -84,14 +90,21 @@ iutest::IFile の継承関係図</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/d55/classiutest_1_1_i_file__inherit__graph.png" border="0" usemap="#aiutest_1_1_i_file_inherit__map" alt="Inheritance graph"/></div>
 <map name="aiutest_1_1_i_file_inherit__map" id="aiutest_1_1_i_file_inherit__map">
-<area shape="rect" title="ファイルクラスインターフェイス" alt="" coords="240,81,335,108"/>
-<area shape="rect" href="../../de/d67/classiutest_1_1_stdio_file.html" title="標準ファイルクラス" alt="" coords="409,5,531,32"/>
-<area shape="rect" href="../../da/d94/classiutest_1_1_string_stream_file.html" title="文字列バッファ書き込み IFile インターフェースクラス" alt="" coords="383,56,557,83"/>
-<area shape="rect" href="../../d3/d61/classiutest_1_1_temp_file.html" title=" " alt="" coords="407,107,533,133"/>
-<area shape="rect" title=" " alt="" coords="385,158,555,199"/>
-<area shape="rect" title=" " alt="" coords="5,56,192,83"/>
-<area shape="rect" title=" " alt="" coords="11,107,186,133"/>
-<area shape="rect" href="../../d4/d62/classiutest_1_1_std_error_file.html" title=" " alt="" coords="605,5,748,32"/>
+<area shape="rect" title="ファイルクラスインターフェイス" alt="" coords="240,80,335,105"/>
+<area shape="rect" href="../../de/d67/classiutest_1_1_stdio_file.html" title="標準ファイルクラス" alt="" coords="409,5,531,31"/>
+<area shape="poly" title=" " alt="" coords="321,71,382,41,419,28,420,33,384,46,323,75"/>
+<area shape="rect" href="../../da/d94/classiutest_1_1_string_stream_file.html" title="文字列バッファ書き込み IFile インターフェースクラス" alt="" coords="383,55,557,80"/>
+<area shape="poly" title=" " alt="" coords="348,82,382,77,383,82,349,87"/>
+<area shape="rect" href="../../d3/d61/classiutest_1_1_temp_file.html" title=" " alt="" coords="407,104,533,129"/>
+<area shape="poly" title=" " alt="" coords="349,98,408,106,407,111,348,103"/>
+<area shape="rect" title=" " alt="" coords="385,154,555,194"/>
+<area shape="poly" title=" " alt="" coords="324,110,384,140,412,151,410,156,382,144,322,114"/>
+<area shape="rect" title=" " alt="" coords="5,55,192,80"/>
+<area shape="poly" title=" " alt="" coords="206,79,240,84,239,89,206,84"/>
+<area shape="rect" title=" " alt="" coords="11,104,186,129"/>
+<area shape="poly" title=" " alt="" coords="200,101,239,96,240,101,200,106"/>
+<area shape="rect" href="../../d4/d62/classiutest_1_1_std_error_file.html" title=" " alt="" coords="605,5,748,31"/>
+<area shape="poly" title=" " alt="" coords="545,15,605,15,605,21,545,21"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">凡例</a>]</span></center></div>
 <div class="dynheader">
@@ -99,61 +112,62 @@ iutest::IFile 連携図</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/d07/classiutest_1_1_i_file__coll__graph.png" border="0" usemap="#aiutest_1_1_i_file_coll__map" alt="Collaboration graph"/></div>
 <map name="aiutest_1_1_i_file_coll__map" id="aiutest_1_1_i_file_coll__map">
-<area shape="rect" title="ファイルクラスインターフェイス" alt="" coords="154,80,249,107"/>
-<area shape="rect" title=" " alt="" coords="5,5,192,32"/>
-<area shape="rect" title=" " alt="" coords="217,5,391,32"/>
+<area shape="rect" title="ファイルクラスインターフェイス" alt="" coords="154,79,249,104"/>
+<area shape="rect" title=" " alt="" coords="5,5,192,31"/>
+<area shape="poly" title=" " alt="" coords="128,36,186,76,183,81,125,41"/>
+<area shape="rect" title=" " alt="" coords="217,5,391,31"/>
+<area shape="poly" title=" " alt="" coords="278,41,220,81,217,76,275,36"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">凡例</a>]</span></center></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 公開型</h2></td></tr>
-<tr class="memitem:a6e0f77bd1fb9a4a386975f2c849a8381"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d57/classiutest_1_1_i_file.html#a6e0f77bd1fb9a4a386975f2c849a8381">OpenFlag</a> { <a class="el" href="../../d9/d57/classiutest_1_1_i_file.html#a6e0f77bd1fb9a4a386975f2c849a8381ac5b882ad5f9150026affd4b02512a3c2">OpenRead</a> = 0x00000001
+<tr class="memitem:a6e0f77bd1fb9a4a386975f2c849a8381" id="r_a6e0f77bd1fb9a4a386975f2c849a8381"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d57/classiutest_1_1_i_file.html#a6e0f77bd1fb9a4a386975f2c849a8381">OpenFlag</a> { <a class="el" href="../../d9/d57/classiutest_1_1_i_file.html#a6e0f77bd1fb9a4a386975f2c849a8381ac5b882ad5f9150026affd4b02512a3c2">OpenRead</a> = 0x00000001
 , <a class="el" href="../../d9/d57/classiutest_1_1_i_file.html#a6e0f77bd1fb9a4a386975f2c849a8381a7e5485c8952d435a56c8bb38c223a577">OpenWrite</a> = 0x00000002
 , <a class="el" href="../../d9/d57/classiutest_1_1_i_file.html#a6e0f77bd1fb9a4a386975f2c849a8381a7615d69233c676be957240e011843eea">OpenAppend</a> = 0x00000003
  }</td></tr>
 <tr class="memdesc:a6e0f77bd1fb9a4a386975f2c849a8381"><td class="mdescLeft">&#160;</td><td class="mdescRight">ファイルオープンモードフラグ  <a href="../../d9/d57/classiutest_1_1_i_file.html#a6e0f77bd1fb9a4a386975f2c849a8381">[詳解]</a><br /></td></tr>
 <tr class="separator:a6e0f77bd1fb9a4a386975f2c849a8381"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 公開メンバ関数</h2></td></tr>
-<tr class="memitem:a5ff9bd684673f88fdf3409f3e07541d6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d57/classiutest_1_1_i_file.html#a5ff9bd684673f88fdf3409f3e07541d6">Open</a> (const char *filename, int mode)</td></tr>
-<tr class="memdesc:a5ff9bd684673f88fdf3409f3e07541d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">開く  <a href="../../d9/d57/classiutest_1_1_i_file.html#a5ff9bd684673f88fdf3409f3e07541d6">[詳解]</a><br /></td></tr>
+<tr class="memitem:a5ff9bd684673f88fdf3409f3e07541d6" id="r_a5ff9bd684673f88fdf3409f3e07541d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d57/classiutest_1_1_i_file.html#a5ff9bd684673f88fdf3409f3e07541d6">Open</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">char</a> *<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">filename</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">mode</a>)</td></tr>
+<tr class="memdesc:a5ff9bd684673f88fdf3409f3e07541d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">開く  <br /></td></tr>
 <tr class="separator:a5ff9bd684673f88fdf3409f3e07541d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7589b799ad6a3844ace9574d4fb1bce"><td class="memItemLeft" align="right" valign="top"><a id="ab7589b799ad6a3844ace9574d4fb1bce"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d57/classiutest_1_1_i_file.html#ab7589b799ad6a3844ace9574d4fb1bce">Close</a> ()=0</td></tr>
-<tr class="memdesc:ab7589b799ad6a3844ace9574d4fb1bce"><td class="mdescLeft">&#160;</td><td class="mdescRight">閉じる <br /></td></tr>
+<tr class="memitem:ab7589b799ad6a3844ace9574d4fb1bce" id="r_ab7589b799ad6a3844ace9574d4fb1bce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d57/classiutest_1_1_i_file.html#ab7589b799ad6a3844ace9574d4fb1bce">Close</a> ()=0</td></tr>
+<tr class="memdesc:ab7589b799ad6a3844ace9574d4fb1bce"><td class="mdescLeft">&#160;</td><td class="mdescRight">閉じる  <br /></td></tr>
 <tr class="separator:ab7589b799ad6a3844ace9574d4fb1bce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
 <div class="textblock"><p>ファイルクラスインターフェイス </p>
 </div><h2 class="groupheader">列挙型メンバ詳解</h2>
-<a id="a6e0f77bd1fb9a4a386975f2c849a8381"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e0f77bd1fb9a4a386975f2c849a8381">&#9670;&nbsp;</a></span>OpenFlag</h2>
+<a id="a6e0f77bd1fb9a4a386975f2c849a8381" name="a6e0f77bd1fb9a4a386975f2c849a8381"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e0f77bd1fb9a4a386975f2c849a8381">&#9670;&#160;</a></span>OpenFlag</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="../../d9/d57/classiutest_1_1_i_file.html#a6e0f77bd1fb9a4a386975f2c849a8381">iutest::IFile::OpenFlag</a></td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">enum</a> <a class="el" href="../../d9/d57/classiutest_1_1_i_file.html#a6e0f77bd1fb9a4a386975f2c849a8381">iutest::IFile::OpenFlag</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>ファイルオープンモードフラグ </p>
 <table class="fieldtable">
-<tr><th colspan="2">列挙値</th></tr><tr><td class="fieldname"><a id="a6e0f77bd1fb9a4a386975f2c849a8381ac5b882ad5f9150026affd4b02512a3c2"></a>OpenRead&#160;</td><td class="fielddoc"><p>読み込み </p>
+<tr><th colspan="2">列挙値</th></tr><tr><td class="fieldname"><a id="a6e0f77bd1fb9a4a386975f2c849a8381ac5b882ad5f9150026affd4b02512a3c2" name="a6e0f77bd1fb9a4a386975f2c849a8381ac5b882ad5f9150026affd4b02512a3c2"></a>OpenRead&#160;</td><td class="fielddoc"><p>読み込み </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a6e0f77bd1fb9a4a386975f2c849a8381a7e5485c8952d435a56c8bb38c223a577"></a>OpenWrite&#160;</td><td class="fielddoc"><p>書き込み </p>
+<tr><td class="fieldname"><a id="a6e0f77bd1fb9a4a386975f2c849a8381a7e5485c8952d435a56c8bb38c223a577" name="a6e0f77bd1fb9a4a386975f2c849a8381a7e5485c8952d435a56c8bb38c223a577"></a>OpenWrite&#160;</td><td class="fielddoc"><p>書き込み </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a6e0f77bd1fb9a4a386975f2c849a8381a7615d69233c676be957240e011843eea"></a>OpenAppend&#160;</td><td class="fielddoc"><p>追記 </p>
+<tr><td class="fieldname"><a id="a6e0f77bd1fb9a4a386975f2c849a8381a7615d69233c676be957240e011843eea" name="a6e0f77bd1fb9a4a386975f2c849a8381a7615d69233c676be957240e011843eea"></a>OpenAppend&#160;</td><td class="fielddoc"><p>追記 </p>
 </td></tr>
 </table>
 
 </div>
 </div>
 <h2 class="groupheader">関数詳解</h2>
-<a id="a5ff9bd684673f88fdf3409f3e07541d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ff9bd684673f88fdf3409f3e07541d6">&#9670;&nbsp;</a></span>Open()</h2>
+<a id="ab7589b799ad6a3844ace9574d4fb1bce" name="ab7589b799ad6a3844ace9574d4fb1bce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7589b799ad6a3844ace9574d4fb1bce">&#9670;&#160;</a></span>Close()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -162,15 +176,44 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool iutest::IFile::Open </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a> iutest::IFile::Close </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>閉じる </p>
+
+<p><a class="el" href="../../de/d67/classiutest_1_1_stdio_file.html#aac5c63092ec375c995f0798459c75035">iutest::StdioFile</a>, <a class="el" href="../../d4/d62/classiutest_1_1_std_error_file.html#ace94c9711a5f01aeeb5d63f0cc53fc60">iutest::StdErrorFile</a>, <a class="el" href="../../d3/d61/classiutest_1_1_temp_file.html#afb465f05ab89eabcbb78bdb16c8394a4">iutest::TempFile</a>, <a class="el" href="../../da/d94/classiutest_1_1_string_stream_file.html#ab51f2ebbfb888c8ffb067285244dd1f1">iutest::StringStreamFile</a>で実装されています。</p>
+
+</div>
+</div>
+<a id="a5ff9bd684673f88fdf3409f3e07541d6" name="a5ff9bd684673f88fdf3409f3e07541d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ff9bd684673f88fdf3409f3e07541d6">&#9670;&#160;</a></span>Open()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">bool</a> iutest::IFile::Open </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">char</a> *&#160;</td>
           <td class="paramname"><em>filename</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td>
           <td class="paramname"><em>mode</em>&#160;</td>
         </tr>
         <tr>
@@ -204,7 +247,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2026年09月03日(木) 01時29分46秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2026年09月03日(木) 02時21分29秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

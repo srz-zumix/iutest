@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: typed.cpp</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -19,10 +19,9 @@
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.14</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">iutest<span id="projectnumber">&#160;1.17.99.14</span>
    </div>
   </td>
  </tr>
@@ -30,21 +29,22 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.9.1 -->
+<!-- 構築: Doxygen 1.9.8 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
 <script type="text/javascript" src="../../menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
   initMenu('../../',true,false,'search.php','検索');
   $(document).ready(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 </div><!-- top -->
 <!-- window showing the filter options -->
@@ -56,19 +56,25 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
 </div>
 
 <div class="header">
-  <div class="headertitle">
-<div class="title">typed.cpp</div>  </div>
+  <div class="headertitle"><div class="title">typed.cpp</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><span class="comment">//======================================================================</span></div>
 <div class="line"><span class="comment">//-----------------------------------------------------------------------</span></div>
-<div class="line"><span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
+<div class="line"><span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><span class="comment">//======================================================================</span></div>
 <div class="line"><span class="preprocessor">#include &quot;../include/iutest.hpp&quot;</span></div>
 <div class="line"> </div>
@@ -78,20 +84,20 @@ $(function() {
 <div class="line"><span class="preprocessor">#if IUTEST_HAS_TYPED_TEST</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><span class="keyword">class </span>TypedTest : <span class="keyword">public</span> <a name="_a0"></a><a class="code" href="../../dc/d0e/classiutest_1_1_test.html">::iutest::Test</a> {};</div>
-<div class="line">typedef ::iutest::Types&lt;int, long, short&gt; TypedTestTypes;</div>
-<div class="line"><a name="a1"></a><a class="code" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga4d22496d1cb97a990b16e6f92e5cdd4f">IUTEST_TYPED_TEST_SUITE</a>(TypedTest, TypedTestTypes);</div>
+<div class="line"><span class="keyword">class </span><a id="a0" name="a0"></a><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TypedTest</a> : <span class="keyword">public</span> <a id="_a1" name="_a1"></a><a class="code hl_class" href="../../dc/d0e/classiutest_1_1_test.html">::iutest::Test</a> {};</div>
+<div class="line">typedef ::iutest::Types&lt;int, long, short&gt; <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TypedTestTypes</a>;</div>
+<div class="line"><a id="a2" name="a2"></a><a class="code hl_define" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga4d22496d1cb97a990b16e6f92e5cdd4f">IUTEST_TYPED_TEST_SUITE</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TypedTest</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TypedTestTypes</a>);</div>
 <div class="line"> </div>
-<div class="line"><a name="a2"></a><a class="code" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga2b77af42aeebce007eaeefd8786e921e">IUTEST_TYPED_TEST</a>(TypedTest, Equal)</div>
+<div class="line"><a id="a3" name="a3"></a><a class="code hl_define" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga2b77af42aeebce007eaeefd8786e921e">IUTEST_TYPED_TEST</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TypedTest</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">Equal</a>)</div>
 <div class="line">{</div>
 <div class="line">    TypeParam a = 0;</div>
-<div class="line">    <a name="a3"></a><a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a>(0, a);</div>
+<div class="line">    <a id="a4" name="a4"></a><a class="code hl_define" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a>(0, a);</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line"><a class="code" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga2b77af42aeebce007eaeefd8786e921e">IUTEST_TYPED_TEST</a>(TypedTest, Litle)</div>
+<div class="line"><a class="code hl_define" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga2b77af42aeebce007eaeefd8786e921e">IUTEST_TYPED_TEST</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TypedTest</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">Litle</a>)</div>
 <div class="line">{</div>
 <div class="line">    TypeParam a = 1;</div>
-<div class="line">    <a name="a4"></a><a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga4adc7a28c28547acd1fb66b6ca524524">IUTEST_ASSERT_LT</a>(0, a);</div>
+<div class="line">    <a id="a5" name="a5"></a><a class="code hl_define" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga4adc7a28c28547acd1fb66b6ca524524">IUTEST_ASSERT_LT</a>(0, a);</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#endif</span></div>
@@ -102,41 +108,42 @@ $(function() {
 <div class="line"><span class="preprocessor">#if IUTEST_HAS_TYPED_TEST_P</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><span class="keyword">class </span>TypedTestP : <span class="keyword">public</span> <a class="code" href="../../dc/d0e/classiutest_1_1_test.html">::iutest::Test</a> {};</div>
-<div class="line">typedef ::iutest::Types&lt;int, long, short&gt; TypedTestTypes;</div>
-<div class="line"><a name="a5"></a><a class="code" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga2b81c0558d5251b2853cc8cb001ca48e">IUTEST_TYPED_TEST_SUITE_P</a>(TypedTestP);</div>
+<div class="line"><span class="keyword">class </span><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TypedTestP</a> : <span class="keyword">public</span> <a class="code hl_class" href="../../dc/d0e/classiutest_1_1_test.html">::iutest::Test</a> {};</div>
+<div class="line">typedef ::iutest::Types&lt;int, long, short&gt; <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TypedTestTypes</a>;</div>
+<div class="line"><a id="a6" name="a6"></a><a class="code hl_define" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga2b81c0558d5251b2853cc8cb001ca48e">IUTEST_TYPED_TEST_SUITE_P</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TypedTestP</a>);</div>
 <div class="line"> </div>
-<div class="line"><a name="a6"></a><a class="code" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga0fad2a8d1a0345aab158403289d3805c">IUTEST_TYPED_TEST_P</a>(TypedTestP, Equal)</div>
+<div class="line"><a id="a7" name="a7"></a><a class="code hl_define" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga0fad2a8d1a0345aab158403289d3805c">IUTEST_TYPED_TEST_P</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TypedTestP</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">Equal</a>)</div>
 <div class="line">{</div>
 <div class="line">    TypeParam a = 0;</div>
-<div class="line">    <a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a>(0, a);</div>
+<div class="line">    <a class="code hl_define" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a>(0, a);</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line"><a class="code" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga0fad2a8d1a0345aab158403289d3805c">IUTEST_TYPED_TEST_P</a>(TypedTestP, Litle)</div>
+<div class="line"><a class="code hl_define" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga0fad2a8d1a0345aab158403289d3805c">IUTEST_TYPED_TEST_P</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TypedTestP</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">Litle</a>)</div>
 <div class="line">{</div>
 <div class="line">    TypeParam a = 1;</div>
-<div class="line">    <a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga4adc7a28c28547acd1fb66b6ca524524">IUTEST_ASSERT_LT</a>(0, a);</div>
+<div class="line">    <a class="code hl_define" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga4adc7a28c28547acd1fb66b6ca524524">IUTEST_ASSERT_LT</a>(0, a);</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line"><a name="a7"></a><a class="code" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga2a5fe227b1e1843898d582fc67fa3ea4">IUTEST_REGISTER_TYPED_TEST_SUITE_P</a>(TypedTestP, Equal, Litle);</div>
-<div class="line"><a name="a8"></a><a class="code" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga4a7ad40d030b9e035869c06e814118cf">IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P</a>(TypedTestPInstance, TypedTestP, TypedTestTypes);</div>
+<div class="line"><a id="a8" name="a8"></a><a class="code hl_define" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga2a5fe227b1e1843898d582fc67fa3ea4">IUTEST_REGISTER_TYPED_TEST_SUITE_P</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TypedTestP</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">Equal</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">Litle</a>);</div>
+<div class="line"><a id="a9" name="a9"></a><a class="code hl_define" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga4a7ad40d030b9e035869c06e814118cf">IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TypedTestPInstance</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TypedTestP</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TypedTestTypes</a>);</div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#endif</span></div>
 <div class="line"> </div>
 <div class="line"> </div>
-<div class="ttc" id="aclassiutest_1_1_test_html"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html">iutest::Test</a></div><div class="ttdoc">テストベース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:44</div></div>
-<div class="ttc" id="agroup___i_u_t_e_s_t___a_s_s_e_r_t___html_ga2efc1300f1fa10aa4a83161967493bf5"><div class="ttname"><a href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a></div><div class="ttdeci">#define IUTEST_ASSERT_EQ(expected, actual)</div><div class="ttdoc">== テスト</div><div class="ttdef"><b>Definition:</b> iutest.hpp:308</div></div>
-<div class="ttc" id="agroup___i_u_t_e_s_t___a_s_s_e_r_t___html_ga4adc7a28c28547acd1fb66b6ca524524"><div class="ttname"><a href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga4adc7a28c28547acd1fb66b6ca524524">IUTEST_ASSERT_LT</a></div><div class="ttdeci">#define IUTEST_ASSERT_LT(v1, v2)</div><div class="ttdoc">&lt; テスト</div><div class="ttdef"><b>Definition:</b> iutest.hpp:343</div></div>
-<div class="ttc" id="agroup___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_ga0fad2a8d1a0345aab158403289d3805c"><div class="ttname"><a href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga0fad2a8d1a0345aab158403289d3805c">IUTEST_TYPED_TEST_P</a></div><div class="ttdeci">#define IUTEST_TYPED_TEST_P(testsuite_, testname_)</div><div class="ttdoc">型パラメータテスト関数定義マクロ</div><div class="ttdef"><b>Definition:</b> iutest_typed_tests.hpp:189</div></div>
-<div class="ttc" id="agroup___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_ga2a5fe227b1e1843898d582fc67fa3ea4"><div class="ttname"><a href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga2a5fe227b1e1843898d582fc67fa3ea4">IUTEST_REGISTER_TYPED_TEST_SUITE_P</a></div><div class="ttdeci">#define IUTEST_REGISTER_TYPED_TEST_SUITE_P(testsuite_,...)</div><div class="ttdoc">型パラメータテスト関数登録マクロ</div><div class="ttdef"><b>Definition:</b> iutest_typed_tests.hpp:206</div></div>
-<div class="ttc" id="agroup___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_ga2b81c0558d5251b2853cc8cb001ca48e"><div class="ttname"><a href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga2b81c0558d5251b2853cc8cb001ca48e">IUTEST_TYPED_TEST_SUITE_P</a></div><div class="ttdeci">#define IUTEST_TYPED_TEST_SUITE_P(testsuite_)</div><div class="ttdoc">型パラメータTestSuite の登録</div><div class="ttdef"><b>Definition:</b> iutest_typed_tests.hpp:180</div></div>
-<div class="ttc" id="agroup___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_ga4a7ad40d030b9e035869c06e814118cf"><div class="ttname"><a href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga4a7ad40d030b9e035869c06e814118cf">IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P</a></div><div class="ttdeci">#define IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(prefix_, testsuite_,...)</div><div class="ttdoc">型パラメータテスト登録マクロ</div><div class="ttdef"><b>Definition:</b> iutest_typed_tests.hpp:217</div></div>
-<div class="ttc" id="agroup___t_y_p_e_d___t_e_s_t_html_ga2b77af42aeebce007eaeefd8786e921e"><div class="ttname"><a href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga2b77af42aeebce007eaeefd8786e921e">IUTEST_TYPED_TEST</a></div><div class="ttdeci">#define IUTEST_TYPED_TEST(testsuite_, testname_)</div><div class="ttdoc">型付けテスト関数定義マクロ</div><div class="ttdef"><b>Definition:</b> iutest_typed_tests.hpp:57</div></div>
-<div class="ttc" id="agroup___t_y_p_e_d___t_e_s_t_html_ga4d22496d1cb97a990b16e6f92e5cdd4f"><div class="ttname"><a href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga4d22496d1cb97a990b16e6f92e5cdd4f">IUTEST_TYPED_TEST_SUITE</a></div><div class="ttdeci">#define IUTEST_TYPED_TEST_SUITE(testsuite_,...)</div><div class="ttdoc">型付けTestSuite の登録</div><div class="ttdef"><b>Definition:</b> iutest_typed_tests.hpp:45</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_html"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html">iutest::Test</a></div><div class="ttdoc">テストベース</div><div class="ttdef"><b>Definition</b> iutest_body.hpp:44</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___a_s_s_e_r_t___html_ga2efc1300f1fa10aa4a83161967493bf5"><div class="ttname"><a href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a></div><div class="ttdeci">#define IUTEST_ASSERT_EQ(expected, actual)</div><div class="ttdoc">== テスト</div><div class="ttdef"><b>Definition</b> iutest.hpp:308</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___a_s_s_e_r_t___html_ga4adc7a28c28547acd1fb66b6ca524524"><div class="ttname"><a href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga4adc7a28c28547acd1fb66b6ca524524">IUTEST_ASSERT_LT</a></div><div class="ttdeci">#define IUTEST_ASSERT_LT(v1, v2)</div><div class="ttdoc">&lt; テスト</div><div class="ttdef"><b>Definition</b> iutest.hpp:343</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga9111f6c99c043c607e4c7dc8d122d6de"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">StaticAssertTypeEq</a></div><div class="ttdeci">#define StaticAssertTypeEq</div><div class="ttdoc">型アサーション</div><div class="ttdef"><b>Definition</b> iutest_static_assertion.hpp:54</div></div>
+<div class="ttc" id="agroup___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_ga0fad2a8d1a0345aab158403289d3805c"><div class="ttname"><a href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga0fad2a8d1a0345aab158403289d3805c">IUTEST_TYPED_TEST_P</a></div><div class="ttdeci">#define IUTEST_TYPED_TEST_P(testsuite_, testname_)</div><div class="ttdoc">型パラメータテスト関数定義マクロ</div><div class="ttdef"><b>Definition</b> iutest_typed_tests.hpp:189</div></div>
+<div class="ttc" id="agroup___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_ga2a5fe227b1e1843898d582fc67fa3ea4"><div class="ttname"><a href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga2a5fe227b1e1843898d582fc67fa3ea4">IUTEST_REGISTER_TYPED_TEST_SUITE_P</a></div><div class="ttdeci">#define IUTEST_REGISTER_TYPED_TEST_SUITE_P(testsuite_,...)</div><div class="ttdoc">型パラメータテスト関数登録マクロ</div><div class="ttdef"><b>Definition</b> iutest_typed_tests.hpp:206</div></div>
+<div class="ttc" id="agroup___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_ga2b81c0558d5251b2853cc8cb001ca48e"><div class="ttname"><a href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga2b81c0558d5251b2853cc8cb001ca48e">IUTEST_TYPED_TEST_SUITE_P</a></div><div class="ttdeci">#define IUTEST_TYPED_TEST_SUITE_P(testsuite_)</div><div class="ttdoc">型パラメータTestSuite の登録</div><div class="ttdef"><b>Definition</b> iutest_typed_tests.hpp:180</div></div>
+<div class="ttc" id="agroup___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_ga4a7ad40d030b9e035869c06e814118cf"><div class="ttname"><a href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga4a7ad40d030b9e035869c06e814118cf">IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P</a></div><div class="ttdeci">#define IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(prefix_, testsuite_,...)</div><div class="ttdoc">型パラメータテスト登録マクロ</div><div class="ttdef"><b>Definition</b> iutest_typed_tests.hpp:217</div></div>
+<div class="ttc" id="agroup___t_y_p_e_d___t_e_s_t_html_ga2b77af42aeebce007eaeefd8786e921e"><div class="ttname"><a href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga2b77af42aeebce007eaeefd8786e921e">IUTEST_TYPED_TEST</a></div><div class="ttdeci">#define IUTEST_TYPED_TEST(testsuite_, testname_)</div><div class="ttdoc">型付けテスト関数定義マクロ</div><div class="ttdef"><b>Definition</b> iutest_typed_tests.hpp:57</div></div>
+<div class="ttc" id="agroup___t_y_p_e_d___t_e_s_t_html_ga4d22496d1cb97a990b16e6f92e5cdd4f"><div class="ttname"><a href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga4d22496d1cb97a990b16e6f92e5cdd4f">IUTEST_TYPED_TEST_SUITE</a></div><div class="ttdeci">#define IUTEST_TYPED_TEST_SUITE(testsuite_,...)</div><div class="ttdoc">型付けTestSuite の登録</div><div class="ttdef"><b>Definition</b> iutest_typed_tests.hpp:45</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2026年09月03日(木) 01時29分42秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2026年09月03日(木) 02時21分23秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

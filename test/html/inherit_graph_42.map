@@ -1,3 +1,5 @@
 <map id="クラス階層図" name="クラス階層図">
-<area shape="rect" id="node1" href="$d4/d32/structiutest__compatible_1_1_is_null_literal_helper.html" title=" " alt="" coords="5,5,152,47"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,13,44,38"/>
+<area shape="rect" id="Node000001" href="$d9/d29/structiutest_1_1legacy_1_1_suite_api_resolver.html" title=" " alt="" coords="92,5,263,45"/>
+<area shape="poly" id="edge35_Node000000_Node000001" title=" " alt="" coords="58,23,92,23,92,28,58,28"/>
 </map>

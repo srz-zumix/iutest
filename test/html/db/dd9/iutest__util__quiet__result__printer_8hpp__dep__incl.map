@@ -1,6 +1,9 @@
 <map id="util/iutest_util_quiet_result_printer.hpp" name="util/iutest_util_quiet_result_printer.hpp">
-<area shape="rect" id="node1" title="iris unit test quiet result printer" alt="" coords="5,5,157,47"/>
-<area shape="rect" id="node2" href="$de/dd4/iutest__util_8hpp.html" title="iris unit test utility" alt="" coords="24,95,139,121"/>
-<area shape="rect" id="node3" href="$d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="38,169,125,196"/>
-<area shape="rect" id="node4" href="$d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="25,244,138,271"/>
+<area shape="rect" id="Node000001" title="iris unit test quiet result printer" alt="" coords="5,5,157,45"/>
+<area shape="rect" id="Node000002" href="$de/dd4/iutest__util_8hpp.html" title="iris unit test utility" alt="" coords="24,93,139,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,59,84,93,79,93,79,59"/>
+<area shape="rect" id="Node000003" href="$d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="38,167,125,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="84,132,84,167,79,167,79,132"/>
+<area shape="rect" id="Node000004" href="$d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="25,240,138,265"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="84,206,84,240,79,240,79,206"/>
 </map>

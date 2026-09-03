@@ -25,6 +25,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
 .highlight .gd { color: #A00000 } /* Generic.Deleted */
 .highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
 .highlight .gr { color: #FF0000 } /* Generic.Error */
 .highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
 .highlight .gi { color: #00A000 } /* Generic.Inserted */
@@ -216,16 +217,16 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
   <body>
     <div id="wrapper">
     <div id="header" class="header">
-      <h1>Cppcheck report - iutest: ../../include/internal/iutest_stdlib_defs.hpp</h1>
+      <h1>Cppcheck report - iutest: ../../include/internal/iutest_pp.hpp</h1>
 
     </div>
 
     <div id="menu">
-     <p><a href="index.html">Defects:</a> iutest_stdlib_defs.hpp</p>
-<a href="0.html#line-43"> preprocessorErrorDirective 43</a>
+     <p><a href="index.html">Defects:</a> iutest_pp.hpp</p>
+<a href="0.html#line-447"> preprocessorErrorDirective 447</a><a href="0.html#line-447"> preprocessorErrorDirective 447</a><a href="0.html#line-447"> preprocessorErrorDirective 447</a><a href="0.html#line-447"> preprocessorErrorDirective 447</a><a href="0.html#line-447"> preprocessorErrorDirective 447</a>
     </div>
     <div id="content">
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">  1</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">  1</span>
 <span class="normal">  2</span>
 <span class="normal">  3</span>
 <span class="normal">  4</span>
@@ -992,922 +993,780 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <span class="normal">765</span>
 <span class="normal">766</span>
 <span class="normal">767</span>
-<span class="normal">768</span>
-<span class="normal">769</span>
-<span class="normal">770</span>
-<span class="normal">771</span>
-<span class="normal">772</span>
-<span class="normal">773</span>
-<span class="normal">774</span>
-<span class="normal">775</span>
-<span class="normal">776</span>
-<span class="normal">777</span>
-<span class="normal">778</span>
-<span class="normal">779</span>
-<span class="normal">780</span>
-<span class="normal">781</span>
-<span class="normal">782</span>
-<span class="normal">783</span>
-<span class="normal">784</span>
-<span class="normal">785</span>
-<span class="normal">786</span>
-<span class="normal">787</span>
-<span class="normal">788</span>
-<span class="normal">789</span>
-<span class="normal">790</span>
-<span class="normal">791</span>
-<span class="normal">792</span>
-<span class="normal">793</span>
-<span class="normal">794</span>
-<span class="normal">795</span>
-<span class="normal">796</span>
-<span class="normal">797</span>
-<span class="normal">798</span>
-<span class="normal">799</span>
-<span class="normal">800</span>
-<span class="normal">801</span>
-<span class="normal">802</span>
-<span class="normal">803</span>
-<span class="normal">804</span>
-<span class="normal">805</span>
-<span class="normal">806</span>
-<span class="normal">807</span>
-<span class="normal">808</span>
-<span class="normal">809</span>
-<span class="normal">810</span>
-<span class="normal">811</span>
-<span class="normal">812</span>
-<span class="normal">813</span>
-<span class="normal">814</span>
-<span class="normal">815</span>
-<span class="normal">816</span>
-<span class="normal">817</span>
-<span class="normal">818</span>
-<span class="normal">819</span>
-<span class="normal">820</span>
-<span class="normal">821</span>
-<span class="normal">822</span>
-<span class="normal">823</span>
-<span class="normal">824</span>
-<span class="normal">825</span>
-<span class="normal">826</span>
-<span class="normal">827</span>
-<span class="normal">828</span>
-<span class="normal">829</span>
-<span class="normal">830</span>
-<span class="normal">831</span>
-<span class="normal">832</span>
-<span class="normal">833</span>
-<span class="normal">834</span>
-<span class="normal">835</span>
-<span class="normal">836</span>
-<span class="normal">837</span>
-<span class="normal">838</span>
-<span class="normal">839</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><a id="line-1" name="line-1"></a><span class="c1">//======================================================================</span>
+<span class="normal">768</span></pre></div></td><td class="code"><div><pre><span></span><a id="line-1" name="line-1"></a><span class="c1">//======================================================================</span>
 <a id="line-2" name="line-2"></a><span class="c1">//-----------------------------------------------------------------------</span>
 <a id="line-3" name="line-3"></a><span class="cm">/**</span>
-<a id="line-4" name="line-4"></a><span class="cm"> * @file        iutest_stdlib_defs.hpp</span>
-<a id="line-5" name="line-5"></a><span class="cm"> * @brief       stdlib detect defines</span>
+<a id="line-4" name="line-4"></a><span class="cm"> * @file        iutest_pp.hpp</span>
+<a id="line-5" name="line-5"></a><span class="cm"> * @brief       preprocessor definition</span>
 <a id="line-6" name="line-6"></a><span class="cm"> *</span>
 <a id="line-7" name="line-7"></a><span class="cm"> * @author      t.shirayanagi</span>
 <a id="line-8" name="line-8"></a><span class="cm"> * @par         copyright</span>
-<a id="line-9" name="line-9"></a><span class="cm"> * Copyright (C) 2012-2025, Takazumi Shirayanagi\n</span>
+<a id="line-9" name="line-9"></a><span class="cm"> * Copyright (C) 2011-2020, Takazumi Shirayanagi\n</span>
 <a id="line-10" name="line-10"></a><span class="cm"> * This software is released under the new BSD License,</span>
 <a id="line-11" name="line-11"></a><span class="cm"> * see LICENSE</span>
-<a id="line-12" name="line-12"></a><span class="cm">*/</span><span class="w"></span>
+<a id="line-12" name="line-12"></a><span class="cm">*/</span>
 <a id="line-13" name="line-13"></a><span class="c1">//-----------------------------------------------------------------------</span>
 <a id="line-14" name="line-14"></a><span class="c1">//======================================================================</span>
-<a id="line-15" name="line-15"></a><span class="cp">#ifndef INCG_IRIS_IUTEST_STDLIB_DEFS_HPP_9C62C097_E5FB_49EE_9329_811F32C846A2_</span>
-<a id="line-16" name="line-16"></a><span class="cp">#define INCG_IRIS_IUTEST_STDLIB_DEFS_HPP_9C62C097_E5FB_49EE_9329_811F32C846A2_</span>
+<a id="line-15" name="line-15"></a><span class="cp">#ifndef INCG_IRIS_IUTEST_PP_HPP_E8F72184_9C72_4E74_B581_A1F51F291F3A_</span>
+<a id="line-16" name="line-16"></a><span class="cp">#define INCG_IRIS_IUTEST_PP_HPP_E8F72184_9C72_4E74_B581_A1F51F291F3A_</span>
 <a id="line-17" name="line-17"></a>
 <a id="line-18" name="line-18"></a><span class="c1">//======================================================================</span>
-<a id="line-19" name="line-19"></a><span class="c1">// include</span>
-<a id="line-20" name="line-20"></a><span class="c1">// IWYU pragma: begin_exports</span>
-<a id="line-21" name="line-21"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;iutest_compiler.hpp&quot;</span><span class="cp"></span>
-<a id="line-22" name="line-22"></a><span class="cp">#define __STDC_FORMAT_MACROS    1</span>
-<a id="line-23" name="line-23"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;inttypes.h&gt;</span><span class="cp"></span>
-<a id="line-24" name="line-24"></a>
-<a id="line-25" name="line-25"></a><span class="cp">#if defined(IUTEST_USE_GTEST) &amp;&amp; defined(__STRICT_ANSI__)</span>
-<a id="line-26" name="line-26"></a><span class="cp">#  undef __STRICT_ANSI__</span>
-<a id="line-27" name="line-27"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
-<a id="line-28" name="line-28"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
-<a id="line-29" name="line-29"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;cstdio&gt;</span><span class="cp"></span>
-<a id="line-30" name="line-30"></a><span class="cp">#  define __STRICT_ANSI__</span>
-<a id="line-31" name="line-31"></a><span class="cp">#endif</span>
-<a id="line-32" name="line-32"></a><span class="cp">#if !defined(_MSC_VER)</span>
-<a id="line-33" name="line-33"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span><span class="cp"></span>
-<a id="line-34" name="line-34"></a><span class="cp">#endif</span>
-<a id="line-35" name="line-35"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdlib&gt;</span><span class="cp"></span>
-<a id="line-36" name="line-36"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstddef&gt;</span><span class="cp"></span>
-<a id="line-37" name="line-37"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;limits&gt;</span><span class="cp"></span>
-<a id="line-38" name="line-38"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;complex&gt;</span><span class="cp"></span>
-<a id="line-39" name="line-39"></a>
-<a id="line-40" name="line-40"></a><span class="c1">// &lt;version&gt; header</span>
-<a id="line-41" name="line-41"></a><span class="cp">#if !defined(IUTEST_HAS_CXX_HDR_VERSION)</span>
-<a id="line-42" name="line-42"></a><span class="cp">#  if defined(__has_include)</span>
-<a id="line-43" name="line-43"></a><span class="hll"><span class="cp">#    if __has_include(&lt;version&gt;)</span><span class="error2">&lt;--- failed to evaluate #if condition</span>
-</span><a id="line-44" name="line-44"></a><span class="cp">#      define IUTEST_HAS_CXX_HDR_VERSION    1</span>
-<a id="line-45" name="line-45"></a><span class="cp">#    endif</span>
-<a id="line-46" name="line-46"></a><span class="cp">#  endif</span>
-<a id="line-47" name="line-47"></a><span class="cp">#endif</span>
-<a id="line-48" name="line-48"></a>
-<a id="line-49" name="line-49"></a><span class="cp">#if !defined(IUTEST_HAS_CXX_HDR_VERSION)</span>
-<a id="line-50" name="line-50"></a><span class="cp">#  define IUTEST_HAS_CXX_HDR_VERSION        0</span>
-<a id="line-51" name="line-51"></a><span class="cp">#endif</span>
-<a id="line-52" name="line-52"></a>
-<a id="line-53" name="line-53"></a><span class="cp">#if IUTEST_HAS_CXX_HDR_VERSION</span>
-<a id="line-54" name="line-54"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;version&gt;</span><span class="cp"></span>
-<a id="line-55" name="line-55"></a><span class="cp">#endif</span>
-<a id="line-56" name="line-56"></a><span class="c1">// IWYU pragma: end_exports</span>
-<a id="line-57" name="line-57"></a>
-<a id="line-58" name="line-58"></a><span class="c1">//======================================================================</span>
-<a id="line-59" name="line-59"></a><span class="c1">// define</span>
-<a id="line-60" name="line-60"></a><span class="cp">#if   defined(__GLIBCPP__) || defined(__GLIBCXX__)</span>
-<a id="line-61" name="line-61"></a>
-<a id="line-62" name="line-62"></a><span class="c1">// libstdc++</span>
-<a id="line-63" name="line-63"></a><span class="cp">#if   defined(__clang__)</span>
-<a id="line-64" name="line-64"></a><span class="cp">#  if __has_include(&lt;experimental/memory_resource&gt;)</span>
-<a id="line-65" name="line-65"></a><span class="cp">#    define IUTEST_LIBSTDCXX_VERSION    60100</span>
-<a id="line-66" name="line-66"></a><span class="cp">#  elif __has_include(&lt;experimental/any&gt;)</span>
-<a id="line-67" name="line-67"></a><span class="cp">#    define IUTEST_LIBSTDCXX_VERSION    50100</span>
-<a id="line-68" name="line-68"></a><span class="cp">#  elif __has_include(&lt;shared_mutex&gt;)</span>
-<a id="line-69" name="line-69"></a><span class="cp">#    define IUTEST_LIBSTDCXX_VERSION    40900</span>
-<a id="line-70" name="line-70"></a><span class="cp">#  elif __has_include(&lt;ext/cmath&gt;)</span>
-<a id="line-71" name="line-71"></a><span class="cp">#    define IUTEST_LIBSTDCXX_VERSION    40800</span>
-<a id="line-72" name="line-72"></a><span class="cp">#  elif   __has_include(&lt;scoped_allocator&gt;)</span>
-<a id="line-73" name="line-73"></a><span class="cp">#    define IUTEST_LIBSTDCXX_VERSION    40700</span>
-<a id="line-74" name="line-74"></a><span class="cp">#  elif __has_include(&lt;typeindex&gt;)</span>
-<a id="line-75" name="line-75"></a><span class="cp">#    define IUTEST_LIBSTDCXX_VERSION    40600</span>
-<a id="line-76" name="line-76"></a><span class="cp">#  elif __has_include(&lt;future&gt;)</span>
-<a id="line-77" name="line-77"></a><span class="cp">#    define IUTEST_LIBSTDCXX_VERSION    40500</span>
-<a id="line-78" name="line-78"></a><span class="cp">#  elif __has_include(&lt;ratio&gt;)</span>
-<a id="line-79" name="line-79"></a><span class="cp">#    define IUTEST_LIBSTDCXX_VERSION    40400</span>
-<a id="line-80" name="line-80"></a><span class="cp">#  elif __has_include(&lt;array&gt;)</span>
-<a id="line-81" name="line-81"></a><span class="cp">#    define IUTEST_LIBSTDCXX_VERSION    40300</span>
-<a id="line-82" name="line-82"></a><span class="cp">#  endif</span>
-<a id="line-83" name="line-83"></a><span class="cp">#elif defined(__GNUC__)</span>
-<a id="line-84" name="line-84"></a><span class="cp">#  define IUTEST_LIBSTDCXX_VERSION      (__GNUC__*10000 + __GNUC_MINOR__*100 + __GNUC_PATCHLEVEL__)</span>
-<a id="line-85" name="line-85"></a><span class="cp">#endif</span>
-<a id="line-86" name="line-86"></a>
-<a id="line-87" name="line-87"></a><span class="cp">#if IUTEST_HAS_CXX11</span>
-<a id="line-88" name="line-88"></a><span class="cp">#  if IUTEST_LIBSTDCXX_VERSION &gt;= 60100</span>
-<a id="line-89" name="line-89"></a><span class="cp">#    if !defined(IUTEST_HAS_STD_INVOKE) &amp;&amp; IUTEST_HAS_CXX1Z</span>
-<a id="line-90" name="line-90"></a><span class="cp">#      define IUTEST_HAS_STD_INVOKE         1</span>
-<a id="line-91" name="line-91"></a><span class="cp">#    endif</span>
-<a id="line-92" name="line-92"></a><span class="cp">#  endif</span>
-<a id="line-93" name="line-93"></a><span class="cp">#  if IUTEST_LIBSTDCXX_VERSION &gt;= 50100</span>
-<a id="line-94" name="line-94"></a><span class="cp">#    if !defined(IUTEST_HAS_CXX_HDR_CODECVT)</span>
-<a id="line-95" name="line-95"></a><span class="cp">#      define IUTEST_HAS_CXX_HDR_CODECVT    1</span>
-<a id="line-96" name="line-96"></a><span class="cp">#    endif</span>
-<a id="line-97" name="line-97"></a><span class="cp">#  endif</span>
-<a id="line-98" name="line-98"></a><span class="cp">#  if IUTEST_LIBSTDCXX_VERSION &gt;= 40900</span>
-<a id="line-99" name="line-99"></a><span class="cp">#    if !defined(IUTEST_HAS_CXX_HDR_REGEX)</span>
-<a id="line-100" name="line-100"></a><span class="cp">#      define IUTEST_HAS_CXX_HDR_REGEX      1</span>
-<a id="line-101" name="line-101"></a><span class="cp">#    endif</span>
-<a id="line-102" name="line-102"></a><span class="cp">#  endif</span>
-<a id="line-103" name="line-103"></a><span class="cp">#  if IUTEST_LIBSTDCXX_VERSION &gt;= 40700</span>
-<a id="line-104" name="line-104"></a><span class="cp">#    if !defined(IUTEST_HAS_STD_EMPLACE)</span>
-<a id="line-105" name="line-105"></a><span class="cp">#      define IUTEST_HAS_STD_EMPLACE        1</span>
-<a id="line-106" name="line-106"></a><span class="cp">#    endif</span>
-<a id="line-107" name="line-107"></a><span class="cp">#    if !defined(IUTEST_HAS_CXX_HDR_CHRONO)</span>
-<a id="line-108" name="line-108"></a><span class="cp">#      define IUTEST_HAS_CXX_HDR_CHRONO     1</span>
-<a id="line-109" name="line-109"></a><span class="cp">#    endif</span>
-<a id="line-110" name="line-110"></a><span class="cp">#  endif</span>
-<a id="line-111" name="line-111"></a><span class="cp">#  if IUTEST_LIBSTDCXX_VERSION &gt;= 40600</span>
-<a id="line-112" name="line-112"></a><span class="cp">#    if !defined(IUTEST_HAS_STD_BEGIN_END)</span>
-<a id="line-113" name="line-113"></a><span class="cp">#      define IUTEST_HAS_STD_BEGIN_END      1</span>
-<a id="line-114" name="line-114"></a><span class="cp">#    endif</span>
-<a id="line-115" name="line-115"></a><span class="cp">#  endif</span>
-<a id="line-116" name="line-116"></a><span class="cp">#  if IUTEST_LIBSTDCXX_VERSION &gt;= 40500</span>
-<a id="line-117" name="line-117"></a><span class="cp">#    if !defined(IUTEST_HAS_STD_DECLVAL)</span>
-<a id="line-118" name="line-118"></a><span class="cp">#      define IUTEST_HAS_STD_DECLVAL        1</span>
-<a id="line-119" name="line-119"></a><span class="cp">#    endif</span>
-<a id="line-120" name="line-120"></a><span class="cp">#    if !defined(IUTEST_HAS_CXX_HDR_RANDOM)</span>
-<a id="line-121" name="line-121"></a><span class="cp">#      define IUTEST_HAS_CXX_HDR_RANDOM     1</span>
-<a id="line-122" name="line-122"></a><span class="cp">#    endif</span>
-<a id="line-123" name="line-123"></a><span class="cp">#    if !defined(IUTEST_HAS_CXX_HDR_CSTDINT)</span>
-<a id="line-124" name="line-124"></a><span class="cp">#      define IUTEST_HAS_CXX_HDR_CSTDINT    1</span>
-<a id="line-125" name="line-125"></a><span class="cp">#    endif</span>
-<a id="line-126" name="line-126"></a><span class="cp">#  endif</span>
-<a id="line-127" name="line-127"></a><span class="cp">#  if IUTEST_LIBSTDCXX_VERSION &gt;= 40300</span>
-<a id="line-128" name="line-128"></a><span class="cp">#    if !defined(IUTEST_HAS_CXX_HDR_ARRAY)</span>
-<a id="line-129" name="line-129"></a><span class="cp">#      define IUTEST_HAS_CXX_HDR_ARRAY      1</span>
-<a id="line-130" name="line-130"></a><span class="cp">#    endif</span>
-<a id="line-131" name="line-131"></a><span class="cp">#    if !defined(IUTEST_HAS_STD_TUPLE)</span>
-<a id="line-132" name="line-132"></a><span class="cp">#      define IUTEST_HAS_STD_TUPLE          1</span>
-<a id="line-133" name="line-133"></a><span class="cp">#    endif</span>
-<a id="line-134" name="line-134"></a><span class="cp">#  endif</span>
-<a id="line-135" name="line-135"></a><span class="cp">#  if defined(_GLIBCXX_HAVE_QUICK_EXIT) &amp;&amp; defined(_GLIBCXX_HAVE_AT_QUICK_EXIT)</span>
-<a id="line-136" name="line-136"></a><span class="cp">#    if !defined(IUTEST_HAS_STD_QUICK_EXIT)</span>
-<a id="line-137" name="line-137"></a><span class="cp">#      define IUTEST_HAS_STD_QUICK_EXIT   1</span>
-<a id="line-138" name="line-138"></a><span class="cp">#    endif</span>
-<a id="line-139" name="line-139"></a><span class="cp">#  endif</span>
-<a id="line-140" name="line-140"></a><span class="cp">#  if defined(__has_include)</span>
-<a id="line-141" name="line-141"></a><span class="cp">#    if !defined(IUTEST_HAS_CXX_HDR_CUCHAR) &amp;&amp; __has_include( &lt;cuchar&gt; )</span>
-<a id="line-142" name="line-142"></a><span class="cp">#      if defined(_GLIBCXX_USE_C11_UCHAR_CXX11) &amp;&amp; _GLIBCXX_USE_C11_UCHAR_CXX11</span>
-<a id="line-143" name="line-143"></a><span class="cp">#        define IUTEST_HAS_CXX_HDR_CUCHAR   1</span>
-<a id="line-144" name="line-144"></a><span class="cp">#      endif</span>
-<a id="line-145" name="line-145"></a><span class="cp">#    endif</span>
-<a id="line-146" name="line-146"></a><span class="cp">#  endif</span>
-<a id="line-147" name="line-147"></a><span class="cp">#endif</span>
-<a id="line-148" name="line-148"></a>
-<a id="line-149" name="line-149"></a><span class="cp">#if !defined(IUTEST_HAS_STD_TUPLE)</span>
-<a id="line-150" name="line-150"></a><span class="cp">#  if (!defined(__CUDACC__) &amp;&amp; !defined(__ARMCC_VERSION) &amp;&amp; (IUTEST_LIBSTDCXX_VERSION &gt;= 40000))</span>
-<a id="line-151" name="line-151"></a><span class="cp">#    if !defined(IUTEST_HAS_TR1_TUPLE)</span>
-<a id="line-152" name="line-152"></a><span class="cp">#      define IUTEST_HAS_TR1_TUPLE          1</span>
-<a id="line-153" name="line-153"></a><span class="cp">#    endif</span>
-<a id="line-154" name="line-154"></a><span class="cp">#  endif</span>
-<a id="line-155" name="line-155"></a><span class="cp">#endif</span>
-<a id="line-156" name="line-156"></a>
-<a id="line-157" name="line-157"></a><span class="cp">#if !defined(IUTEST_HAS_HDR_CXXABI)</span>
-<a id="line-158" name="line-158"></a><span class="cp">#  if   defined(__has_include)</span>
-<a id="line-159" name="line-159"></a><span class="cp">#    if __has_include( &lt;cxxabi.h&gt; )</span>
-<a id="line-160" name="line-160"></a><span class="cp">#      define IUTEST_HAS_HDR_CXXABI         1</span>
-<a id="line-161" name="line-161"></a><span class="cp">#    endif</span>
-<a id="line-162" name="line-162"></a><span class="cp">#  else</span>
-<a id="line-163" name="line-163"></a><span class="cp">#    define IUTEST_HAS_HDR_CXXABI           1</span>
-<a id="line-164" name="line-164"></a><span class="cp">#  endif</span>
-<a id="line-165" name="line-165"></a><span class="cp">#endif</span>
-<a id="line-166" name="line-166"></a>
-<a id="line-167" name="line-167"></a><span class="cp">#if defined(__GNUC__) &amp;&amp; !defined(__clang__)</span>
-<a id="line-168" name="line-168"></a><span class="c1">// GCC 8.x requires linking with -lstdc++fs. (iutest not support)</span>
-<a id="line-169" name="line-169"></a><span class="cp">#  if   (__GNUC__ &lt; 9)</span>
-<a id="line-170" name="line-170"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_FILESYSTEM   0</span>
-<a id="line-171" name="line-171"></a><span class="cp">#  endif</span>
-<a id="line-172" name="line-172"></a><span class="cp">#endif</span>
-<a id="line-173" name="line-173"></a>
-<a id="line-174" name="line-174"></a><span class="cp">#elif defined(_LIBCPP_VERSION)</span>
-<a id="line-175" name="line-175"></a>
-<a id="line-176" name="line-176"></a><span class="c1">// libc++</span>
-<a id="line-177" name="line-177"></a><span class="cp">#if IUTEST_HAS_CXX11</span>
-<a id="line-178" name="line-178"></a><span class="cp">#  if !defined(IUTEST_HAS_STD_BEGIN_END)</span>
-<a id="line-179" name="line-179"></a><span class="cp">#    define IUTEST_HAS_STD_BEGIN_END      1</span>
-<a id="line-180" name="line-180"></a><span class="cp">#  endif</span>
-<a id="line-181" name="line-181"></a><span class="cp">#  if !defined(IUTEST_HAS_STD_DECLVAL)</span>
-<a id="line-182" name="line-182"></a><span class="cp">#    define IUTEST_HAS_STD_DECLVAL        1</span>
-<a id="line-183" name="line-183"></a><span class="cp">#  endif</span>
-<a id="line-184" name="line-184"></a><span class="cp">#  if !defined(IUTEST_HAS_STD_EMPLACE)</span>
-<a id="line-185" name="line-185"></a><span class="cp">#    define IUTEST_HAS_STD_EMPLACE        1</span>
-<a id="line-186" name="line-186"></a><span class="cp">#  endif</span>
-<a id="line-187" name="line-187"></a><span class="cp">#  if !defined(IUTEST_HAS_CXX_HDR_CHRONO)</span>
-<a id="line-188" name="line-188"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_CHRONO     1</span>
-<a id="line-189" name="line-189"></a><span class="cp">#  endif</span>
-<a id="line-190" name="line-190"></a><span class="cp">#  if !defined(IUTEST_HAS_CXX_HDR_REGEX)</span>
-<a id="line-191" name="line-191"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_REGEX      1</span>
-<a id="line-192" name="line-192"></a><span class="cp">#  endif</span>
-<a id="line-193" name="line-193"></a><span class="cp">#  if !defined(IUTEST_HAS_CXX_HDR_RANDOM)</span>
-<a id="line-194" name="line-194"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_RANDOM     1</span>
-<a id="line-195" name="line-195"></a><span class="cp">#  endif</span>
-<a id="line-196" name="line-196"></a><span class="cp">#  if !defined(IUTEST_HAS_CXX_HDR_CODECVT)</span>
-<a id="line-197" name="line-197"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_CODECVT    1</span>
-<a id="line-198" name="line-198"></a><span class="cp">#  endif</span>
-<a id="line-199" name="line-199"></a><span class="cp">#  if !defined(IUTEST_HAS_CXX_HDR_CSTDINT)</span>
-<a id="line-200" name="line-200"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_CSTDINT    1</span>
-<a id="line-201" name="line-201"></a><span class="cp">#  endif</span>
-<a id="line-202" name="line-202"></a><span class="cp">#  if !defined(IUTEST_HAS_CXX_HDR_ARRAY)</span>
-<a id="line-203" name="line-203"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_ARRAY      1</span>
-<a id="line-204" name="line-204"></a><span class="cp">#  endif</span>
-<a id="line-205" name="line-205"></a><span class="cp">#  if !defined(IUTEST_HAS_STD_QUICK_EXIT) &amp;&amp; defined(_LIBCPP_HAS_QUICK_EXIT)</span>
-<a id="line-206" name="line-206"></a><span class="cp">#    if defined(__APPLE__)</span>
-<a id="line-207" name="line-207"></a><span class="cp">#      define IUTEST_HAS_STD_QUICK_EXIT   0   </span><span class="c1">// xcode clang</span>
-<a id="line-208" name="line-208"></a><span class="cp">#    else</span>
-<a id="line-209" name="line-209"></a><span class="cp">#      define IUTEST_HAS_STD_QUICK_EXIT   1</span>
-<a id="line-210" name="line-210"></a><span class="cp">#    endif</span>
-<a id="line-211" name="line-211"></a><span class="cp">#  endif</span>
-<a id="line-212" name="line-212"></a><span class="cp">#  if   defined(__has_include)</span>
-<a id="line-213" name="line-213"></a><span class="cp">#    if !defined(IUTEST_HAS_CXX_HDR_CUCHAR) &amp;&amp; __has_include( &lt;cuchar&gt; )</span>
-<a id="line-214" name="line-214"></a><span class="cp">#      if defined(__APPLE__) &amp;&amp; defined(_LIBCPP_VERSION)</span>
-<a id="line-215" name="line-215"></a><span class="c1">// https://github.com/llvm/llvm-project/issues/62573</span>
-<a id="line-216" name="line-216"></a><span class="cp">#        define IUTEST_HAS_CXX_HDR_CUCHAR 0</span>
-<a id="line-217" name="line-217"></a><span class="cp">#      else</span>
-<a id="line-218" name="line-218"></a><span class="cp">#        define IUTEST_HAS_CXX_HDR_CUCHAR 1</span>
-<a id="line-219" name="line-219"></a><span class="cp">#      endif</span>
-<a id="line-220" name="line-220"></a><span class="cp">#    endif</span>
-<a id="line-221" name="line-221"></a><span class="cp">#    if !defined(IUTEST_HAS_STD_TUPLE) &amp;&amp; __has_include( &lt;tuple&gt; )</span>
-<a id="line-222" name="line-222"></a><span class="cp">#      define IUTEST_HAS_STD_TUPLE        1</span>
-<a id="line-223" name="line-223"></a><span class="cp">#    endif</span>
-<a id="line-224" name="line-224"></a><span class="cp">#  endif</span>
-<a id="line-225" name="line-225"></a><span class="cp">#endif</span>
-<a id="line-226" name="line-226"></a>
-<a id="line-227" name="line-227"></a><span class="cp">#if _LIBCPP_VERSION &lt; 9000</span>
-<a id="line-228" name="line-228"></a><span class="cp">#  define IUTEST_HAS_CXX_HDR_FILESYSTEM   0</span>
-<a id="line-229" name="line-229"></a><span class="cp">#endif</span>
-<a id="line-230" name="line-230"></a><span class="cp">#if _LIBCPP_VERSION &gt;= 3700</span>
-<a id="line-231" name="line-231"></a><span class="cp">#  if !defined(IUTEST_HAS_STD_INVOKE) &amp;&amp; IUTEST_HAS_CXX1Z</span>
-<a id="line-232" name="line-232"></a><span class="cp">#    define IUTEST_HAS_STD_INVOKE         1</span>
-<a id="line-233" name="line-233"></a><span class="cp">#  endif</span>
-<a id="line-234" name="line-234"></a><span class="cp">#endif</span>
-<a id="line-235" name="line-235"></a><span class="cp">#if _LIBCPP_VERSION &gt;= 1001</span>
-<a id="line-236" name="line-236"></a><span class="cp">#  if !defined(IUTEST_HAS_STD_BEGIN_END)</span>
-<a id="line-237" name="line-237"></a><span class="cp">#    define IUTEST_HAS_STD_BEGIN_END      1</span>
-<a id="line-238" name="line-238"></a><span class="cp">#  endif</span>
-<a id="line-239" name="line-239"></a><span class="cp">#endif</span>
-<a id="line-240" name="line-240"></a>
-<a id="line-241" name="line-241"></a><span class="cp">#if defined(__has_include)</span>
-<a id="line-242" name="line-242"></a><span class="cp">#  if !defined(IUTEST_HAS_STD_TUPLE) &amp;&amp; !defined(IUTEST_HAS_TR1_TUPLE) &amp;&amp; __has_include( &lt;tr1/tuple&gt; )</span>
-<a id="line-243" name="line-243"></a><span class="cp">#    define IUTEST_HAS_TR1_TUPLE          1</span>
-<a id="line-244" name="line-244"></a><span class="cp">#  endif</span>
-<a id="line-245" name="line-245"></a><span class="cp">#  if !defined(IUTEST_HAS_HDR_CXXABI) &amp;&amp; __has_include( &lt;cxxabi.h&gt; )</span>
-<a id="line-246" name="line-246"></a><span class="cp">#    define IUTEST_HAS_HDR_CXXABI         1</span>
-<a id="line-247" name="line-247"></a><span class="cp">#  endif</span>
-<a id="line-248" name="line-248"></a><span class="cp">#endif</span>
-<a id="line-249" name="line-249"></a>
-<a id="line-250" name="line-250"></a><span class="cp">#elif defined(_MSC_VER) &amp;&amp; defined(_MSC_FULL_VER)</span>
-<a id="line-251" name="line-251"></a>
-<a id="line-252" name="line-252"></a><span class="c1">// Visual C++</span>
-<a id="line-253" name="line-253"></a>
-<a id="line-254" name="line-254"></a><span class="cp">#if _MSC_VER &gt;= 1600</span>
-<a id="line-255" name="line-255"></a><span class="cp">#  if !defined(IUTEST_HAS_CXX_HDR_ARRAY)</span>
-<a id="line-256" name="line-256"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_ARRAY      1</span>
-<a id="line-257" name="line-257"></a><span class="cp">#  endif</span>
-<a id="line-258" name="line-258"></a><span class="cp">#endif</span>
-<a id="line-259" name="line-259"></a>
-<a id="line-260" name="line-260"></a><span class="cp">#if _MSC_VER &gt;= 1700</span>
-<a id="line-261" name="line-261"></a><span class="cp">#  if !defined(IUTEST_HAS_STD_BEGIN_END)</span>
-<a id="line-262" name="line-262"></a><span class="cp">#    define IUTEST_HAS_STD_BEGIN_END      1</span>
-<a id="line-263" name="line-263"></a><span class="cp">#  endif</span>
-<a id="line-264" name="line-264"></a><span class="cp">#  if !defined(IUTEST_HAS_STD_DECLVAL)</span>
-<a id="line-265" name="line-265"></a><span class="cp">#    define IUTEST_HAS_STD_DECLVAL        IUTEST_HAS_DECLTYPE</span>
-<a id="line-266" name="line-266"></a><span class="cp">#  endif</span>
-<a id="line-267" name="line-267"></a><span class="cp">#  if !defined(IUTEST_HAS_STD_EMPLACE)</span>
-<a id="line-268" name="line-268"></a><span class="cp">#    define IUTEST_HAS_STD_EMPLACE        1</span>
-<a id="line-269" name="line-269"></a><span class="cp">#  endif</span>
-<a id="line-270" name="line-270"></a><span class="cp">#  if !defined(IUTEST_HAS_CXX_HDR_REGEX)</span>
-<a id="line-271" name="line-271"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_REGEX      1</span>
-<a id="line-272" name="line-272"></a><span class="cp">#  endif</span>
-<a id="line-273" name="line-273"></a><span class="cp">#  if !defined(IUTEST_HAS_CXX_HDR_RANDOM)</span>
-<a id="line-274" name="line-274"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_RANDOM     1</span>
-<a id="line-275" name="line-275"></a><span class="cp">#  endif</span>
-<a id="line-276" name="line-276"></a><span class="cp">#  if !defined(IUTEST_HAS_CXX_HDR_CODECVT)</span>
-<a id="line-277" name="line-277"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_CODECVT    1</span>
-<a id="line-278" name="line-278"></a><span class="cp">#  endif</span>
-<a id="line-279" name="line-279"></a><span class="cp">#  if !defined(IUTEST_HAS_CXX_HDR_CSTDINT)</span>
-<a id="line-280" name="line-280"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_CSTDINT    1</span>
-<a id="line-281" name="line-281"></a><span class="cp">#  endif</span>
-<a id="line-282" name="line-282"></a><span class="cp">#  if !defined(IUTEST_HAS_CXX_HDR_CHRONO) &amp;&amp; _MSC_FULL_VER != 190023725</span>
-<a id="line-283" name="line-283"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_CHRONO   1</span>
-<a id="line-284" name="line-284"></a><span class="cp">#  endif</span>
-<a id="line-285" name="line-285"></a><span class="cp">#endif</span>
-<a id="line-286" name="line-286"></a>
-<a id="line-287" name="line-287"></a><span class="cp">#if _MSC_VER &gt;= 1900</span>
-<a id="line-288" name="line-288"></a><span class="cp">#  if !defined(IUTEST_HAS_STD_QUICK_EXIT)</span>
-<a id="line-289" name="line-289"></a><span class="cp">#    define IUTEST_HAS_STD_QUICK_EXIT       1</span>
-<a id="line-290" name="line-290"></a><span class="cp">#  endif</span>
-<a id="line-291" name="line-291"></a><span class="cp">#  if !defined(IUTEST_HAS_CXX_HDR_CUCHAR)</span>
-<a id="line-292" name="line-292"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_CUCHAR       1</span>
-<a id="line-293" name="line-293"></a><span class="cp">#  endif</span>
-<a id="line-294" name="line-294"></a><span class="cp">#endif</span>
-<a id="line-295" name="line-295"></a>
-<a id="line-296" name="line-296"></a><span class="cp">#if _MSC_VER &gt;= 1916</span>
-<a id="line-297" name="line-297"></a><span class="cp">#  if !defined(IUTEST_HAS_CXX_HDR_CHARCONV) &amp;&amp; IUTEST_HAS_CXX17</span>
-<a id="line-298" name="line-298"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_CHARCONV     1</span>
-<a id="line-299" name="line-299"></a><span class="cp">#  endif</span>
-<a id="line-300" name="line-300"></a><span class="cp">#endif</span>
+<a id="line-19" name="line-19"></a><span class="c1">// define</span>
+<a id="line-20" name="line-20"></a>
+<a id="line-21" name="line-21"></a><span class="cp">#if defined(_MSC_VER) &amp;&amp; !defined(__clang__)</span>
+<a id="line-22" name="line-22"></a><span class="cp">#  if !defined(_MSVC_TRADITIONAL) || _MSVC_TRADITIONAL</span>
+<a id="line-23" name="line-23"></a><span class="cp">#    define IUTEST_PP_MSVC_TRADITIONAL</span>
+<a id="line-24" name="line-24"></a><span class="cp">#  endif</span>
+<a id="line-25" name="line-25"></a><span class="cp">#endif</span>
+<a id="line-26" name="line-26"></a>
+<a id="line-27" name="line-27"></a><span class="cm">/**</span>
+<a id="line-28" name="line-28"></a><span class="cm"> * @brief       コピー禁止定義</span>
+<a id="line-29" name="line-29"></a><span class="cm">*/</span>
+<a id="line-30" name="line-30"></a><span class="cp">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)    \</span>
+<a id="line-31" name="line-31"></a><span class="cp">        TypeName(const TypeName&amp;);                      \</span>
+<a id="line-32" name="line-32"></a><span class="cp">        TypeName&amp; operator = (const TypeName&amp;)</span>
+<a id="line-33" name="line-33"></a>
+<a id="line-34" name="line-34"></a><span class="cm">/**</span>
+<a id="line-35" name="line-35"></a><span class="cm"> * @brief       代入禁止定義</span>
+<a id="line-36" name="line-36"></a><span class="cm">*/</span>
+<a id="line-37" name="line-37"></a><span class="cp">#define IUTEST_PP_DISALLOW_ASSIGN(TypeName)     \</span>
+<a id="line-38" name="line-38"></a><span class="cp">    private:                                    \</span>
+<a id="line-39" name="line-39"></a><span class="cp">        TypeName&amp; operator = (const TypeName&amp;)</span>
+<a id="line-40" name="line-40"></a>
+<a id="line-41" name="line-41"></a>
+<a id="line-42" name="line-42"></a><span class="cm">/**</span>
+<a id="line-43" name="line-43"></a><span class="cm"> * @brief   コピー/ムーブ禁止定義</span>
+<a id="line-44" name="line-44"></a><span class="cm">*/</span>
+<a id="line-45" name="line-45"></a><span class="cp">#if defined(IUTEST_HAS_RVALUE_REFS) &amp;&amp; IUTEST_HAS_RVALUE_REFS</span>
+<a id="line-46" name="line-46"></a><span class="cp">#  define IUTEST_PP_DISALLOW_MOVE_AND_COPY_AND_ASSIGN(TypeName) \</span>
+<a id="line-47" name="line-47"></a><span class="cp">    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName);               \</span>
+<a id="line-48" name="line-48"></a><span class="cp">    TypeName(TypeName&amp;&amp; rhs);                                   \</span>
+<a id="line-49" name="line-49"></a><span class="cp">    TypeName&amp; operator = (TypeName&amp;&amp;)</span>
+<a id="line-50" name="line-50"></a><span class="cp">#else</span>
+<a id="line-51" name="line-51"></a><span class="cp">#  define IUTEST_PP_DISALLOW_MOVE_AND_COPY_AND_ASSIGN(TypeName) \</span>
+<a id="line-52" name="line-52"></a><span class="cp">    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</span>
+<a id="line-53" name="line-53"></a><span class="cp">#endif</span>
+<a id="line-54" name="line-54"></a>
+<a id="line-55" name="line-55"></a><span class="cm">/**</span>
+<a id="line-56" name="line-56"></a><span class="cm"> * @private</span>
+<a id="line-57" name="line-57"></a><span class="cm"> * @{</span>
+<a id="line-58" name="line-58"></a><span class="cm">*/</span>
+<a id="line-59" name="line-59"></a>
+<a id="line-60" name="line-60"></a><span class="cp">#if !defined(IUTEST_PP_TOSTRING)</span>
+<a id="line-61" name="line-61"></a><span class="cp">#  define IUTEST_PP_TOSTRING(z_)    IIUT_PP_TOSTRING_(z_)</span>
+<a id="line-62" name="line-62"></a><span class="cp">#endif</span>
+<a id="line-63" name="line-63"></a><span class="cp">#define IIUT_PP_TOSTRING_(z_)       #z_</span>
+<a id="line-64" name="line-64"></a>
+<a id="line-65" name="line-65"></a><span class="cp">#if !defined(IUTEST_PP_CAT)</span>
+<a id="line-66" name="line-66"></a><span class="cp">#  define IUTEST_PP_CAT(a_, b_)     IIUT_PP_CAT_(a_, b_)</span>
+<a id="line-67" name="line-67"></a><span class="cp">#endif</span>
+<a id="line-68" name="line-68"></a><span class="cp">#define IIUT_PP_CAT_(a_, b_)        a_##b_</span>
+<a id="line-69" name="line-69"></a>
+<a id="line-70" name="line-70"></a><span class="cp">#define IUTEST_PP_EXPAND(x)         x</span>
+<a id="line-71" name="line-71"></a>
+<a id="line-72" name="line-72"></a><span class="cp">#define IUTEST_PP_COUNTOF(x)        (sizeof(x)/sizeof(x[0]))</span>
+<a id="line-73" name="line-73"></a>
+<a id="line-74" name="line-74"></a><span class="cp">#if defined(IUTEST_HAS_COUNTER_MACRO) &amp;&amp; IUTEST_HAS_COUNTER_MACRO</span>
+<a id="line-75" name="line-75"></a><span class="cp">#  define IUTEST_PP_COUNTER         __COUNTER__</span>
+<a id="line-76" name="line-76"></a><span class="cp">#else</span>
+<a id="line-77" name="line-77"></a><span class="cp">#  define IUTEST_PP_COUNTER         __LINE__</span>
+<a id="line-78" name="line-78"></a><span class="cp">#endif</span>
+<a id="line-79" name="line-79"></a>
+<a id="line-80" name="line-80"></a><span class="cp">#if defined(IUTEST_HAS_COUNTER_MACRO) &amp;&amp; IUTEST_HAS_COUNTER_MACRO</span>
+<a id="line-81" name="line-81"></a><span class="cp">#  define IUTEST_PP_UNIQUEID        IUTEST_PP_CAT(__LINE__, __COUNTER__)</span>
+<a id="line-82" name="line-82"></a><span class="cp">#else</span>
+<a id="line-83" name="line-83"></a><span class="cp">#  define IUTEST_PP_UNIQUEID        __LINE__</span>
+<a id="line-84" name="line-84"></a><span class="cp">#endif</span>
+<a id="line-85" name="line-85"></a>
+<a id="line-86" name="line-86"></a><span class="cp">#define IUTEST_UNUSED_VAR(x)        (void)(x)</span>
+<a id="line-87" name="line-87"></a><span class="cp">#define IUTEST_UNUSED_RETURN(x)     (void)(x)</span>
+<a id="line-88" name="line-88"></a>
+<a id="line-89" name="line-89"></a><span class="cp">#define IUTEST_PP_ENUM_CASE_RETURN_STRING(name) case name: return #name</span>
+<a id="line-90" name="line-90"></a><span class="cp">#define IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(ns, name) case ns::name: return #name</span>
+<a id="line-91" name="line-91"></a>
+<a id="line-92" name="line-92"></a><span class="c1">// DEC</span>
+<a id="line-93" name="line-93"></a><span class="cp">#define IUTEST_PP_DEC(n)    IIUT_PP_DEC_I(n)</span>
+<a id="line-94" name="line-94"></a><span class="cp">#define IIUT_PP_DEC_I(n)    IIUT_PP_DEC_##n</span>
+<a id="line-95" name="line-95"></a><span class="cp">#define IIUT_PP_DEC_0       nil</span>
+<a id="line-96" name="line-96"></a><span class="cp">#define IIUT_PP_DEC_1       0</span>
+<a id="line-97" name="line-97"></a><span class="cp">#define IIUT_PP_DEC_2       1</span>
+<a id="line-98" name="line-98"></a><span class="cp">#define IIUT_PP_DEC_3       2</span>
+<a id="line-99" name="line-99"></a><span class="cp">#define IIUT_PP_DEC_4       3</span>
+<a id="line-100" name="line-100"></a><span class="cp">#define IIUT_PP_DEC_5       4</span>
+<a id="line-101" name="line-101"></a><span class="cp">#define IIUT_PP_DEC_6       5</span>
+<a id="line-102" name="line-102"></a><span class="cp">#define IIUT_PP_DEC_7       6</span>
+<a id="line-103" name="line-103"></a><span class="cp">#define IIUT_PP_DEC_8       7</span>
+<a id="line-104" name="line-104"></a><span class="cp">#define IIUT_PP_DEC_9       8</span>
+<a id="line-105" name="line-105"></a><span class="cp">#define IIUT_PP_DEC_10      9</span>
+<a id="line-106" name="line-106"></a><span class="cp">#define IIUT_PP_DEC_11      10</span>
+<a id="line-107" name="line-107"></a><span class="cp">#define IIUT_PP_DEC_12      11</span>
+<a id="line-108" name="line-108"></a><span class="cp">#define IIUT_PP_DEC_13      12</span>
+<a id="line-109" name="line-109"></a><span class="cp">#define IIUT_PP_DEC_14      13</span>
+<a id="line-110" name="line-110"></a><span class="cp">#define IIUT_PP_DEC_15      14</span>
+<a id="line-111" name="line-111"></a><span class="cp">#define IIUT_PP_DEC_16      15</span>
+<a id="line-112" name="line-112"></a><span class="cp">#define IIUT_PP_DEC_17      16</span>
+<a id="line-113" name="line-113"></a><span class="cp">#define IIUT_PP_DEC_18      17</span>
+<a id="line-114" name="line-114"></a><span class="cp">#define IIUT_PP_DEC_19      18</span>
+<a id="line-115" name="line-115"></a><span class="cp">#define IIUT_PP_DEC_20      19</span>
+<a id="line-116" name="line-116"></a><span class="cp">#define IIUT_PP_DEC_21      20</span>
+<a id="line-117" name="line-117"></a><span class="cp">#define IIUT_PP_DEC_22      21</span>
+<a id="line-118" name="line-118"></a><span class="cp">#define IIUT_PP_DEC_23      22</span>
+<a id="line-119" name="line-119"></a><span class="cp">#define IIUT_PP_DEC_24      23</span>
+<a id="line-120" name="line-120"></a><span class="cp">#define IIUT_PP_DEC_25      24</span>
+<a id="line-121" name="line-121"></a><span class="cp">#define IIUT_PP_DEC_26      25</span>
+<a id="line-122" name="line-122"></a><span class="cp">#define IIUT_PP_DEC_27      26</span>
+<a id="line-123" name="line-123"></a><span class="cp">#define IIUT_PP_DEC_28      27</span>
+<a id="line-124" name="line-124"></a><span class="cp">#define IIUT_PP_DEC_29      28</span>
+<a id="line-125" name="line-125"></a><span class="cp">#define IIUT_PP_DEC_30      29</span>
+<a id="line-126" name="line-126"></a><span class="cp">#define IIUT_PP_DEC_31      30</span>
+<a id="line-127" name="line-127"></a><span class="cp">#define IIUT_PP_DEC_32      31</span>
+<a id="line-128" name="line-128"></a><span class="cp">#define IIUT_PP_DEC_33      32</span>
+<a id="line-129" name="line-129"></a><span class="cp">#define IIUT_PP_DEC_34      33</span>
+<a id="line-130" name="line-130"></a><span class="cp">#define IIUT_PP_DEC_35      34</span>
+<a id="line-131" name="line-131"></a><span class="cp">#define IIUT_PP_DEC_36      35</span>
+<a id="line-132" name="line-132"></a><span class="cp">#define IIUT_PP_DEC_37      36</span>
+<a id="line-133" name="line-133"></a><span class="cp">#define IIUT_PP_DEC_38      37</span>
+<a id="line-134" name="line-134"></a><span class="cp">#define IIUT_PP_DEC_39      38</span>
+<a id="line-135" name="line-135"></a><span class="cp">#define IIUT_PP_DEC_40      39</span>
+<a id="line-136" name="line-136"></a><span class="cp">#define IIUT_PP_DEC_41      40</span>
+<a id="line-137" name="line-137"></a><span class="cp">#define IIUT_PP_DEC_42      41</span>
+<a id="line-138" name="line-138"></a><span class="cp">#define IIUT_PP_DEC_43      42</span>
+<a id="line-139" name="line-139"></a><span class="cp">#define IIUT_PP_DEC_44      43</span>
+<a id="line-140" name="line-140"></a><span class="cp">#define IIUT_PP_DEC_45      44</span>
+<a id="line-141" name="line-141"></a><span class="cp">#define IIUT_PP_DEC_46      45</span>
+<a id="line-142" name="line-142"></a><span class="cp">#define IIUT_PP_DEC_47      46</span>
+<a id="line-143" name="line-143"></a><span class="cp">#define IIUT_PP_DEC_48      47</span>
+<a id="line-144" name="line-144"></a><span class="cp">#define IIUT_PP_DEC_49      48</span>
+<a id="line-145" name="line-145"></a><span class="cp">#define IIUT_PP_DEC_50      49</span>
+<a id="line-146" name="line-146"></a><span class="cp">#define IIUT_PP_DEC_51      50</span>
+<a id="line-147" name="line-147"></a><span class="cp">#define IIUT_PP_DEC_52      51</span>
+<a id="line-148" name="line-148"></a><span class="cp">#define IIUT_PP_DEC_53      52</span>
+<a id="line-149" name="line-149"></a><span class="cp">#define IIUT_PP_DEC_54      53</span>
+<a id="line-150" name="line-150"></a><span class="cp">#define IIUT_PP_DEC_55      54</span>
+<a id="line-151" name="line-151"></a><span class="cp">#define IIUT_PP_DEC_56      55</span>
+<a id="line-152" name="line-152"></a><span class="cp">#define IIUT_PP_DEC_57      56</span>
+<a id="line-153" name="line-153"></a><span class="cp">#define IIUT_PP_DEC_58      57</span>
+<a id="line-154" name="line-154"></a><span class="cp">#define IIUT_PP_DEC_59      58</span>
+<a id="line-155" name="line-155"></a><span class="cp">#define IIUT_PP_DEC_60      59</span>
+<a id="line-156" name="line-156"></a><span class="cp">#define IIUT_PP_DEC_61      60</span>
+<a id="line-157" name="line-157"></a><span class="cp">#define IIUT_PP_DEC_62      61</span>
+<a id="line-158" name="line-158"></a><span class="cp">#define IIUT_PP_DEC_63      62</span>
+<a id="line-159" name="line-159"></a><span class="cp">#define IIUT_PP_DEC_64      63</span>
+<a id="line-160" name="line-160"></a><span class="cp">#define IIUT_PP_DEC_65      64</span>
+<a id="line-161" name="line-161"></a><span class="cp">#define IIUT_PP_DEC_66      65</span>
+<a id="line-162" name="line-162"></a><span class="cp">#define IIUT_PP_DEC_67      66</span>
+<a id="line-163" name="line-163"></a><span class="cp">#define IIUT_PP_DEC_68      67</span>
+<a id="line-164" name="line-164"></a><span class="cp">#define IIUT_PP_DEC_69      68</span>
+<a id="line-165" name="line-165"></a><span class="cp">#define IIUT_PP_DEC_70      69</span>
+<a id="line-166" name="line-166"></a><span class="cp">#define IIUT_PP_DEC_71      70</span>
+<a id="line-167" name="line-167"></a><span class="cp">#define IIUT_PP_DEC_72      71</span>
+<a id="line-168" name="line-168"></a><span class="cp">#define IIUT_PP_DEC_73      72</span>
+<a id="line-169" name="line-169"></a><span class="cp">#define IIUT_PP_DEC_74      73</span>
+<a id="line-170" name="line-170"></a><span class="cp">#define IIUT_PP_DEC_75      74</span>
+<a id="line-171" name="line-171"></a><span class="cp">#define IIUT_PP_DEC_76      75</span>
+<a id="line-172" name="line-172"></a><span class="cp">#define IIUT_PP_DEC_77      76</span>
+<a id="line-173" name="line-173"></a><span class="cp">#define IIUT_PP_DEC_78      77</span>
+<a id="line-174" name="line-174"></a><span class="cp">#define IIUT_PP_DEC_79      78</span>
+<a id="line-175" name="line-175"></a><span class="cp">#define IIUT_PP_DEC_80      79</span>
+<a id="line-176" name="line-176"></a><span class="cp">#define IIUT_PP_DEC_81      80</span>
+<a id="line-177" name="line-177"></a><span class="cp">#define IIUT_PP_DEC_82      81</span>
+<a id="line-178" name="line-178"></a><span class="cp">#define IIUT_PP_DEC_83      82</span>
+<a id="line-179" name="line-179"></a><span class="cp">#define IIUT_PP_DEC_84      83</span>
+<a id="line-180" name="line-180"></a><span class="cp">#define IIUT_PP_DEC_85      84</span>
+<a id="line-181" name="line-181"></a><span class="cp">#define IIUT_PP_DEC_86      85</span>
+<a id="line-182" name="line-182"></a><span class="cp">#define IIUT_PP_DEC_87      86</span>
+<a id="line-183" name="line-183"></a><span class="cp">#define IIUT_PP_DEC_88      87</span>
+<a id="line-184" name="line-184"></a><span class="cp">#define IIUT_PP_DEC_89      88</span>
+<a id="line-185" name="line-185"></a><span class="cp">#define IIUT_PP_DEC_90      89</span>
+<a id="line-186" name="line-186"></a><span class="cp">#define IIUT_PP_DEC_91      90</span>
+<a id="line-187" name="line-187"></a><span class="cp">#define IIUT_PP_DEC_92      91</span>
+<a id="line-188" name="line-188"></a><span class="cp">#define IIUT_PP_DEC_93      92</span>
+<a id="line-189" name="line-189"></a><span class="cp">#define IIUT_PP_DEC_94      93</span>
+<a id="line-190" name="line-190"></a><span class="cp">#define IIUT_PP_DEC_95      94</span>
+<a id="line-191" name="line-191"></a><span class="cp">#define IIUT_PP_DEC_96      95</span>
+<a id="line-192" name="line-192"></a><span class="cp">#define IIUT_PP_DEC_97      96</span>
+<a id="line-193" name="line-193"></a><span class="cp">#define IIUT_PP_DEC_98      97</span>
+<a id="line-194" name="line-194"></a><span class="cp">#define IIUT_PP_DEC_99      98</span>
+<a id="line-195" name="line-195"></a><span class="cp">#define IIUT_PP_DEC_100     99</span>
+<a id="line-196" name="line-196"></a>
+<a id="line-197" name="line-197"></a><span class="c1">// INC</span>
+<a id="line-198" name="line-198"></a><span class="cp">#define IUTEST_PP_INC(n)    IIUT_PP_INC_I(n)</span>
+<a id="line-199" name="line-199"></a><span class="cp">#define IIUT_PP_INC_I(n)    IIUT_PP_INC_##n</span>
+<a id="line-200" name="line-200"></a><span class="cp">#define IIUT_PP_INC_0       1</span>
+<a id="line-201" name="line-201"></a><span class="cp">#define IIUT_PP_INC_1       2</span>
+<a id="line-202" name="line-202"></a><span class="cp">#define IIUT_PP_INC_2       3</span>
+<a id="line-203" name="line-203"></a><span class="cp">#define IIUT_PP_INC_3       4</span>
+<a id="line-204" name="line-204"></a><span class="cp">#define IIUT_PP_INC_4       5</span>
+<a id="line-205" name="line-205"></a><span class="cp">#define IIUT_PP_INC_5       6</span>
+<a id="line-206" name="line-206"></a><span class="cp">#define IIUT_PP_INC_6       7</span>
+<a id="line-207" name="line-207"></a><span class="cp">#define IIUT_PP_INC_7       8</span>
+<a id="line-208" name="line-208"></a><span class="cp">#define IIUT_PP_INC_8       9</span>
+<a id="line-209" name="line-209"></a><span class="cp">#define IIUT_PP_INC_9       10</span>
+<a id="line-210" name="line-210"></a><span class="cp">#define IIUT_PP_INC_10      11</span>
+<a id="line-211" name="line-211"></a><span class="cp">#define IIUT_PP_INC_11      12</span>
+<a id="line-212" name="line-212"></a><span class="cp">#define IIUT_PP_INC_12      13</span>
+<a id="line-213" name="line-213"></a><span class="cp">#define IIUT_PP_INC_13      14</span>
+<a id="line-214" name="line-214"></a><span class="cp">#define IIUT_PP_INC_14      15</span>
+<a id="line-215" name="line-215"></a><span class="cp">#define IIUT_PP_INC_15      16</span>
+<a id="line-216" name="line-216"></a><span class="cp">#define IIUT_PP_INC_16      17</span>
+<a id="line-217" name="line-217"></a><span class="cp">#define IIUT_PP_INC_17      18</span>
+<a id="line-218" name="line-218"></a><span class="cp">#define IIUT_PP_INC_18      19</span>
+<a id="line-219" name="line-219"></a><span class="cp">#define IIUT_PP_INC_19      20</span>
+<a id="line-220" name="line-220"></a><span class="cp">#define IIUT_PP_INC_20      21</span>
+<a id="line-221" name="line-221"></a><span class="cp">#define IIUT_PP_INC_21      22</span>
+<a id="line-222" name="line-222"></a><span class="cp">#define IIUT_PP_INC_22      23</span>
+<a id="line-223" name="line-223"></a><span class="cp">#define IIUT_PP_INC_23      24</span>
+<a id="line-224" name="line-224"></a><span class="cp">#define IIUT_PP_INC_24      25</span>
+<a id="line-225" name="line-225"></a><span class="cp">#define IIUT_PP_INC_25      26</span>
+<a id="line-226" name="line-226"></a><span class="cp">#define IIUT_PP_INC_26      27</span>
+<a id="line-227" name="line-227"></a><span class="cp">#define IIUT_PP_INC_27      28</span>
+<a id="line-228" name="line-228"></a><span class="cp">#define IIUT_PP_INC_28      29</span>
+<a id="line-229" name="line-229"></a><span class="cp">#define IIUT_PP_INC_29      30</span>
+<a id="line-230" name="line-230"></a><span class="cp">#define IIUT_PP_INC_30      31</span>
+<a id="line-231" name="line-231"></a><span class="cp">#define IIUT_PP_INC_31      32</span>
+<a id="line-232" name="line-232"></a><span class="cp">#define IIUT_PP_INC_32      33</span>
+<a id="line-233" name="line-233"></a><span class="cp">#define IIUT_PP_INC_33      34</span>
+<a id="line-234" name="line-234"></a><span class="cp">#define IIUT_PP_INC_34      35</span>
+<a id="line-235" name="line-235"></a><span class="cp">#define IIUT_PP_INC_35      36</span>
+<a id="line-236" name="line-236"></a><span class="cp">#define IIUT_PP_INC_36      37</span>
+<a id="line-237" name="line-237"></a><span class="cp">#define IIUT_PP_INC_37      38</span>
+<a id="line-238" name="line-238"></a><span class="cp">#define IIUT_PP_INC_38      39</span>
+<a id="line-239" name="line-239"></a><span class="cp">#define IIUT_PP_INC_39      40</span>
+<a id="line-240" name="line-240"></a><span class="cp">#define IIUT_PP_INC_40      41</span>
+<a id="line-241" name="line-241"></a><span class="cp">#define IIUT_PP_INC_41      42</span>
+<a id="line-242" name="line-242"></a><span class="cp">#define IIUT_PP_INC_42      43</span>
+<a id="line-243" name="line-243"></a><span class="cp">#define IIUT_PP_INC_43      44</span>
+<a id="line-244" name="line-244"></a><span class="cp">#define IIUT_PP_INC_44      45</span>
+<a id="line-245" name="line-245"></a><span class="cp">#define IIUT_PP_INC_45      46</span>
+<a id="line-246" name="line-246"></a><span class="cp">#define IIUT_PP_INC_46      47</span>
+<a id="line-247" name="line-247"></a><span class="cp">#define IIUT_PP_INC_47      48</span>
+<a id="line-248" name="line-248"></a><span class="cp">#define IIUT_PP_INC_48      49</span>
+<a id="line-249" name="line-249"></a><span class="cp">#define IIUT_PP_INC_49      50</span>
+<a id="line-250" name="line-250"></a><span class="cp">#define IIUT_PP_INC_50      51</span>
+<a id="line-251" name="line-251"></a><span class="cp">#define IIUT_PP_INC_51      52</span>
+<a id="line-252" name="line-252"></a><span class="cp">#define IIUT_PP_INC_52      53</span>
+<a id="line-253" name="line-253"></a><span class="cp">#define IIUT_PP_INC_53      54</span>
+<a id="line-254" name="line-254"></a><span class="cp">#define IIUT_PP_INC_54      55</span>
+<a id="line-255" name="line-255"></a><span class="cp">#define IIUT_PP_INC_55      56</span>
+<a id="line-256" name="line-256"></a><span class="cp">#define IIUT_PP_INC_56      57</span>
+<a id="line-257" name="line-257"></a><span class="cp">#define IIUT_PP_INC_57      58</span>
+<a id="line-258" name="line-258"></a><span class="cp">#define IIUT_PP_INC_58      59</span>
+<a id="line-259" name="line-259"></a><span class="cp">#define IIUT_PP_INC_59      60</span>
+<a id="line-260" name="line-260"></a><span class="cp">#define IIUT_PP_INC_60      61</span>
+<a id="line-261" name="line-261"></a><span class="cp">#define IIUT_PP_INC_61      62</span>
+<a id="line-262" name="line-262"></a><span class="cp">#define IIUT_PP_INC_62      63</span>
+<a id="line-263" name="line-263"></a><span class="cp">#define IIUT_PP_INC_63      64</span>
+<a id="line-264" name="line-264"></a><span class="cp">#define IIUT_PP_INC_64      65</span>
+<a id="line-265" name="line-265"></a><span class="cp">#define IIUT_PP_INC_65      66</span>
+<a id="line-266" name="line-266"></a><span class="cp">#define IIUT_PP_INC_66      67</span>
+<a id="line-267" name="line-267"></a><span class="cp">#define IIUT_PP_INC_67      68</span>
+<a id="line-268" name="line-268"></a><span class="cp">#define IIUT_PP_INC_68      69</span>
+<a id="line-269" name="line-269"></a><span class="cp">#define IIUT_PP_INC_69      70</span>
+<a id="line-270" name="line-270"></a><span class="cp">#define IIUT_PP_INC_70      71</span>
+<a id="line-271" name="line-271"></a><span class="cp">#define IIUT_PP_INC_71      72</span>
+<a id="line-272" name="line-272"></a><span class="cp">#define IIUT_PP_INC_72      73</span>
+<a id="line-273" name="line-273"></a><span class="cp">#define IIUT_PP_INC_73      74</span>
+<a id="line-274" name="line-274"></a><span class="cp">#define IIUT_PP_INC_74      75</span>
+<a id="line-275" name="line-275"></a><span class="cp">#define IIUT_PP_INC_75      76</span>
+<a id="line-276" name="line-276"></a><span class="cp">#define IIUT_PP_INC_76      77</span>
+<a id="line-277" name="line-277"></a><span class="cp">#define IIUT_PP_INC_77      78</span>
+<a id="line-278" name="line-278"></a><span class="cp">#define IIUT_PP_INC_78      79</span>
+<a id="line-279" name="line-279"></a><span class="cp">#define IIUT_PP_INC_79      80</span>
+<a id="line-280" name="line-280"></a><span class="cp">#define IIUT_PP_INC_80      81</span>
+<a id="line-281" name="line-281"></a><span class="cp">#define IIUT_PP_INC_81      82</span>
+<a id="line-282" name="line-282"></a><span class="cp">#define IIUT_PP_INC_82      83</span>
+<a id="line-283" name="line-283"></a><span class="cp">#define IIUT_PP_INC_83      84</span>
+<a id="line-284" name="line-284"></a><span class="cp">#define IIUT_PP_INC_84      85</span>
+<a id="line-285" name="line-285"></a><span class="cp">#define IIUT_PP_INC_85      86</span>
+<a id="line-286" name="line-286"></a><span class="cp">#define IIUT_PP_INC_86      87</span>
+<a id="line-287" name="line-287"></a><span class="cp">#define IIUT_PP_INC_87      88</span>
+<a id="line-288" name="line-288"></a><span class="cp">#define IIUT_PP_INC_88      89</span>
+<a id="line-289" name="line-289"></a><span class="cp">#define IIUT_PP_INC_89      90</span>
+<a id="line-290" name="line-290"></a><span class="cp">#define IIUT_PP_INC_90      91</span>
+<a id="line-291" name="line-291"></a><span class="cp">#define IIUT_PP_INC_91      92</span>
+<a id="line-292" name="line-292"></a><span class="cp">#define IIUT_PP_INC_92      93</span>
+<a id="line-293" name="line-293"></a><span class="cp">#define IIUT_PP_INC_93      94</span>
+<a id="line-294" name="line-294"></a><span class="cp">#define IIUT_PP_INC_94      95</span>
+<a id="line-295" name="line-295"></a><span class="cp">#define IIUT_PP_INC_95      96</span>
+<a id="line-296" name="line-296"></a><span class="cp">#define IIUT_PP_INC_96      97</span>
+<a id="line-297" name="line-297"></a><span class="cp">#define IIUT_PP_INC_97      98</span>
+<a id="line-298" name="line-298"></a><span class="cp">#define IIUT_PP_INC_98      99</span>
+<a id="line-299" name="line-299"></a><span class="cp">#define IIUT_PP_INC_99      100</span>
+<a id="line-300" name="line-300"></a><span class="cp">#define IIUT_PP_INC_100     nil</span>
 <a id="line-301" name="line-301"></a>
-<a id="line-302" name="line-302"></a><span class="c1">// tuple</span>
-<a id="line-303" name="line-303"></a><span class="cp">#if (_MSC_VER &gt; 1700) || (_MSC_VER == 1700 &amp;&amp; _VARIADIC_MAX &gt;= 9)</span>
-<a id="line-304" name="line-304"></a><span class="cp">#  if !defined(IUTEST_HAS_STD_TUPLE)</span>
-<a id="line-305" name="line-305"></a><span class="cp">#    define IUTEST_HAS_STD_TUPLE          1</span>
-<a id="line-306" name="line-306"></a><span class="cp">#  endif</span>
-<a id="line-307" name="line-307"></a><span class="cp">#elif (_MSC_VER &gt;= 1500) &amp;&amp; (_MSC_VER &lt; 1700) &amp;&amp; (_MSC_FULL_VER &gt; 150021022)</span>
-<a id="line-308" name="line-308"></a><span class="cp">#  if !defined(IUTEST_HAS_TR1_TUPLE)</span>
-<a id="line-309" name="line-309"></a><span class="cp">#    define IUTEST_HAS_TR1_TUPLE          1</span>
-<a id="line-310" name="line-310"></a><span class="cp">#  endif</span>
-<a id="line-311" name="line-311"></a><span class="cp">#endif</span>
+<a id="line-302" name="line-302"></a><span class="c1">// REPEAT</span>
+<a id="line-303" name="line-303"></a><span class="cp">#define IUTEST_PP_LIMIT_REPEAT  50</span>
+<a id="line-304" name="line-304"></a>
+<a id="line-305" name="line-305"></a><span class="cp">#define IIUT_PP_REPEAT_PARAMS_MACRO_(i, param)  param</span>
+<a id="line-306" name="line-306"></a><span class="cp">#define IIUT_PP_REPEAT_PARAMS_MACRO_IN_BINARY_(i, param1, param2)   param2(i, param1)</span>
+<a id="line-307" name="line-307"></a>
+<a id="line-308" name="line-308"></a><span class="cp">#define IUTEST_PP_REPEAT_PARAMS(n, param)   IUTEST_PP_REPEAT(n, IIUT_PP_REPEAT_PARAMS_MACRO_, param)</span>
+<a id="line-309" name="line-309"></a><span class="cp">#define IUTEST_PP_REPEAT(n, m, param)       IUTEST_PP_REPEAT_BINARY(n, IIUT_PP_REPEAT_PARAMS_MACRO_IN_BINARY_, param, m)</span>
+<a id="line-310" name="line-310"></a>
+<a id="line-311" name="line-311"></a><span class="cp">#define IIUT_PP_REPEAT_BINARY_PARAMS_MACRO_(i, param1, param2)  param1 param2</span>
 <a id="line-312" name="line-312"></a>
-<a id="line-313" name="line-313"></a><span class="cp">#elif defined(__SGI_STL_PORT) || defined(_STLPORT_VERSION)</span>
-<a id="line-314" name="line-314"></a>
-<a id="line-315" name="line-315"></a><span class="c1">// stlport</span>
-<a id="line-316" name="line-316"></a>
-<a id="line-317" name="line-317"></a><span class="cp">#endif</span>
-<a id="line-318" name="line-318"></a>
-<a id="line-319" name="line-319"></a><span class="cp">#if IUTEST_HAS_CXX1Z</span>
-<a id="line-320" name="line-320"></a>
-<a id="line-321" name="line-321"></a><span class="c1">// c++1z feature</span>
-<a id="line-322" name="line-322"></a>
-<a id="line-323" name="line-323"></a><span class="cp">#if defined(__has_include)</span>
-<a id="line-324" name="line-324"></a>
-<a id="line-325" name="line-325"></a><span class="cp">#if !defined(IUTEST_HAS_CXX_HDR_ANY)</span>
-<a id="line-326" name="line-326"></a><span class="cp">#  if __has_include(&lt;any&gt;)</span>
-<a id="line-327" name="line-327"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_ANY          1</span>
-<a id="line-328" name="line-328"></a><span class="cp">#  endif</span>
-<a id="line-329" name="line-329"></a><span class="cp">#endif</span>
-<a id="line-330" name="line-330"></a>
-<a id="line-331" name="line-331"></a><span class="cp">#if !defined(IUTEST_HAS_CXX_HDR_CHARCONV)</span>
-<a id="line-332" name="line-332"></a><span class="cp">#  if __has_include(&lt;charconv&gt;)</span>
-<a id="line-333" name="line-333"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_CHARCONV     1</span>
-<a id="line-334" name="line-334"></a><span class="cp">#  endif</span>
-<a id="line-335" name="line-335"></a><span class="cp">#endif</span>
-<a id="line-336" name="line-336"></a>
-<a id="line-337" name="line-337"></a><span class="c1">// apple(xcode) clang</span>
-<a id="line-338" name="line-338"></a><span class="cp">#if defined(__MAC_OS_X_VERSION_MIN_REQUIRED)</span>
-<a id="line-339" name="line-339"></a><span class="cp">#  if !IUTEST_HAS_CXX17</span>
-<a id="line-340" name="line-340"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_FILESYSTEM   0</span>
-<a id="line-341" name="line-341"></a><span class="cp">#  endif</span>
-<a id="line-342" name="line-342"></a><span class="cp">#  if __MAC_OS_X_VERSION_MIN_REQUIRED &lt; 101500</span>
-<a id="line-343" name="line-343"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_FILESYSTEM   0</span>
-<a id="line-344" name="line-344"></a><span class="cp">#  endif</span>
-<a id="line-345" name="line-345"></a><span class="cp">#endif</span>
-<a id="line-346" name="line-346"></a>
-<a id="line-347" name="line-347"></a><span class="cp">#if !defined(IUTEST_HAS_CXX_HDR_FILESYSTEM)</span>
-<a id="line-348" name="line-348"></a><span class="cp">#  if __has_include(&lt;filesystem&gt;)</span>
-<a id="line-349" name="line-349"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_FILESYSTEM   1</span>
-<a id="line-350" name="line-350"></a><span class="cp">#  endif</span>
-<a id="line-351" name="line-351"></a><span class="cp">#endif</span>
-<a id="line-352" name="line-352"></a>
-<a id="line-353" name="line-353"></a><span class="cp">#if !defined(IUTEST_HAS_CXX_HDR_OPTIONAL)</span>
-<a id="line-354" name="line-354"></a><span class="cp">#  if __has_include(&lt;optional&gt;)</span>
-<a id="line-355" name="line-355"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_OPTIONAL     1</span>
-<a id="line-356" name="line-356"></a><span class="cp">#  endif</span>
-<a id="line-357" name="line-357"></a><span class="cp">#endif</span>
-<a id="line-358" name="line-358"></a>
-<a id="line-359" name="line-359"></a><span class="cp">#if !defined(IUTEST_HAS_CXX_HDR_STRING_VIEW)</span>
-<a id="line-360" name="line-360"></a><span class="cp">#  if __has_include(&lt;string_view&gt;)</span>
-<a id="line-361" name="line-361"></a><span class="cp">#    define IUTEST_HAS_CXX_HDR_STRING_VIEW  1</span>
-<a id="line-362" name="line-362"></a><span class="cp">#  endif</span>
-<a id="line-363" name="line-363"></a><span class="cp">#endif</span>
-<a id="line-364" name="line-364"></a>
-<a id="line-365" name="line-365"></a><span class="cp">#endif</span>
-<a id="line-366" name="line-366"></a>
-<a id="line-367" name="line-367"></a><span class="cp">#endif</span>
-<a id="line-368" name="line-368"></a>
-<a id="line-369" name="line-369"></a><span class="cp">#if IUTEST_HAS_CXX17</span>
+<a id="line-313" name="line-313"></a><span class="cp">#define IUTEST_PP_REPEAT_BINARY_PARAMS(n, param1, param2)   IUTEST_PP_REPEAT_BINARY(n, IIUT_PP_REPEAT_BINARY_PARAMS_MACRO_, param1, param2)</span>
+<a id="line-314" name="line-314"></a><span class="cp">#define IUTEST_PP_REPEAT_BINARY(n, m, param1, param2)       IIUT_PP_REPEAT_BINARY_PARAMS_I(n, m, param1, param2)</span>
+<a id="line-315" name="line-315"></a>
+<a id="line-316" name="line-316"></a><span class="cp">#define IIUT_PP_REPEAT_BINARY_PARAMS_I(n, m, p1, p2)    IUTEST_PP_CAT(IIUT_PP_REPEAT_I_, IUTEST_PP_DEC(n))(0, m, p1, p2)</span>
+<a id="line-317" name="line-317"></a>
+<a id="line-318" name="line-318"></a><span class="cp">#define IIUT_PP_REPEAT_I_nil(i, m, p1, p2)</span>
+<a id="line-319" name="line-319"></a><span class="cp">#define IIUT_PP_REPEAT_I_0( i, m, p1, p2)       m(i, p1, p2)</span>
+<a id="line-320" name="line-320"></a><span class="cp">#define IIUT_PP_REPEAT_I_1( i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_0 (IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-321" name="line-321"></a><span class="cp">#define IIUT_PP_REPEAT_I_2( i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_1 (IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-322" name="line-322"></a><span class="cp">#define IIUT_PP_REPEAT_I_3( i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_2 (IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-323" name="line-323"></a><span class="cp">#define IIUT_PP_REPEAT_I_4( i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_3 (IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-324" name="line-324"></a><span class="cp">#define IIUT_PP_REPEAT_I_5( i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_4 (IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-325" name="line-325"></a><span class="cp">#define IIUT_PP_REPEAT_I_6( i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_5 (IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-326" name="line-326"></a><span class="cp">#define IIUT_PP_REPEAT_I_7( i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_6 (IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-327" name="line-327"></a><span class="cp">#define IIUT_PP_REPEAT_I_8( i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_7 (IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-328" name="line-328"></a><span class="cp">#define IIUT_PP_REPEAT_I_9( i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_8 (IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-329" name="line-329"></a><span class="cp">#define IIUT_PP_REPEAT_I_10(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_9 (IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-330" name="line-330"></a><span class="cp">#define IIUT_PP_REPEAT_I_11(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_10(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-331" name="line-331"></a><span class="cp">#define IIUT_PP_REPEAT_I_12(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_11(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-332" name="line-332"></a><span class="cp">#define IIUT_PP_REPEAT_I_13(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_12(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-333" name="line-333"></a><span class="cp">#define IIUT_PP_REPEAT_I_14(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_13(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-334" name="line-334"></a><span class="cp">#define IIUT_PP_REPEAT_I_15(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_14(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-335" name="line-335"></a><span class="cp">#define IIUT_PP_REPEAT_I_16(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_15(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-336" name="line-336"></a><span class="cp">#define IIUT_PP_REPEAT_I_17(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_16(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-337" name="line-337"></a><span class="cp">#define IIUT_PP_REPEAT_I_18(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_17(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-338" name="line-338"></a><span class="cp">#define IIUT_PP_REPEAT_I_19(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_18(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-339" name="line-339"></a><span class="cp">#define IIUT_PP_REPEAT_I_20(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_19(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-340" name="line-340"></a><span class="cp">#define IIUT_PP_REPEAT_I_21(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_20(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-341" name="line-341"></a><span class="cp">#define IIUT_PP_REPEAT_I_22(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_21(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-342" name="line-342"></a><span class="cp">#define IIUT_PP_REPEAT_I_23(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_22(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-343" name="line-343"></a><span class="cp">#define IIUT_PP_REPEAT_I_24(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_23(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-344" name="line-344"></a><span class="cp">#define IIUT_PP_REPEAT_I_25(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_24(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-345" name="line-345"></a><span class="cp">#define IIUT_PP_REPEAT_I_26(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_25(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-346" name="line-346"></a><span class="cp">#define IIUT_PP_REPEAT_I_27(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_26(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-347" name="line-347"></a><span class="cp">#define IIUT_PP_REPEAT_I_28(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_27(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-348" name="line-348"></a><span class="cp">#define IIUT_PP_REPEAT_I_29(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_28(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-349" name="line-349"></a><span class="cp">#define IIUT_PP_REPEAT_I_30(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_29(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-350" name="line-350"></a><span class="cp">#define IIUT_PP_REPEAT_I_31(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_30(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-351" name="line-351"></a><span class="cp">#define IIUT_PP_REPEAT_I_32(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_31(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-352" name="line-352"></a><span class="cp">#define IIUT_PP_REPEAT_I_33(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_32(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-353" name="line-353"></a><span class="cp">#define IIUT_PP_REPEAT_I_34(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_33(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-354" name="line-354"></a><span class="cp">#define IIUT_PP_REPEAT_I_35(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_34(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-355" name="line-355"></a><span class="cp">#define IIUT_PP_REPEAT_I_36(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_35(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-356" name="line-356"></a><span class="cp">#define IIUT_PP_REPEAT_I_37(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_36(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-357" name="line-357"></a><span class="cp">#define IIUT_PP_REPEAT_I_38(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_37(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-358" name="line-358"></a><span class="cp">#define IIUT_PP_REPEAT_I_39(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_38(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-359" name="line-359"></a><span class="cp">#define IIUT_PP_REPEAT_I_40(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_39(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-360" name="line-360"></a><span class="cp">#define IIUT_PP_REPEAT_I_41(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_40(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-361" name="line-361"></a><span class="cp">#define IIUT_PP_REPEAT_I_42(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_41(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-362" name="line-362"></a><span class="cp">#define IIUT_PP_REPEAT_I_43(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_42(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-363" name="line-363"></a><span class="cp">#define IIUT_PP_REPEAT_I_44(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_43(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-364" name="line-364"></a><span class="cp">#define IIUT_PP_REPEAT_I_45(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_44(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-365" name="line-365"></a><span class="cp">#define IIUT_PP_REPEAT_I_46(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_45(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-366" name="line-366"></a><span class="cp">#define IIUT_PP_REPEAT_I_47(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_46(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-367" name="line-367"></a><span class="cp">#define IIUT_PP_REPEAT_I_48(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_47(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-368" name="line-368"></a><span class="cp">#define IIUT_PP_REPEAT_I_49(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_48(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-369" name="line-369"></a><span class="cp">#define IIUT_PP_REPEAT_I_50(i, m, p1, p2)       m(i, p1, p2) IIUT_PP_REPEAT_I_49(IUTEST_PP_INC(i), m, p1, p2)</span>
 <a id="line-370" name="line-370"></a>
-<a id="line-371" name="line-371"></a><span class="c1">// c++17 feature</span>
-<a id="line-372" name="line-372"></a>
-<a id="line-373" name="line-373"></a><span class="cp">#if !defined(IUTEST_HAS_CXX_HDR_VARIANT)</span>
-<a id="line-374" name="line-374"></a><span class="cp">#  if IUTEST_HAS_VARIADIC_TEMPLATES &amp;&amp; defined(__has_include)</span>
-<a id="line-375" name="line-375"></a><span class="cp">#    if   defined(__clang__) &amp;&amp; (IUTEST_CLANG_MAJOR &lt; 3 || (IUTEST_CLANG_MAJOR == 3 &amp;&amp; IUTEST_CLANG_MINOR &lt; 6))</span>
-<a id="line-376" name="line-376"></a><span class="cp">#      define IUTEST_HAS_CXX_HDR_VARIANT    0   </span><span class="c1">// clang 3.5 + variant is not worked</span>
-<a id="line-377" name="line-377"></a><span class="cp">#    elif __has_include(&lt;variant&gt;)</span>
-<a id="line-378" name="line-378"></a><span class="cp">#      define IUTEST_HAS_CXX_HDR_VARIANT    1</span>
-<a id="line-379" name="line-379"></a><span class="cp">#    endif</span>
-<a id="line-380" name="line-380"></a><span class="cp">#  endif</span>
-<a id="line-381" name="line-381"></a><span class="cp">#endif</span>
+<a id="line-371" name="line-371"></a><span class="c1">// ENUM</span>
+<a id="line-372" name="line-372"></a><span class="cp">#define IUTEST_PP_LIMIT_ENUM    50</span>
+<a id="line-373" name="line-373"></a>
+<a id="line-374" name="line-374"></a><span class="cp">#define IIUT_PP_ENUM_PARAMS_MACRO_(i, param)    IUTEST_PP_CAT(param, i)</span>
+<a id="line-375" name="line-375"></a><span class="cp">#define IIUT_PP_ENUM_PARAMS_MACRO_IN_BINARY_(i, param1, param2) param2(i, param1)</span>
+<a id="line-376" name="line-376"></a>
+<a id="line-377" name="line-377"></a><span class="cp">#define IUTEST_PP_ENUM_PARAMS(n, param)         IUTEST_PP_ENUM(n, IIUT_PP_ENUM_PARAMS_MACRO_, param)</span>
+<a id="line-378" name="line-378"></a><span class="cp">#define IUTEST_PP_ENUM(n, m, param)             IUTEST_PP_ENUM_BINARY(n, IIUT_PP_ENUM_PARAMS_MACRO_IN_BINARY_, param, m)</span>
+<a id="line-379" name="line-379"></a>
+<a id="line-380" name="line-380"></a><span class="cp">#define IUTEST_PP_ENUM_SHIFTED_PARAMS(n, param) IUTEST_PP_ENUM_SHIFTED(n, IIUT_PP_ENUM_PARAMS_MACRO_, param)</span>
+<a id="line-381" name="line-381"></a><span class="cp">#define IUTEST_PP_ENUM_SHIFTED(n, m, param)     IUTEST_PP_ENUM_SHIFTED_BINARY(n, IIUT_PP_ENUM_PARAMS_MACRO_IN_BINARY_, param, m)</span>
 <a id="line-382" name="line-382"></a>
-<a id="line-383" name="line-383"></a><span class="cp">#if defined(IUTEST_HAS_CXX_HDR_CODECVT) &amp;&amp; IUTEST_HAS_CXX_HDR_CODECVT</span>
-<a id="line-384" name="line-384"></a><span class="c1">// IUTEST_PRAGMA_MESSAGE(&quot;iutest use codecvt, but codecvt was deprecated. If you do not want to use this, define IUTEST_HAS_CXX_HDR_CODECVT 0&quot;)</span>
-<a id="line-385" name="line-385"></a><span class="cp">#endif</span>
-<a id="line-386" name="line-386"></a>
-<a id="line-387" name="line-387"></a><span class="cp">#endif</span>
-<a id="line-388" name="line-388"></a>
-<a id="line-389" name="line-389"></a><span class="cp">#if defined(__has_include)</span>
-<a id="line-390" name="line-390"></a><span class="cp">#  if defined(IUTEST_HAS_CXX_HDR_CODECVT) &amp;&amp; IUTEST_HAS_CXX_HDR_CODECVT</span>
-<a id="line-391" name="line-391"></a><span class="cp">#    if !__has_include( &lt;codecvt&gt; )</span>
-<a id="line-392" name="line-392"></a><span class="cp">#      undef IUTEST_HAS_CXX_HDR_CODECVT</span>
-<a id="line-393" name="line-393"></a><span class="cp">#    endif</span>
-<a id="line-394" name="line-394"></a><span class="cp">#  endif</span>
-<a id="line-395" name="line-395"></a><span class="cp">#endif</span>
-<a id="line-396" name="line-396"></a>
-<a id="line-397" name="line-397"></a><span class="cp">#if !defined(IUTEST_HAS_HDR_UNISTD)</span>
-<a id="line-398" name="line-398"></a><span class="cp">#  if defined(__has_include)</span>
-<a id="line-399" name="line-399"></a><span class="cp">#    if __has_include(&lt;unistd.h&gt;)</span>
-<a id="line-400" name="line-400"></a><span class="cp">#      define IUTEST_HAS_HDR_UNISTD         1</span>
-<a id="line-401" name="line-401"></a><span class="cp">#    endif</span>
-<a id="line-402" name="line-402"></a><span class="cp">#  endif</span>
-<a id="line-403" name="line-403"></a><span class="cp">#endif</span>
-<a id="line-404" name="line-404"></a>
-<a id="line-405" name="line-405"></a><span class="cp">#if !defined(IUTEST_HAS_HDR_UNISTD)</span>
-<a id="line-406" name="line-406"></a><span class="cp">#  if defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN) \</span>
-<a id="line-407" name="line-407"></a><span class="cp">    || defined(IUTEST_OS_MAC) || defined(IUTEST_OS_IOS) \</span>
-<a id="line-408" name="line-408"></a><span class="cp">    || defined(IUTEST_OS_FREEBSD) \</span>
-<a id="line-409" name="line-409"></a><span class="cp">    || defined(__arm__)</span>
-<a id="line-410" name="line-410"></a><span class="cp">#    define IUTEST_HAS_HDR_UNISTD           1</span>
-<a id="line-411" name="line-411"></a><span class="cp">#  endif</span>
-<a id="line-412" name="line-412"></a><span class="cp">#endif</span>
-<a id="line-413" name="line-413"></a>
-<a id="line-414" name="line-414"></a><span class="c1">// defaults for include</span>
-<a id="line-415" name="line-415"></a><span class="c1">//! has any header</span>
-<a id="line-416" name="line-416"></a><span class="cp">#if !defined(IUTEST_HAS_CXX_HDR_ANY)</span>
-<a id="line-417" name="line-417"></a><span class="cp">#  define IUTEST_HAS_CXX_HDR_ANY            0</span>
-<a id="line-418" name="line-418"></a><span class="cp">#endif</span>
-<a id="line-419" name="line-419"></a><span class="c1">//! has array header</span>
-<a id="line-420" name="line-420"></a><span class="cp">#if !defined(IUTEST_HAS_CXX_HDR_ARRAY)</span>
-<a id="line-421" name="line-421"></a><span class="cp">#  define IUTEST_HAS_CXX_HDR_ARRAY          0</span>
-<a id="line-422" name="line-422"></a><span class="cp">#endif</span>
-<a id="line-423" name="line-423"></a><span class="c1">//! has charconv header</span>
-<a id="line-424" name="line-424"></a><span class="cp">#if !defined(IUTEST_HAS_CXX_HDR_CHARCONV)</span>
-<a id="line-425" name="line-425"></a><span class="cp">#  define IUTEST_HAS_CXX_HDR_CHARCONV       0</span>
-<a id="line-426" name="line-426"></a><span class="cp">#endif</span>
-<a id="line-427" name="line-427"></a><span class="c1">//! has chrono header</span>
-<a id="line-428" name="line-428"></a><span class="cp">#if !defined(IUTEST_HAS_CXX_HDR_CHRONO)</span>
-<a id="line-429" name="line-429"></a><span class="cp">#  define IUTEST_HAS_CXX_HDR_CHRONO         0</span>
-<a id="line-430" name="line-430"></a><span class="cp">#endif</span>
-<a id="line-431" name="line-431"></a><span class="cm">/**</span>
-<a id="line-432" name="line-432"></a><span class="cm"> * @brief       has codecvt header</span>
-<a id="line-433" name="line-433"></a><span class="cm"> * @note        P0618R0 Deprecating &lt;codecvt&gt;: https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/p0618r0.html</span>
-<a id="line-434" name="line-434"></a><span class="cm"> * @deprecated</span>
-<a id="line-435" name="line-435"></a><span class="cm">*/</span><span class="w"></span>
-<a id="line-436" name="line-436"></a><span class="cp">#if !defined(IUTEST_HAS_CXX_HDR_CODECVT)</span>
-<a id="line-437" name="line-437"></a><span class="cp">#  define IUTEST_HAS_CXX_HDR_CODECVT        0</span>
-<a id="line-438" name="line-438"></a><span class="cp">#endif</span>
-<a id="line-439" name="line-439"></a><span class="c1">//! has cstdint header</span>
-<a id="line-440" name="line-440"></a><span class="cp">#if !defined(IUTEST_HAS_CXX_HDR_CSTDINT)</span>
-<a id="line-441" name="line-441"></a><span class="cp">#  define IUTEST_HAS_CXX_HDR_CSTDINT        0</span>
-<a id="line-442" name="line-442"></a><span class="cp">#endif</span>
-<a id="line-443" name="line-443"></a><span class="c1">//! has cuchar</span>
-<a id="line-444" name="line-444"></a><span class="cp">#if !defined(IUTEST_HAS_CXX_HDR_CUCHAR)</span>
-<a id="line-445" name="line-445"></a><span class="cp">#  define IUTEST_HAS_CXX_HDR_CUCHAR         0</span>
-<a id="line-446" name="line-446"></a><span class="cp">#endif</span>
-<a id="line-447" name="line-447"></a><span class="c1">//! has filesystem</span>
-<a id="line-448" name="line-448"></a><span class="cp">#if !defined(IUTEST_HAS_CXX_HDR_FILESYSTEM)</span>
-<a id="line-449" name="line-449"></a><span class="cp">#  define IUTEST_HAS_CXX_HDR_FILESYSTEM     0</span>
-<a id="line-450" name="line-450"></a><span class="cp">#endif</span>
-<a id="line-451" name="line-451"></a><span class="c1">//! has optional header</span>
-<a id="line-452" name="line-452"></a><span class="cp">#if !defined(IUTEST_HAS_CXX_HDR_OPTIONAL)</span>
-<a id="line-453" name="line-453"></a><span class="cp">#  define IUTEST_HAS_CXX_HDR_OPTIONAL       0</span>
-<a id="line-454" name="line-454"></a><span class="cp">#endif</span>
-<a id="line-455" name="line-455"></a><span class="c1">//! has random header</span>
-<a id="line-456" name="line-456"></a><span class="cp">#if !defined(IUTEST_HAS_CXX_HDR_RANDOM)</span>
-<a id="line-457" name="line-457"></a><span class="cp">#  define IUTEST_HAS_CXX_HDR_RANDOM         0</span>
-<a id="line-458" name="line-458"></a><span class="cp">#endif</span>
-<a id="line-459" name="line-459"></a><span class="c1">//! has regex header</span>
-<a id="line-460" name="line-460"></a><span class="cp">#if !defined(IUTEST_HAS_CXX_HDR_REGEX)</span>
-<a id="line-461" name="line-461"></a><span class="cp">#  define IUTEST_HAS_CXX_HDR_REGEX          0</span>
-<a id="line-462" name="line-462"></a><span class="cp">#endif</span>
-<a id="line-463" name="line-463"></a><span class="c1">//! has string_view header</span>
-<a id="line-464" name="line-464"></a><span class="cp">#if !defined(IUTEST_HAS_CXX_HDR_STRING_VIEW)</span>
-<a id="line-465" name="line-465"></a><span class="cp">#  define IUTEST_HAS_CXX_HDR_STRING_VIEW    0</span>
-<a id="line-466" name="line-466"></a><span class="cp">#endif</span>
-<a id="line-467" name="line-467"></a><span class="c1">//! has variant header</span>
-<a id="line-468" name="line-468"></a><span class="cp">#if !defined(IUTEST_HAS_CXX_HDR_VARIANT)</span>
-<a id="line-469" name="line-469"></a><span class="cp">#  define IUTEST_HAS_CXX_HDR_VARIANT        0</span>
-<a id="line-470" name="line-470"></a><span class="cp">#endif</span>
-<a id="line-471" name="line-471"></a><span class="c1">//! has cxxabi header</span>
-<a id="line-472" name="line-472"></a><span class="cp">#if !defined(IUTEST_HAS_HDR_CXXABI)</span>
-<a id="line-473" name="line-473"></a><span class="cp">#  define IUTEST_HAS_HDR_CXXABI             0</span>
-<a id="line-474" name="line-474"></a><span class="cp">#endif</span>
-<a id="line-475" name="line-475"></a><span class="c1">//! has unistd.h header</span>
-<a id="line-476" name="line-476"></a><span class="cp">#if !defined(IUTEST_HAS_HDR_UNISTD)</span>
-<a id="line-477" name="line-477"></a><span class="cp">#  define IUTEST_HAS_HDR_UNISTD             0</span>
-<a id="line-478" name="line-478"></a><span class="cp">#endif</span>
-<a id="line-479" name="line-479"></a>
-<a id="line-480" name="line-480"></a><span class="cp">#if !defined(IUTEST_HAS_STD_FILESYSTEM)</span>
-<a id="line-481" name="line-481"></a><span class="cp">#  if   defined(ANDROID) || defined(__ANDROID__) || defined(__ARM_EABI__)</span>
-<a id="line-482" name="line-482"></a><span class="cp">#    define IUTEST_HAS_STD_FILESYSTEM       0</span>
-<a id="line-483" name="line-483"></a><span class="cp">#  elif defined(__INTEL_COMPILER)</span>
-<a id="line-484" name="line-484"></a><span class="cp">#    define IUTEST_HAS_STD_FILESYSTEM       0</span>
-<a id="line-485" name="line-485"></a><span class="cp">#  elif IUTEST_HAS_CXX_HDR_FILESYSTEM &amp;&amp; defined(__cpp_lib_filesystem) &amp;&amp; __cpp_lib_filesystem &gt;= 201703</span>
-<a id="line-486" name="line-486"></a><span class="cp">#    if !defined(__cpp_lib_experimental_filesystem)</span>
-<a id="line-487" name="line-487"></a><span class="cp">#      define IUTEST_HAS_STD_FILESYSTEM     1</span>
-<a id="line-488" name="line-488"></a><span class="cp">#    endif</span>
-<a id="line-489" name="line-489"></a><span class="cp">#  endif</span>
-<a id="line-490" name="line-490"></a><span class="cp">#endif</span>
-<a id="line-491" name="line-491"></a>
-<a id="line-492" name="line-492"></a><span class="cp">#if !defined(IUTEST_HAS_STD_TO_CHARS)</span>
-<a id="line-493" name="line-493"></a><span class="cp">#  if IUTEST_HAS_CXX_HDR_CHARCONV &amp;&amp; defined(__cpp_lib_to_chars) &amp;&amp; __cpp_lib_to_chars &gt;= 201611</span>
-<a id="line-494" name="line-494"></a><span class="cp">#    define IUTEST_HAS_STD_TO_CHARS         1</span>
-<a id="line-495" name="line-495"></a><span class="cp">#  endif</span>
-<a id="line-496" name="line-496"></a><span class="cp">#endif</span>
-<a id="line-497" name="line-497"></a>
-<a id="line-498" name="line-498"></a><span class="c1">// defaults for feature</span>
-<a id="line-499" name="line-499"></a>
-<a id="line-500" name="line-500"></a><span class="c1">//! has ::std::begin,::std::end</span>
-<a id="line-501" name="line-501"></a><span class="cp">#if !defined(IUTEST_HAS_STD_BEGIN_END)</span>
-<a id="line-502" name="line-502"></a><span class="cp">#  define IUTEST_HAS_STD_BEGIN_END      0</span>
-<a id="line-503" name="line-503"></a><span class="cp">#endif</span>
-<a id="line-504" name="line-504"></a><span class="c1">//! has ::std::declval</span>
-<a id="line-505" name="line-505"></a><span class="cp">#if !defined(IUTEST_HAS_STD_DECLVAL)</span>
-<a id="line-506" name="line-506"></a><span class="cp">#  define IUTEST_HAS_STD_DECLVAL        0</span>
-<a id="line-507" name="line-507"></a><span class="cp">#endif</span>
-<a id="line-508" name="line-508"></a><span class="c1">//! has emplace</span>
-<a id="line-509" name="line-509"></a><span class="cp">#if !defined(IUTEST_HAS_STD_EMPLACE)</span>
-<a id="line-510" name="line-510"></a><span class="cp">#  define IUTEST_HAS_STD_EMPLACE        0</span>
-<a id="line-511" name="line-511"></a><span class="cp">#endif</span>
-<a id="line-512" name="line-512"></a><span class="c1">//! has filesystem</span>
-<a id="line-513" name="line-513"></a><span class="cp">#if !defined(IUTEST_HAS_STD_FILESYSTEM)</span>
-<a id="line-514" name="line-514"></a><span class="cp">#  define IUTEST_HAS_STD_FILESYSTEM     0</span>
-<a id="line-515" name="line-515"></a><span class="cp">#endif</span>
-<a id="line-516" name="line-516"></a><span class="c1">//! has std::invoke</span>
-<a id="line-517" name="line-517"></a><span class="cp">#if !defined(IUTEST_HAS_STD_INVOKE)</span>
-<a id="line-518" name="line-518"></a><span class="cp">#  define IUTEST_HAS_STD_INVOKE         0</span>
-<a id="line-519" name="line-519"></a><span class="cp">#endif</span>
-<a id="line-520" name="line-520"></a><span class="c1">//! has quick_exit</span>
-<a id="line-521" name="line-521"></a><span class="cp">#if !defined(IUTEST_HAS_STD_QUICK_EXIT)</span>
-<a id="line-522" name="line-522"></a><span class="cp">#  define IUTEST_HAS_STD_QUICK_EXIT     0</span>
-<a id="line-523" name="line-523"></a><span class="cp">#endif</span>
-<a id="line-524" name="line-524"></a><span class="c1">//! has to_chars</span>
-<a id="line-525" name="line-525"></a><span class="cp">#if !defined(IUTEST_HAS_STD_TO_CHARS)</span>
-<a id="line-526" name="line-526"></a><span class="cp">#  define IUTEST_HAS_STD_TO_CHARS       0</span>
-<a id="line-527" name="line-527"></a><span class="cp">#endif</span>
-<a id="line-528" name="line-528"></a><span class="c1">//! has char8_t support lib</span>
-<a id="line-529" name="line-529"></a><span class="cp">#if !defined(IUTEST_HAS_STD_CHAR8_T)</span>
-<a id="line-530" name="line-530"></a><span class="cp">#  if defined(_LIBCPP_HAS_NO_C8RTOMB_MBRTOC8)</span>
-<a id="line-531" name="line-531"></a><span class="cp">#    define IUTEST_HAS_STD_CHAR8_T      0</span>
-<a id="line-532" name="line-532"></a><span class="cp">#  elif defined(__cpp_lib_char8_t) &amp;&amp; __cpp_lib_char8_t &gt;= 201907</span>
-<a id="line-533" name="line-533"></a><span class="cp">#    define IUTEST_HAS_STD_CHAR8_T      1</span>
-<a id="line-534" name="line-534"></a><span class="cp">#  else</span>
-<a id="line-535" name="line-535"></a><span class="cp">#    define IUTEST_HAS_STD_CHAR8_T      0</span>
-<a id="line-536" name="line-536"></a><span class="cp">#  endif</span>
-<a id="line-537" name="line-537"></a><span class="cp">#endif</span>
-<a id="line-538" name="line-538"></a><span class="cp">#if !defined(IUTEST_NO_CHAR8_T_TYPEINFO) &amp;&amp; IUTEST_HAS_CHAR8_T</span>
-<a id="line-539" name="line-539"></a><span class="cp">#  if defined(__arm64__) &amp;&amp; defined(__APPLE__)</span>
-<a id="line-540" name="line-540"></a><span class="cp">#    define IUTEST_NO_CHAR8_T_TYPEINFO    1</span>
-<a id="line-541" name="line-541"></a><span class="cp">#  elif defined(_LIBCPP_HAS_NO_C8RTOMB_MBRTOC8)</span>
-<a id="line-542" name="line-542"></a><span class="cp">#    define IUTEST_NO_CHAR8_T_TYPEINFO    1</span>
-<a id="line-543" name="line-543"></a><span class="cp">#  endif</span>
-<a id="line-544" name="line-544"></a><span class="cp">#endif</span>
-<a id="line-545" name="line-545"></a>
-<a id="line-546" name="line-546"></a><span class="c1">//! use external include tr1::tuple</span>
-<a id="line-547" name="line-547"></a><span class="cp">#if !defined(IUTEST_USE_EXTERNAL_TR1_TUPLE)</span>
-<a id="line-548" name="line-548"></a><span class="cp">#  define IUTEST_USE_EXTERNAL_TR1_TUPLE 0</span>
-<a id="line-549" name="line-549"></a><span class="cp">#endif</span>
-<a id="line-550" name="line-550"></a><span class="c1">//! use external include ::std::tuple</span>
-<a id="line-551" name="line-551"></a><span class="cp">#ifndef IUTEST_USE_EXTERNAL_STD_TUPLE</span>
-<a id="line-552" name="line-552"></a><span class="cp">#  define IUTEST_USE_EXTERNAL_STD_TUPLE 0</span>
-<a id="line-553" name="line-553"></a><span class="cp">#endif</span>
-<a id="line-554" name="line-554"></a><span class="c1">//! has ::std::tuple</span>
-<a id="line-555" name="line-555"></a><span class="cp">#if !defined(IUTEST_HAS_STD_TUPLE)</span>
-<a id="line-556" name="line-556"></a><span class="cp">#  define IUTEST_HAS_STD_TUPLE          0</span>
-<a id="line-557" name="line-557"></a><span class="cp">#endif</span>
-<a id="line-558" name="line-558"></a><span class="c1">//! has ::std::tr1::tuple</span>
-<a id="line-559" name="line-559"></a><span class="cp">#if !defined(IUTEST_HAS_TR1_TUPLE)</span>
-<a id="line-560" name="line-560"></a><span class="cp">#  define IUTEST_HAS_TR1_TUPLE          0</span>
-<a id="line-561" name="line-561"></a><span class="cp">#endif</span>
-<a id="line-562" name="line-562"></a><span class="c1">//! has tuple</span>
-<a id="line-563" name="line-563"></a><span class="cp">#if IUTEST_HAS_STD_TUPLE || IUTEST_HAS_TR1_TUPLE || IUTEST_USE_EXTERNAL_TR1_TUPLE || IUTEST_USE_EXTERNAL_STD_TUPLE</span>
-<a id="line-564" name="line-564"></a><span class="cp">#  if !defined(IUTEST_HAS_TUPLE)</span>
-<a id="line-565" name="line-565"></a><span class="cp">#    define IUTEST_HAS_TUPLE            1</span>
-<a id="line-566" name="line-566"></a><span class="cp">#  endif</span>
-<a id="line-567" name="line-567"></a><span class="cp">#else</span>
-<a id="line-568" name="line-568"></a><span class="cp">#  if defined(IUTEST_HAS_TUPLE)</span>
-<a id="line-569" name="line-569"></a><span class="cp">#    undef IUTEST_HAS_TUPLE</span>
-<a id="line-570" name="line-570"></a><span class="cp">#  endif</span>
-<a id="line-571" name="line-571"></a><span class="cp">#  define IUTEST_HAS_TUPLE              0</span>
-<a id="line-572" name="line-572"></a><span class="cp">#endif</span>
-<a id="line-573" name="line-573"></a><span class="cp">#if !defined(IUTEST_HAS_VARIADIC_TUPLES) &amp;&amp; IUTEST_HAS_VARIADIC_TEMPLATES &amp;&amp; IUTEST_HAS_TUPLE &amp;&amp; IUTEST_HAS_STD_TUPLE</span>
-<a id="line-574" name="line-574"></a><span class="cp">#  if defined(__clang__)</span>
-<a id="line-575" name="line-575"></a><span class="cp">#    if (IUTEST_CLANG_MAJOR &gt; 3 || (IUTEST_CLANG_MAJOR == 3 &amp;&amp; IUTEST_CLANG_MINOR &gt; 7))</span>
-<a id="line-576" name="line-576"></a><span class="cp">#      define IUTEST_HAS_VARIADIC_TUPLES    1</span>
-<a id="line-577" name="line-577"></a><span class="cp">#    endif</span>
-<a id="line-578" name="line-578"></a><span class="cp">#  else</span>
-<a id="line-579" name="line-579"></a><span class="cp">#    define IUTEST_HAS_VARIADIC_TUPLES      1</span>
-<a id="line-580" name="line-580"></a><span class="cp">#  endif</span>
-<a id="line-581" name="line-581"></a><span class="cp">#endif</span>
-<a id="line-582" name="line-582"></a><span class="cp">#if !defined(IUTEST_HAS_VARIADIC_TUPLES)</span>
-<a id="line-583" name="line-583"></a><span class="cp">#  define IUTEST_HAS_VARIADIC_TUPLES        0</span>
-<a id="line-584" name="line-584"></a><span class="cp">#endif</span>
-<a id="line-585" name="line-585"></a>
-<a id="line-586" name="line-586"></a><span class="c1">//! ::std::sto* が使用可能かどうか</span>
-<a id="line-587" name="line-587"></a><span class="cp">#if !defined(IUTEST_HAS_STD_STR_TO_VALUE)</span>
-<a id="line-588" name="line-588"></a><span class="cp">#  if IUTEST_HAS_CXX11</span>
-<a id="line-589" name="line-589"></a><span class="cp">#    if defined(IUTEST_OS_WINDOWS_MINGW)</span>
-<a id="line-590" name="line-590"></a><span class="cp">#      if defined(__MINGW64__) &amp;&amp; (defined(__GNUC__) &amp;&amp; (__GNUC__ &gt; 4 || (__GNUC__ == 4 &amp;&amp; __GNUC_MINOR__ &gt;= 8)))</span>
-<a id="line-591" name="line-591"></a><span class="cp">#        define IUTEST_HAS_STD_STR_TO_VALUE 1</span>
-<a id="line-592" name="line-592"></a><span class="cp">#      endif</span>
-<a id="line-593" name="line-593"></a><span class="cp">#    else</span>
-<a id="line-594" name="line-594"></a><span class="cp">#      define IUTEST_HAS_STD_STR_TO_VALUE   1</span>
-<a id="line-595" name="line-595"></a><span class="cp">#    endif</span>
-<a id="line-596" name="line-596"></a><span class="cp">#  endif</span>
-<a id="line-597" name="line-597"></a><span class="cp">#endif</span>
-<a id="line-598" name="line-598"></a>
-<a id="line-599" name="line-599"></a><span class="cp">#if !defined(IUTEST_HAS_STD_STR_TO_VALUE)</span>
-<a id="line-600" name="line-600"></a><span class="cp">#  define IUTEST_HAS_STD_STR_TO_VALUE   0</span>
-<a id="line-601" name="line-601"></a><span class="cp">#endif</span>
-<a id="line-602" name="line-602"></a>
-<a id="line-603" name="line-603"></a><span class="c1">//! has sys/time.h header</span>
-<a id="line-604" name="line-604"></a><span class="cp">#if !defined(IUTEST_HAS_HDR_SYSTIME)</span>
-<a id="line-605" name="line-605"></a><span class="cp">#  if defined(IUTEST_OS_WINDOWS) &amp;&amp; !defined(IUTEST_OS_WINDOWS_MINGW) &amp;&amp; !defined(IUTEST_OS_WINDOWS_WINE)</span>
-<a id="line-606" name="line-606"></a><span class="cp">#    define IUTEST_HAS_HDR_SYSTIME      0</span>
-<a id="line-607" name="line-607"></a><span class="cp">#  endif</span>
-<a id="line-608" name="line-608"></a><span class="cp">#endif</span>
-<a id="line-609" name="line-609"></a>
-<a id="line-610" name="line-610"></a><span class="cp">#if !defined(IUTEST_HAS_HDR_SYSTIME)</span>
-<a id="line-611" name="line-611"></a><span class="cp">#  define IUTEST_HAS_HDR_SYSTIME        1</span>
-<a id="line-612" name="line-612"></a><span class="cp">#endif</span>
-<a id="line-613" name="line-613"></a>
-<a id="line-614" name="line-614"></a><span class="c1">// socklen_t</span>
-<a id="line-615" name="line-615"></a><span class="cp">#if defined(IUTEST_OS_WINDOWS_WINE)</span>
-<a id="line-616" name="line-616"></a><span class="cp">#  define __socklen_t_defined</span>
-<a id="line-617" name="line-617"></a><span class="cp">#endif</span>
-<a id="line-618" name="line-618"></a>
-<a id="line-619" name="line-619"></a><span class="c1">//! ::std::stringstream が使用可能かどうか</span>
-<a id="line-620" name="line-620"></a><span class="cp">#if !defined(IUTEST_HAS_STRINGSTREAM)</span>
-<a id="line-621" name="line-621"></a><span class="cp">#  if !defined(_STLP_NO_IOSTREAMS)</span>
-<a id="line-622" name="line-622"></a><span class="cp">#    define IUTEST_HAS_STRINGSTREAM 1</span>
-<a id="line-623" name="line-623"></a><span class="cp">#  endif</span>
-<a id="line-624" name="line-624"></a><span class="cp">#endif</span>
-<a id="line-625" name="line-625"></a>
-<a id="line-626" name="line-626"></a><span class="cp">#if !defined(IUTEST_HAS_STRINGSTREAM)</span>
-<a id="line-627" name="line-627"></a><span class="cp">#  define IUTEST_HAS_STRINGSTREAM   0</span>
-<a id="line-628" name="line-628"></a><span class="cp">#endif</span>
-<a id="line-629" name="line-629"></a>
-<a id="line-630" name="line-630"></a>
-<a id="line-631" name="line-631"></a><span class="cm">/**</span>
-<a id="line-632" name="line-632"></a><span class="cm"> * @brief   ::std::strstream が使用可能かどうか</span>
-<a id="line-633" name="line-633"></a><span class="cm"> * @note    IUTEST_HAS_STRINGSTREAM が優先されます</span>
-<a id="line-634" name="line-634"></a><span class="cm"> * @deprecated</span>
-<a id="line-635" name="line-635"></a><span class="cm">*/</span><span class="w"></span>
-<a id="line-636" name="line-636"></a><span class="cp">#if !defined(IUTEST_HAS_STRSTREAM)</span>
-<a id="line-637" name="line-637"></a><span class="cp">#  define IUTEST_HAS_STRSTREAM      0</span>
-<a id="line-638" name="line-638"></a><span class="cp">#endif</span>
-<a id="line-639" name="line-639"></a>
-<a id="line-640" name="line-640"></a><span class="c1">//! iomanip が使用可能かどうか</span>
-<a id="line-641" name="line-641"></a><span class="cp">#if !defined(IUTEST_HAS_IOMANIP)</span>
-<a id="line-642" name="line-642"></a><span class="cp">#  if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM</span>
-<a id="line-643" name="line-643"></a><span class="cp">#    define IUTEST_HAS_IOMANIP      1</span>
-<a id="line-644" name="line-644"></a><span class="cp">#  endif</span>
-<a id="line-645" name="line-645"></a><span class="cp">#endif</span>
-<a id="line-646" name="line-646"></a>
-<a id="line-647" name="line-647"></a><span class="cp">#if !defined(IUTEST_HAS_IOMANIP)</span>
-<a id="line-648" name="line-648"></a><span class="cp">#  define IUTEST_HAS_IOMANIP        0</span>
-<a id="line-649" name="line-649"></a><span class="cp">#endif</span>
-<a id="line-650" name="line-650"></a>
-<a id="line-651" name="line-651"></a>
-<a id="line-652" name="line-652"></a><span class="c1">//! _set_invalid_parameter_handler が使用可能かどうか</span>
-<a id="line-653" name="line-653"></a><span class="cp">#if !defined(IUTEST_HAS_INVALID_PARAMETER_HANDLER)</span>
-<a id="line-654" name="line-654"></a><span class="cp">#  if IUTEST_HAS_EXCEPTIONS &amp;&amp; (defined(_MSC_VER) &amp;&amp; (_MSC_VER &gt;= 1400)) &amp;&amp; !defined(IUTEST_OS_WINDOWS_MOBILE)</span>
-<a id="line-655" name="line-655"></a><span class="cp">#    define IUTEST_HAS_INVALID_PARAMETER_HANDLER    1</span>
-<a id="line-656" name="line-656"></a><span class="cp">#  endif</span>
-<a id="line-657" name="line-657"></a><span class="cp">#endif</span>
-<a id="line-658" name="line-658"></a>
-<a id="line-659" name="line-659"></a><span class="cp">#if !defined(IUTEST_HAS_INVALID_PARAMETER_HANDLER)</span>
-<a id="line-660" name="line-660"></a><span class="cp">#  define IUTEST_HAS_INVALID_PARAMETER_HANDLER      0</span>
-<a id="line-661" name="line-661"></a><span class="cp">#endif</span>
-<a id="line-662" name="line-662"></a>
-<a id="line-663" name="line-663"></a><span class="c1">//! has largefile api</span>
-<a id="line-664" name="line-664"></a><span class="cp">#if !defined(IUTEST_HAS_LARGEFILE_API)</span>
-<a id="line-665" name="line-665"></a><span class="cp">#  if   defined(__LARGEFILE_VISIBLE) &amp;&amp; __LARGEFILE_VISIBLE</span>
-<a id="line-666" name="line-666"></a><span class="cp">#    define IUTEST_HAS_LARGEFILE_API                1</span>
-<a id="line-667" name="line-667"></a><span class="cp">#  elif defined(__POSIX_VISIBLE) &amp;&amp; __POSIX_VISIBLE &gt;= 200112</span>
-<a id="line-668" name="line-668"></a><span class="cp">#    define IUTEST_HAS_LARGEFILE_API                1</span>
-<a id="line-669" name="line-669"></a><span class="cp">#  else</span>
-<a id="line-670" name="line-670"></a><span class="cp">#    define IUTEST_HAS_LARGEFILE_API                0</span>
-<a id="line-671" name="line-671"></a><span class="cp">#  endif</span>
-<a id="line-672" name="line-672"></a><span class="cp">#endif</span>
-<a id="line-673" name="line-673"></a>
-<a id="line-674" name="line-674"></a>
-<a id="line-675" name="line-675"></a><span class="c1">//! has fopen</span>
-<a id="line-676" name="line-676"></a><span class="cp">#if !defined(IUTEST_HAS_FOPEN)</span>
-<a id="line-677" name="line-677"></a><span class="cp">#  define IUTEST_HAS_FOPEN                          1</span>
-<a id="line-678" name="line-678"></a><span class="cp">#endif</span>
-<a id="line-679" name="line-679"></a>
-<a id="line-680" name="line-680"></a>
-<a id="line-681" name="line-681"></a><span class="c1">//! has file stat</span>
-<a id="line-682" name="line-682"></a><span class="cp">#if !defined(IUTEST_HAS_FILE_STAT)</span>
-<a id="line-683" name="line-683"></a><span class="cp">#  if !defined(IUTEST_OS_WINDOWS_MOBILE)</span>
-<a id="line-684" name="line-684"></a><span class="cp">#    define IUTEST_HAS_FILE_STAT                    1</span>
-<a id="line-685" name="line-685"></a><span class="cp">#  endif</span>
-<a id="line-686" name="line-686"></a><span class="cp">#endif</span>
-<a id="line-687" name="line-687"></a>
-<a id="line-688" name="line-688"></a><span class="cp">#if !defined(IUTEST_HAS_FILE_STAT)</span>
-<a id="line-689" name="line-689"></a><span class="cp">#  define IUTEST_HAS_FILE_STAT                      0</span>
-<a id="line-690" name="line-690"></a><span class="cp">#endif</span>
-<a id="line-691" name="line-691"></a>
-<a id="line-692" name="line-692"></a><span class="c1">//! has fileno</span>
-<a id="line-693" name="line-693"></a><span class="cp">#if !defined(IUTEST_HAS_FILENO)</span>
-<a id="line-694" name="line-694"></a><span class="cp">#  if defined(__POSIX_VISIBLE) &amp;&amp; __POSIX_VISIBLE == 0</span>
-<a id="line-695" name="line-695"></a><span class="cp">#    define IUTEST_HAS_FILENO                       0</span>
-<a id="line-696" name="line-696"></a><span class="cp">#  elif defined(IUTEST_OS_WINDOWS_MINGW) &amp;&amp; defined(__STRICT_ANSI__)</span>
-<a id="line-697" name="line-697"></a><span class="cp">#    define IUTEST_HAS_FILENO                       0</span>
-<a id="line-698" name="line-698"></a><span class="cp">#  elif !defined(IUTEST_OS_WINDOWS_MOBILE)</span>
-<a id="line-699" name="line-699"></a><span class="cp">#    define IUTEST_HAS_FILENO                       1</span>
-<a id="line-700" name="line-700"></a><span class="cp">#  endif</span>
-<a id="line-701" name="line-701"></a><span class="cp">#endif</span>
-<a id="line-702" name="line-702"></a>
-<a id="line-703" name="line-703"></a><span class="cp">#if !defined(IUTEST_HAS_FILENO)</span>
-<a id="line-704" name="line-704"></a><span class="cp">#  define IUTEST_HAS_FILENO                         0</span>
-<a id="line-705" name="line-705"></a><span class="cp">#endif</span>
-<a id="line-706" name="line-706"></a>
-<a id="line-707" name="line-707"></a><span class="c1">//! has fd dup/dup2</span>
-<a id="line-708" name="line-708"></a><span class="cp">#if !defined(IUTEST_HAS_FD_DUP)</span>
-<a id="line-709" name="line-709"></a><span class="cp">#  if IUTEST_HAS_HDR_UNISTD &amp;&amp; !defined(__arm__)</span>
-<a id="line-710" name="line-710"></a><span class="cp">#    define IUTEST_HAS_FD_DUP                       1</span>
-<a id="line-711" name="line-711"></a><span class="cp">#  endif</span>
-<a id="line-712" name="line-712"></a><span class="cp">#endif</span>
-<a id="line-713" name="line-713"></a>
-<a id="line-714" name="line-714"></a><span class="cp">#if !defined(IUTEST_HAS_FD_DUP)</span>
-<a id="line-715" name="line-715"></a><span class="cp">#  define IUTEST_HAS_FD_DUP                         0</span>
-<a id="line-716" name="line-716"></a><span class="cp">#endif</span>
-<a id="line-717" name="line-717"></a>
-<a id="line-718" name="line-718"></a><span class="c1">//! has fdopen</span>
-<a id="line-719" name="line-719"></a><span class="cp">#if !defined(IUTEST_HAS_FD_OPEN)</span>
-<a id="line-720" name="line-720"></a><span class="cp">#  if IUTEST_HAS_HDR_UNISTD</span>
-<a id="line-721" name="line-721"></a><span class="cp">#    if defined(__arm__)</span>
-<a id="line-722" name="line-722"></a><span class="cp">#      define IUTEST_HAS_FD_OPEN                    0</span>
-<a id="line-723" name="line-723"></a><span class="cp">#    elif defined(IUTEST_OS_CYGWIN)</span>
-<a id="line-724" name="line-724"></a><span class="cp">#      if !defined(__STRICT_ANSI__)</span>
-<a id="line-725" name="line-725"></a><span class="cp">#        define IUTEST_HAS_FD_OPEN                  1</span>
-<a id="line-726" name="line-726"></a><span class="cp">#      endif</span>
-<a id="line-727" name="line-727"></a><span class="cp">#    elif defined(IUTEST_OS_WINDOWS_MINGW) &amp;&amp; !defined(__MINGW64__)</span>
-<a id="line-728" name="line-728"></a><span class="cp">#      define IUTEST_HAS_FD_OPEN                    0</span>
-<a id="line-729" name="line-729"></a><span class="cp">#    else</span>
-<a id="line-730" name="line-730"></a><span class="cp">#      define IUTEST_HAS_FD_OPEN                    1</span>
-<a id="line-731" name="line-731"></a><span class="cp">#    endif</span>
-<a id="line-732" name="line-732"></a><span class="cp">#  endif</span>
-<a id="line-733" name="line-733"></a><span class="cp">#endif</span>
-<a id="line-734" name="line-734"></a>
-<a id="line-735" name="line-735"></a><span class="cp">#if !defined(IUTEST_HAS_FD_OPEN)</span>
-<a id="line-736" name="line-736"></a><span class="cp">#  define IUTEST_HAS_FD_OPEN                        0</span>
+<a id="line-383" name="line-383"></a><span class="cp">#define IIUT_PP_ENUM_BINARY_PARAMS_MACRO_(i, param1, param2)    IUTEST_PP_CAT(param1, i) IUTEST_PP_CAT(param2, i)</span>
+<a id="line-384" name="line-384"></a>
+<a id="line-385" name="line-385"></a><span class="cp">#define IUTEST_PP_ENUM_BINARY_PARAMS(n, param1, param2)         IUTEST_PP_ENUM_BINARY(n, IIUT_PP_ENUM_BINARY_PARAMS_MACRO_, param1, param2)</span>
+<a id="line-386" name="line-386"></a><span class="cp">#define IUTEST_PP_ENUM_BINARY(n, m, param1, param2)             IIUT_PP_ENUM_BINARY_PARAMS_I(0, n, m, param1, param2)</span>
+<a id="line-387" name="line-387"></a>
+<a id="line-388" name="line-388"></a><span class="cp">#define IUTEST_PP_ENUM_SHIFTED_BINARY_PARAMS(n, param1, param2) IUTEST_PP_ENUM_BINARY(n, IIUT_PP_ENUM_BINARY_PARAMS_MACRO_, param1, param2)</span>
+<a id="line-389" name="line-389"></a><span class="cp">#define IUTEST_PP_ENUM_SHIFTED_BINARY(n, m, param1, param2)     IIUT_PP_ENUM_BINARY_PARAMS_I(1, n, m, param1, param2)</span>
+<a id="line-390" name="line-390"></a>
+<a id="line-391" name="line-391"></a><span class="cp">#define IIUT_PP_ENUM_BINARY_PARAMS_I(begin, n, m, p1, p2)   IUTEST_PP_CAT(IIUT_PP_ENUM_I_, IUTEST_PP_DEC(n))(begin, m, p1, p2)</span>
+<a id="line-392" name="line-392"></a>
+<a id="line-393" name="line-393"></a><span class="cp">#define IIUT_PP_ENUM_I_nil(i, m, p1, p2)</span>
+<a id="line-394" name="line-394"></a><span class="cp">#define IIUT_PP_ENUM_I_0( i, m, p1, p2)         m(i, p1, p2)</span>
+<a id="line-395" name="line-395"></a><span class="cp">#define IIUT_PP_ENUM_I_1( i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_0 (IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-396" name="line-396"></a><span class="cp">#define IIUT_PP_ENUM_I_2( i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_1 (IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-397" name="line-397"></a><span class="cp">#define IIUT_PP_ENUM_I_3( i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_2 (IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-398" name="line-398"></a><span class="cp">#define IIUT_PP_ENUM_I_4( i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_3 (IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-399" name="line-399"></a><span class="cp">#define IIUT_PP_ENUM_I_5( i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_4 (IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-400" name="line-400"></a><span class="cp">#define IIUT_PP_ENUM_I_6( i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_5 (IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-401" name="line-401"></a><span class="cp">#define IIUT_PP_ENUM_I_7( i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_6 (IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-402" name="line-402"></a><span class="cp">#define IIUT_PP_ENUM_I_8( i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_7 (IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-403" name="line-403"></a><span class="cp">#define IIUT_PP_ENUM_I_9( i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_8 (IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-404" name="line-404"></a><span class="cp">#define IIUT_PP_ENUM_I_10(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_9 (IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-405" name="line-405"></a><span class="cp">#define IIUT_PP_ENUM_I_11(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_10(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-406" name="line-406"></a><span class="cp">#define IIUT_PP_ENUM_I_12(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_11(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-407" name="line-407"></a><span class="cp">#define IIUT_PP_ENUM_I_13(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_12(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-408" name="line-408"></a><span class="cp">#define IIUT_PP_ENUM_I_14(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_13(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-409" name="line-409"></a><span class="cp">#define IIUT_PP_ENUM_I_15(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_14(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-410" name="line-410"></a><span class="cp">#define IIUT_PP_ENUM_I_16(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_15(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-411" name="line-411"></a><span class="cp">#define IIUT_PP_ENUM_I_17(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_16(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-412" name="line-412"></a><span class="cp">#define IIUT_PP_ENUM_I_18(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_17(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-413" name="line-413"></a><span class="cp">#define IIUT_PP_ENUM_I_19(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_18(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-414" name="line-414"></a><span class="cp">#define IIUT_PP_ENUM_I_20(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_19(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-415" name="line-415"></a><span class="cp">#define IIUT_PP_ENUM_I_21(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_20(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-416" name="line-416"></a><span class="cp">#define IIUT_PP_ENUM_I_22(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_21(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-417" name="line-417"></a><span class="cp">#define IIUT_PP_ENUM_I_23(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_22(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-418" name="line-418"></a><span class="cp">#define IIUT_PP_ENUM_I_24(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_23(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-419" name="line-419"></a><span class="cp">#define IIUT_PP_ENUM_I_25(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_24(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-420" name="line-420"></a><span class="cp">#define IIUT_PP_ENUM_I_26(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_25(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-421" name="line-421"></a><span class="cp">#define IIUT_PP_ENUM_I_27(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_26(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-422" name="line-422"></a><span class="cp">#define IIUT_PP_ENUM_I_28(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_27(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-423" name="line-423"></a><span class="cp">#define IIUT_PP_ENUM_I_29(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_28(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-424" name="line-424"></a><span class="cp">#define IIUT_PP_ENUM_I_30(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_29(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-425" name="line-425"></a><span class="cp">#define IIUT_PP_ENUM_I_31(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_30(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-426" name="line-426"></a><span class="cp">#define IIUT_PP_ENUM_I_32(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_31(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-427" name="line-427"></a><span class="cp">#define IIUT_PP_ENUM_I_33(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_32(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-428" name="line-428"></a><span class="cp">#define IIUT_PP_ENUM_I_34(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_33(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-429" name="line-429"></a><span class="cp">#define IIUT_PP_ENUM_I_35(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_34(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-430" name="line-430"></a><span class="cp">#define IIUT_PP_ENUM_I_36(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_35(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-431" name="line-431"></a><span class="cp">#define IIUT_PP_ENUM_I_37(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_36(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-432" name="line-432"></a><span class="cp">#define IIUT_PP_ENUM_I_38(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_37(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-433" name="line-433"></a><span class="cp">#define IIUT_PP_ENUM_I_39(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_38(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-434" name="line-434"></a><span class="cp">#define IIUT_PP_ENUM_I_40(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_39(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-435" name="line-435"></a><span class="cp">#define IIUT_PP_ENUM_I_41(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_40(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-436" name="line-436"></a><span class="cp">#define IIUT_PP_ENUM_I_42(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_41(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-437" name="line-437"></a><span class="cp">#define IIUT_PP_ENUM_I_43(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_42(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-438" name="line-438"></a><span class="cp">#define IIUT_PP_ENUM_I_44(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_43(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-439" name="line-439"></a><span class="cp">#define IIUT_PP_ENUM_I_45(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_44(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-440" name="line-440"></a><span class="cp">#define IIUT_PP_ENUM_I_46(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_45(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-441" name="line-441"></a><span class="cp">#define IIUT_PP_ENUM_I_47(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_46(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-442" name="line-442"></a><span class="cp">#define IIUT_PP_ENUM_I_48(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_47(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-443" name="line-443"></a><span class="cp">#define IIUT_PP_ENUM_I_49(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_48(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-444" name="line-444"></a><span class="cp">#define IIUT_PP_ENUM_I_50(i, m, p1, p2)         m(i, p1, p2), IIUT_PP_ENUM_I_49(IUTEST_PP_INC(i), m, p1, p2)</span>
+<a id="line-445" name="line-445"></a>
+<a id="line-446" name="line-446"></a><span class="c1">// BOOL</span>
+<a id="line-447" name="line-447"></a><span class="hll"><span class="cp">#define IUTEST_PP_BOOL(n)   IIUT_PP_BOOL_I(n)</span><span class="error2">&lt;--- failed to expand 'IUTEST_P', Wrong number of parameters for macro 'IIUT_PP_BOOL_I'.</span><span class="error2">&lt;--- failed to expand 'IUTEST_TYPED_TEST_SUITE', Wrong number of parameters for macro 'IIUT_PP_BOOL_I'.</span><span class="error2">&lt;--- failed to expand 'IUTEST_F', Wrong number of parameters for macro 'IIUT_PP_BOOL_I'.</span><span class="error2">&lt;--- failed to expand 'IUTEST_INSTANTIATE_TEST_SUITE_P', Wrong number of parameters for macro 'IIUT_PP_BOOL_I'.</span><span class="error2">&lt;--- failed to expand 'IUTEST_VALUETMP_TEST_SUITE', Wrong number of parameters for macro 'IIUT_PP_BOOL_I'.</span>
+</span><a id="line-448" name="line-448"></a><span class="cp">#define IIUT_PP_BOOL_I(n)   IIUT_PP_BOOL_##n</span>
+<a id="line-449" name="line-449"></a><span class="cp">#define IIUT_PP_BOOL_0      0</span>
+<a id="line-450" name="line-450"></a><span class="cp">#define IIUT_PP_BOOL_1      1</span>
+<a id="line-451" name="line-451"></a><span class="cp">#define IIUT_PP_BOOL_2      1</span>
+<a id="line-452" name="line-452"></a><span class="cp">#define IIUT_PP_BOOL_3      1</span>
+<a id="line-453" name="line-453"></a><span class="cp">#define IIUT_PP_BOOL_4      1</span>
+<a id="line-454" name="line-454"></a><span class="cp">#define IIUT_PP_BOOL_5      1</span>
+<a id="line-455" name="line-455"></a><span class="cp">#define IIUT_PP_BOOL_6      1</span>
+<a id="line-456" name="line-456"></a><span class="cp">#define IIUT_PP_BOOL_7      1</span>
+<a id="line-457" name="line-457"></a><span class="cp">#define IIUT_PP_BOOL_8      1</span>
+<a id="line-458" name="line-458"></a><span class="cp">#define IIUT_PP_BOOL_9      1</span>
+<a id="line-459" name="line-459"></a><span class="cp">#define IIUT_PP_BOOL_10     1</span>
+<a id="line-460" name="line-460"></a><span class="cp">#define IIUT_PP_BOOL_11     1</span>
+<a id="line-461" name="line-461"></a><span class="cp">#define IIUT_PP_BOOL_12     1</span>
+<a id="line-462" name="line-462"></a><span class="cp">#define IIUT_PP_BOOL_13     1</span>
+<a id="line-463" name="line-463"></a><span class="cp">#define IIUT_PP_BOOL_14     1</span>
+<a id="line-464" name="line-464"></a><span class="cp">#define IIUT_PP_BOOL_15     1</span>
+<a id="line-465" name="line-465"></a><span class="cp">#define IIUT_PP_BOOL_16     1</span>
+<a id="line-466" name="line-466"></a><span class="cp">#define IIUT_PP_BOOL_17     1</span>
+<a id="line-467" name="line-467"></a><span class="cp">#define IIUT_PP_BOOL_18     1</span>
+<a id="line-468" name="line-468"></a><span class="cp">#define IIUT_PP_BOOL_19     1</span>
+<a id="line-469" name="line-469"></a><span class="cp">#define IIUT_PP_BOOL_20     1</span>
+<a id="line-470" name="line-470"></a><span class="cp">#define IIUT_PP_BOOL_21     1</span>
+<a id="line-471" name="line-471"></a><span class="cp">#define IIUT_PP_BOOL_22     1</span>
+<a id="line-472" name="line-472"></a><span class="cp">#define IIUT_PP_BOOL_23     1</span>
+<a id="line-473" name="line-473"></a><span class="cp">#define IIUT_PP_BOOL_24     1</span>
+<a id="line-474" name="line-474"></a><span class="cp">#define IIUT_PP_BOOL_25     1</span>
+<a id="line-475" name="line-475"></a><span class="cp">#define IIUT_PP_BOOL_26     1</span>
+<a id="line-476" name="line-476"></a><span class="cp">#define IIUT_PP_BOOL_27     1</span>
+<a id="line-477" name="line-477"></a><span class="cp">#define IIUT_PP_BOOL_28     1</span>
+<a id="line-478" name="line-478"></a><span class="cp">#define IIUT_PP_BOOL_29     1</span>
+<a id="line-479" name="line-479"></a><span class="cp">#define IIUT_PP_BOOL_30     1</span>
+<a id="line-480" name="line-480"></a><span class="cp">#define IIUT_PP_BOOL_31     1</span>
+<a id="line-481" name="line-481"></a><span class="cp">#define IIUT_PP_BOOL_32     1</span>
+<a id="line-482" name="line-482"></a><span class="cp">#define IIUT_PP_BOOL_33     1</span>
+<a id="line-483" name="line-483"></a><span class="cp">#define IIUT_PP_BOOL_34     1</span>
+<a id="line-484" name="line-484"></a><span class="cp">#define IIUT_PP_BOOL_35     1</span>
+<a id="line-485" name="line-485"></a><span class="cp">#define IIUT_PP_BOOL_36     1</span>
+<a id="line-486" name="line-486"></a><span class="cp">#define IIUT_PP_BOOL_37     1</span>
+<a id="line-487" name="line-487"></a><span class="cp">#define IIUT_PP_BOOL_38     1</span>
+<a id="line-488" name="line-488"></a><span class="cp">#define IIUT_PP_BOOL_39     1</span>
+<a id="line-489" name="line-489"></a><span class="cp">#define IIUT_PP_BOOL_40     1</span>
+<a id="line-490" name="line-490"></a><span class="cp">#define IIUT_PP_BOOL_41     1</span>
+<a id="line-491" name="line-491"></a><span class="cp">#define IIUT_PP_BOOL_42     1</span>
+<a id="line-492" name="line-492"></a><span class="cp">#define IIUT_PP_BOOL_43     1</span>
+<a id="line-493" name="line-493"></a><span class="cp">#define IIUT_PP_BOOL_44     1</span>
+<a id="line-494" name="line-494"></a><span class="cp">#define IIUT_PP_BOOL_45     1</span>
+<a id="line-495" name="line-495"></a><span class="cp">#define IIUT_PP_BOOL_46     1</span>
+<a id="line-496" name="line-496"></a><span class="cp">#define IIUT_PP_BOOL_47     1</span>
+<a id="line-497" name="line-497"></a><span class="cp">#define IIUT_PP_BOOL_48     1</span>
+<a id="line-498" name="line-498"></a><span class="cp">#define IIUT_PP_BOOL_49     1</span>
+<a id="line-499" name="line-499"></a><span class="cp">#define IIUT_PP_BOOL_50     1</span>
+<a id="line-500" name="line-500"></a><span class="cp">#define IIUT_PP_BOOL_51     1</span>
+<a id="line-501" name="line-501"></a><span class="cp">#define IIUT_PP_BOOL_52     1</span>
+<a id="line-502" name="line-502"></a><span class="cp">#define IIUT_PP_BOOL_53     1</span>
+<a id="line-503" name="line-503"></a><span class="cp">#define IIUT_PP_BOOL_54     1</span>
+<a id="line-504" name="line-504"></a><span class="cp">#define IIUT_PP_BOOL_55     1</span>
+<a id="line-505" name="line-505"></a><span class="cp">#define IIUT_PP_BOOL_56     1</span>
+<a id="line-506" name="line-506"></a><span class="cp">#define IIUT_PP_BOOL_57     1</span>
+<a id="line-507" name="line-507"></a><span class="cp">#define IIUT_PP_BOOL_58     1</span>
+<a id="line-508" name="line-508"></a><span class="cp">#define IIUT_PP_BOOL_59     1</span>
+<a id="line-509" name="line-509"></a><span class="cp">#define IIUT_PP_BOOL_60     1</span>
+<a id="line-510" name="line-510"></a><span class="cp">#define IIUT_PP_BOOL_61     1</span>
+<a id="line-511" name="line-511"></a><span class="cp">#define IIUT_PP_BOOL_62     1</span>
+<a id="line-512" name="line-512"></a><span class="cp">#define IIUT_PP_BOOL_63     1</span>
+<a id="line-513" name="line-513"></a><span class="cp">#define IIUT_PP_BOOL_64     1</span>
+<a id="line-514" name="line-514"></a><span class="cp">#define IIUT_PP_BOOL_65     1</span>
+<a id="line-515" name="line-515"></a><span class="cp">#define IIUT_PP_BOOL_66     1</span>
+<a id="line-516" name="line-516"></a><span class="cp">#define IIUT_PP_BOOL_67     1</span>
+<a id="line-517" name="line-517"></a><span class="cp">#define IIUT_PP_BOOL_68     1</span>
+<a id="line-518" name="line-518"></a><span class="cp">#define IIUT_PP_BOOL_69     1</span>
+<a id="line-519" name="line-519"></a><span class="cp">#define IIUT_PP_BOOL_70     1</span>
+<a id="line-520" name="line-520"></a><span class="cp">#define IIUT_PP_BOOL_71     1</span>
+<a id="line-521" name="line-521"></a><span class="cp">#define IIUT_PP_BOOL_72     1</span>
+<a id="line-522" name="line-522"></a><span class="cp">#define IIUT_PP_BOOL_73     1</span>
+<a id="line-523" name="line-523"></a><span class="cp">#define IIUT_PP_BOOL_74     1</span>
+<a id="line-524" name="line-524"></a><span class="cp">#define IIUT_PP_BOOL_75     1</span>
+<a id="line-525" name="line-525"></a><span class="cp">#define IIUT_PP_BOOL_76     1</span>
+<a id="line-526" name="line-526"></a><span class="cp">#define IIUT_PP_BOOL_77     1</span>
+<a id="line-527" name="line-527"></a><span class="cp">#define IIUT_PP_BOOL_78     1</span>
+<a id="line-528" name="line-528"></a><span class="cp">#define IIUT_PP_BOOL_79     1</span>
+<a id="line-529" name="line-529"></a><span class="cp">#define IIUT_PP_BOOL_80     1</span>
+<a id="line-530" name="line-530"></a><span class="cp">#define IIUT_PP_BOOL_81     1</span>
+<a id="line-531" name="line-531"></a><span class="cp">#define IIUT_PP_BOOL_82     1</span>
+<a id="line-532" name="line-532"></a><span class="cp">#define IIUT_PP_BOOL_83     1</span>
+<a id="line-533" name="line-533"></a><span class="cp">#define IIUT_PP_BOOL_84     1</span>
+<a id="line-534" name="line-534"></a><span class="cp">#define IIUT_PP_BOOL_85     1</span>
+<a id="line-535" name="line-535"></a><span class="cp">#define IIUT_PP_BOOL_86     1</span>
+<a id="line-536" name="line-536"></a><span class="cp">#define IIUT_PP_BOOL_87     1</span>
+<a id="line-537" name="line-537"></a><span class="cp">#define IIUT_PP_BOOL_88     1</span>
+<a id="line-538" name="line-538"></a><span class="cp">#define IIUT_PP_BOOL_89     1</span>
+<a id="line-539" name="line-539"></a><span class="cp">#define IIUT_PP_BOOL_90     1</span>
+<a id="line-540" name="line-540"></a><span class="cp">#define IIUT_PP_BOOL_91     1</span>
+<a id="line-541" name="line-541"></a><span class="cp">#define IIUT_PP_BOOL_92     1</span>
+<a id="line-542" name="line-542"></a><span class="cp">#define IIUT_PP_BOOL_93     1</span>
+<a id="line-543" name="line-543"></a><span class="cp">#define IIUT_PP_BOOL_94     1</span>
+<a id="line-544" name="line-544"></a><span class="cp">#define IIUT_PP_BOOL_95     1</span>
+<a id="line-545" name="line-545"></a><span class="cp">#define IIUT_PP_BOOL_96     1</span>
+<a id="line-546" name="line-546"></a><span class="cp">#define IIUT_PP_BOOL_97     1</span>
+<a id="line-547" name="line-547"></a><span class="cp">#define IIUT_PP_BOOL_98     1</span>
+<a id="line-548" name="line-548"></a><span class="cp">#define IIUT_PP_BOOL_99     1</span>
+<a id="line-549" name="line-549"></a><span class="cp">#define IIUT_PP_BOOL_100    1</span>
+<a id="line-550" name="line-550"></a><span class="cp">#define IIUT_PP_BOOL_101    1</span>
+<a id="line-551" name="line-551"></a><span class="cp">#define IIUT_PP_BOOL_102    1</span>
+<a id="line-552" name="line-552"></a><span class="cp">#define IIUT_PP_BOOL_103    1</span>
+<a id="line-553" name="line-553"></a><span class="cp">#define IIUT_PP_BOOL_104    1</span>
+<a id="line-554" name="line-554"></a><span class="cp">#define IIUT_PP_BOOL_105    1</span>
+<a id="line-555" name="line-555"></a><span class="cp">#define IIUT_PP_BOOL_106    1</span>
+<a id="line-556" name="line-556"></a><span class="cp">#define IIUT_PP_BOOL_107    1</span>
+<a id="line-557" name="line-557"></a><span class="cp">#define IIUT_PP_BOOL_108    1</span>
+<a id="line-558" name="line-558"></a><span class="cp">#define IIUT_PP_BOOL_109    1</span>
+<a id="line-559" name="line-559"></a><span class="cp">#define IIUT_PP_BOOL_110    1</span>
+<a id="line-560" name="line-560"></a><span class="cp">#define IIUT_PP_BOOL_111    1</span>
+<a id="line-561" name="line-561"></a><span class="cp">#define IIUT_PP_BOOL_112    1</span>
+<a id="line-562" name="line-562"></a><span class="cp">#define IIUT_PP_BOOL_113    1</span>
+<a id="line-563" name="line-563"></a><span class="cp">#define IIUT_PP_BOOL_114    1</span>
+<a id="line-564" name="line-564"></a><span class="cp">#define IIUT_PP_BOOL_115    1</span>
+<a id="line-565" name="line-565"></a><span class="cp">#define IIUT_PP_BOOL_116    1</span>
+<a id="line-566" name="line-566"></a><span class="cp">#define IIUT_PP_BOOL_117    1</span>
+<a id="line-567" name="line-567"></a><span class="cp">#define IIUT_PP_BOOL_118    1</span>
+<a id="line-568" name="line-568"></a><span class="cp">#define IIUT_PP_BOOL_119    1</span>
+<a id="line-569" name="line-569"></a><span class="cp">#define IIUT_PP_BOOL_120    1</span>
+<a id="line-570" name="line-570"></a><span class="cp">#define IIUT_PP_BOOL_121    1</span>
+<a id="line-571" name="line-571"></a><span class="cp">#define IIUT_PP_BOOL_122    1</span>
+<a id="line-572" name="line-572"></a><span class="cp">#define IIUT_PP_BOOL_123    1</span>
+<a id="line-573" name="line-573"></a><span class="cp">#define IIUT_PP_BOOL_124    1</span>
+<a id="line-574" name="line-574"></a><span class="cp">#define IIUT_PP_BOOL_125    1</span>
+<a id="line-575" name="line-575"></a><span class="cp">#define IIUT_PP_BOOL_126    1</span>
+<a id="line-576" name="line-576"></a><span class="cp">#define IIUT_PP_BOOL_127    1</span>
+<a id="line-577" name="line-577"></a><span class="cp">#define IIUT_PP_BOOL_128    1</span>
+<a id="line-578" name="line-578"></a><span class="cp">#define IIUT_PP_BOOL_129    1</span>
+<a id="line-579" name="line-579"></a><span class="cp">#define IIUT_PP_BOOL_130    1</span>
+<a id="line-580" name="line-580"></a><span class="cp">#define IIUT_PP_BOOL_131    1</span>
+<a id="line-581" name="line-581"></a><span class="cp">#define IIUT_PP_BOOL_132    1</span>
+<a id="line-582" name="line-582"></a><span class="cp">#define IIUT_PP_BOOL_133    1</span>
+<a id="line-583" name="line-583"></a><span class="cp">#define IIUT_PP_BOOL_134    1</span>
+<a id="line-584" name="line-584"></a><span class="cp">#define IIUT_PP_BOOL_135    1</span>
+<a id="line-585" name="line-585"></a><span class="cp">#define IIUT_PP_BOOL_136    1</span>
+<a id="line-586" name="line-586"></a><span class="cp">#define IIUT_PP_BOOL_137    1</span>
+<a id="line-587" name="line-587"></a><span class="cp">#define IIUT_PP_BOOL_138    1</span>
+<a id="line-588" name="line-588"></a><span class="cp">#define IIUT_PP_BOOL_139    1</span>
+<a id="line-589" name="line-589"></a><span class="cp">#define IIUT_PP_BOOL_140    1</span>
+<a id="line-590" name="line-590"></a><span class="cp">#define IIUT_PP_BOOL_141    1</span>
+<a id="line-591" name="line-591"></a><span class="cp">#define IIUT_PP_BOOL_142    1</span>
+<a id="line-592" name="line-592"></a><span class="cp">#define IIUT_PP_BOOL_143    1</span>
+<a id="line-593" name="line-593"></a><span class="cp">#define IIUT_PP_BOOL_144    1</span>
+<a id="line-594" name="line-594"></a><span class="cp">#define IIUT_PP_BOOL_145    1</span>
+<a id="line-595" name="line-595"></a><span class="cp">#define IIUT_PP_BOOL_146    1</span>
+<a id="line-596" name="line-596"></a><span class="cp">#define IIUT_PP_BOOL_147    1</span>
+<a id="line-597" name="line-597"></a><span class="cp">#define IIUT_PP_BOOL_148    1</span>
+<a id="line-598" name="line-598"></a><span class="cp">#define IIUT_PP_BOOL_149    1</span>
+<a id="line-599" name="line-599"></a><span class="cp">#define IIUT_PP_BOOL_150    1</span>
+<a id="line-600" name="line-600"></a><span class="cp">#define IIUT_PP_BOOL_151    1</span>
+<a id="line-601" name="line-601"></a><span class="cp">#define IIUT_PP_BOOL_152    1</span>
+<a id="line-602" name="line-602"></a><span class="cp">#define IIUT_PP_BOOL_153    1</span>
+<a id="line-603" name="line-603"></a><span class="cp">#define IIUT_PP_BOOL_154    1</span>
+<a id="line-604" name="line-604"></a><span class="cp">#define IIUT_PP_BOOL_155    1</span>
+<a id="line-605" name="line-605"></a><span class="cp">#define IIUT_PP_BOOL_156    1</span>
+<a id="line-606" name="line-606"></a><span class="cp">#define IIUT_PP_BOOL_157    1</span>
+<a id="line-607" name="line-607"></a><span class="cp">#define IIUT_PP_BOOL_158    1</span>
+<a id="line-608" name="line-608"></a><span class="cp">#define IIUT_PP_BOOL_159    1</span>
+<a id="line-609" name="line-609"></a><span class="cp">#define IIUT_PP_BOOL_160    1</span>
+<a id="line-610" name="line-610"></a><span class="cp">#define IIUT_PP_BOOL_161    1</span>
+<a id="line-611" name="line-611"></a><span class="cp">#define IIUT_PP_BOOL_162    1</span>
+<a id="line-612" name="line-612"></a><span class="cp">#define IIUT_PP_BOOL_163    1</span>
+<a id="line-613" name="line-613"></a><span class="cp">#define IIUT_PP_BOOL_164    1</span>
+<a id="line-614" name="line-614"></a><span class="cp">#define IIUT_PP_BOOL_165    1</span>
+<a id="line-615" name="line-615"></a><span class="cp">#define IIUT_PP_BOOL_166    1</span>
+<a id="line-616" name="line-616"></a><span class="cp">#define IIUT_PP_BOOL_167    1</span>
+<a id="line-617" name="line-617"></a><span class="cp">#define IIUT_PP_BOOL_168    1</span>
+<a id="line-618" name="line-618"></a><span class="cp">#define IIUT_PP_BOOL_169    1</span>
+<a id="line-619" name="line-619"></a><span class="cp">#define IIUT_PP_BOOL_170    1</span>
+<a id="line-620" name="line-620"></a><span class="cp">#define IIUT_PP_BOOL_171    1</span>
+<a id="line-621" name="line-621"></a><span class="cp">#define IIUT_PP_BOOL_172    1</span>
+<a id="line-622" name="line-622"></a><span class="cp">#define IIUT_PP_BOOL_173    1</span>
+<a id="line-623" name="line-623"></a><span class="cp">#define IIUT_PP_BOOL_174    1</span>
+<a id="line-624" name="line-624"></a><span class="cp">#define IIUT_PP_BOOL_175    1</span>
+<a id="line-625" name="line-625"></a><span class="cp">#define IIUT_PP_BOOL_176    1</span>
+<a id="line-626" name="line-626"></a><span class="cp">#define IIUT_PP_BOOL_177    1</span>
+<a id="line-627" name="line-627"></a><span class="cp">#define IIUT_PP_BOOL_178    1</span>
+<a id="line-628" name="line-628"></a><span class="cp">#define IIUT_PP_BOOL_179    1</span>
+<a id="line-629" name="line-629"></a><span class="cp">#define IIUT_PP_BOOL_180    1</span>
+<a id="line-630" name="line-630"></a><span class="cp">#define IIUT_PP_BOOL_181    1</span>
+<a id="line-631" name="line-631"></a><span class="cp">#define IIUT_PP_BOOL_182    1</span>
+<a id="line-632" name="line-632"></a><span class="cp">#define IIUT_PP_BOOL_183    1</span>
+<a id="line-633" name="line-633"></a><span class="cp">#define IIUT_PP_BOOL_184    1</span>
+<a id="line-634" name="line-634"></a><span class="cp">#define IIUT_PP_BOOL_185    1</span>
+<a id="line-635" name="line-635"></a><span class="cp">#define IIUT_PP_BOOL_186    1</span>
+<a id="line-636" name="line-636"></a><span class="cp">#define IIUT_PP_BOOL_187    1</span>
+<a id="line-637" name="line-637"></a><span class="cp">#define IIUT_PP_BOOL_188    1</span>
+<a id="line-638" name="line-638"></a><span class="cp">#define IIUT_PP_BOOL_189    1</span>
+<a id="line-639" name="line-639"></a><span class="cp">#define IIUT_PP_BOOL_190    1</span>
+<a id="line-640" name="line-640"></a><span class="cp">#define IIUT_PP_BOOL_191    1</span>
+<a id="line-641" name="line-641"></a><span class="cp">#define IIUT_PP_BOOL_192    1</span>
+<a id="line-642" name="line-642"></a><span class="cp">#define IIUT_PP_BOOL_193    1</span>
+<a id="line-643" name="line-643"></a><span class="cp">#define IIUT_PP_BOOL_194    1</span>
+<a id="line-644" name="line-644"></a><span class="cp">#define IIUT_PP_BOOL_195    1</span>
+<a id="line-645" name="line-645"></a><span class="cp">#define IIUT_PP_BOOL_196    1</span>
+<a id="line-646" name="line-646"></a><span class="cp">#define IIUT_PP_BOOL_197    1</span>
+<a id="line-647" name="line-647"></a><span class="cp">#define IIUT_PP_BOOL_198    1</span>
+<a id="line-648" name="line-648"></a><span class="cp">#define IIUT_PP_BOOL_199    1</span>
+<a id="line-649" name="line-649"></a><span class="cp">#define IIUT_PP_BOOL_200    1</span>
+<a id="line-650" name="line-650"></a><span class="cp">#define IIUT_PP_BOOL_201    1</span>
+<a id="line-651" name="line-651"></a><span class="cp">#define IIUT_PP_BOOL_202    1</span>
+<a id="line-652" name="line-652"></a><span class="cp">#define IIUT_PP_BOOL_203    1</span>
+<a id="line-653" name="line-653"></a><span class="cp">#define IIUT_PP_BOOL_204    1</span>
+<a id="line-654" name="line-654"></a><span class="cp">#define IIUT_PP_BOOL_205    1</span>
+<a id="line-655" name="line-655"></a><span class="cp">#define IIUT_PP_BOOL_206    1</span>
+<a id="line-656" name="line-656"></a><span class="cp">#define IIUT_PP_BOOL_207    1</span>
+<a id="line-657" name="line-657"></a><span class="cp">#define IIUT_PP_BOOL_208    1</span>
+<a id="line-658" name="line-658"></a><span class="cp">#define IIUT_PP_BOOL_209    1</span>
+<a id="line-659" name="line-659"></a><span class="cp">#define IIUT_PP_BOOL_210    1</span>
+<a id="line-660" name="line-660"></a><span class="cp">#define IIUT_PP_BOOL_211    1</span>
+<a id="line-661" name="line-661"></a><span class="cp">#define IIUT_PP_BOOL_212    1</span>
+<a id="line-662" name="line-662"></a><span class="cp">#define IIUT_PP_BOOL_213    1</span>
+<a id="line-663" name="line-663"></a><span class="cp">#define IIUT_PP_BOOL_214    1</span>
+<a id="line-664" name="line-664"></a><span class="cp">#define IIUT_PP_BOOL_215    1</span>
+<a id="line-665" name="line-665"></a><span class="cp">#define IIUT_PP_BOOL_216    1</span>
+<a id="line-666" name="line-666"></a><span class="cp">#define IIUT_PP_BOOL_217    1</span>
+<a id="line-667" name="line-667"></a><span class="cp">#define IIUT_PP_BOOL_218    1</span>
+<a id="line-668" name="line-668"></a><span class="cp">#define IIUT_PP_BOOL_219    1</span>
+<a id="line-669" name="line-669"></a><span class="cp">#define IIUT_PP_BOOL_220    1</span>
+<a id="line-670" name="line-670"></a><span class="cp">#define IIUT_PP_BOOL_221    1</span>
+<a id="line-671" name="line-671"></a><span class="cp">#define IIUT_PP_BOOL_222    1</span>
+<a id="line-672" name="line-672"></a><span class="cp">#define IIUT_PP_BOOL_223    1</span>
+<a id="line-673" name="line-673"></a><span class="cp">#define IIUT_PP_BOOL_224    1</span>
+<a id="line-674" name="line-674"></a><span class="cp">#define IIUT_PP_BOOL_225    1</span>
+<a id="line-675" name="line-675"></a><span class="cp">#define IIUT_PP_BOOL_226    1</span>
+<a id="line-676" name="line-676"></a><span class="cp">#define IIUT_PP_BOOL_227    1</span>
+<a id="line-677" name="line-677"></a><span class="cp">#define IIUT_PP_BOOL_228    1</span>
+<a id="line-678" name="line-678"></a><span class="cp">#define IIUT_PP_BOOL_229    1</span>
+<a id="line-679" name="line-679"></a><span class="cp">#define IIUT_PP_BOOL_230    1</span>
+<a id="line-680" name="line-680"></a><span class="cp">#define IIUT_PP_BOOL_231    1</span>
+<a id="line-681" name="line-681"></a><span class="cp">#define IIUT_PP_BOOL_232    1</span>
+<a id="line-682" name="line-682"></a><span class="cp">#define IIUT_PP_BOOL_233    1</span>
+<a id="line-683" name="line-683"></a><span class="cp">#define IIUT_PP_BOOL_234    1</span>
+<a id="line-684" name="line-684"></a><span class="cp">#define IIUT_PP_BOOL_235    1</span>
+<a id="line-685" name="line-685"></a><span class="cp">#define IIUT_PP_BOOL_236    1</span>
+<a id="line-686" name="line-686"></a><span class="cp">#define IIUT_PP_BOOL_237    1</span>
+<a id="line-687" name="line-687"></a><span class="cp">#define IIUT_PP_BOOL_238    1</span>
+<a id="line-688" name="line-688"></a><span class="cp">#define IIUT_PP_BOOL_239    1</span>
+<a id="line-689" name="line-689"></a><span class="cp">#define IIUT_PP_BOOL_240    1</span>
+<a id="line-690" name="line-690"></a><span class="cp">#define IIUT_PP_BOOL_241    1</span>
+<a id="line-691" name="line-691"></a><span class="cp">#define IIUT_PP_BOOL_242    1</span>
+<a id="line-692" name="line-692"></a><span class="cp">#define IIUT_PP_BOOL_243    1</span>
+<a id="line-693" name="line-693"></a><span class="cp">#define IIUT_PP_BOOL_244    1</span>
+<a id="line-694" name="line-694"></a><span class="cp">#define IIUT_PP_BOOL_245    1</span>
+<a id="line-695" name="line-695"></a><span class="cp">#define IIUT_PP_BOOL_246    1</span>
+<a id="line-696" name="line-696"></a><span class="cp">#define IIUT_PP_BOOL_247    1</span>
+<a id="line-697" name="line-697"></a><span class="cp">#define IIUT_PP_BOOL_248    1</span>
+<a id="line-698" name="line-698"></a><span class="cp">#define IIUT_PP_BOOL_249    1</span>
+<a id="line-699" name="line-699"></a><span class="cp">#define IIUT_PP_BOOL_250    1</span>
+<a id="line-700" name="line-700"></a><span class="cp">#define IIUT_PP_BOOL_251    1</span>
+<a id="line-701" name="line-701"></a><span class="cp">#define IIUT_PP_BOOL_252    1</span>
+<a id="line-702" name="line-702"></a><span class="cp">#define IIUT_PP_BOOL_253    1</span>
+<a id="line-703" name="line-703"></a><span class="cp">#define IIUT_PP_BOOL_254    1</span>
+<a id="line-704" name="line-704"></a><span class="cp">#define IIUT_PP_BOOL_255    1</span>
+<a id="line-705" name="line-705"></a>
+<a id="line-706" name="line-706"></a><span class="c1">// IF</span>
+<a id="line-707" name="line-707"></a><span class="cp">#define IUTEST_PP_IF(cond, t, f)    IIUT_PP_IF_I(IUTEST_PP_BOOL(cond), t, f)</span>
+<a id="line-708" name="line-708"></a><span class="cp">#define IIUT_PP_IF_I(cond, t, f)    IUTEST_PP_CAT(IIUT_PP_IF_, cond)(t, f)</span>
+<a id="line-709" name="line-709"></a><span class="cp">#define IIUT_PP_IF_0(t, f)          f</span>
+<a id="line-710" name="line-710"></a><span class="cp">#define IIUT_PP_IF_1(t, f)          t</span>
+<a id="line-711" name="line-711"></a>
+<a id="line-712" name="line-712"></a><span class="c1">// IS EMPTY</span>
+<a id="line-713" name="line-713"></a><span class="cp">#define IUTEST_PP_IS_EMPTY(x)       IIUT_PP_IS_EMPTY_I(x IIUT_PP_EMPTY_TAG)</span>
+<a id="line-714" name="line-714"></a><span class="cp">#define IIUT_PP_IS_EMPTY_I(x)       IIUT_PP_IS_EMPTY_I_( IUTEST_PP_CAT(IIUT_PP_EMPTY_TAG_, x)() )</span>
+<a id="line-715" name="line-715"></a><span class="cp">#define IIUT_PP_IS_EMPTY_I_(x)      IIUT_PP_IS_EMPTY_II((x))</span>
+<a id="line-716" name="line-716"></a><span class="cp">#define IIUT_PP_IS_EMPTY_II(x)      IIUT_PP_IS_EMPTY_II_ x</span>
+<a id="line-717" name="line-717"></a><span class="cp">#define IIUT_PP_IS_EMPTY_II_(a, b)  b</span>
+<a id="line-718" name="line-718"></a>
+<a id="line-719" name="line-719"></a><span class="cp">#define IUTEST_PP_EMPTY()     IUTEST_PP_EMPTY_()</span>
+<a id="line-720" name="line-720"></a><span class="cp">#define IUTEST_PP_EMPTY_()</span>
+<a id="line-721" name="line-721"></a><span class="cp">#define IIUT_PP_EMPTY_TAG() , 0</span>
+<a id="line-722" name="line-722"></a><span class="cp">#define IIUT_PP_EMPTY_TAG_IIUT_PP_EMPTY_TAG     1, 1 IUTEST_PP_EMPTY</span>
+<a id="line-723" name="line-723"></a>
+<a id="line-724" name="line-724"></a><span class="c1">// IF EMPTY</span>
+<a id="line-725" name="line-725"></a><span class="cp">#define IUTEST_PP_IF_EMPTY(x, t, f) IUTEST_PP_IF(IUTEST_PP_IS_EMPTY(x), t, f)</span>
+<a id="line-726" name="line-726"></a>
+<a id="line-727" name="line-727"></a><span class="c1">// IDENTITY</span>
+<a id="line-728" name="line-728"></a><span class="cp">#define IUTEST_PP_IDENTITY(x)       x IUTEST_PP_EMPTY</span>
+<a id="line-729" name="line-729"></a>
+<a id="line-730" name="line-730"></a><span class="cp">#if !defined(IUTEST_NO_VARIADIC_MACROS)</span>
+<a id="line-731" name="line-731"></a>
+<a id="line-732" name="line-732"></a><span class="cp">#if !defined(IUTEST_PP_VA_CAT)</span>
+<a id="line-733" name="line-733"></a>
+<a id="line-734" name="line-734"></a><span class="cp">#define IUTEST_PP_VA_CAT(a, ...)    IIUT_PP_VA_CAT_I(a, __VA_ARGS__)</span>
+<a id="line-735" name="line-735"></a><span class="cp">#define IIUT_PP_VA_CAT_I(a, ...)    a ## __VA_ARGS__</span>
+<a id="line-736" name="line-736"></a>
 <a id="line-737" name="line-737"></a><span class="cp">#endif</span>
 <a id="line-738" name="line-738"></a>
-<a id="line-739" name="line-739"></a><span class="c1">//! has mkstemp</span>
-<a id="line-740" name="line-740"></a><span class="cp">#if !defined(IUTEST_HAS_MKSTEMP)</span>
-<a id="line-741" name="line-741"></a><span class="cp">#  if   defined(HAVE_MKSTEMP)</span>
-<a id="line-742" name="line-742"></a><span class="cp">#      define IUTEST_HAS_MKSTEMP                    HAVE_MKSTEMP</span>
-<a id="line-743" name="line-743"></a><span class="cp">#  elif defined(__arm__)</span>
-<a id="line-744" name="line-744"></a><span class="cp">#    if !defined(_REENT_ONLY) \</span>
-<a id="line-745" name="line-745"></a><span class="cp">      &amp;&amp; ( (defined(__MISC_VISIBLE) &amp;&amp; __MISC_VISIBLE) \</span>
-<a id="line-746" name="line-746"></a><span class="cp">        || (defined(__POSIX_VISIBLE) &amp;&amp; __POSIX_VISIBLE &gt;= 200112) \</span>
-<a id="line-747" name="line-747"></a><span class="cp">        || (defined(__XSI_VISIBLE) &amp;&amp; __XSI_VISIBLE &gt;= 4) \</span>
-<a id="line-748" name="line-748"></a><span class="cp">      )</span>
-<a id="line-749" name="line-749"></a><span class="cp">#      define IUTEST_HAS_MKSTEMP                    1</span>
-<a id="line-750" name="line-750"></a><span class="cp">#    endif</span>
-<a id="line-751" name="line-751"></a><span class="cp">#  elif defined(IUTEST_OS_CYGWIN)</span>
-<a id="line-752" name="line-752"></a><span class="cp">#    if !defined(__STRICT_ANSI__)</span>
-<a id="line-753" name="line-753"></a><span class="cp">#      define IUTEST_HAS_MKSTEMP                    1</span>
-<a id="line-754" name="line-754"></a><span class="cp">#    endif</span>
-<a id="line-755" name="line-755"></a><span class="cp">#  elif defined(IUTEST_OS_WINDOWS_MINGW) &amp;&amp; !defined(__MINGW64__)</span>
-<a id="line-756" name="line-756"></a><span class="cp">#    define IUTEST_HAS_MKSTEMP                      0</span>
-<a id="line-757" name="line-757"></a><span class="cp">#  elif IUTEST_HAS_HDR_UNISTD</span>
-<a id="line-758" name="line-758"></a><span class="cp">#    define IUTEST_HAS_MKSTEMP                      1</span>
-<a id="line-759" name="line-759"></a><span class="cp">#  endif</span>
-<a id="line-760" name="line-760"></a><span class="cp">#endif</span>
+<a id="line-739" name="line-739"></a><span class="cp">#if defined(IUTEST_PP_MSVC_TRADITIONAL)</span>
+<a id="line-740" name="line-740"></a><span class="cp">#define IIUT_PP_VD_CAT(a, b)            IIUT_PP_VD_CAT_I(a, b)</span>
+<a id="line-741" name="line-741"></a><span class="cp">#define IIUT_PP_VD_CAT_I(a, b)          IIUT_PP_VD_CAT_II(a ## b)</span>
+<a id="line-742" name="line-742"></a><span class="cp">#define IIUT_PP_VD_CAT_II(res)          res</span>
+<a id="line-743" name="line-743"></a><span class="cp">#define IIUT_PP_SPLIT(i, ...)           IIUT_PP_VD_CAT(IIUT_PP_VA_CAT_I(IIUT_PP_SPLIT_, i)(__VA_ARGS__), IUTEST_PP_EMPTY())</span>
+<a id="line-744" name="line-744"></a><span class="cp">#define IIUT_PP_IS_BEGIN_PARENS_C(...)  1 1</span>
+<a id="line-745" name="line-745"></a><span class="cp">#else</span>
+<a id="line-746" name="line-746"></a><span class="cp">#define IIUT_PP_SPLIT(i, ...)           IIUT_PP_VA_CAT_I(IIUT_PP_SPLIT_, i)(__VA_ARGS__)</span>
+<a id="line-747" name="line-747"></a><span class="cp">#define IIUT_PP_IS_BEGIN_PARENS_C(...)  1</span>
+<a id="line-748" name="line-748"></a><span class="cp">#endif</span>
+<a id="line-749" name="line-749"></a><span class="cp">#define IIUT_PP_SPLIT_0(a, ...) a</span>
+<a id="line-750" name="line-750"></a><span class="cp">#define IIUT_PP_SPLIT_1(a, ...) __VA_ARGS__</span>
+<a id="line-751" name="line-751"></a>
+<a id="line-752" name="line-752"></a><span class="c1">// IS_BEGIN_PARENS</span>
+<a id="line-753" name="line-753"></a><span class="cp">#define IUTEST_PP_IS_BEGIN_PARENS(...)                  \</span>
+<a id="line-754" name="line-754"></a><span class="cp">    IIUT_PP_SPLIT(0,                                    \</span>
+<a id="line-755" name="line-755"></a><span class="cp">        IUTEST_PP_VA_CAT( IIUT_PP_IS_BEGIN_PARENS_R_    \</span>
+<a id="line-756" name="line-756"></a><span class="cp">            , IIUT_PP_IS_BEGIN_PARENS_C __VA_ARGS__ ) )</span>
+<a id="line-757" name="line-757"></a>
+<a id="line-758" name="line-758"></a><span class="cp">#define IIUT_PP_IS_BEGIN_PARENS_R_1     1,</span>
+<a id="line-759" name="line-759"></a>
+<a id="line-760" name="line-760"></a><span class="cp">#define IIUT_PP_IS_BEGIN_PARENS_R_IIUT_PP_IS_BEGIN_PARENS_C 0,</span>
 <a id="line-761" name="line-761"></a>
-<a id="line-762" name="line-762"></a><span class="cp">#if !defined(IUTEST_HAS_MKSTEMP)</span>
-<a id="line-763" name="line-763"></a><span class="cp">#  define IUTEST_HAS_MKSTEMP                        0</span>
-<a id="line-764" name="line-764"></a><span class="cp">#endif</span>
-<a id="line-765" name="line-765"></a>
-<a id="line-766" name="line-766"></a><span class="cp">#if !defined(IUTEST_NO_VSNPRINTF)</span>
-<a id="line-767" name="line-767"></a><span class="cp">#  if defined(__CYGWIN__) \</span>
-<a id="line-768" name="line-768"></a><span class="cp">        &amp;&amp; (defined(__STRICT_ANSI__) &amp;&amp; (defined(__STDC_VERSION__) &amp;&amp; (__STDC_VERSION__ &gt;= 199901L)) &amp;&amp; (__cplusplus &gt;= 201103L))</span>
-<a id="line-769" name="line-769"></a><span class="cp">#    define IUTEST_NO_VSNPRINTF                     1</span>
-<a id="line-770" name="line-770"></a><span class="cp">#  endif</span>
-<a id="line-771" name="line-771"></a><span class="cp">#  if (defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)) &amp;&amp; defined(__STRICT_ANSI__)</span>
-<a id="line-772" name="line-772"></a><span class="cp">#    define IUTEST_NO_VSNPRINTF                     1</span>
-<a id="line-773" name="line-773"></a><span class="cp">#  endif</span>
-<a id="line-774" name="line-774"></a><span class="cp">#endif</span>
-<a id="line-775" name="line-775"></a>
-<a id="line-776" name="line-776"></a><span class="c1">//! size_t format macros</span>
-<a id="line-777" name="line-777"></a><span class="cp">#if !defined(IUPRzu)</span>
-<a id="line-778" name="line-778"></a><span class="cp">#  if defined(_MSC_VER) &amp;&amp; (_MSC_VER &lt; 1900)</span>
-<a id="line-779" name="line-779"></a><span class="cp">#    define IUPRzu  &quot;Iu&quot;</span>
-<a id="line-780" name="line-780"></a><span class="cp">#  elif defined(IUTEST_OS_WINDOWS_MINGW)</span>
-<a id="line-781" name="line-781"></a><span class="cp">#    if !defined(__STRICT_ANSI__)</span>
-<a id="line-782" name="line-782"></a><span class="cp">#      if defined(__MINGW64__)</span>
-<a id="line-783" name="line-783"></a><span class="cp">#        define IUPRzu  PRIu64</span>
-<a id="line-784" name="line-784"></a><span class="cp">#      elif defined(__MINGW32__)</span>
-<a id="line-785" name="line-785"></a><span class="cp">#        define IUPRzu  PRIu32</span>
-<a id="line-786" name="line-786"></a><span class="cp">#      endif</span>
-<a id="line-787" name="line-787"></a><span class="cp">#    endif</span>
-<a id="line-788" name="line-788"></a><span class="cp">#  endif</span>
-<a id="line-789" name="line-789"></a><span class="cp">#endif</span>
-<a id="line-790" name="line-790"></a>
-<a id="line-791" name="line-791"></a><span class="cp">#if !defined(IUPRzu)</span>
-<a id="line-792" name="line-792"></a><span class="cp">#  define IUPRzu  &quot;zu&quot;</span>
-<a id="line-793" name="line-793"></a><span class="cp">#endif</span>
-<a id="line-794" name="line-794"></a>
-<a id="line-795" name="line-795"></a><span class="cp">#if !defined(iu_va_copy)</span>
-<a id="line-796" name="line-796"></a><span class="cp">#  if defined(va_copy)</span>
-<a id="line-797" name="line-797"></a><span class="cp">#    define iu_va_copy              va_copy</span>
-<a id="line-798" name="line-798"></a><span class="cp">#  elif defined(__GNUC__) || defined(__clang__)</span>
-<a id="line-799" name="line-799"></a><span class="cp">#    define iu_va_copy(dest, src)   __builtin_va_copy(dest, src)</span>
-<a id="line-800" name="line-800"></a><span class="cp">#  else</span>
-<a id="line-801" name="line-801"></a><span class="cp">#    define iu_va_copy(dest, src)   (dest = src)</span>
-<a id="line-802" name="line-802"></a><span class="cp">#  endif</span>
-<a id="line-803" name="line-803"></a><span class="cp">#endif</span>
-<a id="line-804" name="line-804"></a>
-<a id="line-805" name="line-805"></a><span class="cp">#if !defined(IU_MB_CUR_MAX)</span>
-<a id="line-806" name="line-806"></a><span class="cp">#  if defined(MB_CUR_MAX)</span>
-<a id="line-807" name="line-807"></a><span class="cp">#    define IU_MB_CUR_MAX   MB_CUR_MAX</span>
-<a id="line-808" name="line-808"></a><span class="cp">#  endif</span>
-<a id="line-809" name="line-809"></a><span class="cp">#endif</span>
-<a id="line-810" name="line-810"></a><span class="cp">#if !defined(IU_MB_CUR_MAX)</span>
-<a id="line-811" name="line-811"></a><span class="cp">#  define IU_MB_CUR_MAX   6</span>
-<a id="line-812" name="line-812"></a><span class="cp">#endif</span>
-<a id="line-813" name="line-813"></a>
-<a id="line-814" name="line-814"></a><span class="c1">//======================================================================</span>
-<a id="line-815" name="line-815"></a><span class="c1">// include</span>
-<a id="line-816" name="line-816"></a><span class="c1">// IWYU pragma: begin_exports</span>
-<a id="line-817" name="line-817"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iterator&gt;</span><span class="cp"></span>
-<a id="line-818" name="line-818"></a>
-<a id="line-819" name="line-819"></a><span class="cp">#if IUTEST_HAS_CXX_HDR_ANY</span>
-<a id="line-820" name="line-820"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;any&gt;</span><span class="cp"></span>
-<a id="line-821" name="line-821"></a><span class="cp">#endif</span>
-<a id="line-822" name="line-822"></a><span class="cp">#if IUTEST_HAS_CXX_HDR_CSTDINT</span>
-<a id="line-823" name="line-823"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;cstdint&gt;</span><span class="cp"></span>
-<a id="line-824" name="line-824"></a><span class="cp">#endif</span>
-<a id="line-825" name="line-825"></a><span class="cp">#if IUTEST_HAS_CXX_HDR_FILESYSTEM &amp;&amp; IUTEST_HAS_STD_FILESYSTEM</span>
-<a id="line-826" name="line-826"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;filesystem&gt;</span><span class="cp"></span>
-<a id="line-827" name="line-827"></a><span class="cp">#endif</span>
-<a id="line-828" name="line-828"></a><span class="cp">#if IUTEST_HAS_CXX_HDR_OPTIONAL</span>
-<a id="line-829" name="line-829"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;optional&gt;</span><span class="cp"></span>
-<a id="line-830" name="line-830"></a><span class="cp">#endif</span>
-<a id="line-831" name="line-831"></a><span class="cp">#if IUTEST_HAS_CXX_HDR_VARIANT</span>
-<a id="line-832" name="line-832"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;variant&gt;</span><span class="cp"></span>
-<a id="line-833" name="line-833"></a><span class="cp">#endif</span>
-<a id="line-834" name="line-834"></a><span class="cp">#if IUTEST_HAS_CXX_HDR_CHARCONV</span>
-<a id="line-835" name="line-835"></a><span class="cp">#</span><span class="w">  </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;charconv&gt;</span><span class="cp"></span>
-<a id="line-836" name="line-836"></a><span class="cp">#endif</span>
-<a id="line-837" name="line-837"></a><span class="c1">// IWYU pragma: end_exports</span>
-<a id="line-838" name="line-838"></a>
-<a id="line-839" name="line-839"></a><span class="cp">#endif </span><span class="c1">// INCG_IRIS_IUTEST_STDLIB_DEFS_HPP_9C62C097_E5FB_49EE_9329_811F32C846A2_</span>
-</pre></div>
-</td></tr></table>
+<a id="line-762" name="line-762"></a><span class="cp">#endif</span>
+<a id="line-763" name="line-763"></a>
+<a id="line-764" name="line-764"></a><span class="cm">/**</span>
+<a id="line-765" name="line-765"></a><span class="cm"> * @}</span>
+<a id="line-766" name="line-766"></a><span class="cm">*/</span>
+<a id="line-767" name="line-767"></a>
+<a id="line-768" name="line-768"></a><span class="cp">#endif </span><span class="c1">// INCG_IRIS_IUTEST_PP_HPP_E8F72184_9C72_4E74_B581_A1F51F291F3A_</span>
+</pre></div></td></tr></table></div>
+
     </div>
     <div id="footer" class="footer">
       <p>
-        Created by Cppcheck 2.7 (<a href="https://cppcheck.sourceforge.io">Sourceforge</a>, <a href="irc://irc.freenode.net/cppcheck">IRC</a>)
+        Created by Cppcheck 2.13.0 (<a href="https://cppcheck.sourceforge.io">Sourceforge</a>, <a href="irc://irc.freenode.net/cppcheck">IRC</a>)
       </p>
     </div>
     </div>

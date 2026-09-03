@@ -1,0 +1,7 @@
+<map id="iuutil::TestSuiteNameRemoveInstantiateAndIndexName" name="iuutil::TestSuiteNameRemoveInstantiateAndIndexName">
+<area shape="rect" id="Node000001" title="インスタンス名とインデックスを除いた TestSuite 名を取得" alt="" coords="5,5,220,45"/>
+<area shape="rect" id="Node000002" href="$d8/dbf/namespaceiuutil.html#ab22382f8bc5e5633f1d77095dc96307b" title="インデックスを除いた TestSuite 名を取得" alt="" coords="268,5,483,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="220,23,254,23,254,28,220,28"/>
+<area shape="rect" id="Node000003" href="$d8/dbf/namespaceiuutil.html#a8f5df62845fdd7cb3238b48ceddbc9e0" title="インデックスを除いたテスト名を取得" alt="" coords="531,13,788,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="483,23,517,23,517,28,483,28"/>
+</map>

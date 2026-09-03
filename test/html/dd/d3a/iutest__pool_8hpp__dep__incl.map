@@ -1,6 +1,9 @@
 <map id="internal/iutest_pool.hpp" name="internal/iutest_pool.hpp">
-<area shape="rect" id="node1" title="iris unit test memory pool" alt="" coords="5,5,181,32"/>
-<area shape="rect" id="node2" href="$d7/d4a/iutest__typed__tests_8hpp.html" title="iris unit test typed test" alt="" coords="8,80,179,107"/>
-<area shape="rect" id="node3" href="$d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="50,155,137,181"/>
-<area shape="rect" id="node4" href="$d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="37,229,150,256"/>
+<area shape="rect" id="Node000001" title="iris unit test memory pool" alt="" coords="5,5,181,31"/>
+<area shape="rect" id="Node000002" href="$d7/d4a/iutest__typed__tests_8hpp.html" title="iris unit test typed test" alt="" coords="8,79,179,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,44,96,79,91,79,91,44"/>
+<area shape="rect" id="Node000003" href="$d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="50,152,137,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="96,118,96,152,91,152,91,118"/>
+<area shape="rect" id="Node000004" href="$d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="37,225,150,251"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="96,191,96,225,91,225,91,191"/>
 </map>

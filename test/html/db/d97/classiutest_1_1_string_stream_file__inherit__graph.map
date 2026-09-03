@@ -1,6 +1,9 @@
 <map id="iutest::StringStreamFile" name="iutest::StringStreamFile">
-<area shape="rect" id="node1" title="文字列バッファ書き込み IFile インターフェースクラス" alt="" coords="114,155,289,181"/>
-<area shape="rect" id="node2" href="$d9/d57/classiutest_1_1_i_file.html" title="ファイルクラスインターフェイス" alt="" coords="154,80,249,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,5,192,32"/>
-<area shape="rect" id="node4" title=" " alt="" coords="217,5,391,32"/>
+<area shape="rect" id="Node000001" title="文字列バッファ書き込み IFile インターフェースクラス" alt="" coords="114,152,289,177"/>
+<area shape="rect" id="Node000002" href="$d9/d57/classiutest_1_1_i_file.html" title="ファイルクラスインターフェイス" alt="" coords="154,79,249,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="204,118,204,152,199,152,199,118"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,5,192,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="128,36,186,76,183,81,125,41"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="217,5,391,31"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="278,41,220,81,217,76,275,36"/>
 </map>

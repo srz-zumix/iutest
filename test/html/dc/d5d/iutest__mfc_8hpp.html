@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: internal/iutest_mfc.hpp ファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -19,10 +19,9 @@
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.14</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">iutest<span id="projectnumber">&#160;1.17.99.14</span>
    </div>
   </td>
  </tr>
@@ -30,21 +29,22 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.9.1 -->
+<!-- 構築: Doxygen 1.9.8 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
 <script type="text/javascript" src="../../menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
   initMenu('../../',true,false,'search.php','検索');
   $(document).ready(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -55,9 +55,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -70,8 +77,7 @@ $(function() {
 <a href="#nested-classes">クラス</a> &#124;
 <a href="#namespaces">名前空間</a> &#124;
 <a href="#func-members">関数</a>  </div>
-  <div class="headertitle">
-<div class="title">iutest_mfc.hpp ファイル</div>  </div>
+  <div class="headertitle"><div class="title">iutest_mfc.hpp ファイル</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -84,15 +90,17 @@ iutest_mfc.hpp の依存先関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/de5/iutest__mfc_8hpp__incl.png" border="0" usemap="#ainternal_2iutest__mfc_8hpp" alt=""/></div>
 <map name="ainternal_2iutest__mfc_8hpp" id="ainternal_2iutest__mfc_8hpp">
-<area shape="rect" title="MFC support" alt="" coords="48,5,221,32"/>
-<area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="5,80,139,107"/>
-<area shape="rect" title=" " alt="" coords="163,80,234,107"/>
+<area shape="rect" title="MFC support" alt="" coords="48,5,221,31"/>
+<area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="5,79,139,104"/>
+<area shape="poly" title=" " alt="" coords="126,33,93,70,89,66,122,29"/>
+<area shape="rect" title=" " alt="" coords="163,79,234,104"/>
+<area shape="poly" title=" " alt="" coords="147,29,181,67,177,70,143,33"/>
 </map>
 </div>
 </div>
 <p><a href="../../dc/d5d/iutest__mfc_8hpp_source.html">[ソースコード]</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 クラス</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html">iutest::mfc::mfc_iterator&lt; T, U &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">mfc container iterator  <a href="../../dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html#details">[詳解]</a><br /></td></tr>
@@ -104,67 +112,67 @@ iutest_mfc.hpp の依存先関係図:</div>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">provide begin/end in mfc container  <a href="../../d0/ded/classiutest_1_1mfc_1_1_c_container.html#details">[詳解]</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 名前空間</h2></td></tr>
-<tr class="memitem:d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
+<tr class="memitem:d3/dda/namespaceiutest" id="r_d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
 <tr class="memdesc:d3/dda/namespaceiutest"><td class="mdescLeft">&#160;</td><td class="mdescRight">iutest root namespace <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 関数</h2></td></tr>
-<tr class="memitem:a30d2543bee5ab6c181465157c817df67"><td class="memTemplParams" colspan="2"><a id="a30d2543bee5ab6c181465157c817df67"></a>
-template&lt;typename T , typename U &gt; </td></tr>
-<tr class="memitem:a30d2543bee5ab6c181465157c817df67"><td class="memTemplItemLeft" align="right" valign="top">mfc_iterator&lt; CList&lt; T, U &gt;, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::begin</b> (CList&lt; T, U &gt; &amp;list)</td></tr>
-<tr class="separator:a30d2543bee5ab6c181465157c817df67"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2be53223935d87a63b3bca982dd873a0"><td class="memTemplParams" colspan="2"><a id="a2be53223935d87a63b3bca982dd873a0"></a>
-template&lt;typename T , typename U &gt; </td></tr>
-<tr class="memitem:a2be53223935d87a63b3bca982dd873a0"><td class="memTemplItemLeft" align="right" valign="top">mfc_iterator&lt; CList&lt; T, U &gt;, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::end</b> (CList&lt; T, U &gt; &amp;list)</td></tr>
-<tr class="separator:a2be53223935d87a63b3bca982dd873a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79a19fb0afc0d7a54a3fbf7b56713654"><td class="memTemplParams" colspan="2"><a id="a79a19fb0afc0d7a54a3fbf7b56713654"></a>
-template&lt;typename T , typename U &gt; </td></tr>
-<tr class="memitem:a79a19fb0afc0d7a54a3fbf7b56713654"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::begin</b> (CArray&lt; T, U &gt; &amp;ar)</td></tr>
-<tr class="separator:a79a19fb0afc0d7a54a3fbf7b56713654"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4907bc939cfcb38af81514437503ca68"><td class="memTemplParams" colspan="2"><a id="a4907bc939cfcb38af81514437503ca68"></a>
-template&lt;typename T , typename U &gt; </td></tr>
-<tr class="memitem:a4907bc939cfcb38af81514437503ca68"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::end</b> (CArray&lt; T, U &gt; &amp;ar)</td></tr>
-<tr class="separator:a4907bc939cfcb38af81514437503ca68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4609acdb5b137b35ff4d2e4540d0cb9e"><td class="memTemplParams" colspan="2"><a id="a4609acdb5b137b35ff4d2e4540d0cb9e"></a>
-template&lt;typename T , typename TA , typename U , typename UA &gt; </td></tr>
-<tr class="memitem:a4609acdb5b137b35ff4d2e4540d0cb9e"><td class="memTemplItemLeft" align="right" valign="top">mfc_map_iterator&lt; CMap&lt; T, TA, U, UA &gt;, T, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::begin</b> (CMap&lt; T, TA, U, UA &gt; &amp;map)</td></tr>
-<tr class="separator:a4609acdb5b137b35ff4d2e4540d0cb9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e964869e5be86ca42489b51e6677c44"><td class="memTemplParams" colspan="2"><a id="a9e964869e5be86ca42489b51e6677c44"></a>
-template&lt;typename T , typename TA , typename U , typename UA &gt; </td></tr>
-<tr class="memitem:a9e964869e5be86ca42489b51e6677c44"><td class="memTemplItemLeft" align="right" valign="top">mfc_map_iterator&lt; CMap&lt; T, TA, U, UA &gt;, T, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::end</b> (CMap&lt; T, TA, U, UA &gt; &amp;map)</td></tr>
-<tr class="separator:a9e964869e5be86ca42489b51e6677c44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b82f0514111a8c6f3f1ac1657b87482"><td class="memTemplParams" colspan="2"><a id="a0b82f0514111a8c6f3f1ac1657b87482"></a>
-template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a0b82f0514111a8c6f3f1ac1657b87482"><td class="memTemplItemLeft" align="right" valign="top">peep::base_type&lt; T &gt;::BASE_TYPE *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::begin</b> (T &amp;ar, typename detail::enable_if&lt; IUTEST_STATIC_EXISTS(T::GetData), void &gt;::type *&amp;=detail::enabler::value)</td></tr>
-<tr class="separator:a0b82f0514111a8c6f3f1ac1657b87482"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae050155abc5b7683af57034c2e85e283"><td class="memTemplParams" colspan="2"><a id="ae050155abc5b7683af57034c2e85e283"></a>
-template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ae050155abc5b7683af57034c2e85e283"><td class="memTemplItemLeft" align="right" valign="top">peep::base_type&lt; T &gt;::BASE_TYPE *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::end</b> (T &amp;ar, typename detail::enable_if&lt; IUTEST_STATIC_EXISTS(T::GetData), void &gt;::type *&amp;=detail::enabler::value)</td></tr>
-<tr class="separator:ae050155abc5b7683af57034c2e85e283"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b336fb1d7d16b9529d93e074a7297b0"><td class="memTemplParams" colspan="2"><a id="a1b336fb1d7d16b9529d93e074a7297b0"></a>
-template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a1b336fb1d7d16b9529d93e074a7297b0"><td class="memTemplItemLeft" align="right" valign="top">mfc_iterator&lt; T, typename peep::base_type&lt; T &gt;::BASE_TYPE &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::begin</b> (T &amp;list, typename detail::enable_if&lt; IUTEST_STATIC_EXISTS(T::GetHeadPosition), void &gt;::type *&amp;=detail::enabler::value)</td></tr>
-<tr class="separator:a1b336fb1d7d16b9529d93e074a7297b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5856f1c39755aa748b134696c55f2650"><td class="memTemplParams" colspan="2"><a id="a5856f1c39755aa748b134696c55f2650"></a>
-template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a5856f1c39755aa748b134696c55f2650"><td class="memTemplItemLeft" align="right" valign="top">mfc_iterator&lt; T, typename peep::base_type&lt; T &gt;::BASE_TYPE &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::end</b> (T &amp;list, typename detail::enable_if&lt; IUTEST_STATIC_EXISTS(T::GetHeadPosition), void &gt;::type *&amp;=detail::enabler::value)</td></tr>
-<tr class="separator:a5856f1c39755aa748b134696c55f2650"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3612547de393ff1a037f991568d948e4"><td class="memTemplParams" colspan="2"><a id="a3612547de393ff1a037f991568d948e4"></a>
-template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a3612547de393ff1a037f991568d948e4"><td class="memTemplItemLeft" align="right" valign="top">peep::mfc_iterator_traits&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::begin</b> (T &amp;map, typename detail::enable_if&lt; IUTEST_STATIC_EXISTS(T::GetStartPosition), void &gt;::type *&amp;=detail::enabler::value)</td></tr>
-<tr class="separator:a3612547de393ff1a037f991568d948e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad00e17ac42e2db53faa0f77f5ab7f98b"><td class="memTemplParams" colspan="2"><a id="ad00e17ac42e2db53faa0f77f5ab7f98b"></a>
-template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ad00e17ac42e2db53faa0f77f5ab7f98b"><td class="memTemplItemLeft" align="right" valign="top">peep::mfc_iterator_traits&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::end</b> (T &amp;map, typename detail::enable_if&lt; IUTEST_STATIC_EXISTS(T::GetStartPosition), void &gt;::type *&amp;=detail::enabler::value)</td></tr>
-<tr class="separator:ad00e17ac42e2db53faa0f77f5ab7f98b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78b02c3c64088ef9987816a4f3f4ed4c"><td class="memTemplParams" colspan="2"><a id="a78b02c3c64088ef9987816a4f3f4ed4c"></a>
-template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a78b02c3c64088ef9987816a4f3f4ed4c"><td class="memTemplItemLeft" align="right" valign="top">CContainer&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../dc/d5d/iutest__mfc_8hpp.html#a78b02c3c64088ef9987816a4f3f4ed4c">iutest::mfc::make_container</a> (T &amp;obj)</td></tr>
-<tr class="memdesc:a78b02c3c64088ef9987816a4f3f4ed4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">make mfc container <br /></td></tr>
-<tr class="separator:a78b02c3c64088ef9987816a4f3f4ed4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c74859c9874f528d03d5b898d53eefd" id="r_a2c74859c9874f528d03d5b898d53eefd"><td class="memTemplParams" colspan="2"><a id="a2c74859c9874f528d03d5b898d53eefd" name="a2c74859c9874f528d03d5b898d53eefd"></a>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T , <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">U</a> &gt; </td></tr>
+<tr class="memitem:a2c74859c9874f528d03d5b898d53eefd"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html">mfc_iterator</a>&lt; <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">CList</a>&lt; T, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">U</a> &gt;, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::begin</b> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">CList</a>&lt; T, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">U</a> &gt; &amp;list)</td></tr>
+<tr class="separator:a2c74859c9874f528d03d5b898d53eefd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd408a2f430d5bad4ed856a60c8c782c" id="r_afd408a2f430d5bad4ed856a60c8c782c"><td class="memTemplParams" colspan="2"><a id="afd408a2f430d5bad4ed856a60c8c782c" name="afd408a2f430d5bad4ed856a60c8c782c"></a>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T , <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">U</a> &gt; </td></tr>
+<tr class="memitem:afd408a2f430d5bad4ed856a60c8c782c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html">mfc_iterator</a>&lt; <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">CList</a>&lt; T, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">U</a> &gt;, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::end</b> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">CList</a>&lt; T, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">U</a> &gt; &amp;list)</td></tr>
+<tr class="separator:afd408a2f430d5bad4ed856a60c8c782c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaaa573d1eb4917cf8fc00613e5e27095" id="r_aaaa573d1eb4917cf8fc00613e5e27095"><td class="memTemplParams" colspan="2"><a id="aaaa573d1eb4917cf8fc00613e5e27095" name="aaaa573d1eb4917cf8fc00613e5e27095"></a>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T , <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">U</a> &gt; </td></tr>
+<tr class="memitem:aaaa573d1eb4917cf8fc00613e5e27095"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::begin</b> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">CArray</a>&lt; T, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">U</a> &gt; &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">ar</a>)</td></tr>
+<tr class="separator:aaaa573d1eb4917cf8fc00613e5e27095"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3240e613d9e75b6f45e910f691388ea7" id="r_a3240e613d9e75b6f45e910f691388ea7"><td class="memTemplParams" colspan="2"><a id="a3240e613d9e75b6f45e910f691388ea7" name="a3240e613d9e75b6f45e910f691388ea7"></a>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T , <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">U</a> &gt; </td></tr>
+<tr class="memitem:a3240e613d9e75b6f45e910f691388ea7"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::end</b> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">CArray</a>&lt; T, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">U</a> &gt; &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">ar</a>)</td></tr>
+<tr class="separator:a3240e613d9e75b6f45e910f691388ea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7db83aed1b7c847dd957db7766a4a771" id="r_a7db83aed1b7c847dd957db7766a4a771"><td class="memTemplParams" colspan="2"><a id="a7db83aed1b7c847dd957db7766a4a771" name="a7db83aed1b7c847dd957db7766a4a771"></a>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T , <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TA</a> , <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">U</a> , <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">UA</a> &gt; </td></tr>
+<tr class="memitem:a7db83aed1b7c847dd957db7766a4a771"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d3/dd1/classiutest_1_1mfc_1_1mfc__map__iterator.html">mfc_map_iterator</a>&lt; <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">CMap</a>&lt; T, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TA</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">U</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">UA</a> &gt;, T, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">U</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::begin</b> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">CMap</a>&lt; T, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TA</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">U</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">UA</a> &gt; &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">map</a>)</td></tr>
+<tr class="separator:a7db83aed1b7c847dd957db7766a4a771"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10730da00cb011d755da046f8931be47" id="r_a10730da00cb011d755da046f8931be47"><td class="memTemplParams" colspan="2"><a id="a10730da00cb011d755da046f8931be47" name="a10730da00cb011d755da046f8931be47"></a>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T , <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TA</a> , <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">U</a> , <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">UA</a> &gt; </td></tr>
+<tr class="memitem:a10730da00cb011d755da046f8931be47"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d3/dd1/classiutest_1_1mfc_1_1mfc__map__iterator.html">mfc_map_iterator</a>&lt; <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">CMap</a>&lt; T, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TA</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">U</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">UA</a> &gt;, T, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">U</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::end</b> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">CMap</a>&lt; T, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TA</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">U</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">UA</a> &gt; &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">map</a>)</td></tr>
+<tr class="separator:a10730da00cb011d755da046f8931be47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2d5a637d3986236affaca3738fa0af9" id="r_af2d5a637d3986236affaca3738fa0af9"><td class="memTemplParams" colspan="2"><a id="af2d5a637d3986236affaca3738fa0af9" name="af2d5a637d3986236affaca3738fa0af9"></a>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T &gt; </td></tr>
+<tr class="memitem:af2d5a637d3986236affaca3738fa0af9"><td class="memTemplItemLeft" align="right" valign="top">peep::base_type&lt; T &gt;::BASE_TYPE *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::begin</b> (T &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">ar</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> detail::enable_if&lt; IUTEST_STATIC_EXISTS(T::GetData), <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a> &gt;::type *&amp;=detail::enabler::value)</td></tr>
+<tr class="separator:af2d5a637d3986236affaca3738fa0af9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adafdfd6e21370e809cfc5b7463616faa" id="r_adafdfd6e21370e809cfc5b7463616faa"><td class="memTemplParams" colspan="2"><a id="adafdfd6e21370e809cfc5b7463616faa" name="adafdfd6e21370e809cfc5b7463616faa"></a>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T &gt; </td></tr>
+<tr class="memitem:adafdfd6e21370e809cfc5b7463616faa"><td class="memTemplItemLeft" align="right" valign="top">peep::base_type&lt; T &gt;::BASE_TYPE *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::end</b> (T &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">ar</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> detail::enable_if&lt; IUTEST_STATIC_EXISTS(T::GetData), <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a> &gt;::type *&amp;=detail::enabler::value)</td></tr>
+<tr class="separator:adafdfd6e21370e809cfc5b7463616faa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c824645db0c16c41bc58f3a071fe580" id="r_a0c824645db0c16c41bc58f3a071fe580"><td class="memTemplParams" colspan="2"><a id="a0c824645db0c16c41bc58f3a071fe580" name="a0c824645db0c16c41bc58f3a071fe580"></a>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T &gt; </td></tr>
+<tr class="memitem:a0c824645db0c16c41bc58f3a071fe580"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html">mfc_iterator</a>&lt; T, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> peep::base_type&lt; T &gt;::BASE_TYPE &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::begin</b> (T &amp;list, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> detail::enable_if&lt; IUTEST_STATIC_EXISTS(T::GetHeadPosition), <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a> &gt;::type *&amp;=detail::enabler::value)</td></tr>
+<tr class="separator:a0c824645db0c16c41bc58f3a071fe580"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb188debd9b6e2cd1cd5d4fcf41bcd74" id="r_afb188debd9b6e2cd1cd5d4fcf41bcd74"><td class="memTemplParams" colspan="2"><a id="afb188debd9b6e2cd1cd5d4fcf41bcd74" name="afb188debd9b6e2cd1cd5d4fcf41bcd74"></a>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T &gt; </td></tr>
+<tr class="memitem:afb188debd9b6e2cd1cd5d4fcf41bcd74"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html">mfc_iterator</a>&lt; T, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> peep::base_type&lt; T &gt;::BASE_TYPE &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::end</b> (T &amp;list, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> detail::enable_if&lt; IUTEST_STATIC_EXISTS(T::GetHeadPosition), <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a> &gt;::type *&amp;=detail::enabler::value)</td></tr>
+<tr class="separator:afb188debd9b6e2cd1cd5d4fcf41bcd74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af81bea6e7ed01a4a878e0300e454d8ae" id="r_af81bea6e7ed01a4a878e0300e454d8ae"><td class="memTemplParams" colspan="2"><a id="af81bea6e7ed01a4a878e0300e454d8ae" name="af81bea6e7ed01a4a878e0300e454d8ae"></a>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T &gt; </td></tr>
+<tr class="memitem:af81bea6e7ed01a4a878e0300e454d8ae"><td class="memTemplItemLeft" align="right" valign="top">peep::mfc_iterator_traits&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::begin</b> (T &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">map</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> detail::enable_if&lt; IUTEST_STATIC_EXISTS(T::GetStartPosition), <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a> &gt;::type *&amp;=detail::enabler::value)</td></tr>
+<tr class="separator:af81bea6e7ed01a4a878e0300e454d8ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1a52b422bbbd3d562f66c3275f744e5" id="r_ac1a52b422bbbd3d562f66c3275f744e5"><td class="memTemplParams" colspan="2"><a id="ac1a52b422bbbd3d562f66c3275f744e5" name="ac1a52b422bbbd3d562f66c3275f744e5"></a>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T &gt; </td></tr>
+<tr class="memitem:ac1a52b422bbbd3d562f66c3275f744e5"><td class="memTemplItemLeft" align="right" valign="top">peep::mfc_iterator_traits&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::end</b> (T &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">map</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> detail::enable_if&lt; IUTEST_STATIC_EXISTS(T::GetStartPosition), <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a> &gt;::type *&amp;=detail::enabler::value)</td></tr>
+<tr class="separator:ac1a52b422bbbd3d562f66c3275f744e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a630e755b354384785edfa0ad79b66e4f" id="r_a630e755b354384785edfa0ad79b66e4f"><td class="memTemplParams" colspan="2"><a id="a630e755b354384785edfa0ad79b66e4f" name="a630e755b354384785edfa0ad79b66e4f"></a>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T &gt; </td></tr>
+<tr class="memitem:a630e755b354384785edfa0ad79b66e4f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d0/ded/classiutest_1_1mfc_1_1_c_container.html">CContainer</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>iutest::mfc::make_container</b> (T &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">obj</a>)</td></tr>
+<tr class="memdesc:a630e755b354384785edfa0ad79b66e4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">make mfc container <br /></td></tr>
+<tr class="separator:a630e755b354384785edfa0ad79b66e4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
 <div class="textblock"><p>MFC support </p>
@@ -174,7 +182,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2026年09月03日(木) 01時29分46秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2026年09月03日(木) 02時21分29秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

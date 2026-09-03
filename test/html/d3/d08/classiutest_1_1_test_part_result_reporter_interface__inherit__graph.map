@@ -1,9 +1,15 @@
 <map id="iutest::TestPartResultReporterInterface" name="iutest::TestPartResultReporterInterface">
-<area shape="rect" id="node1" title="テスト結果の通知処理インターフェイス" alt="" coords="5,133,220,174"/>
-<area shape="rect" id="node2" title=" " alt="" coords="268,93,471,134"/>
-<area shape="rect" id="node5" title=" " alt="" coords="279,165,460,206"/>
-<area shape="rect" id="node3" title=" " alt="" coords="536,5,748,61"/>
-<area shape="rect" id="node4" title=" " alt="" coords="519,85,765,141"/>
-<area shape="rect" id="node6" title=" " alt="" coords="533,165,751,221"/>
-<area shape="rect" id="node7" title=" " alt="" coords="813,173,988,214"/>
+<area shape="rect" id="Node000001" title="テスト結果の通知処理インターフェイス" alt="" coords="5,130,220,170"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="268,91,471,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="233,129,267,124,268,129,234,134"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="279,162,460,202"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="234,162,279,168,278,173,234,168"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="536,5,748,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="452,85,546,58,547,63,453,90"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="519,84,765,139"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="484,109,518,109,518,114,484,114"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="533,163,751,217"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="474,182,533,184,533,189,474,188"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="813,170,988,210"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="765,187,813,187,813,193,765,193"/>
 </map>

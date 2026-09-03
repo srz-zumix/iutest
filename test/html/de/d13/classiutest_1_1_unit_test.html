@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: iutest::UnitTest クラス</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -19,10 +19,9 @@
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.14</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">iutest<span id="projectnumber">&#160;1.17.99.14</span>
    </div>
   </td>
  </tr>
@@ -30,21 +29,22 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.9.1 -->
+<!-- 構築: Doxygen 1.9.8 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
 <script type="text/javascript" src="../../menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
   initMenu('../../',true,false,'search.php','検索');
   $(document).ready(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -55,9 +55,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -71,8 +78,7 @@ $(function() {
 <a href="#pub-static-methods">静的公開メンバ関数</a> &#124;
 <a href="#pro-methods">限定公開メンバ関数</a> &#124;
 <a href="../../d2/db5/classiutest_1_1_unit_test-members.html">全メンバ一覧</a>  </div>
-  <div class="headertitle">
-<div class="title">iutest::UnitTest クラス</div>  </div>
+  <div class="headertitle"><div class="title">iutest::UnitTest クラス</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -85,8 +91,9 @@ iutest::UnitTest の継承関係図</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d2/d57/classiutest_1_1_unit_test__inherit__graph.png" border="0" usemap="#aiutest_1_1_unit_test_inherit__map" alt="Inheritance graph"/></div>
 <map name="aiutest_1_1_unit_test_inherit__map" id="aiutest_1_1_unit_test_inherit__map">
-<area shape="rect" title="テスト全体の管理者" alt="" coords="20,80,140,107"/>
-<area shape="rect" title=" " alt="" coords="5,5,155,32"/>
+<area shape="rect" title="テスト全体の管理者" alt="" coords="20,79,140,104"/>
+<area shape="rect" title=" " alt="" coords="5,5,155,31"/>
+<area shape="poly" title=" " alt="" coords="83,44,83,79,77,79,77,44"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">凡例</a>]</span></center></div>
 <div class="dynheader">
@@ -94,111 +101,112 @@ iutest::UnitTest 連携図</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/d83/classiutest_1_1_unit_test__coll__graph.png" border="0" usemap="#aiutest_1_1_unit_test_coll__map" alt="Collaboration graph"/></div>
 <map name="aiutest_1_1_unit_test_coll__map" id="aiutest_1_1_unit_test_coll__map">
-<area shape="rect" title="テスト全体の管理者" alt="" coords="20,80,140,107"/>
-<area shape="rect" title=" " alt="" coords="5,5,155,32"/>
+<area shape="rect" title="テスト全体の管理者" alt="" coords="20,79,140,104"/>
+<area shape="rect" title=" " alt="" coords="5,5,155,31"/>
+<area shape="poly" title=" " alt="" coords="83,44,83,79,77,79,77,44"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">凡例</a>]</span></center></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 公開メンバ関数</h2></td></tr>
-<tr class="memitem:a100223f01427f11df56331f96a939275"><td class="memItemLeft" align="right" valign="top"><a id="a100223f01427f11df56331f96a939275"></a>
-const <a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">TestSuite</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a100223f01427f11df56331f96a939275">current_test_suite</a> () const</td></tr>
-<tr class="memdesc:a100223f01427f11df56331f96a939275"><td class="mdescLeft">&#160;</td><td class="mdescRight">テスト中の <a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html" title="TestSuite">TestSuite</a> の取得 <br /></td></tr>
-<tr class="separator:a100223f01427f11df56331f96a939275"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa00c38496f9f380d5a62ad6b5c75fb69"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">TestInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#aa00c38496f9f380d5a62ad6b5c75fb69">current_test_info</a> () const</td></tr>
-<tr class="memdesc:aa00c38496f9f380d5a62ad6b5c75fb69"><td class="mdescLeft">&#160;</td><td class="mdescRight">テスト中の <a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html" title="テスト情報クラス">TestInfo</a> の取得  <a href="../../de/d13/classiutest_1_1_unit_test.html#aa00c38496f9f380d5a62ad6b5c75fb69">[詳解]</a><br /></td></tr>
-<tr class="separator:aa00c38496f9f380d5a62ad6b5c75fb69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3881fb108023353078fd4594ffc540f6"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a3881fb108023353078fd4594ffc540f6">random_seed</a> () const</td></tr>
+<tr class="memitem:ae6e6b28daf72b0c7a27c51c30cd03a3e" id="r_ae6e6b28daf72b0c7a27c51c30cd03a3e"><td class="memItemLeft" align="right" valign="top"><a id="ae6e6b28daf72b0c7a27c51c30cd03a3e" name="ae6e6b28daf72b0c7a27c51c30cd03a3e"></a>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">TestSuite</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>current_test_suite</b> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
+<tr class="memdesc:ae6e6b28daf72b0c7a27c51c30cd03a3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">テスト中の <a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html" title="TestSuite">TestSuite</a> の取得 <br /></td></tr>
+<tr class="separator:ae6e6b28daf72b0c7a27c51c30cd03a3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed1fdfb200b115a8b137aa2e16ae0258" id="r_aed1fdfb200b115a8b137aa2e16ae0258"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">TestInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#aed1fdfb200b115a8b137aa2e16ae0258">current_test_info</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
+<tr class="memdesc:aed1fdfb200b115a8b137aa2e16ae0258"><td class="mdescLeft">&#160;</td><td class="mdescRight">テスト中の <a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html" title="テスト情報クラス">TestInfo</a> の取得  <br /></td></tr>
+<tr class="separator:aed1fdfb200b115a8b137aa2e16ae0258"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3881fb108023353078fd4594ffc540f6" id="r_a3881fb108023353078fd4594ffc540f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">unsigned</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a3881fb108023353078fd4594ffc540f6">random_seed</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
 <tr class="separator:a3881fb108023353078fd4594ffc540f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd68feada2e9c36b5e0d63306232655a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#abd68feada2e9c36b5e0d63306232655a">repeat_counter</a> () const <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></td></tr>
+<tr class="memitem:abd68feada2e9c36b5e0d63306232655a" id="r_abd68feada2e9c36b5e0d63306232655a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#abd68feada2e9c36b5e0d63306232655a">repeat_counter</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></td></tr>
 <tr class="separator:abd68feada2e9c36b5e0d63306232655a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d8852eb3b43c8943da736760fdc944b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a8d8852eb3b43c8943da736760fdc944b">repeat_count</a> () const <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></td></tr>
+<tr class="memitem:a8d8852eb3b43c8943da736760fdc944b" id="r_a8d8852eb3b43c8943da736760fdc944b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a8d8852eb3b43c8943da736760fdc944b">repeat_count</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></td></tr>
 <tr class="separator:a8d8852eb3b43c8943da736760fdc944b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73b0b2d337cb69db3a0dea577cb456a7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a73b0b2d337cb69db3a0dea577cb456a7">total_test_count</a> () const <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></td></tr>
+<tr class="memitem:a73b0b2d337cb69db3a0dea577cb456a7" id="r_a73b0b2d337cb69db3a0dea577cb456a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a73b0b2d337cb69db3a0dea577cb456a7">total_test_count</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></td></tr>
 <tr class="separator:a73b0b2d337cb69db3a0dea577cb456a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01d55023ac5d8c79a3654789adbddc40"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a01d55023ac5d8c79a3654789adbddc40">reportable_test_count</a> () const</td></tr>
+<tr class="memitem:a01d55023ac5d8c79a3654789adbddc40" id="r_a01d55023ac5d8c79a3654789adbddc40"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a01d55023ac5d8c79a3654789adbddc40">reportable_test_count</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
 <tr class="separator:a01d55023ac5d8c79a3654789adbddc40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c2882849606cab2748517bdb1f88ea8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a9c2882849606cab2748517bdb1f88ea8">test_to_run_count</a> () const <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></td></tr>
+<tr class="memitem:a9c2882849606cab2748517bdb1f88ea8" id="r_a9c2882849606cab2748517bdb1f88ea8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a9c2882849606cab2748517bdb1f88ea8">test_to_run_count</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></td></tr>
 <tr class="separator:a9c2882849606cab2748517bdb1f88ea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32beb3463df18b6b9de316d732b4c559"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a32beb3463df18b6b9de316d732b4c559">failed_test_count</a> () const</td></tr>
+<tr class="memitem:a32beb3463df18b6b9de316d732b4c559" id="r_a32beb3463df18b6b9de316d732b4c559"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a32beb3463df18b6b9de316d732b4c559">failed_test_count</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
 <tr class="separator:a32beb3463df18b6b9de316d732b4c559"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfd2b2b25b2851a739ebbbb09d93f3eb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#adfd2b2b25b2851a739ebbbb09d93f3eb">disabled_test_count</a> () const <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></td></tr>
+<tr class="memitem:adfd2b2b25b2851a739ebbbb09d93f3eb" id="r_adfd2b2b25b2851a739ebbbb09d93f3eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#adfd2b2b25b2851a739ebbbb09d93f3eb">disabled_test_count</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></td></tr>
 <tr class="separator:adfd2b2b25b2851a739ebbbb09d93f3eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49dfb72ceee7027262ba0a75cea4b4f9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a49dfb72ceee7027262ba0a75cea4b4f9">reportable_disabled_test_count</a> () const</td></tr>
+<tr class="memitem:a49dfb72ceee7027262ba0a75cea4b4f9" id="r_a49dfb72ceee7027262ba0a75cea4b4f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a49dfb72ceee7027262ba0a75cea4b4f9">reportable_disabled_test_count</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
 <tr class="separator:a49dfb72ceee7027262ba0a75cea4b4f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7191f0706f63b734c3d86f58e8799aea"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a7191f0706f63b734c3d86f58e8799aea">successful_test_count</a> () const</td></tr>
+<tr class="memitem:a7191f0706f63b734c3d86f58e8799aea" id="r_a7191f0706f63b734c3d86f58e8799aea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a7191f0706f63b734c3d86f58e8799aea">successful_test_count</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
 <tr class="separator:a7191f0706f63b734c3d86f58e8799aea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acad602ceb6e7c83f02761b35e89c1b26"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#acad602ceb6e7c83f02761b35e89c1b26">skip_test_count</a> () const</td></tr>
+<tr class="memitem:acad602ceb6e7c83f02761b35e89c1b26" id="r_acad602ceb6e7c83f02761b35e89c1b26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#acad602ceb6e7c83f02761b35e89c1b26">skip_test_count</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
 <tr class="separator:acad602ceb6e7c83f02761b35e89c1b26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5571fc161893e359d9fe42e3cfbb75fc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a5571fc161893e359d9fe42e3cfbb75fc">reportable_skip_test_count</a> () const</td></tr>
+<tr class="memitem:a5571fc161893e359d9fe42e3cfbb75fc" id="r_a5571fc161893e359d9fe42e3cfbb75fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a5571fc161893e359d9fe42e3cfbb75fc">reportable_skip_test_count</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
 <tr class="separator:a5571fc161893e359d9fe42e3cfbb75fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1b5de7bbd33a55457b3c0a695d63bae"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#ab1b5de7bbd33a55457b3c0a695d63bae">test_run_skipped_count</a> () const</td></tr>
+<tr class="memitem:ab1b5de7bbd33a55457b3c0a695d63bae" id="r_ab1b5de7bbd33a55457b3c0a695d63bae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#ab1b5de7bbd33a55457b3c0a695d63bae">test_run_skipped_count</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
 <tr class="separator:ab1b5de7bbd33a55457b3c0a695d63bae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30aa56bc8b0aaa1381cef5ab42deb9c3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a30aa56bc8b0aaa1381cef5ab42deb9c3">reportable_test_run_skipped_count</a> () const</td></tr>
+<tr class="memitem:a30aa56bc8b0aaa1381cef5ab42deb9c3" id="r_a30aa56bc8b0aaa1381cef5ab42deb9c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a30aa56bc8b0aaa1381cef5ab42deb9c3">reportable_test_run_skipped_count</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
 <tr class="separator:a30aa56bc8b0aaa1381cef5ab42deb9c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3c3eba296ba08dea8d5a3df005b27d3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#af3c3eba296ba08dea8d5a3df005b27d3">total_test_suite_count</a> () const</td></tr>
+<tr class="memitem:af3c3eba296ba08dea8d5a3df005b27d3" id="r_af3c3eba296ba08dea8d5a3df005b27d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#af3c3eba296ba08dea8d5a3df005b27d3">total_test_suite_count</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
 <tr class="separator:af3c3eba296ba08dea8d5a3df005b27d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23be5249104462a365651d16aab952b9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a23be5249104462a365651d16aab952b9">test_suite_to_run_count</a> () const</td></tr>
+<tr class="memitem:a23be5249104462a365651d16aab952b9" id="r_a23be5249104462a365651d16aab952b9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a23be5249104462a365651d16aab952b9">test_suite_to_run_count</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
 <tr class="separator:a23be5249104462a365651d16aab952b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f76ad364e4940d3caac93d6de9ae5df"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a2f76ad364e4940d3caac93d6de9ae5df">successful_test_suite_count</a> () const</td></tr>
+<tr class="memitem:a2f76ad364e4940d3caac93d6de9ae5df" id="r_a2f76ad364e4940d3caac93d6de9ae5df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a2f76ad364e4940d3caac93d6de9ae5df">successful_test_suite_count</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
 <tr class="separator:a2f76ad364e4940d3caac93d6de9ae5df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20aa5c82f03d7696efb4f800f7efc562"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a20aa5c82f03d7696efb4f800f7efc562">failed_test_suite_count</a> () const</td></tr>
+<tr class="memitem:a20aa5c82f03d7696efb4f800f7efc562" id="r_a20aa5c82f03d7696efb4f800f7efc562"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a20aa5c82f03d7696efb4f800f7efc562">failed_test_suite_count</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
 <tr class="separator:a20aa5c82f03d7696efb4f800f7efc562"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebff55392dbb8a6dfdcc8f167feeee13"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d0/d7b/classiutest_1_1_test_result.html">TestResult</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#aebff55392dbb8a6dfdcc8f167feeee13">ad_hoc_testresult</a> () const <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></td></tr>
-<tr class="memdesc:aebff55392dbb8a6dfdcc8f167feeee13"><td class="mdescLeft">&#160;</td><td class="mdescRight">テスト実行中じゃないときのリザルトの取得  <a href="../../de/d13/classiutest_1_1_unit_test.html#aebff55392dbb8a6dfdcc8f167feeee13">[詳解]</a><br /></td></tr>
-<tr class="separator:aebff55392dbb8a6dfdcc8f167feeee13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e3f4886e28213ef0f012e417ff5cdc4"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d0/d7b/classiutest_1_1_test_result.html">TestResult</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a2e3f4886e28213ef0f012e417ff5cdc4">ad_hoc_test_result</a> () const <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></td></tr>
-<tr class="separator:a2e3f4886e28213ef0f012e417ff5cdc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0817cd50ee6668ce5a856c26e23f388b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">TimeInMillisec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a0817cd50ee6668ce5a856c26e23f388b">elapsed_time</a> () const <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></td></tr>
+<tr class="memitem:a8b5065d9b39d5eb86192561e59c8cedd" id="r_a8b5065d9b39d5eb86192561e59c8cedd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d0/d7b/classiutest_1_1_test_result.html">TestResult</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a8b5065d9b39d5eb86192561e59c8cedd">ad_hoc_testresult</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></td></tr>
+<tr class="memdesc:a8b5065d9b39d5eb86192561e59c8cedd"><td class="mdescLeft">&#160;</td><td class="mdescRight">テスト実行中じゃないときのリザルトの取得  <br /></td></tr>
+<tr class="separator:a8b5065d9b39d5eb86192561e59c8cedd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e7bb799a1e26096f6e74a90dcaa46d3" id="r_a4e7bb799a1e26096f6e74a90dcaa46d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d0/d7b/classiutest_1_1_test_result.html">TestResult</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a4e7bb799a1e26096f6e74a90dcaa46d3">ad_hoc_test_result</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></td></tr>
+<tr class="separator:a4e7bb799a1e26096f6e74a90dcaa46d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0817cd50ee6668ce5a856c26e23f388b" id="r_a0817cd50ee6668ce5a856c26e23f388b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">TimeInMillisec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a0817cd50ee6668ce5a856c26e23f388b">elapsed_time</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></td></tr>
 <tr class="separator:a0817cd50ee6668ce5a856c26e23f388b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a900d4f9337a24d48d8e2cc0ab9314393"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">TimeInMillisec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a900d4f9337a24d48d8e2cc0ab9314393">start_timestamp</a> () const <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></td></tr>
+<tr class="memitem:a900d4f9337a24d48d8e2cc0ab9314393" id="r_a900d4f9337a24d48d8e2cc0ab9314393"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">TimeInMillisec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a900d4f9337a24d48d8e2cc0ab9314393">start_timestamp</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></td></tr>
 <tr class="separator:a900d4f9337a24d48d8e2cc0ab9314393"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd77f0b8d7205253431c74a734438848"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">TestSuite</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#afd77f0b8d7205253431c74a734438848">GetTestSuite</a> (int index) const</td></tr>
-<tr class="separator:afd77f0b8d7205253431c74a734438848"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a400cfd3c04df86592c9eaf02ceb7fab1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a400cfd3c04df86592c9eaf02ceb7fab1">Passed</a> () const</td></tr>
+<tr class="memitem:aa54b1e6ee15ce8ebaeb8478791aa3611" id="r_aa54b1e6ee15ce8ebaeb8478791aa3611"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">TestSuite</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#aa54b1e6ee15ce8ebaeb8478791aa3611">GetTestSuite</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> index) <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
+<tr class="separator:aa54b1e6ee15ce8ebaeb8478791aa3611"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a400cfd3c04df86592c9eaf02ceb7fab1" id="r_a400cfd3c04df86592c9eaf02ceb7fab1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a400cfd3c04df86592c9eaf02ceb7fab1">Passed</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
 <tr class="separator:a400cfd3c04df86592c9eaf02ceb7fab1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1393bfea8c72c960764d288958cf710f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a1393bfea8c72c960764d288958cf710f">Failed</a> () const</td></tr>
+<tr class="memitem:a1393bfea8c72c960764d288958cf710f" id="r_a1393bfea8c72c960764d288958cf710f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a1393bfea8c72c960764d288958cf710f">Failed</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
 <tr class="separator:a1393bfea8c72c960764d288958cf710f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae09115bd12edb303535b0ab93ade6005"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d08/classiutest_1_1_test_event_listeners.html">TestEventListeners</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#ae09115bd12edb303535b0ab93ade6005">listeners</a> () const</td></tr>
-<tr class="separator:ae09115bd12edb303535b0ab93ade6005"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac982058918f7cdec72624b7842ad96c4"><td class="memItemLeft" align="right" valign="top"><a id="ac982058918f7cdec72624b7842ad96c4"></a>
-const <a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">TestCase</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetTestCase</b> (int index) const</td></tr>
-<tr class="separator:ac982058918f7cdec72624b7842ad96c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a95cc38ae4bf660e8ffcee5852f157c"><td class="memItemLeft" align="right" valign="top"><a id="a4a95cc38ae4bf660e8ffcee5852f157c"></a>
-const <a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">TestCase</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>current_test_case</b> () const</td></tr>
-<tr class="separator:a4a95cc38ae4bf660e8ffcee5852f157c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37d3f62e16d16ee87fb7574849a3fcb1"><td class="memItemLeft" align="right" valign="top"><a id="a37d3f62e16d16ee87fb7574849a3fcb1"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>total_test_case_count</b> () const</td></tr>
+<tr class="memitem:aca619faca8707dba316cc60650436cac" id="r_aca619faca8707dba316cc60650436cac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d08/classiutest_1_1_test_event_listeners.html">TestEventListeners</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#aca619faca8707dba316cc60650436cac">listeners</a> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
+<tr class="separator:aca619faca8707dba316cc60650436cac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb6a5d979f0b30814204391a7b642aeb" id="r_afb6a5d979f0b30814204391a7b642aeb"><td class="memItemLeft" align="right" valign="top"><a id="afb6a5d979f0b30814204391a7b642aeb" name="afb6a5d979f0b30814204391a7b642aeb"></a>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">TestCase</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetTestCase</b> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> index) <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
+<tr class="separator:afb6a5d979f0b30814204391a7b642aeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73c9b4beb7aeafd0d11e550403475074" id="r_a73c9b4beb7aeafd0d11e550403475074"><td class="memItemLeft" align="right" valign="top"><a id="a73c9b4beb7aeafd0d11e550403475074" name="a73c9b4beb7aeafd0d11e550403475074"></a>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">TestCase</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>current_test_case</b> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
+<tr class="separator:a73c9b4beb7aeafd0d11e550403475074"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37d3f62e16d16ee87fb7574849a3fcb1" id="r_a37d3f62e16d16ee87fb7574849a3fcb1"><td class="memItemLeft" align="right" valign="top"><a id="a37d3f62e16d16ee87fb7574849a3fcb1" name="a37d3f62e16d16ee87fb7574849a3fcb1"></a>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><b>total_test_case_count</b> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
 <tr class="separator:a37d3f62e16d16ee87fb7574849a3fcb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5e4691bbb21d1e1ef1e3a8248993135"><td class="memItemLeft" align="right" valign="top"><a id="af5e4691bbb21d1e1ef1e3a8248993135"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>test_case_to_run_count</b> () const</td></tr>
+<tr class="memitem:af5e4691bbb21d1e1ef1e3a8248993135" id="r_af5e4691bbb21d1e1ef1e3a8248993135"><td class="memItemLeft" align="right" valign="top"><a id="af5e4691bbb21d1e1ef1e3a8248993135" name="af5e4691bbb21d1e1ef1e3a8248993135"></a>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><b>test_case_to_run_count</b> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
 <tr class="separator:af5e4691bbb21d1e1ef1e3a8248993135"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4cbb328043e4c9369e93345fa657619"><td class="memItemLeft" align="right" valign="top"><a id="ab4cbb328043e4c9369e93345fa657619"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>successful_test_case_count</b> () const</td></tr>
+<tr class="memitem:ab4cbb328043e4c9369e93345fa657619" id="r_ab4cbb328043e4c9369e93345fa657619"><td class="memItemLeft" align="right" valign="top"><a id="ab4cbb328043e4c9369e93345fa657619" name="ab4cbb328043e4c9369e93345fa657619"></a>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><b>successful_test_case_count</b> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
 <tr class="separator:ab4cbb328043e4c9369e93345fa657619"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab04f469133050cbc869ba7aee88b2b6c"><td class="memItemLeft" align="right" valign="top"><a id="ab04f469133050cbc869ba7aee88b2b6c"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>failed_test_case_count</b> () const</td></tr>
+<tr class="memitem:ab04f469133050cbc869ba7aee88b2b6c" id="r_ab04f469133050cbc869ba7aee88b2b6c"><td class="memItemLeft" align="right" valign="top"><a id="ab04f469133050cbc869ba7aee88b2b6c" name="ab04f469133050cbc869ba7aee88b2b6c"></a>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><b>failed_test_case_count</b> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
 <tr class="separator:ab04f469133050cbc869ba7aee88b2b6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 静的公開メンバ関数</h2></td></tr>
-<tr class="memitem:a1154caf184eb447dd0fe5fbde60e1868"><td class="memItemLeft" align="right" valign="top"><a id="a1154caf184eb447dd0fe5fbde60e1868"></a>
-static <a class="el" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">GetInstance</a> ()</td></tr>
-<tr class="memdesc:a1154caf184eb447dd0fe5fbde60e1868"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html" title="テスト全体の管理者">UnitTest</a> インスタンスの取得 <br /></td></tr>
-<tr class="separator:a1154caf184eb447dd0fe5fbde60e1868"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a14d4e13ff22912d9646cf142b7a236" id="r_a4a14d4e13ff22912d9646cf142b7a236"><td class="memItemLeft" align="right" valign="top"><a id="a4a14d4e13ff22912d9646cf142b7a236" name="a4a14d4e13ff22912d9646cf142b7a236"></a>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">static</a> <a class="el" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetInstance</b> ()</td></tr>
+<tr class="memdesc:a4a14d4e13ff22912d9646cf142b7a236"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html" title="テスト全体の管理者">UnitTest</a> インスタンスの取得 <br /></td></tr>
+<tr class="separator:a4a14d4e13ff22912d9646cf142b7a236"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 限定公開メンバ関数</h2></td></tr>
-<tr class="memitem:a627e7647a230edbeab4687cf5eb1c6c7"><td class="memItemLeft" align="right" valign="top"><a id="a627e7647a230edbeab4687cf5eb1c6c7"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d13/classiutest_1_1_unit_test.html#a627e7647a230edbeab4687cf5eb1c6c7">Run</a> ()</td></tr>
+<tr class="memitem:a627e7647a230edbeab4687cf5eb1c6c7" id="r_a627e7647a230edbeab4687cf5eb1c6c7"><td class="memItemLeft" align="right" valign="top"><a id="a627e7647a230edbeab4687cf5eb1c6c7" name="a627e7647a230edbeab4687cf5eb1c6c7"></a>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Run</b> ()</td></tr>
 <tr class="memdesc:a627e7647a230edbeab4687cf5eb1c6c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">テストの実行 <br /></td></tr>
 <tr class="separator:a627e7647a230edbeab4687cf5eb1c6c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
 <div class="textblock"><p>テスト全体の管理者 </p>
 </div><h2 class="groupheader">関数詳解</h2>
-<a id="a2e3f4886e28213ef0f012e417ff5cdc4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e3f4886e28213ef0f012e417ff5cdc4">&#9670;&nbsp;</a></span>ad_hoc_test_result()</h2>
+<a id="a4e7bb799a1e26096f6e74a90dcaa46d3" name="a4e7bb799a1e26096f6e74a90dcaa46d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e7bb799a1e26096f6e74a90dcaa46d3">&#9670;&#160;</a></span>ad_hoc_test_result()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -207,7 +215,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="../../d0/d7b/classiutest_1_1_test_result.html">TestResult</a>* iutest::UnitTest::ad_hoc_test_result </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d0/d7b/classiutest_1_1_test_result.html">TestResult</a> * iutest::UnitTest::ad_hoc_test_result </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -223,17 +231,18 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 <div class="dynheader">
 被呼び出し関係図:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../de/d13/classiutest_1_1_unit_test_a2e3f4886e28213ef0f012e417ff5cdc4_icgraph.png" border="0" usemap="#ade/d13/classiutest_1_1_unit_test_a2e3f4886e28213ef0f012e417ff5cdc4_icgraph" alt=""/></div>
-<map name="ade/d13/classiutest_1_1_unit_test_a2e3f4886e28213ef0f012e417ff5cdc4_icgraph" id="ade/d13/classiutest_1_1_unit_test_a2e3f4886e28213ef0f012e417ff5cdc4_icgraph">
-<area shape="rect" title=" " alt="" coords="197,5,341,47"/>
-<area shape="rect" href="../../de/d13/classiutest_1_1_unit_test.html#aebff55392dbb8a6dfdcc8f167feeee13" title="テスト実行中じゃないときのリザルトの取得" alt="" coords="5,5,149,47"/>
+<div class="center"><img src="../../de/d13/classiutest_1_1_unit_test_a4e7bb799a1e26096f6e74a90dcaa46d3_icgraph.png" border="0" usemap="#ade/d13/classiutest_1_1_unit_test_a4e7bb799a1e26096f6e74a90dcaa46d3_icgraph" alt=""/></div>
+<map name="ade/d13/classiutest_1_1_unit_test_a4e7bb799a1e26096f6e74a90dcaa46d3_icgraph" id="ade/d13/classiutest_1_1_unit_test_a4e7bb799a1e26096f6e74a90dcaa46d3_icgraph">
+<area shape="rect" title=" " alt="" coords="197,5,341,45"/>
+<area shape="rect" href="../../de/d13/classiutest_1_1_unit_test.html#a8b5065d9b39d5eb86192561e59c8cedd" title="テスト実行中じゃないときのリザルトの取得" alt="" coords="5,5,149,45"/>
+<area shape="poly" title=" " alt="" coords="183,28,149,28,149,23,183,23"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="aebff55392dbb8a6dfdcc8f167feeee13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aebff55392dbb8a6dfdcc8f167feeee13">&#9670;&nbsp;</a></span>ad_hoc_testresult()</h2>
+<a id="a8b5065d9b39d5eb86192561e59c8cedd" name="a8b5065d9b39d5eb86192561e59c8cedd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b5065d9b39d5eb86192561e59c8cedd">&#9670;&#160;</a></span>ad_hoc_testresult()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -242,7 +251,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="../../d0/d7b/classiutest_1_1_test_result.html">TestResult</a>* iutest::UnitTest::ad_hoc_testresult </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d0/d7b/classiutest_1_1_test_result.html">TestResult</a> * iutest::UnitTest::ad_hoc_testresult </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -260,17 +269,18 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 <div class="dynheader">
 呼び出し関係図:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../de/d13/classiutest_1_1_unit_test_aebff55392dbb8a6dfdcc8f167feeee13_cgraph.png" border="0" usemap="#ade/d13/classiutest_1_1_unit_test_aebff55392dbb8a6dfdcc8f167feeee13_cgraph" alt=""/></div>
-<map name="ade/d13/classiutest_1_1_unit_test_aebff55392dbb8a6dfdcc8f167feeee13_cgraph" id="ade/d13/classiutest_1_1_unit_test_aebff55392dbb8a6dfdcc8f167feeee13_cgraph">
-<area shape="rect" title="テスト実行中じゃないときのリザルトの取得" alt="" coords="5,5,149,47"/>
-<area shape="rect" href="../../de/d13/classiutest_1_1_unit_test.html#a2e3f4886e28213ef0f012e417ff5cdc4" title=" " alt="" coords="197,5,341,47"/>
+<div class="center"><img src="../../de/d13/classiutest_1_1_unit_test_a8b5065d9b39d5eb86192561e59c8cedd_cgraph.png" border="0" usemap="#ade/d13/classiutest_1_1_unit_test_a8b5065d9b39d5eb86192561e59c8cedd_cgraph" alt=""/></div>
+<map name="ade/d13/classiutest_1_1_unit_test_a8b5065d9b39d5eb86192561e59c8cedd_cgraph" id="ade/d13/classiutest_1_1_unit_test_a8b5065d9b39d5eb86192561e59c8cedd_cgraph">
+<area shape="rect" title="テスト実行中じゃないときのリザルトの取得" alt="" coords="5,5,149,45"/>
+<area shape="rect" href="../../de/d13/classiutest_1_1_unit_test.html#a4e7bb799a1e26096f6e74a90dcaa46d3" title=" " alt="" coords="197,5,341,45"/>
+<area shape="poly" title=" " alt="" coords="150,23,184,23,184,28,150,28"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="aa00c38496f9f380d5a62ad6b5c75fb69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa00c38496f9f380d5a62ad6b5c75fb69">&#9670;&nbsp;</a></span>current_test_info()</h2>
+<a id="aed1fdfb200b115a8b137aa2e16ae0258" name="aed1fdfb200b115a8b137aa2e16ae0258"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed1fdfb200b115a8b137aa2e16ae0258">&#9670;&#160;</a></span>current_test_info()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -279,7 +289,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">TestInfo</a>* iutest::UnitTest::current_test_info </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">TestInfo</a> * iutest::UnitTest::current_test_info </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -297,18 +307,20 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 <div class="dynheader">
 呼び出し関係図:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../de/d13/classiutest_1_1_unit_test_aa00c38496f9f380d5a62ad6b5c75fb69_cgraph.png" border="0" usemap="#ade/d13/classiutest_1_1_unit_test_aa00c38496f9f380d5a62ad6b5c75fb69_cgraph" alt=""/></div>
-<map name="ade/d13/classiutest_1_1_unit_test_aa00c38496f9f380d5a62ad6b5c75fb69_cgraph" id="ade/d13/classiutest_1_1_unit_test_aa00c38496f9f380d5a62ad6b5c75fb69_cgraph">
-<area shape="rect" title="テスト中の TestInfo の取得" alt="" coords="5,5,180,47"/>
-<area shape="rect" href="../../dc/d0e/classiutest_1_1_test.html#a82600ea64053455a9f3c7189338f1c67" title="実行中の TestInfo の取得" alt="" coords="228,5,400,47"/>
-<area shape="rect" href="../../dc/d0e/classiutest_1_1_test.html#a69f141c4284b30b119c5691c7933d56f" title="実行中の Test の取得" alt="" coords="448,13,647,39"/>
+<div class="center"><img src="../../de/d13/classiutest_1_1_unit_test_aed1fdfb200b115a8b137aa2e16ae0258_cgraph.png" border="0" usemap="#ade/d13/classiutest_1_1_unit_test_aed1fdfb200b115a8b137aa2e16ae0258_cgraph" alt=""/></div>
+<map name="ade/d13/classiutest_1_1_unit_test_aed1fdfb200b115a8b137aa2e16ae0258_cgraph" id="ade/d13/classiutest_1_1_unit_test_aed1fdfb200b115a8b137aa2e16ae0258_cgraph">
+<area shape="rect" title="テスト中の TestInfo の取得" alt="" coords="5,5,180,45"/>
+<area shape="rect" href="../../dc/d0e/classiutest_1_1_test.html#a6f43ad9d837ad03b74f2720f9aeb430e" title="実行中の TestInfo の取得" alt="" coords="228,5,400,45"/>
+<area shape="poly" title=" " alt="" coords="180,23,214,23,214,28,180,28"/>
+<area shape="rect" href="../../dc/d0e/classiutest_1_1_test.html#a95691dc68caff884c92f8015f275b797" title="実行中の Test の取得" alt="" coords="448,13,647,38"/>
+<area shape="poly" title=" " alt="" coords="401,23,435,23,435,28,401,28"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="adfd2b2b25b2851a739ebbbb09d93f3eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adfd2b2b25b2851a739ebbbb09d93f3eb">&#9670;&nbsp;</a></span>disabled_test_count()</h2>
+<a id="adfd2b2b25b2851a739ebbbb09d93f3eb" name="adfd2b2b25b2851a739ebbbb09d93f3eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfd2b2b25b2851a739ebbbb09d93f3eb">&#9670;&#160;</a></span>disabled_test_count()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -317,7 +329,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int iutest::UnitTest::disabled_test_count </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> iutest::UnitTest::disabled_test_count </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -333,8 +345,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="a0817cd50ee6668ce5a856c26e23f388b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0817cd50ee6668ce5a856c26e23f388b">&#9670;&nbsp;</a></span>elapsed_time()</h2>
+<a id="a0817cd50ee6668ce5a856c26e23f388b" name="a0817cd50ee6668ce5a856c26e23f388b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0817cd50ee6668ce5a856c26e23f388b">&#9670;&#160;</a></span>elapsed_time()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -359,8 +371,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="a1393bfea8c72c960764d288958cf710f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1393bfea8c72c960764d288958cf710f">&#9670;&nbsp;</a></span>Failed()</h2>
+<a id="a1393bfea8c72c960764d288958cf710f" name="a1393bfea8c72c960764d288958cf710f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1393bfea8c72c960764d288958cf710f">&#9670;&#160;</a></span>Failed()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -369,7 +381,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool iutest::UnitTest::Failed </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">bool</a> iutest::UnitTest::Failed </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -387,21 +399,22 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 <div class="dyncontent">
 <div class="center"><img src="../../de/d13/classiutest_1_1_unit_test_a1393bfea8c72c960764d288958cf710f_cgraph.png" border="0" usemap="#ade/d13/classiutest_1_1_unit_test_a1393bfea8c72c960764d288958cf710f_cgraph" alt=""/></div>
 <map name="ade/d13/classiutest_1_1_unit_test_a1393bfea8c72c960764d288958cf710f_cgraph" id="ade/d13/classiutest_1_1_unit_test_a1393bfea8c72c960764d288958cf710f_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,172,32"/>
-<area shape="rect" href="../../de/d13/classiutest_1_1_unit_test.html#a400cfd3c04df86592c9eaf02ceb7fab1" title=" " alt="" coords="220,5,393,32"/>
+<area shape="rect" title=" " alt="" coords="5,5,172,31"/>
+<area shape="rect" href="../../de/d13/classiutest_1_1_unit_test.html#a400cfd3c04df86592c9eaf02ceb7fab1" title=" " alt="" coords="220,5,393,31"/>
+<area shape="poly" title=" " alt="" coords="172,15,207,15,207,21,172,21"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a32beb3463df18b6b9de316d732b4c559"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32beb3463df18b6b9de316d732b4c559">&#9670;&nbsp;</a></span>failed_test_count()</h2>
+<a id="a32beb3463df18b6b9de316d732b4c559" name="a32beb3463df18b6b9de316d732b4c559"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32beb3463df18b6b9de316d732b4c559">&#9670;&#160;</a></span>failed_test_count()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int iutest::UnitTest::failed_test_count </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> iutest::UnitTest::failed_test_count </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -412,14 +425,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="a20aa5c82f03d7696efb4f800f7efc562"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20aa5c82f03d7696efb4f800f7efc562">&#9670;&nbsp;</a></span>failed_test_suite_count()</h2>
+<a id="a20aa5c82f03d7696efb4f800f7efc562" name="a20aa5c82f03d7696efb4f800f7efc562"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20aa5c82f03d7696efb4f800f7efc562">&#9670;&#160;</a></span>failed_test_suite_count()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int iutest::UnitTest::failed_test_suite_count </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> iutest::UnitTest::failed_test_suite_count </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -430,8 +443,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="afd77f0b8d7205253431c74a734438848"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd77f0b8d7205253431c74a734438848">&#9670;&nbsp;</a></span>GetTestSuite()</h2>
+<a id="aa54b1e6ee15ce8ebaeb8478791aa3611" name="aa54b1e6ee15ce8ebaeb8478791aa3611"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa54b1e6ee15ce8ebaeb8478791aa3611">&#9670;&#160;</a></span>GetTestSuite()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -440,9 +453,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">TestSuite</a>* iutest::UnitTest::GetTestSuite </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">TestSuite</a> * iutest::UnitTest::GetTestSuite </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td>
           <td class="paramname"><em>index</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -454,21 +467,11 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 </table>
 </div><div class="memdoc">
 <p><a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html" title="TestSuite">TestSuite</a> の取得 </p>
-<div class="dynheader">
-被呼び出し関係図:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../de/d13/classiutest_1_1_unit_test_afd77f0b8d7205253431c74a734438848_icgraph.png" border="0" usemap="#ade/d13/classiutest_1_1_unit_test_afd77f0b8d7205253431c74a734438848_icgraph" alt=""/></div>
-<map name="ade/d13/classiutest_1_1_unit_test_afd77f0b8d7205253431c74a734438848_icgraph" id="ade/d13/classiutest_1_1_unit_test_afd77f0b8d7205253431c74a734438848_icgraph">
-<area shape="rect" title=" " alt="" coords="259,39,436,80"/>
-<area shape="rect" href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#a7ddbe8a0b6823eadee5ac19a07572752" title="テストプログラム終了時に呼ばれます" alt="" coords="21,5,195,47"/>
-<area shape="rect" href="../../dc/d0e/classiutest_1_1_t_a_p_file_generator_listener.html#a6f2719220f12b124bbecaa94aee808cc" title="テストプログラム終了時に呼ばれます" alt="" coords="5,71,211,112"/>
-</map>
-</div>
 
 </div>
 </div>
-<a id="ae09115bd12edb303535b0ab93ade6005"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae09115bd12edb303535b0ab93ade6005">&#9670;&nbsp;</a></span>listeners()</h2>
+<a id="aca619faca8707dba316cc60650436cac" name="aca619faca8707dba316cc60650436cac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca619faca8707dba316cc60650436cac">&#9670;&#160;</a></span>listeners()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -477,7 +480,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d3/d08/classiutest_1_1_test_event_listeners.html">TestEventListeners</a>&amp; iutest::UnitTest::listeners </td>
+          <td class="memname"><a class="el" href="../../d3/d08/classiutest_1_1_test_event_listeners.html">TestEventListeners</a> &amp; iutest::UnitTest::listeners </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -493,27 +496,32 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 <div class="dynheader">
 被呼び出し関係図:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../de/d13/classiutest_1_1_unit_test_ae09115bd12edb303535b0ab93ade6005_icgraph.png" border="0" usemap="#ade/d13/classiutest_1_1_unit_test_ae09115bd12edb303535b0ab93ade6005_icgraph" alt=""/></div>
-<map name="ade/d13/classiutest_1_1_unit_test_ae09115bd12edb303535b0ab93ade6005_icgraph" id="ade/d13/classiutest_1_1_unit_test_ae09115bd12edb303535b0ab93ade6005_icgraph">
-<area shape="rect" title=" " alt="" coords="259,143,443,170"/>
-<area shape="rect" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9af52b2856871d318fcaa65b1452e7e7" title="Xml Generator の解放" alt="" coords="13,5,203,47"/>
-<area shape="rect" href="../../d6/db3/classiutest_1_1_progress_print_listener.html#a69fe6ef6ce76b736fdf5186fcb379d16" title="ProgressPrintListener に切り替え" alt="" coords="5,71,211,112"/>
-<area shape="rect" href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#a5103fc5e0a2ca7797e4161cbe7a2d7bd" title="TAPPrintListener に切り替え" alt="" coords="21,136,195,177"/>
-<area shape="rect" href="../../dc/d0e/classiutest_1_1_t_a_p_file_generator_listener.html#a01daf23eeba5117f5fda11b82fcb2f8d" title="TAPFileGeneratorListener に切り替え" alt="" coords="19,201,197,243"/>
-<area shape="rect" href="../../d3/d57/classiuutil_1_1_quiet_result_printer.html#afcde06964b4b9d11fcf26c904c1021ae" title="QuietResultPrinter に切り替え" alt="" coords="17,267,199,308"/>
+<div class="center"><img src="../../de/d13/classiutest_1_1_unit_test_aca619faca8707dba316cc60650436cac_icgraph.png" border="0" usemap="#ade/d13/classiutest_1_1_unit_test_aca619faca8707dba316cc60650436cac_icgraph" alt=""/></div>
+<map name="ade/d13/classiutest_1_1_unit_test_aca619faca8707dba316cc60650436cac_icgraph" id="ade/d13/classiutest_1_1_unit_test_aca619faca8707dba316cc60650436cac_icgraph">
+<area shape="rect" title=" " alt="" coords="259,141,443,166"/>
+<area shape="rect" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9af52b2856871d318fcaa65b1452e7e7" title="Xml Generator の解放" alt="" coords="13,5,203,45"/>
+<area shape="poly" title=" " alt="" coords="322,134,272,97,209,60,181,48,183,43,212,55,274,92,325,130"/>
+<area shape="rect" href="../../d6/db3/classiutest_1_1_progress_print_listener.html#af9e7517427f911eddc1a17c529871fe9" title="ProgressPrintListener に切り替え" alt="" coords="5,69,211,109"/>
+<area shape="poly" title=" " alt="" coords="288,140,184,112,185,107,289,134"/>
+<area shape="rect" href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#a576c24af71842be5c5fcc0899239113a" title="TAPPrintListener に切り替え" alt="" coords="21,133,195,173"/>
+<area shape="poly" title=" " alt="" coords="245,156,195,156,195,151,245,151"/>
+<area shape="rect" href="../../dc/d0e/classiutest_1_1_t_a_p_file_generator_listener.html#a8f70875e35c7e070c343ee182db87d0b" title="TAPFileGeneratorListener に切り替え" alt="" coords="19,197,197,237"/>
+<area shape="poly" title=" " alt="" coords="289,172,185,200,184,195,288,167"/>
+<area shape="rect" href="../../d3/d57/classiuutil_1_1_quiet_result_printer.html#a8dd414bef5aa96e663918fc26476303a" title="QuietResultPrinter に切り替え" alt="" coords="17,261,199,301"/>
+<area shape="poly" title=" " alt="" coords="325,177,274,214,212,252,183,264,181,259,209,247,272,210,322,172"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a400cfd3c04df86592c9eaf02ceb7fab1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a400cfd3c04df86592c9eaf02ceb7fab1">&#9670;&nbsp;</a></span>Passed()</h2>
+<a id="a400cfd3c04df86592c9eaf02ceb7fab1" name="a400cfd3c04df86592c9eaf02ceb7fab1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a400cfd3c04df86592c9eaf02ceb7fab1">&#9670;&#160;</a></span>Passed()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool iutest::UnitTest::Passed </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">bool</a> iutest::UnitTest::Passed </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -526,15 +534,16 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 <div class="dyncontent">
 <div class="center"><img src="../../de/d13/classiutest_1_1_unit_test_a400cfd3c04df86592c9eaf02ceb7fab1_icgraph.png" border="0" usemap="#ade/d13/classiutest_1_1_unit_test_a400cfd3c04df86592c9eaf02ceb7fab1_icgraph" alt=""/></div>
 <map name="ade/d13/classiutest_1_1_unit_test_a400cfd3c04df86592c9eaf02ceb7fab1_icgraph" id="ade/d13/classiutest_1_1_unit_test_a400cfd3c04df86592c9eaf02ceb7fab1_icgraph">
-<area shape="rect" title=" " alt="" coords="220,5,393,32"/>
-<area shape="rect" href="../../de/d13/classiutest_1_1_unit_test.html#a1393bfea8c72c960764d288958cf710f" title=" " alt="" coords="5,5,172,32"/>
+<area shape="rect" title=" " alt="" coords="220,5,393,31"/>
+<area shape="rect" href="../../de/d13/classiutest_1_1_unit_test.html#a1393bfea8c72c960764d288958cf710f" title=" " alt="" coords="5,5,172,31"/>
+<area shape="poly" title=" " alt="" coords="206,21,172,21,172,15,206,15"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a3881fb108023353078fd4594ffc540f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3881fb108023353078fd4594ffc540f6">&#9670;&nbsp;</a></span>random_seed()</h2>
+<a id="a3881fb108023353078fd4594ffc540f6" name="a3881fb108023353078fd4594ffc540f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3881fb108023353078fd4594ffc540f6">&#9670;&#160;</a></span>random_seed()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -543,7 +552,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned int iutest::UnitTest::random_seed </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">unsigned</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> iutest::UnitTest::random_seed </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -561,15 +570,16 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 <div class="dyncontent">
 <div class="center"><img src="../../de/d13/classiutest_1_1_unit_test_a3881fb108023353078fd4594ffc540f6_cgraph.png" border="0" usemap="#ade/d13/classiutest_1_1_unit_test_a3881fb108023353078fd4594ffc540f6_cgraph" alt=""/></div>
 <map name="ade/d13/classiutest_1_1_unit_test_a3881fb108023353078fd4594ffc540f6_cgraph" id="ade/d13/classiutest_1_1_unit_test_a3881fb108023353078fd4594ffc540f6_cgraph">
-<area shape="rect" title=" " alt="" coords="5,13,221,39"/>
-<area shape="rect" href="../../d7/d8c/classiutest_1_1_test_env.html#ab84ca4d3ed8482904d418bf76ebdb656" title="乱数シード" alt="" coords="269,5,440,47"/>
+<area shape="rect" title=" " alt="" coords="5,13,221,38"/>
+<area shape="rect" href="../../d7/d8c/classiutest_1_1_test_env.html#ab84ca4d3ed8482904d418bf76ebdb656" title="乱数シード" alt="" coords="269,5,440,45"/>
+<area shape="poly" title=" " alt="" coords="221,23,256,23,256,28,221,28"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a8d8852eb3b43c8943da736760fdc944b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d8852eb3b43c8943da736760fdc944b">&#9670;&nbsp;</a></span>repeat_count()</h2>
+<a id="a8d8852eb3b43c8943da736760fdc944b" name="a8d8852eb3b43c8943da736760fdc944b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d8852eb3b43c8943da736760fdc944b">&#9670;&#160;</a></span>repeat_count()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -578,7 +588,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int iutest::UnitTest::repeat_count </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> iutest::UnitTest::repeat_count </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -596,15 +606,16 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 <div class="dyncontent">
 <div class="center"><img src="../../de/d13/classiutest_1_1_unit_test_a8d8852eb3b43c8943da736760fdc944b_cgraph.png" border="0" usemap="#ade/d13/classiutest_1_1_unit_test_a8d8852eb3b43c8943da736760fdc944b_cgraph" alt=""/></div>
 <map name="ade/d13/classiutest_1_1_unit_test_a8d8852eb3b43c8943da736760fdc944b_cgraph" id="ade/d13/classiutest_1_1_unit_test_a8d8852eb3b43c8943da736760fdc944b_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,176,47"/>
-<area shape="rect" href="../../d7/d8c/classiutest_1_1_test_env.html#a96f7e9e3229ebd7f29573f26c1d7173e" title="繰り返し回数" alt="" coords="224,5,369,47"/>
+<area shape="rect" title=" " alt="" coords="5,5,176,45"/>
+<area shape="rect" href="../../d7/d8c/classiutest_1_1_test_env.html#a96f7e9e3229ebd7f29573f26c1d7173e" title="繰り返し回数" alt="" coords="224,5,369,45"/>
+<area shape="poly" title=" " alt="" coords="176,23,210,23,210,28,176,28"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="abd68feada2e9c36b5e0d63306232655a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd68feada2e9c36b5e0d63306232655a">&#9670;&nbsp;</a></span>repeat_counter()</h2>
+<a id="abd68feada2e9c36b5e0d63306232655a" name="abd68feada2e9c36b5e0d63306232655a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd68feada2e9c36b5e0d63306232655a">&#9670;&#160;</a></span>repeat_counter()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -613,7 +624,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int iutest::UnitTest::repeat_counter </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> iutest::UnitTest::repeat_counter </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -629,14 +640,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="a49dfb72ceee7027262ba0a75cea4b4f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49dfb72ceee7027262ba0a75cea4b4f9">&#9670;&nbsp;</a></span>reportable_disabled_test_count()</h2>
+<a id="a49dfb72ceee7027262ba0a75cea4b4f9" name="a49dfb72ceee7027262ba0a75cea4b4f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49dfb72ceee7027262ba0a75cea4b4f9">&#9670;&#160;</a></span>reportable_disabled_test_count()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int iutest::UnitTest::reportable_disabled_test_count </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> iutest::UnitTest::reportable_disabled_test_count </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -647,14 +658,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="a5571fc161893e359d9fe42e3cfbb75fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5571fc161893e359d9fe42e3cfbb75fc">&#9670;&nbsp;</a></span>reportable_skip_test_count()</h2>
+<a id="a5571fc161893e359d9fe42e3cfbb75fc" name="a5571fc161893e359d9fe42e3cfbb75fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5571fc161893e359d9fe42e3cfbb75fc">&#9670;&#160;</a></span>reportable_skip_test_count()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int iutest::UnitTest::reportable_skip_test_count </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> iutest::UnitTest::reportable_skip_test_count </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -665,14 +676,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="a01d55023ac5d8c79a3654789adbddc40"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01d55023ac5d8c79a3654789adbddc40">&#9670;&nbsp;</a></span>reportable_test_count()</h2>
+<a id="a01d55023ac5d8c79a3654789adbddc40" name="a01d55023ac5d8c79a3654789adbddc40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01d55023ac5d8c79a3654789adbddc40">&#9670;&#160;</a></span>reportable_test_count()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int iutest::UnitTest::reportable_test_count </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> iutest::UnitTest::reportable_test_count </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -683,14 +694,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="a30aa56bc8b0aaa1381cef5ab42deb9c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a30aa56bc8b0aaa1381cef5ab42deb9c3">&#9670;&nbsp;</a></span>reportable_test_run_skipped_count()</h2>
+<a id="a30aa56bc8b0aaa1381cef5ab42deb9c3" name="a30aa56bc8b0aaa1381cef5ab42deb9c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30aa56bc8b0aaa1381cef5ab42deb9c3">&#9670;&#160;</a></span>reportable_test_run_skipped_count()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int iutest::UnitTest::reportable_test_run_skipped_count </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> iutest::UnitTest::reportable_test_run_skipped_count </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -701,14 +712,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="acad602ceb6e7c83f02761b35e89c1b26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acad602ceb6e7c83f02761b35e89c1b26">&#9670;&nbsp;</a></span>skip_test_count()</h2>
+<a id="acad602ceb6e7c83f02761b35e89c1b26" name="acad602ceb6e7c83f02761b35e89c1b26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acad602ceb6e7c83f02761b35e89c1b26">&#9670;&#160;</a></span>skip_test_count()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int iutest::UnitTest::skip_test_count </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> iutest::UnitTest::skip_test_count </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -719,8 +730,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="a900d4f9337a24d48d8e2cc0ab9314393"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a900d4f9337a24d48d8e2cc0ab9314393">&#9670;&nbsp;</a></span>start_timestamp()</h2>
+<a id="a900d4f9337a24d48d8e2cc0ab9314393" name="a900d4f9337a24d48d8e2cc0ab9314393"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a900d4f9337a24d48d8e2cc0ab9314393">&#9670;&#160;</a></span>start_timestamp()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -745,14 +756,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="a7191f0706f63b734c3d86f58e8799aea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7191f0706f63b734c3d86f58e8799aea">&#9670;&nbsp;</a></span>successful_test_count()</h2>
+<a id="a7191f0706f63b734c3d86f58e8799aea" name="a7191f0706f63b734c3d86f58e8799aea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7191f0706f63b734c3d86f58e8799aea">&#9670;&#160;</a></span>successful_test_count()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int iutest::UnitTest::successful_test_count </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> iutest::UnitTest::successful_test_count </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -763,14 +774,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="a2f76ad364e4940d3caac93d6de9ae5df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f76ad364e4940d3caac93d6de9ae5df">&#9670;&nbsp;</a></span>successful_test_suite_count()</h2>
+<a id="a2f76ad364e4940d3caac93d6de9ae5df" name="a2f76ad364e4940d3caac93d6de9ae5df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f76ad364e4940d3caac93d6de9ae5df">&#9670;&#160;</a></span>successful_test_suite_count()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int iutest::UnitTest::successful_test_suite_count </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> iutest::UnitTest::successful_test_suite_count </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -781,14 +792,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="ab1b5de7bbd33a55457b3c0a695d63bae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1b5de7bbd33a55457b3c0a695d63bae">&#9670;&nbsp;</a></span>test_run_skipped_count()</h2>
+<a id="ab1b5de7bbd33a55457b3c0a695d63bae" name="ab1b5de7bbd33a55457b3c0a695d63bae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1b5de7bbd33a55457b3c0a695d63bae">&#9670;&#160;</a></span>test_run_skipped_count()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int iutest::UnitTest::test_run_skipped_count </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> iutest::UnitTest::test_run_skipped_count </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -799,14 +810,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="a23be5249104462a365651d16aab952b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23be5249104462a365651d16aab952b9">&#9670;&nbsp;</a></span>test_suite_to_run_count()</h2>
+<a id="a23be5249104462a365651d16aab952b9" name="a23be5249104462a365651d16aab952b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23be5249104462a365651d16aab952b9">&#9670;&#160;</a></span>test_suite_to_run_count()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int iutest::UnitTest::test_suite_to_run_count </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> iutest::UnitTest::test_suite_to_run_count </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -817,8 +828,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="a9c2882849606cab2748517bdb1f88ea8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c2882849606cab2748517bdb1f88ea8">&#9670;&nbsp;</a></span>test_to_run_count()</h2>
+<a id="a9c2882849606cab2748517bdb1f88ea8" name="a9c2882849606cab2748517bdb1f88ea8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c2882849606cab2748517bdb1f88ea8">&#9670;&#160;</a></span>test_to_run_count()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -827,7 +838,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int iutest::UnitTest::test_to_run_count </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> iutest::UnitTest::test_to_run_count </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -843,8 +854,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="a73b0b2d337cb69db3a0dea577cb456a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73b0b2d337cb69db3a0dea577cb456a7">&#9670;&nbsp;</a></span>total_test_count()</h2>
+<a id="a73b0b2d337cb69db3a0dea577cb456a7" name="a73b0b2d337cb69db3a0dea577cb456a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73b0b2d337cb69db3a0dea577cb456a7">&#9670;&#160;</a></span>total_test_count()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -853,7 +864,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int iutest::UnitTest::total_test_count </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> iutest::UnitTest::total_test_count </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -869,8 +880,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="af3c3eba296ba08dea8d5a3df005b27d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3c3eba296ba08dea8d5a3df005b27d3">&#9670;&nbsp;</a></span>total_test_suite_count()</h2>
+<a id="af3c3eba296ba08dea8d5a3df005b27d3" name="af3c3eba296ba08dea8d5a3df005b27d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3c3eba296ba08dea8d5a3df005b27d3">&#9670;&#160;</a></span>total_test_suite_count()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -879,7 +890,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int iutest::UnitTest::total_test_suite_count </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> iutest::UnitTest::total_test_suite_count </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -892,16 +903,6 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 </table>
 </div><div class="memdoc">
 <p><a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html" title="TestSuite">TestSuite</a> 数の総数 </p>
-<div class="dynheader">
-被呼び出し関係図:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../de/d13/classiutest_1_1_unit_test_af3c3eba296ba08dea8d5a3df005b27d3_icgraph.png" border="0" usemap="#ade/d13/classiutest_1_1_unit_test_af3c3eba296ba08dea8d5a3df005b27d3_icgraph" alt=""/></div>
-<map name="ade/d13/classiutest_1_1_unit_test_af3c3eba296ba08dea8d5a3df005b27d3_icgraph" id="ade/d13/classiutest_1_1_unit_test_af3c3eba296ba08dea8d5a3df005b27d3_icgraph">
-<area shape="rect" title=" " alt="" coords="259,39,417,80"/>
-<area shape="rect" href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#a7ddbe8a0b6823eadee5ac19a07572752" title="テストプログラム終了時に呼ばれます" alt="" coords="21,5,195,47"/>
-<area shape="rect" href="../../dc/d0e/classiutest_1_1_t_a_p_file_generator_listener.html#a6f2719220f12b124bbecaa94aee808cc" title="テストプログラム終了時に呼ばれます" alt="" coords="5,71,211,112"/>
-</map>
-</div>
 
 </div>
 </div>
@@ -911,7 +912,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2026年09月03日(木) 01時29分46秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2026年09月03日(木) 02時21分29秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

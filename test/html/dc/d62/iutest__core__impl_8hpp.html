@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: internal/iutest_core_impl.hpp ファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -19,10 +19,9 @@
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.14</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">iutest<span id="projectnumber">&#160;1.17.99.14</span>
    </div>
   </td>
  </tr>
@@ -30,21 +29,22 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.9.1 -->
+<!-- 構築: Doxygen 1.9.8 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
 <script type="text/javascript" src="../../menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
   initMenu('../../',true,false,'search.php','検索');
   $(document).ready(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -55,9 +55,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -68,8 +75,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#namespaces">名前空間</a>  </div>
-  <div class="headertitle">
-<div class="title">iutest_core_impl.hpp ファイル</div>  </div>
+  <div class="headertitle"><div class="title">iutest_core_impl.hpp ファイル</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -85,56 +91,144 @@ iutest_core_impl.hpp の依存先関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/deb/iutest__core__impl_8hpp__incl.png" border="0" usemap="#ainternal_2iutest__core__impl_8hpp" alt=""/></div>
 <map name="ainternal_2iutest__core__impl_8hpp" id="ainternal_2iutest__core__impl_8hpp">
-<area shape="rect" title="iris unit test UnitTest core" alt="" coords="2631,5,2779,47"/>
-<area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="1885,1005,2018,1032"/>
-<area shape="rect" href="../../db/d32/iutest__internal_8hpp.html" title="iris unit test internal definition" alt="" coords="2379,102,2523,129"/>
-<area shape="rect" href="../../d2/d5f/iutest__option__message_8hpp.html" title="iris unit test commandline option message" alt="" coords="101,557,303,584"/>
-<area shape="rect" href="../../d3/d31/iutest__suite_8hpp.html" title="iris unit test testsuite" alt="" coords="2635,707,2774,733"/>
-<area shape="rect" title=" " alt="" coords="3231,95,3370,136"/>
-<area shape="rect" href="../../de/dc7/iutest__pred_8hpp.html" title="iris unit test 述語 Assertion ファイル" alt="" coords="2331,184,2465,211"/>
-<area shape="rect" href="../../d9/d87/iutest__package_8hpp.html" title="iris unit test testsuite package" alt="" coords="1117,259,1277,285"/>
-<area shape="rect" href="../../d0/d42/iutest__assertion_8hpp.html" title="iris unit test assertion 定義 ファイル" alt="" coords="2133,259,2287,285"/>
-<area shape="rect" href="../../d5/dd2/iutest__result_8hpp.html" title="iris unit test result" alt="" coords="854,333,985,360"/>
-<area shape="rect" href="../../d2/d0b/iutest__printers_8hpp.html" title="iris unit test print 出力ヘルパー ファイル" alt="" coords="1720,483,1876,509"/>
-<area shape="rect" href="../../da/d27/iutest__list_8hpp.html" title="iris unit test list 構造 ファイル" alt="" coords="2247,333,2415,360"/>
-<area shape="rect" href="../../d3/d0c/iutest__message_8hpp.html" title="iris unit test メッセージ ファイル" alt="" coords="816,408,1023,435"/>
-<area shape="rect" href="../../d0/dda/iutest__env_8hpp.html" title="iris unit test 環境 ファイル" alt="" coords="685,856,815,883"/>
-<area shape="rect" title=" " alt="" coords="755,483,950,509"/>
-<area shape="rect" href="../../d5/dd3/iutest__charcode_8hpp.html" title="iris unit test 文字コード対応 ファイル" alt="" coords="1135,931,1341,957"/>
-<area shape="rect" href="../../d7/d8c/iutest__random_8hpp.html" title="iris unit test 乱数生成器 定義 ファイル" alt="" coords="651,931,849,957"/>
-<area shape="rect" href="../../d2/d08/iutest__regex_8hpp.html" title="regex" alt="" coords="873,931,1059,957"/>
-<area shape="rect" href="../../d8/def/iutest__listener_8hpp.html" title="iris unit test イベントリスナー 定義 ファイル" alt="" coords="109,931,252,957"/>
-<area shape="rect" title=" " alt="" coords="479,931,626,957"/>
-<area shape="rect" title=" " alt="" coords="5,1005,68,1032"/>
-<area shape="rect" title=" " alt="" coords="123,1005,209,1032"/>
-<area shape="rect" href="../../d1/d84/iutest__defs_8hpp.html" title="iris unit test definition" alt="" coords="1596,632,1731,659"/>
-<area shape="rect" href="../../d2/d9e/iutest__string__stream_8hpp.html" title="iris unit test iu_basic_ostream implimentaion" alt="" coords="2027,557,2211,584"/>
-<area shape="rect" href="../../d8/dc8/iutest__string__view_8hpp.html" title="string_view" alt="" coords="1809,557,1977,584"/>
-<area shape="rect" href="../../dc/d2f/iutest__compiler_8hpp.html" title="iris unit test compiler 依存の吸収 ファイル" alt="" coords="1441,856,1645,883"/>
-<area shape="rect" href="../../d9/d6f/iutest__pp_8hpp.html" title="preprocessor definition" alt="" coords="1676,781,1840,808"/>
-<area shape="rect" href="../../d9/dad/iutest__stdlib_8hpp.html" title="stdlib" alt="" coords="1318,707,1502,733"/>
-<area shape="rect" title=" " alt="" coords="1075,707,1142,733"/>
-<area shape="rect" title=" " alt="" coords="1727,707,1787,733"/>
-<area shape="rect" href="../../da/d86/iutest__debug_8hpp.html" title="iris unit test debug 用定義 ファイル" alt="" coords="1811,707,1999,733"/>
-<area shape="rect" title=" " alt="" coords="2023,707,2066,733"/>
-<area shape="rect" href="../../da/d9f/iutest__platform_8hpp.html" title="iris unit test platform detection" alt="" coords="1468,931,1619,957"/>
-<area shape="rect" href="../../d7/d02/iutest__pragma_8hpp.html" title="pragma macros" alt="" coords="1643,931,1787,957"/>
-<area shape="rect" href="../../da/d92/iutest__stdlib__defs_8hpp.html" title="stdlib detect defines" alt="" coords="1385,781,1550,808"/>
-<area shape="rect" title=" " alt="" coords="1916,781,2091,808"/>
-<area shape="rect" href="../../d7/d86/iutest__string_8hpp.html" title="iris unit test string utilities" alt="" coords="2183,632,2314,659"/>
-<area shape="rect" title=" " alt="" coords="2021,632,2108,659"/>
-<area shape="rect" title=" " alt="" coords="2242,707,2314,733"/>
-<area shape="rect" title=" " alt="" coords="1526,707,1601,733"/>
-<area shape="rect" title=" " alt="" coords="1930,632,1997,659"/>
-<area shape="rect" title=" " alt="" coords="2310,408,2353,435"/>
-<area shape="rect" href="../../d3/df9/iutest__console_8hpp.html" title="iris unit test console" alt="" coords="505,632,649,659"/>
-<area shape="rect" href="../../d4/d4b/iutest__info_8hpp.html" title="iris unit test info" alt="" coords="2645,781,2764,808"/>
-<area shape="rect" title=" " alt="" coords="2787,781,2942,808"/>
-<area shape="rect" href="../../d1/d09/iutest__body_8hpp.html" title="iris unit test テスト単体クラス ファイル" alt="" coords="2643,856,2767,883"/>
-<area shape="rect" href="../../d1/dc9/iutest__factory_8hpp.html" title="iris unit test テストファクトリー ファイル" alt="" coords="2791,856,2983,883"/>
-<area shape="rect" title=" " alt="" coords="3008,856,3156,883"/>
-<area shape="rect" href="../../dc/d87/iutest__mediator_8hpp.html" title="iris unit test 仲介者 ファイル" alt="" coords="2693,931,2900,957"/>
-<area shape="rect" title=" " alt="" coords="2924,931,3077,957"/>
+<area shape="rect" title="iris unit test UnitTest core" alt="" coords="2631,5,2779,45"/>
+<area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="1885,988,2018,1013"/>
+<area shape="poly" title=" " alt="" coords="2779,34,2902,54,3039,87,3100,108,3150,132,3184,160,3193,176,3197,192,3197,856,3191,888,3173,911,3148,927,3115,943,3050,958,2939,970,2629,988,2292,997,2032,1001,2032,996,2291,992,2629,983,2938,965,3049,953,3113,937,3145,923,3170,907,3186,886,3191,855,3191,193,3188,178,3180,164,3147,137,3098,113,3037,92,2901,59,2779,39"/>
+<area shape="rect" href="../../db/d32/iutest__internal_8hpp.html" title="iris unit test internal definition" alt="" coords="2379,101,2523,126"/>
+<area shape="poly" title=" " alt="" coords="2650,48,2499,99,2497,94,2648,43"/>
+<area shape="rect" href="../../d2/d5f/iutest__option__message_8hpp.html" title="iris unit test commandline option message" alt="" coords="101,548,303,573"/>
+<area shape="poly" title=" " alt="" coords="2630,30,2085,42,1696,53,1284,69,892,91,561,119,431,135,332,153,269,173,254,183,249,193,249,415,245,449,237,482,217,536,212,534,232,480,240,448,243,415,243,192,250,180,267,168,331,148,430,130,561,113,892,86,1284,64,1695,48,2085,36,2630,25"/>
+<area shape="rect" href="../../d3/d31/iutest__suite_8hpp.html" title="iris unit test testsuite" alt="" coords="2635,695,2774,720"/>
+<area shape="poly" title=" " alt="" coords="2707,46,2707,193,2707,562,2707,681,2702,681,2702,562,2702,193,2702,46"/>
+<area shape="rect" title=" " alt="" coords="3231,93,3370,133"/>
+<area shape="poly" title=" " alt="" coords="2779,32,2976,56,3213,91,3218,92,3217,97,3212,96,2975,61,2779,37"/>
+<area shape="poly" title=" " alt="" coords="2461,125,2489,184,2501,224,2506,266,2506,856,2501,887,2487,909,2465,926,2437,942,2404,956,2361,967,2253,983,2136,994,2032,999,2031,994,2135,988,2252,978,2360,961,2403,950,2434,938,2462,921,2483,905,2496,885,2501,855,2501,266,2496,225,2484,186,2456,127"/>
+<area shape="rect" href="../../de/dc7/iutest__pred_8hpp.html" title="iris unit test 述語 Assertion ファイル" alt="" coords="2331,181,2465,207"/>
+<area shape="poly" title=" " alt="" coords="2446,128,2416,171,2412,168,2441,125"/>
+<area shape="rect" href="../../d9/d87/iutest__package_8hpp.html" title="iris unit test testsuite package" alt="" coords="1117,255,1277,280"/>
+<area shape="poly" title=" " alt="" coords="2379,126,1291,257,1290,252,2379,121"/>
+<area shape="poly" title=" " alt="" coords="2408,205,2437,261,2450,299,2455,339,2455,855,2452,884,2443,907,2426,925,2402,942,2373,956,2334,967,2237,984,2129,994,2032,1000,2032,994,2128,989,2236,978,2333,962,2371,951,2399,938,2423,921,2438,904,2447,883,2450,855,2450,340,2445,300,2432,263,2403,208"/>
+<area shape="rect" href="../../d0/d42/iutest__assertion_8hpp.html" title="iris unit test assertion 定義 ファイル" alt="" coords="2133,255,2287,280"/>
+<area shape="poly" title=" " alt="" coords="2369,209,2254,252,2253,247,2367,204"/>
+<area shape="poly" title=" " alt="" coords="2216,279,2238,352,2257,406,2277,450,2315,526,2330,562,2343,603,2351,650,2354,706,2354,856,2352,869,2344,881,2319,904,2282,924,2236,941,2132,970,2032,990,2031,985,2130,965,2234,936,2280,919,2316,899,2340,878,2347,867,2349,855,2349,706,2346,650,2338,604,2325,564,2310,528,2272,453,2252,408,2233,354,2211,281"/>
+<area shape="rect" href="../../d5/dd2/iutest__result_8hpp.html" title="iris unit test result" alt="" coords="854,328,985,353"/>
+<area shape="poly" title=" " alt="" coords="2133,276,998,338,998,332,2133,270"/>
+<area shape="rect" href="../../d2/d0b/iutest__printers_8hpp.html" title="iris unit test print 出力ヘルパー ファイル" alt="" coords="1720,475,1876,500"/>
+<area shape="poly" title=" " alt="" coords="2190,282,1833,470,1831,466,2187,278"/>
+<area shape="rect" href="../../da/d27/iutest__list_8hpp.html" title="iris unit test list 構造 ファイル" alt="" coords="2247,328,2415,353"/>
+<area shape="poly" title=" " alt="" coords="2231,278,2301,319,2299,323,2228,282"/>
+<area shape="poly" title=" " alt="" coords="854,349,722,362,646,373,570,387,501,405,445,428,423,441,407,455,397,470,394,486,394,855,397,884,406,905,423,922,447,938,469,944,513,950,652,961,1068,978,1529,990,1871,996,1871,1001,1529,995,1068,983,652,966,512,955,468,949,445,942,419,926,402,908,392,885,389,855,389,486,393,468,403,451,420,437,442,423,499,400,569,382,645,367,721,356,853,343"/>
+<area shape="rect" href="../../d3/d0c/iutest__message_8hpp.html" title="iris unit test メッセージ ファイル" alt="" coords="816,401,1023,427"/>
+<area shape="poly" title=" " alt="" coords="922,354,922,388,917,388,917,354"/>
+<area shape="poly" title=" " alt="" coords="932,425,948,447,964,473,984,515,988,534,990,559,990,635,995,663,1010,680,1031,697,1055,718,1092,757,1134,791,1400,938,1462,955,1526,968,1655,986,1774,995,1871,998,1871,1003,1774,1001,1655,992,1526,974,1461,960,1398,942,1131,796,1088,761,1051,722,1027,701,1006,684,991,665,985,636,985,559,983,535,979,516,960,476,944,450,927,428"/>
+<area shape="rect" href="../../d0/dda/iutest__env_8hpp.html" title="iris unit test 環境 ファイル" alt="" coords="685,841,815,867"/>
+<area shape="poly" title=" " alt="" coords="836,429,787,447,765,460,745,477,730,496,723,513,721,559,721,709,729,774,744,828,739,829,723,775,715,709,715,559,718,512,726,493,741,473,762,456,785,442,835,424"/>
+<area shape="poly" title=" " alt="" coords="1023,421,1706,476,1706,481,1022,426"/>
+<area shape="rect" title=" " alt="" coords="755,475,950,500"/>
+<area shape="poly" title=" " alt="" coords="910,429,875,466,871,463,906,425"/>
+<area shape="poly" title=" " alt="" coords="815,860,935,878,1004,893,1071,912,1097,925,1123,937,1187,950,1273,961,1482,978,1698,989,1871,995,1871,1000,1698,994,1481,984,1272,967,1187,956,1121,943,1095,930,1069,917,1003,898,934,883,815,865"/>
+<area shape="rect" href="../../d5/dd3/iutest__charcode_8hpp.html" title="iris unit test 文字コード対応 ファイル" alt="" coords="1135,915,1341,940"/>
+<area shape="poly" title=" " alt="" coords="815,862,1147,910,1146,915,814,867"/>
+<area shape="rect" href="../../d7/d8c/iutest__random_8hpp.html" title="iris unit test 乱数生成器 定義 ファイル" alt="" coords="651,915,849,940"/>
+<area shape="poly" title=" " alt="" coords="753,867,753,901,747,901,747,867"/>
+<area shape="rect" href="../../d2/d08/iutest__regex_8hpp.html" title="regex" alt="" coords="873,915,1059,940"/>
+<area shape="poly" title=" " alt="" coords="786,864,919,908,917,913,784,869"/>
+<area shape="rect" href="../../d8/def/iutest__listener_8hpp.html" title="iris unit test イベントリスナー 定義 ファイル" alt="" coords="109,915,252,940"/>
+<area shape="poly" title=" " alt="" coords="686,866,266,918,265,913,685,861"/>
+<area shape="rect" title=" " alt="" coords="479,915,626,940"/>
+<area shape="poly" title=" " alt="" coords="719,869,599,912,597,907,717,864"/>
+<area shape="poly" title=" " alt="" coords="1342,936,1871,989,1871,994,1341,942"/>
+<area shape="poly" title=" " alt="" coords="850,936,861,937,1152,958,1439,974,1871,994,1871,999,1439,979,1152,963,860,943,849,942"/>
+<area shape="poly" title=" " alt="" coords="1059,936,1078,937,1526,971,1871,992,1871,997,1526,976,1078,943,1059,941"/>
+<area shape="poly" title=" " alt="" coords="253,936,272,937,746,967,1211,985,1605,993,1871,996,1871,1002,1605,999,1210,990,746,972,271,943,252,941"/>
+<area shape="rect" title=" " alt="" coords="5,988,68,1013"/>
+<area shape="poly" title=" " alt="" coords="159,942,74,984,71,979,156,938"/>
+<area shape="rect" title=" " alt="" coords="123,988,209,1013"/>
+<area shape="poly" title=" " alt="" coords="181,941,174,975,169,974,176,940"/>
+<area shape="poly" title=" " alt="" coords="1720,500,1522,529,1405,550,1290,576,1188,606,1145,623,1109,641,1082,659,1065,678,1060,698,1066,719,1084,733,1128,760,1256,833,1456,938,1566,966,1679,983,1784,993,1871,997,1871,1002,1784,998,1678,989,1565,971,1454,942,1254,838,1125,765,1081,738,1061,721,1054,698,1061,676,1079,655,1107,636,1143,618,1186,601,1289,571,1404,545,1521,524,1719,495"/>
+<area shape="rect" href="../../d1/d84/iutest__defs_8hpp.html" title="iris unit test definition" alt="" coords="1596,621,1731,647"/>
+<area shape="poly" title=" " alt="" coords="1789,502,1685,613,1681,610,1785,499"/>
+<area shape="rect" href="../../d2/d9e/iutest__string__stream_8hpp.html" title="iris unit test iu_basic_ostream implimentaion" alt="" coords="2027,548,2211,573"/>
+<area shape="poly" title=" " alt="" coords="1850,497,2055,542,2054,548,1849,503"/>
+<area shape="rect" href="../../d8/dc8/iutest__string__view_8hpp.html" title="string_view" alt="" coords="1809,548,1977,573"/>
+<area shape="poly" title=" " alt="" coords="1815,498,1868,537,1865,542,1812,502"/>
+<area shape="poly" title=" " alt="" coords="1662,648,1654,676,1648,714,1650,755,1656,774,1666,792,1679,807,1693,817,1725,824,1760,827,1780,831,1802,839,1865,868,1890,885,1917,913,1936,943,1948,974,1943,976,1931,946,1913,916,1887,889,1862,873,1800,844,1779,836,1760,832,1724,829,1691,822,1676,811,1661,795,1651,776,1645,756,1643,714,1649,675,1657,646"/>
+<area shape="poly" title=" " alt="" coords="1596,643,1429,662,1330,678,1232,697,1193,710,1155,723,962,766,811,790,658,812,464,844,405,852,353,855,264,855,223,859,181,868,137,887,88,917,74,929,62,945,47,976,42,974,58,942,70,926,84,913,134,882,179,863,222,854,264,850,353,849,404,847,463,839,658,806,810,785,961,760,1153,717,1192,705,1231,692,1329,672,1429,657,1595,638"/>
+<area shape="poly" title=" " alt="" coords="1596,642,1453,658,1370,674,1290,697,1238,721,1200,747,1163,773,1110,796,1045,814,990,825,894,833,796,835,673,844,384,879,98,917,94,924,93,932,100,948,116,964,135,979,132,983,112,968,96,951,88,932,89,922,95,912,383,873,672,839,796,830,893,828,989,820,1044,809,1108,791,1160,768,1197,743,1235,716,1288,692,1369,669,1452,653,1595,636"/>
+<area shape="rect" href="../../dc/d2f/iutest__compiler_8hpp.html" title="iris unit test compiler 依存の吸収 ファイル" alt="" coords="1441,841,1645,867"/>
+<area shape="poly" title=" " alt="" coords="1596,639,1516,644,1430,653,1354,670,1326,682,1308,696,1296,720,1299,742,1314,762,1340,781,1372,798,1409,813,1481,835,1480,840,1407,818,1370,803,1337,785,1310,766,1294,744,1291,719,1304,693,1324,678,1353,665,1429,648,1516,638,1596,634"/>
+<area shape="rect" href="../../d9/d6f/iutest__pp_8hpp.html" title="preprocessor definition" alt="" coords="1676,768,1840,793"/>
+<area shape="poly" title=" " alt="" coords="1672,646,1716,719,1743,755,1738,759,1712,721,1668,648"/>
+<area shape="rect" href="../../d9/dad/iutest__stdlib_8hpp.html" title="stdlib" alt="" coords="1318,695,1502,720"/>
+<area shape="poly" title=" " alt="" coords="1623,649,1465,693,1464,688,1622,644"/>
+<area shape="rect" title=" " alt="" coords="1075,695,1142,720"/>
+<area shape="poly" title=" " alt="" coords="1596,644,1400,664,1161,697,1156,698,1155,693,1160,692,1400,659,1596,639"/>
+<area shape="rect" title=" " alt="" coords="1727,695,1787,720"/>
+<area shape="poly" title=" " alt="" coords="1680,645,1732,684,1729,688,1677,649"/>
+<area shape="rect" href="../../da/d86/iutest__debug_8hpp.html" title="iris unit test debug 用定義 ファイル" alt="" coords="1811,695,1999,720"/>
+<area shape="poly" title=" " alt="" coords="1703,644,1853,688,1851,693,1701,649"/>
+<area shape="rect" title=" " alt="" coords="2023,695,2066,720"/>
+<area shape="poly" title=" " alt="" coords="1731,641,1861,661,2011,692,2011,692,2010,697,2009,697,1861,667,1731,647"/>
+<area shape="poly" title=" " alt="" coords="1617,864,1706,883,1800,912,1868,944,1924,978,1921,983,1866,949,1798,917,1705,888,1616,869"/>
+<area shape="rect" href="../../da/d9f/iutest__platform_8hpp.html" title="iris unit test platform detection" alt="" coords="1468,915,1619,940"/>
+<area shape="poly" title=" " alt="" coords="1546,867,1546,901,1541,901,1541,867"/>
+<area shape="rect" href="../../d7/d02/iutest__pragma_8hpp.html" title="pragma macros" alt="" coords="1643,915,1787,940"/>
+<area shape="poly" title=" " alt="" coords="1572,864,1676,907,1674,912,1570,869"/>
+<area shape="poly" title=" " alt="" coords="1609,937,1873,983,1872,988,1608,943"/>
+<area shape="poly" title=" " alt="" coords="1754,937,1901,981,1899,987,1752,943"/>
+<area shape="poly" title=" " alt="" coords="1841,789,1934,808,1973,822,1997,840,2011,865,2013,888,2007,913,1998,941,1988,962,1975,979,1970,976,1983,959,1993,939,2002,911,2008,888,2006,866,1993,843,1970,827,1933,813,1840,794"/>
+<area shape="poly" title=" " alt="" coords="1441,718,1563,766,1620,791,1697,820,1759,841,1817,867,1885,913,1916,943,1939,974,1935,978,1912,947,1882,917,1815,872,1757,846,1695,826,1618,796,1561,770,1439,723"/>
+<area shape="rect" href="../../da/d92/iutest__stdlib__defs_8hpp.html" title="stdlib detect defines" alt="" coords="1385,768,1550,793"/>
+<area shape="poly" title=" " alt="" coords="1422,719,1451,755,1447,759,1417,722"/>
+<area shape="poly" title=" " alt="" coords="1518,791,1586,809,1669,835,1759,869,1846,912,1892,944,1931,976,1927,980,1889,948,1843,917,1757,874,1667,840,1584,814,1517,796"/>
+<area shape="poly" title=" " alt="" coords="1481,791,1523,830,1519,834,1478,795"/>
+<area shape="poly" title=" " alt="" coords="1903,721,1897,755,1898,774,1906,792,1918,805,1932,812,1963,815,1995,818,2011,826,2024,840,2031,855,2035,878,2033,908,2022,941,2005,964,1985,982,1981,978,2002,961,2017,939,2027,907,2029,879,2026,857,2020,843,2007,830,1994,823,1962,820,1930,817,1915,809,1901,795,1893,776,1892,755,1898,720"/>
+<area shape="rect" title=" " alt="" coords="1916,768,2091,793"/>
+<area shape="poly" title=" " alt="" coords="1922,718,1978,758,1975,762,1919,722"/>
+<area shape="poly" title=" " alt="" coords="2124,573,2132,621,2139,694,2137,781,2131,825,2121,867,2104,909,2074,942,2039,967,2001,985,1999,980,2036,963,2071,938,2099,906,2115,866,2126,824,2132,780,2133,695,2127,622,2119,574"/>
+<area shape="rect" href="../../d7/d86/iutest__string_8hpp.html" title="iris unit test string utilities" alt="" coords="2183,621,2314,647"/>
+<area shape="poly" title=" " alt="" coords="2141,571,2216,612,2214,617,2139,576"/>
+<area shape="rect" title=" " alt="" coords="2021,621,2108,647"/>
+<area shape="poly" title=" " alt="" coords="2112,575,2084,612,2080,609,2108,572"/>
+<area shape="poly" title=" " alt="" coords="2247,648,2233,695,2227,733,2228,767,2235,827,2237,855,2233,883,2222,912,2200,942,2173,959,2131,973,2032,992,2031,987,2130,968,2170,954,2196,938,2217,909,2228,882,2232,855,2230,827,2223,767,2222,733,2227,694,2242,646"/>
+<area shape="rect" title=" " alt="" coords="2242,695,2314,720"/>
+<area shape="poly" title=" " alt="" coords="2256,646,2270,681,2266,683,2251,648"/>
+<area shape="rect" title=" " alt="" coords="1526,695,1601,720"/>
+<area shape="poly" title=" " alt="" coords="2183,645,1614,703,1614,698,2183,639"/>
+<area shape="poly" title=" " alt="" coords="1895,573,1901,609,1908,628,1920,645,1939,659,1958,666,1998,668,2038,670,2059,678,2080,693,2094,710,2100,727,2105,768,2108,820,2099,861,2078,900,2045,942,2020,966,1991,984,1988,979,2016,962,2041,938,2074,897,2094,860,2103,820,2099,768,2095,728,2089,713,2076,697,2057,682,2037,675,1998,674,1957,672,1936,664,1916,649,1903,631,1896,610,1890,574"/>
+<area shape="poly" title=" " alt="" coords="1857,576,1715,620,1713,615,1855,571"/>
+<area shape="poly" title=" " alt="" coords="1921,571,2025,614,2023,618,1919,576"/>
+<area shape="rect" title=" " alt="" coords="1930,621,1997,647"/>
+<area shape="poly" title=" " alt="" coords="1906,572,1944,610,1940,614,1902,576"/>
+<area shape="poly" title=" " alt="" coords="2344,352,2361,375,2381,407,2398,445,2405,486,2405,855,2404,882,2400,904,2390,923,2372,942,2346,956,2312,968,2223,985,2123,995,2032,1000,2032,995,2123,990,2222,980,2310,963,2344,952,2368,938,2386,920,2395,902,2399,882,2399,855,2399,486,2393,446,2377,409,2357,378,2339,355"/>
+<area shape="rect" title=" " alt="" coords="2310,401,2353,427"/>
+<area shape="poly" title=" " alt="" coords="2334,354,2334,388,2329,388,2329,354"/>
+<area shape="poly" title=" " alt="" coords="1117,276,906,293,649,322,531,341,433,363,395,375,367,387,349,400,343,413,343,855,347,885,360,906,379,922,407,938,430,944,475,949,619,960,1047,977,1871,995,1871,1001,1047,983,619,965,475,955,429,949,405,942,376,926,355,909,342,886,338,856,338,412,345,397,364,383,393,370,431,357,530,336,648,317,905,288,1116,271"/>
+<area shape="poly" title=" " alt="" coords="217,572,239,594,264,626,284,664,290,684,293,706,293,855,293,882,296,903,305,921,323,938,347,946,394,953,546,965,756,975,1000,983,1503,992,1871,996,1871,1002,1503,998,1000,988,755,981,546,971,393,958,346,951,321,942,301,924,291,905,288,882,287,855,287,706,285,686,279,666,260,629,235,598,213,575"/>
+<area shape="rect" href="../../d3/df9/iutest__console_8hpp.html" title="iris unit test console" alt="" coords="505,621,649,647"/>
+<area shape="poly" title=" " alt="" coords="263,571,503,616,502,621,262,576"/>
+<area shape="poly" title=" " alt="" coords="567,649,522,701,495,737,471,778,452,821,443,863,444,884,448,903,456,921,469,938,489,947,530,954,665,968,853,978,1074,986,1531,994,1871,996,1871,1002,1531,999,1074,991,853,983,665,973,529,960,487,952,466,942,452,924,443,905,438,884,438,863,447,819,466,776,491,734,518,697,563,645"/>
+<area shape="poly" title=" " alt="" coords="649,642,1062,697,1061,702,649,648"/>
+<area shape="poly" title=" " alt="" coords="649,633,803,637,1016,646,1261,663,1512,692,1512,697,1260,669,1015,651,803,642,649,639"/>
+<area shape="poly" title=" " alt="" coords="2690,722,2663,743,2635,770,2616,794,2603,818,2586,863,2566,904,2548,924,2523,942,2484,959,2432,972,2299,990,2156,999,2032,1002,2032,997,2155,994,2298,985,2431,967,2483,954,2521,938,2545,920,2561,901,2581,861,2598,816,2612,791,2631,766,2659,739,2686,718"/>
+<area shape="rect" href="../../d4/d4b/iutest__info_8hpp.html" title="iris unit test info" alt="" coords="2645,768,2764,793"/>
+<area shape="poly" title=" " alt="" coords="2707,720,2707,754,2702,754,2702,720"/>
+<area shape="rect" title=" " alt="" coords="2787,768,2942,793"/>
+<area shape="poly" title=" " alt="" coords="2731,718,2827,760,2825,765,2729,722"/>
+<area shape="poly" title=" " alt="" coords="2688,796,2660,816,2632,843,2615,870,2607,896,2597,920,2574,942,2531,961,2472,976,2402,987,2325,994,2166,1002,2032,1003,2032,998,2166,997,2324,989,2402,981,2471,971,2529,956,2571,938,2593,917,2602,894,2611,868,2628,840,2657,812,2685,791"/>
+<area shape="rect" href="../../d1/d09/iutest__body_8hpp.html" title="iris unit test テスト単体クラス ファイル" alt="" coords="2643,841,2767,867"/>
+<area shape="poly" title=" " alt="" coords="2707,794,2707,828,2702,828,2702,794"/>
+<area shape="rect" href="../../d1/dc9/iutest__factory_8hpp.html" title="iris unit test テストファクトリー ファイル" alt="" coords="2791,841,2983,867"/>
+<area shape="poly" title=" " alt="" coords="2735,791,2846,834,2844,839,2733,796"/>
+<area shape="rect" title=" " alt="" coords="3008,841,3156,867"/>
+<area shape="poly" title=" " alt="" coords="2765,790,3008,836,3007,841,2764,796"/>
+<area shape="poly" title=" " alt="" coords="2700,869,2671,906,2649,927,2624,942,2575,959,2510,972,2347,990,2175,999,2032,1002,2031,997,2175,994,2347,985,2509,967,2574,954,2622,938,2646,922,2667,903,2695,866"/>
+<area shape="rect" href="../../dc/d87/iutest__mediator_8hpp.html" title="iris unit test 仲介者 ファイル" alt="" coords="2693,915,2900,940"/>
+<area shape="poly" title=" " alt="" coords="2721,865,2773,904,2769,908,2718,869"/>
+<area shape="rect" title=" " alt="" coords="2924,915,3077,940"/>
+<area shape="poly" title=" " alt="" coords="2753,864,2940,909,2939,914,2752,869"/>
+<area shape="poly" title=" " alt="" coords="2693,941,2674,943,2032,996,2032,990,2674,937,2693,936"/>
+<area shape="poly" title=" " alt="" coords="2984,863,3036,873,3079,889,3094,899,3102,912,3102,926,3092,942,3076,949,3045,956,2945,967,2642,985,2299,995,2032,1001,2032,995,2299,990,2642,979,2945,962,3044,951,3074,944,3088,938,3097,925,3097,913,3090,903,3076,894,3034,879,2983,868"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -142,22 +236,29 @@ iutest_core_impl.hpp の依存先関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/dec/iutest__core__impl_8hpp__dep__incl.png" border="0" usemap="#ainternal_2iutest__core__impl_8hppdep" alt=""/></div>
 <map name="ainternal_2iutest__core__impl_8hppdep" id="ainternal_2iutest__core__impl_8hppdep">
-<area shape="rect" title="iris unit test UnitTest core" alt="" coords="235,5,383,47"/>
-<area shape="rect" href="../../d5/d65/iutest__result__reporter_8hpp.html" title="iris unit test TestPartResult リポーター ファイル" alt="" coords="230,95,387,136"/>
-<area shape="rect" href="../../d0/db5/iutest__core_8hpp.html" title="iris unit test core" alt="" coords="247,184,370,211"/>
-<area shape="rect" href="../../d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="19,266,105,293"/>
-<area shape="rect" href="../../dc/d5d/iutest__progress__printer_8hpp.html" title="iris unit test プログレス出力イベントリスナー ファイル" alt="" coords="129,259,304,300"/>
-<area shape="rect" href="../../d3/d80/iutest__sstp__notifier_8hpp.html" title="iris unit test SSTP 通知 ファイル" alt="" coords="329,259,475,300"/>
-<area shape="rect" href="../../d8/d0f/iutest__tap__printer_8hpp.html" title="iris unit test Test Anything Protocol 出力イベントリスナー ファイル" alt="" coords="500,259,640,300"/>
-<area shape="rect" href="../../d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="5,348,119,375"/>
+<area shape="rect" title="iris unit test UnitTest core" alt="" coords="235,5,383,45"/>
+<area shape="rect" href="../../d5/d65/iutest__result__reporter_8hpp.html" title="iris unit test TestPartResult リポーター ファイル" alt="" coords="230,93,387,133"/>
+<area shape="poly" title=" " alt="" coords="311,59,311,93,306,93,306,59"/>
+<area shape="rect" href="../../d0/db5/iutest__core_8hpp.html" title="iris unit test core" alt="" coords="247,181,370,207"/>
+<area shape="poly" title=" " alt="" coords="311,147,311,181,306,181,306,147"/>
+<area shape="rect" href="../../d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="19,262,105,287"/>
+<area shape="poly" title=" " alt="" coords="259,213,119,257,97,265,95,259,117,252,258,208"/>
+<area shape="rect" href="../../dc/d5d/iutest__progress__printer_8hpp.html" title="iris unit test プログレス出力イベントリスナー ファイル" alt="" coords="129,255,304,295"/>
+<area shape="poly" title=" " alt="" coords="286,218,241,257,237,252,283,214"/>
+<area shape="rect" href="../../d3/d80/iutest__sstp__notifier_8hpp.html" title="iris unit test SSTP 通知 ファイル" alt="" coords="329,255,475,295"/>
+<area shape="poly" title=" " alt="" coords="335,214,381,252,378,257,331,218"/>
+<area shape="rect" href="../../d8/d0f/iutest__tap__printer_8hpp.html" title="iris unit test Test Anything Protocol 出力イベントリスナー ファイル" alt="" coords="500,255,640,295"/>
+<area shape="poly" title=" " alt="" coords="360,208,508,252,506,257,359,213"/>
+<area shape="rect" href="../../d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="5,343,119,368"/>
+<area shape="poly" title=" " alt="" coords="65,301,65,342,59,342,59,301"/>
 </map>
 </div>
 </div>
 <p><a href="../../dc/d62/iutest__core__impl_8hpp_source.html">[ソースコード]</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 名前空間</h2></td></tr>
-<tr class="memitem:d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
+<tr class="memitem:d3/dda/namespaceiutest" id="r_d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
 <tr class="memdesc:d3/dda/namespaceiutest"><td class="mdescLeft">&#160;</td><td class="mdescRight">iutest root namespace <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -169,7 +270,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2026年09月03日(木) 01時29分46秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2026年09月03日(木) 02時21分29秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

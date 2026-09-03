@@ -1,0 +1,9 @@
+<map id="iutest::TestEnv::ReleaseGlobalTestEnvironment" name="iutest::TestEnv::ReleaseGlobalTestEnvironment">
+<area shape="rect" id="Node000001" title="グローバル環境セットクラスの削除" alt="" coords="557,41,733,81"/>
+<area shape="rect" id="Node000002" href="$d7/d8c/classiutest_1_1_test_env.html#af1aed0bd741f7b3213025c95fecd6fae" title="default package name を追加" alt="" coords="312,41,509,81"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="543,64,510,64,510,59,543,59"/>
+<area shape="rect" id="Node000003" href="$d8/d3d/classiutest_1_1_test_info.html#a9d583ad9dac90cb8be931fb6cf32b612" title=" " alt="" coords="5,5,264,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="298,49,264,45,264,40,299,44"/>
+<area shape="rect" id="Node000004" href="$d3/d87/classiutest_1_1_test_suite.html#a084e611692828b4d427001e415bba446" title=" " alt="" coords="45,70,225,125"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="299,79,225,88,224,83,298,73"/>
+</map>

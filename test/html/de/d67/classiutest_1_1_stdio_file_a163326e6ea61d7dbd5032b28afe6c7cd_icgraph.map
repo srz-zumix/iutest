@@ -1,4 +1,5 @@
 <map id="iutest::StdioFile::Read" name="iutest::StdioFile::Read">
-<area shape="rect" id="node1" title="読み込み" alt="" coords="220,5,384,32"/>
-<area shape="rect" id="node2" href="$d3/d61/classiutest_1_1_temp_file.html#a291322cf5a58046fd314f4fa2df0c642" title="読み込み" alt="" coords="5,5,172,32"/>
+<area shape="rect" id="Node000001" title="読み込み" alt="" coords="220,5,384,31"/>
+<area shape="rect" id="Node000002" href="$d3/d61/classiutest_1_1_temp_file.html#a291322cf5a58046fd314f4fa2df0c642" title="読み込み" alt="" coords="5,5,172,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="206,21,172,21,172,15,206,15"/>
 </map>

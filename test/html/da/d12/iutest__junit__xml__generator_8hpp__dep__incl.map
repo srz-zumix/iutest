@@ -1,6 +1,9 @@
 <map id="listener/iutest_junit_xml_generator.hpp" name="listener/iutest_junit_xml_generator.hpp">
-<area shape="rect" id="node1" title="output junit xml event listener" alt="" coords="9,5,159,47"/>
-<area shape="rect" id="node2" href="$dd/d6c/iutest__stderr__xml__generator_8hpp.html" title="output stderr (junit) xml event listener" alt="" coords="5,95,163,136"/>
-<area shape="rect" id="node3" href="$d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="41,184,127,211"/>
-<area shape="rect" id="node4" href="$d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="27,259,141,285"/>
+<area shape="rect" id="Node000001" title="output junit xml event listener" alt="" coords="9,5,159,45"/>
+<area shape="rect" id="Node000002" href="$dd/d6c/iutest__stderr__xml__generator_8hpp.html" title="output stderr (junit) xml event listener" alt="" coords="5,93,163,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,59,87,93,81,93,81,59"/>
+<area shape="rect" id="Node000003" href="$d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="41,181,127,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="87,147,87,181,81,181,81,147"/>
+<area shape="rect" id="Node000004" href="$d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="27,255,141,280"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="87,220,87,255,81,255,81,220"/>
 </map>

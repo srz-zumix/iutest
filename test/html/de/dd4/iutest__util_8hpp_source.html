@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: iutest_util.hpp ソースファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -19,10 +19,9 @@
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.14</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">iutest<span id="projectnumber">&#160;1.17.99.14</span>
    </div>
   </td>
  </tr>
@@ -30,22 +29,28 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.9.1 -->
+<!-- 構築: Doxygen 1.9.8 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
 <script type="text/javascript" src="../../menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
   initMenu('../../',true,false,'search.php','検索');
   $(document).ready(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(1); });
+/* @license-end */
+</script>
 </div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -56,69 +61,80 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
 </div>
 
 <div class="header">
-  <div class="headertitle">
-<div class="title">iutest_util.hpp</div>  </div>
+  <div class="headertitle"><div class="title">iutest_util.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="../../de/dd4/iutest__util_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//======================================================================</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#ifndef INCG_IRIS_IUTEST_UTIL_HPP_EBAC3846_4D1E_4B32_A85F_6D6A7CCFAF75_</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#define INCG_IRIS_IUTEST_UTIL_HPP_EBAC3846_4D1E_4B32_A85F_6D6A7CCFAF75_</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//======================================================================</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// include</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">// IWYU pragma: begin_exports</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../dc/dbb/iutest__util__assertion_8hpp.html">util/iutest_util_assertion.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../df/de1/iutest__util__output_8hpp.html">util/iutest_util_output.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../df/d01/iutest__util__quiet__result__printer_8hpp.html">util/iutest_util_quiet_result_printer.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d8/def/iutest__util__tests_8hpp.html">util/iutest_util_tests.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">// IWYU pragma: end_exports</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#if defined(MS_CPP_UNITTESTFRAMEWORK)</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../dc/dce/iutest__util__vc__unittest_8hpp.html">util/iutest_util_vc_unittest.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d8/dbf/namespaceiuutil.html">iuutil</a></div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="../../d8/dbf/namespaceiuutil.html">   35</a></span>&#160;{</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9af52b2856871d318fcaa65b1452e7e7">ReleaseDefaultXmlGenerator</a>()</div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9af52b2856871d318fcaa65b1452e7e7">   42</a></span>&#160;{</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html">::iutest::TestEventListeners</a>&amp; listeners = <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">::iutest::UnitTest::GetInstance</a>()-&gt;<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#ae09115bd12edb303535b0ab93ade6005">listeners</a>();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">delete</span> listeners.<a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a1cfc2c7548e26395bd1be19928d6fe8c">Release</a>(listeners.<a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a72ecb0d6e12741b775dbcd05d7a48b5f">default_xml_generator</a>());</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}   <span class="comment">// end of namespace iuutil</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#define IUTEST_FILESYSTEM_INSTANTIATE(file_class_name)  IIUT_FILESYSTEM_INSTANTIATE_(file_class_name)</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga8ba399df1d5004bcfe85532ea984b5e7">   55</a></span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#define IIUT_FILESYSTEM_INSTANTIATE_(file_class_name)   \</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">    static ::iutest::FileSystem&lt; file_class_name &gt; IUTEST_ATTRIBUTE_UNUSED_ s_iutest_filesystem_</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// INCG_IRIS_IUTEST_UTIL_HPP_EBAC3846_4D1E_4B32_A85F_6D6A7CCFAF75_</span></div>
-<div class="ttc" id="aclassiutest_1_1_test_event_listeners_html"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html">iutest::TestEventListeners</a></div><div class="ttdoc">イベントリスナーの管理クラス</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:169</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_event_listeners_html_a1cfc2c7548e26395bd1be19928d6fe8c"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a1cfc2c7548e26395bd1be19928d6fe8c">iutest::TestEventListeners::Release</a></div><div class="ttdeci">TestEventListener * Release(TestEventListener *listener)</div><div class="ttdoc">リスナーの解放</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:184</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_event_listeners_html_a72ecb0d6e12741b775dbcd05d7a48b5f"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a72ecb0d6e12741b775dbcd05d7a48b5f">iutest::TestEventListeners::default_xml_generator</a></div><div class="ttdeci">TestEventListener * default_xml_generator() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">デフォルトxml出力リスナー取得</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:205</div></div>
-<div class="ttc" id="aclassiutest_1_1_unit_test_html_a1154caf184eb447dd0fe5fbde60e1868"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">iutest::UnitTest::GetInstance</a></div><div class="ttdeci">static UnitTest * GetInstance()</div><div class="ttdoc">UnitTest インスタンスの取得</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:43</div></div>
-<div class="ttc" id="aclassiutest_1_1_unit_test_html_ae09115bd12edb303535b0ab93ade6005"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#ae09115bd12edb303535b0ab93ade6005">iutest::UnitTest::listeners</a></div><div class="ttdeci">TestEventListeners &amp; listeners() const</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:123</div></div>
-<div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga9af52b2856871d318fcaa65b1452e7e7"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9af52b2856871d318fcaa65b1452e7e7">iuutil::ReleaseDefaultXmlGenerator</a></div><div class="ttdeci">void ReleaseDefaultXmlGenerator()</div><div class="ttdoc">Xml Generator の解放</div><div class="ttdef"><b>Definition:</b> iutest_util.hpp:42</div></div>
+<a href="../../de/dd4/iutest__util_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//======================================================================</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">//-----------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">//-----------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">//======================================================================</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#ifndef INCG_IRIS_IUTEST_UTIL_HPP_EBAC3846_4D1E_4B32_A85F_6D6A7CCFAF75_</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#define INCG_IRIS_IUTEST_UTIL_HPP_EBAC3846_4D1E_4B32_A85F_6D6A7CCFAF75_</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment">//======================================================================</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">// include</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">// IWYU pragma: begin_exports</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;<a class="code" href="../../dc/dbb/iutest__util__assertion_8hpp.html">util/iutest_util_assertion.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="../../df/de1/iutest__util__output_8hpp.html">util/iutest_util_output.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;<a class="code" href="../../df/d01/iutest__util__quiet__result__printer_8hpp.html">util/iutest_util_quiet_result_printer.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &quot;<a class="code" href="../../d8/def/iutest__util__tests_8hpp.html">util/iutest_util_tests.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">// IWYU pragma: end_exports</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#if defined(MS_CPP_UNITTESTFRAMEWORK)</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &quot;<a class="code" href="../../dc/dce/iutest__util__vc__unittest_8hpp.html">util/iutest_util_vc_unittest.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d8/dbf/namespaceiuutil.html">iuutil</a></div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="}">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="../../d8/dbf/namespaceiuutil.html">   35</a></span>{</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9af52b2856871d318fcaa65b1452e7e7">ReleaseDefaultXmlGenerator</a>()</div>
+<div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9af52b2856871d318fcaa65b1452e7e7">   42</a></span>{</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_class" href="../../d3/d08/classiutest_1_1_test_event_listeners.html">::iutest::TestEventListeners</a>&amp; listeners = <a class="code hl_function" href="../../de/d13/classiutest_1_1_unit_test.html#a4a14d4e13ff22912d9646cf142b7a236">::iutest::UnitTest::GetInstance</a>()-&gt;<a class="code hl_function" href="../../de/d13/classiutest_1_1_unit_test.html#aca619faca8707dba316cc60650436cac">listeners</a>();</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">delete</span> listeners.<a class="code hl_function" href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a481c4908f4cdbd2d14d3022d3b25b753">Release</a>(listeners.<a class="code hl_function" href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a321a244da7dbcb997921c09242dc0422">default_xml_generator</a>());</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}   <span class="comment">// end of namespace iuutil</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#define IUTEST_FILESYSTEM_INSTANTIATE(file_class_name)  IIUT_FILESYSTEM_INSTANTIATE_(file_class_name)</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga8ba399df1d5004bcfe85532ea984b5e7">   55</a></span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#define IIUT_FILESYSTEM_INSTANTIATE_(file_class_name)   \</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">    static ::iutest::FileSystem&lt; file_class_name &gt; IUTEST_ATTRIBUTE_UNUSED_ s_iutest_filesystem_</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#endif </span><span class="comment">// INCG_IRIS_IUTEST_UTIL_HPP_EBAC3846_4D1E_4B32_A85F_6D6A7CCFAF75_</span></div>
+<div class="ttc" id="aclassiutest_1_1_test_event_listeners_html"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html">iutest::TestEventListeners</a></div><div class="ttdoc">イベントリスナーの管理クラス</div><div class="ttdef"><b>Definition</b> iutest_listener.hpp:169</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_event_listeners_html_a321a244da7dbcb997921c09242dc0422"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a321a244da7dbcb997921c09242dc0422">iutest::TestEventListeners::default_xml_generator</a></div><div class="ttdeci">TestEventListener * default_xml_generator() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">デフォルトxml出力リスナー取得</div><div class="ttdef"><b>Definition</b> iutest_listener.hpp:205</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_event_listeners_html_a481c4908f4cdbd2d14d3022d3b25b753"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a481c4908f4cdbd2d14d3022d3b25b753">iutest::TestEventListeners::Release</a></div><div class="ttdeci">TestEventListener * Release(TestEventListener *listener)</div><div class="ttdoc">リスナーの解放</div><div class="ttdef"><b>Definition</b> iutest_listener.hpp:184</div></div>
+<div class="ttc" id="aclassiutest_1_1_unit_test_html_a4a14d4e13ff22912d9646cf142b7a236"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a4a14d4e13ff22912d9646cf142b7a236">iutest::UnitTest::GetInstance</a></div><div class="ttdeci">static UnitTest * GetInstance()</div><div class="ttdoc">UnitTest インスタンスの取得</div><div class="ttdef"><b>Definition</b> iutest_core.hpp:43</div></div>
+<div class="ttc" id="aclassiutest_1_1_unit_test_html_aca619faca8707dba316cc60650436cac"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#aca619faca8707dba316cc60650436cac">iutest::UnitTest::listeners</a></div><div class="ttdeci">TestEventListeners &amp; listeners() const</div><div class="ttdef"><b>Definition</b> iutest_core.hpp:123</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga9af52b2856871d318fcaa65b1452e7e7"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9af52b2856871d318fcaa65b1452e7e7">iuutil::ReleaseDefaultXmlGenerator</a></div><div class="ttdeci">void ReleaseDefaultXmlGenerator()</div><div class="ttdoc">Xml Generator の解放</div><div class="ttdef"><b>Definition</b> iutest_util.hpp:42</div></div>
+<div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
 <div class="ttc" id="aiutest__util__assertion_8hpp_html"><div class="ttname"><a href="../../dc/dbb/iutest__util__assertion_8hpp.html">iutest_util_assertion.hpp</a></div><div class="ttdoc">iris unit test assertion 拡張 ファイル</div></div>
 <div class="ttc" id="aiutest__util__output_8hpp_html"><div class="ttname"><a href="../../df/de1/iutest__util__output_8hpp.html">iutest_util_output.hpp</a></div><div class="ttdoc">iris unit test print 出力 utility ファイル</div></div>
 <div class="ttc" id="aiutest__util__quiet__result__printer_8hpp_html"><div class="ttname"><a href="../../df/d01/iutest__util__quiet__result__printer_8hpp.html">iutest_util_quiet_result_printer.hpp</a></div><div class="ttdoc">iris unit test quiet result printer</div></div>
 <div class="ttc" id="aiutest__util__tests_8hpp_html"><div class="ttname"><a href="../../d8/def/iutest__util__tests_8hpp.html">iutest_util_tests.hpp</a></div><div class="ttdoc">iris unit test テスト情報 utility ファイル</div></div>
 <div class="ttc" id="aiutest__util__vc__unittest_8hpp_html"><div class="ttname"><a href="../../dc/dce/iutest__util__vc__unittest_8hpp.html">iutest_util_vc_unittest.hpp</a></div><div class="ttdoc">iris unit test, visual studio 11 C++ Unit Test Framework 対応 ファイル</div></div>
-<div class="ttc" id="anamespaceiuutil_html"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html">iuutil</a></div><div class="ttdoc">iutest utility namespace</div><div class="ttdef"><b>Definition:</b> iutest_util.hpp:36</div></div>
+<div class="ttc" id="anamespaceiuutil_html"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html">iuutil</a></div><div class="ttdoc">iutest utility namespace</div><div class="ttdef"><b>Definition</b> iutest_util.hpp:36</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2026年09月03日(木) 01時29分46秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2026年09月03日(木) 02時21分28秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

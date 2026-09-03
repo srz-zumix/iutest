@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: util/iutest_util_vc_unittest.hpp ファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -19,10 +19,9 @@
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.14</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">iutest<span id="projectnumber">&#160;1.17.99.14</span>
    </div>
   </td>
  </tr>
@@ -30,21 +29,22 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.9.1 -->
+<!-- 構築: Doxygen 1.9.8 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
 <script type="text/javascript" src="../../menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
   initMenu('../../',true,false,'search.php','検索');
   $(document).ready(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -55,9 +55,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -68,8 +75,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#namespaces">名前空間</a>  </div>
-  <div class="headertitle">
-<div class="title">iutest_util_vc_unittest.hpp ファイル</div>  </div>
+  <div class="headertitle"><div class="title">iutest_util_vc_unittest.hpp ファイル</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -84,42 +90,48 @@ iutest_util_vc_unittest.hpp の依存先関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/d39/iutest__util__vc__unittest_8hpp__incl.png" border="0" usemap="#autil_2iutest__util__vc__unittest_8hpp" alt=""/></div>
 <map name="autil_2iutest__util__vc__unittest_8hpp" id="autil_2iutest__util__vc__unittest_8hpp">
-<area shape="rect" title="iris unit test, visual studio 11 C++ Unit Test Framework 対応 ファイル" alt="" coords="87,5,222,47"/>
-<area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="163,184,296,211"/>
-<area shape="rect" title=" " alt="" coords="25,102,137,129"/>
-<area shape="rect" href="../../d9/d06/iutest__prod_8hpp.html" title="iris unit test production code 対応用 ファイル" alt="" coords="162,95,297,136"/>
-<area shape="rect" href="../../d8/def/iutest__util__tests_8hpp.html" title="iris unit test テスト情報 utility ファイル" alt="" coords="321,95,479,136"/>
+<area shape="rect" title="iris unit test, visual studio 11 C++ Unit Test Framework 対応 ファイル" alt="" coords="87,5,222,45"/>
+<area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="163,181,296,207"/>
+<area shape="poly" title=" " alt="" coords="94,48,57,64,25,84,15,95,9,107,9,119,15,132,35,146,68,159,150,178,149,184,66,164,33,151,11,135,4,120,4,106,10,92,22,80,54,59,92,43"/>
+<area shape="rect" title=" " alt="" coords="25,101,137,126"/>
+<area shape="poly" title=" " alt="" coords="140,47,103,91,98,88,136,44"/>
+<area shape="rect" href="../../d9/d06/iutest__prod_8hpp.html" title="iris unit test production code 対応用 ファイル" alt="" coords="162,93,297,133"/>
+<area shape="poly" title=" " alt="" coords="173,44,206,81,202,85,169,47"/>
+<area shape="rect" href="../../d8/def/iutest__util__tests_8hpp.html" title="iris unit test テスト情報 utility ファイル" alt="" coords="321,93,479,133"/>
+<area shape="poly" title=" " alt="" coords="209,43,334,86,333,91,208,48"/>
+<area shape="poly" title=" " alt="" coords="232,134,232,167,227,167,227,134"/>
+<area shape="poly" title=" " alt="" coords="360,136,268,178,266,173,358,131"/>
 </map>
 </div>
 </div>
 <p><a href="../../dc/dce/iutest__util__vc__unittest_8hpp_source.html">[ソースコード]</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 名前空間</h2></td></tr>
-<tr class="memitem:d8/dbf/namespaceiuutil"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html">iuutil</a></td></tr>
+<tr class="memitem:d8/dbf/namespaceiuutil" id="r_d8/dbf/namespaceiuutil"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html">iuutil</a></td></tr>
 <tr class="memdesc:d8/dbf/namespaceiuutil"><td class="mdescLeft">&#160;</td><td class="mdescRight">iutest utility namespace <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 マクロ定義</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
-<tr class="memitem:a620d00f1c27d534e477e9ffe1739b3ea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST</b>(testsuite_,  testname_)</td></tr>
+<tr class="memitem:a620d00f1c27d534e477e9ffe1739b3ea" id="r_a620d00f1c27d534e477e9ffe1739b3ea"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dce/iutest__util__vc__unittest_8hpp.html#a620d00f1c27d534e477e9ffe1739b3ea">IUTEST</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)</td></tr>
 <tr class="separator:a620d00f1c27d534e477e9ffe1739b3ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b67b40915d1674f2ae6342c47ea5689"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_F</b>(testfixture_,  testname_)</td></tr>
+<tr class="memitem:a7b67b40915d1674f2ae6342c47ea5689" id="r_a7b67b40915d1674f2ae6342c47ea5689"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dce/iutest__util__vc__unittest_8hpp.html#a7b67b40915d1674f2ae6342c47ea5689">IUTEST_F</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)</td></tr>
 <tr class="separator:a7b67b40915d1674f2ae6342c47ea5689"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e4ed763e41980f829340e2778f99545"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_P</b>(testfixture_,  testname_)</td></tr>
+<tr class="memitem:a4e4ed763e41980f829340e2778f99545" id="r_a4e4ed763e41980f829340e2778f99545"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dce/iutest__util__vc__unittest_8hpp.html#a4e4ed763e41980f829340e2778f99545">IUTEST_P</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)</td></tr>
 <tr class="separator:a4e4ed763e41980f829340e2778f99545"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc5e1d0a44e2ffa4d0a777389c65d367"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TYPED_TEST</b>(testfixture_,  testname_)</td></tr>
+<tr class="memitem:abc5e1d0a44e2ffa4d0a777389c65d367" id="r_abc5e1d0a44e2ffa4d0a777389c65d367"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dce/iutest__util__vc__unittest_8hpp.html#abc5e1d0a44e2ffa4d0a777389c65d367">IUTEST_TYPED_TEST</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)</td></tr>
 <tr class="separator:abc5e1d0a44e2ffa4d0a777389c65d367"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d8f8f9dd27af00596c1f47543dcd5fe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TYPED_TEST_P</b>(testfixture_,  testname_)</td></tr>
+<tr class="memitem:a8d8f8f9dd27af00596c1f47543dcd5fe" id="r_a8d8f8f9dd27af00596c1f47543dcd5fe"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dce/iutest__util__vc__unittest_8hpp.html#a8d8f8f9dd27af00596c1f47543dcd5fe">IUTEST_TYPED_TEST_P</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)</td></tr>
 <tr class="separator:a8d8f8f9dd27af00596c1f47543dcd5fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a050f986184d48179da854c3b7a5475c5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_VCUNIT_I</b>(testsuite_,  testname_,  className,  methodName)</td></tr>
+<tr class="memitem:a050f986184d48179da854c3b7a5475c5" id="r_a050f986184d48179da854c3b7a5475c5"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dce/iutest__util__vc__unittest_8hpp.html#a050f986184d48179da854c3b7a5475c5">IUTEST_VCUNIT_I</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">className</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">methodName</a>)</td></tr>
 <tr class="separator:a050f986184d48179da854c3b7a5475c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca6cf6696cf8c87ffddbc8e842838cc9"><td class="memItemLeft" align="right" valign="top"><a id="aca6cf6696cf8c87ffddbc8e842838cc9"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_VCUNIT_EXEC_</b>(testsuite_,  testname_)&#160;&#160;&#160;    Body( &quot;*&quot; #testsuite_ &quot;.&quot; #testname_ &quot;*&quot; )</td></tr>
+<tr class="memitem:aca6cf6696cf8c87ffddbc8e842838cc9" id="r_aca6cf6696cf8c87ffddbc8e842838cc9"><td class="memItemLeft" align="right" valign="top"><a id="aca6cf6696cf8c87ffddbc8e842838cc9" name="aca6cf6696cf8c87ffddbc8e842838cc9"></a>
+#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_VCUNIT_EXEC_</b>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)&#160;&#160;&#160;    Body( &quot;*&quot; #<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a> &quot;.&quot; #<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a> &quot;*&quot; )</td></tr>
 <tr class="separator:aca6cf6696cf8c87ffddbc8e842838cc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9acb14451a80ad384877d66b0f12e45b"><td class="memItemLeft" align="right" valign="top"><a id="a9acb14451a80ad384877d66b0f12e45b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_VCUNIT_TEST_CLASS</b>(className)&#160;&#160;&#160;    ONLY_USED_AT_NAMESPACE_SCOPE class className : public ::iuutil::VisualStudio::TestClass&lt;className&gt;</td></tr>
+<tr class="memitem:a9acb14451a80ad384877d66b0f12e45b" id="r_a9acb14451a80ad384877d66b0f12e45b"><td class="memItemLeft" align="right" valign="top"><a id="a9acb14451a80ad384877d66b0f12e45b" name="a9acb14451a80ad384877d66b0f12e45b"></a>
+#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_VCUNIT_TEST_CLASS</b>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">className</a>)&#160;&#160;&#160;    <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">ONLY_USED_AT_NAMESPACE_SCOPE</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">class</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">className</a> : <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">public</a> ::iuutil::VisualStudio::TestClass&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">className</a>&gt;</td></tr>
 <tr class="separator:a9acb14451a80ad384877d66b0f12e45b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
@@ -128,23 +140,23 @@ iutest_util_vc_unittest.hpp の依存先関係図:</div>
 <dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2015-2018, Takazumi Shirayanagi<br  />
 This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><h2 class="groupheader">マクロ定義詳解</h2>
-<a id="a620d00f1c27d534e477e9ffe1739b3ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a620d00f1c27d534e477e9ffe1739b3ea">&#9670;&nbsp;</a></span>IUTEST</h2>
+<a id="a620d00f1c27d534e477e9ffe1739b3ea" name="a620d00f1c27d534e477e9ffe1739b3ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a620d00f1c27d534e477e9ffe1739b3ea">&#9670;&#160;</a></span>IUTEST</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define IUTEST</td>
+          <td class="memname">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a> IUTEST</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">testsuite_, </td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">testname_&#160;</td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -153,29 +165,29 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_I(testsuite_, testname_, testsuite_##testname_##_class, testsuite_##<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">_</a>##testname_);        \</div>
-<div class="line">    IUTEST_TEST(testsuite_, testname_)</div>
-<div class="ttc" id="agroup___m_a_t_c_h_e_r_s_html_gad2cb56dba55586fba899a4785616081b"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">iutest::matchers::_</a></div><div class="ttdeci">const detail::AnythingMatcher _</div><div class="ttdoc">Anything matcher</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2623</div></div>
+<b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_I(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>##<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>##<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">_class</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>##_##<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>);        <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">\</a></div>
+<div class="line"><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">    IUTEST_TEST</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)</div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga9111f6c99c043c607e4c7dc8d122d6de"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">StaticAssertTypeEq</a></div><div class="ttdeci">#define StaticAssertTypeEq</div><div class="ttdoc">型アサーション</div><div class="ttdef"><b>Definition</b> iutest_static_assertion.hpp:54</div></div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a7b67b40915d1674f2ae6342c47ea5689"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b67b40915d1674f2ae6342c47ea5689">&#9670;&nbsp;</a></span>IUTEST_F</h2>
+<a id="a7b67b40915d1674f2ae6342c47ea5689" name="a7b67b40915d1674f2ae6342c47ea5689"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b67b40915d1674f2ae6342c47ea5689">&#9670;&#160;</a></span>IUTEST_F</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define IUTEST_F</td>
+          <td class="memname">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a> IUTEST_F</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">testfixture_, </td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">testname_&#160;</td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -184,28 +196,28 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_I(testfixture_, testname_, testfixture_##testname_##_class, testfixture_##<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">_</a>##testname_);  \</div>
-<div class="line">    IUTEST_TEST_F_(testfixture_, testname_)</div>
+<b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_I(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>##<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>##<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">_class</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>##_##<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>);  <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">\</a></div>
+<div class="line"><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">    IUTEST_TEST_F_</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a4e4ed763e41980f829340e2778f99545"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e4ed763e41980f829340e2778f99545">&#9670;&nbsp;</a></span>IUTEST_P</h2>
+<a id="a4e4ed763e41980f829340e2778f99545" name="a4e4ed763e41980f829340e2778f99545"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e4ed763e41980f829340e2778f99545">&#9670;&#160;</a></span>IUTEST_P</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define IUTEST_P</td>
+          <td class="memname">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a> IUTEST_P</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">testfixture_, </td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">testname_&#160;</td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -214,28 +226,28 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_I(testfixture_, testname_, testfixture_##testname_##_class, testfixture_##<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">_</a>##testname_);  \</div>
-<div class="line">    IUTEST_TEST_P_(testfixture_, testname_)</div>
+<b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_I(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>##<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>##<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">_class</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>##_##<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>);  <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">\</a></div>
+<div class="line"><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">    IUTEST_TEST_P_</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="abc5e1d0a44e2ffa4d0a777389c65d367"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc5e1d0a44e2ffa4d0a777389c65d367">&#9670;&nbsp;</a></span>IUTEST_TYPED_TEST</h2>
+<a id="abc5e1d0a44e2ffa4d0a777389c65d367" name="abc5e1d0a44e2ffa4d0a777389c65d367"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc5e1d0a44e2ffa4d0a777389c65d367">&#9670;&#160;</a></span>IUTEST_TYPED_TEST</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define IUTEST_TYPED_TEST</td>
+          <td class="memname">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a> IUTEST_TYPED_TEST</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">testfixture_, </td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">testname_&#160;</td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -244,28 +256,28 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_I(testfixture_, testname_, testfixture_##testname_##_class, testfixture_##<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">_</a>##testname_);  \</div>
-<div class="line">    IUTEST_TYPED_TEST_(testfixture_, testname_)</div>
+<b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_I(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>##<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>##<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">_class</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>##_##<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>);  <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">\</a></div>
+<div class="line"><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">    IUTEST_TYPED_TEST_</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a8d8f8f9dd27af00596c1f47543dcd5fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d8f8f9dd27af00596c1f47543dcd5fe">&#9670;&nbsp;</a></span>IUTEST_TYPED_TEST_P</h2>
+<a id="a8d8f8f9dd27af00596c1f47543dcd5fe" name="a8d8f8f9dd27af00596c1f47543dcd5fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d8f8f9dd27af00596c1f47543dcd5fe">&#9670;&#160;</a></span>IUTEST_TYPED_TEST_P</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define IUTEST_TYPED_TEST_P</td>
+          <td class="memname">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a> IUTEST_TYPED_TEST_P</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">testfixture_, </td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">testname_&#160;</td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -274,40 +286,40 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_I(testfixture_, testname_, testfixture_##testname_##_class, testfixture_##<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">_</a>##testname_);  \</div>
-<div class="line">    IIUT_TYPED_TEST_P_(testfixture_, testname_)</div>
+<b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_I(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>##<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>##<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">_class</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>##_##<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>);  <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">\</a></div>
+<div class="line"><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">    IIUT_TYPED_TEST_P_</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testfixture_</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a050f986184d48179da854c3b7a5475c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a050f986184d48179da854c3b7a5475c5">&#9670;&nbsp;</a></span>IUTEST_VCUNIT_I</h2>
+<a id="a050f986184d48179da854c3b7a5475c5" name="a050f986184d48179da854c3b7a5475c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a050f986184d48179da854c3b7a5475c5">&#9670;&#160;</a></span>IUTEST_VCUNIT_I</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define IUTEST_VCUNIT_I</td>
+          <td class="memname">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a> IUTEST_VCUNIT_I</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">testsuite_, </td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">testname_, </td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">className, </td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">className</a>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">methodName&#160;</td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">methodName</a>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -316,10 +328,10 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_TEST_CLASS(className) {                               \</div>
-<div class="line">    public: TEST_METHOD(methodName) {                                   \</div>
-<div class="line">        IUTEST_VCUNIT_EXEC_(testsuite_, testname_); }                   \</div>
-<div class="line">        IIUT_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName)            \</div>
+<b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_TEST_CLASS(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">className</a>) {                               \</div>
+<div class="line">    <span class="keyword">public</span>: <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">TEST_METHOD</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">methodName</a>) {                                   <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">\</a></div>
+<div class="line"><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">        IUTEST_VCUNIT_EXEC_</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>); }                   <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">\</a></div>
+<div class="line"><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">        IIUT_VCUNIT_METHOD_ATTRIBUTE</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">methodName</a>)            \</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
 </div>
@@ -327,7 +339,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2026年09月03日(木) 01時29分46秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2026年09月03日(木) 02時21分29秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

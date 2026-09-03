@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: iutest::TestFlag クラス</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -19,10 +19,9 @@
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.14</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">iutest<span id="projectnumber">&#160;1.17.99.14</span>
    </div>
   </td>
  </tr>
@@ -30,21 +29,22 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.9.1 -->
+<!-- 構築: Doxygen 1.9.8 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
 <script type="text/javascript" src="../../menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
   initMenu('../../',true,false,'search.php','検索');
   $(document).ready(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -55,9 +55,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -71,8 +78,7 @@ $(function() {
 <a href="#pub-types">公開型</a> &#124;
 <a href="#pub-static-methods">静的公開メンバ関数</a> &#124;
 <a href="../../d7/d5e/classiutest_1_1_test_flag-members.html">全メンバ一覧</a>  </div>
-  <div class="headertitle">
-<div class="title">iutest::TestFlag クラス</div>  </div>
+  <div class="headertitle"><div class="title">iutest::TestFlag クラス</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -81,9 +87,9 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="../../d0/dda/iutest__env_8hpp_source.html">iutest_env.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 公開型</h2></td></tr>
-<tr class="memitem:a397f885a4bd35c356163b4cf0eab2ac8"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d00/classiutest_1_1_test_flag.html#a397f885a4bd35c356163b4cf0eab2ac8">Kind</a> { <br />
+<tr class="memitem:a397f885a4bd35c356163b4cf0eab2ac8" id="r_a397f885a4bd35c356163b4cf0eab2ac8"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d00/classiutest_1_1_test_flag.html#a397f885a4bd35c356163b4cf0eab2ac8">Kind</a> { <br />
 &#160;&#160;<a class="el" href="../../d8/d00/classiutest_1_1_test_flag.html#a397f885a4bd35c356163b4cf0eab2ac8aad1836a4f1fda875e746569db19ddaf7">SHUFFLE_TESTS</a> = 0x00000001
 , <a class="el" href="../../d8/d00/classiutest_1_1_test_flag.html#a397f885a4bd35c356163b4cf0eab2ac8aa5044159458d44028b38f8d3728d55cf">RUN_DISABLED_TESTS</a> = 0x00000002
 , <a class="el" href="../../d8/d00/classiutest_1_1_test_flag.html#a397f885a4bd35c356163b4cf0eab2ac8a0ecd8271165109eb1c27c8764bd18224">FILTERING_TESTS</a> = 0x00000004
@@ -120,89 +126,89 @@ $(function() {
 <tr class="memdesc:a397f885a4bd35c356163b4cf0eab2ac8"><td class="mdescLeft">&#160;</td><td class="mdescRight">フラグ  <a href="../../d8/d00/classiutest_1_1_test_flag.html#a397f885a4bd35c356163b4cf0eab2ac8">[詳解]</a><br /></td></tr>
 <tr class="separator:a397f885a4bd35c356163b4cf0eab2ac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 静的公開メンバ関数</h2></td></tr>
-<tr class="memitem:aadd952de9809e7bfb8fcd5e2a11847f7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d00/classiutest_1_1_test_flag.html#aadd952de9809e7bfb8fcd5e2a11847f7">SetFlag</a> (int enable, int mask=-1)</td></tr>
-<tr class="memdesc:aadd952de9809e7bfb8fcd5e2a11847f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">フラグのビット操作  <a href="../../d8/d00/classiutest_1_1_test_flag.html#aadd952de9809e7bfb8fcd5e2a11847f7">[詳解]</a><br /></td></tr>
+<tr class="memitem:aadd952de9809e7bfb8fcd5e2a11847f7" id="r_aadd952de9809e7bfb8fcd5e2a11847f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">static</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d00/classiutest_1_1_test_flag.html#aadd952de9809e7bfb8fcd5e2a11847f7">SetFlag</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">enable</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">mask</a>=-1)</td></tr>
+<tr class="memdesc:aadd952de9809e7bfb8fcd5e2a11847f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">フラグのビット操作  <br /></td></tr>
 <tr class="separator:aadd952de9809e7bfb8fcd5e2a11847f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8b8153e11a8439174a98058eb54274f"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d00/classiutest_1_1_test_flag.html#aa8b8153e11a8439174a98058eb54274f">IsEnableFlag</a> (int flag)</td></tr>
-<tr class="memdesc:aa8b8153e11a8439174a98058eb54274f"><td class="mdescLeft">&#160;</td><td class="mdescRight">フラグが立っているかどうか  <a href="../../d8/d00/classiutest_1_1_test_flag.html#aa8b8153e11a8439174a98058eb54274f">[詳解]</a><br /></td></tr>
+<tr class="memitem:aa8b8153e11a8439174a98058eb54274f" id="r_aa8b8153e11a8439174a98058eb54274f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">static</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d00/classiutest_1_1_test_flag.html#aa8b8153e11a8439174a98058eb54274f">IsEnableFlag</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">flag</a>)</td></tr>
+<tr class="memdesc:aa8b8153e11a8439174a98058eb54274f"><td class="mdescLeft">&#160;</td><td class="mdescRight">フラグが立っているかどうか  <br /></td></tr>
 <tr class="separator:aa8b8153e11a8439174a98058eb54274f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
 <div class="textblock"><p>テストフラグ </p>
 </div><h2 class="groupheader">列挙型メンバ詳解</h2>
-<a id="a397f885a4bd35c356163b4cf0eab2ac8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a397f885a4bd35c356163b4cf0eab2ac8">&#9670;&nbsp;</a></span>Kind</h2>
+<a id="a397f885a4bd35c356163b4cf0eab2ac8" name="a397f885a4bd35c356163b4cf0eab2ac8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a397f885a4bd35c356163b4cf0eab2ac8">&#9670;&#160;</a></span>Kind</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="../../d8/d00/classiutest_1_1_test_flag.html#a397f885a4bd35c356163b4cf0eab2ac8">iutest::TestFlag::Kind</a></td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">enum</a> <a class="el" href="../../d8/d00/classiutest_1_1_test_flag.html#a397f885a4bd35c356163b4cf0eab2ac8">iutest::TestFlag::Kind</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>フラグ </p>
 <table class="fieldtable">
-<tr><th colspan="2">列挙値</th></tr><tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8aad1836a4f1fda875e746569db19ddaf7"></a>SHUFFLE_TESTS&#160;</td><td class="fielddoc"><p>シャッフルテスト </p>
+<tr><th colspan="2">列挙値</th></tr><tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8aad1836a4f1fda875e746569db19ddaf7" name="a397f885a4bd35c356163b4cf0eab2ac8aad1836a4f1fda875e746569db19ddaf7"></a>SHUFFLE_TESTS&#160;</td><td class="fielddoc"><p>シャッフルテスト </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8aa5044159458d44028b38f8d3728d55cf"></a>RUN_DISABLED_TESTS&#160;</td><td class="fielddoc"><p>DISABLED テストも実行 </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8aa5044159458d44028b38f8d3728d55cf" name="a397f885a4bd35c356163b4cf0eab2ac8aa5044159458d44028b38f8d3728d55cf"></a>RUN_DISABLED_TESTS&#160;</td><td class="fielddoc"><p>DISABLED テストも実行 </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a0ecd8271165109eb1c27c8764bd18224"></a>FILTERING_TESTS&#160;</td><td class="fielddoc"><p>テストのフィルタリング </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a0ecd8271165109eb1c27c8764bd18224" name="a397f885a4bd35c356163b4cf0eab2ac8a0ecd8271165109eb1c27c8764bd18224"></a>FILTERING_TESTS&#160;</td><td class="fielddoc"><p>テストのフィルタリング </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a38762a3d1bed33340d0df7d4b9a4919e"></a>BREAK_ON_FAILURE&#160;</td><td class="fielddoc"><p>テスト失敗時にブレーク </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a38762a3d1bed33340d0df7d4b9a4919e" name="a397f885a4bd35c356163b4cf0eab2ac8a38762a3d1bed33340d0df7d4b9a4919e"></a>BREAK_ON_FAILURE&#160;</td><td class="fielddoc"><p>テスト失敗時にブレーク </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a96361d2fc25e0b47c49998573a7aecab"></a>THROW_ON_FAILURE&#160;</td><td class="fielddoc"><p>致命的な失敗時に throw する </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a96361d2fc25e0b47c49998573a7aecab" name="a397f885a4bd35c356163b4cf0eab2ac8a96361d2fc25e0b47c49998573a7aecab"></a>THROW_ON_FAILURE&#160;</td><td class="fielddoc"><p>致命的な失敗時に throw する </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a42bdbd293e9a06063fa1e3c4eb3aa6c6"></a>WARNING_INTO_ERROR&#160;</td><td class="fielddoc"><p>警告をエラーとする </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a42bdbd293e9a06063fa1e3c4eb3aa6c6" name="a397f885a4bd35c356163b4cf0eab2ac8a42bdbd293e9a06063fa1e3c4eb3aa6c6"></a>WARNING_INTO_ERROR&#160;</td><td class="fielddoc"><p>警告をエラーとする </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a9a6814f5b69d8d425dee27e3c75aee39"></a>CONSOLE_COLOR_ON&#160;</td><td class="fielddoc"><p>色つき出力ON </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a9a6814f5b69d8d425dee27e3c75aee39" name="a397f885a4bd35c356163b4cf0eab2ac8a9a6814f5b69d8d425dee27e3c75aee39"></a>CONSOLE_COLOR_ON&#160;</td><td class="fielddoc"><p>色つき出力ON </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a21505f9122e7353f358be4d658249305"></a>CONSOLE_COLOR_OFF&#160;</td><td class="fielddoc"><p>色つき出力OFF </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a21505f9122e7353f358be4d658249305" name="a397f885a4bd35c356163b4cf0eab2ac8a21505f9122e7353f358be4d658249305"></a>CONSOLE_COLOR_OFF&#160;</td><td class="fielddoc"><p>色つき出力OFF </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a0540fd4b4bb914346bfaeb8a6ac45bd5"></a>CONSOLE_COLOR_ANSI&#160;</td><td class="fielddoc"><p>エスケープシーケンスで出力 </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a0540fd4b4bb914346bfaeb8a6ac45bd5" name="a397f885a4bd35c356163b4cf0eab2ac8a0540fd4b4bb914346bfaeb8a6ac45bd5"></a>CONSOLE_COLOR_ANSI&#160;</td><td class="fielddoc"><p>エスケープシーケンスで出力 </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a59139c90c7f03af68218e898e2a6a56d"></a>PRINT_TIME&#160;</td><td class="fielddoc"><p>経過時間の出力 </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a59139c90c7f03af68218e898e2a6a56d" name="a397f885a4bd35c356163b4cf0eab2ac8a59139c90c7f03af68218e898e2a6a56d"></a>PRINT_TIME&#160;</td><td class="fielddoc"><p>経過時間の出力 </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8ac2b4bad16c2afba26b284d7887adb7fc"></a>FILELOCATION_STYLE_MSVC&#160;</td><td class="fielddoc"><p>ファイル/行出力スタイルを Visual Studio スタイルにする </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8ac2b4bad16c2afba26b284d7887adb7fc" name="a397f885a4bd35c356163b4cf0eab2ac8ac2b4bad16c2afba26b284d7887adb7fc"></a>FILELOCATION_STYLE_MSVC&#160;</td><td class="fielddoc"><p>ファイル/行出力スタイルを Visual Studio スタイルにする </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a67947aee81f825fda4dd01e7f7414b55"></a>VERBOSE&#160;</td><td class="fielddoc"><p>verbose </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a67947aee81f825fda4dd01e7f7414b55" name="a397f885a4bd35c356163b4cf0eab2ac8a67947aee81f825fda4dd01e7f7414b55"></a>VERBOSE&#160;</td><td class="fielddoc"><p>verbose </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a73c0a0d544ae3fae0edf484d9006eb96"></a>CATCH_EXCEPTION_EACH&#160;</td><td class="fielddoc"><p>例外を catch する(TestInfo) </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a73c0a0d544ae3fae0edf484d9006eb96" name="a397f885a4bd35c356163b4cf0eab2ac8a73c0a0d544ae3fae0edf484d9006eb96"></a>CATCH_EXCEPTION_EACH&#160;</td><td class="fielddoc"><p>例外を catch <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de" title="型アサーション">する(TestInfo)</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a9189ffc06ef91bace2990fbe8db4aedf"></a>CATCH_EXCEPTION_GLOBAL&#160;</td><td class="fielddoc"><p>例外を catch する(UnitTest) </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a9189ffc06ef91bace2990fbe8db4aedf" name="a397f885a4bd35c356163b4cf0eab2ac8a9189ffc06ef91bace2990fbe8db4aedf"></a>CATCH_EXCEPTION_GLOBAL&#160;</td><td class="fielddoc"><p>例外を catch <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de" title="型アサーション">する(UnitTest)</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a93644c927210cc32db62646983904236"></a>CATCH_EXCEPTION&#160;</td><td class="fielddoc"><p>例外を catch する </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a93644c927210cc32db62646983904236" name="a397f885a4bd35c356163b4cf0eab2ac8a93644c927210cc32db62646983904236"></a>CATCH_EXCEPTION&#160;</td><td class="fielddoc"><p>例外を catch する </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a99b10c5ad7ede064acb4c693be96efdd"></a>SHOW_HELP&#160;</td><td class="fielddoc"><p>ヘルプ表示 </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a99b10c5ad7ede064acb4c693be96efdd" name="a397f885a4bd35c356163b4cf0eab2ac8a99b10c5ad7ede064acb4c693be96efdd"></a>SHOW_HELP&#160;</td><td class="fielddoc"><p>ヘルプ表示 </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a9845ae156c09540c96ac1a6623d6833c"></a>SHOW_VERSION&#160;</td><td class="fielddoc"><p>バージョン表示 </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a9845ae156c09540c96ac1a6623d6833c" name="a397f885a4bd35c356163b4cf0eab2ac8a9845ae156c09540c96ac1a6623d6833c"></a>SHOW_VERSION&#160;</td><td class="fielddoc"><p>バージョン表示 </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a1490245b68a3f58a23bcc41cd3eccf85"></a>SHOW_FEATURE&#160;</td><td class="fielddoc"><p>機能の出力 </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a1490245b68a3f58a23bcc41cd3eccf85" name="a397f885a4bd35c356163b4cf0eab2ac8a1490245b68a3f58a23bcc41cd3eccf85"></a>SHOW_FEATURE&#160;</td><td class="fielddoc"><p>機能の出力 </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8ab882889c6e99ca5412b56228c9fb5f95"></a>SHOW_SPEC&#160;</td><td class="fielddoc"><p>Specの出力 </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8ab882889c6e99ca5412b56228c9fb5f95" name="a397f885a4bd35c356163b4cf0eab2ac8ab882889c6e99ca5412b56228c9fb5f95"></a>SHOW_SPEC&#160;</td><td class="fielddoc"><p>Specの出力 </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a02fe95ba8b2fed606d90b5c143e3aed7"></a>SHOW_TESTS_LIST&#160;</td><td class="fielddoc"><p>テストのリスト表示 </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a02fe95ba8b2fed606d90b5c143e3aed7" name="a397f885a4bd35c356163b4cf0eab2ac8a02fe95ba8b2fed606d90b5c143e3aed7"></a>SHOW_TESTS_LIST&#160;</td><td class="fielddoc"><p>テストのリスト表示 </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8adcd921c630bd92ea0a45621800782b84"></a>SHOW_TESTS_LIST_WITH_WHERE&#160;</td><td class="fielddoc"><p>テストのリスト表示(with where) </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8adcd921c630bd92ea0a45621800782b84" name="a397f885a4bd35c356163b4cf0eab2ac8adcd921c630bd92ea0a45621800782b84"></a>SHOW_TESTS_LIST_WITH_WHERE&#160;</td><td class="fielddoc"><p><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de" title="型アサーション">テストのリスト表示(with where)</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a2631d33ac2f89f655517694b3458d9e8"></a>SHOW_INFO_MASK&#160;</td><td class="fielddoc"><p>情報表示系マスク </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a2631d33ac2f89f655517694b3458d9e8" name="a397f885a4bd35c356163b4cf0eab2ac8a2631d33ac2f89f655517694b3458d9e8"></a>SHOW_INFO_MASK&#160;</td><td class="fielddoc"><p>情報表示系マスク </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8aeb1df9bcd274bf443046ad944c5ccea9"></a>SHOW_MASK&#160;</td><td class="fielddoc"><p>表示系マスク </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8aeb1df9bcd274bf443046ad944c5ccea9" name="a397f885a4bd35c356163b4cf0eab2ac8aeb1df9bcd274bf443046ad944c5ccea9"></a>SHOW_MASK&#160;</td><td class="fielddoc"><p>表示系マスク </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a3acb619e5f598eaae53e301b2af7b013"></a>MASK&#160;</td><td class="fielddoc"><p>マスク </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a3acb619e5f598eaae53e301b2af7b013" name="a397f885a4bd35c356163b4cf0eab2ac8a3acb619e5f598eaae53e301b2af7b013"></a>MASK&#160;</td><td class="fielddoc"><p>マスク </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a7e612240bd9220031fa7d95884acb147"></a>DEFAULT&#160;</td><td class="fielddoc"><p>デフォルト </p>
+<tr><td class="fieldname"><a id="a397f885a4bd35c356163b4cf0eab2ac8a7e612240bd9220031fa7d95884acb147" name="a397f885a4bd35c356163b4cf0eab2ac8a7e612240bd9220031fa7d95884acb147"></a>DEFAULT&#160;</td><td class="fielddoc"><p>デフォルト </p>
 </td></tr>
 </table>
 
 </div>
 </div>
 <h2 class="groupheader">関数詳解</h2>
-<a id="aa8b8153e11a8439174a98058eb54274f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8b8153e11a8439174a98058eb54274f">&#9670;&nbsp;</a></span>IsEnableFlag()</h2>
+<a id="aa8b8153e11a8439174a98058eb54274f" name="aa8b8153e11a8439174a98058eb54274f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8b8153e11a8439174a98058eb54274f">&#9670;&#160;</a></span>IsEnableFlag()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -211,9 +217,9 @@ $(function() {
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool iutest::TestFlag::IsEnableFlag </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">static</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">bool</a> iutest::TestFlag::IsEnableFlag </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td>
           <td class="paramname"><em>flag</em></td><td>)</td>
           <td></td>
         </tr>
@@ -233,11 +239,21 @@ $(function() {
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>真偽値 </dd></dl>
+<div class="dynheader">
+被呼び出し関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d8/d00/classiutest_1_1_test_flag_aa8b8153e11a8439174a98058eb54274f_icgraph.png" border="0" usemap="#ad8/d00/classiutest_1_1_test_flag_aa8b8153e11a8439174a98058eb54274f_icgraph" alt=""/></div>
+<map name="ad8/d00/classiutest_1_1_test_flag_aa8b8153e11a8439174a98058eb54274f_icgraph" id="ad8/d00/classiutest_1_1_test_flag_aa8b8153e11a8439174a98058eb54274f_icgraph">
+<area shape="rect" title="フラグが立っているかどうか" alt="" coords="227,13,439,38"/>
+<area shape="rect" href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#a7abebe763a8728c7359a3f855973a48a" title="テストプログラム開始時に呼ばれます" alt="" coords="5,5,179,45"/>
+<area shape="poly" title=" " alt="" coords="213,28,179,28,179,23,213,23"/>
+</map>
+</div>
 
 </div>
 </div>
-<a id="aadd952de9809e7bfb8fcd5e2a11847f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadd952de9809e7bfb8fcd5e2a11847f7">&#9670;&nbsp;</a></span>SetFlag()</h2>
+<a id="aadd952de9809e7bfb8fcd5e2a11847f7" name="aadd952de9809e7bfb8fcd5e2a11847f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadd952de9809e7bfb8fcd5e2a11847f7">&#9670;&#160;</a></span>SetFlag()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -246,15 +262,15 @@ $(function() {
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void iutest::TestFlag::SetFlag </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">static</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a> iutest::TestFlag::SetFlag </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td>
           <td class="paramname"><em>enable</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td>
           <td class="paramname"><em>mask</em> = <code>-1</code>&#160;</td>
         </tr>
         <tr>
@@ -287,7 +303,7 @@ $(function() {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2026年09月03日(木) 01時29分46秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2026年09月03日(木) 02時21分29秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

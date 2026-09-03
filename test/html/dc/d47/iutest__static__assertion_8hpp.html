@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: iutest_static_assertion.hpp ファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -19,10 +19,9 @@
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.14</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">iutest<span id="projectnumber">&#160;1.17.99.14</span>
    </div>
   </td>
  </tr>
@@ -30,21 +29,22 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.9.1 -->
+<!-- 構築: Doxygen 1.9.8 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
 <script type="text/javascript" src="../../menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
   initMenu('../../',true,false,'search.php','検索');
   $(document).ready(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -55,9 +55,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
 </div>
 
 </div><!-- top -->
@@ -65,8 +72,7 @@ $(function() {
   <div class="summary">
 <a href="#namespaces">名前空間</a> &#124;
 <a href="#define-members">マクロ定義</a>  </div>
-  <div class="headertitle">
-<div class="title">iutest_static_assertion.hpp ファイル</div>  </div>
+  <div class="headertitle"><div class="title">iutest_static_assertion.hpp ファイル</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -78,8 +84,9 @@ iutest_static_assertion.hpp の依存先関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dd/dec/iutest__static__assertion_8hpp__incl.png" border="0" usemap="#aiutest__static__assertion_8hpp" alt=""/></div>
 <map name="aiutest__static__assertion_8hpp" id="aiutest__static__assertion_8hpp">
-<area shape="rect" title="iris unit test static assertion 定義 ファイル" alt="" coords="5,5,203,32"/>
-<area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="37,80,171,107"/>
+<area shape="rect" title="iris unit test static assertion 定義 ファイル" alt="" coords="5,5,203,31"/>
+<area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="37,79,171,104"/>
+<area shape="poly" title=" " alt="" coords="107,31,107,65,101,65,101,31"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -87,37 +94,39 @@ iutest_static_assertion.hpp の依存先関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/d6f/iutest__static__assertion_8hpp__dep__incl.png" border="0" usemap="#aiutest__static__assertion_8hppdep" alt=""/></div>
 <map name="aiutest__static__assertion_8hppdep" id="aiutest__static__assertion_8hppdep">
-<area shape="rect" title="iris unit test static assertion 定義 ファイル" alt="" coords="5,5,203,32"/>
-<area shape="rect" href="../../d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="61,80,147,107"/>
-<area shape="rect" href="../../d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="47,155,161,181"/>
+<area shape="rect" title="iris unit test static assertion 定義 ファイル" alt="" coords="5,5,203,31"/>
+<area shape="rect" href="../../d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="61,79,147,104"/>
+<area shape="poly" title=" " alt="" coords="107,44,107,79,101,79,101,44"/>
+<area shape="rect" href="../../d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="47,152,161,177"/>
+<area shape="poly" title=" " alt="" coords="107,118,107,152,101,152,101,118"/>
 </map>
 </div>
 </div>
 <p><a href="../../dc/d47/iutest__static__assertion_8hpp_source.html">[ソースコード]</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 名前空間</h2></td></tr>
-<tr class="memitem:d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
+<tr class="memitem:d3/dda/namespaceiutest" id="r_d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
 <tr class="memdesc:d3/dda/namespaceiutest"><td class="mdescLeft">&#160;</td><td class="mdescRight">iutest root namespace <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 マクロ定義</h2></td></tr>
-<tr class="memitem:ga9111f6c99c043c607e4c7dc8d122d6de"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">StaticAssertTypeEq</a>&#160;&#160;&#160;detail::StaticAssertTypeEqHelper</td></tr>
-<tr class="memdesc:ga9111f6c99c043c607e4c7dc8d122d6de"><td class="mdescLeft">&#160;</td><td class="mdescRight">型アサーション  <a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">[詳解]</a><br /></td></tr>
+<tr class="memitem:ga9111f6c99c043c607e4c7dc8d122d6de" id="r_ga9111f6c99c043c607e4c7dc8d122d6de"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">StaticAssertTypeEq</a>&#160;&#160;&#160;detail::StaticAssertTypeEqHelper</td></tr>
+<tr class="memdesc:ga9111f6c99c043c607e4c7dc8d122d6de"><td class="mdescLeft">&#160;</td><td class="mdescRight">型アサーション  <br /></td></tr>
 <tr class="separator:ga9111f6c99c043c607e4c7dc8d122d6de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a314cce22f5a0475f84f38954f67e3628"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_STATIC_ASSERT_MSG</b>(B,  Msg)</td></tr>
+<tr class="memitem:a314cce22f5a0475f84f38954f67e3628" id="r_a314cce22f5a0475f84f38954f67e3628"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d47/iutest__static__assertion_8hpp.html#a314cce22f5a0475f84f38954f67e3628">IUTEST_STATIC_ASSERT_MSG</a>(B,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">Msg</a>)</td></tr>
 <tr class="separator:a314cce22f5a0475f84f38954f67e3628"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bcf288655da06668954429132257a0f"><td class="memItemLeft" align="right" valign="top"><a id="a2bcf288655da06668954429132257a0f"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d47/iutest__static__assertion_8hpp.html#a2bcf288655da06668954429132257a0f">IUTEST_STATIC_ASSERT</a>(...)&#160;&#160;&#160;IUTEST_STATIC_ASSERT_MSG((__VA_ARGS__), #__VA_ARGS__)</td></tr>
+<tr class="memitem:a2bcf288655da06668954429132257a0f" id="r_a2bcf288655da06668954429132257a0f"><td class="memItemLeft" align="right" valign="top"><a id="a2bcf288655da06668954429132257a0f" name="a2bcf288655da06668954429132257a0f"></a>
+#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_STATIC_ASSERT</b>(...)&#160;&#160;&#160;IUTEST_STATIC_ASSERT_MSG((<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">__VA_ARGS__</a>), #<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">__VA_ARGS__</a>)</td></tr>
 <tr class="memdesc:a2bcf288655da06668954429132257a0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">static_assert <br /></td></tr>
 <tr class="separator:a2bcf288655da06668954429132257a0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4e20586259b13001e03d43682a1743c"><td class="memItemLeft" align="right" valign="top"><a id="aa4e20586259b13001e03d43682a1743c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d47/iutest__static__assertion_8hpp.html#aa4e20586259b13001e03d43682a1743c">IUTEST_STATIC_ASSERT_IF_EXISTS</a>(identifier,  msg)</td></tr>
+<tr class="memitem:aa4e20586259b13001e03d43682a1743c" id="r_aa4e20586259b13001e03d43682a1743c"><td class="memItemLeft" align="right" valign="top"><a id="aa4e20586259b13001e03d43682a1743c" name="aa4e20586259b13001e03d43682a1743c"></a>
+#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_STATIC_ASSERT_IF_EXISTS</b>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">identifier</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">msg</a>)</td></tr>
 <tr class="memdesc:aa4e20586259b13001e03d43682a1743c"><td class="mdescLeft">&#160;</td><td class="mdescRight">static assert if exists <br /></td></tr>
 <tr class="separator:aa4e20586259b13001e03d43682a1743c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf9e641ac7ac99d6636d56f13640ced3"><td class="memItemLeft" align="right" valign="top"><a id="aaf9e641ac7ac99d6636d56f13640ced3"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d47/iutest__static__assertion_8hpp.html#aaf9e641ac7ac99d6636d56f13640ced3">IUTEST_STATIC_ASSERT_IF_NOT_EXISTS</a>(identifier,  msg)</td></tr>
+<tr class="memitem:aaf9e641ac7ac99d6636d56f13640ced3" id="r_aaf9e641ac7ac99d6636d56f13640ced3"><td class="memItemLeft" align="right" valign="top"><a id="aaf9e641ac7ac99d6636d56f13640ced3" name="aaf9e641ac7ac99d6636d56f13640ced3"></a>
+#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_STATIC_ASSERT_IF_NOT_EXISTS</b>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">identifier</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">msg</a>)</td></tr>
 <tr class="memdesc:aaf9e641ac7ac99d6636d56f13640ced3"><td class="mdescLeft">&#160;</td><td class="mdescRight">static assert if not exists <br /></td></tr>
 <tr class="separator:aaf9e641ac7ac99d6636d56f13640ced3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -127,14 +136,14 @@ iutest_static_assertion.hpp の依存先関係図:</div>
 <dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2012-2017, Takazumi Shirayanagi<br  />
 This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><h2 class="groupheader">マクロ定義詳解</h2>
-<a id="a314cce22f5a0475f84f38954f67e3628"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a314cce22f5a0475f84f38954f67e3628">&#9670;&nbsp;</a></span>IUTEST_STATIC_ASSERT_MSG</h2>
+<a id="a314cce22f5a0475f84f38954f67e3628" name="a314cce22f5a0475f84f38954f67e3628"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a314cce22f5a0475f84f38954f67e3628">&#9670;&#160;</a></span>IUTEST_STATIC_ASSERT_MSG</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define IUTEST_STATIC_ASSERT_MSG</td>
+          <td class="memname">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a> IUTEST_STATIC_ASSERT_MSG</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">B, </td>
@@ -143,7 +152,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">Msg&#160;</td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">Msg</a>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -152,15 +161,16 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line">    typedef ::iutest::detail::StaticAssertionTest&lt; IIUT_STATIC_ASSERT_SIZECHECK(B) &gt;    \</div>
-<div class="line">        IUTEST_PP_CAT(iutest_static_assert_typedef_, IUTEST_PP_COUNTER) IUTEST_ATTRIBUTE_UNUSED_</div>
+<b>値:</b><div class="fragment"><div class="line">    <span class="keyword">typedef</span> ::iutest::detail::StaticAssertionTest&lt; IIUT_STATIC_ASSERT_SIZECHECK(B) &gt;    <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">\</a></div>
+<div class="line"><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">        IUTEST_PP_CAT</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">iutest_static_assert_typedef_</a>, IUTEST_PP_COUNTER) <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">IUTEST_ATTRIBUTE_UNUSED_</a></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga9111f6c99c043c607e4c7dc8d122d6de"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">StaticAssertTypeEq</a></div><div class="ttdeci">#define StaticAssertTypeEq</div><div class="ttdoc">型アサーション</div><div class="ttdef"><b>Definition</b> iutest_static_assertion.hpp:54</div></div>
 </div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2026年09月03日(木) 01時29分46秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2026年09月03日(木) 02時21分29秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

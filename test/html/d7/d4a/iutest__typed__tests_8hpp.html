@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: iutest_typed_tests.hpp ファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -19,10 +19,9 @@
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.14</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">iutest<span id="projectnumber">&#160;1.17.99.14</span>
    </div>
   </td>
  </tr>
@@ -30,21 +29,22 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.9.1 -->
+<!-- 構築: Doxygen 1.9.8 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
 <script type="text/javascript" src="../../menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
   initMenu('../../',true,false,'search.php','検索');
   $(document).ready(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -55,9 +55,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
 </div>
 
 </div><!-- top -->
@@ -65,8 +72,7 @@ $(function() {
   <div class="summary">
 <a href="#namespaces">名前空間</a> &#124;
 <a href="#define-members">マクロ定義</a>  </div>
-  <div class="headertitle">
-<div class="title">iutest_typed_tests.hpp ファイル</div>  </div>
+  <div class="headertitle"><div class="title">iutest_typed_tests.hpp ファイル</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -80,12 +86,20 @@ iutest_typed_tests.hpp の依存先関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dc/da5/iutest__typed__tests_8hpp__incl.png" border="0" usemap="#aiutest__typed__tests_8hpp" alt=""/></div>
 <map name="aiutest__typed__tests_8hpp" id="aiutest__typed__tests_8hpp">
-<area shape="rect" title="iris unit test typed test" alt="" coords="19,5,190,32"/>
-<area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="27,244,161,271"/>
-<area shape="rect" href="../../df/dbd/iutest__typed__util_8hpp.html" title="typed util" alt="" coords="26,80,183,121"/>
-<area shape="rect" href="../../db/d71/iutest__pool_8hpp.html" title="iris unit test memory pool" alt="" coords="207,87,383,114"/>
-<area shape="rect" href="../../d5/d5c/iutest__typelist_8hpp.html" title="type list" alt="" coords="77,169,220,196"/>
-<area shape="rect" title=" " alt="" coords="296,169,359,196"/>
+<area shape="rect" title="iris unit test typed test" alt="" coords="19,5,190,31"/>
+<area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="27,240,161,265"/>
+<area shape="poly" title=" " alt="" coords="74,33,42,52,27,65,16,80,9,100,9,120,13,141,22,161,46,199,73,229,69,232,42,202,17,163,8,142,3,120,4,99,11,77,23,61,39,47,71,28"/>
+<area shape="rect" href="../../df/dbd/iutest__typed__util_8hpp.html" title="typed util" alt="" coords="26,79,183,119"/>
+<area shape="poly" title=" " alt="" coords="107,31,107,65,102,65,102,31"/>
+<area shape="rect" href="../../db/d71/iutest__pool_8hpp.html" title="iris unit test memory pool" alt="" coords="207,86,383,111"/>
+<area shape="poly" title=" " alt="" coords="133,28,256,78,254,83,131,33"/>
+<area shape="poly" title=" " alt="" coords="91,121,78,142,67,167,65,183,68,198,80,227,76,230,63,200,60,183,62,166,73,140,87,118"/>
+<area shape="rect" href="../../d5/d5c/iutest__typelist_8hpp.html" title="type list" alt="" coords="77,167,220,192"/>
+<area shape="poly" title=" " alt="" coords="117,118,138,153,133,156,113,120"/>
+<area shape="poly" title=" " alt="" coords="142,194,113,231,109,228,137,191"/>
+<area shape="poly" title=" " alt="" coords="292,113,270,152,253,174,233,194,192,220,150,238,148,233,190,215,230,190,249,171,265,149,287,110"/>
+<area shape="rect" title=" " alt="" coords="296,167,359,192"/>
+<area shape="poly" title=" " alt="" coords="302,110,320,153,315,155,297,113"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -93,49 +107,51 @@ iutest_typed_tests.hpp の依存先関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../da/dcf/iutest__typed__tests_8hpp__dep__incl.png" border="0" usemap="#aiutest__typed__tests_8hppdep" alt=""/></div>
 <map name="aiutest__typed__tests_8hppdep" id="aiutest__typed__tests_8hppdep">
-<area shape="rect" title="iris unit test typed test" alt="" coords="5,5,176,32"/>
-<area shape="rect" href="../../d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="47,80,134,107"/>
-<area shape="rect" href="../../d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="34,155,147,181"/>
+<area shape="rect" title="iris unit test typed test" alt="" coords="5,5,176,31"/>
+<area shape="rect" href="../../d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="47,79,134,104"/>
+<area shape="poly" title=" " alt="" coords="93,44,93,79,88,79,88,44"/>
+<area shape="rect" href="../../d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル" alt="" coords="34,152,147,177"/>
+<area shape="poly" title=" " alt="" coords="93,118,93,152,88,152,88,118"/>
 </map>
 </div>
 </div>
 <p><a href="../../d7/d4a/iutest__typed__tests_8hpp_source.html">[ソースコード]</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 名前空間</h2></td></tr>
-<tr class="memitem:d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
+<tr class="memitem:d3/dda/namespaceiutest" id="r_d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
 <tr class="memdesc:d3/dda/namespaceiutest"><td class="mdescLeft">&#160;</td><td class="mdescRight">iutest root namespace <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 マクロ定義</h2></td></tr>
-<tr class="memitem:ga4d22496d1cb97a990b16e6f92e5cdd4f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga4d22496d1cb97a990b16e6f92e5cdd4f">IUTEST_TYPED_TEST_SUITE</a>(testsuite_, ...)&#160;&#160;&#160;IIUT_TYPED_TEST_SUITE_(testsuite_, __VA_ARGS__)</td></tr>
-<tr class="memdesc:ga4d22496d1cb97a990b16e6f92e5cdd4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">型付けTestSuite の登録  <a href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga4d22496d1cb97a990b16e6f92e5cdd4f">[詳解]</a><br /></td></tr>
+<tr class="memitem:ga4d22496d1cb97a990b16e6f92e5cdd4f" id="r_ga4d22496d1cb97a990b16e6f92e5cdd4f"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga4d22496d1cb97a990b16e6f92e5cdd4f">IUTEST_TYPED_TEST_SUITE</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>, ...)&#160;&#160;&#160;IIUT_TYPED_TEST_SUITE_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">__VA_ARGS__</a>)</td></tr>
+<tr class="memdesc:ga4d22496d1cb97a990b16e6f92e5cdd4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">型付けTestSuite の登録  <br /></td></tr>
 <tr class="separator:ga4d22496d1cb97a990b16e6f92e5cdd4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2b77af42aeebce007eaeefd8786e921e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga2b77af42aeebce007eaeefd8786e921e">IUTEST_TYPED_TEST</a>(testsuite_,  testname_)&#160;&#160;&#160;IUTEST_TYPED_TEST_(testsuite_, testname_)</td></tr>
-<tr class="memdesc:ga2b77af42aeebce007eaeefd8786e921e"><td class="mdescLeft">&#160;</td><td class="mdescRight">型付けテスト関数定義マクロ  <a href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga2b77af42aeebce007eaeefd8786e921e">[詳解]</a><br /></td></tr>
+<tr class="memitem:ga2b77af42aeebce007eaeefd8786e921e" id="r_ga2b77af42aeebce007eaeefd8786e921e"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga2b77af42aeebce007eaeefd8786e921e">IUTEST_TYPED_TEST</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)&#160;&#160;&#160;IUTEST_TYPED_TEST_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)</td></tr>
+<tr class="memdesc:ga2b77af42aeebce007eaeefd8786e921e"><td class="mdescLeft">&#160;</td><td class="mdescRight">型付けテスト関数定義マクロ  <br /></td></tr>
 <tr class="separator:ga2b77af42aeebce007eaeefd8786e921e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadf746f1e70d9bdda8048d25bacf66950"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#gadf746f1e70d9bdda8048d25bacf66950">IUTEST_T</a>(testsuite_,  testname_)&#160;&#160;&#160;IUTEST_TYPED_TEST_(testsuite_, testname_)</td></tr>
-<tr class="memdesc:gadf746f1e70d9bdda8048d25bacf66950"><td class="mdescLeft">&#160;</td><td class="mdescRight">型付けテスト関数定義マクロ  <a href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#gadf746f1e70d9bdda8048d25bacf66950">[詳解]</a><br /></td></tr>
+<tr class="memitem:gadf746f1e70d9bdda8048d25bacf66950" id="r_gadf746f1e70d9bdda8048d25bacf66950"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#gadf746f1e70d9bdda8048d25bacf66950">IUTEST_T</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)&#160;&#160;&#160;IUTEST_TYPED_TEST_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)</td></tr>
+<tr class="memdesc:gadf746f1e70d9bdda8048d25bacf66950"><td class="mdescLeft">&#160;</td><td class="mdescRight">型付けテスト関数定義マクロ  <br /></td></tr>
 <tr class="separator:gadf746f1e70d9bdda8048d25bacf66950"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2b81c0558d5251b2853cc8cb001ca48e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga2b81c0558d5251b2853cc8cb001ca48e">IUTEST_TYPED_TEST_SUITE_P</a>(testsuite_)&#160;&#160;&#160;IIUT_TYPED_TEST_SUITE_P_(testsuite_)</td></tr>
-<tr class="memdesc:ga2b81c0558d5251b2853cc8cb001ca48e"><td class="mdescLeft">&#160;</td><td class="mdescRight">型パラメータTestSuite の登録  <a href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga2b81c0558d5251b2853cc8cb001ca48e">[詳解]</a><br /></td></tr>
+<tr class="memitem:ga2b81c0558d5251b2853cc8cb001ca48e" id="r_ga2b81c0558d5251b2853cc8cb001ca48e"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga2b81c0558d5251b2853cc8cb001ca48e">IUTEST_TYPED_TEST_SUITE_P</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>)&#160;&#160;&#160;IIUT_TYPED_TEST_SUITE_P_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>)</td></tr>
+<tr class="memdesc:ga2b81c0558d5251b2853cc8cb001ca48e"><td class="mdescLeft">&#160;</td><td class="mdescRight">型パラメータTestSuite の登録  <br /></td></tr>
 <tr class="separator:ga2b81c0558d5251b2853cc8cb001ca48e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0fad2a8d1a0345aab158403289d3805c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga0fad2a8d1a0345aab158403289d3805c">IUTEST_TYPED_TEST_P</a>(testsuite_,  testname_)&#160;&#160;&#160;IIUT_TYPED_TEST_P_(testsuite_, testname_)</td></tr>
-<tr class="memdesc:ga0fad2a8d1a0345aab158403289d3805c"><td class="mdescLeft">&#160;</td><td class="mdescRight">型パラメータテスト関数定義マクロ  <a href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga0fad2a8d1a0345aab158403289d3805c">[詳解]</a><br /></td></tr>
+<tr class="memitem:ga0fad2a8d1a0345aab158403289d3805c" id="r_ga0fad2a8d1a0345aab158403289d3805c"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga0fad2a8d1a0345aab158403289d3805c">IUTEST_TYPED_TEST_P</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)&#160;&#160;&#160;IIUT_TYPED_TEST_P_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)</td></tr>
+<tr class="memdesc:ga0fad2a8d1a0345aab158403289d3805c"><td class="mdescLeft">&#160;</td><td class="mdescRight">型パラメータテスト関数定義マクロ  <br /></td></tr>
 <tr class="separator:ga0fad2a8d1a0345aab158403289d3805c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9caf8dbd544f9b80315b847f857f5ba0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga9caf8dbd544f9b80315b847f857f5ba0">IUTEST_TP</a>(testsuite_,  testname_)&#160;&#160;&#160;IIUT_TYPED_TEST_P_(testsuite_, testname_)</td></tr>
-<tr class="memdesc:ga9caf8dbd544f9b80315b847f857f5ba0"><td class="mdescLeft">&#160;</td><td class="mdescRight">型パラメータテスト関数定義マクロ  <a href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga9caf8dbd544f9b80315b847f857f5ba0">[詳解]</a><br /></td></tr>
+<tr class="memitem:ga9caf8dbd544f9b80315b847f857f5ba0" id="r_ga9caf8dbd544f9b80315b847f857f5ba0"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga9caf8dbd544f9b80315b847f857f5ba0">IUTEST_TP</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)&#160;&#160;&#160;IIUT_TYPED_TEST_P_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)</td></tr>
+<tr class="memdesc:ga9caf8dbd544f9b80315b847f857f5ba0"><td class="mdescLeft">&#160;</td><td class="mdescRight">型パラメータテスト関数定義マクロ  <br /></td></tr>
 <tr class="separator:ga9caf8dbd544f9b80315b847f857f5ba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2a5fe227b1e1843898d582fc67fa3ea4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga2a5fe227b1e1843898d582fc67fa3ea4">IUTEST_REGISTER_TYPED_TEST_SUITE_P</a>(testsuite_, ...)&#160;&#160;&#160;    IIUT_REGISTER_TYPED_TEST_SUITE_P_(testsuite_, __VA_ARGS__)</td></tr>
-<tr class="memdesc:ga2a5fe227b1e1843898d582fc67fa3ea4"><td class="mdescLeft">&#160;</td><td class="mdescRight">型パラメータテスト関数登録マクロ  <a href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga2a5fe227b1e1843898d582fc67fa3ea4">[詳解]</a><br /></td></tr>
+<tr class="memitem:ga2a5fe227b1e1843898d582fc67fa3ea4" id="r_ga2a5fe227b1e1843898d582fc67fa3ea4"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga2a5fe227b1e1843898d582fc67fa3ea4">IUTEST_REGISTER_TYPED_TEST_SUITE_P</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>, ...)&#160;&#160;&#160;    IIUT_REGISTER_TYPED_TEST_SUITE_P_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">__VA_ARGS__</a>)</td></tr>
+<tr class="memdesc:ga2a5fe227b1e1843898d582fc67fa3ea4"><td class="mdescLeft">&#160;</td><td class="mdescRight">型パラメータテスト関数登録マクロ  <br /></td></tr>
 <tr class="separator:ga2a5fe227b1e1843898d582fc67fa3ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4a7ad40d030b9e035869c06e814118cf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga4a7ad40d030b9e035869c06e814118cf">IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P</a>(prefix_,  testsuite_, ...)&#160;&#160;&#160;    IIUT_INSTANTIATE_TYPED_TEST_SUITE_P_(prefix_, testsuite_, __VA_ARGS__)</td></tr>
-<tr class="memdesc:ga4a7ad40d030b9e035869c06e814118cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">型パラメータテスト登録マクロ  <a href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga4a7ad40d030b9e035869c06e814118cf">[詳解]</a><br /></td></tr>
+<tr class="memitem:ga4a7ad40d030b9e035869c06e814118cf" id="r_ga4a7ad40d030b9e035869c06e814118cf"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga4a7ad40d030b9e035869c06e814118cf">IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">prefix_</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>, ...)&#160;&#160;&#160;    IIUT_INSTANTIATE_TYPED_TEST_SUITE_P_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">prefix_</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">__VA_ARGS__</a>)</td></tr>
+<tr class="memdesc:ga4a7ad40d030b9e035869c06e814118cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">型パラメータテスト登録マクロ  <br /></td></tr>
 <tr class="separator:ga4a7ad40d030b9e035869c06e814118cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
-<tr class="memitem:a91426f0c7f0f867bebfc9a3960db9f60"><td class="memItemLeft" align="right" valign="top"><a id="a91426f0c7f0f867bebfc9a3960db9f60"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TYPED_TEST_</b>(testsuite_,  testname_)&#160;&#160;&#160;    IIUT_TYPED_TEST_A_(IIUT_TYPED_TEST_I, testsuite_, testname_)</td></tr>
+<tr class="memitem:a91426f0c7f0f867bebfc9a3960db9f60" id="r_a91426f0c7f0f867bebfc9a3960db9f60"><td class="memItemLeft" align="right" valign="top"><a id="a91426f0c7f0f867bebfc9a3960db9f60" name="a91426f0c7f0f867bebfc9a3960db9f60"></a>
+#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TYPED_TEST_</b>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)&#160;&#160;&#160;    IIUT_TYPED_TEST_A_(IIUT_TYPED_TEST_I, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testsuite_</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">testname_</a>)</td></tr>
 <tr class="separator:a91426f0c7f0f867bebfc9a3960db9f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
@@ -146,7 +162,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2026年09月03日(木) 01時29分46秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2026年09月03日(木) 02時21分29秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

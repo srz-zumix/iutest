@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: iutest::TestProperty クラス</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -19,10 +19,9 @@
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.14</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">iutest<span id="projectnumber">&#160;1.17.99.14</span>
    </div>
   </td>
  </tr>
@@ -30,21 +29,22 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.9.1 -->
+<!-- 構築: Doxygen 1.9.8 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
 <script type="text/javascript" src="../../menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
   initMenu('../../',true,false,'search.php','検索');
   $(document).ready(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -55,9 +55,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -70,8 +77,7 @@ $(function() {
 <a href="#pub-methods">公開メンバ関数</a> &#124;
 <a href="#pub-static-methods">静的公開メンバ関数</a> &#124;
 <a href="../../d2/db1/classiutest_1_1_test_property-members.html">全メンバ一覧</a>  </div>
-  <div class="headertitle">
-<div class="title">iutest::TestProperty クラス</div>  </div>
+  <div class="headertitle"><div class="title">iutest::TestProperty クラス</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -80,43 +86,43 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="../../d5/dd2/iutest__result_8hpp_source.html">iutest_result.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 公開メンバ関数</h2></td></tr>
-<tr class="memitem:a56753226ff8b8ebc3572c530e969734a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df6/classiutest_1_1_test_property.html#a56753226ff8b8ebc3572c530e969734a">TestProperty</a> (const ::std::string &amp;<a class="el" href="../../db/df6/classiutest_1_1_test_property.html#a1b45bd8a879d9ae7164e7c8f2b35f8ec">key</a>, const ::std::string &amp;<a class="el" href="../../db/df6/classiutest_1_1_test_property.html#afd04e9d28ce767b84720392af174d188">value</a>)</td></tr>
-<tr class="memdesc:a56753226ff8b8ebc3572c530e969734a"><td class="mdescLeft">&#160;</td><td class="mdescRight">コンストラクタ  <a href="../../db/df6/classiutest_1_1_test_property.html#a56753226ff8b8ebc3572c530e969734a">[詳解]</a><br /></td></tr>
+<tr class="memitem:a56753226ff8b8ebc3572c530e969734a" id="r_a56753226ff8b8ebc3572c530e969734a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df6/classiutest_1_1_test_property.html#a56753226ff8b8ebc3572c530e969734a">TestProperty</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> ::std::string &amp;<a class="el" href="../../db/df6/classiutest_1_1_test_property.html#a7beda4436f71c43390c63225a42bbfcc">key</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> ::std::string &amp;<a class="el" href="../../db/df6/classiutest_1_1_test_property.html#a4a033afc66f1c9ec994a144dfed7640d">value</a>)</td></tr>
+<tr class="memdesc:a56753226ff8b8ebc3572c530e969734a"><td class="mdescLeft">&#160;</td><td class="mdescRight">コンストラクタ  <br /></td></tr>
 <tr class="separator:a56753226ff8b8ebc3572c530e969734a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeefb38011bcc2edb23581c08a3501d2a"><td class="memItemLeft" align="right" valign="top"><a id="aeefb38011bcc2edb23581c08a3501d2a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df6/classiutest_1_1_test_property.html#aeefb38011bcc2edb23581c08a3501d2a">SetValue</a> (const ::std::string &amp;<a class="el" href="../../db/df6/classiutest_1_1_test_property.html#afd04e9d28ce767b84720392af174d188">value</a>)</td></tr>
+<tr class="memitem:aeefb38011bcc2edb23581c08a3501d2a" id="r_aeefb38011bcc2edb23581c08a3501d2a"><td class="memItemLeft" align="right" valign="top"><a id="aeefb38011bcc2edb23581c08a3501d2a" name="aeefb38011bcc2edb23581c08a3501d2a"></a>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memItemRight" valign="bottom"><b>SetValue</b> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> ::std::string &amp;<a class="el" href="../../db/df6/classiutest_1_1_test_property.html#a4a033afc66f1c9ec994a144dfed7640d">value</a>)</td></tr>
 <tr class="memdesc:aeefb38011bcc2edb23581c08a3501d2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">値の設定 <br /></td></tr>
 <tr class="separator:aeefb38011bcc2edb23581c08a3501d2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b45bd8a879d9ae7164e7c8f2b35f8ec"><td class="memItemLeft" align="right" valign="top"><a id="a1b45bd8a879d9ae7164e7c8f2b35f8ec"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df6/classiutest_1_1_test_property.html#a1b45bd8a879d9ae7164e7c8f2b35f8ec">key</a> () const</td></tr>
-<tr class="memdesc:a1b45bd8a879d9ae7164e7c8f2b35f8ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">キーの取得 <br /></td></tr>
-<tr class="separator:a1b45bd8a879d9ae7164e7c8f2b35f8ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd04e9d28ce767b84720392af174d188"><td class="memItemLeft" align="right" valign="top"><a id="afd04e9d28ce767b84720392af174d188"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df6/classiutest_1_1_test_property.html#afd04e9d28ce767b84720392af174d188">value</a> () const</td></tr>
-<tr class="memdesc:afd04e9d28ce767b84720392af174d188"><td class="mdescLeft">&#160;</td><td class="mdescRight">値の取得 <br /></td></tr>
-<tr class="separator:afd04e9d28ce767b84720392af174d188"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a886aa074af299a50444ab142a6d1e3cb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df6/classiutest_1_1_test_property.html#a886aa074af299a50444ab142a6d1e3cb">Validate</a> (const char **ban_list, size_t size) const</td></tr>
-<tr class="memdesc:a886aa074af299a50444ab142a6d1e3cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">有効なキーかどうかチェック  <a href="../../db/df6/classiutest_1_1_test_property.html#a886aa074af299a50444ab142a6d1e3cb">[詳解]</a><br /></td></tr>
+<tr class="memitem:a7beda4436f71c43390c63225a42bbfcc" id="r_a7beda4436f71c43390c63225a42bbfcc"><td class="memItemLeft" align="right" valign="top"><a id="a7beda4436f71c43390c63225a42bbfcc" name="a7beda4436f71c43390c63225a42bbfcc"></a>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">char</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>key</b> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
+<tr class="memdesc:a7beda4436f71c43390c63225a42bbfcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">キーの取得 <br /></td></tr>
+<tr class="separator:a7beda4436f71c43390c63225a42bbfcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a033afc66f1c9ec994a144dfed7640d" id="r_a4a033afc66f1c9ec994a144dfed7640d"><td class="memItemLeft" align="right" valign="top"><a id="a4a033afc66f1c9ec994a144dfed7640d" name="a4a033afc66f1c9ec994a144dfed7640d"></a>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">char</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>value</b> () <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
+<tr class="memdesc:a4a033afc66f1c9ec994a144dfed7640d"><td class="mdescLeft">&#160;</td><td class="mdescRight">値の取得 <br /></td></tr>
+<tr class="separator:a4a033afc66f1c9ec994a144dfed7640d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a886aa074af299a50444ab142a6d1e3cb" id="r_a886aa074af299a50444ab142a6d1e3cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df6/classiutest_1_1_test_property.html#a886aa074af299a50444ab142a6d1e3cb">Validate</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">char</a> **<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">ban_list</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">size_t</a> size) <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a></td></tr>
+<tr class="memdesc:a886aa074af299a50444ab142a6d1e3cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">有効なキーかどうかチェック  <br /></td></tr>
 <tr class="separator:a886aa074af299a50444ab142a6d1e3cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 静的公開メンバ関数</h2></td></tr>
-<tr class="memitem:ad33b46ab30e2c53d4787cd31d68f05b3"><td class="memTemplParams" colspan="2">template&lt;typename Ite &gt; </td></tr>
-<tr class="memitem:ad33b46ab30e2c53d4787cd31d68f05b3"><td class="memTemplItemLeft" align="right" valign="top">static bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../db/df6/classiutest_1_1_test_property.html#ad33b46ab30e2c53d4787cd31d68f05b3">ValidateName</a> (const ::std::string &amp;name, Ite begin, Ite end)</td></tr>
-<tr class="memdesc:ad33b46ab30e2c53d4787cd31d68f05b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">有効なキーかどうかチェック  <a href="../../db/df6/classiutest_1_1_test_property.html#ad33b46ab30e2c53d4787cd31d68f05b3">[詳解]</a><br /></td></tr>
+<tr class="memitem:ad33b46ab30e2c53d4787cd31d68f05b3" id="r_ad33b46ab30e2c53d4787cd31d68f05b3"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">Ite</a> &gt; </td></tr>
+<tr class="memitem:ad33b46ab30e2c53d4787cd31d68f05b3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">static</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">bool</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../db/df6/classiutest_1_1_test_property.html#ad33b46ab30e2c53d4787cd31d68f05b3">ValidateName</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> ::std::string &amp;name, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">Ite</a> begin, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">Ite</a> end)</td></tr>
+<tr class="memdesc:ad33b46ab30e2c53d4787cd31d68f05b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">有効なキーかどうかチェック  <br /></td></tr>
 <tr class="separator:ad33b46ab30e2c53d4787cd31d68f05b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4842fc0624560d7f480a5d174cd44f43"><td class="memTemplParams" colspan="2">template&lt;typename T , size_t N&gt; </td></tr>
-<tr class="memitem:a4842fc0624560d7f480a5d174cd44f43"><td class="memTemplItemLeft" align="right" valign="top">static bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../db/df6/classiutest_1_1_test_property.html#a4842fc0624560d7f480a5d174cd44f43">ValidateName</a> (const ::std::string &amp;name, T(&amp;ar)[N])</td></tr>
+<tr class="memitem:a4842fc0624560d7f480a5d174cd44f43" id="r_a4842fc0624560d7f480a5d174cd44f43"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T , <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">size_t</a> N&gt; </td></tr>
+<tr class="memitem:a4842fc0624560d7f480a5d174cd44f43"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">static</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">bool</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../db/df6/classiutest_1_1_test_property.html#a4842fc0624560d7f480a5d174cd44f43">ValidateName</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> ::std::string &amp;name, T(&amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">ar</a>)[<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">N</a>])</td></tr>
 <tr class="separator:a4842fc0624560d7f480a5d174cd44f43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
 <div class="textblock"><p>テストプロパティ </p>
 <dl class="section note"><dt>覚え書き</dt><dd>XML 属性 </dd></dl>
 </div><h2 class="groupheader">構築子と解体子</h2>
-<a id="a56753226ff8b8ebc3572c530e969734a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56753226ff8b8ebc3572c530e969734a">&#9670;&nbsp;</a></span>TestProperty()</h2>
+<a id="a56753226ff8b8ebc3572c530e969734a" name="a56753226ff8b8ebc3572c530e969734a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56753226ff8b8ebc3572c530e969734a">&#9670;&#160;</a></span>TestProperty()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -127,13 +133,13 @@ const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
         <tr>
           <td class="memname">iutest::TestProperty::TestProperty </td>
           <td>(</td>
-          <td class="paramtype">const ::std::string &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> ::std::string &amp;&#160;</td>
           <td class="paramname"><em>key</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ::std::string &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> ::std::string &amp;&#160;</td>
           <td class="paramname"><em>value</em>&#160;</td>
         </tr>
         <tr>
@@ -161,8 +167,8 @@ const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div>
 </div>
 <h2 class="groupheader">関数詳解</h2>
-<a id="a886aa074af299a50444ab142a6d1e3cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a886aa074af299a50444ab142a6d1e3cb">&#9670;&nbsp;</a></span>Validate()</h2>
+<a id="a886aa074af299a50444ab142a6d1e3cb" name="a886aa074af299a50444ab142a6d1e3cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a886aa074af299a50444ab142a6d1e3cb">&#9670;&#160;</a></span>Validate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -171,15 +177,15 @@ const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool iutest::TestProperty::Validate </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">bool</a> iutest::TestProperty::Validate </td>
           <td>(</td>
-          <td class="paramtype">const char **&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">char</a> **&#160;</td>
           <td class="paramname"><em>ban_list</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">size_t&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">size_t</a>&#160;</td>
           <td class="paramname"><em>size</em>&#160;</td>
         </tr>
         <tr>
@@ -208,40 +214,41 @@ const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <div class="dyncontent">
 <div class="center"><img src="../../db/df6/classiutest_1_1_test_property_a886aa074af299a50444ab142a6d1e3cb_cgraph.png" border="0" usemap="#adb/df6/classiutest_1_1_test_property_a886aa074af299a50444ab142a6d1e3cb_cgraph" alt=""/></div>
 <map name="adb/df6/classiutest_1_1_test_property_a886aa074af299a50444ab142a6d1e3cb_cgraph" id="adb/df6/classiutest_1_1_test_property_a886aa074af299a50444ab142a6d1e3cb_cgraph">
-<area shape="rect" title="有効なキーかどうかチェック" alt="" coords="5,5,153,47"/>
-<area shape="rect" href="../../db/df6/classiutest_1_1_test_property.html#ad33b46ab30e2c53d4787cd31d68f05b3" title="有効なキーかどうかチェック" alt="" coords="201,5,349,47"/>
+<area shape="rect" title="有効なキーかどうかチェック" alt="" coords="5,5,153,45"/>
+<area shape="rect" href="../../db/df6/classiutest_1_1_test_property.html#ad33b46ab30e2c53d4787cd31d68f05b3" title="有効なキーかどうかチェック" alt="" coords="201,5,349,45"/>
+<area shape="poly" title=" " alt="" coords="154,23,187,23,187,28,154,28"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="ad33b46ab30e2c53d4787cd31d68f05b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad33b46ab30e2c53d4787cd31d68f05b3">&#9670;&nbsp;</a></span>ValidateName() <span class="overload">[1/2]</span></h2>
+<a id="ad33b46ab30e2c53d4787cd31d68f05b3" name="ad33b46ab30e2c53d4787cd31d68f05b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad33b46ab30e2c53d4787cd31d68f05b3">&#9670;&#160;</a></span>ValidateName() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Ite &gt; </div>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">Ite</a> &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool iutest::TestProperty::ValidateName </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">static</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">bool</a> iutest::TestProperty::ValidateName </td>
           <td>(</td>
-          <td class="paramtype">const ::std::string &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> ::std::string &amp;&#160;</td>
           <td class="paramname"><em>name</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Ite&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">Ite</a>&#160;</td>
           <td class="paramname"><em>begin</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Ite&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">Ite</a>&#160;</td>
           <td class="paramname"><em>end</em>&#160;</td>
         </tr>
         <tr>
@@ -270,31 +277,35 @@ template&lt;typename Ite &gt; </div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/df6/classiutest_1_1_test_property_ad33b46ab30e2c53d4787cd31d68f05b3_icgraph.png" border="0" usemap="#adb/df6/classiutest_1_1_test_property_ad33b46ab30e2c53d4787cd31d68f05b3_icgraph" alt=""/></div>
 <map name="adb/df6/classiutest_1_1_test_property_ad33b46ab30e2c53d4787cd31d68f05b3_icgraph" id="adb/df6/classiutest_1_1_test_property_ad33b46ab30e2c53d4787cd31d68f05b3_icgraph">
-<area shape="rect" title="有効なキーかどうかチェック" alt="" coords="248,104,396,145"/>
-<area shape="rect" href="../../db/df6/classiutest_1_1_test_property.html#a886aa074af299a50444ab142a6d1e3cb" title="有効なキーかどうかチェック" alt="" coords="29,5,177,47"/>
-<area shape="rect" href="../../db/df6/classiutest_1_1_test_property.html#a4842fc0624560d7f480a5d174cd44f43" title=" " alt="" coords="29,71,177,112"/>
-<area shape="rect" href="../../d8/d3d/classiutest_1_1_test_info.html#ac6e42bd193874670802ca02b19fd2798" title="有効なプロパティ名かどうかチェック" alt="" coords="13,136,192,177"/>
-<area shape="rect" href="../../d3/d87/classiutest_1_1_test_suite.html#ad6362b66c15e60cf3b17e4dc37b854b3" title="有効なプロパティ名かどうかチェック" alt="" coords="5,201,200,243"/>
+<area shape="rect" title="有効なキーかどうかチェック" alt="" coords="248,101,396,141"/>
+<area shape="rect" href="../../db/df6/classiutest_1_1_test_property.html#a886aa074af299a50444ab142a6d1e3cb" title="有効なキーかどうかチェック" alt="" coords="29,5,177,45"/>
+<area shape="poly" title=" " alt="" coords="274,97,199,60,168,48,170,43,201,55,276,92"/>
+<area shape="rect" href="../../db/df6/classiutest_1_1_test_property.html#a4842fc0624560d7f480a5d174cd44f43" title=" " alt="" coords="29,69,177,109"/>
+<area shape="poly" title=" " alt="" coords="234,111,177,103,177,97,235,106"/>
+<area shape="rect" href="../../d8/d3d/classiutest_1_1_test_info.html#ac6e42bd193874670802ca02b19fd2798" title="有効なプロパティ名かどうかチェック" alt="" coords="13,133,192,173"/>
+<area shape="poly" title=" " alt="" coords="235,137,193,143,192,138,234,131"/>
+<area shape="rect" href="../../d3/d87/classiutest_1_1_test_suite.html#ad6362b66c15e60cf3b17e4dc37b854b3" title="有効なプロパティ名かどうかチェック" alt="" coords="5,197,200,237"/>
+<area shape="poly" title=" " alt="" coords="276,150,201,188,170,200,168,195,199,183,274,146"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a4842fc0624560d7f480a5d174cd44f43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4842fc0624560d7f480a5d174cd44f43">&#9670;&nbsp;</a></span>ValidateName() <span class="overload">[2/2]</span></h2>
+<a id="a4842fc0624560d7f480a5d174cd44f43" name="a4842fc0624560d7f480a5d174cd44f43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4842fc0624560d7f480a5d174cd44f43">&#9670;&#160;</a></span>ValidateName() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , size_t N&gt; </div>
+template&lt;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">typename</a> T , <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">size_t</a> N&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool iutest::TestProperty::ValidateName </td>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">static</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">bool</a> iutest::TestProperty::ValidateName </td>
           <td>(</td>
-          <td class="paramtype">const ::std::string &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> ::std::string &amp;&#160;</td>
           <td class="paramname"><em>name</em>, </td>
         </tr>
         <tr>
@@ -321,8 +332,9 @@ template&lt;typename T , size_t N&gt; </div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/df6/classiutest_1_1_test_property_a4842fc0624560d7f480a5d174cd44f43_cgraph.png" border="0" usemap="#adb/df6/classiutest_1_1_test_property_a4842fc0624560d7f480a5d174cd44f43_cgraph" alt=""/></div>
 <map name="adb/df6/classiutest_1_1_test_property_a4842fc0624560d7f480a5d174cd44f43_cgraph" id="adb/df6/classiutest_1_1_test_property_a4842fc0624560d7f480a5d174cd44f43_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,153,47"/>
-<area shape="rect" href="../../db/df6/classiutest_1_1_test_property.html#ad33b46ab30e2c53d4787cd31d68f05b3" title="有効なキーかどうかチェック" alt="" coords="201,5,349,47"/>
+<area shape="rect" title=" " alt="" coords="5,5,153,45"/>
+<area shape="rect" href="../../db/df6/classiutest_1_1_test_property.html#ad33b46ab30e2c53d4787cd31d68f05b3" title="有効なキーかどうかチェック" alt="" coords="201,5,349,45"/>
+<area shape="poly" title=" " alt="" coords="154,23,187,23,187,28,154,28"/>
 </map>
 </div>
 
@@ -334,7 +346,7 @@ template&lt;typename T , size_t N&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2026年09月03日(木) 01時29分47秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2026年09月03日(木) 02時21分29秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

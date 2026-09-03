@@ -1,5 +1,7 @@
 <map id="iuutil::backward::Test&lt; T &gt;" name="iuutil::backward::Test&lt; T &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="5,171,204,197"/>
-<area shape="rect" id="node2" href="$dc/d0e/classiutest_1_1_test.html" title="テストベース" alt="" coords="58,95,151,121"/>
-<area shape="rect" id="node3" href="$d8/d3d/classiutest_1_1_test_info.html" title="テスト情報クラス" alt="" coords="45,5,164,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,168,204,193"/>
+<area shape="rect" id="Node000002" href="$dc/d0e/classiutest_1_1_test.html" title="テストベース" alt="" coords="58,93,151,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,133,107,168,102,168,102,133"/>
+<area shape="rect" id="Node000003" href="$d8/d3d/classiutest_1_1_test_info.html" title="テスト情報クラス" alt="" coords="45,5,164,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="107,45,107,93,102,93,102,45"/>
 </map>

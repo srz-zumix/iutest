@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: iutest_spi.hpp ファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -19,10 +19,9 @@
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.14</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">iutest<span id="projectnumber">&#160;1.17.99.14</span>
    </div>
   </td>
  </tr>
@@ -30,21 +29,22 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.9.1 -->
+<!-- 構築: Doxygen 1.9.8 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
 <script type="text/javascript" src="../../menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
   initMenu('../../',true,false,'search.php','検索');
   $(document).ready(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -55,9 +55,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
 </div>
 
 </div><!-- top -->
@@ -65,8 +72,7 @@ $(function() {
   <div class="summary">
 <a href="#namespaces">名前空間</a> &#124;
 <a href="#define-members">マクロ定義</a>  </div>
-  <div class="headertitle">
-<div class="title">iutest_spi.hpp ファイル</div>  </div>
+  <div class="headertitle"><div class="title">iutest_spi.hpp ファイル</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -79,89 +85,187 @@ iutest_spi.hpp の依存先関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/dcc/iutest__spi_8hpp__incl.png" border="0" usemap="#aiutest__spi_8hpp" alt=""/></div>
 <map name="aiutest__spi_8hpp" id="aiutest__spi_8hpp">
-<area shape="rect" title="iris unit test spi 対応用 ファイル" alt="" coords="3317,5,3430,32"/>
-<area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="1965,691,2099,717"/>
-<area shape="rect" href="../../d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="2785,80,2871,107"/>
-<area shape="rect" href="../../d9/df2/iutest__ver_8hpp.html" title="iris unit test version" alt="" coords="3773,430,3888,457"/>
-<area shape="rect" href="../../dc/d2f/iutest__compiler_8hpp.html" title="iris unit test compiler 依存の吸収 ファイル" alt="" coords="823,519,1027,546"/>
-<area shape="rect" href="../../d0/d23/iutest__legacy_8hpp.html" title="iris unit test legacy testcase support" alt="" coords="159,162,294,189"/>
-<area shape="rect" href="../../d0/db5/iutest__core_8hpp.html" title="iris unit test core" alt="" coords="1397,162,1520,189"/>
-<area shape="rect" href="../../dc/df5/iutest__param__tests_8hpp.html" title="iris unit test parameter 定義 ファイル" alt="" coords="1734,162,1909,189"/>
-<area shape="rect" href="../../d7/d4a/iutest__typed__tests_8hpp.html" title="iris unit test typed test" alt="" coords="2431,430,2601,457"/>
-<area shape="rect" href="../../d9/d06/iutest__prod_8hpp.html" title="iris unit test production code 対応用 ファイル" alt="" coords="2597,251,2720,278"/>
-<area shape="rect" href="../../d5/d06/iutest__expression__assertion_8hpp.html" title="iris unit test 式アサーション 定義 ファイル" alt="" coords="2677,430,2909,457"/>
-<area shape="rect" href="../../dd/d8a/iutest__matcher_8hpp.html" title="iris unit test matcher 定義 ファイル" alt="" coords="2833,519,2980,546"/>
-<area shape="rect" href="../../dc/d47/iutest__static__assertion_8hpp.html" title="iris unit test static assertion 定義 ファイル" alt="" coords="2865,251,3063,278"/>
-<area shape="rect" href="../../dc/df5/iutest__ignore_8hpp.html" title="iris unit test ignore test ファイル" alt="" coords="3037,430,3171,457"/>
-<area shape="rect" href="../../d0/d81/iutest__default__printer_8hpp.html" title="iris unit test デフォルト出力イベントリスナー ファイル" alt="" coords="3176,155,3341,196"/>
-<area shape="rect" href="../../dd/d6c/iutest__stderr__xml__generator_8hpp.html" title="output stderr (junit) xml event listener" alt="" coords="3196,423,3353,464"/>
-<area shape="rect" href="../../d0/dfd/iutest__streaming__listener_8hpp.html" title="iris unit test stream result" alt="" coords="3366,155,3551,196"/>
-<area shape="rect" href="../../d7/d00/iutest__stream__capture_8hpp.html" title="iris unit test stream capture" alt="" coords="570,155,737,196"/>
-<area shape="rect" href="../../de/dd4/iutest__util_8hpp.html" title="iris unit test utility" alt="" coords="2217,251,2332,278"/>
-<area shape="rect" href="../../db/df6/iutest__default__main_8hpp.html" title="iris unit test default main" alt="" coords="3575,155,3742,196"/>
-<area shape="rect" href="../../da/d9f/iutest__platform_8hpp.html" title="iris unit test platform detection" alt="" coords="913,609,1063,635"/>
-<area shape="rect" href="../../d7/d02/iutest__pragma_8hpp.html" title="pragma macros" alt="" coords="693,609,837,635"/>
-<area shape="rect" href="../../d1/d2a/iutest__port_8hpp.html" title="portable" alt="" coords="139,251,314,278"/>
-<area shape="rect" href="../../d3/d4c/iutest__internal__defs_8hpp.html" title="internal definition" alt="" coords="656,341,835,367"/>
-<area shape="rect" title=" " alt="" coords="280,341,365,367"/>
-<area shape="rect" title=" " alt="" coords="94,341,255,367"/>
-<area shape="rect" href="../../d1/d84/iutest__defs_8hpp.html" title="iris unit test definition" alt="" coords="830,430,965,457"/>
-<area shape="rect" href="../../d2/d9e/iutest__string__stream_8hpp.html" title="iris unit test iu_basic_ostream implimentaion" alt="" coords="619,430,803,457"/>
-<area shape="rect" href="../../d9/d0b/iutest__type__traits_8hpp_source.html" title=" " alt="" coords="1311,430,1475,457"/>
-<area shape="rect" title=" " alt="" coords="2121,609,2183,635"/>
-<area shape="rect" href="../../d5/d65/iutest__result__reporter_8hpp.html" title="iris unit test TestPartResult リポーター ファイル" alt="" coords="1551,512,1708,553"/>
-<area shape="rect" href="../../d3/d0a/iutest__file_8hpp.html" title="iris unit test ファイルクラス ファイル" alt="" coords="569,251,737,278"/>
-<area shape="rect" href="../../d7/d42/iutest__params__util_8hpp.html" title="iris unit test parameter 定義 ファイル" alt="" coords="1222,512,1391,553"/>
-<area shape="rect" title=" " alt="" coords="1441,251,1591,278"/>
-<area shape="rect" href="../../dc/d62/iutest__core__impl_8hpp.html" title="iris unit test UnitTest core" alt="" coords="1633,609,1791,635"/>
-<area shape="rect" href="../../dd/d4f/iutest__stream_8hpp.html" title="io stream" alt="" coords="491,341,631,367"/>
-<area shape="rect" href="../../d6/dfe/iutest__genparams_8hpp.html" title="iris unit test parameter generator" alt="" coords="1087,609,1254,635"/>
-<area shape="rect" href="../../d9/d88/iutest__genparams__from__file_8hpp.html" title="iris unit test parameter generator from file" alt="" coords="1278,601,1455,643"/>
-<area shape="rect" href="../../d4/d63/iutest__any_8hpp.html" title="iris unit test any object" alt="" coords="1667,251,1783,278"/>
-<area shape="rect" href="../../df/dbd/iutest__typed__util_8hpp.html" title="typed util" alt="" coords="2551,512,2708,553"/>
-<area shape="rect" href="../../db/d71/iutest__pool_8hpp.html" title="iris unit test memory pool" alt="" coords="2300,519,2476,546"/>
-<area shape="rect" href="../../d5/d5c/iutest__typelist_8hpp.html" title="type list" alt="" coords="2565,609,2707,635"/>
-<area shape="rect" title=" " alt="" coords="3413,244,3571,285"/>
-<area shape="rect" href="../../d5/d8e/iutest__junit__xml__generator_8hpp.html" title="output junit xml event listener" alt="" coords="3165,519,3389,546"/>
-<area shape="rect" href="../../dc/d19/iutest__default__xml__generator_8hpp.html" title="iris unit test xml 出力イベントリスナー ファイル" alt="" coords="3205,601,3349,643"/>
-<area shape="rect" title=" " alt="" coords="3373,601,3520,643"/>
-<area shape="rect" href="../../dc/dbb/iutest__util__assertion_8hpp.html" title="iris unit test assertion 拡張 ファイル" alt="" coords="1822,341,2029,367"/>
-<area shape="rect" href="../../df/de1/iutest__util__output_8hpp.html" title="iris unit test print 出力 utility ファイル" alt="" coords="1884,519,2073,546"/>
-<area shape="rect" href="../../df/d01/iutest__util__quiet__result__printer_8hpp.html" title="iris unit test quiet result printer" alt="" coords="2104,333,2256,375"/>
-<area shape="rect" href="../../d8/def/iutest__util__tests_8hpp.html" title="iris unit test テスト情報 utility ファイル" alt="" coords="2280,341,2459,367"/>
+<area shape="rect" title="iris unit test spi 対応用 ファイル" alt="" coords="3317,5,3430,31"/>
+<area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="1965,680,2099,705"/>
+<area shape="poly" title=" " alt="" coords="3431,20,3567,33,3649,45,3731,60,3807,79,3869,104,3893,118,3912,134,3924,151,3928,170,3928,525,3925,551,3917,572,3904,587,3887,600,3844,617,3793,635,3751,645,3688,654,3508,669,3276,679,3014,687,2489,693,2112,694,2112,689,2489,688,3014,681,3276,674,3508,663,3687,649,3750,640,3791,629,3842,612,3884,595,3900,584,3912,569,3920,550,3923,525,3923,171,3919,153,3908,137,3890,122,3867,108,3805,84,3730,65,3649,50,3567,39,3430,25"/>
+<area shape="rect" href="../../d0/de0/iutest_8hpp.html" title="iris unit test" alt="" coords="2785,79,2871,104"/>
+<area shape="poly" title=" " alt="" coords="3317,29,2885,85,2885,80,3316,24"/>
+<area shape="poly" title=" " alt="" coords="2872,91,3368,110,3628,127,3714,138,3741,144,3755,150,3768,169,3776,192,3783,252,3777,323,3762,399,3739,474,3711,543,3678,598,3661,619,3644,634,3619,643,3572,650,3422,662,2973,680,2476,690,2112,693,2112,688,2476,684,2973,675,3421,657,3572,645,3618,637,3641,630,3658,615,3674,595,3706,540,3734,472,3757,398,3772,322,3778,252,3771,194,3763,171,3752,154,3740,149,3714,143,3628,133,3368,115,2872,96"/>
+<area shape="rect" href="../../d9/df2/iutest__ver_8hpp.html" title="iris unit test version" alt="" coords="3773,423,3888,449"/>
+<area shape="poly" title=" " alt="" coords="2872,89,3083,89,3378,95,3523,102,3651,113,3747,128,3780,138,3800,150,3824,179,3839,212,3848,249,3852,286,3849,357,3840,411,3834,410,3844,356,3847,286,3843,250,3834,214,3819,182,3797,154,3778,143,3746,133,3650,118,3523,107,3377,100,3083,94,2872,95"/>
+<area shape="rect" href="../../dc/d2f/iutest__compiler_8hpp.html" title="iris unit test compiler 依存の吸収 ファイル" alt="" coords="823,511,1027,537"/>
+<area shape="poly" title=" " alt="" coords="2784,95,2410,95,2138,101,1848,112,1571,132,1446,145,1336,162,1244,181,1174,204,1148,217,1130,230,1118,244,1115,259,1115,350,1111,378,1099,405,1083,428,1062,450,1015,484,969,508,966,503,1012,480,1059,446,1079,425,1095,402,1105,377,1109,349,1109,258,1114,242,1126,226,1146,212,1172,199,1243,176,1335,157,1446,140,1570,127,1848,107,2138,95,2410,90,2784,90"/>
+<area shape="rect" href="../../d0/d23/iutest__legacy_8hpp.html" title="iris unit test legacy testcase support" alt="" coords="159,159,294,185"/>
+<area shape="poly" title=" " alt="" coords="2784,96,1921,113,1252,130,557,155,308,168,308,163,557,149,1252,125,1921,107,2784,91"/>
+<area shape="rect" href="../../d0/db5/iutest__core_8hpp.html" title="iris unit test core" alt="" coords="1397,159,1520,185"/>
+<area shape="poly" title=" " alt="" coords="2784,97,2352,119,1722,155,1534,168,1534,162,1721,149,2352,114,2784,92"/>
+<area shape="rect" href="../../dc/df5/iutest__param__tests_8hpp.html" title="iris unit test parameter 定義 ファイル" alt="" coords="1734,159,1909,185"/>
+<area shape="poly" title=" " alt="" coords="2784,99,1923,165,1922,160,2784,93"/>
+<area shape="rect" href="../../d7/d4a/iutest__typed__tests_8hpp.html" title="iris unit test typed test" alt="" coords="2431,423,2601,449"/>
+<area shape="poly" title=" " alt="" coords="2795,107,2748,126,2692,155,2636,193,2610,216,2587,242,2561,284,2543,330,2522,410,2517,409,2538,328,2557,282,2583,238,2606,212,2632,189,2690,150,2746,121,2793,102"/>
+<area shape="rect" href="../../d9/d06/iutest__prod_8hpp.html" title="iris unit test production code 対応用 ファイル" alt="" coords="2597,247,2720,273"/>
+<area shape="poly" title=" " alt="" coords="2816,106,2761,154,2680,239,2676,235,2757,150,2812,102"/>
+<area shape="rect" href="../../d5/d06/iutest__expression__assertion_8hpp.html" title="iris unit test 式アサーション 定義 ファイル" alt="" coords="2677,423,2909,449"/>
+<area shape="poly" title=" " alt="" coords="2826,105,2812,153,2802,225,2797,297,2795,410,2790,409,2792,297,2797,225,2807,151,2821,104"/>
+<area shape="rect" href="../../dd/d8a/iutest__matcher_8hpp.html" title="iris unit test matcher 定義 ファイル" alt="" coords="2833,511,2980,537"/>
+<area shape="poly" title=" " alt="" coords="2831,104,2836,179,2844,229,2856,279,2873,318,2891,346,2909,375,2924,415,2927,437,2926,460,2918,499,2912,498,2920,459,2921,438,2919,417,2905,377,2887,349,2868,321,2851,281,2839,230,2831,180,2826,105"/>
+<area shape="rect" href="../../dc/d47/iutest__static__assertion_8hpp.html" title="iris unit test static assertion 定義 ファイル" alt="" coords="2865,247,3063,273"/>
+<area shape="poly" title=" " alt="" coords="2839,102,2948,235,2944,238,2835,106"/>
+<area shape="rect" href="../../dc/df5/iutest__ignore_8hpp.html" title="iris unit test ignore test ファイル" alt="" coords="3037,423,3171,449"/>
+<area shape="poly" title=" " alt="" coords="2868,102,2917,120,2974,149,3031,188,3056,212,3077,239,3097,282,3107,329,3110,373,3109,409,3104,409,3105,373,3102,330,3092,284,3072,241,3052,215,3027,192,2971,153,2915,125,2866,107"/>
+<area shape="rect" href="../../d0/d81/iutest__default__printer_8hpp.html" title="iris unit test デフォルト出力イベントリスナー ファイル" alt="" coords="3176,152,3341,192"/>
+<area shape="poly" title=" " alt="" coords="2872,98,3158,149,3163,150,3162,156,3157,155,2871,103"/>
+<area shape="rect" href="../../dd/d6c/iutest__stderr__xml__generator_8hpp.html" title="output stderr (junit) xml event listener" alt="" coords="3196,416,3353,456"/>
+<area shape="poly" title=" " alt="" coords="2872,97,2945,115,2985,130,3023,150,3063,178,3100,210,3167,280,3221,348,3258,403,3254,406,3217,351,3163,283,3097,214,3059,182,3020,154,2983,135,2943,120,2871,102"/>
+<area shape="rect" href="../../d0/dfd/iutest__streaming__listener_8hpp.html" title="iris unit test stream result" alt="" coords="3366,152,3551,192"/>
+<area shape="poly" title=" " alt="" coords="2872,94,3075,115,3353,149,3352,155,3074,120,2871,99"/>
+<area shape="rect" href="../../d7/d00/iutest__stream__capture_8hpp.html" title="iris unit test stream capture" alt="" coords="570,152,737,192"/>
+<area shape="poly" title=" " alt="" coords="2785,97,2118,118,1093,155,750,169,750,164,1093,149,2118,113,2784,91"/>
+<area shape="rect" href="../../de/dd4/iutest__util_8hpp.html" title="iris unit test utility" alt="" coords="2217,247,2332,273"/>
+<area shape="poly" title=" " alt="" coords="2785,101,2670,121,2534,155,2410,200,2311,244,2309,239,2408,195,2533,149,2669,116,2784,96"/>
+<area shape="rect" href="../../db/df6/iutest__default__main_8hpp.html" title="iris unit test default main" alt="" coords="3575,152,3742,192"/>
+<area shape="poly" title=" " alt="" coords="2872,92,3158,109,3356,126,3562,149,3561,155,3356,131,3157,114,2871,97"/>
+<area shape="poly" title=" " alt="" coords="3833,449,3829,486,3818,537,3795,591,3778,615,3756,634,3729,643,3679,651,3516,664,3293,674,3033,682,2500,690,2113,694,2113,688,2500,685,3033,676,3293,669,3516,659,3678,646,3728,638,3753,630,3774,611,3790,588,3813,536,3824,485,3828,448"/>
+<area shape="poly" title=" " alt="" coords="919,538,907,559,896,583,893,609,895,620,902,630,916,636,946,643,1044,654,1345,671,1686,682,1952,687,1952,693,1686,687,1344,676,1044,659,945,648,914,641,898,634,890,622,887,609,891,582,902,556,914,536"/>
+<area shape="rect" href="../../da/d9f/iutest__platform_8hpp.html" title="iris unit test platform detection" alt="" coords="913,599,1063,625"/>
+<area shape="poly" title=" " alt="" coords="936,535,973,586,969,589,932,538"/>
+<area shape="rect" href="../../d7/d02/iutest__pragma_8hpp.html" title="pragma macros" alt="" coords="693,599,837,625"/>
+<area shape="poly" title=" " alt="" coords="905,539,800,595,798,590,903,534"/>
+<area shape="poly" title=" " alt="" coords="1035,622,1075,629,1325,657,1572,674,1790,684,1952,688,1951,693,1790,689,1572,680,1324,662,1074,635,1034,627"/>
+<area shape="poly" title=" " alt="" coords="814,622,856,629,1013,647,1173,661,1485,678,1757,687,1951,689,1951,694,1757,692,1485,684,1173,666,1012,652,856,635,813,627"/>
+<area shape="poly" title=" " alt="" coords="187,187,132,208,73,242,48,263,27,287,13,315,8,347,8,525,11,561,22,588,42,609,72,630,102,638,161,646,349,659,607,669,907,676,1517,685,1951,688,1951,694,1517,691,907,682,607,674,349,664,160,651,101,643,70,634,38,613,18,590,6,562,3,525,3,346,8,314,22,285,44,259,70,237,130,204,185,182"/>
+<area shape="rect" href="../../d1/d2a/iutest__port_8hpp.html" title="portable" alt="" coords="139,247,314,273"/>
+<area shape="poly" title=" " alt="" coords="229,185,229,233,224,233,224,185"/>
+<area shape="poly" title=" " alt="" coords="176,275,127,296,103,311,83,330,67,355,60,378,59,435,59,525,61,551,66,572,75,588,88,601,121,617,164,623,269,623,327,623,384,629,528,647,718,661,939,672,1175,679,1628,687,1951,689,1951,694,1628,692,1175,685,939,677,718,667,527,653,384,635,326,629,269,628,163,629,119,622,84,605,71,591,61,574,55,552,53,525,53,435,54,377,62,353,79,326,100,306,124,291,174,270"/>
+<area shape="rect" href="../../d3/d4c/iutest__internal__defs_8hpp.html" title="internal definition" alt="" coords="656,335,835,361"/>
+<area shape="poly" title=" " alt="" coords="301,270,643,325,671,330,670,335,642,331,300,275"/>
+<area shape="rect" title=" " alt="" coords="280,335,365,361"/>
+<area shape="poly" title=" " alt="" coords="241,271,301,324,297,328,238,275"/>
+<area shape="rect" title=" " alt="" coords="94,335,255,361"/>
+<area shape="poly" title=" " alt="" coords="222,274,191,324,187,322,217,271"/>
+<area shape="poly" title=" " alt="" coords="691,363,645,383,625,398,609,418,584,460,575,484,571,509,573,535,584,564,605,596,639,630,658,637,697,644,823,656,1204,674,1631,684,1951,688,1951,693,1631,689,1204,679,823,662,696,650,656,642,636,634,601,599,579,567,568,536,565,508,570,482,579,458,604,414,621,394,643,379,689,358"/>
+<area shape="rect" href="../../d1/d84/iutest__defs_8hpp.html" title="iris unit test definition" alt="" coords="830,423,965,449"/>
+<area shape="poly" title=" " alt="" coords="767,359,866,414,863,419,765,363"/>
+<area shape="rect" href="../../d2/d9e/iutest__string__stream_8hpp.html" title="iris unit test iu_basic_ostream implimentaion" alt="" coords="619,423,803,449"/>
+<area shape="poly" title=" " alt="" coords="743,362,723,411,718,409,738,360"/>
+<area shape="rect" href="../../d9/d0b/iutest__type__traits_8hpp_source.html" title=" " alt="" coords="1311,423,1475,449"/>
+<area shape="poly" title=" " alt="" coords="832,358,1298,419,1297,425,831,363"/>
+<area shape="poly" title=" " alt="" coords="867,451,796,482,757,502,720,525,690,551,672,577,668,590,668,603,673,617,683,630,701,638,737,645,859,658,1028,668,1227,675,1640,685,1952,688,1952,694,1640,690,1227,681,1028,673,858,663,737,650,699,643,680,634,668,619,663,604,663,590,667,575,687,547,717,521,754,498,794,477,865,446"/>
+<area shape="poly" title=" " alt="" coords="904,448,920,497,915,499,899,450"/>
+<area shape="rect" title=" " alt="" coords="2121,599,2183,625"/>
+<area shape="poly" title=" " alt="" coords="965,438,1614,472,1940,490,2086,502,2108,519,2125,541,2147,585,2142,587,2121,544,2104,523,2084,506,1940,495,1614,477,965,443"/>
+<area shape="poly" title=" " alt="" coords="704,450,679,485,655,534,647,560,644,586,649,609,662,630,680,638,717,645,841,658,1013,668,1215,676,1635,685,1952,688,1951,694,1635,690,1215,681,1013,673,840,663,716,651,678,643,658,634,644,611,639,586,641,559,650,532,675,483,699,447"/>
+<area shape="poly" title=" " alt="" coords="1402,448,1427,485,1465,535,1517,588,1546,611,1577,630,1607,641,1646,651,1746,667,1855,678,1952,685,1951,690,1854,683,1745,672,1645,656,1605,646,1575,634,1543,615,1513,592,1461,539,1422,488,1398,451"/>
+<area shape="poly" title=" " alt="" coords="1331,451,1002,511,1001,506,1330,446"/>
+<area shape="poly" title=" " alt="" coords="1454,186,1441,211,1431,241,1428,260,1431,279,1442,319,1455,348,1489,415,1512,481,1522,509,1541,543,1574,594,1593,612,1621,630,1647,640,1682,649,1769,665,1952,684,1952,689,1768,670,1680,654,1645,645,1619,634,1590,616,1570,597,1536,545,1518,511,1507,483,1484,417,1450,351,1437,321,1425,281,1423,260,1425,239,1436,209,1449,184"/>
+<area shape="rect" href="../../d5/d65/iutest__result__reporter_8hpp.html" title="iris unit test TestPartResult リポーター ファイル" alt="" coords="1551,504,1708,544"/>
+<area shape="poly" title=" " alt="" coords="1515,182,1564,203,1586,218,1605,238,1622,269,1634,303,1642,337,1646,372,1645,438,1639,491,1633,490,1640,438,1640,373,1637,338,1629,304,1618,271,1601,242,1583,222,1561,207,1513,187"/>
+<area shape="rect" href="../../d3/d0a/iutest__file_8hpp.html" title="iris unit test ファイルクラス ファイル" alt="" coords="569,247,737,273"/>
+<area shape="poly" title=" " alt="" coords="1397,183,751,251,751,246,1397,177"/>
+<area shape="rect" href="../../d7/d42/iutest__params__util_8hpp.html" title="iris unit test parameter 定義 ファイル" alt="" coords="1222,504,1391,544"/>
+<area shape="poly" title=" " alt="" coords="1444,187,1415,211,1386,242,1354,286,1331,323,1315,363,1301,416,1298,454,1302,490,1297,491,1293,454,1296,416,1310,362,1327,321,1349,283,1382,238,1411,207,1440,183"/>
+<area shape="rect" title=" " alt="" coords="1441,247,1591,273"/>
+<area shape="poly" title=" " alt="" coords="1469,183,1503,234,1498,237,1464,186"/>
+<area shape="poly" title=" " alt="" coords="1689,542,1745,563,1804,590,1833,610,1863,630,1921,655,1977,674,1975,679,1919,660,1860,634,1830,614,1801,594,1743,568,1687,547"/>
+<area shape="rect" href="../../dc/d62/iutest__core__impl_8hpp.html" title="iris unit test UnitTest core" alt="" coords="1633,599,1791,625"/>
+<area shape="poly" title=" " alt="" coords="1650,542,1693,587,1689,591,1646,546"/>
+<area shape="poly" title=" " alt="" coords="1759,622,1973,674,1972,679,1758,627"/>
+<area shape="poly" title=" " alt="" coords="581,275,527,295,502,310,481,330,464,354,457,377,456,435,456,525,458,547,463,565,472,579,484,591,516,611,557,630,590,640,641,648,787,663,977,673,1193,681,1629,688,1951,689,1951,694,1629,693,1193,686,977,679,787,668,640,654,589,645,555,634,513,616,481,595,468,583,459,567,453,548,451,525,451,435,451,376,459,352,477,326,499,306,525,290,580,270"/>
+<area shape="poly" title=" " alt="" coords="668,271,724,323,721,327,664,275"/>
+<area shape="rect" href="../../dd/d4f/iutest__stream_8hpp.html" title="io stream" alt="" coords="491,335,631,361"/>
+<area shape="poly" title=" " alt="" coords="643,275,586,327,583,323,639,271"/>
+<area shape="poly" title=" " alt="" coords="561,361,549,413,541,489,544,529,553,568,570,602,596,630,616,637,657,643,789,655,1183,672,1623,683,1952,688,1952,693,1623,688,1183,678,788,660,656,649,615,642,593,634,565,605,548,570,539,530,536,489,543,412,555,360"/>
+<area shape="poly" title=" " alt="" coords="1360,542,1413,563,1468,590,1497,611,1509,621,1526,629,1607,649,1721,664,1952,684,1951,689,1721,670,1606,654,1524,635,1506,625,1494,616,1465,594,1411,568,1358,547"/>
+<area shape="rect" href="../../d6/dfe/iutest__genparams_8hpp.html" title="iris unit test parameter generator" alt="" coords="1087,599,1254,625"/>
+<area shape="poly" title=" " alt="" coords="1278,546,1202,594,1199,590,1275,542"/>
+<area shape="rect" href="../../d9/d88/iutest__genparams__from__file_8hpp.html" title="iris unit test parameter generator from file" alt="" coords="1278,592,1455,632"/>
+<area shape="poly" title=" " alt="" coords="1322,543,1348,579,1343,582,1318,546"/>
+<area shape="poly" title=" " alt="" coords="1223,622,1266,629,1458,652,1650,668,1952,686,1951,691,1649,673,1458,657,1265,635,1222,627"/>
+<area shape="poly" title=" " alt="" coords="1456,627,1475,629,1736,661,1952,682,1951,687,1736,666,1474,635,1455,632"/>
+<area shape="poly" title=" " alt="" coords="1822,185,1814,244,1809,336,1812,388,1821,442,1835,494,1858,543,1876,564,1902,588,1951,630,2005,670,2001,674,1948,634,1898,592,1872,567,1854,545,1830,496,1815,443,1807,389,1804,336,1808,243,1816,184"/>
+<area shape="rect" href="../../d4/d63/iutest__any_8hpp.html" title="iris unit test any object" alt="" coords="1667,247,1783,273"/>
+<area shape="poly" title=" " alt="" coords="1810,187,1751,240,1747,236,1807,183"/>
+<area shape="poly" title=" " alt="" coords="1727,273,1726,320,1730,389,1746,469,1760,507,1779,542,1913,630,1995,672,1993,676,1911,634,1775,546,1755,509,1741,470,1725,390,1720,320,1722,273"/>
+<area shape="poly" title=" " alt="" coords="1667,274,1603,283,1393,304,1185,321,849,344,849,338,1184,316,1393,299,1602,277,1666,268"/>
+<area shape="poly" title=" " alt="" coords="2518,449,2513,494,2504,521,2490,546,2456,582,2422,604,2334,635,2278,653,2220,667,2113,685,2112,680,2218,662,2276,648,2332,629,2419,599,2452,578,2486,542,2499,519,2507,493,2513,449"/>
+<area shape="rect" href="../../df/dbd/iutest__typed__util_8hpp.html" title="typed util" alt="" coords="2551,504,2708,544"/>
+<area shape="poly" title=" " alt="" coords="2533,447,2595,493,2592,498,2530,451"/>
+<area shape="rect" href="../../db/d71/iutest__pool_8hpp.html" title="iris unit test memory pool" alt="" coords="2300,511,2476,537"/>
+<area shape="poly" title=" " alt="" coords="2500,451,2418,506,2415,501,2497,447"/>
+<area shape="poly" title=" " alt="" coords="2609,546,2544,599,2496,634,2423,654,2321,669,2113,689,2112,684,2321,664,2422,649,2494,630,2541,595,2605,542"/>
+<area shape="rect" href="../../d5/d5c/iutest__typelist_8hpp.html" title="type list" alt="" coords="2565,599,2707,625"/>
+<area shape="poly" title=" " alt="" coords="2633,544,2637,585,2631,586,2628,544"/>
+<area shape="poly" title=" " alt="" coords="2585,627,2546,635,2310,666,2113,687,2112,682,2309,661,2545,629,2584,622"/>
+<area shape="poly" title=" " alt="" coords="2383,538,2348,585,2322,612,2292,634,2248,655,2202,671,2113,688,2112,683,2200,666,2246,650,2289,630,2319,608,2344,582,2379,535"/>
+<area shape="poly" title=" " alt="" coords="2357,539,2198,597,2196,592,2355,534"/>
+<area shape="poly" title=" " alt="" coords="2659,273,2653,306,2650,353,2653,405,2659,431,2668,455,2680,470,2694,478,2710,486,2722,503,2729,530,2733,568,2731,607,2727,622,2721,634,2708,642,2689,649,2632,662,2465,679,2275,689,2113,693,2113,688,2274,683,2465,674,2631,656,2687,644,2706,637,2717,630,2722,620,2726,606,2728,568,2724,531,2718,505,2706,490,2692,482,2676,474,2663,457,2654,432,2648,406,2644,353,2648,306,2653,273"/>
+<area shape="poly" title=" " alt="" coords="2798,448,2804,484,2805,535,2802,562,2795,588,2783,613,2766,634,2731,649,2668,662,2488,679,2284,689,2112,693,2112,688,2284,683,2488,674,2667,657,2729,644,2762,630,2779,610,2790,586,2796,561,2800,534,2798,485,2793,449"/>
+<area shape="poly" title=" " alt="" coords="2903,538,2871,587,2846,613,2816,634,2775,646,2706,656,2511,672,2113,691,2112,686,2510,667,2705,650,2774,640,2814,630,2843,609,2867,583,2899,535"/>
+<area shape="poly" title=" " alt="" coords="2972,272,2990,318,3009,388,3015,428,3015,468,3009,508,2994,545,2968,583,2939,605,2903,620,2858,635,2794,650,2709,663,2501,680,2285,690,2112,693,2112,688,2285,684,2501,675,2708,658,2793,645,2857,629,2901,615,2936,601,2964,579,2990,543,3004,506,3010,468,3009,428,3004,389,2985,320,2967,274"/>
+<area shape="poly" title=" " alt="" coords="3107,449,3104,486,3094,537,3073,590,3057,614,3036,634,3016,644,2984,653,2892,667,2770,678,2631,685,2341,693,2112,694,2112,689,2341,687,2630,680,2770,672,2891,662,2983,648,3014,639,3033,630,3053,611,3069,588,3089,536,3099,486,3101,449"/>
+<area shape="poly" title=" " alt="" coords="3288,190,3385,267,3443,321,3498,381,3542,446,3558,478,3568,511,3572,543,3568,575,3556,605,3534,634,3512,644,3470,652,3332,666,3141,676,2918,683,2455,691,2112,694,2112,689,2455,686,2918,678,3141,670,3332,660,3469,647,3510,639,3530,630,3551,603,3563,574,3566,543,3563,512,3553,480,3538,448,3494,385,3440,325,3382,271,3284,194"/>
+<area shape="rect" title=" " alt="" coords="3413,240,3571,280"/>
+<area shape="poly" title=" " alt="" coords="3311,190,3429,233,3427,238,3309,195"/>
+<area shape="poly" title=" " alt="" coords="3230,458,3191,479,3155,506,3140,523,3130,540,3118,574,3104,606,3091,621,3072,634,3050,643,3016,651,2919,664,2792,674,2647,681,2347,690,2112,694,2112,688,2347,685,2647,676,2792,668,2918,658,3015,646,3048,638,3069,630,3087,617,3099,603,3113,572,3125,538,3136,520,3152,502,3189,474,3227,454"/>
+<area shape="rect" href="../../d5/d8e/iutest__junit__xml__generator_8hpp.html" title="output junit xml event listener" alt="" coords="3165,511,3389,537"/>
+<area shape="poly" title=" " alt="" coords="3278,456,3279,497,3274,498,3273,456"/>
+<area shape="poly" title=" " alt="" coords="3265,539,3194,595,3137,634,3075,647,2970,658,2678,675,2360,686,2113,692,2112,687,2359,681,2678,669,2969,652,3074,642,3135,630,3191,590,3261,535"/>
+<area shape="rect" href="../../dc/d19/iutest__default__xml__generator_8hpp.html" title="iris unit test xml 出力イベントリスナー ファイル" alt="" coords="3205,592,3349,632"/>
+<area shape="poly" title=" " alt="" coords="3280,537,3280,578,3275,578,3275,537"/>
+<area shape="rect" title=" " alt="" coords="3373,592,3520,632"/>
+<area shape="poly" title=" " alt="" coords="3301,534,3398,583,3396,588,3299,539"/>
+<area shape="poly" title=" " alt="" coords="3206,632,3187,635,3033,652,2876,665,2570,683,2303,692,2112,694,2112,689,2303,686,2570,678,2876,660,3033,647,3186,629,3205,627"/>
+<area shape="poly" title=" " alt="" coords="3517,190,3553,210,3585,238,3602,265,3609,289,3611,347,3611,525,3610,560,3604,588,3591,612,3565,634,3542,642,3497,649,3355,661,2931,679,2460,689,2112,693,2112,688,2460,683,2931,673,3355,656,3497,644,3541,637,3563,630,3587,608,3599,586,3604,559,3605,525,3605,347,3604,290,3597,267,3581,242,3550,214,3514,194"/>
+<area shape="poly" title=" " alt="" coords="576,195,518,216,463,248,440,268,422,291,410,317,405,347,405,525,410,562,423,588,446,610,478,630,502,636,547,642,692,653,1123,670,1599,682,1951,688,1951,693,1599,687,1122,675,691,658,546,647,501,641,476,634,443,614,419,592,405,563,400,525,400,346,405,316,417,288,436,264,460,244,516,211,574,190"/>
+<area shape="poly" title=" " alt="" coords="656,192,656,233,651,233,651,192"/>
+<area shape="poly" title=" " alt="" coords="2333,266,2387,278,2439,298,2460,311,2474,328,2479,347,2473,369,2460,387,2439,405,2384,441,2328,475,2290,506,2278,523,2271,540,2263,572,2253,603,2244,618,2228,634,2202,653,2173,667,2113,685,2111,680,2171,662,2199,648,2225,630,2239,615,2248,600,2258,570,2266,538,2273,520,2286,502,2325,470,2381,436,2435,401,2456,383,2468,367,2473,347,2469,330,2456,315,2437,303,2386,283,2331,271"/>
+<area shape="rect" href="../../dc/dbb/iutest__util__assertion_8hpp.html" title="iris unit test assertion 拡張 ファイル" alt="" coords="1822,335,2029,361"/>
+<area shape="poly" title=" " alt="" coords="2229,275,1986,335,1984,330,2227,270"/>
+<area shape="rect" href="../../df/de1/iutest__util__output_8hpp.html" title="iris unit test print 出力 utility ファイル" alt="" coords="1884,511,2073,537"/>
+<area shape="poly" title=" " alt="" coords="2218,274,2154,295,2123,310,2094,330,2056,370,2026,417,2004,462,1989,499,1984,497,1999,460,2021,414,2052,367,2090,326,2120,306,2152,290,2216,269"/>
+<area shape="rect" href="../../df/d01/iutest__util__quiet__result__printer_8hpp.html" title="iris unit test quiet result printer" alt="" coords="2104,328,2256,368"/>
+<area shape="poly" title=" " alt="" coords="2264,275,2213,321,2209,317,2260,271"/>
+<area shape="rect" href="../../d8/def/iutest__util__tests_8hpp.html" title="iris unit test テスト情報 utility ファイル" alt="" coords="2280,335,2459,361"/>
+<area shape="poly" title=" " alt="" coords="2289,271,2348,324,2344,328,2286,275"/>
+<area shape="poly" title=" " alt="" coords="1919,362,1897,395,1875,441,1867,467,1863,493,1865,519,1874,543,1890,561,1908,569,1928,576,1951,590,1989,629,2019,667,2014,670,1985,633,1948,594,1926,581,1906,574,1886,565,1870,545,1860,520,1858,493,1862,466,1870,440,1892,393,1914,360"/>
+<area shape="poly" title=" " alt="" coords="1855,363,1478,424,1477,419,1854,358"/>
+<area shape="poly" title=" " alt="" coords="1985,536,2027,666,2022,668,1980,538"/>
+<area shape="poly" title=" " alt="" coords="2174,369,2045,668,2040,666,2169,367"/>
+<area shape="poly" title=" " alt="" coords="2360,363,2311,418,2276,460,2246,505,2233,541,2227,573,2219,603,2197,634,2157,662,2113,679,2111,674,2155,657,2193,630,2214,600,2222,571,2227,540,2242,503,2272,457,2307,414,2356,359"/>
+<area shape="poly" title=" " alt="" coords="3661,192,3661,347,3661,525,3659,561,3649,589,3631,613,3603,634,3578,642,3532,648,3386,660,2950,677,2467,688,2112,693,2112,688,2467,683,2950,672,3385,655,3532,643,3577,637,3600,630,3628,609,3645,587,3654,560,3656,525,3656,347,3656,192"/>
 </map>
 </div>
 </div>
 <p><a href="../../d9/df7/iutest__spi_8hpp_source.html">[ソースコード]</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 名前空間</h2></td></tr>
-<tr class="memitem:d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
+<tr class="memitem:d3/dda/namespaceiutest" id="r_d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
 <tr class="memdesc:d3/dda/namespaceiutest"><td class="mdescLeft">&#160;</td><td class="mdescRight">iutest root namespace <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 マクロ定義</h2></td></tr>
-<tr class="memitem:gae4c4d4662ebf2842329c3207cf535611"><td class="memItemLeft" align="right" valign="top">
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#gae4c4d4662ebf2842329c3207cf535611">IUTEST_ASSERT_FATAL_FAILURE</a>(statement,  substr)&#160;&#160;&#160;    IUTEST_TEST_FATAL_FAILURE_(statement, #statement, substr, IUTEST_ASSERT_FAILURE)</td></tr>
+<tr class="memitem:gae4c4d4662ebf2842329c3207cf535611" id="r_gae4c4d4662ebf2842329c3207cf535611"><td class="memItemLeft" align="right" valign="top">
+#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_ASSERT_FATAL_FAILURE</b>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">statement</a>,  substr)&#160;&#160;&#160;    IUTEST_TEST_FATAL_FAILURE_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">statement</a>, #<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">statement</a>, substr, IUTEST_ASSERT_FAILURE)</td></tr>
 <tr class="memdesc:gae4c4d4662ebf2842329c3207cf535611"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fatal Failure 発生確認テスト <br /></td></tr>
 <tr class="separator:gae4c4d4662ebf2842329c3207cf535611"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga25cb369310ed9962a8606bc5eec49611"><td class="memItemLeft" align="right" valign="top">
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga25cb369310ed9962a8606bc5eec49611">IUTEST_ASSERT_NONFATAL_FAILURE</a>(statement,  substr)&#160;&#160;&#160;    IUTEST_TEST_NONFATAL_FAILURE_(statement, #statement, substr, IUTEST_ASSERT_FAILURE)</td></tr>
+<tr class="memitem:ga25cb369310ed9962a8606bc5eec49611" id="r_ga25cb369310ed9962a8606bc5eec49611"><td class="memItemLeft" align="right" valign="top">
+#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_ASSERT_NONFATAL_FAILURE</b>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">statement</a>,  substr)&#160;&#160;&#160;    IUTEST_TEST_NONFATAL_FAILURE_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">statement</a>, #<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">statement</a>, substr, IUTEST_ASSERT_FAILURE)</td></tr>
 <tr class="memdesc:ga25cb369310ed9962a8606bc5eec49611"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non Fatal Failure 発生確認テスト <br /></td></tr>
 <tr class="separator:ga25cb369310ed9962a8606bc5eec49611"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaee2bb9bfc87ef9af8dc919fb4fcccf5f"><td class="memItemLeft" align="right" valign="top">
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#gaee2bb9bfc87ef9af8dc919fb4fcccf5f">IUTEST_EXPECT_FATAL_FAILURE</a>(statement,  substr)&#160;&#160;&#160;    IUTEST_TEST_FATAL_FAILURE_(statement, #statement, substr, IUTEST_EXPECT_FAILURE)</td></tr>
+<tr class="memitem:gaee2bb9bfc87ef9af8dc919fb4fcccf5f" id="r_gaee2bb9bfc87ef9af8dc919fb4fcccf5f"><td class="memItemLeft" align="right" valign="top">
+#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_EXPECT_FATAL_FAILURE</b>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">statement</a>,  substr)&#160;&#160;&#160;    IUTEST_TEST_FATAL_FAILURE_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">statement</a>, #<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">statement</a>, substr, IUTEST_EXPECT_FAILURE)</td></tr>
 <tr class="memdesc:gaee2bb9bfc87ef9af8dc919fb4fcccf5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fatal Failure 発生確認テスト <br /></td></tr>
 <tr class="separator:gaee2bb9bfc87ef9af8dc919fb4fcccf5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadfe7ec6613efce40d5b32a4cb4242885"><td class="memItemLeft" align="right" valign="top">
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#gadfe7ec6613efce40d5b32a4cb4242885">IUTEST_EXPECT_NONFATAL_FAILURE</a>(statement,  substr)&#160;&#160;&#160;    IUTEST_TEST_NONFATAL_FAILURE_(statement, #statement, substr, IUTEST_EXPECT_FAILURE)</td></tr>
+<tr class="memitem:gadfe7ec6613efce40d5b32a4cb4242885" id="r_gadfe7ec6613efce40d5b32a4cb4242885"><td class="memItemLeft" align="right" valign="top">
+#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_EXPECT_NONFATAL_FAILURE</b>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">statement</a>,  substr)&#160;&#160;&#160;    IUTEST_TEST_NONFATAL_FAILURE_(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">statement</a>, #<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">statement</a>, substr, IUTEST_EXPECT_FAILURE)</td></tr>
 <tr class="memdesc:gadfe7ec6613efce40d5b32a4cb4242885"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non Fatal Failure 発生確認テスト <br /></td></tr>
 <tr class="separator:gadfe7ec6613efce40d5b32a4cb4242885"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
-<tr class="memitem:a8968e276822b21c14acb8bc3466284a1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_FATAL_FAILURE_</b>(statement,  text,  substr,  on_failure)</td></tr>
+<tr class="memitem:a8968e276822b21c14acb8bc3466284a1" id="r_a8968e276822b21c14acb8bc3466284a1"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/df7/iutest__spi_8hpp.html#a8968e276822b21c14acb8bc3466284a1">IUTEST_TEST_FATAL_FAILURE_</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">statement</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">text</a>,  substr,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">on_failure</a>)</td></tr>
 <tr class="separator:a8968e276822b21c14acb8bc3466284a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0cf930bb86e0ae8f31287c1625590c15"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_NONFATAL_FAILURE_</b>(statement,  text,  substr,  on_failure)</td></tr>
+<tr class="memitem:a0cf930bb86e0ae8f31287c1625590c15" id="r_a0cf930bb86e0ae8f31287c1625590c15"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/df7/iutest__spi_8hpp.html#a0cf930bb86e0ae8f31287c1625590c15">IUTEST_TEST_NONFATAL_FAILURE_</a>(<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">statement</a>,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">text</a>,  substr,  <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">on_failure</a>)</td></tr>
 <tr class="separator:a0cf930bb86e0ae8f31287c1625590c15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
@@ -170,23 +274,23 @@ iutest_spi.hpp の依存先関係図:</div>
 <dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2012-2022, Takazumi Shirayanagi<br  />
 This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><h2 class="groupheader">マクロ定義詳解</h2>
-<a id="a8968e276822b21c14acb8bc3466284a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8968e276822b21c14acb8bc3466284a1">&#9670;&nbsp;</a></span>IUTEST_TEST_FATAL_FAILURE_</h2>
+<a id="a8968e276822b21c14acb8bc3466284a1" name="a8968e276822b21c14acb8bc3466284a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8968e276822b21c14acb8bc3466284a1">&#9670;&#160;</a></span>IUTEST_TEST_FATAL_FAILURE_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define IUTEST_TEST_FATAL_FAILURE_</td>
+          <td class="memname">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a> IUTEST_TEST_FATAL_FAILURE_</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">statement, </td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">statement</a>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">text, </td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">text</a>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -198,7 +302,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">on_failure&#160;</td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">on_failure</a>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -207,42 +311,43 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line">    IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                                  \</div>
-<div class="line">    if( ::<a class="code" href="../../d9/d5f/classiutest_1_1_assertion_result.html">iutest::AssertionResult</a> iutest_spi_ar = ::<a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a>() ) {  \</div>
-<div class="line">        ::iutest::detail::SPIFailureChecker iutest_failure_checker(::<a class="code" href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6">iutest::TestPartResult::kFatalFailure</a>);    \</div>
-<div class="line">        IIUT_SPI_STATEMENT_EXECUTER(statement);                                     \</div>
-<div class="line">        <a class="code" href="../../d9/d5f/classiutest_1_1_assertion_result.html">::iutest::AssertionResult</a> ar = iutest_failure_checker.GetResult(substr);    \</div>
-<div class="line">        if( !ar ) {                                                                 \</div>
-<div class="line">            iutest_spi_ar &lt;&lt; ar.<a class="code" href="../../d9/d5f/classiutest_1_1_assertion_result.html#a94bc4bf866b6bdc7d42c844191bc37bd">message</a>();                                          \</div>
-<div class="line">            goto IUTEST_PP_CAT(iutest_label_test_fatalfailure_, __LINE__);          \</div>
+<b>値:</b><div class="fragment"><div class="line">    <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                                  \</a></div>
+<div class="line"><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">    if</a>( <a class="code hl_class" href="../../d9/d5f/classiutest_1_1_assertion_result.html">::iutest::AssertionResult</a> <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">iutest_spi_ar</a> = <a class="code hl_function" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">::iutest::AssertionSuccess</a>() ) {  \</div>
+<div class="line">        ::iutest::detail::SPIFailureChecker <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">iutest_failure_checker</a>(<a class="code hl_enumvalue" href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6">::iutest::TestPartResult::kFatalFailure</a>);    <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">\</a></div>
+<div class="line"><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">        IIUT_SPI_STATEMENT_EXECUTER</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">statement</a>);                                     \</div>
+<div class="line">        <a class="code hl_class" href="../../d9/d5f/classiutest_1_1_assertion_result.html">::iutest::AssertionResult</a> <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">ar</a> = <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">iutest_failure_checker</a>.GetResult(substr);    <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">\</a></div>
+<div class="line"><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">        if</a>( !<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">ar</a> ) {                                                                 \</div>
+<div class="line">            <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">iutest_spi_ar</a> &lt;&lt; <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">ar</a>.<a class="code hl_function" href="../../d9/d5f/classiutest_1_1_assertion_result.html#ad01606ebd7aa975e86b83de49911e750">message</a>();                                          \</div>
+<div class="line">            <span class="keywordflow">goto</span> IUTEST_PP_CAT(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">iutest_label_test_fatalfailure_</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">__LINE__</a>);          \</div>
 <div class="line">        }                                                                           \</div>
-<div class="line">    } else                                                                          \</div>
-<div class="line">        IUTEST_PP_CAT(iutest_label_test_fatalfailure_, __LINE__):                   \</div>
-<div class="line">        on_failure(iutest_spi_ar.message())</div>
-<div class="ttc" id="aclassiutest_1_1_assertion_result_html"><div class="ttname"><a href="../../d9/d5f/classiutest_1_1_assertion_result.html">iutest::AssertionResult</a></div><div class="ttdoc">Assertion Result</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:67</div></div>
-<div class="ttc" id="aclassiutest_1_1_assertion_result_html_a94bc4bf866b6bdc7d42c844191bc37bd"><div class="ttname"><a href="../../d9/d5f/classiutest_1_1_assertion_result.html#a94bc4bf866b6bdc7d42c844191bc37bd">iutest::AssertionResult::message</a></div><div class="ttdeci">const char * message() const</div><div class="ttdoc">メッセージの取得</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:90</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_part_result_html_a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6">iutest::TestPartResult::kFatalFailure</a></div><div class="ttdeci">@ kFatalFailure</div><div class="ttdoc">致命的な失敗</div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:69</div></div>
-<div class="ttc" id="anamespaceiutest_html_a0538466708443c65f3c7b2c84b7fce0b"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a></div><div class="ttdeci">AssertionResult AssertionSuccess()</div><div class="ttdoc">テスト成功を示す AssertionResult オブジェクトの取得</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:406</div></div>
+<div class="line">    } <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">else                                                                          \</a></div>
+<div class="line"><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">        IUTEST_PP_CAT</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">iutest_label_test_fatalfailure_</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">__LINE__</a>):                   \</div>
+<div class="line">        <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">on_failure</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">iutest_spi_ar</a>.message())</div>
+<div class="ttc" id="aclassiutest_1_1_assertion_result_html"><div class="ttname"><a href="../../d9/d5f/classiutest_1_1_assertion_result.html">iutest::AssertionResult</a></div><div class="ttdoc">Assertion Result</div><div class="ttdef"><b>Definition</b> iutest_assertion.hpp:67</div></div>
+<div class="ttc" id="aclassiutest_1_1_assertion_result_html_ad01606ebd7aa975e86b83de49911e750"><div class="ttname"><a href="../../d9/d5f/classiutest_1_1_assertion_result.html#ad01606ebd7aa975e86b83de49911e750">iutest::AssertionResult::message</a></div><div class="ttdeci">const char * message() const</div><div class="ttdoc">メッセージの取得</div><div class="ttdef"><b>Definition</b> iutest_assertion.hpp:90</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_part_result_html_a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6">iutest::TestPartResult::kFatalFailure</a></div><div class="ttdeci">@ kFatalFailure</div><div class="ttdoc">致命的な失敗</div><div class="ttdef"><b>Definition</b> iutest_result.hpp:69</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga9111f6c99c043c607e4c7dc8d122d6de"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">StaticAssertTypeEq</a></div><div class="ttdeci">#define StaticAssertTypeEq</div><div class="ttdoc">型アサーション</div><div class="ttdef"><b>Definition</b> iutest_static_assertion.hpp:54</div></div>
+<div class="ttc" id="anamespaceiutest_html_a0538466708443c65f3c7b2c84b7fce0b"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a></div><div class="ttdeci">AssertionResult AssertionSuccess()</div><div class="ttdoc">テスト成功を示す AssertionResult オブジェクトの取得</div><div class="ttdef"><b>Definition</b> iutest_assertion.hpp:406</div></div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a0cf930bb86e0ae8f31287c1625590c15"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0cf930bb86e0ae8f31287c1625590c15">&#9670;&nbsp;</a></span>IUTEST_TEST_NONFATAL_FAILURE_</h2>
+<a id="a0cf930bb86e0ae8f31287c1625590c15" name="a0cf930bb86e0ae8f31287c1625590c15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cf930bb86e0ae8f31287c1625590c15">&#9670;&#160;</a></span>IUTEST_TEST_NONFATAL_FAILURE_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define IUTEST_TEST_NONFATAL_FAILURE_</td>
+          <td class="memname">#<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">define</a> IUTEST_TEST_NONFATAL_FAILURE_</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">statement, </td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">statement</a>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">text, </td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">text</a>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -254,7 +359,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">on_failure&#160;</td>
+          <td class="paramname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">on_failure</a>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -263,26 +368,26 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line">    IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                                  \</div>
-<div class="line">    if( ::<a class="code" href="../../d9/d5f/classiutest_1_1_assertion_result.html">iutest::AssertionResult</a> iutest_spi_ar = ::<a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a>() ) {  \</div>
-<div class="line">        ::iutest::detail::SPIFailureChecker iutest_failure_checker(::<a class="code" href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5a25a59d8268f93e2f89c9b5bea8940146">iutest::TestPartResult::kNonFatalFailure</a>); \</div>
-<div class="line">        IIUT_SPI_STATEMENT_EXECUTER(statement);                                     \</div>
-<div class="line">        <a class="code" href="../../d9/d5f/classiutest_1_1_assertion_result.html">::iutest::AssertionResult</a> ar = iutest_failure_checker.GetResult(substr);    \</div>
-<div class="line">        if( !ar ) {                                                                 \</div>
-<div class="line">            iutest_spi_ar &lt;&lt; ar.<a class="code" href="../../d9/d5f/classiutest_1_1_assertion_result.html#a94bc4bf866b6bdc7d42c844191bc37bd">message</a>();                                          \</div>
-<div class="line">            goto IUTEST_PP_CAT(iutest_label_test_fatalfailure_, __LINE__);          \</div>
+<b>値:</b><div class="fragment"><div class="line">    <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                                  \</a></div>
+<div class="line"><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">    if</a>( <a class="code hl_class" href="../../d9/d5f/classiutest_1_1_assertion_result.html">::iutest::AssertionResult</a> <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">iutest_spi_ar</a> = <a class="code hl_function" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">::iutest::AssertionSuccess</a>() ) {  \</div>
+<div class="line">        ::iutest::detail::SPIFailureChecker <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">iutest_failure_checker</a>(<a class="code hl_enumvalue" href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5a25a59d8268f93e2f89c9b5bea8940146">::iutest::TestPartResult::kNonFatalFailure</a>); <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">\</a></div>
+<div class="line"><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">        IIUT_SPI_STATEMENT_EXECUTER</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">statement</a>);                                     \</div>
+<div class="line">        <a class="code hl_class" href="../../d9/d5f/classiutest_1_1_assertion_result.html">::iutest::AssertionResult</a> <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">ar</a> = <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">iutest_failure_checker</a>.GetResult(substr);    <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">\</a></div>
+<div class="line"><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">        if</a>( !<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">ar</a> ) {                                                                 \</div>
+<div class="line">            <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">iutest_spi_ar</a> &lt;&lt; <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">ar</a>.<a class="code hl_function" href="../../d9/d5f/classiutest_1_1_assertion_result.html#ad01606ebd7aa975e86b83de49911e750">message</a>();                                          \</div>
+<div class="line">            <span class="keywordflow">goto</span> IUTEST_PP_CAT(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">iutest_label_test_fatalfailure_</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">__LINE__</a>);          \</div>
 <div class="line">        }                                                                           \</div>
-<div class="line">    } else                                                                          \</div>
-<div class="line">        IUTEST_PP_CAT(iutest_label_test_fatalfailure_, __LINE__):                   \</div>
-<div class="line">        on_failure(iutest_spi_ar.message())</div>
-<div class="ttc" id="aclassiutest_1_1_test_part_result_html_a611b78a968052b144546b58d83a686e5a25a59d8268f93e2f89c9b5bea8940146"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5a25a59d8268f93e2f89c9b5bea8940146">iutest::TestPartResult::kNonFatalFailure</a></div><div class="ttdeci">@ kNonFatalFailure</div><div class="ttdoc">致命的ではない失敗</div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:68</div></div>
+<div class="line">    } <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">else                                                                          \</a></div>
+<div class="line"><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">        IUTEST_PP_CAT</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">iutest_label_test_fatalfailure_</a>, <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">__LINE__</a>):                   \</div>
+<div class="line">        <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">on_failure</a>(<a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">iutest_spi_ar</a>.message())</div>
+<div class="ttc" id="aclassiutest_1_1_test_part_result_html_a611b78a968052b144546b58d83a686e5a25a59d8268f93e2f89c9b5bea8940146"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5a25a59d8268f93e2f89c9b5bea8940146">iutest::TestPartResult::kNonFatalFailure</a></div><div class="ttdeci">@ kNonFatalFailure</div><div class="ttdoc">致命的ではない失敗</div><div class="ttdef"><b>Definition</b> iutest_result.hpp:68</div></div>
 </div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2026年09月03日(木) 01時29分46秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2026年09月03日(木) 02時21分29秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

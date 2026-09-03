@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: internal/iutest_factory.hpp ソースファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -19,10 +19,9 @@
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.14</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">iutest<span id="projectnumber">&#160;1.17.99.14</span>
    </div>
   </td>
  </tr>
@@ -30,22 +29,28 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.9.1 -->
+<!-- 構築: Doxygen 1.9.8 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "../../search",false,'検索','.html');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
 <script type="text/javascript" src="../../menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
   initMenu('../../',true,false,'search.php','検索');
   $(document).ready(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(1); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -55,9 +60,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -66,95 +78,96 @@ $(function() {
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle">
-<div class="title">iutest_factory.hpp</div>  </div>
+  <div class="headertitle"><div class="title">iutest_factory.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="../../d1/dc9/iutest__factory_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//======================================================================</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#ifndef INCG_IRIS_IUTEST_FACTORY_HPP_9C2B4B94_95A0_479A_9C9D_43FB31845A73_</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#define INCG_IRIS_IUTEST_FACTORY_HPP_9C2B4B94_95A0_479A_9C9D_43FB31845A73_</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d3/dda/namespaceiutest.html">iutest</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//======================================================================</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">// declare</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">class </span>Test;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">namespace </span>detail</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">//======================================================================</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">// class</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"></span><span class="keyword">class </span>iuFactoryBase</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;{</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a>(iuFactoryBase);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    iuFactoryBase() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a> {}</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">virtual</span> ~iuFactoryBase() {}</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">virtual</span> auto_ptr&lt;Test&gt; Create() = 0;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;};</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">class</span> Tester&gt;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">class </span>iuFactory <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#aaf362ab17fd8e57646fc5d56216486d0">IUTEST_CXX_FINAL</a> : <span class="keyword">public</span> iuFactoryBase</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;{</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">virtual</span> auto_ptr&lt;Test&gt; Create() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        auto_ptr&lt;Test&gt; p( <span class="keyword">new</span> Tester() );</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">return</span> p;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;};</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> ParamType&gt;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">class </span>iuParamTestFactoryBase : <span class="keyword">public</span> iuFactoryBase</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;{</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    iuParamTestFactoryBase() : m_param() {}</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">explicit</span> iuParamTestFactoryBase(ParamType param) : m_param(param) {}</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span>                SetParam(ParamType param) { m_param = param; }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">const</span> ParamType&amp;    GetParam()<span class="keyword">      const </span>{ <span class="keywordflow">return</span> m_param; }</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    ParamType m_param;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;};</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">class</span> Tester&gt;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">class </span>iuParamTestFactory <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#aaf362ab17fd8e57646fc5d56216486d0">IUTEST_CXX_FINAL</a> : <span class="keyword">public</span> iuParamTestFactoryBase&lt;typename Tester::ParamType&gt;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;{</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> Tester::ParamType ParamType;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">typedef</span> iuParamTestFactoryBase&lt;ParamType&gt; _Mybase;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    iuParamTestFactory() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#af7bab3fb81df608a4d0a9263b0fc3af4">IUTEST_CXX_DEFAULT_FUNCTION</a></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    explicit iuParamTestFactory(ParamType param) : _Mybase(param) {}</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">virtual</span> auto_ptr&lt;Test&gt; Create() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        Tester::SetParam(&amp;this-&gt;m_param);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        auto_ptr&lt;Test&gt; p( <span class="keyword">new</span> Tester() );</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordflow">return</span> p;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    }</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;};</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// INCG_IRIS_IUTEST_FACTORY_HPP_9C2B4B94_95A0_479A_9C9D_43FB31845A73_</span></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_aaf362ab17fd8e57646fc5d56216486d0"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#aaf362ab17fd8e57646fc5d56216486d0">IUTEST_CXX_FINAL</a></div><div class="ttdeci">#define IUTEST_CXX_FINAL</div><div class="ttdoc">final definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:791</div></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:782</div></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:846</div></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_af7bab3fb81df608a4d0a9263b0fc3af4"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#af7bab3fb81df608a4d0a9263b0fc3af4">IUTEST_CXX_DEFAULT_FUNCTION</a></div><div class="ttdeci">#define IUTEST_CXX_DEFAULT_FUNCTION</div><div class="ttdoc">default function</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:529</div></div>
-<div class="ttc" id="aiutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義</div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:31</div></div>
-<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:33</div></div>
+<a href="../../d1/dc9/iutest__factory_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//======================================================================</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">//-----------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">//-----------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">//======================================================================</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#ifndef INCG_IRIS_IUTEST_FACTORY_HPP_9C2B4B94_95A0_479A_9C9D_43FB31845A73_</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#define INCG_IRIS_IUTEST_FACTORY_HPP_9C2B4B94_95A0_479A_9C9D_43FB31845A73_</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d3/dda/namespaceiutest.html">iutest</a> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">//======================================================================</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">// declare</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">class </span>Test;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">namespace </span>detail</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>{</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">//======================================================================</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">// class</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">class </span>iuFactoryBase</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>{</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_define" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a>(iuFactoryBase);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    iuFactoryBase() <a class="code hl_define" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a> {}</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">virtual</span> ~iuFactoryBase() {}</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">virtual</span> <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">auto_ptr&lt;Test&gt;</a> Create() = 0;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>};</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">template</span>&lt;<span class="keyword">class</span> Tester&gt;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">class </span><a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">iuFactory</a> <a class="code hl_define" href="../../dc/d2f/iutest__compiler_8hpp.html#aaf362ab17fd8e57646fc5d56216486d0">IUTEST_CXX_FINAL</a> : <span class="keyword">public</span> iuFactoryBase</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>{</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">virtual</span> <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">auto_ptr&lt;Test&gt;</a> Create() <a class="code hl_define" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">auto_ptr&lt;Test&gt;</a> <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">p</a>( <span class="keyword">new</span> Tester() );</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">p</a>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>};</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ParamType&gt;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keyword">class </span>iuParamTestFactoryBase : <span class="keyword">public</span> iuFactoryBase</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>{</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    iuParamTestFactoryBase() : m_param() {}</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">explicit</span> iuParamTestFactoryBase(ParamType param) : m_param(param) {}</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordtype">void</span>                SetParam(ParamType param) { m_param = param; }</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">const</span> ParamType&amp;    GetParam()<span class="keyword">      const </span>{ <span class="keywordflow">return</span> m_param; }</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    ParamType m_param;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>};</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="keyword">template</span>&lt;<span class="keyword">class</span> Tester&gt;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">class </span>iuParamTestFactory <a class="code hl_define" href="../../dc/d2f/iutest__compiler_8hpp.html#aaf362ab17fd8e57646fc5d56216486d0">IUTEST_CXX_FINAL</a> : <span class="keyword">public</span> iuParamTestFactoryBase&lt;typename Tester::ParamType&gt;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>{</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keyword">typedef</span> <span class="keyword">typename</span> Tester::ParamType ParamType;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">typedef</span> <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">iuParamTestFactoryBase&lt;ParamType&gt;</a> _Mybase;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    iuParamTestFactory() <a class="code hl_define" href="../../dc/d2f/iutest__compiler_8hpp.html#af7bab3fb81df608a4d0a9263b0fc3af4">IUTEST_CXX_DEFAULT_FUNCTION</a></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">explicit</a> iuParamTestFactory(ParamType param) : _Mybase(param) {}</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keyword">virtual</span> <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">auto_ptr&lt;Test&gt;</a> Create() <a class="code hl_define" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        Tester::SetParam(&amp;this-&gt;m_param);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">auto_ptr&lt;Test&gt;</a> <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">p</a>( <span class="keyword">new</span> Tester() );</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">p</a>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    }</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>};</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>}   <span class="comment">// end of namespace detail</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="preprocessor">#endif </span><span class="comment">// INCG_IRIS_IUTEST_FACTORY_HPP_9C2B4B94_95A0_479A_9C9D_43FB31845A73_</span></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga9111f6c99c043c607e4c7dc8d122d6de"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">StaticAssertTypeEq</a></div><div class="ttdeci">#define StaticAssertTypeEq</div><div class="ttdoc">型アサーション</div><div class="ttdef"><b>Definition</b> iutest_static_assertion.hpp:54</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_aaf362ab17fd8e57646fc5d56216486d0"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#aaf362ab17fd8e57646fc5d56216486d0">IUTEST_CXX_FINAL</a></div><div class="ttdeci">#define IUTEST_CXX_FINAL</div><div class="ttdoc">final definition</div><div class="ttdef"><b>Definition</b> iutest_compiler.hpp:791</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition</div><div class="ttdef"><b>Definition</b> iutest_compiler.hpp:782</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition</div><div class="ttdef"><b>Definition</b> iutest_compiler.hpp:846</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_af7bab3fb81df608a4d0a9263b0fc3af4"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#af7bab3fb81df608a4d0a9263b0fc3af4">IUTEST_CXX_DEFAULT_FUNCTION</a></div><div class="ttdeci">#define IUTEST_CXX_DEFAULT_FUNCTION</div><div class="ttdoc">default function</div><div class="ttdef"><b>Definition</b> iutest_compiler.hpp:529</div></div>
+<div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
+<div class="ttc" id="aiutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義</div><div class="ttdef"><b>Definition</b> iutest_pp.hpp:31</div></div>
+<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition</b> iutest_charcode.hpp:33</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2026年09月03日(木) 01時29分42秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+2026年09月03日(木) 02時21分24秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

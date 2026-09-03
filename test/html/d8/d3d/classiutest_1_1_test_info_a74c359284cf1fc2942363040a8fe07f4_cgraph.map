@@ -1,5 +1,7 @@
 <map id="iutest::TestInfo::test_full_name" name="iutest::TestInfo::test_full_name">
-<area shape="rect" id="node1" title=" " alt="" coords="5,27,156,69"/>
-<area shape="rect" id="node2" href="$d8/d3d/classiutest_1_1_test_info.html#a07a3e780a4d0eb04c48d7798c0cd16de" title=" " alt="" coords="204,5,367,32"/>
-<area shape="rect" id="node3" href="$d8/d3d/classiutest_1_1_test_info.html#abb238acd6303d3d895d743fb372b78ca" title=" " alt="" coords="210,57,361,98"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,27,156,67"/>
+<area shape="rect" id="Node000002" href="$d8/d3d/classiutest_1_1_test_info.html#a9e5d107a4c9b0d757514a311745c17bb" title=" " alt="" coords="204,5,367,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,34,190,29,191,34,156,39"/>
+<area shape="rect" id="Node000003" href="$d8/d3d/classiutest_1_1_test_info.html#ae780d48b7a22ed4432548bc6ce99d15b" title=" " alt="" coords="210,55,361,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="156,55,197,61,196,66,156,60"/>
 </map>
