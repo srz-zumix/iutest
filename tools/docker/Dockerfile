@@ -39,15 +39,15 @@ RUN wget https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv
     pyenv install 3.13 && \
     pyenv install 3.12
 RUN pyenv local "$(pyenv latest 3.13)" && \
-    pip install --upgrade pip && \
-    pip install --upgrade setuptools tox requests && \
+    pip install --no-cache-dir --upgrade pip==26.2.1 && \
+    pip install --no-cache-dir --upgrade setuptools==84.0.0 tox==4.61.2 requests==2.34.2 && \
     pyenv local --unset
 RUN pyenv local "$(pyenv latest 3.12)" && \
-    pip install --upgrade pip && \
-    pip install --upgrade setuptools tox requests && \
+    pip install --no-cache-dir --upgrade pip==26.2.1 && \
+    pip install --no-cache-dir --upgrade setuptools==84.0.0 tox==4.61.2 requests==2.34.2 && \
     pyenv local --unset
 RUN pyenv local "$(pyenv latest 3.13)" "$(pyenv latest 3.12)" && \
-    pip install virtualenv
+    pip install --no-cache-dir virtualenv==21.7.8
 
 # gcc
 ENV GCC_VERSION=14
