@@ -442,7 +442,11 @@ jobs:
       - uses: srz-zumix/setup-infer@v1
       - name: infer
         run: |
-          infer -- make -C test IUTEST_USE_PYTHON=0
+          # --jobs 1: infer runs the clang sub-commands of a compile-and-link
+          # invocation in parallel, so the link can start before the object file
+          # exists. Capture sequentially, then analyze in parallel.
+          infer capture --jobs 1 -- make -C test IUTEST_USE_PYTHON=0
+          infer analyze
       - name: Check Infer report
         uses: srz-zumix/reviewdog-action-infer@v1
         with:
