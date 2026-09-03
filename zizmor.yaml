@@ -2,4 +2,4 @@ rules:
   unpinned-uses:
     config:
       policies:
-        actions/*: any
+        "*": any

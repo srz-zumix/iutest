@@ -33,7 +33,7 @@ runs:
       env:
         RUN_OPTION: --iutest_default_package_name=${{ inputs.package_name }} --iutest_locale_ctype=${{ inputs.locale_ctype }}
       run: make -C test OUTPUTXML=junit ${{ inputs.options }} test
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7
       with:
         name: test-result-${{ inputs.package_name }}
         path: test/*.xml

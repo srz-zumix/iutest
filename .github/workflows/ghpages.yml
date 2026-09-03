@@ -16,11 +16,17 @@ on:
       - '.github/actions/update-ghpages/**'
       - '.github/workflows/ghpages.yml'
 
+permissions: {}
+
 jobs:
   update_document:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
+      with:
+        persist-credentials: false
     - name: Update GitHub Pages
       uses: ./.github/actions/update-ghpages
       with:

@@ -20,7 +20,6 @@ on:
 
 permissions:
   contents: read
-  checks: write
 
 env:
   GGC_MIN_EXPAND: 4
@@ -43,7 +42,9 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: prepare
         run: |
           make -C test clean
@@ -63,7 +64,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: all-tests
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: build benchmark
         run: |
           make -C test clean

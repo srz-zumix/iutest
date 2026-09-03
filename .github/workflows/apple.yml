@@ -20,13 +20,15 @@ on:
 
 permissions:
   contents: read
-  checks: write
 
 jobs:
   # Cirrus CI macOS task migration
   macos-stdversion-test:
     name: macos (${{ matrix.stdflag }})
     runs-on: macos-latest
+    permissions:
+      contents: read
+      checks: write
     strategy:
       fail-fast: false
       matrix:
@@ -38,7 +40,9 @@ jobs:
       STDFLAG: ${{ matrix.stdflag }}
       OUTPUTXML: junit
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: build
@@ -58,7 +62,9 @@ jobs:
   xcode-build:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: cmake
         run: |
           cmake --version
@@ -76,7 +82,9 @@ jobs:
   ios-build:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: clone iOS CMake toolchain
         run: git clone --depth 1 https://github.com/leetal/ios-cmake.git
       - name: cmake

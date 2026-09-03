@@ -16,7 +16,9 @@ jobs:
   coverity-scan:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: vapier/coverity-scan-action@v1
         with:
           project: srz-zumix/iutest

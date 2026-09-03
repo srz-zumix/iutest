@@ -23,16 +23,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: docker/setup-buildx-action@v3
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: docker/setup-buildx-action@v4
       - name: Login to DockerHub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: docker/build-push-action@v6
+      # pull_request の ref_name (e.g. 725/merge) は docker タグとして不正なので変換する
+      - name: image tag
+        id: image_tag
+        env:
+          REF_NAME: ${{ github.ref_name }}
+        run: echo "tag=${REF_NAME//\//-}" >> "${GITHUB_OUTPUT}"
+      - uses: docker/build-push-action@v7
         with:
           context: .
           file: ./tools/docker/Dockerfile
-          tags: srzzumix/iutest_dev_env:${{ github.ref_name }}
+          tags: srzzumix/iutest_dev_env:${{ steps.image_tag.outputs.tag }}
           push: ${{ github.event_name == 'push' }}

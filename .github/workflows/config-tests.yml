@@ -27,7 +27,9 @@ jobs:
   syntax-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: syntax test
         run: make -C test -j4 syntax_tests_run
 
@@ -36,7 +38,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: syntax-test
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/composite/make-config-test
         with:
           package_name: default
@@ -109,7 +113,9 @@ jobs:
           - IUTEST_HAS_TUPLE
           - IUTEST_HAS_VARIADIC_TEMPLATES
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/composite/make-config-test
         with:
           options: DEFS+=-D${{ matrix.config }}=0
@@ -132,7 +138,9 @@ jobs:
           - IUTEST_NO_VARIADIC_MACROS
           - IUTEST_NO_SFINAE
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/composite/make-config-test
         with:
           options: DEFS+=-D${{ matrix.config }} STDFLAG=-std=c++98
@@ -154,7 +162,9 @@ jobs:
           - name: DisableStringStream_StrToValue
             defs: '-DIUTEST_HAS_STRINGSTREAM=0 -DIUTEST_HAS_STD_STR_TO_VALUE=0'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/composite/make-config-test
         with:
           options: DEFS+="${{ matrix.defs }}"
@@ -172,7 +182,9 @@ jobs:
           - name: RandomEngine
             defs: '-DIUTEST_USE_RANDOM_ENGINE_TYPENAME=::std::default_random_engine'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/composite/make-config-test
         with:
           options: DEFS+="${{ matrix.defs }}"
@@ -196,7 +208,9 @@ jobs:
           - name: CPP_LATEST
             cmake_options: -Dbuild_gtest_samples=ON -Dbuild_cpp_latest=ON
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: generate
         run: cmake -S projects/cmake -B build -A x64 ${{ matrix.cmake_options }}
       - name: build
@@ -214,7 +228,9 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: generate
         run: cmake -S projects/cmake -B build
       - name: build
@@ -237,6 +253,8 @@ jobs:
           - combine
           - nofeature
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: configcheck
         run: make -C test/configcheck ${{ matrix.target }}

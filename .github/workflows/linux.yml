@@ -20,13 +20,15 @@ on:
 
 permissions:
   contents: read
-  checks: write
 
 jobs:
   # basic test (Travis CI / Shippable / JFrog Pipelines migration)
   basic-test:
     name: basic (${{ matrix.compiler }})
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
     strategy:
       fail-fast: false
       matrix:
@@ -42,7 +44,9 @@ jobs:
       CXX: ${{ matrix.CXX }}
       OUTPUTXML: junit
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: build
@@ -62,6 +66,9 @@ jobs:
   gcc-container-test:
     name: gcc container (${{ matrix.stdflag }})
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
     container:
       image: gcc:latest
       credentials:
@@ -78,7 +85,9 @@ jobs:
       STDFLAG: ${{ matrix.stdflag }}
       OUTPUTXML: junit
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: info
         uses: ./.github/actions/composite/test-info
       # NOTE: -j$(nproc) makes the container OOMKilled
@@ -102,7 +111,9 @@ jobs:
       USE_LIB: 1
       OUTPUTXML: junit
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: build lib
@@ -119,7 +130,9 @@ jobs:
   sample-run:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: gcc sample run
         run: |
           make -C projects/make run
@@ -131,7 +144,9 @@ jobs:
   minimum-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: minimum tests
         run: make -C test CXX=clang++ run_minimum_tests RUN_OPTION=--spec
       - name: ldd
@@ -141,6 +156,9 @@ jobs:
   optimize-test:
     name: optimize ${{ matrix.compiler }} ${{ matrix.optimize }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
     strategy:
       fail-fast: false
       matrix:
@@ -151,7 +169,9 @@ jobs:
       OPTIMIZE: ${{ matrix.optimize }}
       OUTPUTXML: junit
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: minimum tests and show feature / spec
@@ -190,7 +210,9 @@ jobs:
       DEFS: ${{ matrix.defs }}
       OUTPUTXML: 1
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: install multilib
         if: ${{ matrix.multilib }}
         run: |
@@ -205,7 +227,9 @@ jobs:
   scan-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: install clang-tools
         run: |
           sudo apt-get update
@@ -220,10 +244,15 @@ jobs:
   # aarch64 native test (CircleCI arm migration)
   arm64-test:
     runs-on: ubuntu-24.04-arm
+    permissions:
+      contents: read
+      checks: write
     env:
       OUTPUTXML: junit
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: build
@@ -245,7 +274,9 @@ jobs:
     env:
       DEFS: -DNO_TEST_SURROGATEPAIR
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: info
         run: |
           make -C test showcxxversion showcxxmacros showstdlbfeatures

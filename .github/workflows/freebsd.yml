@@ -34,7 +34,9 @@ jobs:
           - -std=c++17
           - -std=c++20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: build and test
         uses: vmactions/freebsd-vm@v1
         with:
