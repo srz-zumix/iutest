@@ -154,16 +154,32 @@ jobs:
             cd ./cmake-build
             cmake -G Xcode ../projects/cmake
       - name: cmake build
-        run: cmake --build cmake-build -- -resultBundlePath TestResults
+        run: cmake --build cmake-build -- -resultBundlePath TestResults.xcresult
       - name: cmake test
         run: |
           cd cmake-build
-          ctest -C Debug -V
-      - run: ls cmake-build
-      - uses: kishikawakatsumi/xcresulttool@v1
+          ctest -C Debug -V --output-junit junit.xml
+      # xcodebuild が出力する .xcresult にはビルド結果のみが含まれる (テストは ctest で実行するため)
+      - name: xcresult summary
+        run: |
+          xcrun xcresulttool get build-results summary --path cmake-build/TestResults.xcresult --format json | jq -r '
+            "### Xcode build: \(.status)",
+            "",
+            "| errors | warnings | analyzer warnings |",
+            "| ---: | ---: | ---: |",
+            "| \(.errorCount) | \(.warningCount) | \(.analyzerWarningCount) |",
+            "",
+            ( [ (.errors[] | . + {level: "error"}), (.warnings[] | . + {level: "warning"}), (.analyzerWarnings[] | . + {level: "analyzer"}) ]
+              | if length == 0 then "No issues." else
+                ( "| level | type | message | location |", "| --- | --- | --- | --- |",
+                  (.[:50][] | "| \(.level) | \(.issueType // "-") | \(.message | gsub("\n"; " ") | gsub("\\|"; "\\\\|")) | \(.sourceURL // "-" | sub("^file://"; "") | sub("[#?].*$"; "")) |") )
+                end )
+          ' >> "${GITHUB_STEP_SUMMARY}"
+        if: success() || failure()
+      - name: report
+        uses: ./.github/actions/composite/test-report
         with:
-          path: cmake-build/TestResults.xcresult
-          upload-bundles: never
+          report_paths: cmake-build/junit.xml
         if: success() || failure()
 
   macos-test:
