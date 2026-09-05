@@ -1,0 +1,89 @@
+name: Apple Platform Tests
+on:
+  pull_request:
+    paths-ignore:
+      - '*.ini'
+      - '*.md'
+      - 'docs/**'
+
+permissions:
+  contents: read
+
+jobs:
+  # Cirrus CI macOS task migration
+  macos-stdversion-test:
+    name: macos (${{ matrix.stdflag }})
+    runs-on: macos-latest
+    permissions:
+      contents: read
+      checks: write
+    strategy:
+      fail-fast: false
+      matrix:
+        stdflag:
+          - -std=c++14
+          - -std=c++17
+          - -std=c++20
+    env:
+      STDFLAG: ${{ matrix.stdflag }}
+      OUTPUTXML: junit
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: info
+        uses: ./.github/actions/composite/test-info
+      - name: build
+        run: make -C test -j"$(getconf _NPROCESSORS_ONLN)"
+      - name: test
+        run: make -C test test
+      - name: report
+        run: make -C test report
+        if: always()
+      - name: report summary
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: test/*.xml
+        if: always()
+
+  # Bitrise Mac workflow migration
+  xcode-build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: cmake
+        run: |
+          cmake --version
+          cmake -S projects/cmake -B xcode -G Xcode \
+            -DCMAKE_XCODE_GENERATE_SCHEME=TRUE \
+            -Dbuild_use_gtest_configuration=OFF
+      - name: xcodebuild
+        run: |
+          xcodebuild -project xcode/iutest.xcodeproj -list
+          xcodebuild -project xcode/iutest.xcodeproj build
+      - name: test
+        run: ctest --test-dir xcode -C Debug -V
+
+  # Bitrise iOS workflow migration
+  ios-build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: clone iOS CMake toolchain
+        run: git clone --depth 1 https://github.com/leetal/ios-cmake.git
+      - name: cmake
+        run: |
+          cmake --version
+          cmake -S projects/cmake -B ios -G Xcode \
+            -DCMAKE_XCODE_GENERATE_SCHEME=TRUE \
+            -Dbuild_use_gtest_configuration=OFF \
+            -DCMAKE_TOOLCHAIN_FILE="${GITHUB_WORKSPACE}/ios-cmake/ios.toolchain.cmake" \
+            -DPLATFORM=OS64COMBINED
+      - name: xcodebuild
+        run: |
+          xcodebuild -project ios/iutest.xcodeproj -list
+          xcodebuild -project ios/iutest.xcodeproj build

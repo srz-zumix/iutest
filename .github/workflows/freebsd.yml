@@ -1,0 +1,43 @@
+name: FreeBSD Tests
+on:
+  pull_request:
+    paths-ignore:
+      - '*.ini'
+      - '*.md'
+      - 'docs/**'
+
+permissions:
+  contents: read
+
+jobs:
+  # Cirrus CI freebsd task migration
+  freebsd-clang-test:
+    name: freebsd clang (${{ matrix.stdflag }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        stdflag:
+          - -std=c++14
+          - -std=c++17
+          - -std=c++20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: build and test
+        uses: vmactions/freebsd-vm@v1
+        with:
+          envs: 'STDFLAG'
+          prepare: |
+            pkg install -y gmake
+          run: |
+            gmake --version
+            gmake -C test showcxxversion
+            gmake -C test showcxxmacros
+            gmake -C test check_stdlib showstdlbfeatures
+            gmake -C test -j4
+            gmake -C test test
+            gmake -C test report
+        env:
+          STDFLAG: ${{ matrix.stdflag }}

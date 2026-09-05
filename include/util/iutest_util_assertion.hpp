@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2025, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -652,10 +652,9 @@ template<typename T1, typename T2>
 template<typename T1, typename T2>
 ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNeIterator(T1 b1, T1 e1, T2 b2, T2 e2)
 {
-    int elem=0;
     bool result = false;
     ::iutest::Message ar;
-    for(elem=0; b1 != e1 && b2 != e2; ++b1, ++b2, ++elem)
+    for(; b1 != e1 && b2 != e2; ++b1, ++b2)
     {
         if(!::iutest::internal::backward::NeHelper<false>::Compare("", "", *b1, *b2))
         {
@@ -861,7 +860,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* 
     }
 
     return ::iutest::AssertionFailure() << "error: Expected: " << "strstr(" << actual_str << ", " << substr_str << ") != NULL"
-        << "\n  Actual: " << "strstr(\"" << actual << "\", " << substr << ") == NULL";
+        << "\n  Actual: " << "strstr(\"" << actual << "\", \"" << substr << "\") == NULL";
 }
 
 }   // end of namespace StrInHelper
@@ -895,7 +894,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* 
     }
 
     return ::iutest::AssertionFailure() << "error: Expected: " << "strstr(" << actual_str << ", " << substr_str << ") == NULL"
-        << "\n  Actual: " << "strstr(\"" << actual << "\", " << substr << ") != NULL";
+        << "\n  Actual: " << "strstr(\"" << actual << "\", \"" << substr << "\") != NULL";
 }
 
 }   // end of namespace StrNotInHelper

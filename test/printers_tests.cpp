@@ -241,6 +241,15 @@ IUTEST(PrintToTest, Null)
     IUTEST_STREAMOUT_CHECK(p);
 }
 
+IUTEST(PrintToTest, Locale)
+{
+    {
+        ::std::locale loc;
+        LogChecker ck(loc.name());
+        IUTEST_SUCCEED() << ::iutest::PrintToString(loc);
+    }
+}
+
 IUTEST(PrintToTest, String)
 {
     {
@@ -341,6 +350,12 @@ IUTEST(PrintToTest, SurrogatePair)
         IUTEST_PRINTTOSTRING_CONTAIN(ck, s);
         IUTEST_STREAMOUT_CHECK(p);
     }
+    else if( s[0] == 'D' )
+    {
+        LogChecker ck("D842DFB7");
+        IUTEST_PRINTTOSTRING_CONTAIN(ck, s);
+        IUTEST_STREAMOUT_CHECK(p);
+    }
     else if( s[0] == '?' )
     {
         // FIXME
@@ -362,7 +377,13 @@ IUTEST(PrintToTest, SurrogatePairChar16T)
 {
     const char16_t* p = u"\U00020BB7";
     const ::std::string s = ::iutest::PrintToString(p);
-    if( s[0] == '?' )
+    if( s[0] == 'D' )
+    {
+        LogChecker ck("D842DFB7");
+        IUTEST_PRINTTOSTRING_CONTAIN(ck, s);
+        IUTEST_STREAMOUT_CHECK(p);
+    }
+    else if( s[0] == '?' )
     {
         // FIXME
         IUTEST_SKIP();
@@ -370,7 +391,14 @@ IUTEST(PrintToTest, SurrogatePairChar16T)
     else
     {
 #if !defined(NO_TEST_SURROGATEPAIR)
-        LogChecker ck("\U00020BB7");
+        const char c[5] = {
+            static_cast<char>(0xf0),
+            static_cast<char>(0xa0),
+            static_cast<char>(0xae),
+            static_cast<char>(0xb7),
+            0
+        };
+        LogChecker ck(c);
         (void)ck;
         IUTEST_PRINTTOSTRING_EQ(ck, s);
         IUTEST_STREAMOUT_CHECK(p);
@@ -391,6 +419,23 @@ IUTEST(PrintToTest, WideStringStringView)
         IUTEST_PRINTTOSTRING_EQ(ck, view);
         IUTEST_STREAMOUT_CHECK(view);
     }
+}
+#endif
+
+#if IUTEST_HAS_CHAR8_T
+IUTEST(PrintToTest, U8String)
+{
+    IUTEST_SUCCEED() << ::iutest::PrintToString(u8"Test");
+    {
+        LogChecker ck("(null)");
+        char8_t* p = NULL;
+        IUTEST_SUCCEED() << ::iutest::PrintToString(p);
+    }
+}
+
+IUTEST(PrintToTest, U8StringJp)
+{
+    IUTEST_SUCCEED() << ::iutest::PrintToString(u8"テスト");
 }
 #endif
 
@@ -434,6 +479,11 @@ IUTEST(PrintToTest, U16StringStringView)
         IUTEST_STREAMOUT_CHECK(view);
     }
 }
+
+IUTEST(PrintToTest, U16StringJp)
+{
+    IUTEST_SUCCEED() << ::iutest::PrintToString(u"テスト");
+}
 #endif
 #endif
 
@@ -476,6 +526,11 @@ IUTEST(PrintToTest, U32StringStringView)
         IUTEST_PRINTTOSTRING_EQ(ck, view);
         IUTEST_STREAMOUT_CHECK(view);
     }
+}
+
+IUTEST(PrintToTest, U32StringJp)
+{
+    IUTEST_SUCCEED() << ::iutest::PrintToString(U"テスト");
 }
 #endif
 #endif
@@ -624,7 +679,7 @@ IUTEST(PrintToTest, Variant)
         ::std::variant<int, float, AlwaysThrow> v = 0.2f;
         try
         {
-            struct S { operator int() { throw 42; } };
+            struct S { IUTEST_ATTRIBUTE_NORETURN_ operator int() { throw 42; } };
             v.emplace<0>(S());
         }
         catch(...)

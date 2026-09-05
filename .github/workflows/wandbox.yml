@@ -1,0 +1,62 @@
+name: Wandbox
+on:
+  schedule:
+    - cron: '0 18 * * 0'
+  workflow_dispatch:
+    inputs:
+      compilers:
+        description: 'target compilers (space separated). empty means all compilers'
+        default: ''
+      cppver:
+        description: 'c++ version'
+        default: '17'
+      target_src:
+        description: 'target source file'
+        default: '../../test/syntax_tests.cpp'
+      experimental:
+        description: 'use wandbox min (experimental)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  # Wercker wandbox pipeline migration
+  wandbox:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONDONTWRITEBYTECODE: 1
+      IUWANDBOX_CPPVER: ${{ inputs.cppver || '17' }}
+      IUWANDBOX_TARGET_SRC: ${{ inputs.target_src || '../../test/syntax_tests.cpp' }}
+      IUWANDBOX_COMPILER: ${{ inputs.compilers }}
+      IUWANDBOX_EXPERIMENTAL_OPTION: ${{ inputs.experimental && '--iutest-use-wandbox-min' || '' }}
+      IUWANDBOX_COMMANDLINE_OPTION: >-
+        -f-Werror --encoding utf-8-sig --expand-include --verbose
+        --check-config --retry-wait 180 --iutest-use-main
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.x'
+      - name: install requirements
+        run: pip install requests
+      - name: make fused
+        run: make -C tools/fused
+      - name: list up compiler
+        working-directory: tools/wandbox
+        run: python iuwandbox.py --list-compiler --verbose
+      - name: run iuwandbox
+        working-directory: tools/wandbox
+        run: |
+          COMPILERS="${IUWANDBOX_COMPILER}"
+          if [ -z "${COMPILERS}" ]; then
+            COMPILERS=$(python iuwandbox.py --list-compiler)
+          fi
+          for compiler in ${COMPILERS}; do
+            # shellcheck disable=SC2086
+            python ./iuwandbox.py ${IUWANDBOX_EXPERIMENTAL_OPTION} ${IUWANDBOX_COMMANDLINE_OPTION} \
+              -c "${compiler}" --std "c++${IUWANDBOX_CPPVER}" "${IUWANDBOX_TARGET_SRC}"
+          done
