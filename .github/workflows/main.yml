@@ -1,23 +1,11 @@
 name: GitHub Actions
 on:
   pull_request:
-    branches:
-      - master
-      - develop
-      - 'feature/**'
-      - 'fix/**'
-      - 'gh/**'
-      - 'github/**'
-      - 'githubactions/**'
     paths-ignore:
       - '*.ini'
       - '*.md'
       - '*.yml'
       - '*.yaml'
-  push:
-    branches:
-      - master
-      - develop
 
 permissions:
   contents: read

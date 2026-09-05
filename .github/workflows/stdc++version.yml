@@ -1,23 +1,6 @@
 name: Std C++ Version Tests
 on:
   pull_request:
-    branches:
-      - master
-      - develop
-      - 'feature/**'
-      - 'fix/**'
-      - 'gh/**'
-      - 'github/**'
-      - 'githubactions/**'
-    paths-ignore:
-      - '*.ini'
-      - '*.md'
-      - '*.yml'
-      - '*.yaml'
-  push:
-    branches:
-      - master
-      - develop
     paths-ignore:
       - '*.ini'
       - '*.md'

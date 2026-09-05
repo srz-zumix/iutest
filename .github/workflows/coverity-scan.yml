@@ -22,7 +22,7 @@ jobs:
       - uses: vapier/coverity-scan-action@v1
         with:
           project: srz-zumix/iutest
-          email: zumix.cpp@gmail.com
+          email: ${{ secrets.COVERITY_SCAN_EMAIL }}
           token: ${{ secrets.COVERITY_SCAN_TOKEN }}
           build_language: cxx
           command: make -C test -j4 coverity_scan STDFLAG=-std=c++17
