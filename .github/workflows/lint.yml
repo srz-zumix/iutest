@@ -1,18 +1,6 @@
 name: Lint and Checks
 on:
   pull_request:
-    branches:
-      - master
-      - develop
-      - 'feature/**'
-      - 'fix/**'
-      - 'gh/**'
-      - 'github/**'
-      - 'githubactions/**'
-  push:
-    branches:
-      - master
-      - develop
 
 permissions:
   contents: read

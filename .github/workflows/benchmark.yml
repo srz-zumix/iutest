@@ -1,22 +1,10 @@
 name: Benchmark
 on:
   pull_request:
-    branches:
-      - master
-      - develop
-      - 'feature/**'
-      - 'fix/**'
-      - 'gh/**'
-      - 'github/**'
-      - 'githubactions/**'
     paths-ignore:
       - '*.ini'
       - '*.md'
       - 'docs/**'
-  push:
-    branches:
-      - master
-      - develop
 
 permissions:
   contents: read
