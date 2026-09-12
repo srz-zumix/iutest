@@ -1,13 +1,13 @@
 # Usage
-# docker build tools/docker --build-arg VERSION=latest -t iutest
+# docker build tools/docker --build-arg VERSION=24.04 -t iutest
 # docker run -it -v $(pwd):/iutest iutest bash
 
-ARG VERSION=latest
+ARG VERSION=24.04
 FROM ubuntu:$VERSION
 ARG VERSION
 RUN echo ${VERSION} > image_version
 
-LABEL maintainer "srz_zumix <https://github.com/srz-zumix>"
+LABEL maintainer="srz_zumix <https://github.com/srz-zumix>"
 
 ENV DEBIAN_FRONTEND=noninteractive
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -24,35 +24,34 @@ RUN apt-get update -q -y && \
         cppcheck \
         subversion \
         python3 python3-pip \
+        python3-virtualenv virtualenvwrapper \
         doxygen graphviz && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # pyenv
 RUN update-alternatives --install /usr/bin/python  python  /usr/bin/python3 1000 \
-                        --slave   /usr/bin/pip  pip  /usr/bin/pip3 && \
-    pip install virtualenv virtualenvwrapper
-ENV PYENV_ROOT $HOME/.pyenv
-ENV PATH $HOME/.pyenv/shims:$HOME/.pyenv/bin:$PATH
+                        --slave   /usr/bin/pip  pip  /usr/bin/pip3
+ENV PYENV_ROOT=/root/.pyenv
+ENV PATH=${PYENV_ROOT}/shims:${PYENV_ROOT}/bin:$PATH
 RUN wget https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer -O - | bash && \
     pyenv --version && \
-    pyenv install 3.9.11 && \
-    pyenv install 3.8.13
-RUN pyenv local 3.9.11 && \
-    pip install --upgrade pip && \
-    pip install --upgrade setuptools tox requests && \
+    pyenv install 3.13 && \
+    pyenv install 3.12
+RUN pyenv local "$(pyenv latest 3.13)" && \
+    pip install --no-cache-dir --upgrade pip==26.2.1 && \
+    pip install --no-cache-dir --upgrade setuptools==84.0.0 tox==4.61.2 requests==2.34.2 && \
     pyenv local --unset
-RUN pyenv local 3.8.13 && \
-    pip install --upgrade pip && \
-    pip install --upgrade setuptools tox requests && \
+RUN pyenv local "$(pyenv latest 3.12)" && \
+    pip install --no-cache-dir --upgrade pip==26.2.1 && \
+    pip install --no-cache-dir --upgrade setuptools==84.0.0 tox==4.61.2 requests==2.34.2 && \
     pyenv local --unset
-RUN pyenv local 3.9.11 3.8.13 && \
-    pip install virtualenv
+RUN pyenv local "$(pyenv latest 3.13)" "$(pyenv latest 3.12)" && \
+    pip install --no-cache-dir virtualenv==21.7.8
 
 # gcc
-ENV GCC_VERSION=10
-RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
-    apt-get update && \
+ENV GCC_VERSION=14
+RUN apt-get update && \
     apt-get install -y --no-install-recommends g++-${GCC_VERSION} gcc-${GCC_VERSION} && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
@@ -61,11 +60,8 @@ RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
                         --slave   /usr/bin/gcov gcov /usr/bin/gcov-${GCC_VERSION}
 
 # clang
-ARG CLANG_VERSION=13
-RUN . /etc/os-release && \
-    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
-    apt-add-repository "deb http://apt.llvm.org/${VERSION_CODENAME}/ llvm-toolchain-${VERSION_CODENAME}-${CLANG_VERSION} main" && \
-    apt-get update && \
+ARG CLANG_VERSION=18
+RUN apt-get update && \
     apt-get install -y --no-install-recommends clang-${CLANG_VERSION} && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \

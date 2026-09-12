@@ -1,0 +1,140 @@
+name: Lint and Checks
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  # Codeship cpplint step migration
+  cpplint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.x'
+      - name: install cpplint
+        run: pip install cpplint
+      - name: cpplint
+        run: make -C test/cpplint PYTHON=python3
+
+  # Sider cppcheck migration
+  cppcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: install cppcheck
+        run: |
+          sudo apt-get update
+          sudo apt-get install -qq -y cppcheck
+      - name: cppcheck
+        run: make -C test/cppcheck
+
+  # Codeship check-include-guard step migration
+  check-include-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: check include guard
+        run: make -C test check_incg
+
+  # Codeship check-documents step migration
+  check-documents:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: check version
+        run: make -C test/docs version-test
+      - name: check doxygen command
+        run: make -C test/docs doxygen-test
+
+  # Codeship editorconfig-self-lint step migration
+  editorconfig-self-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.x'
+      - name: editorconfig self lint
+        run: make editorconfig-self-lint
+
+  # Codeship check-fullpath / check-crlf / check-remote-crlf step migration
+  repository-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: check fullpath
+        run: make -C test/repository check-fullpath
+      - name: check crlf
+        run: ./.ci/check-crlf.sh
+      - name: check remote crlf
+        run: make -C test/repository check-remote-crlf
+
+  # Wercker cmake-check pipeline migration
+  cmake-sync-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: cmake sync check
+        run: make -C test cmake-sync-check
+
+  # Sider goodcheck migration
+  goodcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+      - name: install goodcheck
+        run: gem install goodcheck
+      - name: goodcheck
+        run: goodcheck check --config .ci/goodcheck.yml
+
+  # Sider remark_lint migration
+  markdown-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+      - name: lint markdown
+        run: |
+          npm install
+          npm run lint-md
+
+  # Scrutinizer tox (iuwandbox unit tests) migration
+  python-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.x'
+      - name: install tox
+        run: pip install tox
+      - name: make fused
+        run: make -C tools/fused
+      - name: tox
+        run: tox

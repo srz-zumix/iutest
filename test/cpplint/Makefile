@@ -8,6 +8,7 @@
 .PHONY: default clean all iutest internal util listener impl gtest src samples test
 
 PYTHON:=python
+CPPLINT_VERSION:=2.0.2
 
 IUTEST_HPP=$(wildcard ../../include/*.hpp)
 INTERNAL_HPP=$(wildcard ../../include/internal/*.hpp)
@@ -22,7 +23,7 @@ EXCLUDE_NS_TESTS=$(subst ns.cpp,.cpp,$(TESTS))
 
 SUPPRESS_WHITESPACE_SUB=/indent,/braces,/comments,/newline,/labels,/operators,/parens
 SUPPRESS_WHITESPACE=$(subst /,-whitespace/,$(SUPPRESS_WHITESPACE_SUB))
-SUPPRESS_BUILD_SUB=/include_what_you_use,/c++11,/c++tr1,/header_guard,/include_subdir
+SUPPRESS_BUILD_SUB=/include_what_you_use,/c++11,/c++tr1,/c++17,/header_guard,/include_subdir
 SUPPRESS_BUILD=$(subst /,-build/,$(SUPPRESS_BUILD_SUB))
 SUPPRESS_READABILITY=-readability/todo,-readability/braces,-readability/function
 SUPPRESS_RUNTIME=-runtime/int,-runtime/references,-runtime/string
@@ -67,6 +68,6 @@ clean:
 cpplint.py:
 	# git clone https://github.com/google/styleguide.git cpplint
 	# cp cpplint/cpplint/cpplint.py cpplint.py
-	git clone https://github.com/cpplint/cpplint.git cpplint
+	git clone --depth 1 --branch $(CPPLINT_VERSION) https://github.com/cpplint/cpplint.git cpplint
 	cp cpplint/cpplint.py cpplint.py
 	rm -rf cpplint

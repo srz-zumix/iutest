@@ -3,7 +3,7 @@
 #
 
 # CMake version required
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.10)
 
 # option
 option(build_gtest_samples "gtest sample build." OFF)
@@ -299,6 +299,7 @@ if (build_tests)
     )
   endif()
   # iutest only
+  cxx_executable_test(debug_tests)
   cxx_executable_test(default_main_tests)
   cxx_executable_test(default_printer_listener_tests)
   cxx_executable_test(env_var_tests)
@@ -415,6 +416,7 @@ if (build_tests)
     cxx_add_test(namespace_tests)
   endif()
   # iutest only
+  cxx_add_test(debug_tests)
   cxx_add_test(default_main_tests)
   cxx_add_test(default_printer_listener_tests)
   cxx_add_test(env_var_tests)

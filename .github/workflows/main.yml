@@ -1,30 +1,14 @@
 name: GitHub Actions
 on:
   pull_request:
-    branches:
-      - master
-      - develop
-      - 'feature/**'
-      - 'fix/**'
-      - 'gh/**'
-      - 'github/**'
-      - 'githubactions/**'
     paths-ignore:
       - '*.ini'
       - '*.md'
       - '*.yml'
       - '*.yaml'
-      - '.circleci/**'
-      - '.semaphore/**'
-  push:
-    branches:
-      - master
-      - develop
 
 permissions:
   contents: read
-  pull-requests: write
-  checks: write
 
 jobs:
   prepare:
@@ -49,7 +33,7 @@ jobs:
     needs: prepare
     steps:
       - name: Login to DockerHub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -64,6 +48,9 @@ jobs:
   llvm-basic-test:
     runs-on: windows-latest
     needs: prepare
+    permissions:
+      contents: read
+      checks: write
     defaults:
       run:
         shell: cmd
@@ -72,7 +59,9 @@ jobs:
       CC: clang
       OUTPUTXML: junit
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Setup Windows LLVM
         uses: ./.github/actions/composite/setup-win-llvm
       - name: info
@@ -92,13 +81,18 @@ jobs:
   mingw-basic-test:
     runs-on: windows-latest
     needs: prepare
+    permissions:
+      contents: read
+      checks: write
     defaults:
       run:
         shell: cmd
     env:
       OUTPUTXML: junit
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: mingw build
@@ -117,7 +111,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: prepare
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: cmake
         run: |
             mkdir ./cmake-build
@@ -133,31 +129,57 @@ jobs:
   xcodebuild-test:
     runs-on: macos-latest
     needs: prepare
+    permissions:
+      contents: read
+      checks: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: cmake
         run: |
             mkdir ./cmake-build
             cd ./cmake-build
             cmake -G Xcode ../projects/cmake
       - name: cmake build
-        run: cmake --build cmake-build -- -resultBundlePath TestResults
+        run: cmake --build cmake-build -- -resultBundlePath TestResults.xcresult
       - name: cmake test
         run: |
           cd cmake-build
-          ctest -C Debug -V
-      - run: ls cmake-build
-      - uses: kishikawakatsumi/xcresulttool@v1
+          ctest -C Debug -V --output-junit junit.xml
+      # xcodebuild が出力する .xcresult にはビルド結果のみが含まれる (テストは ctest で実行するため)
+      - name: xcresult summary
+        run: |
+          xcrun xcresulttool get build-results summary --path cmake-build/TestResults.xcresult --format json | jq -r '
+            "### Xcode build: \(.status)",
+            "",
+            "| errors | warnings | analyzer warnings |",
+            "| ---: | ---: | ---: |",
+            "| \(.errorCount) | \(.warningCount) | \(.analyzerWarningCount) |",
+            "",
+            ( [ (.errors[] | . + {level: "error"}), (.warnings[] | . + {level: "warning"}), (.analyzerWarnings[] | . + {level: "analyzer"}) ]
+              | if length == 0 then "No issues." else
+                ( "| level | type | message | location |", "| --- | --- | --- | --- |",
+                  (.[:50][] | "| \(.level) | \(.issueType // "-") | \(.message | gsub("\n"; " ") | gsub("\\|"; "\\\\|")) | \(.sourceURL // "-" | sub("^file://"; "") | sub("[#?].*$"; "")) |") )
+                end )
+          ' >> "${GITHUB_STEP_SUMMARY}"
+        if: success() || failure()
+      - name: report
+        uses: ./.github/actions/composite/test-report
         with:
-          path: cmake-build/TestResults.xcresult
-          upload-bundles: never
+          report_paths: cmake-build/junit.xml
         if: success() || failure()
 
   macos-test:
     runs-on: macos-latest
     needs: prepare
+    permissions:
+      contents: read
+      checks: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: build
@@ -243,6 +265,9 @@ jobs:
   icpc-basic-test:
     runs-on: ubuntu-latest
     needs: prepare
+    permissions:
+      contents: read
+      checks: write
     container:
       image: srzzumix/oneapi-cxx:latest
       credentials:
@@ -258,7 +283,9 @@ jobs:
       run:
         shell: bash -e -o pipefail -l {0}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: set .bash_profile
         run: |
           echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
@@ -279,6 +306,9 @@ jobs:
         if: always()
 
   arm-none-eabi:
+    permissions:
+      contents: read
+      checks: write
     strategy:
       fail-fast: false
       matrix:
@@ -303,7 +333,9 @@ jobs:
       # LIBS: gcc c m rdimon
       OUTPUTXML: junit
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: build
@@ -318,16 +350,21 @@ jobs:
   arm-linux-gnueabi:
     runs-on: ubuntu-latest
     needs: prepare
+    permissions:
+      contents: read
+      checks: write
     env:
       DEFS: --static
       OUTPUTXML: junit
     steps:
       - name: Login to DockerHub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: info
         uses: ./.github/actions/arm-linux-gnueabi
         with:
@@ -355,9 +392,11 @@ jobs:
         with:
           version: "latest"
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Login to DockerHub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -377,7 +416,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: prepare
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: dagger/dagger-for-github@v3
         with:
           cmds: |
@@ -395,12 +436,21 @@ jobs:
   infer:
     runs-on: ubuntu-latest
     needs: prepare
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: srz-zumix/setup-infer@v1
       - name: infer
         run: |
-          infer -- make -C test IUTEST_USE_PYTHON=0
+          # --jobs 1: infer runs the clang sub-commands of a compile-and-link
+          # invocation in parallel, so the link can start before the object file
+          # exists. Capture sequentially, then analyze in parallel.
+          infer capture --jobs 1 -- make -C test IUTEST_USE_PYTHON=0
+          infer analyze
       - name: Check Infer report
         uses: srz-zumix/reviewdog-action-infer@v1
         with:
@@ -410,8 +460,13 @@ jobs:
   clang-tidy:
     runs-on: ubuntu-latest
     needs: prepare
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: reviewdog/action-setup@v1
       - name: install clang-tidy
         run: |
@@ -438,8 +493,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: prepare
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
       - name: lint:editorconfig
         run: |
           npm install
@@ -453,7 +510,9 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     needs: lint-editorconfig
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: CMake
         env:
           CC: clang

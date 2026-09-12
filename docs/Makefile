@@ -28,8 +28,6 @@ gh-pages: target
 	cp ../README.md ${GHPAGES_DIR}/
 
 gh-pages-for-master:
-	cp -r dev/.circleci ${GHPAGES_DIR}/
-	cp dev/*.yml ${GHPAGES_DIR}/
 	cp ../README.md ${GHPAGES_DIR}/
 
 clean:

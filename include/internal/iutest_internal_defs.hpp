@@ -360,7 +360,7 @@ inline ::std::string GetTypeName()
     IIUT_GeTypeNameSpecialization(type)         \
     IIUT_GeTypeNameSpecialization(unsigned type)
 
-#if IUTEST_NO_CHAR8_T_TYPEINFO
+#if defined(IUTEST_NO_CHAR8_T_TYPEINFO)
 
 IIUT_GeTypeNameSpecialization(char8_t)  // NOLINT
 

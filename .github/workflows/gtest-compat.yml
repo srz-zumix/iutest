@@ -1,28 +1,17 @@
 name: Google Test Compatible
 on:
   pull_request:
-    branches:
-      - master
-      - develop
-      - 'feature/**'
-      - 'fix/**'
-      - 'gh/**'
-      - 'github/**'
-      - 'githubactions/**'
     paths-ignore:
       - '*.ini'
       - '*.md'
       - '*.yml'
       - '*.yaml'
-      - '.circleci/**'
-      - '.semaphore/**'
       - '.github/**'
       - '!.github/workflows/gtest-compat.yml'
       - 'docs/**'
-  push:
-    branches:
-      - master
-      - develop
+
+permissions:
+  contents: read
 
 jobs:
   prepare:
@@ -75,7 +64,9 @@ jobs:
     env:
       MAKE_OPTION: "-j4"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Google Test
         env:
           GTEST_OPTION: "USE_GTEST=1"
