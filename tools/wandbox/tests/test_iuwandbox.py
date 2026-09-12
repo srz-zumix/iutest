@@ -10,10 +10,7 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../../fused')
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../../wandbox')
 
-try:
-    import unittest2 as unittest
-except:
-    import unittest
+import unittest
 import iuwandbox
 import fused_iutest_files
 import iuwandbox_pp
