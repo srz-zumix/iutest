@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2023, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -561,13 +561,26 @@ private:
 };
 
 /**
+ * @brief   TypedEq matcher value holder
+ * @note    EqMatcher holds a reference, so the value must be constructed before it
+*/
+template<typename T>
+class TypedEqMatcherValueHolder
+{
+protected:
+    explicit TypedEqMatcherValueHolder(const T& expected) : m_expected(expected) {}
+    T m_expected;
+};
+
+/**
  * @brief   TypedEq matcher
 */
 template<typename T>
-class TypedEqMatcher IUTEST_CXX_FINAL : public EqMatcher<T>
+class TypedEqMatcher IUTEST_CXX_FINAL : private TypedEqMatcherValueHolder<T>, public EqMatcher<T>
 {
+    typedef TypedEqMatcherValueHolder<T> _Holder;
 public:
-    explicit TypedEqMatcher(T expected) : EqMatcher<T>(m_expected), m_expected(expected) {}
+    explicit TypedEqMatcher(T expected) : _Holder(expected), EqMatcher<T>(_Holder::m_expected) {}
 public:
     AssertionResult operator ()(const T& actual)
     {
@@ -575,9 +588,6 @@ public:
     }
     template<typename U>
     AssertionResult operator ()(const U&) const;
-
-private:
-    T m_expected;
 };
 
 /**
@@ -1092,7 +1102,7 @@ protected:
         return Check<0, tuples::tuple_size<T>::value - 1>(begin(actual), end(actual), matchers);
     }
     template<int N, typename T>
-    static ::std::string WhichIs(const T& matchers)
+    static ::std::string WhichIsT(const T& matchers)
     {
         ::std::string str = "ElementsAre: {";
         str += WhichIs_<T, N, tuples::tuple_size<T>::value-1>(matchers);
@@ -1179,7 +1189,7 @@ public:
     }
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
-        return ElementsAreMatcherBase::WhichIs<0>(m_matchers);
+        return ElementsAreMatcherBase::WhichIsT<0>(m_matchers);
     }
 
 private:
@@ -1203,7 +1213,7 @@ public:
     }
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
-        return ElementsAreMatcherBase::WhichIs<0>(m_matchers);
+        return ElementsAreMatcherBase::WhichIsT<0>(m_matchers);
     }
 private:
     tuples::tuple<T0, T1> m_matchers;
@@ -1218,7 +1228,7 @@ private:
     template<typename U>AssertionResult operator ()(const U& actual) {                  \
         return Check(m_matchers, actual); }                                             \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                                 \
-        return ElementsAreMatcherBase::WhichIs<0>(m_matchers); }                        \
+        return ElementsAreMatcherBase::WhichIsT<0>(m_matchers); }                       \
     private:                                                                            \
     tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > m_matchers;                            \
     }
@@ -1645,7 +1655,7 @@ protected:
         return Check_<T, U, 0, tuples::tuple_size<T>::value-1>(matchers, actual);
     }
     template<int N, typename T>
-    static ::std::string WhichIs(const T& matchers)
+    static ::std::string WhichIsT(const T& matchers)
     {
         return WhichIs_<T, N, tuples::tuple_size<T>::value-1>(matchers);
     }
@@ -1702,7 +1712,7 @@ public:
     }
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
-        return AllOfMatcherBase::WhichIs<0>(m_matchers);
+        return AllOfMatcherBase::WhichIsT<0>(m_matchers);
     }
 
 private:
@@ -1726,7 +1736,7 @@ public:
     }
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
-        return AllOfMatcherBase::WhichIs<0>(m_matchers);
+        return AllOfMatcherBase::WhichIsT<0>(m_matchers);
     }
 private:
     tuples::tuple<T0, T1> m_matchers;
@@ -1741,7 +1751,7 @@ private:
     template<typename U>AssertionResult operator ()(const U& actual) {              \
         return Check(m_matchers, actual); }                                         \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                             \
-        return AllOfMatcherBase::WhichIs<0>(m_matchers); }                          \
+        return AllOfMatcherBase::WhichIsT<0>(m_matchers); }                         \
     private:                                                                        \
     tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > m_matchers;                        \
     }
@@ -1772,7 +1782,7 @@ protected:
         return Check_<T, U, 0, tuples::tuple_size<T>::value-1>(matchers, actual);
     }
     template<int N, typename T>
-    static ::std::string WhichIs(const T& matchers)
+    static ::std::string WhichIsT(const T& matchers)
     {
         return WhichIs_<T, N, tuples::tuple_size<T>::value-1>(matchers);
     }
@@ -1829,7 +1839,7 @@ public:
     }
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
-        return AnyOfMatcherBase::WhichIs<0>(m_matchers);
+        return AnyOfMatcherBase::WhichIsT<0>(m_matchers);
     }
 
 private:
@@ -1853,7 +1863,7 @@ public:
     }
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
-        return AnyOfMatcherBase::WhichIs<0>(m_matchers);
+        return AnyOfMatcherBase::WhichIsT<0>(m_matchers);
     }
 private:
     tuples::tuple<T0, T1> m_matchers;
@@ -1868,7 +1878,7 @@ private:
     template<typename U>AssertionResult operator ()(const U& actual) {              \
         return Check(m_matchers, actual); }                                         \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                             \
-        return AnyOfMatcherBase::WhichIs<0>(m_matchers); }                          \
+        return AnyOfMatcherBase::WhichIsT<0>(m_matchers); }                         \
     private:                                                                        \
     tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > m_matchers;                        \
     }

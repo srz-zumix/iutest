@@ -1,45 +1,20 @@
-CI:
-  - '*.yaml'
-  - '*.yml'
-  - '.ci/**/*'
-  - '.github/workflows/**/*'
-AppVeyor:
-  - 'appveyor.yml'
-AzurePipelines:
-  - '.ci/azure_pipelines/**/*'
-  - 'azure-pipelines.yml'
-Bitrise:
-  - 'bitrise.yml'
-Buddy:
-  - 'buddy.yml'
-CircleCI:
-  - '.circleci/**/*'
-Cirrus CI:
-  - '.cirrus.yml'
-Codefresh:
-  - 'codefresh.yml'
-Codeship:
-  - 'codeship-services.yml'
-  - 'codeship-steps.yml'
-Drone:
-  - '.drone.yml'
-GitHub Actions:
-  - '.github/workflows/**/*'
-JFrog Pipelines:
-  - 'jfrog-pipelines.yml'
-Peakflow:
-  - 'peak_flow.yml'
-Razorops:
-  - '.razorops.yaml'
-Scrutinizer:
-  - '.scrutinizer.yml'
-Semaphore:
-  - '.semaphore/**/*'
-Sider:
-  - 'sider.yml'
-Travis CI:
-  - '.travis.yml'
-Wercker:
-  - 'wercker.yml'
+ci:
+  - any:
+    - changed-files:
+      - any-glob-to-all-files: '.github/**'
+    - all-files-to-any-glob:
+      - '.github/**'
+      - '*.yml'
+      - '*.yaml'
+  - color: '#7c0bb2'
+
+documentation:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'docs/**'
+      - README.md
+
 iuwandbox:
-  - 'tools/wandbox/**/*'
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'tools/wandbox/**/*'

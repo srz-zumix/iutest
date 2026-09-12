@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2025, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -357,7 +357,7 @@ IUTEST_IPP_INLINE ::std::string DefaultXmlGeneratorListener::EscapeXml(const cha
                 {
 #if !defined(IUTEST_OS_WINDOWS_MOBILE)
                     wchar_t wc = 0;
-                    const int len = detail::iu_mbtowc(&wc, src, static_cast<size_t>(MB_CUR_MAX));
+                    const int len = detail::iu_mbtowc(&wc, src, static_cast<size_t>(IU_MB_CUR_MAX));
                     if( len > 1 )
                     {
                         msg += detail::AnyStringToUTF8(&wc, 1);

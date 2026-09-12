@@ -1,0 +1,38 @@
+name: Sync SVN
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  # Codeship sync-svn / sync-svn-tag step migration
+  sync-svn:
+    runs-on: ubuntu-latest
+    environment: osdn
+    env:
+      CI_COMMIT_ID: ${{ github.sha }}
+      CI_BRANCH: ${{ github.ref_name }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: install subversion
+        run: |
+          sudo apt-get update
+          sudo apt-get install -qq -y subversion
+      - uses: webfactory/ssh-agent@v0.10.0
+        with:
+          ssh-private-key: ${{ secrets.OSDN_SSH_PRIVATE_KEY }}
+      - name: sync trunk
+        if: startsWith(github.ref, 'refs/heads/')
+        run: ./.ci/sync-svn.sh
+      - name: sync tag
+        if: startsWith(github.ref, 'refs/tags/')
+        run: ./.ci/sync-svn-tag.sh

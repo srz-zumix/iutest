@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2023, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -131,6 +131,7 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 #endif
 }
 
+#if defined(IUTEST_NO_VSNPRINTF) && IUTEST_NO_VSNPRINTF
 namespace wrapper
 {
 
@@ -145,7 +146,8 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
     {
         const size_t length = static_cast<size_t>(ret);
         const size_t write = (size <= length) ? size - 1 : length;
-        if( write_buffer == buffer ) {
+        if( write_buffer == buffer )
+        {
             strncpy(dst, buffer, write);
         }
         dst[write] = '\0';
@@ -154,6 +156,8 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 }
 
 } // end of namespace wrapper
+
+#endif
 
 int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 0);
 int iu_snprintf(char* dst, size_t size, const char* format, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 4);
@@ -178,10 +182,7 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 #  else
     return _vsnprintf(dst, size, format, va);
 #  endif
-#elif defined(__CYGWIN__) \
-        && (defined(__STRICT_ANSI__) && (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) && (__cplusplus >= 201103L))
-    return wrapper::iu_vsnprintf(dst, size, format, va);
-#elif (defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)) && defined(__STRICT_ANSI__)
+#elif defined(IUTEST_NO_VSNPRINTF) && IUTEST_NO_VSNPRINTF
     return wrapper::iu_vsnprintf(dst, size, format, va);
 #else
     return vsnprintf(dst, size, format, va);

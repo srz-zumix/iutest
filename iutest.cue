@@ -20,7 +20,7 @@ cmake_build_dir: "/dagger-cmake-build"
 // パイプラインは Plan に書く
 dagger.#Plan & {
     // 共通設定をまとめておく
-    _cmakeBuildDirConfig: {    
+    _cmakeBuildDirConfig: {
         // cmake での out-of-source build のパスをマウント
         mounts: (cmake_build_dir): {
             dest: (cmake_build_dir)
@@ -51,11 +51,9 @@ dagger.#Plan & {
                     "cmake-build",
                     "dagger-out",
                     ".ci",
-                    ".circleci",
                     ".git",
                     ".github",
                     ".idea",
-                    ".semaphore",
                     ".vscode",
                     "cue.mod",
                 ]
