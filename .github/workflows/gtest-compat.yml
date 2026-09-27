@@ -30,11 +30,21 @@ jobs:
       matrix:
         include:
           - gtest-version: "latest"
-            GTEST_EXPECT_VER: 0x01140000
+            GTEST_EXPECT_VER: 0x01180000
             GTEST_EXPECT_LATEST: 1
-          - gtest-version: "release-1.14.0"
+          - gtest-version: "v1.17.0"
+            GTEST_EXPECT_VER: 0x01170000
+          - gtest-version: "v1.16.0"
+            GTEST_EXPECT_VER: 0x01160000
+          - gtest-version: "v1.15.2"
+            GTEST_EXPECT_VER: 0x01150200
+          - gtest-version: "v1.15.1"
+            GTEST_EXPECT_VER: 0x01150100
+          - gtest-version: "v1.15.0"
+            GTEST_EXPECT_VER: 0x01150000
+          - gtest-version: "v1.14.0"
             GTEST_EXPECT_VER: 0x01140000
-          - gtest-version: "release-1.13.0"
+          - gtest-version: "v1.13.0"
             GTEST_EXPECT_VER: 0x01130000
           - gtest-version: "release-1.12.1"
             # 1.12.1 only change the version number
