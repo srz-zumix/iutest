@@ -36,10 +36,11 @@ jobs:
             GTEST_EXPECT_VER: 0x01170000
           - gtest-version: "v1.16.0"
             GTEST_EXPECT_VER: 0x01160000
+          # The 1.15 patch releases have identical installed headers.
           - gtest-version: "v1.15.2"
-            GTEST_EXPECT_VER: 0x01150200
+            GTEST_EXPECT_VER: 0x01150000
           - gtest-version: "v1.15.1"
-            GTEST_EXPECT_VER: 0x01150100
+            GTEST_EXPECT_VER: 0x01150000
           - gtest-version: "v1.15.0"
             GTEST_EXPECT_VER: 0x01150000
           - gtest-version: "v1.14.0"
@@ -89,4 +90,3 @@ jobs:
         run: |
           make -C test clean
           make -C test OUTPUTXML=1 "${GTEST_OPTION}" GTEST_EXPECT_VER=${{ matrix.GTEST_EXPECT_VER }} GTEST_EXPECT_LATEST=${{ matrix.GTEST_EXPECT_LATEST }} "${MAKE_OPTION}" test
-
