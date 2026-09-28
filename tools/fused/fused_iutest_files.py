@@ -15,7 +15,6 @@ fuse_iutest_files.py [IUTEST_ROOT_DIR] OUTPUT_DIR
 import os
 import sys
 import re
-import codecs
 
 IUTEST_INCLUDE_DIR = os.path.join(os.path.dirname(__file__), '../../include')
 IUTEST_APPROVAL_INCLUDE_GUARD = {
@@ -74,7 +73,7 @@ class IutestFused:
         store = self.StoreStrings(store, str_l)
 
         store = re.sub('"@STRING@""@STRING@"', '"@STRING@"##+##"@STRING@"', store)
-        store = re.sub('\):\s+', '):', store)
+        store = re.sub(r'\):\s+', '):', store)
 
         # string restore
         store = self.RestoreStrings(store, str_l)
@@ -116,39 +115,39 @@ class IutestFused:
         line = self.StoreStrings(line, str_l)
 
         # remove comment and strip
-        line = re.sub('//[\S \t]*', '', line)
+        line = re.sub(r'//[\S \t]*', '', line)
         line = line.strip(' \t')
         # remvoe \r
         line = line.rstrip()
         line += '\n'
         # remove preprocessor directive unnecessary whitespace
-        line = re.sub('^\s*#\s*', '#', line)
-        line = re.sub('^\s*#(.+?)[ \t]+', r'#\1 ', line)
+        line = re.sub(r'^\s*#\s*', '#', line)
+        line = re.sub(r'^\s*#(.+?)[ \t]+', r'#\1 ', line)
 
         # remove unnecessary whitespace
-        line = re.sub('\s+(".*?")', r' \1', line)
+        line = re.sub(r'\s+(".*?")', r' \1', line)
         line = re.sub(r'\)\s+>', r')>', line)
         line = re.sub(';[ \t]+', ';', line)
         line = re.sub('[ \t]+', ' ', line)
-        line = re.sub('([\w)\]]+)\s+([&|\+\-<>=\?]+)[ \t]+([^>])', r'\1\2\3', line)
-        line = re.sub('\s*([{\+\-\*/%=<>&|!]+=)[ \t]*', r'\1', line)
-        line = re.sub('<\s+(\w)', r'<\1', line)
-        line = re.sub('\s+:[ \t]+(\w)', r':\1', line)
-        line = re.sub('\s*,[ \t]*', ',', line)
-        line = re.sub('\s*\)', ')', line)
-        line = re.sub('\)\s+{', '){', line)
-        line = re.sub('\)\s+const', ')const', line)
-        if not re.match('#define\s+.*\s+{.*', line):
-            line = re.sub('\s*{\s*', '{', line)
-            line = re.sub('\s*}\s*', '}', line)
+        line = re.sub(r'([\w)\]]+)\s+([&|\+\-<>=\?]+)[ \t]+([^>])', r'\1\2\3', line)
+        line = re.sub(r'\s*([{\+\-\*/%=<>&|!]+=)[ \t]*', r'\1', line)
+        line = re.sub(r'<\s+(\w)', r'<\1', line)
+        line = re.sub(r'\s+:[ \t]+(\w)', r':\1', line)
+        line = re.sub(r'\s*,[ \t]*', ',', line)
+        line = re.sub(r'\s*\)', ')', line)
+        line = re.sub(r'\)\s+{', '){', line)
+        line = re.sub(r'\)\s+const', ')const', line)
+        if not re.match(r'#define\s+.*\s+{.*', line):
+            line = re.sub(r'\s*{\s*', '{', line)
+            line = re.sub(r'\s*}\s*', '}', line)
 
         # define HOGE(x) vs define HOGE (x)
-        m = re.match('^#define\s+(\w+)\s+(\([^)]*?\))$', line)
-        line = re.sub('\s*\([ \t]*', '(', line)
+        m = re.match(r'^#define\s+(\w+)\s+(\([^)]*?\))$', line)
+        line = re.sub(r'\s*\([ \t]*', '(', line)
         if m:
-            line = re.sub('^#define\s+(\w+)(\([^)]*?\))$', r'#define \1 \2', line)
+            line = re.sub(r'^#define\s+(\w+)(\([^)]*?\))$', r'#define \1 \2', line)
         else:
-            line = re.sub('^#define\s+(\w+\([^)]*?\))(\S+)', r'#define \1 \2', line)
+            line = re.sub(r'^#define\s+(\w+\([^)]*?\))(\S+)', r'#define \1 \2', line)
 
         # 0x00000X => 0xX
         line = re.sub('0x0+([0-9A-Fa-f])', r'0x\1', line)
@@ -158,7 +157,7 @@ class IutestFused:
         # string restore
         line = self.RestoreStrings(line, str_l)
 
-        line = re.sub('^#define\s+(\w+)=', r'#define \1 =', line)
+        line = re.sub(r'^#define\s+(\w+)=', r'#define \1 =', line)
         return line
 
     def Flush(self, output_file):
@@ -168,7 +167,7 @@ class IutestFused:
             self.store_line = ""
 
     def Translate(self, root, filename, output, output_dir, minimum):
-        output_file = codecs.open(os.path.join(output_dir, output), 'w', 'utf-8-sig')
+        output_file = open(os.path.join(output_dir, output), 'w', encoding='utf-8-sig')
         processed_files = set()
         # fused-min not support gtest switch
         if minimum:
@@ -186,8 +185,8 @@ class IutestFused:
             find_ifdef = False
             fileset.add(path)
             # print(filename)
-            for line in codecs.open(path, 'r', 'utf-8-sig'):
-                line = re.sub('/\*.*?\*/', '', line)
+            for line in open(path, 'r', encoding='utf-8-sig'):
+                line = re.sub(r'/\*.*?\*/', '', line)
                 m = self.INCLUDE_REGEX.match(line)
                 if m:
                     self.Flush(output_file)
