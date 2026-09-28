@@ -105,13 +105,6 @@ public:
                 actual);
     }
 
-    static AssertionResult Compare(const char* expected_expression,
-        const char* actual_expression,
-        BiggestInt expected,
-        BiggestInt actual) {
-            return CmpHelperNE(expected_expression, actual_expression, expected,
-                actual);
-    }
 };
 
 template<>

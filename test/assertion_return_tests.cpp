@@ -59,7 +59,9 @@ IUTEST(ReturnTest, Test)
 IUTEST(ReturnTest, StringMessage)
 {
     IUTEST_ASSERT_NONFATAL_FAILURE(
-        IUTEST_INFORM_FALSE(true), "Value of:");
+        GTEST_MESSAGE_AT_(__FILE__, __LINE__, ::std::string("string message"),
+            ::testing::TestPartResult::kNonFatalFailure), "string message");
+    IUTEST_ASSERT_NONFATAL_FAILURE(IUTEST_EXPECT_FALSE(true), "Value of:");
 }
 #endif
 
