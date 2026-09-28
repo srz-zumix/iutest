@@ -114,7 +114,6 @@ public:
                 actual);
     }
 #endif
-
 };
 
 template<>
