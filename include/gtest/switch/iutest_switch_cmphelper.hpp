@@ -105,6 +105,16 @@ public:
                 actual);
     }
 
+#if GTEST_VER < 0x01180000 && !GTEST_LATEST
+    static AssertionResult Compare(const char* expected_expression,
+        const char* actual_expression,
+        BiggestInt expected,
+        BiggestInt actual) {
+            return CmpHelperNE(expected_expression, actual_expression, expected,
+                actual);
+    }
+#endif
+
 };
 
 template<>
