@@ -55,6 +55,14 @@ IUTEST(ReturnTest, Test)
 #endif
 }
 
+#if defined(IUTEST_USE_GTEST)
+IUTEST(ReturnTest, StringMessage)
+{
+    IUTEST_ASSERT_NONFATAL_FAILURE(
+        IUTEST_INFORM_FALSE(true), "Value of:");
+}
+#endif
+
 #endif
 
 #ifdef UNICODE
@@ -66,4 +74,3 @@ int main(int argc, char** argv)
     IUTEST_INIT(&argc, argv);
     return IUTEST_RUN_ALL_TESTS();
 }
-
