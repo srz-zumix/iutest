@@ -111,7 +111,10 @@
     template IIUT_PEEP_SETTER_NAME_(class_name, member_name)<class_name                          \
         , IIUT_PEEP_TAG_NAME_(class_name, member_name)<class_name>, &class_name::member_name>    \
         IIUT_PEEP_SETTER_NAME_(class_name, member_name)<class_name                               \
-        , IIUT_PEEP_TAG_NAME_(class_name, member_name)<class_name>, &class_name::member_name>::instance
+            , IIUT_PEEP_TAG_NAME_(class_name, member_name)<class_name>, &class_name::member_name>   \
+            ::instance;                                                                             \
+    template struct IIUT_PEEP_SETTER_NAME_(class_name, member_name)<class_name                  \
+        , IIUT_PEEP_TAG_NAME_(class_name, member_name)<class_name>, &class_name::member_name>
 
 #define IIUT_PEEP_TAG_NAME_(class_name, member_name)        iu_peep_tag_##member_name
 #define IIUT_PEEP_SETTER_NAME_(class_name, member_name)     \
