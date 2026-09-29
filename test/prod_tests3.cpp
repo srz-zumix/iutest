@@ -35,11 +35,12 @@ public:
 class ClassAB : public IClassA, public IClassB
 {
 private:
-    int privateValue = 1;
+    int privateValue;
 
 public:
-    void funcA() override {}
-    void funcB() override {}
+    ClassAB() : privateValue(1) {}
+    void funcA() {}
+    void funcB() {}
 };
 
 IUTEST_MAKE_PEEP(int ClassAB::*, ClassAB, privateValue);
