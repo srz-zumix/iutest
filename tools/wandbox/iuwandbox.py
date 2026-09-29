@@ -10,7 +10,6 @@
 import os
 import sys
 import re
-import codecs
 
 from argparse import ArgumentParser
 from argparse import SUPPRESS
@@ -252,7 +251,7 @@ def parse_command_line():
 # file open
 def file_open(path, mode, encoding):
     if encoding:
-        file = codecs.open(path, mode, encoding)
+        file = open(path, mode, encoding=encoding)
     else:
         file = open(path, mode)
     return file
@@ -305,7 +304,7 @@ def make_code(path, compiler, encoding, expand, includes, included_files):
             if 'iutest.hpp' not in includes:
                 fused_src_path = select_fused_src(compiler, fused_src)
                 try:
-                    f = codecs.open(fused_src_path, 'r', 'utf-8-sig')
+                    f = open(fused_src_path, 'r', encoding='utf-8-sig')
                     iutest_src = f.read()
                     f.close()
                     includes['iutest.hpp'] = iutest_src
@@ -508,7 +507,7 @@ def create_compiler_raw_option_list(options):
     if options.compiler_option_raw:
         raw_options = options.compiler_option_raw
         for x in raw_options:
-            colist.extend(re.split('\s(?=-)', x.strip('"')))
+            colist.extend(re.split(r'\s(?=-)', x.strip('"')))
     if options.iutest_use_main:
         if len(options.code) < 2:
             colist.append('-DIUTEST_USE_MAIN')

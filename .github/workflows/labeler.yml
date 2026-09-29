@@ -1,11 +1,22 @@
-name: Set Label
-on: [pull_request]
+name: Labeler
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      pr-number:
+        description: 'The pull request number(s)'
+        required: true
+
+permissions: {}
 
 jobs:
   labeler:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
     steps:
-    - uses: actions/labeler@v2
-      with:
-        repo-token: "${{ secrets.GITHUB_TOKEN }}"
-
+      - uses: srz-zumix/labeler-action@1b79cc935fc4ae393f5ecc2b8f0a7cd10cae75eb # v0.10.0
+        with:
+          pr-number: ${{ github.event.inputs.pr-number || github.event.number }}

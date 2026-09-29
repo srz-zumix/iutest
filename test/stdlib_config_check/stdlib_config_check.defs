@@ -39,7 +39,13 @@ SHOW_MACRO(__GLIBCPP__);
 #ifdef _LIBCPP_VERSION
 SHOW_MACRO(_LIBCPP_VERSION);
 #endif
+#ifdef _LIBCPP_STD_VER
+SHOW_MACRO(_LIBCPP_STD_VER);
+#endif
 
+#if defined(__cpp_lib_char8_t)
+SHOW_MACRO(__cpp_lib_char8_t);
+#endif
 #if defined(__cpp_lib_filesystem)
 SHOW_MACRO(__cpp_lib_filesystem);
 #endif

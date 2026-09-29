@@ -1,0 +1,41 @@
+name: 'Make Config Test'
+description: 'build and run iutest tests with a specific configuration (Azure Pipelines template migration)'
+inputs:
+  options:
+    description: 'additional make options'
+    default: ''
+  package_name:
+    description: 'iutest default package name'
+    default: 'default'
+  locale_ctype:
+    description: 'locale ctype'
+    default: 'ja_JP.UTF-8'
+
+runs:
+  using: "composite"
+  steps:
+    - name: setup
+      shell: bash
+      run: |
+        ulimit -c unlimited && ulimit -a
+        sudo apt-get update
+        sudo apt-get install -qq -y language-pack-ja
+        sudo update-locale LANG=${{ inputs.locale_ctype }}
+        locale -a
+    - name: versions
+      shell: bash
+      run: make -C test showcxxversion
+    - name: make
+      shell: bash
+      run: make -C test -j4 OUTPUTXML=junit ${{ inputs.options }}
+    - name: test
+      shell: bash
+      env:
+        RUN_OPTION: --iutest_default_package_name=${{ inputs.package_name }} --iutest_locale_ctype=${{ inputs.locale_ctype }}
+      run: make -C test OUTPUTXML=junit ${{ inputs.options }} test
+    - uses: actions/upload-artifact@v7
+      with:
+        name: test-result-${{ inputs.package_name }}
+        path: test/*.xml
+        if-no-files-found: ignore
+      if: always()

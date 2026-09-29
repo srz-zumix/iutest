@@ -15,7 +15,6 @@ CMakeLists.txt text eol=lf
 
 # configs
 *.yml       text eol=lf
-Jenkinsfile text eol=lf
 Doxyfile    text eol=lf
 
 # text
@@ -59,12 +58,9 @@ Dockerfile  text eol=lf
 
 # export settings
 .ci         export-ignore
-.circleci   export-ignore
 .github     export-ignore
-.semaphore  export-ignore
 *.yml       export-ignore
 *.yaml      export-ignore
-Jenkinsfile export-ignore
 tox.ini     export-ignore
 docs/dev    export-ignore
 .bandit     export-ignore
@@ -76,6 +72,4 @@ docs/dev    export-ignore
 *.ipp linguist-language=C++
 docs/* linguist-documentation
 .ci/* linguist-documentation
-.circleci/* linguist-documentation
-.semaphore/* linguist-documentation
 .github/* linguist-documentation

@@ -5,6 +5,7 @@
 ## Changes for 1.17.99
 
 * New
+  * char8_t 対応
   * IUTEST_*_COMPLEX_EQ アサーションを追加
 
 * Improved
@@ -42,6 +43,8 @@
   * Python2 のサポート終了
 
 * Bug fixes
+  * junit 出力に長い type_param を出力すると壊れた文字列が出力される問題を修正
+  * Google Test 旧バージョンとの互換性を修正
   * C++20 で削除された basic_ostream::operator << に対応
   * IUTEST_AP が同じ名前空間に複数定義できない問題を修正
   * Google Test 旧バージョンとの互換性を修正

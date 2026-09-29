@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2025, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,32 +31,54 @@
 #if defined(__clang__)
 #  if !defined(IUTEST_CLANG_MAJOR)
 #    if defined(__APPLE__)
-#      if __clang_major__ > 11
-#        define IUTEST_CLANG_MAJOR      10
-#      elif __clang_major__ > 10
-#        if __clang_minor__ > 3
+#      if __clang_major__ > 16
+#        define IUTEST_CLANG_MAJOR      19
+#      elif __clang_major__ > 15
+#        define IUTEST_CLANG_MAJOR      17
+#      elif __clang_major__ > 14
+#        define IUTEST_CLANG_MAJOR      16
+#      elif __clang_major__ == 14
+#        if __clang_patchlevel__ >= 3
+#          define IUTEST_CLANG_MAJOR    15
+#        else
+#          define IUTEST_CLANG_MAJOR    14
+#        endif
+#      elif __clang_major__ == 13
+#        if __clang_minor__ >= 1
+#          define IUTEST_CLANG_MAJOR    13
+#        else
+#          define IUTEST_CLANG_MAJOR    12
+#        endif
+#      elif __clang_major__ == 12
+#        if __clang_patchlevel__ >= 5
+#          define IUTEST_CLANG_MAJOR    11
+#        else
+#          define IUTEST_CLANG_MAJOR    10
+#        endif
+#      elif __clang_major__ == 11
+#        if __clang_patchlevel__ >= 3
 #          define IUTEST_CLANG_MAJOR    9
 #        else
 #          define IUTEST_CLANG_MAJOR    8
 #        endif
-#      elif __clang_major__ > 9
-#        if __clang_minor__ > 1
+#      elif __clang_major__ == 10
+#        if __clang_minor__ >= 1
 #          define IUTEST_CLANG_MAJOR    7
 #        else
 #          define IUTEST_CLANG_MAJOR    6
 #        endif
-#      elif __clang_major__ > 8
-#        if __clang_minor__ > 2
+#      elif __clang_major__ == 9
+#        if __clang_minor__ >= 1
 #          define IUTEST_CLANG_MAJOR    5
 #        else
 #          define IUTEST_CLANG_MAJOR    4
 #        endif
 #      else
 #        define IUTEST_CLANG_MAJOR      3
-#        if __clang_major__ > 7
+#        if __clang_major__ == 8
 #          define IUTEST_CLANG_MINOR    9
-#        elif __clang_major__ > 6
-#          if __clang_minor__ > 2
+#        elif __clang_major__ == 7
+#          if __clang_minor__ >= 3
 #            define IUTEST_CLANG_MINOR  8
 #          else
 #            define IUTEST_CLANG_MINOR  7
@@ -183,6 +205,19 @@
 
 #if !defined(IUTEST_HAS_CONCEPTS)
 #  define IUTEST_HAS_CONCEPTS               0
+#endif
+
+//! has char8_t
+#if !defined(IUTEST_HAS_CHAR8_T)
+#  if   defined(__cpp_char8_t) && __cpp_char8_t >= 201811L
+#    define IUTEST_HAS_CHAR8_T      1
+#  elif IUTEST_HAS_CXX2A && defined(_MSC_FULL_VER) && _MSC_FULL_VER >= 192127702
+#    define IUTEST_HAS_CHAR8_T    1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CHAR8_T)
+#  define IUTEST_HAS_CHAR8_T        0
 #endif
 
 // c++17 features
@@ -965,6 +1000,15 @@
 
 #if IUTEST_HAS_RTTI
 #  include <typeinfo>
+#endif
+
+//! wchar_t size
+#if !defined(IUTEST_WCHAR_T_SIZE)
+#  if defined(__SIZEOF_WCHAR_T__)
+#    define IUTEST_WCHAR_T_SIZE    __SIZEOF_WCHAR_T__
+#  elif defined(_MSC_VER)
+#    define IUTEST_WCHAR_T_SIZE    2
+#  endif
 #endif
 
 #if !defined(IUTEST_WCHAR_UNSIGNED)

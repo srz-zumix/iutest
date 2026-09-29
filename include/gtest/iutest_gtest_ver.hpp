@@ -27,9 +27,19 @@
 
 //!< Minor Version
 #ifndef GTEST_MINORVER
-#  if   defined(GTEST_HAVE_ATTRIBUTE_)
-#    define GTEST_MINORVER  0x12
+#  if   defined(GTEST_DISABLE_DEPRECATED_PUSH_)
+#    define GTEST_MINORVER  0x18
 #    define GTEST_LATEST    1
+#  elif defined(GTEST_INTERNAL_HAS_INCLUDE) && !defined(GTEST_MUST_USE_RESULT_)
+#    define GTEST_MINORVER  0x17
+#  elif defined(GTEST_INTERNAL_HAS_COMPARE_LIB)
+#    define GTEST_MINORVER  0x16
+#  elif defined(GTEST_INTERNAL_HAS_INCLUDE)
+#    define GTEST_MINORVER  0x15
+#  elif defined(GTEST_HAS_NOTIFICATION_)
+#    define GTEST_MINORVER  0x14
+#  elif defined(GTEST_HAVE_ATTRIBUTE_)
+#    define GTEST_MINORVER  0x13
 #  elif defined(GTEST_FLAG_GET)
 #    define GTEST_MINORVER  0x12
 #  elif defined(GTEST_TEST_NO_THROW_CATCH_STD_EXCEPTION_)
@@ -59,9 +69,7 @@
 
 //!< Micro Version
 #ifndef GTEST_MICROVER
-#  if   GTEST_MINORVER == 0x12 && defined(GTEST_HAVE_ATTRIBUTE_)
-#    define GTEST_MICROVER    0x01
-#  elif GTEST_MINORVER == 0x08 && defined(GTEST_STRINGIFY_)
+#  if   GTEST_MINORVER == 0x08 && defined(GTEST_STRINGIFY_)
 #    define GTEST_MICROVER    0x01
 #  elif GTEST_MINORVER == 0x02 && defined(GTEST_HAS_CLONE)
 #    define GTEST_MICROVER  0x01

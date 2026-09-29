@@ -1,8 +1,0 @@
-iutest:
-  build:
-    image: codeship/iutest
-    dockerfile: ./tools/docker/Dockerfile
-  volumes:
-    - ./.ssh:/root/.ssh
-    - ./:/work
-  cached: true

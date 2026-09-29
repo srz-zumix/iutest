@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2025, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -34,15 +34,17 @@ void test_vprintf(const char* fmt, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1,
 
 #ifdef IUTEST_USE_GTEST
 static ::std::stringstream s_outstream;
+#define test_vsnprintf  vsnprintf
 #else
 static ::iutest::iu_stringstream s_outstream;
+#define test_vsnprintf  ::iutest::detail::iu_vsnprintf
 #endif
 
 void test_vprintf(const char* fmt, va_list va)
 {
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
     char buf[4096];
-    vsprintf(buf, fmt, va);
+    test_vsnprintf(buf, sizeof(buf), fmt, va);
     s_outstream << buf;
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 }

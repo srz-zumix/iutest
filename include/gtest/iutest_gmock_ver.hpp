@@ -20,13 +20,18 @@
 
 // google mock version
 
+#include "iutest_gtest_ver.hpp"
+
 #ifndef GMOCK_MAJORVER
 #  define GMOCK_MAJORVER    0x01        //!< Major Version
 #endif
 
 //!< Minor Version
 #ifndef GMOCK_MINORVER
-#  if   defined(GOOGLEMOCK_INCLUDE_GMOCK_GMOCK_FUNCTION_MOCKER_H_)
+#  if   GTEST_VER >= 0x01120000
+#    define GMOCK_MINORVER  GTEST_MINORVER
+#    define GMOCK_LATEST    GTEST_LATEST
+#  elif defined(GOOGLEMOCK_INCLUDE_GMOCK_GMOCK_FUNCTION_MOCKER_H_)
 #    define GMOCK_MINORVER  0x12
 #    define GMOCK_LATEST    1
 #  elif defined(GTEST_FLAG_GET)
