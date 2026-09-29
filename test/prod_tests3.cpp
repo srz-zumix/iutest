@@ -39,8 +39,8 @@ private:
 
 public:
     ClassAB() : privateValue(1) {}
-    void funcA() {}
-    void funcB() {}
+    void funcA() IUTEST_CXX_OVERRIDE {}
+    void funcB() IUTEST_CXX_OVERRIDE {}
 };
 
 IUTEST_MAKE_PEEP(int ClassAB::*, ClassAB, privateValue);
