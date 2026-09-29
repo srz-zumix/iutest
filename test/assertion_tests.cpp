@@ -133,6 +133,12 @@ IUTEST(AssertionTest, NE)
     int* one=reinterpret_cast<int*>(1);
     IUTEST_ASSERT_NE(NULL, one);
 
+#if defined(IUTEST_USE_GTEST) && GTEST_VER < 0x01180000 && !GTEST_LATEST
+    enum { kFirst = 0 };
+    enum { kSecond = 1 };
+    IUTEST_EXPECT_NE(kFirst, kSecond);
+#endif
+
 #if IUTEST_HAS_NULLPTR
     IUTEST_ASSERT_NE(nullptr, one);
     IUTEST_ASSERT_NE(one, nullptr);
