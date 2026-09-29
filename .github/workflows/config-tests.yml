@@ -1,0 +1,248 @@
+name: Config Tests
+on:
+  pull_request:
+    paths-ignore:
+      - '*.ini'
+      - '*.md'
+      - 'docs/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  # Azure Pipelines Precheck stage migration
+  syntax-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: syntax test
+        run: make -C test -j4 syntax_tests_run
+
+  # Azure Pipelines Test stage migration
+  default-test:
+    runs-on: ubuntu-latest
+    needs: syntax-test
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/composite/make-config-test
+        with:
+          package_name: default
+
+  # Azure Pipelines ConfigDisabledTest stage migration
+  disabled-config-test:
+    name: disabled ${{ matrix.config }}
+    runs-on: ubuntu-latest
+    needs: syntax-test
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - IUTEST_HAS_ANY_PARAM_TEST
+          - IUTEST_HAS_ASSERTION_NOEQUALTO_OBJECT
+          - IUTEST_HAS_ASSERTION_RETURN
+          - IUTEST_HAS_AUTOFIXTURE_PARAM_TEST
+          - IUTEST_HAS_EXCEPTIONS
+          - IUTEST_HAS_GENRAND
+          - IUTEST_HAS_MATCHERS
+          - IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
+          - IUTEST_HAS_MATCHER_EACH
+          - IUTEST_HAS_MATCHER_ELEMENTSARE
+          - IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD
+          - IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR
+          - IUTEST_HAS_MATCHER_OPTIONAL
+          - IUTEST_HAS_MATCHER_POINTWISE
+          - IUTEST_HAS_MATCHER_REGEX
+          - IUTEST_HAS_MATCHER_VARIADIC
+          - IUTEST_HAS_PACKAGE
+          - IUTEST_HAS_PEEP
+          - IUTEST_HAS_PEEP_CLASS
+          - IUTEST_HAS_PEEP_FUNC
+          - IUTEST_HAS_PEEP_STATIC_FUNC
+          - IUTEST_HAS_PRINT_TO
+          - IUTEST_HAS_REGEX
+          - IUTEST_HAS_REPORT_SKIPPED
+          - IUTEST_HAS_SOCKET
+          - IUTEST_HAS_SPI_LAMBDA_SUPPORT
+          - IUTEST_HAS_STATIC_ASSERT_TYPEEQ
+          - IUTEST_HAS_STREAM_CAPTURE
+          - IUTEST_HAS_STREAM_RESULT
+          - IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE
+          - IUTEST_HAS_TESTNAME_ALIAS
+          - IUTEST_HAS_LAMBDA_STATEMENTS
+          - IUTEST_HAS_TYPED_TEST_P
+          - IUTEST_HAS_TYPED_TEST
+          - IUTEST_TYPED_TEST_P_STRICT
+          # feature param test configs
+          - IUTEST_HAS_COMBINE
+          - IUTEST_HAS_CONCAT
+          - IUTEST_HAS_CSVPARAMS
+          - IUTEST_HAS_PAIRWISE
+          - IUTEST_HAS_PARAM_METHOD_TEST
+          - IUTEST_HAS_PARAM_TEST
+          - IUTEST_HAS_PARAM_TEST_PARAM_NAME_GENERATOR
+          - IUTEST_HAS_RANDOMVALUES
+          - IUTEST_HAS_VALUESGEN
+          - IUTEST_HAS_VARIADIC_COMBINE
+          - IUTEST_HAS_VARIADIC_PAIRWISE
+          - IUTEST_HAS_VARIADIC_VALUES
+          - IUTEST_HAS_TESTCASE
+          # spec configs
+          - IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE
+          - IUTEST_HAS_FILE_STAT
+          - IUTEST_HAS_FOPEN
+          - IUTEST_HAS_LONG_DOUBLE
+          - IUTEST_HAS_STD_STR_TO_VALUE
+          - IUTEST_HAS_STRINGSTREAM
+          - IUTEST_HAS_TUPLE
+          - IUTEST_HAS_VARIADIC_TEMPLATES
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/composite/make-config-test
+        with:
+          options: DEFS+=-D${{ matrix.config }}=0
+          package_name: disabled-${{ matrix.config }}
+
+  # Azure Pipelines ConfigNoFeatureTest stage migration
+  nofeature-config-test:
+    name: nofeature ${{ matrix.config }}
+    runs-on: ubuntu-latest
+    needs: syntax-test
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - IUTEST_NO_PRIVATE_IN_AGGREGATE
+          - IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP
+          - IUTEST_NO_VOID_RETURNS
+          - IUTEST_NO_TEMPLATE_TEMPLATES
+          - IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+          - IUTEST_NO_VARIADIC_MACROS
+          - IUTEST_NO_SFINAE
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/composite/make-config-test
+        with:
+          options: DEFS+=-D${{ matrix.config }} STDFLAG=-std=c++98
+          package_name: nofeature-${{ matrix.config }}
+
+  # Azure Pipelines MixConfigTest stage migration
+  mix-config-test:
+    name: mix ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    needs: syntax-test
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: NoParamAndType
+            defs: '-DIUTEST_HAS_TYPED_TEST=0 -DIUTEST_HAS_PARAM_TEST=0 -DIUTEST_HAS_TYPED_TEST_P=0 -DIUTEST_HAS_VARIADIC_PRED=0'
+          - name: StrStream
+            defs: '-DIUTEST_HAS_STRINGSTREAM=0 -DIUTEST_HAS_STRSTREAM=1 -Wno-deprecated'
+          - name: DisableStringStream_StrToValue
+            defs: '-DIUTEST_HAS_STRINGSTREAM=0 -DIUTEST_HAS_STD_STR_TO_VALUE=0'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/composite/make-config-test
+        with:
+          options: DEFS+="${{ matrix.defs }}"
+          package_name: mix-${{ matrix.name }}
+
+  # Azure Pipelines ConfigTest stage migration
+  config-test:
+    name: config ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    needs: syntax-test
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: RandomEngine
+            defs: '-DIUTEST_USE_RANDOM_ENGINE_TYPENAME=::std::default_random_engine'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/composite/make-config-test
+        with:
+          options: DEFS+="${{ matrix.defs }}"
+          package_name: config-${{ matrix.name }}
+
+  # Azure Pipelines VisualStudio stage migration
+  visualstudio-option-test:
+    name: msvc ${{ matrix.name }}
+    runs-on: windows-latest
+    needs: syntax-test
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: NO_EXCEPTION_HANDLER
+            cmake_options: -Dbuild_gtest_samples=ON -Dbuild_no_exceptions=ON
+          - name: USE_C_PREPROCESSOR
+            cmake_options: -Dbuild_gtest_samples=ON -Dbuild_use_msvc_c_preprocessor=ON
+          - name: USE_EXPERIMENTAL
+            cmake_options: -Dbuild_gtest_samples=ON -Dbuild_use_experimental=ON
+          - name: CPP_LATEST
+            cmake_options: -Dbuild_gtest_samples=ON -Dbuild_cpp_latest=ON
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: generate
+        run: cmake -S projects/cmake -B build -A x64 ${{ matrix.cmake_options }}
+      - name: build
+        run: cmake --build build
+      - name: test
+        run: ctest --test-dir build -C Debug -V --output-on-failure
+
+  # Azure Pipelines DockerContaierTest stage migration
+  docker-container-test:
+    runs-on: ubuntu-latest
+    needs: syntax-test
+    container:
+      image: rikorose/gcc-cmake:gcc-10
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: generate
+        run: cmake -S projects/cmake -B build
+      - name: build
+        run: cmake --build build
+      - name: test
+        run: ctest --test-dir build -C Debug -V --output-on-failure
+
+  # Jenkins config-test stage migration (manual run only)
+  configcheck:
+    name: configcheck ${{ matrix.target }}
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - disable_feature_param
+          - disable_feature_1
+          - disable_spec
+          - combine
+          - nofeature
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: configcheck
+        run: make -C test/configcheck ${{ matrix.target }}

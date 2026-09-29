@@ -55,6 +55,16 @@ IUTEST(ReturnTest, Test)
 #endif
 }
 
+#if defined(IUTEST_USE_GTEST)
+IUTEST(ReturnTest, StringMessage)
+{
+    IUTEST_ASSERT_NONFATAL_FAILURE(
+        GTEST_MESSAGE_AT_(__FILE__, __LINE__, ::std::string("string message"),
+            ::testing::TestPartResult::kNonFatalFailure), "string message");
+    IUTEST_ASSERT_NONFATAL_FAILURE(IUTEST_EXPECT_FALSE(true), "Value of:");
+}
+#endif
+
 #endif
 
 #ifdef UNICODE
@@ -66,4 +76,3 @@ int main(int argc, char** argv)
     IUTEST_INIT(&argc, argv);
     return IUTEST_RUN_ALL_TESTS();
 }
-

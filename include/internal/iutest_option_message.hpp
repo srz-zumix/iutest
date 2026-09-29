@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2025, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -186,6 +186,7 @@ inline void iuOptionMessage::ShowSpec()
     IIUT_SHOW_MACRO(IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY);
     IIUT_SHOW_MACRO(IUTEST_HAS_AUTO);
     IIUT_SHOW_MACRO(IUTEST_HAS_CATCH_SEH_EXCEPTION_ASSERTION);
+    IIUT_SHOW_MACRO(IUTEST_HAS_CHAR8_T);
     IIUT_SHOW_MACRO(IUTEST_HAS_CHAR16_T);
     IIUT_SHOW_MACRO(IUTEST_HAS_CHAR16_T_PRINTABLE);
     IIUT_SHOW_MACRO(IUTEST_HAS_CHAR32_T);
@@ -251,6 +252,7 @@ inline void iuOptionMessage::ShowSpec()
     IIUT_SHOW_MACRO(IUTEST_HAS_RVALUE_REFS);
     IIUT_SHOW_MACRO(IUTEST_HAS_SEH);
     IIUT_SHOW_MACRO(IUTEST_HAS_STD_BEGIN_END);
+    IIUT_SHOW_MACRO(IUTEST_HAS_STD_CHAR8_T);
     IIUT_SHOW_MACRO(IUTEST_HAS_STD_DECLVAL);
     IIUT_SHOW_MACRO(IUTEST_HAS_STD_EMPLACE);
     IIUT_SHOW_MACRO(IUTEST_HAS_STD_FILESYSTEM);
@@ -293,6 +295,9 @@ inline void iuOptionMessage::ShowSpec()
 #endif
 #ifdef _LIBCPP_VERSION
     IIUT_SHOW_MACRO(_LIBCPP_VERSION);
+#endif
+#ifdef _LIBCPP_STD_VER
+    IIUT_SHOW_MACRO(_LIBCPP_STD_VER);
 #endif
 #ifdef __POSIX_VISIBLE
     IIUT_SHOW_MACRO(__POSIX_VISIBLE);

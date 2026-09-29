@@ -9,18 +9,5 @@ assignees: ''
 
 ----
 
-* [ ] AppVeyor
-* [ ] Azure Pipelines
-* [ ] Bitrise
-* [ ] Buddy
-* [ ] CircleCI
-* [ ] Cirrus CI
-* [ ] Codefresh
-* [ ] Drone
 * [ ] GitHub Actions
 * [ ] GitLab CI
-* [ ] Peakflow
-* [ ] Razorops
-* [ ] Scrutinizer
-* [ ] Semaphore
-* [ ] Travis CI

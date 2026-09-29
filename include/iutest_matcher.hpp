@@ -561,13 +561,26 @@ private:
 };
 
 /**
+ * @brief   TypedEq matcher value holder
+ * @note    EqMatcher holds a reference, so the value must be constructed before it
+*/
+template<typename T>
+class TypedEqMatcherValueHolder
+{
+protected:
+    explicit TypedEqMatcherValueHolder(const T& expected) : m_expected(expected) {}
+    T m_expected;
+};
+
+/**
  * @brief   TypedEq matcher
 */
 template<typename T>
-class TypedEqMatcher IUTEST_CXX_FINAL : public EqMatcher<T>
+class TypedEqMatcher IUTEST_CXX_FINAL : private TypedEqMatcherValueHolder<T>, public EqMatcher<T>
 {
+    typedef TypedEqMatcherValueHolder<T> _Holder;
 public:
-    explicit TypedEqMatcher(T expected) : EqMatcher<T>(m_expected), m_expected(expected) {}
+    explicit TypedEqMatcher(T expected) : _Holder(expected), EqMatcher<T>(_Holder::m_expected) {}
 public:
     AssertionResult operator ()(const T& actual)
     {
@@ -575,9 +588,6 @@ public:
     }
     template<typename U>
     AssertionResult operator ()(const U&) const;
-
-private:
-    T m_expected;
 };
 
 /**

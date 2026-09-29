@@ -1,28 +1,17 @@
 name: Google Test Compatible
 on:
   pull_request:
-    branches:
-      - master
-      - develop
-      - 'feature/**'
-      - 'fix/**'
-      - 'gh/**'
-      - 'github/**'
-      - 'githubactions/**'
     paths-ignore:
       - '*.ini'
       - '*.md'
       - '*.yml'
       - '*.yaml'
-      - '.circleci/**'
-      - '.semaphore/**'
       - '.github/**'
       - '!.github/workflows/gtest-compat.yml'
       - 'docs/**'
-  push:
-    branches:
-      - master
-      - develop
+
+permissions:
+  contents: read
 
 jobs:
   prepare:
@@ -41,8 +30,23 @@ jobs:
       matrix:
         include:
           - gtest-version: "latest"
-            GTEST_EXPECT_VER: 0x01120100
+            GTEST_EXPECT_VER: 0x01180000
             GTEST_EXPECT_LATEST: 1
+          - gtest-version: "v1.17.0"
+            GTEST_EXPECT_VER: 0x01170000
+          - gtest-version: "v1.16.0"
+            GTEST_EXPECT_VER: 0x01160000
+          # The 1.15 patch releases have identical installed headers.
+          - gtest-version: "v1.15.2"
+            GTEST_EXPECT_VER: 0x01150000
+          - gtest-version: "v1.15.1"
+            GTEST_EXPECT_VER: 0x01150000
+          - gtest-version: "v1.15.0"
+            GTEST_EXPECT_VER: 0x01150000
+          - gtest-version: "v1.14.0"
+            GTEST_EXPECT_VER: 0x01140000
+          - gtest-version: "v1.13.0"
+            GTEST_EXPECT_VER: 0x01130000
           - gtest-version: "release-1.12.1"
             # 1.12.1 only change the version number
             GTEST_EXPECT_VER: 0x01120000
@@ -71,7 +75,9 @@ jobs:
     env:
       MAKE_OPTION: "-j4"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Google Test
         env:
           GTEST_OPTION: "USE_GTEST=1"
@@ -84,4 +90,3 @@ jobs:
         run: |
           make -C test clean
           make -C test OUTPUTXML=1 "${GTEST_OPTION}" GTEST_EXPECT_VER=${{ matrix.GTEST_EXPECT_VER }} GTEST_EXPECT_LATEST=${{ matrix.GTEST_EXPECT_LATEST }} "${MAKE_OPTION}" test
-

@@ -255,6 +255,7 @@
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_pred.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_default_main.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_genparams_from_file.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_locale.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_log_stream.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_mfc.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_socket.hpp" />

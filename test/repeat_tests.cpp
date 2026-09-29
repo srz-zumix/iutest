@@ -89,6 +89,10 @@ void CheckCount(int expected)
 bool RunTest(void)
 {
     ClearCounter();
+#if defined(IUTEST_USE_GTEST) && GTEST_VER >= 0x01150000
+    MyEnvironment* const env = new MyEnvironment();
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::AddGlobalTestEnvironment(env) == env );
+#endif
     if( IUTEST_RUN_ALL_TESTS() != 0 ) return false;
     return ::iutest::UnitTest::GetInstance()->Passed();
 }
@@ -141,8 +145,10 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
+#if !defined(IUTEST_USE_GTEST) || GTEST_VER < 0x01150000
     MyEnvironment* const env = new MyEnvironment();
     IUTEST_TERMINATE_ON_FAILURE( ::iutest::AddGlobalTestEnvironment(env) == env );
+#endif
     IUTEST_INIT(&argc, argv);
 
 #if defined(IUTEST_USE_GTEST) && (GTEST_VER >= 0x01120000)
@@ -162,4 +168,3 @@ int main(int argc, char* argv[])
     printf("*** Successful ***\n");
     return 0;
 }
-
