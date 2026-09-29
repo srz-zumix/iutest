@@ -44,6 +44,7 @@
 #  endif
 #endif
 
+#if SCOPED_TRACE_EXCEPTION_TEST
 bool no_throw = false;
 
 IUTEST(ScopedTraceExceptionTest, Exception)
@@ -103,6 +104,7 @@ typedef ScopedTraceExceptionSetUpTest DISABLED_ScopedTraceExceptionSetUpTest;
 IUTEST_F(DISABLED_ScopedTraceExceptionSetUpTest, Empty)
 {
 }
+#endif
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
