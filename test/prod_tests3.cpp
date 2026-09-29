@@ -39,7 +39,7 @@ private:
 
 public:
     ClassAB() : privateValue(1) {}
-    void funcA() IUTEST_CXX_OVERRIDE {}
+    void funcA() IUTEST_CXX_OVERRIDE { (void)privateValue; }
     void funcB() IUTEST_CXX_OVERRIDE {}
 };
 
