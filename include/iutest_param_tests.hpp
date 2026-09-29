@@ -297,9 +297,9 @@ class ParamTestInstance : public IParamTestInfoData
     class EachTest IUTEST_CXX_FINAL : public IParamTestInfoData::ParamEachTestBase<ParamType>
     {
     public:
-        EachTest(TestSuite* testsuite, const ::std::string& name)
+        EachTest(TestSuite* testsuite, const ::std::string& name, const ::std::string& file, int line)
             : m_mediator(testsuite)
-            , m_info(&m_mediator, name, &m_factory)
+            , m_info(&m_mediator, name, file, line, &m_factory)
         {
             UnitTest::instance().AddTestInfo(testsuite, &m_info);
         }
@@ -333,9 +333,11 @@ private:
 
     // テストの作成登録
     virtual IParamTestInfoData::EachTestBase* RegisterTest(TestSuite* testsuite
-                                                        , const ::std::string& name) const IUTEST_CXX_OVERRIDE
+                                                        , const ::std::string& name
+                                                        , const ::std::string& file
+                                                        , int line) const IUTEST_CXX_OVERRIDE
     {
-        EachTest* test = new EachTest(testsuite, name);
+        EachTest* test = new EachTest(testsuite, name, file, line);
         // new オブジェクトを管理してもらう
         detail::iuPool::GetInstance().push(test);
         return test;

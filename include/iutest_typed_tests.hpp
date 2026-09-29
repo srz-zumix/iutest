@@ -316,13 +316,13 @@ class TypeParamTestInstance
         // コンストラクタ
         EachTest(const char* testsuite, const char* name, size_t index, const char* file, int line)
             : m_mediator(AddTestSuite(testsuite, index, file, line))
-            , m_info(&m_mediator, name, &m_factory)
+            , m_info(&m_mediator, name, file, line, &m_factory)
             , m_next(testsuite, name, index+1, file, line)
         {
         }
         EachTest(const ::std::string& testsuite, const char* name, size_t index, const char* file, int line)
             : m_mediator(AddTestSuite(testsuite, index, file, line))
-            , m_info(&m_mediator, name, &m_factory)
+            , m_info(&m_mediator, name, file, line, &m_factory)
             , m_next(testsuite, name, index+1, file, line)
         {
         }
@@ -491,15 +491,15 @@ class TypeParameterizedTestSuite
         typedef detail::iuFactory<TestBody>     Factory;
         typedef EachTest<TypeParam, TestsList>  _Myt;
 
-        EachTest(TestSuite* testsuite, const ::std::string& name)
+        EachTest(TestSuite* testsuite, const ::std::string& name, const char* file, int line)
             : m_mediator(testsuite)
-            , m_info(&m_mediator, name, &m_factory)
+            , m_info(&m_mediator, name, file, line, &m_factory)
         {
             UnitTest::instance().AddTestInfo(testsuite, &m_info);
         }
     public:
         // テストの登録
-        static void Register(TestSuite* testsuite, const char* test_names)
+        static void Register(TestSuite* testsuite, const char* test_names, const char* file, int line)
         {
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
             IUTEST_CHECK_(test_names != NULL);
@@ -515,11 +515,11 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
                 test_name = ::std::string(str, static_cast<size_t>(comma - str));
                 ++comma;
             }
-            _Myt* test = new EachTest(testsuite, StripTrailingSpace(test_name));
+            _Myt* test = new EachTest(testsuite, StripTrailingSpace(test_name), file, line);
             // new オブジェクトを管理してもらう
             detail::iuPool::GetInstance().push(test);
 
-            EachTest<TypeParam, typename TestsList::Tail>::Register(testsuite, detail::SkipSpace(comma));
+            EachTest<TypeParam, typename TestsList::Tail>::Register(testsuite, detail::SkipSpace(comma), file, line);
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
         }
     private:
@@ -532,7 +532,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
     class EachTest<TypeParam, detail::TemplateTypeList0>
     {
     public:
-        static void Register(TestSuite* /*testsuite*/, const char* /*test_names*/) {}
+        static void Register(TestSuite* /*testsuite*/, const char* /*test_names*/, const char* /*file*/, int /*line*/) {}
     };
 
 public:
@@ -596,7 +596,7 @@ private:
 #endif
             );
 
-        EachTest<TypeParam, Tests>::Register(testsuite, names);
+        EachTest<TypeParam, Tests>::Register(testsuite, names, file, line);
 
         return TypeParameterizedTestSuite<Fixture, Tests, typename Types::Tail>::Register(
             prefix, testsuite_name, package_name, names, file, line, index + 1);

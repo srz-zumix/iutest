@@ -120,7 +120,7 @@ class ValueTmpParamTestInstance
         // コンストラクタ
         EachTest(const char* testsuite, const char* name, size_t index, const char* file, int line)
             : m_mediator(AddTestSuite(testsuite, index, file, line))
-            , m_info(&m_mediator, name, &m_factory)
+            , m_info(&m_mediator, name, file, line, &m_factory)
             , m_next(testsuite, name, index+1, file, line)
         {
         }

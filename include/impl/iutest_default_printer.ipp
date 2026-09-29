@@ -103,9 +103,9 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestEnd(const TestInfo& tes
     if( TestFlag::IsEnableFlag(TestFlag::PRINT_TIME) )
     {
 #if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
-        detail::iuConsole::output(" (--ms)" );
+        detail::iuConsole::output(" (-- ms)" );
 #else
-        detail::iuConsole::output(" (%sms)", detail::FormatTimeInMillisec(test_info.elapsed_time()).c_str());
+        detail::iuConsole::output(" (%s ms)", detail::FormatTimeInMillisec(test_info.elapsed_time()).c_str());
 #endif
     }
     detail::iuConsole::output("\n");
@@ -117,9 +117,9 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestSuiteEnd(const TestSuit
     if( TestFlag::IsEnableFlag(TestFlag::PRINT_TIME) )
     {
 #if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
-        detail::iuConsole::output("(--ms total)");
+        detail::iuConsole::output("(-- ms total)");
 #else
-        detail::iuConsole::output("(%sms total)", detail::FormatTimeInMillisec(test_suite.elapsed_time()).c_str());
+        detail::iuConsole::output("(%s ms total)", detail::FormatTimeInMillisec(test_suite.elapsed_time()).c_str());
 #endif
     }
     detail::iuConsole::output("\n\n");
@@ -146,9 +146,9 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
     if( TestFlag::IsEnableFlag(TestFlag::PRINT_TIME) )
     {
 #if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
-        detail::iuConsole::output(" (--ms total)");
+        detail::iuConsole::output(" (-- ms total)");
 #else
-        detail::iuConsole::output(" (%sms total)", detail::FormatTimeInMillisec(test.elapsed_time()).c_str());
+        detail::iuConsole::output(" (%s ms total)", detail::FormatTimeInMillisec(test.elapsed_time()).c_str());
 #endif
     }
     detail::iuConsole::output("\n");
@@ -244,6 +244,20 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestProgramEnd(const UnitTest& test)
 {
     IUTEST_UNUSED_VAR(test);
+}
+IUTEST_IPP_INLINE void DefaultResultPrintListener::OnListup(int total_test_num, const ::std::vector<TestSuite*>& tests)
+{
+    detail::iuConsole::output("%d tests from %" IUPRzu " testsuite\n", total_test_num, tests.size() );
+    for( ::std::vector<TestSuite*>::const_iterator it = tests.begin(), end=tests.end(); it != end; ++it )
+    {
+        detail::iuConsole::output("%s.\n", (*it)->name());
+
+        for( int i = 0; i < (*it)->total_test_count(); ++i )
+        {
+            const TestInfo* testinfo = (*it)->GetTestInfo(i);
+            detail::iuConsole::output("  %s\n", testinfo->name());
+        }
+    }
 }
 
 }   // end of namespace iutest

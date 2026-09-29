@@ -40,10 +40,14 @@ public:
      * @brief   コンストラクタ
      * @param [in]  testsuite   = TestSuite 仲介者
      * @param [in]  name        = テスト名
+     * @param [in]  file        = テストファイル名
+     * @param [in]  line        = テスト行番号
      * @param [in]  factory     = テスト生成器
     */
-    TestInfo(detail::iuITestSuiteMediator* testsuite, const ::std::string& name, detail::iuFactoryBase* factory)
+    TestInfo(detail::iuITestSuiteMediator* testsuite, const ::std::string& name, const ::std::string& file, int line, detail::iuFactoryBase* factory)
         : m_testname(name)
+        , m_file(file)
+        , m_line(line)
         , m_factory(factory)
         , m_testsuite(testsuite)
         , m_should_run(true)
@@ -63,6 +67,10 @@ public:
 #endif
     /** test 名の取得 */
     const   char*   name()              const { return m_testname.c_str(); }
+    /** test ファイル名の取得 */
+    const   char*   file()              const { return m_file.c_str(); }
+    /** test 行番号の取得 */
+    int             line()              const { return m_line; }
     /** should_run */
     bool            should_run()        const IUTEST_CXX_NOEXCEPT_SPEC { return m_should_run; }
     /** is ran */
@@ -245,6 +253,8 @@ private:
     friend class detail::UncaughtScopedTrace;
 
     ::std::string           m_testname;         //!< テスト名
+    ::std::string           m_file;             //!< テストファイル名
+    int                     m_line;             //!< テストファイル行番号
     ::std::string           m_value_param;      //!< value param string
     TestResult              m_test_result;      //!< テスト結果
     Mediator                m_mediator;         //!< 自身の仲介インスタンス
