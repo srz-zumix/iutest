@@ -115,8 +115,12 @@ int main(int argc, char* argv[])
 #endif
 
     ::iutest::IUTEST_FLAG(also_run_disabled_tests) = true;
+#if IUTEST_HAS_ASSERTION_RETURN
     IUTEST_ASSERT_NE(IUTEST_RUN_ALL_TESTS(), 0)
         << ::iutest::AssertionReturn<int>(1);
+#else
+    if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
+#endif
 
 #if !defined(IUTEST_USE_GTEST)
     TestLogger logger;
