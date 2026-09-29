@@ -66,6 +66,7 @@
     <ClCompile Include="..\..\..\test\iutest_printers_tests.cpp" />
     <ClCompile Include="..\..\..\test\iutest_prod_tests1.cpp" />
     <ClCompile Include="..\..\..\test\iutest_prod_tests2.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_prod_tests3.cpp" />
     <ClCompile Include="..\..\..\test\iutest_progress_tests.cpp" />
     <ClCompile Include="..\..\..\test\iutest_quiet_result_printer_tests.cpp" />
     <ClCompile Include="..\..\..\test\iutest_random_seed_tests.cpp" />
