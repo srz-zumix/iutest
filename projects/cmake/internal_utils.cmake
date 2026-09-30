@@ -150,8 +150,8 @@ function(cxx_library_with_type name type cxx_flags)
       PROPERTIES
       COMPILE_DEFINITIONS)
   endif()
-  if (CMAKE_USE_PTHREADS_INIT)
-    target_link_libraries(${name} ${CMAKE_THREAD_LIBS_INIT})
+  if (CMAKE_USE_PTHREADS_INIT AND CMAKE_THREAD_LIBS_INIT)
+    target_link_libraries(${name} PUBLIC ${CMAKE_THREAD_LIBS_INIT})
   endif()
 endfunction()
 

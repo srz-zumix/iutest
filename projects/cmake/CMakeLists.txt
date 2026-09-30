@@ -73,6 +73,8 @@ include(apple.cmake)
 # project name
 project(iutest CXX C)
 
+include(GNUInstallDirs)
+
 set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER)
@@ -128,6 +130,17 @@ endif()
 #
 cxx_library(iutest "${cxx_strict}" ${IUTEST_ROOT_DIR}/src/iutest_all.cpp)
 cxx_library(iutest_main "${cxx_strict}" ${IUTEST_ROOT_DIR}/src/iutest_main.cpp)
+
+target_include_directories(iutest PUBLIC
+  $<BUILD_INTERFACE:${IUTEST_ROOT_DIR}/include>
+  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/iutest>
+)
+target_include_directories(iutest_main PUBLIC
+  $<BUILD_INTERFACE:${IUTEST_ROOT_DIR}/include>
+  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/iutest>
+)
+target_compile_definitions(iutest PUBLIC IUTEST_USE_LIB=1)
+target_link_libraries(iutest_main PUBLIC iutest)
 
 ########################################################################
 #
@@ -453,21 +466,50 @@ if (build_tests)
   file(COPY ${IUTEST_ROOT_DIR}/test/testdata DESTINATION .)
 endif()
 
-install(TARGETS iutest
+install(TARGETS iutest iutest_main
   EXPORT iutest-export
-  ARCHIVE   DESTINATION lib
-  LIBRARY   DESTINATION lib
-  COMPONENT library
-)
-install(TARGETS iutest_main
-  ARCHIVE   DESTINATION lib
-  LIBRARY   DESTINATION lib
+  ARCHIVE   DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY   DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  RUNTIME   DESTINATION ${CMAKE_INSTALL_BINDIR}
   COMPONENT library
 )
 install(DIRECTORY ${IUTEST_ROOT_DIR}/include/
-  DESTINATION include/iutest
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/iutest
 )
+
+set(IUTEST_INSTALL_CMAKEDIR "${CMAKE_INSTALL_LIBDIR}/cmake/iutest")
+
 install(EXPORT iutest-export
-  FILE IUTEST-config.cmake
-  DESTINATION share/cmake/iutest/
+  FILE iutest-export.cmake
+  NAMESPACE iutest::
+  DESTINATION ${IUTEST_INSTALL_CMAKEDIR}
+)
+
+include(CMakePackageConfigHelpers)
+
+# Parse "MAJOR.MINOR.MICRO" from include/iutest_ver.hpp (BCD-style hex digits).
+file(STRINGS "${IUTEST_ROOT_DIR}/include/iutest_ver.hpp" iutest_version_defines
+  REGEX "#define IUTEST_(MAJOR|MINOR|MICRO)VER +0x[0-9A-Fa-f]+u"
+)
+foreach (ver ${iutest_version_defines})
+  if (ver MATCHES "IUTEST_(MAJOR|MINOR|MICRO)VER +0x0*([0-9A-Fa-f]+)u")
+    set(IUTEST_VERSION_${CMAKE_MATCH_1} "${CMAKE_MATCH_2}")
+  endif()
+endforeach()
+set(IUTEST_VERSION "${IUTEST_VERSION_MAJOR}.${IUTEST_VERSION_MINOR}.${IUTEST_VERSION_MICRO}")
+
+configure_package_config_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/iutest-config.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/iutest-config.cmake
+  INSTALL_DESTINATION ${IUTEST_INSTALL_CMAKEDIR}
+)
+write_basic_package_version_file(
+  ${CMAKE_CURRENT_BINARY_DIR}/iutest-config-version.cmake
+  VERSION ${IUTEST_VERSION}
+  COMPATIBILITY SameMajorVersion
+)
+install(FILES
+  ${CMAKE_CURRENT_BINARY_DIR}/iutest-config.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/iutest-config-version.cmake
+  DESTINATION ${IUTEST_INSTALL_CMAKEDIR}
 )
