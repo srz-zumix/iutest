@@ -253,6 +253,7 @@ jobs:
   # CircleCI msvc_wine job migration
   msvc-wine:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - name: Login to DockerHub
         uses: docker/login-action@v4
