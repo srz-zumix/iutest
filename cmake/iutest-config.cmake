@@ -33,3 +33,10 @@ include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(IUTEST DEFAULT_MSG
     IUTEST_INCLUDE_DIR
 )
+
+if (IUTEST_FOUND AND NOT TARGET iutest::iutest)
+  add_library(iutest::iutest INTERFACE IMPORTED)
+  set_target_properties(iutest::iutest PROPERTIES
+    INTERFACE_INCLUDE_DIRECTORIES "${IUTEST_INCLUDE_DIR}"
+  )
+endif()
