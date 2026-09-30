@@ -1,31 +1,38 @@
 # for apple
 if (APPLE)
-	if(NOT OSX_ARCHITECTURES OR OSX_ARCHITECTURES STREQUAL "")
-		if(_CMAKE_OSX_MACHINE MATCHES "ppc")
-			set(OSX_ARCHITECTURES
-				"ppc;ppc64"
-				CACHE
-				STRING
-				"Build architectures for OS X"
-				FORCE)
-		else()
-			set(OSX_ARCHITECTURES
-				"x86_64"
-				CACHE
-				STRING
-				"Build architectures for OS X"
-				FORCE)
-		endif()
+  get_filename_component(_iutest_root_dir "${CMAKE_CURRENT_LIST_DIR}/../.." ABSOLUTE)
+  get_filename_component(_iutest_source_dir "${CMAKE_SOURCE_DIR}" ABSOLUTE)
+  set(_iutest_is_top_level OFF)
+  if (_iutest_source_dir STREQUAL _iutest_root_dir OR _iutest_source_dir STREQUAL CMAKE_CURRENT_LIST_DIR)
+    set(_iutest_is_top_level ON)
   endif()
-	if(NOT CMAKE_OSX_ARCHITECTURES OR CMAKE_OSX_ARCHITECTURES STREQUAL "")
-    set(CMAKE_OSX_ARCHITECTURES ${OSX_ARCHITECTURES} CACHE STRING "Build architectures for OS X" FORCE)
+
+  set(_iutest_is_ios_xcode OFF)
+  if (CMAKE_SYSTEM_NAME STREQUAL "iOS" OR CMAKE_GENERATOR STREQUAL "Xcode")
+    set(_iutest_is_ios_xcode ON)
+  endif()
+
+  # Do not touch the cache: an empty CMAKE_OSX_ARCHITECTURES means "host architecture".
+  if (_iutest_is_top_level AND _iutest_is_ios_xcode AND CMAKE_SYSTEM_NAME STREQUAL "iOS")
+    if (NOT CMAKE_OSX_ARCHITECTURES)
+      if (CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "arm64|aarch64")
+        set(CMAKE_OSX_ARCHITECTURES "arm64")
+      else()
+        set(CMAKE_OSX_ARCHITECTURES "x86_64")
+      endif()
+    endif()
   endif()
   message(STATUS "CMAKE_OSX_ARCHITECTURES: ${CMAKE_OSX_ARCHITECTURES}")
-  # CMAKE_MACOSX_BUNDLE is needed to avoid the error "target specifies product type 'com.apple.product-type.tool'
-  set(CMAKE_MACOSX_BUNDLE YES)
-  set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED NO)
-  set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED NO)
-  if(NOT DEFINED CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY)
-    set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "")
+
+  if (_iutest_is_ios_xcode)
+    # CMAKE_MACOSX_BUNDLE is needed to avoid the error "target specifies product type 'com.apple.product-type.tool'
+    if (CMAKE_SYSTEM_NAME STREQUAL "iOS")
+      set(CMAKE_MACOSX_BUNDLE YES)
+    endif()
+    set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED NO)
+    set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED NO)
+    if(NOT DEFINED CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY)
+      set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "")
+    endif()
   endif()
 endif()
