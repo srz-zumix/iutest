@@ -140,6 +140,7 @@ target_include_directories(iutest_main PUBLIC
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/iutest>
 )
 target_compile_definitions(iutest PUBLIC IUTEST_USE_LIB=1)
+target_compile_features(iutest PUBLIC cxx_std_17)
 target_link_libraries(iutest_main PUBLIC iutest)
 
 ########################################################################
