@@ -89,7 +89,7 @@ IUTEST(SrcDirTest, Default)
     IUTEST_EXPECT_TRUE(EndsWithPathSeparator(dir));
 
 #if !defined(IUTEST_USE_GTEST)
-    IUTEST_EXPECT_EQ( ::iutest::internal::FilePath::GetCurrentDir().string()
+    IUTEST_EXPECT_EQ( RemoveTrailingPathSeparator(::iutest::internal::FilePath::GetCurrentDir().string())
         , RemoveTrailingPathSeparator(dir) );
 #endif
 }
