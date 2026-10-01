@@ -88,6 +88,16 @@ int main(int argc, char* argv[])
 
         IUTEST_ASSERT_STRIN("ms total)", s_log_testcases.c_str()) << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_STRIN("ms)", s_log_testcases.c_str()) << ::iutest::AssertionReturn<int>(1);
+
+        // 単数・複数の表記ゆれ確認
+        IUTEST_ASSERT_STRIN("1 test suite", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_STRNOTIN("1 test suites", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_STRIN("[  PASSED  ] 1 test.\n", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_STRIN("[ DISABLED ] 1 test.\n", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_STRIN("[  SKIPPED ] 1 test.\n", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_STRIN("[  FAILED  ] 1 test, listed below:\n", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
+        // 時間表示前のスペース抜け確認
+        IUTEST_ASSERT_STRIN("Test (", s_log_testcases.c_str()) << ::iutest::AssertionReturn<int>(1);
 #endif
     }
     {
