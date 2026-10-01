@@ -44,7 +44,9 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationStart(const Un
         detail::iuConsole::color_output(detail::iuConsole::yellow, "Note: Randomizing tests' orders with a seed of %u\n", test.random_seed());
     }
     detail::iuConsole::color_output(detail::iuConsole::green, "[==========] ");
-    detail::iuConsole::output("Running %d tests from %d test suites.\n", test.test_to_run_count(), test.test_suite_to_run_count() );
+    detail::iuConsole::output("Running %s from %s.\n"
+        , detail::FormatTestCount(test.test_to_run_count()).c_str()
+        , detail::FormatTestSuiteCount(test.test_suite_to_run_count()).c_str() );
 }
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnEnvironmentsSetUpStart(const UnitTest& test)
 {
@@ -60,7 +62,9 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnEnvironmentsSetUpEnd(const 
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestSuiteStart(const TestSuite& test_suite)
 {
     detail::iuConsole::color_output(detail::iuConsole::green, "[----------] ");
-    detail::iuConsole::output("%d tests from %s\n", test_suite.test_to_run_count(), test_suite.testsuite_name_with_where().c_str() );
+    detail::iuConsole::output("%s from %s\n"
+        , detail::FormatTestCount(test_suite.test_to_run_count()).c_str()
+        , test_suite.testsuite_name_with_where().c_str() );
 }
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestStart(const TestInfo& test_info)
 {
@@ -113,13 +117,13 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestEnd(const TestInfo& tes
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestSuiteEnd(const TestSuite& test_suite)
 {
     detail::iuConsole::color_output(detail::iuConsole::green, "[----------] ");
-    detail::iuConsole::output("%d tests from %s", test_suite.test_to_run_count(), test_suite.name() );
+    detail::iuConsole::output("%s from %s", detail::FormatTestCount(test_suite.test_to_run_count()).c_str(), test_suite.name() );
     if( TestFlag::IsEnableFlag(TestFlag::PRINT_TIME) )
     {
 #if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
-        detail::iuConsole::output("(--ms total)");
+        detail::iuConsole::output(" (--ms total)");
 #else
-        detail::iuConsole::output("(%sms total)", detail::FormatTimeInMillisec(test_suite.elapsed_time()).c_str());
+        detail::iuConsole::output(" (%sms total)", detail::FormatTimeInMillisec(test_suite.elapsed_time()).c_str());
 #endif
     }
     detail::iuConsole::output("\n\n");
@@ -141,8 +145,9 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
     IUTEST_UNUSED_VAR(iteration);
 
     detail::iuConsole::color_output(detail::iuConsole::green, "[==========] ");
-    detail::iuConsole::output("%d tests from %d testsuite ran."
-        , test.test_to_run_count(), test.test_suite_to_run_count() );
+    detail::iuConsole::output("%s from %s ran."
+        , detail::FormatTestCount(test.test_to_run_count()).c_str()
+        , detail::FormatTestSuiteCount(test.test_suite_to_run_count()).c_str() );
     if( TestFlag::IsEnableFlag(TestFlag::PRINT_TIME) )
     {
 #if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
@@ -156,14 +161,14 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
     {
         {
             detail::iuConsole::color_output(detail::iuConsole::green, "[  PASSED  ] ");
-            detail::iuConsole::output("%d tests.\n", test.successful_test_count() );
+            detail::iuConsole::output("%s.\n", detail::FormatTestCount(test.successful_test_count()).c_str() );
         }
         {
             const int count = test.reportable_disabled_test_count();
             if( !TestFlag::IsEnableFlag(TestFlag::RUN_DISABLED_TESTS) && count > 0 )
             {
                 detail::iuConsole::color_output(detail::iuConsole::yellow, "[ DISABLED ] ");
-                detail::iuConsole::output("%d tests.\n", count );
+                detail::iuConsole::output("%s.\n", detail::FormatTestCount(count).c_str() );
                 if( TestFlag::IsEnableFlag(TestFlag::VERBOSE) )
                 {
                     for( int i=0, case_count=test.total_test_suite_count(); i < case_count; ++i )
@@ -187,7 +192,7 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
             if( count > 0 )
             {
                 detail::iuConsole::color_output(detail::iuConsole::yellow, "[  SKIPPED ] ");
-                detail::iuConsole::output("%d tests.\n", count );
+                detail::iuConsole::output("%s.\n", detail::FormatTestCount(count).c_str() );
                 if( TestFlag::IsEnableFlag(TestFlag::VERBOSE) )
                 {
                     for( int i=0, case_count=test.total_test_suite_count(); i < case_count; ++i )
@@ -211,7 +216,7 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
         {
             const int failed_num = test.failed_test_count();
             detail::iuConsole::color_output(detail::iuConsole::red, "[  FAILED  ] ");
-            detail::iuConsole::output("%d %s, listed below:\n", failed_num, failed_num == 1 ? "test" : "tests" );
+            detail::iuConsole::output("%s, listed below:\n", detail::FormatTestCount(failed_num).c_str() );
 
             for( int i=0, count=test.total_test_suite_count(); i < count; ++i )
             {

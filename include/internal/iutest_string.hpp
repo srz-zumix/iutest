@@ -466,6 +466,28 @@ inline ::std::string FormatSizeByte(UInt64 value)
     }
 }
 
+/**
+ * @brief   数を表す名詞を、数量に応じた単数形・複数形で整形する
+ * @details e.g. FormatCountableNoun(1, "test", "tests") returns "1 test".
+ *          FormatCountableNoun(2, "test", "tests") returns "2 tests".
+*/
+inline ::std::string FormatCountableNoun(int count, const char* singular_form, const char* plural_form)
+{
+    return iu_to_string(count) + " " + (count == 1 ? singular_form : plural_form);
+}
+
+//! テスト数を整形する
+inline ::std::string FormatTestCount(int test_count)
+{
+    return FormatCountableNoun(test_count, "test", "tests");
+}
+
+//! テストスイート数を整形する
+inline ::std::string FormatTestSuiteCount(int test_suite_count)
+{
+    return FormatCountableNoun(test_suite_count, "test suite", "test suites");
+}
+
 inline ::std::string ShowStringQuoted(const char* str)
 {
     ::std::string s = "\""; s += str; s += "\"";

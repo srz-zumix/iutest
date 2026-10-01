@@ -247,6 +247,27 @@ IUTEST(UnitStringTest, FormatIntWidthN)
     IUTEST_EXPECT_STREQ("-0101", ::iutest::detail::FormatIntWidthN(-101, 4));
 }
 
+IUTEST(UnitStringTest, FormatCountableNoun)
+{
+    IUTEST_EXPECT_STREQ("0 tests", ::iutest::detail::FormatCountableNoun(0, "test", "tests"));
+    IUTEST_EXPECT_STREQ("1 test",  ::iutest::detail::FormatCountableNoun(1, "test", "tests"));
+    IUTEST_EXPECT_STREQ("2 tests", ::iutest::detail::FormatCountableNoun(2, "test", "tests"));
+}
+
+IUTEST(UnitStringTest, FormatTestCount)
+{
+    IUTEST_EXPECT_STREQ("0 tests", ::iutest::detail::FormatTestCount(0));
+    IUTEST_EXPECT_STREQ("1 test",  ::iutest::detail::FormatTestCount(1));
+    IUTEST_EXPECT_STREQ("2 tests", ::iutest::detail::FormatTestCount(2));
+}
+
+IUTEST(UnitStringTest, FormatTestSuiteCount)
+{
+    IUTEST_EXPECT_STREQ("0 test suites", ::iutest::detail::FormatTestSuiteCount(0));
+    IUTEST_EXPECT_STREQ("1 test suite",  ::iutest::detail::FormatTestSuiteCount(1));
+    IUTEST_EXPECT_STREQ("2 test suites", ::iutest::detail::FormatTestSuiteCount(2));
+}
+
 IUTEST(UnitStringTest, FormatSizeByte)
 {
     IUTEST_EXPECT_STREQ("0B", ::iutest::detail::FormatSizeByte(0));
