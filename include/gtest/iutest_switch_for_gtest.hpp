@@ -159,6 +159,9 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 
 #undef IUTEST_HAS_STD_FILESYSTEM
 
+#undef IUTEST_HAS_SRCDIR
+#undef IUTEST_HAS_TEMPDIR
+
 #undef IUTEST_OPERAND
 #undef IUTEST_EXPRESSION
 
@@ -222,6 +225,18 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #endif
 
 #define IUTEST_HAS_STD_FILESYSTEM       0
+
+// gtest added TempDir() in 1.8.0 (actually earlier than the 1.8.0 release) and SrcDir() in 1.13.0
+#if GTEST_VER < 0x01080000
+#  define IUTEST_HAS_TEMPDIR            0
+#else
+#  define IUTEST_HAS_TEMPDIR            1
+#endif
+#if GTEST_VER < 0x01130000
+#  define IUTEST_HAS_SRCDIR             0
+#else
+#  define IUTEST_HAS_SRCDIR             1
+#endif
 
 #define IUTEST_HAS_STREAM_BUFFER        0
 #define IUTEST_HAS_STREAM_CAPTURE       0
