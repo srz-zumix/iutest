@@ -62,23 +62,21 @@ public:
 
 }   // namespace
 
+IUTEST_PRAGMA_UNREACHCODE_WARN_DISABLE_BEGIN()
+
 IUTEST(FailAtTest, Fail)
 {
     IUTEST_FAIL_AT("fail_at_test_file.cc", 100);
-#if defined(_MSC_VER)
-#pragma warning(suppress: 4702)
-#endif
     ++nCount;
 }
 
 IUTEST(FailAtTest, AssertFail)
 {
     IUTEST_ASSERT_FAIL_AT("assert_fail_at_test_file.cc", 200);
-#if defined(_MSC_VER)
-#pragma warning(suppress: 4702)
-#endif
     ++nCount;
 }
+
+IUTEST_PRAGMA_UNREACHCODE_WARN_DISABLE_END()
 
 IUTEST(FailAtTest, AddFailure)
 {
