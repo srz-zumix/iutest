@@ -34,6 +34,8 @@
 
 #undef SUCCEED
 #undef FAIL
+#undef FAIL_AT
+#undef GTEST_FAIL_AT
 #undef ADD_FAILURE
 #undef ADD_FAILURE_AT
 
@@ -57,6 +59,8 @@
 
 #define SUCCEED             IUTEST_SUCCEED
 #define FAIL                IUTEST_FAIL
+#define FAIL_AT             IUTEST_FAIL_AT
+#define GTEST_FAIL_AT       IUTEST_FAIL_AT
 #define ADD_FAILURE         IUTEST_ADD_FAILURE
 #define ADD_FAILURE_AT      IUTEST_ADD_FAILURE_AT
 

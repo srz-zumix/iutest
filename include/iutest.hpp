@@ -214,6 +214,17 @@ IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
 /**
  * @ingroup     IUTEST_UTIL
  * @brief       明示的な失敗
+ * @details     明示的に致命的な失敗を報告します
+ * @param       file    = ファイルパス
+ * @param       line    = 行番号
+*/
+#ifndef IUTEST_FAIL_AT
+#  define IUTEST_FAIL_AT(file, line)             IIUT_FAIL_AT(file, line)
+#endif
+
+/**
+ * @ingroup     IUTEST_UTIL
+ * @brief       明示的な失敗
  * @details     明示的に致命的でない失敗を報告します
 */
 #ifndef IUTEST_ADD_FAILURE
@@ -654,6 +665,17 @@ IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
 */
 #ifndef IUTEST_ASSERT_FAIL
 #  define IUTEST_ASSERT_FAIL()                      IIUT_FAIL()
+#endif
+
+/**
+ * @ingroup IUTEST_ASSERT_
+ * @brief   明示的な失敗
+ * @details     明示的に致命的な失敗を報告します
+ * @param       file    = ファイルパス
+ * @param       line    = 行番号
+*/
+#ifndef IUTEST_ASSERT_FAIL_AT
+#  define IUTEST_ASSERT_FAIL_AT(file, line)         IIUT_FAIL_AT(file, line)
 #endif
 
 /**
