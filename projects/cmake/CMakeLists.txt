@@ -228,6 +228,7 @@ if (build_tests)
   cxx_executable_test(exception_set_up_testsuite_tests)
   cxx_executable_test(exception_tests)
   cxx_executable_test(expression_assertion_tests)
+  cxx_executable_test(fail_at_tests)
   cxx_executable_test_with_main(extension_tests
     concat_tests.cpp
     fixture_alias_tests.cpp
@@ -383,6 +384,7 @@ if (build_tests)
   cxx_add_test(exception_set_up_testsuite_tests)
   cxx_add_test(exception_tests)
   cxx_add_test(expression_assertion_tests)
+  cxx_add_test(fail_at_tests)
   cxx_add_test(extension_tests)
   cxx_add_test(file_system_tests)
   cxx_add_test(filter_tests)
