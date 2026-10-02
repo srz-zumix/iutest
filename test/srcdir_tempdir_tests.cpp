@@ -32,6 +32,15 @@ bool EndsWithPathSeparator(const ::std::string& path)
     return c == '/' || c == '\\';
 }
 
+char GetPathSeparator()
+{
+#ifdef IUTEST_OS_WINDOWS
+    return '\\';
+#else
+    return '/';
+#endif
+}
+
 #if IUTEST_HAS_SRCDIR && !defined(IUTEST_USE_GTEST)
 
 ::std::string RemoveTrailingPathSeparator(const ::std::string& path)
@@ -69,7 +78,7 @@ IUTEST(TempDirTest, EnvironmentVariable)
 {
     IUTEST_ASSUME_NE( -1, ::iutest::internal::posix::PutEnv("TEST_TMPDIR=/iutest_tempdir_test") );
     ::std::string expected = "/iutest_tempdir_test";
-    expected += ::iutest::detail::GetPathSeparator();
+    expected += GetPathSeparator();
     IUTEST_EXPECT_EQ(expected, ::iutest::TempDir());
 
     IUTEST_ASSUME_NE( -1, ::iutest::internal::posix::PutEnv("TEST_TMPDIR=/iutest_tempdir_test/") );
@@ -100,7 +109,7 @@ IUTEST(SrcDirTest, EnvironmentVariable)
 {
     IUTEST_ASSUME_NE( -1, ::iutest::internal::posix::PutEnv("TEST_SRCDIR=/iutest_srcdir_test") );
     ::std::string expected = "/iutest_srcdir_test";
-    expected += ::iutest::detail::GetPathSeparator();
+    expected += GetPathSeparator();
     IUTEST_EXPECT_EQ(expected, ::iutest::SrcDir());
 
     IUTEST_ASSUME_NE( -1, ::iutest::internal::posix::PutEnv("TEST_SRCDIR=/iutest_srcdir_test/") );
