@@ -68,7 +68,9 @@ IUTEST(TempDirTest, Default)
 IUTEST(TempDirTest, EnvironmentVariable)
 {
     IUTEST_ASSUME_NE( -1, ::iutest::internal::posix::PutEnv("TEST_TMPDIR=/iutest_tempdir_test") );
-    IUTEST_EXPECT_EQ("/iutest_tempdir_test/", ::iutest::TempDir());
+    ::std::string expected = "/iutest_tempdir_test";
+    expected += ::iutest::detail::GetPathSeparator();
+    IUTEST_EXPECT_EQ(expected, ::iutest::TempDir());
 
     IUTEST_ASSUME_NE( -1, ::iutest::internal::posix::PutEnv("TEST_TMPDIR=/iutest_tempdir_test/") );
     IUTEST_EXPECT_EQ("/iutest_tempdir_test/", ::iutest::TempDir());
@@ -97,7 +99,9 @@ IUTEST(SrcDirTest, Default)
 IUTEST(SrcDirTest, EnvironmentVariable)
 {
     IUTEST_ASSUME_NE( -1, ::iutest::internal::posix::PutEnv("TEST_SRCDIR=/iutest_srcdir_test") );
-    IUTEST_EXPECT_EQ("/iutest_srcdir_test/", ::iutest::SrcDir());
+    ::std::string expected = "/iutest_srcdir_test";
+    expected += ::iutest::detail::GetPathSeparator();
+    IUTEST_EXPECT_EQ(expected, ::iutest::SrcDir());
 
     IUTEST_ASSUME_NE( -1, ::iutest::internal::posix::PutEnv("TEST_SRCDIR=/iutest_srcdir_test/") );
     IUTEST_EXPECT_EQ("/iutest_srcdir_test/", ::iutest::SrcDir());

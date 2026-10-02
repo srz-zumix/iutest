@@ -330,7 +330,7 @@ IUTEST_IPP_INLINE ::std::string GetDirFromEnv(const char* name1, const char* nam
     if( (name1 != NULL && GetEnvironmentVariable(name1, var) && !var.empty())
      || (name2 != NULL && GetEnvironmentVariable(name2, var) && !var.empty()) )
     {
-        if( *var.rbegin() != separator )
+        if( !IsPathSeparator(*var.rbegin()) )
         {
             var += separator;
         }
