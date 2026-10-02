@@ -23,6 +23,8 @@ IUTEST(FloatingPointPrintersTest, Float)
     IUTEST_EXPECT_STREQ("0.1", ::iutest::PrintToString(0.1f));
     IUTEST_EXPECT_STREQ("0.333333343", ::iutest::PrintToString(1.0f / 3));
     IUTEST_EXPECT_STREQ("-0.333333343", ::iutest::PrintToString(-1.0f / 3));
+    IUTEST_EXPECT_STREQ("1.0999999", ::iutest::PrintToString(1.0999999f));
+    IUTEST_EXPECT_STREQ("9e+09", ::iutest::PrintToString(9e9f));
     IUTEST_EXPECT_STREQ("1e+10", ::iutest::PrintToString(1e10f));
 }
 
@@ -54,6 +56,14 @@ IUTEST(FloatingPointPrintersTest, RestoresPrecision)
     IUTEST_EXPECT_EQ(3, stream.precision());
 }
 #endif
+#endif
+
+#if !defined(IUTEST_USE_GTEST) && !IUTEST_HAS_FULL_PRECISION_FLOAT_PRINT
+IUTEST(FloatingPointPrintersTest, LegacyPrecision)
+{
+    IUTEST_EXPECT_STREQ("0.333333", ::iutest::PrintToString(1.0f / 3));
+    IUTEST_EXPECT_STREQ("0.333333", ::iutest::PrintToString(1.0 / 3));
+}
 #endif
 
 #ifdef UNICODE
