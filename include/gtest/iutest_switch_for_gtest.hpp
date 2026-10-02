@@ -226,8 +226,8 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 
 #define IUTEST_HAS_STD_FILESYSTEM       0
 
-// gtest added TempDir() in 1.8.0 (actually earlier than the 1.8.0 release) and SrcDir() in 1.13.0
-#if GTEST_VER < 0x01080000
+// gtest added public TempDir() in 1.10.0 and SrcDir() in 1.13.0
+#if GTEST_VER < 0x01100000
 #  define IUTEST_HAS_TEMPDIR            0
 #else
 #  define IUTEST_HAS_TEMPDIR            1
