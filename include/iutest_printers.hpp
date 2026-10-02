@@ -365,15 +365,68 @@ inline void PrintTo(const ::std::string& str, iu_ostream* os)   { *os << str.c_s
 template<typename CharT, typename Traits, typename Alloc>
 inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os) { UniversalTersePrint(str.c_str(), os); }
 inline void PrintTo(const ::std::locale& l, iu_ostream* os) { *os << l.name(); }
+#if IUTEST_HAS_FULL_PRECISION_FLOAT_PRINT && IUTEST_HAS_IOMANIP
+template<typename T>
+inline int FloatingPointPrintPrecision(T value)
+{
+#if IUTEST_HAS_CXX11
+    const int full = ::std::numeric_limits<T>::max_digits10;
+#else
+    const int full = ::std::numeric_limits<T>::digits10 + 3;
+#endif
+    if( value < 0 ) value = -value;
+    if( value < 1000000 )
+    {
+        const T limits[] = {static_cast<T>(100000), static_cast<T>(10000), static_cast<T>(1000),
+            static_cast<T>(100), static_cast<T>(10), static_cast<T>(1), static_cast<T>(0.1),
+            static_cast<T>(0.01), static_cast<T>(0.001), static_cast<T>(0.0001)};
+        T multiplier = static_cast<T>(1);
+        for( size_t i = 0; i < sizeof(limits)/sizeof(limits[0]); ++i )
+        {
+            if( value >= limits[i] ) break;
+            multiplier *= static_cast<T>(10);
+        }
+        if( static_cast<int>(value * multiplier + static_cast<T>(0.5)) / multiplier == value ) return 6;
+    }
+    else if( value < static_cast<T>(1e10) )
+    {
+        T divisor = static_cast<T>(10);
+        if( value >= static_cast<T>(1e9) ) divisor = static_cast<T>(10000);
+        else if( value >= static_cast<T>(1e8) ) divisor = static_cast<T>(1000);
+        else if( value >= static_cast<T>(1e7) ) divisor = static_cast<T>(100);
+        if( static_cast<int>(value / divisor + static_cast<T>(0.5)) * divisor == value ) return 6;
+    }
+    return full;
+}
+
+template<typename T>
+inline void PrintFloatingPoint(T value, iu_ostream* os)
+{
+    const ::std::streamsize old_precision = os->precision(FloatingPointPrintPrecision(value));
+    *os << value;
+    os->precision(old_precision);
+}
+inline void PrintTo(float value, iu_ostream* os) { PrintFloatingPoint(value, os); }
+inline void PrintTo(double value, iu_ostream* os) { PrintFloatingPoint(value, os); }
+#endif
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+template<typename T>
+inline void PrintWrappedFloatingPoint(T value, iu_ostream* os)
+{
+#if IUTEST_HAS_IOMANIP
+    *os << ::std::setprecision(::std::numeric_limits<T>::digits10 + 2);
+#endif
+    UniversalPrint(value, os);
+}
+#if IUTEST_HAS_FULL_PRECISION_FLOAT_PRINT && IUTEST_HAS_IOMANIP
+inline void PrintWrappedFloatingPoint(float value, iu_ostream* os) { PrintTo(value, os); }
+inline void PrintWrappedFloatingPoint(double value, iu_ostream* os) { PrintTo(value, os); }
+#endif
 template<typename T>
 inline void PrintToFloatingPoint(const floating_point<T>& f, iu_ostream* os)
 {
     iu_stringstream ss;
-#if IUTEST_HAS_IOMANIP
-    ss << ::std::setprecision(::std::numeric_limits<T>::digits10 + 2);
-#endif
-    UniversalPrint(f.raw(), &ss);
+    PrintWrappedFloatingPoint(f.raw(), &ss);
     *os << ss.str() << "(0x" << ToHexString(f.bits()) << ")";
 }
 template<typename T>
