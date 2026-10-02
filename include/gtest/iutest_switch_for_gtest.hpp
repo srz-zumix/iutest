@@ -96,6 +96,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #if defined(INCG_IRIS_IUTEST_HPP_)
 #undef IUTEST_SUCCEED
 #undef IUTEST_FAIL
+#undef IUTEST_FAIL_AT
 #undef IUTEST_ADD_FAILURE
 #undef IUTEST_ADD_FAILURE_AT
 
@@ -173,8 +174,17 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #  define IUTEST_SUCCEED()      GTEST_SUCCESS_("Succeeded")
 #endif
 #define IUTEST_FAIL             GTEST_FAIL
+#if GTEST_VER < 0x01130000
+#  define IUTEST_FAIL_AT(file, line)   return GTEST_MESSAGE_AT_(file, line, "Failed", ::testing::TestPartResult::kFatalFailure)
+#else
+#  define IUTEST_FAIL_AT         GTEST_FAIL_AT
+#endif
 #define IUTEST_ADD_FAILURE      ADD_FAILURE
+#if defined(ADD_FAILURE_AT)
 #define IUTEST_ADD_FAILURE_AT   ADD_FAILURE_AT
+#else
+#  define IUTEST_ADD_FAILURE_AT(file, line)   GTEST_MESSAGE_AT_(file, line, "Failed", ::testing::TestPartResult::kNonFatalFailure)
+#endif
 
 #define IUTEST_HAS_PARAM_TEST               GTEST_HAS_PARAM_TEST
 #define IUTEST_HAS_AUTOFIXTURE_PARAM_TEST   0

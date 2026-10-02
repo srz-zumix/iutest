@@ -112,6 +112,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/exception_set_up_testsuite_tests \
 		$(OUTDIR)/exception_tests \
 		$(OUTDIR)/expression_assertion_tests \
+		$(OUTDIR)/fail_at_tests \
 		$(OUTDIR)/file_system_tests \
 		$(OUTDIR)/filter_tests \
 		$(OUTDIR)/flagfile_gtest_tests \

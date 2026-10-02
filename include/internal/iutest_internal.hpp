@@ -443,6 +443,7 @@
  * @brief   明示的な失敗
 */
 #define IIUT_FAIL()                         IUTEST_ASSERT_FAILURE("Failed.\n")
+#define IIUT_FAIL_AT(file_, line_)          IUTEST_ASSERT_FAILURE_AT("Failed.\n", file_, line_)
 #define IIUT_ADD_FAILURE()                  IUTEST_EXPECT_FAILURE("Failed.\n")
 #define IIUT_ADD_FAILURE_AT(file_, line_)   IUTEST_EXPECT_FAILURE_AT("Failed.\n", file_, line_)
 
