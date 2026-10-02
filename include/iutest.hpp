@@ -38,6 +38,7 @@ IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
 #include "listener/iutest_stderr_xml_generator.hpp"
 #include "listener/iutest_streaming_listener.hpp"
 #include "internal/iutest_stream_capture.hpp"
+#include "internal/iutest_filepath.hpp"
 
 #if defined(__AFX_H__)
 #include "internal/iutest_mfc.hpp"

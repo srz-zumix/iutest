@@ -689,6 +689,16 @@
 #  define IUTEST_HAS_FILE_STAT                      0
 #endif
 
+//! has ::iutest::SrcDir()
+#if !defined(IUTEST_HAS_SRCDIR)
+#  define IUTEST_HAS_SRCDIR                         1
+#endif
+
+//! has ::iutest::TempDir()
+#if !defined(IUTEST_HAS_TEMPDIR)
+#  define IUTEST_HAS_TEMPDIR                        1
+#endif
+
 //! has fileno
 #if !defined(IUTEST_HAS_FILENO)
 #  if defined(__POSIX_VISIBLE) && __POSIX_VISIBLE == 0
