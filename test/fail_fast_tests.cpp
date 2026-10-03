@@ -54,7 +54,7 @@ public:
 IUTEST_F(FailFastFixture, First)
 {
     ++ran_before_failure;
-    IUTEST_EXPECT_TRUE(false);
+    IUTEST_ADD_FAILURE();
 }
 
 IUTEST_F(FailFastFixture, Second)
