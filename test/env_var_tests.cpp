@@ -29,6 +29,7 @@ int SetUpEnvironmentImpl(void)
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "RANDOM_SEED=200") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "ALSO_RUN_DISABLED_TESTS=1") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "BREAK_ON_FAILURE=1") == -1 ) return -1;
+    if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "FAIL_FAST=1") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "THROW_ON_FAILURE=1") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "CATCH_EXCEPTIONS=0") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "PRINT_TIME=0") == -1 ) return -1;
@@ -68,6 +69,7 @@ IUTEST(FlagTest, Check)
     IUTEST_ASSUME_EQ(0, g_result.setup_environment) << "\n" << lasterror << ": " << strerror(lasterror);  // putenv に失敗した場合はテストしない
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(also_run_disabled_tests) );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(break_on_failure) );
+    IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(fail_fast) );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(throw_on_failure) );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(shuffle) );
     IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(catch_exceptions) );
@@ -117,4 +119,3 @@ int main(int argc, char* argv[])
     }
     return 0;
 }
-

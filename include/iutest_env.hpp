@@ -33,6 +33,7 @@
  *          shuffle (bool)\n
  *          also_run_disabled_tests (bool)\n
  *          break_on_failure (bool)\n
+ *          fail_fast (bool)\n
  *          throw_on_failure (bool)\n
  *          warning_into_error (bool)\n
  *          catch_exceptions (bool)\n
@@ -144,6 +145,7 @@ public:
         SHUFFLE_TESTS           = 0x00000001,   //!< シャッフルテスト
         RUN_DISABLED_TESTS      = 0x00000002,   //!< DISABLED テストも実行
         FILTERING_TESTS         = 0x00000004,   //!< テストのフィルタリング
+        FAIL_FAST               = 0x00000008,   //!< テスト失敗時に残りのテストを実行しない
 
         BREAK_ON_FAILURE        = 0x00000010,   //!< テスト失敗時にブレーク
         THROW_ON_FAILURE        = 0x00000040,   //!< 致命的な失敗時に throw する
@@ -247,6 +249,7 @@ public:
     typedef TestFlag::Fragment<TestFlag::SHUFFLE_TESTS>         shuffle;
     typedef TestFlag::Fragment<TestFlag::RUN_DISABLED_TESTS>    also_run_disabled_tests;
     typedef TestFlag::Fragment<TestFlag::BREAK_ON_FAILURE>      break_on_failure;
+    typedef TestFlag::Fragment<TestFlag::FAIL_FAST>             fail_fast;
     typedef TestFlag::Fragment<TestFlag::CATCH_EXCEPTION>       catch_exceptions;
     typedef TestFlag::Fragment<TestFlag::THROW_ON_FAILURE>      throw_on_failure;
     typedef TestFlag::Fragment<TestFlag::WARNING_INTO_ERROR>    warning_into_error;
