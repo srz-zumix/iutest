@@ -16,6 +16,10 @@ on:
       - '.github/actions/update-ghpages/**'
       - '.github/workflows/ghpages.yml'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
 permissions: {}
 
 jobs:
@@ -24,11 +28,8 @@ jobs:
     permissions:
       contents: write
     steps:
-    - uses: actions/checkout@v7
-      with:
-        persist-credentials: false
     - name: Update GitHub Pages
-      uses: ./.github/actions/update-ghpages
+      uses: $./.github/actions/update-ghpages
       with:
         github_token: ${{ secrets.github_token }}
         github_email: ${{ secrets.GHPAGES_COMMIT_USER_EMAIL }}

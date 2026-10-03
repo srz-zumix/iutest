@@ -5,6 +5,8 @@ on:
       - master
     tags:
       - 'v*'
+    paths-ignore:
+      - '.github/copilot-instructions.md'
   workflow_dispatch:
 
 permissions:

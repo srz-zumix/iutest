@@ -15,6 +15,10 @@ on:
       - 'tools/docker/**'
       - '.github/workflows/dev-env-image.yml'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 

@@ -2,52 +2,23 @@ name: GitHub Actions
 on:
   pull_request:
     paths-ignore:
+      - '.github/copilot-instructions.md'
       - '*.ini'
       - '*.md'
       - '*.yml'
       - '*.yaml'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
 jobs:
-  prepare:
-    runs-on: ubuntu-latest
-    env:
-      HEAD_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-    if: >
-      ! contains(github.event.head_commit.message, '[gh skip]') &&
-      ! contains(github.event.head_commit.message, '[skip gh]')
-    steps:
-      - run: |
-          echo "$HEAD_COMMIT_MESSAGE"
-      # dump github.event for https://github.com/nektos/act
-      - name: dump github.event
-        env:
-          GITHUB_EVENT_CONTEXT: ${{ toJson(github.event) }}
-        run: |
-          echo "${GITHUB_EVENT_CONTEXT}" > github_event.json
-
-  login:
-    runs-on: ubuntu-latest
-    needs: prepare
-    steps:
-      - name: Login to DockerHub
-        uses: docker/login-action@v4
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: login check
-        run: |
-          echo a | docker login
-      - name: TODO
-        run: |
-          echo "build and push"
-
   #===================================================================
   llvm-basic-test:
     runs-on: windows-latest
-    needs: prepare
     permissions:
       contents: read
       checks: write
@@ -80,7 +51,6 @@ jobs:
 
   mingw-basic-test:
     runs-on: windows-latest
-    needs: prepare
     permissions:
       contents: read
       checks: write
@@ -109,7 +79,6 @@ jobs:
 
   cmake-basic-test:
     runs-on: ubuntu-latest
-    needs: prepare
     steps:
       - uses: actions/checkout@v7
         with:
@@ -120,7 +89,7 @@ jobs:
             cd ./cmake-build
             cmake ../projects/cmake
       - name: cmake build
-        run: cmake --build cmake-build
+        run: cmake --build cmake-build --parallel 8
       - name: cmake test
         run: |
           cd cmake-build
@@ -128,7 +97,6 @@ jobs:
 
   xcodebuild-test:
     runs-on: macos-latest
-    needs: prepare
     permissions:
       contents: read
       checks: write
@@ -142,7 +110,7 @@ jobs:
             cd ./cmake-build
             cmake -G Xcode ../projects/cmake
       - name: cmake build
-        run: cmake --build cmake-build -- -resultBundlePath TestResults.xcresult
+        run: cmake --build cmake-build --parallel 8 -- -resultBundlePath TestResults.xcresult
       - name: cmake test
         run: |
           cd cmake-build
@@ -172,7 +140,6 @@ jobs:
 
   macos-test:
     runs-on: macos-latest
-    needs: prepare
     permissions:
       contents: read
       checks: write
@@ -198,7 +165,6 @@ jobs:
   # # kill されちゃうので comment out
   # gcc-fanalyzer:
   #   runs-on: ubuntu-latest
-  #   needs: prepare
   #   container:
   #     image: gcc:11
   #     credentials:
@@ -230,7 +196,6 @@ jobs:
 
   # zapcc-basic-test:
   #   runs-on: ubuntu-latest
-  #   needs: prepare
   #   container:
   #     image: srzzumix/zapcc:latest
   #     credentials:
@@ -264,7 +229,6 @@ jobs:
 
   icpc-basic-test:
     runs-on: ubuntu-latest
-    needs: prepare
     permissions:
       contents: read
       checks: write
@@ -320,7 +284,6 @@ jobs:
           - "10-2020q4"
           - "latest"
     runs-on: ubuntu-latest
-    needs: prepare
     container:
       image: srzzumix/arm-none-eabi:${{ matrix.container-version }}
       credentials:
@@ -349,7 +312,6 @@ jobs:
 
   arm-linux-gnueabi:
     runs-on: ubuntu-latest
-    needs: prepare
     permissions:
       contents: read
       checks: write
@@ -386,7 +348,6 @@ jobs:
   #===================================================================
   earthly:
     runs-on: ubuntu-latest
-    needs: prepare
     steps:
       - uses: earthly/actions-setup@v1
         with:
@@ -414,7 +375,6 @@ jobs:
   #===================================================================
   dagger:
     runs-on: ubuntu-latest
-    needs: prepare
     steps:
       - uses: actions/checkout@v7
         with:
@@ -435,7 +395,6 @@ jobs:
   #===================================================================
   infer:
     runs-on: ubuntu-latest
-    needs: prepare
     permissions:
       contents: read
       pull-requests: write
@@ -459,7 +418,6 @@ jobs:
   #===================================================================
   clang-tidy:
     runs-on: ubuntu-latest
-    needs: prepare
     permissions:
       contents: read
       pull-requests: write
@@ -485,13 +443,12 @@ jobs:
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cmake --build cmake-build | reviewdog -reporter=github-pr-review -name="clang-tidy" -efm="%f:%l:%c: %m" -tee
+          cmake --build cmake-build --parallel 8 | reviewdog -reporter=github-pr-review -name="clang-tidy" -efm="%f:%l:%c: %m" -tee
 
 
   #===================================================================
   lint-editorconfig:
     runs-on: ubuntu-latest
-    needs: prepare
     steps:
       - uses: actions/checkout@v7
         with:

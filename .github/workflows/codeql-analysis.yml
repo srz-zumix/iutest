@@ -15,11 +15,19 @@ name: "CodeQL"
 on:
   push:
     branches: [ master, develop ]
+    paths-ignore:
+      - '.github/copilot-instructions.md'
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ master ]
+    paths-ignore:
+      - '.github/copilot-instructions.md'
   schedule:
     - cron: '28 13 * * 5'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
 
 permissions: {}
 

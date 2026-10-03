@@ -2,10 +2,15 @@ name: Std C++ Version Tests
 on:
   pull_request:
     paths-ignore:
+      - '.github/copilot-instructions.md'
       - '*.ini'
       - '*.md'
       - '*.yml'
       - '*.yaml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
 
 permissions:
   contents: read

@@ -5,6 +5,7 @@ on:
       - master
       - develop
     paths-ignore:
+      - '.github/copilot-instructions.md'
       - '*.ini'
       - '*.md'
       - '*.yml'

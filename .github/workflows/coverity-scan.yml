@@ -4,6 +4,8 @@ on:
     branches:
       - master
       - 'coverity_scan/**'
+    paths-ignore:
+      - '.github/copilot-instructions.md'
   schedule:
     - cron: '0 20 * * 6'
   workflow_dispatch:
