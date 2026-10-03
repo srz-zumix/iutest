@@ -82,6 +82,74 @@ private:
     _Interface* m_pInterface;
 };
 
+#if IUTEST_HAS_CONVERT_GENERATOR
+template<typename T>
+struct iuStaticParamConversion
+{
+    template<typename U>
+    T operator()(const U& value) const { return static_cast<T>(value); }
+};
+
+template<typename T, typename U, typename Converter>
+class iuConvertedParamsGenerator : public iuIParamGenerator<U>
+{
+public:
+    iuConvertedParamsGenerator(iuIParamGenerator<T>* source, const Converter& converter)
+        : m_source(source), m_converter(converter) {}
+
+    virtual void Begin() IUTEST_CXX_OVERRIDE { m_source->Begin(); }
+    virtual U GetCurrent() const IUTEST_CXX_OVERRIDE
+    {
+        return static_cast<U>(m_converter(m_source->GetCurrent()));
+    }
+    virtual void Next() IUTEST_CXX_OVERRIDE { m_source->Next(); }
+    virtual bool IsEnd() const IUTEST_CXX_OVERRIDE { return m_source->IsEnd(); }
+
+private:
+    scoped_ptr< iuIParamGenerator<T> > m_source;
+    mutable Converter m_converter;
+};
+
+template<typename T, typename Generator, typename Converter>
+class iuConvertGeneratorHolder
+{
+public:
+    iuConvertGeneratorHolder(const Generator& generator, const Converter& converter)
+        : m_generator(generator), m_converter(converter) {}
+
+    template<typename U>
+    operator iuIParamGenerator<U>* () const
+    {
+        return new iuConvertedParamsGenerator<T, U, Converter>(
+            static_cast< iuIParamGenerator<T>* >(m_generator), m_converter);
+    }
+
+private:
+    Generator m_generator;
+    Converter m_converter;
+};
+
+#if IUTEST_HAS_CONVERT_GENERATOR_FUNC
+template<typename F>
+struct iuConvertGeneratorArgument : iuConvertGeneratorArgument<decltype(&F::operator())> {};
+
+template<typename R, typename A>
+struct iuConvertGeneratorArgument<R (*)(A)>
+{
+    typedef typename ::std::decay<A>::type type;
+};
+
+template<typename R, typename A>
+struct iuConvertGeneratorArgument<R (A)> : iuConvertGeneratorArgument<R (*)(A)> {};
+
+template<typename C, typename R, typename A>
+struct iuConvertGeneratorArgument<R (C::*)(A) const> : iuConvertGeneratorArgument<R (*)(A)> {};
+
+template<typename C, typename R, typename A>
+struct iuConvertGeneratorArgument<R (C::*)(A)> : iuConvertGeneratorArgument<R (*)(A)> {};
+#endif
+#endif
+
 /**
  * @brief   範囲パラメータ生成器
  * @tparam T    = パラメータ型

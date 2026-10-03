@@ -414,6 +414,33 @@ inline detail::iuParamGenerator<bool> IUTEST_ATTRIBUTE_UNUSED_ Bool()
     return new detail::iuBoolParamsGenerator();
 }
 
+#if IUTEST_HAS_CONVERT_GENERATOR
+/**
+ * @brief   生成された値を T を経由してパラメータ型に変換
+ * @see     https://google.github.io/googletest/reference/testing.html#using-convertgenerator
+ */
+template<typename T, typename Generator>
+detail::iuConvertGeneratorHolder<T, Generator, detail::iuStaticParamConversion<T> >
+ConvertGenerator(const Generator& generator)
+{
+    return detail::iuConvertGeneratorHolder<T, Generator, detail::iuStaticParamConversion<T> >(
+        generator, detail::iuStaticParamConversion<T>());
+}
+
+#if IUTEST_HAS_CONVERT_GENERATOR_FUNC
+/** @overload */
+template<typename Generator, typename Converter>
+detail::iuConvertGeneratorHolder<typename detail::iuConvertGeneratorArgument<Converter>::type,
+    Generator, typename ::std::decay<Converter>::type>
+ConvertGenerator(const Generator& generator, const Converter& converter)
+{
+    typedef typename detail::iuConvertGeneratorArgument<Converter>::type T;
+    typedef typename ::std::decay<Converter>::type F;
+    return detail::iuConvertGeneratorHolder<T, Generator, F>(generator, converter);
+}
+#endif
+#endif
+
 #if IUTEST_HAS_VALUESGEN
 
 /**
