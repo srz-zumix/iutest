@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - uses: vapier/coverity-scan-action@v1
+      - uses: vapier/coverity-scan-action@1b6fd4eaba6651aa354c9ea7f48caa1710b4e12e # v1.9.0
         with:
           project: srz-zumix/iutest
           email: ${{ secrets.COVERITY_SCAN_EMAIL }}

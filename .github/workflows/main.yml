@@ -320,7 +320,7 @@ jobs:
       OUTPUTXML: junit
     steps:
       - name: Login to DockerHub
-        uses: docker/login-action@v4
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -349,7 +349,7 @@ jobs:
   earthly:
     runs-on: ubuntu-latest
     steps:
-      - uses: earthly/actions-setup@v1
+      - uses: earthly/actions-setup@43211c7a0eae5344d6d79fb4aaf209c8f8866203 # v1.0.13
         with:
           version: "latest"
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -357,7 +357,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Login to DockerHub
-        uses: docker/login-action@v4
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -379,7 +379,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - uses: dagger/dagger-for-github@v3
+      - uses: dagger/dagger-for-github@75549c92b94513311d37a80f2732cc3399f9af86 # v3.2.0
         with:
           cmds: |
             project init
@@ -402,7 +402,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - uses: srz-zumix/setup-infer@v1
+      - uses: srz-zumix/setup-infer@530856effeae228d1f3c8251c91ea8348d9480ee # v1.1.1
       - name: infer
         run: |
           # --jobs 1: infer runs the clang sub-commands of a compile-and-link
@@ -411,7 +411,7 @@ jobs:
           infer capture --jobs 1 -- make -C test IUTEST_USE_PYTHON=0
           infer analyze
       - name: Check Infer report
-        uses: srz-zumix/reviewdog-action-infer@v1
+        uses: srz-zumix/reviewdog-action-infer@67cc69fad6e2342a5a7b255b2c00268c9e1f4f70 # v1.3.0
         with:
           reporter: github-pr-review
 
@@ -425,7 +425,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - uses: reviewdog/action-setup@v1
+      - uses: reviewdog/action-setup@d8a7baabd7f3e8544ee4dbde3ee41d0011c3a93f # v1.5.0
       - name: install clang-tidy
         run: |
           sudo apt-get install -qq -y clang-tidy
