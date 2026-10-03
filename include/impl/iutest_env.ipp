@@ -200,6 +200,10 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
     {
         return ParseYesNoFlagCommandLine(str, TestFlag::BREAK_ON_FAILURE, 1);
     }
+    if( detail::IsStringForwardMatching(str, "fail_fast") )
+    {
+        return ParseYesNoFlagCommandLine(str, TestFlag::FAIL_FAST, 1);
+    }
     if( detail::IsStringForwardMatching(str, "catch_exceptions") )
     {
         return ParseYesNoFlagCommandLine(str, TestFlag::CATCH_EXCEPTION, -1);
@@ -307,6 +311,12 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnvironmentVariable()
         {
             TestFlag::SetFlag(TestFlag::BREAK_ON_FAILURE
                 , var ? TestFlag::MASK : ~(TestFlag::BREAK_ON_FAILURE) );
+        }
+        if( detail::GetEnvironmentInt("IUTEST_FAIL_FAST", var)
+        ||  detail::GetEnvironmentInt("GTEST_FAIL_FAST", var) )
+        {
+            TestFlag::SetFlag(TestFlag::FAIL_FAST
+                , var ? TestFlag::MASK : ~(TestFlag::FAIL_FAST) );
         }
         if( detail::GetEnvironmentInt("IUTEST_THROW_ON_FAILURE", var)
         ||  detail::GetEnvironmentInt("GTEST_THROW_ON_FAILURE", var) )

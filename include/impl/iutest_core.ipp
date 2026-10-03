@@ -181,6 +181,10 @@ IUTEST_IPP_INLINE int UnitTest::RunImpl()
             listeners().OnTestIterationEnd(*this, m_repeat_counter);
 
             ++m_repeat_counter;
+            if( !result && TestFlag::IsEnableFlag(TestFlag::FAIL_FAST) )
+            {
+                break;
+            }
             if( repeat > 0 )
             {
                 --repeat;
@@ -242,6 +246,10 @@ IUTEST_IPP_INLINE bool UnitTest::RunOnce()
             m_current_testsuite = *it;
             m_current_testsuite->Run();
             m_current_testsuite = NULL;
+            if( TestFlag::IsEnableFlag(TestFlag::FAIL_FAST) && (*it)->Failed() )
+            {
+                break;
+            }
         }
         m_elapsedmsec = sw.stop();
     }

@@ -131,6 +131,7 @@ int main(int argc, char* argv[])
 
         ::std::vector< ::std::string > vargv;
         vargv.push_back("--iutest_break_on_failure");
+        vargv.push_back("--iutest_fail_fast");
         vargv.push_back("--iutest_throw_on_failure");
         vargv.push_back("--iutest_filter");
         vargv.push_back("--iutest_file_location=auto");
@@ -138,6 +139,7 @@ int main(int argc, char* argv[])
         IUTEST_EXPECT_EQ(0u, vargv.size());
 
         IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(break_on_failure) );
+        IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(fail_fast) );
         IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(throw_on_failure) );
         IUTEST_EXPECT_STREQ( "*", IUTEST_FLAG_GET(filter).c_str() );
         IUTEST_EXPECT_EQ   ( file_location_msvc, IUTEST_FLAG_GET(file_location_style_msvc) );
@@ -152,6 +154,7 @@ int main(int argc, char* argv[])
 
         ::std::vector< ::std::string > vargv;
         vargv.push_back("--iutest_break_on_failure=1");
+        vargv.push_back("--iutest_fail_fast=0");
         vargv.push_back("--iutest_throw_on_failure=t");
         vargv.push_back("--iutest_also_run_disabled_tests");
         vargv.push_back("--iutest_catch_exceptions=yes");
@@ -175,6 +178,7 @@ int main(int argc, char* argv[])
 
         IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(also_run_disabled_tests) );
         IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(break_on_failure) );
+        IUTEST_EXPECT_FALSE( IUTEST_FLAG_GET(fail_fast) );
         IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(throw_on_failure) );
         IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(catch_exceptions) );
         IUTEST_EXPECT_FALSE( IUTEST_FLAG_GET(print_time) );
@@ -200,6 +204,7 @@ int main(int argc, char* argv[])
     {
         ::std::vector< ::std::string > vargv;
         vargv.push_back("--gtest_break_on_failure=1");
+        vargv.push_back("--gtest_fail_fast=1");
         vargv.push_back("--gtest_throw_on_failure=t");
         vargv.push_back("--gtest_also_run_disabled_tests");
         vargv.push_back("--gtest_catch_exceptions=yes");
@@ -216,6 +221,7 @@ int main(int argc, char* argv[])
 
         IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(also_run_disabled_tests) );
         IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(break_on_failure) );
+        IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(fail_fast) );
         IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(throw_on_failure) );
         IUTEST_EXPECT_TRUE ( IUTEST_FLAG_GET(catch_exceptions) );
         IUTEST_EXPECT_FALSE( IUTEST_FLAG_GET(print_time) );
@@ -265,4 +271,3 @@ int main(int argc, char* argv[])
     printf("*** Successful ***\n");
     return 0;
 }
-
