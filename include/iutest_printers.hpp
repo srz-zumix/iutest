@@ -386,7 +386,7 @@ inline int FloatingPointPrintPrecision(T value)
             if( value >= limits[i] ) break;
             multiplier *= static_cast<T>(10);
         }
-        if( static_cast<int>(value * multiplier + static_cast<T>(0.5)) / multiplier == value ) return 6;
+        if( static_cast<T>(static_cast<int>(value * multiplier + static_cast<T>(0.5))) / multiplier == value ) return 6;
     }
     else if( value < static_cast<T>(1e10) )
     {
@@ -394,7 +394,7 @@ inline int FloatingPointPrintPrecision(T value)
         if( value >= static_cast<T>(1e9) ) divisor = static_cast<T>(10000);
         else if( value >= static_cast<T>(1e8) ) divisor = static_cast<T>(1000);
         else if( value >= static_cast<T>(1e7) ) divisor = static_cast<T>(100);
-        if( static_cast<int>(value / divisor + static_cast<T>(0.5)) * divisor == value ) return 6;
+        if( static_cast<T>(static_cast<int>(value / divisor + static_cast<T>(0.5))) * divisor == value ) return 6;
     }
     return full;
 }
