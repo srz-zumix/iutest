@@ -15,6 +15,13 @@
 
 #include "iutest.hpp"
 
+#if defined(IUTEST_USE_GTEST)
+int main()
+{
+    return 0;
+}
+#else
+
 namespace
 {
 
@@ -86,3 +93,5 @@ int main(int argc, char* argv[])
     printf("*** Successful ***\n");
     return 0;
 }
+
+#endif
