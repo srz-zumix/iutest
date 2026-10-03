@@ -2,10 +2,15 @@ name: GitHub Actions - reviewdog
 on:
   pull_request:
     paths-ignore:
+      - '.github/copilot-instructions.md'
       - '*.ini'
       - '*.md'
       - '*.yml'
       - '*.yaml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -20,7 +25,7 @@ jobs:
     - uses: actions/checkout@v7
       with:
         persist-credentials: false
-    - uses: reviewdog/action-cpplint@master
+    - uses: reviewdog/action-cpplint@5f1bbc6ecc3dc6d9b2cb8ddae490464240ae415d # v1.12.0
       with:
         github_token: ${{ secrets.github_token }}
         reporter: github-pr-review
@@ -52,7 +57,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - uses: reviewdog/action-shellcheck@v1
+      - uses: reviewdog/action-shellcheck@d0b8d5fd7fad6afdb6e1b6ce1778892be4d1f427 # v1.34.1
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
@@ -69,7 +74,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - uses: reviewdog/action-actionlint@v1
+      - uses: reviewdog/action-actionlint@13465d022aa41c282f730be17574b5ce692d0186 # v1.78.1
         with:
           reporter: github-pr-review
 
@@ -83,6 +88,6 @@ jobs:
         with:
           persist-credentials: false
       - name: hadolint
-        uses: reviewdog/action-hadolint@v1
+        uses: reviewdog/action-hadolint@1df92335c6c70880e301926d46148aeb27de1912 # v1.55.0
         with:
           reporter: github-pr-review
