@@ -430,11 +430,13 @@ ConvertGenerator(const Generator& generator)
 #if IUTEST_HAS_CONVERT_GENERATOR_FUNC
 /** @overload */
 template<typename Generator, typename Converter>
-detail::iuConvertGeneratorHolder<typename detail::iuConvertGeneratorArgument<Converter>::type, Generator, Converter>
+detail::iuConvertGeneratorHolder<typename detail::iuConvertGeneratorArgument<Converter>::type,
+    Generator, typename ::std::decay<Converter>::type>
 ConvertGenerator(const Generator& generator, const Converter& converter)
 {
     typedef typename detail::iuConvertGeneratorArgument<Converter>::type T;
-    return detail::iuConvertGeneratorHolder<T, Generator, Converter>(generator, converter);
+    typedef typename ::std::decay<Converter>::type F;
+    return detail::iuConvertGeneratorHolder<T, Generator, F>(generator, converter);
 }
 #endif
 #endif
