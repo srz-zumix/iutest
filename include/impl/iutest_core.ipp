@@ -208,6 +208,10 @@ IUTEST_IPP_INLINE int UnitTest::RunImpl()
             return 1;
         }
     }
+    if( IUTEST_FLAG(fail_if_no_test_linked) && total_test_count() == 0 )
+    {
+        return 1;
+    }
     return 0;
 }
 

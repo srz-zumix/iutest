@@ -63,8 +63,11 @@ int main(int argc, char* argv[])
             return 1;
         }
     }
+    ::iutest::IUTEST_FLAG(fail_if_no_test_linked) = true;
+    if( IUTEST_RUN_ALL_TESTS() != 1 ) return 1;
+    ::iutest::IUTEST_FLAG(fail_if_no_test_linked) = false;
+    if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
 #endif
     printf("*** Successful ***\n");
     return 0;
 }
-
