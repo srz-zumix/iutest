@@ -422,6 +422,11 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_HAS_FULL_PRECISION_FLOAT_PRINT)
+//! float/double を gtest 1.13 以降と同じ精度で表示するかどうか
+#  define IUTEST_HAS_FULL_PRECISION_FLOAT_PRINT 1
+#endif
+
 #if !defined(IUTEST_HAS_VARIADIC_PRED)
 //! 可変長述語アサーションが使用可能かどうか
 #  if IUTEST_HAS_VARIADIC_TEMPLATES && !defined(IUTEST_NO_VARIADIC_MACROS)

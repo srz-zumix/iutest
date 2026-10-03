@@ -117,6 +117,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/filter_tests \
 		$(OUTDIR)/flagfile_gtest_tests \
 		$(OUTDIR)/floatingpoint_tests \
+		$(OUTDIR)/floatingpoint_printers_tests \
 		$(OUTDIR)/gtest_version_tests \
 		$(OUTDIR)/help_tests \
 		$(OUTDIR)/inform_tests \
@@ -201,4 +202,3 @@ COMPILEERROR_TARGETS=\
 		$(OUTDIR)/static_assertion_failure_tests \
 
 BUILD_ONLY = $(OUTDIR)/break_on_failure_tests \
-

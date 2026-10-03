@@ -634,11 +634,15 @@ def run_wandbox(main_filepath, code, includes, implements, options):
     return run_wandbox_cxx(code, includes, implements, options)
 
 
-def wandbox_hint(r):
+def wandbox_hint(r, options):
     if 'compiler_error' in r:
         if 'undefined reference to `main' in r['compiler_error']:
-            print('hint:')
-            print('  In "iutest" you can omit the definition of the main function, please define IUTEST_USE_MAIN. (--iutest-use-main or -f"-DIUTEST_USE_MAIN")')
+            if options.boost:
+                print('hint:')
+                print('  If you do not use boost test, please specify the file with the main function first.')
+            else:
+                print('hint:')
+                print('  In "iutest" you can omit the definition of the main function, please define IUTEST_USE_MAIN. (--iutest-use-main or -f"-DIUTEST_USE_MAIN")')
         elif 'undefined reference to `init_unit_test_suite' in r['compiler_error']:
             print('hint:')
             print('  If you do not use boost test, please specify the file with the main function first.')
@@ -686,7 +690,7 @@ def show_result(r, options):
         print('url: ' + r['url'])
     if 'signal' in r:
         print('signal: ' + r['signal'])
-    wandbox_hint(r)
+    wandbox_hint(r, options)
 
     if 'status' in r:
         return int(r['status'])

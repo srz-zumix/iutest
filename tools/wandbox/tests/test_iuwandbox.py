@@ -62,7 +62,8 @@ class nofused_iuwandbox_test(iuwandbox_test_base):
     def setUp(self):
         if 'SCRUTINIZER' in os.environ:
             self.skipTest('this test is not run on SCRUTINIZER.')
-        for f in ['iutest.hpp', 'iutest.min.hpp', 'iutest.wandbox.min.hpp']:
+        for f in ['iutest.hpp', 'iutest.min.hpp', 'iutest.wandbox.min.hpp',
+                  'iutest.wandbox.min.gcc.hpp', 'iutest.wandbox.min.clang.hpp']:
             if os.path.exists(os.path.join(fused_src, f)):
                 try:
                     os.remove(os.path.join(fused_src, f))
