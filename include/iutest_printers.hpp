@@ -374,7 +374,7 @@ inline int FloatingPointPrintPrecision(T value)
 #else
     const int full = ::std::numeric_limits<T>::digits10 + 3;
 #endif
-    if( value < 0 ) value = -value;
+    if( value < 0 ) { value = -value; }
     if( value < 1000000 )
     {
         const T limits[] = {static_cast<T>(100000), static_cast<T>(10000), static_cast<T>(1000),
