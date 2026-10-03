@@ -72,7 +72,9 @@ int main(int argc, char* argv[])
 #endif
     ::iutest::AddGlobalTestEnvironment(new FailFastEnvironment);
     IUTEST_FLAG_SET(fail_fast, true);
+#if !defined(IUTEST_USE_GTEST)
     IUTEST_FLAG_SET(repeat, 2);
+#endif
 
     IUTEST_TERMINATE_ON_FAILURE( IUTEST_RUN_ALL_TESTS() != 0 );
     IUTEST_TERMINATE_ON_FAILURE( ran_before_failure == 1 );
