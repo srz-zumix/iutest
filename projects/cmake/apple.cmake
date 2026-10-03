@@ -15,7 +15,13 @@ if (APPLE)
   # Do not touch the cache: an empty CMAKE_OSX_ARCHITECTURES means "host architecture".
   if (_iutest_is_top_level AND _iutest_is_ios_xcode AND CMAKE_SYSTEM_NAME STREQUAL "iOS")
     if (NOT CMAKE_OSX_ARCHITECTURES)
-      if (CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "arm64|aarch64")
+      set(_iutest_host_processor "${CMAKE_HOST_SYSTEM_PROCESSOR}")
+      if (NOT _iutest_host_processor)
+        execute_process(COMMAND uname -m
+          OUTPUT_VARIABLE _iutest_host_processor
+          OUTPUT_STRIP_TRAILING_WHITESPACE)
+      endif()
+      if (_iutest_host_processor MATCHES "arm64|aarch64")
         set(CMAKE_OSX_ARCHITECTURES "arm64")
       else()
         set(CMAKE_OSX_ARCHITECTURES "x86_64")
