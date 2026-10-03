@@ -69,7 +69,9 @@ IUTEST(FlagTest, Check)
     IUTEST_ASSUME_EQ(0, g_result.setup_environment) << "\n" << lasterror << ": " << strerror(lasterror);  // putenv に失敗した場合はテストしない
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(also_run_disabled_tests) );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(break_on_failure) );
+#if !defined(IUTEST_USE_GTEST)
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(fail_fast) );
+#endif
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(throw_on_failure) );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(shuffle) );
     IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(catch_exceptions) );
