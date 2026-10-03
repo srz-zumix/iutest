@@ -68,6 +68,7 @@ inline void iuOptionMessage::ShowHelp()
         "    --iutest_also_run_disabled_tests : Run disabled tests.\n"
         "    --iutest_break_on_failure[=0|1]  : When that failed to break.\n"
         "    --iutest_fail_fast[=0|1]         : Stop running tests after the first failure.\n"
+        "    --iutest_fail_if_no_test_linked[=0|1] : Fail if no tests are linked.\n"
         "    --iutest_throw_on_failure[=0|1]  : When that failed to throw.\n"
         "    --iutest_catch_exceptions=<0|1>  : Catch exceptions enable.\n"
         "    --iutest_print_time=<0|1>        : Setting the display of elapsed time.\n"
