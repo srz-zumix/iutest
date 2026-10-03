@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
 #if IUTEST_HAS_ASSERTION_RETURN
         IUTEST_ASSERT_STRIN("  Actual: 00000401", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_STRIN("Which is: 00000400", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
-        IUTEST_ASSERT_STRIN("  Actual: 00.33333", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_STRIN("  Actual: 0.333333343", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_STRIN("Which is: 00000.33", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
 #endif
 
