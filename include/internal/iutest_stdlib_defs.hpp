@@ -53,6 +53,15 @@
 #if IUTEST_HAS_CXX_HDR_VERSION
 #include <version>
 #endif
+
+#if IUTEST_HAS_CXX20 && !defined(IUTEST_HAS_CXX_HDR_SPAN) && defined(__has_include)
+#  if __has_include(<span>)
+#    include <span>
+#    if defined(__cpp_lib_span) && __cpp_lib_span >= 202002L
+#      define IUTEST_HAS_CXX_HDR_SPAN       1
+#    endif
+#  endif
+#endif
 // IWYU pragma: end_exports
 
 //======================================================================
@@ -452,6 +461,10 @@
 #if !defined(IUTEST_HAS_CXX_HDR_OPTIONAL)
 #  define IUTEST_HAS_CXX_HDR_OPTIONAL       0
 #endif
+//! has span header
+#if !defined(IUTEST_HAS_CXX_HDR_SPAN)
+#  define IUTEST_HAS_CXX_HDR_SPAN           0
+#endif
 //! has random header
 #if !defined(IUTEST_HAS_CXX_HDR_RANDOM)
 #  define IUTEST_HAS_CXX_HDR_RANDOM         0
@@ -837,6 +850,9 @@
 #endif
 #if IUTEST_HAS_CXX_HDR_OPTIONAL
 #  include <optional>
+#endif
+#if IUTEST_HAS_CXX_HDR_SPAN
+#  include <span>
 #endif
 #if IUTEST_HAS_CXX_HDR_VARIANT
 #  include <variant>

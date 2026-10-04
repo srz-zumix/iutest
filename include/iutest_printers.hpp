@@ -777,6 +777,36 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const wchar_t* begin, s
     UniversalTersePrint(begin, os);
 }
 
+#if IUTEST_HAS_CXX_HDR_SPAN
+template<typename T, size_t N>
+inline void PrintTo(const ::std::span<T, N>& value, iu_ostream* os)
+{
+    const size_t kMaxCount = kValues::MaxPrintContainerCount;
+    size_t count = 0;
+    *os << "{";
+    for( const auto& elem : value )
+    {
+        if( count > 0 )
+        {
+            *os << ",";
+            if( count == kMaxCount )
+            {
+                *os << " ...";
+                break;
+            }
+        }
+        *os << " ";
+        UniversalPrint(elem, os);
+        ++count;
+    }
+    if( count > 0 )
+    {
+        *os << " ";
+    }
+    *os << "}";
+}
+#endif
+
 /** @private */
 template<typename T>
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintTo(const T& value, iu_ostream* os)
