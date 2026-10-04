@@ -249,7 +249,7 @@ template<typename T>
 inline void DefaultPrintNonContainerTo(const T& value, iu_ostream* os)
 {
     DefaultPrintNonContainerTo(value, os,
-        iutest_type_traits::integral_constant<bool, ::absl::HasAbslStringify<T>::value>());
+        iutest_type_traits::bool_constant< ::absl::HasAbslStringify<T>::value >());
 }
 #else
 template<typename T>

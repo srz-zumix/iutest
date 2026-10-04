@@ -19,6 +19,9 @@
 // include
 #include <stdio.h>
 #include <stdarg.h>
+#if defined(IUTEST_USE_GTEST) && defined(GTEST_HAS_ABSL)
+#  include <gtest/gtest.h>
+#endif
 
 namespace iutest {
 namespace detail
@@ -129,6 +132,8 @@ public:
     {
 #if defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
         return TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_OFF);
+#elif defined(IUTEST_USE_GTEST) && defined(GTEST_HAS_ABSL)
+        return GTEST_FLAG_GET(color) == "no";
 #else
         return IUTEST_FLAG(color) == "no";
 #endif
@@ -141,6 +146,8 @@ public:
     {
 #if defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
         return TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ON);
+#elif defined(IUTEST_USE_GTEST) && defined(GTEST_HAS_ABSL)
+        return GTEST_FLAG_GET(color) == "yes";
 #else
         return IUTEST_FLAG(color) == "yes";
 #endif

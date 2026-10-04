@@ -43,6 +43,13 @@ struct WithPrintTo
     int value;
 };
 
+struct StreamOnly {};
+
+std::ostream& operator << (std::ostream& os, const StreamOnly&)
+{
+    return os << "stream";
+}
+
 template<typename Sink>
 void AbslStringify(Sink& sink, const WithPrintTo& value)
 {
@@ -71,6 +78,11 @@ IUTEST(AbslStringifyTest, AfterPrintTo)
 {
     absl_stringify_test::WithPrintTo value = { 42 };
     IUTEST_EXPECT_STREQ("print:42", ::iutest::PrintToString(value));
+}
+
+IUTEST(AbslStringifyTest, StreamFallback)
+{
+    IUTEST_EXPECT_STREQ("stream", ::iutest::PrintToString(absl_stringify_test::StreamOnly()));
 }
 
 #endif
