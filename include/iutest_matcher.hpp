@@ -211,6 +211,28 @@ public:
 };
 
 /**
+ * @brief   IsNan matcher
+*/
+class IsNanMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    template<typename T>
+    AssertionResult operator ()(const T& actual) const
+    {
+        if IUTEST_COND_LIKELY( floating_point<T>(actual).is_nan() )
+        {
+            return AssertionSuccess();
+        }
+        return AssertionFailure() << WhichIs();
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        return "Is NaN";
+    }
+};
+
+/**
  * @brief   Floating point Eq matcher
 */
 template<typename T>
@@ -2055,6 +2077,15 @@ inline detail::IsNullMatcher IsNull()
 inline detail::NotNullMatcher NotNull()
 {
     return detail::NotNullMatcher();
+}
+
+/**
+ * @brief   Make IsNan matcher
+ * @details argument is NaN
+*/
+inline detail::IsNanMatcher IsNan()
+{
+    return detail::IsNanMatcher();
 }
 
 /**

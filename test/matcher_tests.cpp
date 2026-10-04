@@ -15,6 +15,7 @@
 
 //======================================================================
 // include
+#include <limits>
 #include <map>
 #include <memory>
 #include "../include/gtest/iutest_spi_switch.hpp"
@@ -99,6 +100,33 @@ IUTEST(Matcher, NotNull)
 {
     IUTEST_EXPECT_THAT(p2, NotNull());
 }
+
+#if !defined(IUTEST_USE_GMOCK) || GMOCK_VER >= 0x01110000
+IUTEST(Matcher, IsNan)
+{
+    const float f_nan = ::std::numeric_limits<float>::quiet_NaN();
+    const double d_nan = ::std::numeric_limits<double>::quiet_NaN();
+    IUTEST_EXPECT_THAT(f_nan, IsNan());
+    IUTEST_EXPECT_THAT(d_nan, IsNan());
+    IUTEST_EXPECT_THAT(0.0f, Not(IsNan()));
+    IUTEST_EXPECT_THAT(::std::numeric_limits<double>::infinity(), Not(IsNan()));
+#if IUTEST_HAS_LONG_DOUBLE
+    const long double ld_nan = ::std::numeric_limits<long double>::quiet_NaN();
+    IUTEST_EXPECT_THAT(ld_nan, IsNan());
+    IUTEST_EXPECT_THAT(0.0l, Not(IsNan()));
+#endif
+}
+
+IUTEST(Matcher, IsNanComposed)
+{
+    const double nan = ::std::numeric_limits<double>::quiet_NaN();
+    const double values[] = { nan, nan };
+    const double finite[] = { 0.0, 1.0 };
+    IUTEST_EXPECT_THAT(values, Each(IsNan()));
+    IUTEST_EXPECT_THAT(finite, Each(Not(IsNan())));
+    IUTEST_EXPECT_THAT(nan, AllOf(IsNan(), Not(DoubleEq(0.0))));
+}
+#endif
 
 IUTEST(Matcher, TypedEq)
 {
