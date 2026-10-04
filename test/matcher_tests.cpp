@@ -124,7 +124,9 @@ IUTEST(Matcher, IsNanComposed)
     const double finite[] = { 0.0, 1.0 };
     IUTEST_EXPECT_THAT(values, Each(IsNan()));
     IUTEST_EXPECT_THAT(finite, Each(Not(IsNan())));
+#if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
     IUTEST_EXPECT_THAT(nan, AllOf(IsNan(), Not(DoubleEq(0.0))));
+#endif
 }
 #endif
 
@@ -987,4 +989,3 @@ int main(int argc, char* argv[])
     IUTEST_INIT(&argc, argv);
     return IUTEST_RUN_ALL_TESTS();
 }
-
