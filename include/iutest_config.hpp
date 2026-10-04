@@ -52,6 +52,10 @@
 #  define IUTEST_HAS_REPORT_SKIPPED     1       //!< xml 出力に skipped タグを含めるかどうか
 #endif
 
+#if !defined(IUTEST_HAS_ABSL_STRINGIFY)
+#  define IUTEST_HAS_ABSL_STRINGIFY     0       //!< Abseil の AbslStringify をプリンタで使うかどうか
+#endif
+
 /**
  * @}
 */
