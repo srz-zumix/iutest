@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
     IUTEST_FLAG_SET(filter, "NotSelected.*");
     if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
 
-#if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01180000 || GTEST_LATEST
+#if !defined(IUTEST_USE_GTEST)
     IUTEST_FLAG_SET(fail_if_no_test_selected, true);
     if( IUTEST_RUN_ALL_TESTS() != 1 ) return 1;
 
