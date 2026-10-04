@@ -212,6 +212,10 @@ IUTEST_IPP_INLINE int UnitTest::RunImpl()
     {
         return 1;
     }
+    if( IUTEST_FLAG(fail_if_no_test_selected) && test_to_run_count() == 0 )
+    {
+        return 1;
+    }
     return 0;
 }
 

@@ -147,6 +147,7 @@ public:
         FILTERING_TESTS         = 0x00000004,   //!< テストのフィルタリング
         FAIL_FAST               = 0x00000008,   //!< テスト失敗時に残りのテストを実行しない
         FAIL_IF_NO_TEST_LINKED  = 0x00000020,   //!< リンクされたテストがない場合に失敗
+        FAIL_IF_NO_TEST_SELECTED = 0x00080000,  //!< 実行対象のテストがない場合に失敗
 
         BREAK_ON_FAILURE        = 0x00000010,   //!< テスト失敗時にブレーク
         THROW_ON_FAILURE        = 0x00000040,   //!< 致命的な失敗時に throw する
@@ -252,6 +253,7 @@ public:
     typedef TestFlag::Fragment<TestFlag::BREAK_ON_FAILURE>      break_on_failure;
     typedef TestFlag::Fragment<TestFlag::FAIL_FAST>             fail_fast;
     typedef TestFlag::Fragment<TestFlag::FAIL_IF_NO_TEST_LINKED> fail_if_no_test_linked;
+    typedef TestFlag::Fragment<TestFlag::FAIL_IF_NO_TEST_SELECTED> fail_if_no_test_selected;
     typedef TestFlag::Fragment<TestFlag::CATCH_EXCEPTION>       catch_exceptions;
     typedef TestFlag::Fragment<TestFlag::THROW_ON_FAILURE>      throw_on_failure;
     typedef TestFlag::Fragment<TestFlag::WARNING_INTO_ERROR>    warning_into_error;
