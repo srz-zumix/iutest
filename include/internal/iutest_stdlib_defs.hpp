@@ -56,7 +56,6 @@
 
 #if IUTEST_HAS_CXX20 && !defined(IUTEST_HAS_CXX_HDR_SPAN) && defined(__has_include)
 #  if __has_include(<span>)
-#    include <span>
 #    if defined(__cpp_lib_span) && __cpp_lib_span >= 202002L
 #      define IUTEST_HAS_CXX_HDR_SPAN       1
 #    endif
