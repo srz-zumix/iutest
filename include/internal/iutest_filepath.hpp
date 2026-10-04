@@ -181,6 +181,30 @@ namespace internal
     typedef detail::iuFilePath FilePath;
 }
 
+#if IUTEST_HAS_TEMPDIR
+
+/**
+ * @brief   一時ディレクトリのパスを取得
+ * @return  一時ディレクトリのパス（末尾にパス区切り文字を含む）
+ * @note    環境変数 TEST_TMPDIR、TMPDIR（Windows は TEST_TMPDIR、TEMP）があればその値を使用します。
+ *          IUTEST_CUSTOM_TEMPDIR_FUNCTION_ が定義されている場合は、その関数を呼び出します。
+*/
+::std::string TempDir();
+
+#endif
+
+#if IUTEST_HAS_SRCDIR
+
+/**
+ * @brief   テストデータが置かれるディレクトリのパスを取得
+ * @return  ディレクトリのパス（末尾にパス区切り文字を含む）
+ * @note    環境変数 TEST_SRCDIR があればその値を使用します。
+ *          IUTEST_CUSTOM_SRCDIR_FUNCTION_ が定義されている場合は、その関数を呼び出します。
+*/
+::std::string SrcDir();
+
+#endif
+
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB

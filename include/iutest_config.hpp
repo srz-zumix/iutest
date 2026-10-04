@@ -187,6 +187,21 @@
 #  define IUTEST_HAS_COMBINE        0
 #endif
 
+#if !defined(IUTEST_HAS_CONVERT_GENERATOR)
+//! ::iutest::ConvertGenerator<T> が使用可能かどうか
+#  define IUTEST_HAS_CONVERT_GENERATOR IUTEST_HAS_PARAM_TEST
+#endif
+
+#if !defined(IUTEST_HAS_CONVERT_GENERATOR_FUNC)
+//! 関数オブジェクトを指定する ::iutest::ConvertGenerator が使用可能かどうか
+#  define IUTEST_HAS_CONVERT_GENERATOR_FUNC IUTEST_HAS_CONVERT_GENERATOR && IUTEST_HAS_CXX11 \
+    && IUTEST_HAS_DECLTYPE && IUTEST_HAS_CXX_HDR_TYPE_TARITS
+#endif
+#if !IUTEST_HAS_CONVERT_GENERATOR || !IUTEST_HAS_CXX11 || !IUTEST_HAS_DECLTYPE
+#  undef IUTEST_HAS_CONVERT_GENERATOR_FUNC
+#  define IUTEST_HAS_CONVERT_GENERATOR_FUNC 0
+#endif
+
 #if !defined(IUTEST_HAS_PAIRWISE)
 //! ::iutest::Pairwise が使用可能かどうか
 #  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TUPLE
@@ -420,6 +435,11 @@
 #  else
 #    define IUTEST_HAS_PRINT_TO     0
 #  endif
+#endif
+
+#if !defined(IUTEST_HAS_FULL_PRECISION_FLOAT_PRINT)
+//! float/double を gtest 1.13 以降と同じ精度で表示するかどうか
+#  define IUTEST_HAS_FULL_PRECISION_FLOAT_PRINT 1
 #endif
 
 #if !defined(IUTEST_HAS_VARIADIC_PRED)

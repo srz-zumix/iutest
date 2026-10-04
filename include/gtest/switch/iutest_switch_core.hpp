@@ -184,7 +184,7 @@
 
 #ifndef GTEST_FLAG_GET
 #  define GTEST_FLAG_GET(name)          ::testing::GTEST_FLAG(name)
-#  define GTEST_FLAG_SET(name, value)   (void)(::testing::GTEST_FLAG_GET(name) = value)
+#  define GTEST_FLAG_SET(name, value)   (void)(GTEST_FLAG_GET(name) = value)
 #endif
 
 #define IUTEST_FRIEND_TEST          FRIEND_TEST

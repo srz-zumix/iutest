@@ -60,7 +60,9 @@ Linters (also enforced in CI via `.github/workflows/lint.yml`):
 - **Tests** use `IUTEST(TestSuite, TestName)` (the iutest analogue of gtest's `TEST`) and
   `IUTEST_ASSERT_*` / `IUTEST_EXPECT_*` macros. Every new public macro or API change must have
   a corresponding `*_tests.cpp` added to `test/` and wired into the makefile target lists in
-  `test/CommonMakefile.in`, unless the change is documentation-only.
+  `test/CommonMakefile.in` **and** `projects/cmake/CMakeLists.txt` (add the file to the
+  matching `cxx_executable_test*` list or add a new target; register any new test target
+  with `cxx_add_test(...)` as well), unless the change is documentation-only.
 - **Version** is defined in `include/iutest_ver.hpp` (`IUTEST_VER` plus MAJOR/MINOR/MICRO/
   REVISION). `iutest_ver.hpp` intentionally uses 2-space indent (see `.editorconfig`).
 - **Deprecating/removing public API**: never delete a public macro/API outright. Keep the old

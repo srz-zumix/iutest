@@ -100,6 +100,10 @@ IUTEST_IPP_INLINE bool TestSuite::RunImpl()
             if( !(*it)->Run() )
             {
                 result = false;
+                if( TestFlag::IsEnableFlag(TestFlag::FAIL_FAST) )
+                {
+                    break;
+                }
             }
         }
         m_elapsedmsec = sw.stop();

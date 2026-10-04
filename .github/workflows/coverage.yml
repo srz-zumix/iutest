@@ -2,11 +2,16 @@ name: Coverage
 on:
   pull_request:
     paths-ignore:
+      - '.github/copilot-instructions.md'
       - '*.ini'
       - '*.md'
       - 'docs/**'
       - '*.yml'
       - '*.yaml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -47,7 +52,7 @@ jobs:
     - name: coverage
       run: |
         make -C test coverage
-    - uses: codecov/codecov-action@v7
+    - uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
       with:
         fail_ci_if_error: true
         verbose: true
@@ -90,7 +95,7 @@ jobs:
       run: |
         make -C test coverage
     - name: Coveralls
-      uses: coverallsapp/github-action@v2
+      uses: coverallsapp/github-action@8d6379e14d29928660c4ba802d8e85393440b329 # v2.3.8
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: test/coverage.info

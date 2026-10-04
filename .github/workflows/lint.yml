@@ -1,6 +1,12 @@
 name: Lint and Checks
 on:
   pull_request:
+    paths-ignore:
+      - '.github/copilot-instructions.md'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -101,7 +107,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
         with:
           ruby-version: '3.3'
       - name: install goodcheck

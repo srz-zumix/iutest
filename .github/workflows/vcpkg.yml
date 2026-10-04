@@ -1,0 +1,64 @@
+name: vcpkg
+on:
+  pull_request:
+    paths:
+      - 'CMakeLists.txt'
+      - 'cmake/**'
+      - 'include/**'
+      - 'projects/cmake/**'
+      - 'projects/vcpkg/**'
+      - 'src/**'
+      - '.github/workflows/vcpkg.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  port-test:
+    name: ${{ matrix.triplet }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            triplet: x64-linux
+          - os: macos-latest
+            triplet: arm64-osx
+          - os: windows-latest
+            triplet: x64-windows
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: setup vcpkg
+        shell: bash
+        run: |
+          git clone --depth 1 https://github.com/microsoft/vcpkg.git "${RUNNER_TEMP}/vcpkg"
+          if [ "${RUNNER_OS}" == "Windows" ]; then
+            "${RUNNER_TEMP}/vcpkg/bootstrap-vcpkg.bat" -disableMetrics
+          else
+            "${RUNNER_TEMP}/vcpkg/bootstrap-vcpkg.sh" -disableMetrics
+          fi
+          echo "VCPKG_ROOT=${RUNNER_TEMP}/vcpkg" >> "${GITHUB_ENV}"
+      - name: cmake
+        shell: bash
+        env:
+          TRIPLET: ${{ matrix.triplet }}
+        run: |
+          cmake -S projects/vcpkg/test -B build \
+            -DCMAKE_TOOLCHAIN_FILE="${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" \
+            -DVCPKG_TARGET_TRIPLET="${TRIPLET}"
+      - name: build
+        run: cmake --build build --config Release
+      - name: test
+        run: ctest --test-dir build -C Release -V
+      - name: vcpkg logs
+        if: failure()
+        shell: bash
+        run: |
+          find "${VCPKG_ROOT}/buildtrees/iutest" -name "*.log" -print -exec cat {} \; || true

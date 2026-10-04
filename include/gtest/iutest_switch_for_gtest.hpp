@@ -96,6 +96,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #if defined(INCG_IRIS_IUTEST_HPP_)
 #undef IUTEST_SUCCEED
 #undef IUTEST_FAIL
+#undef IUTEST_FAIL_AT
 #undef IUTEST_ADD_FAILURE
 #undef IUTEST_ADD_FAILURE_AT
 
@@ -103,6 +104,8 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #undef IUTEST_HAS_AUTOFIXTURE_PARAM_TEST
 #undef IUTEST_HAS_ANY_PARAM_TEST
 #undef IUTEST_HAS_COMBINE
+#undef IUTEST_HAS_CONVERT_GENERATOR
+#undef IUTEST_HAS_CONVERT_GENERATOR_FUNC
 #undef IUTEST_HAS_PAIRWISE
 #undef IUTEST_HAS_CONCAT
 #undef IUTEST_HAS_CSVPARAMS
@@ -159,6 +162,9 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 
 #undef IUTEST_HAS_STD_FILESYSTEM
 
+#undef IUTEST_HAS_SRCDIR
+#undef IUTEST_HAS_TEMPDIR
+
 #undef IUTEST_OPERAND
 #undef IUTEST_EXPRESSION
 
@@ -170,13 +176,24 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #  define IUTEST_SUCCEED()      GTEST_SUCCESS_("Succeeded")
 #endif
 #define IUTEST_FAIL             GTEST_FAIL
+#if GTEST_VER < 0x01130000
+#  define IUTEST_FAIL_AT(file, line)   return GTEST_MESSAGE_AT_(file, line, "Failed", ::testing::TestPartResult::kFatalFailure)
+#else
+#  define IUTEST_FAIL_AT         GTEST_FAIL_AT
+#endif
 #define IUTEST_ADD_FAILURE      ADD_FAILURE
+#if defined(ADD_FAILURE_AT)
 #define IUTEST_ADD_FAILURE_AT   ADD_FAILURE_AT
+#else
+#  define IUTEST_ADD_FAILURE_AT(file, line)   GTEST_MESSAGE_AT_(file, line, "Failed", ::testing::TestPartResult::kNonFatalFailure)
+#endif
 
 #define IUTEST_HAS_PARAM_TEST               GTEST_HAS_PARAM_TEST
 #define IUTEST_HAS_AUTOFIXTURE_PARAM_TEST   0
 #define IUTEST_HAS_ANY_PARAM_TEST           0
 #define IUTEST_HAS_COMBINE                  GTEST_HAS_COMBINE
+#define IUTEST_HAS_CONVERT_GENERATOR        (GTEST_HAS_PARAM_TEST && GTEST_VER >= 0x01140000)
+#define IUTEST_HAS_CONVERT_GENERATOR_FUNC   (GTEST_HAS_PARAM_TEST && GTEST_VER >= 0x01170000)
 #define IUTEST_HAS_PAIRWISE                 0
 #define IUTEST_HAS_CONCAT                   0
 #define IUTEST_HAS_CSVPARAMS                0
@@ -222,6 +239,18 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #endif
 
 #define IUTEST_HAS_STD_FILESYSTEM       0
+
+// gtest added public TempDir() in 1.10.0 and SrcDir() in 1.13.0
+#if GTEST_VER < 0x01100000
+#  define IUTEST_HAS_TEMPDIR            0
+#else
+#  define IUTEST_HAS_TEMPDIR            1
+#endif
+#if GTEST_VER < 0x01130000
+#  define IUTEST_HAS_SRCDIR             0
+#else
+#  define IUTEST_HAS_SRCDIR             1
+#endif
 
 #define IUTEST_HAS_STREAM_BUFFER        0
 #define IUTEST_HAS_STREAM_CAPTURE       0

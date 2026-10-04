@@ -73,6 +73,8 @@ include(apple.cmake)
 # project name
 project(iutest CXX C)
 
+include(GNUInstallDirs)
+
 set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER)
@@ -128,6 +130,18 @@ endif()
 #
 cxx_library(iutest "${cxx_strict}" ${IUTEST_ROOT_DIR}/src/iutest_all.cpp)
 cxx_library(iutest_main "${cxx_strict}" ${IUTEST_ROOT_DIR}/src/iutest_main.cpp)
+
+target_include_directories(iutest PUBLIC
+  $<BUILD_INTERFACE:${IUTEST_ROOT_DIR}/include>
+  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/iutest>
+)
+target_include_directories(iutest_main PUBLIC
+  $<BUILD_INTERFACE:${IUTEST_ROOT_DIR}/include>
+  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/iutest>
+)
+target_compile_definitions(iutest PUBLIC IUTEST_USE_LIB=1)
+target_compile_features(iutest PUBLIC cxx_std_17)
+target_link_libraries(iutest_main PUBLIC iutest)
 
 ########################################################################
 #
@@ -205,6 +219,7 @@ if (build_tests)
   cxx_executable_test(charcode_tests)
   cxx_executable_test(csvparams_invalid_file_tests)
   cxx_executable_test(commandline_tests)
+  cxx_executable_test(convert_generator_tests)
   cxx_executable_test(csvparams_tests)
   cxx_executable_test(cxx_feature_tests)
   cxx_executable_test(disabled_tests)
@@ -215,6 +230,10 @@ if (build_tests)
   cxx_executable_test(exception_set_up_testsuite_tests)
   cxx_executable_test(exception_tests)
   cxx_executable_test(expression_assertion_tests)
+  cxx_executable_test(fail_if_no_test_linked_tests)
+  cxx_executable_test(fail_if_no_test_selected_tests)
+  cxx_executable_test(fail_fast_tests)
+  cxx_executable_test(fail_at_tests)
   cxx_executable_test_with_main(extension_tests
     concat_tests.cpp
     fixture_alias_tests.cpp
@@ -233,6 +252,7 @@ if (build_tests)
   cxx_executable_test(filter_tests)
   cxx_executable_test(flagfile_gtest_tests)
   cxx_executable_test(floatingpoint_tests)
+  cxx_executable_test(floatingpoint_printers_tests)
   cxx_executable_test(gtest_version_tests)
   cxx_executable_test(help_tests)
   cxx_executable_test(inform_tests)
@@ -258,6 +278,7 @@ if (build_tests)
   cxx_executable_test(random_seed_tests)
   cxx_executable_test(record_property_tests)
   cxx_executable_test(repeat_tests)
+  cxx_executable_test(scoped_trace_exception_tests)
   cxx_executable_test(scoped_trace_tests)
   cxx_executable_test(set_up_failure_tests)
   cxx_executable_test(set_up_global_failure_tests)
@@ -265,6 +286,7 @@ if (build_tests)
   cxx_executable_test(shuffle_tests)
   cxx_executable_test(skip_tests)
   cxx_executable_test(spi_failure_tests)
+  cxx_executable_test(srcdir_tempdir_tests)
   cxx_executable_test(streaming_listener_tests)
   cxx_executable_test(throw_on_assertion_failure_tests)
   cxx_executable_test(throw_on_failure_tests)
@@ -324,7 +346,6 @@ if (build_tests)
   cxx_executable_test(param_test_name_invalid_tests)
   cxx_executable_test(param_test_name_tests)
   cxx_executable_test(no_yoda_tests)
-  cxx_executable_test(scoped_trace_exception_tests)
   cxx_executable_test(spec_tests)
   cxx_executable_test(tap_file_generator_listener_tests)
   cxx_executable_test(tap_printer_listener_tests)
@@ -359,6 +380,7 @@ if (build_tests)
   cxx_add_test(catch_exceptions_tests)
   cxx_add_test(charcode_tests)
   cxx_add_test(commandline_tests)
+  cxx_add_test(convert_generator_tests)
   cxx_add_test(csvparams_invalid_file_tests)
   cxx_add_test(csvparams_tests)
   cxx_add_test(cxx_feature_tests)
@@ -370,11 +392,16 @@ if (build_tests)
   cxx_add_test(exception_set_up_testsuite_tests)
   cxx_add_test(exception_tests)
   cxx_add_test(expression_assertion_tests)
+  cxx_add_test(fail_if_no_test_linked_tests)
+  cxx_add_test(fail_if_no_test_selected_tests)
+  cxx_add_test(fail_fast_tests)
+  cxx_add_test(fail_at_tests)
   cxx_add_test(extension_tests)
   cxx_add_test(file_system_tests)
   cxx_add_test(filter_tests)
   cxx_add_test(flagfile_gtest_tests)
   cxx_add_test(floatingpoint_tests)
+  cxx_add_test(floatingpoint_printers_tests)
   cxx_add_test(gtest_version_tests)
   cxx_add_test(help_tests)
   cxx_add_test(inform_tests)
@@ -400,6 +427,7 @@ if (build_tests)
   cxx_add_test(random_seed_tests)
   cxx_add_test(record_property_tests)
   cxx_add_test(repeat_tests)
+  cxx_add_test(scoped_trace_exception_tests)
   cxx_add_test(scoped_trace_tests)
   cxx_add_test(set_up_failure_tests)
   cxx_add_test(set_up_global_failure_tests)
@@ -407,6 +435,7 @@ if (build_tests)
   cxx_add_test(shuffle_tests)
   cxx_add_test(skip_tests)
   cxx_add_test(spi_failure_tests)
+  cxx_add_test(srcdir_tempdir_tests)
   cxx_add_test(streaming_listener_tests)
   cxx_add_test(throw_on_assertion_failure_tests)
   cxx_add_test(throw_on_failure_tests)
@@ -441,7 +470,6 @@ if (build_tests)
   cxx_add_test(param_test_name_invalid_tests)
   cxx_add_test(param_test_name_tests)
   cxx_add_test(no_yoda_tests)
-  cxx_add_test(scoped_trace_exception_tests)
   cxx_add_test(spec_tests)
   cxx_add_test(tap_file_generator_listener_tests)
   cxx_add_test(tap_printer_listener_tests)
@@ -455,21 +483,50 @@ if (build_tests)
   file(COPY ${IUTEST_ROOT_DIR}/test/testdata DESTINATION .)
 endif()
 
-install(TARGETS iutest
+install(TARGETS iutest iutest_main
   EXPORT iutest-export
-  ARCHIVE   DESTINATION lib
-  LIBRARY   DESTINATION lib
-  COMPONENT library
-)
-install(TARGETS iutest_main
-  ARCHIVE   DESTINATION lib
-  LIBRARY   DESTINATION lib
+  ARCHIVE   DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY   DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  RUNTIME   DESTINATION ${CMAKE_INSTALL_BINDIR}
   COMPONENT library
 )
 install(DIRECTORY ${IUTEST_ROOT_DIR}/include/
-  DESTINATION include/iutest
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/iutest
 )
+
+set(IUTEST_INSTALL_CMAKEDIR "${CMAKE_INSTALL_LIBDIR}/cmake/iutest")
+
 install(EXPORT iutest-export
-  FILE IUTEST-config.cmake
-  DESTINATION share/cmake/iutest/
+  FILE iutest-export.cmake
+  NAMESPACE iutest::
+  DESTINATION ${IUTEST_INSTALL_CMAKEDIR}
+)
+
+include(CMakePackageConfigHelpers)
+
+# Parse "MAJOR.MINOR.MICRO" from include/iutest_ver.hpp (BCD-style hex digits).
+file(STRINGS "${IUTEST_ROOT_DIR}/include/iutest_ver.hpp" iutest_version_defines
+  REGEX "#define IUTEST_(MAJOR|MINOR|MICRO)VER +0x[0-9A-Fa-f]+u"
+)
+foreach (ver ${iutest_version_defines})
+  if (ver MATCHES "IUTEST_(MAJOR|MINOR|MICRO)VER +0x0*([0-9A-Fa-f]+)u")
+    set(IUTEST_VERSION_${CMAKE_MATCH_1} "${CMAKE_MATCH_2}")
+  endif()
+endforeach()
+set(IUTEST_VERSION "${IUTEST_VERSION_MAJOR}.${IUTEST_VERSION_MINOR}.${IUTEST_VERSION_MICRO}")
+
+configure_package_config_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/iutest-config.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/iutest-config.cmake
+  INSTALL_DESTINATION ${IUTEST_INSTALL_CMAKEDIR}
+)
+write_basic_package_version_file(
+  ${CMAKE_CURRENT_BINARY_DIR}/iutest-config-version.cmake
+  VERSION ${IUTEST_VERSION}
+  COMPATIBILITY SameMajorVersion
+)
+install(FILES
+  ${CMAKE_CURRENT_BINARY_DIR}/iutest-config.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/iutest-config-version.cmake
+  DESTINATION ${IUTEST_INSTALL_CMAKEDIR}
 )

@@ -181,6 +181,10 @@ IUTEST_IPP_INLINE int UnitTest::RunImpl()
             listeners().OnTestIterationEnd(*this, m_repeat_counter);
 
             ++m_repeat_counter;
+            if( !result && TestFlag::IsEnableFlag(TestFlag::FAIL_FAST) )
+            {
+                break;
+            }
             if( repeat > 0 )
             {
                 --repeat;
@@ -203,6 +207,14 @@ IUTEST_IPP_INLINE int UnitTest::RunImpl()
         {
             return 1;
         }
+    }
+    if( IUTEST_FLAG(fail_if_no_test_linked) && total_test_count() == 0 )
+    {
+        return 1;
+    }
+    if( IUTEST_FLAG(fail_if_no_test_selected) && test_to_run_count() == 0 )
+    {
+        return 1;
     }
     return 0;
 }
@@ -242,6 +254,10 @@ IUTEST_IPP_INLINE bool UnitTest::RunOnce()
             m_current_testsuite = *it;
             m_current_testsuite->Run();
             m_current_testsuite = NULL;
+            if( TestFlag::IsEnableFlag(TestFlag::FAIL_FAST) && (*it)->Failed() )
+            {
+                break;
+            }
         }
         m_elapsedmsec = sw.stop();
     }

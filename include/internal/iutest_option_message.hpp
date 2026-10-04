@@ -67,6 +67,9 @@ inline void iuOptionMessage::ShowHelp()
         "    --iutest_random_seed=<seed>      : Set random seed.\n"
         "    --iutest_also_run_disabled_tests : Run disabled tests.\n"
         "    --iutest_break_on_failure[=0|1]  : When that failed to break.\n"
+        "    --iutest_fail_fast[=0|1]         : Stop running tests after the first failure.\n"
+        "    --iutest_fail_if_no_test_linked[=0|1] : Fail if no tests are linked.\n"
+        "    --iutest_fail_if_no_test_selected[=0|1] : Fail if no tests are selected.\n"
         "    --iutest_throw_on_failure[=0|1]  : When that failed to throw.\n"
         "    --iutest_catch_exceptions=<0|1>  : Catch exceptions enable.\n"
         "    --iutest_print_time=<0|1>        : Setting the display of elapsed time.\n"
@@ -251,6 +254,7 @@ inline void iuOptionMessage::ShowSpec()
     IIUT_SHOW_MACRO(IUTEST_HAS_RTTI);
     IIUT_SHOW_MACRO(IUTEST_HAS_RVALUE_REFS);
     IIUT_SHOW_MACRO(IUTEST_HAS_SEH);
+    IIUT_SHOW_MACRO(IUTEST_HAS_SRCDIR);
     IIUT_SHOW_MACRO(IUTEST_HAS_STD_BEGIN_END);
     IIUT_SHOW_MACRO(IUTEST_HAS_STD_CHAR8_T);
     IIUT_SHOW_MACRO(IUTEST_HAS_STD_DECLVAL);
@@ -262,6 +266,7 @@ inline void iuOptionMessage::ShowSpec()
     IIUT_SHOW_MACRO(IUTEST_HAS_STRINGSTREAM);
     IIUT_SHOW_MACRO(IUTEST_HAS_STRONG_ENUMS);
     IIUT_SHOW_MACRO(IUTEST_HAS_STRSTREAM);
+    IIUT_SHOW_MACRO(IUTEST_HAS_TEMPDIR);
     IIUT_SHOW_MACRO(IUTEST_HAS_TUPLE);
     IIUT_SHOW_MACRO(IUTEST_HAS_VARIADIC_TEMPLATES);
     IIUT_SHOW_MACRO(IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES);

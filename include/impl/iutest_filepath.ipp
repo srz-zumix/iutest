@@ -315,7 +315,78 @@ IUTEST_IPP_INLINE void iuFilePath::Normalize()
     delete [] dst_top;
 }
 
+#if IUTEST_HAS_SRCDIR || IUTEST_HAS_TEMPDIR
+
+/**
+ * @brief   環境変数からディレクトリパスを取得する
+ * @details name1, name2 の順に環境変数を参照し、空でない値が設定されていればそれを使用します。
+ *          どちらの環境変数も設定されていない場合は fallback を使用します。
+ *          戻り値の末尾にはパス区切り文字が付与されます。
+*/
+IUTEST_IPP_INLINE ::std::string GetDirFromEnv(const char* name1, const char* name2
+    , const ::std::string& fallback, char separator)
+{
+    ::std::string var;
+    if( (name1 != NULL && GetEnvironmentVariable(name1, var) && !var.empty())
+      || (name2 != NULL && GetEnvironmentVariable(name2, var) && !var.empty()) )
+    {
+        if( !IsPathSeparator(*var.rbegin()) )
+        {
+            var += separator;
+        }
+        return var;
+    }
+    return fallback;
+}
+
+#endif
+
 }   // end of namespace detail
+
+#if IUTEST_HAS_TEMPDIR
+
+IUTEST_IPP_INLINE ::std::string TempDir()
+{
+#if defined(IUTEST_CUSTOM_TEMPDIR_FUNCTION_)
+    return IUTEST_CUSTOM_TEMPDIR_FUNCTION_();
+#elif defined(__WANDBOX__)
+#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
+    return "\\temp\\";
+#else
+    return "/tmp/";
+#endif
+#elif defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
+    return detail::GetDirFromEnv("TEST_TMPDIR", "TEMP", "\\temp\\", '\\');
+#else
+    return detail::GetDirFromEnv("TEST_TMPDIR", "TMPDIR", "/tmp/", '/');
+#endif
+}
+
+#endif
+
+#if IUTEST_HAS_SRCDIR
+
+IUTEST_IPP_INLINE ::std::string SrcDir()
+{
+#if defined(IUTEST_CUSTOM_SRCDIR_FUNCTION_)
+    return IUTEST_CUSTOM_SRCDIR_FUNCTION_();
+#else
+    const char separator = detail::GetPathSeparator();
+    ::std::string curdir = detail::iuFilePath::GetCurrentDir().string();
+    if( curdir.empty() || *curdir.rbegin() != separator )
+    {
+        curdir += separator;
+    }
+#if defined(__WANDBOX__)
+    return curdir;
+#else
+    return detail::GetDirFromEnv("TEST_SRCDIR", NULL, curdir, separator);
+#endif
+#endif
+}
+
+#endif
+
 }   // end of namespace iutest
 
 #endif // INCG_IRIS_IUTEST_FILEPATH_IPP_D69E7545_BF8A_4EDC_9493_9105C69F9378_

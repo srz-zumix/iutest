@@ -7,6 +7,7 @@
 * New
   * char8_t 対応
   * IUTEST_*_COMPLEX_EQ アサーションを追加
+  * vcpkg ポートを追加 (projects/vcpkg)
 
 * Improved
   * IUTEST_*_ALMOST_EQ が ::std::complex に対応

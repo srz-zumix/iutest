@@ -102,6 +102,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/catch_exceptions_tests \
 		$(OUTDIR)/charcode_tests \
 		$(OUTDIR)/commandline_tests \
+		$(OUTDIR)/convert_generator_tests \
 		$(OUTDIR)/csvparams_invalid_file_tests \
 		$(OUTDIR)/csvparams_tests \
 		$(OUTDIR)/cxx_feature_tests \
@@ -113,10 +114,15 @@ TEST_TARGETS= \
 		$(OUTDIR)/exception_set_up_testsuite_tests \
 		$(OUTDIR)/exception_tests \
 		$(OUTDIR)/expression_assertion_tests \
+		$(OUTDIR)/fail_if_no_test_linked_tests \
+		$(OUTDIR)/fail_if_no_test_selected_tests \
+		$(OUTDIR)/fail_fast_tests \
+		$(OUTDIR)/fail_at_tests \
 		$(OUTDIR)/file_system_tests \
 		$(OUTDIR)/filter_tests \
 		$(OUTDIR)/flagfile_gtest_tests \
 		$(OUTDIR)/floatingpoint_tests \
+		$(OUTDIR)/floatingpoint_printers_tests \
 		$(OUTDIR)/gtest_version_tests \
 		$(OUTDIR)/help_tests \
 		$(OUTDIR)/inform_tests \
@@ -142,6 +148,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/random_seed_tests \
 		$(OUTDIR)/record_property_tests \
 		$(OUTDIR)/repeat_tests \
+		$(OUTDIR)/scoped_trace_exception_tests \
 		$(OUTDIR)/scoped_trace_tests \
 		$(OUTDIR)/set_up_failure_tests \
 		$(OUTDIR)/set_up_global_failure_tests \
@@ -150,6 +157,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/skip_tests \
 		$(OUTDIR)/spec_tests \
 		$(OUTDIR)/spi_failure_tests \
+		$(OUTDIR)/srcdir_tempdir_tests \
 		$(OUTDIR)/streaming_listener_tests \
 		$(OUTDIR)/throw_on_assertion_failure_tests \
 		$(OUTDIR)/throw_on_failure_tests \
@@ -185,7 +193,6 @@ TARGETS_IUTEST_ONLY = \
 		$(OUTDIR)/param_test_name_invalid_tests \
 		$(OUTDIR)/param_test_name_tests \
 		$(OUTDIR)/no_yoda_tests \
-		$(OUTDIR)/scoped_trace_exception_tests \
 		$(OUTDIR)/tap_file_generator_listener_tests \
 		$(OUTDIR)/tap_printer_listener_tests \
 		$(OUTDIR)/type_param_register_exception_int_tests \
@@ -200,4 +207,3 @@ COMPILEERROR_TARGETS=\
 		$(OUTDIR)/static_assertion_failure_tests \
 
 BUILD_ONLY = $(OUTDIR)/break_on_failure_tests \
-
