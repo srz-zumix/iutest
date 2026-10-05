@@ -234,6 +234,9 @@ namespace matchers
     using ::testing::Ge;
     using ::testing::IsNull;
     using ::testing::NotNull;
+#if GMOCK_VER >= 0x01110000
+    using ::testing::IsNan;
+#endif
 
     using ::testing::DoubleEq;
     using ::testing::FloatEq;
