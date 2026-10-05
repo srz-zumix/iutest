@@ -41,6 +41,7 @@
 #undef IUTEST_HAS_MATCHER_POINTWISE
 #undef IUTEST_HAS_MATCHER_VARIADIC
 #undef IUTEST_HAS_MATCHER_OPTIONAL
+#undef IUTEST_HAS_MATCHER_FIELDSARE
 
 #endif
 
@@ -71,6 +72,11 @@
 #else
 #  define IUTEST_HAS_MATCHER_OPTIONAL               0
 #endif
+#if GMOCK_VER >= 0x01110000 && IUTEST_HAS_CXX17
+#  define IUTEST_HAS_MATCHER_FIELDSARE              1
+#else
+#  define IUTEST_HAS_MATCHER_FIELDSARE              0
+#endif
 #if defined(GTEST_LANG_CXX11) && GTEST_LANG_CXX11
 #  define IUTEST_HAS_MATCHER_VARIADIC               1
 #else
@@ -89,6 +95,7 @@
 #else
 
 #define IUTEST_HAS_MATCHERS                         0
+#define IUTEST_HAS_MATCHER_FIELDSARE                0
 #define IUTEST_HAS_MATCHER_VARIADIC                 0
 #define IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF          0
 #define IUTEST_HAS_MATCHER_ELEMENTSARE              0
@@ -279,6 +286,9 @@ namespace matchers
 
 #if IUTEST_HAS_MATCHER_OPTIONAL
     using ::testing::Optional;
+#endif
+#if IUTEST_HAS_MATCHER_FIELDSARE
+    using ::testing::FieldsAre;
 #endif
     using ::testing::AllOf;
     using ::testing::AnyOf;

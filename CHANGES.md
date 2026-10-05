@@ -6,6 +6,7 @@
 
 * New
   * IUTEST_*_COMPLEX_EQ アサーションを追加
+  * `FieldsAre(m...)` matcher を追加 (C++17 以降、1〜16フィールド、`IUTEST_HAS_MATCHER_FIELDSARE` で判定)
 
 * Improved
   * IUTEST_*_ALMOST_EQ が ::std::complex に対応

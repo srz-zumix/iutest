@@ -126,6 +126,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/list_test_tests \
 		$(OUTDIR)/listener_tests \
 		$(OUTDIR)/matcher_tests \
+		$(OUTDIR)/matcher_fields_are_tests \
 		$(OUTDIR)/minimum_tests \
 		$(OUTDIR)/no_failure_fail_tests \
 		$(OUTDIR)/no_fatalfailure_tests \

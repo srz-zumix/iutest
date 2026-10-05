@@ -17,6 +17,10 @@
 
 #if IUTEST_HAS_MATCHERS
 
+#if IUTEST_HAS_MATCHER_FIELDSARE
+#include <tuple>
+#endif
+
 //======================================================================
 // define
 /**
@@ -1382,6 +1386,93 @@ private:
     const T& m_expected;
 };
 
+#if IUTEST_HAS_MATCHER_FIELDSARE
+
+/**
+ * @brief   FieldsAre matcher (one to 16 fields)
+*/
+template<typename ...T>
+class FieldsAreMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+    static_assert(sizeof...(T) > 0, "FieldsAre requires at least one field");
+    static_assert(sizeof...(T) <= 16, "FieldsAre supports at most 16 fields");
+public:
+    explicit FieldsAreMatcher(const T&... matchers) : m_matchers(matchers...) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual)
+    {
+        if constexpr( sizeof...(T) == 1 )
+        {
+            const auto& [field0] = actual;
+            return Check<0>(::std::tie(field0));
+        }
+#define IIUT_FIELDSARE_BIND(n) \
+        else if constexpr( sizeof...(T) == n ) { \
+            const auto& [IUTEST_PP_ENUM_PARAMS(n, field)] = actual; \
+            return Check<0>(::std::tie(IUTEST_PP_ENUM_PARAMS(n, field))); \
+        }
+        IIUT_FIELDSARE_BIND(2)
+        IIUT_FIELDSARE_BIND(3)
+        IIUT_FIELDSARE_BIND(4)
+        IIUT_FIELDSARE_BIND(5)
+        IIUT_FIELDSARE_BIND(6)
+        IIUT_FIELDSARE_BIND(7)
+        IIUT_FIELDSARE_BIND(8)
+        IIUT_FIELDSARE_BIND(9)
+        IIUT_FIELDSARE_BIND(10)
+        IIUT_FIELDSARE_BIND(11)
+        IIUT_FIELDSARE_BIND(12)
+        IIUT_FIELDSARE_BIND(13)
+        IIUT_FIELDSARE_BIND(14)
+        IIUT_FIELDSARE_BIND(15)
+        IIUT_FIELDSARE_BIND(16)
+#undef IIUT_FIELDSARE_BIND
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        return "FieldsAre: {" + Describe<0>() + "}";
+    }
+
+private:
+    template<size_t N, typename U>
+    AssertionResult Check(const U& fields)
+    {
+        if constexpr( N == sizeof...(T) )
+        {
+            return AssertionSuccess();
+        }
+        else
+        {
+            AssertionResult ar = CastToMatcher(::std::get<N>(m_matchers))(::std::get<N>(fields));
+            if( !ar )
+            {
+                return AssertionFailure() << "FieldsAre: field #" << N << " is "
+                    << PrintToString(::std::get<N>(fields)) << ", " << ar.message();
+            }
+            return Check<N + 1>(fields);
+        }
+    }
+
+    template<size_t N>
+    ::std::string Describe() const
+    {
+        if constexpr( N == sizeof...(T) )
+        {
+            return "";
+        }
+        else
+        {
+            return (N == 0 ? "" : ", ") + StreamableToString(::std::get<N>(m_matchers)) + Describe<N + 1>();
+        }
+    }
+
+    ::std::tuple<T...> m_matchers;
+};
+
+#endif
+
 /**
  * @brief   Pair matcher
 */
@@ -2547,6 +2638,18 @@ detail::PairMatcher<T1, T2> Pair(const T1& m1, const T2& m2)
 {
     return detail::PairMatcher<T1, T2>(m1, m2);
 }
+
+#if IUTEST_HAS_MATCHER_FIELDSARE
+/**
+ * @brief   Match each field of a structured-binding-compatible value
+ * @note    Requires C++17 and exactly one to 16 field matchers.
+*/
+template<typename ...T>
+detail::FieldsAreMatcher<T...> FieldsAre(const T&... matchers)
+{
+    return detail::FieldsAreMatcher<T...>(matchers...);
+}
+#endif
 
 /**
  * @brief   Make Field matcher

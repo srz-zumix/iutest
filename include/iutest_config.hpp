@@ -312,6 +312,15 @@
 #  define IUTEST_HAS_MATCHER_OPTIONAL           1
 #endif
 
+#if !defined(IUTEST_HAS_MATCHER_FIELDSARE)
+//! Whether FieldsAre (one to 16 fields) is available
+#  if IUTEST_HAS_CXX17 && IUTEST_HAS_MATCHER_VARIADIC && IUTEST_HAS_TUPLE && !defined(IUTEST_NO_SFINAE)
+#    define IUTEST_HAS_MATCHER_FIELDSARE IUTEST_HAS_MATCHERS
+#  else
+#    define IUTEST_HAS_MATCHER_FIELDSARE 0
+#  endif
+#endif
+
 #if !defined(IUTEST_USE_THROW_ON_ASSERTION_FAILURE)
 /**
  * @brief   失敗時に例外を throw します。
