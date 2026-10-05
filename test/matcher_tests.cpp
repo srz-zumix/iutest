@@ -117,17 +117,21 @@ IUTEST(Matcher, IsNan)
 #endif
 }
 
+#if IUTEST_HAS_MATCHER_EACH || IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 IUTEST(Matcher, IsNanComposed)
 {
     const double nan = ::std::numeric_limits<double>::quiet_NaN();
+#if IUTEST_HAS_MATCHER_EACH
     const double values[] = { nan, nan };
     const double finite[] = { 0.0, 1.0 };
     IUTEST_EXPECT_THAT(values, Each(IsNan()));
     IUTEST_EXPECT_THAT(finite, Each(Not(IsNan())));
+#endif
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
     IUTEST_EXPECT_THAT(nan, AllOf(IsNan(), Not(DoubleEq(0.0))));
 #endif
 }
+#endif
 #endif
 
 IUTEST(Matcher, TypedEq)
