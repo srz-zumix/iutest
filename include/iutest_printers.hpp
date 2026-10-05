@@ -23,6 +23,11 @@
 #include "internal/iutest_string_view.hpp"
 // IWYU pragma: end_exports
 
+#if IUTEST_HAS_ABSL_STRINGIFY
+#  include <absl/strings/has_absl_stringify.h>
+#  include <absl/strings/str_cat.h>
+#endif
+
 #if IUTEST_USE_QUADMATH
 #  include <quadmath.h>
 #endif
@@ -219,7 +224,7 @@ inline void DefaultPrintTo(IsContainerHelper::yes_t
 }
 
 template<typename T>
-inline void DefaultPrintNonContainerTo(const T& value, iu_ostream* os)
+inline void DefaultPrintNonContainerToFallback(const T& value, iu_ostream* os)
 {
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     printer_internal2::DefaultPrintNonContainerTo(value, os);
@@ -227,6 +232,32 @@ inline void DefaultPrintNonContainerTo(const T& value, iu_ostream* os)
     printer_internal::formatter::RawBytesPrinter::Print(value, os);
 #endif
 }
+#if IUTEST_HAS_ABSL_STRINGIFY
+template<typename T>
+inline void DefaultPrintNonContainerTo(const T& value, iu_ostream* os, iutest_type_traits::true_type)
+{
+    *os << ::absl::StrCat(value);
+}
+
+template<typename T>
+inline void DefaultPrintNonContainerTo(const T& value, iu_ostream* os, iutest_type_traits::false_type)
+{
+    DefaultPrintNonContainerToFallback(value, os);
+}
+
+template<typename T>
+inline void DefaultPrintNonContainerTo(const T& value, iu_ostream* os)
+{
+    DefaultPrintNonContainerTo(value, os,
+        iutest_type_traits::bool_constant< ::absl::HasAbslStringify<T>::value >());
+}
+#else
+template<typename T>
+inline void DefaultPrintNonContainerTo(const T& value, iu_ostream* os)
+{
+    DefaultPrintNonContainerToFallback(value, os);
+}
+#endif
 /** @overload */
 template<typename T>
 inline void DefaultPrintTo(IsContainerHelper::no_t

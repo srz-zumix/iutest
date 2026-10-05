@@ -94,6 +94,7 @@ SYNTAXTESTS_TARGET=$(OUTDIR)/syntax_tests
 NAMESPACETESTS_TARGET=$(OUTDIR)/namespace_tests
 
 TEST_TARGETS= \
+		$(OUTDIR)/absl_stringify_tests \
 		$(OUTDIR)/also_run_disabled_tests \
 		$(OUTDIR)/assertion_return_tests \
 		$(OUTDIR)/assume_tests \
