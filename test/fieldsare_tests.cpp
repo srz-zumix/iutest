@@ -92,7 +92,9 @@ IUTEST(FieldsAreTest, Nested)
     const auto value = ::std::make_pair(point, ::std::make_tuple(3, 4));
     IUTEST_EXPECT_THAT(value, FieldsAre(FieldsAre(1, 2), FieldsAre(3, 4)));
     IUTEST_EXPECT_THAT(point, Not(FieldsAre(1, 3)));
+#if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
     IUTEST_EXPECT_THAT(point, AllOf(FieldsAre(1, _), FieldsAre(_, 2)));
+#endif
 }
 
 IUTEST(FieldsAreTest, SixteenFields)
