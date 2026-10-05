@@ -330,7 +330,8 @@
 #if !defined(IUTEST_HAS_MATCHER_FIELDSARE)
 //! Whether ::iutest::matchers::FieldsAre is available (C++17, up to 16 fields)
 #  if IUTEST_HAS_CXX17 && defined(__cpp_structured_bindings) && __cpp_structured_bindings >= 201606L \
-      && IUTEST_HAS_MATCHER_VARIADIC && IUTEST_HAS_STD_TUPLE && !defined(IUTEST_NO_SFINAE)
+      && IUTEST_HAS_MATCHER_VARIADIC && IUTEST_HAS_STD_TUPLE && !defined(IUTEST_NO_SFINAE) \
+      && (!defined(__clang__) || __clang_major__ >= 6)
 #    define IUTEST_HAS_MATCHER_FIELDSARE        IUTEST_HAS_MATCHERS
 #  else
 #    define IUTEST_HAS_MATCHER_FIELDSARE        0
