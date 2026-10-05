@@ -1377,7 +1377,7 @@ private:
     {
         if constexpr( N < sizeof...(T) )
         {
-            if( N != 0 ) strm << ", ";
+            if constexpr( N != 0 ) strm << ", ";
             strm << StreamableToString(::std::get<N>(m_matchers));
             Describe<N + 1>(strm);
         }
