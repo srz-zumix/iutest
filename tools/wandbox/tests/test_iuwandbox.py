@@ -23,6 +23,7 @@ except ImportError:
 root = os.path.normpath(os.path.dirname(os.path.abspath(__file__)) + '/../../../')
 fused_src = root + '/fused-src'
 test_src = root + '/test/syntax_tests.cpp'
+test_make_src = root + '/test/default_main_tests.cpp'
 test_opt_default = ['--encoding', 'utf-8-sig', '--compiler', 'gcc-head']
 test_opt_nomain = test_opt_default
 test_opt = ['-f"-DIUTEST_USE_MAIN"']
@@ -201,7 +202,7 @@ class iuwandbox_test(iuwandbox_test_base):
     def test_make_run(self):
         if 'SCRUTINIZER' in os.environ:
             self.skipTest('this test is not run on SCRUTINIZER.')
-        sys.argv[1:] = [test_src]
+        sys.argv[1:] = [test_make_src]
         sys.argv.extend(test_opt)
         sys.argv.extend(['--make'])
         print(sys.argv)
