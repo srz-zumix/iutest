@@ -1,4 +1,4 @@
-//======================================================================
+﻿//======================================================================
 /**
  * @file        fieldsare_tests.cpp
  * @brief       FieldsAre matcher tests
@@ -17,7 +17,17 @@
 #include <tuple>
 #include <utility>
 
-using namespace ::iutest::matchers;
+using ::iutest::matchers::_;
+using ::iutest::matchers::DoubleEq;
+using ::iutest::matchers::FieldsAre;
+using ::iutest::matchers::Ge;
+using ::iutest::matchers::Lt;
+using ::iutest::matchers::Not;
+using ::iutest::matchers::Pointee;
+using ::iutest::matchers::StartsWith;
+#if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
+using ::iutest::matchers::AllOf;
+#endif
 
 namespace {
 
@@ -150,7 +160,7 @@ IUTEST(FieldsAreTest, Description)
 
 IUTEST(FieldsAreTest, Disabled)
 {
-    IUTEST_EXPECT_EQ(0, IUTEST_HAS_MATCHER_FIELDSARE);
+    IUTEST_SKIP() << "FieldsAre matcher is disabled";
 }
 
 #endif
