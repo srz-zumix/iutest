@@ -1650,6 +1650,48 @@ private:
 };
 
 /**
+ * @brief   Pointer matcher
+*/
+template<typename T>
+class PointerMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    explicit PointerMatcher(const T& expected) : m_expected(expected) {}
+
+public:
+    template<typename U>
+    AssertionResult operator ()(const U& actual)
+    {
+        if IUTEST_COND_LIKELY( Check(actual) )
+        {
+            return AssertionSuccess();
+        }
+        return AssertionFailure() << WhichIs();
+    }
+
+public:
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        iu_global_format_stringstream strm;
+        strm << "Pointer: " << m_expected;
+        return strm.str();
+    }
+private:
+    template<typename U>
+    bool Check(U* actual)
+    {
+        return static_cast<bool>(CastToMatcher(m_expected)(actual));
+    }
+    template<typename U>
+    bool Check(const U& actual)
+    {
+        return static_cast<bool>(CastToMatcher(m_expected)(actual.get()));
+    }
+private:
+    T m_expected;
+};
+
+/**
  * @brief   Not matcher
 */
 template<typename T>
@@ -2757,6 +2799,15 @@ template<typename T>
 detail::PointeeMatcher<T> Pointee(const T& expected)
 {
     return detail::PointeeMatcher<T>(expected);
+}
+
+/**
+ * @brief   Make Pointer matcher
+*/
+template<typename T>
+detail::PointerMatcher<T> Pointer(const T& expected)
+{
+    return detail::PointerMatcher<T>(expected);
 }
 
 /**
