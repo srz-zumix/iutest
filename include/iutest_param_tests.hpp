@@ -21,12 +21,9 @@
 #include "iutest_any.hpp"
 // IWYU pragma: end_exports
 
-#if IUTEST_HAS_PARAM_TEST
-
 //======================================================================
 // define
 /**
- * @ingroup VALUE_PARAMETERIZED_TEST
  * @def IUTEST_ALLOW_UNINSTANTIATED_PARAMETERIZED_TEST
  * @brief Suppress verification for an intentionally uninstantiated test suite.
  */
@@ -34,6 +31,8 @@
     static const int IUTEST_PP_CAT(iutest_allow_uninstantiated_, __LINE__)             \
         IUTEST_ATTRIBUTE_UNUSED_ = ::iutest::detail::UninstantiatedParameterizedTestRegistry::GetInstance() \
             .Allow(IUTEST_GET_PACKAGENAME_() + ::std::string(#testsuite_))
+
+#if IUTEST_HAS_PARAM_TEST
 
 /**
  * @defgroup    VALUE_PARAMETERIZED_TEST    値のパラメータ化テスト

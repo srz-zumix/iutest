@@ -68,19 +68,25 @@ int main(int argc, char** argv)
             suite = unit->GetTestSuite(i);
         }
     }
-    const int expected = 3
+    const int expected = 0
+#if IUTEST_HAS_PARAM_TEST
+        + 3
+#endif
 #if IUTEST_HAS_TYPED_TEST_P
         + 1
 #endif
         ;
-    if( suite == NULL || suite->total_test_count() != expected ) return 1;
+    if( (suite == NULL && expected != 0) || (suite != NULL && suite->total_test_count() != expected) ) return 1;
     const char* names[] = {
+#if IUTEST_HAS_PARAM_TEST
         "UninstantiatedParameterizedTestSuite<MissingValueSuite>",
         "UninstantiatedParameterizedTestSuite<EmptyValueSuite>",
-        "UninstantiatedParameterizedTestSuite<NoPatternSuite>"
-#if IUTEST_HAS_TYPED_TEST_P
-        , "UninstantiatedTypeParameterizedTestSuite<MissingTypedSuite>"
+        "UninstantiatedParameterizedTestSuite<NoPatternSuite>",
 #endif
+#if IUTEST_HAS_TYPED_TEST_P
+        "UninstantiatedTypeParameterizedTestSuite<MissingTypedSuite>",
+#endif
+        NULL
     };
     for( int i=0; i < expected; ++i )
     {
@@ -93,8 +99,11 @@ int main(int argc, char** argv)
     }
     ::iutest::IUTEST_FLAG(filter) = "Verification.*";
     if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
-    ::iutest::IUTEST_FLAG(filter) = "GoogleTestVerification.*";
-    if( IUTEST_RUN_ALL_TESTS() == 0 || unit->failed_test_count() != expected ) return 1;
+    if( expected != 0 )
+    {
+        ::iutest::IUTEST_FLAG(filter) = "GoogleTestVerification.*";
+        if( IUTEST_RUN_ALL_TESTS() == 0 || unit->failed_test_count() != expected ) return 1;
+    }
     return 0;
 #else
     return IUTEST_RUN_ALL_TESTS();
