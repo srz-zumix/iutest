@@ -80,6 +80,10 @@
 #  define IUTEST_HAS_PARAM_TEST         1   //!< 値をパラメータ化したテストが使用可能かどうか
 #endif
 
+#if !defined(IUTEST_HAS_UNINSTANTIATED_PARAMETERIZED_TEST)
+#  define IUTEST_HAS_UNINSTANTIATED_PARAMETERIZED_TEST 1
+#endif
+
 #if !defined(IUTEST_HAS_TYPED_TEST)
 //! 型付けテストが使用可能かどうか
 #  if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
