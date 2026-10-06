@@ -78,6 +78,7 @@ public:
     virtual void OnTestSuiteStart(const TestSuite& test_suite)      = 0;    //!< TestSuite 開始時に呼ばれます
 #endif
     virtual void OnTestStart(const TestInfo& test_info)             = 0;    //!< テスト開始時に呼ばれます
+    virtual void OnTestDisabled(const TestInfo& /*test_info*/)      {}     //!< 無効テスト時に呼ばれます
     virtual void OnTestPartResult(const TestPartResult& test_part_result) = 0;    //!< テスト失敗時に呼ばれます
     virtual void OnTestRecordProperty(const TestProperty& /*test_property*/) {} //!< RecordProperty 時に呼ばれます
     virtual void OnTestEnd(const TestInfo& test_info)               = 0;    //!< テスト終了時にに呼ばれます
@@ -107,6 +108,7 @@ public:
     virtual void OnEnvironmentsSetUpEnd(const UnitTest& /*test*/)       IUTEST_CXX_OVERRIDE {}
     virtual void OnTestSuiteStart(const TestSuite& /*test_suite*/)      IUTEST_CXX_OVERRIDE {}
     virtual void OnTestStart(const TestInfo& /*test_info*/)             IUTEST_CXX_OVERRIDE {}
+    virtual void OnTestDisabled(const TestInfo& /*test_info*/)          IUTEST_CXX_OVERRIDE {}
     virtual void OnTestPartResult(const TestPartResult& /*test_part_result*/) IUTEST_CXX_OVERRIDE   {}
     virtual void OnTestRecordProperty(const TestProperty& /*test_propterty*/) IUTEST_CXX_OVERRIDE   {}
     virtual void OnTestEnd(const TestInfo& /*test_info*/)               IUTEST_CXX_OVERRIDE {}
@@ -147,6 +149,7 @@ public:
     virtual void OnEnvironmentsSetUpEnd(const UnitTest& test)       IUTEST_CXX_OVERRIDE;
     virtual void OnTestSuiteStart(const TestSuite& test_suite)      IUTEST_CXX_OVERRIDE;
     virtual void OnTestStart(const TestInfo& test_info)             IUTEST_CXX_OVERRIDE;
+    virtual void OnTestDisabled(const TestInfo& test_info)          IUTEST_CXX_OVERRIDE;
     virtual void OnTestPartResult(const TestPartResult& test_part_result)   IUTEST_CXX_OVERRIDE;
     virtual void OnTestRecordProperty(const TestProperty& test_property)    IUTEST_CXX_OVERRIDE;
     virtual void OnTestEnd(const TestInfo& test_info)               IUTEST_CXX_OVERRIDE;
@@ -213,6 +216,7 @@ private:
 
     void OnTestSuiteStart(const TestSuite& test_suite)              { m_repeater.OnTestSuiteStart(test_suite); }
     void OnTestStart(const TestInfo& test_info)                     { m_repeater.OnTestStart(test_info); }
+    void OnTestDisabled(const TestInfo& test_info)                  { m_repeater.OnTestDisabled(test_info); }
     void OnTestPartResult(const TestPartResult& test_part_result)   { m_repeater.OnTestPartResult(test_part_result); }
     void OnTestRecordProperty(const TestProperty& test_property)    { m_repeater.OnTestRecordProperty(test_property); }
     void OnTestEnd(const TestInfo& test_info)                       { m_repeater.OnTestEnd(test_info); }

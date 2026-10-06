@@ -29,6 +29,11 @@ IUTEST_IPP_INLINE bool TestInfo::Run()
 {
     if( !should_run() )
     {
+        if( is_disabled_test() && is_reportable()
+            && !TestFlag::IsEnableFlag(TestFlag::RUN_DISABLED_TESTS) )
+        {
+            TestEnv::event_listeners().OnTestDisabled(*this);
+        }
         return true;
     }
 

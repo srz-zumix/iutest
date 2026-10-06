@@ -40,6 +40,7 @@ public:
     virtual void OnEnvironmentsSetUpEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
     virtual void OnTestSuiteStart(const TestSuite& test_suite) IUTEST_CXX_OVERRIDE;
     virtual void OnTestStart(const TestInfo& test_info) IUTEST_CXX_OVERRIDE;
+    virtual void OnTestDisabled(const TestInfo& test_info) IUTEST_CXX_OVERRIDE;
     virtual void OnTestPartResult(const TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE;
     virtual void OnTestRecordProperty(const TestProperty& test_property) IUTEST_CXX_OVERRIDE;
     virtual void OnTestEnd(const TestInfo& test_info) IUTEST_CXX_OVERRIDE;

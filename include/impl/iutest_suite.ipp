@@ -26,6 +26,10 @@ IUTEST_IPP_INLINE bool TestSuite::Run()
 {
     if( !should_run() )
     {
+        for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
+        {
+            (*it)->Run();
+        }
         return true;
     }
 
