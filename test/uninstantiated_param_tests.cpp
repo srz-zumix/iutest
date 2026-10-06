@@ -22,7 +22,7 @@ IUTEST_ALLOW_UNINSTANTIATED_PARAMETERIZED_TEST(AllowedValueSuite);
 
 class AllowedGTestSuite : public ::iutest::TestWithParam<int> {};
 IUTEST_P(AllowedGTestSuite, Test) {}
-GTEST_ALLOW_UNINSTANTIATED_PARAMETERIZED_TEST(AllowedGTestSuite);
+IUTEST_ALLOW_UNINSTANTIATED_PARAMETERIZED_TEST(AllowedGTestSuite);
 
 #if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_UNINSTANTIATED_PARAMETERIZED_TEST
 class MissingValueSuite : public ::iutest::TestWithParam<int> {};
