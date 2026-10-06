@@ -41,6 +41,7 @@
 #undef IUTEST_HAS_MATCHER_POINTWISE
 #undef IUTEST_HAS_MATCHER_VARIADIC
 #undef IUTEST_HAS_MATCHER_OPTIONAL
+#undef IUTEST_HAS_MATCHER_FIELDSARE
 
 #endif
 
@@ -77,6 +78,13 @@
 #  define IUTEST_HAS_MATCHER_VARIADIC               0
 #endif
 
+#if GMOCK_VER >= 0x01110000 && IUTEST_HAS_CXX17 \
+    && defined(__cpp_structured_bindings) && __cpp_structured_bindings >= 201606L
+#  define IUTEST_HAS_MATCHER_FIELDSARE              1
+#else
+#  define IUTEST_HAS_MATCHER_FIELDSARE              0
+#endif
+
 #define IUTEST_ASSERT_THAT      ASSERT_THAT
 #define IUTEST_EXPECT_THAT      EXPECT_THAT
 #define IUTEST_INFORM_THAT      INFORM_THAT
@@ -96,6 +104,7 @@
 #define IUTEST_HAS_MATCHER_REGEX                    0
 #define IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR       0
 #define IUTEST_HAS_MATCHER_EACH                     0
+#define IUTEST_HAS_MATCHER_FIELDSARE                0
 
 #endif
 
@@ -276,6 +285,9 @@ namespace matchers
 
     using ::testing::ElementsAre;
     using ::testing::ElementsAreArray;
+#if IUTEST_HAS_MATCHER_FIELDSARE
+    using ::testing::FieldsAre;
+#endif
 
     using ::testing::MatchesRegex;
     using ::testing::ContainsRegex;

@@ -17,6 +17,11 @@
 
 #if IUTEST_HAS_MATCHERS
 
+#if IUTEST_HAS_MATCHER_FIELDSARE
+#include <tuple>
+#include <type_traits>
+#endif
+
 //======================================================================
 // define
 /**
@@ -1272,6 +1277,117 @@ IIUT_DECL_ELEMENTSARE_MATCHER(10);
 
 #endif
 
+#if IUTEST_HAS_MATCHER_FIELDSARE
+
+template<size_t N>
+struct FieldsAreBindings;
+
+template<>
+struct FieldsAreBindings<0>
+{
+    template<typename T>
+    static ::std::tuple<> Get(const T&)
+    {
+        static_assert(::std::is_empty<T>::value, "FieldsAre() requires an empty object");
+        return ::std::tuple<>();
+    }
+    template<typename ...T>
+    static ::std::tuple<> Get(const ::std::tuple<T...>&)
+    {
+        static_assert(sizeof...(T) == 0, "FieldsAre requires one matcher per field");
+        return ::std::tuple<>();
+    }
+};
+
+#define IIUT_DECL_FIELDSARE_BINDINGS(n)                                      \
+    template<> struct FieldsAreBindings<n> {                                \
+        template<typename T> static auto Get(const T& actual) {             \
+            const auto& [IUTEST_PP_ENUM_PARAMS(n, field)] = actual;          \
+            return ::std::tie(IUTEST_PP_ENUM_PARAMS(n, field));              \
+        }                                                                   \
+    }
+
+IIUT_DECL_FIELDSARE_BINDINGS(1);
+IIUT_DECL_FIELDSARE_BINDINGS(2);
+IIUT_DECL_FIELDSARE_BINDINGS(3);
+IIUT_DECL_FIELDSARE_BINDINGS(4);
+IIUT_DECL_FIELDSARE_BINDINGS(5);
+IIUT_DECL_FIELDSARE_BINDINGS(6);
+IIUT_DECL_FIELDSARE_BINDINGS(7);
+IIUT_DECL_FIELDSARE_BINDINGS(8);
+IIUT_DECL_FIELDSARE_BINDINGS(9);
+IIUT_DECL_FIELDSARE_BINDINGS(10);
+IIUT_DECL_FIELDSARE_BINDINGS(11);
+IIUT_DECL_FIELDSARE_BINDINGS(12);
+IIUT_DECL_FIELDSARE_BINDINGS(13);
+IIUT_DECL_FIELDSARE_BINDINGS(14);
+IIUT_DECL_FIELDSARE_BINDINGS(15);
+IIUT_DECL_FIELDSARE_BINDINGS(16);
+
+#undef IIUT_DECL_FIELDSARE_BINDINGS
+
+/**
+ * @brief   FieldsAre matcher
+*/
+template<typename ...T>
+class FieldsAreMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+    static_assert(sizeof...(T) <= 16, "FieldsAre supports at most 16 fields");
+public:
+    explicit FieldsAreMatcher(const T&... matchers) : m_matchers(matchers...) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual)
+    {
+        const auto fields = FieldsAreBindings<sizeof...(T)>::Get(actual);
+        return Check<0>(fields);
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        iu_global_format_stringstream strm;
+        strm << "FieldsAre: {";
+        Describe<0>(strm);
+        strm << "}";
+        return strm.str();
+    }
+
+private:
+    template<size_t N, typename U>
+    AssertionResult Check(const U& fields)
+    {
+        if constexpr( N == sizeof...(T) )
+        {
+            return AssertionSuccess();
+        }
+        else
+        {
+            const AssertionResult ar = CastToMatcher(::std::get<N>(m_matchers))(::std::get<N>(fields));
+            if( !ar )
+            {
+                return AssertionFailure() << "FieldsAre: field #" << N << " does not match ("
+                    << PrintToString(::std::get<N>(fields)) << "): " << ar.message();
+            }
+            return Check<N + 1>(fields);
+        }
+    }
+
+    template<size_t N>
+    void Describe(iu_global_format_stringstream& strm) const
+    {
+        if constexpr( N < sizeof...(T) )
+        {
+            if constexpr( N != 0 ) strm << ", ";
+            strm << StreamableToString(::std::get<N>(m_matchers));
+            Describe<N + 1>(strm);
+        }
+    }
+
+    ::std::tuple<T...> m_matchers;
+};
+
+#endif
+
 /**
  * @brief   Field matcher
 */
@@ -2524,6 +2640,21 @@ template<typename T>
 detail::ElementsAreArrayMatcher<T> ElementsAreArrayForward(const T* a, int count)
 {
     return detail::ElementsAreArrayMatcher<T>(a, a + count, false);
+}
+
+#endif
+
+#if IUTEST_HAS_MATCHER_FIELDSARE
+
+/**
+ * @brief   Match each field of an aggregate, tuple or pair
+ * @details Requires C++17 structured bindings and one matcher per field (at most 16).
+ *          Values are treated as equality matchers. Failure messages use zero-based field indices.
+*/
+template<typename ...T>
+detail::FieldsAreMatcher<T...> FieldsAre(T... matchers)
+{
+    return detail::FieldsAreMatcher<T...>(matchers...);
 }
 
 #endif
