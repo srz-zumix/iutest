@@ -91,9 +91,14 @@ int main(int argc, char* argv[])
     ::iutest::IUTEST_FLAG(verbose) = false;
 #endif
     if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
-    if( listener->disabled_count != 2 || listener->started_count != 1
-        || enabled_runs != 1 || disabled_runs != 0
+    if( listener->started_count != 1 || enabled_runs != 1 || disabled_runs != 0 ) return 1;
+#if !defined(IUTEST_USE_GTEST)
+    if( listener->disabled_count != 2
         || listener->disabled_names != "DisabledEvent.DISABLED_Selected\nDISABLED_Only.Test\n" ) return 1;
+#else
+    if( listener->disabled_count != 1
+        || listener->disabled_names != "DisabledEvent.DISABLED_Selected\n" ) return 1;
+#endif
 #if !defined(IUTEST_USE_GTEST)
     if( ::std::string(logger.c_str()).find("[ DISABLED ] DisabledEvent.DISABLED_Selected") != ::std::string::npos ) return 1;
     listener->Clear();
@@ -106,8 +111,14 @@ int main(int argc, char* argv[])
     if( output.find("[ DISABLED ] DisabledEvent.DISABLED_Selected\n") == ::std::string::npos
         || output.find("[ DISABLED ] DISABLED_Only.Test\n") == ::std::string::npos
         || output.find("[ DISABLED ] DisabledEvent.DISABLED_Excluded") != ::std::string::npos ) return 1;
+    listener->Clear();
+    ::iutest::IUTEST_FLAG(filter) = "DISABLED_Only.Test";
+    if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
+    if( listener->disabled_count != 1 || listener->started_count != 0
+        || enabled_runs != 2 || disabled_runs != 0 ) return 1;
 #endif
     listener->Clear();
+    ::iutest::IUTEST_FLAG(filter) = "DisabledEvent.Enabled:DisabledEvent.DISABLED_Selected:DISABLED_Only.Test";
     ::iutest::IUTEST_FLAG(also_run_disabled_tests) = true;
     if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
     if( listener->disabled_count != 0 || listener->started_count != 3
