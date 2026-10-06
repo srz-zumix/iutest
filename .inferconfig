@@ -1,0 +1,9 @@
+{
+  "report-block-list-spec": [
+    {
+      "bug_type": "PULSE_UNNECESSARY_COPY",
+      "file": "_tests.cpp",
+      "comment": "Copies in tests intentionally exercise copy behavior and value semantics."
+    }
+  ]
+}
