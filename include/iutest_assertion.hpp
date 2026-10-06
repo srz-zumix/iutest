@@ -1039,7 +1039,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ DoubleNearPredFormat(
 #if IUTEST_HAS_CXX11 && (!defined(_MSC_VER) || _MSC_VER >= 1800)
     if (result.failed() && abs_v > 0 && val1 == val1 && val2 == val2)
     {
-        const double min_abs = ::std::min(::std::fabs(val1), ::std::fabs(val2));
+        const double min_abs = (::std::min)(::std::fabs(val1), ::std::fabs(val2));
         const double spacing = ::std::nextafter(min_abs, ::std::numeric_limits<double>::infinity()) - min_abs;
         if (abs_v < spacing)
         {
