@@ -99,11 +99,10 @@ int main(int argc, char** argv)
     }
     ::iutest::IUTEST_FLAG(filter) = "Verification.*";
     if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
-    if( expected != 0 )
-    {
+#if IUTEST_HAS_PARAM_TEST || IUTEST_HAS_TYPED_TEST_P
         ::iutest::IUTEST_FLAG(filter) = "GoogleTestVerification.*";
         if( IUTEST_RUN_ALL_TESTS() == 0 || unit->failed_test_count() != expected ) return 1;
-    }
+#endif
     return 0;
 #else
     return IUTEST_RUN_ALL_TESTS();
