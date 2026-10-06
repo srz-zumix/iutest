@@ -18,6 +18,8 @@
 //======================================================================
 // include
 // IWYU pragma: begin_exports
+#include <set>
+
 #include "iutest_genparams.hpp"
 #include "iutest_genparams_from_file.hpp"
 // IWYU pragma: end_exports
