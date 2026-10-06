@@ -111,7 +111,7 @@ int main(int argc, char* argv[])
         IUTEST_ASSERT_STRIN("[  PASSED  ]", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_STRIN("[  FAILED  ]", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
 
-        IUTEST_ASSERT_STRIN("[ DISABLED ] DISABLED_Test.NotRun", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_STRIN("[ DISABLED ] DISABLED_Test.NotRun", s_log_testcases.c_str()) << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_STRIN("[  SKIPPED ] Test.Skip", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
 
         IUTEST_ASSERT_STRNOTIN("[       OK ]", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
