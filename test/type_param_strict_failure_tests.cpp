@@ -59,6 +59,8 @@ IUTEST_TYPED_TEST_P(RegisterFailTypeParamTest, B)
 {
 }
 
+IUTEST_ALLOW_UNINSTANTIATED_PARAMETERIZED_TEST(RegisterFailTypeParamTest);
+
 #endif
 
 #ifdef UNICODE
@@ -84,4 +86,3 @@ int main(int argc, char* argv[])
     printf("*** Successful ***\n");
     return 0;
 }
-
