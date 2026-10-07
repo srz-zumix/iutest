@@ -32,7 +32,7 @@ class UninstantiatedParameterizedTestRegistry
 public:
     struct TypedSuite
     {
-        TypedSuite(const ::std::string& suite) : name(suite), instantiated(false) {}
+        explicit TypedSuite(const ::std::string& suite) : name(suite), instantiated(false) {}
         ::std::string name;
         bool instantiated;
     };
