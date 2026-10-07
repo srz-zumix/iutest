@@ -82,7 +82,26 @@ IUTEST_IPP_INLINE bool TestSuite::RunImpl()
 
     if( m_setup != NULL )
     {
-        m_setup();
+#if IUTEST_HAS_EXCEPTIONS
+        if( TestFlag::IsEnableFlag(TestFlag::CATCH_EXCEPTION_EACH) )
+        {
+            try
+            {
+                m_setup();
+            }
+            catch( const TestPartResult::Type& eType )
+            {
+                if( TestPartResult::type_is_failed(eType) && TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
+                {
+                    throw;
+                }
+            }
+        }
+        else
+#endif
+        {
+            m_setup();
+        }
     }
 
     if( !CheckSetUpSkipped() )
