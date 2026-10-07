@@ -67,14 +67,7 @@ int main(int argc, char** argv)
             suite = unit->GetTestSuite(i);
         }
     }
-    const int expected = 0
-#if IUTEST_HAS_PARAM_TEST
-        + 3
-#endif
-#if IUTEST_HAS_TYPED_TEST_P
-        + 1
-#endif
-        ;
+    const int expected = (IUTEST_HAS_PARAM_TEST ? 3 : 0) + (IUTEST_HAS_TYPED_TEST_P ? 1 : 0);
     if( (suite == NULL && expected != 0) || (suite != NULL && suite->total_test_count() != expected) ) return 1;
     const char* names[] = {
 #if IUTEST_HAS_PARAM_TEST
