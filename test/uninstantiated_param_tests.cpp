@@ -92,6 +92,9 @@ int main(int argc, char** argv)
     ::iutest::IUTEST_FLAG(filter) = "Verification.*";
     if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
 #if IUTEST_HAS_PARAM_TEST || IUTEST_HAS_TYPED_TEST_P
+    #if defined(DISABLE_FALSE_POSITIVE_XML)
+        ::iuutil::ReleaseDefaultXmlGenerator();
+    #endif
         ::iutest::IUTEST_FLAG(filter) = "GoogleTestVerification.*";
         if( IUTEST_RUN_ALL_TESTS() == 0 || unit->failed_test_count() != expected ) return 1;
 #endif
