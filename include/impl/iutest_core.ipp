@@ -229,6 +229,10 @@ IUTEST_IPP_INLINE bool UnitTest::RunOnce()
     // 実行対象のテストがない場合は何もしない
     if( test_to_run_count() == 0 )
     {
+        for( iuTestSuites::iterator it=m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
+        {
+            (*it)->Run();
+        }
         return Passed();
     }
 
