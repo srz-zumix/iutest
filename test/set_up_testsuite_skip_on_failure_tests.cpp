@@ -59,12 +59,20 @@ int main(int argc, char* argv[])
     IUTEST_TERMINATE_ON_FAILURE( teardown_runs == 2 );
     IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->failed_test_count() == 0 );
     IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->test_to_run_count() == 4 );
+#if defined(IUTEST_USE_GTEST)
+    IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->skipped_test_count() == 4 );
+#else
     IUTEST_TERMINATE_ON_FAILURE( ::iutest::UnitTest::GetInstance()->skip_test_count() == 4 );
+#endif
     for( int i = 0; i < 2; ++i )
     {
         const ::iutest::TestSuite* suite = ::iuutil::GetTestSuite(i);
-        IUTEST_TERMINATE_ON_FAILURE( suite->ad_hoc_test_result()->Failed() );
+        IUTEST_TERMINATE_ON_FAILURE( suite->Failed() );
+#if defined(IUTEST_USE_GTEST)
+        IUTEST_TERMINATE_ON_FAILURE( suite->skipped_test_count() == 2 );
+#else
         IUTEST_TERMINATE_ON_FAILURE( suite->skip_test_count() == 2 );
+#endif
     }
     printf("*** Successful ***\n");
     return 0;
