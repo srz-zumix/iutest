@@ -376,8 +376,8 @@ IUTEST_IPP_INLINE void UnitTest::Initialize()
 #if IUTEST_HAS_TYPED_TEST_P && IUTEST_HAS_UNINSTANTIATED_PARAMETERIZED_TEST
     const ::std::vector<detail::UninstantiatedParameterizedTestRegistry::TypedSuite*>& typed_suites =
         detail::UninstantiatedParameterizedTestRegistry::GetInstance().typed_suites();
-    for( ::std::vector<detail::UninstantiatedParameterizedTestRegistry::TypedSuite*>::const_iterator
-        it=typed_suites.begin(); it != typed_suites.end(); ++it )
+    for( ::std::vector<detail::UninstantiatedParameterizedTestRegistry::TypedSuite*>::const_iterator it=typed_suites.begin();
+        it != typed_suites.end(); ++it )
     {
         if( !(*it)->instantiated )
         {
