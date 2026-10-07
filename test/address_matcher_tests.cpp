@@ -22,7 +22,7 @@ using ::iutest::matchers::Eq;
 
 namespace {
 
-int value = 1;
+int address_target = 1;
 int other = 1;
 
 struct OverloadedAddress
@@ -36,13 +36,13 @@ OverloadedAddress objects[2];
 
 IUTEST(AddressMatcher, SameAndDifferentObjects)
 {
-    IUTEST_EXPECT_THAT(value, Address(Eq(&value)));
-    IUTEST_EXPECT_THAT(value, Address(&value));
+    IUTEST_EXPECT_THAT(address_target, Address(Eq(&address_target)));
+    IUTEST_EXPECT_THAT(address_target, Address(&address_target));
     IUTEST_EXPECT_THAT(other, Address(Eq(&other)));
 #if !defined(IUTEST_USE_GMOCK)
-    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(value, Address(Eq(&other))), "Address:");
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(address_target, Address(Eq(&other))), "Address:");
 #else
-    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(value, Address(Eq(&other))), "");
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(address_target, Address(Eq(&other))), "");
 #endif
 }
 
