@@ -30,8 +30,7 @@ IUTEST_P(MissingValueSuite, Test) {}
 
 class EmptyValueSuite : public ::iutest::TestWithParam<int> {};
 IUTEST_P(EmptyValueSuite, Test) {}
-static const int empty_values[] = { 0 };
-IUTEST_INSTANTIATE_TEST_SUITE_P(Empty, EmptyValueSuite, ::iutest::ValuesIn(empty_values, empty_values));
+IUTEST_INSTANTIATE_TEST_SUITE_P(Empty, EmptyValueSuite, ::iutest::Range(0, 0));
 
 class NoPatternSuite : public ::iutest::TestWithParam<int> {};
 IUTEST_INSTANTIATE_TEST_SUITE_P(Orphan, NoPatternSuite, ::iutest::Values(1));
