@@ -85,16 +85,7 @@ IUTEST_IPP_INLINE bool TestSuite::RunImpl()
         m_setup();
     }
 
-    if( m_ad_hoc_testresult.HasFatalFailure() )
-    {
-        return false;
-    }
-
-    if( CheckSetUpSkipped() )
-    {
-        return true;
-    }
-
+    if( !CheckSetUpSkipped() )
     {
         detail::iuStopWatch sw;
         sw.start();
@@ -117,16 +108,12 @@ IUTEST_IPP_INLINE bool TestSuite::RunImpl()
     {
         m_teardown();
     }
-    if( m_ad_hoc_testresult.HasFatalFailure() )
-    {
-        return false;
-    }
-    return result;
+    return result && !m_ad_hoc_testresult.Failed();
 }
 
 IUTEST_IPP_INLINE bool TestSuite::CheckSetUpSkipped()
 {
-    if(m_ad_hoc_testresult.Skipped())
+    if(m_ad_hoc_testresult.Skipped() || m_ad_hoc_testresult.Failed())
     {
         for(iuTestInfos::iterator it = m_testinfos.begin(), end = m_testinfos.end(); it != end; ++it)
         {
