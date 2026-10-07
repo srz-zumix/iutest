@@ -283,6 +283,9 @@ namespace matchers
     using ::testing::ResultOf;
     using ::testing::Pointee;
 #if GMOCK_VER >= 0x01110000
+    using ::testing::Address;
+#endif
+#if GMOCK_VER >= 0x01110000
     using ::testing::Pointer;
 #endif
 
