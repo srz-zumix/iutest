@@ -39,6 +39,10 @@ trim_trailing_whitespace = true
 [*.{json,ecrc}]
 indent_size = 2
 
+[.inferconfig]
+indent_size = 2
+trim_trailing_whitespace = true
+
 # Project
 
 [*.{nuspec,targets}]

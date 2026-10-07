@@ -282,6 +282,9 @@ namespace matchers
 
     using ::testing::ResultOf;
     using ::testing::Pointee;
+#if GMOCK_VER >= 0x01110000
+    using ::testing::Pointer;
+#endif
 
     using ::testing::ElementsAre;
     using ::testing::ElementsAreArray;
