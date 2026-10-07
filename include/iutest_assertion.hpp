@@ -22,6 +22,9 @@
 #include "iutest_printers.hpp"
 #include "internal/iutest_list.hpp"
 // IWYU pragma: end_exports
+#include <algorithm>
+#include <cmath>
+#include <limits>
 
 namespace iutest
 {
@@ -1032,7 +1035,26 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ DoubleNearPredFormat(
     const char* expr1, const char* expr2, const char* absc
         , double val1, double val2, double abs_v)
 {
-    return CmpHelperNearFloatingPoint(expr1, expr2, absc, val1, val2, abs_v);
+    const AssertionResult result = CmpHelperNearFloatingPoint(expr1, expr2, absc, val1, val2, abs_v);
+#if IUTEST_HAS_CXX11 && (!defined(_MSC_VER) || _MSC_VER >= 1800)
+    if (result.failed() && abs_v > 0 && val1 == val1 && val2 == val2)
+    {
+        const double min_abs = (::std::min)(::std::fabs(val1), ::std::fabs(val2));
+        const double spacing = ::std::nextafter(min_abs, ::std::numeric_limits<double>::infinity()) - min_abs;
+        if (abs_v < spacing)
+        {
+            return AssertionFailure() << "The difference between " << expr1 << " and " << expr2
+                << " is " << ::std::fabs(val1 - val2) << ", where\n"
+                << expr1 << " evaluates to " << val1 << ",\n"
+                << expr2 << " evaluates to " << val2 << ".\nThe abs_error parameter "
+                << absc << " evaluates to " << abs_v
+                << ", smaller than the distance between adjacent doubles at this magnitude ("
+                << spacing << "). This EXPECT_NEAR is effectively EXPECT_EQ. "
+                << "Consider using EXPECT_DOUBLE_EQ instead.";
+        }
+    }
+#endif
+    return result;
 }
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 template<typename T, typename A>
@@ -1054,7 +1076,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(
     const char* expr1, const char* expr2, const char* absc
         , double val1, double val2, const A& abs_v)
 {
-    return CmpHelperNearFloatingPoint<double>(expr1, expr2, absc, val1, val2, static_cast<double>(abs_v));
+    return DoubleNearPredFormat(expr1, expr2, absc, val1, val2, static_cast<double>(abs_v));
 }
 #endif
 template<typename A>
