@@ -159,6 +159,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/set_up_testcase_failure_tests \
 		$(OUTDIR)/shuffle_tests \
 		$(OUTDIR)/skip_tests \
+		$(OUTDIR)/smart_pointer_printers_tests \
 		$(OUTDIR)/spec_tests \
 		$(OUTDIR)/spi_failure_tests \
 		$(OUTDIR)/srcdir_tempdir_tests \
