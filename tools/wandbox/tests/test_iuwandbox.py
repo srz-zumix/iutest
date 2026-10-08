@@ -22,7 +22,7 @@ except ImportError:
 
 root = os.path.normpath(os.path.dirname(os.path.abspath(__file__)) + '/../../../')
 fused_src = root + '/fused-src'
-test_src = root + '/test/syntax_tests.cpp'
+test_src = root + '/tools/wandbox/tests/src/B/sample.cpp'
 test_make_src = root + '/test/default_main_tests.cpp'
 test_opt_default = ['--encoding', 'utf-8-sig', '--compiler', 'gcc-head']
 test_opt_nomain = test_opt_default
