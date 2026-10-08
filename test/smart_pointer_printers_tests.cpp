@@ -62,7 +62,7 @@ IUTEST(SmartPointerPrintersTest, VoidAndArray)
     ExpectPointerPrint(::iutest::PrintToString(unique_void), "(0x", ")");
     ExpectPointerPrint(::iutest::PrintToString(shared_void), "(0x", ")");
     ExpectPointerPrint(::iutest::PrintToString(unique_array), "(0x", ")");
-#if IUTEST_HAS_CXX17
+#if IUTEST_HAS_CXX17 && defined(__cpp_lib_shared_ptr_arrays) && __cpp_lib_shared_ptr_arrays >= 201611L
     ::std::shared_ptr<int[]> shared_array(new int[2]);
     ExpectPointerPrint(::iutest::PrintToString(shared_array), "(0x", ")");
 #endif
