@@ -157,6 +157,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/set_up_failure_tests \
 		$(OUTDIR)/set_up_global_failure_tests \
 		$(OUTDIR)/set_up_testcase_failure_tests \
+		$(OUTDIR)/set_up_testsuite_skip_on_failure_tests \
 		$(OUTDIR)/shuffle_tests \
 		$(OUTDIR)/skip_tests \
 		$(OUTDIR)/spec_tests \
