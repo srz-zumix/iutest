@@ -26,6 +26,10 @@ IUTEST_IPP_INLINE bool TestSuite::Run()
 {
     if( !should_run() )
     {
+        for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
+        {
+            (*it)->Run();
+        }
         return true;
     }
 
@@ -78,19 +82,29 @@ IUTEST_IPP_INLINE bool TestSuite::RunImpl()
 
     if( m_setup != NULL )
     {
-        m_setup();
+#if IUTEST_HAS_EXCEPTIONS
+        if( TestFlag::IsEnableFlag(TestFlag::CATCH_EXCEPTION_EACH) )
+        {
+            try
+            {
+                m_setup();
+            }
+            catch( const TestPartResult::Type& eType )
+            {
+                if( TestPartResult::type_is_failed(eType) && TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
+                {
+                    throw;
+                }
+            }
+        }
+        else
+#endif
+        {
+            m_setup();
+        }
     }
 
-    if( m_ad_hoc_testresult.HasFatalFailure() )
-    {
-        return false;
-    }
-
-    if( CheckSetUpSkipped() )
-    {
-        return true;
-    }
-
+    if( !CheckSetUpSkipped() )
     {
         detail::iuStopWatch sw;
         sw.start();
@@ -113,16 +127,12 @@ IUTEST_IPP_INLINE bool TestSuite::RunImpl()
     {
         m_teardown();
     }
-    if( m_ad_hoc_testresult.HasFatalFailure() )
-    {
-        return false;
-    }
-    return result;
+    return result && !m_ad_hoc_testresult.Failed();
 }
 
 IUTEST_IPP_INLINE bool TestSuite::CheckSetUpSkipped()
 {
-    if(m_ad_hoc_testresult.Skipped())
+    if(m_ad_hoc_testresult.Skipped() || m_ad_hoc_testresult.Failed())
     {
         for(iuTestInfos::iterator it = m_testinfos.begin(), end = m_testinfos.end(); it != end; ++it)
         {

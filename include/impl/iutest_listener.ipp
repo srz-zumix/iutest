@@ -76,6 +76,13 @@ IUTEST_IPP_INLINE void TestEventRepeater::OnTestStart(const TestInfo& test_info)
         (*it)->OnTestStart(test_info);
     }
 }
+IUTEST_IPP_INLINE void TestEventRepeater::OnTestDisabled(const TestInfo& test_info)
+{
+    for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
+    {
+        (*it)->OnTestDisabled(test_info);
+    }
+}
 IUTEST_IPP_INLINE void TestEventRepeater::OnTestPartResult(const TestPartResult& test_part_result)
 {
     for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )

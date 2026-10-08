@@ -229,6 +229,10 @@ IUTEST_IPP_INLINE bool UnitTest::RunOnce()
     // 実行対象のテストがない場合は何もしない
     if( test_to_run_count() == 0 )
     {
+        for( iuTestSuites::iterator it=m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
+        {
+            (*it)->Run();
+        }
         return Passed();
     }
 
@@ -364,7 +368,26 @@ IUTEST_IPP_INLINE void UnitTest::Initialize()
     }
 
 #if IUTEST_HAS_PARAM_TEST
-    m_param_testsuite_holder.RegisterTests();
+    ::std::vector< ::std::string > uninstantiated;
+    m_param_testsuite_holder.RegisterTests(uninstantiated);
+#  if IUTEST_HAS_UNINSTANTIATED_PARAMETERIZED_TEST
+    for( ::std::vector< ::std::string >::const_iterator it=uninstantiated.begin(); it != uninstantiated.end(); ++it )
+    {
+        detail::RegisterUninstantiatedParameterizedTest(*it, false);
+    }
+#  endif
+#endif
+#if IUTEST_HAS_TYPED_TEST_P && IUTEST_HAS_UNINSTANTIATED_PARAMETERIZED_TEST
+    const ::std::vector<detail::UninstantiatedParameterizedTestRegistry::TypedSuite*>& typed_suites =
+        detail::UninstantiatedParameterizedTestRegistry::GetInstance().typed_suites();
+    for( ::std::vector<detail::UninstantiatedParameterizedTestRegistry::TypedSuite*>::const_iterator it=typed_suites.begin();
+        it != typed_suites.end(); ++it )
+    {
+        if( !(*it)->instantiated )
+        {
+            detail::RegisterUninstantiatedParameterizedTest((*it)->name, true);
+        }
+    }
 #endif
 }
 

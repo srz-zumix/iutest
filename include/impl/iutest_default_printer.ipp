@@ -91,6 +91,14 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestStart(const TestInfo& t
     detail::iuConsole::color_output(detail::iuConsole::green, "[ RUN      ] ");
     detail::iuConsole::output("%s.%s\n", test_info.test_suite_name(), test_info.name());
 }
+IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestDisabled(const TestInfo& test_info)
+{
+    if( TestFlag::IsEnableFlag(TestFlag::VERBOSE) )
+    {
+        detail::iuConsole::color_output(detail::iuConsole::yellow, "[ DISABLED ] ");
+        detail::iuConsole::output("%s.%s\n", test_info.test_suite_name(), test_info.name());
+    }
+}
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestPartResult(const TestPartResult& test_part_result)
 {
     //if( test_part_result.type() == TestPartResult::kSuccess ) return;
@@ -196,22 +204,6 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
             {
                 detail::iuConsole::color_output(detail::iuConsole::yellow, "[ DISABLED ] ");
                 detail::iuConsole::output("%d %s.\n", count, detail::FormatCountableNoun(count, "test", "tests") );
-                if( TestFlag::IsEnableFlag(TestFlag::VERBOSE) )
-                {
-                    for( int i=0, case_count=test.total_test_suite_count(); i < case_count; ++i )
-                    {
-                        const TestSuite* testsuite = test.GetTestSuite(i);
-                        for( int j=0, info_count=testsuite->total_test_count(); j < info_count; ++j )
-                        {
-                            const TestInfo* testinfo = testsuite->GetTestInfo(j);
-                            if( testinfo->is_disabled_test() )
-                            {
-                                detail::iuConsole::color_output(detail::iuConsole::yellow, "[ DISABLED ] ");
-                                detail::iuConsole::output("%s.%s\n", testinfo->test_suite_name(), testinfo->name());
-                            }
-                        }
-                    }
-                }
             }
         }
         {

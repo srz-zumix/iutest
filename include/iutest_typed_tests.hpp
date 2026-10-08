@@ -268,15 +268,17 @@
         typedef ::iutest::detail::Templates< __VA_ARGS__ >::type iutest_AllTests_;          \
     }                                                                                       \
     static const bool s_iutest_##testsuite_##_register_dummy_ IUTEST_ATTRIBUTE_UNUSED_ =    \
-    IIUT_TYPED_TEST_SUITE_PSTATE_NAME_(testsuite_).VerifyTestNames(__FILE__, __LINE__, #__VA_ARGS__)
+    IIUT_TYPED_TEST_SUITE_PSTATE_NAME_(testsuite_).VerifyTestNames(__FILE__, __LINE__, #__VA_ARGS__ \
+        , IUTEST_GET_PACKAGENAME_() + ::std::string(IIUT_TO_NAME_STR_(testsuite_)))
 
 #define IIUT_INSTANTIATE_TYPED_TEST_SUITE_P_(prefix_, testsuite_, ...)          \
     const bool iutest_##prefix_##_##testsuite_ IUTEST_ATTRIBUTE_UNUSED_ =       \
+        (IIUT_TYPED_TEST_SUITE_PSTATE_NAME_(testsuite_).MarkInstantiated(),       \
         ::iutest::detail::TypeParameterizedTestSuite< testsuite_                \
         , IIUT_TYPED_TEST_P_NAMESPACE_(testsuite_)::iutest_AllTests_            \
         , ::iutest::detail::TypeList< __VA_ARGS__ >::type >::Register(          \
             #prefix_, IIUT_TO_NAME_STR_(testsuite_), IUTEST_GET_PACKAGENAME_()  \
-            , IIUT_TYPED_TEST_SUITE_PSTATE_NAME_(testsuite_).names(), __FILE__, __LINE__)
+            , IIUT_TYPED_TEST_SUITE_PSTATE_NAME_(testsuite_).names(), __FILE__, __LINE__))
 
 /**
  * @}
@@ -414,9 +416,10 @@ class TypedTestSuitePState
 #endif
 
 public:
-    TypedTestSuitePState() : m_names(NULL) {}
+    TypedTestSuitePState() : m_names(NULL), m_verification("") {}
 public:
     const char* names() const { return m_names; }
+    void MarkInstantiated() { m_verification.instantiated = true; }
 
 public:
     bool AddTestName(const char* file, int line, const char* testsuite_name, const char* test_name)
@@ -432,9 +435,15 @@ public:
 #endif
         return true;
     }
-    bool VerifyTestNames(const char* file, int line, const char* test_names)
+    bool VerifyTestNames(const char* file, int line, const char* test_names, const ::std::string& name)
     {
         m_names = test_names;
+#if IUTEST_HAS_UNINSTANTIATED_PARAMETERIZED_TEST
+        m_verification.name = name;
+        UninstantiatedParameterizedTestRegistry::GetInstance().AddTypedSuite(&m_verification);
+#else
+        IUTEST_UNUSED_VAR(name);
+#endif
         IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 #if IUTEST_TYPED_TEST_P_STRICT
         bool ret = true;
@@ -468,6 +477,7 @@ public:
 
 private:
     const char* m_names;
+    UninstantiatedParameterizedTestRegistry::TypedSuite m_verification;
 
 #if IUTEST_TYPED_TEST_P_STRICT
     nameset_t m_list;

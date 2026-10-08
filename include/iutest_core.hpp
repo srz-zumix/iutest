@@ -21,6 +21,7 @@
 #include "internal/iutest_result_reporter.hpp"
 #include "internal/iutest_file.hpp"
 #include "internal/iutest_params_util.hpp"
+#include "internal/iutest_pool.hpp"
 // IWYU pragma: end_exports
 
 namespace iutest
@@ -299,6 +300,39 @@ private:
     TestInfo            m_info;
     iuFactory<Tester>   m_factory;
 };
+
+#if IUTEST_HAS_UNINSTANTIATED_PARAMETERIZED_TEST
+class UninstantiatedParameterizedTest : public Test
+{
+protected:
+    virtual void Body() IUTEST_CXX_OVERRIDE
+    {
+        IUTEST_ASSERT_FAILURE("Parameterized test suite is not instantiated. "
+            "Use IUTEST_ALLOW_UNINSTANTIATED_PARAMETERIZED_TEST to suppress this failure.");
+    }
+};
+
+class UninstantiatedParameterizedTestInstance : public iuIObject
+{
+public:
+    explicit UninstantiatedParameterizedTestInstance(const ::std::string& name)
+        : m_test("GoogleTestVerification", name.c_str(), internal::GetTestTypeId(), NULL, NULL) {}
+private:
+    TestInstance<UninstantiatedParameterizedTest> m_test;
+};
+
+inline void RegisterUninstantiatedParameterizedTest(const ::std::string& name, bool typed)
+{
+    if( UninstantiatedParameterizedTestRegistry::GetInstance().IsAllowed(name) )
+    {
+        return;
+    }
+    const ::std::string test_name = ::std::string(typed
+        ? "UninstantiatedTypeParameterizedTestSuite<"
+        : "UninstantiatedParameterizedTestSuite<") + name + ">";
+    iuPool::GetInstance().push(new UninstantiatedParameterizedTestInstance(test_name));
+}
+#endif
 
 }   // end of namespace detail
 }   // end of namespace iutest

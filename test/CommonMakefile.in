@@ -107,6 +107,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/csvparams_tests \
 		$(OUTDIR)/cxx_feature_tests \
 		$(OUTDIR)/disabled_tests \
+		$(OUTDIR)/disabled_listener_tests \
 		$(OUTDIR)/empty_testname_tests \
 		$(OUTDIR)/env_var_gtest_tests \
 		$(OUTDIR)/environment_tests \
@@ -136,6 +137,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/matcher_tests \
 		$(OUTDIR)/address_matcher_tests \
 		$(OUTDIR)/minimum_tests \
+		$(OUTDIR)/near_message_tests \
 		$(OUTDIR)/no_failure_fail_tests \
 		$(OUTDIR)/no_fatalfailure_tests \
 		$(OUTDIR)/no_test_tests \
@@ -156,6 +158,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/set_up_failure_tests \
 		$(OUTDIR)/set_up_global_failure_tests \
 		$(OUTDIR)/set_up_testcase_failure_tests \
+		$(OUTDIR)/set_up_testsuite_skip_on_failure_tests \
 		$(OUTDIR)/shuffle_tests \
 		$(OUTDIR)/skip_tests \
 		$(OUTDIR)/spec_tests \
@@ -167,6 +170,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/throw_on_failure_tests \
 		$(OUTDIR)/tr1_tests \
 		$(OUTDIR)/uninitialize_tests \
+		$(OUTDIR)/uninstantiated_param_tests \
 		$(OUTDIR)/util_release_default_xml_generator_tests \
 		$(OUTDIR)/util_tests \
 
