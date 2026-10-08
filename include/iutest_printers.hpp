@@ -401,9 +401,9 @@ template<typename CharT, typename Traits, typename Alloc>
 inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os) { UniversalTersePrint(str.c_str(), os); }
 inline void PrintTo(const ::std::locale& l, iu_ostream* os) { *os << l.name(); }
 #if IUTEST_HAS_CXX11
-inline const void* VoidifyPointer(const volatile void* ptr)
+inline void PrintSmartPointerAddress(const volatile void* ptr, iu_ostream* os)
 {
-    return const_cast<const void*>(ptr);
+    *os << "0x" << ToHexString(reinterpret_cast<iu_uintptr_t>(ptr));
 }
 
 template<typename T, typename Ptr>
@@ -415,7 +415,9 @@ inline void PrintSmartPointer(const Ptr& ptr, iu_ostream* os, char)
     }
     else
     {
-        *os << "(" << VoidifyPointer(ptr.get()) << ")";
+        *os << "(";
+        PrintSmartPointerAddress(ptr.get(), os);
+        *os << ")";
     }
 }
 template<typename T, typename Ptr>
@@ -428,7 +430,9 @@ PrintSmartPointer(const Ptr& ptr, iu_ostream* os, int)
     }
     else
     {
-        *os << "(ptr = " << VoidifyPointer(ptr.get()) << ", value = ";
+        *os << "(ptr = ";
+        PrintSmartPointerAddress(ptr.get(), os);
+        *os << ", value = ";
         UniversalPrint(*ptr, os);
         *os << ")";
     }
