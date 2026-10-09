@@ -92,15 +92,37 @@ namespace printer_internal
 namespace formatter
 {
 
+template<typename T>
+class IsComplete
+{
+    template<typename U>
+    static char Check(U*, char (*)[sizeof(U)]);
+    template<typename U>
+    static long Check(U*, ...);
+public:
+    enum { value = sizeof(Check(static_cast<T*>(NULL), 0)) == sizeof(char) };
+};
+
 struct RawBytesPrinter
 {
     template<typename T>
     static void Print(const T& value, iu_ostream* os)
     {
+        Print(value, os, iutest_type_traits::bool_constant<IsComplete<T>::value>());
+    }
+private:
+    template<typename T>
+    static void Print(const T& value, iu_ostream* os, iutest_type_traits::true_type)
+    {
         const unsigned char* ptr = const_cast<const unsigned char*>(
             reinterpret_cast<const volatile unsigned char*>(&value));
         const size_t size = sizeof(T);
         PrintBytesInObjectTo(ptr, size, os);
+    }
+    template<typename T>
+    static void Print(const T&, iu_ostream* os, iutest_type_traits::false_type)
+    {
+        *os << "(incomplete type)";
     }
 };
 
@@ -147,8 +169,19 @@ public:
     template<typename T>
     static void PrintValue(const T& value, iu_ostream* os)
     {
+        PrintValue(value, os, iutest_type_traits::bool_constant<formatter::IsComplete<T>::value>());
+    }
+private:
+    template<typename T>
+    static void PrintValue(const T& value, iu_ostream* os, iutest_type_traits::true_type)
+    {
         typedef typename formatter::PrinterTypeSelecter<const T&>::type Printer;
         Printer::Print(value, os);
+    }
+    template<typename T>
+    static void PrintValue(const T& value, iu_ostream* os, iutest_type_traits::false_type)
+    {
+        formatter::RawBytesPrinter::Print(value, os);
     }
 };
 

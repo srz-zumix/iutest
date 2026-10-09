@@ -31,7 +31,11 @@ struct Complete
 IUTEST(IncompletePrintersTest, CompleteRawBytes)
 {
     Complete object = { { 0, 1 } };
+#if defined(IUTEST_USE_GTEST)
+    IUTEST_EXPECT_STREQ("2-byte object <00-01>", ::iutest::PrintToString(object));
+#else
     IUTEST_EXPECT_STREQ("2-Byte object < 00 01 >", ::iutest::PrintToString(object));
+#endif
 }
 
 int main(int argc, char* argv[])
