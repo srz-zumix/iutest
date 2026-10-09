@@ -17,6 +17,10 @@
 
 #if IUTEST_HAS_MATCHERS
 
+#if IUTEST_HAS_CXX11
+#include <memory>
+#endif
+
 #if IUTEST_HAS_MATCHER_FIELDSARE
 #include <tuple>
 #include <type_traits>
@@ -1650,6 +1654,41 @@ private:
 };
 
 /**
+ * @brief   Address matcher
+*/
+template<typename T>
+class AddressMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    explicit AddressMatcher(const T& expected) : m_expected(expected) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual)
+    {
+#if IUTEST_HAS_CXX11
+        const U* address = ::std::addressof(actual);
+#else
+        const U* address = reinterpret_cast<const U*>(
+            &const_cast<char&>(reinterpret_cast<const volatile char&>(actual)));
+#endif
+        if IUTEST_COND_LIKELY( CastToMatcher(m_expected)(address) )
+        {
+            return AssertionSuccess();
+        }
+        return AssertionFailure() << WhichIs();
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        iu_global_format_stringstream strm;
+        strm << "Address: " << m_expected;
+        return strm.str();
+    }
+private:
+    T m_expected;
+};
+
+/**
  * @brief   Pointer matcher
 */
 template<typename T>
@@ -2799,6 +2838,15 @@ template<typename T>
 detail::PointeeMatcher<T> Pointee(const T& expected)
 {
     return detail::PointeeMatcher<T>(expected);
+}
+
+/**
+ * @brief   Make Address matcher
+*/
+template<typename T>
+detail::AddressMatcher<T> Address(const T& expected)
+{
+    return detail::AddressMatcher<T>(expected);
 }
 
 /**
