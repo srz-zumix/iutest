@@ -23,6 +23,10 @@
 #include "internal/iutest_string_view.hpp"
 // IWYU pragma: end_exports
 
+#if IUTEST_HAS_CXX11
+#  include <memory>
+#endif
+
 #if IUTEST_HAS_ABSL_STRINGIFY
 #  include <absl/strings/has_absl_stringify.h>
 #  include <absl/strings/str_cat.h>
@@ -396,6 +400,53 @@ inline void PrintTo(const ::std::string& str, iu_ostream* os)   { *os << str.c_s
 template<typename CharT, typename Traits, typename Alloc>
 inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os) { UniversalTersePrint(str.c_str(), os); }
 inline void PrintTo(const ::std::locale& l, iu_ostream* os) { *os << l.name(); }
+#if IUTEST_HAS_CXX11
+inline void PrintSmartPointerAddress(const volatile void* ptr, iu_ostream* os)
+{
+    *os << "0x" << ToHexString(reinterpret_cast<iu_uintptr_t>(ptr));
+}
+
+template<typename T, typename Ptr>
+inline void PrintSmartPointer(const Ptr& ptr, iu_ostream* os, char)
+{
+    if( !ptr )
+    {
+        *os << "(nullptr)";
+    }
+    else
+    {
+        *os << "(";
+        PrintSmartPointerAddress(ptr.get(), os);
+        *os << ")";
+    }
+}
+template<typename T, typename Ptr>
+inline typename ::std::enable_if<!::std::is_void<T>::value && !::std::is_array<T>::value>::type PrintSmartPointer(const Ptr& ptr, iu_ostream* os, int)
+{
+    if( !ptr )
+    {
+        *os << "(nullptr)";
+    }
+    else
+    {
+        *os << "(ptr = ";
+        PrintSmartPointerAddress(ptr.get(), os);
+        *os << ", value = ";
+        UniversalPrint(*ptr, os);
+        *os << ")";
+    }
+}
+template<typename T, typename D>
+inline void PrintTo(const ::std::unique_ptr<T, D>& ptr, iu_ostream* os)
+{
+    PrintSmartPointer<T>(ptr, os, 0);
+}
+template<typename T>
+inline void PrintTo(const ::std::shared_ptr<T>& ptr, iu_ostream* os)
+{
+    PrintSmartPointer<T>(ptr, os, 0);
+}
+#endif
 #if IUTEST_HAS_FULL_PRECISION_FLOAT_PRINT && IUTEST_HAS_IOMANIP
 template<typename T>
 inline int FloatingPointPrintPrecision(T value)
