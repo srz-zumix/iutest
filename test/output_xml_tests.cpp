@@ -62,6 +62,25 @@ IUTEST(Foo, Bar)
     IUTEST_ASSERT_EQ(3, 3);
 }
 
+class XmlPropertyFixture : public ::iuutil::backward::Test<XmlPropertyFixture>
+{
+public:
+    static void SetUpTestSuite()
+    {
+        RecordProperty("suite key", "<&\"");
+    }
+
+    static void TearDownTestSuite()
+    {
+        RecordProperty("teardown", "done");
+    }
+};
+
+IUTEST_F(XmlPropertyFixture, Test)
+{
+    RecordProperty("case_key", "case-value");
+}
+
 #if IUTEST_HAS_PACKAGE
 
 IUTEST_PACKAGE(test)
@@ -85,6 +104,10 @@ int main(int argc, char* argv[])
 
     IUTEST_INIT(&argc, argv);
 
+#if !defined(IUTEST_NO_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN)
+    ::iutest::Test::RecordProperty("root key", "<&\"");
+#endif
+
     {
         ::iutest::IUTEST_FLAG(output) = "";
         ::iutest::IUTEST_FLAG(filter) = "-*Fail*";
@@ -107,6 +130,19 @@ int main(int argc, char* argv[])
             )->GetFilePath()) ) << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_EQ(::std::string::npos, FileIO::s_io.find("Fail")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("Foo" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+#if !defined(IUTEST_NO_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN)
+        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(
+            "  <properties>\n    <property name=\"root key\" value=\"&lt;&amp;&quot;\" />\n  </properties>\n  <testsuite"))
+            << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+#endif
+        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(
+            "XmlPropertyFixture\"")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(
+            "    <properties>\n      <property name=\"suite key\" value=\"&lt;&amp;&quot;\" />\n"
+            "      <property name=\"teardown\" value=\"done\" />\n    </properties>\n"
+            "    <testcase name=\"Test\"")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(" case_key=\"case-value\""))
+            << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 
         FileIO::s_io.clear();
     }

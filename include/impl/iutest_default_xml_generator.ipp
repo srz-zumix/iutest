@@ -90,11 +90,9 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTest(IFile* file, co
         file->Printf("random_seed=\"%u\" ", test.random_seed());
     }
     file->Printf("name=\"AllTests\"");
-
-    // propertys
-    OnReportTestProperty(file, *test.ad_hoc_test_result(), UnitTest::ValidateTestPropertyName);
-
     file->Printf(">\n");
+
+    OnReportTestPropertyElements(file, *test.ad_hoc_test_result(), UnitTest::ValidateTestPropertyName, "  ");
 
     for( int i=0, count=test.total_test_suite_count(); i < count; ++i )
     {
@@ -126,10 +124,10 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestSuite(IFile* fil
         , detail::FormatTimeInMillisecAsIso8601(test_suite.start_timestamp()).c_str()
         );
 
-    // propertys
-    OnReportTestProperty(file, *test_suite.ad_hoc_test_result(), TestSuite::ValidateTestPropertyName);
-
     file->Printf(">\n");
+
+    OnReportTestPropertyElements(file, *test_suite.ad_hoc_test_result()
+        , TestSuite::ValidateTestPropertyName, "    ");
 
     for( int i=0, count=test_suite.total_test_count(); i < count; ++i )
     {
@@ -281,6 +279,28 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestProperty(IFile* 
                 );
         }
     }
+}
+
+IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestPropertyElements(IFile* file
+    , const TestResult& test_result, bool (*pfnValidate)(const ::std::string&), const char* indent)
+{
+    if( test_result.test_property_count() == 0 )
+    {
+        return;
+    }
+    file->Printf("%s<properties>\n", indent);
+    for( int i=0, count=test_result.test_property_count(); i < count; ++i )
+    {
+        const TestProperty& prop = test_result.GetTestProperty(i);
+        if( (*pfnValidate)(prop.key()) )
+        {
+            file->Printf("%s  <property name=\"%s\" value=\"%s\" />\n"
+                , indent
+                , EscapeXmlAttribute(prop.key()).c_str()
+                , EscapeXmlAttribute(prop.value()).c_str());
+        }
+    }
+    file->Printf("%s</properties>\n", indent);
 }
 
 IUTEST_IPP_INLINE bool DefaultXmlGeneratorListener::FileOpen(const char* path)
