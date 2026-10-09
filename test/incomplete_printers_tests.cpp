@@ -17,11 +17,13 @@
 
 struct Incomplete;
 
+#if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01110000
 IUTEST(IncompletePrintersTest, Reference)
 {
     char object = 0;
     IUTEST_EXPECT_STREQ("(incomplete type)", ::iutest::PrintToString(reinterpret_cast<Incomplete&>(object)));
 }
+#endif
 
 struct Complete
 {
