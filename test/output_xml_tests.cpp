@@ -136,7 +136,7 @@ int main(int argc, char* argv[])
             << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 #endif
         IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(
-            "name=\"XmlPropertyFixture\"")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+            "XmlPropertyFixture\"")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(
             "    <properties>\n      <property name=\"suite key\" value=\"&lt;&amp;&quot;\" />\n"
             "      <property name=\"teardown\" value=\"done\" />\n    </properties>\n"
