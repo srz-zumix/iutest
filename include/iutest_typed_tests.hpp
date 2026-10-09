@@ -240,6 +240,8 @@
     class testname_ IUTEST_CXX_FINAL : public testsuite_<iutest_TypeParam> {     \
         typedef testsuite_<iutest_TypeParam> TestFixture;       \
         typedef iutest_TypeParam TypeParam;                     \
+        public: static const char* File() { return __FILE__; }  \
+        static int Line() { return __LINE__; }                   \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE;     \
     }; IIUT_TYPED_TEST_P_ADDTESTNAME(testsuite_, testname_);    \
     }                                                           \
@@ -254,6 +256,8 @@
     class testname_ IUTEST_CXX_FINAL : public testsuite_<iutest_TypeParam> {     \
         typedef testsuite_<iutest_TypeParam> TestFixture;       \
         typedef iutest_TypeParam TypeParam;                     \
+        public: static const char* File() { return __FILE__; }  \
+        static int Line() { return __LINE__; }                   \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
         template<typename T>void Body();                        \
     }; IIUT_TYPED_TEST_P_ADDTESTNAME(testsuite_, testname_);    \
@@ -318,13 +322,13 @@ class TypeParamTestInstance
         // コンストラクタ
         EachTest(const char* testsuite, const char* name, size_t index, const char* file, int line)
             : m_mediator(AddTestSuite(testsuite, index, file, line))
-            , m_info(&m_mediator, name, &m_factory)
+            , m_info(&m_mediator, name, &m_factory, file, line)
             , m_next(testsuite, name, index+1, file, line)
         {
         }
         EachTest(const ::std::string& testsuite, const char* name, size_t index, const char* file, int line)
             : m_mediator(AddTestSuite(testsuite, index, file, line))
-            , m_info(&m_mediator, name, &m_factory)
+            , m_info(&m_mediator, name, &m_factory, file, line)
             , m_next(testsuite, name, index+1, file, line)
         {
         }
@@ -503,7 +507,7 @@ class TypeParameterizedTestSuite
 
         EachTest(TestSuite* testsuite, const ::std::string& name)
             : m_mediator(testsuite)
-            , m_info(&m_mediator, name, &m_factory)
+            , m_info(&m_mediator, name, &m_factory, TestBody::File(), TestBody::Line())
         {
             UnitTest::instance().AddTestInfo(testsuite, &m_info);
         }
