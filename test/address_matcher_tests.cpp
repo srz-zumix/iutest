@@ -27,8 +27,8 @@ int other = 1;
 
 struct OverloadedAddress
 {
-    OverloadedAddress* operator&() { return NULL; }
-    const OverloadedAddress* operator&() const { return NULL; }
+    OverloadedAddress* operator&() { return NULL; }  // NOLINT(runtime/operator)
+    const OverloadedAddress* operator&() const { return NULL; }  // NOLINT(runtime/operator)
 };
 OverloadedAddress objects[2];
 
