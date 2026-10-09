@@ -421,8 +421,7 @@ inline void PrintSmartPointer(const Ptr& ptr, iu_ostream* os, char)
     }
 }
 template<typename T, typename Ptr>
-inline typename ::std::enable_if<!::std::is_void<T>::value && !::std::is_array<T>::value>::type
-PrintSmartPointer(const Ptr& ptr, iu_ostream* os, int)
+inline typename ::std::enable_if<!::std::is_void<T>::value && !::std::is_array<T>::value>::type PrintSmartPointer(const Ptr& ptr, iu_ostream* os, int)
 {
     if( !ptr )
     {
