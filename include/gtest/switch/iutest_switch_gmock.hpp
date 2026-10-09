@@ -42,6 +42,7 @@
 #undef IUTEST_HAS_MATCHER_VARIADIC
 #undef IUTEST_HAS_MATCHER_OPTIONAL
 #undef IUTEST_HAS_MATCHER_FIELDSARE
+#undef IUTEST_HAS_MATCHER_DISTANCEFROM
 
 #endif
 
@@ -51,6 +52,11 @@
 #if defined(IUTEST_USE_GMOCK)
 
 #define IUTEST_HAS_MATCHERS                         1
+#if GMOCK_VER >= 0x01170000 || GMOCK_LATEST
+#  define IUTEST_HAS_MATCHER_DISTANCEFROM           1
+#else
+#  define IUTEST_HAS_MATCHER_DISTANCEFROM           0
+#endif
 #define IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF          1
 #define IUTEST_HAS_MATCHER_ELEMENTSARE              1
 #define IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD  0
@@ -97,6 +103,7 @@
 #else
 
 #define IUTEST_HAS_MATCHERS                         0
+#define IUTEST_HAS_MATCHER_DISTANCEFROM              0
 #define IUTEST_HAS_MATCHER_VARIADIC                 0
 #define IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF          0
 #define IUTEST_HAS_MATCHER_ELEMENTSARE              0
@@ -281,6 +288,9 @@ namespace matchers
     using ::testing::Property;
 
     using ::testing::ResultOf;
+#if IUTEST_HAS_MATCHER_DISTANCEFROM
+    using ::testing::DistanceFrom;
+#endif
     using ::testing::Pointee;
 #if GMOCK_VER >= 0x01110000
     using ::testing::Pointer;
