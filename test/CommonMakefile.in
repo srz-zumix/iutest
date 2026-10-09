@@ -145,6 +145,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/output_junit_xml_empty_tests \
 		$(OUTDIR)/output_junit_xml_tests \
 		$(OUTDIR)/output_xml_tests \
+		$(OUTDIR)/test_info_location_tests \
 		$(OUTDIR)/port_tests \
 		$(OUTDIR)/pointer_matcher_tests \
 		$(OUTDIR)/printers_tests \
