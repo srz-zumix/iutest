@@ -30,6 +30,7 @@ struct Complete
     unsigned char bytes[2];
 };
 
+#if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01060000
 IUTEST(IncompletePrintersTest, CompleteRawBytes)
 {
     Complete object = { { 0, 1 } };
@@ -39,6 +40,7 @@ IUTEST(IncompletePrintersTest, CompleteRawBytes)
     IUTEST_EXPECT_STREQ("2-Byte object < 00 01 >", ::iutest::PrintToString(object));
 #endif
 }
+#endif
 
 int main(int argc, char* argv[])
 {
