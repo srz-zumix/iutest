@@ -96,20 +96,15 @@ template<typename T>
 class IsComplete
 {
 #if defined(__GNUC__) && __GNUC__ == 3 && !defined(__clang__)
-    template<typename U>
-    static char Check(U*, char (*)[sizeof(U)]);
-    template<typename U>
-    static long Check(U*, ...);
+public:
+    // GCC 3 does not support sizeof-based SFINAE for incomplete types.
+    enum { value = 1 };
 #else
     template<typename U>
     static char Check(char (*)[sizeof(U)]);
     template<typename U>
     static long Check(...);
-#endif
 public:
-#if defined(__GNUC__) && __GNUC__ == 3 && !defined(__clang__)
-    enum { value = sizeof(Check(static_cast<T*>(NULL), 0)) == sizeof(char) };
-#else
     enum { value = sizeof(Check<T>(0)) == sizeof(char) };
 #endif
 };
