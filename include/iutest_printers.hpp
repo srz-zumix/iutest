@@ -96,11 +96,11 @@ template<typename T>
 class IsComplete
 {
     template<typename U>
-    static char Check(U*, char (*)[sizeof(U)]);
+    static char Check(char (*)[sizeof(U)]);
     template<typename U>
-    static long Check(U*, ...);
+    static long Check(...);
 public:
-    enum { value = sizeof(Check(static_cast<T*>(NULL), 0)) == sizeof(char) };
+    enum { value = sizeof(Check<T>(0)) == sizeof(char) };
 };
 
 struct RawBytesPrinter
