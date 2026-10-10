@@ -35,12 +35,12 @@ struct Error
 
 struct ThrowError
 {
-    void operator()() const { throw Error(7); }
+    IUTEST_ATTRIBUTE_NORETURN_ void operator()() const { throw Error(7); }
 };
 
 struct ThrowOther
 {
-    void operator()() const { throw std::runtime_error("other"); }
+    IUTEST_ATTRIBUTE_NORETURN_ void operator()() const { throw std::runtime_error("other"); }
 };
 
 struct NoThrow
