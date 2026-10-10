@@ -235,7 +235,6 @@ jobs:
   configcheck:
     name: configcheck ${{ matrix.target }}
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch'
     strategy:
       fail-fast: false
       matrix:
