@@ -44,6 +44,7 @@ IUTEST_F(LocationFixture, Fixture)
     CheckLocation(kFixtureLine);
 }
 
+#if IUTEST_HAS_PARAM_TEST
 class LocationParam : public ::iutest::TestWithParam<int> {};
 
 enum { kParamLine = __LINE__ + 1 };
@@ -52,6 +53,7 @@ IUTEST_P(LocationParam, Parameterized)
     CheckLocation(kParamLine);
 }
 IUTEST_INSTANTIATE_TEST_SUITE_P(Instance, LocationParam, ::iutest::Values(1, 2));
+#endif
 
 #if IUTEST_HAS_TYPED_TEST
 template<typename T>
