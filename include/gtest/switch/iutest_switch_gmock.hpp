@@ -288,6 +288,10 @@ namespace matchers
     using ::testing::Property;
 
     using ::testing::ResultOf;
+#if GMOCK_VER >= 0x01110000 && IUTEST_HAS_EXCEPTIONS
+    using ::testing::Throws;
+    using ::testing::ThrowsMessage;
+#endif
 #if IUTEST_HAS_MATCHER_DISTANCEFROM
     using ::testing::DistanceFrom;
 #endif
