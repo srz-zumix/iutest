@@ -20,10 +20,14 @@ namespace
 
 void CheckLocation(int line)
 {
+#if !defined(IUTEST_USE_GTEST)
     const ::iutest::TestInfo* info = ::iutest::UnitTest::GetInstance()->current_test_info();
     IUTEST_ASSERT_TRUE(info != NULL);
     IUTEST_EXPECT_STREQ(__FILE__, info->file());
     IUTEST_EXPECT_EQ(line, info->line());
+#else
+    (void)line;
+#endif
 }
 
 enum { kSimpleLine = __LINE__ + 1 };
