@@ -108,6 +108,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/cxx_feature_tests \
 		$(OUTDIR)/disabled_tests \
 		$(OUTDIR)/disabled_listener_tests \
+		$(OUTDIR)/distancefrom_matcher_tests \
 		$(OUTDIR)/empty_testname_tests \
 		$(OUTDIR)/env_var_gtest_tests \
 		$(OUTDIR)/environment_tests \

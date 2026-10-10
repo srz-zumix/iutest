@@ -17,6 +17,10 @@
 
 #if IUTEST_HAS_MATCHERS
 
+#if IUTEST_HAS_MATCHER_DISTANCEFROM
+#include <cmath>
+#endif
+
 #if IUTEST_HAS_CXX11
 #include <memory>
 #endif
@@ -1616,6 +1620,68 @@ private:
     T m_expected;
 };
 
+#if IUTEST_HAS_MATCHER_DISTANCEFROM
+template<typename T, typename M>
+class DistanceFromMatcherBase : public IMatcher
+{
+public:
+    DistanceFromMatcherBase(const T& target, const M& matcher) : m_target(target), m_matcher(matcher) {}
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        iu_global_format_stringstream strm;
+        strm << m_matcher << " away from " << PrintToString(m_target);
+        return strm.str();
+    }
+
+protected:
+    template<typename D>
+    AssertionResult CheckDistance(const D& distance) const
+    {
+        if( CastToMatcher(m_matcher)(distance) )
+        {
+            return AssertionSuccess();
+        }
+        return AssertionFailure() << "which is " << PrintToString(distance)
+            << " away from " << PrintToString(m_target);
+    }
+
+    T m_target;
+    M m_matcher;
+};
+
+template<typename T, typename M>
+class DistanceFromMatcher IUTEST_CXX_FINAL : public DistanceFromMatcherBase<T, M>
+{
+public:
+    DistanceFromMatcher(const T& target, const M& matcher) : DistanceFromMatcherBase<T, M>(target, matcher) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual) const
+    {
+        using ::std::abs;
+        return this->CheckDistance(abs(actual - this->m_target));
+    }
+};
+
+template<typename T, typename F, typename M>
+class DistanceFromFunctionMatcher IUTEST_CXX_FINAL : public DistanceFromMatcherBase<T, M>
+{
+public:
+    DistanceFromFunctionMatcher(const T& target, const F& get_distance, const M& matcher)
+        : DistanceFromMatcherBase<T, M>(target, matcher), m_get_distance(get_distance) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual) const
+    {
+        return this->CheckDistance(m_get_distance(actual, this->m_target));
+    }
+
+private:
+    F m_get_distance;
+};
+#endif
+
 /**
  * @brief   Pointee matcher
 */
@@ -2830,6 +2896,27 @@ detail::ResultOfMatcher<F, T> ResultOf(const F& func, const T& expected)
 {
     return detail::ResultOfMatcher<F, T>(func, expected);
 }
+
+#if IUTEST_HAS_MATCHER_DISTANCEFROM
+template<typename T, typename M>
+detail::DistanceFromMatcher<T, M> DistanceFrom(const T& target, const M& matcher)
+{
+    return detail::DistanceFromMatcher<T, M>(target, matcher);
+}
+
+template<typename T, typename F, typename M>
+detail::DistanceFromFunctionMatcher<T, F, M> DistanceFrom(const T& target, const F& get_distance, const M& matcher)
+{
+    return detail::DistanceFromFunctionMatcher<T, F, M>(target, get_distance, matcher);
+}
+
+template<typename T, typename R, typename A, typename B, typename M>
+detail::DistanceFromFunctionMatcher<T, R (*)(A, B), M> DistanceFrom(
+    const T& target, R (*get_distance)(A, B), const M& matcher)
+{
+    return detail::DistanceFromFunctionMatcher<T, R (*)(A, B), M>(target, get_distance, matcher);
+}
+#endif
 
 /**
  * @brief   Make Pointee matcher
