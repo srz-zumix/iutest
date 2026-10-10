@@ -191,7 +191,7 @@
             IIUT_GETTESTSUITEPATTERNHOLDER(testsuite_, testsuitename_                       \
                     , IUTEST_GET_PACKAGENAME_())->AddTestPattern(&testinfo); return 0;      \
         }                                                                                   \
-        static int dummy_;                                                                  \
+        static int dummy_ IUTEST_ATTRIBUTE_UNUSED_;                                         \
         IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(classname_);                                     \
     };                                                                                      \
     int classname_::dummy_ IUTEST_ATTRIBUTE_UNUSED_  = classname_::AddRegister();           \
@@ -209,7 +209,7 @@
             IIUT_GETTESTSUITEPATTERNHOLDER(testsuite_, testsuitename_                       \
                 , IUTEST_GET_PACKAGENAME_())->AddTestPattern(&testinfo); return 0;          \
         }                                                                                   \
-        static int dummy_;                                                                  \
+        static int dummy_ IUTEST_ATTRIBUTE_UNUSED_;                                         \
         IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(classname_);                                     \
     };                                                                                      \
     int classname_::dummy_ IUTEST_ATTRIBUTE_UNUSED_ = classname_::AddRegister();            \
