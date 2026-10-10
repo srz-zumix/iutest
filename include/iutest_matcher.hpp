@@ -1682,6 +1682,88 @@ private:
 };
 #endif
 
+#if IUTEST_HAS_EXCEPTIONS
+template<typename E>
+class ThrowsMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return "Throws expected exception"; }
+
+    template<typename F>
+    AssertionResult operator ()(const F& actual) const
+    {
+        try
+        {
+            actual();
+        }
+        catch( const E& )
+        {
+            return AssertionSuccess();
+        }
+        catch( ... )
+        {
+            return AssertionFailure() << "threw an exception of a different type";
+        }
+        return AssertionFailure() << "did not throw an exception";
+    }
+};
+
+template<typename E, typename M, bool message>
+class ThrowsMatchingMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    explicit ThrowsMatchingMatcher(const M& matcher) : m_matcher(matcher) {}
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        iu_global_format_stringstream strm;
+        strm << (message ? "ThrowsMessage: " : "Throws: ") << m_matcher;
+        return strm.str();
+    }
+
+    template<typename F>
+    AssertionResult operator ()(const F& actual) const
+    {
+        try
+        {
+            actual();
+        }
+        catch( const E& e )
+        {
+            if( Match(e) )
+            {
+                return AssertionSuccess();
+            }
+            return AssertionFailure() << "threw the expected exception, but its "
+                << (message ? "message" : "value") << " did not match " << WhichIs();
+        }
+        catch( ... )
+        {
+            return AssertionFailure() << "threw an exception of a different type";
+        }
+        return AssertionFailure() << "did not throw an exception";
+    }
+
+private:
+    bool Match(const E& e) const
+    {
+        return MatchImpl(e, iutest_type_traits::bool_constant<message>());
+    }
+
+    bool MatchImpl(const E& e, iutest_type_traits::false_type) const
+    {
+        return static_cast<bool>(CastToMatcher(m_matcher)(e));
+    }
+
+    bool MatchImpl(const E& e, iutest_type_traits::true_type) const
+    {
+        return static_cast<bool>(CastToMatcher(m_matcher)(e.what()));
+    }
+
+    M m_matcher;
+};
+#endif
+
 /**
  * @brief   Pointee matcher
 */
@@ -2915,6 +2997,26 @@ detail::DistanceFromFunctionMatcher<T, R (*)(A, B), M> DistanceFrom(
     const T& target, R (*get_distance)(A, B), const M& matcher)
 {
     return detail::DistanceFromFunctionMatcher<T, R (*)(A, B), M>(target, get_distance, matcher);
+}
+#endif
+
+#if IUTEST_HAS_EXCEPTIONS
+template<typename E>
+detail::ThrowsMatcher<E> Throws()
+{
+    return detail::ThrowsMatcher<E>();
+}
+
+template<typename E, typename M>
+detail::ThrowsMatchingMatcher<E, M, false> Throws(const M& matcher)
+{
+    return detail::ThrowsMatchingMatcher<E, M, false>(matcher);
+}
+
+template<typename E, typename M>
+detail::ThrowsMatchingMatcher<E, M, true> ThrowsMessage(const M& matcher)
+{
+    return detail::ThrowsMatchingMatcher<E, M, true>(matcher);
 }
 #endif
 
