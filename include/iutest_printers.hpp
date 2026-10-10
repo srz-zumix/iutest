@@ -924,9 +924,23 @@ inline void PrintTo(const ::std::span<T, N>& value, iu_ostream* os)
 
 /** @private */
 template<typename T>
-inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintTo(const T& value, iu_ostream* os)
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintTo(const T& value, iu_ostream* os, iutest_type_traits::true_type)
 {
     PrintTo(value, os);
+}
+
+/** @private */
+template<typename T>
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintTo(const T& value, iu_ostream* os, iutest_type_traits::false_type)
+{
+    printer_internal::formatter::RawBytesPrinter::Print(value, os);
+}
+
+/** @private */
+template<typename T>
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintTo(const T& value, iu_ostream* os)
+{
+    UniversalPrintTo(value, os, iutest_type_traits::bool_constant<printer_internal::formatter::IsComplete<T>::value>());
 }
 
 //======================================================================
