@@ -62,8 +62,8 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-    ::iutest::IUTEST_FLAG(output) = "xml:output_non_test_suite_failure.xml";
     IUTEST_INIT(&argc, argv);
+    ::iutest::IUTEST_FLAG(output) = "xml:output_non_test_suite_failure.xml";
     ::iutest::AddGlobalTestEnvironment(new FailingEnvironment());
 
     const char* const path = "output_non_test_suite_failure.xml";
