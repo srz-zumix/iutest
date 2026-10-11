@@ -920,7 +920,7 @@ private:
         else if( !CastToMatcher(m_expected)(*actual) )
         {
             result = false;
-            ar << actual;
+            ar << PrintToString(*actual);
         }
         m_whichIs = ar.GetString();
         return result;
