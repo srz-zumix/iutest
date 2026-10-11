@@ -87,6 +87,17 @@ public:
     virtual ::std::string WhichIs() const = 0;
 };
 
+template<typename T>
+inline const T& MatcherStringValue(const T& value)
+{
+    return value;
+}
+
+inline ::std::string MatcherStringValue(iu_string_view value)
+{
+    return value.empty() ? ::std::string() : ::std::string(value.data(), value.size());
+}
+
 #if !defined(IUTEST_NO_SFINAE)
 template<typename T>
 inline typename detail::enable_if_t< IMatcher::is_matcher<T>, iu_ostream>::type& operator << (iu_ostream& os, const T& m)
@@ -155,10 +166,10 @@ IUTEST_PRAGMA_WARN_POP()
 #define IIUT_DECL_STR_COMPARE_MATCHER(name)  \
     template<typename T>                                                        \
     class IUTEST_PP_CAT(name, Matcher) IUTEST_CXX_FINAL : public IMatcher {     \
-    public: IUTEST_PP_CAT(name, Matcher)(const T& value) : m_expected(value) {} \
+    public: IUTEST_PP_CAT(name, Matcher)(T value) : m_expected(value) {}        \
     template<typename U>AssertionResult operator ()(const U& actual) const {    \
         if IUTEST_COND_LIKELY( internal::IUTEST_PP_CAT(name, Helper)::Compare(  \
-            actual, m_expected) ) { return AssertionSuccess(); }                \
+            MatcherStringValue(actual), m_expected) ) { return AssertionSuccess(); } \
         return AssertionFailure() << WhichIs();                                 \
     }                                                                           \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                         \
@@ -166,7 +177,7 @@ IUTEST_PRAGMA_WARN_POP()
         return strm.str();                                                      \
     }                                                                           \
     private:                                                                    \
-    const T& m_expected;                                                        \
+    T m_expected;                                                               \
     }
 
 IIUT_DECL_STR_COMPARE_MATCHER(StrEq);
@@ -386,7 +397,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        if IUTEST_COND_LIKELY( StartsWith(actual, m_expected) )
+        if IUTEST_COND_LIKELY( StartsWith(MatcherStringValue(actual), m_expected) )
         {
             return AssertionSuccess();
         }
@@ -407,18 +418,15 @@ private:
     }
     static bool StartsWith(const ::std::string& actual, const char* start)
     {
-        const char* p = actual.c_str();
-        return StartsWith(p, start);
+        return actual.compare(0, strlen(start), start) == 0;
     }
     static bool StartsWith(const char* actual, const ::std::string& start)
     {
-        const char* p = start.c_str();
-        return StartsWith(actual, p);
+        return StartsWith(::std::string(actual), start);
     }
     static bool StartsWith(const ::std::string& actual, const ::std::string& start)
     {
-        const char* p = start.c_str();
-        return StartsWith(actual, p);
+        return actual.compare(0, start.size(), start) == 0;
     }
 private:
     T m_expected;
@@ -436,7 +444,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        if IUTEST_COND_LIKELY( HasSubstr(actual, m_expected) )
+        if IUTEST_COND_LIKELY( HasSubstr(MatcherStringValue(actual), m_expected) )
         {
             return AssertionSuccess();
         }
@@ -457,18 +465,15 @@ private:
     }
     static bool HasSubstr(const ::std::string& actual, const char* expected)
     {
-        const char* p = actual.c_str();
-        return HasSubstr(p, expected);
+        return actual.find(expected) != ::std::string::npos;
     }
     static bool HasSubstr(const char* actual, const ::std::string& expected)
     {
-        const char* p = expected.c_str();
-        return HasSubstr(actual, p);
+        return HasSubstr(::std::string(actual), expected);
     }
     static bool HasSubstr(const ::std::string& actual, const ::std::string& expected)
     {
-        const char* p = expected.c_str();
-        return HasSubstr(actual, p);
+        return actual.find(expected) != ::std::string::npos;
     }
 
 private:
@@ -488,7 +493,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        if IUTEST_COND_LIKELY( EndsWith(actual, m_expected) )
+        if IUTEST_COND_LIKELY( EndsWith(MatcherStringValue(actual), m_expected) )
         {
             return AssertionSuccess();
         }
@@ -524,18 +529,16 @@ private:
     }
     static bool EndsWith(const ::std::string& actual, const char* end)
     {
-        const char* p = actual.c_str();
-        return EndsWith(p, end);
+        return EndsWith(actual, ::std::string(end));
     }
     static bool EndsWith(const char* actual, const ::std::string& end)
     {
-        const char* p = end.c_str();
-        return EndsWith(actual, p);
+        return EndsWith(::std::string(actual), end);
     }
     static bool EndsWith(const ::std::string& actual, const ::std::string& end)
     {
-        const char* p = end.c_str();
-        return EndsWith(actual, p);
+        return actual.size() >= end.size()
+            && actual.compare(actual.size() - end.size(), end.size(), end) == 0;
     }
 private:
     T m_expected;
@@ -1968,7 +1971,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        if IUTEST_COND_LIKELY( Regex(actual) )
+        if IUTEST_COND_LIKELY( Regex(MatcherStringValue(actual)) )
         {
             return AssertionSuccess();
         }
@@ -2616,9 +2619,9 @@ inline detail::NanSensitiveFloatingPointNearMatcher<long double> NanSensitiveLon
  * @details argument == expected
 */
 template<typename T>
-detail::StrEqMatcher<T> StrEq(const T& expected)
+detail::StrEqMatcher<const T&> StrEq(const T& expected)
 {
-    return detail::StrEqMatcher<T>(expected);
+    return detail::StrEqMatcher<const T&>(expected);
 }
 
 /**
@@ -2626,9 +2629,9 @@ detail::StrEqMatcher<T> StrEq(const T& expected)
  * @details argument != expected
 */
 template<typename T>
-detail::StrNeMatcher<T> StrNe(const T& expected)
+detail::StrNeMatcher<const T&> StrNe(const T& expected)
 {
-    return detail::StrNeMatcher<T>(expected);
+    return detail::StrNeMatcher<const T&>(expected);
 }
 
 /**
@@ -2636,9 +2639,9 @@ detail::StrNeMatcher<T> StrNe(const T& expected)
  * @details argument == expected (ignore case)
 */
 template<typename T>
-detail::StrCaseEqMatcher<T> StrCaseEq(const T& expected)
+detail::StrCaseEqMatcher<const T&> StrCaseEq(const T& expected)
 {
-    return detail::StrCaseEqMatcher<T>(expected);
+    return detail::StrCaseEqMatcher<const T&>(expected);
 }
 
 /**
@@ -2646,10 +2649,25 @@ detail::StrCaseEqMatcher<T> StrCaseEq(const T& expected)
  * @details argument != expected (ignore case)
 */
 template<typename T>
-detail::StrCaseNeMatcher<T> StrCaseNe(const T& expected)
+detail::StrCaseNeMatcher<const T&> StrCaseNe(const T& expected)
 {
-    return detail::StrCaseNeMatcher<T>(expected);
+    return detail::StrCaseNeMatcher<const T&>(expected);
 }
+
+#define IIUT_DECL_STRING_VIEW_MATCHER(name) \
+    inline detail::IUTEST_PP_CAT(name, Matcher)< ::std::string > name(detail::iu_string_view value) { \
+        return detail::IUTEST_PP_CAT(name, Matcher)< ::std::string >(detail::MatcherStringValue(value)); \
+    }
+
+IIUT_DECL_STRING_VIEW_MATCHER(StrEq)
+IIUT_DECL_STRING_VIEW_MATCHER(StrNe)
+IIUT_DECL_STRING_VIEW_MATCHER(StrCaseEq)
+IIUT_DECL_STRING_VIEW_MATCHER(StrCaseNe)
+IIUT_DECL_STRING_VIEW_MATCHER(StartsWith)
+IIUT_DECL_STRING_VIEW_MATCHER(HasSubstr)
+IIUT_DECL_STRING_VIEW_MATCHER(EndsWith)
+
+#undef IIUT_DECL_STRING_VIEW_MATCHER
 
 /**
  * @brief   Make StartsWith matcher
@@ -3080,6 +3098,14 @@ inline detail::RegexMatcher MatchesRegex(const ::std::string& str)
 {
     return detail::RegexMatcher(detail::iuRegex(str), true);
 }
+inline detail::RegexMatcher MatchesRegex(const char* str)
+{
+    return MatchesRegex(::std::string(str));
+}
+inline detail::RegexMatcher MatchesRegex(detail::iu_string_view str)
+{
+    return MatchesRegex(detail::MatcherStringValue(str));
+}
 
 /**
  * @brief   Make ContainsRegex matcher
@@ -3087,6 +3113,14 @@ inline detail::RegexMatcher MatchesRegex(const ::std::string& str)
 inline detail::RegexMatcher ContainsRegex(const ::std::string& str)
 {
     return detail::RegexMatcher(detail::iuRegex(str), false);
+}
+inline detail::RegexMatcher ContainsRegex(const char* str)
+{
+    return ContainsRegex(::std::string(str));
+}
+inline detail::RegexMatcher ContainsRegex(detail::iu_string_view str)
+{
+    return ContainsRegex(detail::MatcherStringValue(str));
 }
 
 #endif

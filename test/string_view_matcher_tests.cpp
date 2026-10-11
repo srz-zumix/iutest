@@ -43,6 +43,12 @@ IUTEST(StringViewMatcher, StdStringView)
     IUTEST_EXPECT_THAT(bounded, StartsWith("xa"));
     IUTEST_EXPECT_THAT(bounded, HasSubstr("cy"));
     IUTEST_EXPECT_THAT(bounded, EndsWith("cy"));
+    IUTEST_EXPECT_THAT(bounded, Not(StartsWith("xabcy_extra")));
+    IUTEST_EXPECT_THAT(bounded, Not(HasSubstr("extra")));
+    IUTEST_EXPECT_THAT(bounded, Not(EndsWith("extra")));
+#if IUTEST_HAS_MATCHER_REGEX
+    IUTEST_EXPECT_THAT(bounded, Not(ContainsRegex("extra")));
+#endif
 }
 
 IUTEST(StringViewMatcher, OwnsExpectedValue)
@@ -96,6 +102,15 @@ IUTEST(StringViewMatcher, OwnStringView)
     IUTEST_EXPECT_THAT(bounded, StartsWith(::iutest::detail::iu_string_view("a")));
     IUTEST_EXPECT_THAT(bounded, HasSubstr(::iutest::detail::iu_string_view("b")));
     IUTEST_EXPECT_THAT(bounded, EndsWith(::iutest::detail::iu_string_view("c")));
+    IUTEST_EXPECT_THAT(bounded, Not(HasSubstr("extra")));
+    ::std::string source("abc");
+    const ::iutest::detail::StrEqMatcher< ::std::string > eq =
+        StrEq(::iutest::detail::iu_string_view(source));
+    const ::iutest::detail::StartsWithMatcher< ::std::string > starts =
+        StartsWith(::iutest::detail::iu_string_view(source));
+    source[0] = 'z';
+    IUTEST_EXPECT_THAT(bounded, eq);
+    IUTEST_EXPECT_THAT(bounded, starts);
 }
 #endif
 
