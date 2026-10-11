@@ -57,6 +57,7 @@ IUTEST(Fail, TestEscape)
     IUTEST_ASSERT_EQ(2, 3) << "<>&";
 }
 
+enum { kFooBarLine = __LINE__ + 1 };
 IUTEST(Foo, Bar)
 {
     IUTEST_ASSERT_EQ(3, 3);
@@ -130,6 +131,14 @@ int main(int argc, char* argv[])
             )->GetFilePath()) ) << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_EQ(::std::string::npos, FileIO::s_io.find("Fail")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("Foo" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(
+            ::std::string("    <testcase name=\"Bar\" file=\"") + __FILE__ + "\" line=\""
+            + ::iutest::detail::iu_to_string(kFooBarLine) + "\" "))
+            << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_FALSE(::iutest::TestInfo::ValidateTestPropertyName("file"))
+            << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_FALSE(::iutest::TestInfo::ValidateTestPropertyName("line"))
+            << ::iutest::AssertionReturn<int>(1);
 #if !defined(IUTEST_NO_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN)
         IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(
             "  <properties>\n    <property name=\"root key\" value=\"&lt;&amp;&quot;\" />\n  </properties>\n  <testsuite"))

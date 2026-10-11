@@ -37,6 +37,7 @@ jobs:
           prepare: |
             pkg install -y gmake
           run: |
+            trap 'rm -f test/testdata/4gb.bin' EXIT
             gmake --version
             gmake -C test showcxxversion
             gmake -C test showcxxmacros

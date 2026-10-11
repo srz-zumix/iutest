@@ -41,9 +41,14 @@ public:
      * @param [in]  testsuite   = TestSuite 仲介者
      * @param [in]  name        = テスト名
      * @param [in]  factory     = テスト生成器
+     * @param [in]  file        = 定義ファイル
+     * @param [in]  line        = 定義行
     */
-    TestInfo(detail::iuITestSuiteMediator* testsuite, const ::std::string& name, detail::iuFactoryBase* factory)
+    TestInfo(detail::iuITestSuiteMediator* testsuite, const ::std::string& name, detail::iuFactoryBase* factory
+        , const char* file, int line)
         : m_testname(name)
+        , m_file(file)
+        , m_line(line)
         , m_factory(factory)
         , m_testsuite(testsuite)
         , m_should_run(true)
@@ -63,6 +68,10 @@ public:
 #endif
     /** test 名の取得 */
     const   char*   name()              const { return m_testname.c_str(); }
+    /** 定義ファイルの取得 */
+    const   char*   file()              const { return m_file; }
+    /** 定義行の取得 */
+    int             line()              const { return m_line; }
     /** should_run */
     bool            should_run()        const IUTEST_CXX_NOEXCEPT_SPEC { return m_should_run; }
     /** is ran */
@@ -169,7 +178,7 @@ public:
     */
     static bool ValidateTestPropertyName(const ::std::string& name)
     {
-        const char* ban[] = { "name", "status", "time", "classname", "type_param", "value_param" };
+        const char* ban[] = { "name", "status", "time", "classname", "type_param", "value_param", "file", "line" };
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
         return TestProperty::ValidateName(name, ban);
 #else
@@ -245,6 +254,8 @@ private:
     friend class detail::UncaughtScopedTrace;
 
     ::std::string           m_testname;         //!< テスト名
+    const char*             m_file;             //!< 定義ファイル
+    int                     m_line;             //!< 定義行
     ::std::string           m_value_param;      //!< value param string
     TestResult              m_test_result;      //!< テスト結果
     Mediator                m_mediator;         //!< 自身の仲介インスタンス

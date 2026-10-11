@@ -145,6 +145,8 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
 
     file->Printf("    <testcase ");
     OutputXmlAttribute(file, "name", EscapeXmlAttribute(test_info.name()).c_str() );
+    OutputXmlAttribute(file, "file", EscapeXmlAttribute(test_info.file()).c_str());
+    file->Printf("line=\"%d\" ", test_info.line());
 
     {
         const char* type_param = test_info.type_param();
