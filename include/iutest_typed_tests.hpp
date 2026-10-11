@@ -261,7 +261,7 @@
         protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
         template<typename T>void Body();                        \
     }; IIUT_TYPED_TEST_P_ADDTESTNAME(testsuite_, testname_);    \
-    }                                                           \
+    }  /* NOLINT(readability/namespace) */                       \
     template<typename iutest_TypeParam>template<typename T>     \
     void IIUT_TYPED_TEST_P_NAMESPACE_(testsuite_)::testname_<iutest_TypeParam>::Body()
 
