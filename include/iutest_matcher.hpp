@@ -1914,6 +1914,33 @@ private:
 };
 
 /**
+ * @brief   Conditional matcher
+*/
+template<typename T1, typename T2>
+class ConditionalMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    ConditionalMatcher(bool condition, const T1& if_true, const T2& if_false)
+        : m_condition(condition), m_if_true(if_true), m_if_false(if_false) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual)
+    {
+        return m_condition ? CastToMatcher(m_if_true)(actual) : CastToMatcher(m_if_false)(actual);
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        return m_condition ? CastToMatcher(m_if_true).WhichIs() : CastToMatcher(m_if_false).WhichIs();
+    }
+
+private:
+    bool m_condition;
+    T1 m_if_true;
+    T2 m_if_false;
+};
+
+/**
  * @brief   Any matcher
 */
 template<typename T>
@@ -3072,6 +3099,15 @@ template<typename T>
 detail::NotMatcher<T> Not(const T& unexpected)
 {
     return detail::NotMatcher<T>(unexpected);
+}
+
+/**
+ * @brief   Make Conditional matcher
+*/
+template<typename T1, typename T2>
+detail::ConditionalMatcher<T1, T2> Conditional(bool condition, T1 if_true, T2 if_false)
+{
+    return detail::ConditionalMatcher<T1, T2>(condition, if_true, if_false);
 }
 
 /**
