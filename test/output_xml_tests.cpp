@@ -130,6 +130,8 @@ int main(int argc, char* argv[])
                 ::iutest::TestEnv::event_listeners().default_xml_generator()
             )->GetFilePath()) ) << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_EQ(::std::string::npos, FileIO::s_io.find("Fail")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_EQ(::std::string::npos, FileIO::s_io.find("NonTestSuiteFailure"))
+            << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("Foo" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(
             ::std::string("    <testcase name=\"Bar\" file=\"") + __FILE__ + "\" line=\""

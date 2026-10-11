@@ -140,6 +140,8 @@ int main(int argc, char* argv[])
                 )->GetFilePath()) ) << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_EQ(::std::string::npos, FileIO::s_io.find("Fail"))
             << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_EQ(::std::string::npos, FileIO::s_io.find("NonTestSuiteFailure"))
+            << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("Foo" ))
             << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("<skipped type=\"iutest.skip\"" ))

@@ -1,0 +1,79 @@
+﻿//======================================================================
+//-----------------------------------------------------------------------
+/**
+ * @file        output_non_test_suite_failure_tests.cpp
+ * @brief       XML output for failures outside test suites
+ *
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2011-2025, Takazumi Shirayanagi\n
+ * This software is released under the new BSD License,
+ * see LICENSE
+*/
+//-----------------------------------------------------------------------
+//======================================================================
+
+#include "iutest.hpp"
+#include <cstdio>
+#include <fstream>
+#include <sstream>
+
+class FailingEnvironment : public ::iutest::Environment
+{
+    virtual void SetUp() IUTEST_CXX_OVERRIDE
+    {
+        IUTEST_ADD_FAILURE() << "global setup <&";
+    }
+};
+
+IUTEST(NonTestSuiteFailureOutput, Test)
+{
+}
+
+static bool CheckOutput(const char* path)
+{
+    ::std::ifstream file(path);
+    ::std::ostringstream stream;
+    stream << file.rdbuf();
+    const ::std::string xml = stream.str();
+    ::std::remove(path);
+
+#if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01110000
+    if( xml.find("<testsuite name=\"NonTestSuiteFailure\" tests=\"1\" failures=\"1\"")
+            == ::std::string::npos
+        || xml.find("<testcase name=\"\"") == ::std::string::npos
+        || xml.find("<failure message=\"") == ::std::string::npos
+        || xml.find("global setup &lt;&amp;") == ::std::string::npos )
+    {
+        fprintf(stderr, "Missing global setup failure in %s:\n%s\n", path, xml.c_str());
+        return false;
+    }
+#endif
+    return !xml.empty();
+}
+
+#ifdef UNICODE
+int wmain(int argc, wchar_t* argv[])
+#else
+int main(int argc, char* argv[])
+#endif
+{
+    IUTEST_INIT(&argc, argv);
+    ::iutest::AddGlobalTestEnvironment(new FailingEnvironment());
+
+    const char* const path = "output_non_test_suite_failure.xml";
+    ::iutest::IUTEST_FLAG(output) = "xml:output_non_test_suite_failure.xml";
+    if( IUTEST_RUN_ALL_TESTS() == 0 || !CheckOutput(path) )
+    {
+        return 1;
+    }
+
+#if !defined(IUTEST_USE_GTEST)
+    ::iutest::IUTEST_FLAG(output) = "junit:output_non_test_suite_failure.xml";
+    if( IUTEST_RUN_ALL_TESTS() == 0 || !CheckOutput(path) )
+    {
+        return 1;
+    }
+#endif
+    return 0;
+}
