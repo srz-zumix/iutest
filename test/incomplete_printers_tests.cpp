@@ -43,6 +43,7 @@ IUTEST(IncompletePrintersTest, CompleteRawBytes)
 }
 #endif
 
+#if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01060000
 IUTEST(IncompletePrintersTest, CompleteBuiltin)
 {
     IUTEST_EXPECT_STREQ("42", ::iutest::PrintToString(42));
@@ -81,6 +82,7 @@ IUTEST(IncompletePrintersTest, CompleteStreamable)
 {
     IUTEST_EXPECT_STREQ("streamable", ::iutest::PrintToString(complete_printer_test::Streamable()));
 }
+#endif
 
 int main(int argc, char* argv[])
 {
