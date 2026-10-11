@@ -184,7 +184,7 @@
 #define IIUT_TEST_P_I_(classname_, testsuite_, testsuitename_, testname_)                   \
     IIUT_TEST_P_FIXTURE_DECL_(testsuite_)                                                   \
     class classname_ IUTEST_CXX_FINAL : public testsuite_ {                                 \
-        public: classname_() {}                                                             \
+        public: classname_() { (void)dummy_; }                                              \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE;                                 \
         private: static int AddRegister() {                                                 \
             static ::iutest::detail::ParamTestInstance< classname_ > testinfo(testname_, __FILE__, __LINE__); \
@@ -201,7 +201,7 @@
 
 #define IIUT_TEST_P_I_IGNORE_(classname_, testsuite_, testsuitename_, testname_)            \
     class classname_ IUTEST_CXX_FINAL : public testsuite_ {                                 \
-        public: classname_() {}                                                             \
+        public: classname_() { (void)dummy_; }                                              \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
         template<typename T>void Body();                                                    \
         private: static int AddRegister() {                                                 \
