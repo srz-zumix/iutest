@@ -92,15 +92,43 @@ namespace printer_internal
 namespace formatter
 {
 
+template<typename T>
+class IsComplete
+{
+#if defined(__GNUC__) && __GNUC__ == 3 && !defined(__clang__)
+public:
+    // GCC 3 does not support sizeof-based SFINAE for incomplete types.
+    enum { value = 1 };
+#else
+    template<typename U>
+    static char Check(char (*)[sizeof(U)]);
+    template<typename U>
+    static long Check(...);
+public:
+    enum { value = sizeof(Check<T>(0)) == sizeof(char) };
+#endif
+};
+
 struct RawBytesPrinter
 {
     template<typename T>
     static void Print(const T& value, iu_ostream* os)
     {
+        Print(value, os, iutest_type_traits::bool_constant<IsComplete<T>::value>());
+    }
+private:
+    template<typename T>
+    static void Print(const T& value, iu_ostream* os, iutest_type_traits::true_type)
+    {
         const unsigned char* ptr = const_cast<const unsigned char*>(
             reinterpret_cast<const volatile unsigned char*>(&value));
         const size_t size = sizeof(T);
         PrintBytesInObjectTo(ptr, size, os);
+    }
+    template<typename T>
+    static void Print(const T&, iu_ostream* os, iutest_type_traits::false_type)
+    {
+        *os << "(incomplete type)";
     }
 };
 
@@ -147,8 +175,19 @@ public:
     template<typename T>
     static void PrintValue(const T& value, iu_ostream* os)
     {
+        PrintValue(value, os, iutest_type_traits::bool_constant<formatter::IsComplete<T>::value>());
+    }
+private:
+    template<typename T>
+    static void PrintValue(const T& value, iu_ostream* os, iutest_type_traits::true_type)
+    {
         typedef typename formatter::PrinterTypeSelecter<const T&>::type Printer;
         Printer::Print(value, os);
+    }
+    template<typename T>
+    static void PrintValue(const T& value, iu_ostream* os, iutest_type_traits::false_type)
+    {
+        formatter::RawBytesPrinter::Print(value, os);
     }
 };
 
@@ -891,9 +930,23 @@ inline void PrintTo(const ::std::span<T, N>& value, iu_ostream* os)
 
 /** @private */
 template<typename T>
-inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintTo(const T& value, iu_ostream* os)
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintTo(const T& value, iu_ostream* os, iutest_type_traits::true_type)
 {
     PrintTo(value, os);
+}
+
+/** @private */
+template<typename T>
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintTo(const T& value, iu_ostream* os, iutest_type_traits::false_type)
+{
+    printer_internal::formatter::RawBytesPrinter::Print(value, os);
+}
+
+/** @private */
+template<typename T>
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintTo(const T& value, iu_ostream* os)
+{
+    UniversalPrintTo(value, os, iutest_type_traits::bool_constant<printer_internal::formatter::IsComplete<T>::value>());
 }
 
 //======================================================================
