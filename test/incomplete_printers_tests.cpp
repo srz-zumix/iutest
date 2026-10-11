@@ -78,10 +78,12 @@ IUTEST(IncompletePrintersTest, CompleteCustomPrinter)
     IUTEST_EXPECT_STREQ("custom", ::iutest::PrintToString(complete_printer_test::Custom()));
 }
 
+#if defined(IUTEST_USE_GTEST) || !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 IUTEST(IncompletePrintersTest, CompleteStreamable)
 {
     IUTEST_EXPECT_STREQ("streamable", ::iutest::PrintToString(complete_printer_test::Streamable()));
 }
+#endif
 #endif
 
 int main(int argc, char* argv[])
