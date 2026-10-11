@@ -18,6 +18,23 @@
 #include <fstream>
 #include <sstream>
 
+#if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_STRINGSTREAM
+class FileIO IUTEST_CXX_FINAL : public ::iutest::StringStreamFile
+{
+public:
+    static ::std::string s_io;
+
+    virtual void Close() IUTEST_CXX_OVERRIDE
+    {
+        s_io = ss.str();
+    }
+};
+
+::std::string FileIO::s_io;
+
+IUTEST_FILESYSTEM_INSTANTIATE(FileIO);
+#endif
+
 class FailingEnvironment : public ::iutest::Environment
 {
     virtual void SetUp() IUTEST_CXX_OVERRIDE
@@ -32,11 +49,16 @@ IUTEST(NonTestSuiteFailureOutput, Test)
 
 static bool CheckOutput(const char* path, bool junit)
 {
+#if defined(IUTEST_USE_GTEST) || IUTEST_HAS_FOPEN || IUTEST_HAS_STRINGSTREAM
+#if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_STRINGSTREAM
+    const ::std::string xml = FileIO::s_io;
+#else
     ::std::ifstream file(path);
     ::std::ostringstream stream;
     stream << file.rdbuf();
     const ::std::string xml = stream.str();
     ::std::remove(path);
+#endif
 
 #if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01110000
     if( xml.find(junit ? "<testsuites tests=\"2\" failures=\"1\""
@@ -54,6 +76,11 @@ static bool CheckOutput(const char* path, bool junit)
     (void)junit;
 #endif
     return !xml.empty();
+#else
+    (void)path;
+    (void)junit;
+    return true;
+#endif
 }
 
 #ifdef UNICODE
