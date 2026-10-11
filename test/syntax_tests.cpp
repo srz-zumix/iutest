@@ -1036,7 +1036,11 @@ IUTEST(PrintToTest, U16String)
 IUTEST(PrintToTest, U16StringStringView)
 {
     ::std::u16string_view view = u"Hello";
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     IUTEST_SUCCEED() << view;
+#else
+    IUTEST_SUCCEED() << ::iutest::PrintToString(view);
+#endif
 }
 #endif
 
@@ -1052,7 +1056,11 @@ IUTEST(PrintToTest, U32String)
 IUTEST(PrintToTest, U32StringStringView)
 {
     ::std::u32string_view view = U"Hello";
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     IUTEST_SUCCEED() << view;
+#else
+    IUTEST_SUCCEED() << ::iutest::PrintToString(view);
+#endif
 }
 #endif
 #endif
