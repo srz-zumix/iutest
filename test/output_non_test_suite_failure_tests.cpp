@@ -62,19 +62,22 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-    IUTEST_INIT(&argc, argv);
     ::iutest::IUTEST_FLAG(output) = "xml:output_non_test_suite_failure.xml";
+    IUTEST_INIT(&argc, argv);
+#if !defined(IUTEST_USE_GTEST)
+    ::iutest::IUTEST_FLAG(output) = "xml:output_non_test_suite_failure.xml";
+#endif
     ::iutest::AddGlobalTestEnvironment(new FailingEnvironment());
 
-    const char* const path = "output_non_test_suite_failure.xml";
-    if( IUTEST_RUN_ALL_TESTS() == 0 || !CheckOutput(path, false) )
+    const ::std::string path = ::std::string(::iutest::IUTEST_FLAG(output).c_str()).substr(4);
+    if( IUTEST_RUN_ALL_TESTS() == 0 || !CheckOutput(path.c_str(), false) )
     {
         return 1;
     }
 
 #if !defined(IUTEST_USE_GTEST)
     ::iutest::IUTEST_FLAG(output) = "junit:output_non_test_suite_failure.xml";
-    if( IUTEST_RUN_ALL_TESTS() == 0 || !CheckOutput(path, true) )
+    if( IUTEST_RUN_ALL_TESTS() == 0 || !CheckOutput(path.c_str(), true) )
     {
         return 1;
     }
