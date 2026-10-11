@@ -244,34 +244,34 @@ class TestInstance
 public:
     /** コンストラクタ */
     TestInstance(const char* testsuite, const char* name, TestTypeId id
-        , SetUpMethod setup, TearDownMethod teardown)
+        , SetUpMethod setup, TearDownMethod teardown, const char* file=NULL, int line=0)
         : m_mediator(AddTestSuite(testsuite, id, setup, teardown))
-        , m_info(&m_mediator, name, &m_factory)
+        , m_info(&m_mediator, name, &m_factory, file, line)
     {
         UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
     }
     /** コンストラクタ */
     TestInstance(const ::std::string& testsuite, const char* name, TestTypeId id
-        , SetUpMethod setup, TearDownMethod teardown)
+        , SetUpMethod setup, TearDownMethod teardown, const char* file=NULL, int line=0)
         : m_mediator(AddTestSuite(testsuite, id, setup, teardown))
-        , m_info(&m_mediator, name, &m_factory)
+        , m_info(&m_mediator, name, &m_factory, file, line)
     {
         UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
     }
     /** コンストラクタ */
     TestInstance(const char* testsuite, const char* name, const char*  value_params, TestTypeId id
-        , SetUpMethod setup, TearDownMethod teardown)
+        , SetUpMethod setup, TearDownMethod teardown, const char* file=NULL, int line=0)
         : m_mediator(AddTestSuite(testsuite, id, setup, teardown))
-        , m_info(&m_mediator, name, &m_factory)
+        , m_info(&m_mediator, name, &m_factory, file, line)
     {
         m_info.set_value_param(value_params);
         UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
     }
     /** コンストラクタ */
     TestInstance(const ::std::string& testsuite, const char* name, const char*  value_params, TestTypeId id
-        , SetUpMethod setup, TearDownMethod teardown)
+        , SetUpMethod setup, TearDownMethod teardown, const char* file=NULL, int line=0)
         : m_mediator(AddTestSuite(testsuite, id, setup, teardown))
-        , m_info(&m_mediator, name, &m_factory)
+        , m_info(&m_mediator, name, &m_factory, file, line)
     {
         m_info.set_value_param(value_params);
         UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
