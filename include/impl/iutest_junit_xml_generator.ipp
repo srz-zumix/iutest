@@ -26,21 +26,16 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
 IUTEST_IPP_INLINE bool JunitXmlGeneratorListener::IsReportable(const UnitTest& test)
 {
-    const int reportable_test_count = test.reportable_test_count();
-    if( reportable_test_count <= 0 )
-    {
-        return false;
-    }
-    return true;
+    return test.reportable_test_count() > 0 || test.ad_hoc_test_result()->Failed();
 }
 
 IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTest(IFile* file, const UnitTest& test)
 {
     file->Printf("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-    const int reportable_test_count = test.reportable_test_count();
+    const int non_test_suite_failure = test.ad_hoc_test_result()->Failed() ? 1 : 0;
     file->Printf("<testsuites tests=\"%d\" failures=\"%d\" disabled=\"%d\" "
-        , reportable_test_count
-        , test.failed_test_count()
+        , test.reportable_test_count() + non_test_suite_failure
+        , test.failed_test_count() + non_test_suite_failure
         , test.reportable_disabled_test_count()
         );
     file->Printf("errors=\"0\" time=\"%s\" timestamp=\"%s\" "
@@ -52,6 +47,10 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTest(IFile* file, cons
     for( int i=0, count=test.total_test_suite_count(); i < count; ++i )
     {
         OnReportTestSuite(file, *test.GetTestSuite(i));
+    }
+    if( test.ad_hoc_test_result()->Failed() )
+    {
+        OnReportNonTestSuiteFailure(file, test);
     }
     file->Printf("</testsuites>\n");
 }

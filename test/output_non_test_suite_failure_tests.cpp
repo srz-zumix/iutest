@@ -30,7 +30,7 @@ IUTEST(NonTestSuiteFailureOutput, Test)
 {
 }
 
-static bool CheckOutput(const char* path)
+static bool CheckOutput(const char* path, bool junit)
 {
     ::std::ifstream file(path);
     ::std::ostringstream stream;
@@ -39,7 +39,9 @@ static bool CheckOutput(const char* path)
     ::std::remove(path);
 
 #if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01110000
-    if( xml.find("<testsuite name=\"NonTestSuiteFailure\" tests=\"1\" failures=\"1\"")
+    if( xml.find(junit ? "<testsuites tests=\"2\" failures=\"1\""
+                       : "<testsuites tests=\"1\" failures=\"0\"") == ::std::string::npos
+        || xml.find("<testsuite name=\"NonTestSuiteFailure\" tests=\"1\" failures=\"1\"")
             == ::std::string::npos
         || xml.find("<testcase name=\"\"") == ::std::string::npos
         || xml.find("<failure message=\"") == ::std::string::npos
@@ -48,6 +50,8 @@ static bool CheckOutput(const char* path)
         fprintf(stderr, "Missing global setup failure in %s:\n%s\n", path, xml.c_str());
         return false;
     }
+#else
+    (void)junit;
 #endif
     return !xml.empty();
 }
@@ -58,19 +62,19 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
+    ::iutest::IUTEST_FLAG(output) = "xml:output_non_test_suite_failure.xml";
     IUTEST_INIT(&argc, argv);
     ::iutest::AddGlobalTestEnvironment(new FailingEnvironment());
 
     const char* const path = "output_non_test_suite_failure.xml";
-    ::iutest::IUTEST_FLAG(output) = "xml:output_non_test_suite_failure.xml";
-    if( IUTEST_RUN_ALL_TESTS() == 0 || !CheckOutput(path) )
+    if( IUTEST_RUN_ALL_TESTS() == 0 || !CheckOutput(path, false) )
     {
         return 1;
     }
 
 #if !defined(IUTEST_USE_GTEST)
     ::iutest::IUTEST_FLAG(output) = "junit:output_non_test_suite_failure.xml";
-    if( IUTEST_RUN_ALL_TESTS() == 0 || !CheckOutput(path) )
+    if( IUTEST_RUN_ALL_TESTS() == 0 || !CheckOutput(path, true) )
     {
         return 1;
     }

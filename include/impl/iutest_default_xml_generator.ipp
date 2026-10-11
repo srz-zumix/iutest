@@ -98,7 +98,42 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTest(IFile* file, co
     {
         OnReportTestSuite(file, *test.GetTestSuite(i));
     }
+    if( test.ad_hoc_test_result()->Failed() )
+    {
+        OnReportNonTestSuiteFailure(file, test);
+    }
     file->Printf("</testsuites>\n");
+}
+
+IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportNonTestSuiteFailure(IFile* file, const UnitTest& test)
+{
+    const TestResult& result = *test.ad_hoc_test_result();
+    file->Printf("  <testsuite name=\"NonTestSuiteFailure\" tests=\"1\" failures=\"1\" "
+        "disabled=\"0\" skipped=\"0\" errors=\"0\" time=\"%s\" timestamp=\"%s\">\n"
+        , detail::FormatTimeInMillisecAsSecond(result.elapsed_time()).c_str()
+        , detail::FormatTimeInMillisecAsIso8601(test.start_timestamp()).c_str());
+    file->Printf("    <testcase name=\"\" status=\"run\" result=\"completed\" classname=\"\" "
+        "time=\"%s\" timestamp=\"%s\">\n"
+        , detail::FormatTimeInMillisecAsSecond(result.elapsed_time()).c_str()
+        , detail::FormatTimeInMillisecAsIso8601(test.start_timestamp()).c_str());
+    for( int i=0, count=result.total_part_count(); i < count; ++i )
+    {
+        const TestPartResult& part = result.GetTestPartResult(i);
+        if( !part.failed() )
+        {
+            continue;
+        }
+        file->Printf("      <failure ");
+        OutputXmlAttribute(file, "message", EscapeXmlAttribute(part.summary()).c_str());
+        file->Printf("type=\"\">");
+        ::std::string message = detail::FormatCompilerIndependentFileLocation(part.file_name(), part.line_number());
+        message += "\n";
+        message += detail::MultiByteStringToUTF8(part.summary());
+        OutputXmlCDataSection(file, message.c_str());
+        file->Printf("\n      </failure>\n");
+    }
+    file->Printf("    </testcase>\n");
+    file->Printf("  </testsuite>\n");
 }
 
 IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestSuite(IFile* file, const TestSuite& test_suite)
