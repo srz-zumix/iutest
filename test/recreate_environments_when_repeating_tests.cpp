@@ -84,8 +84,8 @@ int main(int argc, char* argv[])
     ::iutest::AddGlobalTestEnvironment(new CountingEnvironment);
 #endif
     ::iutest::UnitTest::GetInstance()->listeners().Append(new StopAfterThreeIterations);
-    IUTEST_RUN_ALL_TESTS();
-    return 1;
+    const int result = IUTEST_RUN_ALL_TESTS();
+    return result == 0 ? 1 : result;
 #else
     return 0;
 #endif
