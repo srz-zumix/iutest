@@ -163,6 +163,7 @@ IUTEST_IPP_INLINE int UnitTest::RunImpl()
 {
     m_repeat_counter = 0;
     int repeat = TestEnv::get_repeat_count();
+    const bool recreate_environments = repeat < 0 || IUTEST_FLAG(recreate_environments_when_repeating);
     bool result = true;
     if( repeat != 0 )
     {
@@ -174,7 +175,7 @@ IUTEST_IPP_INLINE int UnitTest::RunImpl()
             SetUpTestIteration();
 
             listeners().OnTestIterationStart(*this, m_repeat_counter);
-            if( !RunOnce() )
+            if( !RunOnce(recreate_environments || m_repeat_counter == 0, recreate_environments || repeat == 1) )
             {
                 result = false;
             }
@@ -219,7 +220,7 @@ IUTEST_IPP_INLINE int UnitTest::RunImpl()
     return 0;
 }
 
-IUTEST_IPP_INLINE bool UnitTest::RunOnce()
+IUTEST_IPP_INLINE bool UnitTest::RunOnce(bool set_up_environment, bool tear_down_environment)
 {
     m_elapsedmsec = 0;
 
@@ -243,10 +244,17 @@ IUTEST_IPP_INLINE bool UnitTest::RunOnce()
     }
 
     // グローバル環境セット
-    EnvironmentSetUp();
+    if( set_up_environment )
+    {
+        EnvironmentSetUp();
+    }
 
     if( m_ad_hoc_testresult.HasFatalFailure() )
     {
+        if( tear_down_environment || TestFlag::IsEnableFlag(TestFlag::FAIL_FAST) )
+        {
+            EnvironmentTearDown();
+        }
         return false;
     }
 
@@ -267,7 +275,10 @@ IUTEST_IPP_INLINE bool UnitTest::RunOnce()
     }
 
     // グローバル環境セット
-    EnvironmentTearDown();
+    if( tear_down_environment || (TestFlag::IsEnableFlag(TestFlag::FAIL_FAST) && !Passed()) )
+    {
+        EnvironmentTearDown();
+    }
 
     return Passed();
 }

@@ -161,6 +161,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/progress_tests \
 		$(OUTDIR)/quiet_result_printer_tests \
 		$(OUTDIR)/random_seed_tests \
+		$(OUTDIR)/recreate_environments_when_repeating_tests \
 		$(OUTDIR)/record_property_tests \
 		$(OUTDIR)/resultof_matcher_tests \
 		$(OUTDIR)/repeat_tests \

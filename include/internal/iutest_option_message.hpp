@@ -80,6 +80,8 @@ inline void iuOptionMessage::ShowHelp()
         "    --iutest_repeat=<count>\n"
         "            : Set the number of repetitions of the test.\n"
         "              use a negative count to repeat forever.\n"
+        "    --iutest_recreate_environments_when_repeating[=0|1]\n"
+        "            : Set up and tear down global environments on every repetition (default: 1).\n"
 #if IUTEST_HAS_STREAM_RESULT
         "    --iutest_stream_result_to=<host:port>\n"
         "                                     : Set stream test results server.\n"

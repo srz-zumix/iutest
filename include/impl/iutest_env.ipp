@@ -204,6 +204,10 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
     {
         return ParseYesNoFlagCommandLine(str, TestFlag::FAIL_FAST, 1);
     }
+    if( detail::IsStringForwardMatching(str, "recreate_environments_when_repeating") )
+    {
+        return ParseYesNoFlagCommandLine(str, TestFlag::RECREATE_ENVIRONMENTS_WHEN_REPEATING, 1);
+    }
     if( detail::IsStringForwardMatching(str, "fail_if_no_test_linked") )
     {
         return ParseYesNoFlagCommandLine(str, TestFlag::FAIL_IF_NO_TEST_LINKED, 1);
@@ -325,6 +329,12 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnvironmentVariable()
         {
             TestFlag::SetFlag(TestFlag::FAIL_FAST
                 , var ? TestFlag::MASK : ~(TestFlag::FAIL_FAST) );
+        }
+        if( detail::GetEnvironmentInt("IUTEST_RECREATE_ENVIRONMENTS_WHEN_REPEATING", var)
+        ||  detail::GetEnvironmentInt("GTEST_RECREATE_ENVIRONMENTS_WHEN_REPEATING", var) )
+        {
+            TestFlag::SetFlag(TestFlag::RECREATE_ENVIRONMENTS_WHEN_REPEATING
+                , var ? TestFlag::MASK : ~(TestFlag::RECREATE_ENVIRONMENTS_WHEN_REPEATING) );
         }
         if( detail::GetEnvironmentInt("IUTEST_FAIL_IF_NO_TEST_LINKED", var)
         ||  detail::GetEnvironmentInt("GTEST_FAIL_IF_NO_TEST_LINKED", var) )

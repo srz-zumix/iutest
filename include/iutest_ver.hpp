@@ -84,6 +84,7 @@ modification, are permitted provided that the following conditions are met: \n
    <tr><td>--iutest_catch_exceptions         </td><td>&lt;yes|no&gt;</td><td>Catch exceptions enable.</td></tr>
    <tr><td>--iutest_print_time               </td><td>&lt;yes|no&gt;</td><td>Setting the display of elapsed time.</td></tr>
    <tr><td>--iutest_repeat                   </td><td>&lt;count&gt;</td><td>Set the number of repetitions of the test. use a negative count to repeat forever.</td></tr>
+   <tr><td>--iutest_recreate_environments_when_repeating</td><td>[0|1]</td><td>Set up and tear down global environments on every repetition (default: 1).</td></tr>
    <tr><td>--iutest_stream_result_to         </td><td>&lt;host:port&gt;</td><td>Set stream test results server.</td></tr>
    <tr><td>--iutest_file_location            </td><td>&lt;auto|vs|gcc&gt;</td><td>Format file location messages.</td></tr>
    <tr><td>--iutest_default_package_name     </td><td>[name]</td><td>Set default root package name.</td></tr>
