@@ -228,6 +228,10 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
     {
         return ParseYesNoFlagCommandLine(str, TestFlag::PRINT_TIME, -1);
     }
+    if( detail::IsStringForwardMatching(str, "brief") )
+    {
+        return ParseYesNoFlagCommandLine(str, TestFlag::BRIEF, 1);
+    }
     if( detail::IsStringForwardMatching(str, "repeat") )
     {
         const char* opt = ParseOptionSettingStr(str);
@@ -354,6 +358,12 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnvironmentVariable()
         {
             TestFlag::SetFlag(TestFlag::PRINT_TIME
                 , var ? TestFlag::MASK : ~(TestFlag::PRINT_TIME) );
+        }
+        if( detail::GetEnvironmentInt("IUTEST_BRIEF", var)
+        ||  detail::GetEnvironmentInt("GTEST_BRIEF", var) )
+        {
+            TestFlag::SetFlag(TestFlag::BRIEF
+                , var ? TestFlag::MASK : ~(TestFlag::BRIEF) );
         }
         if( detail::GetEnvironmentInt("IUTEST_REPEAT", var)
         ||  detail::GetEnvironmentInt("GTEST_REPEAT", var) )

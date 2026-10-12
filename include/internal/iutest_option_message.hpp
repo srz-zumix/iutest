@@ -73,6 +73,7 @@ inline void iuOptionMessage::ShowHelp()
         "    --iutest_throw_on_failure[=0|1]  : When that failed to throw.\n"
         "    --iutest_catch_exceptions=<0|1>  : Catch exceptions enable.\n"
         "    --iutest_print_time=<0|1>        : Setting the display of elapsed time.\n"
+        "    --iutest_brief[=0|1]             : Print failures and summary only.\n"
         "    --iutest_default_package_name=<name>\n"
         "            : Set default root package name.\n"
         "    --iutest_output=<xml|junit>[:path]\n"

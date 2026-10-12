@@ -41,6 +41,7 @@
  *          catch_exceptions_global (bool)\n
  *          random_seed (unsigned int)\n
  *          print_time (bool)\n
+ *          brief (bool)\n
  *          color (string)\n
  *          filter (string)\n
  *          flagfile (string)\n
@@ -158,6 +159,7 @@ public:
         CONSOLE_COLOR_ANSI      = 0x00000400,   //!< エスケープシーケンスで出力
 
         PRINT_TIME              = 0x00001000,   //!< 経過時間の出力
+        BRIEF                   = 0x00008000,   //!< 失敗とまとめのみ出力
         FILELOCATION_STYLE_MSVC = 0x00002000,   //!< ファイル/行出力スタイルを Visual Studio スタイルにする
         VERBOSE                 = 0x00004000,   //!< verbose
 
@@ -258,6 +260,7 @@ public:
     typedef TestFlag::Fragment<TestFlag::THROW_ON_FAILURE>      throw_on_failure;
     typedef TestFlag::Fragment<TestFlag::WARNING_INTO_ERROR>    warning_into_error;
     typedef TestFlag::Fragment<TestFlag::PRINT_TIME>            print_time;
+    typedef TestFlag::Fragment<TestFlag::BRIEF>                 brief;
     typedef TestFlag::Fragment<TestFlag::SHOW_TESTS_LIST>       list_tests;
     typedef TestFlag::Fragment<TestFlag::SHOW_TESTS_LIST_WITH_WHERE> list_tests_with_where;
 
