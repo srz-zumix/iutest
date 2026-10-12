@@ -659,6 +659,53 @@ T& CastToMatcher(T& matcher)
 
 
 /**
+ * @brief   Contains matcher with a match count
+*/
+template<typename T, typename N>
+class ContainsTimesMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    ContainsTimesMatcher(const T& expected, const N& times) : m_expected(expected), m_times(times) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual)
+    {
+        IUTEST_USING_BEGIN_END();
+        const size_t count = Count(begin(actual), end(actual));
+        if( CastToMatcher(m_times)(count) )
+        {
+            return AssertionSuccess();
+        }
+        return AssertionFailure() << WhichIs() << ", matched " << count << " times";
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        iu_global_format_stringstream strm;
+        strm << "Contains: " << m_expected << ", Times: " << m_times;
+        return strm.str();
+    }
+
+private:
+    template<typename Ite>
+    size_t Count(Ite begin, Ite end)
+    {
+        size_t count = 0;
+        for( Ite it = begin; it != end; ++it )
+        {
+            if( CastToMatcher(m_expected)(*it) )
+            {
+                ++count;
+            }
+        }
+        return count;
+    }
+
+    T m_expected;
+    N m_times;
+};
+
+/**
  * @brief   Contains matcher
 */
 template<typename T>
@@ -666,6 +713,12 @@ class ContainsMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     explicit ContainsMatcher(const T& expected) : m_expected(expected) {}
+
+    template<typename N>
+    ContainsTimesMatcher<T, N> Times(const N& times) const
+    {
+        return ContainsTimesMatcher<T, N>(m_expected, times);
+    }
 
 public:
     template<typename U>

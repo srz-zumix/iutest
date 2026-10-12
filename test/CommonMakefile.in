@@ -99,6 +99,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/assertion_return_tests \
 		$(OUTDIR)/assume_tests \
 		$(OUTDIR)/base64_matcher_tests \
+		$(OUTDIR)/contains_times_matcher_tests \
 		$(OUTDIR)/break_on_failure_nobreak_tests \
 		$(OUTDIR)/catch_exceptions_tests \
 		$(OUTDIR)/charcode_tests \
