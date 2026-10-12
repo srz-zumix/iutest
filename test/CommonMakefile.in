@@ -140,6 +140,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/list_test_tests \
 		$(OUTDIR)/listener_tests \
 		$(OUTDIR)/matcher_tests \
+		$(OUTDIR)/gtest_style_matcher_tests \
 		$(OUTDIR)/string_view_matcher_tests \
 		$(OUTDIR)/throws_matcher_tests \
 		$(OUTDIR)/address_matcher_tests \
