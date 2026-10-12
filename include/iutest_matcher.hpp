@@ -1633,6 +1633,81 @@ private:
     bool m_has_description;
 };
 
+inline int Base64Digit(char c)
+{
+    if( c >= 'A' && c <= 'Z' ) return c - 'A';
+    if( c >= 'a' && c <= 'z' ) return c - 'a' + 26;
+    if( c >= '0' && c <= '9' ) return c - '0' + 52;
+    if( c == '+' || c == '-' ) return 62;
+    if( c == '/' || c == '_' ) return 63;
+    return -1;
+}
+
+inline bool Base64Unescape(const ::std::string& encoded, ::std::string* decoded)
+{
+    decoded->clear();
+    const ::std::string::size_type size = encoded.size();
+    ::std::string::size_type end = size;
+    while( end > 0 && encoded[end - 1] == '=' ) --end;
+    const ::std::string::size_type padding = size - end;
+    const ::std::string::size_type remainder = end % 4;
+    if( padding > 2 || remainder == 1 ||
+        (padding != 0 && (size % 4 != 0 || padding + remainder != 4)) )
+    {
+        return false;
+    }
+
+    unsigned int bits = 0;
+    int bit_count = 0;
+    for( ::std::string::size_type i = 0; i < end; ++i )
+    {
+        const int digit = Base64Digit(encoded[i]);
+        if( digit < 0 ) return false;
+        bits = (bits << 6) | static_cast<unsigned int>(digit);
+        bit_count += 6;
+        if( bit_count >= 8 )
+        {
+            bit_count -= 8;
+            decoded->push_back(static_cast<char>(bits >> bit_count));
+            bits &= (1u << bit_count) - 1;
+        }
+    }
+    return bits == 0;
+}
+
+/**
+ * @brief   WhenBase64Unescaped matcher
+*/
+template<typename T>
+class WhenBase64UnescapedMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    explicit WhenBase64UnescapedMatcher(const T& expected) : m_expected(expected) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual)
+    {
+        ::std::string decoded;
+        if( !Base64Unescape(MatcherStringValue(actual), &decoded) )
+        {
+            return AssertionFailure() << "invalid base64";
+        }
+        if( CastToMatcher(m_expected)(decoded) ) return AssertionSuccess();
+        return AssertionFailure() << "decoded to " << ::iutest::PrintToString(decoded)
+                                  << ", which does not match " << WhichIs();
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        iu_global_format_stringstream strm;
+        strm << "WhenBase64Unescaped: " << m_expected;
+        return strm.str();
+    }
+
+private:
+    T m_expected;
+};
+
 #if IUTEST_HAS_MATCHER_DISTANCEFROM
 template<typename T, typename M>
 class DistanceFromMatcherBase : public IMatcher
@@ -2697,6 +2772,16 @@ template<typename T>
 detail::HasSubstrMatcher<const T&> HasSubstr(const T& str)
 {
     return detail::HasSubstrMatcher<const T&>(str);
+}
+
+/**
+ * @brief   Make WhenBase64Unescaped matcher
+ * @details argument を base64 デコードして expected にマッチする
+*/
+template<typename T>
+detail::WhenBase64UnescapedMatcher<T> WhenBase64Unescaped(const T& expected)
+{
+    return detail::WhenBase64UnescapedMatcher<T>(expected);
 }
 
 /**
