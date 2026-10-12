@@ -24,6 +24,9 @@ int main(int argc, char* argv[])
 #endif
 {
     IUTEST_INIT(&argc, argv);
+#if defined(DISABLE_FALSE_POSITIVE_XML)
+    ::iuutil::ReleaseDefaultXmlGenerator();
+#endif
 
     IUTEST_EXPECT_EQ(0, 1);
 
