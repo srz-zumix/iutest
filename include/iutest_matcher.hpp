@@ -3204,8 +3204,10 @@ detail::NotMatcher<T> Not(const T& unexpected)
 
 /**
  * @brief   Make Conditional matcher
+ * @note    Pass by value to decay arrays (including string literals) to pointers.
 */
 template<typename T1, typename T2>
+// @infer-ignore PULSE_CONST_REFABLE
 detail::ConditionalMatcher<T1, T2> Conditional(bool condition, T1 if_true, T2 if_false)
 {
     return detail::ConditionalMatcher<T1, T2>(condition, if_true, if_false);
