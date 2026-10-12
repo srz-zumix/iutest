@@ -97,6 +97,7 @@ private:
     virtual void FileClose();
 
 protected:
+    static void OnReportNonTestSuiteFailure(IFile* file, const UnitTest& test);
     static void OutputXmlCDataSection(IFile* file, const char* data);
     static void OutputXmlAttribute(IFile* file, const char* name, const char* value);
 
