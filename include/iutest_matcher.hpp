@@ -1591,7 +1591,10 @@ template<typename F, typename T>
 class ResultOfMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
-    ResultOfMatcher(F& func, const T& expected) : m_func(func), m_expected(expected) {}
+    ResultOfMatcher(F& func, const T& expected)
+        : m_func(func), m_expected(expected), m_description(), m_has_description(false) {}
+    ResultOfMatcher(const ::std::string& description, F& func, const T& expected)
+        : m_func(func), m_expected(expected), m_description(description), m_has_description(true) {}
 
 public:
     template<typename U>
@@ -1608,7 +1611,12 @@ public:
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
-        strm << "Result of: " << m_expected;
+        strm << "Result of: ";
+        if( m_has_description )
+        {
+            strm << m_description << " ";
+        }
+        strm << m_expected;
         //strm << "Result of " << detail::GetTypeNameProxy<F>::GetTypeName() << "(): " << m_expected;
         return strm.str();
     }
@@ -1621,6 +1629,8 @@ private:
 private:
     F& m_func;
     T m_expected;
+    ::std::string m_description;
+    bool m_has_description;
 };
 
 #if IUTEST_HAS_MATCHER_DISTANCEFROM
@@ -3022,6 +3032,12 @@ template<typename F, typename T>
 detail::ResultOfMatcher<F, T> ResultOf(const F& func, const T& expected)
 {
     return detail::ResultOfMatcher<F, T>(func, expected);
+}
+
+template<typename F, typename T>
+detail::ResultOfMatcher<F, T> ResultOf(const ::std::string& description, const F& func, const T& expected)
+{
+    return detail::ResultOfMatcher<F, T>(description, func, expected);
 }
 
 #if IUTEST_HAS_MATCHER_DISTANCEFROM
