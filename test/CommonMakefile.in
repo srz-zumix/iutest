@@ -193,6 +193,7 @@ TARGETS_IUTEST_ONLY = \
 		$(OUTDIR)/debug_tests \
 		$(OUTDIR)/default_main_tests \
 		$(OUTDIR)/default_printer_listener_tests \
+		$(OUTDIR)/brief_tests \
 		$(OUTDIR)/env_var_tests \
 		$(OUTDIR)/exit_tests \
 		$(OUTDIR)/feature_spec_tests \

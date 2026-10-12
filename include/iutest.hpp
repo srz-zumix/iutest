@@ -1998,6 +1998,15 @@ public:
         }
     }
 
+    void SetUpBriefResultPrinter()
+    {
+        if( TestFlag::IsEnableFlag(TestFlag::BRIEF)
+            && TestEnv::event_listeners().default_result_printer() != NULL )
+        {
+            TestEnv::event_listeners().set_default_result_printer(new BriefUnitTestResultPrinter());
+        }
+    }
+
 private:
     void SetUpDefaultListener()
     {
@@ -2019,6 +2028,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, T argv)
     UnitTestSource::GetInstance().Initialize();
     TestEnv::ParseCommandLine(pargc, argv);
     TestEnv::LoadFlagFile();
+    UnitTestSource::GetInstance().SetUpBriefResultPrinter();
     UnitTestSource::GetInstance().SetUpDefaultXmlListener();
 }
 
@@ -2046,6 +2056,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(::std::vector< ::std::basi
     UnitTestSource::GetInstance().Initialize();
     TestEnv::ParseCommandLine(argv);
     TestEnv::LoadFlagFile();
+    UnitTestSource::GetInstance().SetUpBriefResultPrinter();
     UnitTestSource::GetInstance().SetUpDefaultXmlListener();
 }
 
