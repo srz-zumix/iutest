@@ -39,7 +39,7 @@
  * @private
  * @{
 */
-#if IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
+#if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
 #define IIUT_MATCHER_ASSERTION_(actual, matcher) ::iutest::detail::MatcherAssertion(actual, matcher)
 #else
 #define IIUT_MATCHER_ASSERTION_(actual, matcher) matcher(actual)
@@ -96,7 +96,7 @@ public:
     virtual ::std::string WhichIs() const = 0;
 };
 
-#if IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
+#if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
 template<typename M, typename U>
 struct is_gtest_matcher
 {
