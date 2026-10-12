@@ -113,7 +113,7 @@ IUTEST(PrintToTest, Int128)
     IUTEST_ASSUME_EQ(16u, sizeof(i128_t));
     i128_t i128 = ::iutest::detail::numeric_min< ::iutest::internal::TypeWithSize<8>::Int >(); // -9223372036854775808
     i128 -= 1;
-    LogChecker ck("0xFFFFFFFFFFFFFFFF7FFFFFFFFFFFFFFF");
+    LogChecker ck("-9223372036854775809");
     IUTEST_PRINTTOSTRING_EQ(ck, i128);
     IUTEST_STREAMOUT_CHECK(i128);
 }
@@ -124,7 +124,7 @@ IUTEST(PrintToTest, UInt128)
     IUTEST_ASSUME_EQ(16u, sizeof(i128_t));
     i128_t i128 = ::iutest::detail::numeric_max< ::iutest::internal::TypeWithSize<8>::UInt >(); // 18446744073709551615;
     i128 += 1;
-    LogChecker ck("0x00000000000000010000000000000000");
+    LogChecker ck("18446744073709551616");
     IUTEST_PRINTTOSTRING_EQ(ck, i128);
     IUTEST_STREAMOUT_CHECK(i128);
 }
