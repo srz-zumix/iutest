@@ -95,7 +95,9 @@ list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../)
 list(APPEND CMAKE_MODULE_PATH ${IUTEST_ROOT_DIR}/cmake)
 list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../cmake)
 
+set(IUTEST_BUILDING_LIBRARY TRUE)
 find_package(IUTEST REQUIRED)
+unset(IUTEST_BUILDING_LIBRARY)
 
 if (COMMAND set_up_hermetic_build)
   set_up_hermetic_build()
@@ -130,6 +132,15 @@ endif()
 #
 cxx_library(iutest "${cxx_strict}" ${IUTEST_ROOT_DIR}/src/iutest_all.cpp)
 cxx_library(iutest_main "${cxx_strict}" ${IUTEST_ROOT_DIR}/src/iutest_main.cpp)
+add_library(iutest::iutest ALIAS iutest)
+add_library(iutest::iutest_main ALIAS iutest_main)
+add_library(iutest_headers INTERFACE)
+add_library(iutest::headers ALIAS iutest_headers)
+set_target_properties(iutest_headers PROPERTIES EXPORT_NAME headers)
+target_include_directories(iutest_headers INTERFACE
+  $<BUILD_INTERFACE:${IUTEST_ROOT_DIR}/include>
+  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/iutest>
+)
 
 target_include_directories(iutest PUBLIC
   $<BUILD_INTERFACE:${IUTEST_ROOT_DIR}/include>
@@ -525,7 +536,7 @@ if (build_tests)
   file(COPY ${IUTEST_ROOT_DIR}/test/testdata DESTINATION .)
 endif()
 
-install(TARGETS iutest iutest_main
+install(TARGETS iutest iutest_main iutest_headers
   EXPORT iutest-export
   ARCHIVE   DESTINATION ${CMAKE_INSTALL_LIBDIR}
   LIBRARY   DESTINATION ${CMAKE_INSTALL_LIBDIR}

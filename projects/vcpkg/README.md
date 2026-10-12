@@ -1,7 +1,8 @@
 # vcpkg port for iutest
 
 `ports/iutest` is a vcpkg port for iutest.
-Tests and samples are not built, and a static library (`iutest::iutest`, `iutest::iutest_main`) is built for both debug and release.
+Tests and samples are not built. `iutest::headers` is header-only; the static libraries
+`iutest::iutest` and `iutest::iutest_main` are built for both debug and release.
 
 ## Use as an overlay port
 
@@ -14,6 +15,9 @@ vcpkg does not track changes of the local source tree, so use `--no-binarycachin
 
 ```cmake
 find_package(iutest CONFIG REQUIRED)
+# Header-only (provide your own main or define IUTEST_USE_MAIN)
+target_link_libraries(main PRIVATE iutest::headers)
+# Or link the compiled library
 target_link_libraries(main PRIVATE iutest::iutest)
 # or, to use the main() provided by iutest
 target_link_libraries(main PRIVATE iutest::iutest_main)

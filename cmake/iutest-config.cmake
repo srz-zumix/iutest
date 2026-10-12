@@ -15,6 +15,10 @@
 #
 #  IUTEST_FOUND             System has iutest, include dirs found
 #  IUTEST_INCLUDE_DIR       The iutest include directories.
+#
+# Targets provided when using this source-tree module:
+#  iutest::headers          Header-only iutest
+#  iutest::iutest           Legacy header-only target (use iutest::headers instead)
 
 find_path(IUTEST_ROOT_DIR
         NAMES include/iutest.hpp
@@ -34,9 +38,17 @@ find_package_handle_standard_args(IUTEST DEFAULT_MSG
     IUTEST_INCLUDE_DIR
 )
 
-if (IUTEST_FOUND AND NOT TARGET iutest::iutest)
-  add_library(iutest::iutest INTERFACE IMPORTED)
-  set_target_properties(iutest::iutest PROPERTIES
-    INTERFACE_INCLUDE_DIRECTORIES "${IUTEST_INCLUDE_DIR}"
-  )
+if (IUTEST_FOUND AND NOT IUTEST_BUILDING_LIBRARY)
+  if (NOT TARGET iutest::headers)
+    add_library(iutest::headers INTERFACE IMPORTED)
+    set_target_properties(iutest::headers PROPERTIES
+      INTERFACE_INCLUDE_DIRECTORIES "${IUTEST_INCLUDE_DIR}"
+    )
+  endif()
+  if (NOT TARGET iutest::iutest)
+    add_library(iutest::iutest INTERFACE IMPORTED)
+    set_target_properties(iutest::iutest PROPERTIES
+      INTERFACE_LINK_LIBRARIES iutest::headers
+    )
+  endif()
 endif()
