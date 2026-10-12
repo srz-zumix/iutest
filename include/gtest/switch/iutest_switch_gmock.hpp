@@ -283,6 +283,9 @@ namespace matchers
     using ::testing::HasSubstr;
     using ::testing::StartsWith;
     using ::testing::EndsWith;
+#if GMOCK_VER >= 0x01120000
+    using ::testing::WhenBase64Unescaped;
+#endif
 
     using ::testing::Contains;
     using ::testing::ContainerEq;
