@@ -572,13 +572,39 @@ inline void PrintTo(const ::std::pair<T1, T2>& value, iu_ostream* os)
 #endif
 
 #if IUTEST_HAS_INT128
-inline void PrintTo(detail::type_fit_t<16>::Int v, iu_ostream* os)
+inline void PrintTo(detail::type_fit_t<16>::UInt value, iu_ostream* os)
 {
-    *os << "0x" << ToHexString(v);
+    typedef detail::type_fit_t<16>::UInt UInt128;
+    typedef detail::type_fit_t<8>::UInt UInt64;
+    char digits[40];
+    char* end = digits + sizeof(digits);
+    *--end = '\0';
+    do
+    {
+        UInt128 quotient = 0;
+        UInt64 remainder = 0;
+        for( int shift = 96; shift >= 0; shift -= 32 )
+        {
+            const UInt64 chunk = static_cast<UInt64>(value >> shift) & 0xFFFFFFFFu;
+            const UInt64 current = (remainder << 32) | chunk;
+            quotient |= static_cast<UInt128>(current / 10) << shift;
+            remainder = current % 10;
+        }
+        *--end = static_cast<char>('0' + remainder);
+        value = quotient;
+    } while( value != 0 );
+    *os << end;
 }
-inline void PrintTo(detail::type_fit_t<16>::UInt v, iu_ostream* os)
+inline void PrintTo(detail::type_fit_t<16>::Int value, iu_ostream* os)
 {
-    *os << "0x" << ToHexString(v);
+    typedef detail::type_fit_t<16>::UInt UInt128;
+    UInt128 magnitude = static_cast<UInt128>(value);
+    if( value < 0 )
+    {
+        *os << '-';
+        magnitude = -magnitude;
+    }
+    PrintTo(magnitude, os);
 }
 #endif
 

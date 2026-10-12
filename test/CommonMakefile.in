@@ -133,6 +133,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/help_tests \
 		$(OUTDIR)/inform_tests \
 		$(OUTDIR)/incomplete_printers_tests \
+		$(OUTDIR)/int128_printers_tests \
 		$(OUTDIR)/internal_log_tests \
 		$(OUTDIR)/invalid_commandline_tests \
 		$(OUTDIR)/japanese_tests \
