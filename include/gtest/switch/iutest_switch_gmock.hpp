@@ -43,6 +43,7 @@
 #undef IUTEST_HAS_MATCHER_OPTIONAL
 #undef IUTEST_HAS_MATCHER_FIELDSARE
 #undef IUTEST_HAS_MATCHER_DISTANCEFROM
+#undef IUTEST_HAS_MATCHER_CONDITIONAL
 
 #endif
 
@@ -52,6 +53,11 @@
 #if defined(IUTEST_USE_GMOCK)
 
 #define IUTEST_HAS_MATCHERS                         1
+#if GMOCK_VER >= 0x01120000
+#  define IUTEST_HAS_MATCHER_CONDITIONAL            1
+#else
+#  define IUTEST_HAS_MATCHER_CONDITIONAL            0
+#endif
 #if GMOCK_VER >= 0x01170000 || GMOCK_LATEST
 #  define IUTEST_HAS_MATCHER_DISTANCEFROM           1
 #else
@@ -103,6 +109,7 @@
 #else
 
 #define IUTEST_HAS_MATCHERS                         0
+#define IUTEST_HAS_MATCHER_CONDITIONAL               0
 #define IUTEST_HAS_MATCHER_DISTANCEFROM              0
 #define IUTEST_HAS_MATCHER_VARIADIC                 0
 #define IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF          0
@@ -242,6 +249,9 @@ namespace matchers
 {
 
     using ::testing::Not;
+#if IUTEST_HAS_MATCHER_CONDITIONAL
+    using ::testing::Conditional;
+#endif
     using ::testing::Eq;
     using ::testing::Ne;
     using ::testing::Lt;
