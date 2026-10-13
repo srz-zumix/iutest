@@ -258,7 +258,11 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #define IUTEST_HAS_VARIADIC_TEMPLATES   0
 #define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES  0
 #define IUTEST_HAS_INITIALIZER_LIST     0
-#define IUTEST_HAS_CHAR8_T              0
+#if GTEST_VER >= 0x01110000 && defined(__cpp_char8_t) && __cpp_char8_t >= 201811L
+#  define IUTEST_HAS_CHAR8_T            1
+#else
+#  define IUTEST_HAS_CHAR8_T            0
+#endif
 #define IUTEST_HAS_CHAR16_T             0
 #define IUTEST_HAS_CHAR32_T             0
 
