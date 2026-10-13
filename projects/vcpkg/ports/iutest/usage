@@ -1,6 +1,10 @@
 iutest provides CMake targets:
 
   find_package(iutest CONFIG REQUIRED)
+  # header-only (provide your own main or define IUTEST_USE_MAIN):
+  target_link_libraries(main PRIVATE iutest::headers)
+
+  # compiled library:
   target_link_libraries(main PRIVATE iutest::iutest)
 
   # to use the main() provided by iutest:
