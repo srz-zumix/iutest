@@ -772,7 +772,7 @@ void
 #endif
 DescribeMatcherTo(const T& matcher, ::std::ostream* os)
 {
-    DescribeNativeMatcherTo(matcher, os, typename IMatcher::is_matcher<T>::type());
+    DescribeNativeMatcherTo(matcher, os, iutest_type_traits::bool_constant<IMatcher::is_matcher<T>::value>());
 }
 
 template<typename T>
@@ -783,7 +783,7 @@ void
 #endif
 DescribeMatcherNegationTo(const T& matcher, ::std::ostream* os)
 {
-    DescribeNativeMatcherNegationTo(matcher, os, typename IMatcher::is_matcher<T>::type());
+    DescribeNativeMatcherNegationTo(matcher, os, iutest_type_traits::bool_constant<IMatcher::is_matcher<T>::value>());
 }
 
 /**
