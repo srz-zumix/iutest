@@ -23,7 +23,10 @@
 
 #if IUTEST_HAS_CXX11
 #include <memory>
+#include <utility>
 #endif
+
+#include <sstream>
 
 #if IUTEST_HAS_MATCHER_FIELDSARE
 #include <tuple>
@@ -36,9 +39,15 @@
  * @private
  * @{
 */
+#if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
+#define IIUT_MATCHER_ASSERTION_(actual, matcher) ::iutest::detail::MatcherAssertion(actual, matcher)
+#else
+#define IIUT_MATCHER_ASSERTION_(actual, matcher) matcher(actual)
+#endif
+
 #define IUTEST_TEST_THAT(actual, matcher, on_failure)                   \
     IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                      \
-    if( ::iutest::AssertionResult iutest_ar = matcher(actual) ) {       \
+    if( ::iutest::AssertionResult iutest_ar = IIUT_MATCHER_ASSERTION_(actual, matcher) ) { \
     } else                                                              \
         on_failure(::iutest::detail::MatcherAssertionFailureMessage(    \
             ::iutest::PrintToString(actual).c_str(), #matcher, iutest_ar))
@@ -86,6 +95,42 @@ public:
     virtual ~IMatcher() {}
     virtual ::std::string WhichIs() const = 0;
 };
+
+#if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
+template<typename M, typename U>
+struct is_gtest_matcher
+{
+    template<typename T>
+    static auto Check(int) -> decltype(
+        ((const T*)0)->DescribeTo((::std::ostream*)0),
+        ((const T*)0)->MatchAndExplain(*((const U*)0), (::std::ostream*)0),
+        iutest_type_traits::true_type());
+    template<typename T>
+    static iutest_type_traits::false_type Check(...);
+
+    enum { value = !IMatcher::is_matcher<M>::value && decltype(Check<M>(0))::value };
+};
+
+template<typename U, typename M>
+typename iutest_type_traits::enable_if<
+    is_gtest_matcher<M, U>::value, AssertionResult>::type MatcherAssertion(const U& actual, const M& matcher)
+{
+    ::std::ostringstream explanation;
+    const bool matched = matcher.MatchAndExplain(actual, &explanation);
+    if( matched ) return AssertionSuccess();
+    ::std::ostringstream description;
+    matcher.DescribeTo(&description);
+    return AssertionFailure() << description.str() << "\n" << explanation.str();
+}
+
+template<typename U, typename M>
+typename iutest_type_traits::disable_if<
+    is_gtest_matcher<typename iutest_type_traits::remove_reference<M>::type, U>::value,
+    AssertionResult>::type MatcherAssertion(const U& actual, M&& matcher)
+{
+    return ::std::forward<M>(matcher)(actual);
+}
+#endif
 
 template<typename T>
 inline const T& MatcherStringValue(const T& value)
