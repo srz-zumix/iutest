@@ -62,14 +62,23 @@ IUTEST_IPP_INLINE bool UnitTestImpl::SkipTest()
 
 IUTEST_IPP_INLINE int UnitTestImpl::Listup() const
 {
-    detail::iuConsole::output("%d tests from %" IUPRzu " testsuite\n", m_total_test_num, m_testsuites.size() );
+    int count = 0;
+    size_t suite_count = 0;
     for( iuTestSuites::const_iterator it = m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
     {
+        const int n = (*it)->reportable_test_count();
+        count += n;
+        if( n != 0 ) ++suite_count;
+    }
+    detail::iuConsole::output("%d tests from %" IUPRzu " testsuite\n", count, suite_count);
+    for( iuTestSuites::const_iterator it = m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
+    {
+        if( (*it)->reportable_test_count() == 0 ) continue;
         detail::iuConsole::output("%s\n", (*it)->name());
 
         for( TestSuite::iuTestInfos::const_iterator it2 = (*it)->begin(), end2=(*it)->end(); it2 != end2; ++it2 )
         {
-            detail::iuConsole::output("  %s\n", (*it2)->name());
+            if( (*it2)->is_reportable() ) detail::iuConsole::output("  %s\n", (*it2)->name());
         }
     }
     return 0;
@@ -77,14 +86,23 @@ IUTEST_IPP_INLINE int UnitTestImpl::Listup() const
 
 IUTEST_IPP_INLINE int UnitTestImpl::ListupWithWhere() const
 {
-    detail::iuConsole::output("%d tests from %" IUPRzu " testsuite\n", m_total_test_num, m_testsuites.size() );
+    int count = 0;
+    size_t suite_count = 0;
     for( iuTestSuites::const_iterator it = m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
     {
+        const int n = (*it)->reportable_test_count();
+        count += n;
+        if( n != 0 ) ++suite_count;
+    }
+    detail::iuConsole::output("%d tests from %" IUPRzu " testsuite\n", count, suite_count);
+    for( iuTestSuites::const_iterator it = m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
+    {
+        if( (*it)->reportable_test_count() == 0 ) continue;
         detail::iuConsole::output("%s\n", (*it)->testsuite_name_with_where().c_str());
 
         for( TestSuite::iuTestInfos::const_iterator it2 = (*it)->begin(), end2=(*it)->end(); it2 != end2; ++it2 )
         {
-            detail::iuConsole::output("  %s\n", (*it2)->test_name_with_where().c_str());
+            if( (*it2)->is_reportable() ) detail::iuConsole::output("  %s\n", (*it2)->test_name_with_where().c_str());
         }
     }
     return 0;
@@ -175,6 +193,14 @@ IUTEST_IPP_INLINE bool UnitTestImpl::DoInfoOptions()
             detail::iuOptionMessage::ShowSpec();
         }
         return true;
+    }
+    if( TestFlag::IsEnableFlag(TestFlag::SHOW_TESTS_LIST_WITH_WHERE)
+        || TestFlag::IsEnableFlag(TestFlag::SHOW_TESTS_LIST) )
+    {
+        for( iuTestSuites::iterator it = m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
+        {
+            (*it)->filter();
+        }
     }
     if( TestFlag::IsEnableFlag(TestFlag::SHOW_TESTS_LIST_WITH_WHERE) )
     {
