@@ -94,12 +94,17 @@ IUTEST(StringViewMatcher, Utf8String)
     IUTEST_EXPECT_THAT(value, HasSubstr(u8"abc"));
     IUTEST_EXPECT_THAT(value, EndsWith(u8"cy"));
     IUTEST_EXPECT_THAT(value, Not(HasSubstr(u8"missing")));
+    char8_t mutable_value[] = u8"abc";
+    char8_t* mutable_ptr = mutable_value;
+    IUTEST_EXPECT_THAT(mutable_ptr, StrEq(mutable_ptr));
+    IUTEST_EXPECT_THAT(mutable_ptr, StartsWith(mutable_ptr));
     IUTEST_EXPECT_THAT(::std::u8string(u8"テスト"), HasSubstr(u8"スト"));
     IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(u8"abc", StrEq(u8"abd")), "StrEq: abd");
 #if IUTEST_HAS_MATCHER_REGEX
     IUTEST_EXPECT_THAT(value, MatchesRegex(u8"x.*y"));
     IUTEST_EXPECT_THAT(value, ContainsRegex(u8"abc"));
     IUTEST_EXPECT_THAT(value, Not(ContainsRegex(u8"missing")));
+    IUTEST_EXPECT_THAT(mutable_ptr, MatchesRegex(mutable_ptr));
 #endif
 }
 

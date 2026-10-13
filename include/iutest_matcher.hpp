@@ -149,6 +149,11 @@ inline ::std::string MatcherStringValue(const char8_t* value)
     return ::std::string(reinterpret_cast<const char*>(value));
 }
 
+inline ::std::string MatcherStringValue(char8_t* value)
+{
+    return MatcherStringValue(static_cast<const char8_t*>(value));
+}
+
 inline ::std::string MatcherStringValue(const ::std::u8string& value)
 {
     return ::std::string(reinterpret_cast<const char*>(value.data()), value.size());
@@ -2901,6 +2906,9 @@ IIUT_DECL_STRING_VIEW_MATCHER(EndsWith)
 #if IUTEST_HAS_CHAR8_T
 #define IIUT_DECL_CHAR8_MATCHER(name) \
     inline detail::IUTEST_PP_CAT(name, Matcher)< ::std::string > name(const char8_t* value) { \
+        return detail::IUTEST_PP_CAT(name, Matcher)< ::std::string >(detail::MatcherStringValue(value)); \
+    } \
+    inline detail::IUTEST_PP_CAT(name, Matcher)< ::std::string > name(char8_t* value) { \
         return detail::IUTEST_PP_CAT(name, Matcher)< ::std::string >(detail::MatcherStringValue(value)); \
     } \
     inline detail::IUTEST_PP_CAT(name, Matcher)< ::std::string > name(const ::std::u8string& value) { \
