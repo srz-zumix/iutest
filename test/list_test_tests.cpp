@@ -22,6 +22,10 @@ IUTEST(Test, A)
 {
 }
 
+IUTEST(Test, B)
+{
+}
+
 #if IUTEST_HAS_PARAM_TEST
 
 class ParamTest : public ::iutest::TestWithParam<int> {};
@@ -49,14 +53,15 @@ IUTEST_TYPED_TEST(TypedTest, A)
 #if !defined(IUTEST_USE_GTEST)
 const char list_test_str[] =
 #if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TYPED_TEST
-"3 tests from 3 testsuite\n"
+"4 tests from 3 testsuite\n"
 #elif IUTEST_HAS_TYPED_TEST || IUTEST_HAS_PARAM_TEST
-"2 tests from 2 testsuite\n"
+"3 tests from 2 testsuite\n"
 #else
-"1 tests from 1 testsuite\n"
+"2 tests from 1 testsuite\n"
 #endif
 "Test\n"
 "  A\n"
+"  B\n"
 #if IUTEST_HAS_TYPED_TEST
 "TypedTest/0\n"
 "  A\n"
@@ -69,14 +74,15 @@ const char list_test_str[] =
 
 const char list_test_with_where_str[] =
 #if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TYPED_TEST
-"3 tests from 3 testsuite\n"
+"4 tests from 3 testsuite\n"
 #elif IUTEST_HAS_TYPED_TEST || IUTEST_HAS_PARAM_TEST
-"2 tests from 2 testsuite\n"
+"3 tests from 2 testsuite\n"
 #else
-"1 tests from 1 testsuite\n"
+"2 tests from 1 testsuite\n"
 #endif
 "Test\n"
 "  A\n"
+"  B\n"
 #if IUTEST_HAS_TYPED_TEST
 "TypedTest/0, where TypeParam = int\n"
 "  A\n"
@@ -93,6 +99,14 @@ const char list_test_with_where_str[] =
 #  define DECAL_ARGV(cmd) const wchar_t* targv[] = { argv[0], L##cmd }
 #else
 #  define DECAL_ARGV(cmd) const char*    targv[] = { argv[0],    cmd }
+#endif
+
+#if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_ASSERTION_RETURN
+#ifdef UNICODE
+#  define DECAL_ARGV_FILTER(cmd, filter) const wchar_t* targv[] = { argv[0], L##cmd, L##filter }
+#else
+#  define DECAL_ARGV_FILTER(cmd, filter) const char* targv[] = { argv[0], cmd, filter }
+#endif
 #endif
 
 #ifdef UNICODE
@@ -140,7 +154,59 @@ int main(int argc, char* argv[])
             << ::iutest::AssertionReturn<int>(1);
         if( ret != 0 ) return 1;
     }
+    {
+        int targc = 3;
+        DECAL_ARGV_FILTER("--iutest_list_tests", "--iutest_filter=Test.*-Test.B");
+        IUTEST_INIT(&targc, targv);
+
+        TestLogger logger;
+        ::iutest::detail::iuConsole::SetLogger(&logger);
+        const int ret = IUTEST_RUN_ALL_TESTS();
+        ::iutest::detail::iuConsole::SetLogger(NULL);
+        IUTEST_ASSERT_STREQ("1 tests from 1 testsuite\nTest\n  A\n", logger.c_str())
+            << ::iutest::AssertionReturn<int>(1);
+        if( ret != 0 ) return 1;
+    }
+    {
+        int targc = 2;
+        DECAL_ARGV("--iutest_list_tests_with_where");
+        IUTEST_INIT(&targc, targv);
+#if IUTEST_HAS_PARAM_TEST
+        IUTEST_FLAG_SET(filter, "Test/ParamTest.A/0");
+#elif IUTEST_HAS_TYPED_TEST
+        IUTEST_FLAG_SET(filter, "TypedTest/0.A");
+#else
+        IUTEST_FLAG_SET(filter, "Test.B");
+#endif
+
+        TestLogger logger;
+        ::iutest::detail::iuConsole::SetLogger(&logger);
+        const int ret = IUTEST_RUN_ALL_TESTS();
+        ::iutest::detail::iuConsole::SetLogger(NULL);
+#if IUTEST_HAS_PARAM_TEST
+        IUTEST_ASSERT_STREQ("1 tests from 1 testsuite\nTest/ParamTest\n  A/0, where GetParam() = 42\n", logger.c_str())
+#elif IUTEST_HAS_TYPED_TEST
+        IUTEST_ASSERT_STREQ("1 tests from 1 testsuite\nTypedTest/0, where TypeParam = int\n  A\n", logger.c_str())
+#else
+        IUTEST_ASSERT_STREQ("1 tests from 1 testsuite\nTest\n  B\n", logger.c_str())
+#endif
+            << ::iutest::AssertionReturn<int>(1);
+        if( ret != 0 ) return 1;
+    }
+    {
+        int targc = 2;
+        DECAL_ARGV("--iutest_list_tests");
+        IUTEST_INIT(&targc, targv);
+        IUTEST_FLAG_SET(filter, "NoSuchTest.*");
+
+        TestLogger logger;
+        ::iutest::detail::iuConsole::SetLogger(&logger);
+        const int ret = IUTEST_RUN_ALL_TESTS();
+        ::iutest::detail::iuConsole::SetLogger(NULL);
+        IUTEST_ASSERT_STREQ("0 tests from 0 testsuite\n", logger.c_str())
+            << ::iutest::AssertionReturn<int>(1);
+        if( ret != 0 ) return 1;
+    }
 #endif
     return 0;
 }
-
