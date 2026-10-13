@@ -2023,6 +2023,52 @@ private:
 };
 
 /**
+ * @brief   Reference identity matcher
+*/
+template<typename T>
+class RefMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    explicit RefMatcher(T& expected)
+        : m_expected(
+#if IUTEST_HAS_CXX11
+            ::std::addressof(expected)
+#else
+            reinterpret_cast<T*>(&const_cast<char&>(reinterpret_cast<const volatile char&>(expected)))
+#endif
+        ) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual) const
+    {
+#if IUTEST_HAS_CXX11
+        const U* address = ::std::addressof(actual);
+#else
+        const U* address = reinterpret_cast<const U*>(
+            &const_cast<char&>(reinterpret_cast<const volatile char&>(actual)));
+#endif
+        if IUTEST_COND_LIKELY( static_cast<const volatile void*>(address)
+            == static_cast<const volatile void*>(m_expected) )
+        {
+            return AssertionSuccess();
+        }
+        iu_global_format_stringstream strm;
+        strm << const_cast<const void*>(static_cast<const volatile void*>(address));
+        return AssertionFailure() << WhichIs() << "\nActual address: " << strm.str();
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        iu_global_format_stringstream strm;
+        strm << "References address: "
+            << const_cast<const void*>(static_cast<const volatile void*>(m_expected));
+        return strm.str();
+    }
+private:
+    T* m_expected;
+};
+
+/**
  * @brief   Pointer matcher
 */
 template<typename T>
@@ -3280,6 +3326,15 @@ template<typename T>
 detail::AddressMatcher<T> Address(const T& expected)
 {
     return detail::AddressMatcher<T>(expected);
+}
+
+/**
+ * @brief   Make Ref matcher
+*/
+template<typename T>
+detail::RefMatcher<T> Ref(T& expected)
+{
+    return detail::RefMatcher<T>(expected);
 }
 
 /**

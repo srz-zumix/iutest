@@ -309,6 +309,7 @@ namespace matchers
     using ::testing::DistanceFrom;
 #endif
     using ::testing::Pointee;
+    using ::testing::Ref;
 #if GMOCK_VER >= 0x01110000
     using ::testing::Address;
 #endif
