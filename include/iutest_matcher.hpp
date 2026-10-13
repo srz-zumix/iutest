@@ -94,6 +94,8 @@ public:
     IMatcher(const IMatcher&) {}
     virtual ~IMatcher() {}
     virtual ::std::string WhichIs() const = 0;
+    virtual void DescribeTo(::std::ostream* os) const { *os << WhichIs(); }
+    virtual void DescribeNegationTo(::std::ostream* os) const { *os << "not (" << WhichIs() << ")"; }
 };
 
 #if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
@@ -169,6 +171,8 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& m)
         iu_global_format_stringstream strm;                                     \
         strm << #name ": " << m_expected; return strm.str();                    \
     }                                                                           \
+    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << "is " #op " " << m_expected; } \
+    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << "isn't " #op " " << m_expected; } \
     template<typename U>AssertionResult operator ()(const U& actual) const {    \
         if IUTEST_COND_LIKELY( actual op m_expected ) return AssertionSuccess();\
         return AssertionFailure() << WhichIs();                                 \
@@ -255,6 +259,8 @@ public:
     {
         return "Is Null";
     }
+    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << "is NULL"; }
+    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << "isn't NULL"; }
 };
 
 /**
@@ -277,6 +283,8 @@ public:
     {
         return "Not Null";
     }
+    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << "isn't NULL"; }
+    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << "is NULL"; }
 };
 
 /**
@@ -299,6 +307,8 @@ public:
     {
         return "Is NaN";
     }
+    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << "is NaN"; }
+    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << "isn't NaN"; }
 };
 
 /**
@@ -616,6 +626,14 @@ public:
         strm << "Eq: " << PrintToString(m_expected);
         return strm.str();
     }
+    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
+    {
+        *os << "is equal to " << PrintToString(m_expected);
+    }
+    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
+    {
+        *os << "isn't equal to " << PrintToString(m_expected);
+    }
 private:
     template<typename A, typename B>
     static bool Equals(const A& actual, const B& expected)
@@ -702,6 +720,71 @@ T& CastToMatcher(T& matcher)
 
 #endif
 
+#if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
+template<typename M>
+struct has_gtest_description
+{
+    template<typename T>
+    static auto Check(int) -> decltype(
+        ((const T*)0)->DescribeTo((::std::ostream*)0),
+        ((const T*)0)->DescribeNegationTo((::std::ostream*)0),
+        iutest_type_traits::true_type());
+    template<typename T>
+    static iutest_type_traits::false_type Check(...);
+    enum { value = !IMatcher::is_matcher<M>::value && decltype(Check<M>(0))::value };
+};
+
+template<typename T>
+typename iutest_type_traits::enable_if<has_gtest_description<T>::value, void>::type
+DescribeMatcherTo(const T& matcher, ::std::ostream* os) { matcher.DescribeTo(os); }
+
+template<typename T>
+typename iutest_type_traits::enable_if<has_gtest_description<T>::value, void>::type
+DescribeMatcherNegationTo(const T& matcher, ::std::ostream* os) { matcher.DescribeNegationTo(os); }
+#endif
+
+template<typename T>
+void DescribeNativeMatcherTo(const T& matcher, ::std::ostream* os, iutest_type_traits::true_type)
+{
+    matcher.DescribeTo(os);
+}
+template<typename T>
+void DescribeNativeMatcherTo(const T& value, ::std::ostream* os, iutest_type_traits::false_type)
+{
+    EqMatcher<T>(value).DescribeTo(os);
+}
+template<typename T>
+void DescribeNativeMatcherNegationTo(const T& matcher, ::std::ostream* os, iutest_type_traits::true_type)
+{
+    matcher.DescribeNegationTo(os);
+}
+template<typename T>
+void DescribeNativeMatcherNegationTo(const T& value, ::std::ostream* os, iutest_type_traits::false_type)
+{
+    EqMatcher<T>(value).DescribeNegationTo(os);
+}
+
+template<typename T>
+#if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
+typename iutest_type_traits::disable_if<has_gtest_description<T>::value, void>::type
+#else
+void
+#endif
+DescribeMatcherTo(const T& matcher, ::std::ostream* os)
+{
+    DescribeNativeMatcherTo(matcher, os, typename IMatcher::is_matcher<T>::type());
+}
+
+template<typename T>
+#if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
+typename iutest_type_traits::disable_if<has_gtest_description<T>::value, void>::type
+#else
+void
+#endif
+DescribeMatcherNegationTo(const T& matcher, ::std::ostream* os)
+{
+    DescribeNativeMatcherNegationTo(matcher, os, typename IMatcher::is_matcher<T>::type());
+}
 
 /**
  * @brief   Contains matcher with a match count
@@ -1064,6 +1147,8 @@ public:
     {
         return "Is Empty";
     }
+    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << "is empty"; }
+    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << "isn't empty"; }
 };
 
 
@@ -2064,8 +2149,27 @@ private:
     T m_expected;
 };
 
+template<typename U, typename M>
+#if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
+typename iutest_type_traits::enable_if<is_gtest_matcher<M, U>::value, bool>::type
+MatchForNot(const U& actual, M& matcher)
+{
+   ::std::ostringstream explanation;
+   return matcher.MatchAndExplain(actual, &explanation);
+}
+
+template<typename U, typename M>
+typename iutest_type_traits::disable_if<is_gtest_matcher<M, U>::value, bool>::type
+#else
+bool
+#endif
+MatchForNot(const U& actual, M& matcher)
+{
+   return static_cast<bool>(CastToMatcher(matcher)(actual));
+}
+
 /**
- * @brief   Not matcher
+* @brief   Not matcher
 */
 template<typename T>
 class NotMatcher IUTEST_CXX_FINAL : public IMatcher
@@ -2077,19 +2181,29 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual)
     {
-        if IUTEST_COND_LIKELY( !CastToMatcher(m_unexpected)(actual) )
+        if IUTEST_COND_LIKELY( !MatchForNot(actual, m_unexpected) )
         {
             return AssertionSuccess();
         }
-        return AssertionFailure() << WhichIs();
+        ::std::ostringstream description;
+        DescribeTo(&description);
+        return AssertionFailure() << description.str();
     }
 
 public:
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
-        iu_global_format_stringstream strm;
-        strm << "Not: (" << m_unexpected << ")";
-        return strm.str();
+        ::std::ostringstream description;
+        DescribeTo(&description);
+        return description.str();
+    }
+    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
+    {
+        DescribeMatcherNegationTo(m_unexpected, os);
+    }
+    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
+    {
+        DescribeMatcherTo(m_unexpected, os);
     }
 
 private:

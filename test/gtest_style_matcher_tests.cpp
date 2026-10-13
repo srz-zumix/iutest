@@ -75,6 +75,24 @@ IUTEST(GTestStyleMatcher, FailureMessage)
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(::std::string("abc"), TEST_STYLE_MATCHER(HasLength(4))), "has length 3");
 }
 
+IUTEST(GTestStyleMatcher, NotDescription)
+{
+    IUTEST_EXPECT_THAT(3, ::iutest::matchers::Not(TEST_STYLE_MATCHER(IsEven())));
+    IUTEST_EXPECT_NONFATAL_FAILURE(
+        IUTEST_EXPECT_THAT(4, ::iutest::matchers::Not(TEST_STYLE_MATCHER(IsEven()))), "is odd");
+    IUTEST_EXPECT_NONFATAL_FAILURE(
+        IUTEST_EXPECT_THAT(::std::string("four"), ::iutest::matchers::Not(TEST_STYLE_MATCHER(HasLength(4)))),
+        "does not have length 4");
+#if !defined(IUTEST_USE_GTEST)
+    ::std::ostringstream os;
+    ::iutest::matchers::Not(IsEven()).DescribeTo(&os);
+    IUTEST_EXPECT_EQ("is odd", os.str());
+    os.str("");
+    ::iutest::matchers::Not(IsEven()).DescribeNegationTo(&os);
+    IUTEST_EXPECT_EQ("is even", os.str());
+#endif
+}
+
 IUTEST(GTestStyleMatcher, ExistingMatchers)
 {
     IUTEST_EXPECT_THAT(3, ::iutest::matchers::Eq(3));
