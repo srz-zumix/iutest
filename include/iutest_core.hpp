@@ -146,7 +146,7 @@ private:
     /**
      * @brief   テストの実行（１ループ）
     */
-    bool RunOnce();
+    bool RunOnce(bool set_up_environment, bool tear_down_environment);
 
 private:
     /**

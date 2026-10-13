@@ -30,6 +30,7 @@ int SetUpEnvironmentImpl(void)
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "ALSO_RUN_DISABLED_TESTS=1") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "BREAK_ON_FAILURE=1") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "FAIL_FAST=1") == -1 ) return -1;
+    if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "RECREATE_ENVIRONMENTS_WHEN_REPEATING=0") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "THROW_ON_FAILURE=1") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "CATCH_EXCEPTIONS=0") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "PRINT_TIME=0") == -1 ) return -1;
@@ -73,6 +74,9 @@ IUTEST(FlagTest, Check)
 #if !defined(IUTEST_USE_GTEST)
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(fail_fast) );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(brief) );
+#endif
+#if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01120000
+    IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(recreate_environments_when_repeating) );
 #endif
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(throw_on_failure) );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(shuffle) );
