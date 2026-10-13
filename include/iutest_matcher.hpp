@@ -112,8 +112,8 @@ struct is_gtest_matcher
 };
 
 template<typename U, typename M>
-typename iutest_type_traits::enable_if<is_gtest_matcher<M, U>::value, AssertionResult>::type
-MatcherAssertion(const U& actual, const M& matcher)
+typename iutest_type_traits::enable_if<
+    is_gtest_matcher<M, U>::value, AssertionResult>::type MatcherAssertion(const U& actual, const M& matcher)
 {
     ::std::ostringstream explanation;
     const bool matched = matcher.MatchAndExplain(actual, &explanation);
@@ -124,8 +124,9 @@ MatcherAssertion(const U& actual, const M& matcher)
 }
 
 template<typename U, typename M>
-typename iutest_type_traits::disable_if<is_gtest_matcher<typename iutest_type_traits::remove_reference<M>::type, U>::value, AssertionResult>::type
-MatcherAssertion(const U& actual, M&& matcher)
+typename iutest_type_traits::disable_if<
+    is_gtest_matcher<typename iutest_type_traits::remove_reference<M>::type, U>::value,
+    AssertionResult>::type MatcherAssertion(const U& actual, M&& matcher)
 {
     return ::std::forward<M>(matcher)(actual);
 }
