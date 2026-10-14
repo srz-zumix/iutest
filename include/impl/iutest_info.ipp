@@ -111,7 +111,6 @@ IUTEST_IPP_INLINE void TestInfo::RunImpl()
     }
 
     m_test_result.set_elapsed_time(elapsedmsec);
-
 }
 
 #if IUTEST_HAS_SEH && IUTEST_HAS_EXCEPTIONS
