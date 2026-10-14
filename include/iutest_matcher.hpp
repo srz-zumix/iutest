@@ -2154,8 +2154,8 @@ template<typename U, typename M>
 typename iutest_type_traits::enable_if<is_gtest_matcher<M, U>::value, bool>::type
 MatchForNot(const U& actual, M& matcher)
 {
-   ::std::ostringstream explanation;
-   return matcher.MatchAndExplain(actual, &explanation);
+    ::std::ostringstream explanation;
+    return matcher.MatchAndExplain(actual, &explanation);
 }
 
 template<typename U, typename M>
@@ -2165,7 +2165,7 @@ bool
 #endif
 MatchForNot(const U& actual, M& matcher)
 {
-   return static_cast<bool>(CastToMatcher(matcher)(actual));
+    return static_cast<bool>(CastToMatcher(matcher)(actual));
 }
 
 /**
