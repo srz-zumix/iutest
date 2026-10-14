@@ -219,7 +219,7 @@ class IutestFused:
                                 self.StoreMinimze(strip_line)
                                 #if not re.match('.*[{};\(\)<>]$', strip_line):
                                 #   self.Flush(output_file)
-                                if re.match('.*(:|IUTEST_CXX_DEFAULT_FUNCTION)$', strip_line):
+                                if re.match('.*(::type|:|IUTEST_CXX_DEFAULT_FUNCTION)$', strip_line):
                                     self.store_line += " "
                     else:
                         self.Write(output_file, line)

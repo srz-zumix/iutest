@@ -751,9 +751,50 @@ IUTEST(MatcherFailure, Pointee)
 
 IUTEST(MatcherFailure, Not)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(1, Not(1)), "Not: (1)");
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(1, Not(Eq(1))), "Not: (Eq: 1)");
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(1, Not(1)), "isn't equal to 1");
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(1, Not(Eq(1))), "isn't equal to 1");
 }
+
+#if !defined(IUTEST_USE_GMOCK)
+IUTEST(Matcher, Descriptions)
+{
+    ::std::ostringstream os;
+    const int five = 5;
+    const ::iutest::detail::IMatcher& gt = Gt(five);
+    IUTEST_EXPECT_EQ("Gt: 5", gt.WhichIs());
+    gt.DescribeTo(&os);
+    IUTEST_EXPECT_EQ("is > 5", os.str());
+    os.str("");
+    gt.DescribeNegationTo(&os);
+    IUTEST_EXPECT_EQ("isn't > 5", os.str());
+
+    os.str("");
+    Eq(3).DescribeTo(&os);
+    IUTEST_EXPECT_EQ("is equal to 3", os.str());
+    os.str("");
+    Eq(3).DescribeNegationTo(&os);
+    IUTEST_EXPECT_EQ("isn't equal to 3", os.str());
+    os.str("");
+    IsNull().DescribeNegationTo(&os);
+    IUTEST_EXPECT_EQ("isn't NULL", os.str());
+    os.str("");
+    IsEmpty().DescribeTo(&os);
+    IUTEST_EXPECT_EQ("is empty", os.str());
+
+    os.str("");
+    Not(Gt(5)).DescribeTo(&os);
+    IUTEST_EXPECT_EQ("isn't > 5", os.str());
+    os.str("");
+    Not(Gt(5)).DescribeNegationTo(&os);
+    IUTEST_EXPECT_EQ("is > 5", os.str());
+    os.str("");
+    Not(Not(Gt(5))).DescribeTo(&os);
+    IUTEST_EXPECT_EQ("is > 5", os.str());
+    IUTEST_EXPECT_EQ("isn't equal to 3", Not(3).WhichIs());
+    IUTEST_EXPECT_THAT(3, Not(Gt(5)));
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(6, Not(Gt(5))), "isn't > 5");
+}
+#endif
 
 IUTEST(MatcherFailure, ElementsAreArray)
 {
@@ -993,4 +1034,3 @@ int main(int argc, char* argv[])
     IUTEST_INIT(&argc, argv);
     return IUTEST_RUN_ALL_TESTS();
 }
-
