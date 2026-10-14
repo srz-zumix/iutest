@@ -65,6 +65,11 @@ IUTEST(MatcherExplain, Direct)
     IUTEST_EXPECT_TRUE(listener.str().empty());
     IUTEST_EXPECT_FALSE(ExplainMatchResult(SizeIs(3), values, &listener));
     IUTEST_EXPECT_EQ("whose size is 2", listener.str());
+#if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
+    listener.str("");
+    IUTEST_EXPECT_TRUE(ExplainMatchResult(AnyOf(IsFive(), Eq(3)), three, &listener));
+    IUTEST_EXPECT_TRUE(listener.str().empty());
+#endif
 }
 
 IUTEST(MatcherExplain, FailureMessage)

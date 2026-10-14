@@ -804,10 +804,10 @@ DescribeMatcherNegationTo(const T& matcher, ::std::ostream* os)
     DescribeNativeMatcherNegationTo(matcher, os, iutest_type_traits::bool_constant<IMatcher::is_matcher<T>::value>());
 }
 
-#if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
 template<typename M, typename U>
 struct has_match_explanation
 {
+#if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
     template<typename T>
     static auto Check(int) -> decltype(
         ((T*)0)->MatchAndExplain(*((const U*)0), (::std::ostream*)0),
@@ -815,9 +815,19 @@ struct has_match_explanation
     template<typename T>
     static iutest_type_traits::false_type Check(...);
     enum { value = decltype(Check<M>(0))::value };
+#elif !defined(IUTEST_NO_SFINAE)
+    template<typename T>
+    static char Check(char (*)[sizeof(((T*)0)->MatchAndExplain(*((const U*)0), (::std::ostream*)0))]);
+    template<typename T>
+    static long Check(...);
+    enum { value = sizeof(Check<M>(0)) == sizeof(char) };
+#else
+    enum { value = false };
+#endif
 };
 
 template<typename M, typename U>
+#if !defined(IUTEST_NO_SFINAE)
 typename iutest_type_traits::enable_if<has_match_explanation<M, U>::value, bool>::type
 ExplainMatch(M& matcher, const U& actual, ::std::ostream* listener)
 {
@@ -827,12 +837,25 @@ ExplainMatch(M& matcher, const U& actual, ::std::ostream* listener)
 template<typename M, typename U>
 typename iutest_type_traits::disable_if<has_match_explanation<M, U>::value, bool>::type
 #else
-template<typename M, typename U>
 bool
 #endif
 ExplainMatch(M& matcher, const U& actual, ::std::ostream*)
 {
     return static_cast<bool>(CastToMatcher(matcher)(actual));
+}
+
+template<typename U, typename M>
+AssertionResult MatcherAssertionNative(const U& actual, M& matcher, iutest_type_traits::false_type)
+{
+    return matcher(actual);
+}
+
+template<typename U, typename M>
+AssertionResult MatcherAssertionNative(const U& actual, M& matcher, iutest_type_traits::true_type)
+{
+    ::std::ostringstream explanation;
+    if( ExplainMatch(matcher, actual, &explanation) ) return AssertionSuccess();
+    return AssertionFailure() << matcher.WhichIs() << "\n" << explanation.str();
 }
 
 template<typename U, typename M>
@@ -845,11 +868,8 @@ MatcherAssertion(const U& actual, M&& matcher)
 AssertionResult MatcherAssertion(const U& actual, M matcher)
 #endif
 {
-    ::std::ostringstream explanation;
-    if( ExplainMatch(matcher, actual, &explanation) ) return AssertionSuccess();
-    ::std::ostringstream description;
-    DescribeMatcherTo(matcher, &description);
-    return AssertionFailure() << description.str() << "\n" << explanation.str();
+    return MatcherAssertionNative(actual, matcher,
+        iutest_type_traits::bool_constant<has_match_explanation<M, U>::value>());
 }
 
 /**
@@ -1436,12 +1456,13 @@ protected:
     {
         IUTEST_USING_BEGIN_END();
         const size_t size = ::std::distance(begin(actual), end(actual));
-        if( size != tuples::tuple_size<T>::value )
+        if( size < tuples::tuple_size<T>::value )
         {
-            *listener << "whose size is " << size;
+            *listener << "ElementsAre: argument[" << size << "] is less than "
+                << tuples::tuple_size<T>::value << ", whose size is " << size;
             return false;
         }
-        return ExplainElem<0, tuples::tuple_size<T>::value - 1>(begin(actual), matchers, listener);
+        return ExplainElem<0, tuples::tuple_size<T>::value - 1>(begin(actual), end(actual), matchers, listener);
     }
     template<typename T, typename U>
     static AssertionResult Check(T& matchers, const U& actual)
@@ -1459,25 +1480,40 @@ protected:
     }
 private:
     template<int N, int LAST, typename Ite, typename M>
-    static bool ExplainElem(Ite it, M& matchers, ::std::ostream* listener)
+    static bool ExplainElem(Ite it, Ite end, M& matchers, ::std::ostream* listener)
     {
         ::std::ostringstream inner;
         if( !ExplainMatch(tuples::get<N>(matchers), *it, &inner) )
         {
-            *listener << "whose element #" << N << " doesn't match";
+            *listener << WhichIsElem<N>(matchers, N) << ", whose element #" << N << " doesn't match";
             if( !inner.str().empty() ) *listener << ", " << inner.str();
             return false;
         }
-        return ExplainNext<N, LAST>(++it, matchers, listener);
+        return ExplainNext<N, LAST>(++it, end, matchers, listener);
     }
     template<int N, int LAST, typename Ite, typename M>
     static typename detail::enable_if<N == LAST, bool>::type
-    ExplainNext(Ite, M&, ::std::ostream*) { return true; }
+    ExplainNext(Ite it, Ite end, M& matchers, ::std::ostream* listener)
+    {
+        int index = N + 1;
+        for( ; it != end; ++it, ++index )
+        {
+            ::std::ostringstream inner;
+            if( !ExplainMatch(tuples::get<N>(matchers), *it, &inner) )
+            {
+                *listener << WhichIsElem<N>(matchers, index) << ", whose element #"
+                    << index << " doesn't match";
+                if( !inner.str().empty() ) *listener << ", " << inner.str();
+                return false;
+            }
+        }
+        return true;
+    }
     template<int N, int LAST, typename Ite, typename M>
     static typename detail::disable_if<N == LAST, bool>::type
-    ExplainNext(Ite it, M& matchers, ::std::ostream* listener)
+    ExplainNext(Ite it, Ite end, M& matchers, ::std::ostream* listener)
     {
-        return ExplainElem<N + 1, LAST>(it, matchers, listener);
+        return ExplainElem<N + 1, LAST>(it, end, matchers, listener);
     }
     template<int N, int LAST, typename Ite, typename M>
     static AssertionResult Check(Ite it, Ite end, M& matchers)
@@ -2813,7 +2849,10 @@ protected:
     template<typename T, typename U>
     static bool Explain(T& matchers, const U& actual, ::std::ostream* listener)
     {
-        return Explain_<T, U, 0, tuples::tuple_size<T>::value - 1>(matchers, actual, listener);
+        ::std::ostringstream failures;
+        if( Explain_<T, U, 0, tuples::tuple_size<T>::value - 1>(matchers, actual, &failures) ) return true;
+        *listener << failures.str();
+        return false;
     }
     template<typename T, typename U>
     static AssertionResult Check(T& matchers, const U& actual)
