@@ -46,6 +46,19 @@ jobs:
         run: make -C test -j4
       - name: test
         run: make -C test test
+      - name: test xml2file
+        if: matrix.compiler == 'gcc'
+        run: python3 -m unittest discover -s tools/xml2file -p 'test_*.py'
+      - name: convert XML results to JSON
+        if: matrix.compiler == 'gcc'
+        run: python3 tools/xml2file/xml2file.py --no-time -o tmp/xml2file test/*.xml
+      - name: upload JSON results
+        if: matrix.compiler == 'gcc'
+        uses: actions/upload-artifact@v7
+        with:
+          name: xml2file-results
+          path: tmp/xml2file/
+          include-hidden-files: true
       - name: report
         run: make -C test report
         if: always()
