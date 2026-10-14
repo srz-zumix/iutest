@@ -182,6 +182,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/streaming_listener_tests \
 		$(OUTDIR)/throw_on_assertion_failure_tests \
 		$(OUTDIR)/throw_on_failure_tests \
+		$(OUTDIR)/assertion_exception_tests \
 		$(OUTDIR)/tr1_tests \
 		$(OUTDIR)/uninitialize_tests \
 		$(OUTDIR)/uninstantiated_param_tests \
