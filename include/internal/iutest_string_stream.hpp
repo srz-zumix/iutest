@@ -395,7 +395,7 @@ IUTEST_PRAGMA_WARN_POP()
     inline _Myt& operator<< (const void* v)
     {
         _Elem a[64];
-        impl::tostring(a, 64, IIUT_PP_XCS("%t"), v);
+        impl::tostring(a, 64, IIUT_PP_XCS("%p"), const_cast<void*>(v));
         s += a;
         return *this;
     }
