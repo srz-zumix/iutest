@@ -39,8 +39,18 @@ public:
     }
 };
 
+class NonCopyableIsFive : public IsFive
+{
+    NonCopyableIsFive(const NonCopyableIsFive&);
+    NonCopyableIsFive& operator=(const NonCopyableIsFive&);
+public:
+    NonCopyableIsFive() {}
+};
+
 int three = 3;
 int five = 5;
+IsFive matcher;
+NonCopyableIsFive noncopyable_matcher;
 int* three_pointer = &three;
 int* null_pointer = NULL;
 ::std::vector<int> values(2, 3);
@@ -65,6 +75,7 @@ IUTEST(MatcherExplain, Direct)
     IUTEST_EXPECT_TRUE(listener.str().empty());
     IUTEST_EXPECT_FALSE(ExplainMatchResult(SizeIs(3), values, &listener));
     IUTEST_EXPECT_EQ("whose size is 2", listener.str());
+    IUTEST_EXPECT_THAT(values.begin(), Pointee(Eq(3)));
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
     listener.str("");
     IUTEST_EXPECT_TRUE(ExplainMatchResult(AnyOf(IsFive(), Eq(3)), three, &listener));
@@ -74,6 +85,10 @@ IUTEST(MatcherExplain, Direct)
 
 IUTEST(MatcherExplain, FailureMessage)
 {
+    IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(three, matcher),
+        "Actual: 3, which is 2 less than 5");
+    IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(three, noncopyable_matcher),
+        "Actual: 3, which is 2 less than 5");
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(three, IsFive()),
         "Actual: 3, which is 2 less than 5");
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(values, SizeIs(3)),

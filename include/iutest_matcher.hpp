@@ -865,12 +865,22 @@ typename iutest_type_traits::disable_if<
     AssertionResult>::type
 MatcherAssertion(const U& actual, M&& matcher)
 #else
-AssertionResult MatcherAssertion(const U& actual, M matcher)
+AssertionResult MatcherAssertion(const U& actual, M& matcher)
 #endif
 {
     return MatcherAssertionNative(actual, matcher,
-        iutest_type_traits::bool_constant<has_match_explanation<M, U>::value>());
+        iutest_type_traits::bool_constant<
+            has_match_explanation<typename iutest_type_traits::remove_reference<M>::type, U>::value>());
 }
+
+#if !(IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE))
+template<typename U, typename M>
+AssertionResult MatcherAssertion(const U& actual, const M& matcher)
+{
+    M copy(matcher);
+    return MatcherAssertion(actual, copy);
+}
+#endif
 
 /**
  * @brief   Contains matcher with a match count
@@ -2347,9 +2357,25 @@ public:
     }
 private:
     template<typename U>
-    static bool IsNullPointer(const U& actual) { return !actual; }
+    struct has_null_test
+    {
+        template<typename V>
+        static char Check(char (*)[sizeof(!*((const V*)0))]);
+        template<typename V>
+        static long Check(...);
+        enum { value = sizeof(Check<U>(0)) == sizeof(char) };
+    };
+    template<typename U>
+    static bool IsNullPointer(const U& actual)
+    {
+        return CheckNull(actual, iutest_type_traits::bool_constant<has_null_test<U>::value>());
+    }
     template<typename U, size_t N>
     static bool IsNullPointer(const U (&)[N]) { return false; }
+    template<typename U>
+    static bool CheckNull(const U& actual, iutest_type_traits::true_type) { return !actual; }
+    template<typename U>
+    static bool CheckNull(const U&, iutest_type_traits::false_type) { return false; }
     template<typename U>
     bool Check(const U& actual)
     {
