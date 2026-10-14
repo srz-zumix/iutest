@@ -39,11 +39,7 @@
  * @private
  * @{
 */
-#if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
 #define IIUT_MATCHER_ASSERTION_(actual, matcher) ::iutest::detail::MatcherAssertion(actual, matcher)
-#else
-#define IIUT_MATCHER_ASSERTION_(actual, matcher) matcher(actual)
-#endif
 
 #define IUTEST_TEST_THAT(actual, matcher, on_failure)                   \
     IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                      \
@@ -69,9 +65,15 @@ inline ::std::string MatcherAssertionFailureMessage(const char* actual, const ch
                                                     , const AssertionResult& ar)
 {
     iu_global_format_stringstream strm;
+    const ::std::string message = ar.message();
+    const ::std::string::size_type separator = message.find('\n');
     strm << "error: Expected: " << matcher_str
-        << "\n  Actual: " << actual
-        << "\nWhich is: " << ar.message();
+        << "\n  Actual: " << actual;
+    if( separator != ::std::string::npos && separator + 1 < message.size() )
+    {
+        strm << ", " << message.substr(separator + 1);
+    }
+    strm << "\nWhich is: " << message.substr(0, separator);
     return strm.str();
 }
 
@@ -123,14 +125,6 @@ typename iutest_type_traits::enable_if<
     ::std::ostringstream description;
     matcher.DescribeTo(&description);
     return AssertionFailure() << description.str() << "\n" << explanation.str();
-}
-
-template<typename U, typename M>
-typename iutest_type_traits::disable_if<
-    is_gtest_matcher<typename iutest_type_traits::remove_reference<M>::type, U>::value,
-    AssertionResult>::type MatcherAssertion(const U& actual, M&& matcher)
-{
-    return ::std::forward<M>(matcher)(actual);
 }
 #endif
 
@@ -810,6 +804,54 @@ DescribeMatcherNegationTo(const T& matcher, ::std::ostream* os)
     DescribeNativeMatcherNegationTo(matcher, os, iutest_type_traits::bool_constant<IMatcher::is_matcher<T>::value>());
 }
 
+#if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
+template<typename M, typename U>
+struct has_match_explanation
+{
+    template<typename T>
+    static auto Check(int) -> decltype(
+        ((T*)0)->MatchAndExplain(*((const U*)0), (::std::ostream*)0),
+        iutest_type_traits::true_type());
+    template<typename T>
+    static iutest_type_traits::false_type Check(...);
+    enum { value = decltype(Check<M>(0))::value };
+};
+
+template<typename M, typename U>
+typename iutest_type_traits::enable_if<has_match_explanation<M, U>::value, bool>::type
+ExplainMatch(M& matcher, const U& actual, ::std::ostream* listener)
+{
+    return matcher.MatchAndExplain(actual, listener);
+}
+
+template<typename M, typename U>
+typename iutest_type_traits::disable_if<has_match_explanation<M, U>::value, bool>::type
+#else
+template<typename M, typename U>
+bool
+#endif
+ExplainMatch(M& matcher, const U& actual, ::std::ostream*)
+{
+    return static_cast<bool>(CastToMatcher(matcher)(actual));
+}
+
+template<typename U, typename M>
+#if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
+typename iutest_type_traits::disable_if<
+    is_gtest_matcher<typename iutest_type_traits::remove_reference<M>::type, U>::value,
+    AssertionResult>::type
+MatcherAssertion(const U& actual, M&& matcher)
+#else
+AssertionResult MatcherAssertion(const U& actual, M matcher)
+#endif
+{
+    ::std::ostringstream explanation;
+    if( ExplainMatch(matcher, actual, &explanation) ) return AssertionSuccess();
+    ::std::ostringstream description;
+    DescribeMatcherTo(matcher, &description);
+    return AssertionFailure() << description.str() << "\n" << explanation.str();
+}
+
 /**
  * @brief   Contains matcher with a match count
 */
@@ -930,6 +972,31 @@ public:
             return AssertionSuccess();
         }
         return AssertionFailure() << WhichIs();
+    }
+
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener)
+    {
+        IUTEST_USING_BEGIN_END();
+        return Each(begin(actual), end(actual), listener);
+    }
+
+private:
+    template<typename Ite>
+    bool Each(Ite it, Ite end, ::std::ostream* listener)
+    {
+        size_t index = 0;
+        for( ; it != end; ++it, ++index )
+        {
+            ::std::ostringstream inner;
+            if( !ExplainMatch(m_expected, *it, &inner) )
+            {
+                *listener << "whose element #" << index << " doesn't match";
+                if( !inner.str().empty() ) *listener << ", " << inner.str();
+                return false;
+            }
+        }
+        return true;
     }
 
 public:
@@ -1196,6 +1263,19 @@ public:
         return AssertionFailure() << WhichIs();
     }
 
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener)
+    {
+        return ExplainSize(actual.size(), listener);
+    }
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+    template<typename U, size_t SIZE>
+    bool MatchAndExplain(const U(&)[SIZE], ::std::ostream* listener)
+    {
+        return ExplainSize(SIZE, listener);
+    }
+#endif
+
 public:
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
@@ -1204,6 +1284,17 @@ public:
         return strm.str();
     }
 private:
+    bool ExplainSize(size_t size, ::std::ostream* listener)
+    {
+        ::std::ostringstream inner;
+        const bool matched = ExplainMatch(m_expected, size, &inner);
+        if( !matched )
+        {
+            *listener << "whose size is " << size;
+            if( !inner.str().empty() ) *listener << ", " << inner.str();
+        }
+        return matched;
+    }
     template<typename Container>
     bool Check(const Container& actual)
     {
@@ -1341,6 +1432,18 @@ class ElementsAreMatcherBase : public IMatcher
 {
 protected:
     template<typename T, typename U>
+    static bool Explain(T& matchers, const U& actual, ::std::ostream* listener)
+    {
+        IUTEST_USING_BEGIN_END();
+        const size_t size = ::std::distance(begin(actual), end(actual));
+        if( size != tuples::tuple_size<T>::value )
+        {
+            *listener << "whose size is " << size;
+            return false;
+        }
+        return ExplainElem<0, tuples::tuple_size<T>::value - 1>(begin(actual), matchers, listener);
+    }
+    template<typename T, typename U>
     static AssertionResult Check(T& matchers, const U& actual)
     {
         IUTEST_USING_BEGIN_END();
@@ -1355,6 +1458,27 @@ protected:
         return str;
     }
 private:
+    template<int N, int LAST, typename Ite, typename M>
+    static bool ExplainElem(Ite it, M& matchers, ::std::ostream* listener)
+    {
+        ::std::ostringstream inner;
+        if( !ExplainMatch(tuples::get<N>(matchers), *it, &inner) )
+        {
+            *listener << "whose element #" << N << " doesn't match";
+            if( !inner.str().empty() ) *listener << ", " << inner.str();
+            return false;
+        }
+        return ExplainNext<N, LAST>(++it, matchers, listener);
+    }
+    template<int N, int LAST, typename Ite, typename M>
+    static typename detail::enable_if<N == LAST, bool>::type
+    ExplainNext(Ite, M&, ::std::ostream*) { return true; }
+    template<int N, int LAST, typename Ite, typename M>
+    static typename detail::disable_if<N == LAST, bool>::type
+    ExplainNext(Ite it, M& matchers, ::std::ostream* listener)
+    {
+        return ExplainElem<N + 1, LAST>(it, matchers, listener);
+    }
     template<int N, int LAST, typename Ite, typename M>
     static AssertionResult Check(Ite it, Ite end, M& matchers)
     {
@@ -1432,6 +1556,11 @@ public:
     {
         return Check(m_matchers, actual);
     }
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener)
+    {
+        return Explain(m_matchers, actual, listener);
+    }
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         return ElementsAreMatcherBase::WhichIsT<0>(m_matchers);
@@ -1472,6 +1601,8 @@ private:
         : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                    \
     template<typename U>AssertionResult operator ()(const U& actual) {                  \
         return Check(m_matchers, actual); }                                             \
+    template<typename U>bool MatchAndExplain(const U& actual, ::std::ostream* listener) { \
+        return Explain(m_matchers, actual, listener); }                                 \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                                 \
         return ElementsAreMatcherBase::WhichIsT<0>(m_matchers); }                       \
     private:                                                                            \
@@ -1626,6 +1757,12 @@ public:
         return AssertionFailure() << WhichIs();
     }
 
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener)
+    {
+        return CheckExplain(actual, listener);
+    }
+
 public:
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
@@ -1648,13 +1785,44 @@ private:
     {
         return static_cast<bool>(CastToMatcher(m_expected)(actual->*m_field));
     }
+    template<typename U>
+    bool CheckExplain(const U& actual, ::std::ostream* listener
+        , typename detail::disable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
+    {
+        return ExplainField(actual.*m_field, listener);
+    }
+    template<typename U>
+    bool CheckExplain(const U& actual, ::std::ostream* listener
+        , typename detail::enable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
+    {
+        if( !actual ) { *listener << "which is NULL"; return false; }
+        return ExplainField(actual->*m_field, listener);
+    }
 #else
     template<typename U>
     bool Check(const U& actual)
     {
         return static_cast<bool>(CastToMatcher(m_expected)(actual->*m_field));
     }
+    template<typename U>
+    bool CheckExplain(const U& actual, ::std::ostream* listener)
+    {
+        if( !actual ) { *listener << "which is NULL"; return false; }
+        return ExplainField(actual->*m_field, listener);
+    }
 #endif
+    template<typename U>
+    bool ExplainField(const U& value, ::std::ostream* listener)
+    {
+        ::std::ostringstream inner;
+        const bool matched = ExplainMatch(m_expected, value, &inner);
+        if( !matched )
+        {
+            *listener << "whose field is " << PrintToString(value);
+            if( !inner.str().empty() ) *listener << ", " << inner.str();
+        }
+        return matched;
+    }
 
 private:
     const F& m_field;
@@ -1681,6 +1849,12 @@ public:
         return AssertionFailure() << WhichIs();
     }
 
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener)
+    {
+        return CheckExplain(actual, listener);
+    }
+
 public:
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
@@ -1703,13 +1877,44 @@ private:
     {
         return static_cast<bool>(CastToMatcher(m_expected)((actual->*m_property)()));
     }
+    template<typename U>
+    bool CheckExplain(const U& actual, ::std::ostream* listener
+        , typename detail::disable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
+    {
+        return ExplainProperty((actual.*m_property)(), listener);
+    }
+    template<typename U>
+    bool CheckExplain(const U& actual, ::std::ostream* listener
+        , typename detail::enable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
+    {
+        if( !actual ) { *listener << "which is NULL"; return false; }
+        return ExplainProperty((actual->*m_property)(), listener);
+    }
 #else
     template<typename U>
     bool Check(const U& actual)
     {
         return static_cast<bool>(CastToMatcher(m_expected)((actual->*m_property)()));
     }
+    template<typename U>
+    bool CheckExplain(const U& actual, ::std::ostream* listener)
+    {
+        if( !actual ) { *listener << "which is NULL"; return false; }
+        return ExplainProperty((actual->*m_property)(), listener);
+    }
 #endif
+    template<typename U>
+    bool ExplainProperty(const U& value, ::std::ostream* listener)
+    {
+        ::std::ostringstream inner;
+        const bool matched = ExplainMatch(m_expected, value, &inner);
+        if( !matched )
+        {
+            *listener << "whose property is " << PrintToString(value);
+            if( !inner.str().empty() ) *listener << ", " << inner.str();
+        }
+        return matched;
+    }
 
 private:
     const F& m_property;
@@ -2079,6 +2284,24 @@ public:
         return AssertionFailure() << WhichIs();
     }
 
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener)
+    {
+        if( IsNullPointer(actual) )
+        {
+            *listener << "which is NULL";
+            return false;
+        }
+        ::std::ostringstream inner;
+        const bool matched = ExplainMatch(m_expected, *actual, &inner);
+        if( !matched )
+        {
+            *listener << "which points to " << PrintToString(*actual);
+            if( !inner.str().empty() ) *listener << ", " << inner.str();
+        }
+        return matched;
+    }
+
 public:
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
@@ -2087,6 +2310,10 @@ public:
         return strm.str();
     }
 private:
+    template<typename U>
+    static bool IsNullPointer(const U& actual) { return !actual; }
+    template<typename U, size_t N>
+    static bool IsNullPointer(const U (&)[N]) { return false; }
     template<typename U>
     bool Check(const U& actual)
     {
@@ -2260,6 +2487,16 @@ public:
         return AssertionFailure() << description.str();
     }
 
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener)
+    {
+        ::std::ostringstream inner;
+        if( !ExplainMatch(m_unexpected, actual, &inner) ) return true;
+        *listener << "which matches";
+        if( !inner.str().empty() ) *listener << ", " << inner.str();
+        return false;
+    }
+
 public:
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
@@ -2414,6 +2651,11 @@ class AllOfMatcherBase : public IMatcher
 {
 protected:
     template<typename T, typename U>
+    static bool Explain(T& matchers, const U& actual, ::std::ostream* listener)
+    {
+        return Explain_<T, U, 0, tuples::tuple_size<T>::value - 1>(matchers, actual, listener);
+    }
+    template<typename T, typename U>
     static AssertionResult Check(T& matchers, const U& actual)
     {
         return Check_<T, U, 0, tuples::tuple_size<T>::value-1>(matchers, actual);
@@ -2424,6 +2666,27 @@ protected:
         return WhichIs_<T, N, tuples::tuple_size<T>::value-1>(matchers);
     }
 private:
+    template<typename T, typename U, int N, int LAST>
+    static bool Explain_(T& matchers, const U& actual, ::std::ostream* listener)
+    {
+        ::std::ostringstream inner;
+        if( !ExplainMatch(tuples::get<N>(matchers), actual, &inner) )
+        {
+            *listener << "whose matcher #" << N << " doesn't match";
+            if( !inner.str().empty() ) *listener << ", " << inner.str();
+            return false;
+        }
+        return ExplainNext<T, U, N, LAST>(matchers, actual, listener);
+    }
+    template<typename T, typename U, int N, int LAST>
+    static typename detail::enable_if<N == LAST, bool>::type
+    ExplainNext(T&, const U&, ::std::ostream*) { return true; }
+    template<typename T, typename U, int N, int LAST>
+    static typename detail::disable_if<N == LAST, bool>::type
+    ExplainNext(T& matchers, const U& actual, ::std::ostream* listener)
+    {
+        return Explain_<T, U, N + 1, LAST>(matchers, actual, listener);
+    }
     template<typename T, typename U, int N, int LAST>
     static AssertionResult Check_(T& matchers, const U& actual, typename detail::enable_if<N == LAST, void>::type*& = detail::enabler::value)
     {
@@ -2474,6 +2737,11 @@ public:
     {
         return Check(m_matchers, actual);
     }
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener)
+    {
+        return Explain(m_matchers, actual, listener);
+    }
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         return AllOfMatcherBase::WhichIsT<0>(m_matchers);
@@ -2514,6 +2782,8 @@ private:
         : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                \
     template<typename U>AssertionResult operator ()(const U& actual) {              \
         return Check(m_matchers, actual); }                                         \
+    template<typename U>bool MatchAndExplain(const U& actual, ::std::ostream* listener) { \
+        return Explain(m_matchers, actual, listener); }                             \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                             \
         return AllOfMatcherBase::WhichIsT<0>(m_matchers); }                         \
     private:                                                                        \
@@ -2541,6 +2811,11 @@ class AnyOfMatcherBase : public IMatcher
 {
 protected:
     template<typename T, typename U>
+    static bool Explain(T& matchers, const U& actual, ::std::ostream* listener)
+    {
+        return Explain_<T, U, 0, tuples::tuple_size<T>::value - 1>(matchers, actual, listener);
+    }
+    template<typename T, typename U>
     static AssertionResult Check(T& matchers, const U& actual)
     {
         return Check_<T, U, 0, tuples::tuple_size<T>::value-1>(matchers, actual);
@@ -2551,6 +2826,25 @@ protected:
         return WhichIs_<T, N, tuples::tuple_size<T>::value-1>(matchers);
     }
 private:
+    template<typename T, typename U, int N, int LAST>
+    static bool Explain_(T& matchers, const U& actual, ::std::ostream* listener)
+    {
+        ::std::ostringstream inner;
+        if( ExplainMatch(tuples::get<N>(matchers), actual, &inner) ) return true;
+        if( N ) *listener << "; ";
+        *listener << "matcher #" << N << " doesn't match";
+        if( !inner.str().empty() ) *listener << ", " << inner.str();
+        return ExplainNext<T, U, N, LAST>(matchers, actual, listener);
+    }
+    template<typename T, typename U, int N, int LAST>
+    static typename detail::enable_if<N == LAST, bool>::type
+    ExplainNext(T&, const U&, ::std::ostream*) { return false; }
+    template<typename T, typename U, int N, int LAST>
+    static typename detail::disable_if<N == LAST, bool>::type
+    ExplainNext(T& matchers, const U& actual, ::std::ostream* listener)
+    {
+        return Explain_<T, U, N + 1, LAST>(matchers, actual, listener);
+    }
     template<typename T, typename U, int N, int LAST>
     static AssertionResult Check_(T& matchers, const U& actual, typename detail::enable_if<N == LAST, void>::type*& = detail::enabler::value)
     {
@@ -2601,6 +2895,11 @@ public:
     {
         return Check(m_matchers, actual);
     }
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener)
+    {
+        return Explain(m_matchers, actual, listener);
+    }
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         return AnyOfMatcherBase::WhichIsT<0>(m_matchers);
@@ -2641,6 +2940,8 @@ private:
         : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                \
     template<typename U>AssertionResult operator ()(const U& actual) {              \
         return Check(m_matchers, actual); }                                         \
+    template<typename U>bool MatchAndExplain(const U& actual, ::std::ostream* listener) { \
+        return Explain(m_matchers, actual, listener); }                             \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                             \
         return AnyOfMatcherBase::WhichIsT<0>(m_matchers); }                         \
     private:                                                                        \
@@ -2672,6 +2973,12 @@ IUTEST_PRAGMA_ASSIGNMENT_OPERATOR_COULD_NOT_GENERATE_WARN_DISABLE_END()
 */
 namespace matchers
 {
+
+template<typename M, typename U>
+bool ExplainMatchResult(M matcher, const U& actual, ::std::ostream* listener)
+{
+    return detail::ExplainMatch(matcher, actual, listener);
+}
 
 /**
  * @defgroup    MATCHERS    Matchers
