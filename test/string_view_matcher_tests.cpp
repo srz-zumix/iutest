@@ -98,7 +98,7 @@ IUTEST(StringViewMatcher, Utf8String)
     char8_t* mutable_ptr = mutable_value;
     IUTEST_EXPECT_THAT(mutable_ptr, StrEq(mutable_ptr));
     IUTEST_EXPECT_THAT(mutable_ptr, StartsWith(mutable_ptr));
-    IUTEST_EXPECT_THAT(::std::u8string(u8"\xE3\x83\x86\xE3\x82\xB9\xE3\x83\x88"), HasSubstr(u8"\xE3\x82\xB9\xE3\x83\x88"));
+    IUTEST_EXPECT_THAT(::std::u8string(u8"\u30C6\u30B9\u30C8"), HasSubstr(u8"\u30B9\u30C8"));
     IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(u8"abc", StrEq(u8"abd")), "StrEq: abd");
 #if IUTEST_HAS_MATCHER_REGEX
     IUTEST_EXPECT_THAT(value, MatchesRegex(u8"x.*y"));
