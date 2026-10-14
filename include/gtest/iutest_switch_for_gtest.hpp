@@ -655,7 +655,7 @@ namespace testing
 
 #endif
 
-#if IUTEST_HAS_EXCEPTIONS
+#if IUTEST_HAS_EXCEPTIONS && defined(INCG_IRIS_IUTEST_HPP_)
 namespace testing
 {
 using ::iutest::AssertionException;
