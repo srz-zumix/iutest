@@ -143,6 +143,30 @@ inline ::std::string MatcherStringValue(iu_string_view value)
     return value.empty() ? ::std::string() : ::std::string(value.data(), value.size());
 }
 
+#if IUTEST_HAS_CHAR8_T
+inline ::std::string MatcherStringValue(const char8_t* value)
+{
+    return ::std::string(reinterpret_cast<const char*>(value));
+}
+
+inline ::std::string MatcherStringValue(char8_t* value)
+{
+    return MatcherStringValue(static_cast<const char8_t*>(value));
+}
+
+inline ::std::string MatcherStringValue(const ::std::u8string& value)
+{
+    return ::std::string(reinterpret_cast<const char*>(value.data()), value.size());
+}
+
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+inline ::std::string MatcherStringValue(::std::u8string_view value)
+{
+    return ::std::string(reinterpret_cast<const char*>(value.data()), value.size());
+}
+#endif
+#endif
+
 #if !defined(IUTEST_NO_SFINAE)
 template<typename T>
 inline typename detail::enable_if_t< IMatcher::is_matcher<T>, iu_ostream>::type& operator << (iu_ostream& os, const T& m)
@@ -2925,6 +2949,46 @@ IIUT_DECL_STRING_VIEW_MATCHER(EndsWith)
 
 #undef IIUT_DECL_STRING_VIEW_MATCHER
 
+#if IUTEST_HAS_CHAR8_T
+#define IIUT_DECL_CHAR8_MATCHER(name) \
+    inline detail::IUTEST_PP_CAT(name, Matcher)< ::std::string > name(const char8_t* value) { \
+        return detail::IUTEST_PP_CAT(name, Matcher)< ::std::string >(detail::MatcherStringValue(value)); \
+    } \
+    inline detail::IUTEST_PP_CAT(name, Matcher)< ::std::string > name(char8_t* value) { \
+        return detail::IUTEST_PP_CAT(name, Matcher)< ::std::string >(detail::MatcherStringValue(value)); \
+    } \
+    inline detail::IUTEST_PP_CAT(name, Matcher)< ::std::string > name(const ::std::u8string& value) { \
+        return detail::IUTEST_PP_CAT(name, Matcher)< ::std::string >(detail::MatcherStringValue(value)); \
+    }
+
+IIUT_DECL_CHAR8_MATCHER(StrEq)
+IIUT_DECL_CHAR8_MATCHER(StrNe)
+IIUT_DECL_CHAR8_MATCHER(StrCaseEq)
+IIUT_DECL_CHAR8_MATCHER(StrCaseNe)
+IIUT_DECL_CHAR8_MATCHER(StartsWith)
+IIUT_DECL_CHAR8_MATCHER(HasSubstr)
+IIUT_DECL_CHAR8_MATCHER(EndsWith)
+
+#undef IIUT_DECL_CHAR8_MATCHER
+
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+#define IIUT_DECL_CHAR8_VIEW_MATCHER(name) \
+    inline detail::IUTEST_PP_CAT(name, Matcher)< ::std::string > name(::std::u8string_view value) { \
+        return detail::IUTEST_PP_CAT(name, Matcher)< ::std::string >(detail::MatcherStringValue(value)); \
+    }
+
+IIUT_DECL_CHAR8_VIEW_MATCHER(StrEq)
+IIUT_DECL_CHAR8_VIEW_MATCHER(StrNe)
+IIUT_DECL_CHAR8_VIEW_MATCHER(StrCaseEq)
+IIUT_DECL_CHAR8_VIEW_MATCHER(StrCaseNe)
+IIUT_DECL_CHAR8_VIEW_MATCHER(StartsWith)
+IIUT_DECL_CHAR8_VIEW_MATCHER(HasSubstr)
+IIUT_DECL_CHAR8_VIEW_MATCHER(EndsWith)
+
+#undef IIUT_DECL_CHAR8_VIEW_MATCHER
+#endif
+#endif
+
 /**
  * @brief   Make StartsWith matcher
  * @details argument の先頭が str である
@@ -3414,6 +3478,35 @@ inline detail::RegexMatcher ContainsRegex(detail::iu_string_view str)
 {
     return ContainsRegex(detail::MatcherStringValue(str));
 }
+
+#if IUTEST_HAS_CHAR8_T
+inline detail::RegexMatcher MatchesRegex(const char8_t* str)
+{
+    return MatchesRegex(detail::MatcherStringValue(str));
+}
+inline detail::RegexMatcher ContainsRegex(const char8_t* str)
+{
+    return ContainsRegex(detail::MatcherStringValue(str));
+}
+inline detail::RegexMatcher MatchesRegex(const ::std::u8string& str)
+{
+    return MatchesRegex(detail::MatcherStringValue(str));
+}
+inline detail::RegexMatcher ContainsRegex(const ::std::u8string& str)
+{
+    return ContainsRegex(detail::MatcherStringValue(str));
+}
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+inline detail::RegexMatcher MatchesRegex(::std::u8string_view str)
+{
+    return MatchesRegex(detail::MatcherStringValue(str));
+}
+inline detail::RegexMatcher ContainsRegex(::std::u8string_view str)
+{
+    return ContainsRegex(detail::MatcherStringValue(str));
+}
+#endif
+#endif
 
 #endif
 

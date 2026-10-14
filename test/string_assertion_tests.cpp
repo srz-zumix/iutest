@@ -37,7 +37,7 @@ template<> const wchar_t*   text<wchar_t>::test = L"test";
 template<> const wchar_t*   text<wchar_t>::Test = L"Test";
 template<> const wchar_t*   text<wchar_t>::host = L"host";
 
-#if IUTEST_HAS_CHAR8_T
+#if IUTEST_HAS_CHAR8_T && !defined(IUTEST_USE_GTEST)
 template<> const char8_t*  text<char8_t>::test = u8"test";
 template<> const char8_t*  text<char8_t>::Test = u8"Test";
 template<> const char8_t*  text<char8_t>::host = u8"host";
@@ -67,7 +67,7 @@ template<typename T>
 class StrCaseTest : public StrTest<T> {};
 
 typedef ::iutest::Types<char, wchar_t
-#if IUTEST_HAS_CHAR8_T
+#if IUTEST_HAS_CHAR8_T && !defined(IUTEST_USE_GTEST)
     , char8_t
 #endif
 #if IUTEST_HAS_CHAR16_T

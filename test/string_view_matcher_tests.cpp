@@ -81,6 +81,63 @@ IUTEST(StringViewMatcher, OwnsExpectedValue)
 }
 #endif
 
+#if IUTEST_HAS_CHAR8_T && !defined(IUTEST_USE_GTEST)
+IUTEST(StringViewMatcher, Utf8String)
+{
+    const ::std::u8string value = u8"xabcy";
+    IUTEST_EXPECT_THAT(value, StrEq(u8"xabcy"));
+    IUTEST_EXPECT_THAT(u8"xabcy", StrEq(value));
+    IUTEST_EXPECT_THAT(value, StrNe(u8"other"));
+    IUTEST_EXPECT_THAT(value, StrCaseEq(u8"XABCY"));
+    IUTEST_EXPECT_THAT(value, StrCaseNe(u8"other"));
+    IUTEST_EXPECT_THAT(value, StartsWith(u8"xa"));
+    IUTEST_EXPECT_THAT(value, HasSubstr(u8"abc"));
+    IUTEST_EXPECT_THAT(value, EndsWith(u8"cy"));
+    IUTEST_EXPECT_THAT(value, Not(HasSubstr(u8"missing")));
+    char8_t mutable_value[] = u8"abc";
+    char8_t* mutable_ptr = mutable_value;
+    IUTEST_EXPECT_THAT(mutable_ptr, StrEq(mutable_ptr));
+    IUTEST_EXPECT_THAT(mutable_ptr, StartsWith(mutable_ptr));
+    IUTEST_EXPECT_THAT(::std::u8string(u8"\u30C6\u30B9\u30C8"), HasSubstr(u8"\u30B9\u30C8"));
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(u8"abc", StrEq(u8"abd")), "StrEq: abd");
+#if IUTEST_HAS_MATCHER_REGEX
+    IUTEST_EXPECT_THAT(value, MatchesRegex(u8"x.*y"));
+    IUTEST_EXPECT_THAT(value, ContainsRegex(u8"abc"));
+    IUTEST_EXPECT_THAT(value, Not(ContainsRegex(u8"missing")));
+    IUTEST_EXPECT_THAT(mutable_ptr, MatchesRegex(mutable_ptr));
+#endif
+}
+
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+IUTEST(StringViewMatcher, Utf8StringView)
+{
+    const ::std::u8string_view bounded(u8"abc_extra", 3);
+    IUTEST_EXPECT_THAT(bounded, StrEq(u8"abc"));
+    IUTEST_EXPECT_THAT(bounded, StartsWith(u8"a"));
+    IUTEST_EXPECT_THAT(bounded, HasSubstr(u8"b"));
+    IUTEST_EXPECT_THAT(bounded, EndsWith(u8"c"));
+    IUTEST_EXPECT_THAT(bounded, Not(HasSubstr(u8"extra")));
+    const auto eq = StrEq(bounded);
+    const auto starts = StartsWith(bounded);
+    const auto substr = HasSubstr(bounded);
+    const auto ends = EndsWith(bounded);
+    IUTEST_EXPECT_THAT(::std::u8string(u8"abc"), eq);
+    IUTEST_EXPECT_THAT(u8"abc", starts);
+    IUTEST_EXPECT_THAT(u8"abc", substr);
+    IUTEST_EXPECT_THAT(u8"abc", ends);
+    ::std::u8string source = u8"abc";
+    const auto owned = StrEq(source);
+    source[0] = u8'z';
+    IUTEST_EXPECT_THAT(bounded, owned);
+#if IUTEST_HAS_MATCHER_REGEX
+    IUTEST_EXPECT_THAT(bounded, MatchesRegex(::std::u8string_view(u8"a.c")));
+    IUTEST_EXPECT_THAT(bounded, ContainsRegex(::std::u8string_view(u8"b")));
+    IUTEST_EXPECT_THAT(bounded, Not(ContainsRegex(u8"extra")));
+#endif
+}
+#endif
+#endif
+
 #if !defined(IUTEST_USE_GTEST)
 IUTEST(StringViewMatcher, OwnStringView)
 {
