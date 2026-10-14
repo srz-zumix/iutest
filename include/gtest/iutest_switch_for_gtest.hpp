@@ -656,10 +656,12 @@ namespace testing
 #endif
 
 #if IUTEST_HAS_EXCEPTIONS && defined(INCG_IRIS_IUTEST_HPP_)
+#if GTEST_VER < 0x01120000 || !GTEST_HAS_EXCEPTIONS
 namespace testing
 {
 using ::iutest::AssertionException;
 }
+#endif
 #endif
 
 #if defined(INCG_IRIS_IUTEST_HPP_)
