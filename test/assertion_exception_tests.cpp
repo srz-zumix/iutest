@@ -37,6 +37,7 @@ IUTEST(AssertionExceptionTest, ThrowOnFailure)
     ::iutest::IUTEST_FLAG(throw_on_failure) = false;
 }
 
+#if !defined(IUTEST_USE_GTEST)
 class ThrowingListener : public ::iutest::EmptyTestEventListener
 {
 public:
@@ -54,6 +55,7 @@ IUTEST(AssertionExceptionTest, Listener)
     IUTEST_EXPECT_EQ(1, 2) << "listener exception marker";
     g_listener_reached = true;
 }
+#endif
 
 #endif
 
@@ -68,6 +70,7 @@ int main(int argc, char* argv[])
     ::iutest::IUTEST_FLAG(filter) = "AssertionExceptionTest.ThrowOnFailure";
     if( IUTEST_RUN_ALL_TESTS() == 0 || !g_throw_caught || g_listener_reached ) return 1;
 
+#if !defined(IUTEST_USE_GTEST)
     ThrowingListener* listener = new ThrowingListener();
     ::iutest::UnitTest::GetInstance()->listeners().Append(listener);
     ::iutest::IUTEST_FLAG(filter) = "AssertionExceptionTest.Listener";
@@ -83,6 +86,7 @@ int main(int argc, char* argv[])
     }
     delete ::iutest::UnitTest::GetInstance()->listeners().Release(listener);
     if( !caught || completed || g_listener_reached ) return 2;
+#endif
 #else
     IUTEST_UNUSED_VAR(argc);
     IUTEST_UNUSED_VAR(argv);
