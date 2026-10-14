@@ -18,6 +18,7 @@
 //======================================================================
 // include
 #include "internal/iutest_mediator.hpp"
+#include "iutest_env.hpp"
 
 namespace iutest
 {
@@ -224,6 +225,7 @@ private:
     detail::iuRandom                m_random;
     unsigned int                    m_random_seed;
 #endif
+    TestEnv::ScopedFlagGuard        m_flag_guard;
 };
 
 /**

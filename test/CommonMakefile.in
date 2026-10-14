@@ -126,6 +126,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/file_system_tests \
 		$(OUTDIR)/fieldsare_tests \
 		$(OUTDIR)/filter_tests \
+		$(OUTDIR)/flag_restore_tests \
 		$(OUTDIR)/flagfile_gtest_tests \
 		$(OUTDIR)/floatingpoint_tests \
 		$(OUTDIR)/floatingpoint_printers_tests \
