@@ -72,16 +72,17 @@ int main(int argc, char* argv[])
     ::iutest::UnitTest::GetInstance()->listeners().Append(listener);
     ::iutest::IUTEST_FLAG(filter) = "AssertionExceptionTest.Listener";
     bool caught = false;
+    bool completed = false;
     try
     {
-        IUTEST_RUN_ALL_TESTS();
+        completed = IUTEST_RUN_ALL_TESTS() != 0;
     }
     catch (const ::iutest::AssertionException& e)
     {
         caught = ::std::string(e.what()).find("listener exception marker") != ::std::string::npos;
     }
     delete ::iutest::UnitTest::GetInstance()->listeners().Release(listener);
-    if( !caught || g_listener_reached ) return 2;
+    if( !caught || completed || g_listener_reached ) return 2;
 #else
     IUTEST_UNUSED_VAR(argc);
     IUTEST_UNUSED_VAR(argv);
