@@ -21,10 +21,10 @@ using ::iutest::matchers::Ref;
 
 namespace {
 
-int expected = 1;
+int expected_value = 1;
 int other = 1;
 
-int& GetRef() { return expected; }
+int& GetRef() { return expected_value; }
 
 struct NonCopyable
 {
@@ -46,8 +46,8 @@ struct OverloadedAddress
 
 IUTEST(RefMatcher, Identity)
 {
-    IUTEST_EXPECT_THAT(GetRef(), Ref(expected));
-    IUTEST_EXPECT_THAT(other, ::iutest::matchers::Not(Ref(expected)));
+    IUTEST_EXPECT_THAT(GetRef(), Ref(expected_value));
+    IUTEST_EXPECT_THAT(other, ::iutest::matchers::Not(Ref(expected_value)));
     NonCopyable object;
     IUTEST_EXPECT_THAT(object, Ref(object));
     const int constant = 2;
@@ -61,14 +61,14 @@ IUTEST(RefMatcher, Identity)
 
 IUTEST(RefMatcher, FailureMessage)
 {
-    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(other, Ref(expected)), "");
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(other, Ref(expected_value)), "");
 #if !defined(IUTEST_USE_GMOCK)
     ::std::ostringstream expected_address;
-    expected_address << static_cast<const void*>(&expected);
+    expected_address << static_cast<const void*>(&expected_value);
     ::std::ostringstream actual_address;
     actual_address << static_cast<const void*>(&other);
-    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(other, Ref(expected)), expected_address.str().c_str());
-    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(other, Ref(expected)), actual_address.str().c_str());
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(other, Ref(expected_value)), expected_address.str().c_str());
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(other, Ref(expected_value)), actual_address.str().c_str());
 #endif
 }
 
