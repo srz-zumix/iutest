@@ -12,6 +12,7 @@
 */
 //-----------------------------------------------------------------------
 //======================================================================
+#include <cmath>
 #include "../include/gtest/iutest_spi_switch.hpp"
 
 GTEST_TEST(GTestAliasTest, Assertions)

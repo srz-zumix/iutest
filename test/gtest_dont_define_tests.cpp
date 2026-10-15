@@ -26,7 +26,7 @@
 #define GTEST_DONT_DEFINE_EXPECT_FALSE 1
 #define GTEST_DONT_DEFINE_TEST 1
 
-#include "../include/gtest/iutest_switch.hpp"
+#include "gtest_alias_tests.cpp"
 
 #if defined(FAIL) || defined(FAIL_AT) || defined(SUCCEED) || defined(TEST)
 #  error Google Test short test macros must not be defined
@@ -35,10 +35,19 @@
     || defined(ASSERT_GT) || defined(ASSERT_GE)
 #  error Google Test short comparison macros must not be defined
 #endif
-#if !defined(IUTEST_USE_GTEST) || defined(GTEST_ASSERT_TRUE)
-#  if defined(ASSERT_TRUE) || defined(ASSERT_FALSE) || defined(EXPECT_TRUE) || defined(EXPECT_FALSE)
-#    error Google Test short boolean macros must not be defined
-#  endif
+#if GTEST_DONT_DEFINE_ASSERT_TRUE && defined(ASSERT_TRUE) \
+    && (!defined(IUTEST_USE_GTEST) || defined(GTEST_ASSERT_TRUE))
+#  error ASSERT_TRUE must not be defined
 #endif
-
-#include "gtest_alias_tests.cpp"
+#if GTEST_DONT_DEFINE_ASSERT_FALSE && defined(ASSERT_FALSE) \
+    && (!defined(IUTEST_USE_GTEST) || defined(GTEST_ASSERT_FALSE))
+#  error ASSERT_FALSE must not be defined
+#endif
+#if GTEST_DONT_DEFINE_EXPECT_TRUE && defined(EXPECT_TRUE) \
+    && (!defined(IUTEST_USE_GTEST) || defined(GTEST_EXPECT_TRUE))
+#  error EXPECT_TRUE must not be defined
+#endif
+#if GTEST_DONT_DEFINE_EXPECT_FALSE && defined(EXPECT_FALSE) \
+    && (!defined(IUTEST_USE_GTEST) || defined(GTEST_EXPECT_FALSE))
+#  error EXPECT_FALSE must not be defined
+#endif

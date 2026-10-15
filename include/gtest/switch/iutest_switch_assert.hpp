@@ -209,12 +209,14 @@
 
 //======================================================================
 // define
-#define IUTEST_ASSERT(...)                  IUTEST_ASSERT_TRUE((__VA_ARGS__))
-#define IUTEST_ASSERT_NOT(...)              IUTEST_ASSERT_FALSE((__VA_ARGS__))
 #if defined(GTEST_ASSERT_TRUE)
+#  define IUTEST_ASSERT(...)                GTEST_ASSERT_TRUE((__VA_ARGS__))
+#  define IUTEST_ASSERT_NOT(...)            GTEST_ASSERT_FALSE((__VA_ARGS__))
 #  define IUTEST_ASSERT_TRUE(...)           GTEST_ASSERT_TRUE(!!(__VA_ARGS__))
 #  define IUTEST_ASSERT_FALSE(...)          GTEST_ASSERT_FALSE((__VA_ARGS__))
 #else
+#  define IUTEST_ASSERT(...)                ASSERT_TRUE((__VA_ARGS__))
+#  define IUTEST_ASSERT_NOT(...)            ASSERT_FALSE((__VA_ARGS__))
 #  define IUTEST_ASSERT_TRUE(...)           ASSERT_TRUE(!!(__VA_ARGS__))
 #  define IUTEST_ASSERT_FALSE(...)          ASSERT_FALSE((__VA_ARGS__))
 #endif

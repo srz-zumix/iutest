@@ -172,12 +172,14 @@
 
 //======================================================================
 // define
-#define IUTEST_EXPECT(...)                  IUTEST_EXPECT_TRUE((__VA_ARGS__))
-#define IUTEST_EXPECT_NOT(...)              IUTEST_EXPECT_FALSE((__VA_ARGS__))
 #if defined(GTEST_EXPECT_TRUE)
+#  define IUTEST_EXPECT(...)                GTEST_EXPECT_TRUE((__VA_ARGS__))
+#  define IUTEST_EXPECT_NOT(...)            GTEST_EXPECT_FALSE((__VA_ARGS__))
 #  define IUTEST_EXPECT_TRUE(...)           GTEST_EXPECT_TRUE(!!(__VA_ARGS__))
 #  define IUTEST_EXPECT_FALSE(...)          GTEST_EXPECT_FALSE((__VA_ARGS__))
 #else
+#  define IUTEST_EXPECT(...)                EXPECT_TRUE((__VA_ARGS__))
+#  define IUTEST_EXPECT_NOT(...)            EXPECT_FALSE((__VA_ARGS__))
 #  define IUTEST_EXPECT_TRUE(...)           EXPECT_TRUE(!!(__VA_ARGS__))
 #  define IUTEST_EXPECT_FALSE(...)          EXPECT_FALSE((__VA_ARGS__))
 #endif
