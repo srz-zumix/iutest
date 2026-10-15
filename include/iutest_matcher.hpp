@@ -2896,10 +2896,17 @@ private:
     {
         ::std::ostringstream inner;
         if( ExplainMatch(tuples::get<N>(matchers), actual, &inner) ) return true;
-        if( N ) *listener << "; ";
+        PrintSeparator<N>(listener);
         *listener << "matcher #" << N << " doesn't match";
         if( !inner.str().empty() ) *listener << ", " << inner.str();
         return ExplainNext<T, U, N, LAST>(matchers, actual, listener);
+    }
+    template<int N>
+    static typename detail::enable_if<N == 0, void>::type PrintSeparator(::std::ostream*) {}
+    template<int N>
+    static typename detail::disable_if<N == 0, void>::type PrintSeparator(::std::ostream* listener)
+    {
+        *listener << "; ";
     }
     template<typename T, typename U, int N, int LAST>
     static typename detail::enable_if<N == LAST, bool>::type
