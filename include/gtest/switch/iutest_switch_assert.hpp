@@ -21,14 +21,38 @@
 // undef
 #if defined(GTEST_INCLUDE_GTEST_GTEST_H_)
 
-#undef ASSERT_TRUE
-#undef ASSERT_FALSE
-#undef ASSERT_EQ
-#undef ASSERT_NE
-#undef ASSERT_LT
-#undef ASSERT_LE
-#undef ASSERT_GT
-#undef ASSERT_GE
+#if !(defined(GTEST_DONT_DEFINE_ASSERT_TRUE) && GTEST_DONT_DEFINE_ASSERT_TRUE)
+#  undef ASSERT_TRUE
+#endif
+#if !(defined(GTEST_DONT_DEFINE_ASSERT_FALSE) && GTEST_DONT_DEFINE_ASSERT_FALSE)
+#  undef ASSERT_FALSE
+#endif
+#if !(defined(GTEST_DONT_DEFINE_ASSERT_EQ) && GTEST_DONT_DEFINE_ASSERT_EQ)
+#  undef ASSERT_EQ
+#endif
+#if !(defined(GTEST_DONT_DEFINE_ASSERT_NE) && GTEST_DONT_DEFINE_ASSERT_NE)
+#  undef ASSERT_NE
+#endif
+#if !(defined(GTEST_DONT_DEFINE_ASSERT_LT) && GTEST_DONT_DEFINE_ASSERT_LT)
+#  undef ASSERT_LT
+#endif
+#if !(defined(GTEST_DONT_DEFINE_ASSERT_LE) && GTEST_DONT_DEFINE_ASSERT_LE)
+#  undef ASSERT_LE
+#endif
+#if !(defined(GTEST_DONT_DEFINE_ASSERT_GT) && GTEST_DONT_DEFINE_ASSERT_GT)
+#  undef ASSERT_GT
+#endif
+#if !(defined(GTEST_DONT_DEFINE_ASSERT_GE) && GTEST_DONT_DEFINE_ASSERT_GE)
+#  undef ASSERT_GE
+#endif
+#undef GTEST_ASSERT_TRUE
+#undef GTEST_ASSERT_FALSE
+#undef GTEST_ASSERT_EQ
+#undef GTEST_ASSERT_NE
+#undef GTEST_ASSERT_LT
+#undef GTEST_ASSERT_LE
+#undef GTEST_ASSERT_GT
+#undef GTEST_ASSERT_GE
 #undef ASSERT_NEAR
 #undef ASSERT_FLOAT_EQ
 #undef ASSERT_DOUBLE_EQ
@@ -60,14 +84,39 @@
 
 //======================================================================
 // define
-#define ASSERT_TRUE         IUTEST_ASSERT_TRUE
-#define ASSERT_FALSE        IUTEST_ASSERT_FALSE
-#define ASSERT_EQ           IUTEST_ASSERT_EQ
-#define ASSERT_NE           IUTEST_ASSERT_NE
-#define ASSERT_LT           IUTEST_ASSERT_LT
-#define ASSERT_LE           IUTEST_ASSERT_LE
-#define ASSERT_GT           IUTEST_ASSERT_GT
-#define ASSERT_GE           IUTEST_ASSERT_GE
+#define GTEST_ASSERT_TRUE   IUTEST_ASSERT_TRUE
+#define GTEST_ASSERT_FALSE  IUTEST_ASSERT_FALSE
+#define GTEST_ASSERT_EQ     IUTEST_ASSERT_EQ
+#define GTEST_ASSERT_NE     IUTEST_ASSERT_NE
+#define GTEST_ASSERT_LT     IUTEST_ASSERT_LT
+#define GTEST_ASSERT_LE     IUTEST_ASSERT_LE
+#define GTEST_ASSERT_GT     IUTEST_ASSERT_GT
+#define GTEST_ASSERT_GE     IUTEST_ASSERT_GE
+
+#if !(defined(GTEST_DONT_DEFINE_ASSERT_TRUE) && GTEST_DONT_DEFINE_ASSERT_TRUE)
+#  define ASSERT_TRUE       IUTEST_ASSERT_TRUE
+#endif
+#if !(defined(GTEST_DONT_DEFINE_ASSERT_FALSE) && GTEST_DONT_DEFINE_ASSERT_FALSE)
+#  define ASSERT_FALSE      IUTEST_ASSERT_FALSE
+#endif
+#if !(defined(GTEST_DONT_DEFINE_ASSERT_EQ) && GTEST_DONT_DEFINE_ASSERT_EQ)
+#  define ASSERT_EQ         IUTEST_ASSERT_EQ
+#endif
+#if !(defined(GTEST_DONT_DEFINE_ASSERT_NE) && GTEST_DONT_DEFINE_ASSERT_NE)
+#  define ASSERT_NE         IUTEST_ASSERT_NE
+#endif
+#if !(defined(GTEST_DONT_DEFINE_ASSERT_LT) && GTEST_DONT_DEFINE_ASSERT_LT)
+#  define ASSERT_LT         IUTEST_ASSERT_LT
+#endif
+#if !(defined(GTEST_DONT_DEFINE_ASSERT_LE) && GTEST_DONT_DEFINE_ASSERT_LE)
+#  define ASSERT_LE         IUTEST_ASSERT_LE
+#endif
+#if !(defined(GTEST_DONT_DEFINE_ASSERT_GT) && GTEST_DONT_DEFINE_ASSERT_GT)
+#  define ASSERT_GT         IUTEST_ASSERT_GT
+#endif
+#if !(defined(GTEST_DONT_DEFINE_ASSERT_GE) && GTEST_DONT_DEFINE_ASSERT_GE)
+#  define ASSERT_GE         IUTEST_ASSERT_GE
+#endif
 #define ASSERT_NEAR         IUTEST_ASSERT_NEAR
 #define ASSERT_FLOAT_EQ     IUTEST_ASSERT_FLOAT_EQ
 #define ASSERT_DOUBLE_EQ    IUTEST_ASSERT_DOUBLE_EQ
@@ -160,23 +209,28 @@
 
 //======================================================================
 // define
-#define IUTEST_ASSERT(...)                  ASSERT_TRUE((__VA_ARGS__))
-#define IUTEST_ASSERT_NOT(...)              ASSERT_FALSE((__VA_ARGS__))
-#define IUTEST_ASSERT_TRUE(...)             ASSERT_TRUE(!!(__VA_ARGS__))
-#define IUTEST_ASSERT_FALSE(...)            ASSERT_FALSE((__VA_ARGS__))
-#define IUTEST_ASSERT_EQ                    ASSERT_EQ
+#define IUTEST_ASSERT(...)                  IUTEST_ASSERT_TRUE((__VA_ARGS__))
+#define IUTEST_ASSERT_NOT(...)              IUTEST_ASSERT_FALSE((__VA_ARGS__))
+#if defined(GTEST_ASSERT_TRUE)
+#  define IUTEST_ASSERT_TRUE(...)           GTEST_ASSERT_TRUE(!!(__VA_ARGS__))
+#  define IUTEST_ASSERT_FALSE(...)          GTEST_ASSERT_FALSE((__VA_ARGS__))
+#else
+#  define IUTEST_ASSERT_TRUE(...)           ASSERT_TRUE(!!(__VA_ARGS__))
+#  define IUTEST_ASSERT_FALSE(...)          ASSERT_FALSE((__VA_ARGS__))
+#endif
+#define IUTEST_ASSERT_EQ                    GTEST_ASSERT_EQ
 #define IUTEST_ASSERT_ALMOST_EQ(expected, actual)   \
     ASSERT_PRED_FORMAT2( ::testing::internal::backward::AlmostEqHelper<IUTEST_IS_NULLLITERAL(expected)>::Compare, expected, actual)
 #define IUTEST_ASSERT_NE(expected, actual)  ASSERT_PRED_FORMAT2(IIUT_COMPATIBLE_NEHELPER(expected)::Compare, expected, actual)
-#define IUTEST_ASSERT_LT                    ASSERT_LT
-#define IUTEST_ASSERT_LE                    ASSERT_LE
-#define IUTEST_ASSERT_GT                    ASSERT_GT
-#define IUTEST_ASSERT_GE                    ASSERT_GE
+#define IUTEST_ASSERT_LT                    GTEST_ASSERT_LT
+#define IUTEST_ASSERT_LE                    GTEST_ASSERT_LE
+#define IUTEST_ASSERT_GT                    GTEST_ASSERT_GT
+#define IUTEST_ASSERT_GE                    GTEST_ASSERT_GE
 #define IUTEST_ASSERT_NEAR                  ASSERT_NEAR
 #define IUTEST_ASSERT_NULL(...)             IUTEST_THROUGH_ANALYSIS_ASSUME((__VA_ARGS__) == IUTEST_NULLPTR  \
-                                                , ASSERT_EQ(IUTEST_NULLPTR, (__VA_ARGS__)))
+                                                , GTEST_ASSERT_EQ(IUTEST_NULLPTR, (__VA_ARGS__)))
 #define IUTEST_ASSERT_NOTNULL(...)          IUTEST_THROUGH_ANALYSIS_ASSUME((__VA_ARGS__) != IUTEST_NULLPTR  \
-                                                , ASSERT_TRUE(IUTEST_NULLPTR != (__VA_ARGS__)))
+                                                , IUTEST_ASSERT_TRUE(IUTEST_NULLPTR != (__VA_ARGS__)))
 #define IUTEST_ASSERT_SAME(v1, v2)          ASSERT_PRED_FORMAT2(::testing::internal::CmpHelperSame, v1, v2)
 #define IUTEST_ASSERT_FLOAT_EQ              ASSERT_FLOAT_EQ
 #define IUTEST_ASSERT_DOUBLE_EQ             ASSERT_DOUBLE_EQ

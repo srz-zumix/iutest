@@ -130,6 +130,8 @@ TEST_TARGETS= \
 		$(OUTDIR)/floatingpoint_tests \
 		$(OUTDIR)/floatingpoint_printers_tests \
 		$(OUTDIR)/gtest_version_tests \
+		$(OUTDIR)/gtest_alias_tests \
+		$(OUTDIR)/gtest_dont_define_tests \
 		$(OUTDIR)/help_tests \
 		$(OUTDIR)/inform_tests \
 		$(OUTDIR)/incomplete_printers_tests \
