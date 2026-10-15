@@ -659,6 +659,15 @@ namespace testing
 
 #endif
 
+#if IUTEST_HAS_EXCEPTIONS && defined(INCG_IRIS_IUTEST_HPP_)
+#if GTEST_VER < 0x01080100
+namespace testing
+{
+using ::iutest::AssertionException;
+}
+#endif
+#endif
+
 #if defined(INCG_IRIS_IUTEST_HPP_)
 // すでに iutest namespace が存在するので、define で対応
 #  define iutest testing

@@ -20,6 +20,9 @@
 // IWYU pragma: begin_exports
 #include "internal/iutest_message.hpp"
 // IWYU pragma: end_exports
+#if IUTEST_HAS_EXCEPTIONS
+#include <stdexcept>
+#endif
 
 namespace iutest
 {
@@ -143,6 +146,18 @@ public:
 private:
     Type m_type;
 };
+
+#if IUTEST_HAS_EXCEPTIONS
+/**
+ * @brief   アサーション失敗時の例外
+ */
+class AssertionException : public ::std::runtime_error
+{
+public:
+    explicit AssertionException(const TestPartResult& result) :
+        ::std::runtime_error(result.make_message()) {}
+};
+#endif
 
 //! TestPartResult print 出力
 inline iu_ostream& operator << (iu_ostream& os, const TestPartResult& result)

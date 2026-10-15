@@ -68,6 +68,10 @@ IUTEST_IPP_INLINE void TestInfo::RunImpl()
 #endif
             elapsedmsec = sw.stop();
         }
+        catch (const AssertionException&)
+        {
+            throw;
+        }
         catch (const ::std::exception& e)
         {
             elapsedmsec = sw.stop();
@@ -107,15 +111,6 @@ IUTEST_IPP_INLINE void TestInfo::RunImpl()
     }
 
     m_test_result.set_elapsed_time(elapsedmsec);
-
-    if( HasFailure() && TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
-    {
-#if IUTEST_HAS_EXCEPTIONS
-        throw HasFatalFailure() ? TestPartResult::kFatalFailure : TestPartResult::kNonFatalFailure;
-#else
-        exit(1);
-#endif
-    }
 }
 
 #if IUTEST_HAS_SEH && IUTEST_HAS_EXCEPTIONS
