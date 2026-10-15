@@ -154,8 +154,8 @@ private:
 class AssertionException : public ::std::runtime_error
 {
 public:
-    explicit AssertionException(const TestPartResult& result)
-        : ::std::runtime_error(result.make_message()) {}
+    explicit AssertionException(const TestPartResult& result) :
+        ::std::runtime_error(result.make_message()) {}
 };
 #endif
 
