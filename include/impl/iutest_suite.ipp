@@ -75,6 +75,28 @@ IUTEST_IPP_INLINE bool TestSuite::Run()
     return result;
 }
 
+IUTEST_IPP_INLINE void TestSuite::Skip(bool notify)
+{
+    if( !should_run() )
+    {
+        return;
+    }
+    m_start_timestamp = detail::GetTimeInMillis();
+    m_elapsedmsec = 0;
+    if( notify )
+    {
+        TestEnv::event_listeners().OnTestSuiteStart(*this);
+    }
+    for( iuTestInfos::iterator it = m_testinfos.begin(), end = m_testinfos.end(); it != end; ++it )
+    {
+        (*it)->Skip(notify);
+    }
+    if( notify )
+    {
+        TestEnv::event_listeners().OnTestSuiteEnd(*this);
+    }
+}
+
 IUTEST_IPP_INLINE bool TestSuite::RunImpl()
 {
     bool result=true;

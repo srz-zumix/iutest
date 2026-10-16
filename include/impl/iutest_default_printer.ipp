@@ -234,8 +234,11 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
         if( !test.Passed() )
         {
             const int failed_num = test.failed_test_count();
-            detail::iuConsole::color_output(detail::iuConsole::red, "[  FAILED  ] ");
-            detail::iuConsole::output("%d %s, listed below:\n", failed_num, detail::FormatCountableNoun(failed_num, "test", "tests") );
+            if( failed_num > 0 )
+            {
+                detail::iuConsole::color_output(detail::iuConsole::red, "[  FAILED  ] ");
+                detail::iuConsole::output("%d %s, listed below:\n", failed_num, detail::FormatCountableNoun(failed_num, "test", "tests") );
+            }
 
             for( int i=0, count=test.total_test_suite_count(); i < count; ++i )
             {
@@ -259,9 +262,12 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
             if( test.ad_hoc_test_result()->Failed() )
             {
                 detail::iuConsole::color_output(detail::iuConsole::red, "[  FAILED  ] ");
-                detail::iuConsole::output("other than\n");
+                detail::iuConsole::output("Global test environment or ad hoc test failure\n");
             }
-            detail::iuConsole::output("\n%d FAILED %s.\n", failed_num, detail::FormatCountableNoun(failed_num, "TEST", "TESTS") );
+            if( failed_num > 0 )
+            {
+                detail::iuConsole::output("\n%d FAILED %s.\n", failed_num, detail::FormatCountableNoun(failed_num, "TEST", "TESTS") );
+            }
         }
     }
 }
