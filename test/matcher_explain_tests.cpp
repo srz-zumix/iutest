@@ -95,8 +95,10 @@ IUTEST(MatcherExplain, FailureMessage)
         "whose size is 2");
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(values, Each(IsFive())),
         "whose element #0 doesn't match, which is 2 less than 5");
+#if IUTEST_HAS_MATCHER_ELEMENTSARE
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(values, ElementsAre(IsFive(), IsFive())),
         "whose element #0 doesn't match, which is 2 less than 5");
+#endif
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(three_pointer, Pointee(IsFive())),
         "which points to 3, which is 2 less than 5");
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(null_pointer, Pointee(IsFive())),
