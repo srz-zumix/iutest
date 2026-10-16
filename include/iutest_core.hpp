@@ -43,6 +43,9 @@ public:
     static UnitTest* GetInstance() { return &instance(); }
 
 public:
+    /** 初回の初期化時のカレントディレクトリを取得 */
+    const char* original_working_dir() const { return m_original_working_dir.c_str(); }
+
     /**
      * @brief   テスト中の TestSuite の取得
     */
@@ -225,6 +228,7 @@ private:
     int m_init_iutest_count;
     bool m_test_started;
     TimeInMillisec m_start_timestamp;
+    ::std::string m_original_working_dir;
     detail::DefaultGlobalTestPartResultReporter m_default_test_part_result_reporter;
 
     IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(UnitTest);
