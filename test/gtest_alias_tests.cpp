@@ -17,12 +17,14 @@
 
 GTEST_TEST(GTestAliasTest, Assertions)
 {
+#if !defined(IUTEST_USE_GTEST) || defined(GTEST_ASSERT_EQ)
     GTEST_ASSERT_EQ(1, 1) << "equal";
     GTEST_ASSERT_NE(1, 2) << "not equal";
     GTEST_ASSERT_LT(1, 2) << "less";
     GTEST_ASSERT_LE(1, 1) << "less or equal";
     GTEST_ASSERT_GT(2, 1) << "greater";
     GTEST_ASSERT_GE(1, 1) << "greater or equal";
+#endif
 #if !defined(IUTEST_USE_GTEST) || defined(GTEST_ASSERT_TRUE)
     GTEST_ASSERT_TRUE(true) << "true";
     GTEST_ASSERT_FALSE(false) << "false";
@@ -37,12 +39,14 @@ GTEST_TEST(GTestAliasTest, Assertions)
 GTEST_TEST(GTestAliasTest, Failures)
 {
     EXPECT_FATAL_FAILURE(GTEST_FAIL() << "fatal alias", "fatal alias");
+#if !defined(IUTEST_USE_GTEST) || defined(GTEST_ASSERT_EQ)
     EXPECT_FATAL_FAILURE(GTEST_ASSERT_EQ(1, 2) << "eq alias", "eq alias");
     EXPECT_FATAL_FAILURE(GTEST_ASSERT_NE(1, 1) << "ne alias", "ne alias");
     EXPECT_FATAL_FAILURE(GTEST_ASSERT_LT(2, 1) << "lt alias", "lt alias");
     EXPECT_FATAL_FAILURE(GTEST_ASSERT_LE(2, 1) << "le alias", "le alias");
     EXPECT_FATAL_FAILURE(GTEST_ASSERT_GT(1, 2) << "gt alias", "gt alias");
     EXPECT_FATAL_FAILURE(GTEST_ASSERT_GE(1, 2) << "ge alias", "ge alias");
+#endif
 #if !defined(IUTEST_USE_GTEST) || defined(GTEST_ASSERT_TRUE)
     EXPECT_FATAL_FAILURE(GTEST_ASSERT_TRUE(false) << "true alias", "true alias");
     EXPECT_FATAL_FAILURE(GTEST_ASSERT_FALSE(true) << "false alias", "false alias");

@@ -31,9 +31,11 @@
 #if defined(FAIL) || defined(FAIL_AT) || defined(SUCCEED) || defined(TEST)
 #  error Google Test short test macros must not be defined
 #endif
-#if defined(ASSERT_EQ) || defined(ASSERT_NE) || defined(ASSERT_LT) || defined(ASSERT_LE) \
-    || defined(ASSERT_GT) || defined(ASSERT_GE)
-#  error Google Test short comparison macros must not be defined
+#if !defined(IUTEST_USE_GTEST) || defined(GTEST_ASSERT_EQ)
+#  if defined(ASSERT_EQ) || defined(ASSERT_NE) || defined(ASSERT_LT) || defined(ASSERT_LE) \
+      || defined(ASSERT_GT) || defined(ASSERT_GE)
+#    error Google Test short comparison macros must not be defined
+#  endif
 #endif
 #if GTEST_DONT_DEFINE_ASSERT_TRUE && defined(ASSERT_TRUE) \
     && (!defined(IUTEST_USE_GTEST) || defined(GTEST_ASSERT_TRUE))

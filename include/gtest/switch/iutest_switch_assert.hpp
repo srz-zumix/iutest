@@ -220,17 +220,37 @@
 #  define IUTEST_ASSERT_TRUE(...)           ASSERT_TRUE(!!(__VA_ARGS__))
 #  define IUTEST_ASSERT_FALSE(...)          ASSERT_FALSE((__VA_ARGS__))
 #endif
-#define IUTEST_ASSERT_EQ                    GTEST_ASSERT_EQ
+#if defined(GTEST_ASSERT_EQ)
+#  define IUTEST_ASSERT_EQ                  GTEST_ASSERT_EQ
+#else
+#  define IUTEST_ASSERT_EQ                  ASSERT_EQ
+#endif
 #define IUTEST_ASSERT_ALMOST_EQ(expected, actual)   \
     ASSERT_PRED_FORMAT2( ::testing::internal::backward::AlmostEqHelper<IUTEST_IS_NULLLITERAL(expected)>::Compare, expected, actual)
 #define IUTEST_ASSERT_NE(expected, actual)  ASSERT_PRED_FORMAT2(IIUT_COMPATIBLE_NEHELPER(expected)::Compare, expected, actual)
-#define IUTEST_ASSERT_LT                    GTEST_ASSERT_LT
-#define IUTEST_ASSERT_LE                    GTEST_ASSERT_LE
-#define IUTEST_ASSERT_GT                    GTEST_ASSERT_GT
-#define IUTEST_ASSERT_GE                    GTEST_ASSERT_GE
+#if defined(GTEST_ASSERT_LT)
+#  define IUTEST_ASSERT_LT                  GTEST_ASSERT_LT
+#else
+#  define IUTEST_ASSERT_LT                  ASSERT_LT
+#endif
+#if defined(GTEST_ASSERT_LE)
+#  define IUTEST_ASSERT_LE                  GTEST_ASSERT_LE
+#else
+#  define IUTEST_ASSERT_LE                  ASSERT_LE
+#endif
+#if defined(GTEST_ASSERT_GT)
+#  define IUTEST_ASSERT_GT                  GTEST_ASSERT_GT
+#else
+#  define IUTEST_ASSERT_GT                  ASSERT_GT
+#endif
+#if defined(GTEST_ASSERT_GE)
+#  define IUTEST_ASSERT_GE                  GTEST_ASSERT_GE
+#else
+#  define IUTEST_ASSERT_GE                  ASSERT_GE
+#endif
 #define IUTEST_ASSERT_NEAR                  ASSERT_NEAR
 #define IUTEST_ASSERT_NULL(...)             IUTEST_THROUGH_ANALYSIS_ASSUME((__VA_ARGS__) == IUTEST_NULLPTR  \
-                                                , GTEST_ASSERT_EQ(IUTEST_NULLPTR, (__VA_ARGS__)))
+                                                , IUTEST_ASSERT_EQ(IUTEST_NULLPTR, (__VA_ARGS__)))
 #define IUTEST_ASSERT_NOTNULL(...)          IUTEST_THROUGH_ANALYSIS_ASSUME((__VA_ARGS__) != IUTEST_NULLPTR  \
                                                 , IUTEST_ASSERT_TRUE(IUTEST_NULLPTR != (__VA_ARGS__)))
 #define IUTEST_ASSERT_SAME(v1, v2)          ASSERT_PRED_FORMAT2(::testing::internal::CmpHelperSame, v1, v2)
