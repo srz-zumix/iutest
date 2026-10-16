@@ -18,7 +18,6 @@
 //======================================================================
 // include
 #include "../iutest_core.hpp"
-#include "../internal/iutest_filepath.hpp"
 
 namespace iutest
 {
@@ -379,7 +378,12 @@ IUTEST_IPP_INLINE void UnitTest::Initialize()
         return;
     }
 
-    m_original_working_dir = detail::iuFilePath::GetCurrentDir().string();
+    char cwd[IUTEST_MAX_PATH] = { 0 };
+    const char* const dir = internal::posix::GetCWD(cwd, sizeof(cwd));
+    if( dir != NULL )
+    {
+        m_original_working_dir = dir;
+    }
 
 #if IUTEST_HAS_PARAM_TEST
     ::std::vector< ::std::string > uninstantiated;

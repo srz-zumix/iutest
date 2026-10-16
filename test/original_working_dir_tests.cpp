@@ -27,6 +27,17 @@ namespace
 
 ::std::string initialization_dir;
 
+::std::string GetWorkingDirectory()
+{
+#if defined(IUTEST_USE_GTEST)
+    return ::iutest::internal::FilePath::GetCurrentDir().string();
+#else
+    char cwd[IUTEST_MAX_PATH] = { 0 };
+    const char* const dir = ::iutest::internal::posix::GetCWD(cwd, sizeof(cwd));
+    return dir != NULL ? dir : "";
+#endif
+}
+
 #if (defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE) \
     && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)) || IUTEST_HAS_HDR_UNISTD
 
@@ -44,12 +55,11 @@ class OriginalWorkingDir : public ::iutest::Test
 protected:
     virtual void SetUp() IUTEST_CXX_OVERRIDE
     {
-        const ::iutest::internal::FilePath current = ::iutest::internal::FilePath::GetCurrentDir();
+        const ::iutest::internal::FilePath current(GetWorkingDirectory());
         IUTEST_ASSUME_TRUE(current.IsAbsolutePath());
         m_restore_dir = current.string();
         IUTEST_ASSERT_EQ(0, ChangeDirectory(".."));
-        IUTEST_ASSUME_STRNE(initialization_dir.c_str()
-            , ::iutest::internal::FilePath::GetCurrentDir().string().c_str());
+        IUTEST_ASSUME_STRNE(initialization_dir.c_str(), GetWorkingDirectory().c_str());
     }
 
     virtual void TearDown() IUTEST_CXX_OVERRIDE
@@ -97,7 +107,7 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-    initialization_dir = ::iutest::internal::FilePath::GetCurrentDir().string();
+    initialization_dir = GetWorkingDirectory();
     IUTEST_INIT(&argc, argv);
     return IUTEST_RUN_ALL_TESTS();
 }
