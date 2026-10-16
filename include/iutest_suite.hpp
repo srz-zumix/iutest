@@ -172,7 +172,7 @@ private:
     */
     bool Run();
 
-    void Skip();
+    void Skip(bool notify = true);
 
     /**
      * @brief   実行

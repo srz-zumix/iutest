@@ -249,16 +249,16 @@ IUTEST_IPP_INLINE bool UnitTest::RunOnce(bool set_up_environment, bool tear_down
         EnvironmentSetUp();
     }
 
-    if( m_ad_hoc_testresult.HasFatalFailure() )
+    if( m_ad_hoc_testresult.HasFatalFailure() || m_ad_hoc_testresult.Skipped() )
     {
         for( iuTestSuites::iterator it=m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
         {
             m_current_testsuite = *it;
-            m_current_testsuite->Skip();
+            m_current_testsuite->Skip(m_ad_hoc_testresult.HasFatalFailure());
             m_current_testsuite = NULL;
         }
     }
-    else if( !m_ad_hoc_testresult.Skipped() )
+    else
     {
         detail::iuStopWatch sw;
         sw.start();

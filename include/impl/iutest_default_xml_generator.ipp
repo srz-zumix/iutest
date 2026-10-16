@@ -217,7 +217,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
     // propertys
     OnReportTestProperty(file, *test_info.result(), TestInfo::ValidateTestPropertyName);
 
-    const bool notrun = test_info.should_run() && !test_info.is_ran();
+    const bool notrun = test_info.should_run() && !test_info.is_ran() && !test_info.is_skipped();
     if( test_info.HasFailure() || notrun )
     {
         file->Printf(">\n");

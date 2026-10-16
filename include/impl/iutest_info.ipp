@@ -47,18 +47,24 @@ IUTEST_IPP_INLINE bool TestInfo::Run()
     return !HasFailure();
 }
 
-IUTEST_IPP_INLINE void TestInfo::Skip()
+IUTEST_IPP_INLINE void TestInfo::Skip(bool notify)
 {
     if( !should_run() )
     {
         return;
     }
-    TestEnv::event_listeners().OnTestStart(*this);
-    m_ran = true;
+    if( notify )
+    {
+        TestEnv::event_listeners().OnTestStart(*this);
+    }
+    m_ran = notify;
     const TestPartResult result(file(), line(), "", TestPartResult::kSkip);
     m_test_result.AddTestPartResult(result);
-    TestEnv::event_listeners().OnTestPartResult(result);
-    TestEnv::event_listeners().OnTestEnd(*this);
+    if( notify )
+    {
+        TestEnv::event_listeners().OnTestPartResult(result);
+        TestEnv::event_listeners().OnTestEnd(*this);
+    }
 }
 
 IUTEST_IPP_INLINE void TestInfo::RunImpl()
