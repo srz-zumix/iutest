@@ -21,8 +21,14 @@
 // undef
 #if defined(GTEST_INCLUDE_GTEST_GTEST_H_)
 
-#undef EXPECT_TRUE
-#undef EXPECT_FALSE
+#if !(defined(GTEST_DONT_DEFINE_EXPECT_TRUE) && GTEST_DONT_DEFINE_EXPECT_TRUE)
+#  undef EXPECT_TRUE
+#endif
+#if !(defined(GTEST_DONT_DEFINE_EXPECT_FALSE) && GTEST_DONT_DEFINE_EXPECT_FALSE)
+#  undef EXPECT_FALSE
+#endif
+#undef GTEST_EXPECT_TRUE
+#undef GTEST_EXPECT_FALSE
 #undef EXPECT_EQ
 #undef EXPECT_NE
 #undef EXPECT_LT
@@ -60,8 +66,14 @@
 
 //======================================================================
 // define
-#define EXPECT_TRUE         IUTEST_EXPECT_TRUE
-#define EXPECT_FALSE        IUTEST_EXPECT_FALSE
+#define GTEST_EXPECT_TRUE   IUTEST_EXPECT_TRUE
+#define GTEST_EXPECT_FALSE  IUTEST_EXPECT_FALSE
+#if !(defined(GTEST_DONT_DEFINE_EXPECT_TRUE) && GTEST_DONT_DEFINE_EXPECT_TRUE)
+#  define EXPECT_TRUE       IUTEST_EXPECT_TRUE
+#endif
+#if !(defined(GTEST_DONT_DEFINE_EXPECT_FALSE) && GTEST_DONT_DEFINE_EXPECT_FALSE)
+#  define EXPECT_FALSE      IUTEST_EXPECT_FALSE
+#endif
 #define EXPECT_EQ           IUTEST_EXPECT_EQ
 #define EXPECT_NE           IUTEST_EXPECT_NE
 #define EXPECT_LT           IUTEST_EXPECT_LT
@@ -160,10 +172,17 @@
 
 //======================================================================
 // define
-#define IUTEST_EXPECT(...)                  EXPECT_TRUE((__VA_ARGS__))
-#define IUTEST_EXPECT_NOT(...)              EXPECT_FALSE((__VA_ARGS__))
-#define IUTEST_EXPECT_TRUE(...)             EXPECT_TRUE(!!(__VA_ARGS__))
-#define IUTEST_EXPECT_FALSE(...)            EXPECT_FALSE((__VA_ARGS__))
+#if defined(GTEST_EXPECT_TRUE)
+#  define IUTEST_EXPECT(...)                GTEST_EXPECT_TRUE((__VA_ARGS__))
+#  define IUTEST_EXPECT_NOT(...)            GTEST_EXPECT_FALSE((__VA_ARGS__))
+#  define IUTEST_EXPECT_TRUE(...)           GTEST_EXPECT_TRUE(!!(__VA_ARGS__))
+#  define IUTEST_EXPECT_FALSE(...)          GTEST_EXPECT_FALSE((__VA_ARGS__))
+#else
+#  define IUTEST_EXPECT(...)                EXPECT_TRUE((__VA_ARGS__))
+#  define IUTEST_EXPECT_NOT(...)            EXPECT_FALSE((__VA_ARGS__))
+#  define IUTEST_EXPECT_TRUE(...)           EXPECT_TRUE(!!(__VA_ARGS__))
+#  define IUTEST_EXPECT_FALSE(...)          EXPECT_FALSE((__VA_ARGS__))
+#endif
 #define IUTEST_EXPECT_EQ                    EXPECT_EQ
 #define IUTEST_EXPECT_ALMOST_EQ(expected, actual)   \
     EXPECT_PRED_FORMAT2( ::testing::internal::backward::AlmostEqHelper<IUTEST_IS_NULLLITERAL(expected)>::Compare, expected, actual)
@@ -174,7 +193,7 @@
 #define IUTEST_EXPECT_GE                    EXPECT_GE
 #define IUTEST_EXPECT_NEAR                  EXPECT_NEAR
 #define IUTEST_EXPECT_NULL(...)             EXPECT_EQ(IUTEST_NULLPTR, (__VA_ARGS__))
-#define IUTEST_EXPECT_NOTNULL(...)          EXPECT_TRUE(IUTEST_NULLPTR != (__VA_ARGS__))
+#define IUTEST_EXPECT_NOTNULL(...)          IUTEST_EXPECT_TRUE(IUTEST_NULLPTR != (__VA_ARGS__))
 #define IUTEST_EXPECT_SAME(v1, v2)          EXPECT_PRED_FORMAT2(::testing::internal::CmpHelperSame, v1, v2)
 #define IUTEST_EXPECT_FLOAT_EQ              EXPECT_FLOAT_EQ
 #define IUTEST_EXPECT_DOUBLE_EQ             EXPECT_DOUBLE_EQ

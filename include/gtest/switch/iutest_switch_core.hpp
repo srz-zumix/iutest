@@ -23,7 +23,9 @@
 
 #undef RUN_ALL_TESTS
 
-#undef TEST
+#if !(defined(GTEST_DONT_DEFINE_TEST) && GTEST_DONT_DEFINE_TEST)
+#  undef TEST
+#endif
 #undef GTEST_TEST
 #undef TEST_F
 #undef TEST_P
@@ -56,7 +58,9 @@
 // define
 #define RUN_ALL_TESTS   IUTEST_RUN_ALL_TESTS
 
-#define TEST        IUTEST
+#if !(defined(GTEST_DONT_DEFINE_TEST) && GTEST_DONT_DEFINE_TEST)
+#  define TEST      IUTEST
+#endif
 #define GTEST_TEST  IUTEST_TEST
 #define TEST_F      IUTEST_F
 #define TEST_P      IUTEST_P

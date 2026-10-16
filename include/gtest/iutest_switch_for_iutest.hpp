@@ -32,9 +32,15 @@
 
 #if defined(GTEST_INCLUDE_GTEST_GTEST_H_)
 
-#undef SUCCEED
-#undef FAIL
-#undef FAIL_AT
+#if !(defined(GTEST_DONT_DEFINE_SUCCEED) && GTEST_DONT_DEFINE_SUCCEED)
+#  undef SUCCEED
+#endif
+#if !(defined(GTEST_DONT_DEFINE_FAIL) && GTEST_DONT_DEFINE_FAIL)
+#  undef FAIL
+#  undef FAIL_AT
+#endif
+#undef GTEST_SUCCEED
+#undef GTEST_FAIL
 #undef GTEST_FAIL_AT
 #undef ADD_FAILURE
 #undef ADD_FAILURE_AT
@@ -57,9 +63,15 @@
 
 #endif
 
-#define SUCCEED             IUTEST_SUCCEED
-#define FAIL                IUTEST_FAIL
-#define FAIL_AT             IUTEST_FAIL_AT
+#if !(defined(GTEST_DONT_DEFINE_SUCCEED) && GTEST_DONT_DEFINE_SUCCEED)
+#  define SUCCEED           IUTEST_SUCCEED
+#endif
+#if !(defined(GTEST_DONT_DEFINE_FAIL) && GTEST_DONT_DEFINE_FAIL)
+#  define FAIL              IUTEST_FAIL
+#  define FAIL_AT           IUTEST_FAIL_AT
+#endif
+#define GTEST_SUCCEED       IUTEST_SUCCEED
+#define GTEST_FAIL          IUTEST_FAIL
 #define GTEST_FAIL_AT       IUTEST_FAIL_AT
 #define ADD_FAILURE         IUTEST_ADD_FAILURE
 #define ADD_FAILURE_AT      IUTEST_ADD_FAILURE_AT
