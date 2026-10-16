@@ -357,6 +357,51 @@ private:
 
     static Variable& get_vars() { static Variable sVars; return sVars; }
 
+public:
+    class ScopedFlagGuard
+    {
+        IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(ScopedFlagGuard);
+
+        TestFlag::ScopedGuard m_flags;
+        unsigned int m_random_seed;
+        int m_repeat_count;
+        StateVariable< ::std::string > m_output_option;
+        ::std::string m_test_filter;
+        ::std::string m_flagfile;
+#if IUTEST_HAS_STREAM_RESULT
+        StateVariable< ::std::string > m_stream_result_to;
+#endif
+        ::std::string m_default_package_name;
+        ::std::string m_locale_ctype;
+    public:
+        ScopedFlagGuard()
+            : m_random_seed(get_vars().m_random_seed)
+            , m_repeat_count(get_vars().m_repeat_count)
+            , m_output_option(get_vars().m_output_option)
+            , m_test_filter(get_vars().m_test_filter)
+            , m_flagfile(get_vars().m_flagfile)
+#if IUTEST_HAS_STREAM_RESULT
+            , m_stream_result_to(get_vars().m_stream_result_to)
+#endif
+            , m_default_package_name(get_vars().m_default_package_name)
+            , m_locale_ctype(get_vars().m_locale_ctype)
+        {}
+        ~ScopedFlagGuard()
+        {
+            Variable& vars = get_vars();
+            vars.m_random_seed = m_random_seed;
+            vars.m_repeat_count = m_repeat_count;
+            vars.m_output_option = m_output_option;
+            vars.m_test_filter = m_test_filter;
+            vars.m_flagfile = m_flagfile;
+#if IUTEST_HAS_STREAM_RESULT
+            vars.m_stream_result_to = m_stream_result_to;
+#endif
+            vars.m_default_package_name = m_default_package_name;
+            vars.m_locale_ctype = m_locale_ctype;
+        }
+    };
+
 private:
     static const char*          get_output_option_c_str() { return get_vars().m_output_option.get().c_str(); }
 #if IUTEST_HAS_STREAM_RESULT
