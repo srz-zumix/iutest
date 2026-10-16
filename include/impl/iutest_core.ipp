@@ -251,13 +251,14 @@ IUTEST_IPP_INLINE bool UnitTest::RunOnce(bool set_up_environment, bool tear_down
 
     if( m_ad_hoc_testresult.HasFatalFailure() )
     {
-        if( tear_down_environment || TestFlag::IsEnableFlag(TestFlag::FAIL_FAST) )
+        for( iuTestSuites::iterator it=m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
         {
-            EnvironmentTearDown();
+            m_current_testsuite = *it;
+            m_current_testsuite->Skip();
+            m_current_testsuite = NULL;
         }
-        return false;
     }
-
+    else if( !m_ad_hoc_testresult.Skipped() )
     {
         detail::iuStopWatch sw;
         sw.start();

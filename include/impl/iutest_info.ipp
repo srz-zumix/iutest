@@ -47,6 +47,20 @@ IUTEST_IPP_INLINE bool TestInfo::Run()
     return !HasFailure();
 }
 
+IUTEST_IPP_INLINE void TestInfo::Skip()
+{
+    if( !should_run() )
+    {
+        return;
+    }
+    TestEnv::event_listeners().OnTestStart(*this);
+    m_ran = true;
+    const TestPartResult result(file(), line(), "", TestPartResult::kSkip);
+    m_test_result.AddTestPartResult(result);
+    TestEnv::event_listeners().OnTestPartResult(result);
+    TestEnv::event_listeners().OnTestEnd(*this);
+}
+
 IUTEST_IPP_INLINE void TestInfo::RunImpl()
 {
     detail::iuStopWatch sw;

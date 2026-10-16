@@ -16,6 +16,8 @@
 #include "iutest.hpp"
 #include "logger_tests.hpp"
 
+#if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01120000 || GTEST_LATEST
+
 static int test_runs = 0;
 static int suite_runs = 0;
 static int fixture_runs = 0;
@@ -40,7 +42,7 @@ public:
 };
 
 IUTEST_F(EnvironmentFailure, First) { ++test_runs; }
-IUTEST_F(EnvironmentFailure, Second) { ++test_runs; }
+IUTEST(EnvironmentFailureOther, Second) { ++test_runs; }
 IUTEST_F(EnvironmentFailure, DISABLED_NotSelected) { ++test_runs; }
 IUTEST(FilteredOut, NotSelected) { ++test_runs; }
 
@@ -80,7 +82,11 @@ void CheckFailure()
     IUTEST_TERMINATE_ON_FAILURE(fixture_runs == 0);
     IUTEST_TERMINATE_ON_FAILURE(unit->failed_test_count() == 0);
     IUTEST_TERMINATE_ON_FAILURE(unit->test_to_run_count() == 2);
+#if defined(IUTEST_USE_GTEST)
+    IUTEST_TERMINATE_ON_FAILURE(unit->ad_hoc_test_result().HasFatalFailure());
+#else
     IUTEST_TERMINATE_ON_FAILURE(unit->ad_hoc_test_result()->HasFatalFailure());
+#endif
 #if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x010A0000 || GTEST_LATEST
     IUTEST_TERMINATE_ON_FAILURE(skipped_results == test_ends);
 #endif
@@ -97,6 +103,8 @@ void CheckFailure()
 #endif
 }
 
+#endif
+
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else
@@ -104,10 +112,13 @@ int main(int argc, char* argv[])
 #endif
 {
     IUTEST_INIT(&argc, argv);
+#if defined(IUTEST_USE_GTEST) && GTEST_VER < 0x01120000 && !GTEST_LATEST
+    return 0;
+#else
 #if defined(DISABLE_FALSE_POSITIVE_XML)
     ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
-    ::iutest::IUTEST_FLAG(filter) = "EnvironmentFailure.*";
+    ::iutest::IUTEST_FLAG(filter) = "EnvironmentFailure*.*";
     ::iutest::AddGlobalTestEnvironment(new FailingEnvironment);
     ::iutest::UnitTest::GetInstance()->listeners().Append(new FailureEventCounter);
 #if !defined(IUTEST_USE_GTEST)
@@ -123,15 +134,20 @@ int main(int argc, char* argv[])
 #if !defined(IUTEST_USE_GTEST)
     IUTEST_TERMINATE_ON_FAILURE(::std::string(logger.c_str()).find("[  SKIPPED ] EnvironmentFailure.First")
         != ::std::string::npos);
-    IUTEST_TERMINATE_ON_FAILURE(::std::string(logger.c_str()).find("[  SKIPPED ] EnvironmentFailure.Second")
+    IUTEST_TERMINATE_ON_FAILURE(::std::string(logger.c_str()).find("[  SKIPPED ] EnvironmentFailureOther.Second")
         != ::std::string::npos);
     IUTEST_TERMINATE_ON_FAILURE(::std::string(logger.c_str()).find("[  SKIPPED ] 2 tests.") != ::std::string::npos);
+    IUTEST_TERMINATE_ON_FAILURE(::std::string(logger.c_str()).find("Global test environment or ad hoc test failure")
+        != ::std::string::npos);
+    IUTEST_TERMINATE_ON_FAILURE(::std::string(logger.c_str()).find("0 FAILED TESTS") == ::std::string::npos);
 #if IUTEST_HAS_STRINGSTREAM
     for( int format = 0; format < 2; ++format )
     {
         const ::std::string& xml = EnvironmentXmlFile::xml;
-        IUTEST_TERMINATE_ON_FAILURE(xml.find("skipped=\"3\"") != ::std::string::npos);
+#if IUTEST_HAS_REPORT_SKIPPED
+        IUTEST_TERMINATE_ON_FAILURE(xml.find("skipped=\"2\"") != ::std::string::npos);
         IUTEST_TERMINATE_ON_FAILURE(xml.find("<skipped ") != ::std::string::npos);
+#endif
         IUTEST_TERMINATE_ON_FAILURE(xml.find("Not Run") == ::std::string::npos);
         IUTEST_TERMINATE_ON_FAILURE(xml.find("1970-01-01") == ::std::string::npos);
         IUTEST_TERMINATE_ON_FAILURE(xml.find("FilteredOut") == ::std::string::npos);
@@ -147,4 +163,5 @@ int main(int argc, char* argv[])
 #endif
     printf("*** Successful ***\n");
     return 0;
+#endif
 }
