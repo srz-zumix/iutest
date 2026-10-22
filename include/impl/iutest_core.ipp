@@ -167,7 +167,7 @@ IUTEST_IPP_INLINE int UnitTest::RunImpl()
     bool result = true;
     if( repeat != 0 )
     {
-        m_start_timestamp = detail::GetTimeInMillis();
+        m_start_timestamp = detail::GetWallTimeInMillis();
         TestProgramStart();
 
         while( repeat )
