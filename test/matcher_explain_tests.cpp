@@ -93,8 +93,10 @@ IUTEST(MatcherExplain, FailureMessage)
         "Actual: 3, which is 2 less than 5");
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(values, SizeIs(3)),
         "whose size is 2");
+#if IUTEST_HAS_MATCHER_EACH
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(values, Each(IsFive())),
         "whose element #0 doesn't match, which is 2 less than 5");
+#endif
 #if IUTEST_HAS_MATCHER_ELEMENTSARE
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(values, ElementsAre(IsFive(), IsFive())),
         "whose element #0 doesn't match, which is 2 less than 5");
