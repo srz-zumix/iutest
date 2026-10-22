@@ -39,7 +39,8 @@ namespace
 }
 
 #if (defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE) \
-    && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)) || IUTEST_HAS_HDR_UNISTD
+    && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)) \
+    || (IUTEST_HAS_HDR_UNISTD && !defined(__arm__))
 
 int ChangeDirectory(const char* path)
 {
