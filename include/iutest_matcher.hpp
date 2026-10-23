@@ -810,7 +810,7 @@ struct has_match_explanation
 #if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
     template<typename T>
     static auto Check(int) -> decltype(
-        ((T*)0)->MatchAndExplain(*((const U*)0), (::std::ostream*)0),
+        (static_cast<T*>(0))->MatchAndExplain(*static_cast<const U*>(0), static_cast< ::std::ostream*>(0)),
         iutest_type_traits::true_type());
     template<typename T>
     static iutest_type_traits::false_type Check(...);
@@ -818,7 +818,7 @@ struct has_match_explanation
 #elif !defined(IUTEST_NO_SFINAE) \
     && !(defined(__GNUC__) && !defined(__clang__) && __GNUC__ < 4)
     template<typename T>
-    static char Check(char (*)[sizeof(((T*)0)->MatchAndExplain(*((const U*)0), (::std::ostream*)0))]);
+    static char Check(char (*)[sizeof((static_cast<T*>(0))->MatchAndExplain(*static_cast<const U*>(0), static_cast< ::std::ostream*>(0)))]);
     template<typename T>
     static long Check(...);
     enum { value = sizeof(Check<M>(0)) == sizeof(char) };
