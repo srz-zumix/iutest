@@ -61,7 +61,7 @@ class iuwandbox_test_base(unittest.TestCase):
 
 class nofused_iuwandbox_test(iuwandbox_test_base):
     def setUp(self):
-        if 'SCRUTINIZER' in os.environ:
+        if 'SCRUTINIZER' in os.environ or 'CI' in os.environ:
             self.skipTest('this test is not run on SCRUTINIZER.')
         for f in ['iutest.hpp', 'iutest.min.hpp', 'iutest.wandbox.min.hpp',
                   'iutest.wandbox.min.gcc.hpp', 'iutest.wandbox.min.clang.hpp']:
@@ -105,7 +105,7 @@ class iuwandbox_test(iuwandbox_test_base):
         return super(iuwandbox_test, self).setUp()
 
     def test_nomain(self):
-        if 'SCRUTINIZER' in os.environ:
+        if 'SCRUTINIZER' in os.environ or 'CI' in os.environ:
             self.skipTest('this test is not run on SCRUTINIZER.')
         sys.argv[1:] = [test_src]
         sys.argv.extend(test_opt_nomain)
@@ -118,7 +118,7 @@ class iuwandbox_test(iuwandbox_test_base):
         self.assertRegex(output, '.*In "iutest" you can omit the definition of the main function, please define IUTEST_USE_MAIN. (--iutest-use-main or -f"-DIUTEST_USE_MAIN")*')
 
     def test_use_main(self):
-        if 'SCRUTINIZER' in os.environ:
+        if 'SCRUTINIZER' in os.environ or 'CI' in os.environ:
             self.skipTest('this test is not run on SCRUTINIZER.')
         sys.argv[1:] = [test_src]
         sys.argv.extend(test_opt_nomain)
@@ -131,11 +131,10 @@ class iuwandbox_test(iuwandbox_test_base):
         self.assertRegex(output, '.*OK.*')
 
     def test_define_wandbox(self):
-        if 'SCRUTINIZER' in os.environ:
-            self.skipTest('this test is not run on SCRUTINIZER.')
         sys.argv[1:] = [test_src]
         sys.argv.extend(test_opt)
         sys.argv.extend(test_opt_dryrun)
+        sys.argv.append('--no-default')
         sys.argv.extend(test_opt_verbose)
         sys.argv.append('-f"-DTEST"')
         print(sys.argv)
@@ -147,7 +146,7 @@ class iuwandbox_test(iuwandbox_test_base):
         self.assertRegex(output, '.*-DTEST.*')
 
     def test_boosttest_workarround(self):
-        if 'SCRUTINIZER' in os.environ:
+        if 'SCRUTINIZER' in os.environ or 'CI' in os.environ:
             self.skipTest('this test is not run on SCRUTINIZER.')
         sys.argv[1:] = [test_src]
         sys.argv.extend(test_opt_nomain)
@@ -161,7 +160,7 @@ class iuwandbox_test(iuwandbox_test_base):
         self.assertRegex(output, '.*If you do not use boost test, please specify the file with the main function first..*')
 
     def test_run(self):
-        if 'SCRUTINIZER' in os.environ:
+        if 'SCRUTINIZER' in os.environ or 'CI' in os.environ:
             self.skipTest('this test is not run on SCRUTINIZER.')
         sys.argv[1:] = [test_src]
         sys.argv.extend(test_opt)
@@ -174,6 +173,8 @@ class iuwandbox_test(iuwandbox_test_base):
         self.assertFalse('-Wmisleading-indentation' in output)
 
     def test_same_filename(self):
+        if 'SCRUTINIZER' in os.environ or 'CI' in os.environ:
+            self.skipTest('this test is not run on SCRUTINIZER.')
         sys.argv[1:] = ['src/main.cpp', 'src/A/sample.cpp', 'src/B/sample.cpp']
         sys.argv.extend(test_opt_nomain)
         print(sys.argv)
@@ -200,7 +201,7 @@ class iuwandbox_test(iuwandbox_test_base):
     #     # self.assertFalse('-Wmisleading-indentation' in output)
 
     def test_make_run(self):
-        if 'SCRUTINIZER' in os.environ:
+        if 'SCRUTINIZER' in os.environ or 'CI' in os.environ:
             self.skipTest('this test is not run on SCRUTINIZER.')
         sys.argv[1:] = [test_make_src]
         sys.argv.extend(test_opt)
