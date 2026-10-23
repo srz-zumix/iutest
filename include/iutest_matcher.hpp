@@ -1930,12 +1930,20 @@ private:
     {
         return static_cast<bool>(CastToMatcher(m_expected)((actual->*m_property)()));
     }
+    // GCC 13 misdiagnoses this member-function call as an array-bounds violation.
+#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 13
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Warray-bounds"
+#endif
     template<typename U>
     bool CheckExplain(const U& actual, ::std::ostream* listener
         , typename detail::disable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
     {
         return ExplainProperty((actual.*m_property)(), listener);
     }
+#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 13
+#pragma GCC diagnostic pop
+#endif
     template<typename U>
     bool CheckExplain(const U& actual, ::std::ostream* listener
         , typename detail::enable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
