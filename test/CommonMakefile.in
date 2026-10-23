@@ -153,6 +153,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/no_failure_fail_tests \
 		$(OUTDIR)/no_fatalfailure_tests \
 		$(OUTDIR)/no_test_tests \
+		$(OUTDIR)/original_working_dir_tests \
 		$(OUTDIR)/output_env_var_tests \
 		$(OUTDIR)/output_junit_xml_empty_tests \
 		$(OUTDIR)/output_junit_xml_tests \

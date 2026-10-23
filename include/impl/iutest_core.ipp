@@ -378,6 +378,13 @@ IUTEST_IPP_INLINE void UnitTest::Initialize()
         return;
     }
 
+    char cwd[IUTEST_MAX_PATH] = { 0 };
+    const char* const dir = internal::posix::GetCWD(cwd, sizeof(cwd));
+    if( dir != NULL )
+    {
+        m_original_working_dir = dir;
+    }
+
 #if IUTEST_HAS_PARAM_TEST
     ::std::vector< ::std::string > uninstantiated;
     m_param_testsuite_holder.RegisterTests(uninstantiated);
