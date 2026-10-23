@@ -837,10 +837,10 @@ ExplainMatch(M& matcher, const U& actual, ::std::ostream* listener)
 
 template<typename M, typename U>
 typename iutest_type_traits::disable_if<has_match_explanation<M, U>::value, bool>::type
-#else
-bool
-#endif
 ExplainMatch(M& matcher, const U& actual, ::std::ostream*)
+#else
+bool ExplainMatch(M& matcher, const U& actual, ::std::ostream*)
+#endif
 {
     return static_cast<bool>(CastToMatcher(matcher)(actual));
 }
