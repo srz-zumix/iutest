@@ -17,7 +17,8 @@
 #include <vector>
 #include "../include/gtest/iutest_spi_switch.hpp"
 
-#if IUTEST_HAS_MATCHERS && !defined(IUTEST_USE_GTEST)
+#if IUTEST_HAS_MATCHERS && !defined(IUTEST_USE_GTEST) \
+    && !(defined(__GNUC__) && !defined(__clang__) && __GNUC__ < 4)
 
 using namespace ::iutest::matchers;
 
