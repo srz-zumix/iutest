@@ -326,7 +326,26 @@ IUTEST_IPP_INLINE void UnitTest::EnvironmentSetUp()
     listeners().OnEnvironmentsSetUpStart(*this);
     for( iuEnvironmentList::iterator it = TestEnv::environments().begin(), end=TestEnv::environments().end(); it != end; ++it )
     {
-        (*it)->SetUp();
+#if IUTEST_HAS_EXCEPTIONS
+        if( TestFlag::IsEnableFlag(TestFlag::CATCH_EXCEPTION_EACH) )
+        {
+            try
+            {
+                (*it)->SetUp();
+            }
+            catch( const TestPartResult::Type& eType )
+            {
+                if( TestPartResult::type_is_failed(eType) && TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
+                {
+                    throw;
+                }
+            }
+        }
+        else
+#endif
+        {
+            (*it)->SetUp();
+        }
     }
     listeners().OnEnvironmentsSetUpEnd(*this);
 }
