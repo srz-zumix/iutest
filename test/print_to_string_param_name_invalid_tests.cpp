@@ -13,12 +13,13 @@
 //-----------------------------------------------------------------------
 //======================================================================
 
-#if !defined(IUTEST_USE_GTEST)
+#if !defined(IUTEST_USE_GTEST) && !defined(IUTEST_USE_LIB)
 #  define IUTEST_ABORT()  (void)0
 #endif
 #include "../include/gtest/iutest_switch.hpp"
 
-#if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_PARAM_TEST && IUTEST_HAS_PARAM_TEST_PARAM_NAME_GENERATOR
+#if !defined(IUTEST_USE_GTEST) && !defined(IUTEST_USE_LIB) \
+    && IUTEST_HAS_PARAM_TEST && IUTEST_HAS_PARAM_TEST_PARAM_NAME_GENERATOR
 
 class InvalidPrintParamNameTest : public ::iutest::TestWithParam< ::std::string > {};
 
@@ -37,7 +38,8 @@ int main(int argc, char* argv[])
 #endif
 {
     IUTEST_INIT(&argc, argv);
-#if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_PARAM_TEST && IUTEST_HAS_PARAM_TEST_PARAM_NAME_GENERATOR
+#if !defined(IUTEST_USE_GTEST) && !defined(IUTEST_USE_LIB) \
+    && IUTEST_HAS_PARAM_TEST && IUTEST_HAS_PARAM_TEST_PARAM_NAME_GENERATOR
 #if defined(DISABLE_FALSE_POSITIVE_XML)
     ::iuutil::ReleaseDefaultXmlGenerator();
 #endif
