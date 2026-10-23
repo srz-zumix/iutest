@@ -30,7 +30,7 @@ namespace
 ::std::string GetWorkingDirectory()
 {
 #if defined(IUTEST_USE_GTEST)
-    return ::iutest::internal::FilePath::GetCurrentDir().ToString();
+    return ::iutest::internal::FilePath::GetCurrentDir().string();
 #else
     char cwd[IUTEST_MAX_PATH] = { 0 };
     const char* const dir = ::iutest::internal::posix::GetCWD(cwd, sizeof(cwd));
@@ -58,7 +58,7 @@ protected:
     {
         const ::iutest::internal::FilePath current(GetWorkingDirectory());
         IUTEST_ASSUME_TRUE(current.IsAbsolutePath());
-        m_restore_dir = current.ToString();
+        m_restore_dir = current.string();
         IUTEST_ASSERT_EQ(0, ChangeDirectory(".."));
         IUTEST_ASSUME_STRNE(initialization_dir.c_str(), GetWorkingDirectory().c_str());
     }
