@@ -815,7 +815,8 @@ struct has_match_explanation
     template<typename T>
     static iutest_type_traits::false_type Check(...);
     enum { value = decltype(Check<M>(0))::value };
-#elif !defined(IUTEST_NO_SFINAE)
+#elif !defined(IUTEST_NO_SFINAE) \
+    && !(defined(__GNUC__) && !defined(__clang__) && __GNUC__ < 4)
     template<typename T>
     static char Check(char (*)[sizeof(((T*)0)->MatchAndExplain(*((const U*)0), (::std::ostream*)0))]);
     template<typename T>
