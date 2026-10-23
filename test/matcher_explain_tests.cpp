@@ -100,6 +100,10 @@ IUTEST(MatcherExplain, FailureMessage)
 #if IUTEST_HAS_MATCHER_ELEMENTSARE
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(values, ElementsAre(IsFive(), IsFive())),
         "whose element #0 doesn't match, which is 2 less than 5");
+    IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT("hoge", ElementsAre('h', 'o', 'G', 'e', '\0')),
+        "\\0}");
+    IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT("hoge", ElementsAre('h', 'o', 'G', 'e', '\0')),
+        "whose element #2 doesn't match");
 #endif
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(three_pointer, Pointee(IsFive())),
         "which points to 3, which is 2 less than 5");

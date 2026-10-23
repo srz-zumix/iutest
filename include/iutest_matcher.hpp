@@ -855,7 +855,13 @@ AssertionResult MatcherAssertionNative(const U& actual, M& matcher, iutest_type_
 {
     ::std::ostringstream explanation;
     if( ExplainMatch(matcher, actual, &explanation) ) return AssertionSuccess();
-    return AssertionFailure() << matcher.WhichIs() << "\n" << explanation.str();
+    ::std::string message = matcher.WhichIs() + "\n" + explanation.str();
+    for( ::std::string::size_type pos = 0;
+        (pos = message.find('\0', pos)) != ::std::string::npos; pos += 2 )
+    {
+        message.replace(pos, 1, "\\0");
+    }
+    return AssertionFailure() << message;
 }
 
 template<typename U, typename M>
