@@ -41,7 +41,7 @@ IUTEST_IPP_INLINE bool TestSuite::Run()
     // テスト開始
     bool result=false;
 
-    m_start_timestamp = detail::GetTimeInMillis();
+    m_start_timestamp = detail::GetWallTimeInMillis();
     TestEnv::event_listeners().OnTestSuiteStart(*this);
 #if IUTEST_HAS_EXCEPTIONS
     if( TestFlag::IsEnableFlag(TestFlag::CATCH_EXCEPTION_EACH) )
@@ -73,6 +73,28 @@ IUTEST_IPP_INLINE bool TestSuite::Run()
     TestEnv::event_listeners().OnTestSuiteEnd(*this);
 
     return result;
+}
+
+IUTEST_IPP_INLINE void TestSuite::Skip(bool notify)
+{
+    if( !should_run() )
+    {
+        return;
+    }
+    m_start_timestamp = detail::GetWallTimeInMillis();
+    m_elapsedmsec = 0;
+    if( notify )
+    {
+        TestEnv::event_listeners().OnTestSuiteStart(*this);
+    }
+    for( iuTestInfos::iterator it = m_testinfos.begin(), end = m_testinfos.end(); it != end; ++it )
+    {
+        (*it)->Skip(notify);
+    }
+    if( notify )
+    {
+        TestEnv::event_listeners().OnTestSuiteEnd(*this);
+    }
 }
 
 IUTEST_IPP_INLINE bool TestSuite::RunImpl()

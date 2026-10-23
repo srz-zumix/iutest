@@ -195,6 +195,8 @@ private:
     */
     bool Run();
 
+    void Skip(bool notify = true);
+
 private:
     void RunImpl();
 

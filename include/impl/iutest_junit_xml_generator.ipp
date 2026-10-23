@@ -142,7 +142,7 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestInfo(IFile* file, 
     // propertys
     //OnReportTestProperty(file, *test_info.result());
 
-    const bool notrun = test_info.should_run() && !test_info.is_ran();
+    const bool notrun = test_info.should_run() && !test_info.is_ran() && !test_info.is_skipped();
     if( test_info.HasFailure() || notrun )
     {
         for( int i=0, count=test_info.result()->total_part_count(); i < count; ++i )

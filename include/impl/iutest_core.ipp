@@ -167,7 +167,7 @@ IUTEST_IPP_INLINE int UnitTest::RunImpl()
     bool result = true;
     if( repeat != 0 )
     {
-        m_start_timestamp = detail::GetTimeInMillis();
+        m_start_timestamp = detail::GetWallTimeInMillis();
         TestProgramStart();
 
         while( repeat )
@@ -249,15 +249,16 @@ IUTEST_IPP_INLINE bool UnitTest::RunOnce(bool set_up_environment, bool tear_down
         EnvironmentSetUp();
     }
 
-    if( m_ad_hoc_testresult.HasFatalFailure() )
+    if( m_ad_hoc_testresult.HasFatalFailure() || m_ad_hoc_testresult.Skipped() )
     {
-        if( tear_down_environment || TestFlag::IsEnableFlag(TestFlag::FAIL_FAST) )
+        for( iuTestSuites::iterator it=m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
         {
-            EnvironmentTearDown();
+            m_current_testsuite = *it;
+            m_current_testsuite->Skip(m_ad_hoc_testresult.HasFatalFailure());
+            m_current_testsuite = NULL;
         }
-        return false;
     }
-
+    else
     {
         detail::iuStopWatch sw;
         sw.start();
@@ -325,7 +326,26 @@ IUTEST_IPP_INLINE void UnitTest::EnvironmentSetUp()
     listeners().OnEnvironmentsSetUpStart(*this);
     for( iuEnvironmentList::iterator it = TestEnv::environments().begin(), end=TestEnv::environments().end(); it != end; ++it )
     {
-        (*it)->SetUp();
+#if IUTEST_HAS_EXCEPTIONS
+        if( TestFlag::IsEnableFlag(TestFlag::CATCH_EXCEPTION_EACH) )
+        {
+            try
+            {
+                (*it)->SetUp();
+            }
+            catch( const TestPartResult::Type& eType )
+            {
+                if( TestPartResult::type_is_failed(eType) && TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
+                {
+                    throw;
+                }
+            }
+        }
+        else
+#endif
+        {
+            (*it)->SetUp();
+        }
     }
     listeners().OnEnvironmentsSetUpEnd(*this);
 }

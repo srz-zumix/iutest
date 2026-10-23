@@ -115,6 +115,8 @@ TEST_TARGETS= \
 		$(OUTDIR)/empty_testname_tests \
 		$(OUTDIR)/env_var_gtest_tests \
 		$(OUTDIR)/environment_tests \
+		$(OUTDIR)/environment_skip_tests \
+		$(OUTDIR)/environment_failure_tests \
 		$(OUTDIR)/exception_assertion_tests \
 		$(OUTDIR)/exception_set_up_testsuite_tests \
 		$(OUTDIR)/exception_tests \

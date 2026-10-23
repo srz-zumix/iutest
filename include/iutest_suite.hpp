@@ -172,6 +172,8 @@ private:
     */
     bool Run();
 
+    void Skip(bool notify = true);
+
     /**
      * @brief   実行
      * @return  成否
