@@ -187,6 +187,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/srcdir_tempdir_tests \
 		$(OUTDIR)/span_printers_tests \
 		$(OUTDIR)/streaming_listener_tests \
+		$(OUTDIR)/substring_tests \
 		$(OUTDIR)/throw_on_assertion_failure_tests \
 		$(OUTDIR)/throw_on_failure_tests \
 		$(OUTDIR)/assertion_exception_tests \

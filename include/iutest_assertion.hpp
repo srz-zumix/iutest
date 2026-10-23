@@ -1403,7 +1403,136 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ IsHRESULTFailure(const char* exp
 
 #endif
 
+inline bool IsSubstringPred(const char* needle, const char* haystack)
+{
+    if( needle == IUTEST_NULLPTR || haystack == IUTEST_NULLPTR )
+    {
+        return needle == haystack;
+    }
+    return strstr(haystack, needle) != IUTEST_NULLPTR;
+}
+
+inline bool IsSubstringPred(const wchar_t* needle, const wchar_t* haystack)
+{
+    if( needle == IUTEST_NULLPTR || haystack == IUTEST_NULLPTR )
+    {
+        return needle == haystack;
+    }
+    return wcsstr(haystack, needle) != IUTEST_NULLPTR;
+}
+
+template<typename CharT>
+inline bool IsSubstringPred(const ::std::basic_string<CharT>& needle, const ::std::basic_string<CharT>& haystack)
+{
+    return haystack.find(needle) != ::std::basic_string<CharT>::npos;
+}
+
+inline ::std::string SubstringMessageValue(const char* value, int size = -1)
+{
+    return value == IUTEST_NULLPTR ? "(null)" : detail::AnyStringToMultiByteString(value, size);
+}
+
+inline ::std::string SubstringMessageValue(const wchar_t* value, int size = -1)
+{
+    return value == IUTEST_NULLPTR ? "(null)" : detail::AnyStringToUTF8(value, size);
+}
+
+template<typename CharT>
+inline ::std::string SubstringMessageValue(const ::std::basic_string<CharT>& value)
+{
+    ::std::string result;
+    typename ::std::basic_string<CharT>::size_type begin = 0;
+    for( typename ::std::basic_string<CharT>::size_type i = 0; i < value.size(); ++i )
+    {
+        if( value[i] == 0 )
+        {
+            result += SubstringMessageValue(value.c_str() + begin, static_cast<int>(i - begin));
+            result += "\\0";
+            begin = i + 1;
+        }
+    }
+    result += SubstringMessageValue(value.c_str() + begin, static_cast<int>(value.size() - begin));
+    return result;
+}
+
+template<typename StringType>
+inline AssertionResult IsSubstringImpl(bool expected, const char* needle_expr, const char* haystack_expr
+    , const StringType& needle, const StringType& haystack)
+{
+    if( IsSubstringPred(needle, haystack) == expected )
+    {
+        return AssertionSuccess();
+    }
+    const char* const quote = sizeof(needle[0]) > 1 ? "L\"" : "\"";
+    return AssertionFailure() << "Value of: " << needle_expr
+        << "\n  Actual: " << quote << SubstringMessageValue(needle) << "\""
+        << "\nExpected: " << (expected ? "" : "not ") << "a substring of " << haystack_expr
+        << "\nWhich is: " << quote << SubstringMessageValue(haystack) << "\"";
+}
+
 }   // end of namespace internal
+
+/**
+ * @brief   Substring predicate formatter
+ * @note    IUTEST_EXPECT_PRED_FORMAT2(::iutest::IsSubstring, needle, haystack);
+*/
+inline AssertionResult IsSubstring(const char* needle_expr, const char* haystack_expr
+    , const char* needle, const char* haystack)
+{
+    return internal::IsSubstringImpl(true, needle_expr, haystack_expr, needle, haystack);
+}
+
+/** @overload */
+inline AssertionResult IsSubstring(const char* needle_expr, const char* haystack_expr
+    , const wchar_t* needle, const wchar_t* haystack)
+{
+    return internal::IsSubstringImpl(true, needle_expr, haystack_expr, needle, haystack);
+}
+
+/** @overload */
+inline AssertionResult IsSubstring(const char* needle_expr, const char* haystack_expr
+    , const ::std::string& needle, const ::std::string& haystack)
+{
+    return internal::IsSubstringImpl(true, needle_expr, haystack_expr, needle, haystack);
+}
+
+/** @overload */
+inline AssertionResult IsSubstring(const char* needle_expr, const char* haystack_expr
+    , const ::std::wstring& needle, const ::std::wstring& haystack)
+{
+    return internal::IsSubstringImpl(true, needle_expr, haystack_expr, needle, haystack);
+}
+
+/**
+ * @brief   Negated substring predicate formatter
+ * @note    IUTEST_EXPECT_PRED_FORMAT2(::iutest::IsNotSubstring, needle, haystack);
+*/
+inline AssertionResult IsNotSubstring(const char* needle_expr, const char* haystack_expr
+    , const char* needle, const char* haystack)
+{
+    return internal::IsSubstringImpl(false, needle_expr, haystack_expr, needle, haystack);
+}
+
+/** @overload */
+inline AssertionResult IsNotSubstring(const char* needle_expr, const char* haystack_expr
+    , const wchar_t* needle, const wchar_t* haystack)
+{
+    return internal::IsSubstringImpl(false, needle_expr, haystack_expr, needle, haystack);
+}
+
+/** @overload */
+inline AssertionResult IsNotSubstring(const char* needle_expr, const char* haystack_expr
+    , const ::std::string& needle, const ::std::string& haystack)
+{
+    return internal::IsSubstringImpl(false, needle_expr, haystack_expr, needle, haystack);
+}
+
+/** @overload */
+inline AssertionResult IsNotSubstring(const char* needle_expr, const char* haystack_expr
+    , const ::std::wstring& needle, const ::std::wstring& haystack)
+{
+    return internal::IsSubstringImpl(false, needle_expr, haystack_expr, needle, haystack);
+}
 
 /**
  * @brief   Float LE Formatter
