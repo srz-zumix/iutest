@@ -76,11 +76,11 @@ int main(int argc, char* argv[])
 #if IUTEST_HAS_STREAM_CAPTURE
 #if REGISTER_EXCEPTION_TEST_THROW_INT
     IUTEST_EXPECT_STRIN(
-        "IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P register tests failed...\n"
+        "IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P register tests failed..."
         , stderr_capture.GetStreamString() );
 #else
     IUTEST_EXPECT_STRIN(
-        "IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P register tests failed... (what: HOGE)\n"
+        "IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P register tests failed... (what: HOGE)"
         , stderr_capture.GetStreamString() );
 #endif
 #endif
