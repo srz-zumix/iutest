@@ -294,6 +294,8 @@ namespace iutest {
  */
 struct PrintToStringParamName
 {
+    PrintToStringParamName() {}
+
     template<typename ParamType>
     ::std::string operator()(const TestParamInfo<ParamType>& info) const
     {
