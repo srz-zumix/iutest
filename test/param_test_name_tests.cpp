@@ -64,6 +64,11 @@ static ::std::string CustomParamNameFunction(const ::iutest::TestParamInfo< ::st
     return info.param;
 }
 
+static const ::std::string& CustomParamNameReferenceFunction(const ::iutest::TestParamInfo< ::std::string >& info)
+{
+    return info.param;
+}
+
 IUTEST_P(RenameParamTest, Test)
 {
     ::std::string name = "Test/";
@@ -79,6 +84,10 @@ IUTEST_INSTANTIATE_TEST_SUITE_P(CustomParamNameFunction, RenameParamTest
                                 , ::iutest::Values("abcdefghijklmnopqrstuvwxyz", "1234567890")
                                 , CustomParamNameFunction );
 
+IUTEST_INSTANTIATE_TEST_SUITE_P(CustomParamNameReferenceFunction, RenameParamTest
+                                , ::iutest::Values("abcdefghijklmnopqrstuvwxyz", "1234567890")
+                                , CustomParamNameReferenceFunction );
+
 #if IUTEST_HAS_LAMBDA
 IUTEST_INSTANTIATE_TEST_SUITE_P(CustomParamNameLambda, RenameParamTest
                                 , ::iutest::Values("abcdefghijklmnopqrstuvwxyz", "1234567890")
@@ -90,4 +99,3 @@ IUTEST_INSTANTIATE_TEST_SUITE_P(CustomParamNameLambda, RenameParamTest
 #endif
 
 #endif
-

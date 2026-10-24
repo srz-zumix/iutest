@@ -166,6 +166,8 @@ TEST_TARGETS= \
 		$(OUTDIR)/port_tests \
 		$(OUTDIR)/pointer_matcher_tests \
 		$(OUTDIR)/printers_tests \
+		$(OUTDIR)/print_to_string_param_name_tests \
+		$(OUTDIR)/print_to_string_param_name_invalid_tests \
 		$(OUTDIR)/progress_tests \
 		$(OUTDIR)/quiet_result_printer_tests \
 		$(OUTDIR)/random_seed_tests \
