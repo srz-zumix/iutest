@@ -172,7 +172,7 @@ int main(int argc, char* argv[])
     if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
     IUTEST_EXPECT_STRIN("value<&>", logger.c_str());
     ::iutest::detail::iuConsole::SetLogger(NULL);
-    return ::iutest::UnitTest::GetInstance()->Passed() ? 0 : 1;
+    if( !::iutest::UnitTest::GetInstance()->Passed() ) return 1;
 #endif
 #endif
     return 0;
