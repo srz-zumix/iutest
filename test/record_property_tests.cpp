@@ -89,6 +89,11 @@ IUTEST_F(RecordTest, A)
     // overwrite
     RecordProperty("hoge", "b");
     CheckProperty(::iuutil::GetCurrentTestResult(), "hoge", "b");
+    char text[] = "c";
+    RecordProperty("hoge", text);
+    CheckProperty(::iuutil::GetCurrentTestResult(), "hoge", "c");
+    RecordProperty("hoge", ::std::string("d"));
+    CheckProperty(::iuutil::GetCurrentTestResult(), "hoge", "d");
 }
 
 #ifdef UNICODE

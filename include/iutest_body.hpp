@@ -125,6 +125,17 @@ public:
     static void RecordProperty(const ::std::string& key, const ::std::string& value);
 #endif
 
+#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
+    static void RecordProperty(const ::std::string& key, const char* value)
+    {
+        RecordPropertyString(key, value ? value : detail::kStrings::Null);
+    }
+    static void RecordProperty(const ::std::string& key, char* value)
+    {
+        RecordProperty(key, static_cast<const char*>(value));
+    }
+#endif
+
     /**
      * @brief   テスト結果の情報追加
      * @param [in]  key     = プロパティのキー

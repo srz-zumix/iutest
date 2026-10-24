@@ -176,6 +176,10 @@ IUTEST(CompatiblePrintersTest, MessageText)
     ::iutest::detail::iuStreamMessage message;
     message << "text: " << ::std::string("value") << " " << text << null_text;
     IUTEST_EXPECT_STREQ("text: value message(null)", message.GetString());
+    ::iutest::detail::iuStreamMessage wide_message;
+    wchar_t wide_text[] = L"wide";
+    wide_message << L"text: " << ::std::wstring(L"first\nsecond") << L" " << wide_text;
+    IUTEST_EXPECT_STREQ("text: first\nsecond wide", wide_message.GetString());
 }
 #endif
 

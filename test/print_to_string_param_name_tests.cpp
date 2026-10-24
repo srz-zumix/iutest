@@ -46,7 +46,7 @@ IUTEST_P(PrintIntegerParamNameTest, Name)
 IUTEST_INSTANTIATE_TEST_SUITE_P(Print, PrintIntegerParamNameTest
     , ::iutest::Values(0, 42, 123), ::iutest::PrintToStringParamName());
 
-#if !defined(IUTEST_USE_GTEST)
+#if !defined(IUTEST_USE_GTEST) && !IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
 // Google Test quotes strings in PrintToString, making them invalid parameter names.
 class PrintStringParamNameTest : public ::iutest::TestWithParam< ::std::string > {};
 

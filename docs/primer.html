@@ -652,7 +652,9 @@ iutest の実装に切り替わります。<br />
 <code>IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS=0</code> を定義してください（既定値は 1）。
 この設定は Google Test モードには影響しません。
 bool、スマートポインター、比較カテゴリ型の形式はこの設定では変更しません。
-型名は RTTI と標準ライブラリに依存します。</p>
+型名は RTTI と標準ライブラリに依存します。
+文字列を <code>PrintToStringParamName</code> に渡すと、Google Test と同様に引用符を含むため
+無効なパラメーター名になります。文字列には独自の名前生成関数を使用してください。</p>
 
 <h3><a name="switch_gtest" id="switch_gtest">Google Test モード</a></h3>
 Google Test モードに切り替えるには iutest_switch.hpp ヘッダーをインクルードする前に、<br />
