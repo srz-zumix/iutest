@@ -106,6 +106,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #undef IUTEST_HAS_COMBINE
 #undef IUTEST_HAS_CONVERT_GENERATOR
 #undef IUTEST_HAS_CONVERT_GENERATOR_FUNC
+#undef IUTEST_HAS_REGISTER_TEST
 #undef IUTEST_HAS_PAIRWISE
 #undef IUTEST_HAS_CONCAT
 #undef IUTEST_HAS_CSVPARAMS
@@ -194,6 +195,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #define IUTEST_HAS_COMBINE                  GTEST_HAS_COMBINE
 #define IUTEST_HAS_CONVERT_GENERATOR        (GTEST_HAS_PARAM_TEST && GTEST_VER >= 0x01140000)
 #define IUTEST_HAS_CONVERT_GENERATOR_FUNC   (GTEST_HAS_PARAM_TEST && GTEST_VER >= 0x01170000)
+#define IUTEST_HAS_REGISTER_TEST            (IUTEST_HAS_CXX11 && GTEST_VER >= 0x01100000)
 #define IUTEST_HAS_PAIRWISE                 0
 #define IUTEST_HAS_CONCAT                   0
 #define IUTEST_HAS_CSVPARAMS                0
