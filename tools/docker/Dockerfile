@@ -50,8 +50,9 @@ RUN pyenv local "$(pyenv latest 3.13)" "$(pyenv latest 3.12)" && \
     pip install --no-cache-dir virtualenv==21.7.8
 
 # gcc
-ENV GCC_VERSION=14
-RUN apt-get update && \
+ENV GCC_VERSION=15
+RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
+    apt-get update && \
     apt-get install -y --no-install-recommends g++-${GCC_VERSION} gcc-${GCC_VERSION} && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
@@ -60,13 +61,32 @@ RUN apt-get update && \
                         --slave   /usr/bin/gcov gcov /usr/bin/gcov-${GCC_VERSION}
 
 # clang
-ARG CLANG_VERSION=18
-RUN apt-get update && \
+ARG CLANG_VERSION=22
+RUN wget -qO /etc/apt/trusted.gpg.d/apt.llvm.org.asc https://apt.llvm.org/llvm-snapshot.gpg.key && \
+    CODENAME="$(. /etc/os-release && echo "${VERSION_CODENAME}")" && \
+    echo "deb http://apt.llvm.org/${CODENAME}/ llvm-toolchain-${CODENAME}-${CLANG_VERSION} main" > /etc/apt/sources.list.d/llvm.list && \
+    apt-get update && \
     apt-get install -y --no-install-recommends clang-${CLANG_VERSION} && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${CLANG_VERSION} 1000 \
                         --slave   /usr/bin/clang clang /usr/bin/clang-${CLANG_VERSION}
+
+# infer (linux x86_64 only)
+ARG TARGETARCH
+ARG INFER_VERSION=v1.3.0
+ARG INFER_SHA256=02be62ba931cb43e2d42bbf7abf4bd9a410cf8464cce5453934e25c90a825850
+RUN if [ "${TARGETARCH:-amd64}" = "amd64" ]; then \
+        cd /opt && \
+        curl -fsSL -o infer.tar.xz "https://github.com/facebook/infer/releases/download/${INFER_VERSION}/infer-linux-x86_64-${INFER_VERSION}.tar.xz" && \
+        echo "${INFER_SHA256}  infer.tar.xz" | sha256sum -c - && \
+        tar xJf infer.tar.xz && \
+        rm -f infer.tar.xz && \
+        ln -s "/opt/infer-linux-x86_64-${INFER_VERSION}" /opt/infer; \
+    else \
+        echo "infer is not available for ${TARGETARCH}; skipped"; \
+    fi
+ENV PATH=/opt/infer/bin:${PATH}
 
 # perf
 RUN rm -f /usr/bin/perf && \
