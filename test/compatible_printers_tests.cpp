@@ -15,6 +15,8 @@
 
 #include "../include/iutest_spi.hpp"
 
+#if defined(IUTEST_USE_GTEST) || IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
+
 IUTEST(CompatiblePrintersTest, Character)
 {
     IUTEST_EXPECT_STREQ("'a' (97, 0x61)", ::iutest::PrintToString('a'));
@@ -181,6 +183,8 @@ IUTEST(CompatiblePrintersTest, MessageText)
     wide_message << L"text: " << ::std::wstring(L"first\nsecond") << L" " << wide_text;
     IUTEST_EXPECT_STREQ("text: first\nsecond wide", wide_message.GetString());
 }
+#endif
+
 #endif
 
 int main(int argc, char* argv[])
