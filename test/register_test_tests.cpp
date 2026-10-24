@@ -175,5 +175,7 @@ int main(int argc, char* argv[])
     if( !::iutest::UnitTest::GetInstance()->Passed() ) return 1;
 #endif
 #endif
+#if defined(IUTEST_USE_GTEST) || !IUTEST_HAS_REGISTER_TEST
     return 0;
+#endif
 }
