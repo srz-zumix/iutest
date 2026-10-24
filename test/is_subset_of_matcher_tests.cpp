@@ -116,7 +116,7 @@ IUTEST(IsSubsetOfMatcher, InitializerList)
     const int actual[] = { 2, 1 };
     IUTEST_EXPECT_THAT(actual, IsSubsetOf({ 1, 2, 3 }));
     IUTEST_EXPECT_THAT(actual, IsSubsetOf({ Ge(1), Ge(2) }));
-    IUTEST_EXPECT_THAT(::std::vector<int>(), IsSubsetOf<int>({}));
+    IUTEST_EXPECT_THAT(::std::vector<int>(), IsSubsetOf(::std::initializer_list<int>()));
 }
 
 #endif
