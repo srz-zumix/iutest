@@ -65,7 +65,7 @@ inline ::std::string MatcherAssertionFailureMessage(const char* actual, const ch
                                                     , const AssertionResult& ar)
 {
     iu_global_format_stringstream strm;
-    const ::std::string message = ar.message();
+    const ::std::string message(ar.message());
     const ::std::string::size_type separator = message.find('\n');
     strm << "error: Expected: " << matcher_str
         << "\n  Actual: " << actual;
@@ -856,7 +856,8 @@ AssertionResult MatcherAssertionNative(const U& actual, M& matcher, iutest_type_
 {
     ::std::ostringstream explanation;
     if( ExplainMatch(matcher, actual, &explanation) ) return AssertionSuccess();
-    ::std::string message = matcher.WhichIs() + "\n" + explanation.str();
+    ::std::string message;
+    message.append(matcher.WhichIs()).append("\n").append(explanation.str());
     for( ::std::string::size_type pos = 0;
         (pos = message.find('\0', pos)) != ::std::string::npos; pos += 2 )
     {

@@ -20,7 +20,24 @@
 #if IUTEST_HAS_MATCHERS && !defined(IUTEST_USE_GTEST) \
     && !(defined(__GNUC__) && !defined(__clang__) && __GNUC__ < 4)
 
-using namespace ::iutest::matchers;
+using ::iutest::matchers::Eq;
+using ::iutest::matchers::ExplainMatchResult;
+using ::iutest::matchers::Field;
+using ::iutest::matchers::Not;
+using ::iutest::matchers::Pointee;
+using ::iutest::matchers::Property;
+using ::iutest::matchers::SizeIs;
+#if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
+using ::iutest::matchers::AllOf;
+using ::iutest::matchers::AnyOf;
+using ::iutest::matchers::Gt;
+#endif
+#if IUTEST_HAS_MATCHER_EACH
+using ::iutest::matchers::Each;
+#endif
+#if IUTEST_HAS_MATCHER_ELEMENTSARE
+using ::iutest::matchers::ElementsAre;
+#endif
 
 namespace {
 
