@@ -125,7 +125,7 @@ int main(int argc, char* argv[])
 #if IUTEST_HAS_REGISTER_TEST
     {
 #if IUTEST_HAS_LAMBDA
-        const int value = 42;
+        int value = 42;
 #endif
         const ::std::string suite = "RuntimeSuite";
         const ::std::string name = "Captured";
