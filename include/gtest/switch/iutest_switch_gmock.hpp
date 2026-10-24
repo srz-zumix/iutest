@@ -289,6 +289,9 @@ namespace matchers
 
     using ::testing::Contains;
     using ::testing::ContainerEq;
+#if GMOCK_VER >= 0x01080100
+    using ::testing::IsSubsetOf;
+#endif
 #if IUTEST_HAS_MATCHER_EACH
     using ::testing::Each;
 #endif
