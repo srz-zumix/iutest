@@ -305,6 +305,43 @@ private:
     iuFactory<Tester>   m_factory;
 };
 
+#if IUTEST_HAS_REGISTER_TEST
+template<typename Fixture>
+struct RegisteredTestSuiteResolver : Fixture
+{
+    using Fixture::SetUpTestSuite;
+    using Fixture::TearDownTestSuite;
+};
+
+template<typename Factory>
+class RegisteredTestInstance : public iuIObject, public iuFactoryBase
+{
+public:
+    RegisteredTestInstance(TestSuite* suite, const char* name, const char* value_param
+        , const char* file, int line, Factory factory)
+        : m_mediator(suite)
+        , m_factory(::std::move(factory))
+        , m_file(file != NULL ? file : "")
+        , m_info(&m_mediator, name, this, file != NULL ? m_file.c_str() : NULL, line)
+    {
+        if( value_param != NULL ) m_info.set_value_param(value_param);
+    }
+
+    virtual auto_ptr<Test> Create() IUTEST_CXX_OVERRIDE
+    {
+        return auto_ptr<Test>(m_factory());
+    }
+
+    TestInfo* info() { return &m_info; }
+
+private:
+    TestSuiteMediator m_mediator;
+    Factory m_factory;
+    ::std::string m_file;
+    TestInfo m_info;
+};
+#endif
+
 #if IUTEST_HAS_UNINSTANTIATED_PARAMETERIZED_TEST
 class UninstantiatedParameterizedTest : public Test
 {
@@ -339,6 +376,48 @@ inline void RegisterUninstantiatedParameterizedTest(const ::std::string& name, b
 #endif
 
 }   // end of namespace detail
+
+#if IUTEST_HAS_REGISTER_TEST
+/**
+ * @brief   Register a test before RUN_ALL_TESTS without a test definition macro.
+ * @note    The factory's return type determines the fixture type. All tests in
+ *          the same suite must use the same fixture type.
+ * @return  The registered TestInfo, or NULL if the fixture type does not match.
+*/
+template<typename Factory>
+TestInfo* RegisterTest(const char* test_suite_name, const char* test_name
+    , const char* type_param, const char* value_param, const char* file, int line, Factory factory)
+{
+    typedef typename detail::remove_pointer<decltype(factory())>::type Fixture;
+    typedef detail::RegisteredTestSuiteResolver<Fixture> Resolver;
+    const TestTypeId id = internal::GetTypeId<Fixture>();
+    UnitTest& unit_test = UnitTest::instance();
+    bool found = false;
+    for( int i = 0; i < unit_test.total_test_suite_count(); ++i )
+    {
+        const TestSuite* suite = unit_test.GetTestSuite(i);
+        if( detail::IsStringEqual(suite->name(), test_suite_name) )
+        {
+            TestSuite::FindOp matches = { id, test_suite_name };
+            if( !matches(suite) )
+            {
+                IIUT_ADD_FAILURE_AT(file, line) << "All tests in the same test suite must use the same fixture type.";
+                return NULL;
+            }
+            found = true;
+        }
+    }
+    TestSuite* suite = unit_test.AddTestSuite<TestSuite>(test_suite_name, id
+        , IUTEST_GET_SETUP_TESTSUITE(Resolver, file, line), IUTEST_GET_TEARDOWN_TESTSUITE(Resolver, file, line));
+    if( !found ) suite->set_type_param(type_param);
+    typedef detail::RegisteredTestInstance<Factory> Instance;
+    Instance* instance = new Instance(suite, test_name, value_param, file, line, ::std::move(factory));
+    detail::iuPool::GetInstance().push(instance);
+    unit_test.AddTestInfo(suite, instance->info());
+    return instance->info();
+}
+#endif
+
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
