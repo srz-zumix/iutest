@@ -275,7 +275,7 @@ public:
         explicit ParamNameGenerator(ParamNameFunctor func) : m_func(func) {}
         ::std::string operator()(const TestParamInfo<ParamType>& info)
         {
-            ::std::string name = m_func(info);
+            const ::std::string& name = m_func(info);
             IUTEST_CHECK_(!name.empty()
                 && name.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_")
                     == ::std::string::npos) << "Parameterized test name '" << name << "' is invalid.";
