@@ -181,7 +181,7 @@ public:
         return d(m_engine);
 #else
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
-        return genrand<T>()%max;
+        return static_cast<T>((genrand<T>() & (::std::numeric_limits<T>::max)())%max);
 #else
         return genrand(detail::explicit_type<result_type>())%max;
 #endif

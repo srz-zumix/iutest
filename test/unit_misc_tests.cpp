@@ -68,6 +68,33 @@ IUTEST(UnitRandomTest, Size64)
     IUTEST_EXPECT_NE_RANGE(x, y);
 }
 
+template<typename T>
+void CheckBoundedRandom()
+{
+    ::iutest::detail::iuTypedRandom<T> r(42);
+    const T bounds[] = { 1, 2, 3, (::std::numeric_limits<T>::max)() };
+    for( size_t i=0; i < IUTEST_PP_COUNTOF(bounds); ++i )
+    {
+        for( int j=0; j < 100; ++j )
+        {
+            const T value = r(bounds[i]);
+            IUTEST_ASSERT_GE(value, static_cast<T>(0));
+            IUTEST_ASSERT_LT(value, bounds[i]);
+        }
+    }
+}
+
+IUTEST(UnitRandomTest, BoundedInteger)
+{
+    CheckBoundedRandom<signed char>();
+    CheckBoundedRandom<short>();
+    CheckBoundedRandom<int>();
+    CheckBoundedRandom<long>();
+    CheckBoundedRandom<iutest::Int64>();
+    CheckBoundedRandom<unsigned int>();
+    CheckBoundedRandom<iutest::UInt64>();
+}
+
 IUTEST(UnitFileLoacation, NullFilePath)
 {
     IUTEST_EXPECT_STREQ("unknown file", ::iutest::detail::FormatFileLocation(NULL, -1));
