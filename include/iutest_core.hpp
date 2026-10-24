@@ -248,24 +248,24 @@ class TestInstance
 public:
     /** コンストラクタ */
     TestInstance(const char* testsuite, const char* name, TestTypeId id
-        , SetUpMethod setup, TearDownMethod teardown, const char* file=NULL, int line=0)
-        : m_mediator(AddTestSuite(testsuite, id, setup, teardown))
+        , SetUpMethod setup_method, TearDownMethod teardown_method, const char* file=NULL, int line=0)
+        : m_mediator(AddTestSuite(testsuite, id, setup_method, teardown_method))
         , m_info(&m_mediator, name, &m_factory, file, line)
     {
         UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
     }
     /** コンストラクタ */
     TestInstance(const ::std::string& testsuite, const char* name, TestTypeId id
-        , SetUpMethod setup, TearDownMethod teardown, const char* file=NULL, int line=0)
-        : m_mediator(AddTestSuite(testsuite, id, setup, teardown))
+        , SetUpMethod setup_method, TearDownMethod teardown_method, const char* file=NULL, int line=0)
+        : m_mediator(AddTestSuite(testsuite, id, setup_method, teardown_method))
         , m_info(&m_mediator, name, &m_factory, file, line)
     {
         UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
     }
     /** コンストラクタ */
     TestInstance(const char* testsuite, const char* name, const char*  value_params, TestTypeId id
-        , SetUpMethod setup, TearDownMethod teardown, const char* file=NULL, int line=0)
-        : m_mediator(AddTestSuite(testsuite, id, setup, teardown))
+        , SetUpMethod setup_method, TearDownMethod teardown_method, const char* file=NULL, int line=0)
+        : m_mediator(AddTestSuite(testsuite, id, setup_method, teardown_method))
         , m_info(&m_mediator, name, &m_factory, file, line)
     {
         m_info.set_value_param(value_params);
@@ -273,8 +273,8 @@ public:
     }
     /** コンストラクタ */
     TestInstance(const ::std::string& testsuite, const char* name, const char*  value_params, TestTypeId id
-        , SetUpMethod setup, TearDownMethod teardown, const char* file=NULL, int line=0)
-        : m_mediator(AddTestSuite(testsuite, id, setup, teardown))
+        , SetUpMethod setup_method, TearDownMethod teardown_method, const char* file=NULL, int line=0)
+        : m_mediator(AddTestSuite(testsuite, id, setup_method, teardown_method))
         , m_info(&m_mediator, name, &m_factory, file, line)
     {
         m_info.set_value_param(value_params);
@@ -282,20 +282,24 @@ public:
     }
 
 private:
-    TestSuite* AddTestSuite(const char* testsuite, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+    TestSuite* AddTestSuite(const char* testsuite, TestTypeId id
+        , SetUpMethod setup_method, TearDownMethod teardown_method)
     {
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
-        return UnitTest::instance().AddTestSuite<TestSuite>(testsuite, id, setup, teardown);
+        return UnitTest::instance().AddTestSuite<TestSuite>(testsuite, id, setup_method, teardown_method);
 #else
-        return UnitTest::instance().AddTestSuite(testsuite, id, setup, teardown, detail::explicit_type<TestSuite>());
+        return UnitTest::instance().AddTestSuite(testsuite, id, setup_method, teardown_method
+            , detail::explicit_type<TestSuite>());
 #endif
     }
-    TestSuite* AddTestSuite(const ::std::string& testsuite, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+    TestSuite* AddTestSuite(const ::std::string& testsuite, TestTypeId id
+        , SetUpMethod setup_method, TearDownMethod teardown_method)
     {
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
-        return UnitTest::instance().AddTestSuite<TestSuite>(testsuite, id, setup, teardown);
+        return UnitTest::instance().AddTestSuite<TestSuite>(testsuite, id, setup_method, teardown_method);
 #else
-        return UnitTest::instance().AddTestSuite(testsuite, id, setup, teardown, detail::explicit_type<TestSuite>());
+        return UnitTest::instance().AddTestSuite(testsuite, id, setup_method, teardown_method
+            , detail::explicit_type<TestSuite>());
 #endif
     }
 

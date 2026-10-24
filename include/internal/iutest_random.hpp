@@ -251,6 +251,14 @@ IIUT_WORKAROUND_GENRAND(double) { return static_cast<double>(genrandf()); }
 
 #undef IIUT_WORKAROUND_GENRAND
 
+#if IUTEST_HAS_CXX_HDR_RANDOM
+template<> inline signed char iuRandom::genrand<signed char>(signed char max)
+{
+    ::std::uniform_int_distribution<int> d(0, static_cast<int>(max)-1);
+    return static_cast<signed char>(d(m_engine));
+}
+#endif
+
 #endif
 
 /**
