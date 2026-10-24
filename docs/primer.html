@@ -643,6 +643,17 @@ iutest.hpp と違うのは Google Test の記法が使えるという点です�
 既存の Google Test のテストコードも iutest_switch.hpp ヘッダーをインクルードすることで、<br />
 iutest の実装に切り替わります。<br />
 
+<p><code>PrintToString</code> とアサーションの値表示では、文字、標準文字列
+（<code>std::string</code> / <code>std::wstring</code> / UTF 文字列）、<code>nullptr</code>、
+<code>std::optional</code>、<code>std::any</code>、<code>std::variant</code>、
+<code>std::monostate</code> を Google Test 形式で表示します。
+文字列には引用符・型のプレフィックス・エスケープが付き、埋め込み NUL も表示されます。
+従来形式が必要な場合は、すべての翻訳単位でヘッダーをインクルードする前に
+<code>IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS=0</code> を定義してください（既定値は 1）。
+この設定は Google Test モードには影響しません。
+bool、スマートポインター、比較カテゴリ型の形式はこの設定では変更しません。
+型名は RTTI と標準ライブラリに依存します。</p>
+
 <h3><a name="switch_gtest" id="switch_gtest">Google Test モード</a></h3>
 Google Test モードに切り替えるには iutest_switch.hpp ヘッダーをインクルードする前に、<br />
 IUTEST_USE_GTEST マクロを定義してください。<br />

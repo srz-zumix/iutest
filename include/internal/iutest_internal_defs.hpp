@@ -322,11 +322,10 @@ struct IsContainerHelper
 /**
  * @brief   型名の取得
 */
-template<typename T>
-inline ::std::string GetTypeName()
-{
 #if IUTEST_HAS_RTTI
-    const char* const name = typeid(T).name();
+inline ::std::string GetTypeName(const ::std::type_info& info)
+{
+    const char* const name = info.name();
 
 #if IUTEST_HAS_HDR_CXXABI
     using abi::__cxa_demangle;
@@ -344,7 +343,14 @@ inline ::std::string GetTypeName()
 #else
     return name;
 #endif
+}
+#endif
 
+template<typename T>
+inline ::std::string GetTypeName()
+{
+#if IUTEST_HAS_RTTI
+    return GetTypeName(typeid(T));
 #else
     return "<type>";
 #endif

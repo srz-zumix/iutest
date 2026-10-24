@@ -15,6 +15,8 @@
 
 //======================================================================
 // include
+// Preserve the original expectations as coverage of the legacy printer format.
+#define IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS 0
 #include "iutest.hpp"
 #include "logger_tests.hpp"
 
@@ -98,6 +100,20 @@ IUTEST(PrintToTest, Bar)
 }
 
 #if !defined(IUTEST_USE_GTEST)
+
+IUTEST(PrintToTest, LegacyStandardTypes)
+{
+    IUTEST_EXPECT_STREQ("ab", ::iutest::PrintToString(::std::string("ab")));
+    IUTEST_EXPECT_STREQ("ab", ::iutest::PrintToString(::std::wstring(L"ab")));
+#if IUTEST_HAS_CXX_HDR_OPTIONAL
+    IUTEST_EXPECT_STREQ("42", ::iutest::PrintToString(::std::optional<int>(42)));
+    IUTEST_EXPECT_STREQ("nullopt", ::iutest::PrintToString(::std::optional<int>()));
+#endif
+#if IUTEST_HAS_CXX_HDR_ANY
+    IUTEST_EXPECT_STRIN("-Any type-name:", ::iutest::PrintToString(::std::any(1)));
+    IUTEST_EXPECT_STRIN("-Byte object", ::iutest::PrintToString(::std::any()));
+#endif
+}
 
 IUTEST(PrintToTest, FloatingPoint)
 {

@@ -469,6 +469,11 @@
 #  define IUTEST_HAS_FULL_PRECISION_FLOAT_PRINT 1
 #endif
 
+#if !defined(IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS)
+//! 文字・文字列・nullptr・optional・any・variant を gtest 形式で表示する (0 で従来形式)
+#  define IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS 1
+#endif
+
 #if !defined(IUTEST_HAS_VARIADIC_PRED)
 //! 可変長述語アサーションが使用可能かどうか
 #  if IUTEST_HAS_VARIADIC_TEMPLATES && !defined(IUTEST_NO_VARIADIC_MACROS)
