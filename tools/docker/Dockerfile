@@ -77,11 +77,10 @@ ARG TARGETARCH
 ARG INFER_VERSION=v1.3.0
 ARG INFER_SHA256=02be62ba931cb43e2d42bbf7abf4bd9a410cf8464cce5453934e25c90a825850
 RUN if [ "${TARGETARCH:-amd64}" = "amd64" ]; then \
-        cd /opt && \
-        curl -fsSL -o infer.tar.xz "https://github.com/facebook/infer/releases/download/${INFER_VERSION}/infer-linux-x86_64-${INFER_VERSION}.tar.xz" && \
-        echo "${INFER_SHA256}  infer.tar.xz" | sha256sum -c - && \
-        tar xJf infer.tar.xz && \
-        rm -f infer.tar.xz && \
+        wget -qO /opt/infer.tar.xz "https://github.com/facebook/infer/releases/download/${INFER_VERSION}/infer-linux-x86_64-${INFER_VERSION}.tar.xz" && \
+        echo "${INFER_SHA256}  /opt/infer.tar.xz" | sha256sum -c - && \
+        tar xJf /opt/infer.tar.xz -C /opt && \
+        rm -f /opt/infer.tar.xz && \
         ln -s "/opt/infer-linux-x86_64-${INFER_VERSION}" /opt/infer; \
     else \
         echo "infer is not available for ${TARGETARCH}; skipped"; \
