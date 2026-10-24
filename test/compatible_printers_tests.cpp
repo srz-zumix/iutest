@@ -147,25 +147,25 @@ IUTEST(CompatiblePrintersTest, StringView)
 #endif
 
 namespace {
-const ::std::string empty, space(" "), line("a\n"), other("b"), lhs("ab"), rhs("cd");
+const ::std::string empty, space(" "), multiline_text("a\n"), other("b"), lhs("ab"), rhs_text("cd");
 const ::std::wstring wide_lhs(L"ab"), wide_rhs(L"cd");
 } // namespace
 
 IUTEST(CompatiblePrintersTest, StringFailureMessage)
 {
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_EQ(empty, space), "\" \"");
-    IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_EQ(line, other), "\"a\\n\"");
-    IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_STREQ(lhs.c_str(), rhs.c_str()), "\"ab\"");
-    IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_STREQ(line.c_str(), other.c_str()), "\"a\\n\"");
+    IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_EQ(multiline_text, other), "\"a\\n\"");
+    IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_STREQ(lhs.c_str(), rhs_text.c_str()), "\"ab\"");
+    IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_STREQ(multiline_text.c_str(), other.c_str()), "\"a\\n\"");
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_EQ(wide_lhs, wide_rhs), "L\"ab\"");
 #if !defined(IUTEST_USE_GTEST)
     const ::iutest::AssertionResult result =
-        ::iutest::internal::CmpHelperSTREQ("lhs", "rhs", lhs, rhs);
+        ::iutest::internal::CmpHelperSTREQ("lhs", "rhs", lhs, rhs_text);
     const ::std::string message = result.message();
     IUTEST_EXPECT_STRIN("\"ab\"", message);
     IUTEST_EXPECT_EQ(::std::string::npos, message.find("\"\"ab\"\""));
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_STRNE(lhs, lhs), "\"ab\"");
-    IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_STRCASEEQ(lhs, rhs), "\"ab\"");
+    IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_STRCASEEQ(lhs, rhs_text), "\"ab\"");
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_STRCASENE(lhs, lhs), "\"ab\"");
 #endif
 }
