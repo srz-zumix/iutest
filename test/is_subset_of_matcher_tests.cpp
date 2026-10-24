@@ -27,7 +27,7 @@ using ::iutest::matchers::Not;
 
 namespace {
 
-const int expected[] = { 1, 2, 2, 3 };
+const int subset_expectations[] = { 1, 2, 2, 3 };
 const int too_many[] = { 1, 2, 2, 3, 3 };
 const int unmatched[] = { 1, 4 };
 const int duplicates[] = { 1, 1 };
@@ -37,7 +37,7 @@ const int duplicates[] = { 1, 1 };
 IUTEST(IsSubsetOfMatcher, Empty)
 {
     const ::std::vector<int> empty;
-    IUTEST_EXPECT_THAT(empty, IsSubsetOf(expected));
+    IUTEST_EXPECT_THAT(empty, IsSubsetOf(subset_expectations));
     IUTEST_EXPECT_THAT(empty, IsSubsetOf(empty));
     IUTEST_EXPECT_THAT(unmatched, Not(IsSubsetOf(empty)));
 }
@@ -47,18 +47,18 @@ IUTEST(IsSubsetOfMatcher, Values)
     const int actual[] = { 3, 2, 1 };
     const int equal[] = { 3, 2, 1, 2 };
     const int repeated[] = { 2, 2 };
-    IUTEST_EXPECT_THAT(actual, IsSubsetOf(expected));
-    IUTEST_EXPECT_THAT(equal, IsSubsetOf(expected));
-    IUTEST_EXPECT_THAT(repeated, IsSubsetOf(expected));
-    IUTEST_EXPECT_THAT(duplicates, Not(IsSubsetOf(expected)));
+    IUTEST_EXPECT_THAT(actual, IsSubsetOf(subset_expectations));
+    IUTEST_EXPECT_THAT(equal, IsSubsetOf(subset_expectations));
+    IUTEST_EXPECT_THAT(repeated, IsSubsetOf(subset_expectations));
+    IUTEST_EXPECT_THAT(duplicates, Not(IsSubsetOf(subset_expectations)));
 }
 
 IUTEST(IsSubsetOfMatcher, Container)
 {
-    const ::std::list<int> values(expected, expected + 4);
-    const ::std::vector<int> actual(expected, expected + 2);
+    const ::std::list<int> values(subset_expectations, subset_expectations + 4);
+    const ::std::vector<int> actual(subset_expectations, subset_expectations + 2);
     IUTEST_EXPECT_THAT(actual, IsSubsetOf(values));
-    IUTEST_EXPECT_THAT(actual, IsSubsetOf(::std::vector<int>(expected, expected + 4)));
+    IUTEST_EXPECT_THAT(actual, IsSubsetOf(::std::vector<int>(subset_expectations, subset_expectations + 4)));
 }
 
 IUTEST(IsSubsetOfMatcher, BooleanValues)
@@ -73,11 +73,11 @@ IUTEST(IsSubsetOfMatcher, BooleanValues)
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 IUTEST(IsSubsetOfMatcher, IteratorRange)
 {
-    const ::std::list<int> values(expected, expected + 4);
+    const ::std::list<int> values(subset_expectations, subset_expectations + 4);
     const int actual[] = { 3, 1 };
     IUTEST_EXPECT_THAT(actual, IsSubsetOf(values.begin(), values.end()));
-    IUTEST_EXPECT_THAT(actual, IsSubsetOf(expected, expected + 4));
-    IUTEST_EXPECT_THAT(::std::vector<int>(), IsSubsetOf(expected, expected));
+    IUTEST_EXPECT_THAT(actual, IsSubsetOf(subset_expectations, subset_expectations + 4));
+    IUTEST_EXPECT_THAT(::std::vector<int>(), IsSubsetOf(subset_expectations, subset_expectations));
     ::std::istringstream input("1 2 3");
     IUTEST_EXPECT_THAT(actual, IsSubsetOf(::std::istream_iterator<int>(input), ::std::istream_iterator<int>()));
 }
@@ -139,18 +139,18 @@ IUTEST(IsSubsetOfMatcher, CopiesExpectations)
 IUTEST(IsSubsetOfMatcher, FailureMessages)
 {
 #if !defined(IUTEST_USE_GMOCK)
-    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(too_many, IsSubsetOf(expected)),
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(too_many, IsSubsetOf(subset_expectations)),
         "element count 5 exceeds the expected count 4");
-    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(unmatched, IsSubsetOf(expected)),
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(unmatched, IsSubsetOf(subset_expectations)),
         "cannot be matched to distinct expectations (matched 1 of 2 elements)");
-    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(duplicates, IsSubsetOf(expected)),
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(duplicates, IsSubsetOf(subset_expectations)),
         "cannot be matched to distinct expectations (matched 1 of 2 elements)");
 #else
-    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(too_many, IsSubsetOf(expected)),
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(too_many, IsSubsetOf(subset_expectations)),
         "not all elements can be matched");
-    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(unmatched, IsSubsetOf(expected)),
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(unmatched, IsSubsetOf(subset_expectations)),
         "don't match any matchers");
-    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(duplicates, IsSubsetOf(expected)),
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(duplicates, IsSubsetOf(subset_expectations)),
         "not all elements can be matched");
 #endif
 }
