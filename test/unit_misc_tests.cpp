@@ -95,6 +95,20 @@ IUTEST(UnitRandomTest, BoundedInteger)
     CheckBoundedRandom<iutest::UInt64>();
 }
 
+IUTEST(UnitRandomTest, BoundedSigned)
+{
+    ::iutest::detail::iuRandom r(1);
+    for( int i=0; i < 1000; ++i )
+    {
+        const int value = r.genrand(3);
+        IUTEST_ASSERT_GE(value, 0);
+        IUTEST_ASSERT_LT(value, 3);
+        const iutest::Int64 value64 = r.genrand(static_cast<iutest::Int64>(3));
+        IUTEST_ASSERT_GE(value64, 0);
+        IUTEST_ASSERT_LT(value64, 3);
+    }
+}
+
 IUTEST(UnitFileLoacation, NullFilePath)
 {
     IUTEST_EXPECT_STREQ("unknown file", ::iutest::detail::FormatFileLocation(NULL, -1));

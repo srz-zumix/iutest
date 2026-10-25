@@ -286,6 +286,23 @@
 */
 
 namespace iutest {
+
+/**
+ * @ingroup VALUE_PARAMETERIZED_TEST
+ * @brief Generates a parameter name using PrintToString(info.param).
+ * @note The printed value must be nonempty and contain only ASCII letters, digits, or underscores.
+ */
+struct PrintToStringParamName
+{
+    PrintToStringParamName() {}
+
+    template<typename ParamType>
+    ::std::string operator()(const TestParamInfo<ParamType>& info) const
+    {
+        return PrintToString(info.param);
+    }
+};
+
 namespace detail
 {
 

@@ -24,12 +24,12 @@ jobs:
       fail-fast: false
       matrix:
         CXX:
-          - g++-12
           - g++-13
           - g++-14
-          - clang++-16
-          - clang++-17
-          - clang++-18
+          - g++-15
+          - clang++-20
+          - clang++-21
+          - clang++-22
         STDFLAG:
           - -std=c++20
           - -std=c++17
