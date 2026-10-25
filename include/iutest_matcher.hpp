@@ -1429,7 +1429,7 @@ class IsSubsetOfMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     template<typename It>
-    IsSubsetOfMatcher(It begin, It end) : m_expected(begin, end) {}
+    IsSubsetOfMatcher(const It& begin, const It& end) : m_expected(begin, end) {}
 
     template<typename U>
     AssertionResult operator ()(const U& actual) const
@@ -3744,12 +3744,16 @@ detail::IsSubsetOfMatcher<typename Container::value_type> IsSubsetOf(const Conta
 template<typename T, size_t SIZE>
 detail::IsSubsetOfMatcher<T> IsSubsetOf(const T(&values)[SIZE])
 {
-    return detail::IsSubsetOfMatcher<T>(values, values + SIZE);
+    return detail::IsSubsetOfMatcher<T>(values + 0, values + SIZE);
 }
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-/** @overload */
+/**
+ * @overload
+ * @note    Pass by value to decay arrays to pointers.
+*/
 template<typename It>
+// @infer-ignore PULSE_CONST_REFABLE
 detail::IsSubsetOfMatcher<typename detail::IteratorTraits<It>::type> IsSubsetOf(It begin, It end)
 {
     return detail::IsSubsetOfMatcher<typename detail::IteratorTraits<It>::type>(begin, end);
