@@ -181,10 +181,11 @@ public:
         return d(m_engine);
 #else
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
-        return genrand<T>()%max;
+        const T value = genrand<T>()%max;
 #else
-        return genrand(detail::explicit_type<result_type>())%max;
+        const T value = genrand(detail::explicit_type<result_type>())%max;
 #endif
+        return value < 0 ? -value : value;
 #endif
     }
 

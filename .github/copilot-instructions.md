@@ -21,6 +21,12 @@ consumers; users just `#include "iutest.hpp"`. Everything else in the repo (`tes
   `-DIUTEST_USE_GTEST` (or the `IUTEST_USE_GTEST` macro) switches the same test source to run
   against real Google Test, which is how gtest-compat is verified. Keep public macros/APIs
   aligned with their gtest counterparts.
+- **Death tests are out of scope**: iutest intentionally does not implement Google Test's
+  death tests (`EXPECT_DEATH` / `ASSERT_DEATH` / `EXPECT_EXIT` / `ASSERT_EXIT` /
+  `*_DEATH_IF_SUPPORTED` / `EXPECT_DEBUG_DEATH`, `ExitedWithCode`, `KilledBySignal`,
+  `--gtest_death_test_style`, etc.), and the gtest switch layer keeps
+  `GTEST_HAS_DEATH_TEST` defined as `0`. Do not add death-test support or report its absence
+  as a gtest compatibility gap.
 - **`fused-src/`** is generated: `make fused` (delegates to `tools/fused`) amalgamates the
   whole `include/` tree into a single header. Do not hand-edit `fused-src/`.
 
