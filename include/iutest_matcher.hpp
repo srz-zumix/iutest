@@ -1384,6 +1384,106 @@ private:
 };
 
 /**
+ * @brief   Maximum matching for an element-to-expectation bipartite graph
+*/
+class BipartiteMatcher
+{
+public:
+    typedef ::std::vector< ::std::vector<bool> > Graph;
+
+    static size_t FindMaximumMatching(const Graph& graph, size_t expected_count)
+    {
+        ::std::vector<size_t> matches(expected_count, graph.size());
+        size_t count = 0;
+        for( size_t i = 0; i < graph.size(); ++i )
+        {
+            ::std::vector<bool> visited(expected_count, false);
+            if( Augment(graph, i, visited, matches) ) ++count;
+        }
+        return count;
+    }
+
+private:
+    static bool Augment(const Graph& graph, size_t actual, ::std::vector<bool>& visited,
+                        ::std::vector<size_t>& matches)
+    {
+        for( size_t i = 0; i < matches.size(); ++i )
+        {
+            if( !graph[actual][i] || visited[i] ) continue;
+            visited[i] = true;
+            if( matches[i] == graph.size() || Augment(graph, matches[i], visited, matches) )
+            {
+                matches[i] = actual;
+                return true;
+            }
+        }
+        return false;
+    }
+};
+
+/**
+ * @brief   IsSubsetOf matcher
+*/
+template<typename T>
+class IsSubsetOfMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    template<typename It>
+    IsSubsetOfMatcher(const It& begin, const It& end) : m_expected(begin, end) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual) const
+    {
+        ::std::ostringstream explanation;
+        if( MatchAndExplain(actual, &explanation) ) return AssertionSuccess();
+        return AssertionFailure() << WhichIs() << "\n" << explanation.str();
+    }
+
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener) const
+    {
+        IUTEST_USING_BEGIN_END();
+        return Check(begin(actual), end(actual), listener);
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        return "IsSubsetOf: " + PrintToString(m_expected);
+    }
+
+private:
+    template<typename It>
+    bool Check(It begin, It end, ::std::ostream* listener) const
+    {
+        BipartiteMatcher::Graph graph;
+        for( ; begin != end; ++begin )
+        {
+            graph.push_back(::std::vector<bool>(m_expected.size(), false));
+            for( size_t i = 0; i < m_expected.size(); ++i )
+            {
+                ::std::ostringstream inner;
+                T expected(m_expected[i]);
+                graph.back()[i] = ExplainMatch(expected, *begin, &inner);
+            }
+        }
+        if( graph.size() > m_expected.size() )
+        {
+            *listener << "whose element count " << graph.size()
+                      << " exceeds the expected count " << m_expected.size();
+            return false;
+        }
+        const size_t matched = BipartiteMatcher::FindMaximumMatching(graph, m_expected.size());
+        if( matched == graph.size() ) return true;
+        *listener << "whose elements cannot be matched to distinct expectations (matched "
+                  << matched << " of " << graph.size() << " elements)";
+        return false;
+    }
+
+private:
+    ::std::vector<T> m_expected;
+};
+
+/**
  * @brief   ElementsAreArray matcher
 */
 template<typename T>
@@ -3628,6 +3728,47 @@ detail::AtMatcher<T> At(size_t index, const T& expected)
 {
     return detail::AtMatcher<T>(index, expected);
 }
+
+/**
+ * @brief   Make IsSubsetOf matcher
+ * @details Each actual element must match a distinct expectation; unused expectations are allowed.
+*/
+template<typename Container>
+detail::IsSubsetOfMatcher<typename Container::value_type> IsSubsetOf(const Container& container)
+{
+    return detail::IsSubsetOfMatcher<typename Container::value_type>(container.begin(), container.end());
+}
+
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+/** @overload */
+template<typename T, size_t SIZE>
+detail::IsSubsetOfMatcher<T> IsSubsetOf(const T(&values)[SIZE])
+{
+    return detail::IsSubsetOfMatcher<T>(values + 0, values + SIZE);
+}
+
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+/**
+ * @overload
+ * @note    Pass by value to decay arrays to pointers.
+*/
+template<typename It>
+// @infer-ignore PULSE_CONST_REFABLE
+detail::IsSubsetOfMatcher<typename detail::IteratorTraits<It>::type> IsSubsetOf(It begin, It end)
+{
+    return detail::IsSubsetOfMatcher<typename detail::IteratorTraits<It>::type>(begin, end);
+}
+#endif
+
+#if IUTEST_HAS_INITIALIZER_LIST
+/** @overload */
+template<typename T>
+detail::IsSubsetOfMatcher<T> IsSubsetOf(::std::initializer_list<T> values)
+{
+    return detail::IsSubsetOfMatcher<T>(values.begin(), values.end());
+}
+#endif
+#endif
 
 /**
  * @brief   Make ElementsAreArray matcher
