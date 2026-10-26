@@ -306,6 +306,46 @@ public:
 };
 
 /**
+ * @brief   IsTrue matcher
+*/
+class IsTrueMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    template<typename U>
+    AssertionResult operator ()(const U& actual) const
+    {
+        if IUTEST_COND_LIKELY( static_cast<bool>(actual) )
+        {
+            return AssertionSuccess();
+        }
+        return AssertionFailure() << WhichIs();
+    }
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return "Is True"; }
+    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << "is true"; }
+    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << "is false"; }
+};
+
+/**
+ * @brief   IsFalse matcher
+*/
+class IsFalseMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    template<typename U>
+    AssertionResult operator ()(const U& actual) const
+    {
+        if IUTEST_COND_LIKELY( !static_cast<bool>(actual) )
+        {
+            return AssertionSuccess();
+        }
+        return AssertionFailure() << WhichIs();
+    }
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return "Is False"; }
+    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << "is false"; }
+    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << "is true"; }
+};
+
+/**
  * @brief   IsNan matcher
 */
 class IsNanMatcher IUTEST_CXX_FINAL : public IMatcher
@@ -3314,6 +3354,24 @@ inline detail::IsNullMatcher IsNull()
 inline detail::NotNullMatcher NotNull()
 {
     return detail::NotNullMatcher();
+}
+
+/**
+ * @brief   Make IsTrue matcher
+ * @details argument converts to true
+*/
+inline detail::IsTrueMatcher IsTrue()
+{
+    return detail::IsTrueMatcher();
+}
+
+/**
+ * @brief   Make IsFalse matcher
+ * @details argument converts to false
+*/
+inline detail::IsFalseMatcher IsFalse()
+{
+    return detail::IsFalseMatcher();
 }
 
 /**

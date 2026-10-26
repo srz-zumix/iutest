@@ -260,6 +260,10 @@ namespace matchers
     using ::testing::Ge;
     using ::testing::IsNull;
     using ::testing::NotNull;
+#if GMOCK_VER >= 0x01080100
+    using ::testing::IsTrue;
+    using ::testing::IsFalse;
+#endif
 #if GMOCK_VER >= 0x01110000
     using ::testing::IsNan;
 #endif
