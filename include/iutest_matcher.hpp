@@ -26,6 +26,7 @@
 #include <utility>
 #endif
 
+#include <list>
 #include <sstream>
 
 #if IUTEST_HAS_MATCHER_FIELDSARE
@@ -1547,9 +1548,10 @@ public:
     template<typename U>
     bool MatchAndExplain(const U& actual, ::std::ostream* listener) const
     {
-        for( size_t i = 0; i < m_expected.size(); ++i )
+        typename ExpectedMatchers::const_iterator it = m_expected.begin();
+        for( size_t i = 0; it != m_expected.end(); ++it, ++i )
         {
-            T expected(m_expected[i]);
+            T expected(*it);
             ::std::ostringstream inner;
             if( ExplainMatch(expected, actual, &inner) != ALL )
             {
@@ -1571,7 +1573,8 @@ public:
     }
 
 private:
-    ::std::vector<T> m_expected;
+    typedef ::std::list<T> ExpectedMatchers;
+    ExpectedMatchers m_expected;
 };
 
 /**
