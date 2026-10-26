@@ -165,6 +165,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/output_non_test_suite_failure_tests \
 		$(OUTDIR)/output_xml_tests \
 		$(OUTDIR)/test_info_location_tests \
+		$(OUTDIR)/register_test_tests \
 		$(OUTDIR)/port_tests \
 		$(OUTDIR)/pointer_matcher_tests \
 		$(OUTDIR)/printers_tests \

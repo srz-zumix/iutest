@@ -181,11 +181,10 @@ public:
         return d(m_engine);
 #else
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
-        const T value = genrand<T>()%max;
+        return static_cast<T>((genrand<T>() & (::std::numeric_limits<T>::max)())%max);
 #else
-        const T value = genrand(detail::explicit_type<result_type>())%max;
+        return genrand(detail::explicit_type<result_type>())%max;
 #endif
-        return value < 0 ? -value : value;
 #endif
     }
 
@@ -251,6 +250,14 @@ IIUT_WORKAROUND_GENRAND(float)  { return genrandf(); }
 IIUT_WORKAROUND_GENRAND(double) { return static_cast<double>(genrandf()); }
 
 #undef IIUT_WORKAROUND_GENRAND
+
+#if IUTEST_HAS_CXX_HDR_RANDOM
+template<> inline signed char iuRandom::genrand<signed char>(signed char max)
+{
+    ::std::uniform_int_distribution<int> d(0, static_cast<int>(max)-1);
+    return static_cast<signed char>(d(m_engine));
+}
+#endif
 
 #endif
 
