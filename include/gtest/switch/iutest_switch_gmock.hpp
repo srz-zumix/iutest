@@ -338,6 +338,10 @@ namespace matchers
 #endif
     using ::testing::AllOf;
     using ::testing::AnyOf;
+#if GMOCK_VER >= 0x01100000
+    using ::testing::AllOfArray;
+    using ::testing::AnyOfArray;
+#endif
 
     using ::testing::A;
     using ::testing::_;
