@@ -304,7 +304,7 @@ IUTEST(PrintToTest, String)
     }
 }
 
-#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW && (!defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01110000)
 IUTEST(PrintToTest, StringStringView)
 {
     {
