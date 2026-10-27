@@ -1534,7 +1534,7 @@ public:
     template<typename It>
     LogicalArrayMatcher(const It& begin, const It& end)
     {
-        for( It it = begin; it != end; ++it ) m_expected.push_back(*it);
+        m_expected.insert(m_expected.end(), begin, end);
     }
 
     template<typename U>
