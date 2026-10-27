@@ -1532,9 +1532,9 @@ class LogicalArrayMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     template<typename It>
-    LogicalArrayMatcher(It begin, It end)
+    LogicalArrayMatcher(const It& begin, const It& end)
     {
-        for( ; begin != end; ++begin ) m_expected.push_back(*begin);
+        for( It it = begin; it != end; ++it ) m_expected.push_back(*it);
     }
 
     template<typename U>
@@ -3856,7 +3856,8 @@ detail::IsSubsetOfMatcher<typename Container::value_type> IsSubsetOf(const Conta
 template<typename T, size_t SIZE>
 detail::IsSubsetOfMatcher<T> IsSubsetOf(const T(&values)[SIZE])
 {
-    return detail::IsSubsetOfMatcher<T>(values + 0, values + SIZE);
+    const T* first = values;
+    return detail::IsSubsetOfMatcher<T>(first, first + SIZE);
 }
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
@@ -3907,26 +3908,36 @@ detail::LogicalArrayMatcher<typename Container::value_type, false> AnyOfArray(co
 template<typename T, size_t SIZE>
 detail::LogicalArrayMatcher<T, true> AllOfArray(const T(&values)[SIZE])
 {
-    return detail::LogicalArrayMatcher<T, true>(values, values + SIZE);
+    const T* first = values;
+    return detail::LogicalArrayMatcher<T, true>(first, first + SIZE);
 }
 
 /** @overload */
 template<typename T, size_t SIZE>
 detail::LogicalArrayMatcher<T, false> AnyOfArray(const T(&values)[SIZE])
 {
-    return detail::LogicalArrayMatcher<T, false>(values, values + SIZE);
+    const T* first = values;
+    return detail::LogicalArrayMatcher<T, false>(first, first + SIZE);
 }
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-/** @overload */
+/**
+ * @overload
+ * @note    Pass by value to decay arrays to pointers.
+*/
 template<typename It>
+// @infer-ignore PULSE_CONST_REFABLE
 detail::LogicalArrayMatcher<typename detail::IteratorTraits<It>::type, true> AllOfArray(It begin, It end)
 {
     return detail::LogicalArrayMatcher<typename detail::IteratorTraits<It>::type, true>(begin, end);
 }
 
-/** @overload */
+/**
+ * @overload
+ * @note    Pass by value to decay arrays to pointers.
+*/
 template<typename It>
+// @infer-ignore PULSE_CONST_REFABLE
 detail::LogicalArrayMatcher<typename detail::IteratorTraits<It>::type, false> AnyOfArray(It begin, It end)
 {
     return detail::LogicalArrayMatcher<typename detail::IteratorTraits<It>::type, false>(begin, end);
