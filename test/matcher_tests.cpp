@@ -645,11 +645,7 @@ IUTEST(MatcherFailure, EndsWith)
 
 IUTEST(MatcherFailure, Equals)
 {
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
     CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", Equals("Hoge")) , "Eq: \"Hoge\"" );
-#else
-    CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", Equals("Hoge")) , "Eq: Hoge" );
-#endif
     CHECK_FAILURE( IUTEST_ASSERT_THAT(0, Equals(1)), "Eq: 1" );
 }
 

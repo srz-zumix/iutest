@@ -52,7 +52,6 @@ public:
 public:
     ::std::string GetString() const { return m_stream.str(); }
 public:
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
     iuStreamMessage& operator << (const ::std::string& value) { m_stream << value; return *this; }
     iuStreamMessage& operator << (const char* value) { m_stream << (value ? value : kStrings::Null); return *this; }
     iuStreamMessage& operator << (char* value) { return *this << static_cast<const char*>(value); }
@@ -64,7 +63,6 @@ public:
         m_stream << ShowAnyCString(value.c_str());
         return *this;
     }
-#endif
     template<typename T>
     iuStreamMessage& operator << (const T& value)
     {

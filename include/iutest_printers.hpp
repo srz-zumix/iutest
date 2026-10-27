@@ -351,7 +351,6 @@ inline void DefaultPrintTo(IsContainerHelper::no_t
 }
 
 
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
 inline const char* PrintCharPrefix(char) { return ""; }
 inline const char* PrintCharPrefix(unsigned char) { return ""; }
 inline const char* PrintCharPrefix(wchar_t) { return "L"; }
@@ -458,7 +457,6 @@ inline ::std::string PrintTypeName(const ::std::type_info& info)
     return name;
 }
 #endif
-#endif
 
 /** @private */
 template<typename T>
@@ -485,11 +483,7 @@ void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char(&str)[N], iu_ostrea
 }
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t* str, iu_ostream* os)
 {
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
     PrintCStringLiteral(str, os);
-#else
-    UniversalPrint(detail::ShowAnyCString(str), os);
-#endif
 }
 template<size_t N>
 void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t(&str)[N], iu_ostream* os)
@@ -499,11 +493,7 @@ void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t(&str)[N], iu_ost
 #if IUTEST_HAS_CHAR8_T
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char8_t* str, iu_ostream* os)
 {
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
     PrintCStringLiteral(str, os);
-#else
-    UniversalPrint(detail::ShowAnyCString(str), os);
-#endif
 }
 template<size_t N>
 void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char8_t(&str)[N], iu_ostream* os)
@@ -514,11 +504,7 @@ void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char8_t(&str)[N], iu_ost
 #if IUTEST_HAS_CHAR16_T
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char16_t* str, iu_ostream* os)
 {
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
     PrintCStringLiteral(str, os);
-#else
-    UniversalPrint(detail::ShowAnyCString(str), os);
-#endif
 }
 template<size_t N>
 void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char16_t(&str)[N], iu_ostream* os)
@@ -526,14 +512,10 @@ void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char16_t(&str)[N], iu_os
     UniversalTersePrint(static_cast<const char16_t*>(str), os);
 }
 #endif
-#if IUTEST_HAS_CHAR32_T && (IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS || IUTEST_HAS_CXX_HDR_CUCHAR || IUTEST_HAS_CXX_HDR_CODECVT)
+#if IUTEST_HAS_CHAR32_T
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char32_t* str, iu_ostream* os)
 {
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
     PrintCStringLiteral(str, os);
-#else
-    UniversalPrint(detail::ShowAnyCString(str), os);
-#endif
 }
 template<size_t N>
 void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char32_t(&str)[N], iu_ostream* os)
@@ -560,17 +542,11 @@ inline void PrintTo(const char* c, iu_ostream* os)  { *os << c; }
 #if defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 inline void PrintTo(int v, iu_ostream* os)  { *os << v; }
 #endif
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
 template<typename CharT, typename Traits, typename Alloc>
 inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os)
 {
     PrintStringLiteral(str.data(), str.size(), os);
 }
-#else
-inline void PrintTo(const ::std::string& str, iu_ostream* os)   { *os << str.c_str(); }
-template<typename CharT, typename Traits, typename Alloc>
-inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os) { UniversalTersePrint(str.c_str(), os); }
-#endif
 inline void PrintTo(const ::std::locale& l, iu_ostream* os) { *os << l.name(); }
 #if IUTEST_HAS_CXX11
 inline void PrintSmartPointerAddress(const volatile void* ptr, iu_ostream* os)
@@ -774,7 +750,6 @@ inline void PrintTo(const long double v, iu_ostream* os)
 template<typename T>
 void PrintToChar(const T value, iu_ostream* os)
 {
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
     *os << PrintCharPrefix(T()) << '\'';
     const bool hex_escape = PrintEscapedChar(PrintCharCode(value), '\'', os);
     *os << '\'';
@@ -787,30 +762,10 @@ void PrintToChar(const T value, iu_ostream* os)
         }
         *os << ")";
     }
-#else
-    // char or unsigned char の時に、 0 が NULL 文字にならないように修正
-    if( value == 0 )
-    {
-        *os << "\\0";
-    }
-    else if( static_cast<int>(value) < 0x20 )
-    {
-        *os << "0x" << ToHexString(value);
-    }
-    else
-    {
-        const T str[2] = { value, 0 };
-        *os << "\'" << detail::ShowAnyCString(str) << "\'";
-    }
-#endif
 }
 inline void PrintTo(const char value, iu_ostream* os)
 {
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
     PrintToChar(static_cast<unsigned char>(value), os);
-#else
-    PrintToChar(static_cast<signed char>(value), os);
-#endif
 }
 inline void PrintTo(const wchar_t value, iu_ostream* os)
 {
@@ -819,34 +774,22 @@ inline void PrintTo(const wchar_t value, iu_ostream* os)
 #if IUTEST_HAS_CHAR8_T
 inline void PrintTo(const char8_t value, iu_ostream* os)
 {
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
     const ::std::string hex = PrintHexCode(static_cast<UInt32>(value));
     *os << "U+" << ::std::string(hex.size() < 4 ? 4 - hex.size() : 0, '0') << hex;
-#else
-    PrintToChar(value, os);
-#endif
 }
 #endif
 #if IUTEST_HAS_CHAR16_T
 inline void PrintTo(const char16_t value, iu_ostream* os)
 {
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
     const ::std::string hex = PrintHexCode(static_cast<UInt32>(value));
     *os << "U+" << ::std::string(hex.size() < 4 ? 4 - hex.size() : 0, '0') << hex;
-#else
-    PrintToChar(value, os);
-#endif
 }
 #endif
 #if IUTEST_HAS_CHAR32_T
 inline void PrintTo(const char32_t value, iu_ostream* os)
 {
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
     const ::std::string hex = PrintHexCode(static_cast<UInt32>(value));
     *os << "U+" << ::std::string(hex.size() < 4 ? 4 - hex.size() : 0, '0') << hex;
-#else
-    PrintToChar(value, os);
-#endif
 }
 #endif
 inline void PrintTo(const unsigned char value, iu_ostream* os)
@@ -857,23 +800,13 @@ inline void PrintTo(const unsigned char value, iu_ostream* os)
 template<typename CharT, typename Traits>
 inline void PrintTo(const iu_basic_string_view<CharT, Traits>& value, iu_ostream* os)
 {
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
     PrintStringLiteral(value.data(), value.size(), os);
-#else
-    const ::std::basic_string<CharT, Traits> str = value.data();
-    UniversalTersePrint(str.c_str(), os);
-#endif
 }
 #else
 template<typename CharT, typename Traits>
 inline void PrintTo(const ::std::basic_string_view<CharT, Traits>& value, iu_ostream* os)
 {
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
     PrintStringLiteral(value.data(), value.size(), os);
-#else
-    const ::std::basic_string<CharT, Traits> str{ value };
-    UniversalTersePrint(str.c_str(), os);
-#endif
 }
 #endif
 
@@ -881,9 +814,7 @@ inline void PrintTo(const ::std::basic_string_view<CharT, Traits>& value, iu_ost
 template<typename T>
 inline void PrintTo(const ::std::optional<T>& value, iu_ostream* os)
 {
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
     *os << "(";
-#endif
     if (value)
     {
         UniversalPrint(value.value(), os);
@@ -892,9 +823,7 @@ inline void PrintTo(const ::std::optional<T>& value, iu_ostream* os)
     {
         *os << "nullopt";
     }
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
     *os << ")";
-#endif
 }
 #endif
 
@@ -908,7 +837,6 @@ inline void PrintTo(const ::std::variant<Types...>& value, iu_ostream* os)
     }
     else
     {
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
         ::std::visit([&os, &value](const auto& v) {
             *os << "('";
 #if IUTEST_HAS_RTTI
@@ -920,25 +848,17 @@ inline void PrintTo(const ::std::variant<Types...>& value, iu_ostream* os)
             UniversalPrint(v, os);
             *os << ")";
         }, value);
-#else
-        ::std::visit([&os](const auto& v) { UniversalPrint(v, os); }, value);
-#endif
     }
 }
 inline void PrintTo(const ::std::monostate&, iu_ostream* os)
 {
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
     *os << "(monostate)";
-#else
-    *os << "monostate";
-#endif
 }
 #endif
 
 #if IUTEST_HAS_CXX_HDR_ANY
 inline void PrintTo(const ::std::any& value, iu_ostream* os)
 {
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
     if( !value.has_value() ) { *os << "no value"; }
     else
     {
@@ -949,10 +869,6 @@ inline void PrintTo(const ::std::any& value, iu_ostream* os)
         *os << "<unknown_type>";
 #endif
     }
-#else
-    *os << "-Any type-name: " << value.type().name();
-    DefaultPrintNonContainerTo(value, os);
-#endif
 }
 #endif
 
@@ -1014,11 +930,7 @@ inline void PrintTo(const ::std::filesystem::directory_iterator& value, iu_ostre
 #if IUTEST_HAS_NULLPTR
 inline void PrintTo(const ::std::nullptr_t&, iu_ostream* os)
 {
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
-    *os << "(nullptr)";
-#else
     *os << "nullptr";
-#endif
 }
 #endif
 

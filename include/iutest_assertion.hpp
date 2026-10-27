@@ -434,11 +434,7 @@ inline ::std::string FormatForComparisonFailureMessage(const T1& value, const T2
 template<typename T1, typename T2>
 inline ::std::string FormatForStringComparisonFailureMessage(const T1& value, const T2& other)
 {
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
     return FormatForComparisonFailureMessage(value, other);
-#else
-    return detail::ShowStringQuoted(FormatForComparisonFailureMessage(value, other));
-#endif
 }
 
 /**

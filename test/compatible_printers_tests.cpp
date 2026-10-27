@@ -15,7 +15,7 @@
 
 #include "../include/iutest_spi.hpp"
 
-#if defined(IUTEST_USE_GTEST) || IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
+#if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01180000
 
 IUTEST(CompatiblePrintersTest, Character)
 {
@@ -75,11 +75,7 @@ IUTEST(CompatiblePrintersTest, U32String)
 #if IUTEST_HAS_NULLPTR
 IUTEST(CompatiblePrintersTest, Nullptr)
 {
-#if defined(IUTEST_USE_GTEST)
     IUTEST_EXPECT_STREQ("nullptr", ::iutest::PrintToString(nullptr));
-#else
-    IUTEST_EXPECT_STREQ("(nullptr)", ::iutest::PrintToString(nullptr));
-#endif
 }
 #endif
 

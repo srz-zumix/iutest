@@ -648,10 +648,7 @@ iutest の実装に切り替わります。<br />
 <code>std::optional</code>、<code>std::any</code>、<code>std::variant</code>、
 <code>std::monostate</code> を Google Test 形式で表示します。
 文字列には引用符・型のプレフィックス・エスケープが付き、埋め込み NUL も表示されます。
-従来形式が必要な場合は、すべての翻訳単位でヘッダーをインクルードする前に
-<code>IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS=0</code> を定義してください（既定値は 1）。
-この設定は Google Test モードには影響しません。
-bool、スマートポインター、比較カテゴリ型の形式はこの設定では変更しません。
+bool、スマートポインター、比較カテゴリ型の形式は変更しません。
 型名は RTTI と標準ライブラリに依存します。
 文字列を <code>PrintToStringParamName</code> に渡すと、Google Test と同様に引用符を含むため
 無効なパラメーター名になります。文字列には独自の名前生成関数を使用してください。</p>

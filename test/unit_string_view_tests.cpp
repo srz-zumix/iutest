@@ -88,11 +88,7 @@ IUTEST(UnitTest, StringView)
 
 IUTEST(UnitTest, PrintStringView)
 {
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
     LogChecker ck("\"XYZ\"");
-#else
-    LogChecker ck("XYZ");
-#endif
     ::iutest::detail::iu_string_view view = "XYZ";
     IUTEST_PRINTTOSTRING_EQ(ck, view);
     IUTEST_STREAMOUT_CHECK(view);
@@ -115,11 +111,7 @@ struct StringViewConvertible
 IUTEST(UnitTest, PrintStringViewConvertible)
 {
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
-#if IUTEST_HAS_GTEST_COMPATIBLE_PRINTERS
     LogChecker ck("\"ABC\"");
-#else
-    LogChecker ck("ABC");
-#endif
 #else
     LogChecker ck("-Byte object");
 #endif
