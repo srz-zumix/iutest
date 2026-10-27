@@ -356,7 +356,8 @@ IUTEST_PRAGMA_MSC_WARN_DISABLE(4566)
 IUTEST(PrintToTest, SurrogatePair)
 {
     const wchar_t* p = L"\U00020BB7";
-    IUTEST_EXPECT_STREQ("L\"\\x20BB7\"", ::iutest::PrintToString(p));
+    IUTEST_EXPECT_STREQ(sizeof(wchar_t) > 2 ? "L\"\\x20BB7\"" : "L\"\\xD842\\xDFB7\"",
+        ::iutest::PrintToString(p));
     IUTEST_STREAMOUT_CHECK(p);
 }
 #endif
