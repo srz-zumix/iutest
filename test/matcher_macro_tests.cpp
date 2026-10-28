@@ -22,7 +22,11 @@ namespace {
 IUTEST_MATCHER(IsEven, "")
 {
     const arg_type remainder = arg % 2;
-    *result_listener << "remainder " << remainder;
+    if( result_listener->IsInterested() )
+    {
+        *result_listener << "remainder ";
+        *result_listener->stream() << remainder;
+    }
     return remainder == 0;
 }
 
@@ -64,6 +68,17 @@ MATCHER_P2(IsSumOf, a, b, "") { return arg == a + b; }
 
 IUTEST_MATCHER(Is_HTTP2_ready, "") { return arg; }
 
+IUTEST_MATCHER_P(IsExplainedBy, inner, "")
+{
+#if defined(IUTEST_USE_GTEST)
+    return ::testing::ExplainMatchResult(inner, arg, result_listener);
+#else
+    return ::iutest::matchers::ExplainMatchResult(inner, arg, result_listener);
+#endif
+}
+
+IUTEST_MATCHER_P(EqualsStreamParameter, os, "") { return arg == os; }
+
 } // namespace
 
 IUTEST(MatcherMacro, Match)
@@ -84,6 +99,8 @@ IUTEST(MatcherMacro, Match)
     IUTEST_EXPECT_THAT(1, IsEqualTo(1));
     IUTEST_EXPECT_THAT(3, IsSumOf(1, 2));
     IUTEST_EXPECT_THAT(::std::string("abc"), HasValue(::std::string("abc")));
+    IUTEST_EXPECT_THAT(2, IsExplainedBy(IsEven()));
+    IUTEST_EXPECT_THAT(3, EqualsStreamParameter(3));
 }
 
 IUTEST(MatcherMacro, FailureDescriptions)
@@ -99,6 +116,8 @@ IUTEST(MatcherMacro, FailureDescriptions)
         IUTEST_EXPECT_THAT(0, HasSum(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)),
         "10)");
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(false, Is_HTTP2_ready()), "is h t t p 2 ready");
+    IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(3, IsExplainedBy(IsEven())), "remainder 1");
+    IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(2, EqualsStreamParameter(3)), "3)");
 #if !defined(IUTEST_USE_GTEST)
     IUTEST_EXPECT_NONFATAL_FAILURE(
         IUTEST_EXPECT_THAT(4, IsBetween(1, 3)), "is between (low: 1, high: 3)");
@@ -120,6 +139,15 @@ IUTEST(MatcherMacro, CompositionAndNegation)
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(10, Not(IsDivisibleBy(5))), "5))");
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(2, Not(HasValue(2))), "does not equal 2");
 }
+
+#if !defined(IUTEST_USE_GTEST)
+IUTEST(MatcherMacro, UninterestedListener)
+{
+    IUTEST_EXPECT_TRUE(IsEven().MatchAndExplain(4, NULL));
+    IUTEST_EXPECT_FALSE(IsEven().MatchAndExplain(3, NULL));
+    IUTEST_EXPECT_FALSE(IsExplainedBy(IsEven()).MatchAndExplain(3, NULL));
+}
+#endif
 
 #endif
 

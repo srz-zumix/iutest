@@ -58,19 +58,18 @@
 /**
  * @ingroup MATCHERS
  * @brief Define a polymorphic matcher. The body can use arg, arg_type and
- *        result_listener (an ostream pointer). Descriptions can use negation.
+ *        result_listener (supporting streaming, IsInterested() and stream()).
+ *        Descriptions can use negation.
 */
 #define IUTEST_MATCHER(name, description) \
     class name##Matcher : public ::iutest::detail::IMatcher { \
     public: \
         IIUT_MATCHER_METHODS_(name, description, ::std::string()) \
-        template<typename arg_type> \
-        bool MatchAndExplain(const arg_type& arg, ::std::ostream* result_listener) const; \
     }; \
     inline name##Matcher IUTEST_ATTRIBUTE_UNUSED_ name() { return name##Matcher(); } \
     template<typename arg_type> \
-    bool name##Matcher::MatchAndExplain(const arg_type& arg IUTEST_ATTRIBUTE_UNUSED_, \
-        ::std::ostream* result_listener IUTEST_ATTRIBUTE_UNUSED_) const
+    bool name##Matcher::MatchAndExplainImpl(const arg_type& arg IUTEST_ATTRIBUTE_UNUSED_, \
+        ::iutest::detail::MatcherMacroListener* result_listener IUTEST_ATTRIBUTE_UNUSED_) const
 
 /** @brief Define matchers with one through ten parameters, stored by value. */
 #define IUTEST_MATCHER_P(name, p0, description) \
@@ -102,13 +101,21 @@
             ? ::iutest::detail::FormatMatcherDescription(negation, #name, params) : iutest_description; \
     } \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return FormatDescription(false); } \
-    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << FormatDescription(false); } \
-    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << FormatDescription(true); } \
-    template<typename T> ::iutest::AssertionResult operator()(const T& actual) const { \
-        ::std::ostringstream explanation; \
-        if( MatchAndExplain(actual, &explanation) ) return ::iutest::AssertionSuccess(); \
-        return ::iutest::AssertionFailure() << WhichIs() << "\n" << explanation.str(); \
-    }
+    void DescribeTo(::std::ostream* iutest_os) const IUTEST_CXX_OVERRIDE { *iutest_os << FormatDescription(false); } \
+    void DescribeNegationTo(::std::ostream* iutest_os) const IUTEST_CXX_OVERRIDE { *iutest_os << FormatDescription(true); } \
+    template<typename iutest_actual_type> \
+    ::iutest::AssertionResult operator()(const iutest_actual_type& iutest_actual) const { \
+        ::std::ostringstream iutest_explanation; \
+        if( MatchAndExplain(iutest_actual, &iutest_explanation) ) return ::iutest::AssertionSuccess(); \
+        return ::iutest::AssertionFailure() << WhichIs() << "\n" << iutest_explanation.str(); \
+    } \
+    template<typename iutest_actual_type> \
+    bool MatchAndExplain(const iutest_actual_type& iutest_actual, ::std::ostream* iutest_stream) const { \
+        ::iutest::detail::MatcherMacroListener iutest_listener(iutest_stream); \
+        return MatchAndExplainImpl(iutest_actual, &iutest_listener); \
+    } \
+    template<typename arg_type> bool MatchAndExplainImpl(const arg_type& arg, \
+        ::iutest::detail::MatcherMacroListener* result_listener) const;
 
 #define IIUT_MATCHER_PARAM_0(a, b, c, d, e, f, g, h, i, j) a
 #define IIUT_MATCHER_PARAM_1(a, b, c, d, e, f, g, h, i, j) b
@@ -127,9 +134,9 @@
 #define IIUT_MATCHER_INIT_(i, params) IIUT_MATCHER_PARAM_(i, params)(IUTEST_PP_CAT(iutest_p, i))
 #define IIUT_MATCHER_MEMBER_(i, params) const IIUT_MATCHER_TYPE_(i, params) IIUT_MATCHER_PARAM_(i, params);
 #define IIUT_MATCHER_PRINT_(i, params) \
-    if( i != 0 ) os << ", "; \
-    os << IUTEST_PP_TOSTRING(IIUT_MATCHER_PARAM_(i, params)) << ": " \
-       << ::iutest::PrintToString(IIUT_MATCHER_PARAM_(i, params));
+    if( i != 0 ) iutest_os << ", "; \
+    iutest_os << IUTEST_PP_TOSTRING(IIUT_MATCHER_PARAM_(i, params)) << ": " \
+       << ::iutest::PrintToString(this->IIUT_MATCHER_PARAM_(i, params));
 #define IIUT_MATCHER_CLASS_(name, n) IUTEST_PP_CAT(name, IUTEST_PP_CAT(MatcherP, n))
 #define IIUT_MATCHER_P_(n, name, description, params) \
     template<IUTEST_PP_ENUM(n, IIUT_MATCHER_TYPENAME_, params)> \
@@ -138,13 +145,11 @@
         explicit IIUT_MATCHER_CLASS_(name, n)(IUTEST_PP_ENUM(n, IIUT_MATCHER_ARG_, params)) \
             : IUTEST_PP_ENUM(n, IIUT_MATCHER_INIT_, params) {} \
         ::std::string Parameters() const { \
-            ::std::ostringstream os; os << " ("; \
+            ::std::ostringstream iutest_os; iutest_os << " ("; \
             IUTEST_PP_REPEAT(n, IIUT_MATCHER_PRINT_, params) \
-            os << ")"; return os.str(); \
+            iutest_os << ")"; return iutest_os.str(); \
         } \
         IIUT_MATCHER_METHODS_(name, description, Parameters()) \
-        template<typename arg_type> \
-        bool MatchAndExplain(const arg_type& arg, ::std::ostream* result_listener) const; \
         IUTEST_PP_REPEAT(n, IIUT_MATCHER_MEMBER_, params) \
     }; \
     template<IUTEST_PP_ENUM(n, IIUT_MATCHER_TYPENAME_, params)> \
@@ -155,9 +160,9 @@
     } \
     template<IUTEST_PP_ENUM(n, IIUT_MATCHER_TYPENAME_, params)> \
     template<typename arg_type> \
-    bool IIUT_MATCHER_CLASS_(name, n)<IUTEST_PP_ENUM(n, IIUT_MATCHER_TYPE_, params)>::MatchAndExplain( \
+    bool IIUT_MATCHER_CLASS_(name, n)<IUTEST_PP_ENUM(n, IIUT_MATCHER_TYPE_, params)>::MatchAndExplainImpl( \
         const arg_type& arg IUTEST_ATTRIBUTE_UNUSED_, \
-        ::std::ostream* result_listener IUTEST_ATTRIBUTE_UNUSED_) const
+        ::iutest::detail::MatcherMacroListener* result_listener IUTEST_ATTRIBUTE_UNUSED_) const
 
 #endif
 
@@ -166,6 +171,22 @@ namespace detail
 {
 
 #if IUTEST_HAS_MATCHER_MACROS
+class MatcherMacroListener
+{
+public:
+    explicit MatcherMacroListener(::std::ostream* os) : m_stream(os) {}
+    bool IsInterested() const { return m_stream != NULL; }
+    ::std::ostream* stream() { return m_stream; }
+    template<typename T>
+    MatcherMacroListener& operator << (const T& value)
+    {
+        if( IsInterested() ) *m_stream << value;
+        return *this;
+    }
+private:
+    ::std::ostream* m_stream;
+};
+
 inline ::std::string MatcherNameToWords(const char* name)
 {
     ::std::string words;
@@ -3438,6 +3459,17 @@ bool ExplainMatchResult(M matcher, const U& actual, ::std::ostream* listener)
 {
     return detail::ExplainMatch(matcher, actual, listener);
 }
+
+#if IUTEST_HAS_MATCHER_MACROS
+template<typename M, typename U, typename Listener>
+typename iutest_type_traits::enable_if<
+    iutest_type_traits::is_same<Listener, detail::MatcherMacroListener>::value, bool>::type
+ExplainMatchResult(M matcher, const U& actual, Listener* listener)
+{
+    ::std::ostringstream ignored;
+    return detail::ExplainMatch(matcher, actual, listener->IsInterested() ? listener->stream() : &ignored);
+}
+#endif
 
 /**
  * @defgroup    MATCHERS    Matchers
