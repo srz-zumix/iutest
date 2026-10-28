@@ -347,6 +347,7 @@ namespace matchers
 #endif
 
     using ::testing::A;
+    using ::testing::An;
     using ::testing::_;
     using ::testing::TypedEq;
 
