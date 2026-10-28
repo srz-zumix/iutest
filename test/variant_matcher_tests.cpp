@@ -22,7 +22,9 @@
 #include <string>
 #include <variant>
 
+#if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 using ::iutest::matchers::AllOf;
+#endif
 using ::iutest::matchers::Eq;
 using ::iutest::matchers::Gt;
 using ::iutest::matchers::Lt;
@@ -61,6 +63,7 @@ IUTEST(VariantMatcher, TypeMismatch)
     IUTEST_EXPECT_THAT(value, VariantWith<long>(1));
 }
 
+#if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 IUTEST(VariantMatcher, CompositeAndStoredMatcher)
 {
     const int lower = 0;
@@ -72,6 +75,7 @@ IUTEST(VariantMatcher, CompositeAndStoredMatcher)
     expected = 2;
     IUTEST_EXPECT_THAT(int_value, value_matcher);
 }
+#endif
 
 IUTEST(VariantMatcher, MoveOnlyAlternative)
 {
