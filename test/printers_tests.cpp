@@ -321,7 +321,7 @@ IUTEST(PrintToTest, StringStringView)
 IUTEST(PrintToTest, WideString)
 {
     {
-#if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01060000
+#if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01070000
         IUTEST_EXPECT_STREQ("L\"XYZ\"", ::iutest::PrintToString(L"XYZ"));
 #endif
         LogChecker ck("XYZ");
