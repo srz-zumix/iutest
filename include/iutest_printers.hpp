@@ -366,9 +366,14 @@ inline const char* PrintCharPrefix(char32_t) { return "U"; }
 
 inline ::std::string PrintHexCode(UInt32 value)
 {
-    const ::std::string hex = ToHexString(value);
+    ::std::string hex = ToHexString(value);
     const size_t first = hex.find_first_not_of('0');
-    return first == ::std::string::npos ? "0" : hex.substr(first);
+    if( first == ::std::string::npos )
+    {
+        return "0";
+    }
+    hex.erase(0, first);
+    return hex;
 }
 
 template<typename CharT>
