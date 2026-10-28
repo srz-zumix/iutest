@@ -267,7 +267,9 @@ IUTEST(PrintToTest, Locale)
 IUTEST(PrintToTest, String)
 {
     {
+#if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01060000
         IUTEST_EXPECT_STREQ("\"XYZ\"", ::iutest::PrintToString("XYZ"));
+#endif
         LogChecker ck("XYZ");
         IUTEST_STREAMOUT_CHECK("XYZ");
     }
@@ -319,7 +321,9 @@ IUTEST(PrintToTest, StringStringView)
 IUTEST(PrintToTest, WideString)
 {
     {
+#if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01060000
         IUTEST_EXPECT_STREQ("L\"XYZ\"", ::iutest::PrintToString(L"XYZ"));
+#endif
         LogChecker ck("XYZ");
         IUTEST_STREAMOUT_CHECK(L"XYZ");
     }
