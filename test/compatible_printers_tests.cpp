@@ -75,7 +75,11 @@ IUTEST(CompatiblePrintersTest, U32String)
 #if IUTEST_HAS_NULLPTR
 IUTEST(CompatiblePrintersTest, Nullptr)
 {
+#if defined(IUTEST_USE_GTEST)
+    IUTEST_EXPECT_STREQ("(nullptr)", ::iutest::PrintToString(nullptr));
+#else
     IUTEST_EXPECT_STREQ("nullptr", ::iutest::PrintToString(nullptr));
+#endif
 }
 #endif
 
