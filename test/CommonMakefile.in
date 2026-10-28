@@ -152,6 +152,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/matcher_explain_tests \
 		$(OUTDIR)/bool_matcher_tests \
 		$(OUTDIR)/gtest_style_matcher_tests \
+		$(OUTDIR)/matcher_macro_tests \
 		$(OUTDIR)/string_view_matcher_tests \
 		$(OUTDIR)/variant_matcher_tests \
 		$(OUTDIR)/throws_matcher_tests \

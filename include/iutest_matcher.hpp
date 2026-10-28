@@ -53,9 +53,144 @@
  * @}
 */
 
+#if IUTEST_HAS_MATCHER_MACROS
+
+/**
+ * @ingroup MATCHERS
+ * @brief Define a polymorphic matcher. The body can use arg, arg_type and
+ *        result_listener (an ostream pointer). Descriptions can use negation.
+*/
+#define IUTEST_MATCHER(name, description) \
+    class name##Matcher : public ::iutest::detail::IMatcher { \
+    public: \
+        IIUT_MATCHER_METHODS_(name, description, ::std::string()) \
+        template<typename arg_type> \
+        bool MatchAndExplain(const arg_type& arg, ::std::ostream* result_listener) const; \
+    }; \
+    inline name##Matcher IUTEST_ATTRIBUTE_UNUSED_ name() { return name##Matcher(); } \
+    template<typename arg_type> \
+    bool name##Matcher::MatchAndExplain(const arg_type& arg IUTEST_ATTRIBUTE_UNUSED_, \
+        ::std::ostream* result_listener IUTEST_ATTRIBUTE_UNUSED_) const
+
+/** @brief Define matchers with one through ten parameters, stored by value. */
+#define IUTEST_MATCHER_P(name, p0, description) \
+    IIUT_MATCHER_P_(1, name, description, (p0, _, _, _, _, _, _, _, _, _))
+#define IUTEST_MATCHER_P2(name, p0, p1, description) \
+    IIUT_MATCHER_P_(2, name, description, (p0, p1, _, _, _, _, _, _, _, _))
+#define IUTEST_MATCHER_P3(name, p0, p1, p2, description) \
+    IIUT_MATCHER_P_(3, name, description, (p0, p1, p2, _, _, _, _, _, _, _))
+#define IUTEST_MATCHER_P4(name, p0, p1, p2, p3, description) \
+    IIUT_MATCHER_P_(4, name, description, (p0, p1, p2, p3, _, _, _, _, _, _))
+#define IUTEST_MATCHER_P5(name, p0, p1, p2, p3, p4, description) \
+    IIUT_MATCHER_P_(5, name, description, (p0, p1, p2, p3, p4, _, _, _, _, _))
+#define IUTEST_MATCHER_P6(name, p0, p1, p2, p3, p4, p5, description) \
+    IIUT_MATCHER_P_(6, name, description, (p0, p1, p2, p3, p4, p5, _, _, _, _))
+#define IUTEST_MATCHER_P7(name, p0, p1, p2, p3, p4, p5, p6, description) \
+    IIUT_MATCHER_P_(7, name, description, (p0, p1, p2, p3, p4, p5, p6, _, _, _))
+#define IUTEST_MATCHER_P8(name, p0, p1, p2, p3, p4, p5, p6, p7, description) \
+    IIUT_MATCHER_P_(8, name, description, (p0, p1, p2, p3, p4, p5, p6, p7, _, _))
+#define IUTEST_MATCHER_P9(name, p0, p1, p2, p3, p4, p5, p6, p7, p8, description) \
+    IIUT_MATCHER_P_(9, name, description, (p0, p1, p2, p3, p4, p5, p6, p7, p8, _))
+#define IUTEST_MATCHER_P10(name, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, description) \
+    IIUT_MATCHER_P_(10, name, description, (p0, p1, p2, p3, p4, p5, p6, p7, p8, p9))
+
+/** @private */
+#define IIUT_MATCHER_METHODS_(name, description, params) \
+    ::std::string FormatDescription(bool negation IUTEST_ATTRIBUTE_UNUSED_) const { \
+        const ::std::string iutest_description = (description); \
+        return iutest_description.empty() \
+            ? ::iutest::detail::FormatMatcherDescription(negation, #name, params) : iutest_description; \
+    } \
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return FormatDescription(false); } \
+    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << FormatDescription(false); } \
+    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << FormatDescription(true); } \
+    template<typename T> ::iutest::AssertionResult operator()(const T& actual) const { \
+        ::std::ostringstream explanation; \
+        if( MatchAndExplain(actual, &explanation) ) return ::iutest::AssertionSuccess(); \
+        return ::iutest::AssertionFailure() << WhichIs() << "\n" << explanation.str(); \
+    }
+
+#define IIUT_MATCHER_PARAM_0(a, b, c, d, e, f, g, h, i, j) a
+#define IIUT_MATCHER_PARAM_1(a, b, c, d, e, f, g, h, i, j) b
+#define IIUT_MATCHER_PARAM_2(a, b, c, d, e, f, g, h, i, j) c
+#define IIUT_MATCHER_PARAM_3(a, b, c, d, e, f, g, h, i, j) d
+#define IIUT_MATCHER_PARAM_4(a, b, c, d, e, f, g, h, i, j) e
+#define IIUT_MATCHER_PARAM_5(a, b, c, d, e, f, g, h, i, j) f
+#define IIUT_MATCHER_PARAM_6(a, b, c, d, e, f, g, h, i, j) g
+#define IIUT_MATCHER_PARAM_7(a, b, c, d, e, f, g, h, i, j) h
+#define IIUT_MATCHER_PARAM_8(a, b, c, d, e, f, g, h, i, j) i
+#define IIUT_MATCHER_PARAM_9(a, b, c, d, e, f, g, h, i, j) j
+#define IIUT_MATCHER_PARAM_(i, params) IUTEST_PP_CAT(IIUT_MATCHER_PARAM_, i) params
+#define IIUT_MATCHER_TYPE_(i, params) IUTEST_PP_CAT(IIUT_MATCHER_PARAM_(i, params), _type)
+#define IIUT_MATCHER_TYPENAME_(i, params) typename IIUT_MATCHER_TYPE_(i, params)
+#define IIUT_MATCHER_ARG_(i, params) IIUT_MATCHER_TYPE_(i, params) IUTEST_PP_CAT(iutest_p, i)
+#define IIUT_MATCHER_INIT_(i, params) IIUT_MATCHER_PARAM_(i, params)(IUTEST_PP_CAT(iutest_p, i))
+#define IIUT_MATCHER_MEMBER_(i, params) const IIUT_MATCHER_TYPE_(i, params) IIUT_MATCHER_PARAM_(i, params);
+#define IIUT_MATCHER_PRINT_(i, params) \
+    if( i != 0 ) os << ", "; \
+    os << IUTEST_PP_TOSTRING(IIUT_MATCHER_PARAM_(i, params)) << ": " \
+       << ::iutest::PrintToString(IIUT_MATCHER_PARAM_(i, params));
+#define IIUT_MATCHER_CLASS_(name, n) IUTEST_PP_CAT(name, IUTEST_PP_CAT(MatcherP, n))
+#define IIUT_MATCHER_P_(n, name, description, params) \
+    template<IUTEST_PP_ENUM(n, IIUT_MATCHER_TYPENAME_, params)> \
+    class IIUT_MATCHER_CLASS_(name, n) : public ::iutest::detail::IMatcher { \
+    public: \
+        explicit IIUT_MATCHER_CLASS_(name, n)(IUTEST_PP_ENUM(n, IIUT_MATCHER_ARG_, params)) \
+            : IUTEST_PP_ENUM(n, IIUT_MATCHER_INIT_, params) {} \
+        ::std::string Parameters() const { \
+            ::std::ostringstream os; os << " ("; \
+            IUTEST_PP_REPEAT(n, IIUT_MATCHER_PRINT_, params) \
+            os << ")"; return os.str(); \
+        } \
+        IIUT_MATCHER_METHODS_(name, description, Parameters()) \
+        template<typename arg_type> \
+        bool MatchAndExplain(const arg_type& arg, ::std::ostream* result_listener) const; \
+        IUTEST_PP_REPEAT(n, IIUT_MATCHER_MEMBER_, params) \
+    }; \
+    template<IUTEST_PP_ENUM(n, IIUT_MATCHER_TYPENAME_, params)> \
+    inline IIUT_MATCHER_CLASS_(name, n)<IUTEST_PP_ENUM(n, IIUT_MATCHER_TYPE_, params)> \
+    name(IUTEST_PP_ENUM(n, IIUT_MATCHER_ARG_, params)) { \
+        return IIUT_MATCHER_CLASS_(name, n)<IUTEST_PP_ENUM(n, IIUT_MATCHER_TYPE_, params)>( \
+            IUTEST_PP_ENUM_PARAMS(n, iutest_p)); \
+    } \
+    template<IUTEST_PP_ENUM(n, IIUT_MATCHER_TYPENAME_, params)> \
+    template<typename arg_type> \
+    bool IIUT_MATCHER_CLASS_(name, n)<IUTEST_PP_ENUM(n, IIUT_MATCHER_TYPE_, params)>::MatchAndExplain( \
+        const arg_type& arg IUTEST_ATTRIBUTE_UNUSED_, \
+        ::std::ostream* result_listener IUTEST_ATTRIBUTE_UNUSED_) const
+
+#endif
+
 namespace iutest {
 namespace detail
 {
+
+#if IUTEST_HAS_MATCHER_MACROS
+inline ::std::string MatcherNameToWords(const char* name)
+{
+    ::std::string words;
+    for( size_t i = 0; name[i] != '\0'; ++i )
+    {
+        const char c = name[i];
+        const bool upper = c >= 'A' && c <= 'Z';
+        const bool lower = c >= 'a' && c <= 'z';
+        const bool digit = c >= '0' && c <= '9';
+        if( !upper && !lower && !digit ) continue;
+        const char previous = i == 0 ? '\0' : name[i-1];
+        const bool previous_alpha = (previous >= 'a' && previous <= 'z') || (previous >= 'A' && previous <= 'Z');
+        const bool previous_digit = previous >= '0' && previous <= '9';
+        if( !words.empty() && (upper || (lower && !previous_alpha) || (digit && !previous_digit)) ) words += ' ';
+        words += upper ? static_cast<char>(c - 'A' + 'a') : c;
+    }
+    return words;
+}
+
+inline ::std::string FormatMatcherDescription(bool negation, const char* name, const ::std::string& params)
+{
+    const ::std::string description = MatcherNameToWords(name) + params;
+    return negation ? "not (" + description + ")" : description;
+}
+#endif
 
 //======================================================================
 // function
