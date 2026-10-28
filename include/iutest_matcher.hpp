@@ -26,6 +26,7 @@
 #include <utility>
 #endif
 
+#include <list>
 #include <sstream>
 
 #if IUTEST_HAS_MATCHER_FIELDSARE
@@ -1521,6 +1522,59 @@ private:
 
 private:
     ::std::vector<T> m_expected;
+};
+
+/**
+ * @brief   AllOfArray / AnyOfArray matcher
+*/
+template<typename T, bool ALL>
+class LogicalArrayMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    template<typename It>
+    LogicalArrayMatcher(const It& begin, const It& end)
+    {
+        m_expected.insert(m_expected.end(), begin, end);
+    }
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual) const
+    {
+        ::std::ostringstream explanation;
+        if( MatchAndExplain(actual, &explanation) ) return AssertionSuccess();
+        return AssertionFailure() << WhichIs() << "\n" << explanation.str();
+    }
+
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener) const
+    {
+        typename ExpectedMatchers::const_iterator it = m_expected.begin();
+        for( size_t i = 0; it != m_expected.end(); ++it, ++i )
+        {
+            T expected(*it);
+            ::std::ostringstream inner;
+            if( ExplainMatch(expected, actual, &inner) != ALL )
+            {
+                if( ALL )
+                {
+                    *listener << "whose matcher #" << i << " doesn't match";
+                    if( !inner.str().empty() ) *listener << ", " << inner.str();
+                }
+                return !ALL;
+            }
+        }
+        if( !ALL ) *listener << "which matches none of the " << m_expected.size() << " matchers";
+        return ALL;
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        return (ALL ? "AllOfArray: " : "AnyOfArray: ") + PrintToString(m_expected);
+    }
+
+private:
+    typedef ::std::list<T> ExpectedMatchers;
+    ExpectedMatchers m_expected;
 };
 
 /**
@@ -3802,7 +3856,8 @@ detail::IsSubsetOfMatcher<typename Container::value_type> IsSubsetOf(const Conta
 template<typename T, size_t SIZE>
 detail::IsSubsetOfMatcher<T> IsSubsetOf(const T(&values)[SIZE])
 {
-    return detail::IsSubsetOfMatcher<T>(values + 0, values + SIZE);
+    const T* first = values;
+    return detail::IsSubsetOfMatcher<T>(first, first + SIZE);
 }
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
@@ -3827,6 +3882,98 @@ detail::IsSubsetOfMatcher<T> IsSubsetOf(::std::initializer_list<T> values)
 }
 #endif
 #endif
+
+/**
+ * @brief   Make AllOfArray matcher
+ * @details Matches all expectations; an empty range always matches. Values are treated as Eq.
+*/
+template<typename Container>
+detail::LogicalArrayMatcher<typename Container::value_type, true> AllOfArray(const Container& container)
+{
+    return detail::LogicalArrayMatcher<typename Container::value_type, true>(container.begin(), container.end());
+}
+
+/**
+ * @brief   Make AnyOfArray matcher
+ * @details Matches any expectation; an empty range never matches. Values are treated as Eq.
+*/
+template<typename Container>
+detail::LogicalArrayMatcher<typename Container::value_type, false> AnyOfArray(const Container& container)
+{
+    return detail::LogicalArrayMatcher<typename Container::value_type, false>(container.begin(), container.end());
+}
+
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+/** @overload */
+template<typename T, size_t SIZE>
+detail::LogicalArrayMatcher<T, true> AllOfArray(const T(&values)[SIZE])
+{
+    const T* first = values;
+    return detail::LogicalArrayMatcher<T, true>(first, first + SIZE);
+}
+
+/** @overload */
+template<typename T, size_t SIZE>
+detail::LogicalArrayMatcher<T, false> AnyOfArray(const T(&values)[SIZE])
+{
+    const T* first = values;
+    return detail::LogicalArrayMatcher<T, false>(first, first + SIZE);
+}
+
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+/**
+ * @overload
+ * @note    Pass by value to decay arrays to pointers.
+*/
+template<typename It>
+// @infer-ignore PULSE_CONST_REFABLE
+detail::LogicalArrayMatcher<typename detail::IteratorTraits<It>::type, true> AllOfArray(It begin, It end)
+{
+    return detail::LogicalArrayMatcher<typename detail::IteratorTraits<It>::type, true>(begin, end);
+}
+
+/**
+ * @overload
+ * @note    Pass by value to decay arrays to pointers.
+*/
+template<typename It>
+// @infer-ignore PULSE_CONST_REFABLE
+detail::LogicalArrayMatcher<typename detail::IteratorTraits<It>::type, false> AnyOfArray(It begin, It end)
+{
+    return detail::LogicalArrayMatcher<typename detail::IteratorTraits<It>::type, false>(begin, end);
+}
+#endif
+
+#if IUTEST_HAS_INITIALIZER_LIST
+/** @overload */
+template<typename T>
+detail::LogicalArrayMatcher<T, true> AllOfArray(::std::initializer_list<T> values)
+{
+    return detail::LogicalArrayMatcher<T, true>(values.begin(), values.end());
+}
+
+/** @overload */
+template<typename T>
+detail::LogicalArrayMatcher<T, false> AnyOfArray(::std::initializer_list<T> values)
+{
+    return detail::LogicalArrayMatcher<T, false>(values.begin(), values.end());
+}
+#endif
+#endif
+
+/** @overload */
+template<typename T>
+detail::LogicalArrayMatcher<T, true> AllOfArray(const T* values, size_t count)
+{
+    return detail::LogicalArrayMatcher<T, true>(values, count == 0 ? values : values + count);
+}
+
+/** @overload */
+template<typename T>
+detail::LogicalArrayMatcher<T, false> AnyOfArray(const T* values, size_t count)
+{
+    return detail::LogicalArrayMatcher<T, false>(values, count == 0 ? values : values + count);
+}
 
 /**
  * @brief   Make ElementsAreArray matcher
