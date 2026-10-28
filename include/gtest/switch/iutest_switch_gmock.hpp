@@ -336,6 +336,9 @@ namespace matchers
 #if IUTEST_HAS_MATCHER_OPTIONAL
     using ::testing::Optional;
 #endif
+#if GMOCK_VER >= 0x01080100
+    using ::testing::VariantWith;
+#endif
     using ::testing::AllOf;
     using ::testing::AnyOf;
 #if GMOCK_VER >= 0x01100000

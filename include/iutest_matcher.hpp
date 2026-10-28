@@ -1295,6 +1295,48 @@ private:
 
 #endif
 
+#if IUTEST_HAS_CXX_HDR_VARIANT
+
+/**
+ * @brief   VariantWith matcher
+*/
+template<typename T, typename M>
+class VariantWithMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    explicit VariantWithMatcher(const M& matcher) : m_matcher(matcher) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual) const
+    {
+        if( !::std::holds_alternative<T>(actual) )
+        {
+            return AssertionFailure() << WhichIs() << " (actual index = " << actual.index() << ")";
+        }
+        M matcher(m_matcher);
+        const AssertionResult ar = CastToMatcher(matcher)(::std::get<T>(actual));
+        if( ar )
+        {
+            return AssertionSuccess();
+        }
+        return AssertionFailure() << WhichIs() << " (actual index = " << actual.index()
+            << ", value = " << PrintToString(::std::get<T>(actual)) << "): " << ar.message();
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        iu_global_format_stringstream strm;
+        strm << "VariantWith<" << detail::GetTypeNameProxy<T>::GetTypeName()
+            << ">: " << PrintToString(m_matcher);
+        return strm.str();
+    }
+
+private:
+    M m_matcher;
+};
+
+#endif
+
 
 /**
  * @brief   IsEmpty matcher
@@ -3808,6 +3850,20 @@ template<typename T>
 detail::OptionalMatcher<T> Optional(const T& expected)
 {
     return detail::OptionalMatcher<T>(expected);
+}
+
+#endif
+
+#if IUTEST_HAS_CXX_HDR_VARIANT
+
+/**
+ * @brief   Make VariantWith matcher
+ * @details Matches a variant holding type T whose value matches matcher.
+*/
+template<typename T, typename M>
+detail::VariantWithMatcher<T, M> VariantWith(M matcher)
+{
+    return detail::VariantWithMatcher<T, M>(matcher);
 }
 
 #endif
