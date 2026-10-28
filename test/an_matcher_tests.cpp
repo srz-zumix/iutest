@@ -42,7 +42,9 @@ IUTEST(AnMatcher, ConstValue)
 
 IUTEST(AnMatcher, Composition)
 {
+#if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
     IUTEST_EXPECT_THAT(1, ::iutest::matchers::AllOf(An<int>(), ::iutest::matchers::A<int>()));
+#endif
     IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(1, ::iutest::matchers::Not(An<int>())), "");
 }
 
