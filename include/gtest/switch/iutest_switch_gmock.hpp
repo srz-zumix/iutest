@@ -337,6 +337,7 @@ namespace matchers
     using ::testing::Optional;
 #endif
 #if GMOCK_VER >= 0x01080100
+    using ::testing::AnyWith;
     using ::testing::VariantWith;
 #endif
     using ::testing::AllOf;

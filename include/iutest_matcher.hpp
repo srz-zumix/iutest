@@ -1295,6 +1295,48 @@ private:
 
 #endif
 
+#if IUTEST_HAS_CXX_HDR_ANY
+
+/**
+ * @brief   AnyWith matcher
+*/
+template<typename T, typename M>
+class AnyWithMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    explicit AnyWithMatcher(const M& matcher) : m_matcher(matcher) {}
+
+    AssertionResult operator ()(const ::std::any& actual) const
+    {
+        const T* value = ::std::any_cast<T>(&actual);
+        if( value == NULL )
+        {
+            return AssertionFailure() << WhichIs()
+                << (actual.has_value() ? " (actual type does not match)" : " (empty)");
+        }
+        M matcher(m_matcher);
+        const AssertionResult ar = CastToMatcher(matcher)(*value);
+        if( ar )
+        {
+            return AssertionSuccess();
+        }
+        return AssertionFailure() << WhichIs() << " (value = " << PrintToString(*value) << "): " << ar.message();
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        iu_global_format_stringstream strm;
+        strm << "AnyWith<" << detail::GetTypeNameProxy<T>::GetTypeName()
+            << ">: " << PrintToString(m_matcher);
+        return strm.str();
+    }
+
+private:
+    M m_matcher;
+};
+
+#endif
+
 #if IUTEST_HAS_CXX_HDR_VARIANT
 
 /**
@@ -3850,6 +3892,20 @@ template<typename T>
 detail::OptionalMatcher<T> Optional(const T& expected)
 {
     return detail::OptionalMatcher<T>(expected);
+}
+
+#endif
+
+#if IUTEST_HAS_CXX_HDR_ANY
+
+/**
+ * @brief   Make AnyWith matcher
+ * @details Matches an any holding type T whose value matches matcher.
+*/
+template<typename T, typename M>
+detail::AnyWithMatcher<T, M> AnyWith(M matcher)
+{
+    return detail::AnyWithMatcher<T, M>(matcher);
 }
 
 #endif
