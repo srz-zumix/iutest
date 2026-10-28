@@ -4350,6 +4350,15 @@ detail::AnyMatcher<T> A()
     return detail::AnyMatcher<T>();
 }
 
+/**
+ * @brief   Make Any matcher (alias of A)
+*/
+template<typename T>
+detail::AnyMatcher<T> An()
+{
+    return A<T>();
+}
+
 
 /**
  * @brief   Anything matcher
