@@ -127,8 +127,13 @@
 #define IIUT_MATCHER_PARAM_7(a, b, c, d, e, f, g, h, i, j) h
 #define IIUT_MATCHER_PARAM_8(a, b, c, d, e, f, g, h, i, j) i
 #define IIUT_MATCHER_PARAM_9(a, b, c, d, e, f, g, h, i, j) j
-#define IIUT_MATCHER_PARAM_(i, params) IUTEST_PP_CAT(IIUT_MATCHER_PARAM_, i) params
-#define IIUT_MATCHER_TYPE_(i, params) IUTEST_PP_CAT(IIUT_MATCHER_PARAM_(i, params), _type)
+#define IIUT_MATCHER_PARAM_(i, params) IIUT_MATCHER_PARAM_II_(i, params)
+#define IIUT_MATCHER_PARAM_II_(i, params) IIUT_MATCHER_PARAM_CAT_(IIUT_MATCHER_PARAM_, i) params
+#define IIUT_MATCHER_PARAM_CAT_(a, b) IIUT_MATCHER_PARAM_CAT_I_(a, b)
+#define IIUT_MATCHER_PARAM_CAT_I_(a, b) IIUT_MATCHER_PARAM_CAT_II_(a ## b)
+#define IIUT_MATCHER_PARAM_CAT_II_(result) result
+#define IIUT_MATCHER_TYPE_(i, params) IIUT_MATCHER_TYPE_II_(IIUT_MATCHER_PARAM_(i, params))
+#define IIUT_MATCHER_TYPE_II_(param) IUTEST_PP_CAT(param, _type)
 #define IIUT_MATCHER_TYPENAME_(i, params) typename IIUT_MATCHER_TYPE_(i, params)
 #define IIUT_MATCHER_ARG_(i, params) IIUT_MATCHER_TYPE_(i, params) IUTEST_PP_CAT(iutest_p, i)
 #define IIUT_MATCHER_INIT_(i, params) IIUT_MATCHER_PARAM_(i, params)(IUTEST_PP_CAT(iutest_p, i))

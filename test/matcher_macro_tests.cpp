@@ -131,8 +131,10 @@ IUTEST(MatcherMacro, CompositionAndNegation)
 {
     using ::iutest::matchers::Not;
     IUTEST_EXPECT_THAT(3, Not(IsEven()));
+#if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
     IUTEST_EXPECT_THAT(2, ::iutest::matchers::AllOf(IsEven(), IsPositive()));
     IUTEST_EXPECT_THAT(5, ::iutest::matchers::AnyOf(IsEven(), IsPositive()));
+#endif
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(4, Not(IsEven())), "not (is even)");
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(1, Not(IsPositive())), "is not positive");
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(10, Not(IsDivisibleBy(5))), "not (is divisible by (");
