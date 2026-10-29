@@ -135,6 +135,30 @@ IUTEST_MATCHER_P(EqualsStreamParameter, os, "")
     return arg == os;
 }
 
+#if !defined(IUTEST_USE_GTEST)
+struct CopyTrackedParameter
+{
+    int* copies;
+    explicit CopyTrackedParameter(int* count) : copies(count) {}
+    CopyTrackedParameter(const CopyTrackedParameter& other) : copies(other.copies) { ++*copies; }
+#if IUTEST_HAS_RVALUE_REFS
+    CopyTrackedParameter(CopyTrackedParameter&& other) IUTEST_CXX_NOEXCEPT_SPEC : copies(other.copies) {}
+#endif
+};
+
+int MatcherFunction(int value) { return value; }
+
+#if IUTEST_HAS_RVALUE_REFS && IUTEST_HAS_DELETED_FUNCTIONS
+struct CopyOnlyParameter
+{
+    int value;
+    explicit CopyOnlyParameter(int n) : value(n) {}
+    CopyOnlyParameter(const CopyOnlyParameter& other) : value(other.value) {}
+    CopyOnlyParameter(CopyOnlyParameter&&) = delete;
+};
+#endif
+#endif
+
 } // namespace
 
 IUTEST(MatcherMacro, Match)
@@ -199,6 +223,64 @@ IUTEST(MatcherMacro, CompositionAndNegation)
 }
 
 #if !defined(IUTEST_USE_GTEST)
+IUTEST(MatcherMacro, ParameterValueAndReferenceSemantics)
+{
+    ::std::string source("original");
+    const HasValueMatcherP1< ::std::string> owned = HasValue(source);
+    const HasValueMatcherP1< ::std::string&> referenced = HasValue< ::std::string&>(source);
+    source = "changed";
+    IUTEST_EXPECT_THAT(::std::string("original"), owned);
+    IUTEST_EXPECT_THAT(source, referenced);
+
+    const HasValueMatcherP1< ::std::string> temporary = HasValue(::std::string("temporary"));
+    IUTEST_EXPECT_THAT(::std::string("temporary"), temporary);
+
+    const HasValueMatcherP1<const char*> literal = HasValue("literal");
+    IUTEST_EXPECT_STREQ("literal", literal.value);
+    char buffer[] = "buffer";
+    const HasValueMatcherP1<char*> array = HasValue(buffer);
+    IUTEST_EXPECT_EQ(buffer, array.value);
+
+    typedef int (*Function)(int);
+    const EqualsStreamParameterMatcherP1<Function> function = EqualsStreamParameter(MatcherFunction);
+    IUTEST_EXPECT_THAT(&MatcherFunction, function);
+}
+
+IUTEST(MatcherMacro, ParameterCopies)
+{
+    int copies = 0;
+    CopyTrackedParameter source(&copies);
+    const HasValueMatcherP1<CopyTrackedParameter> single = HasValue(source);
+#if IUTEST_HAS_RVALUE_REFS && IUTEST_HAS_CXX_HDR_TYPE_TARITS && IUTEST_CPLUSPLUS >= 201703L
+    IUTEST_EXPECT_EQ(1, copies);
+#endif
+    IUTEST_EXPECT_EQ(&copies, single.value.copies);
+
+    copies = 0;
+    const IsBetweenMatcherP2<CopyTrackedParameter, CopyTrackedParameter> pair = IsBetween(source, source);
+#if IUTEST_HAS_RVALUE_REFS && IUTEST_HAS_CXX_HDR_TYPE_TARITS && IUTEST_CPLUSPLUS >= 201703L
+    IUTEST_EXPECT_EQ(2, copies);
+#endif
+    IUTEST_EXPECT_EQ(&copies, pair.low.copies);
+    IUTEST_EXPECT_EQ(&copies, pair.high.copies);
+
+    copies = 0;
+    const HasValueMatcherP1<CopyTrackedParameter> temporary = HasValue(CopyTrackedParameter(&copies));
+#if IUTEST_HAS_RVALUE_REFS && IUTEST_HAS_CXX_HDR_TYPE_TARITS && IUTEST_CPLUSPLUS >= 201703L
+    IUTEST_EXPECT_EQ(0, copies);
+#endif
+    IUTEST_EXPECT_EQ(&copies, temporary.value.copies);
+}
+
+#if IUTEST_HAS_RVALUE_REFS && IUTEST_HAS_DELETED_FUNCTIONS
+IUTEST(MatcherMacro, CopyOnlyParameter)
+{
+    const CopyOnlyParameter source(42);
+    const HasValueMatcherP1<CopyOnlyParameter> matcher = HasValue(source);
+    IUTEST_EXPECT_EQ(42, matcher.value.value);
+}
+#endif
+
 IUTEST(MatcherMacro, UninterestedListener)
 {
     IUTEST_EXPECT_TRUE(IsEven().MatchAndExplain(4, NULL));
