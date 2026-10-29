@@ -62,7 +62,7 @@
  *        Descriptions can use negation.
 */
 #define IUTEST_MATCHER(name, description) \
-    class name##Matcher : public ::iutest::detail::IMatcher { \
+    class name##Matcher : public ::iutest::detail::MatcherMacroBase { \
     public: \
         IIUT_MATCHER_METHODS_(name, description, ::std::string()) \
     }; \
@@ -149,13 +149,12 @@
 #define IIUT_MATCHER_INIT_(i, params) IIUT_MATCHER_PARAM_(i, params)(IUTEST_PP_CAT(iutest_p, i))
 #define IIUT_MATCHER_MEMBER_(i, params) const IIUT_MATCHER_TYPE_(i, params) IIUT_MATCHER_PARAM_(i, params);
 #define IIUT_MATCHER_PRINT_(i, params, names) \
-    if( i != 0 ) iutest_os << ", "; \
-    iutest_os << IIUT_MATCHER_PARAM_(i, names) << ": " \
-       << ::iutest::PrintToString(this->IIUT_MATCHER_PARAM_(i, params));
+    ::iutest::detail::MatcherMacroBase::PrintParameter(&iutest_os, i != 0, \
+        IIUT_MATCHER_PARAM_(i, names), this->IIUT_MATCHER_PARAM_(i, params));
 #define IIUT_MATCHER_CLASS_(name, n) IUTEST_PP_CAT(name, IUTEST_PP_CAT(MatcherP, n))
 #define IIUT_MATCHER_P_(n, name, description, params, names) \
     template<IUTEST_PP_ENUM(n, IIUT_MATCHER_TYPENAME_, params)> \
-    class IIUT_MATCHER_CLASS_(name, n) : public ::iutest::detail::IMatcher { \
+    class IIUT_MATCHER_CLASS_(name, n) : public ::iutest::detail::MatcherMacroBase { \
     public: \
         explicit IIUT_MATCHER_CLASS_(name, n)(IUTEST_PP_ENUM(n, IIUT_MATCHER_ARG_, params)) \
             : IUTEST_PP_ENUM(n, IIUT_MATCHER_INIT_, params) {} \
@@ -271,6 +270,19 @@ public:
     virtual void DescribeTo(::std::ostream* os) const { *os << WhichIs(); }
     virtual void DescribeNegationTo(::std::ostream* os) const { *os << "not (" << WhichIs() << ")"; }
 };
+
+#if IUTEST_HAS_MATCHER_MACROS
+class MatcherMacroBase : public IMatcher
+{
+protected:
+    template<typename T>
+    static void PrintParameter(::std::ostream* os, bool separator, const char* name, const T& value)
+    {
+        if( separator ) *os << ", ";
+        *os << name << ": " << ::iutest::PrintToString(value);
+    }
+};
+#endif
 
 #if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
 template<typename M, typename U>
@@ -3477,7 +3489,18 @@ bool ExplainMatchResult(M matcher, const U& actual, ::std::ostream* listener)
 
 #if IUTEST_HAS_MATCHER_MACROS
 template<typename M, typename U>
-bool ExplainMatchResult(M matcher, const U& actual, detail::MatcherMacroListener* listener)
+typename iutest_type_traits::enable_if<
+    iutest_type_traits::is_base_of<detail::MatcherMacroBase, M>::value, bool>::type
+ExplainMatchResult(M matcher, const U& actual, detail::MatcherMacroListener* listener)
+{
+    ::std::ostringstream ignored;
+    return matcher.MatchAndExplain(actual, listener->IsInterested() ? listener->stream() : &ignored);
+}
+
+template<typename M, typename U>
+typename iutest_type_traits::disable_if<
+    iutest_type_traits::is_base_of<detail::MatcherMacroBase, M>::value, bool>::type
+ExplainMatchResult(M matcher, const U& actual, detail::MatcherMacroListener* listener)
 {
     ::std::ostringstream ignored;
     return detail::ExplainMatch(matcher, actual, listener->IsInterested() ? listener->stream() : &ignored);
