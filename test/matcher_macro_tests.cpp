@@ -32,41 +32,93 @@ IUTEST_MATCHER(IsEven, "")
 
 IUTEST_MATCHER(IsPositive, negation ? "is not positive" : "is positive")
 {
+    IUTEST_UNUSED_VAR(result_listener);
     return arg > 0;
 }
 
 IUTEST_MATCHER_P(IsDivisibleBy, n, "")
 {
+    IUTEST_UNUSED_VAR(result_listener);
     const n_type divisor = n;
     return arg % divisor == 0;
 }
 
 IUTEST_MATCHER_P(HasValue, value, ::std::string(negation ? "does not equal " : "equals ") + ::iutest::PrintToString(value))
 {
+    IUTEST_UNUSED_VAR(result_listener);
     return arg == value;
 }
 
 IUTEST_MATCHER_P2(IsBetween, low, high, "")
 {
+    IUTEST_UNUSED_VAR(result_listener);
     const low_type lower = low;
     const high_type upper = high;
     return lower <= arg && arg <= upper;
 }
 
-IUTEST_MATCHER_P3(HasSum, a, b, c, "") { return arg == a + b + c; }
-IUTEST_MATCHER_P4(HasSum, a, b, c, d, "") { return arg == a + b + c + d; }
-IUTEST_MATCHER_P5(HasSum, a, b, c, d, e, "") { return arg == a + b + c + d + e; }
-IUTEST_MATCHER_P6(HasSum, a, b, c, d, e, f, "") { return arg == a + b + c + d + e + f; }
-IUTEST_MATCHER_P7(HasSum, a, b, c, d, e, f, g, "") { return arg == a + b + c + d + e + f + g; }
-IUTEST_MATCHER_P8(HasSum, a, b, c, d, e, f, g, h, "") { return arg == a + b + c + d + e + f + g + h; }
-IUTEST_MATCHER_P9(HasSum, a, b, c, d, e, f, g, h, i, "") { return arg == a + b + c + d + e + f + g + h + i; }
-IUTEST_MATCHER_P10(HasSum, a, b, c, d, e, f, g, h, i, j, "") { return arg == a + b + c + d + e + f + g + h + i + j; }
+IUTEST_MATCHER_P3(HasSum, a, b, c, "")
+{
+    IUTEST_UNUSED_VAR(result_listener);
+    return arg == a + b + c;
+}
+IUTEST_MATCHER_P4(HasSum, a, b, c, d, "")
+{
+    IUTEST_UNUSED_VAR(result_listener);
+    return arg == a + b + c + d;
+}
+IUTEST_MATCHER_P5(HasSum, a, b, c, d, e, "")
+{
+    IUTEST_UNUSED_VAR(result_listener);
+    return arg == a + b + c + d + e;
+}
+IUTEST_MATCHER_P6(HasSum, a, b, c, d, e, f, "")
+{
+    IUTEST_UNUSED_VAR(result_listener);
+    return arg == a + b + c + d + e + f;
+}
+IUTEST_MATCHER_P7(HasSum, a, b, c, d, e, f, g, "")
+{
+    IUTEST_UNUSED_VAR(result_listener);
+    return arg == a + b + c + d + e + f + g;
+}
+IUTEST_MATCHER_P8(HasSum, a, b, c, d, e, f, g, h, "")
+{
+    IUTEST_UNUSED_VAR(result_listener);
+    return arg == a + b + c + d + e + f + g + h;
+}
+IUTEST_MATCHER_P9(HasSum, a, b, c, d, e, f, g, h, i, "")
+{
+    IUTEST_UNUSED_VAR(result_listener);
+    return arg == a + b + c + d + e + f + g + h + i;
+}
+IUTEST_MATCHER_P10(HasSum, a, b, c, d, e, f, g, h, i, j, "")
+{
+    IUTEST_UNUSED_VAR(result_listener);
+    return arg == a + b + c + d + e + f + g + h + i + j;
+}
 
-MATCHER(IsZero, "") { return arg == 0; }
-MATCHER_P(IsEqualTo, value, "") { return arg == value; }
-MATCHER_P2(IsSumOf, a, b, "") { return arg == a + b; }
+MATCHER(IsZero, "")
+{
+    IUTEST_UNUSED_VAR(result_listener);
+    return arg == 0;
+}
+MATCHER_P(IsEqualTo, value, "")
+{
+    IUTEST_UNUSED_VAR(result_listener);
+    return arg == value;
+}
+MATCHER_P2(IsSumOf, a, b, "")
+{
+    IUTEST_UNUSED_VAR(result_listener);
+    return arg == a + b;
+}
 
-IUTEST_MATCHER(Is_HTTP2_ready, "") { return arg; }
+IUTEST_MATCHER(Is_HTTP2_ready, "")
+{
+    IUTEST_UNUSED_VAR(result_listener);
+    return arg;
+}
 
 IUTEST_MATCHER_P(IsExplainedBy, inner, "")
 {
@@ -77,7 +129,11 @@ IUTEST_MATCHER_P(IsExplainedBy, inner, "")
 #endif
 }
 
-IUTEST_MATCHER_P(EqualsStreamParameter, os, "") { return arg == os; }
+IUTEST_MATCHER_P(EqualsStreamParameter, os, "")
+{
+    IUTEST_UNUSED_VAR(result_listener);
+    return arg == os;
+}
 
 } // namespace
 

@@ -73,25 +73,35 @@
 
 /** @brief Define matchers with one through ten parameters, stored by value. */
 #define IUTEST_MATCHER_P(name, p0, description) \
-    IIUT_MATCHER_P_(1, name, description, (p0, _, _, _, _, _, _, _, _, _))
+    IIUT_MATCHER_P_(1, name, description, \
+        (p0, _, _, _, _, _, _, _, _, _), (#p0, "", "", "", "", "", "", "", "", ""))
 #define IUTEST_MATCHER_P2(name, p0, p1, description) \
-    IIUT_MATCHER_P_(2, name, description, (p0, p1, _, _, _, _, _, _, _, _))
+    IIUT_MATCHER_P_(2, name, description, \
+        (p0, p1, _, _, _, _, _, _, _, _), (#p0, #p1, "", "", "", "", "", "", "", ""))
 #define IUTEST_MATCHER_P3(name, p0, p1, p2, description) \
-    IIUT_MATCHER_P_(3, name, description, (p0, p1, p2, _, _, _, _, _, _, _))
+    IIUT_MATCHER_P_(3, name, description, \
+        (p0, p1, p2, _, _, _, _, _, _, _), (#p0, #p1, #p2, "", "", "", "", "", "", ""))
 #define IUTEST_MATCHER_P4(name, p0, p1, p2, p3, description) \
-    IIUT_MATCHER_P_(4, name, description, (p0, p1, p2, p3, _, _, _, _, _, _))
+    IIUT_MATCHER_P_(4, name, description, \
+        (p0, p1, p2, p3, _, _, _, _, _, _), (#p0, #p1, #p2, #p3, "", "", "", "", "", ""))
 #define IUTEST_MATCHER_P5(name, p0, p1, p2, p3, p4, description) \
-    IIUT_MATCHER_P_(5, name, description, (p0, p1, p2, p3, p4, _, _, _, _, _))
+    IIUT_MATCHER_P_(5, name, description, \
+        (p0, p1, p2, p3, p4, _, _, _, _, _), (#p0, #p1, #p2, #p3, #p4, "", "", "", "", ""))
 #define IUTEST_MATCHER_P6(name, p0, p1, p2, p3, p4, p5, description) \
-    IIUT_MATCHER_P_(6, name, description, (p0, p1, p2, p3, p4, p5, _, _, _, _))
+    IIUT_MATCHER_P_(6, name, description, \
+        (p0, p1, p2, p3, p4, p5, _, _, _, _), (#p0, #p1, #p2, #p3, #p4, #p5, "", "", "", ""))
 #define IUTEST_MATCHER_P7(name, p0, p1, p2, p3, p4, p5, p6, description) \
-    IIUT_MATCHER_P_(7, name, description, (p0, p1, p2, p3, p4, p5, p6, _, _, _))
+    IIUT_MATCHER_P_(7, name, description, \
+        (p0, p1, p2, p3, p4, p5, p6, _, _, _), (#p0, #p1, #p2, #p3, #p4, #p5, #p6, "", "", ""))
 #define IUTEST_MATCHER_P8(name, p0, p1, p2, p3, p4, p5, p6, p7, description) \
-    IIUT_MATCHER_P_(8, name, description, (p0, p1, p2, p3, p4, p5, p6, p7, _, _))
+    IIUT_MATCHER_P_(8, name, description, \
+        (p0, p1, p2, p3, p4, p5, p6, p7, _, _), (#p0, #p1, #p2, #p3, #p4, #p5, #p6, #p7, "", ""))
 #define IUTEST_MATCHER_P9(name, p0, p1, p2, p3, p4, p5, p6, p7, p8, description) \
-    IIUT_MATCHER_P_(9, name, description, (p0, p1, p2, p3, p4, p5, p6, p7, p8, _))
+    IIUT_MATCHER_P_(9, name, description, \
+        (p0, p1, p2, p3, p4, p5, p6, p7, p8, _), (#p0, #p1, #p2, #p3, #p4, #p5, #p6, #p7, #p8, ""))
 #define IUTEST_MATCHER_P10(name, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, description) \
-    IIUT_MATCHER_P_(10, name, description, (p0, p1, p2, p3, p4, p5, p6, p7, p8, p9))
+    IIUT_MATCHER_P_(10, name, description, \
+        (p0, p1, p2, p3, p4, p5, p6, p7, p8, p9), (#p0, #p1, #p2, #p3, #p4, #p5, #p6, #p7, #p8, #p9))
 
 /** @private */
 #define IIUT_MATCHER_METHODS_(name, description, params) \
@@ -138,12 +148,12 @@
 #define IIUT_MATCHER_ARG_(i, params) IIUT_MATCHER_TYPE_(i, params) IUTEST_PP_CAT(iutest_p, i)
 #define IIUT_MATCHER_INIT_(i, params) IIUT_MATCHER_PARAM_(i, params)(IUTEST_PP_CAT(iutest_p, i))
 #define IIUT_MATCHER_MEMBER_(i, params) const IIUT_MATCHER_TYPE_(i, params) IIUT_MATCHER_PARAM_(i, params);
-#define IIUT_MATCHER_PRINT_(i, params) \
+#define IIUT_MATCHER_PRINT_(i, params, names) \
     if( i != 0 ) iutest_os << ", "; \
-    iutest_os << IUTEST_PP_TOSTRING(IIUT_MATCHER_PARAM_(i, params)) << ": " \
+    iutest_os << IIUT_MATCHER_PARAM_(i, names) << ": " \
        << ::iutest::PrintToString(this->IIUT_MATCHER_PARAM_(i, params));
 #define IIUT_MATCHER_CLASS_(name, n) IUTEST_PP_CAT(name, IUTEST_PP_CAT(MatcherP, n))
-#define IIUT_MATCHER_P_(n, name, description, params) \
+#define IIUT_MATCHER_P_(n, name, description, params, names) \
     template<IUTEST_PP_ENUM(n, IIUT_MATCHER_TYPENAME_, params)> \
     class IIUT_MATCHER_CLASS_(name, n) : public ::iutest::detail::IMatcher { \
     public: \
@@ -151,7 +161,7 @@
             : IUTEST_PP_ENUM(n, IIUT_MATCHER_INIT_, params) {} \
         ::std::string Parameters() const { \
             ::std::ostringstream iutest_os; iutest_os << " ("; \
-            IUTEST_PP_REPEAT(n, IIUT_MATCHER_PRINT_, params) \
+            IUTEST_PP_REPEAT_BINARY(n, IIUT_MATCHER_PRINT_, params, names) \
             iutest_os << ")"; return iutest_os.str(); \
         } \
         IIUT_MATCHER_METHODS_(name, description, Parameters()) \
@@ -3466,10 +3476,8 @@ bool ExplainMatchResult(M matcher, const U& actual, ::std::ostream* listener)
 }
 
 #if IUTEST_HAS_MATCHER_MACROS
-template<typename M, typename U, typename Listener>
-typename iutest_type_traits::enable_if<
-    iutest_type_traits::is_same<Listener, detail::MatcherMacroListener>::value, bool>::type
-ExplainMatchResult(M matcher, const U& actual, Listener* listener)
+template<typename M, typename U>
+bool ExplainMatchResult(M matcher, const U& actual, detail::MatcherMacroListener* listener)
 {
     ::std::ostringstream ignored;
     return detail::ExplainMatch(matcher, actual, listener->IsInterested() ? listener->stream() : &ignored);
