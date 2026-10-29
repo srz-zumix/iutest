@@ -118,8 +118,13 @@ IUTEST(MatcherExplain, FailureMessage)
 #if IUTEST_HAS_MATCHER_ELEMENTSARE
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(values, ElementsAre(IsFive(), IsFive())),
         "whose element #0 doesn't match, which is 2 less than 5");
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+    IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT("hoge", ElementsAre('h', 'o', 'G', 'e', '\0')),
+        "\\0'}");
+#else
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT("hoge", ElementsAre('h', 'o', 'G', 'e', '\0')),
         "\\0}");
+#endif
     IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT("hoge", ElementsAre('h', 'o', 'G', 'e', '\0')),
         "whose element #2 doesn't match");
 #endif

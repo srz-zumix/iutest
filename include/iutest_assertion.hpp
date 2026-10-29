@@ -431,6 +431,12 @@ inline ::std::string FormatForComparisonFailureMessage(const T1& value, const T2
     return PrintToString(value);
 }
 
+template<typename T1, typename T2>
+inline ::std::string FormatForStringComparisonFailureMessage(const T1& value, const T2& other)
+{
+    return FormatForComparisonFailureMessage(value, other);
+}
+
 /**
  * @brief   boolean テストの失敗メッセージの出力
 */
@@ -1144,8 +1150,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
     }
 
     return EqFailure(expr1, expr2
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2))
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1)));
+        , FormatForStringComparisonFailureMessage(val1, val2)
+        , FormatForStringComparisonFailureMessage(val2, val1));
 }
 
 template<typename T>
@@ -1159,8 +1165,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
     }
 
     return EqFailure(expr1, expr2
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(IUTEST_NULLPTR, val2))
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(val2, IUTEST_NULLPTR)));
+        , FormatForStringComparisonFailureMessage<T, T>(IUTEST_NULLPTR, val2)
+        , FormatForStringComparisonFailureMessage<T, T>(val2, IUTEST_NULLPTR));
 }
 
 namespace StrNeHelper
@@ -1187,8 +1193,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
     }
 
     return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
-        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))
-        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));
+        << "\n  Actual: " << FormatForStringComparisonFailureMessage(val2, val1)
+        << " vs " << FormatForStringComparisonFailureMessage(val1, val2);
 }
 
 template<typename T>
@@ -1202,8 +1208,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
     }
 
     return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
-        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(val2, IUTEST_NULLPTR))
-        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(IUTEST_NULLPTR, val2));
+        << "\n  Actual: " << FormatForStringComparisonFailureMessage<T, T>(val2, IUTEST_NULLPTR)
+        << " vs " << FormatForStringComparisonFailureMessage<T, T>(IUTEST_NULLPTR, val2);
 }
 
 template<typename T>
@@ -1217,8 +1223,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
     }
 
     return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
-        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(IUTEST_NULLPTR, val1))
-        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(val1, IUTEST_NULLPTR));
+        << "\n  Actual: " << FormatForStringComparisonFailureMessage<T, T>(IUTEST_NULLPTR, val1)
+        << " vs " << FormatForStringComparisonFailureMessage<T, T>(val1, IUTEST_NULLPTR);
 }
 
 namespace StrCaseEqHelper
@@ -1275,8 +1281,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(
     }
 
     return EqFailure(expr1, expr2
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2))
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))
+        , FormatForStringComparisonFailureMessage(val1, val2)
+        , FormatForStringComparisonFailureMessage(val2, val1)
         , true);
 }
 
@@ -1337,8 +1343,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(
     }
 
     return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2 << " (ignoring case)"
-        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))
-        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));
+        << "\n  Actual: " << FormatForStringComparisonFailureMessage(val2, val1)
+        << " vs " << FormatForStringComparisonFailureMessage(val1, val2);
 }
 
 }   // end of namespace StrCaseNeHelper
