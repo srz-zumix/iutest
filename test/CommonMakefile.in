@@ -154,6 +154,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/gtest_style_matcher_tests \
 		$(OUTDIR)/string_view_matcher_tests \
 		$(OUTDIR)/variant_matcher_tests \
+		$(OUTDIR)/any_matcher_tests \
 		$(OUTDIR)/throws_matcher_tests \
 		$(OUTDIR)/address_matcher_tests \
 		$(OUTDIR)/minimum_tests \
