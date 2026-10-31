@@ -1517,7 +1517,7 @@ public:
     typedef ::std::vector< ::std::vector<bool> > Graph;
 
     static size_t FindMaximumMatching(const Graph& graph, size_t expected_count,
-                                     ::std::vector<size_t>* expected_matches = NULL)
+                                      ::std::vector<size_t>* expected_matches = NULL)
     {
         ::std::vector<size_t> matches(expected_count, graph.size());
         size_t count = 0;
