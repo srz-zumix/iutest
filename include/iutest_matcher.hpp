@@ -146,6 +146,9 @@
 #define IIUT_MATCHER_TYPE_II_(param) IUTEST_PP_CAT(param, _type)
 #define IIUT_MATCHER_TYPENAME_(i, params) typename IIUT_MATCHER_TYPE_(i, params)
 #define IIUT_MATCHER_ARG_(i, params) IIUT_MATCHER_TYPE_(i, params) IUTEST_PP_CAT(iutest_p, i)
+#define IIUT_MATCHER_TRANSFER_TYPE_(i, params) \
+    typename ::iutest::detail::MatcherMacroParameter<IIUT_MATCHER_TYPE_(i, params)>::type
+#define IIUT_MATCHER_TRANSFER_ARG_(i, params) IIUT_MATCHER_TRANSFER_TYPE_(i, params) IUTEST_PP_CAT(iutest_p, i)
 // std::is_move_constructible is unavailable before libstdc++ 4.7
 #if IUTEST_HAS_RVALUE_REFS && IUTEST_HAS_CXX_HDR_TYPE_TARITS \
     && (!defined(IUTEST_LIBSTDCXX_VERSION) || IUTEST_LIBSTDCXX_VERSION >= 40700)
@@ -155,7 +158,8 @@
 #endif
 #if IIUT_HAS_MATCHER_PARAMETER_MOVE_
 #define IIUT_MATCHER_FORWARD_(i, params) \
-    ::iutest::detail::MatcherMacroParameter<IIUT_MATCHER_TYPE_(i, params)>::Forward(IUTEST_PP_CAT(iutest_p, i))
+    ::iutest::detail::MatcherMacroParameter<IIUT_MATCHER_TYPE_(i, params)>::Forward( \
+        ::std::move(IUTEST_PP_CAT(iutest_p, i)))
 #else
 #define IIUT_MATCHER_FORWARD_(i, params) IUTEST_PP_CAT(iutest_p, i)
 #endif
@@ -171,6 +175,9 @@
     public: \
         explicit IIUT_MATCHER_CLASS_(name, n)(IUTEST_PP_ENUM(n, IIUT_MATCHER_ARG_, params)) \
             : IUTEST_PP_ENUM(n, IIUT_MATCHER_INIT_, params) {} \
+        explicit IIUT_MATCHER_CLASS_(name, n)(::iutest::detail::MatcherMacroFactoryTag, \
+            IUTEST_PP_ENUM(n, IIUT_MATCHER_TRANSFER_ARG_, params)) \
+            : IUTEST_PP_ENUM(n, IIUT_MATCHER_INIT_, params) {} \
         ::std::string Parameters() const { \
             ::std::ostringstream iutest_os; iutest_os << " ("; \
             IUTEST_PP_REPEAT_BINARY(n, IIUT_MATCHER_PRINT_, params, names) \
@@ -183,7 +190,7 @@
     inline IIUT_MATCHER_CLASS_(name, n)<IUTEST_PP_ENUM(n, IIUT_MATCHER_TYPE_, params)> \
     name(IUTEST_PP_ENUM(n, IIUT_MATCHER_ARG_, params)) { \
         return IIUT_MATCHER_CLASS_(name, n)<IUTEST_PP_ENUM(n, IIUT_MATCHER_TYPE_, params)>( \
-            IUTEST_PP_ENUM(n, IIUT_MATCHER_FORWARD_, params)); \
+            ::iutest::detail::MatcherMacroFactoryTag(), IUTEST_PP_ENUM(n, IIUT_MATCHER_FORWARD_, params)); \
     } \
     template<IUTEST_PP_ENUM(n, IIUT_MATCHER_TYPENAME_, params)> \
     template<typename arg_type> \
@@ -198,15 +205,30 @@ namespace detail
 {
 
 #if IUTEST_HAS_MATCHER_MACROS
+// Preserve the by-value constructor while avoiding an intermediate copy in the factory.
+struct MatcherMacroFactoryTag {};
+
 #if IIUT_HAS_MATCHER_PARAMETER_MOVE_
 template<typename T>
 struct MatcherMacroParameter
 {
     typedef typename ::std::conditional< ::std::is_move_constructible<T>::value, T&&, const T&>::type type;
-    static type Forward(typename ::std::remove_reference<T>::type& value)
+    static type Forward(typename ::std::remove_reference<type>::type&& value)
     {
         return static_cast<type>(value);
     }
+};
+#else
+template<typename T>
+struct MatcherMacroParameter
+{
+    typedef const T& type;
+};
+
+template<typename T>
+struct MatcherMacroParameter<T&>
+{
+    typedef T& type;
 };
 #endif
 
@@ -247,8 +269,11 @@ inline ::std::string MatcherNameToWords(const char* name)
 
 inline ::std::string FormatMatcherDescription(bool negation, const char* name, const ::std::string& params)
 {
-    ::std::string description = MatcherNameToWords(name) + params;
-    if( negation ) return "not (" + description + ")";
+    ::std::string description;
+    if( negation ) description += "not (";
+    description += MatcherNameToWords(name);
+    description += params;
+    if( negation ) description += ')';
     return description;
 }
 #endif

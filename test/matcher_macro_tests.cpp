@@ -139,11 +139,22 @@ IUTEST_MATCHER_P(EqualsStreamParameter, os, "")
 struct CopyTrackedParameter
 {
     int* copies;
-    explicit CopyTrackedParameter(int* count) : copies(count) {}
-    CopyTrackedParameter(const CopyTrackedParameter& other) : copies(other.copies) { ++*copies; }
+    int* moves;
+    explicit CopyTrackedParameter(int* count, int* move_count = NULL) : copies(count), moves(move_count) {}
+    CopyTrackedParameter(const CopyTrackedParameter& other) : copies(other.copies), moves(other.moves) { ++*copies; }
 #if IUTEST_HAS_RVALUE_REFS
-    CopyTrackedParameter(CopyTrackedParameter&& other) IUTEST_CXX_NOEXCEPT_SPEC : copies(other.copies) {}
+    CopyTrackedParameter(CopyTrackedParameter&& other) IUTEST_CXX_NOEXCEPT_SPEC : copies(other.copies), moves(other.moves)
+    {
+        if( moves != NULL ) ++*moves;
+    }
 #endif
+};
+
+struct CopyOnlyLegacyParameter
+{
+    int value;
+    explicit CopyOnlyLegacyParameter(int n) : value(n) {}
+    CopyOnlyLegacyParameter(const CopyOnlyLegacyParameter& other) : value(other.value) {}
 };
 
 int MatcherFunction(int value) { return value; }
@@ -152,8 +163,9 @@ int MatcherFunction(int value) { return value; }
 struct CopyOnlyParameter
 {
     int value;
-    explicit CopyOnlyParameter(int n) : value(n) {}
-    CopyOnlyParameter(const CopyOnlyParameter& other) : value(other.value) {}
+    int* copies;
+    CopyOnlyParameter(int n, int* count) : value(n), copies(count) {}
+    CopyOnlyParameter(const CopyOnlyParameter& other) : value(other.value), copies(other.copies) { ++*copies; }
     CopyOnlyParameter(CopyOnlyParameter&&) = delete;
 };
 #endif
@@ -223,14 +235,38 @@ IUTEST(MatcherMacro, CompositionAndNegation)
 }
 
 #if !defined(IUTEST_USE_GTEST)
+IUTEST(MatcherMacro, ExactDescriptions)
+{
+    IUTEST_EXPECT_EQ("is even", IsEven().WhichIs());
+    IUTEST_EXPECT_EQ("is between (low: 1, high: 3)", IsBetween(1, 3).WhichIs());
+
+    ::std::ostringstream description;
+    IsEven().DescribeNegationTo(&description);
+    IUTEST_EXPECT_EQ("not (is even)", description.str());
+    description.str("");
+    IsBetween(1, 3).DescribeNegationTo(&description);
+    IUTEST_EXPECT_EQ("not (is between (low: 1, high: 3))", description.str());
+}
+
 IUTEST(MatcherMacro, ParameterValueAndReferenceSemantics)
 {
     ::std::string source("original");
     const HasValueMatcherP1< ::std::string> owned = HasValue(source);
     const HasValueMatcherP1< ::std::string&> referenced = HasValue< ::std::string&>(source);
+    const HasValueMatcherP1<const ::std::string&> const_referenced = HasValue<const ::std::string&>(source);
     source = "changed";
     IUTEST_EXPECT_THAT(::std::string("original"), owned);
     IUTEST_EXPECT_THAT(source, referenced);
+    IUTEST_EXPECT_THAT(source, const_referenced);
+
+    ::std::string low("low");
+    ::std::string high("high");
+    const IsBetweenMatcherP2< ::std::string&, ::std::string> mixed =
+        IsBetween< ::std::string&, ::std::string>(low, high);
+    low = "changed low";
+    high = "changed high";
+    IUTEST_EXPECT_EQ("changed low", mixed.low);
+    IUTEST_EXPECT_EQ("high", mixed.high);
 
     const HasValueMatcherP1< ::std::string> temporary = HasValue(::std::string("temporary"));
     IUTEST_EXPECT_THAT(::std::string("temporary"), temporary);
@@ -240,10 +276,30 @@ IUTEST(MatcherMacro, ParameterValueAndReferenceSemantics)
     char buffer[] = "buffer";
     const HasValueMatcherP1<char*> array = HasValue(buffer);
     IUTEST_EXPECT_EQ(buffer, array.value);
+    const HasValueMatcherP1<char (&)[7]> array_reference = HasValue<char (&)[7]>(buffer);
+    buffer[0] = 'B';
+    IUTEST_EXPECT_EQ('B', array_reference.value[0]);
 
     typedef int (*Function)(int);
     const EqualsStreamParameterMatcherP1<Function> function = EqualsStreamParameter(MatcherFunction);
     IUTEST_EXPECT_THAT(&MatcherFunction, function);
+    typedef int FunctionType(int);
+    const EqualsStreamParameterMatcherP1<FunctionType&> function_reference =
+        EqualsStreamParameter<FunctionType&>(MatcherFunction);
+    IUTEST_EXPECT_THAT(&MatcherFunction, function_reference);
+}
+
+IUTEST(MatcherMacro, MixedParameters)
+{
+    int first = 1;
+    int second = 2;
+    const HasSumMatcherP10<int&, const int&, int, long, int, int, int, int, int, int> matcher =
+        HasSum<int&, const int&, int, long, int, int, int, int, int, int>(first, second, 3, 4L, 5, 6, 7, 8, 9, 10);
+    IUTEST_EXPECT_TRUE(&first == &matcher.a);
+    IUTEST_EXPECT_TRUE(&second == &matcher.b);
+    first = 10;
+    second = 20;
+    IUTEST_EXPECT_THAT(82, matcher);
 }
 
 IUTEST(MatcherMacro, ParameterCopies)
@@ -251,33 +307,104 @@ IUTEST(MatcherMacro, ParameterCopies)
     int copies = 0;
     CopyTrackedParameter source(&copies);
     const HasValueMatcherP1<CopyTrackedParameter> single = HasValue(source);
-#if IUTEST_HAS_RVALUE_REFS && IUTEST_HAS_CXX_HDR_TYPE_TARITS && IUTEST_CPLUSPLUS >= 201703L
-    IUTEST_EXPECT_EQ(1, copies);
+#if IUTEST_CPLUSPLUS >= 201703L
+    IUTEST_EXPECT_EQ(IIUT_HAS_MATCHER_PARAMETER_MOVE_ ? 1 : 2, copies);
 #endif
     IUTEST_EXPECT_EQ(&copies, single.value.copies);
 
     copies = 0;
     const IsBetweenMatcherP2<CopyTrackedParameter, CopyTrackedParameter> pair = IsBetween(source, source);
-#if IUTEST_HAS_RVALUE_REFS && IUTEST_HAS_CXX_HDR_TYPE_TARITS && IUTEST_CPLUSPLUS >= 201703L
-    IUTEST_EXPECT_EQ(2, copies);
+#if IUTEST_CPLUSPLUS >= 201703L
+    IUTEST_EXPECT_EQ(IIUT_HAS_MATCHER_PARAMETER_MOVE_ ? 2 : 4, copies);
 #endif
     IUTEST_EXPECT_EQ(&copies, pair.low.copies);
     IUTEST_EXPECT_EQ(&copies, pair.high.copies);
 
     copies = 0;
+    const HasValueMatcherP1<CopyTrackedParameter> direct(source);
+    IUTEST_EXPECT_EQ(IIUT_HAS_MATCHER_PARAMETER_MOVE_ ? 1 : 2, copies);
+    IUTEST_EXPECT_EQ(&copies, direct.value.copies);
+
+    copies = 0;
     const HasValueMatcherP1<CopyTrackedParameter> temporary = HasValue(CopyTrackedParameter(&copies));
-#if IUTEST_HAS_RVALUE_REFS && IUTEST_HAS_CXX_HDR_TYPE_TARITS && IUTEST_CPLUSPLUS >= 201703L
-    IUTEST_EXPECT_EQ(0, copies);
+#if IUTEST_CPLUSPLUS >= 201703L
+    IUTEST_EXPECT_EQ(IIUT_HAS_MATCHER_PARAMETER_MOVE_ ? 0 : 1, copies);
 #endif
     IUTEST_EXPECT_EQ(&copies, temporary.value.copies);
+}
+
+IUTEST(MatcherMacro, CopyOnlyLegacyParameter)
+{
+    const CopyOnlyLegacyParameter source(42);
+    const HasValueMatcherP1<CopyOnlyLegacyParameter> matcher = HasValue(source);
+    IUTEST_EXPECT_EQ(42, matcher.value.value);
 }
 
 #if IUTEST_HAS_RVALUE_REFS && IUTEST_HAS_DELETED_FUNCTIONS
 IUTEST(MatcherMacro, CopyOnlyParameter)
 {
-    const CopyOnlyParameter source(42);
+    int copies = 0;
+    const CopyOnlyParameter source(42, &copies);
     const HasValueMatcherP1<CopyOnlyParameter> matcher = HasValue(source);
+#if IUTEST_CPLUSPLUS >= 201703L
+    IUTEST_EXPECT_EQ(2, copies);
+#endif
+    copies = 0;
+    const HasValueMatcherP1<CopyOnlyParameter> direct(source);
+    IUTEST_EXPECT_EQ(2, copies);
     IUTEST_EXPECT_EQ(42, matcher.value.value);
+    IUTEST_EXPECT_EQ(42, direct.value.value);
+}
+#endif
+
+#if IUTEST_HAS_CXX11 && IIUT_HAS_MATCHER_PARAMETER_MOVE_ && IUTEST_CPLUSPLUS >= 201703L
+IUTEST(MatcherMacro, ParameterMoves)
+{
+    int copies = 0;
+    int moves = 0;
+    const CopyTrackedParameter source(&copies, &moves);
+    const HasValueMatcherP1<CopyTrackedParameter> single = HasValue(source);
+    IUTEST_EXPECT_EQ(1, copies);
+    IUTEST_EXPECT_EQ(1, moves);
+    IUTEST_EXPECT_EQ(&copies, single.value.copies);
+
+    copies = 0;
+    moves = 0;
+    const HasValueMatcherP1<CopyTrackedParameter> direct(source);
+    IUTEST_EXPECT_EQ(1, copies);
+    IUTEST_EXPECT_EQ(1, moves);
+    IUTEST_EXPECT_EQ(&copies, direct.value.copies);
+
+    copies = 0;
+    moves = 0;
+    const IsBetweenMatcherP2<CopyTrackedParameter, CopyTrackedParameter> pair = IsBetween(source, source);
+    IUTEST_EXPECT_EQ(2, copies);
+    IUTEST_EXPECT_EQ(2, moves);
+    IUTEST_EXPECT_EQ(&moves, pair.low.moves);
+    IUTEST_EXPECT_EQ(&moves, pair.high.moves);
+
+    copies = 0;
+    moves = 0;
+    const HasValueMatcherP1<CopyTrackedParameter> temporary = HasValue(CopyTrackedParameter(&copies, &moves));
+    IUTEST_EXPECT_EQ(0, copies);
+    IUTEST_EXPECT_EQ(1, moves);
+    IUTEST_EXPECT_EQ(&moves, temporary.value.moves);
+}
+
+IUTEST(MatcherMacro, MoveOnlyParameter)
+{
+    const HasValueMatcherP1< ::std::unique_ptr<int> > matcher = HasValue(::std::unique_ptr<int>(new int(42)));
+    IUTEST_EXPECT_EQ(42, *matcher.value);
+
+#if IUTEST_HAS_DELETED_FUNCTIONS
+    int copies = 0;
+    const CopyOnlyParameter source(42, &copies);
+    const IsBetweenMatcherP2<CopyOnlyParameter, ::std::unique_ptr<int> > mixed =
+        IsBetween<CopyOnlyParameter, ::std::unique_ptr<int> >(source, ::std::unique_ptr<int>(new int(43)));
+    IUTEST_EXPECT_EQ(2, copies);
+    IUTEST_EXPECT_EQ(42, mixed.low.value);
+    IUTEST_EXPECT_EQ(43, *mixed.high);
+#endif
 }
 #endif
 
