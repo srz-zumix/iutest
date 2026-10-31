@@ -322,6 +322,26 @@ public:
     virtual void DescribeNegationTo(::std::ostream* os) const { *os << "not (" << WhichIs() << ")"; }
 };
 
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+template<typename T>
+struct MatcherConstReference
+{
+    typedef const T& type;
+};
+
+template<typename T>
+struct MatcherConstReference<T&>
+{
+    typedef T& type;
+};
+#else
+template<typename T>
+struct MatcherConstReference
+{
+    typedef T type;
+};
+#endif
+
 #if IUTEST_HAS_MATCHER_MACROS
 class MatcherMacroBase : public IMatcher
 {
@@ -3293,7 +3313,7 @@ template<typename ...T>
 class AllOfMatcher IUTEST_CXX_FINAL : public AllOfMatcherBase
 {
 public:
-    explicit AllOfMatcher(const T&... t) : m_matchers(t...) {}
+    explicit AllOfMatcher(typename MatcherConstReference<T>::type... t) : m_matchers(t...) {}
 
 public:
     template<typename U>
@@ -3339,10 +3359,14 @@ private:
 };
 */
 
+#define IIUT_MATCHER_CONST_REFERENCE_PARAM_(i, unused)                              \
+    typename MatcherConstReference<IUTEST_PP_CAT(T, i)>::type                      \
+        IUTEST_PP_CAT(m, i)
+
 #define IIUT_DECL_ALLOF_MATCHER(n)                                                  \
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                                \
     class IUTEST_PP_CAT(AllOfMatcher, n) IUTEST_CXX_FINAL : public AllOfMatcherBase {   \
-    public: IUTEST_PP_CAT(AllOfMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, const T, &m)) \
+    public: IUTEST_PP_CAT(AllOfMatcher, n)(IUTEST_PP_ENUM(n, IIUT_MATCHER_CONST_REFERENCE_PARAM_, ~)) \
         : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                \
     template<typename U>AssertionResult operator ()(const U& actual) {              \
         return Check(m_matchers, actual); }                                         \
@@ -3365,6 +3389,7 @@ IIUT_DECL_ALLOF_MATCHER(9);
 IIUT_DECL_ALLOF_MATCHER(10);
 
 #undef IIUT_DECL_ALLOF_MATCHER
+#undef IIUT_MATCHER_CONST_REFERENCE_PARAM_
 
 #endif
 
@@ -3461,7 +3486,7 @@ template<typename ...T>
 class AnyOfMatcher IUTEST_CXX_FINAL : public AnyOfMatcherBase
 {
 public:
-    explicit AnyOfMatcher(const T&... t) : m_matchers(t...) {}
+    explicit AnyOfMatcher(typename MatcherConstReference<T>::type... t) : m_matchers(t...) {}
 
 public:
     template<typename U>
@@ -3507,10 +3532,14 @@ private:
 };
 */
 
+#define IIUT_MATCHER_CONST_REFERENCE_PARAM_(i, unused)                              \
+    typename MatcherConstReference<IUTEST_PP_CAT(T, i)>::type                      \
+        IUTEST_PP_CAT(m, i)
+
 #define IIUT_DECL_ANYOF_MATCHER(n)                                                  \
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                                \
     class IUTEST_PP_CAT(AnyOfMatcher, n) IUTEST_CXX_FINAL : public AnyOfMatcherBase {   \
-    public: IUTEST_PP_CAT(AnyOfMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, const T, &m)) \
+    public: IUTEST_PP_CAT(AnyOfMatcher, n)(IUTEST_PP_ENUM(n, IIUT_MATCHER_CONST_REFERENCE_PARAM_, ~)) \
         : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                \
     template<typename U>AssertionResult operator ()(const U& actual) {              \
         return Check(m_matchers, actual); }                                         \
@@ -3533,6 +3562,7 @@ IIUT_DECL_ANYOF_MATCHER(9);
 IIUT_DECL_ANYOF_MATCHER(10);
 
 #undef IIUT_DECL_ANYOF_MATCHER
+#undef IIUT_MATCHER_CONST_REFERENCE_PARAM_
 
 #endif
 
