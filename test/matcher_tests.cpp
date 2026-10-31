@@ -645,7 +645,7 @@ IUTEST(MatcherFailure, EndsWith)
 
 IUTEST(MatcherFailure, Equals)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", Equals("Hoge")) , "Eq: Hoge" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", Equals("Hoge")) , "Eq: \"Hoge\"" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(0, Equals(1)), "Eq: 1" );
 }
 

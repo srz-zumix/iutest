@@ -52,6 +52,17 @@ public:
 public:
     ::std::string GetString() const { return m_stream.str(); }
 public:
+    iuStreamMessage& operator << (const ::std::string& value) { m_stream << value; return *this; }
+    iuStreamMessage& operator << (const char* value) { m_stream << (value ? value : kStrings::Null); return *this; }
+    iuStreamMessage& operator << (char* value) { return *this << static_cast<const char*>(value); }
+    iuStreamMessage& operator << (const wchar_t* value) { m_stream << ShowAnyCString(value); return *this; }
+    iuStreamMessage& operator << (wchar_t* value) { return *this << static_cast<const wchar_t*>(value); }
+    template<typename CharT, typename Traits, typename Alloc>
+    iuStreamMessage& operator << (const ::std::basic_string<CharT, Traits, Alloc>& value)
+    {
+        m_stream << ShowAnyCString(value.c_str());
+        return *this;
+    }
     template<typename T>
     iuStreamMessage& operator << (const T& value)
     {

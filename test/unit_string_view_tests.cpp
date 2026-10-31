@@ -88,7 +88,7 @@ IUTEST(UnitTest, StringView)
 
 IUTEST(UnitTest, PrintStringView)
 {
-    LogChecker ck("XYZ");
+    LogChecker ck("\"XYZ\"");
     ::iutest::detail::iu_string_view view = "XYZ";
     IUTEST_PRINTTOSTRING_EQ(ck, view);
     IUTEST_STREAMOUT_CHECK(view);
@@ -111,7 +111,7 @@ struct StringViewConvertible
 IUTEST(UnitTest, PrintStringViewConvertible)
 {
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
-    LogChecker ck("ABC");
+    LogChecker ck("\"ABC\"");
 #else
     LogChecker ck("-Byte object");
 #endif

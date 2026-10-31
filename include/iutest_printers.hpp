@@ -351,6 +351,118 @@ inline void DefaultPrintTo(IsContainerHelper::no_t
 }
 
 
+inline const char* PrintCharPrefix(char) { return ""; }
+inline const char* PrintCharPrefix(unsigned char) { return ""; }
+inline const char* PrintCharPrefix(wchar_t) { return "L"; }
+#if IUTEST_HAS_CHAR8_T
+inline const char* PrintCharPrefix(char8_t) { return "u8"; }
+#endif
+#if IUTEST_HAS_CHAR16_T
+inline const char* PrintCharPrefix(char16_t) { return "u"; }
+#endif
+#if IUTEST_HAS_CHAR32_T
+inline const char* PrintCharPrefix(char32_t) { return "U"; }
+#endif
+
+inline ::std::string PrintHexCode(UInt32 value)
+{
+    ::std::string hex = ToHexString(value);
+    const size_t first = hex.find_first_not_of('0');
+    if( first == ::std::string::npos )
+    {
+        return "0";
+    }
+    hex.erase(0, first);
+    return hex;
+}
+
+template<typename CharT>
+inline UInt32 PrintCharCode(CharT value)
+{
+    typedef typename type_fit_t<sizeof(CharT)>::UInt Unsigned;
+    return static_cast<UInt32>(static_cast<Unsigned>(value));
+}
+
+inline bool PrintEscapedChar(UInt32 code, char quote, iu_ostream* os)
+{
+    const char* escape = IUTEST_NULLPTR;
+    switch(code)
+    {
+    case 0:    escape = "\\0"; break;
+    case '\a': escape = "\\a"; break;
+    case '\b': escape = "\\b"; break;
+    case '\f': escape = "\\f"; break;
+    case '\n': escape = "\\n"; break;
+    case '\r': escape = "\\r"; break;
+    case '\t': escape = "\\t"; break;
+    case '\v': escape = "\\v"; break;
+    case '\\': escape = "\\\\"; break;
+    default: break;
+    }
+    if( escape != IUTEST_NULLPTR )
+    {
+        *os << escape;
+    }
+    else if( code == static_cast<UInt32>(quote) )
+    {
+        *os << '\\' << quote;
+    }
+    else if( code >= 0x20 && code <= 0x7E )
+    {
+        *os << static_cast<char>(code);
+    }
+    else
+    {
+        *os << "\\x" << PrintHexCode(code);
+        return true;
+    }
+    return false;
+}
+
+template<typename CharT>
+inline void PrintStringLiteral(const CharT* data, size_t size, iu_ostream* os)
+{
+    const char* prefix = PrintCharPrefix(CharT());
+    *os << prefix << '"';
+    bool previous_hex = false;
+    for( size_t i = 0; i < size; ++i )
+    {
+        const UInt32 code = PrintCharCode(data[i]);
+        if( previous_hex && ((code >= '0' && code <= '9') || (code >= 'a' && code <= 'f')
+            || (code >= 'A' && code <= 'F')) )
+        {
+            *os << "\" " << prefix << '"';
+        }
+        previous_hex = PrintEscapedChar(code, '"', os);
+    }
+    *os << '"';
+}
+
+template<typename CharT>
+inline void PrintCStringLiteral(const CharT* str, iu_ostream* os)
+{
+    if( str == IUTEST_NULLPTR ) { *os << kStrings::Null; }
+    else { PrintStringLiteral(str, ::std::char_traits<CharT>::length(str), os); }
+}
+
+#if IUTEST_HAS_RTTI
+inline ::std::string PrintTypeName(const ::std::type_info& info)
+{
+    ::std::string name = GetTypeName(info);
+    const char* const prefixes[] = { "std::__1::", "std::__cxx11::" };
+    for( size_t i = 0; i < sizeof(prefixes)/sizeof(prefixes[0]); ++i )
+    {
+        size_t pos = 0;
+        while( (pos = name.find(prefixes[i], pos)) != ::std::string::npos )
+        {
+            name.replace(pos, ::std::char_traits<char>::length(prefixes[i]), "std::");
+            pos += 5;
+        }
+    }
+    return name;
+}
+#endif
+
 /** @private */
 template<typename T>
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const T& value, iu_ostream* os)
@@ -376,44 +488,44 @@ void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char(&str)[N], iu_ostrea
 }
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t* str, iu_ostream* os)
 {
-    UniversalPrint(detail::ShowAnyCString(str), os);
+    PrintCStringLiteral(str, os);
 }
 template<size_t N>
 void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t(&str)[N], iu_ostream* os)
 {
-    UniversalPrint(detail::ShowAnyCString(str), os);
+    UniversalTersePrint(static_cast<const wchar_t*>(str), os);
 }
 #if IUTEST_HAS_CHAR8_T
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char8_t* str, iu_ostream* os)
 {
-    UniversalPrint(detail::ShowAnyCString(str), os);
+    PrintCStringLiteral(str, os);
 }
 template<size_t N>
 void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char8_t(&str)[N], iu_ostream* os)
 {
-    UniversalPrint(detail::ShowAnyCString(str), os);
+    UniversalTersePrint(static_cast<const char8_t*>(str), os);
 }
 #endif
 #if IUTEST_HAS_CHAR16_T
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char16_t* str, iu_ostream* os)
 {
-    UniversalPrint(detail::ShowAnyCString(str), os);
+    PrintCStringLiteral(str, os);
 }
 template<size_t N>
 void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char16_t(&str)[N], iu_ostream* os)
 {
-    UniversalPrint(detail::ShowAnyCString(str), os);
+    UniversalTersePrint(static_cast<const char16_t*>(str), os);
 }
 #endif
-#if IUTEST_HAS_CHAR32_T && (IUTEST_HAS_CXX_HDR_CUCHAR || IUTEST_HAS_CXX_HDR_CODECVT)
+#if IUTEST_HAS_CHAR32_T
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char32_t* str, iu_ostream* os)
 {
-    UniversalPrint(detail::ShowAnyCString(str), os);
+    PrintCStringLiteral(str, os);
 }
 template<size_t N>
 void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char32_t(&str)[N], iu_ostream* os)
 {
-    UniversalPrint(detail::ShowAnyCString(str), os);
+    UniversalTersePrint(static_cast<const char32_t*>(str), os);
 }
 #endif
 
@@ -435,9 +547,11 @@ inline void PrintTo(const char* c, iu_ostream* os)  { *os << c; }
 #if defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 inline void PrintTo(int v, iu_ostream* os)  { *os << v; }
 #endif
-inline void PrintTo(const ::std::string& str, iu_ostream* os)   { *os << str.c_str(); }
 template<typename CharT, typename Traits, typename Alloc>
-inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os) { UniversalTersePrint(str.c_str(), os); }
+inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os)
+{
+    PrintStringLiteral(str.data(), str.size(), os);
+}
 inline void PrintTo(const ::std::locale& l, iu_ostream* os) { *os << l.name(); }
 #if IUTEST_HAS_CXX11
 inline void PrintSmartPointerAddress(const volatile void* ptr, iu_ostream* os)
@@ -641,24 +755,22 @@ inline void PrintTo(const long double v, iu_ostream* os)
 template<typename T>
 void PrintToChar(const T value, iu_ostream* os)
 {
-    // char or unsigned char の時に、 0 が NULL 文字にならないように修正
-    if( value == 0 )
+    *os << PrintCharPrefix(T()) << '\'';
+    const bool hex_escape = PrintEscapedChar(PrintCharCode(value), '\'', os);
+    *os << '\'';
+    if( value != 0 )
     {
-        *os << "\\0";
-    }
-    else if( static_cast<int>(value) < 0x20 )
-    {
-        *os << "0x" << ToHexString(value);
-    }
-    else
-    {
-        const T str[2] = { value, 0 };
-        *os << "\'" << detail::ShowAnyCString(str) << "\'";
+        *os << " (" << static_cast<int>(value);
+        if( !hex_escape && !(value >= 1 && value <= 9) )
+        {
+            *os << ", 0x" << PrintHexCode(static_cast<UInt32>(value));
+        }
+        *os << ")";
     }
 }
 inline void PrintTo(const char value, iu_ostream* os)
 {
-    PrintToChar(static_cast<signed char>(value), os);
+    PrintToChar(static_cast<unsigned char>(value), os);
 }
 inline void PrintTo(const wchar_t value, iu_ostream* os)
 {
@@ -667,19 +779,22 @@ inline void PrintTo(const wchar_t value, iu_ostream* os)
 #if IUTEST_HAS_CHAR8_T
 inline void PrintTo(const char8_t value, iu_ostream* os)
 {
-    PrintToChar(value, os);
+    const ::std::string hex = PrintHexCode(static_cast<UInt32>(value));
+    *os << "U+" << ::std::string(hex.size() < 4 ? 4 - hex.size() : 0, '0') << hex;
 }
 #endif
 #if IUTEST_HAS_CHAR16_T
 inline void PrintTo(const char16_t value, iu_ostream* os)
 {
-    PrintToChar(value, os);
+    const ::std::string hex = PrintHexCode(static_cast<UInt32>(value));
+    *os << "U+" << ::std::string(hex.size() < 4 ? 4 - hex.size() : 0, '0') << hex;
 }
 #endif
 #if IUTEST_HAS_CHAR32_T
 inline void PrintTo(const char32_t value, iu_ostream* os)
 {
-    PrintToChar(value, os);
+    const ::std::string hex = PrintHexCode(static_cast<UInt32>(value));
+    *os << "U+" << ::std::string(hex.size() < 4 ? 4 - hex.size() : 0, '0') << hex;
 }
 #endif
 inline void PrintTo(const unsigned char value, iu_ostream* os)
@@ -690,15 +805,13 @@ inline void PrintTo(const unsigned char value, iu_ostream* os)
 template<typename CharT, typename Traits>
 inline void PrintTo(const iu_basic_string_view<CharT, Traits>& value, iu_ostream* os)
 {
-    const ::std::basic_string<CharT, Traits> str = value.data();
-    UniversalTersePrint(str.c_str(), os);
+    PrintStringLiteral(value.data(), value.size(), os);
 }
 #else
 template<typename CharT, typename Traits>
 inline void PrintTo(const ::std::basic_string_view<CharT, Traits>& value, iu_ostream* os)
 {
-    const ::std::basic_string<CharT, Traits> str{ value };
-    UniversalTersePrint(str.c_str(), os);
+    PrintStringLiteral(value.data(), value.size(), os);
 }
 #endif
 
@@ -706,6 +819,7 @@ inline void PrintTo(const ::std::basic_string_view<CharT, Traits>& value, iu_ost
 template<typename T>
 inline void PrintTo(const ::std::optional<T>& value, iu_ostream* os)
 {
+    *os << "(";
     if (value)
     {
         UniversalPrint(value.value(), os);
@@ -714,6 +828,7 @@ inline void PrintTo(const ::std::optional<T>& value, iu_ostream* os)
     {
         *os << "nullopt";
     }
+    *os << ")";
 }
 #endif
 
@@ -727,20 +842,38 @@ inline void PrintTo(const ::std::variant<Types...>& value, iu_ostream* os)
     }
     else
     {
-        ::std::visit([&os](const auto& v) { UniversalPrint(v, os); }, value);
+        ::std::visit([&os, &value](const auto& v) {
+            *os << "('";
+#if IUTEST_HAS_RTTI
+            *os << PrintTypeName(typeid(v));
+#else
+            *os << "<unknown_type>";
+#endif
+            *os << "(index = " << value.index() << ")' with value ";
+            UniversalPrint(v, os);
+            *os << ")";
+        }, value);
     }
 }
 inline void PrintTo(const ::std::monostate&, iu_ostream* os)
 {
-    *os << "monostate";
+    *os << "(monostate)";
 }
 #endif
 
 #if IUTEST_HAS_CXX_HDR_ANY
 inline void PrintTo(const ::std::any& value, iu_ostream* os)
 {
-    *os << "-Any type-name: " << value.type().name();
-    DefaultPrintNonContainerTo(value, os);
+    if( !value.has_value() ) { *os << "no value"; }
+    else
+    {
+        *os << "value of type ";
+#if IUTEST_HAS_RTTI
+        *os << PrintTypeName(value.type());
+#else
+        *os << "<unknown_type>";
+#endif
+    }
 }
 #endif
 
@@ -800,7 +933,10 @@ inline void PrintTo(const ::std::filesystem::directory_iterator& value, iu_ostre
 #endif
 
 #if IUTEST_HAS_NULLPTR
-inline void PrintTo(const ::std::nullptr_t&, iu_ostream* os) { *os << "nullptr"; }
+inline void PrintTo(const ::std::nullptr_t&, iu_ostream* os)
+{
+    *os << "nullptr";
+}
 #endif
 
 #if IUTEST_HAS_TUPLE

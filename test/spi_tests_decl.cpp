@@ -146,9 +146,8 @@
 #endif
 
 #if IUTEST_HAS_CXX_HDR_VARIANT
-    FAILURE_MACRO( FLAVOR(_EQ)(v, 0), "Which is: 1" );
-    FAILURE_MACRO( FLAVOR(_EQ)(0.1f, v), "Actual: 1" );
+    FAILURE_MACRO( FLAVOR(_EQ)(v, 0), "(index = 0)' with value 1)" );
+    FAILURE_MACRO( FLAVOR(_EQ)(0.1f, v), "(index = 0)' with value 1)" );
 #endif
 
 #undef FLAVOR
-
