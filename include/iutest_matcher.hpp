@@ -330,7 +330,23 @@ protected:
     static void PrintParameter(::std::ostream* os, bool separator, const char* name, const T& value)
     {
         if( separator ) *os << ", ";
-        *os << name << ": " << ::iutest::PrintToString(value);
+        *os << name << ": ";
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+        PrintParameterValue(os, value, iutest_type_traits::is_function_pointer<T*>());
+#else
+        *os << ::iutest::PrintToString(value);
+#endif
+    }
+private:
+    template<typename T>
+    static void PrintParameterValue(::std::ostream* os, const T& value, iutest_type_traits::false_type)
+    {
+        *os << ::iutest::PrintToString(value);
+    }
+    template<typename T>
+    static void PrintParameterValue(::std::ostream* os, const T&, iutest_type_traits::true_type)
+    {
+        *os << "<function>";
     }
 };
 #endif

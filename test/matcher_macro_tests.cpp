@@ -287,6 +287,9 @@ IUTEST(MatcherMacro, ParameterValueAndReferenceSemantics)
     const EqualsStreamParameterMatcherP1<FunctionType&> function_reference =
         EqualsStreamParameter<FunctionType&>(MatcherFunction);
     IUTEST_EXPECT_THAT(&MatcherFunction, function_reference);
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+    IUTEST_EXPECT_EQ("equals stream parameter (os: <function>)", function_reference.WhichIs());
+#endif
 }
 
 IUTEST(MatcherMacro, MixedParameters)
