@@ -74,9 +74,9 @@ IUTEST(Base64Matcher, FailureMessage)
     IUTEST_EXPECT_FATAL_FAILURE(
         IUTEST_ASSERT_THAT(invalid_base64, WhenBase64Unescaped(StrEq("Hello"))),
         "invalid base64");
+    const char* const decoded_message = "decoded to \"Hello\"";
     IUTEST_EXPECT_FATAL_FAILURE(
-        IUTEST_ASSERT_THAT(mismatched_base64, WhenBase64Unescaped(StrEq("World"))),
-        "decoded to Hello");
+        IUTEST_ASSERT_THAT(mismatched_base64, WhenBase64Unescaped(StrEq("World"))), decoded_message);
 }
 #endif
 
