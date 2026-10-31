@@ -5,6 +5,25 @@
       "procedure_name": "",
       "file": "_tests.cpp",
       "comment": "Copies in tests intentionally exercise copy behavior and value semantics."
+    },
+    {
+      "bug_type": "PULSE_CONST_REFABLE",
+      "procedure_name": "::HasValue<",
+      "file": "test/matcher_macro_tests.cpp",
+      "comment": "Matcher factories pass parameters by value to preserve decay and explicit reference types."
+    },
+    {
+      "bug_type": "PULSE_CONST_REFABLE",
+      "procedure_name": "::IsBetween<",
+      "file": "test/matcher_macro_tests.cpp",
+      "comment": "Matcher factories pass parameters by value to preserve decay and explicit reference types."
+    },
+    {
+      "bug_type": "PULSE_UNNECESSARY_COPY_INTERMEDIATE",
+      "procedure_name": "HasValueMatcherP1",
+      "class_name": "CopyTrackedParameter",
+      "file": "test/matcher_macro_tests.cpp",
+      "comment": "The direct matcher constructor preserves its by-value signature and tests copy behavior."
     }
   ]
 }

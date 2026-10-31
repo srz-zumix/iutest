@@ -157,6 +157,22 @@ struct CopyOnlyLegacyParameter
     CopyOnlyLegacyParameter(const CopyOnlyLegacyParameter& other) : value(other.value) {}
 };
 
+struct VolatileCopyParameter
+{
+    int value;
+    explicit VolatileCopyParameter(int n) : value(n) {}
+    VolatileCopyParameter(const volatile VolatileCopyParameter& other) : value(other.value) {}
+};
+
+#if !IIUT_HAS_MATCHER_PARAMETER_MOVE_
+struct NonConstCopyParameter
+{
+    int value;
+    explicit NonConstCopyParameter(int n) : value(n) {}
+    NonConstCopyParameter(NonConstCopyParameter& other) : value(other.value) {}
+};
+#endif
+
 int MatcherFunction(int value) { return value; }
 
 #if IUTEST_HAS_RVALUE_REFS && IUTEST_HAS_DELETED_FUNCTIONS
@@ -342,6 +358,26 @@ IUTEST(MatcherMacro, CopyOnlyLegacyParameter)
     const HasValueMatcherP1<CopyOnlyLegacyParameter> matcher = HasValue(source);
     IUTEST_EXPECT_EQ(42, matcher.value.value);
 }
+
+IUTEST(MatcherMacro, FactorySignatureAndVolatileParameter)
+{
+    typedef HasValueMatcherP1< ::std::string> (*StringFactory)(::std::string);
+    const StringFactory factory = &HasValue< ::std::string>;
+    IUTEST_EXPECT_EQ("value", factory(::std::string("value")).value);
+
+    volatile VolatileCopyParameter source(42);
+    const HasValueMatcherP1<VolatileCopyParameter> matcher = HasValue(source);
+    IUTEST_EXPECT_EQ(42, matcher.value.value);
+}
+
+#if !IIUT_HAS_MATCHER_PARAMETER_MOVE_
+IUTEST(MatcherMacro, DirectNonConstCopyParameter)
+{
+    NonConstCopyParameter source(42);
+    const HasValueMatcherP1<NonConstCopyParameter> matcher(source);
+    IUTEST_EXPECT_EQ(42, matcher.value.value);
+}
+#endif
 
 #if IUTEST_HAS_RVALUE_REFS && IUTEST_HAS_DELETED_FUNCTIONS
 IUTEST(MatcherMacro, CopyOnlyParameter)

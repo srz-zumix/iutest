@@ -52,6 +52,30 @@ X gx(1, 1);
 ::std::map<int, X> mx;
 int X2(int v) { return v*2; }
 
+#if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
+class CopyTrackedMatcher : public ::iutest::detail::IMatcher
+{
+public:
+    CopyTrackedMatcher(int expected, int* copies) : m_expected(expected), m_copies(copies) {}
+    CopyTrackedMatcher(const CopyTrackedMatcher& other)
+        : ::iutest::detail::IMatcher(other), m_expected(other.m_expected), m_copies(other.m_copies)
+    {
+        ++*m_copies;
+    }
+
+    void SetExpected(int expected) { m_expected = expected; }
+    ::iutest::AssertionResult operator ()(int actual)
+    {
+        return actual == m_expected ? ::iutest::AssertionSuccess() : ::iutest::AssertionFailure();
+    }
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return "tracked matcher"; }
+
+private:
+    int m_expected;
+    int* m_copies;
+};
+#endif
+
 }   // end of namespace
 
 IUTEST(Matcher, SuppressWarning)
@@ -975,6 +999,61 @@ IUTEST(Matcher, AnyOf)
         , HasSubstr("8")
     ));
 }
+
+#if !defined(IUTEST_USE_GTEST)
+IUTEST(Matcher, CompositeCopiesAndReferences)
+{
+#if IUTEST_HAS_MATCHER_VARIADIC
+    typedef ::iutest::detail::AnyOfMatcher<CopyTrackedMatcher, CopyTrackedMatcher> AnyPair;
+    typedef ::iutest::detail::AllOfMatcher<CopyTrackedMatcher, CopyTrackedMatcher> AllPair;
+    typedef ::iutest::detail::AnyOfMatcher<CopyTrackedMatcher&, CopyTrackedMatcher&> AnyPairRefs;
+    typedef ::iutest::detail::AllOfMatcher<CopyTrackedMatcher&, CopyTrackedMatcher&> AllPairRefs;
+#else
+    typedef ::iutest::detail::AnyOfMatcher2<CopyTrackedMatcher, CopyTrackedMatcher> AnyPair;
+    typedef ::iutest::detail::AllOfMatcher2<CopyTrackedMatcher, CopyTrackedMatcher> AllPair;
+    typedef ::iutest::detail::AnyOfMatcher2<CopyTrackedMatcher&, CopyTrackedMatcher&> AnyPairRefs;
+    typedef ::iutest::detail::AllOfMatcher2<CopyTrackedMatcher&, CopyTrackedMatcher&> AllPairRefs;
+#endif
+    int copies = 0;
+    CopyTrackedMatcher first(1, &copies);
+    CopyTrackedMatcher second(2, &copies);
+
+    AnyPair any(first, second);
+    IUTEST_EXPECT_EQ(2, copies);
+    copies = 0;
+    AllPair all(first, second);
+    IUTEST_EXPECT_EQ(2, copies);
+    IUTEST_EXPECT_TRUE(any(2));
+    IUTEST_EXPECT_FALSE(any(3));
+    IUTEST_EXPECT_FALSE(all(2));
+
+    copies = 0;
+    AnyPairRefs any_refs(first, second);
+    AllPairRefs all_refs(first, second);
+    IUTEST_EXPECT_EQ(0, copies);
+    first.SetExpected(3);
+    second.SetExpected(3);
+    IUTEST_EXPECT_TRUE(any_refs(3));
+    IUTEST_EXPECT_TRUE(all_refs(3));
+    IUTEST_EXPECT_FALSE(any(3));
+    IUTEST_EXPECT_FALSE(all(3));
+
+#if IUTEST_CPLUSPLUS >= 201703L
+    copies = 0;
+    IUTEST_EXPECT_TRUE(AnyOf(first, first, first, first, first, first, first, first, first)(3));
+    IUTEST_EXPECT_EQ(9, copies);
+    copies = 0;
+    IUTEST_EXPECT_TRUE(AnyOf(first, first, first, first, first, first, first, first, first, first)(3));
+    IUTEST_EXPECT_EQ(10, copies);
+    copies = 0;
+    IUTEST_EXPECT_TRUE(AllOf(first, first, first, first, first, first, first, first, first)(3));
+    IUTEST_EXPECT_EQ(9, copies);
+    copies = 0;
+    IUTEST_EXPECT_TRUE(AllOf(first, first, first, first, first, first, first, first, first, first)(3));
+    IUTEST_EXPECT_EQ(10, copies);
+#endif
+}
+#endif
 
 IUTEST(MatcherFailure, AllOf)
 {

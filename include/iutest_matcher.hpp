@@ -3293,7 +3293,7 @@ template<typename ...T>
 class AllOfMatcher IUTEST_CXX_FINAL : public AllOfMatcherBase
 {
 public:
-    explicit AllOfMatcher(T... t) : m_matchers(t...) {}
+    explicit AllOfMatcher(const T&... t) : m_matchers(t...) {}
 
 public:
     template<typename U>
@@ -3322,7 +3322,7 @@ template<typename T0, typename T1>
 class AllOfMatcher IUTEST_CXX_FINAL : public AllOfMatcherBase
 {
 public:
-    AllOfMatcher(T0 m0, T1 m1) : m_matchers(m0, m1) {}
+    AllOfMatcher(const T0& m0, const T1& m1) : m_matchers(m0, m1) {}
 
 public:
     template<typename U>
@@ -3342,7 +3342,7 @@ private:
 #define IIUT_DECL_ALLOF_MATCHER(n)                                                  \
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                                \
     class IUTEST_PP_CAT(AllOfMatcher, n) IUTEST_CXX_FINAL : public AllOfMatcherBase {   \
-    public: IUTEST_PP_CAT(AllOfMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, T, m))   \
+    public: IUTEST_PP_CAT(AllOfMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, const T, &m)) \
         : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                \
     template<typename U>AssertionResult operator ()(const U& actual) {              \
         return Check(m_matchers, actual); }                                         \
@@ -3461,7 +3461,7 @@ template<typename ...T>
 class AnyOfMatcher IUTEST_CXX_FINAL : public AnyOfMatcherBase
 {
 public:
-    explicit AnyOfMatcher(T... t) : m_matchers(t...) {}
+    explicit AnyOfMatcher(const T&... t) : m_matchers(t...) {}
 
 public:
     template<typename U>
@@ -3490,7 +3490,7 @@ template<typename T0, typename T1>
 class AnyOfMatcher IUTEST_CXX_FINAL : public AnyOfMatcherBase
 {
 public:
-    AnyOfMatcher(T0 m0, T1 m1) : m_matchers(m0, m1) {}
+    AnyOfMatcher(const T0& m0, const T1& m1) : m_matchers(m0, m1) {}
 
 public:
     template<typename U>
@@ -3510,7 +3510,7 @@ private:
 #define IIUT_DECL_ANYOF_MATCHER(n)                                                  \
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                                \
     class IUTEST_PP_CAT(AnyOfMatcher, n) IUTEST_CXX_FINAL : public AnyOfMatcherBase {   \
-    public: IUTEST_PP_CAT(AnyOfMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, T, m))   \
+    public: IUTEST_PP_CAT(AnyOfMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, const T, &m)) \
         : m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}                                \
     template<typename U>AssertionResult operator ()(const U& actual) {              \
         return Check(m_matchers, actual); }                                         \
