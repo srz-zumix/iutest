@@ -13,6 +13,7 @@
 //-----------------------------------------------------------------------
 //======================================================================
 
+#include <functional>
 #include <ostream>
 #include <string>
 #include "../include/gtest/iutest_spi_switch.hpp"
@@ -60,6 +61,8 @@ private:
     size_t m_length;
 };
 
+const int when_sorted_values[] = { 3, 1, 2 };
+
 }   // end of namespace
 
 IUTEST(GTestStyleMatcher, Match)
@@ -91,6 +94,16 @@ IUTEST(GTestStyleMatcher, NotDescription)
     ::iutest::matchers::Not(IsEven()).DescribeNegationTo(&os);
     IUTEST_EXPECT_EQ("is even", os.str());
 #endif
+}
+
+IUTEST(GTestStyleMatcher, WhenSorted)
+{
+    IUTEST_EXPECT_THAT(when_sorted_values, ::iutest::matchers::WhenSorted(TEST_STYLE_MATCHER(HasLength(3))));
+    IUTEST_EXPECT_THAT(when_sorted_values,
+        ::iutest::matchers::WhenSortedBy(::std::greater<int>(), TEST_STYLE_MATCHER(HasLength(3))));
+    IUTEST_EXPECT_NONFATAL_FAILURE(
+        IUTEST_EXPECT_THAT(when_sorted_values, ::iutest::matchers::WhenSorted(TEST_STYLE_MATCHER(HasLength(4)))),
+        "has length 3");
 }
 
 IUTEST(GTestStyleMatcher, ExistingMatchers)
