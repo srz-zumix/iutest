@@ -19,6 +19,7 @@
 
 #include <functional>
 #include <list>
+#include <map>
 #include <vector>
 
 using ::iutest::matchers::ElementsAreArray;
@@ -81,6 +82,24 @@ IUTEST(WhenSortedMatcher, Array)
     IUTEST_EXPECT_THAT(values, WhenSortedBy(::std::greater<int>(), ElementsAreArray(descending)));
     IUTEST_EXPECT_THAT(values, ElementsAreArray(unsorted));
     IUTEST_EXPECT_THAT(unsorted, WhenSorted(ElementsAreArray(ascending)));
+}
+
+IUTEST(WhenSortedMatcher, Map)
+{
+    typedef ::std::pair<int, int> Entry;
+    ::std::map<int, int> values;
+    values[3] = 30;
+    values[1] = 10;
+    values[2] = 20;
+    const Entry ordered[] = { Entry(1, 10), Entry(2, 20), Entry(3, 30) };
+    const Entry reversed[] = { Entry(3, 30), Entry(2, 20), Entry(1, 10) };
+    IUTEST_EXPECT_THAT(values, WhenSorted(ElementsAreArray(ordered)));
+    IUTEST_EXPECT_THAT(values, WhenSortedBy(::std::greater<Entry>(), ElementsAreArray(reversed)));
+    IUTEST_EXPECT_EQ(3u, values.size());
+    IUTEST_EXPECT_EQ(1, values.begin()->first);
+    IUTEST_EXPECT_EQ(10, values[1]);
+    IUTEST_EXPECT_EQ(20, values[2]);
+    IUTEST_EXPECT_EQ(30, values[3]);
 }
 
 #if IUTEST_HAS_MATCHER_ELEMENTSARE

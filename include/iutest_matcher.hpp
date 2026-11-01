@@ -23,12 +23,12 @@
 
 #if IUTEST_HAS_CXX11
 #include <memory>
-#include <utility>
 #endif
 
 #include <algorithm>
 #include <list>
 #include <sstream>
+#include <utility>
 #include <vector>
 
 #if IUTEST_HAS_MATCHER_FIELDSARE
@@ -1116,6 +1116,18 @@ struct WhenSortedLess
     bool operator ()(const T& lhs, const T& rhs) const { return lhs < rhs; }
 };
 
+template<typename T>
+struct WhenSortedValue
+{
+    typedef T type;
+};
+
+template<typename K, typename V>
+struct WhenSortedValue< ::std::pair<const K, V> >
+{
+    typedef ::std::pair<K, V> type;
+};
+
 /**
  * @brief   Sorted container matcher
 */
@@ -1142,8 +1154,9 @@ public:
 
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
-        iu_global_format_stringstream strm;
-        strm << "WhenSorted: " << m_expected;
+        ::std::ostringstream strm;
+        strm << "WhenSorted: ";
+        DescribeMatcherTo(m_expected, &strm);
         return strm.str();
     }
 
@@ -1163,7 +1176,8 @@ private:
     template<typename Ite>
     bool SortAndMatch(Ite first, Ite last, ::std::ostream* listener)
     {
-        ::std::vector<typename IteratorTraits<Ite>::type> sorted(first, last);
+        typedef typename WhenSortedValue<typename IteratorTraits<Ite>::type>::type Value;
+        ::std::vector<Value> sorted(first, last);
         ::std::sort(sorted.begin(), sorted.end(), m_comparator);
         *listener << "which is " << PrintToString(sorted) << " when sorted";
         ::std::ostringstream inner;
