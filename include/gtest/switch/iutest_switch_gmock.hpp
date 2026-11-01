@@ -293,6 +293,8 @@ namespace matchers
 
     using ::testing::Contains;
     using ::testing::ContainerEq;
+    using ::testing::WhenSorted;
+    using ::testing::WhenSortedBy;
 #if GMOCK_VER >= 0x01080100
     using ::testing::IsSubsetOf;
     using ::testing::IsSupersetOf;

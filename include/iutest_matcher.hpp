@@ -26,8 +26,10 @@
 #include <utility>
 #endif
 
+#include <algorithm>
 #include <list>
 #include <sstream>
+#include <vector>
 
 #if IUTEST_HAS_MATCHER_FIELDSARE
 #include <tuple>
@@ -1104,6 +1106,75 @@ private:
 };
 
 #endif
+
+/**
+ * @brief   Default comparator for WhenSorted
+*/
+struct WhenSortedLess
+{
+    template<typename T>
+    bool operator ()(const T& lhs, const T& rhs) const { return lhs < rhs; }
+};
+
+/**
+ * @brief   Sorted container matcher
+*/
+template<typename C, typename T>
+class WhenSortedMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    WhenSortedMatcher(C comparator, const T& expected) : m_comparator(comparator), m_expected(expected) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual)
+    {
+        ::std::ostringstream explanation;
+        if( MatchAndExplain(actual, &explanation) ) return AssertionSuccess();
+        return AssertionFailure() << WhichIs() << "\n" << explanation.str();
+    }
+
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener)
+    {
+        IUTEST_USING_BEGIN_END();
+        return SortAndMatch(begin(actual), end(actual), listener);
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        iu_global_format_stringstream strm;
+        strm << "WhenSorted: " << m_expected;
+        return strm.str();
+    }
+
+    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
+    {
+        *os << "(when sorted) ";
+        DescribeMatcherTo(m_expected, os);
+    }
+
+    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
+    {
+        *os << "(when sorted) ";
+        DescribeMatcherNegationTo(m_expected, os);
+    }
+
+private:
+    template<typename Ite>
+    bool SortAndMatch(Ite first, Ite last, ::std::ostream* listener)
+    {
+        ::std::vector<typename IteratorTraits<Ite>::type> sorted(first, last);
+        ::std::sort(sorted.begin(), sorted.end(), m_comparator);
+        *listener << "which is " << PrintToString(sorted) << " when sorted";
+        ::std::ostringstream inner;
+        const bool matched = ExplainMatch(m_expected, sorted, &inner);
+        if( !inner.str().empty() ) *listener << ", " << inner.str();
+        return matched;
+    }
+
+    C m_comparator;
+    T m_expected;
+};
 
 /**
  * @brief   ContainerEq matcher
@@ -3924,6 +3995,26 @@ detail::EachMatcher<T> Each(const T& expected)
 }
 
 #endif
+
+/**
+ * @brief   Make WhenSorted matcher
+ * @details Matches a copy of the argument sorted using operator<.
+*/
+template<typename T>
+detail::WhenSortedMatcher<detail::WhenSortedLess, T> WhenSorted(const T& expected)
+{
+    return detail::WhenSortedMatcher<detail::WhenSortedLess, T>(detail::WhenSortedLess(), expected);
+}
+
+/**
+ * @brief   Make WhenSortedBy matcher
+ * @details Matches a copy of the argument sorted using comparator.
+*/
+template<typename C, typename T>
+detail::WhenSortedMatcher<C, T> WhenSortedBy(C comparator, const T& expected)
+{
+    return detail::WhenSortedMatcher<C, T>(comparator, expected);
+}
 
 /**
  * @brief   Make ContainerEq matcher

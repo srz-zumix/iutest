@@ -173,6 +173,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/register_test_tests \
 		$(OUTDIR)/port_tests \
 		$(OUTDIR)/pointer_matcher_tests \
+		$(OUTDIR)/when_sorted_matcher_tests \
 		$(OUTDIR)/printers_tests \
 		$(OUTDIR)/compatible_printers_tests \
 		$(OUTDIR)/print_to_string_param_name_tests \
