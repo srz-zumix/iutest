@@ -1516,7 +1516,8 @@ class BipartiteMatcher
 public:
     typedef ::std::vector< ::std::vector<bool> > Graph;
 
-    static size_t FindMaximumMatching(const Graph& graph, size_t expected_count)
+    static size_t FindMaximumMatching(const Graph& graph, size_t expected_count,
+                                      ::std::vector<size_t>* expected_matches = NULL)
     {
         ::std::vector<size_t> matches(expected_count, graph.size());
         size_t count = 0;
@@ -1525,6 +1526,7 @@ public:
             ::std::vector<bool> visited(expected_count, false);
             if( Augment(graph, i, visited, matches) ) ++count;
         }
+        if( expected_matches != NULL ) expected_matches->swap(matches);
         return count;
     }
 
@@ -1601,6 +1603,71 @@ private:
         if( matched == graph.size() ) return true;
         *listener << "whose elements cannot be matched to distinct expectations (matched "
                   << matched << " of " << graph.size() << " elements)";
+        return false;
+    }
+
+private:
+    ::std::vector<T> m_expected;
+};
+
+/**
+ * @brief   IsSupersetOf matcher
+*/
+template<typename T>
+class IsSupersetOfMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    template<typename It>
+    IsSupersetOfMatcher(const It& begin, const It& end) : m_expected(begin, end) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual) const
+    {
+        ::std::ostringstream explanation;
+        if( MatchAndExplain(actual, &explanation) ) return AssertionSuccess();
+        return AssertionFailure() << WhichIs() << "\n" << explanation.str();
+    }
+
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener) const
+    {
+        IUTEST_USING_BEGIN_END();
+        return Check(begin(actual), end(actual), listener);
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        return "IsSupersetOf: " + PrintToString(m_expected);
+    }
+
+private:
+    template<typename It>
+    bool Check(It begin, It end, ::std::ostream* listener) const
+    {
+        BipartiteMatcher::Graph graph;
+        for( ; begin != end; ++begin )
+        {
+            graph.push_back(::std::vector<bool>(m_expected.size(), false));
+            for( size_t i = 0; i < m_expected.size(); ++i )
+            {
+                ::std::ostringstream inner;
+                T expected(m_expected[i]);
+                graph.back()[i] = ExplainMatch(expected, *begin, &inner);
+            }
+        }
+        ::std::vector<size_t> matches;
+        const size_t matched = BipartiteMatcher::FindMaximumMatching(graph, m_expected.size(), &matches);
+        if( matched == m_expected.size() ) return true;
+        *listener << "whose expectations cannot be matched to distinct elements (matched "
+                  << matched << " of " << m_expected.size() << " expectations)";
+        for( size_t i = 0; i < matches.size(); ++i )
+        {
+            if( matches[i] == graph.size() )
+            {
+                T expected(m_expected[i]);
+                *listener << "\nunmatched expectation #" << i << ": " << CastToMatcher(expected).WhichIs();
+            }
+        }
         return false;
     }
 
@@ -3991,6 +4058,48 @@ template<typename T>
 detail::IsSubsetOfMatcher<T> IsSubsetOf(::std::initializer_list<T> values)
 {
     return detail::IsSubsetOfMatcher<T>(values.begin(), values.end());
+}
+#endif
+#endif
+
+/**
+ * @brief   Make IsSupersetOf matcher
+ * @details Each expectation must match a distinct actual element; unused actual elements are allowed.
+*/
+template<typename Container>
+detail::IsSupersetOfMatcher<typename Container::value_type> IsSupersetOf(const Container& container)
+{
+    return detail::IsSupersetOfMatcher<typename Container::value_type>(container.begin(), container.end());
+}
+
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+/** @overload */
+template<typename T, size_t SIZE>
+detail::IsSupersetOfMatcher<T> IsSupersetOf(const T(&values)[SIZE])
+{
+    const T* first = values;
+    return detail::IsSupersetOfMatcher<T>(first, first + SIZE);
+}
+
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+/**
+ * @overload
+ * @note    Pass by value to decay arrays to pointers.
+*/
+template<typename It>
+// @infer-ignore PULSE_CONST_REFABLE
+detail::IsSupersetOfMatcher<typename detail::IteratorTraits<It>::type> IsSupersetOf(It begin, It end)
+{
+    return detail::IsSupersetOfMatcher<typename detail::IteratorTraits<It>::type>(begin, end);
+}
+#endif
+
+#if IUTEST_HAS_INITIALIZER_LIST
+/** @overload */
+template<typename T>
+detail::IsSupersetOfMatcher<T> IsSupersetOf(::std::initializer_list<T> values)
+{
+    return detail::IsSupersetOfMatcher<T>(values.begin(), values.end());
 }
 #endif
 #endif

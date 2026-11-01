@@ -102,6 +102,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/logical_array_matcher_tests \
 		$(OUTDIR)/contains_times_matcher_tests \
 		$(OUTDIR)/is_subset_of_matcher_tests \
+		$(OUTDIR)/is_superset_of_matcher_tests \
 		$(OUTDIR)/break_on_failure_nobreak_tests \
 		$(OUTDIR)/catch_exceptions_tests \
 		$(OUTDIR)/charcode_tests \
