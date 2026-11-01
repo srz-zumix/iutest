@@ -2895,7 +2895,7 @@ public:
 
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
-        iu_global_format_stringstream strm;
+        ::std::ostringstream strm;
         strm << "WhenDynamicCastTo: ";
         DescribeMatcherTo(m_expected, &strm);
         return strm.str();
