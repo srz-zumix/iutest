@@ -319,6 +319,9 @@ namespace matchers
     using ::testing::DistanceFrom;
 #endif
     using ::testing::Pointee;
+#if IUTEST_HAS_RTTI && GTEST_HAS_RTTI && GMOCK_VER >= 0x01080000
+    using ::testing::WhenDynamicCastTo;
+#endif
     using ::testing::Ref;
 #if GMOCK_VER >= 0x01110000
     using ::testing::Address;
