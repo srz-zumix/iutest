@@ -1661,10 +1661,11 @@ public:
     size_t size() const { return m_values.size(); }
     void DescribeTo(::std::vector< ::std::string>& descriptions) const
     {
-        for( size_t i = 0; i < size(); ++i )
+        typename ::std::list<T>::const_iterator it = m_values.begin();
+        for( ; it != m_values.end(); ++it )
         {
             ::std::ostringstream description;
-            T expected(m_values[i]);
+            T expected(*it);
             DescribeMatcherTo(expected, &description);
             descriptions.push_back(description.str());
         }
@@ -1672,16 +1673,17 @@ public:
     template<typename U>
     void Match(const U& actual, ::std::vector<bool>& row)
     {
-        for( size_t i = 0; i < size(); ++i )
+        typename ::std::list<T>::const_iterator it = m_values.begin();
+        for( size_t i = 0; it != m_values.end(); ++it, ++i )
         {
             ::std::ostringstream inner;
-            T expected(m_values[i]);
+            T expected(*it);
             row[i] = ExplainMatch(expected, actual, &inner);
         }
     }
 
 private:
-    ::std::vector<T> m_values;
+    ::std::list<T> m_values;
 };
 
 #if IUTEST_HAS_MATCHER_ELEMENTSARE

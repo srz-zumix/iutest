@@ -25,8 +25,8 @@ using namespace ::iutest::matchers;
 
 namespace {
 
-const int values[] = { 2, 1, 2 };
-const int expected[] = { 1, 2, 2 };
+const int actual_values[] = { 2, 1, 2 };
+const int expected_values[] = { 1, 2, 2 };
 const int missing[] = { 1, 2, 4 };
 const int fewer[] = { 1, 2 };
 const int duplicates[] = { 1, 1, 2 };
@@ -48,23 +48,23 @@ IUTEST(UnorderedElementsAreMatcher, Empty)
     IUTEST_EXPECT_THAT(::std::vector< ::std::string>(), UnorderedElementsAre());
     IUTEST_EXPECT_THAT(::std::vector< ::std::string>(1, "value"), Not(UnorderedElementsAre()));
     IUTEST_EXPECT_THAT(empty, UnorderedElementsAreArray(empty));
-    IUTEST_EXPECT_THAT(values, Not(UnorderedElementsAre()));
-    IUTEST_EXPECT_THAT(empty, Not(UnorderedElementsAreArray(expected)));
+    IUTEST_EXPECT_THAT(actual_values, Not(UnorderedElementsAre()));
+    IUTEST_EXPECT_THAT(empty, Not(UnorderedElementsAreArray(expected_values)));
     IUTEST_EXPECT_THAT(empty, UnorderedElementsAreArray(static_cast<const int*>(NULL), 0));
 }
 
 IUTEST(UnorderedElementsAreMatcher, ArraysAndContainers)
 {
-    IUTEST_EXPECT_THAT(values, UnorderedElementsAreArray(expected));
-    const ::std::list<int> expectations(expected, expected + 3);
-    const ::std::list<int> actual(values, values + 3);
+    IUTEST_EXPECT_THAT(actual_values, UnorderedElementsAreArray(expected_values));
+    const ::std::list<int> expectations(expected_values, expected_values + 3);
+    const ::std::list<int> actual(actual_values, actual_values + 3);
     IUTEST_EXPECT_THAT(actual, UnorderedElementsAreArray(expectations));
-    IUTEST_EXPECT_THAT(actual, UnorderedElementsAreArray(::std::vector<int>(expected, expected + 3)));
-    IUTEST_EXPECT_THAT(actual, UnorderedElementsAreArray(expected, 3));
+    IUTEST_EXPECT_THAT(actual, UnorderedElementsAreArray(::std::vector<int>(expected_values, expected_values + 3)));
+    IUTEST_EXPECT_THAT(actual, UnorderedElementsAreArray(expected_values, 3));
     IUTEST_EXPECT_THAT(actual, Not(UnorderedElementsAreArray(missing)));
     IUTEST_EXPECT_THAT(actual, Not(UnorderedElementsAreArray(duplicates)));
     IUTEST_EXPECT_THAT(actual, Not(UnorderedElementsAreArray(fewer)));
-    IUTEST_EXPECT_THAT(fewer, Not(UnorderedElementsAreArray(expected)));
+    IUTEST_EXPECT_THAT(fewer, Not(UnorderedElementsAreArray(expected_values)));
 }
 
 IUTEST(UnorderedElementsAreMatcher, BooleanValues)
@@ -78,12 +78,12 @@ IUTEST(UnorderedElementsAreMatcher, BooleanValues)
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING) && !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 IUTEST(UnorderedElementsAreMatcher, IteratorRange)
 {
-    const ::std::list<int> expectations(expected, expected + 3);
-    IUTEST_EXPECT_THAT(values, UnorderedElementsAreArray(expectations.begin(), expectations.end()));
-    IUTEST_EXPECT_THAT(values, UnorderedElementsAreArray(expected, expected + 3));
-    IUTEST_EXPECT_THAT(::std::vector<int>(), UnorderedElementsAreArray(expected, expected));
+    const ::std::list<int> expectations(expected_values, expected_values + 3);
+    IUTEST_EXPECT_THAT(actual_values, UnorderedElementsAreArray(expectations.begin(), expectations.end()));
+    IUTEST_EXPECT_THAT(actual_values, UnorderedElementsAreArray(expected_values, expected_values + 3));
+    IUTEST_EXPECT_THAT(::std::vector<int>(), UnorderedElementsAreArray(expected_values, expected_values));
     ::std::istringstream input("1 2 2");
-    IUTEST_EXPECT_THAT(values,
+    IUTEST_EXPECT_THAT(actual_values,
         UnorderedElementsAreArray(::std::istream_iterator<int>(input), ::std::istream_iterator<int>()));
 }
 #endif
@@ -100,10 +100,10 @@ IUTEST(UnorderedElementsAreMatcher, ArrayMatchersRequireReassignment)
 #if IUTEST_HAS_MATCHER_ELEMENTSARE
 IUTEST(UnorderedElementsAreMatcher, ValuesAndMatchers)
 {
-    IUTEST_EXPECT_THAT(values, UnorderedElementsAre(1, 2, 2));
-    IUTEST_EXPECT_THAT(values, UnorderedElementsAre(Ge(2), 1, Eq(2)));
-    IUTEST_EXPECT_THAT(values, Not(UnorderedElementsAre(1, 1, 2)));
-    IUTEST_EXPECT_THAT(values, Not(UnorderedElementsAre(1, 2)));
+    IUTEST_EXPECT_THAT(actual_values, UnorderedElementsAre(1, 2, 2));
+    IUTEST_EXPECT_THAT(actual_values, UnorderedElementsAre(Ge(2), 1, Eq(2)));
+    IUTEST_EXPECT_THAT(actual_values, Not(UnorderedElementsAre(1, 1, 2)));
+    IUTEST_EXPECT_THAT(actual_values, Not(UnorderedElementsAre(1, 2)));
     IUTEST_EXPECT_THAT(fewer, Not(UnorderedElementsAre(1, 2, 2)));
     const int one[] = { 1 };
     IUTEST_EXPECT_THAT(one, UnorderedElementsAre(1));
@@ -130,7 +130,7 @@ IUTEST(UnorderedElementsAreMatcher, StringLiterals)
 IUTEST(UnorderedElementsAreMatcher, Nested)
 {
     ::std::vector< ::std::vector<int> > actual;
-    actual.push_back(::std::vector<int>(values, values + 3));
+    actual.push_back(::std::vector<int>(actual_values, actual_values + 3));
     actual.push_back(::std::vector<int>(fewer, fewer + 2));
     IUTEST_EXPECT_THAT(actual, UnorderedElementsAre(UnorderedElementsAre(1, 2), UnorderedElementsAre(2, 2, 1)));
 }
@@ -139,8 +139,8 @@ IUTEST(UnorderedElementsAreMatcher, Nested)
 #if IUTEST_HAS_INITIALIZER_LIST || (defined(IUTEST_USE_GMOCK) && IUTEST_HAS_CXX11)
 IUTEST(UnorderedElementsAreMatcher, InitializerList)
 {
-    IUTEST_EXPECT_THAT(values, UnorderedElementsAreArray({ 1, 2, 2 }));
-    IUTEST_EXPECT_THAT(values, UnorderedElementsAreArray({ Ge(1), Ge(2), Ge(2) }));
+    IUTEST_EXPECT_THAT(actual_values, UnorderedElementsAreArray({ 1, 2, 2 }));
+    IUTEST_EXPECT_THAT(actual_values, UnorderedElementsAreArray({ Ge(1), Ge(2), Ge(2) }));
     IUTEST_EXPECT_THAT(::std::vector<int>(), UnorderedElementsAreArray(::std::initializer_list<int>()));
 }
 #endif
@@ -149,11 +149,11 @@ IUTEST(UnorderedElementsAreMatcher, InitializerList)
 IUTEST(UnorderedElementsAreMatcher, Explanation)
 {
     ::std::ostringstream explanation;
-    IUTEST_EXPECT_FALSE(UnorderedElementsAreArray(missing).MatchAndExplain(values, &explanation));
+    IUTEST_EXPECT_FALSE(UnorderedElementsAreArray(missing).MatchAndExplain(actual_values, &explanation));
     IUTEST_EXPECT_THAT(explanation.str(), HasSubstr("unmatched expectation #2: is equal to 4"));
     IUTEST_EXPECT_THAT(explanation.str(), HasSubstr("unmatched element #2: 2"));
     explanation.str("");
-    IUTEST_EXPECT_TRUE(UnorderedElementsAreArray(expected).MatchAndExplain(values, &explanation));
+    IUTEST_EXPECT_TRUE(UnorderedElementsAreArray(expected_values).MatchAndExplain(actual_values, &explanation));
     IUTEST_EXPECT_TRUE(explanation.str().empty());
 }
 
@@ -163,11 +163,11 @@ IUTEST(UnorderedElementsAreMatcher, CopiesExpectations)
     const ::iutest::detail::UnorderedElementsAreMatcher< ::iutest::detail::UnorderedArrayExpectations<int> >
         saved = UnorderedElementsAreArray(expectations);
     expectations[0] = 9;
-    IUTEST_EXPECT_THAT(values, saved);
+    IUTEST_EXPECT_THAT(actual_values, saved);
 #if IUTEST_HAS_INITIALIZER_LIST
     const ::iutest::detail::UnorderedElementsAreMatcher< ::iutest::detail::UnorderedArrayExpectations<int> >
         from_list = UnorderedElementsAreArray({ 1, 2, 2 });
-    IUTEST_EXPECT_THAT(values, from_list);
+    IUTEST_EXPECT_THAT(actual_values, from_list);
 #endif
 }
 #endif
@@ -175,26 +175,26 @@ IUTEST(UnorderedElementsAreMatcher, CopiesExpectations)
 IUTEST(UnorderedElementsAreMatcher, FailureMessages)
 {
 #if !defined(IUTEST_USE_GMOCK)
-    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(values, UnorderedElementsAreArray(fewer)),
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(actual_values, UnorderedElementsAreArray(fewer)),
         "element count 3 differs from the expected count 2");
-    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(fewer, UnorderedElementsAreArray(expected)),
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(fewer, UnorderedElementsAreArray(expected_values)),
         "element count 2 differs from the expected count 3");
-    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(values, UnorderedElementsAreArray(missing)),
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(actual_values, UnorderedElementsAreArray(missing)),
         "unmatched expectation #2: is equal to 4");
-    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(values, UnorderedElementsAreArray(missing)),
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(actual_values, UnorderedElementsAreArray(missing)),
         "unmatched element #2: 2");
-    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(values, UnorderedElementsAreArray(duplicates)),
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(actual_values, UnorderedElementsAreArray(duplicates)),
         "matched 2 of 3 elements");
 #if IUTEST_HAS_MATCHER_ELEMENTSARE
-    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(values, UnorderedElementsAre(1, 2)),
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(actual_values, UnorderedElementsAre(1, 2)),
         "element count 3 differs from the expected count 2");
-    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(values, UnorderedElementsAre(1, 2, 4)),
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(actual_values, UnorderedElementsAre(1, 2, 4)),
         "unmatched expectation #2: is equal to 4");
 #endif
 #else
-    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(values, UnorderedElementsAreArray(fewer)), "2 elements");
-    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(values, UnorderedElementsAreArray(missing)), "4");
-    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(values, UnorderedElementsAreArray(duplicates)), "1");
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(actual_values, UnorderedElementsAreArray(fewer)), "2 elements");
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(actual_values, UnorderedElementsAreArray(missing)), "4");
+    IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(actual_values, UnorderedElementsAreArray(duplicates)), "1");
 #endif
 }
 
