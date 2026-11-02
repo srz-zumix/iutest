@@ -2831,6 +2831,80 @@ private:
     T m_expected;
 };
 
+#if IUTEST_HAS_RTTI
+template<typename T>
+struct DynamicCastMatcherHelper
+{
+    template<typename U, typename M>
+    static bool Match(const U& actual, M& matcher, ::std::ostream* listener)
+    {
+        T casted = dynamic_cast<T>(actual);
+        *listener << "which casts to " << PrintToString(casted);
+        return ExplainMatch(matcher, casted, listener);
+    }
+};
+
+template<typename T>
+struct DynamicCastMatcherHelper<T&>
+{
+    template<typename U, typename M>
+    static bool Match(const U& actual, M& matcher, ::std::ostream* listener)
+    {
+#if IUTEST_HAS_CXX11
+        const U* address = ::std::addressof(actual);
+#else
+        const U* address = reinterpret_cast<const U*>(
+            &const_cast<char&>(reinterpret_cast<const volatile char&>(actual)));
+#endif
+        const T* casted = dynamic_cast<const T*>(address);
+        if( casted == NULL )
+        {
+            *listener << "which cannot be dynamic_cast to " << GetTypeName<T>();
+            return false;
+        }
+        *listener << "which casts to " << PrintToString(*casted);
+        return ExplainMatch(matcher, *casted, listener);
+    }
+};
+
+/**
+ * @brief   WhenDynamicCastTo matcher
+*/
+template<typename T, typename M>
+class WhenDynamicCastToMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    explicit WhenDynamicCastToMatcher(const M& expected) : m_expected(expected) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual)
+    {
+        ::std::ostringstream explanation;
+        if IUTEST_COND_LIKELY( MatchAndExplain(actual, &explanation) )
+        {
+            return AssertionSuccess();
+        }
+        return AssertionFailure() << WhichIs() << "\n" << explanation.str();
+    }
+
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener)
+    {
+        return DynamicCastMatcherHelper<T>::Match(actual, m_expected, listener);
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        ::std::ostringstream strm;
+        strm << "WhenDynamicCastTo: ";
+        DescribeMatcherTo(m_expected, &strm);
+        return strm.str();
+    }
+private:
+    M m_expected;
+};
+#endif
+
 /**
  * @brief   Address matcher
 */
@@ -4563,6 +4637,19 @@ detail::PointeeMatcher<T> Pointee(const T& expected)
 {
     return detail::PointeeMatcher<T>(expected);
 }
+
+/**
+ * @brief   Make WhenDynamicCastTo matcher
+ * @note    Requires RTTI. A failed pointer cast is matched as NULL;
+ *          a failed reference cast never matches and does not throw.
+*/
+#if IUTEST_HAS_RTTI
+template<typename T, typename M>
+detail::WhenDynamicCastToMatcher<T, M> WhenDynamicCastTo(const M& expected)
+{
+    return detail::WhenDynamicCastToMatcher<T, M>(expected);
+}
+#endif
 
 /**
  * @brief   Make Address matcher
