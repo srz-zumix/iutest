@@ -45,6 +45,8 @@ IUTEST(UnorderedElementsAreMatcher, Empty)
 {
     const ::std::vector<int> empty;
     IUTEST_EXPECT_THAT(empty, UnorderedElementsAre());
+    IUTEST_EXPECT_THAT(::std::vector< ::std::string>(), UnorderedElementsAre());
+    IUTEST_EXPECT_THAT(::std::vector< ::std::string>(1, "value"), Not(UnorderedElementsAre()));
     IUTEST_EXPECT_THAT(empty, UnorderedElementsAreArray(empty));
     IUTEST_EXPECT_THAT(values, Not(UnorderedElementsAre()));
     IUTEST_EXPECT_THAT(empty, Not(UnorderedElementsAreArray(expected)));

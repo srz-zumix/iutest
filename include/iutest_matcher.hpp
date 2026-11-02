@@ -1634,6 +1634,18 @@ private:
 };
 
 /**
+ * @brief   Type-independent expectations for an empty container
+*/
+class UnorderedEmptyExpectations
+{
+public:
+    size_t size() const { return 0; }
+    void DescribeTo(::std::vector< ::std::string>&) const {}
+    template<typename U>
+    void Match(const U&, ::std::vector<bool>&) const {}
+};
+
+/**
  * @brief   Homogeneous expectations for unordered element matching
 */
 template<typename T>
@@ -4596,9 +4608,9 @@ UnorderedElementsAreArray(const T* values, size_t count)
 /**
  * @brief   Match an empty container
 */
-inline detail::UnorderedElementsAreMatcher<detail::UnorderedArrayExpectations<int> > UnorderedElementsAre()
+inline detail::UnorderedElementsAreMatcher<detail::UnorderedEmptyExpectations> UnorderedElementsAre()
 {
-    return UnorderedElementsAreArray(static_cast<const int*>(NULL), 0);
+    return detail::UnorderedElementsAreMatcher<detail::UnorderedEmptyExpectations>(detail::UnorderedEmptyExpectations());
 }
 
 #if IUTEST_HAS_MATCHER_ELEMENTSARE
