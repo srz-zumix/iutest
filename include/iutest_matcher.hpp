@@ -1634,6 +1634,171 @@ private:
 };
 
 /**
+ * @brief   Homogeneous expectations for unordered element matching
+*/
+template<typename T>
+class UnorderedArrayExpectations
+{
+public:
+    template<typename It>
+    UnorderedArrayExpectations(It begin, It end)
+    {
+        for( ; begin != end; ++begin ) m_values.push_back(*begin);
+    }
+
+    size_t size() const { return m_values.size(); }
+    void DescribeTo(::std::vector< ::std::string>& descriptions) const
+    {
+        for( size_t i = 0; i < size(); ++i )
+        {
+            ::std::ostringstream description;
+            T expected(m_values[i]);
+            DescribeMatcherTo(expected, &description);
+            descriptions.push_back(description.str());
+        }
+    }
+    template<typename U>
+    void Match(const U& actual, ::std::vector<bool>& row)
+    {
+        for( size_t i = 0; i < size(); ++i )
+        {
+            ::std::ostringstream inner;
+            T expected(m_values[i]);
+            row[i] = ExplainMatch(expected, actual, &inner);
+        }
+    }
+
+private:
+    ::std::vector<T> m_values;
+};
+
+#if IUTEST_HAS_MATCHER_ELEMENTSARE
+/**
+ * @brief   Heterogeneous expectations for unordered element matching
+*/
+template<typename T>
+class UnorderedTupleExpectations
+{
+public:
+    explicit UnorderedTupleExpectations(const T& values) : m_values(values) {}
+    size_t size() const { return tuples::tuple_size<T>::value; }
+    void DescribeTo(::std::vector< ::std::string>& descriptions) const { Describe<0>(descriptions); }
+    template<typename U>
+    void Match(const U& actual, ::std::vector<bool>& row) { Match<0>(actual, row); }
+
+private:
+    template<int N>
+    typename detail::enable_if<N == tuples::tuple_size<T>::value, void>::type
+    Describe(::std::vector< ::std::string>&) const {}
+    template<int N>
+    typename detail::disable_if<N == tuples::tuple_size<T>::value, void>::type
+    Describe(::std::vector< ::std::string>& descriptions) const
+    {
+        ::std::ostringstream description;
+        DescribeMatcherTo(tuples::get<N>(m_values), &description);
+        descriptions.push_back(description.str());
+        Describe<N + 1>(descriptions);
+    }
+    template<int N, typename U>
+    typename detail::enable_if<N == tuples::tuple_size<T>::value, void>::type
+    Match(const U&, ::std::vector<bool>&) {}
+    template<int N, typename U>
+    typename detail::disable_if<N == tuples::tuple_size<T>::value, void>::type
+    Match(const U& actual, ::std::vector<bool>& row)
+    {
+        ::std::ostringstream inner;
+        row[N] = ExplainMatch(tuples::get<N>(m_values), actual, &inner);
+        Match<N + 1>(actual, row);
+    }
+
+private:
+    T m_values;
+};
+#endif
+
+/**
+ * @brief   UnorderedElementsAre / UnorderedElementsAreArray matcher
+*/
+template<typename T>
+class UnorderedElementsAreMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    explicit UnorderedElementsAreMatcher(const T& expected) : m_expected(expected) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual) const
+    {
+        ::std::ostringstream explanation;
+        if( MatchAndExplain(actual, &explanation) ) return AssertionSuccess();
+        return AssertionFailure() << WhichIs() << "\n" << explanation.str();
+    }
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener) const
+    {
+        IUTEST_USING_BEGIN_END();
+        return Check(begin(actual), end(actual), listener);
+    }
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        ::std::vector< ::std::string> descriptions;
+        m_expected.DescribeTo(descriptions);
+        ::std::ostringstream description;
+        description << "UnorderedElementsAre: {";
+        for( size_t i = 0; i < descriptions.size(); ++i )
+        {
+            if( i != 0 ) description << ", ";
+            description << descriptions[i];
+        }
+        description << "}";
+        return description.str();
+    }
+
+private:
+    template<typename It>
+    bool Check(It begin, It end, ::std::ostream* listener) const
+    {
+        T expected(m_expected);
+        BipartiteMatcher::Graph graph;
+        ::std::vector< ::std::string> values;
+        for( ; begin != end; ++begin )
+        {
+            graph.push_back(::std::vector<bool>(m_expected.size(), false));
+            expected.Match(*begin, graph.back());
+            values.push_back(PrintToString(*begin));
+        }
+        if( graph.size() != m_expected.size() )
+        {
+            *listener << "whose element count " << graph.size()
+                      << " differs from the expected count " << m_expected.size();
+            return false;
+        }
+        ::std::vector<size_t> matches;
+        const size_t matched = BipartiteMatcher::FindMaximumMatching(graph, m_expected.size(), &matches);
+        if( matched == m_expected.size() ) return true;
+        *listener << "whose elements cannot be matched to distinct expectations (matched "
+                  << matched << " of " << graph.size() << " elements)";
+        ::std::vector< ::std::string> descriptions;
+        m_expected.DescribeTo(descriptions);
+        ::std::vector<bool> used(graph.size(), false);
+        for( size_t i = 0; i < matches.size(); ++i )
+        {
+            if( matches[i] == graph.size() )
+                *listener << "\nunmatched expectation #" << i << ": " << descriptions[i];
+            else
+                used[matches[i]] = true;
+        }
+        for( size_t i = 0; i < used.size(); ++i )
+        {
+            if( !used[i] ) *listener << "\nunmatched element #" << i << ": " << values[i];
+        }
+        return false;
+    }
+
+private:
+    T m_expected;
+};
+
+/**
  * @brief   IsSubsetOf matcher
 */
 template<typename T>
@@ -3440,7 +3605,7 @@ private:
     template<typename T, typename U, int N, int LAST>
     static AssertionResult Check_(T& matchers, const U& actual, typename detail::enable_if<N == LAST, void>::type*& = detail::enabler::value)
     {
-        AssertionResult ar = tuples::get<N>(matchers)(actual);
+        AssertionResult ar = CastToMatcher(tuples::get<N>(matchers))(actual);
         if IUTEST_COND_LIKELY( ar )
         {
             return ar;
@@ -3450,7 +3615,7 @@ private:
     template<typename T, typename U, int N, int LAST>
     static AssertionResult Check_(T& matchers, const U& actual, typename detail::disable_if<N == LAST, void>::type*& = detail::enabler::value)
     {
-        AssertionResult ar = tuples::get<N>(matchers)(actual);
+        AssertionResult ar = CastToMatcher(tuples::get<N>(matchers))(actual);
         if IUTEST_COND_LIKELY( ar )
         {
             return ar;
@@ -3461,12 +3626,12 @@ private:
     template<typename T, int N, int LAST>
     static ::std::string WhichIs_(const T& matchers, typename detail::enable_if<N == LAST, void>::type*& = detail::enabler::value)
     {
-        return tuples::get<N>(matchers).WhichIs();
+        return CastToMatcher(tuples::get<N>(matchers)).WhichIs();
     }
     template<typename T, int N, int LAST>
     static ::std::string WhichIs_(const T& matchers, typename detail::disable_if<N == LAST, void>::type*& = detail::enabler::value)
     {
-        return tuples::get<N>(matchers).WhichIs() + " or " + WhichIs_<T, N + 1, LAST>(matchers);
+        return CastToMatcher(tuples::get<N>(matchers)).WhichIs() + " or " + WhichIs_<T, N + 1, LAST>(matchers);
     }
 };
 
@@ -4374,6 +4539,105 @@ detail::LogicalArrayMatcher<T, false> AnyOfArray(const T* values, size_t count)
 {
     return detail::LogicalArrayMatcher<T, false>(values, count == 0 ? values : values + count);
 }
+
+/**
+ * @brief   Match a permutation of the supplied expectations
+*/
+template<typename Container>
+detail::UnorderedElementsAreMatcher<detail::UnorderedArrayExpectations<typename Container::value_type> >
+UnorderedElementsAreArray(const Container& container)
+{
+    typedef detail::UnorderedArrayExpectations<typename Container::value_type> Expectations;
+    return detail::UnorderedElementsAreMatcher<Expectations>(Expectations(container.begin(), container.end()));
+}
+
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+/** @overload */
+template<typename T, size_t SIZE>
+detail::UnorderedElementsAreMatcher<detail::UnorderedArrayExpectations<T> >
+UnorderedElementsAreArray(const T (&values)[SIZE])
+{
+    typedef detail::UnorderedArrayExpectations<T> Expectations;
+    return detail::UnorderedElementsAreMatcher<Expectations>(Expectations(values, values + SIZE));
+}
+
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+/** @overload */
+template<typename It>
+detail::UnorderedElementsAreMatcher<detail::UnorderedArrayExpectations<typename detail::IteratorTraits<It>::type> >
+UnorderedElementsAreArray(It begin, It end)
+{
+    typedef detail::UnorderedArrayExpectations<typename detail::IteratorTraits<It>::type> Expectations;
+    return detail::UnorderedElementsAreMatcher<Expectations>(Expectations(begin, end));
+}
+#endif
+
+#if IUTEST_HAS_INITIALIZER_LIST
+/** @overload */
+template<typename T>
+detail::UnorderedElementsAreMatcher<detail::UnorderedArrayExpectations<T> >
+UnorderedElementsAreArray(::std::initializer_list<T> values)
+{
+    typedef detail::UnorderedArrayExpectations<T> Expectations;
+    return detail::UnorderedElementsAreMatcher<Expectations>(Expectations(values.begin(), values.end()));
+}
+#endif
+#endif
+
+/** @overload */
+template<typename T>
+detail::UnorderedElementsAreMatcher<detail::UnorderedArrayExpectations<T> >
+UnorderedElementsAreArray(const T* values, size_t count)
+{
+    typedef detail::UnorderedArrayExpectations<T> Expectations;
+    return detail::UnorderedElementsAreMatcher<Expectations>(Expectations(values, count == 0 ? values : values + count));
+}
+
+/**
+ * @brief   Match an empty container
+*/
+inline detail::UnorderedElementsAreMatcher<detail::UnorderedArrayExpectations<int> > UnorderedElementsAre()
+{
+    return UnorderedElementsAreArray(static_cast<const int*>(NULL), 0);
+}
+
+#if IUTEST_HAS_MATCHER_ELEMENTSARE
+#if IUTEST_HAS_MATCHER_VARIADIC
+/**
+ * @brief   Match a permutation of values or matchers
+*/
+template<typename ...T>
+detail::UnorderedElementsAreMatcher<detail::UnorderedTupleExpectations<tuples::tuple<T...> > >
+UnorderedElementsAre(T... expected)
+{
+    typedef detail::UnorderedTupleExpectations<tuples::tuple<T...> > Expectations;
+    return detail::UnorderedElementsAreMatcher<Expectations>(Expectations(tuples::tuple<T...>(expected...)));
+}
+#else
+#define IIUT_DECL_UNORDERED_ELEMENTSARE(n)                                                \
+    template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                                      \
+    detail::UnorderedElementsAreMatcher<detail::UnorderedTupleExpectations<                \
+        tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > > >                                 \
+    UnorderedElementsAre(IUTEST_PP_ENUM_BINARY_PARAMS(n, T, m)) {                          \
+        typedef detail::UnorderedTupleExpectations<                                      \
+            tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > > Expectations;                  \
+        return detail::UnorderedElementsAreMatcher<Expectations>(                        \
+            Expectations(tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) >(IUTEST_PP_ENUM_PARAMS(n, m)))); }
+
+IIUT_DECL_UNORDERED_ELEMENTSARE(1)
+IIUT_DECL_UNORDERED_ELEMENTSARE(2)
+IIUT_DECL_UNORDERED_ELEMENTSARE(3)
+IIUT_DECL_UNORDERED_ELEMENTSARE(4)
+IIUT_DECL_UNORDERED_ELEMENTSARE(5)
+IIUT_DECL_UNORDERED_ELEMENTSARE(6)
+IIUT_DECL_UNORDERED_ELEMENTSARE(7)
+IIUT_DECL_UNORDERED_ELEMENTSARE(8)
+IIUT_DECL_UNORDERED_ELEMENTSARE(9)
+IIUT_DECL_UNORDERED_ELEMENTSARE(10)
+
+#undef IIUT_DECL_UNORDERED_ELEMENTSARE
+#endif
+#endif
 
 /**
  * @brief   Make ElementsAreArray matcher
