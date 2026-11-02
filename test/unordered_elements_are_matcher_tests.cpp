@@ -39,6 +39,63 @@ typedef ::iutest::detail::GeMatcher<int> IntMatcher;
 typedef ::testing::Matcher<int> IntMatcher;
 #endif
 
+#if !defined(IUTEST_USE_GMOCK)
+class StatefulMatcher : public ::iutest::detail::IMatcher
+{
+public:
+    explicit StatefulMatcher(int* copies = NULL) : m_calls(0), m_copies(copies) {}
+    StatefulMatcher(const StatefulMatcher& other)
+        : ::iutest::detail::IMatcher(other), m_calls(other.m_calls), m_copies(other.m_copies)
+    {
+        if( m_copies != NULL ) ++*m_copies;
+    }
+
+    bool operator ()(const int& actual) { return ++m_calls == actual; }
+    bool MatchAndExplain(const int& actual, ::std::ostream*) { return (*this)(actual); }
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return "matches the call count"; }
+
+private:
+    int m_calls;
+    int* m_copies;
+};
+
+class MinimalIterator
+{
+public:
+    explicit MinimalIterator(const int* current) : m_current(current) {}
+    const int& operator *() const { return *m_current; }
+    MinimalIterator& operator ++() { ++m_current; return *this; }
+    bool operator !=(const MinimalIterator& other) const { return m_current != other.m_current; }
+
+private:
+    const int* m_current;
+};
+
+class MinimalRange
+{
+public:
+    typedef int value_type;
+    MinimalRange(const int* first, const int* last) : m_first(first), m_last(last) {}
+    MinimalIterator begin() const { return MinimalIterator(m_first); }
+    MinimalIterator end() const { return MinimalIterator(m_last); }
+
+private:
+    const int* m_first;
+    const int* m_last;
+};
+
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING) && !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+typedef ::iutest::detail::UnorderedElementsAreMatcher< ::iutest::detail::UnorderedArrayExpectations<int> >
+    IntArrayMatcher;
+
+IntArrayMatcher StreamExpectations()
+{
+    ::std::istringstream input("1 2 2");
+    return UnorderedElementsAreArray(::std::istream_iterator<int>(input), ::std::istream_iterator<int>());
+}
+#endif
+#endif
+
 } // namespace
 
 IUTEST(UnorderedElementsAreMatcher, Empty)
@@ -125,6 +182,9 @@ IUTEST(UnorderedElementsAreMatcher, StringLiterals)
     const ::std::string actual[] = { "two", "one" };
     IUTEST_EXPECT_THAT(actual, UnorderedElementsAre("one", "two"));
     IUTEST_EXPECT_THAT(actual, Not(UnorderedElementsAre("one", "three")));
+    const char first[] = "one";
+    char second[] = "two";
+    IUTEST_EXPECT_THAT(actual, UnorderedElementsAre(first, second));
 }
 
 IUTEST(UnorderedElementsAreMatcher, Nested)
@@ -170,6 +230,52 @@ IUTEST(UnorderedElementsAreMatcher, CopiesExpectations)
     IUTEST_EXPECT_THAT(actual_values, from_list);
 #endif
 }
+
+IUTEST(UnorderedElementsAreMatcher, ContainerWithMinimalIterators)
+{
+    const MinimalRange expectations(expected_values, expected_values + 3);
+    IUTEST_EXPECT_THAT(actual_values, UnorderedElementsAreArray(expectations));
+}
+
+IUTEST(UnorderedElementsAreMatcher, ArrayMatcherCopiesOnlyForComparisons)
+{
+    int copies = 0;
+    const StatefulMatcher expectations[] = { StatefulMatcher(&copies), StatefulMatcher(&copies) };
+    typedef ::iutest::detail::UnorderedArrayExpectations<StatefulMatcher> Expectations;
+    const ::iutest::detail::UnorderedElementsAreMatcher<Expectations> matcher =
+        UnorderedElementsAreArray(expectations);
+    const int actual[] = { 1, 1 };
+    ::std::ostringstream explanation;
+    for( int i = 0; i < 2; ++i )
+    {
+        copies = 0;
+        IUTEST_ASSERT_TRUE(matcher.MatchAndExplain(actual, &explanation));
+        IUTEST_EXPECT_EQ(4, copies);
+    }
+}
+
+#if IUTEST_HAS_MATCHER_ELEMENTSARE
+IUTEST(UnorderedElementsAreMatcher, TupleMatcherStateIsIsolatedBetweenChecks)
+{
+    typedef ::iutest::tuples::tuple<StatefulMatcher, StatefulMatcher> Matchers;
+    typedef ::iutest::detail::UnorderedTupleExpectations<Matchers> Expectations;
+    const ::iutest::detail::UnorderedElementsAreMatcher<Expectations> matcher =
+        UnorderedElementsAre(StatefulMatcher(), StatefulMatcher());
+    const int actual[] = { 1, 2 };
+    ::std::ostringstream explanation;
+    IUTEST_EXPECT_TRUE(matcher.MatchAndExplain(actual, &explanation));
+    IUTEST_EXPECT_TRUE(matcher.MatchAndExplain(actual, &explanation));
+}
+#endif
+
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING) && !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+IUTEST(UnorderedElementsAreMatcher, RetainsStreamExpectations)
+{
+    const IntArrayMatcher matcher = StreamExpectations();
+    IUTEST_EXPECT_THAT(actual_values, matcher);
+    IUTEST_EXPECT_THAT(actual_values, matcher);
+}
+#endif
 #endif
 
 IUTEST(UnorderedElementsAreMatcher, FailureMessages)

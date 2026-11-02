@@ -1639,6 +1639,8 @@ private:
 class UnorderedEmptyExpectations
 {
 public:
+    typedef const UnorderedEmptyExpectations& MatchState;
+
     size_t size() const { return 0; }
     void DescribeTo(::std::vector< ::std::string>&) const {}
     template<typename U>
@@ -1652,10 +1654,13 @@ template<typename T>
 class UnorderedArrayExpectations
 {
 public:
+    typedef const UnorderedArrayExpectations<T>& MatchState;
+
     template<typename It>
-    UnorderedArrayExpectations(It begin, It end)
+    UnorderedArrayExpectations(const It& begin, const It& end)
     {
-        for( ; begin != end; ++begin ) m_values.push_back(*begin);
+        It it(begin);
+        for( ; it != end; ++it ) m_values.push_back(*it);
     }
 
     size_t size() const { return m_values.size(); }
@@ -1671,7 +1676,7 @@ public:
         }
     }
     template<typename U>
-    void Match(const U& actual, ::std::vector<bool>& row)
+    void Match(const U& actual, ::std::vector<bool>& row) const
     {
         typename ::std::list<T>::const_iterator it = m_values.begin();
         for( size_t i = 0; it != m_values.end(); ++it, ++i )
@@ -1694,6 +1699,9 @@ template<typename T>
 class UnorderedTupleExpectations
 {
 public:
+    // Matchers share state within a check, but not between checks.
+    typedef UnorderedTupleExpectations<T> MatchState;
+
     explicit UnorderedTupleExpectations(const T& values) : m_values(values) {}
     size_t size() const { return tuples::tuple_size<T>::value; }
     void DescribeTo(::std::vector< ::std::string>& descriptions) const { Describe<0>(descriptions); }
@@ -1771,7 +1779,7 @@ private:
     template<typename It>
     bool Check(It begin, It end, ::std::ostream* listener) const
     {
-        T expected(m_expected);
+        typename T::MatchState expected(m_expected);
         BipartiteMatcher::Graph graph;
         ::std::vector< ::std::string> values;
         for( ; begin != end; ++begin )
@@ -1797,9 +1805,13 @@ private:
         for( size_t i = 0; i < matches.size(); ++i )
         {
             if( matches[i] == graph.size() )
+            {
                 *listener << "\nunmatched expectation #" << i << ": " << descriptions[i];
+            }
             else
+            {
                 used[matches[i]] = true;
+            }
         }
         for( size_t i = 0; i < used.size(); ++i )
         {
@@ -4572,12 +4584,17 @@ detail::UnorderedElementsAreMatcher<detail::UnorderedArrayExpectations<T> >
 UnorderedElementsAreArray(const T (&values)[SIZE])
 {
     typedef detail::UnorderedArrayExpectations<T> Expectations;
-    return detail::UnorderedElementsAreMatcher<Expectations>(Expectations(values, values + SIZE));
+    const T* first = values;
+    return detail::UnorderedElementsAreMatcher<Expectations>(Expectations(first, first + SIZE));
 }
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-/** @overload */
+/**
+ * @overload
+ * @note    Pass by value to decay arrays to pointers.
+*/
 template<typename It>
+// @infer-ignore PULSE_CONST_REFABLE
 detail::UnorderedElementsAreMatcher<detail::UnorderedArrayExpectations<typename detail::IteratorTraits<It>::type> >
 UnorderedElementsAreArray(It begin, It end)
 {
@@ -4628,6 +4645,7 @@ UnorderedElementsAre(T... expected)
     return detail::UnorderedElementsAreMatcher<Expectations>(Expectations(tuples::tuple<T...>(expected...)));
 }
 #else
+// Pass by value to decay arrays, including string literals, to pointers.
 #define IIUT_DECL_UNORDERED_ELEMENTSARE(n)                                                \
     template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                                      \
     detail::UnorderedElementsAreMatcher<detail::UnorderedTupleExpectations<                \
