@@ -237,6 +237,17 @@ IUTEST(UnorderedElementsAreMatcher, ContainerWithMinimalIterators)
     IUTEST_EXPECT_THAT(actual_values, UnorderedElementsAreArray(expectations));
 }
 
+IUTEST(UnorderedElementsAreMatcher, PreservesMinimalIteratorPosition)
+{
+    MinimalIterator begin(expected_values);
+    const MinimalIterator end(expected_values + 3);
+    typedef ::iutest::detail::UnorderedArrayExpectations<int> Expectations;
+    const Expectations captured(begin, end);
+    const ::iutest::detail::UnorderedElementsAreMatcher<Expectations> matcher(captured);
+    IUTEST_EXPECT_THAT(actual_values, matcher);
+    IUTEST_EXPECT_FALSE(begin != MinimalIterator(expected_values));
+}
+
 IUTEST(UnorderedElementsAreMatcher, ArrayMatcherCopiesOnlyForComparisons)
 {
     int copies = 0;

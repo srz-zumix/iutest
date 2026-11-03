@@ -1659,6 +1659,8 @@ public:
     template<typename It>
     UnorderedArrayExpectations(const It& begin, const It& end)
     {
+        // Traversal requires a mutable copy of begin.
+        // @infer-ignore PULSE_UNNECESSARY_COPY
         It it(begin);
         for( ; it != end; ++it ) m_values.push_back(*it);
     }
