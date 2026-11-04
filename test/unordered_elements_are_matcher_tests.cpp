@@ -21,7 +21,15 @@
 
 #if IUTEST_HAS_MATCHERS
 
-using namespace ::iutest::matchers;
+#if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
+using ::iutest::matchers::AnyOf;
+#endif
+using ::iutest::matchers::Eq;
+using ::iutest::matchers::Ge;
+using ::iutest::matchers::HasSubstr;
+using ::iutest::matchers::Not;
+using ::iutest::matchers::UnorderedElementsAre;
+using ::iutest::matchers::UnorderedElementsAreArray;
 
 namespace {
 
