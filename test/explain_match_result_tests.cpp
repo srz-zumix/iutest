@@ -24,11 +24,9 @@ using ::iutest::matchers::ExplainMatchResult;
 #if defined(IUTEST_USE_GTEST)
 typedef ::testing::StringMatchResultListener TestListener;
 typedef ::testing::MatchResultListener MatcherExplanation;
-#define TEST_EXPLAIN_MATCHER(matcher) ::testing::MakePolymorphicMatcher(matcher)
 #else
 typedef ::std::ostringstream TestListener;
 typedef ::std::ostream MatcherExplanation;
-#define TEST_EXPLAIN_MATCHER(matcher) matcher
 #endif
 
 IUTEST(ExplainMatchResult, MatcherWithoutExplanation)
@@ -53,6 +51,12 @@ IUTEST(ExplainMatchResult, PlainValue)
 
 #if defined(IUTEST_USE_GTEST) || (!defined(IUTEST_NO_SFINAE) \
     && !(defined(__GNUC__) && !defined(__clang__) && __GNUC__ < 4))
+
+#if defined(IUTEST_USE_GTEST)
+#define TEST_EXPLAIN_MATCHER(matcher) ::testing::MakePolymorphicMatcher(matcher)
+#else
+#define TEST_EXPLAIN_MATCHER(matcher) matcher
+#endif
 
 namespace {
 
@@ -107,9 +111,8 @@ IUTEST(ExplainMatchResult, ForwardFailureExplanation)
     IUTEST_EXPECT_EQ("whose remainder is 1", listener.str());
 }
 
-#endif
-
 #undef TEST_EXPLAIN_MATCHER
+#endif
 
 #endif
 
