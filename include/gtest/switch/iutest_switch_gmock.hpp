@@ -332,6 +332,8 @@ namespace matchers
 
     using ::testing::ElementsAre;
     using ::testing::ElementsAreArray;
+    using ::testing::UnorderedElementsAre;
+    using ::testing::UnorderedElementsAreArray;
 #if IUTEST_HAS_MATCHER_FIELDSARE
     using ::testing::FieldsAre;
 #endif
