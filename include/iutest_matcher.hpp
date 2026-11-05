@@ -349,6 +349,33 @@ public:
 };
 
 /**
+ * @brief   Truly matcher
+*/
+template<typename Predicate>
+class TrulyMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    explicit TrulyMatcher(const Predicate& predicate) : m_predicate(predicate) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual) const
+    {
+        if IUTEST_COND_LIKELY( static_cast<bool>(m_predicate(actual)) )
+        {
+            return AssertionSuccess();
+        }
+        return AssertionFailure() << WhichIs();
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return "satisfies the given predicate"; }
+    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << WhichIs(); }
+    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << "doesn't satisfy the given predicate"; }
+
+private:
+    Predicate m_predicate;
+};
+
+/**
  * @brief   IsNan matcher
 */
 class IsNanMatcher IUTEST_CXX_FINAL : public IMatcher
@@ -3929,6 +3956,16 @@ inline detail::IsTrueMatcher IsTrue()
 inline detail::IsFalseMatcher IsFalse()
 {
     return detail::IsFalseMatcher();
+}
+
+/**
+ * @brief   Make Truly matcher
+ * @details predicate(argument) converts to true
+*/
+template<typename Predicate>
+inline detail::TrulyMatcher<Predicate> Truly(Predicate predicate)
+{
+    return detail::TrulyMatcher<Predicate>(predicate);
 }
 
 /**
