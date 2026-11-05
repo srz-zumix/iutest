@@ -108,6 +108,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/catch_exceptions_tests \
 		$(OUTDIR)/charcode_tests \
 		$(OUTDIR)/conditional_matcher_tests \
+		$(OUTDIR)/truly_matcher_tests \
 		$(OUTDIR)/commandline_tests \
 		$(OUTDIR)/convert_generator_tests \
 		$(OUTDIR)/csvparams_invalid_file_tests \
