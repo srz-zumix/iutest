@@ -3786,6 +3786,12 @@ IUTEST_PRAGMA_ASSIGNMENT_OPERATOR_COULD_NOT_GENERATE_WARN_DISABLE_END()
 namespace matchers
 {
 
+/**
+ * @brief   Returns whether actual matches matcher and writes its explanation to listener.
+ * @param   matcher     A matcher or a value to compare for equality.
+ * @param   actual      The value to match.
+ * @param   listener    Output stream for explanations, on success or failure.
+*/
 template<typename M, typename U>
 bool ExplainMatchResult(M matcher, const U& actual, ::std::ostream* listener)
 {

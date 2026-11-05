@@ -248,6 +248,7 @@ AnyOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 m7, M8 m8, M9 m9, M10 m10) {
 namespace matchers
 {
 
+    using ::testing::ExplainMatchResult;
     using ::testing::Not;
 #if IUTEST_HAS_MATCHER_CONDITIONAL
     using ::testing::Conditional;
