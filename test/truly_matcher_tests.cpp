@@ -109,7 +109,7 @@ IUTEST(TrulyMatcher, PassesArgumentByReference)
 #if IUTEST_HAS_LAMBDA
 IUTEST(TrulyMatcher, Lambda)
 {
-    const int threshold = 3;
+    int threshold = 3;
     IUTEST_EXPECT_THAT(4, Truly([threshold](int value) { return value > threshold; }));
     IUTEST_EXPECT_THAT(3, Not(Truly([threshold](int value) { return value > threshold; })));
 }
