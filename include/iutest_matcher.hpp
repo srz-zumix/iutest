@@ -31,13 +31,12 @@
 #include <utility>
 #include <vector>
 
-#if IUTEST_HAS_MATCHER_FIELDSARE
+#if IUTEST_HAS_MATCHER_FIELDSARE || (IUTEST_HAS_STD_TUPLE && IUTEST_HAS_VARIADIC_TEMPLATES)
 #include <tuple>
-#include <type_traits>
 #endif
 
-#if IUTEST_HAS_STD_TUPLE && IUTEST_HAS_VARIADIC_TEMPLATES
-#include <tuple>
+#if IUTEST_HAS_MATCHER_FIELDSARE
+#include <type_traits>
 #endif
 
 //======================================================================
@@ -206,12 +205,13 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& m)
     }
 
 #if IUTEST_HAS_STD_TUPLE && IUTEST_HAS_VARIADIC_TEMPLATES
-#define IIUT_COMPARE_MATCHER_TUPLE_ \
+#define IIUT_COMPARE_MATCHER_TUPLE_(op) \
     template<typename T, typename U>AssertionResult operator ()(const ::std::tuple<T, U>& actual) const { \
-        return (*this)(::std::get<0>(actual), ::std::get<1>(actual)); \
+        if IUTEST_COND_LIKELY( ::std::get<0>(actual) op ::std::get<1>(actual) ) return AssertionSuccess(); \
+        return AssertionFailure() << WhichIs(); \
     }
 #else
-#define IIUT_COMPARE_MATCHER_TUPLE_
+#define IIUT_COMPARE_MATCHER_TUPLE_(op)
 #endif
 
 #define IIUT_DECL_COMPARE_MATCHER2(name, op) \
@@ -222,7 +222,7 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& m)
         if IUTEST_COND_LIKELY( actual op expected ) return AssertionSuccess();                      \
         return AssertionFailure() << WhichIs() << ": " << actual << " vs " << expected;             \
     }                                                                                               \
-    IIUT_COMPARE_MATCHER_TUPLE_                                                                      \
+    IIUT_COMPARE_MATCHER_TUPLE_(op)                                                                  \
     }
 
 
@@ -3016,7 +3016,12 @@ public:
             selected(::std::get<Indices>(actual)...);
         ::std::ostringstream inner;
         const bool matched = ExplainMatch(m_matcher, selected, &inner);
-        *listener << "whose selected arguments are " << PrintToString(selected);
+        *listener << "whose selected arguments are (";
+        size_t argument_index = 0;
+        const int unused[] = { 0, ((*listener << (argument_index++ == 0 ? "" : ", "),
+            UniversalPrint(::std::get<Indices>(actual), listener)), 0)... };
+        IUTEST_UNUSED_VAR(unused);
+        *listener << ")";
         if( !inner.str().empty() ) *listener << ", " << inner.str();
         return matched;
     }
@@ -3042,12 +3047,9 @@ private:
     static void DescribeIndices(::std::ostream* os)
     {
         *os << "Args<";
-        const size_t indices[] = { Indices..., 0 };
-        for( size_t i = 0; i < sizeof...(Indices); ++i )
-        {
-            if( i != 0 ) *os << ", ";
-            *os << indices[i];
-        }
+        size_t index = 0;
+        const int unused[] = { 0, ((*os << (index++ == 0 ? "" : ", ") << Indices), 0)... };
+        IUTEST_UNUSED_VAR(unused);
         *os << ">: ";
     }
 
