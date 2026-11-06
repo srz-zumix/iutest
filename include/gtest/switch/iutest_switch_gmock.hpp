@@ -287,6 +287,7 @@ AnyOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 m7, M8 m8, M9 m9, M10 m10) {
 namespace matchers
 {
 
+    using ::testing::ExplainMatchResult;
     using ::testing::Not;
 #if IUTEST_HAS_MATCHER_CONDITIONAL
     using ::testing::Conditional;
@@ -299,6 +300,7 @@ namespace matchers
     using ::testing::Ge;
     using ::testing::IsNull;
     using ::testing::NotNull;
+    using ::testing::Truly;
 #if GMOCK_VER >= 0x01080100
     using ::testing::IsTrue;
     using ::testing::IsFalse;
@@ -332,8 +334,11 @@ namespace matchers
 
     using ::testing::Contains;
     using ::testing::ContainerEq;
+    using ::testing::WhenSorted;
+    using ::testing::WhenSortedBy;
 #if GMOCK_VER >= 0x01080100
     using ::testing::IsSubsetOf;
+    using ::testing::IsSupersetOf;
 #endif
 #if IUTEST_HAS_MATCHER_EACH
     using ::testing::Each;
@@ -355,6 +360,9 @@ namespace matchers
     using ::testing::DistanceFrom;
 #endif
     using ::testing::Pointee;
+#if IUTEST_HAS_RTTI && GTEST_HAS_RTTI && GMOCK_VER >= 0x01080000
+    using ::testing::WhenDynamicCastTo;
+#endif
     using ::testing::Ref;
 #if GMOCK_VER >= 0x01110000
     using ::testing::Address;
@@ -365,6 +373,8 @@ namespace matchers
 
     using ::testing::ElementsAre;
     using ::testing::ElementsAreArray;
+    using ::testing::UnorderedElementsAre;
+    using ::testing::UnorderedElementsAreArray;
 #if IUTEST_HAS_MATCHER_FIELDSARE
     using ::testing::FieldsAre;
 #endif
@@ -376,6 +386,7 @@ namespace matchers
     using ::testing::Optional;
 #endif
 #if GMOCK_VER >= 0x01080100
+    using ::testing::AnyWith;
     using ::testing::VariantWith;
 #endif
     using ::testing::AllOf;

@@ -23,11 +23,13 @@
 
 #if IUTEST_HAS_CXX11
 #include <memory>
-#include <utility>
 #endif
 
+#include <algorithm>
 #include <list>
 #include <sstream>
+#include <utility>
+#include <vector>
 
 #if IUTEST_HAS_MATCHER_FIELDSARE
 #include <tuple>
@@ -614,6 +616,33 @@ public:
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return "Is False"; }
     void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << "is false"; }
     void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << "is true"; }
+};
+
+/**
+ * @brief   Truly matcher
+*/
+template<typename Predicate>
+class TrulyMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    explicit TrulyMatcher(const Predicate& predicate) : m_predicate(predicate) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual) const
+    {
+        if IUTEST_COND_LIKELY( static_cast<bool>(m_predicate(actual)) )
+        {
+            return AssertionSuccess();
+        }
+        return AssertionFailure() << WhichIs();
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return "satisfies the given predicate"; }
+    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << WhichIs(); }
+    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << "doesn't satisfy the given predicate"; }
+
+private:
+    Predicate m_predicate;
 };
 
 /**
@@ -1376,6 +1405,89 @@ private:
 #endif
 
 /**
+ * @brief   Default comparator for WhenSorted
+*/
+struct WhenSortedLess
+{
+    template<typename T>
+    bool operator ()(const T& lhs, const T& rhs) const { return lhs < rhs; }
+};
+
+template<typename T>
+struct WhenSortedValue
+{
+    typedef T type;
+};
+
+template<typename K, typename V>
+struct WhenSortedValue< ::std::pair<const K, V> >
+{
+    typedef ::std::pair<K, V> type;
+};
+
+/**
+ * @brief   Sorted container matcher
+*/
+template<typename C, typename T>
+class WhenSortedMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    WhenSortedMatcher(C comparator, const T& expected) : m_comparator(comparator), m_expected(expected) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual)
+    {
+        ::std::ostringstream explanation;
+        if( MatchAndExplain(actual, &explanation) ) return AssertionSuccess();
+        return AssertionFailure() << WhichIs() << "\n" << explanation.str();
+    }
+
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener)
+    {
+        IUTEST_USING_BEGIN_END();
+        return SortAndMatch(begin(actual), end(actual), listener);
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        ::std::ostringstream strm;
+        strm << "WhenSorted: ";
+        DescribeMatcherTo(m_expected, &strm);
+        return strm.str();
+    }
+
+    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
+    {
+        *os << "(when sorted) ";
+        DescribeMatcherTo(m_expected, os);
+    }
+
+    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
+    {
+        *os << "(when sorted) ";
+        DescribeMatcherNegationTo(m_expected, os);
+    }
+
+private:
+    template<typename Ite>
+    bool SortAndMatch(Ite first, Ite last, ::std::ostream* listener)
+    {
+        typedef typename WhenSortedValue<typename IteratorTraits<Ite>::type>::type Value;
+        ::std::vector<Value> sorted(first, last);
+        ::std::sort(sorted.begin(), sorted.end(), m_comparator);
+        *listener << "which is " << PrintToString(sorted) << " when sorted";
+        ::std::ostringstream inner;
+        const bool matched = ExplainMatch(m_expected, sorted, &inner);
+        if( !inner.str().empty() ) *listener << ", " << inner.str();
+        return matched;
+    }
+
+    C m_comparator;
+    T m_expected;
+};
+
+/**
  * @brief   ContainerEq matcher
 */
 template<typename T>
@@ -1565,6 +1677,48 @@ private:
 
 #endif
 
+#if IUTEST_HAS_CXX_HDR_ANY
+
+/**
+ * @brief   AnyWith matcher
+*/
+template<typename T, typename M>
+class AnyWithMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    explicit AnyWithMatcher(const M& matcher) : m_matcher(matcher) {}
+
+    AssertionResult operator ()(const ::std::any& actual) const
+    {
+        const T* value = ::std::any_cast<T>(&actual);
+        if( value == NULL )
+        {
+            return AssertionFailure() << WhichIs()
+                << (actual.has_value() ? " (actual type does not match)" : " (empty)");
+        }
+        M matcher(m_matcher);
+        const AssertionResult ar = CastToMatcher(matcher)(*value);
+        if( ar )
+        {
+            return AssertionSuccess();
+        }
+        return AssertionFailure() << WhichIs() << " (value = " << PrintToString(*value) << "): " << ar.message();
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        iu_global_format_stringstream strm;
+        strm << "AnyWith<" << detail::GetTypeNameProxy<T>::GetTypeName()
+            << ">: " << PrintToString(m_matcher);
+        return strm.str();
+    }
+
+private:
+    M m_matcher;
+};
+
+#endif
+
 #if IUTEST_HAS_CXX_HDR_VARIANT
 
 /**
@@ -1744,7 +1898,8 @@ class BipartiteMatcher
 public:
     typedef ::std::vector< ::std::vector<bool> > Graph;
 
-    static size_t FindMaximumMatching(const Graph& graph, size_t expected_count)
+    static size_t FindMaximumMatching(const Graph& graph, size_t expected_count,
+                                      ::std::vector<size_t>* expected_matches = NULL)
     {
         ::std::vector<size_t> matches(expected_count, graph.size());
         size_t count = 0;
@@ -1753,6 +1908,7 @@ public:
             ::std::vector<bool> visited(expected_count, false);
             if( Augment(graph, i, visited, matches) ) ++count;
         }
+        if( expected_matches != NULL ) expected_matches->swap(matches);
         return count;
     }
 
@@ -1772,6 +1928,199 @@ private:
         }
         return false;
     }
+};
+
+/**
+ * @brief   Type-independent expectations for an empty container
+*/
+class UnorderedEmptyExpectations
+{
+public:
+    typedef const UnorderedEmptyExpectations& MatchState;
+
+    size_t size() const { return 0; }
+    void DescribeTo(::std::vector< ::std::string>&) const {}
+    template<typename U>
+    void Match(const U&, ::std::vector<bool>&) const {}
+};
+
+/**
+ * @brief   Homogeneous expectations for unordered element matching
+*/
+template<typename T>
+class UnorderedArrayExpectations
+{
+public:
+    typedef const UnorderedArrayExpectations<T>& MatchState;
+
+    template<typename It>
+    UnorderedArrayExpectations(const It& begin, const It& end)
+    {
+        // Traversal requires a mutable copy of begin.
+        // @infer-ignore PULSE_UNNECESSARY_COPY
+        It it(begin);
+        for( ; it != end; ++it ) m_values.push_back(*it);
+    }
+
+    size_t size() const { return m_values.size(); }
+    void DescribeTo(::std::vector< ::std::string>& descriptions) const
+    {
+        typename ::std::list<T>::const_iterator it = m_values.begin();
+        for( ; it != m_values.end(); ++it )
+        {
+            ::std::ostringstream description;
+            T expected(*it);
+            DescribeMatcherTo(expected, &description);
+            descriptions.push_back(description.str());
+        }
+    }
+    template<typename U>
+    void Match(const U& actual, ::std::vector<bool>& row) const
+    {
+        typename ::std::list<T>::const_iterator it = m_values.begin();
+        for( size_t i = 0; it != m_values.end(); ++it, ++i )
+        {
+            ::std::ostringstream inner;
+            T expected(*it);
+            row[i] = ExplainMatch(expected, actual, &inner);
+        }
+    }
+
+private:
+    ::std::list<T> m_values;
+};
+
+#if IUTEST_HAS_MATCHER_ELEMENTSARE
+/**
+ * @brief   Heterogeneous expectations for unordered element matching
+*/
+template<typename T>
+class UnorderedTupleExpectations
+{
+public:
+    // Matchers share state within a check, but not between checks.
+    typedef UnorderedTupleExpectations<T> MatchState;
+
+    explicit UnorderedTupleExpectations(const T& values) : m_values(values) {}
+    size_t size() const { return tuples::tuple_size<T>::value; }
+    void DescribeTo(::std::vector< ::std::string>& descriptions) const { Describe<0>(descriptions); }
+    template<typename U>
+    void Match(const U& actual, ::std::vector<bool>& row) { Match<0>(actual, row); }
+
+private:
+    template<int N>
+    typename detail::enable_if<N == tuples::tuple_size<T>::value, void>::type
+    Describe(::std::vector< ::std::string>&) const {}
+    template<int N>
+    typename detail::disable_if<N == tuples::tuple_size<T>::value, void>::type
+    Describe(::std::vector< ::std::string>& descriptions) const
+    {
+        ::std::ostringstream description;
+        DescribeMatcherTo(tuples::get<N>(m_values), &description);
+        descriptions.push_back(description.str());
+        Describe<N + 1>(descriptions);
+    }
+    template<int N, typename U>
+    typename detail::enable_if<N == tuples::tuple_size<T>::value, void>::type
+    Match(const U&, ::std::vector<bool>&) {}
+    template<int N, typename U>
+    typename detail::disable_if<N == tuples::tuple_size<T>::value, void>::type
+    Match(const U& actual, ::std::vector<bool>& row)
+    {
+        ::std::ostringstream inner;
+        row[N] = ExplainMatch(tuples::get<N>(m_values), actual, &inner);
+        Match<N + 1>(actual, row);
+    }
+
+private:
+    T m_values;
+};
+#endif
+
+/**
+ * @brief   UnorderedElementsAre / UnorderedElementsAreArray matcher
+*/
+template<typename T>
+class UnorderedElementsAreMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    explicit UnorderedElementsAreMatcher(const T& expected) : m_expected(expected) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual) const
+    {
+        ::std::ostringstream explanation;
+        if( MatchAndExplain(actual, &explanation) ) return AssertionSuccess();
+        return AssertionFailure() << WhichIs() << "\n" << explanation.str();
+    }
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener) const
+    {
+        IUTEST_USING_BEGIN_END();
+        return Check(begin(actual), end(actual), listener);
+    }
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        ::std::vector< ::std::string> descriptions;
+        m_expected.DescribeTo(descriptions);
+        ::std::ostringstream description;
+        description << "UnorderedElementsAre: {";
+        for( size_t i = 0; i < descriptions.size(); ++i )
+        {
+            if( i != 0 ) description << ", ";
+            description << descriptions[i];
+        }
+        description << "}";
+        return description.str();
+    }
+
+private:
+    template<typename It>
+    bool Check(It begin, It end, ::std::ostream* listener) const
+    {
+        typename T::MatchState expected(m_expected);
+        BipartiteMatcher::Graph graph;
+        ::std::vector< ::std::string> values;
+        for( ; begin != end; ++begin )
+        {
+            graph.push_back(::std::vector<bool>(m_expected.size(), false));
+            expected.Match(*begin, graph.back());
+            values.push_back(PrintToString(*begin));
+        }
+        if( graph.size() != m_expected.size() )
+        {
+            *listener << "whose element count " << graph.size()
+                      << " differs from the expected count " << m_expected.size();
+            return false;
+        }
+        ::std::vector<size_t> matches;
+        const size_t matched = BipartiteMatcher::FindMaximumMatching(graph, m_expected.size(), &matches);
+        if( matched == m_expected.size() ) return true;
+        *listener << "whose elements cannot be matched to distinct expectations (matched "
+                  << matched << " of " << graph.size() << " elements)";
+        ::std::vector< ::std::string> descriptions;
+        m_expected.DescribeTo(descriptions);
+        ::std::vector<bool> used(graph.size(), false);
+        for( size_t i = 0; i < matches.size(); ++i )
+        {
+            if( matches[i] == graph.size() )
+            {
+                *listener << "\nunmatched expectation #" << i << ": " << descriptions[i];
+            }
+            else
+            {
+                used[matches[i]] = true;
+            }
+        }
+        for( size_t i = 0; i < used.size(); ++i )
+        {
+            if( !used[i] ) *listener << "\nunmatched element #" << i << ": " << values[i];
+        }
+        return false;
+    }
+
+private:
+    T m_expected;
 };
 
 /**
@@ -1829,6 +2178,71 @@ private:
         if( matched == graph.size() ) return true;
         *listener << "whose elements cannot be matched to distinct expectations (matched "
                   << matched << " of " << graph.size() << " elements)";
+        return false;
+    }
+
+private:
+    ::std::vector<T> m_expected;
+};
+
+/**
+ * @brief   IsSupersetOf matcher
+*/
+template<typename T>
+class IsSupersetOfMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    template<typename It>
+    IsSupersetOfMatcher(const It& begin, const It& end) : m_expected(begin, end) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual) const
+    {
+        ::std::ostringstream explanation;
+        if( MatchAndExplain(actual, &explanation) ) return AssertionSuccess();
+        return AssertionFailure() << WhichIs() << "\n" << explanation.str();
+    }
+
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener) const
+    {
+        IUTEST_USING_BEGIN_END();
+        return Check(begin(actual), end(actual), listener);
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        return "IsSupersetOf: " + PrintToString(m_expected);
+    }
+
+private:
+    template<typename It>
+    bool Check(It begin, It end, ::std::ostream* listener) const
+    {
+        BipartiteMatcher::Graph graph;
+        for( ; begin != end; ++begin )
+        {
+            graph.push_back(::std::vector<bool>(m_expected.size(), false));
+            for( size_t i = 0; i < m_expected.size(); ++i )
+            {
+                ::std::ostringstream inner;
+                T expected(m_expected[i]);
+                graph.back()[i] = ExplainMatch(expected, *begin, &inner);
+            }
+        }
+        ::std::vector<size_t> matches;
+        const size_t matched = BipartiteMatcher::FindMaximumMatching(graph, m_expected.size(), &matches);
+        if( matched == m_expected.size() ) return true;
+        *listener << "whose expectations cannot be matched to distinct elements (matched "
+                  << matched << " of " << m_expected.size() << " expectations)";
+        for( size_t i = 0; i < matches.size(); ++i )
+        {
+            if( matches[i] == graph.size() )
+            {
+                T expected(m_expected[i]);
+                *listener << "\nunmatched expectation #" << i << ": " << CastToMatcher(expected).WhichIs();
+            }
+        }
         return false;
     }
 
@@ -2907,6 +3321,80 @@ private:
     T m_expected;
 };
 
+#if IUTEST_HAS_RTTI
+template<typename T>
+struct DynamicCastMatcherHelper
+{
+    template<typename U, typename M>
+    static bool Match(const U& actual, M& matcher, ::std::ostream* listener)
+    {
+        T casted = dynamic_cast<T>(actual);
+        *listener << "which casts to " << PrintToString(casted);
+        return ExplainMatch(matcher, casted, listener);
+    }
+};
+
+template<typename T>
+struct DynamicCastMatcherHelper<T&>
+{
+    template<typename U, typename M>
+    static bool Match(const U& actual, M& matcher, ::std::ostream* listener)
+    {
+#if IUTEST_HAS_CXX11
+        const U* address = ::std::addressof(actual);
+#else
+        const U* address = reinterpret_cast<const U*>(
+            &const_cast<char&>(reinterpret_cast<const volatile char&>(actual)));
+#endif
+        const T* casted = dynamic_cast<const T*>(address);
+        if( casted == NULL )
+        {
+            *listener << "which cannot be dynamic_cast to " << GetTypeName<T>();
+            return false;
+        }
+        *listener << "which casts to " << PrintToString(*casted);
+        return ExplainMatch(matcher, *casted, listener);
+    }
+};
+
+/**
+ * @brief   WhenDynamicCastTo matcher
+*/
+template<typename T, typename M>
+class WhenDynamicCastToMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    explicit WhenDynamicCastToMatcher(const M& expected) : m_expected(expected) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual)
+    {
+        ::std::ostringstream explanation;
+        if IUTEST_COND_LIKELY( MatchAndExplain(actual, &explanation) )
+        {
+            return AssertionSuccess();
+        }
+        return AssertionFailure() << WhichIs() << "\n" << explanation.str();
+    }
+
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener)
+    {
+        return DynamicCastMatcherHelper<T>::Match(actual, m_expected, listener);
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        ::std::ostringstream strm;
+        strm << "WhenDynamicCastTo: ";
+        DescribeMatcherTo(m_expected, &strm);
+        return strm.str();
+    }
+private:
+    M m_expected;
+};
+#endif
+
 /**
  * @brief   Address matcher
 */
@@ -3447,7 +3935,7 @@ private:
     template<typename T, typename U, int N, int LAST>
     static AssertionResult Check_(T& matchers, const U& actual, typename detail::enable_if<N == LAST, void>::type*& = detail::enabler::value)
     {
-        AssertionResult ar = tuples::get<N>(matchers)(actual);
+        AssertionResult ar = CastToMatcher(tuples::get<N>(matchers))(actual);
         if IUTEST_COND_LIKELY( ar )
         {
             return ar;
@@ -3457,7 +3945,7 @@ private:
     template<typename T, typename U, int N, int LAST>
     static AssertionResult Check_(T& matchers, const U& actual, typename detail::disable_if<N == LAST, void>::type*& = detail::enabler::value)
     {
-        AssertionResult ar = tuples::get<N>(matchers)(actual);
+        AssertionResult ar = CastToMatcher(tuples::get<N>(matchers))(actual);
         if IUTEST_COND_LIKELY( ar )
         {
             return ar;
@@ -3468,12 +3956,12 @@ private:
     template<typename T, int N, int LAST>
     static ::std::string WhichIs_(const T& matchers, typename detail::enable_if<N == LAST, void>::type*& = detail::enabler::value)
     {
-        return tuples::get<N>(matchers).WhichIs();
+        return CastToMatcher(tuples::get<N>(matchers)).WhichIs();
     }
     template<typename T, int N, int LAST>
     static ::std::string WhichIs_(const T& matchers, typename detail::disable_if<N == LAST, void>::type*& = detail::enabler::value)
     {
-        return tuples::get<N>(matchers).WhichIs() + " or " + WhichIs_<T, N + 1, LAST>(matchers);
+        return CastToMatcher(tuples::get<N>(matchers)).WhichIs() + " or " + WhichIs_<T, N + 1, LAST>(matchers);
     }
 };
 
@@ -3578,6 +4066,12 @@ IUTEST_PRAGMA_ASSIGNMENT_OPERATOR_COULD_NOT_GENERATE_WARN_DISABLE_END()
 namespace matchers
 {
 
+/**
+ * @brief   Returns whether actual matches matcher and writes its explanation to listener.
+ * @param   matcher     A matcher or a value to compare for equality.
+ * @param   actual      The value to match.
+ * @param   listener    Output stream for explanations, on success or failure.
+*/
 template<typename M, typename U>
 bool ExplainMatchResult(M matcher, const U& actual, ::std::ostream* listener)
 {
@@ -3768,6 +4262,16 @@ inline detail::IsTrueMatcher IsTrue()
 inline detail::IsFalseMatcher IsFalse()
 {
     return detail::IsFalseMatcher();
+}
+
+/**
+ * @brief   Make Truly matcher
+ * @details predicate(argument) converts to true
+*/
+template<typename Predicate>
+inline detail::TrulyMatcher<Predicate> Truly(Predicate predicate)
+{
+    return detail::TrulyMatcher<Predicate>(predicate);
 }
 
 /**
@@ -4117,6 +4621,26 @@ detail::EachMatcher<T> Each(const T& expected)
 #endif
 
 /**
+ * @brief   Make WhenSorted matcher
+ * @details Matches a copy of the argument sorted using operator<.
+*/
+template<typename T>
+detail::WhenSortedMatcher<detail::WhenSortedLess, T> WhenSorted(const T& expected)
+{
+    return detail::WhenSortedMatcher<detail::WhenSortedLess, T>(detail::WhenSortedLess(), expected);
+}
+
+/**
+ * @brief   Make WhenSortedBy matcher
+ * @details Matches a copy of the argument sorted using comparator.
+*/
+template<typename C, typename T>
+detail::WhenSortedMatcher<C, T> WhenSortedBy(C comparator, const T& expected)
+{
+    return detail::WhenSortedMatcher<C, T>(comparator, expected);
+}
+
+/**
  * @brief   Make ContainerEq matcher
  * @details argument コンテナは expected コンテナにマッチする
 */
@@ -4150,6 +4674,20 @@ template<typename T>
 detail::OptionalMatcher<T> Optional(const T& expected)
 {
     return detail::OptionalMatcher<T>(expected);
+}
+
+#endif
+
+#if IUTEST_HAS_CXX_HDR_ANY
+
+/**
+ * @brief   Make AnyWith matcher
+ * @details Matches an any holding type T whose value matches matcher.
+*/
+template<typename T, typename M>
+detail::AnyWithMatcher<T, M> AnyWith(M matcher)
+{
+    return detail::AnyWithMatcher<T, M>(matcher);
 }
 
 #endif
@@ -4235,6 +4773,48 @@ template<typename T>
 detail::IsSubsetOfMatcher<T> IsSubsetOf(::std::initializer_list<T> values)
 {
     return detail::IsSubsetOfMatcher<T>(values.begin(), values.end());
+}
+#endif
+#endif
+
+/**
+ * @brief   Make IsSupersetOf matcher
+ * @details Each expectation must match a distinct actual element; unused actual elements are allowed.
+*/
+template<typename Container>
+detail::IsSupersetOfMatcher<typename Container::value_type> IsSupersetOf(const Container& container)
+{
+    return detail::IsSupersetOfMatcher<typename Container::value_type>(container.begin(), container.end());
+}
+
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+/** @overload */
+template<typename T, size_t SIZE>
+detail::IsSupersetOfMatcher<T> IsSupersetOf(const T(&values)[SIZE])
+{
+    const T* first = values;
+    return detail::IsSupersetOfMatcher<T>(first, first + SIZE);
+}
+
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+/**
+ * @overload
+ * @note    Pass by value to decay arrays to pointers.
+*/
+template<typename It>
+// @infer-ignore PULSE_CONST_REFABLE
+detail::IsSupersetOfMatcher<typename detail::IteratorTraits<It>::type> IsSupersetOf(It begin, It end)
+{
+    return detail::IsSupersetOfMatcher<typename detail::IteratorTraits<It>::type>(begin, end);
+}
+#endif
+
+#if IUTEST_HAS_INITIALIZER_LIST
+/** @overload */
+template<typename T>
+detail::IsSupersetOfMatcher<T> IsSupersetOf(::std::initializer_list<T> values)
+{
+    return detail::IsSupersetOfMatcher<T>(values.begin(), values.end());
 }
 #endif
 #endif
@@ -4330,6 +4910,111 @@ detail::LogicalArrayMatcher<T, false> AnyOfArray(const T* values, size_t count)
 {
     return detail::LogicalArrayMatcher<T, false>(values, count == 0 ? values : values + count);
 }
+
+/**
+ * @brief   Match a permutation of the supplied expectations
+*/
+template<typename Container>
+detail::UnorderedElementsAreMatcher<detail::UnorderedArrayExpectations<typename Container::value_type> >
+UnorderedElementsAreArray(const Container& container)
+{
+    typedef detail::UnorderedArrayExpectations<typename Container::value_type> Expectations;
+    return detail::UnorderedElementsAreMatcher<Expectations>(Expectations(container.begin(), container.end()));
+}
+
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+/** @overload */
+template<typename T, size_t SIZE>
+detail::UnorderedElementsAreMatcher<detail::UnorderedArrayExpectations<T> >
+UnorderedElementsAreArray(const T (&values)[SIZE])
+{
+    typedef detail::UnorderedArrayExpectations<T> Expectations;
+    const T* first = values;
+    return detail::UnorderedElementsAreMatcher<Expectations>(Expectations(first, first + SIZE));
+}
+
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+/**
+ * @overload
+ * @note    Pass by value to decay arrays to pointers.
+*/
+template<typename It>
+// @infer-ignore PULSE_CONST_REFABLE
+detail::UnorderedElementsAreMatcher<detail::UnorderedArrayExpectations<typename detail::IteratorTraits<It>::type> >
+UnorderedElementsAreArray(It begin, It end)
+{
+    typedef detail::UnorderedArrayExpectations<typename detail::IteratorTraits<It>::type> Expectations;
+    return detail::UnorderedElementsAreMatcher<Expectations>(Expectations(begin, end));
+}
+#endif
+
+#if IUTEST_HAS_INITIALIZER_LIST
+/** @overload */
+template<typename T>
+detail::UnorderedElementsAreMatcher<detail::UnorderedArrayExpectations<T> >
+UnorderedElementsAreArray(::std::initializer_list<T> values)
+{
+    typedef detail::UnorderedArrayExpectations<T> Expectations;
+    return detail::UnorderedElementsAreMatcher<Expectations>(Expectations(values.begin(), values.end()));
+}
+#endif
+#endif
+
+/** @overload */
+template<typename T>
+detail::UnorderedElementsAreMatcher<detail::UnorderedArrayExpectations<T> >
+UnorderedElementsAreArray(const T* values, size_t count)
+{
+    typedef detail::UnorderedArrayExpectations<T> Expectations;
+    return detail::UnorderedElementsAreMatcher<Expectations>(Expectations(values, count == 0 ? values : values + count));
+}
+
+/**
+ * @brief   Match an empty container
+*/
+inline detail::UnorderedElementsAreMatcher<detail::UnorderedEmptyExpectations> UnorderedElementsAre()
+{
+    return detail::UnorderedElementsAreMatcher<detail::UnorderedEmptyExpectations>(detail::UnorderedEmptyExpectations());
+}
+
+#if IUTEST_HAS_MATCHER_ELEMENTSARE
+#if IUTEST_HAS_MATCHER_VARIADIC
+/**
+ * @brief   Match a permutation of values or matchers
+*/
+template<typename ...T>
+detail::UnorderedElementsAreMatcher<detail::UnorderedTupleExpectations<tuples::tuple<T...> > >
+UnorderedElementsAre(T... expected)
+{
+    typedef detail::UnorderedTupleExpectations<tuples::tuple<T...> > Expectations;
+    return detail::UnorderedElementsAreMatcher<Expectations>(Expectations(tuples::tuple<T...>(expected...)));
+}
+#else
+// Pass by value to decay arrays, including string literals, to pointers.
+#define IIUT_DECL_UNORDERED_ELEMENTSARE(n)                                                \
+    template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                                      \
+    detail::UnorderedElementsAreMatcher<detail::UnorderedTupleExpectations<                \
+        tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > > >                                 \
+    UnorderedElementsAre(IUTEST_PP_ENUM_BINARY_PARAMS(n, T, m)) {                          \
+        typedef detail::UnorderedTupleExpectations<                                      \
+            tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > > Expectations;                  \
+        return detail::UnorderedElementsAreMatcher<Expectations>(                        \
+            Expectations(tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) >(IUTEST_PP_ENUM_PARAMS(n, m)))); }
+
+IIUT_DECL_UNORDERED_ELEMENTSARE(1)
+IIUT_DECL_UNORDERED_ELEMENTSARE(2)
+IIUT_DECL_UNORDERED_ELEMENTSARE(3)
+IIUT_DECL_UNORDERED_ELEMENTSARE(4)
+IIUT_DECL_UNORDERED_ELEMENTSARE(5)
+IIUT_DECL_UNORDERED_ELEMENTSARE(6)
+IIUT_DECL_UNORDERED_ELEMENTSARE(7)
+IIUT_DECL_UNORDERED_ELEMENTSARE(8)
+IIUT_DECL_UNORDERED_ELEMENTSARE(9)
+IIUT_DECL_UNORDERED_ELEMENTSARE(10)
+
+#undef IIUT_DECL_UNORDERED_ELEMENTSARE
+#endif
+#endif
 
 /**
  * @brief   Make ElementsAreArray matcher
@@ -4593,6 +5278,19 @@ detail::PointeeMatcher<T> Pointee(const T& expected)
 {
     return detail::PointeeMatcher<T>(expected);
 }
+
+/**
+ * @brief   Make WhenDynamicCastTo matcher
+ * @note    Requires RTTI. A failed pointer cast is matched as NULL;
+ *          a failed reference cast never matches and does not throw.
+*/
+#if IUTEST_HAS_RTTI
+template<typename T, typename M>
+detail::WhenDynamicCastToMatcher<T, M> WhenDynamicCastTo(const M& expected)
+{
+    return detail::WhenDynamicCastToMatcher<T, M>(expected);
+}
+#endif
 
 /**
  * @brief   Make Address matcher

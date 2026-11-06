@@ -19,6 +19,19 @@
       "comment": "Matcher factories pass parameters by value to preserve decay and explicit reference types."
     },
     {
+      "bug_type": "PULSE_CONST_REFABLE",
+      "procedure_name": "iutest::matchers::UnorderedElementsAre<",
+      "file": "include/iutest_matcher.hpp",
+      "comment": "Matcher factory parameters are passed by value to decay arrays to pointers."
+    },
+    {
+      "bug_type": "PULSE_UNNECESSARY_COPY",
+      "procedure_name": "Check<",
+      "class_name": "UnorderedTupleExpectations",
+      "file": "include/iutest_matcher.hpp",
+      "comment": "Tuple expectations are copied once per check to isolate mutable matcher state."
+    },
+    {
       "bug_type": "PULSE_UNNECESSARY_COPY_INTERMEDIATE",
       "procedure_name": "HasValueMatcherP1",
       "class_name": "CopyTrackedParameter",
