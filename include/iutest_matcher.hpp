@@ -3018,8 +3018,8 @@ public:
         const bool matched = ExplainMatch(m_matcher, selected, &inner);
         *listener << "whose selected arguments are (";
         size_t argument_index = 0;
-        const int unused[] = { 0, ((*listener << (argument_index++ == 0 ? "" : ", "),
-            UniversalPrint(::std::get<Indices>(actual), listener)), 0)... };
+        const int unused[] = { 0, ((*listener << (argument_index++ == 0 ? "" : ", ")
+            << PrintToString(::std::get<Indices>(actual))), 0)... };
         IUTEST_UNUSED_VAR(unused);
         *listener << ")";
         if( !inner.str().empty() ) *listener << ", " << inner.str();
