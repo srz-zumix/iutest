@@ -152,6 +152,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/listener_tests \
 		$(OUTDIR)/matcher_tests \
 		$(OUTDIR)/an_matcher_tests \
+		$(OUTDIR)/args_matcher_tests \
 		$(OUTDIR)/matcher_explain_tests \
 		$(OUTDIR)/explain_match_result_tests \
 		$(OUTDIR)/bool_matcher_tests \
