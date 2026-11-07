@@ -252,6 +252,7 @@ namespace matchers
     using ::testing::Args;
     using ::testing::AllArgs;
 #endif
+    using ::testing::DescribeMatcher;
     using ::testing::ExplainMatchResult;
     using ::testing::Not;
 #if IUTEST_HAS_MATCHER_CONDITIONAL
