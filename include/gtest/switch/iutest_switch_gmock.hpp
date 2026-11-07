@@ -395,6 +395,9 @@ namespace matchers
     using ::testing::IsEmpty;
     using ::testing::SizeIs;
 #endif
+#if GMOCK_VER >= 0x01080000
+    using ::testing::BeginEndDistanceIs;
+#endif
 
 }   // end of namespace matchers
 }   // end of namespace testing

@@ -26,6 +26,7 @@
 #endif
 
 #include <algorithm>
+#include <iterator>
 #include <list>
 #include <sstream>
 #include <utility>
@@ -1626,6 +1627,62 @@ private:
 #endif
 
 private:
+    T m_expected;
+};
+
+/**
+ * @brief   BeginEndDistanceIs matcher
+*/
+template<typename T>
+class BeginEndDistanceIsMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    explicit BeginEndDistanceIsMatcher(const T& expected) : m_expected(expected) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual)
+    {
+        ::std::ostringstream explanation;
+        if( MatchAndExplain(actual, &explanation) ) return AssertionSuccess();
+        return AssertionFailure() << WhichIs() << "\n" << explanation.str();
+    }
+
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener)
+    {
+        IUTEST_USING_BEGIN_END();
+        return ExplainDistance(::std::distance(begin(actual), end(actual)), listener);
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        ::std::ostringstream os;
+        DescribeTo(&os);
+        return os.str();
+    }
+    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
+    {
+        *os << "distance between begin() and end() ";
+        DescribeMatcherTo(m_expected, os);
+    }
+    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
+    {
+        *os << "distance between begin() and end() ";
+        DescribeMatcherNegationTo(m_expected, os);
+    }
+
+private:
+    template<typename Distance>
+    bool ExplainDistance(Distance distance, ::std::ostream* listener)
+    {
+        ::std::ostringstream inner;
+        const bool matched = ExplainMatch(m_expected, distance, &inner);
+        *listener << "whose distance between begin() and end() " << distance
+            << (matched ? " matches" : " doesn't match");
+        if( !inner.str().empty() ) *listener << ", " << inner.str();
+        return matched;
+    }
+
     T m_expected;
 };
 
@@ -4549,6 +4606,16 @@ template<typename T>
 detail::SizeIsMatcher<T> SizeIs(const T& expected)
 {
     return detail::SizeIsMatcher<T>(expected);
+}
+
+/**
+ * @brief   Make BeginEndDistanceIs matcher
+ * @details Matches std::distance(begin(argument), end(argument)) against expected.
+*/
+template<typename T>
+detail::BeginEndDistanceIsMatcher<T> BeginEndDistanceIs(const T& expected)
+{
+    return detail::BeginEndDistanceIsMatcher<T>(expected);
 }
 
 /**
