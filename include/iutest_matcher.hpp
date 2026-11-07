@@ -103,7 +103,12 @@ public:
     virtual ~IMatcher() {}
     virtual ::std::string WhichIs() const = 0;
     virtual void DescribeTo(::std::ostream* os) const { *os << WhichIs(); }
-    virtual void DescribeNegationTo(::std::ostream* os) const { *os << "not (" << WhichIs() << ")"; }
+    virtual void DescribeNegationTo(::std::ostream* os) const
+    {
+        *os << "not (";
+        DescribeTo(os);
+        *os << ")";
+    }
 };
 
 #if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
@@ -830,6 +835,17 @@ struct has_gtest_description
     template<typename T>
     static auto Check(int) -> decltype(
         ((const T*)0)->DescribeTo((::std::ostream*)0),
+        iutest_type_traits::true_type());
+    template<typename T>
+    static iutest_type_traits::false_type Check(...);
+    enum { value = !IMatcher::is_matcher<M>::value && decltype(Check<M>(0))::value };
+};
+
+template<typename M>
+struct has_gtest_negation_description
+{
+    template<typename T>
+    static auto Check(int) -> decltype(
         ((const T*)0)->DescribeNegationTo((::std::ostream*)0),
         iutest_type_traits::true_type());
     template<typename T>
@@ -842,8 +858,19 @@ typename iutest_type_traits::enable_if<has_gtest_description<T>::value, void>::t
 DescribeMatcherTo(const T& matcher, ::std::ostream* os) { matcher.DescribeTo(os); }
 
 template<typename T>
-typename iutest_type_traits::enable_if<has_gtest_description<T>::value, void>::type
+typename iutest_type_traits::enable_if<
+    has_gtest_description<T>::value && has_gtest_negation_description<T>::value, void>::type
 DescribeMatcherNegationTo(const T& matcher, ::std::ostream* os) { matcher.DescribeNegationTo(os); }
+
+template<typename T>
+typename iutest_type_traits::enable_if<
+    has_gtest_description<T>::value && !has_gtest_negation_description<T>::value, void>::type
+DescribeMatcherNegationTo(const T& matcher, ::std::ostream* os)
+{
+    *os << "not (";
+    matcher.DescribeTo(os);
+    *os << ")";
+}
 #endif
 
 template<typename T>
@@ -3866,6 +3893,24 @@ IUTEST_PRAGMA_ASSIGNMENT_OPERATOR_COULD_NOT_GENERATE_WARN_DISABLE_END()
 */
 namespace matchers
 {
+
+/**
+ * @brief   Returns the matcher description, optionally negated
+*/
+template<typename T, typename M>
+::std::string DescribeMatcher(const M& matcher, bool negation = false)
+{
+    ::std::ostringstream os;
+    if( negation )
+    {
+        detail::DescribeMatcherNegationTo(matcher, &os);
+    }
+    else
+    {
+        detail::DescribeMatcherTo(matcher, &os);
+    }
+    return os.str();
+}
 
 /**
  * @brief   Returns whether actual matches matcher and writes its explanation to listener.
