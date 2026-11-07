@@ -31,8 +31,11 @@
 #include <utility>
 #include <vector>
 
-#if IUTEST_HAS_MATCHER_FIELDSARE
+#if IUTEST_HAS_MATCHER_FIELDSARE || (IUTEST_HAS_STD_TUPLE && IUTEST_HAS_VARIADIC_TEMPLATES)
 #include <tuple>
+#endif
+
+#if IUTEST_HAS_MATCHER_FIELDSARE
 #include <type_traits>
 #endif
 
@@ -201,6 +204,16 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& m)
     private: const T& m_expected;                                               \
     }
 
+#if IUTEST_HAS_STD_TUPLE && IUTEST_HAS_VARIADIC_TEMPLATES
+#define IIUT_COMPARE_MATCHER_TUPLE_(op) \
+    template<typename T, typename U>AssertionResult operator ()(const ::std::tuple<T, U>& actual) const { \
+        if IUTEST_COND_LIKELY( ::std::get<0>(actual) op ::std::get<1>(actual) ) return AssertionSuccess(); \
+        return AssertionFailure() << WhichIs(); \
+    }
+#else
+#define IIUT_COMPARE_MATCHER_TUPLE_(op)
+#endif
+
 #define IIUT_DECL_COMPARE_MATCHER2(name, op) \
     class IUTEST_PP_CAT(Twofold, IUTEST_PP_CAT(name, Matcher)) IUTEST_CXX_FINAL : public IMatcher{  \
     public: ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return #name; }                     \
@@ -209,6 +222,7 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& m)
         if IUTEST_COND_LIKELY( actual op expected ) return AssertionSuccess();                      \
         return AssertionFailure() << WhichIs() << ": " << actual << " vs " << expected;             \
     }                                                                                               \
+    IIUT_COMPARE_MATCHER_TUPLE_(op)                                                                  \
     }
 
 
@@ -232,6 +246,7 @@ IUTEST_PRAGMA_WARN_POP()
 
 #undef IIUT_DECL_COMPARE_MATCHER
 #undef IIUT_DECL_COMPARE_MATCHER2
+#undef IIUT_COMPARE_MATCHER_TUPLE_
 
 #define IIUT_DECL_STR_COMPARE_MATCHER(name)  \
     template<typename T>                                                        \
@@ -2976,6 +2991,72 @@ private:
 };
 #endif
 
+#if IUTEST_HAS_STD_TUPLE && IUTEST_HAS_VARIADIC_TEMPLATES
+/**
+ * @brief   Args matcher
+*/
+template<typename M, size_t... Indices>
+class ArgsMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    explicit ArgsMatcher(const M& matcher) : m_matcher(matcher) {}
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual)
+    {
+        ::std::ostringstream explanation;
+        if( MatchAndExplain(actual, &explanation) ) return AssertionSuccess();
+        return AssertionFailure() << WhichIs() << "\n" << explanation.str();
+    }
+
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener)
+    {
+        const ::std::tuple<const typename ::std::tuple_element<Indices, U>::type&...>
+            selected(::std::get<Indices>(actual)...);
+        ::std::ostringstream inner;
+        const bool matched = ExplainMatch(m_matcher, selected, &inner);
+        *listener << "whose selected arguments are (";
+        size_t argument_index = 0;
+        const int unused[] = { 0, ((*listener << (argument_index++ == 0 ? "" : ", ")
+            << PrintToString(::std::get<Indices>(actual))), 0)... };
+        IUTEST_UNUSED_VAR(unused);
+        *listener << ")";
+        if( !inner.str().empty() ) *listener << ", " << inner.str();
+        return matched;
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        ::std::ostringstream description;
+        DescribeTo(&description);
+        return description.str();
+    }
+    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
+    {
+        DescribeIndices(os);
+        DescribeMatcherTo(m_matcher, os);
+    }
+    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
+    {
+        DescribeIndices(os);
+        DescribeMatcherNegationTo(m_matcher, os);
+    }
+
+private:
+    static void DescribeIndices(::std::ostream* os)
+    {
+        *os << "Args<";
+        size_t index = 0;
+        const int unused[] = { 0, ((*os << (index++ == 0 ? "" : ", ") << Indices), 0)... };
+        IUTEST_UNUSED_VAR(unused);
+        *os << ">: ";
+    }
+
+    M m_matcher;
+};
+#endif
+
 /**
  * @brief   Pointee matcher
 */
@@ -5009,6 +5090,26 @@ detail::RefMatcher<T> Ref(T& expected)
 {
     return detail::RefMatcher<T>(expected);
 }
+
+#if IUTEST_HAS_STD_TUPLE && IUTEST_HAS_VARIADIC_TEMPLATES
+/**
+ * @brief   Match a tuple of the selected arguments
+*/
+template<size_t... Indices, typename M>
+detail::ArgsMatcher<M, Indices...> Args(const M& matcher)
+{
+    return detail::ArgsMatcher<M, Indices...>(matcher);
+}
+
+/**
+ * @brief   Alias for matching all arguments
+*/
+template<typename M>
+M AllArgs(const M& matcher)
+{
+    return matcher;
+}
+#endif
 
 /**
  * @brief   Make Pointer matcher
