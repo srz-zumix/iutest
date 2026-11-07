@@ -39,6 +39,7 @@
 #undef IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR
 #undef IUTEST_HAS_MATCHER_EACH
 #undef IUTEST_HAS_MATCHER_POINTWISE
+#undef IUTEST_HAS_MATCHER_UNORDERED_POINTWISE
 #undef IUTEST_HAS_MATCHER_VARIADIC
 #undef IUTEST_HAS_MATCHER_OPTIONAL
 #undef IUTEST_HAS_MATCHER_FIELDSARE
@@ -53,6 +54,11 @@
 #if defined(IUTEST_USE_GMOCK)
 
 #define IUTEST_HAS_MATCHERS                         1
+#if GMOCK_VER > 0x01060000
+#  define IUTEST_HAS_MATCHER_UNORDERED_POINTWISE     1
+#else
+#  define IUTEST_HAS_MATCHER_UNORDERED_POINTWISE     0
+#endif
 #if GMOCK_VER >= 0x01120000
 #  define IUTEST_HAS_MATCHER_CONDITIONAL            1
 #else
@@ -311,6 +317,9 @@ namespace matchers
 #endif
 #if IUTEST_HAS_MATCHER_POINTWISE
     using ::testing::Pointwise;
+#endif
+#if IUTEST_HAS_MATCHER_UNORDERED_POINTWISE
+    using ::testing::UnorderedPointwise;
 #endif
     using ::testing::Key;
     using ::testing::Pair;
