@@ -136,6 +136,13 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_HAS_MATCHER_MACROS)
+/**
+ * @brief   IUTEST_MATCHER / IUTEST_MATCHER_P ... P10
+*/
+#  define IUTEST_HAS_MATCHER_MACROS IUTEST_HAS_MATCHERS
+#endif
+
 #if !defined(IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE)
 /**
  * @brief   式アサーションで算術演算子の展開をサポートするかどうか
