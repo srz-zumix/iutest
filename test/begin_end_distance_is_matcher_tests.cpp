@@ -27,11 +27,18 @@ using ::iutest::matchers::Eq;
 using ::iutest::matchers::Ge;
 using ::iutest::matchers::Not;
 
+#if !defined(IUTEST_USE_GMOCK) || !defined(GTEST_HAS_STD_BEGIN_AND_END_) || GTEST_HAS_STD_BEGIN_AND_END_
+#  define TEST_HAS_BEGIN_END 1
+#else
+#  define TEST_HAS_BEGIN_END 0
+#endif
+
 namespace {
 
 const int values[] = { 1, 2, 3 };
 const ::std::list<int> empty_values;
 
+#if TEST_HAS_BEGIN_END
 struct AdlRange
 {
     typedef const int* const_iterator;
@@ -41,10 +48,11 @@ struct AdlRange
 
 const int* begin(const AdlRange& range) { return range.first; }
 const int* end(const AdlRange& range) { return range.last; }
+#endif
 
 } // namespace
 
-#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+#if TEST_HAS_BEGIN_END && !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 IUTEST(BeginEndDistanceIsMatcher, Array)
 {
     int mutable_values[] = { 1, 2, 3 };
@@ -64,6 +72,7 @@ IUTEST(BeginEndDistanceIsMatcher, List)
     IUTEST_EXPECT_THAT(empty_values, Not(BeginEndDistanceIs(1)));
 }
 
+#if TEST_HAS_BEGIN_END
 IUTEST(BeginEndDistanceIsMatcher, AdlRange)
 {
     const AdlRange range = { values, values + 3 };
@@ -71,6 +80,7 @@ IUTEST(BeginEndDistanceIsMatcher, AdlRange)
     const AdlRange reversed = { values + 3, values };
     IUTEST_EXPECT_THAT(reversed, BeginEndDistanceIs(-3));
 }
+#endif
 
 #if IUTEST_HAS_CXX11
 IUTEST(BeginEndDistanceIsMatcher, ForwardList)
@@ -85,7 +95,7 @@ IUTEST(BeginEndDistanceIsMatcher, ForwardList)
 
 IUTEST(BeginEndDistanceIsMatcher, FailureMessage)
 {
-#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+#if TEST_HAS_BEGIN_END && !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
     IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(values, BeginEndDistanceIs(2)),
         "whose distance between begin() and end() 3 doesn't match");
     IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(values, BeginEndDistanceIs(Ge(4))),
@@ -94,6 +104,8 @@ IUTEST(BeginEndDistanceIsMatcher, FailureMessage)
     IUTEST_EXPECT_FATAL_FAILURE(IUTEST_ASSERT_THAT(empty_values, BeginEndDistanceIs(1)),
         "whose distance between begin() and end() 0 doesn't match");
 }
+
+#undef TEST_HAS_BEGIN_END
 
 #endif
 
