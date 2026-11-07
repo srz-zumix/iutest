@@ -515,6 +515,40 @@ private:
     T m_max_abs_error;
 };
 
+#if IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR
+/**
+ * @brief   Pairwise floating point Near matcher
+*/
+template<typename T>
+class TwofoldFloatingPointNearMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    explicit TwofoldFloatingPointNearMatcher(T abs_error) : m_max_abs_error(abs_error) {}
+
+    template<typename U, typename V>
+    AssertionResult operator ()(const U& actual, const V& expected) const
+    {
+        return FloatingPointNearMatcher<T>(static_cast<T>(expected), m_max_abs_error)(actual);
+    }
+#if IUTEST_HAS_STD_TUPLE && IUTEST_HAS_VARIADIC_TEMPLATES
+    template<typename U, typename V>
+    AssertionResult operator ()(const ::std::tuple<U, V>& actual) const
+    {
+        return (*this)(::std::get<0>(actual), ::std::get<1>(actual));
+    }
+#endif
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        ::std::ostringstream os;
+        os << "Near: (abs error <= " << m_max_abs_error << ")";
+        return os.str();
+    }
+
+private:
+    T m_max_abs_error;
+};
+#endif
+
 /**
  * @brief   Floating point Near matcher (NanSensitive)
 */
@@ -1758,6 +1792,109 @@ private:
         return false;
     }
 };
+
+#if IUTEST_HAS_MATCHER_UNORDERED_POINTWISE
+
+/**
+ * @brief   UnorderedPointwise matcher
+*/
+template<typename M, typename T>
+class UnorderedPointwiseMatcher IUTEST_CXX_FINAL : public IMatcher
+{
+public:
+    template<typename It>
+    UnorderedPointwiseMatcher(const M& matcher, It begin, It end) : m_matcher(matcher)
+    {
+        for( ; begin != end; ++begin ) m_expected.push_back(*begin);
+    }
+
+    template<typename U>
+    AssertionResult operator ()(const U& actual) const
+    {
+        ::std::ostringstream explanation;
+        if( MatchAndExplain(actual, &explanation) ) return AssertionSuccess();
+        return AssertionFailure() << WhichIs() << "\n" << explanation.str();
+    }
+
+    template<typename U>
+    bool MatchAndExplain(const U& actual, ::std::ostream* listener) const
+    {
+        IUTEST_USING_BEGIN_END();
+        return Check(begin(actual), end(actual), listener);
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        ::std::ostringstream os;
+        DescribeTo(&os);
+        return os.str();
+    }
+    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
+    {
+        *os << "UnorderedPointwise: ";
+        DescribeMatcherTo(m_matcher, os);
+        *os << ": " << PrintToString(m_expected);
+    }
+    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
+    {
+        *os << "not (";
+        DescribeTo(os);
+        *os << ")";
+    }
+
+private:
+    template<typename It>
+    bool Check(It begin, It end, ::std::ostream* listener) const
+    {
+        M matcher(m_matcher);
+        BipartiteMatcher::Graph graph;
+        ::std::vector< ::std::string> values;
+        for( ; begin != end; ++begin )
+        {
+            graph.push_back(::std::vector<bool>(m_expected.size(), false));
+            typename ::std::list<T>::const_iterator expected = m_expected.begin();
+            for( size_t i = 0; expected != m_expected.end(); ++expected, ++i )
+            {
+                graph.back()[i] = static_cast<bool>(matcher(*begin, *expected));
+            }
+            values.push_back(PrintToString(*begin));
+        }
+        if( graph.size() != m_expected.size() )
+        {
+            *listener << "whose element count " << graph.size()
+                      << " differs from the expected count " << m_expected.size();
+            return false;
+        }
+        ::std::vector<size_t> matches;
+        const size_t matched = BipartiteMatcher::FindMaximumMatching(graph, m_expected.size(), &matches);
+        if( matched == m_expected.size() ) return true;
+        *listener << "whose elements cannot be matched to distinct expectations (matched "
+                  << matched << " of " << graph.size() << " elements)";
+        ::std::vector<bool> used(graph.size(), false);
+        typename ::std::list<T>::const_iterator expected = m_expected.begin();
+        for( size_t i = 0; expected != m_expected.end(); ++expected, ++i )
+        {
+            if( matches[i] == graph.size() )
+            {
+                *listener << "\nunmatched expectation #" << i << ": " << PrintToString(*expected);
+            }
+            else
+            {
+                used[matches[i]] = true;
+            }
+        }
+        for( size_t i = 0; i < used.size(); ++i )
+        {
+            if( !used[i] ) *listener << "\nunmatched element #" << i << ": " << values[i];
+        }
+        return false;
+    }
+
+    M m_matcher;
+    ::std::list<T> m_expected;
+};
+
+#endif
 
 /**
  * @brief   Type-independent expectations for an empty container
@@ -4279,6 +4416,12 @@ inline detail::FloatingPointNearMatcher<float> FloatNear(float expected, float m
     return detail::FloatingPointNearMatcher<float>(expected, max_abs_error);
 }
 
+/** @overload */
+inline detail::TwofoldFloatingPointNearMatcher<float> FloatNear(float max_abs_error)
+{
+    return detail::TwofoldFloatingPointNearMatcher<float>(max_abs_error);
+}
+
 /**
  * @brief   Make Double Near matcher
  * @details argument は expected と max_abs_error 以内の差分
@@ -4544,6 +4687,31 @@ detail::PointwiseMatcher<M, T> Pointwise(const M& matcher, const T& expected)
 {
     return detail::PointwiseMatcher<M, T>(matcher, expected);
 }
+
+#endif
+
+#if IUTEST_HAS_MATCHER_UNORDERED_POINTWISE
+
+/**
+ * @brief   Make UnorderedPointwise matcher
+*/
+template<typename M, typename Container>
+detail::UnorderedPointwiseMatcher<M, typename Container::value_type>
+UnorderedPointwise(const M& matcher, const Container& expected)
+{
+    IUTEST_USING_BEGIN_END();
+    return detail::UnorderedPointwiseMatcher<M, typename Container::value_type>(
+        matcher, begin(expected), end(expected));
+}
+
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+/** @overload */
+template<typename M, typename T, size_t SIZE>
+detail::UnorderedPointwiseMatcher<M, T> UnorderedPointwise(const M& matcher, const T(&expected)[SIZE])
+{
+    return detail::UnorderedPointwiseMatcher<M, T>(matcher, expected, expected + SIZE);
+}
+#endif
 
 #endif
 
