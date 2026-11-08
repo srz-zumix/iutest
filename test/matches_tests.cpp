@@ -28,6 +28,11 @@ using ::iutest::matchers::StartsWith;
 
 namespace {
 
+struct StaticIntegralValue
+{
+    static const int value = 3;
+};
+
 template<typename Predicate>
 void CheckPredicate(const Predicate& predicate)
 {
@@ -45,6 +50,65 @@ void CheckValueCopy(const Predicate& predicate, int* expected)
     *expected = 4;
     CheckPredicate(predicate);
 }
+#endif
+
+#if !defined(IUTEST_USE_GTEST)
+struct CopyCounts
+{
+    CopyCounts() : total(0), original_nonconst(0) {}
+    int total;
+    int original_nonconst;
+};
+
+class CopyCountingMatcher : public ::iutest::detail::IMatcher
+{
+public:
+    CopyCountingMatcher(int expected, CopyCounts* copies)
+        : m_expected(expected), m_copies(copies), m_is_original(true) {}
+    CopyCountingMatcher(CopyCountingMatcher& other)
+        : ::iutest::detail::IMatcher(other), m_expected(other.m_expected), m_copies(other.m_copies)
+        , m_is_original(false)
+    {
+        ++m_copies->total;
+        if( other.m_is_original ) ++m_copies->original_nonconst;
+    }
+    CopyCountingMatcher(const CopyCountingMatcher& other)
+        : ::iutest::detail::IMatcher(other), m_expected(other.m_expected), m_copies(other.m_copies)
+        , m_is_original(false)
+    {
+        ++m_copies->total;
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return "CopyCountingMatcher"; }
+    bool operator ()(int actual) const { return actual == m_expected; }
+    void SetExpected(int expected) { m_expected = expected; }
+
+private:
+    int m_expected;
+    CopyCounts* m_copies;
+    bool m_is_original;
+};
+
+#if !defined(IUTEST_NO_SFINAE)
+struct VolatileValue
+{
+    explicit VolatileValue(int n) : value(n) {}
+    VolatileValue(VolatileValue& other) : value(other.value) {}
+    VolatileValue(const VolatileValue& other) : value(other.value) {}
+    VolatileValue(volatile VolatileValue& other) : value(other.value) {}
+    VolatileValue(const volatile VolatileValue& other) : value(other.value) {}
+
+    int value;
+};
+
+bool operator ==(int actual, const VolatileValue& expected)
+{
+    return actual == expected.value;
+}
+
+void FirstFunction() {}
+void SecondFunction() {}
+#endif
 #endif
 
 }   // end of namespace
@@ -93,14 +157,97 @@ IUTEST(Matches, PlainValue)
     IUTEST_EXPECT_FALSE(Matches(3)(4));
     IUTEST_EXPECT_TRUE(Matches("abc")(::std::string("abc")));
     IUTEST_EXPECT_FALSE(Matches("abc")(::std::string("def")));
+    const ::std::string expected("abc");
+    IUTEST_EXPECT_TRUE(Matches(expected)(expected));
     const int values[] = { 3, 4, 3 };
     IUTEST_EXPECT_EQ(2, ::std::count_if(values, values + 3, Matches(3)));
+}
+
+IUTEST(Matches, StaticIntegralConstant)
+{
+    IUTEST_EXPECT_TRUE(Matches(StaticIntegralValue::value)(3));
 }
 
 IUTEST(Matches, StoresValueByCopy)
 {
     int expected = 3;
     CheckValueCopy(Matches(expected), &expected);
+}
+
+#if !defined(IUTEST_USE_GTEST)
+IUTEST(Matches, ArrayAndFunctionDecay)
+{
+    int values[] = { 1, 2 };
+    const int const_values[] = { 1, 2 };
+    int* value = values;
+    const int* const_value = const_values;
+    typedef void (*FunctionPointer)();
+
+    const ::iutest::detail::MatcherAsPredicate<int*> array_predicate = Matches(values);
+    const ::iutest::detail::MatcherAsPredicate<const int*> const_array_predicate = Matches(const_values);
+    const ::iutest::detail::MatcherAsPredicate<FunctionPointer> function_predicate = Matches(FirstFunction);
+    IUTEST_EXPECT_TRUE(array_predicate(value));
+    IUTEST_EXPECT_TRUE(const_array_predicate(const_value));
+    IUTEST_EXPECT_TRUE(function_predicate(&FirstFunction));
+    IUTEST_EXPECT_FALSE(function_predicate(&SecondFunction));
+}
+
+IUTEST(Matches, VolatileValues)
+{
+    volatile int number = 3;
+    const ::iutest::detail::MatcherAsPredicate<int> number_predicate = Matches(number);
+    number = 4;
+    IUTEST_EXPECT_EQ(4, number);
+    CheckPredicate(number_predicate);
+
+    volatile VolatileValue value(3);
+    const ::iutest::detail::MatcherAsPredicate<VolatileValue> predicate = Matches(value);
+    value.value = 4;
+    IUTEST_EXPECT_EQ(4, value.value);
+    CheckPredicate(predicate);
+
+#if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
+    volatile VolatileValue explicit_value(3);
+    const ::iutest::detail::MatcherAsPredicate<VolatileValue> volatile_predicate =
+        Matches<VolatileValue>(explicit_value);
+    CheckPredicate(volatile_predicate);
+
+    const volatile VolatileValue const_value(3);
+    const ::iutest::detail::MatcherAsPredicate<VolatileValue> const_predicate = Matches(const_value);
+    CheckPredicate(const_predicate);
+    const ::iutest::detail::MatcherAsPredicate<VolatileValue> explicit_predicate =
+        Matches<VolatileValue>(const_value);
+    CheckPredicate(explicit_predicate);
+#endif
+}
+#endif
+#endif
+
+#if !defined(IUTEST_USE_GTEST)
+IUTEST(Matches, CopiesMatcherOnce)
+{
+    CopyCounts copies;
+    CopyCountingMatcher matcher(3, &copies);
+    const ::iutest::detail::MatcherAsPredicate<CopyCountingMatcher> predicate = Matches(matcher);
+    CopyCounts const_copies;
+    const CopyCountingMatcher const_matcher(3, &const_copies);
+    const ::iutest::detail::MatcherAsPredicate<CopyCountingMatcher> const_predicate = Matches(const_matcher);
+    CopyCounts temporary_copies;
+    const ::iutest::detail::MatcherAsPredicate<CopyCountingMatcher> temporary_predicate =
+        Matches(CopyCountingMatcher(3, &temporary_copies));
+#if !defined(IUTEST_NO_SFINAE) \
+    && !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING) && !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+    IUTEST_EXPECT_EQ(0, copies.original_nonconst);
+#if IUTEST_HAS_CXX17
+    IUTEST_EXPECT_EQ(1, copies.total);
+    IUTEST_EXPECT_EQ(1, const_copies.total);
+    IUTEST_EXPECT_EQ(1, temporary_copies.total);
+#endif
+#endif
+    matcher.SetExpected(4);
+    CheckPredicate(predicate);
+    CheckPredicate(const_predicate);
+    CheckPredicate(temporary_predicate);
 }
 #endif
 
