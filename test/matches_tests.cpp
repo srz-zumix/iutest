@@ -106,8 +106,10 @@ bool operator ==(int actual, const VolatileValue& expected)
     return actual == expected.value;
 }
 
+volatile int second_function_call_count = 0;
+
 void FirstFunction() {}
-void SecondFunction() {}
+void SecondFunction() { second_function_call_count = 1; }
 #endif
 #endif
 
