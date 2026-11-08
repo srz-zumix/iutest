@@ -992,6 +992,26 @@ bool ExplainMatch(M& matcher, const U& actual, ::std::ostream*)
     return static_cast<bool>(CastToMatcher(matcher)(actual));
 }
 
+/**
+ * @brief   Adapts a matcher or an equality value to a boolean predicate
+*/
+template<typename M>
+class MatcherAsPredicate
+{
+public:
+    explicit MatcherAsPredicate(const M& matcher) : m_matcher(matcher) {}
+
+    template<typename T>
+    bool operator ()(const T& actual) const
+    {
+        ::std::ostringstream explanation;
+        return ExplainMatch(m_matcher, actual, &explanation);
+    }
+
+private:
+    mutable M m_matcher;
+};
+
 template<typename U, typename M>
 AssertionResult MatcherAssertionNative(const U& actual, M& matcher, iutest_type_traits::false_type)
 {
@@ -4116,6 +4136,15 @@ template<typename M, typename U>
 bool ExplainMatchResult(M matcher, const U& actual, ::std::ostream* listener)
 {
     return detail::ExplainMatch(matcher, actual, listener);
+}
+
+/**
+ * @brief   Converts a matcher or an equality value to a boolean predicate
+*/
+template<typename M>
+detail::MatcherAsPredicate<M> Matches(M matcher)
+{
+    return detail::MatcherAsPredicate<M>(matcher);
 }
 
 /**
