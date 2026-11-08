@@ -260,6 +260,7 @@ namespace matchers
 #endif
     using ::testing::DescribeMatcher;
     using ::testing::ExplainMatchResult;
+    using ::testing::Matches;
     using ::testing::Not;
 #if IUTEST_HAS_MATCHER_CONDITIONAL
     using ::testing::Conditional;

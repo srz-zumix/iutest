@@ -992,6 +992,38 @@ bool ExplainMatch(M& matcher, const U& actual, ::std::ostream*)
     return static_cast<bool>(CastToMatcher(matcher)(actual));
 }
 
+/**
+ * @brief   Adapts a matcher or an equality value to a boolean predicate
+*/
+template<typename M>
+class MatcherAsPredicate
+{
+private:
+    struct VolatileTag {};
+
+    template<typename T>
+    MatcherAsPredicate(T& matcher, VolatileTag) : m_matcher(matcher) {}
+
+public:
+    explicit MatcherAsPredicate(const M& matcher) : m_matcher(matcher) {}
+
+    template<typename T>
+    static MatcherAsPredicate FromVolatile(T& matcher)
+    {
+        return MatcherAsPredicate(matcher, VolatileTag());
+    }
+
+    template<typename T>
+    bool operator ()(const T& actual) const
+    {
+        ::std::ostringstream explanation;
+        return ExplainMatch(m_matcher, actual, &explanation);
+    }
+
+private:
+    mutable M m_matcher;
+};
+
 template<typename U, typename M>
 AssertionResult MatcherAssertionNative(const U& actual, M& matcher, iutest_type_traits::false_type)
 {
@@ -4117,6 +4149,57 @@ bool ExplainMatchResult(M matcher, const U& actual, ::std::ostream* listener)
 {
     return detail::ExplainMatch(matcher, actual, listener);
 }
+
+/**
+ * @brief   Converts a matcher or an equality value to a boolean predicate
+ * @note    Non-class values are passed by value to preserve array and function
+ *          decay and static integral constants without an external definition.
+*/
+#if !defined(IUTEST_NO_SFINAE) && !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING) \
+    && !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+template<typename M>
+typename iutest_type_traits::enable_if<iutest_type_traits::is_class<M>::value,
+    detail::MatcherAsPredicate<M> >::type Matches(M& matcher)
+{
+    return detail::MatcherAsPredicate<M>(matcher);
+}
+
+template<typename M>
+typename iutest_type_traits::enable_if<iutest_type_traits::is_class<M>::value,
+    detail::MatcherAsPredicate<M> >::type Matches(const M& matcher)
+{
+    return detail::MatcherAsPredicate<M>(matcher);
+}
+
+template<typename M>
+typename iutest_type_traits::enable_if<iutest_type_traits::is_class<M>::value,
+    detail::MatcherAsPredicate<M> >::type Matches(volatile M& matcher)
+{
+    return detail::MatcherAsPredicate<M>::FromVolatile(matcher);
+}
+
+template<typename M>
+typename iutest_type_traits::enable_if<iutest_type_traits::is_class<M>::value,
+    detail::MatcherAsPredicate<M> >::type Matches(const volatile M& matcher)
+{
+    return detail::MatcherAsPredicate<M>::FromVolatile(matcher);
+}
+
+template<typename M>
+// @infer-ignore PULSE_CONST_REFABLE
+typename iutest_type_traits::disable_if<iutest_type_traits::is_class<M>::value,
+    detail::MatcherAsPredicate<M> >::type Matches(M matcher)
+{
+    return detail::MatcherAsPredicate<M>(matcher);
+}
+#else
+template<typename M>
+// @infer-ignore PULSE_CONST_REFABLE
+detail::MatcherAsPredicate<M> Matches(M matcher)
+{
+    return detail::MatcherAsPredicate<M>(matcher);
+}
+#endif
 
 /**
  * @defgroup    MATCHERS    Matchers
