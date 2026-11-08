@@ -105,6 +105,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/is_subset_of_matcher_tests \
 		$(OUTDIR)/is_superset_of_matcher_tests \
 		$(OUTDIR)/unordered_elements_are_matcher_tests \
+		$(OUTDIR)/unordered_pointwise_matcher_tests \
 		$(OUTDIR)/break_on_failure_nobreak_tests \
 		$(OUTDIR)/catch_exceptions_tests \
 		$(OUTDIR)/charcode_tests \
