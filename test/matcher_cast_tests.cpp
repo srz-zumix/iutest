@@ -13,8 +13,6 @@
 //-----------------------------------------------------------------------
 //======================================================================
 
-#include <sstream>
-#include <string>
 #include "../include/gtest/iutest_spi_switch.hpp"
 
 #if IUTEST_HAS_MATCHERS
@@ -175,21 +173,31 @@ struct IsEven
     void DescribeNegationTo(::std::ostream* os) const { *os << "is odd"; }
 };
 
+Matcher<int> MakeIsEvenMatcher()
+{
+#if defined(IUTEST_USE_GTEST)
+    return MatcherCast<int>(::testing::MakePolymorphicMatcher(IsEven()));
+#else
+    return MatcherCast<int>(IsEven());
+#endif
+}
+
 }   // end of namespace
 
 IUTEST(MatcherCast, Explanation)
 {
+    const Matcher<int> matcher = MakeIsEvenMatcher();
 #if defined(IUTEST_USE_GTEST)
-    const Matcher<int> matcher = MatcherCast<int>(::testing::MakePolymorphicMatcher(IsEven()));
     ::testing::StringMatchResultListener listener;
 #else
-    const Matcher<int> matcher = MatcherCast<int>(IsEven());
     ::std::ostringstream listener;
 #endif
     IUTEST_EXPECT_FALSE(SafeMatcherCast<short>(matcher).MatchAndExplain(3, &listener));
     IUTEST_EXPECT_EQ("remainder 1", listener.str());
-    IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(3, matcher), "remainder 1");
-    IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(4, ::iutest::matchers::Not(matcher)), "is odd");
+    IUTEST_EXPECT_NONFATAL_FAILURE(
+        IUTEST_EXPECT_THAT(3, MakeIsEvenMatcher()), "remainder 1");
+    IUTEST_EXPECT_NONFATAL_FAILURE(
+        IUTEST_EXPECT_THAT(4, ::iutest::matchers::Not(MakeIsEvenMatcher())), "is odd");
 }
 
 #endif

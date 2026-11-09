@@ -115,6 +115,8 @@ public:
     }
 };
 
+class TypedMatcherMarker {};
+
 #if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
 template<typename M, typename U>
 struct is_gtest_matcher
@@ -4128,7 +4130,7 @@ namespace matchers
  * @note    Matchers are copied; objects referenced by a matcher must remain alive.
 */
 template<typename T>
-class Matcher : public detail::IMatcher
+class Matcher : public detail::IMatcher, public detail::TypedMatcherMarker
 {
     struct Interface
     {
@@ -4184,6 +4186,8 @@ class Matcher : public detail::IMatcher
     };
 
 public:
+    typedef T input_type;
+
     Matcher() : m_impl(NULL) {}
     Matcher(const Matcher& rhs) : detail::IMatcher(rhs), m_impl(rhs.m_impl)
     {
@@ -4318,11 +4322,35 @@ Matcher<T> MatcherCast(const M& matcher)
     return Matcher<T>(matcher);
 }
 
-template<typename T, typename U>
-Matcher<T> MatcherCast(const Matcher<U>& matcher)
+}   // end of namespace matchers
+
+namespace detail
 {
-    return Matcher<T>(matcher);
+
+template<typename T, typename M>
+matchers::Matcher<T> SafeMatcherCastImpl(const M& matcher, iutest_type_traits::false_type)
+{
+    return matchers::MatcherCast<T>(matcher);
 }
+
+template<typename T, typename M>
+matchers::Matcher<T> SafeMatcherCastImpl(const M& matcher, iutest_type_traits::true_type)
+{
+    typedef typename M::input_type U;
+    IUTEST_STATIC_ASSERT_MSG((iutest_type_traits::is_convertible<T, U>::value),
+        "SafeMatcherCast requires implicitly convertible input types");
+    IUTEST_STATIC_ASSERT_MSG((!iutest_type_traits::is_reference<U>::value
+        || iutest_type_traits::is_reference<T>::value),
+        "SafeMatcherCast cannot convert a value to a reference");
+    IUTEST_STATIC_ASSERT_MSG((IsLosslessMatcherConversion<T, U>::value),
+        "SafeMatcherCast requires lossless arithmetic conversion");
+    return matchers::MatcherCast<T>(matcher);
+}
+
+}   // end of namespace detail
+
+namespace matchers
+{
 
 /**
  * @brief   Casts a matcher, rejecting lossy or reference-unsafe input conversions.
@@ -4330,20 +4358,11 @@ Matcher<T> MatcherCast(const Matcher<U>& matcher)
 template<typename T, typename M>
 Matcher<T> SafeMatcherCast(const M& matcher)
 {
-    return MatcherCast<T>(matcher);
-}
-
-template<typename T, typename U>
-Matcher<T> SafeMatcherCast(const Matcher<U>& matcher)
-{
-    IUTEST_STATIC_ASSERT_MSG((iutest_type_traits::is_convertible<T, U>::value),
-        "SafeMatcherCast requires implicitly convertible input types");
-    IUTEST_STATIC_ASSERT_MSG((!iutest_type_traits::is_reference<U>::value
-        || iutest_type_traits::is_reference<T>::value),
-        "SafeMatcherCast cannot convert a value to a reference");
-    IUTEST_STATIC_ASSERT_MSG((detail::IsLosslessMatcherConversion<T, U>::value),
-        "SafeMatcherCast requires lossless arithmetic conversion");
-    return MatcherCast<T>(matcher);
+    typedef typename iutest_type_traits::remove_cv<
+        typename iutest_type_traits::remove_reference<M>::type>::type MatcherType;
+    return detail::SafeMatcherCastImpl<T>(matcher,
+        iutest_type_traits::bool_constant<
+            iutest_type_traits::is_base_of<detail::TypedMatcherMarker, MatcherType>::value>());
 }
 
 /**
