@@ -25,7 +25,7 @@ using ::iutest::matchers::SafeMatcherCast;
 
 namespace {
 
-const int expected = 42;
+const int matcher_expected = 42;
 
 struct Base { virtual ~Base() {} };
 struct Derived : Base {};
@@ -43,7 +43,7 @@ int SelectOverload(const Matcher< ::std::string>&) { return 2; }
 
 Matcher<int> MakeValueMatcher()
 {
-    int value = expected;
+    int value = matcher_expected;
     return MatcherCast<int>(value);
 }
 
@@ -52,9 +52,9 @@ Matcher<int> MakeValueMatcher()
 IUTEST(MatcherCast, Value)
 {
     const Matcher<int> matcher = MakeValueMatcher();
-    IUTEST_EXPECT_TRUE(matcher.Matches(expected));
+    IUTEST_EXPECT_TRUE(matcher.Matches(matcher_expected));
     IUTEST_EXPECT_FALSE(matcher.Matches(0));
-    IUTEST_EXPECT_THAT(expected, matcher);
+    IUTEST_EXPECT_THAT(matcher_expected, matcher);
     IUTEST_EXPECT_THAT(0, ::iutest::matchers::Not(matcher));
     const Matcher< ::std::string> text = MatcherCast< ::std::string>("hello");
     IUTEST_EXPECT_TRUE(text.Matches("hello"));
@@ -65,8 +65,8 @@ IUTEST(MatcherCast, Value)
 
 IUTEST(MatcherCast, PolymorphicMatcher)
 {
-    const Matcher<int> matcher = MatcherCast<int>(::iutest::matchers::Eq(expected));
-    IUTEST_EXPECT_TRUE(matcher.Matches(expected));
+    const Matcher<int> matcher = MatcherCast<int>(::iutest::matchers::Eq(matcher_expected));
+    IUTEST_EXPECT_TRUE(matcher.Matches(matcher_expected));
     IUTEST_EXPECT_FALSE(matcher.Matches(0));
     IUTEST_EXPECT_EQ(1, SelectOverload(MatcherCast<int>(::iutest::matchers::_)));
     IUTEST_EXPECT_EQ(2, SelectOverload(MatcherCast< ::std::string>(::iutest::matchers::_)));
@@ -74,14 +74,14 @@ IUTEST(MatcherCast, PolymorphicMatcher)
 
 IUTEST(MatcherCast, TypedMatcher)
 {
-    const Matcher<int> original = MatcherCast<int>(expected);
+    const Matcher<int> original = MatcherCast<int>(matcher_expected);
     const Matcher<short> safe = SafeMatcherCast<short>(original);
     IUTEST_EXPECT_TRUE(safe.Matches(42));
     IUTEST_EXPECT_FALSE(safe.Matches(0));
     const Matcher<double> unchecked = MatcherCast<double>(original);
     IUTEST_EXPECT_TRUE(unchecked.Matches(42.9));
     const Matcher<int> same = MatcherCast<int>(original);
-    IUTEST_EXPECT_TRUE(same.Matches(expected));
+    IUTEST_EXPECT_TRUE(same.Matches(matcher_expected));
 }
 
 IUTEST(MatcherCast, CopyAndAssignment)
@@ -94,16 +94,16 @@ IUTEST(MatcherCast, CopyAndAssignment)
         copy = MatcherCast<int>(0);
         IUTEST_EXPECT_TRUE(copy.Matches(0));
     }
-    IUTEST_EXPECT_TRUE(assigned.Matches(expected));
+    IUTEST_EXPECT_TRUE(assigned.Matches(matcher_expected));
     Matcher<int>& alias = assigned;
     assigned = alias;
-    IUTEST_EXPECT_TRUE(assigned.Matches(expected));
+    IUTEST_EXPECT_TRUE(assigned.Matches(matcher_expected));
 }
 
 IUTEST(MatcherCast, SafeValuesAndPolymorphicMatchers)
 {
-    IUTEST_EXPECT_TRUE(SafeMatcherCast<int>(expected).Matches(expected));
-    IUTEST_EXPECT_TRUE(SafeMatcherCast<int>(::iutest::matchers::Eq(expected)).Matches(expected));
+    IUTEST_EXPECT_TRUE(SafeMatcherCast<int>(matcher_expected).Matches(matcher_expected));
+    IUTEST_EXPECT_TRUE(SafeMatcherCast<int>(::iutest::matchers::Eq(matcher_expected)).Matches(matcher_expected));
     const Matcher<double> wide = MatcherCast<double>(1.5);
     IUTEST_EXPECT_TRUE(SafeMatcherCast<float>(wide).Matches(1.5f));
     const Matcher<int> integer = MatcherCast<int>(1);
@@ -122,10 +122,10 @@ IUTEST(MatcherCast, ReferencesAndNonCopyable)
     IUTEST_EXPECT_TRUE(converted.Matches(object));
     NonCopyable other;
     IUTEST_EXPECT_FALSE(converted.Matches(other));
-    const Matcher<const int&> reference = MatcherCast<const int&>(::iutest::matchers::Ref(expected));
+    const Matcher<const int&> reference = MatcherCast<const int&>(::iutest::matchers::Ref(matcher_expected));
     const Matcher<const int&> same = SafeMatcherCast<const int&>(reference);
-    IUTEST_EXPECT_TRUE(same.Matches(expected));
-    IUTEST_EXPECT_TRUE(SafeMatcherCast<const int&>(MatcherCast<int>(expected)).Matches(expected));
+    IUTEST_EXPECT_TRUE(same.Matches(matcher_expected));
+    IUTEST_EXPECT_TRUE(SafeMatcherCast<const int&>(MatcherCast<int>(matcher_expected)).Matches(matcher_expected));
 }
 
 IUTEST(MatcherCast, PointerAndReferenceUpcasts)
@@ -140,7 +140,7 @@ IUTEST(MatcherCast, PointerAndReferenceUpcasts)
 
 IUTEST(MatcherCast, Descriptions)
 {
-    const Matcher<int> matcher = MatcherCast<int>(::iutest::matchers::Eq(expected));
+    const Matcher<int> matcher = MatcherCast<int>(::iutest::matchers::Eq(matcher_expected));
     ::std::ostringstream original;
     ::std::ostringstream converted;
     matcher.DescribeTo(&original);
@@ -151,7 +151,7 @@ IUTEST(MatcherCast, Descriptions)
     matcher.DescribeNegationTo(&original);
     SafeMatcherCast<short>(matcher).DescribeNegationTo(&converted);
     IUTEST_EXPECT_EQ(original.str(), converted.str());
-    IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(0, MatcherCast<int>(expected)), "42");
+    IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_THAT(0, MatcherCast<int>(matcher_expected)), "42");
 }
 
 #if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
