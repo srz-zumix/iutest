@@ -24,6 +24,8 @@
 
 using namespace ::iutest::matchers;
 
+struct Matcher {};  // Keep the suite name distinct from matchers::Matcher<T>.
+
 namespace {
 
 ::std::string Hoge = "Hoge";

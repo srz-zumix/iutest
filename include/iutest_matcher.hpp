@@ -25,9 +25,12 @@
 #include <memory>
 #endif
 
+#include "iutest_static_assertion.hpp"
+
 #include <algorithm>
 #include <iterator>
 #include <list>
+#include <limits>
 #include <sstream>
 #include <utility>
 #include <vector>
@@ -4119,6 +4122,229 @@ IUTEST_PRAGMA_ASSIGNMENT_OPERATOR_COULD_NOT_GENERATE_WARN_DISABLE_END()
 */
 namespace matchers
 {
+
+/**
+ * @brief   Type-erased matcher accepting values of type T.
+ * @note    Matchers are copied; objects referenced by a matcher must remain alive.
+*/
+template<typename T>
+class Matcher : public detail::IMatcher
+{
+    struct Interface
+    {
+        Interface() : references(1) {}
+        virtual ~Interface() {}
+        virtual bool MatchAndExplain(T value, ::std::ostream* os) const = 0;
+        virtual void DescribeTo(::std::ostream* os) const = 0;
+        virtual void DescribeNegationTo(::std::ostream* os) const = 0;
+        size_t references;
+    };
+
+    template<typename M>
+    struct Implementation : public Interface
+    {
+        explicit Implementation(const M& matcher) : m_matcher(matcher) {}
+        bool MatchAndExplain(T value, ::std::ostream* os) const IUTEST_CXX_OVERRIDE
+        {
+            return detail::ExplainMatch(m_matcher, value, os);
+        }
+        void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
+        {
+            detail::DescribeMatcherTo(m_matcher, os);
+        }
+        void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
+        {
+            detail::DescribeMatcherNegationTo(m_matcher, os);
+        }
+        mutable M m_matcher;
+    };
+
+    template<typename U>
+    struct CastImplementation : public Interface
+    {
+        explicit CastImplementation(const Matcher<U>& matcher) : m_matcher(matcher) {}
+        bool MatchAndExplain(T value, ::std::ostream* os) const IUTEST_CXX_OVERRIDE
+        {
+            typedef typename iutest_type_traits::remove_reference<T>::type Input;
+            typedef typename iutest_type_traits::remove_reference<U>::type Output;
+            typedef typename iutest_type_traits::remove_cv<
+                typename iutest_type_traits::remove_pointer<Input>::type>::type From;
+            typedef typename iutest_type_traits::remove_cv<
+                typename iutest_type_traits::remove_pointer<Output>::type>::type To;
+            IUTEST_STATIC_ASSERT_MSG((iutest_type_traits::is_pointer<Input>::value
+                != iutest_type_traits::is_pointer<Output>::value
+                || iutest_type_traits::is_same<From, To>::value
+                || !iutest_type_traits::is_base_of<From, To>::value),
+                "MatcherCast cannot downcast from base to derived");
+            return m_matcher.MatchAndExplain(static_cast<U>(value), os);
+        }
+        void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { m_matcher.DescribeTo(os); }
+        void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { m_matcher.DescribeNegationTo(os); }
+        Matcher<U> m_matcher;
+    };
+
+public:
+    Matcher() : m_impl(NULL) {}
+    Matcher(const Matcher& rhs) : detail::IMatcher(rhs), m_impl(rhs.m_impl)
+    {
+        if( m_impl != NULL ) ++m_impl->references;
+    }
+    template<typename U>
+    explicit Matcher(const Matcher<U>& matcher) : m_impl(new CastImplementation<U>(matcher)) {}
+    template<typename M>
+    Matcher(M matcher) : m_impl(Create(matcher, iutest_type_traits::bool_constant<  // NOLINT(runtime/explicit)
+        detail::IMatcher::is_matcher<M>::value
+#if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
+        || detail::is_gtest_matcher<M, typename iutest_type_traits::remove_reference<T>::type>::value
+#endif
+        >())) {}
+    ~Matcher() IUTEST_CXX_OVERRIDE { Release(); }
+
+    Matcher& operator =(const Matcher& rhs)
+    {
+        if( rhs.m_impl != NULL ) ++rhs.m_impl->references;
+        Release();
+        m_impl = rhs.m_impl;
+        return *this;
+    }
+
+    bool Matches(T value) const
+    {
+        ::std::ostringstream os;
+        return MatchAndExplain(value, &os);
+    }
+    bool MatchAndExplain(T value, ::std::ostream* os) const
+    {
+        ::std::ostringstream ignored;
+        return m_impl != NULL && m_impl->MatchAndExplain(value, os != NULL ? os : &ignored);
+    }
+    AssertionResult operator ()(T value) const
+    {
+        ::std::ostringstream explanation;
+        if( MatchAndExplain(value, &explanation) ) return AssertionSuccess();
+        return AssertionFailure() << WhichIs() << "\n" << explanation.str();
+    }
+    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
+    {
+        if( m_impl != NULL ) m_impl->DescribeTo(os);
+        else *os << "is an uninitialized matcher";
+    }
+    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
+    {
+        if( m_impl != NULL ) m_impl->DescribeNegationTo(os);
+        else detail::IMatcher::DescribeNegationTo(os);
+    }
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        ::std::ostringstream os;
+        DescribeTo(&os);
+        return os.str();
+    }
+
+private:
+    typedef typename iutest_type_traits::remove_cv<
+        typename iutest_type_traits::remove_reference<T>::type>::type Value;
+
+    template<typename M>
+    static Interface* Create(const M& matcher, iutest_type_traits::true_type)
+    {
+        return new Implementation<M>(matcher);
+    }
+    template<typename M>
+    static Interface* Create(const M& value, iutest_type_traits::false_type)
+    {
+        return CreateValue(value, iutest_type_traits::bool_constant<
+            iutest_type_traits::is_convertible<M, Value>::value>());
+    }
+    template<typename M>
+    static Interface* CreateValue(const M& value, iutest_type_traits::true_type)
+    {
+        return new Implementation<Value>(static_cast<Value>(value));
+    }
+    template<typename M>
+    static Interface* CreateValue(const M& value, iutest_type_traits::false_type)
+    {
+        return new Implementation<M>(value);
+    }
+    void Release()
+    {
+        if( m_impl != NULL && --m_impl->references == 0 ) delete m_impl;
+    }
+    Interface* m_impl;
+};
+
+}   // end of namespace matchers
+
+namespace detail
+{
+
+template<typename T>
+struct IsMatcherArithmetic : public iutest_type_traits::bool_constant<
+    iutest_type_traits::is_integral<T>::value
+    || iutest_type_traits::is_same<T, float>::value
+    || iutest_type_traits::is_same<T, double>::value
+    || iutest_type_traits::is_same<T, long double>::value> {};
+
+template<typename From, typename To>
+struct IsLosslessMatcherConversion
+{
+    typedef typename iutest_type_traits::remove_cv<
+        typename iutest_type_traits::remove_reference<From>::type>::type F;
+    typedef typename iutest_type_traits::remove_cv<
+        typename iutest_type_traits::remove_reference<To>::type>::type D;
+    typedef ::std::numeric_limits<F> FLimits;
+    typedef ::std::numeric_limits<D> DLimits;
+    enum { value = !IsMatcherArithmetic<F>::value || !IsMatcherArithmetic<D>::value
+        || iutest_type_traits::is_same<F, bool>::value
+        || (FLimits::is_integer == DLimits::is_integer
+            && FLimits::digits <= DLimits::digits
+            && (FLimits::is_integer
+                ? (!FLimits::is_signed || DLimits::is_signed)
+                : (FLimits::max_exponent <= DLimits::max_exponent
+                    && FLimits::min_exponent >= DLimits::min_exponent))) };
+};
+
+}   // end of namespace detail
+
+namespace matchers
+{
+
+/**
+ * @brief   Converts a matcher or an equality value to Matcher<T>.
+*/
+template<typename T, typename M>
+Matcher<T> MatcherCast(const M& matcher)
+{
+    return Matcher<T>(matcher);
+}
+
+template<typename T, typename U>
+Matcher<T> MatcherCast(const Matcher<U>& matcher)
+{
+    return Matcher<T>(matcher);
+}
+
+/**
+ * @brief   Casts a matcher, rejecting lossy or reference-unsafe input conversions.
+*/
+template<typename T, typename M>
+Matcher<T> SafeMatcherCast(const M& matcher)
+{
+    return MatcherCast<T>(matcher);
+}
+
+template<typename T, typename U>
+Matcher<T> SafeMatcherCast(const Matcher<U>& matcher)
+{
+    IUTEST_STATIC_ASSERT_MSG((iutest_type_traits::is_convertible<T, U>::value),
+        "SafeMatcherCast requires implicitly convertible input types");
+    IUTEST_STATIC_ASSERT_MSG((!iutest_type_traits::is_reference<U>::value
+        || iutest_type_traits::is_reference<T>::value),
+        "SafeMatcherCast cannot convert a value to a reference");
+    IUTEST_STATIC_ASSERT_MSG((detail::IsLosslessMatcherConversion<T, U>::value),
+        "SafeMatcherCast requires lossless arithmetic conversion");
+    return MatcherCast<T>(matcher);
+}
 
 /**
  * @brief   Returns the matcher description, optionally negated
