@@ -342,6 +342,11 @@
 #  define IUTEST_HAS_MATCHER_POINTWISE          1
 #endif
 
+#if !defined(IUTEST_HAS_MATCHER_UNORDERED_POINTWISE)
+//! Wether ::iutest::matchers::UnorderedPointwise is available
+#  define IUTEST_HAS_MATCHER_UNORDERED_POINTWISE 1
+#endif
+
 #if !defined(IUTEST_HAS_MATCHER_OPTIONAL)
 #  define IUTEST_HAS_MATCHER_OPTIONAL           1
 #endif

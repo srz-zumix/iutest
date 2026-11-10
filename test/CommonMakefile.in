@@ -99,11 +99,13 @@ TEST_TARGETS= \
 		$(OUTDIR)/assertion_return_tests \
 		$(OUTDIR)/assume_tests \
 		$(OUTDIR)/base64_matcher_tests \
+		$(OUTDIR)/begin_end_distance_is_matcher_tests \
 		$(OUTDIR)/logical_array_matcher_tests \
 		$(OUTDIR)/contains_times_matcher_tests \
 		$(OUTDIR)/is_subset_of_matcher_tests \
 		$(OUTDIR)/is_superset_of_matcher_tests \
 		$(OUTDIR)/unordered_elements_are_matcher_tests \
+		$(OUTDIR)/unordered_pointwise_matcher_tests \
 		$(OUTDIR)/break_on_failure_nobreak_tests \
 		$(OUTDIR)/catch_exceptions_tests \
 		$(OUTDIR)/charcode_tests \
@@ -152,8 +154,11 @@ TEST_TARGETS= \
 		$(OUTDIR)/listener_tests \
 		$(OUTDIR)/matcher_tests \
 		$(OUTDIR)/an_matcher_tests \
+		$(OUTDIR)/args_matcher_tests \
 		$(OUTDIR)/matcher_explain_tests \
 		$(OUTDIR)/explain_match_result_tests \
+		$(OUTDIR)/matches_tests \
+		$(OUTDIR)/describe_matcher_tests \
 		$(OUTDIR)/bool_matcher_tests \
 		$(OUTDIR)/gtest_style_matcher_tests \
 		$(OUTDIR)/matcher_macro_tests \

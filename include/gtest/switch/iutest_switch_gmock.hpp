@@ -65,6 +65,7 @@
 #undef IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR
 #undef IUTEST_HAS_MATCHER_EACH
 #undef IUTEST_HAS_MATCHER_POINTWISE
+#undef IUTEST_HAS_MATCHER_UNORDERED_POINTWISE
 #undef IUTEST_HAS_MATCHER_VARIADIC
 #undef IUTEST_HAS_MATCHER_OPTIONAL
 #undef IUTEST_HAS_MATCHER_FIELDSARE
@@ -91,6 +92,11 @@
 #define IUTEST_MATCHER_P8  MATCHER_P8
 #define IUTEST_MATCHER_P9  MATCHER_P9
 #define IUTEST_MATCHER_P10 MATCHER_P10
+#if GMOCK_VER > 0x01060000
+#  define IUTEST_HAS_MATCHER_UNORDERED_POINTWISE     1
+#else
+#  define IUTEST_HAS_MATCHER_UNORDERED_POINTWISE     0
+#endif
 #if GMOCK_VER >= 0x01120000
 #  define IUTEST_HAS_MATCHER_CONDITIONAL            1
 #else
@@ -287,7 +293,13 @@ AnyOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 m7, M8 m8, M9 m9, M10 m10) {
 namespace matchers
 {
 
+#if IUTEST_HAS_STD_TUPLE && IUTEST_HAS_CXX11
+    using ::testing::Args;
+    using ::testing::AllArgs;
+#endif
+    using ::testing::DescribeMatcher;
     using ::testing::ExplainMatchResult;
+    using ::testing::Matches;
     using ::testing::Not;
 #if IUTEST_HAS_MATCHER_CONDITIONAL
     using ::testing::Conditional;
@@ -345,6 +357,9 @@ namespace matchers
 #endif
 #if IUTEST_HAS_MATCHER_POINTWISE
     using ::testing::Pointwise;
+#endif
+#if IUTEST_HAS_MATCHER_UNORDERED_POINTWISE
+    using ::testing::UnorderedPointwise;
 #endif
     using ::testing::Key;
     using ::testing::Pair;
@@ -428,6 +443,9 @@ namespace matchers
     // gmock 1.7 or later
     using ::testing::IsEmpty;
     using ::testing::SizeIs;
+#endif
+#if GMOCK_VER >= 0x01080000
+    using ::testing::BeginEndDistanceIs;
 #endif
 
 }   // end of namespace matchers
