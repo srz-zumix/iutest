@@ -21,8 +21,18 @@
 #include <cmath>
 #endif
 
+#if !IUTEST_HAS_CXX11
+#  if defined(__has_include)
+#    if __has_include(<tr1/memory>)
+#      define IIUT_MATCHER_USE_TR1_SHARED_PTR_
+#    endif
+#  endif
+#endif
+
 #if IUTEST_HAS_CXX11
 #include <memory>
+#elif defined(IIUT_MATCHER_USE_TR1_SHARED_PTR_)
+#include <tr1/memory>
 #endif
 
 #include "iutest_static_assertion.hpp"
@@ -4127,26 +4137,62 @@ namespace matchers
 
 /**
  * @brief   Type-erased matcher accepting values of type T.
- * @note    Matchers are copied; objects referenced by a matcher must remain alive.
+ * @note    Matcher copies share their stored matcher; objects it references must remain alive.
 */
 template<typename T>
 class Matcher : public detail::IMatcher, public detail::TypedMatcherMarker
 {
+    typedef typename iutest_type_traits::remove_cv<
+        typename iutest_type_traits::remove_reference<T>::type>::type Value;
+
+    template<typename M>
+    struct IsMatcherInput : public iutest_type_traits::bool_constant<
+        detail::IMatcher::is_matcher<M>::value
+#if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
+        || detail::is_gtest_matcher<M, typename iutest_type_traits::remove_reference<T>::type>::value
+#endif
+        > {};
+
+    template<typename M>
+    struct CanConstructFromReference : public iutest_type_traits::bool_constant<
+        IsMatcherInput<M>::value || (iutest_type_traits::is_class<M>::value
+            && iutest_type_traits::is_same<M, Value>::value)> {};
+
+    template<typename Signature>
+    struct Parameter;
+    template<typename U>
+    struct Parameter<void (*)(U)> { typedef U type; };
+
+    // Let the compiler adjust array and function parameters to pointers.
+    typedef typename Parameter<void (*)(T)>::type AdjustedParameter;
+    typedef iutest_type_traits::bool_constant<
+        iutest_type_traits::is_same<
+            typename iutest_type_traits::remove_cv<T>::type, AdjustedParameter>::value> UnadjustedParameter;
+    typedef typename iutest_type_traits::conditional<
+        UnadjustedParameter::value, T, AdjustedParameter>::type MatchValue;
+    // Forward the public by-value argument without copying it again.
+    typedef typename iutest_type_traits::add_lvalue_reference<
+        typename iutest_type_traits::remove_reference<MatchValue>::type>::type MatchArgument;
+
     struct Interface
     {
+#if !IUTEST_HAS_CXX11 && !defined(IIUT_MATCHER_USE_TR1_SHARED_PTR_)
         Interface() : references(1) {}
+#endif
         virtual ~Interface() {}
-        virtual bool MatchAndExplain(T value, ::std::ostream* os) const = 0;
+        virtual bool MatchAndExplain(MatchArgument value, ::std::ostream* os) const = 0;
         virtual void DescribeTo(::std::ostream* os) const = 0;
         virtual void DescribeNegationTo(::std::ostream* os) const = 0;
+#if !IUTEST_HAS_CXX11 && !defined(IIUT_MATCHER_USE_TR1_SHARED_PTR_)
         size_t references;
+#endif
     };
 
     template<typename M>
     struct Implementation : public Interface
     {
         explicit Implementation(const M& matcher) : m_matcher(matcher) {}
-        bool MatchAndExplain(T value, ::std::ostream* os) const IUTEST_CXX_OVERRIDE
+        bool MatchAndExplain(MatchArgument value, ::std::ostream* os) const IUTEST_CXX_OVERRIDE
         {
             return detail::ExplainMatch(m_matcher, value, os);
         }
@@ -4165,7 +4211,7 @@ class Matcher : public detail::IMatcher, public detail::TypedMatcherMarker
     struct CastImplementation : public Interface
     {
         explicit CastImplementation(const Matcher<U>& matcher) : m_matcher(matcher) {}
-        bool MatchAndExplain(T value, ::std::ostream* os) const IUTEST_CXX_OVERRIDE
+        bool MatchAndExplain(MatchArgument value, ::std::ostream* os) const IUTEST_CXX_OVERRIDE
         {
             typedef typename iutest_type_traits::remove_reference<T>::type Input;
             typedef typename iutest_type_traits::remove_reference<U>::type Output;
@@ -4188,54 +4234,76 @@ class Matcher : public detail::IMatcher, public detail::TypedMatcherMarker
 public:
     typedef T input_type;
 
-    Matcher() : m_impl(NULL) {}
+    Matcher() : m_impl() {}
     Matcher(const Matcher& rhs) : detail::IMatcher(rhs), m_impl(rhs.m_impl)
     {
+#if !IUTEST_HAS_CXX11 && !defined(IIUT_MATCHER_USE_TR1_SHARED_PTR_)
         if( m_impl != NULL ) ++m_impl->references;
+#endif
     }
     template<typename U>
     explicit Matcher(const Matcher<U>& matcher) : m_impl(new CastImplementation<U>(matcher)) {}
+#if !defined(IUTEST_NO_SFINAE)
     template<typename M>
-    Matcher(M matcher) : m_impl(Create(matcher, iutest_type_traits::bool_constant<  // NOLINT(runtime/explicit)
-        detail::IMatcher::is_matcher<M>::value
-#if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
-        || detail::is_gtest_matcher<M, typename iutest_type_traits::remove_reference<T>::type>::value
+    Matcher(const M& matcher,  // NOLINT(runtime/explicit)
+        typename iutest_type_traits::enable_if<CanConstructFromReference<M>::value
+            && iutest_type_traits::is_same<M, typename iutest_type_traits::remove_volatile<M>::type>::value>::type* = NULL)
+        : m_impl(Create(matcher)) {}
+    template<typename M>
+    Matcher(M& matcher,  // NOLINT(runtime/explicit)
+        typename iutest_type_traits::enable_if<
+            CanConstructFromReference<typename iutest_type_traits::remove_cv<M>::type>::value
+            && !iutest_type_traits::is_same<M, typename iutest_type_traits::remove_volatile<M>::type>::value>::type* = NULL)
+        : m_impl(CreateVolatile(matcher)) {}
+    template<typename M>
+    Matcher(M matcher,  // NOLINT(runtime/explicit)
+        typename iutest_type_traits::disable_if<CanConstructFromReference<M>::value>::type* = NULL)
+        : m_impl(Create(matcher)) {}
+#else
+    template<typename M>
+    Matcher(M matcher) : m_impl(Create(matcher)) {}  // NOLINT(runtime/explicit)
 #endif
-        >())) {}
-    ~Matcher() IUTEST_CXX_OVERRIDE { Release(); }
+    ~Matcher() IUTEST_CXX_OVERRIDE
+    {
+#if !IUTEST_HAS_CXX11 && !defined(IIUT_MATCHER_USE_TR1_SHARED_PTR_)
+        Release();
+#endif
+    }
 
     Matcher& operator =(const Matcher& rhs)
     {
+#if IUTEST_HAS_CXX11 || defined(IIUT_MATCHER_USE_TR1_SHARED_PTR_)
+        m_impl = rhs.m_impl;
+#else
         if( rhs.m_impl != NULL ) ++rhs.m_impl->references;
         Release();
         m_impl = rhs.m_impl;
+#endif
         return *this;
     }
 
     bool Matches(T value) const
     {
-        ::std::ostringstream os;
-        return MatchAndExplain(value, &os);
+        return MatchAndExplainForward(value, NULL, UnadjustedParameter());
     }
     bool MatchAndExplain(T value, ::std::ostream* os) const
     {
-        ::std::ostringstream ignored;
-        return m_impl != NULL && m_impl->MatchAndExplain(value, os != NULL ? os : &ignored);
+        return MatchAndExplainForward(value, os, UnadjustedParameter());
     }
     AssertionResult operator ()(T value) const
     {
         ::std::ostringstream explanation;
-        if( MatchAndExplain(value, &explanation) ) return AssertionSuccess();
+        if( MatchAndExplainForward(value, &explanation, UnadjustedParameter()) ) return AssertionSuccess();
         return AssertionFailure() << WhichIs() << "\n" << explanation.str();
     }
     void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
     {
-        if( m_impl != NULL ) m_impl->DescribeTo(os);
+        if( m_impl ) m_impl->DescribeTo(os);
         else *os << "is an uninitialized matcher";
     }
     void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
     {
-        if( m_impl != NULL ) m_impl->DescribeNegationTo(os);
+        if( m_impl ) m_impl->DescribeNegationTo(os);
         else detail::IMatcher::DescribeNegationTo(os);
     }
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
@@ -4246,9 +4314,36 @@ public:
     }
 
 private:
-    typedef typename iutest_type_traits::remove_cv<
-        typename iutest_type_traits::remove_reference<T>::type>::type Value;
-
+    template<typename U>
+    bool MatchAndExplainForward(U& value, ::std::ostream* os, iutest_type_traits::true_type) const
+    {
+        return MatchAndExplainImpl(value, os);
+    }
+    template<typename U>
+    bool MatchAndExplainForward(U& value, ::std::ostream* os, iutest_type_traits::false_type) const
+    {
+        MatchValue adjusted = value;
+        return MatchAndExplainImpl(adjusted, os);
+    }
+    bool MatchAndExplainImpl(MatchArgument value, ::std::ostream* os) const
+    {
+        ::std::ostringstream ignored;
+        return m_impl && m_impl->MatchAndExplain(value, os != NULL ? os : &ignored);
+    }
+#if !defined(IUTEST_NO_SFINAE)
+    template<typename M>
+    static Interface* CreateVolatile(M& matcher)
+    {
+        typedef typename iutest_type_traits::remove_cv<M>::type Unqualified;
+        const Unqualified copy(matcher);
+        return Create(copy);
+    }
+#endif
+    template<typename M>
+    static Interface* Create(const M& matcher)
+    {
+        return Create(matcher, IsMatcherInput<M>());
+    }
     template<typename M>
     static Interface* Create(const M& matcher, iutest_type_traits::true_type)
     {
@@ -4270,12 +4365,20 @@ private:
     {
         return new Implementation<M>(value);
     }
+#if IUTEST_HAS_CXX11
+    ::std::shared_ptr<Interface> m_impl;
+#elif defined(IIUT_MATCHER_USE_TR1_SHARED_PTR_)
+    ::std::tr1::shared_ptr<Interface> m_impl;
+#else
     void Release()
     {
         if( m_impl != NULL && --m_impl->references == 0 ) delete m_impl;
     }
     Interface* m_impl;
+#endif
 };
+
+#undef IIUT_MATCHER_USE_TR1_SHARED_PTR_
 
 }   // end of namespace matchers
 
