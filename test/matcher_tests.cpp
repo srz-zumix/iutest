@@ -1003,7 +1003,7 @@ IUTEST(Matchers, AnyOf)
 }
 
 #if !defined(IUTEST_USE_GTEST)
-IUTEST(Matcher, CompositeCopiesAndReferences)
+IUTEST(Matchers, CompositeCopiesAndReferences)
 {
 #if IUTEST_HAS_MATCHER_VARIADIC
     typedef ::iutest::detail::AnyOfMatcher<CopyTrackedMatcher, CopyTrackedMatcher> AnyPair;
