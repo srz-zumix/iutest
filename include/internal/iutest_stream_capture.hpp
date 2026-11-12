@@ -153,7 +153,72 @@ public:
     }
 };
 
+template<typename Capture>
+inline Capture*& GetStreamCapture()
+{
+    static Capture* capture = NULL;
+    return capture;
+}
+
+template<typename Capture>
+inline void CaptureStream()
+{
+    Capture*& capture = GetStreamCapture<Capture>();
+    IUTEST_CHECK_(capture == NULL) << "Only one capturer per stream is allowed.";
+    fflush(NULL);
+    capture = new Capture;
+}
+
+template<typename Capture>
+inline ::std::string GetCapturedStream()
+{
+    Capture*& capture = GetStreamCapture<Capture>();
+    IUTEST_CHECK_(capture != NULL) << "Stream capture has not been started.";
+    fflush(NULL);
+    const ::std::string str = capture->GetStreamString();
+    delete capture;
+    capture = NULL;
+    return str;
+}
+
 }   // end of namespace detail
+
+namespace internal
+{
+
+/**
+ * @brief   Start capturing stdout. Only one capture per stream is allowed.
+*/
+inline void CaptureStdout()
+{
+    detail::CaptureStream<detail::IUStreamCaptureStdout>();
+}
+
+/**
+ * @brief   Stop capturing stdout, restore it, and return the captured output.
+*/
+inline ::std::string GetCapturedStdout()
+{
+    return detail::GetCapturedStream<detail::IUStreamCaptureStdout>();
+}
+
+/**
+ * @brief   Start capturing stderr. Only one capture per stream is allowed.
+*/
+inline void CaptureStderr()
+{
+    detail::CaptureStream<detail::IUStreamCaptureStderr>();
+}
+
+/**
+ * @brief   Stop capturing stderr, restore it, and return the captured output.
+*/
+inline ::std::string GetCapturedStderr()
+{
+    return detail::GetCapturedStream<detail::IUStreamCaptureStderr>();
+}
+
+}   // end of namespace internal
 }   // end of namespace iutest
 
 #endif

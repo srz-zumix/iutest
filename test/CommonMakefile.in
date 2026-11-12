@@ -142,6 +142,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/gtest_version_tests \
 		$(OUTDIR)/gtest_alias_tests \
 		$(OUTDIR)/gtest_dont_define_tests \
+		$(OUTDIR)/stream_capture_tests \
 		$(OUTDIR)/help_tests \
 		$(OUTDIR)/inform_tests \
 		$(OUTDIR)/incomplete_printers_tests \
@@ -162,6 +163,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/describe_matcher_tests \
 		$(OUTDIR)/bool_matcher_tests \
 		$(OUTDIR)/gtest_style_matcher_tests \
+		$(OUTDIR)/matcher_macro_tests \
 		$(OUTDIR)/string_view_matcher_tests \
 		$(OUTDIR)/variant_matcher_tests \
 		$(OUTDIR)/any_matcher_tests \
