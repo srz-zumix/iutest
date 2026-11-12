@@ -514,7 +514,7 @@ struct ComparisonMatcherValuePrinter
     template<typename Stream>
     static void Print(Stream& os, const T& value)
     {
-        os << value;
+        os << PrintToString(value);
     }
 };
 
