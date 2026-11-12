@@ -22,6 +22,7 @@
 #endif
 
 #if IUTEST_HAS_CXX11
+#include <functional>
 #include <memory>
 #endif
 
@@ -463,21 +464,49 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& m)
  * @{
  */
 
+template<typename T>
+struct ComparisonMatcherValue
+{
+    typedef T type;
+};
+
+template<typename T, size_t N>
+struct ComparisonMatcherValue<T[N]>
+{
+    typedef const T* type;
+};
+
+template<typename T>
+const T& GetComparisonMatcherValue(const T& value)
+{
+    return value;
+}
+
+#if IUTEST_HAS_CXX11
+template<typename T>
+T& GetComparisonMatcherValue(const ::std::reference_wrapper<T>& value)
+{
+    return value.get();
+}
+#endif
+
 #define IIUT_DECL_COMPARE_MATCHER(name, op)  \
     template<typename T>                                                        \
     class IUTEST_PP_CAT(name, Matcher) IUTEST_CXX_FINAL : public IMatcher {     \
     public: explicit IUTEST_PP_CAT(name, Matcher)(const T& v) : m_expected(v) {}\
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                         \
         iu_global_format_stringstream strm;                                     \
-        strm << #name ": " << m_expected; return strm.str();                    \
+        strm << #name ": " << GetComparisonMatcherValue(m_expected); return strm.str(); \
     }                                                                           \
-    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << "is " #op " " << m_expected; } \
-    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { *os << "isn't " #op " " << m_expected; } \
+    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { \
+        *os << "is " #op " " << GetComparisonMatcherValue(m_expected); } \
+    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { \
+        *os << "isn't " #op " " << GetComparisonMatcherValue(m_expected); } \
     template<typename U>AssertionResult operator ()(const U& actual) const {    \
-        if IUTEST_COND_LIKELY( actual op m_expected ) return AssertionSuccess();\
+        if IUTEST_COND_LIKELY( actual op GetComparisonMatcherValue(m_expected) ) return AssertionSuccess(); \
         return AssertionFailure() << WhichIs();                                 \
     }                                                                           \
-    private: const T& m_expected;                                               \
+    private: const typename ComparisonMatcherValue<T>::type m_expected;         \
     }
 
 #if IUTEST_HAS_STD_TUPLE && IUTEST_HAS_VARIADIC_TEMPLATES
@@ -1025,7 +1054,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        if IUTEST_COND_LIKELY( Equals(actual, m_expected) )
+        if IUTEST_COND_LIKELY( Equals(actual, GetComparisonMatcherValue(m_expected)) )
         {
             return AssertionSuccess();
         }
@@ -1036,16 +1065,16 @@ public:
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
-        strm << "Eq: " << PrintToString(m_expected);
+        strm << "Eq: " << PrintToString(GetComparisonMatcherValue(m_expected));
         return strm.str();
     }
     void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
     {
-        *os << "is equal to " << PrintToString(m_expected);
+        *os << "is equal to " << PrintToString(GetComparisonMatcherValue(m_expected));
     }
     void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
     {
-        *os << "isn't equal to " << PrintToString(m_expected);
+        *os << "isn't equal to " << PrintToString(GetComparisonMatcherValue(m_expected));
     }
 private:
     template<typename A, typename B>
@@ -1071,30 +1100,17 @@ IUTEST_PRAGMA_WARN_POP()
         return Equals(actual, p);
     }
 private:
-    const T& m_expected;
-};
-
-/**
- * @brief   TypedEq matcher value holder
- * @note    EqMatcher holds a reference, so the value must be constructed before it
-*/
-template<typename T>
-class TypedEqMatcherValueHolder
-{
-protected:
-    explicit TypedEqMatcherValueHolder(const T& expected) : m_expected(expected) {}
-    T m_expected;
+    const typename ComparisonMatcherValue<T>::type m_expected;
 };
 
 /**
  * @brief   TypedEq matcher
 */
 template<typename T>
-class TypedEqMatcher IUTEST_CXX_FINAL : private TypedEqMatcherValueHolder<T>, public EqMatcher<T>
+class TypedEqMatcher IUTEST_CXX_FINAL : public EqMatcher<T>
 {
-    typedef TypedEqMatcherValueHolder<T> _Holder;
 public:
-    explicit TypedEqMatcher(T expected) : _Holder(expected), EqMatcher<T>(_Holder::m_expected) {}
+    explicit TypedEqMatcher(T expected) : EqMatcher<T>(expected) {}
 public:
     AssertionResult operator ()(const T& actual)
     {
@@ -4504,6 +4520,11 @@ detail::MatcherAsPredicate<M> Matches(M matcher)
 /**
  * @defgroup    MATCHERS    Matchers
  * @brief       Matchers
+ * @note        Eq, Equals, Ne, Lt, Le, Gt, Ge and TypedEq copy their expected values.
+ *              Use std::ref/std::cref (C++11) for live references or non-copyable values;
+ *              the referenced object must outlive the matcher. Code relying on implicit
+ *              reference retention must opt in explicitly. Arrays decay to pointers,
+ *              and pointer pointees are not owned by these matchers.
  * @{
 */
 
