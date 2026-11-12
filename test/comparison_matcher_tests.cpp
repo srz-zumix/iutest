@@ -31,6 +31,10 @@ namespace comparison_detail = ::testing::internal;
 namespace comparison_detail = ::iutest::detail;
 #endif
 
+extern int unbounded_values[];
+
+void ComparisonCallback() {}
+
 #define COMPARISON_VALUE_TESTS(name, actual, changed) \
     typedef comparison_detail::name##Matcher< ::std::string > name##StringMatcher; \
     name##StringMatcher Return##name() { \
@@ -136,6 +140,36 @@ IUTEST(ComparisonMatcher, PointerValueIsCopied)
     IUTEST_EXPECT_THAT(values, matcher);
 }
 
+IUTEST(ComparisonMatcher, FunctionExpectation)
+{
+    IUTEST_EXPECT_THAT(&ComparisonCallback, Eq(ComparisonCallback));
+    IUTEST_EXPECT_THAT(&ComparisonCallback, Equals(ComparisonCallback));
+    IUTEST_EXPECT_THAT(&ComparisonCallback, Not(Ne(ComparisonCallback)));
+}
+
+IUTEST(ComparisonMatcher, UnboundedArrayExpectation)
+{
+    IUTEST_EXPECT_THAT(&unbounded_values[0], Eq(unbounded_values));
+    IUTEST_EXPECT_THAT(&unbounded_values[0], Equals(unbounded_values));
+    IUTEST_EXPECT_THAT(&unbounded_values[0], Not(Ne(unbounded_values)));
+}
+
+int unbounded_values[] = { 1, 2 };
+
+#if !defined(IUTEST_USE_GTEST)
+struct ArrayComparable
+{
+    bool operator ==(const int (&expected)[2]) const { return expected[0] == 1 && expected[1] == 2; }
+};
+
+IUTEST(ComparisonMatcher, PreservesArrayExtent)
+{
+    const int expected[] = { 1, 2 };
+    IUTEST_EXPECT_THAT(ArrayComparable(), Eq(expected));
+    IUTEST_EXPECT_THAT(ArrayComparable(), Equals(expected));
+}
+#endif
+
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 IUTEST(ComparisonMatcher, ComposedValues)
 {
@@ -157,6 +191,32 @@ IUTEST(ComparisonMatcher, NoArgumentComparisons)
 #endif
 
 #if IUTEST_HAS_CXX11
+
+#if defined(IUTEST_USE_GTEST)
+typedef ::testing::Matcher<const ::std::string&> TypedReferenceStringMatcher;
+#else
+typedef ::iutest::detail::TypedEqMatcher<const ::std::string&> TypedReferenceStringMatcher;
+#endif
+
+TypedReferenceStringMatcher ReturnReferenceTypedEq()
+{
+    const ::std::string expected = "middle";
+    return TypedEq<const ::std::string&>(expected);
+}
+
+IUTEST(ComparisonMatcher, TypedEqReferenceTypeOwnsValue)
+{
+    ::std::string expected = "middle";
+    TypedReferenceStringMatcher matcher = TypedEq<const ::std::string&>(expected);
+    expected = "changed";
+    IUTEST_EXPECT_THAT(::std::string("middle"), matcher);
+    TypedReferenceStringMatcher temporary = TypedEq<const ::std::string&>(::std::string("middle"));
+    IUTEST_EXPECT_THAT(::std::string("middle"), temporary);
+    TypedReferenceStringMatcher* source = new TypedReferenceStringMatcher(ReturnReferenceTypedEq());
+    TypedReferenceStringMatcher copy(*source);
+    delete source;
+    IUTEST_EXPECT_THAT(::std::string("middle"), copy);
+}
 
 class NonCopyableValue
 {
@@ -209,7 +269,7 @@ IUTEST(ComparisonMatcher, StringReferences)
     IUTEST_EXPECT_THAT(::std::string("after"), const_matcher);
 }
 
-#if IUTEST_HAS_STD_TUPLE
+#if IUTEST_HAS_STD_TUPLE && (defined(IUTEST_USE_GTEST) || IUTEST_HAS_VARIADIC_TEMPLATES)
 IUTEST(ComparisonMatcher, NoArgumentTupleComparisons)
 {
     IUTEST_EXPECT_THAT(::std::make_tuple(5, 5), Eq());

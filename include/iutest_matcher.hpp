@@ -467,13 +467,21 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& m)
 template<typename T>
 struct ComparisonMatcherValue
 {
-    typedef T type;
+    typedef typename iutest_type_traits::remove_reference<T>::type value_type;
+    typedef typename iutest_type_traits::conditional<
+        iutest_type_traits::is_function_pointer<value_type*>::value, value_type*, T>::type type;
 };
 
 template<typename T, size_t N>
 struct ComparisonMatcherValue<T[N]>
 {
-    typedef const T* type;
+    typedef const T (&type)[N];
+};
+
+template<typename T>
+struct ComparisonMatcherValue<T[]>
+{
+    typedef const T (&type)[];
 };
 
 template<typename T>
@@ -1107,14 +1115,16 @@ private:
  * @brief   TypedEq matcher
 */
 template<typename T>
-class TypedEqMatcher IUTEST_CXX_FINAL : public EqMatcher<T>
+class TypedEqMatcher IUTEST_CXX_FINAL
+    : public EqMatcher<typename iutest_type_traits::remove_reference<T>::type>
 {
+    typedef EqMatcher<typename iutest_type_traits::remove_reference<T>::type> _Base;
 public:
-    explicit TypedEqMatcher(T expected) : EqMatcher<T>(expected) {}
+    explicit TypedEqMatcher(T expected) : _Base(expected) {}
 public:
     AssertionResult operator ()(const T& actual)
     {
-        return EqMatcher<T>::operator ()(actual);
+        return _Base::operator ()(actual);
     }
     template<typename U>
     AssertionResult operator ()(const U&) const;
@@ -4523,7 +4533,7 @@ detail::MatcherAsPredicate<M> Matches(M matcher)
  * @note        Eq, Equals, Ne, Lt, Le, Gt, Ge and TypedEq copy their expected values.
  *              Use std::ref/std::cref (C++11) for live references or non-copyable values;
  *              the referenced object must outlive the matcher. Code relying on implicit
- *              reference retention must opt in explicitly. Arrays decay to pointers,
+ *              reference retention must opt in explicitly. Arrays are still referenced,
  *              and pointer pointees are not owned by these matchers.
  * @{
 */
