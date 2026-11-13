@@ -1177,7 +1177,7 @@ class TypedEqMatcher IUTEST_CXX_FINAL
 {
     typedef EqMatcher<typename iutest_type_traits::remove_reference<T>::type> _Base;
 public:
-    explicit TypedEqMatcher(T expected) : _Base(expected) {}
+    explicit TypedEqMatcher(typename ComparisonMatcherValue<T>::argument_type expected) : _Base(expected) {}
 public:
     AssertionResult operator ()(const T& actual)
     {

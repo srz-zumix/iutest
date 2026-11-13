@@ -21,7 +21,19 @@
 
 #if IUTEST_HAS_MATCHERS
 
-using namespace ::iutest::matchers;
+using ::iutest::matchers::Eq;
+using ::iutest::matchers::Equals;
+using ::iutest::matchers::Ge;
+using ::iutest::matchers::Gt;
+using ::iutest::matchers::Le;
+using ::iutest::matchers::Lt;
+using ::iutest::matchers::Ne;
+using ::iutest::matchers::Not;
+using ::iutest::matchers::TypedEq;
+#if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
+using ::iutest::matchers::AllOf;
+using ::iutest::matchers::AnyOf;
+#endif
 
 namespace {
 
@@ -110,6 +122,27 @@ IUTEST(ComparisonMatcher, TypedEqCopyOutlivesSource)
     delete source;
     IUTEST_EXPECT_THAT(::std::string("middle"), copy);
 }
+
+#if !defined(IUTEST_USE_GTEST)
+class CopyTrackedExpectation
+{
+public:
+    explicit CopyTrackedExpectation(int* copies) : m_copies(copies) {}
+    CopyTrackedExpectation(const CopyTrackedExpectation& other) : m_copies(other.m_copies) { ++*m_copies; }
+    bool operator ==(const CopyTrackedExpectation&) const { return true; }
+private:
+    int* m_copies;
+};
+
+IUTEST(ComparisonMatcher, TypedEqConstructorCopiesOnlyStoredValue)
+{
+    int copies = 0;
+    const CopyTrackedExpectation expected(&copies);
+    comparison_detail::TypedEqMatcher<CopyTrackedExpectation> matcher(expected);
+    IUTEST_EXPECT_EQ(1, copies);
+    IUTEST_EXPECT_TRUE(matcher(expected));
+}
+#endif
 
 IUTEST(ComparisonMatcher, StringsAndArrays)
 {
@@ -217,6 +250,17 @@ IUTEST(ComparisonMatcher, TypedEqReferenceTypeOwnsValue)
     delete source;
     IUTEST_EXPECT_THAT(::std::string("middle"), copy);
 }
+
+#if !defined(IUTEST_USE_GTEST)
+IUTEST(ComparisonMatcher, TypedEqMutableReferenceTypeOwnsValue)
+{
+    ::std::string expected = "middle";
+    comparison_detail::TypedEqMatcher< ::std::string& > matcher(expected);
+    expected = "changed";
+    ::std::string actual = "middle";
+    IUTEST_EXPECT_TRUE(matcher(actual));
+}
+#endif
 
 class NonCopyableValue
 {
