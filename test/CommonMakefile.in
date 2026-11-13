@@ -154,6 +154,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/list_test_tests \
 		$(OUTDIR)/listener_tests \
 		$(OUTDIR)/matcher_tests \
+		$(OUTDIR)/matcher_cast_tests \
 		$(OUTDIR)/an_matcher_tests \
 		$(OUTDIR)/args_matcher_tests \
 		$(OUTDIR)/matcher_explain_tests \
@@ -261,5 +262,6 @@ COMPILEERROR_TARGETS=\
 		$(OUTDIR)/check_strict_tests \
 		$(OUTDIR)/empty_testname_failure_tests \
 		$(OUTDIR)/static_assertion_failure_tests \
+		$(OUTDIR)/safe_matcher_cast_failure_tests \
 
 BUILD_ONLY = $(OUTDIR)/break_on_failure_tests \
