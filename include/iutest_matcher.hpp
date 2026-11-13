@@ -3156,9 +3156,6 @@ private:
     {
         return ExplainProperty((actual.*m_property)(), listener);
     }
-#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 13
-#pragma GCC diagnostic pop
-#endif
     template<typename U>
     bool CheckExplain(const U& actual, ::std::ostream* listener
         , typename detail::enable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
@@ -3166,6 +3163,9 @@ private:
         if( !actual ) { *listener << "which is NULL"; return false; }
         return ExplainProperty((actual->*m_property)(), listener);
     }
+#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 13
+#pragma GCC diagnostic pop
+#endif
 #else
     template<typename U>
     bool Check(const U& actual)
