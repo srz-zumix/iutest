@@ -522,6 +522,7 @@ typedef internal::TypeId TestTypeId;    //!< テスト識別型
 typedef void (*SetUpMethod)();      //!< SetUp 関数型
 typedef void (*TearDownMethod)();   //!< TearDown 関数型
 
+typedef Int64                         TimeInMillis;   //!< 64 bit 符号付きミリ秒型 (GoogleTest 互換)
 typedef detail::type_least_t<8>::UInt   TimeInMillisec; //!< ミリ秒単位を扱う型
 typedef detail::type_least_t<8>::Int    BiggestInt;     //!< Biggest Int
 
