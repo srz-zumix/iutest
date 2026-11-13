@@ -3002,6 +3002,8 @@ class FieldMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     FieldMatcher(const F& field, const T& expected) : m_field(field), m_expected(expected) {}
+    FieldMatcher(const ::std::string& name, const F& field, const T& expected)
+        : m_field(field), m_expected(expected), m_name(name) {}
 
 public:
     template<typename U>
@@ -3024,7 +3026,9 @@ public:
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
-        strm << "Field: " << m_expected;
+        strm << "Field: ";
+        if( !m_name.empty() ) strm << "'" << m_name << "' ";
+        strm << m_expected;
         //strm << "Field: (" << detail::GetTypeNameProxy<F>::GetTypeName() << ") " << m_expected;
         return strm.str();
     }
@@ -3075,15 +3079,18 @@ private:
         const bool matched = ExplainMatch(m_expected, value, &inner);
         if( !matched )
         {
-            *listener << "whose field is " << PrintToString(value);
+            *listener << "whose field ";
+            if( !m_name.empty() ) *listener << "'" << m_name << "' ";
+            *listener << "is " << PrintToString(value);
             if( !inner.str().empty() ) *listener << ", " << inner.str();
         }
         return matched;
     }
 
 private:
-    const F& m_field;
+    F m_field;
     T m_expected;
+    ::std::string m_name;
 };
 
 /**
@@ -3094,6 +3101,8 @@ class PropertyMatcher IUTEST_CXX_FINAL : public IMatcher
 {
 public:
     PropertyMatcher(const F& prop, const T& expected) : m_property(prop), m_expected(expected) {}
+    PropertyMatcher(const ::std::string& name, const F& prop, const T& expected)
+        : m_property(prop), m_expected(expected), m_name(name) {}
 
 public:
     template<typename U>
@@ -3116,7 +3125,9 @@ public:
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
-        strm << "Property: " << m_expected;
+        strm << "Property: ";
+        if( !m_name.empty() ) strm << "'" << m_name << "' ";
+        strm << m_expected;
         //strm << "Property: (" << detail::GetTypeNameProxy<F>::GetTypeName() << ") " << m_expected;
         return strm.str();
     }
@@ -3145,9 +3156,6 @@ private:
     {
         return ExplainProperty((actual.*m_property)(), listener);
     }
-#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 13
-#pragma GCC diagnostic pop
-#endif
     template<typename U>
     bool CheckExplain(const U& actual, ::std::ostream* listener
         , typename detail::enable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
@@ -3155,6 +3163,9 @@ private:
         if( !actual ) { *listener << "which is NULL"; return false; }
         return ExplainProperty((actual->*m_property)(), listener);
     }
+#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 13
+#pragma GCC diagnostic pop
+#endif
 #else
     template<typename U>
     bool Check(const U& actual)
@@ -3175,15 +3186,18 @@ private:
         const bool matched = ExplainMatch(m_expected, value, &inner);
         if( !matched )
         {
-            *listener << "whose property is " << PrintToString(value);
+            *listener << "whose property ";
+            if( !m_name.empty() ) *listener << "'" << m_name << "' ";
+            *listener << "is " << PrintToString(value);
             if( !inner.str().empty() ) *listener << ", " << inner.str();
         }
         return matched;
     }
 
 private:
-    const F& m_property;
+    F m_property;
     T m_expected;
+    ::std::string m_name;
 };
 
 /**
@@ -5996,6 +6010,15 @@ detail::FieldMatcher<F, T> Field(const F& field, const T& expected)
 }
 
 /**
+ * @brief   Make named Field matcher
+*/
+template<typename F, typename T>
+detail::FieldMatcher<F, T> Field(const ::std::string& name, const F& field, const T& expected)
+{
+    return detail::FieldMatcher<F, T>(name, field, expected);
+}
+
+/**
  * @brief   Make Property matcher
  * @details argument.*property() は expedted にマッチする
 */
@@ -6003,6 +6026,15 @@ template<typename P, typename T>
 detail::PropertyMatcher<P, T> Property(const P& prop, const T& expected)
 {
     return detail::PropertyMatcher<P, T>(prop, expected);
+}
+
+/**
+ * @brief   Make named Property matcher
+*/
+template<typename P, typename T>
+detail::PropertyMatcher<P, T> Property(const ::std::string& name, const P& prop, const T& expected)
+{
+    return detail::PropertyMatcher<P, T>(name, prop, expected);
 }
 
 /**
