@@ -448,18 +448,7 @@ inline void PrintCStringLiteral(const CharT* str, iu_ostream* os)
 #if IUTEST_HAS_RTTI
 inline ::std::string PrintTypeName(const ::std::type_info& info)
 {
-    ::std::string name = GetTypeName(info);
-    const char* const prefixes[] = { "std::__1::", "std::__cxx11::" };
-    for( size_t i = 0; i < sizeof(prefixes)/sizeof(prefixes[0]); ++i )
-    {
-        size_t pos = 0;
-        while( (pos = name.find(prefixes[i], pos)) != ::std::string::npos )
-        {
-            name.replace(pos, ::std::char_traits<char>::length(prefixes[i]), "std::");
-            pos += 5;
-        }
-    }
-    return name;
+    return GetTypeName(info);
 }
 #endif
 
