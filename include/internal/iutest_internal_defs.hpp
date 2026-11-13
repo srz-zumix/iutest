@@ -320,6 +320,29 @@ struct IsContainerHelper
 };
 
 /**
+ * @brief   GoogleTest-compatible standard library type name normalization
+*/
+inline ::std::string CanonicalizeForStdLibVersioning(::std::string name)
+{
+    // Only remove the leading inline namespace and one space after each comma.
+    if( name.compare(0, 7, "std::__") == 0 )
+    {
+        const ::std::string::size_type end = name.find("::", 7);
+        if( end != ::std::string::npos )
+        {
+            name.erase(3, end - 3);
+        }
+    }
+    ::std::string::size_type pos = 0;
+    while( (pos = name.find(", ", pos)) != ::std::string::npos )
+    {
+        name.erase(pos + 1, 1);
+        ++pos;
+    }
+    return name;
+}
+
+/**
  * @brief   型名の取得
 */
 #if IUTEST_HAS_RTTI
@@ -339,6 +362,17 @@ inline ::std::string GetTypeName(const ::std::type_info& info)
     }
 #endif
     free(read_name);
+    return CanonicalizeForStdLibVersioning(str);
+#elif defined(_MSC_VER)
+    ::std::string str = name;
+    if( str.compare(0, 7, "struct ") == 0 )
+    {
+        str.erase(0, 7);
+    }
+    else if( str.compare(0, 6, "class ") == 0 )
+    {
+        str.erase(0, 6);
+    }
     return str;
 #else
     return name;
