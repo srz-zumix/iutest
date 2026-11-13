@@ -293,6 +293,10 @@ AnyOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 m7, M8 m8, M9 m9, M10 m10) {
 namespace matchers
 {
 
+    using ::testing::Matcher;
+    using ::testing::MatcherCast;
+    using ::testing::SafeMatcherCast;
+
 #if IUTEST_HAS_STD_TUPLE && IUTEST_HAS_CXX11
     using ::testing::Args;
     using ::testing::AllArgs;
