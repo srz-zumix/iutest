@@ -157,7 +157,8 @@ IUTEST(MatcherInterfaceTest, SharedOwnership)
             Matcher<int> original = MakeMatcher(new TrackedMatcher(&live));
             const Matcher<int> constructed(original);
             copy = original;
-            original = original;
+            const Matcher<int>& alias = original;
+            original = alias;
             IUTEST_EXPECT_EQ(1, live);
             IUTEST_EXPECT_TRUE(constructed.Matches(0));
         }
