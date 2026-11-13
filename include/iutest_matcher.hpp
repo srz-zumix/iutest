@@ -529,7 +529,11 @@ struct ComparisonMatcherValuePrinter
     template<typename Stream>
     static void Print(Stream& os, const T& value)
     {
+#if defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+        os << value;
+#else
         os << PrintToString(value);
+#endif
     }
 };
 
