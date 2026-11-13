@@ -108,6 +108,11 @@
     template<typename T, typename Tag, typename Tag::type X>                                    \
     IIUT_PEEP_SETTER_NAME_(class_name, member_name)<T, Tag, X>                                  \
         IIUT_PEEP_SETTER_NAME_(class_name, member_name)<T, Tag, X>::instance;                   \
+    template IIUT_PEEP_SETTER_NAME_(class_name, member_name)<class_name                          \
+        , IIUT_PEEP_TAG_NAME_(class_name, member_name)<class_name>, &class_name::member_name>    \
+        IIUT_PEEP_SETTER_NAME_(class_name, member_name)<class_name                               \
+        , IIUT_PEEP_TAG_NAME_(class_name, member_name)<class_name>, &class_name::member_name>    \
+        ::instance;                                                                              \
     template struct IIUT_PEEP_SETTER_NAME_(class_name, member_name)<class_name                  \
         , IIUT_PEEP_TAG_NAME_(class_name, member_name)<class_name>, &class_name::member_name>
 
