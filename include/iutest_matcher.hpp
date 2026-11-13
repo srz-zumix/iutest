@@ -220,6 +220,27 @@
 #endif
 
 namespace iutest {
+
+/**
+ * @brief   Receives explanations from user-defined matchers.
+*/
+class MatchResultListener
+{
+public:
+    explicit MatchResultListener(::std::ostream* os) : m_stream(os) {}
+    virtual ~MatchResultListener() {}
+    bool IsInterested() const { return m_stream != NULL; }
+    ::std::ostream* stream() { return m_stream; }
+    template<typename T>
+    MatchResultListener& operator << (const T& value)
+    {
+        if( IsInterested() ) *m_stream << value;
+        return *this;
+    }
+private:
+    ::std::ostream* m_stream;
+};
+
 namespace detail
 {
 
@@ -251,21 +272,7 @@ struct MatcherMacroParameter<T&>
 };
 #endif
 
-class MatcherMacroListener
-{
-public:
-    explicit MatcherMacroListener(::std::ostream* os) : m_stream(os) {}
-    bool IsInterested() const { return m_stream != NULL; }
-    ::std::ostream* stream() { return m_stream; }
-    template<typename T>
-    MatcherMacroListener& operator << (const T& value)
-    {
-        if( IsInterested() ) *m_stream << value;
-        return *this;
-    }
-private:
-    ::std::ostream* m_stream;
-};
+typedef ::iutest::MatchResultListener MatcherMacroListener;
 
 inline ::std::string MatcherNameToWords(const char* name)
 {
@@ -4429,6 +4436,29 @@ IUTEST_PRAGMA_ASSIGNMENT_OPERATOR_COULD_NOT_GENERATE_WARN_DISABLE_END()
 namespace matchers
 {
 
+using ::iutest::MatchResultListener;
+
+/**
+ * @brief   Interface for a matcher accepting values of type T.
+*/
+template<typename T>
+class MatcherInterface
+{
+public:
+    virtual ~MatcherInterface() {}
+    virtual bool MatchAndExplain(T value, MatchResultListener* listener) const = 0;
+    virtual void DescribeTo(::std::ostream* os) const = 0;
+    virtual void DescribeNegationTo(::std::ostream* os) const
+    {
+        *os << "not (";
+        DescribeTo(os);
+        *os << ")";
+    }
+};
+
+template<typename Impl>
+class PolymorphicMatcher;
+
 /**
  * @brief   Type-erased matcher accepting values of type T.
  * @note    Matcher copies share their stored matcher; objects it references must remain alive.
@@ -4482,13 +4512,27 @@ class Matcher : public detail::IMatcher, public detail::TypedMatcherMarker
 #endif
     };
 
+    struct InterfaceImplementation : public Interface
+    {
+        explicit InterfaceImplementation(const MatcherInterface<T>* impl) : m_matcher(impl) {}
+        bool MatchAndExplain(MatchArgument value, ::std::ostream* os) const IUTEST_CXX_OVERRIDE
+        {
+            MatchResultListener listener(os);
+            return m_matcher->MatchAndExplain(value, &listener);
+        }
+        void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { m_matcher->DescribeTo(os); }
+        void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { m_matcher->DescribeNegationTo(os); }
+        detail::scoped_ptr<const MatcherInterface<T> > m_matcher;
+    };
+
     template<typename M>
     struct Implementation : public Interface
     {
         explicit Implementation(const M& matcher) : m_matcher(matcher) {}
         bool MatchAndExplain(MatchArgument value, ::std::ostream* os) const IUTEST_CXX_OVERRIDE
         {
-            return detail::ExplainMatch(m_matcher, value, os);
+            ::std::ostringstream ignored;
+            return detail::ExplainMatch(m_matcher, value, os != NULL ? os : &ignored);
         }
         void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE
         {
@@ -4529,6 +4573,12 @@ public:
     typedef T input_type;
 
     Matcher() : m_impl() {}
+    explicit Matcher(const MatcherInterface<T>* impl) : m_impl(CreateInterface(impl)) {}
+    template<typename Impl>
+    Matcher(const PolymorphicMatcher<Impl>& matcher) : m_impl()  // NOLINT(runtime/explicit)
+    {
+        *this = matcher.template ToMatcher<T>();
+    }
     Matcher(const Matcher& rhs) : detail::IMatcher(rhs), m_impl(rhs.m_impl)
     {
 #if !IUTEST_HAS_CXX11 && !defined(IIUT_MATCHER_USE_TR1_SHARED_PTR_)
@@ -4584,6 +4634,11 @@ public:
     {
         return MatchAndExplainForward(value, os, UnadjustedParameter());
     }
+    template<typename Listener>
+    bool MatchAndExplain(T value, Listener* listener) const
+    {
+        return MatchAndExplainForward(value, ListenerStream(listener), UnadjustedParameter());
+    }
     AssertionResult operator ()(T value) const
     {
         ::std::ostringstream explanation;
@@ -4608,6 +4663,17 @@ public:
     }
 
 private:
+    static ::std::ostream* ListenerStream(::std::ostream* os) { return os; }
+    static ::std::ostream* ListenerStream(MatchResultListener* listener) { return listener->stream(); }
+
+    static Interface* CreateInterface(const MatcherInterface<T>* matcher)
+    {
+        if( matcher == NULL ) return NULL;
+        detail::scoped_ptr<const MatcherInterface<T> > owner(matcher);
+        Interface* impl = new InterfaceImplementation(owner.get());
+        owner.release();
+        return impl;
+    }
     template<typename U>
     bool MatchAndExplainForward(U& value, ::std::ostream* os, iutest_type_traits::true_type) const
     {
@@ -4621,8 +4687,7 @@ private:
     }
     bool MatchAndExplainImpl(MatchArgument value, ::std::ostream* os) const
     {
-        ::std::ostringstream ignored;
-        return m_impl && m_impl->MatchAndExplain(value, os != NULL ? os : &ignored);
+        return m_impl && m_impl->MatchAndExplain(value, os);
     }
 #if !defined(IUTEST_NO_SFINAE)
     template<typename M>
@@ -4645,6 +4710,17 @@ private:
     }
     template<typename M>
     static Interface* Create(const M& value, iutest_type_traits::false_type)
+    {
+        return CreateNonMatcher(value, iutest_type_traits::bool_constant<
+            iutest_type_traits::is_convertible<M, const MatcherInterface<T>*>::value>());
+    }
+    template<typename M>
+    static Interface* CreateNonMatcher(const M& matcher, iutest_type_traits::true_type)
+    {
+        return CreateInterface(matcher);
+    }
+    template<typename M>
+    static Interface* CreateNonMatcher(const M& value, iutest_type_traits::false_type)
     {
         return CreateValue(value, iutest_type_traits::bool_constant<
             iutest_type_traits::is_convertible<M, Value>::value>());
@@ -4671,6 +4747,80 @@ private:
     Interface* m_impl;
 #endif
 };
+
+/**
+ * @brief   Takes ownership of a matcher implementation.
+*/
+template<typename T>
+Matcher<T> MakeMatcher(const MatcherInterface<T>* impl)
+{
+    return Matcher<T>(impl);
+}
+
+/**
+ * @brief   Adapts a user implementation to match multiple value types.
+*/
+template<typename Impl>
+class PolymorphicMatcher : public detail::IMatcher
+{
+    template<typename T> friend class Matcher;
+
+    template<typename T>
+    class MonomorphicImpl : public MatcherInterface<T>
+    {
+    public:
+        explicit MonomorphicImpl(const Impl& impl) : m_impl(impl) {}
+        bool MatchAndExplain(T value, MatchResultListener* listener) const IUTEST_CXX_OVERRIDE
+        {
+            return m_impl.MatchAndExplain(value, listener);
+        }
+        void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { m_impl.DescribeTo(os); }
+        void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { m_impl.DescribeNegationTo(os); }
+    private:
+        Impl m_impl;
+    };
+
+public:
+    explicit PolymorphicMatcher(const Impl& impl) : m_impl(impl) {}
+    const Impl& impl() const { return m_impl; }
+    Impl& mutable_impl() { return m_impl; }
+private:
+    template<typename T>
+    Matcher<T> ToMatcher() const
+    {
+        return MakeMatcher(new MonomorphicImpl<T>(m_impl));
+    }
+public:
+    template<typename T>
+    bool MatchAndExplain(const T& value, ::std::ostream* os) const
+    {
+        MatchResultListener listener(os);
+        return m_impl.MatchAndExplain(value, &listener);
+    }
+    template<typename T>
+    AssertionResult operator ()(const T& value) const
+    {
+        ::std::ostringstream os;
+        if( MatchAndExplain(value, &os) ) return AssertionSuccess();
+        return AssertionFailure() << WhichIs() << "\n" << os.str();
+    }
+    void DescribeTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { m_impl.DescribeTo(os); }
+    void DescribeNegationTo(::std::ostream* os) const IUTEST_CXX_OVERRIDE { m_impl.DescribeNegationTo(os); }
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        ::std::ostringstream os;
+        DescribeTo(&os);
+        return os.str();
+    }
+private:
+    Impl m_impl;
+};
+
+template<typename Impl>
+PolymorphicMatcher<Impl> MakePolymorphicMatcher(const Impl& impl)
+{
+    return PolymorphicMatcher<Impl>(impl);
+}
 
 #undef IIUT_MATCHER_USE_TR1_SHARED_PTR_
 

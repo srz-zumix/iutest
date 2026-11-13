@@ -290,10 +290,17 @@ AnyOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 m7, M8 m8, M9 m9, M10 m10) {
 
 #endif
 
+using ::testing::MatchResultListener;
+
 namespace matchers
 {
 
+    using ::testing::MatchResultListener;
+    using ::testing::MatcherInterface;
     using ::testing::Matcher;
+    using ::testing::MakeMatcher;
+    using ::testing::MakePolymorphicMatcher;
+    using ::testing::PolymorphicMatcher;
     using ::testing::MatcherCast;
     using ::testing::SafeMatcherCast;
 
