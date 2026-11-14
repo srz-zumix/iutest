@@ -459,10 +459,17 @@ inline ::std::string GetBooleanAssertionFailureMessage(const AssertionResult& ar
 }
 
 /**
+ * @brief   表示済み文字列の差分を取得
+*/
+::std::string CreateStringDiff(const ::std::string& left, const ::std::string& right);
+
+/**
  * @brief   Eq 系アサーション
+ * @note    Existing diagnostics are retained; multiline values append a GoogleTest-style diff.
+ *          Diff generation is omitted if the edit matrix would exceed 1048576 cells.
 */
 inline AssertionResult EqFailure(const char* expected_expression, const char* actual_expression
-    , const ::std::string& expected, const ::std::string& actual, bool ignoring_case = false)
+    , const ::std::string& expected, const ::std::string& actual, bool ignoring_case = false, bool with_diff = true)
 {
     iu_global_format_stringstream strm;
     strm << "error: Value of " << actual_expression
@@ -476,7 +483,7 @@ inline AssertionResult EqFailure(const char* expected_expression, const char* ac
     {
         strm << "\nWhich is: " << expected;
     }
-    return AssertionFailure() << strm.str();
+    return AssertionFailure() << strm.str() << (with_diff ? CreateStringDiff(expected, actual) : ::std::string());
 }
 
 template<typename T1, typename T2>
@@ -655,7 +662,8 @@ inline AssertionResult CmpHelperEQ(const char* expected_str, const char* actual_
     return EqFailure(expected_str, actual_str
         , FormatForComparisonFailureMessage(expected, actual)
         , FormatForComparisonFailureMessage(actual, expected)
-        );
+        , false, !(detail::is_convertible<const T1&, const volatile void*>::value
+            && detail::is_convertible<const T2&, const volatile void*>::value));
 }
 
 template<typename T>
@@ -1564,5 +1572,9 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ DoubleLE(
 
 
 }   // end of namespace iutest
+
+#if !IUTEST_HAS_LIB
+#  include "impl/iutest_assertion.ipp" // IWYU pragma: export
+#endif
 
 #endif // INCG_IRIS_IUTEST_ASSERTION_HPP_E6AF3476_DA81_46F7_A961_ACCEF7363932_
