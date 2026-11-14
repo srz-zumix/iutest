@@ -46,7 +46,7 @@ IUTEST(TimeInMillisTest, Signed64Bit)
     IUTEST_EXPECT_LT(negative, 0);
     IUTEST_EXPECT_EQ(-1, negative);
     const ::testing::TimeInMillis large_negative = -(static_cast< ::testing::TimeInMillis>(1) << 32);
-    IUTEST_EXPECT_LT(large_negative, ::std::numeric_limits<int>::min());
+    IUTEST_EXPECT_LT(large_negative, (::std::numeric_limits<int>::min)());
     IUTEST_EXPECT_EQ(-1, large_negative / (static_cast< ::testing::TimeInMillis>(1) << 32));
 
 #if !defined(IUTEST_USE_GTEST)
@@ -64,16 +64,19 @@ IUTEST(TimeInMillisTest, LegacyUnsignedType)
     const ::iutest::TimeInMillisec value = 123;
     const ::iutest::TimeInMillis converted = value;
     IUTEST_EXPECT_EQ(123, converted);
-    const ::iutest::TimeInMillisec maximum = ::std::numeric_limits< ::iutest::TimeInMillisec>::max();
+    const ::iutest::TimeInMillisec maximum =
+        (::std::numeric_limits< ::iutest::TimeInMillisec>::max)();
     IUTEST_EXPECT_GT(maximum, static_cast< ::iutest::TimeInMillisec>(
-        ::std::numeric_limits< ::iutest::TimeInMillis>::max()));
+        (::std::numeric_limits< ::iutest::TimeInMillis>::max)()));
 }
 #endif
 
 IUTEST(TimeInMillisTest, GetterSignatures)
 {
     const ::testing::UnitTest& unit = *::testing::UnitTest::GetInstance();
+#if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01070000
     CheckTimeGetter(unit, &::testing::UnitTest::start_timestamp);
+#endif
     CheckTimeGetter(unit, &::testing::UnitTest::elapsed_time);
     const ::testing::TestResult result;
     CheckTimeGetter(result, &::testing::TestResult::elapsed_time);
