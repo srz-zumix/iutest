@@ -653,6 +653,17 @@ bool、スマートポインター、比較カテゴリ型の形式は変更し�
 文字列を <code>PrintToStringParamName</code> に渡すと、Google Test と同様に引用符を含むため
 無効なパラメーター名になります。文字列には独自の名前生成関数を使用してください。</p>
 
+<p><code>IUTEST_EXPECT_EQ</code> / <code>IUTEST_ASSERT_EQ</code>、<code>STREQ</code>、
+<code>STRCASEEQ</code> の比較失敗では、複数行文字列の差分を Google Test v1.18.0 と同じ
+<code>With diff:</code> 形式で既存の診断の末尾に追加します。
+前後２行の共通行を含み、左辺の削除を <code>-</code>、右辺の追加を <code>+</code> で表示します。
+実際の改行と文字列中の <code>\n</code> は区別し、その他のエスケープはそのまま表示します。
+Google Test と同様、末尾の改行だけでは通常の文字列を複数行とみなしません。
+単一行・数値・ポインター同士の比較や不等値比較の診断、成功・失敗の判定は変更しません。
+失敗メッセージ全体を解析するツールは、追加される差分セクションを考慮してください。
+巨大な入力による診断処理の負荷を抑えるため、差分の編集行列が 1048576 セルを超える場合は
+差分を省略し、従来の診断のみを表示します。</p>
+
 <h3><a name="switch_gtest" id="switch_gtest">Google Test モード</a></h3>
 Google Test モードに切り替えるには iutest_switch.hpp ヘッダーをインクルードする前に、<br />
 IUTEST_USE_GTEST マクロを定義してください。<br />
