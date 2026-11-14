@@ -192,6 +192,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/when_sorted_matcher_tests \
 		$(OUTDIR)/printers_tests \
 		$(OUTDIR)/compatible_printers_tests \
+		$(OUTDIR)/container_printers_tests \
 		$(OUTDIR)/type_name_tests \
 		$(OUTDIR)/print_to_string_param_name_tests \
 		$(OUTDIR)/print_to_string_param_name_invalid_tests \
