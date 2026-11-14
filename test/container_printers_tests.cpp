@@ -18,12 +18,20 @@
 
 #if defined(IUTEST_USE_GTEST)
 #  define IUTEST_TEST_CONTAINER_EXPRESSIONS (GTEST_VER >= 0x01110000)
+#  if GTEST_VER >= 0x01060000
+#    define IUTEST_TEST_CONTAINER_PRINTERS 1
+#  else
+#    define IUTEST_TEST_CONTAINER_PRINTERS 0
+#  endif
 #elif !defined(IUTEST_NO_SFINAE) \
     && (!defined(_MSC_VER) || _MSC_VER >= 1910) \
-    && (!defined(__GNUC__) || __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4) || defined(__clang__))
+    && (!defined(__GNUC__) || __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4) \
+        || (defined(__clang__) && (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 5))))
 #  define IUTEST_TEST_CONTAINER_EXPRESSIONS 1
+#  define IUTEST_TEST_CONTAINER_PRINTERS 1
 #else
 #  define IUTEST_TEST_CONTAINER_EXPRESSIONS 0
+#  define IUTEST_TEST_CONTAINER_PRINTERS 1
 #endif
 
 namespace container_printer_test
@@ -115,6 +123,7 @@ void PrintTo(const Custom&, ::iutest::iu_ostream* os)
 
 }   // namespace container_printer_test
 
+#if IUTEST_TEST_CONTAINER_PRINTERS
 #if IUTEST_TEST_CONTAINER_EXPRESSIONS
 IUTEST(ContainerPrintersTest, ConstOnly)
 {
@@ -184,6 +193,7 @@ IUTEST(ContainerPrintersTest, PointersAndArrays)
     const char text[] = "text";
     IUTEST_EXPECT_STREQ("\"text\"", ::iutest::PrintToString(text));
 }
+#endif
 
 int main(int argc, char* argv[])
 {

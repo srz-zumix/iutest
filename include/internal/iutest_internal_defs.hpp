@@ -313,7 +313,8 @@ struct IsContainerHelper
 
 #if !defined(IUTEST_NO_SFINAE) \
     && (!defined(_MSC_VER) || _MSC_VER >= 1910) \
-    && (!defined(__GNUC__) || __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4) || defined(__clang__))
+    && (!defined(__GNUC__) || __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4) \
+        || (defined(__clang__) && (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 5))))
     template<typename T>
     static const T& MakeContainer();
     template<typename T>
@@ -321,6 +322,16 @@ struct IsContainerHelper
     template<typename T>
     static void AcceptIterator(typename T::const_iterator);
 
+#if defined(_MSC_VER)
+    template<typename T>
+    static IUTEST_CXX_CONSTEXPR yes_t IsContainer(int IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)
+        , decltype((AcceptIterator<T>(MakeContainer<T>().begin())
+                  , AcceptIterator<T>(MakeContainer<T>().end())
+                  , static_cast<void>(++MakeIterator<T>())
+                  , static_cast<void>(*MakeIterator<T>())
+                  , static_cast<void>(MakeIterator<T>() != MakeIterator<T>() ? 0 : 1)
+                  , 0))* =NULL) { return 0; }
+#else
     template<typename T>
     static IUTEST_CXX_CONSTEXPR yes_t IsContainer(int IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)
         , char (*)[sizeof((AcceptIterator<T>(MakeContainer<T>().begin())
@@ -329,6 +340,7 @@ struct IsContainerHelper
                         , static_cast<void>(*MakeIterator<T>())
                         , static_cast<void>(MakeIterator<T>() != MakeIterator<T>() ? 0 : 1)
                         , 0))] =NULL) { return 0; }
+#endif
 #else
     // Keep the type-only check for compilers without expression SFINAE.
     template<typename T>
