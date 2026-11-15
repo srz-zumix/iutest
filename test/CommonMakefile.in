@@ -140,6 +140,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/floatingpoint_tests \
 		$(OUTDIR)/floatingpoint_printers_tests \
 		$(OUTDIR)/gtest_version_tests \
+		$(OUTDIR)/gtest_param_macro_tests \
 		$(OUTDIR)/gtest_alias_tests \
 		$(OUTDIR)/time_in_millis_tests \
 		$(OUTDIR)/gtest_dont_define_tests \
