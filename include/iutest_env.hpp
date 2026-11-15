@@ -41,6 +41,7 @@
  *          catch_exceptions_global (bool)\n
  *          random_seed (unsigned int)\n
  *          print_time (bool)\n
+ *          print_utf8 (bool)\n
  *          brief (bool)\n
  *          color (string)\n
  *          filter (string)\n
@@ -161,6 +162,7 @@ public:
         CONSOLE_COLOR_ANSI      = 0x00000400,   //!< エスケープシーケンスで出力
 
         PRINT_TIME              = 0x00001000,   //!< 経過時間の出力
+        PRINT_UTF8              = 0x00200000,   //!< UTF-8 文字列のテキスト表示
         BRIEF                   = 0x00008000,   //!< 失敗とまとめのみ出力
         FILELOCATION_STYLE_MSVC = 0x00002000,   //!< ファイル/行出力スタイルを Visual Studio スタイルにする
         VERBOSE                 = 0x00004000,   //!< verbose
@@ -184,9 +186,9 @@ public:
 
         //! デフォルト
 #if defined(_MSC_VER)
-        DEFAULT = CATCH_EXCEPTION|PRINT_TIME|FILELOCATION_STYLE_MSVC|RECREATE_ENVIRONMENTS_WHEN_REPEATING
+        DEFAULT = CATCH_EXCEPTION|PRINT_TIME|PRINT_UTF8|FILELOCATION_STYLE_MSVC|RECREATE_ENVIRONMENTS_WHEN_REPEATING
 #else
-        DEFAULT = CATCH_EXCEPTION|PRINT_TIME|RECREATE_ENVIRONMENTS_WHEN_REPEATING
+        DEFAULT = CATCH_EXCEPTION|PRINT_TIME|PRINT_UTF8|RECREATE_ENVIRONMENTS_WHEN_REPEATING
 #endif
     };
 
@@ -263,6 +265,7 @@ public:
     typedef TestFlag::Fragment<TestFlag::THROW_ON_FAILURE>      throw_on_failure;
     typedef TestFlag::Fragment<TestFlag::WARNING_INTO_ERROR>    warning_into_error;
     typedef TestFlag::Fragment<TestFlag::PRINT_TIME>            print_time;
+    typedef TestFlag::Fragment<TestFlag::PRINT_UTF8>            print_utf8;
     typedef TestFlag::Fragment<TestFlag::BRIEF>                 brief;
     typedef TestFlag::Fragment<TestFlag::SHOW_TESTS_LIST>       list_tests;
     typedef TestFlag::Fragment<TestFlag::SHOW_TESTS_LIST_WITH_WHERE> list_tests_with_where;

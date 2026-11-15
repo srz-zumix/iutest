@@ -19,6 +19,7 @@
 // include
 // IWYU pragma: begin_exports
 #include "iutest_defs.hpp"
+#include "iutest_env.hpp"
 #include "internal/iutest_string_stream.hpp"
 #include "internal/iutest_string_view.hpp"
 // IWYU pragma: end_exports
@@ -420,11 +421,12 @@ inline bool PrintEscapedChar(UInt32 code, char quote, iu_ostream* os)
 }
 
 template<typename CharT>
-inline void PrintStringLiteral(const CharT* data, size_t size, iu_ostream* os)
+inline bool PrintStringLiteral(const CharT* data, size_t size, iu_ostream* os)
 {
     const char* prefix = PrintCharPrefix(CharT());
     *os << prefix << '"';
     bool previous_hex = false;
+    bool has_hex = false;
     for( size_t i = 0; i < size; ++i )
     {
         const UInt32 code = PrintCharCode(data[i]);
@@ -434,8 +436,64 @@ inline void PrintStringLiteral(const CharT* data, size_t size, iu_ostream* os)
             *os << "\" " << prefix << '"';
         }
         previous_hex = PrintEscapedChar(code, '"', os);
+        has_hex = has_hex || previous_hex;
     }
     *os << '"';
+    return has_hex;
+}
+
+inline bool IsPrintableUTF8(const char* data, size_t size)
+{
+    for( size_t i = 0; i < size; )
+    {
+        const UInt32 lead = static_cast<unsigned char>(data[i++]);
+        if( lead < 0x80 )
+        {
+            if( (lead < 0x20 && lead != '\t' && lead != '\n' && lead != '\r') || lead == 0x7F )
+            {
+                return false;
+            }
+            continue;
+        }
+        size_t trailing;
+        UInt32 code, minimum;
+        if( lead >= 0xC2 && lead <= 0xDF )
+        {
+            trailing = 1; code = lead & 0x1F; minimum = 0x80;
+        }
+        else if( lead >= 0xE0 && lead <= 0xEF )
+        {
+            trailing = 2; code = lead & 0x0F; minimum = 0x800;
+        }
+        else if( lead >= 0xF0 && lead <= 0xF4 )
+        {
+            trailing = 3; code = lead & 0x07; minimum = 0x10000;
+        }
+        else { return false; }
+        if( trailing > size - i ) { return false; }
+        for( size_t j = 0; j < trailing; ++j )
+        {
+            const UInt32 byte = static_cast<unsigned char>(data[i++]);
+            if( byte < 0x80 || byte > 0xBF ) { return false; }
+            code = (code << 6) | (byte & 0x3F);
+        }
+        if( code < minimum || code > 0x10FFFF || (code >= 0xD800 && code <= 0xDFFF) ) { return false; }
+    }
+    return true;
+}
+
+template<typename CharT>
+inline void PrintStringTo(const CharT* data, size_t size, iu_ostream* os)
+{
+    PrintStringLiteral(data, size, os);
+}
+
+inline void PrintStringTo(const char* data, size_t size, iu_ostream* os)
+{
+    if( PrintStringLiteral(data, size, os) && TestEnv::print_utf8() && IsPrintableUTF8(data, size) )
+    {
+        *os << "\n    As Text: \"" << ::std::string(data, size) << '"';
+    }
 }
 
 template<typename CharT>
@@ -473,7 +531,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char* str, iu_ost
 template<size_t N>
 void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char(&str)[N], iu_ostream* os)
 {
-    return UniversalTersePrint(static_cast<const char*>(str), os);
+    PrintCStringLiteral(str, os);
 }
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t* str, iu_ostream* os)
 {
@@ -539,7 +597,7 @@ inline void PrintTo(int v, iu_ostream* os)  { *os << v; }
 template<typename CharT, typename Traits, typename Alloc>
 inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os)
 {
-    PrintStringLiteral(str.data(), str.size(), os);
+    PrintStringTo(str.data(), str.size(), os);
 }
 inline void PrintTo(const ::std::locale& l, iu_ostream* os) { *os << l.name(); }
 #if IUTEST_HAS_CXX11
@@ -794,13 +852,13 @@ inline void PrintTo(const unsigned char value, iu_ostream* os)
 template<typename CharT, typename Traits>
 inline void PrintTo(const iu_basic_string_view<CharT, Traits>& value, iu_ostream* os)
 {
-    PrintStringLiteral(value.data(), value.size(), os);
+    PrintStringTo(value.data(), value.size(), os);
 }
 #else
 template<typename CharT, typename Traits>
 inline void PrintTo(const ::std::basic_string_view<CharT, Traits>& value, iu_ostream* os)
 {
-    PrintStringLiteral(value.data(), value.size(), os);
+    PrintStringTo(value.data(), value.size(), os);
 }
 #endif
 
@@ -1041,7 +1099,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const T* begin, size_t 
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const char* begin, size_t N, iu_ostream* os)
 {
     IUTEST_UNUSED_VAR(N);
-    UniversalTersePrint(begin, os);
+    PrintCStringLiteral(begin, os);
 }
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const wchar_t* begin, size_t N, iu_ostream* os)
 {
@@ -1128,6 +1186,23 @@ public:
 
 #endif
 
+/** @private */
+template<typename T>
+class iuUniversalTersePrinter
+{
+public:
+    static void Print(const T& value, iu_ostream* os)
+    {
+        UniversalTersePrint(value, os);
+    }
+};
+
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+/** @private */
+template<size_t SIZE>
+class iuUniversalTersePrinter<char[SIZE]> : public iuUniversalPrinter<char[SIZE]> {};
+#endif
+
 //======================================================================
 // function
 /** @private */
@@ -1153,7 +1228,7 @@ template<typename T>
 inline ::std::string PrintToString(const T& v)
 {
     iu_global_format_stringstream strm;
-    detail::UniversalTersePrint(v, &strm);
+    detail::iuUniversalTersePrinter<T>::Print(v, &strm);
     return strm.str();
 }
 
