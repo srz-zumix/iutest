@@ -91,6 +91,11 @@
 
 #define GTEST_IS_THREADSAFE     0
 
+#if !defined(IUTEST_NO_VARIADIC_MACROS) && !defined(GTEST_STRINGIFY_)
+#  define GTEST_STRINGIFY_(...) IIUT_GTEST_STRINGIFY_HELPER_(__VA_ARGS__, )
+#  define IIUT_GTEST_STRINGIFY_HELPER_(name, ...) #name
+#endif
+
 // IWYU pragma: begin_exports
 #include "switch/iutest_switch_port.hpp"
 #include "switch/iutest_switch_core.hpp"
