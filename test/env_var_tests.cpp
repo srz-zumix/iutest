@@ -34,6 +34,9 @@ int SetUpEnvironmentImpl(void)
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "THROW_ON_FAILURE=1") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "CATCH_EXCEPTIONS=0") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "PRINT_TIME=0") == -1 ) return -1;
+#if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01180000
+    if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "PRINT_UTF8=0") == -1 ) return -1;
+#endif
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "BRIEF=1") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "REPEAT=2") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "FILTER=Flag*") == -1 ) return -1;
@@ -82,6 +85,9 @@ IUTEST(FlagTest, Check)
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(shuffle) );
     IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(catch_exceptions) );
     IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(print_time) );
+#if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01180000
+    IUTEST_EXPECT_FALSE(IUTEST_FLAG_GET(print_utf8));
+#endif
 #if !defined(IUTEST_USE_GTEST)
     IUTEST_EXPECT_STREQ( "env_var", ::iutest::IUTEST_FLAG(default_package_name).c_str() );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(file_location_style_msvc) );

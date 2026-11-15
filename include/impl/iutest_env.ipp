@@ -232,6 +232,14 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
     {
         return ParseYesNoFlagCommandLine(str, TestFlag::PRINT_TIME, -1);
     }
+    if( detail::IsStringEqual(str, "print_utf8")
+        || detail::IsStringForwardMatching(str, "print_utf8=") )
+    {
+        const char* option = ParseOptionSettingStr(str);
+        const bool enabled = option == NULL || (*option != '0' && *option != 'f' && *option != 'F');
+        TestFlag::SetFlag(TestFlag::PRINT_UTF8, enabled ? TestFlag::MASK : ~TestFlag::PRINT_UTF8);
+        return true;
+    }
     if( detail::IsStringForwardMatching(str, "brief") )
     {
         return ParseYesNoFlagCommandLine(str, TestFlag::BRIEF, 1);
@@ -297,6 +305,14 @@ IUTEST_IPP_INLINE bool TestEnv::SetFlag(int enable, int mask)
 IUTEST_IPP_INLINE void TestEnv::LoadEnvironmentVariable()
 {
 #if !defined(__WANDBOX__)
+    {
+        ::std::string var;
+        if( detail::GetEnvironmentVariable("IUTEST_PRINT_UTF8", var)
+            || detail::GetEnvironmentVariable("GTEST_PRINT_UTF8", var) )
+        {
+            TestFlag::SetFlag(TestFlag::PRINT_UTF8, var != "0" ? TestFlag::MASK : ~TestFlag::PRINT_UTF8);
+        }
+    }
     {
         int var = 0;
         if( detail::GetEnvironmentInt("IUTEST_ALSO_RUN_DISABLED_TESTS", var)
