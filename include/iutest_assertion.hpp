@@ -112,6 +112,11 @@ public:
         m_message += msg.GetString();
         return *this;
     }
+    AssertionResult& operator << (const ::std::string& value)
+    {
+        m_message += value;
+        return *this;
+    }
 public:
     AssertionResult operator ! () const
     {
@@ -462,6 +467,20 @@ inline ::std::string GetBooleanAssertionFailureMessage(const AssertionResult& ar
  * @brief   表示済み文字列の差分を取得
 */
 ::std::string CreateStringDiff(const ::std::string& left, const ::std::string& right);
+::std::string CreateStringDiffFromStrings(const ::std::string& left, const ::std::string& right);
+
+template<typename T1, typename T2>
+inline ::std::string CreateStringDiffForComparison(const T1&, const T2&
+    , const ::std::string& expected, const ::std::string& actual, bool with_diff)
+{
+    return with_diff ? CreateStringDiff(expected, actual) : ::std::string();
+}
+
+inline ::std::string CreateStringDiffForComparison(const ::std::string& expected, const ::std::string& actual
+    , const ::std::string&, const ::std::string&, bool with_diff)
+{
+    return with_diff ? CreateStringDiffFromStrings(expected, actual) : ::std::string();
+}
 
 /**
  * @brief   Eq 系アサーション
@@ -469,21 +488,27 @@ inline ::std::string GetBooleanAssertionFailureMessage(const AssertionResult& ar
  *          Diff generation is omitted if the edit matrix would exceed 1048576 cells.
 */
 inline AssertionResult EqFailure(const char* expected_expression, const char* actual_expression
-    , const ::std::string& expected, const ::std::string& actual, bool ignoring_case = false, bool with_diff = true)
+    , const ::std::string& expected, const ::std::string& actual, bool ignoring_case = false
+    , bool with_diff = true, const ::std::string* diff = IUTEST_NULLPTR)
 {
-    iu_global_format_stringstream strm;
-    strm << "error: Value of " << actual_expression
-        << "\n  Actual: " << actual
-        << "\nExpected: " << expected_expression;
+    ::std::string message = "error: Value of ";
+    message += actual_expression;
+    message += "\n  Actual: ";
+    message += actual;
+    message += "\nExpected: ";
+    message += expected_expression;
     if( ignoring_case )
     {
-        strm << " (ignoring case)";
+        message += " (ignoring case)";
     }
     if( !detail::IsStringEqual(expected_expression, expected.c_str()) )
     {
-        strm << "\nWhich is: " << expected;
+        message += "\nWhich is: ";
+        message += expected;
     }
-    return AssertionFailure() << strm.str() << (with_diff ? CreateStringDiff(expected, actual) : ::std::string());
+    const ::std::string string_diff = !with_diff ? ::std::string()
+        : (diff != IUTEST_NULLPTR ? *diff : CreateStringDiff(expected, actual));
+    return AssertionFailure() << message << string_diff;
 }
 
 template<typename T1, typename T2>
@@ -659,11 +684,13 @@ inline AssertionResult CmpHelperEQ(const char* expected_str, const char* actual_
         return AssertionSuccess();
     }
 
-    return EqFailure(expected_str, actual_str
-        , FormatForComparisonFailureMessage(expected, actual)
-        , FormatForComparisonFailureMessage(actual, expected)
-        , false, !(detail::is_convertible<const T1&, const volatile void*>::value
-            && detail::is_convertible<const T2&, const volatile void*>::value));
+    const ::std::string expected_message = FormatForComparisonFailureMessage(expected, actual);
+    const ::std::string actual_message = FormatForComparisonFailureMessage(actual, expected);
+    const bool with_diff = !(detail::is_convertible<const T1&, const volatile void*>::value
+        && detail::is_convertible<const T2&, const volatile void*>::value);
+    const ::std::string string_diff = CreateStringDiffForComparison(
+        expected, actual, expected_message, actual_message, with_diff);
+    return EqFailure(expected_str, actual_str, expected_message, actual_message, false, with_diff, &string_diff);
 }
 
 template<typename T>

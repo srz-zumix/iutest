@@ -50,6 +50,49 @@ inline ::std::vector< ::std::string> StringDiffLines(const ::std::string& value)
     return lines;
 }
 
+inline ::std::string FormatStringForDiff(const ::std::string& value)
+{
+    ::std::string result = "\"";
+    bool previous_hex = false;
+    for( size_t i = 0; i < value.size(); ++i )
+    {
+        const unsigned int code = static_cast<unsigned char>(value[i]);
+        switch( code )
+        {
+        case 0: result += "\\0"; previous_hex = false; break;
+        case '\a': result += "\\a"; previous_hex = false; break;
+        case '\b': result += "\\b"; previous_hex = false; break;
+        case '\f': result += "\\f"; previous_hex = false; break;
+        case '\n': result += "\\n"; previous_hex = false; break;
+        case '\r': result += "\\r"; previous_hex = false; break;
+        case '\t': result += "\\t"; previous_hex = false; break;
+        case '\v': result += "\\v"; previous_hex = false; break;
+        case '\\': result += "\\\\"; previous_hex = false; break;
+        case '"': result += "\\\""; previous_hex = false; break;
+        default:
+            if( code >= 0x20 && code <= 0x7E )
+            {
+                if( previous_hex && ((code >= '0' && code <= '9') || (code >= 'a' && code <= 'f')
+                    || (code >= 'A' && code <= 'F')) )
+                {
+                    result += "\" \"";
+                }
+                result += static_cast<char>(code);
+                previous_hex = false;
+            }
+            else
+            {
+                result += "\\x";
+                result += ::iutest::detail::PrintHexCode(code);
+                previous_hex = true;
+            }
+            break;
+        }
+    }
+    result += '"';
+    return result;
+}
+
 IUTEST_IPP_INLINE ::std::string CreateStringDiff(const ::std::string& left, const ::std::string& right)
 {
     if( left.empty() || right.empty()
@@ -140,7 +183,7 @@ IUTEST_IPP_INLINE ::std::string CreateStringDiff(const ::std::string& left, cons
     }
     ::std::reverse(path.begin(), path.end());
 
-    iu_global_format_stringstream output;
+    ::std::string output;
     row = col = 0;
     size_t cursor = 0;
     const size_t context = 2;
@@ -187,13 +230,24 @@ IUTEST_IPP_INLINE ::std::string CreateStringDiff(const ::std::string& left, cons
             if( move != insert ) { ++row; ++left_count; }
             if( move != erase ) { ++col; ++right_count; }
         }
-        output << "@@ -" << left_start;
-        if( left_count != 1 ) { output << "," << left_count; }
-        output << " +" << right_start;
-        if( right_count != 1 ) { output << "," << right_count; }
-        output << " @@\n" << body << removed << added;
+        iu_global_format_stringstream header;
+        header << "@@ -" << left_start;
+        if( left_count != 1 ) { header << "," << left_count; }
+        header << " +" << right_start;
+        if( right_count != 1 ) { header << "," << right_count; }
+        header << " @@\n";
+        output += header.str();
+        output += body;
+        output += removed;
+        output += added;
     }
-    return "\nWith diff:\n" + output.str();
+    return "\nWith diff:\n" + output;
+}
+
+IUTEST_IPP_INLINE ::std::string CreateStringDiffFromStrings(
+    const ::std::string& left, const ::std::string& right)
+{
+    return CreateStringDiff(FormatStringForDiff(left), FormatStringForDiff(right));
 }
 
 }   // end of namespace internal
