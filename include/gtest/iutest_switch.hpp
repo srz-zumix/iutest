@@ -35,6 +35,8 @@
  * It matches GoogleTest v1.18.0: expand arguments, then stringify only the first
  * comma-separated argument, including an empty argument. IUTEST_PP_TOSTRING
  * remains unchanged; it is a single-argument macro, not a variadic replacement.
+ * The traditional MSVC preprocessor does not reliably split variadic input into
+ * separate arguments; the leading-empty and comma cases are not tested there.
  * Without variadic macros no compatibility definition is supplied.
  * GoogleTest mode leaves upstream definitions (or their absence) untouched,
  * so the GTEST_STRINGIFY_ probe in iutest_gtest_ver.hpp is not affected.
