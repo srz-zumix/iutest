@@ -203,9 +203,9 @@ int main(int argc, char* argv[])
 #if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01180000
     const char* env = NULL;
 #if !defined(IUTEST_USE_GTEST)
-    env = getenv("IUTEST_PRINT_UTF8");
+    env = ::iutest::internal::posix::GetEnv("IUTEST_PRINT_UTF8");
 #endif
-    if( env == NULL ) { env = getenv("GTEST_PRINT_UTF8"); }
+    if( env == NULL ) { env = ::iutest::internal::posix::GetEnv("GTEST_PRINT_UTF8"); }
     const bool expected = env == NULL || ::std::string(env) != "0";
     IUTEST_EXPECT_EQ(expected, IUTEST_FLAG_GET(print_utf8));
     if( expected != IUTEST_FLAG_GET(print_utf8) ) { return 1; }
