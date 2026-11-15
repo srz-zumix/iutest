@@ -163,6 +163,17 @@ IUTEST_F(PrintUtf8Test, OtherPrintersUnchanged)
     IUTEST_EXPECT_EQ(escaped_utf8, ::iutest::PrintToString(text));
     IUTEST_EXPECT_EQ(escaped_utf8 + "\n    As Text: \"" + utf8 + "\"", ::iutest::PrintToString(text + 0));
     IUTEST_EXPECT_STREQ("L\"\\x3042\"", ::iutest::PrintToString(::std::wstring(1, static_cast<wchar_t>(0x3042))));
+#if IUTEST_HAS_CHAR8_T
+    IUTEST_EXPECT_STREQ("u8\"\\xE3\\x81\\x82\"", ::iutest::PrintToString(u8"\u3042"));
+#endif
+#if IUTEST_HAS_CHAR16_T
+    IUTEST_EXPECT_STREQ("u\"XYZ\"", ::iutest::PrintToString(u"XYZ"));
+    IUTEST_EXPECT_STREQ("u\"\\x3042\"", ::iutest::PrintToString(u"\u3042"));
+#endif
+#if IUTEST_HAS_CHAR32_T
+    IUTEST_EXPECT_STREQ("U\"XYZ\"", ::iutest::PrintToString(U"XYZ"));
+    IUTEST_EXPECT_STREQ("U\"\\x3042\"", ::iutest::PrintToString(U"\u3042"));
+#endif
 #if IUTEST_HAS_CXX_HDR_STRING_VIEW
     IUTEST_EXPECT_EQ(escaped_utf8 + "\n    As Text: \"" + utf8 + "\"",
         ::iutest::PrintToString(::std::string_view(utf8.data(), utf8.size())));

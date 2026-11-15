@@ -1199,8 +1199,8 @@ public:
 
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 /** @private */
-template<typename T, size_t SIZE>
-class iuUniversalTersePrinter<T[SIZE]> : public iuUniversalPrinter<T[SIZE]> {};
+template<size_t SIZE>
+class iuUniversalTersePrinter<char[SIZE]> : public iuUniversalPrinter<char[SIZE]> {};
 #endif
 
 //======================================================================
