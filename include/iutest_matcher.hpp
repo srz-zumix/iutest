@@ -5069,6 +5069,34 @@ template<typename T, typename M>
     return os.str();
 }
 
+namespace listener_detail
+{
+
+#if IUTEST_HAS_MATCHER_MACROS
+template<typename T>
+struct is_macro_matcher : iutest_type_traits::bool_constant<
+    iutest_type_traits::is_base_of< ::iutest::detail::MatcherMacroBase, T>::value> {};
+#else
+template<typename T>
+struct is_macro_matcher : iutest_type_traits::false_type {};
+#endif
+
+template<typename M, typename U>
+bool ExplainMatchResultToListener(M& matcher, const U& actual, MatchResultListener* listener,
+    iutest_type_traits::true_type)
+{
+    return matcher.MatchAndExplain(actual, listener);
+}
+
+template<typename M, typename U>
+bool ExplainMatchResultToListener(M& matcher, const U& actual, MatchResultListener* listener,
+    iutest_type_traits::false_type)
+{
+    return detail::ExplainMatch(matcher, actual, listener);
+}
+
+}   // end of namespace listener_detail
+
 /**
  * @brief   Returns whether actual matches matcher and writes its explanation to listener.
  * @param   matcher     A matcher or a value to compare for equality.
@@ -5087,7 +5115,8 @@ bool ExplainMatchResult(M matcher, const U& actual, ::std::ostream* listener)
 template<typename M, typename U>
 bool ExplainMatchResult(M matcher, const U& actual, MatchResultListener* listener)
 {
-    return detail::ExplainMatch(matcher, actual, listener);
+    return listener_detail::ExplainMatchResultToListener(matcher, actual, listener,
+        iutest_type_traits::bool_constant<listener_detail::is_macro_matcher<M>::value>());
 }
 
 /**
