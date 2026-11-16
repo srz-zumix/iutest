@@ -107,6 +107,16 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_HAS_TYPED_TEST_NAME_GENERATOR)
+//! 型付けテストの型名生成が可能かどうか
+#  if IUTEST_HAS_TYPED_TEST && !defined(IUTEST_NO_VARIADIC_MACROS) \
+        && !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
+#    define IUTEST_HAS_TYPED_TEST_NAME_GENERATOR 1
+#  else
+#    define IUTEST_HAS_TYPED_TEST_NAME_GENERATOR 0
+#  endif
+#endif
+
 #if !defined(IUTEST_TYPED_TEST_P_STRICT)
 //! Typed Test のより厳しい構文チェックを行うかどうか
 #  define IUTEST_TYPED_TEST_P_STRICT    1
