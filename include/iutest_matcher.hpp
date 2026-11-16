@@ -144,6 +144,12 @@
         ::iutest::detail::MatcherMacroListener iutest_listener(iutest_stream); \
         return MatchAndExplainImpl(iutest_actual, &iutest_listener); \
     } \
+    template<typename iutest_actual_type, typename iutest_listener_type> \
+    typename ::iutest_type_traits::enable_if< ::iutest_type_traits::is_base_of< \
+        ::iutest::MatchResultListener, iutest_listener_type>::value, bool>::type \
+    MatchAndExplain(const iutest_actual_type& iutest_actual, iutest_listener_type* iutest_listener) const { \
+        return MatchAndExplainImpl(iutest_actual, iutest_listener); \
+    } \
     template<typename arg_type> bool MatchAndExplainImpl(const arg_type& arg, \
         ::iutest::detail::MatcherMacroListener* result_listener) const;
 
@@ -240,6 +246,21 @@ public:
     }
 private:
     ::std::ostream* m_stream;
+    MatchResultListener(const MatchResultListener&);
+    MatchResultListener& operator =(const MatchResultListener&);
+};
+
+/**
+ * @brief   Collects matcher explanations in a string.
+*/
+class StringMatchResultListener : public MatchResultListener
+{
+public:
+    StringMatchResultListener() : MatchResultListener(&m_stream) {}
+    ::std::string str() const { return m_stream.str(); }
+    void Clear() { m_stream.str(""); }
+private:
+    ::std::ostringstream m_stream;
 };
 
 namespace detail
@@ -405,27 +426,70 @@ private:
 };
 #endif
 
+template<typename M, typename U, typename Listener = ::std::ostream>
+struct has_match_explanation
+{
 #if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
+    template<typename T>
+    static auto Check(int) -> decltype(
+        (static_cast<T*>(0))->MatchAndExplain(*static_cast<const U*>(0), static_cast<Listener*>(0)),
+        iutest_type_traits::true_type());
+    template<typename T>
+    static iutest_type_traits::false_type Check(...);
+    enum { value = decltype(Check<M>(0))::value };
+#elif !defined(IUTEST_NO_SFINAE) \
+    && !(defined(__GNUC__) && !defined(__clang__) && __GNUC__ < 4)
+    template<typename T>
+    static char Check(char (*)[sizeof((static_cast<T*>(0))->MatchAndExplain(*static_cast<const U*>(0), static_cast<Listener*>(0)))]);
+    template<typename T>
+    static long Check(...);
+    enum { value = sizeof(Check<M>(0)) == sizeof(char) };
+#else
+    enum { value = false };
+#endif
+};
+
 template<typename M, typename U>
-struct is_gtest_matcher
+bool MatchAndExplainToStream(M& matcher, const U& actual, ::std::ostream* os, iutest_type_traits::true_type)
+{
+    MatchResultListener listener(os);
+    return matcher.MatchAndExplain(actual, &listener);
+}
+
+template<typename M, typename U>
+bool MatchAndExplainToStream(M& matcher, const U& actual, ::std::ostream* os, iutest_type_traits::false_type)
+{
+    return matcher.MatchAndExplain(actual, os);
+}
+
+#if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
+template<typename M, typename U, bool IsFunction = ::std::is_function<M>::value>
+struct is_gtest_matcher_impl
 {
     template<typename T>
     static auto Check(int) -> decltype(
         ((const T*)0)->DescribeTo((::std::ostream*)0),
-        ((const T*)0)->MatchAndExplain(*((const U*)0), (::std::ostream*)0),
         iutest_type_traits::true_type());
     template<typename T>
     static iutest_type_traits::false_type Check(...);
 
-    enum { value = !IMatcher::is_matcher<M>::value && decltype(Check<M>(0))::value };
+    enum { value = !IMatcher::is_matcher<M>::value && decltype(Check<M>(0))::value
+        && (has_match_explanation<const M, U>::value || has_match_explanation<const M, U, MatchResultListener>::value) };
 };
+
+template<typename M, typename U>
+struct is_gtest_matcher_impl<M, U, true> : iutest_type_traits::false_type {};
+
+template<typename M, typename U>
+struct is_gtest_matcher : is_gtest_matcher_impl<M, U> {};
 
 template<typename U, typename M>
 typename iutest_type_traits::enable_if<
     is_gtest_matcher<M, U>::value, AssertionResult>::type MatcherAssertion(const U& actual, const M& matcher)
 {
     ::std::ostringstream explanation;
-    const bool matched = matcher.MatchAndExplain(actual, &explanation);
+    const bool matched = MatchAndExplainToStream(matcher, actual, &explanation,
+        iutest_type_traits::bool_constant<has_match_explanation<const M, U, MatchResultListener>::value>());
     if( matched ) return AssertionSuccess();
     ::std::ostringstream description;
     matcher.DescribeTo(&description);
@@ -1312,44 +1376,43 @@ DescribeMatcherNegationTo(const T& matcher, ::std::ostream* os)
 }
 
 template<typename M, typename U>
-struct has_match_explanation
-{
-#if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
-    template<typename T>
-    static auto Check(int) -> decltype(
-        (static_cast<T*>(0))->MatchAndExplain(*static_cast<const U*>(0), static_cast< ::std::ostream*>(0)),
-        iutest_type_traits::true_type());
-    template<typename T>
-    static iutest_type_traits::false_type Check(...);
-    enum { value = decltype(Check<M>(0))::value };
-#elif !defined(IUTEST_NO_SFINAE) \
-    && !(defined(__GNUC__) && !defined(__clang__) && __GNUC__ < 4)
-    template<typename T>
-    static char Check(char (*)[sizeof((static_cast<T*>(0))->MatchAndExplain(*static_cast<const U*>(0), static_cast< ::std::ostream*>(0)))]);
-    template<typename T>
-    static long Check(...);
-    enum { value = sizeof(Check<M>(0)) == sizeof(char) };
-#else
-    enum { value = false };
-#endif
-};
-
-template<typename M, typename U>
 #if !defined(IUTEST_NO_SFINAE)
-typename iutest_type_traits::enable_if<has_match_explanation<M, U>::value, bool>::type
+typename iutest_type_traits::enable_if<has_match_explanation<M, U>::value
+    || has_match_explanation<M, U, MatchResultListener>::value, bool>::type
 ExplainMatch(M& matcher, const U& actual, ::std::ostream* listener)
 {
-    return matcher.MatchAndExplain(actual, listener);
+    return MatchAndExplainToStream(matcher, actual, listener,
+        iutest_type_traits::bool_constant<has_match_explanation<M, U, MatchResultListener>::value>());
 }
 
 template<typename M, typename U>
-typename iutest_type_traits::disable_if<has_match_explanation<M, U>::value, bool>::type
+typename iutest_type_traits::disable_if<has_match_explanation<M, U>::value
+    || has_match_explanation<M, U, MatchResultListener>::value, bool>::type
 ExplainMatch(M& matcher, const U& actual, ::std::ostream*)
 #else
 bool ExplainMatch(M& matcher, const U& actual, ::std::ostream*)
 #endif
 {
     return static_cast<bool>(CastToMatcher(matcher)(actual));
+}
+
+template<typename M, typename U>
+#if !defined(IUTEST_NO_SFINAE)
+typename iutest_type_traits::enable_if<has_match_explanation<M, U, MatchResultListener>::value, bool>::type
+ExplainMatch(M& matcher, const U& actual, MatchResultListener* listener)
+{
+    return matcher.MatchAndExplain(actual, listener);
+}
+
+template<typename M, typename U>
+typename iutest_type_traits::disable_if<has_match_explanation<M, U, MatchResultListener>::value, bool>::type
+#else
+bool
+#endif
+ExplainMatch(M& matcher, const U& actual, MatchResultListener* listener)
+{
+    ::std::ostringstream ignored;
+    return ExplainMatch(matcher, actual, listener->IsInterested() ? listener->stream() : &ignored);
 }
 
 /**
@@ -3962,7 +4025,7 @@ typename iutest_type_traits::enable_if<is_gtest_matcher<M, U>::value, bool>::typ
 MatchForNot(const U& actual, M& matcher)
 {
     ::std::ostringstream explanation;
-    return matcher.MatchAndExplain(actual, &explanation);
+    return ExplainMatch(matcher, actual, &explanation);
 }
 
 template<typename U, typename M>
@@ -4505,6 +4568,7 @@ namespace matchers
 {
 
 using ::iutest::MatchResultListener;
+using ::iutest::StringMatchResultListener;
 
 /**
  * @brief   Interface for a matcher accepting values of type T.
@@ -4865,6 +4929,13 @@ public:
         MatchResultListener listener(os);
         return m_impl.MatchAndExplain(value, &listener);
     }
+    template<typename T, typename Listener>
+    typename iutest_type_traits::enable_if<
+        iutest_type_traits::is_base_of<MatchResultListener, Listener>::value, bool>::type
+    MatchAndExplain(const T& value, Listener* listener) const
+    {
+        return m_impl.MatchAndExplain(value, listener);
+    }
     template<typename T>
     AssertionResult operator ()(const T& value) const
     {
@@ -4998,6 +5069,34 @@ template<typename T, typename M>
     return os.str();
 }
 
+namespace listener_detail
+{
+
+#if IUTEST_HAS_MATCHER_MACROS
+template<typename T>
+struct is_macro_matcher : iutest_type_traits::bool_constant<
+    iutest_type_traits::is_base_of< ::iutest::detail::MatcherMacroBase, T>::value> {};
+#else
+template<typename T>
+struct is_macro_matcher : iutest_type_traits::false_type {};
+#endif
+
+template<typename M, typename U>
+bool ExplainMatchResultToListener(M& matcher, const U& actual, MatchResultListener* listener,
+    iutest_type_traits::true_type)
+{
+    return matcher.MatchAndExplain(actual, listener);
+}
+
+template<typename M, typename U>
+bool ExplainMatchResultToListener(M& matcher, const U& actual, MatchResultListener* listener,
+    iutest_type_traits::false_type)
+{
+    return detail::ExplainMatch(matcher, actual, listener);
+}
+
+}   // end of namespace listener_detail
+
 /**
  * @brief   Returns whether actual matches matcher and writes its explanation to listener.
  * @param   matcher     A matcher or a value to compare for equality.
@@ -5010,25 +5109,15 @@ bool ExplainMatchResult(M matcher, const U& actual, ::std::ostream* listener)
     return detail::ExplainMatch(matcher, actual, listener);
 }
 
-#if IUTEST_HAS_MATCHER_MACROS
+/**
+ * @brief   Writes explanations to a listener, preserving its interest in output.
+*/
 template<typename M, typename U>
-typename iutest_type_traits::enable_if<
-    iutest_type_traits::is_base_of<detail::MatcherMacroBase, M>::value, bool>::type
-ExplainMatchResult(M matcher, const U& actual, detail::MatcherMacroListener* listener)
+bool ExplainMatchResult(M matcher, const U& actual, MatchResultListener* listener)
 {
-    ::std::ostringstream ignored;
-    return matcher.MatchAndExplain(actual, listener->IsInterested() ? listener->stream() : &ignored);
+    return listener_detail::ExplainMatchResultToListener(matcher, actual, listener,
+        iutest_type_traits::bool_constant<listener_detail::is_macro_matcher<M>::value>());
 }
-
-template<typename M, typename U>
-typename iutest_type_traits::disable_if<
-    iutest_type_traits::is_base_of<detail::MatcherMacroBase, M>::value, bool>::type
-ExplainMatchResult(M matcher, const U& actual, detail::MatcherMacroListener* listener)
-{
-    ::std::ostringstream ignored;
-    return detail::ExplainMatch(matcher, actual, listener->IsInterested() ? listener->stream() : &ignored);
-}
-#endif
 
 /**
  * @brief   Converts a matcher or an equality value to a boolean predicate
