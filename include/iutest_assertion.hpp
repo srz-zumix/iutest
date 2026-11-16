@@ -688,7 +688,7 @@ inline AssertionResult CmpHelperEQ(const char* expected_str, const char* actual_
     const ::std::string actual_message = FormatForComparisonFailureMessage(actual, expected);
     const bool with_diff = !(detail::is_convertible<const T1&, const volatile void*>::value
         && detail::is_convertible<const T2&, const volatile void*>::value);
-    const ::std::string string_diff = CreateStringDiffForComparison(
+    const ::std::string& string_diff = CreateStringDiffForComparison(
         expected, actual, expected_message, actual_message, with_diff);
     return EqFailure(expected_str, actual_str, expected_message, actual_message, false, with_diff, &string_diff);
 }

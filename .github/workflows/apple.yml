@@ -67,7 +67,7 @@ jobs:
       - name: xcodebuild
         run: |
           xcodebuild -project xcode/iutest.xcodeproj -list
-          xcodebuild -project xcode/iutest.xcodeproj build
+          xcodebuild -project xcode/iutest.xcodeproj -parallelizeTargets build
       - name: test
         run: ctest --test-dir xcode -C Debug -V
 
@@ -91,4 +91,4 @@ jobs:
       - name: xcodebuild
         run: |
           xcodebuild -project ios/iutest.xcodeproj -list
-          xcodebuild -project ios/iutest.xcodeproj build
+          xcodebuild -project ios/iutest.xcodeproj -parallelizeTargets build
