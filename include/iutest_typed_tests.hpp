@@ -35,10 +35,18 @@
 
 /**
  * @ingroup TYPED_TEST
- * @def     IUTEST_TYPED_TEST_SUITE(testsuite_, types_)
+ * @def     IUTEST_TYPED_TEST_SUITE(testsuite_, types_, ...)
  * @brief   型付けTestSuite の登録
  * @param   testsuite_  = TestSuite 名
- * @param   ...         = タイプリスト
+ * @param   types_      = タイプリスト、または単一の型
+ * @param   ...         = Optional name generator class with
+ *                        static std::string GetName<T>(int index).
+ * @details When IUTEST_HAS_TYPED_TEST_NAME_GENERATOR is enabled, the optional
+ *          generator supplies the type suffix instead of the numeric index.
+ *          Names should be nonempty, unique for each type, and contain only
+ *          ASCII letters, digits, and underscores. Without a generator, numeric
+ *          names and IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME retain their behavior.
+ *          Types<int, float> may be passed directly without a typedef.
 */
 #if !defined(IUTEST_NO_VARIADIC_MACROS)
 #  define IUTEST_TYPED_TEST_SUITE(testsuite_, ...)      IIUT_TYPED_TEST_SUITE_(testsuite_, __VA_ARGS__)
@@ -81,11 +89,17 @@
 #define IIUT_TYPED_TEST_PARAMS_II_(testsuite_)      IIUT_TYPED_TEST_PARAMS_III_(testsuite_)
 #define IIUT_TYPED_TEST_PARAMS_III_(testsuite_)     iutest_types_params_##testsuite_
 
+#define IIUT_TYPED_TEST_NAME_GENERATOR_(testsuite_) \
+    IUTEST_PP_CAT(IIUT_TYPED_TEST_PARAMS_(testsuite_), _name_generator)
+
 #if !defined(IUTEST_NO_VARIADIC_MACROS)
 #  define IIUT_TYPED_TEST_SUITE_(testsuite_, ...)       \
-    typedef ::iutest::detail::TypeList< __VA_ARGS__ >::type IIUT_TYPED_TEST_PARAMS_(testsuite_)
+    typedef ::iutest::detail::TypedTestSelector< __VA_ARGS__ >::NameGenerator \
+        IIUT_TYPED_TEST_NAME_GENERATOR_(testsuite_); \
+    typedef ::iutest::detail::TypedTestSelector< __VA_ARGS__ >::type IIUT_TYPED_TEST_PARAMS_(testsuite_)
 #else
 #  define IIUT_TYPED_TEST_SUITE_(testsuite_, types_)    \
+    typedef ::iutest::detail::DefaultTypedTestNameGenerator IIUT_TYPED_TEST_NAME_GENERATOR_(testsuite_); \
     typedef ::iutest::detail::TypeList< types_ >::type  IIUT_TYPED_TEST_PARAMS_(testsuite_)
 #endif
 
@@ -98,7 +112,8 @@
         typedef iutest_TypeParam TypeParam;                                         \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE;                         \
     };                                                                              \
-    ::iutest::detail::TypeParamTestInstance< classname_, IIUT_TYPED_TEST_PARAMS_(testsuite_) >      \
+    ::iutest::detail::TypeParamTestInstance< classname_, IIUT_TYPED_TEST_PARAMS_(testsuite_)        \
+        , IIUT_TYPED_TEST_NAME_GENERATOR_(testsuite_) >                              \
         IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_)(                          \
         IUTEST_CONCAT_PACKAGE_(testsuitename_), IIUT_TO_NAME_STR_(testname_)        \
         , __FILE__, __LINE__);                                                      \
@@ -115,7 +130,8 @@
         protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
         template<typename T>void Body();                                            \
     };                                                                              \
-    ::iutest::detail::TypeParamTestInstance< classname_, IIUT_TYPED_TEST_PARAMS_(testsuite_) >      \
+    ::iutest::detail::TypeParamTestInstance< classname_, IIUT_TYPED_TEST_PARAMS_(testsuite_)        \
+        , IIUT_TYPED_TEST_NAME_GENERATOR_(testsuite_) >                              \
         IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_)(                          \
         IUTEST_CONCAT_PACKAGE_(testsuitename_), IIUT_TO_NAME_STR_(testname_)        \
         , __FILE__, __LINE__);                                                      \
@@ -207,11 +223,17 @@
 
 /**
  * @ingroup TYPE_PARAMETERIZED_TEST
- * @def     IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(prefix_, testsuite_, types_)
+ * @def     IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(prefix_, testsuite_, types_, ...)
  * @brief   型パラメータテスト登録マクロ
  * @param   prefix_     = インスタンス名
  * @param   testsuite_  = TestSuite 名
- * @param   ...         = タイプリスト
+ * @param   types_      = タイプリスト、または単一の型
+ * @param   ...         = Optional name generator class with
+ *                        static std::string GetName<T>(int index).
+ * @details The generator follows IUTEST_TYPED_TEST_SUITE's naming contract and
+ *          replaces the numeric type suffix. It is available when
+ *          IUTEST_HAS_TYPED_TEST_NAME_GENERATOR is enabled. Without a generator,
+ *          numeric names and IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME are unchanged.
 */
 #define IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(prefix_, testsuite_, ...) \
     IIUT_INSTANTIATE_TYPED_TEST_SUITE_P_(prefix_, testsuite_, __VA_ARGS__)
@@ -280,7 +302,8 @@
         (IIUT_TYPED_TEST_SUITE_PSTATE_NAME_(testsuite_).MarkInstantiated(),       \
         ::iutest::detail::TypeParameterizedTestSuite< testsuite_                \
         , IIUT_TYPED_TEST_P_NAMESPACE_(testsuite_)::iutest_AllTests_            \
-        , ::iutest::detail::TypeList< __VA_ARGS__ >::type >::Register(          \
+        , ::iutest::detail::TypedTestSelector< __VA_ARGS__ >::type              \
+        , ::iutest::detail::TypedTestSelector< __VA_ARGS__ >::NameGenerator >::Register( \
             #prefix_, IIUT_TO_NAME_STR_(testsuite_), IUTEST_GET_PACKAGENAME_()  \
             , IIUT_TYPED_TEST_SUITE_PSTATE_NAME_(testsuite_).names(), __FILE__, __LINE__))
 
@@ -299,6 +322,34 @@ namespace detail
 {
 
 #if IUTEST_HAS_TYPED_TEST
+
+template<typename T, typename Generator>
+struct TypedTestName
+{
+#if IUTEST_HAS_TYPED_TEST_NAME_GENERATOR
+    static ::std::string Make(const char* testsuite, size_t index)
+    {
+        return detail::MakeParamTestName(testsuite, Generator::template GetName<T>(static_cast<int>(index)));
+    }
+#endif
+};
+
+template<typename T>
+struct TypedTestName<T, DefaultTypedTestNameGenerator>
+{
+    static ::std::string Make(const char* testsuite, size_t index)
+    {
+#if IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME
+        return detail::MakeIndexTypedTestName<T>(testsuite, index);
+#else
+        return detail::MakeIndexTestName(testsuite, index);
+#endif
+    }
+};
+
+#endif
+
+#if IUTEST_HAS_TYPED_TEST
 /**
  * @private
  * @internal
@@ -306,7 +357,7 @@ namespace detail
  * @tparam  Tester      = テストクラス
  * @tparam  TypeParams  = 型
 */
-template<template<typename T> class Tester, typename TypeParams>
+template<template<typename T> class Tester, typename TypeParams, typename NameGenerator = DefaultTypedTestNameGenerator>
 class TypeParamTestInstance
 {
     /**
@@ -341,11 +392,7 @@ class TypeParamTestInstance
 #else
             return UnitTest::instance().AddTestSuite(
 #endif
-#if IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME
-                detail::MakeIndexTypedTestName<TypeParam>(testsuite, index)
-#else
-                detail::MakeIndexTestName(testsuite, index)
-#endif
+                detail::TypedTestName<TypeParam, NameGenerator>::Make(testsuite, index)
                 , internal::GetTypeId<detail::None>()   // TypeId を統一するためダミー引数を渡す
                 , IUTEST_GET_SETUP_TESTSUITE(TestBody, file, line)
                 , IUTEST_GET_TEARDOWN_TESTSUITE(TestBody, file, line)
@@ -494,7 +541,8 @@ private:
  * @private
  * @brief   型パラメータテストのインスタンス化クラス
 */
-template<template<typename T> class Fixture, typename Tests, typename Types>
+template<template<typename T> class Fixture, typename Tests, typename Types
+    , typename NameGenerator = DefaultTypedTestNameGenerator>
 class TypeParameterizedTestSuite
 {
     template<typename TypeParam, typename TestsList>
@@ -589,12 +637,12 @@ private:
         typedef Fixture<Head>               FixtureClass;
         typedef TypedTestSuite<TypeParam>   _MyTestSuite;
         ::std::string full_testsuite_name = package_name;
-        full_testsuite_name +=
-#if IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME
-            detail::MakePrefixedIndexTypedTestName<TypeParam>(prefix, testsuite_name, index);
-#else
-            detail::MakePrefixedIndexTestName(prefix, testsuite_name, index);
-#endif
+        if( prefix[0] != '\0' )
+        {
+            full_testsuite_name += prefix;
+            full_testsuite_name += "/";
+        }
+        full_testsuite_name += detail::TypedTestName<TypeParam, NameGenerator>::Make(testsuite_name, index);
         TestSuite* testsuite =
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
             UnitTest::instance().AddTestSuite<_MyTestSuite>(
@@ -612,7 +660,7 @@ private:
 
         EachTest<TypeParam, Tests>::Register(testsuite, names);
 
-        return TypeParameterizedTestSuite<Fixture, Tests, typename Types::Tail>::Register(
+        return TypeParameterizedTestSuite<Fixture, Tests, typename Types::Tail, NameGenerator>::Register(
             prefix, testsuite_name, package_name, names, file, line, index + 1);
     }
 };
@@ -622,8 +670,8 @@ private:
  * @brief   型パラメータテストのインスタンス化クラス
  *          終端特殊化
 */
-template<template<typename T> class Fixture, typename Tests>
-class TypeParameterizedTestSuite<Fixture, Tests, detail::TypeList0>
+template<template<typename T> class Fixture, typename Tests, typename NameGenerator>
+class TypeParameterizedTestSuite<Fixture, Tests, detail::TypeList0, NameGenerator>
 {
 public:
     static bool Register(const char* /*prefix*/, const char* /*testsuite_name*/

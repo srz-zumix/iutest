@@ -143,6 +143,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/gtest_param_macro_tests \
 		$(OUTDIR)/gtest_stringify_tests \
 		$(OUTDIR)/gtest_alias_tests \
+		$(OUTDIR)/typed_test_name_generator_tests \
 		$(OUTDIR)/time_in_millis_tests \
 		$(OUTDIR)/gtest_dont_define_tests \
 		$(OUTDIR)/stream_capture_tests \
