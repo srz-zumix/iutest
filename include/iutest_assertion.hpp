@@ -224,19 +224,23 @@ public:
 #endif
     {
     public:
-        ScopedMessage(const detail::iuCodeMessage& msg) // NOLINT
+        ScopedMessage(const detail::iuCodeMessage& msg, bool save_on_exception = true) // NOLINT
             : detail::iuCodeMessage(msg)
+            , m_save_on_exception(save_on_exception)
         {
             ScopedTrace::GetInstance().list.push_back(this);
         }
         ~ScopedMessage()
         {
             ScopedTrace::GetInstance().list.remove(this);
-            if( stl::uncaught_exception() )
+            if( m_save_on_exception && stl::uncaught_exception() )
             {
                 detail::UncaughtScopedTrace::Add(*this);
             }
         }
+
+    private:
+        bool m_save_on_exception;
     };
 private:
     class ScopedTrace
@@ -393,6 +397,25 @@ private:
 
 private:
     IUTEST_PP_DISALLOW_MOVE_AND_COPY_AND_ASSIGN(AssertionHelper);
+};
+
+/**
+ * @ingroup IUTEST_UTIL
+ * @brief   Adds a file, line and message to assertions for this object's lifetime.
+ * @note    Unlike IUTEST_SCOPED_TRACE, unwound traces are not retained for exception reports.
+*/
+class ScopedTrace
+{
+public:
+    template<typename T>
+    ScopedTrace(const char* file, int line, const T& message)
+        : m_message(detail::iuCodeMessage(file, line, Message() << message), false)
+    {}
+
+private:
+    AssertionHelper::ScopedMessage m_message;
+
+    IUTEST_PP_DISALLOW_MOVE_AND_COPY_AND_ASSIGN(ScopedTrace);
 };
 
 }   // end of namespace iutest
