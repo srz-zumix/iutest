@@ -28,6 +28,24 @@
  * No strict opt-in to omit the macro is provided: matching modern GoogleTest's
  * macro absence would break legacy @c \#if checks under -Wundef and change
  * @c \#ifdef behavior. Retaining the alias does not enable a disabled feature.
+ *
+ * @par Internal stringification compatibility
+ * Native switch mode supplies GTEST_STRINGIFY_ when variadic macros are available
+ * (IUTEST_NO_VARIADIC_MACROS is not defined) and the name is not already defined.
+ * It matches GoogleTest v1.18.0: expand arguments, then stringify only the first
+ * comma-separated argument, including an empty argument. IUTEST_PP_TOSTRING
+ * remains unchanged; it is a single-argument macro, not a variadic replacement.
+ * The traditional MSVC preprocessor does not reliably split variadic input into
+ * separate arguments; the leading-empty and comma cases are not tested there.
+ * Without variadic macros no compatibility definition is supplied.
+ * GoogleTest mode leaves upstream definitions (or their absence) untouched,
+ * so the GTEST_STRINGIFY_ probe in iutest_gtest_ver.hpp is not affected.
+ * Its presence in native mode must not be used to infer a GoogleTest version.
+ *
+ * gtest_stringify_tests.cpp checks ordinary tokens, expansion, empty arguments,
+ * commas, escaping, and preservation of the upstream macro. Expansion cases run
+ * against real GoogleTest v1.18.0 onward; older upstream behavior is preserved.
+ * gtest_version_tests.cpp checks version detection.
 */
 //-----------------------------------------------------------------------
 //======================================================================
