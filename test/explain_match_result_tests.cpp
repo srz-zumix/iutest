@@ -21,13 +21,8 @@
 using ::iutest::matchers::Eq;
 using ::iutest::matchers::ExplainMatchResult;
 
-#if defined(IUTEST_USE_GTEST)
-typedef ::testing::StringMatchResultListener TestListener;
-typedef ::testing::MatchResultListener MatcherExplanation;
-#else
-typedef ::std::ostringstream TestListener;
-typedef ::std::ostream MatcherExplanation;
-#endif
+typedef ::iutest::StringMatchResultListener TestListener;
+typedef ::iutest::MatchResultListener MatcherExplanation;
 
 IUTEST(ExplainMatchResult, MatcherWithoutExplanation)
 {
