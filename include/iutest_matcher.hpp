@@ -463,8 +463,8 @@ bool MatchAndExplainToStream(M& matcher, const U& actual, ::std::ostream* os, iu
 }
 
 #if IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && !defined(IUTEST_NO_SFINAE)
-template<typename M, typename U>
-struct is_gtest_matcher
+template<typename M, typename U, bool IsFunction = ::std::is_function<M>::value>
+struct is_gtest_matcher_impl
 {
     template<typename T>
     static auto Check(int) -> decltype(
@@ -476,6 +476,12 @@ struct is_gtest_matcher
     enum { value = !IMatcher::is_matcher<M>::value && decltype(Check<M>(0))::value
         && (has_match_explanation<const M, U>::value || has_match_explanation<const M, U, MatchResultListener>::value) };
 };
+
+template<typename M, typename U>
+struct is_gtest_matcher_impl<M, U, true> : iutest_type_traits::false_type {};
+
+template<typename M, typename U>
+struct is_gtest_matcher : is_gtest_matcher_impl<M, U> {};
 
 template<typename U, typename M>
 typename iutest_type_traits::enable_if<

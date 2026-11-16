@@ -102,6 +102,8 @@ IUTEST(MatchResultListener, StringAndClear)
     IUTEST_EXPECT_EQ("second", listener.str());
 }
 
+#if !defined(IUTEST_NO_SFINAE) \
+    && !(defined(__GNUC__) && !defined(__clang__) && __GNUC__ < 4)
 IUTEST(MatchResultListener, PolymorphicMatcher)
 {
     StringMatchResultListener listener;
@@ -119,8 +121,10 @@ IUTEST(MatchResultListener, UninterestedMatcher)
     IUTEST_EXPECT_TRUE(ExplainMatchResult(MakePolymorphicMatcher(IsEven()), 4, &listener));
     IUTEST_EXPECT_FALSE(ExplainMatchResult(MakePolymorphicMatcher(IsEven()), 3, &listener));
 }
+#endif
 
-#if IUTEST_HAS_MATCHER_MACROS
+#if IUTEST_HAS_MATCHER_MACROS && !defined(IUTEST_NO_SFINAE) \
+    && !(defined(__GNUC__) && !defined(__clang__) && __GNUC__ < 4)
 IUTEST(MatchResultListener, NestedMacroExplanations)
 {
     StringMatchResultListener listener;
