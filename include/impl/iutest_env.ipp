@@ -307,6 +307,12 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnvironmentVariable()
 #if !defined(__WANDBOX__)
     {
         ::std::string var;
+        if( detail::GetEnvironmentVariable("IUTEST_INSTALL_FAILURE_SIGNAL_HANDLER", var)
+            || detail::GetEnvironmentVariable("GTEST_INSTALL_FAILURE_SIGNAL_HANDLER", var) )
+        {
+            TestFlag::SetFlag(TestFlag::INSTALL_FAILURE_SIGNAL_HANDLER
+                , var != "0" ? TestFlag::MASK : ~TestFlag::INSTALL_FAILURE_SIGNAL_HANDLER);
+        }
         if( detail::GetEnvironmentVariable("IUTEST_PRINT_UTF8", var)
             || detail::GetEnvironmentVariable("GTEST_PRINT_UTF8", var) )
         {

@@ -35,6 +35,7 @@ int SetUpEnvironmentImpl(void)
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "CATCH_EXCEPTIONS=0") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "PRINT_TIME=0") == -1 ) return -1;
 #if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01180000
+    if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "INSTALL_FAILURE_SIGNAL_HANDLER=1") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "PRINT_UTF8=0") == -1 ) return -1;
 #endif
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "BRIEF=1") == -1 ) return -1;
@@ -86,6 +87,7 @@ IUTEST(FlagTest, Check)
     IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(catch_exceptions) );
     IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(print_time) );
 #if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01180000
+    IUTEST_EXPECT_TRUE(IUTEST_FLAG_GET(install_failure_signal_handler));
     IUTEST_EXPECT_FALSE(IUTEST_FLAG_GET(print_utf8));
 #endif
 #if !defined(IUTEST_USE_GTEST)
