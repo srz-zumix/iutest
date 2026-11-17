@@ -34,6 +34,7 @@
  *          also_run_disabled_tests (bool)\n
  *          break_on_failure (bool)\n
  *          install_failure_signal_handler (bool)\n
+ *          show_internal_stack_frames (bool)\n
  *          fail_fast (bool)\n
  *          throw_on_failure (bool)\n
  *          warning_into_error (bool)\n
@@ -154,6 +155,7 @@ public:
         FAIL_IF_NO_TEST_SELECTED = 0x00080000,  //!< 実行対象のテストがない場合に失敗
         RECREATE_ENVIRONMENTS_WHEN_REPEATING = 0x00100000,
         INSTALL_FAILURE_SIGNAL_HANDLER = 0x00400000,
+        SHOW_INTERNAL_STACK_FRAMES = 0x00800000,
 
         BREAK_ON_FAILURE        = 0x00000010,   //!< テスト失敗時にブレーク
         THROW_ON_FAILURE        = 0x00000040,   //!< 致命的な失敗時に throw する
@@ -260,6 +262,7 @@ public:
     typedef TestFlag::Fragment<TestFlag::RUN_DISABLED_TESTS>    also_run_disabled_tests;
     typedef TestFlag::Fragment<TestFlag::BREAK_ON_FAILURE>      break_on_failure;
     typedef TestFlag::Fragment<TestFlag::INSTALL_FAILURE_SIGNAL_HANDLER> install_failure_signal_handler;
+    typedef TestFlag::Fragment<TestFlag::SHOW_INTERNAL_STACK_FRAMES> show_internal_stack_frames;
     typedef TestFlag::Fragment<TestFlag::FAIL_FAST>             fail_fast;
     typedef TestFlag::Fragment<TestFlag::RECREATE_ENVIRONMENTS_WHEN_REPEATING> recreate_environments_when_repeating;
     typedef TestFlag::Fragment<TestFlag::FAIL_IF_NO_TEST_LINKED> fail_if_no_test_linked;
