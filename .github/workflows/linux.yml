@@ -68,6 +68,35 @@ jobs:
           report_paths: test/*.xml
         if: always()
 
+  linker-test:
+    name: linker (${{ matrix.compiler }}, ${{ matrix.linker }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [g++, clang++]
+        linker: [lld, gold, mold]
+    env:
+      CXX: ${{ matrix.compiler }}
+      LDFLAGS: -fuse-ld=${{ matrix.linker }}
+      STDFLAG: -std=c++17
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: install linkers
+        run: |
+          sudo apt-get update
+          sudo apt-get install -qq -y lld binutils mold
+      - name: info
+        uses: ./.github/actions/composite/test-info
+      - name: linker version
+        run: $CXX $LDFLAGS -Wl,--version
+      - name: build
+        run: make -C test -j4
+      - name: test
+        run: make -C test test
+
   # gcc container std version test (Cirrus CI migration)
   gcc-container-test:
     name: gcc container (${{ matrix.stdflag }})
