@@ -88,8 +88,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -qq -y lld binutils mold
-      - name: info
-        uses: ./.github/actions/composite/test-info
       - name: linker version
         run: $CXX $LDFLAGS -Wl,--version
       - name: build
