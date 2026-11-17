@@ -89,7 +89,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -qq -y lld binutils mold
       - name: linker version
-        run: $CXX $LDFLAGS -Wl,--version
+        run: |
+          "$CXX" "$LDFLAGS" -Wl,--version
       - name: build
         run: make -C test -j4
       - name: test
