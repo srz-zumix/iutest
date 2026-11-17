@@ -196,6 +196,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/when_sorted_matcher_tests \
 		$(OUTDIR)/printers_tests \
 		$(OUTDIR)/compatible_printers_tests \
+		$(OUTDIR)/string_diff_tests \
 		$(OUTDIR)/print_utf8_tests \
 		$(OUTDIR)/container_printers_tests \
 		$(OUTDIR)/type_name_tests \

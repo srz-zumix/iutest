@@ -536,7 +536,7 @@ def parse_output(options):
     global format_gcc
     l = None
     if options.command:
-        args = re.split('\s+', options.command)
+        args = re.split(r'\s+', options.command)
         for i in range(len(args)):
             args[i] = os.path.expandvars(args[i])
         p = Popen(args, stdout=PIPE, stderr=STDOUT)
