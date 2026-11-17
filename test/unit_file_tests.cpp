@@ -18,7 +18,7 @@
 #include "iutest.hpp"
 #include "../include/internal/iutest_filepath.hpp"
 
-#if IUTEST_HAS_FOPEN && (defined(IUTEST_OS_MAC) \
+#if IUTEST_HAS_FOPEN && IUTEST_HAS_MKSTEMP && (defined(IUTEST_OS_MAC) \
     || (defined(IUTEST_OS_LINUX) && !defined(IUTEST_OS_LINUX_ANDROID))) \
     && !defined(IUTEST_NO_GETENV) && !defined(IUTEST_NO_SETENV)
 
