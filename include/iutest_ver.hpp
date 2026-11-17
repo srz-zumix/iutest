@@ -122,6 +122,27 @@ modification, are permitted provided that the following conditions are met: \n
 */
 
 /**
+ * @page    internalstackframes Internal stack frame flag compatibility
+ *
+ * The boolean show_internal_stack_frames flag defaults to false. Use
+ * IUTEST_FLAG_GET/SET(show_internal_stack_frames) or, with the gtest switch
+ * header, GTEST_FLAG_GET/SET(show_internal_stack_frames). Native per-test
+ * flag saving/restoration includes this flag.
+ *
+ * Native iutest stores the preference but has no stack trace backend, so this
+ * flag does not change diagnostic output. It is not a native command-line,
+ * flagfile, or environment variable setting.
+ *
+ * In IUTEST_USE_GTEST mode, behavior follows the linked GoogleTest build.
+ * GoogleTest v1.18.0 without Abseil flags defaults to false without reading an
+ * environment variable, and its ordinary command-line parser omits this flag.
+ * Abseil flags builds may accept it through Abseil's flag handling. With an
+ * Abseil stack trace backend, false omits internal frames and true includes
+ * them. The ordinary upstream flag saver omits this flag, so callers must
+ * restore its value explicitly in that configuration.
+*/
+
+/**
  * @page    failuresignalhandler Failure signal handler compatibility
  *
  * The boolean install_failure_signal_handler flag defaults to false. Use
