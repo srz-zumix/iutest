@@ -1,0 +1,7 @@
+# cpp-actions repository configuration (merged after the user configuration).
+# These grants relax the sandbox for every job; use only with trusted changes.
+allow-write:
+  # iutest's stream capture creates /tmp/iutest_stream_capture.XXXXXX on macOS.
+  - /private/tmp
+# xcode-build / ios-build run cmake -G Xcode and xcodebuild in run: steps.
+allow-xcode: true
