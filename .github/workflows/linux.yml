@@ -70,7 +70,7 @@ jobs:
 
   linker-test:
     name: linker (${{ matrix.compiler }}, ${{ matrix.linker }})
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.linker == 'gold' && 'ubuntu-24.04' || 'ubuntu-latest' }}
     strategy:
       fail-fast: false
       matrix:
