@@ -18,6 +18,103 @@
 #include "iutest.hpp"
 #include "../include/internal/iutest_filepath.hpp"
 
+#if IUTEST_HAS_FOPEN && (defined(IUTEST_OS_MAC) \
+    || (defined(IUTEST_OS_LINUX) && !defined(IUTEST_OS_LINUX_ANDROID))) \
+    && !defined(IUTEST_NO_GETENV) && !defined(IUTEST_NO_SETENV)
+
+namespace
+{
+
+class ScopedTmpDirEnvironment
+{
+public:
+    ScopedTmpDirEnvironment()
+    {
+        const char* value = ::iutest::internal::posix::GetEnv("TMPDIR");
+        m_set = value != NULL;
+        if( m_set )
+        {
+            m_value = value;
+        }
+    }
+
+    ~ScopedTmpDirEnvironment()
+    {
+        const int result = m_set ? ::setenv("TMPDIR", m_value.c_str(), 1) : ::unsetenv("TMPDIR");
+        IUTEST_EXPECT_EQ(0, result);
+    }
+
+private:
+    bool m_set;
+    ::std::string m_value;
+};
+
+class ScopedTempFile
+{
+public:
+    ~ScopedTempFile() { file.Delete(); }
+    ::iutest::TempFile file;
+};
+
+}   // namespace
+
+IUTEST(TempFileUnitTest, UsesTmpDirWithOrWithoutTrailingSeparator)
+{
+    ScopedTmpDirEnvironment environment;
+    const char* const dirs[] = { ".", "./" };
+    for( size_t i = 0; i < sizeof(dirs) / sizeof(dirs[0]); ++i )
+    {
+        IUTEST_ASSUME_EQ(0, ::iutest::internal::posix::SetEnv("TMPDIR", dirs[i], 1));
+        ScopedTempFile temp;
+        IUTEST_ASSERT_TRUE(temp.file.Create("iutest_tmpdir_test"));
+        const ::std::string prefix = "./iutest_tmpdir_test.";
+        IUTEST_EXPECT_EQ(prefix, temp.file.GetFileName().substr(0, prefix.length()));
+        IUTEST_ASSERT_TRUE(temp.file.Open(::iutest::IFile::OpenWrite));
+        IUTEST_ASSERT_TRUE(temp.file.Write("data", 1, 4));
+        IUTEST_ASSERT_TRUE(temp.file.Open(::iutest::IFile::OpenRead));
+        char buffer[5] = { 0 };
+        IUTEST_ASSERT_TRUE(temp.file.Read(buffer, 1, 4));
+        IUTEST_EXPECT_STREQ("data", buffer);
+        const ::std::string filename = temp.file.GetFileName();
+        temp.file.Delete();
+        FILE* const deleted = fopen(filename.c_str(), "rb");
+        IUTEST_EXPECT_TRUE(deleted == NULL);
+        if( deleted != NULL )
+        {
+            fclose(deleted);
+        }
+    }
+}
+
+IUTEST(TempFileUnitTest, InvalidTmpDirDoesNotFallBack)
+{
+    ScopedTmpDirEnvironment environment;
+    IUTEST_ASSUME_EQ(0, ::iutest::internal::posix::SetEnv("TMPDIR", ".", 1));
+    ScopedTempFile not_a_directory;
+    IUTEST_ASSERT_TRUE(not_a_directory.file.Create("iutest_tmpdir_file"));
+    const ::std::string path = not_a_directory.file.GetFileName();
+    IUTEST_ASSERT_EQ(0, ::iutest::internal::posix::SetEnv("TMPDIR", path.c_str(), 1));
+    ScopedTempFile temp;
+    IUTEST_EXPECT_FALSE(temp.file.Create("iutest_tmpdir_test"));
+    const ::std::string prefix = path + "/iutest_tmpdir_test.";
+    IUTEST_EXPECT_EQ(prefix, temp.file.GetFileName().substr(0, prefix.length()));
+}
+
+IUTEST(TempFileUnitTest, UnsetOrEmptyTmpDirUsesDefault)
+{
+    ScopedTmpDirEnvironment environment;
+    for( int empty = 0; empty < 2; ++empty )
+    {
+        const int result = empty ? ::iutest::internal::posix::SetEnv("TMPDIR", "", 1) : ::unsetenv("TMPDIR");
+        IUTEST_ASSUME_EQ(0, result);
+        ScopedTempFile temp;
+        IUTEST_EXPECT_FALSE(temp.file.Create("../../dev/null/iutest_tmpdir_test"));
+        IUTEST_EXPECT_EQ("/tmp/", temp.file.GetFileName().substr(0, 5));
+    }
+}
+
+#endif
+
 #if IUTEST_HAS_FOPEN
 
 IUTEST(StdFileUnitTest, AppendOpenedFileSize)
