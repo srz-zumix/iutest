@@ -37,12 +37,14 @@ namespace
 #endif
 }
 
+#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
 struct TraceMessage {};
 
 ::std::ostream& operator << (::std::ostream& os, const TraceMessage&)
 {
     return os << "streamed trace message";
 }
+#endif
 
 ::std::string TraceAndReturn()
 {
@@ -84,11 +86,15 @@ IUTEST(DirectScopedTraceTest, MutableCStringIsCopied)
 
 IUTEST(DirectScopedTraceTest, StreamableMessages)
 {
+#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
     ::iutest::ScopedTrace object_trace("stream.cpp", 456, TraceMessage());
+#endif
     ::testing::ScopedTrace number_trace("number.cpp", 567, 987654);
     ::testing::ScopedTrace message_trace("message.cpp", 678, ::iutest::Message() << "message trace " << 42);
     const ::std::string result = CaptureTraceFailure();
+#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
     IUTEST_EXPECT_STRIN("streamed trace message", result);
+#endif
     IUTEST_EXPECT_STRIN("987654", result);
     IUTEST_EXPECT_STRIN("message trace 42", result);
 }
