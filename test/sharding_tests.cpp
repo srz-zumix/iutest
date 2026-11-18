@@ -58,7 +58,7 @@ void RecordRun(int index)
 
 bool SetEnv(const char* name, const char* value)
 {
-    return ::iutest::internal::posix::SetEnv(name, value, 1) == 0;
+    return ::iutest::detail::SetEnvironmentVariable(name, value);
 }
 
 bool CheckSelection(int total, int shard, bool run_disabled)
