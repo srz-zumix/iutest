@@ -1,0 +1,20 @@
+# cpp-actions repository configuration (merged after the user configuration).
+# xcode-build / ios-build run cmake -G Xcode and xcodebuild in run: steps.
+# This relaxes the sandbox for every job; use only with trusted changes.
+allow-xcode: true
+allow-xcode-simulator-job:
+  - .github/workflows/apple.yml::ios-build
+
+setup-steps:
+  - name: Provide Python for Apple standard tests
+    if: github.workflow == 'Apple Platform Tests' && github.job == 'macos-stdversion-test'
+    run: |
+      if ! python3_bin="$(command -v python3)"; then
+        echo "::error::python3 is required for Apple standard tests"
+        exit 1
+      fi
+      mkdir -p "$RUNNER_TEMP/cpp-actions-python"
+      ln -s "$python3_bin" "$RUNNER_TEMP/cpp-actions-python/python"
+      echo "$RUNNER_TEMP/cpp-actions-python" >> "$GITHUB_PATH"
+      echo "IUTEST_REQUIRE_PYTHON=1" >> "$GITHUB_ENV"
+      "$RUNNER_TEMP/cpp-actions-python/python" --version
