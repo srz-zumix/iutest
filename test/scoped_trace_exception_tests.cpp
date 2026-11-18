@@ -58,6 +58,9 @@ IUTEST(ScopedTraceExceptionTest, Exception)
         try
         {
             IUTEST_SCOPED_TRACE("ScopedTraceExceptionTest Scoped Exception C");
+#if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01080100
+            ::iutest::ScopedTrace trace("caught.cpp", 123, "caught direct trace");
+#endif
             throw "error";
         }
         catch(...)
@@ -157,6 +160,8 @@ int main(int argc, char* argv[])
     // IUTEST_ASSERT_STRNOTIN("ScopedTraceExceptionTest Scoped Exception C", logger.c_str())
     //     << ::iutest::AssertionReturn<int>(1);
     IUTEST_ASSERT_STRIN(   "ScopedTraceExceptionTest Scoped Exception D", logger.c_str())
+        << ::iutest::AssertionReturn<int>(1);
+    IUTEST_ASSERT_STRNOTIN("caught direct trace", logger.c_str())
         << ::iutest::AssertionReturn<int>(1);
     IUTEST_ASSERT_STRNOTIN("ScopedTraceExceptionSetUpTest Scoped Exception", logger.c_str())
         << ::iutest::AssertionReturn<int>(1);
