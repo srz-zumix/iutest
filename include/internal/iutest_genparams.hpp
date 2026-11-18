@@ -1502,8 +1502,8 @@ struct iuRandomRangeTypeTraits
 {
     enum
     {
-        is_integer = iutest_type_traits::is_integral<T>::value,
-        is_signed = iutest_type_traits::is_signed<T>::value
+        is_integer = ::std::numeric_limits<T>::is_integer,
+        is_signed = ::std::numeric_limits<T>::is_signed
     };
 };
 
@@ -1546,12 +1546,34 @@ public:
     }
 
 private:
+    static RandomUInt Modulo(RandomUInt value, RandomUInt divisor)
+    {
+        RandomUInt remainder = 0;
+        for(size_t i = sizeof(RandomUInt) * 8; i > 0; --i)
+        {
+            const RandomUInt bit = (value >> (i - 1)) & 1;
+            if( remainder >= divisor - remainder )
+            {
+                remainder -= divisor - remainder;
+            }
+            else
+            {
+                remainder += remainder;
+            }
+            if( bit != 0 )
+            {
+                remainder = remainder == divisor - 1 ? 0 : remainder + 1;
+            }
+        }
+        return remainder;
+    }
+
     T Generate(iutest_type_traits::true_type)
     {
         const RandomUInt span = static_cast<RandomUInt>(m_max) - static_cast<RandomUInt>(m_min) + 1;
         RandomUInt offset;
         // Unsigned arithmetic also represents ranges spanning the entire integer domain.
-        const RandomUInt threshold = span == 0 ? 0 : (RandomUInt(0) - span) % span;
+        const RandomUInt threshold = span == 0 ? 0 : Modulo(RandomUInt(0) - span, span);
         do
         {
             offset = 0;
@@ -1560,7 +1582,7 @@ private:
                 offset = (offset << 8) | m_rnd.genrand(256u);
             }
         } while( offset < threshold );
-        if( span != 0 ) offset %= span;
+        if( span != 0 ) offset = Modulo(offset, span);
         return AddOffset(offset, iutest_type_traits::bool_constant< iuRandomRangeTypeTraits<T>::is_signed >());
     }
 
