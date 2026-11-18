@@ -1497,6 +1497,71 @@ private:
 
 #if IUTEST_HAS_RANDOMVALUES
 
+template<typename T>
+class iuRandomRangeParamGenerator
+{
+#if IUTEST_HAS_INT128
+    typedef typename iutest_type_traits::conditional<(sizeof(T) > sizeof(UInt64)),
+        unsigned __int128, UInt64>::type RandomUInt;
+#else
+    typedef UInt64 RandomUInt;
+#endif
+public:
+    iuRandomRangeParamGenerator(T min, T max, unsigned int seed)
+        : m_min(min), m_max(max), m_rnd(seed == 0 ? GetIndefiniteValue() : seed) {}
+
+    T operator ()()
+    {
+        if( m_min == m_max ) return m_min;
+        return Generate(iutest_type_traits::bool_constant< ::std::numeric_limits<T>::is_integer >());
+    }
+
+private:
+    T Generate(iutest_type_traits::true_type)
+    {
+        const RandomUInt span = static_cast<RandomUInt>(m_max) - static_cast<RandomUInt>(m_min) + 1;
+        RandomUInt offset;
+        // Unsigned arithmetic also represents ranges spanning the entire integer domain.
+        const RandomUInt threshold = span == 0 ? 0 : (RandomUInt(0) - span) % span;
+        do
+        {
+            offset = 0;
+            for(size_t i = 0; i < sizeof(RandomUInt); ++i)
+            {
+                offset = (offset << 8) | m_rnd.genrand(256u);
+            }
+        } while( offset < threshold );
+        if( span != 0 ) offset %= span;
+        return AddOffset(offset, iutest_type_traits::bool_constant< ::std::numeric_limits<T>::is_signed >());
+    }
+
+    T AddOffset(RandomUInt offset, iutest_type_traits::true_type) const
+    {
+        if( m_min < 0 && offset < static_cast<RandomUInt>(-(m_min + 1)) + 1 )
+        {
+            return static_cast<T>(m_min + static_cast<T>(offset));
+        }
+        return static_cast<T>(static_cast<RandomUInt>(m_min) + offset);
+    }
+
+    T AddOffset(RandomUInt offset, iutest_type_traits::false_type) const
+    {
+        return static_cast<T>(static_cast<RandomUInt>(m_min) + offset);
+    }
+
+    T Generate(iutest_type_traits::false_type)
+    {
+        const T fraction = static_cast<T>(m_rnd.genrandf());
+        // Interpolation avoids overflowing max - min for opposite-sign bounds.
+        const T value = m_min * (static_cast<T>(1) - fraction) + m_max * fraction;
+        return value < m_min ? m_min : (m_max < value ? m_max : value);
+    }
+
+    T m_min;
+    T m_max;
+    iuRandom m_rnd;
+};
+
 /**
  * @brief   乱数パラメータ生成器
 */

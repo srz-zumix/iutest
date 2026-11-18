@@ -409,6 +409,10 @@ IUTEST_INSTANTIATE_TEST_SUITE_P(A, TestP
 </pre>
 </div>
       RandomValues の第一引数にパラメータの総数を指定します。（第二引数に乱数シードを指定可能）<br />
+      範囲を指定する場合は <code>::iutest::RandomValuesInRange(num, min, max, seed=0)</code> を使用します。<br />
+      整数・浮動小数点の両方で min と max を含む範囲から生成します。上限だけの場合は min に 0 を指定します。<br />
+      同じ型・範囲と 0 以外の seed を指定すると同じ値列になります。seed=0 は不定シードです。<br />
+      min &gt; max の場合は空になり、浮動小数点の境界は有限値である必要があります。<br />
       <br />
       また、特定の値を除いた乱数をパラメータにするなどフィルタリングにも対応しています。<br />
       この場合、::iutest::ValuesGen と ::iutest::RandomGenerator を使用します。<br />

@@ -261,6 +261,7 @@ if (build_tests)
     param_test_with_any_tests.cpp
     pp_tests.cpp
     random_values_tests.cpp
+    random_values_in_range_tests.cpp
     values_gen_tests.cpp
     variadic_templates_tests.cpp
   )

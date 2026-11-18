@@ -509,6 +509,21 @@ inline detail::iuRandomParamsHolder IUTEST_ATTRIBUTE_UNUSED_ RandomValues(size_t
 {
     return detail::iuRandomParamsHolder(num, seed);
 }
+
+/**
+ * @brief   範囲指定乱数値パラメータ
+ * @details 整数型・浮動小数点型の閉区間 [min, max] から num 個生成します。
+ *          min > max の場合は空になります。浮動小数点の境界には有限値を指定してください。
+ *          同じ型・範囲・0 以外の seed は同じ値列を生成します。seed=0 は不定シードです。
+ *          上限のみ指定する場合は min に 0 を指定してください。
+ */
+template<typename T>
+inline detail::iuValuesParamsGeneratorHolder< detail::iuRandomRangeParamGenerator<T> >
+IUTEST_ATTRIBUTE_UNUSED_ RandomValuesInRange(size_t num, T min, T max, unsigned int seed=0)
+{
+    typedef detail::iuRandomRangeParamGenerator<T> Generator;
+    return detail::iuValuesParamsGeneratorHolder<Generator>(min <= max ? num : 0, Generator(min, max, seed));
+}
 #endif
 
 /**
