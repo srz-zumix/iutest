@@ -1,3 +1,5 @@
 <map id="クラス階層図" name="クラス階層図">
-<area shape="rect" id="Node000000" href="$d0/ded/classiutest_1_1mfc_1_1_c_container.html" title="provide begin/end in mfc container" alt="" coords="5,5,216,31"/>
+<area shape="rect" id="Node000000" href="$de/d43/classiutest_1_1_match_result_listener.html" title="Receives explanations from user&#45;defined matchers." alt="" coords="5,13,205,38"/>
+<area shape="rect" id="Node000001" href="$df/d3b/classiutest_1_1_string_match_result_listener.html" title="Collects matcher explanations in a string." alt="" coords="253,5,440,45"/>
+<area shape="poly" id="edge16_Node000000_Node000001" title=" " alt="" coords="219,23,253,23,253,28,219,28"/>
 </map>

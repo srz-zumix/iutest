@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['変更履歴_0',['変更履歴',['../d5/d6f/changelog.html',1,'']]]
+  ['handler_20compatibility_0',['Failure signal handler compatibility',['../da/d76/failuresignalhandler.html',1,'']]]
 ];

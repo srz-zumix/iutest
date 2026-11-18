@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>iutest: Failure signal handler compatibility</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">iutest<span id="projectnumber">&#160;1.17.99.14</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div><div class="header">
+  <div class="headertitle"><div class="title">Failure signal handler compatibility</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p>The boolean install_failure_signal_handler flag defaults to false. Use IUTEST_FLAG_GET/SET(install_failure_signal_handler) or, with the gtest switch header, GTEST_FLAG_GET/SET(install_failure_signal_handler). Native per-test flag saving/restoration includes this flag. Changing the flag does not itself install or uninstall a handler.</p>
+<p>Native iutest stores the preference but does not install a diagnostic handler, on any platform. This matches GoogleTest v1.18.0 without Abseil: existing signal dispositions are untouched even when the flag is true. No async-signal-unsafe stack tracing or exception recovery is attempted. This also keeps old compilers and platforms without signal APIs supported.</p>
+<p>Native environment variables are read at framework initialization: IUTEST_INSTALL_FAILURE_SIGNAL_HANDLER takes precedence over GTEST_INSTALL_FAILURE_SIGNAL_HANDLER. Unset means false; exactly "0" means false; every other value (including empty, "false", and "00") means true. In IUTEST_USE_GTEST mode only the upstream GTEST_ variable is used.</p>
+<p>GoogleTest v1.18.0 input/behavior matrix: </p><table class="doxtable">
+<tr>
+<th>Configuration</th><th>Environment and flag API</th><th>Command line</th><th>Handler </th></tr>
+<tr>
+<td>Native iutest</td><td>Supported as above</td><td>Not accepted</td><td>Not installed </td></tr>
+<tr>
+<td>GoogleTest without GTEST_HAS_ABSL</td><td>Supported</td><td>Not accepted</td><td>Not installed </td></tr>
+<tr>
+<td>GoogleTest with GTEST_HAS_ABSL and GTEST_NO_ABSL_FLAGS</td><td>Supported</td><td>Not accepted</td><td>Abseil </td></tr>
+<tr>
+<td>GoogleTest with Abseil flags, char** initialization</td><td>Supported</td><td>&ndash;gtest_install_failure_signal_handler=true|false</td><td>Abseil </td></tr>
+<tr>
+<td>GoogleTest with Abseil flags, wchar_t** initialization</td><td>Supported</td><td>Not accepted</td><td>Abseil </td></tr>
+</table>
+<p>The ordinary upstream parser omits this flag from its explicit allowlist. Unrecognized &ndash;gtest_ options remain in argv and request help. Native &ndash;iutest_install_failure_signal_handler behaves the same way; neither spelling is a native command-line or flagfile setting.</p>
+<p>To obtain diagnostics using the upstream implementation, build GoogleTest v1.18.0 with GTEST_HAS_ABSL and its required Abseil/RE2 dependencies, select IUTEST_USE_GTEST, and enable the flag via the environment before startup or the flag API before the first IUTEST_INIT. Installation occurs once in PostFlagParsingInit (or at the first run if initialization was omitted). A later flag change or per-test flag restoration does not undo installation. The ordinary GoogleTest v1.18.0 flag saver omits this flag; unlike native iutest, that upstream configuration requires callers to restore its value. Upstream uses default absl::FailureSignalHandlerOptions: on supported POSIX platforms it uses sigaction; Windows uses signal and has no alternate stack. Exact platform support depends on the linked Abseil build. The handler emits diagnostics and terminates; it does not recover or add death-test support.</p>
+<p>IMPORTANT: upstream's default options do not chain to an existing handler. If an application already owns signal handling, leave this flag false. A native application needing diagnostics can explicitly install its chosen handler before IUTEST_INIT, with chaining/lifetime options it controls; iutest will not replace it.</p>
+<p>Reference implementation: <a href="https://github.com/google/googletest/blob/v1.18.0/googletest/src/gtest.cc">https://github.com/google/googletest/blob/v1.18.0/googletest/src/gtest.cc</a> (flag definition, PostFlagParsingInit, ParseGoogleTestFlag, ParseGoogleTestFlagsOnly), and <a href="https://github.com/google/googletest/blob/v1.18.0/googletest/src/gtest-port.cc">https://github.com/google/googletest/blob/v1.18.0/googletest/src/gtest-port.cc</a> (BoolFromGTestEnv). </p>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+2026年11月18日(水) 20時03分17秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+</small></address>
+</body>
+</html>

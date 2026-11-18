@@ -4,5 +4,7 @@ var searchData=
   ['make_5fcontainer_1',['make_container',['../dc/d5d/iutest__mfc_8hpp.html#a630e755b354384785edfa0ad79b66e4f',1,'iutest::mfc']]],
   ['maketestparamname_2',['MakeTestParamName',['../df/d22/classiutest_1_1_with_param_interface.html#a5fa0cd1fb34eeb918beeb91f4e0bd814',1,'iutest::WithParamInterface']]],
   ['mantissa_5fbits_3',['mantissa_bits',['../d3/d81/classiutest_1_1floating__point.html#af523b5fe6db526440a03f0dffd21ad3d',1,'iutest::floating_point']]],
-  ['message_4',['message',['../d9/d5f/classiutest_1_1_assertion_result.html#ad01606ebd7aa975e86b83de49911e750',1,'iutest::AssertionResult']]]
+  ['matchercast_4',['MatcherCast',['../d6/d41/namespaceiutest_1_1matchers.html#aed8f010f15b96ce95b7f6fd5f8e8ec48',1,'iutest::matchers']]],
+  ['matches_5',['Matches',['../d6/d41/namespaceiutest_1_1matchers.html#aa808847b856641250966f1b8dc78e3df',1,'iutest::matchers']]],
+  ['message_6',['message',['../d9/d5f/classiutest_1_1_assertion_result.html#ad01606ebd7aa975e86b83de49911e750',1,'iutest::AssertionResult']]]
 ];

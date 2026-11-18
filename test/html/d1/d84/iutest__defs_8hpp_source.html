@@ -547,47 +547,48 @@ $(document).ready(function() { init_codefold(1); });
 <div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span><span class="keyword">typedef</span> <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a> (*<a class="code hl_typedef" href="../../d3/dda/namespaceiutest.html#a3d4347414b4f9246d02cc912beead66d">SetUpMethod</a>)();      </div>
 <div class="line"><a id="l00523" name="l00523"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#a3d4347414b4f9246d02cc912beead66d">  523</a></span><span class="keyword">typedef</span> <a class="code hl_define" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a> (*<a class="code hl_typedef" href="../../d3/dda/namespaceiutest.html#a4b4e0725aff84c407822b9009ae75b12">TearDownMethod</a>)();   </div>
 <div class="line"><a id="l00524" name="l00524"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#a4b4e0725aff84c407822b9009ae75b12">  524</a></span> </div>
-<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span><span class="keyword">typedef</span> detail::type_least_t&lt;8&gt;::UInt   <a class="code hl_typedef" href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">TimeInMillisec</a>; </div>
-<div class="line"><a id="l00526" name="l00526"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">  526</a></span><span class="keyword">typedef</span> detail::type_least_t&lt;8&gt;::Int    <a class="code hl_typedef" href="../../d3/dda/namespaceiutest.html#af0a26182ebcee67d79f27f7c9b248448">BiggestInt</a>;     </div>
-<div class="line"><a id="l00527" name="l00527"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#af0a26182ebcee67d79f27f7c9b248448">  527</a></span> </div>
-<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span>}   <span class="comment">// end of namespace iutest</span></div>
-<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span> </div>
-<div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span><span class="comment">#if IUTEST_HAS_ATTRIBUTE_DEPRECATED</span></div>
-<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span><span class="comment">namespace iutest {</span></div>
-<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span><span class="comment">namespace detail</span></div>
-<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span><span class="comment">{</span></div>
-<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span><span class="comment"></span> </div>
-<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span><span class="comment">template&lt;typename T&gt;</span></div>
-<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span><span class="comment">struct type_check_t { static const int IUTEST_ATTRIBUTE_DEPRECATED_ value = 0; };</span></div>
-<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span><span class="comment"></span> </div>
-<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span><span class="comment">#if IUTEST_HAS_RVALUE_REFS</span></div>
-<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span><span class="comment">template&lt;typename T&gt;</span></div>
-<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span><span class="comment">int type_check(T&amp;&amp; x) { return 0; }</span></div>
-<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span><span class="comment">#else</span></div>
-<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span><span class="comment">template&lt;typename T&gt;</span></div>
-<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span><span class="comment">int type_check(const T&amp; x) { return 0; }</span></div>
-<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span><span class="comment">#endif</span></div>
-<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span><span class="comment"></span> </div>
-<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span><span class="comment">}   // end of namespace detail</span></div>
-<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span><span class="comment">}   // end of namespace iutest</span></div>
-<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span><span class="comment"></span> </div>
-<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span><span class="comment">#if defined(_MSC_VER)</span></div>
-<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span><span class="comment">#  if IUTEST_HAS_DECLTYPE</span></div>
-<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span><span class="comment">#    define IUTEST_CHECK_TYPE(x)    (void)::iutest::detail::type_check_t&lt; decltype(x) &gt;::value</span></div>
-<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span><span class="comment">#  endif</span></div>
-<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span><span class="comment">#else</span></div>
-<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span><span class="comment">#  define IUTEST_CHECK_TYPE(x)      ::iutest::detail::type_check(x)</span></div>
-<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span><span class="comment">#endif</span></div>
-<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span><span class="comment"></span> </div>
-<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span><span class="comment">#if !defined(IUTEST_CHECK_TYPE)</span></div>
-<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span><span class="comment">#  define IUTEST_CHECK_TYPE(x)      (void)0</span></div>
-<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span><span class="comment">#endif</span></div>
-<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span><span class="comment"></span> </div>
-<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span><span class="comment">#endif</span></div>
-<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span><span class="comment">*/</span></div>
-<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span> </div>
-<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span><span class="preprocessor">#endif </span><span class="comment">// INCG_IRIS_IUTEST_DEFS_HPP_839F06DB_E0B6_4E6A_84F2_D99C0A44E06C_</span></div>
+<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span><span class="keyword">typedef</span> <a class="code hl_typedef" href="../../d3/dda/namespaceiutest.html#aa7ea08819edc4cc4b241b8f834f3ba9d">Int64</a>                           <a class="code hl_typedef" href="../../d3/dda/namespaceiutest.html#aee3e2f2ccbcc05d30eb5c51317af66d7">TimeInMillis</a>;   </div>
+<div class="line"><a id="l00526" name="l00526"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#aee3e2f2ccbcc05d30eb5c51317af66d7">  526</a></span><span class="keyword">typedef</span> detail::type_least_t&lt;8&gt;::UInt   <a class="code hl_typedef" href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">TimeInMillisec</a>; </div>
+<div class="line"><a id="l00527" name="l00527"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">  527</a></span><span class="keyword">typedef</span> detail::type_least_t&lt;8&gt;::Int    <a class="code hl_typedef" href="../../d3/dda/namespaceiutest.html#af0a26182ebcee67d79f27f7c9b248448">BiggestInt</a>;     </div>
+<div class="line"><a id="l00528" name="l00528"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#af0a26182ebcee67d79f27f7c9b248448">  528</a></span> </div>
+<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span> </div>
+<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span><span class="comment">#if IUTEST_HAS_ATTRIBUTE_DEPRECATED</span></div>
+<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span><span class="comment">namespace iutest {</span></div>
+<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span><span class="comment">namespace detail</span></div>
+<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span><span class="comment">{</span></div>
+<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span><span class="comment"></span> </div>
+<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span><span class="comment">template&lt;typename T&gt;</span></div>
+<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span><span class="comment">struct type_check_t { static const int IUTEST_ATTRIBUTE_DEPRECATED_ value = 0; };</span></div>
+<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span><span class="comment"></span> </div>
+<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span><span class="comment">#if IUTEST_HAS_RVALUE_REFS</span></div>
+<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span><span class="comment">template&lt;typename T&gt;</span></div>
+<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span><span class="comment">int type_check(T&amp;&amp; x) { return 0; }</span></div>
+<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span><span class="comment">#else</span></div>
+<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span><span class="comment">template&lt;typename T&gt;</span></div>
+<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span><span class="comment">int type_check(const T&amp; x) { return 0; }</span></div>
+<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span><span class="comment">#endif</span></div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span><span class="comment"></span> </div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span><span class="comment">}   // end of namespace detail</span></div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span><span class="comment">}   // end of namespace iutest</span></div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span><span class="comment"></span> </div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span><span class="comment">#if defined(_MSC_VER)</span></div>
+<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span><span class="comment">#  if IUTEST_HAS_DECLTYPE</span></div>
+<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span><span class="comment">#    define IUTEST_CHECK_TYPE(x)    (void)::iutest::detail::type_check_t&lt; decltype(x) &gt;::value</span></div>
+<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span><span class="comment">#  endif</span></div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span><span class="comment">#else</span></div>
+<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span><span class="comment">#  define IUTEST_CHECK_TYPE(x)      ::iutest::detail::type_check(x)</span></div>
+<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span><span class="comment">#endif</span></div>
+<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span><span class="comment"></span> </div>
+<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span><span class="comment">#if !defined(IUTEST_CHECK_TYPE)</span></div>
+<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span><span class="comment">#  define IUTEST_CHECK_TYPE(x)      (void)0</span></div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span><span class="comment">#endif</span></div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span><span class="comment"></span> </div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span><span class="comment">#endif</span></div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span> </div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span><span class="preprocessor">#endif </span><span class="comment">// INCG_IRIS_IUTEST_DEFS_HPP_839F06DB_E0B6_4E6A_84F2_D99C0A44E06C_</span></div>
 </div>
 </div>
 </div>
@@ -628,7 +629,7 @@ $(document).ready(function() { init_codefold(1); });
 <div class="ttc" id="aiutest__stdlib_8hpp_html"><div class="ttname"><a href="../../d9/dad/iutest__stdlib_8hpp.html">iutest_stdlib.hpp</a></div><div class="ttdoc">stdlib</div></div>
 <div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition</b> iutest_charcode.hpp:33</div></div>
 <div class="ttc" id="anamespaceiutest_html_a01054ce26e86e60b8cf835401557c44e"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a01054ce26e86e60b8cf835401557c44e">iutest::UInt8</a></div><div class="ttdeci">detail::type_fit_t&lt; 1 &gt;::UInt UInt8</div><div class="ttdoc">8 bit 符号なし整数型</div><div class="ttdef"><b>Definition</b> iutest_defs.hpp:499</div></div>
-<div class="ttc" id="anamespaceiutest_html_a192c2ae3b556bc59e31bc9e4b1bb1f85"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">iutest::TimeInMillisec</a></div><div class="ttdeci">detail::type_least_t&lt; 8 &gt;::UInt TimeInMillisec</div><div class="ttdoc">ミリ秒単位を扱う型</div><div class="ttdef"><b>Definition</b> iutest_defs.hpp:526</div></div>
+<div class="ttc" id="anamespaceiutest_html_a192c2ae3b556bc59e31bc9e4b1bb1f85"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">iutest::TimeInMillisec</a></div><div class="ttdeci">detail::type_least_t&lt; 8 &gt;::UInt TimeInMillisec</div><div class="ttdoc">ミリ秒単位を扱う型</div><div class="ttdef"><b>Definition</b> iutest_defs.hpp:527</div></div>
 <div class="ttc" id="anamespaceiutest_html_a1ccecb8f075b9be658dff21185e5a1b0"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a1ccecb8f075b9be658dff21185e5a1b0">iutest::Int8</a></div><div class="ttdeci">detail::type_fit_t&lt; 1 &gt;::Int Int8</div><div class="ttdoc">8 bit 符号付き整数型</div><div class="ttdef"><b>Definition</b> iutest_defs.hpp:498</div></div>
 <div class="ttc" id="anamespaceiutest_html_a3d4347414b4f9246d02cc912beead66d"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a3d4347414b4f9246d02cc912beead66d">iutest::SetUpMethod</a></div><div class="ttdeci">void(* SetUpMethod)()</div><div class="ttdoc">SetUp 関数型</div><div class="ttdef"><b>Definition</b> iutest_defs.hpp:523</div></div>
 <div class="ttc" id="anamespaceiutest_html_a4b4e0725aff84c407822b9009ae75b12"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a4b4e0725aff84c407822b9009ae75b12">iutest::TearDownMethod</a></div><div class="ttdeci">void(* TearDownMethod)()</div><div class="ttdoc">TearDown 関数型</div><div class="ttdef"><b>Definition</b> iutest_defs.hpp:524</div></div>
@@ -638,13 +639,14 @@ $(document).ready(function() { init_codefold(1); });
 <div class="ttc" id="anamespaceiutest_html_a98f3c61e86befaf37c5401da3978295a"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a98f3c61e86befaf37c5401da3978295a">iutest::Int16</a></div><div class="ttdeci">detail::type_fit_t&lt; 2 &gt;::Int Int16</div><div class="ttdoc">16 bit 符号付き整数型</div><div class="ttdef"><b>Definition</b> iutest_defs.hpp:500</div></div>
 <div class="ttc" id="anamespaceiutest_html_aa7ea08819edc4cc4b241b8f834f3ba9d"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#aa7ea08819edc4cc4b241b8f834f3ba9d">iutest::Int64</a></div><div class="ttdeci">detail::type_fit_t&lt; 8 &gt;::Int Int64</div><div class="ttdoc">64 bit 符号付き整数型</div><div class="ttdef"><b>Definition</b> iutest_defs.hpp:504</div></div>
 <div class="ttc" id="anamespaceiutest_html_add3d75edff7febed1ad134ae3235f5dc"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">iutest::TestTypeId</a></div><div class="ttdeci">internal::TypeId TestTypeId</div><div class="ttdoc">テスト識別型</div><div class="ttdef"><b>Definition</b> iutest_defs.hpp:521</div></div>
-<div class="ttc" id="anamespaceiutest_html_af0a26182ebcee67d79f27f7c9b248448"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#af0a26182ebcee67d79f27f7c9b248448">iutest::BiggestInt</a></div><div class="ttdeci">detail::type_least_t&lt; 8 &gt;::Int BiggestInt</div><div class="ttdoc">Biggest Int</div><div class="ttdef"><b>Definition</b> iutest_defs.hpp:527</div></div>
+<div class="ttc" id="anamespaceiutest_html_aee3e2f2ccbcc05d30eb5c51317af66d7"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#aee3e2f2ccbcc05d30eb5c51317af66d7">iutest::TimeInMillis</a></div><div class="ttdeci">Int64 TimeInMillis</div><div class="ttdoc">64 bit 符号付きミリ秒型 (GoogleTest 互換)</div><div class="ttdef"><b>Definition</b> iutest_defs.hpp:526</div></div>
+<div class="ttc" id="anamespaceiutest_html_af0a26182ebcee67d79f27f7c9b248448"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#af0a26182ebcee67d79f27f7c9b248448">iutest::BiggestInt</a></div><div class="ttdeci">detail::type_least_t&lt; 8 &gt;::Int BiggestInt</div><div class="ttdoc">Biggest Int</div><div class="ttdef"><b>Definition</b> iutest_defs.hpp:528</div></div>
 <div class="ttc" id="anamespaceiutest_html_af4dd65bab95c487e0479da6628b6b5c7"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#af4dd65bab95c487e0479da6628b6b5c7">iutest::UInt16</a></div><div class="ttdeci">detail::type_fit_t&lt; 2 &gt;::UInt UInt16</div><div class="ttdoc">16 bit 符号なし整数型</div><div class="ttdef"><b>Definition</b> iutest_defs.hpp:501</div></div>
 <div class="ttc" id="aunioniutest_1_1floating__point_1_1_f_int_html"><div class="ttname"><a href="../../d3/d25/unioniutest_1_1floating__point_1_1_f_int.html">iutest::floating_point::FInt</a></div><div class="ttdef"><b>Definition</b> iutest_defs.hpp:199</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2026年09月28日(月) 00時30分31秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+2026年11月18日(水) 20時03分15秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

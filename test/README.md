@@ -54,6 +54,11 @@ Features
 * Various options for running the tests.
 * Compatible with [Google Test](https://github.com/google/googletest). (1.5 or later)
 
+CMake builds of `projects/cmake` default to C++17 unless `CMAKE_CXX_STANDARD` is set.
+When linking `iutest::iutest` or `iutest::iutest_main`, build the libraries with
+the same C++ standard and settings as the consuming application. For header-only
+use, link `iutest::headers` instead.
+
 Platforms
 --------------------------------------------------
 
