@@ -16,7 +16,9 @@ runs:
       with:
         report_paths: "${{ inputs.report_paths }}"
         token: ${{ inputs.token }}
+      if: ${{ env.CPP_ACTIONS != 'true' }}
     - name: Test Summary
       uses: test-summary/action@v2
       with:
         paths: "${{ inputs.report_paths }}"
+      if: ${{ env.CPP_ACTIONS != 'true' }}
