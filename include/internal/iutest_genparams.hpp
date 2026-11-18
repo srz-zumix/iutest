@@ -1498,6 +1498,35 @@ private:
 #if IUTEST_HAS_RANDOMVALUES
 
 template<typename T>
+struct iuRandomRangeTypeTraits
+{
+    enum
+    {
+        is_integer = iutest_type_traits::is_integral<T>::value,
+        is_signed = iutest_type_traits::is_signed<T>::value
+    };
+};
+
+#if IUTEST_HAS_INT128
+template<>
+struct iuRandomRangeTypeTraits<__int128>
+{
+    enum { is_integer = true, is_signed = true };
+};
+
+#if defined(_MSC_VER)
+template<>
+struct iuRandomRangeTypeTraits<unsigned __int128>
+#else
+template<>
+struct iuRandomRangeTypeTraits<__uint128_t>
+#endif
+{
+    enum { is_integer = true, is_signed = false };
+};
+#endif
+
+template<typename T>
 class iuRandomRangeParamGenerator
 {
 #if IUTEST_HAS_INT128
@@ -1513,7 +1542,7 @@ public:
     T operator ()()
     {
         if( m_min == m_max ) return m_min;
-        return Generate(iutest_type_traits::bool_constant< ::std::numeric_limits<T>::is_integer >());
+        return Generate(iutest_type_traits::bool_constant< iuRandomRangeTypeTraits<T>::is_integer >());
     }
 
 private:
@@ -1532,7 +1561,7 @@ private:
             }
         } while( offset < threshold );
         if( span != 0 ) offset %= span;
-        return AddOffset(offset, iutest_type_traits::bool_constant< ::std::numeric_limits<T>::is_signed >());
+        return AddOffset(offset, iutest_type_traits::bool_constant< iuRandomRangeTypeTraits<T>::is_signed >());
     }
 
     T AddOffset(RandomUInt offset, iutest_type_traits::true_type) const
