@@ -1,0 +1,62 @@
+name: Std C++ Version Tests
+on:
+  pull_request:
+    paths-ignore:
+      - '.github/copilot-instructions.md'
+      - '*.ini'
+      - '*.md'
+      - '*.yml'
+      - '*.yaml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
+jobs:
+  stdc-versions-test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        CXX:
+          - g++-13
+          - g++-14
+          - g++-15
+          - clang++-20
+          - clang++-21
+          - clang++-22
+        STDFLAG:
+          - -std=c++20
+          - -std=c++17
+          - -std=c++14
+          - -std=c++11
+    env:
+      CXX: ${{ matrix.CXX }}
+      STDFLAG: ${{ matrix.STDFLAG }}
+      OUTPUTXML: junit
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: info
+        uses: ./.github/actions/composite/test-info
+      - name: build
+        run: |
+          make -C test -j8
+      - name: test
+        run: |
+          make -C test test
+      - name: report
+        run: |
+          make -C test report
+        if: always()
+      - name: report summary
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: test/*.xml
+        if: always()

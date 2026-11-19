@@ -50,6 +50,14 @@ public:
             iuConsole::output("%s", test_part_result.make_newline_message().c_str());
         }
         TestEnv::event_listeners().OnTestPartResult(test_part_result);
+        if( test_part_result.failed() && TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
+        {
+#if IUTEST_HAS_EXCEPTIONS
+            throw AssertionException(test_part_result);
+#else
+            exit(1);
+#endif
+        }
     }
 };
 

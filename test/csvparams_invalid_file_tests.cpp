@@ -29,6 +29,8 @@ class CsvParamsIntTest : public ::iutest::TestWithParam< int >
 {
 };
 
+IUTEST_ALLOW_UNINSTANTIATED_PARAMETERIZED_TEST(CsvParamsIntTest);
+
 IUTEST_P(CsvParamsIntTest, DoNothing)
 {
 }

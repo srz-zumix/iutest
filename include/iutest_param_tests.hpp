@@ -21,10 +21,19 @@
 #include "iutest_any.hpp"
 // IWYU pragma: end_exports
 
-#if IUTEST_HAS_PARAM_TEST
-
 //======================================================================
 // define
+/**
+ * @def IUTEST_ALLOW_UNINSTANTIATED_PARAMETERIZED_TEST
+ * @brief Suppress verification for an intentionally uninstantiated test suite.
+ */
+#define IUTEST_ALLOW_UNINSTANTIATED_PARAMETERIZED_TEST(testsuite_)                    \
+    static const int IUTEST_PP_CAT(iutest_allow_uninstantiated_, __LINE__)             \
+        IUTEST_ATTRIBUTE_UNUSED_ = ::iutest::detail::UninstantiatedParameterizedTestRegistry::GetInstance() \
+            .Allow(IUTEST_GET_PACKAGENAME_() + ::std::string(#testsuite_))
+
+#if IUTEST_HAS_PARAM_TEST
+
 /**
  * @defgroup    VALUE_PARAMETERIZED_TEST    値のパラメータ化テスト
  * @brief       値のパラメータ化テスト
@@ -175,14 +184,14 @@
 #define IIUT_TEST_P_I_(classname_, testsuite_, testsuitename_, testname_)                   \
     IIUT_TEST_P_FIXTURE_DECL_(testsuite_)                                                   \
     class classname_ IUTEST_CXX_FINAL : public testsuite_ {                                 \
-        public: classname_() {}                                                             \
+        public: classname_() { (void)dummy_; }                                              \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE;                                 \
         private: static int AddRegister() {                                                 \
-            static ::iutest::detail::ParamTestInstance< classname_ > testinfo(testname_);   \
+            static ::iutest::detail::ParamTestInstance< classname_ > testinfo(testname_, __FILE__, __LINE__); \
             IIUT_GETTESTSUITEPATTERNHOLDER(testsuite_, testsuitename_                       \
                     , IUTEST_GET_PACKAGENAME_())->AddTestPattern(&testinfo); return 0;      \
         }                                                                                   \
-        static int dummy_;                                                                  \
+        static int dummy_ IUTEST_ATTRIBUTE_UNUSED_;                                         \
         IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(classname_);                                     \
     };                                                                                      \
     int classname_::dummy_ IUTEST_ATTRIBUTE_UNUSED_  = classname_::AddRegister();           \
@@ -192,15 +201,15 @@
 
 #define IIUT_TEST_P_I_IGNORE_(classname_, testsuite_, testsuitename_, testname_)            \
     class classname_ IUTEST_CXX_FINAL : public testsuite_ {                                 \
-        public: classname_() {}                                                             \
+        public: classname_() { (void)dummy_; }                                              \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
         template<typename T>void Body();                                                    \
         private: static int AddRegister() {                                                 \
-            static ::iutest::detail::ParamTestInstance< classname_ > testinfo(testname_);   \
+            static ::iutest::detail::ParamTestInstance< classname_ > testinfo(testname_, __FILE__, __LINE__); \
             IIUT_GETTESTSUITEPATTERNHOLDER(testsuite_, testsuitename_                       \
                 , IUTEST_GET_PACKAGENAME_())->AddTestPattern(&testinfo); return 0;          \
         }                                                                                   \
-        static int dummy_;                                                                  \
+        static int dummy_ IUTEST_ATTRIBUTE_UNUSED_;                                         \
         IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(classname_);                                     \
     };                                                                                      \
     int classname_::dummy_ IUTEST_ATTRIBUTE_UNUSED_ = classname_::AddRegister();            \
@@ -277,6 +286,23 @@
 */
 
 namespace iutest {
+
+/**
+ * @ingroup VALUE_PARAMETERIZED_TEST
+ * @brief Generates a parameter name using PrintToString(info.param).
+ * @note The printed value must be nonempty and contain only ASCII letters, digits, or underscores.
+ */
+struct PrintToStringParamName
+{
+    PrintToStringParamName() {}
+
+    template<typename ParamType>
+    ::std::string operator()(const TestParamInfo<ParamType>& info) const
+    {
+        return PrintToString(info.param);
+    }
+};
+
 namespace detail
 {
 
@@ -297,9 +323,9 @@ class ParamTestInstance : public IParamTestInfoData
     class EachTest IUTEST_CXX_FINAL : public IParamTestInfoData::ParamEachTestBase<ParamType>
     {
     public:
-        EachTest(TestSuite* testsuite, const ::std::string& name)
+        EachTest(TestSuite* testsuite, const ::std::string& name, const char* file, int line)
             : m_mediator(testsuite)
-            , m_info(&m_mediator, name, &m_factory)
+            , m_info(&m_mediator, name, &m_factory, file, line)
         {
             UnitTest::instance().AddTestInfo(testsuite, &m_info);
         }
@@ -315,8 +341,9 @@ class ParamTestInstance : public IParamTestInfoData
         TestInfo            m_info;
     };
 public:
-    ParamTestInstance() : IParamTestInfoData("") {} // allow empty name
-    explicit ParamTestInstance(const char* testsuite_name) : IParamTestInfoData(testsuite_name) {}
+    ParamTestInstance() : IParamTestInfoData(""), m_file(NULL), m_line(0) {} // allow empty name
+    explicit ParamTestInstance(const char* testsuite_name, const char* file=NULL, int line=0)
+        : IParamTestInfoData(testsuite_name), m_file(file), m_line(line) {}
 
 private:
     // TestSuite の作成
@@ -335,11 +362,14 @@ private:
     virtual IParamTestInfoData::EachTestBase* RegisterTest(TestSuite* testsuite
                                                         , const ::std::string& name) const IUTEST_CXX_OVERRIDE
     {
-        EachTest* test = new EachTest(testsuite, name);
+        EachTest* test = new EachTest(testsuite, name, m_file, m_line);
         // new オブジェクトを管理してもらう
         detail::iuPool::GetInstance().push(test);
         return test;
     }
+private:
+    const char* m_file;
+    int m_line;
 };
 
 }   // end of namespace detail
@@ -413,6 +443,33 @@ inline detail::iuParamGenerator<bool> IUTEST_ATTRIBUTE_UNUSED_ Bool()
 {
     return new detail::iuBoolParamsGenerator();
 }
+
+#if IUTEST_HAS_CONVERT_GENERATOR
+/**
+ * @brief   生成された値を T を経由してパラメータ型に変換
+ * @see     https://google.github.io/googletest/reference/testing.html#using-convertgenerator
+ */
+template<typename T, typename Generator>
+detail::iuConvertGeneratorHolder<T, Generator, detail::iuStaticParamConversion<T> >
+ConvertGenerator(const Generator& generator)
+{
+    return detail::iuConvertGeneratorHolder<T, Generator, detail::iuStaticParamConversion<T> >(
+        generator, detail::iuStaticParamConversion<T>());
+}
+
+#if IUTEST_HAS_CONVERT_GENERATOR_FUNC
+/** @overload */
+template<typename Generator, typename Converter>
+detail::iuConvertGeneratorHolder<typename detail::iuConvertGeneratorArgument<Converter>::type,
+    Generator, typename ::std::decay<Converter>::type>
+ConvertGenerator(const Generator& generator, const Converter& converter)
+{
+    typedef typename detail::iuConvertGeneratorArgument<Converter>::type T;
+    typedef typename ::std::decay<Converter>::type F;
+    return detail::iuConvertGeneratorHolder<T, Generator, F>(generator, converter);
+}
+#endif
+#endif
 
 #if IUTEST_HAS_VALUESGEN
 

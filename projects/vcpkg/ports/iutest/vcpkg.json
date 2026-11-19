@@ -1,0 +1,17 @@
+{
+  "name": "iutest",
+  "version": "1.17.99.14",
+  "description": "iutest - iris unit test framework. Header-only C++ XUnit testing framework compatible with Google Test.",
+  "homepage": "https://github.com/srz-zumix/iutest",
+  "license": "BSD-3-Clause",
+  "dependencies": [
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ]
+}

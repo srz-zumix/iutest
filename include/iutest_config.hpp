@@ -52,6 +52,10 @@
 #  define IUTEST_HAS_REPORT_SKIPPED     1       //!< xml 出力に skipped タグを含めるかどうか
 #endif
 
+#if !defined(IUTEST_HAS_ABSL_STRINGIFY)
+#  define IUTEST_HAS_ABSL_STRINGIFY     0       //!< Abseil の AbslStringify をプリンタで使うかどうか
+#endif
+
 /**
  * @}
 */
@@ -76,6 +80,14 @@
 #  define IUTEST_HAS_PARAM_TEST         1   //!< 値をパラメータ化したテストが使用可能かどうか
 #endif
 
+#if !defined(IUTEST_HAS_UNINSTANTIATED_PARAMETERIZED_TEST)
+#  define IUTEST_HAS_UNINSTANTIATED_PARAMETERIZED_TEST 1
+#endif
+
+#if !defined(IUTEST_HAS_REGISTER_TEST)
+#  define IUTEST_HAS_REGISTER_TEST (IUTEST_HAS_CXX11 && IUTEST_HAS_DECLTYPE && IUTEST_HAS_RVALUE_REFS)
+#endif
+
 #if !defined(IUTEST_HAS_TYPED_TEST)
 //! 型付けテストが使用可能かどうか
 #  if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
@@ -92,6 +104,16 @@
 #    define IUTEST_HAS_TYPED_TEST_P 1
 #  else
 #    define IUTEST_HAS_TYPED_TEST_P 0
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_TYPED_TEST_NAME_GENERATOR)
+//! 型付けテストの型名生成が可能かどうか
+#  if IUTEST_HAS_TYPED_TEST && !defined(IUTEST_NO_VARIADIC_MACROS) \
+        && !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
+#    define IUTEST_HAS_TYPED_TEST_NAME_GENERATOR 1
+#  else
+#    define IUTEST_HAS_TYPED_TEST_NAME_GENERATOR 0
 #  endif
 #endif
 
@@ -122,6 +144,13 @@
 #  else
 #    define IUTEST_HAS_MATCHERS     0
 #  endif
+#endif
+
+#if !defined(IUTEST_HAS_MATCHER_MACROS)
+/**
+ * @brief   IUTEST_MATCHER / IUTEST_MATCHER_P ... P10
+*/
+#  define IUTEST_HAS_MATCHER_MACROS IUTEST_HAS_MATCHERS
 #endif
 
 #if !defined(IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE)
@@ -185,6 +214,21 @@
 
 #if !defined(IUTEST_HAS_COMBINE)
 #  define IUTEST_HAS_COMBINE        0
+#endif
+
+#if !defined(IUTEST_HAS_CONVERT_GENERATOR)
+//! ::iutest::ConvertGenerator<T> が使用可能かどうか
+#  define IUTEST_HAS_CONVERT_GENERATOR IUTEST_HAS_PARAM_TEST
+#endif
+
+#if !defined(IUTEST_HAS_CONVERT_GENERATOR_FUNC)
+//! 関数オブジェクトを指定する ::iutest::ConvertGenerator が使用可能かどうか
+#  define IUTEST_HAS_CONVERT_GENERATOR_FUNC IUTEST_HAS_CONVERT_GENERATOR && IUTEST_HAS_CXX11 \
+    && IUTEST_HAS_DECLTYPE && IUTEST_HAS_CXX_HDR_TYPE_TARITS
+#endif
+#if !IUTEST_HAS_CONVERT_GENERATOR || !IUTEST_HAS_CXX11 || !IUTEST_HAS_DECLTYPE
+#  undef IUTEST_HAS_CONVERT_GENERATOR_FUNC
+#  define IUTEST_HAS_CONVERT_GENERATOR_FUNC 0
 #endif
 
 #if !defined(IUTEST_HAS_PAIRWISE)
@@ -308,8 +352,32 @@
 #  define IUTEST_HAS_MATCHER_POINTWISE          1
 #endif
 
+#if !defined(IUTEST_HAS_MATCHER_UNORDERED_POINTWISE)
+//! Wether ::iutest::matchers::UnorderedPointwise is available
+#  define IUTEST_HAS_MATCHER_UNORDERED_POINTWISE 1
+#endif
+
 #if !defined(IUTEST_HAS_MATCHER_OPTIONAL)
 #  define IUTEST_HAS_MATCHER_OPTIONAL           1
+#endif
+
+#if !defined(IUTEST_HAS_MATCHER_DISTANCEFROM)
+#  define IUTEST_HAS_MATCHER_DISTANCEFROM       IUTEST_HAS_MATCHERS
+#endif
+
+#if !defined(IUTEST_HAS_MATCHER_CONDITIONAL)
+#  define IUTEST_HAS_MATCHER_CONDITIONAL        IUTEST_HAS_MATCHERS
+#endif
+
+#if !defined(IUTEST_HAS_MATCHER_FIELDSARE)
+//! Whether ::iutest::matchers::FieldsAre is available (C++17, up to 16 fields)
+#  if IUTEST_HAS_CXX17 && defined(__cpp_structured_bindings) && __cpp_structured_bindings >= 201606L \
+      && IUTEST_HAS_MATCHER_VARIADIC && IUTEST_HAS_STD_TUPLE && !defined(IUTEST_NO_SFINAE) \
+      && (!defined(__clang__) || __clang_major__ >= 7)
+#    define IUTEST_HAS_MATCHER_FIELDSARE        IUTEST_HAS_MATCHERS
+#  else
+#    define IUTEST_HAS_MATCHER_FIELDSARE        0
+#  endif
 #endif
 
 #if !defined(IUTEST_USE_THROW_ON_ASSERTION_FAILURE)
@@ -420,6 +488,11 @@
 #  else
 #    define IUTEST_HAS_PRINT_TO     0
 #  endif
+#endif
+
+#if !defined(IUTEST_HAS_FULL_PRECISION_FLOAT_PRINT)
+//! float/double を gtest 1.13 以降と同じ精度で表示するかどうか
+#  define IUTEST_HAS_FULL_PRECISION_FLOAT_PRINT 1
 #endif
 
 #if !defined(IUTEST_HAS_VARIADIC_PRED)

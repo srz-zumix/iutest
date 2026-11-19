@@ -111,7 +111,9 @@ public:
     bool            Failed()                const { return !Passed(); }
 
     /** type param 文字列の取得 */
-    virtual const char* type_param()        const { return NULL; }
+    virtual const char* type_param()        const { return m_type_param.empty() ? NULL : m_type_param.c_str(); }
+    /** @private */
+    void set_type_param(const char* str) { m_type_param = str != NULL ? str : ""; }
 
     /** TestSuite 名の取得 */
     ::std::string testsuite_name_with_where() const
@@ -171,6 +173,8 @@ private:
      * @return  成否
     */
     bool Run();
+
+    void Skip(bool notify = true);
 
     /**
      * @brief   実行
@@ -248,6 +252,7 @@ private:
 #endif
 
     ::std::string   m_testsuite_name;   //!< TestSuite 名
+    ::std::string   m_type_param;       //!< type param string
     iuTestInfos     m_testinfos;        //!< テスト情報リスト
     SetUpMethod     m_setup;            //!< SetUp 関数
     TearDownMethod  m_teardown;         //!< TearDown 関数

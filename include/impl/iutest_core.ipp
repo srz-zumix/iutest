@@ -163,10 +163,11 @@ IUTEST_IPP_INLINE int UnitTest::RunImpl()
 {
     m_repeat_counter = 0;
     int repeat = TestEnv::get_repeat_count();
+    const bool recreate_environments = repeat < 0 || IUTEST_FLAG(recreate_environments_when_repeating);
     bool result = true;
     if( repeat != 0 )
     {
-        m_start_timestamp = detail::GetTimeInMillis();
+        m_start_timestamp = detail::GetWallTimeInMillis();
         TestProgramStart();
 
         while( repeat )
@@ -174,13 +175,17 @@ IUTEST_IPP_INLINE int UnitTest::RunImpl()
             SetUpTestIteration();
 
             listeners().OnTestIterationStart(*this, m_repeat_counter);
-            if( !RunOnce() )
+            if( !RunOnce(recreate_environments || m_repeat_counter == 0, recreate_environments || repeat == 1) )
             {
                 result = false;
             }
             listeners().OnTestIterationEnd(*this, m_repeat_counter);
 
             ++m_repeat_counter;
+            if( !result && TestFlag::IsEnableFlag(TestFlag::FAIL_FAST) )
+            {
+                break;
+            }
             if( repeat > 0 )
             {
                 --repeat;
@@ -204,10 +209,18 @@ IUTEST_IPP_INLINE int UnitTest::RunImpl()
             return 1;
         }
     }
+    if( IUTEST_FLAG(fail_if_no_test_linked) && total_test_count() == 0 )
+    {
+        return 1;
+    }
+    if( IUTEST_FLAG(fail_if_no_test_selected) && test_to_run_count() == 0 )
+    {
+        return 1;
+    }
     return 0;
 }
 
-IUTEST_IPP_INLINE bool UnitTest::RunOnce()
+IUTEST_IPP_INLINE bool UnitTest::RunOnce(bool set_up_environment, bool tear_down_environment)
 {
     m_elapsedmsec = 0;
 
@@ -217,6 +230,10 @@ IUTEST_IPP_INLINE bool UnitTest::RunOnce()
     // 実行対象のテストがない場合は何もしない
     if( test_to_run_count() == 0 )
     {
+        for( iuTestSuites::iterator it=m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
+        {
+            (*it)->Run();
+        }
         return Passed();
     }
 
@@ -227,13 +244,21 @@ IUTEST_IPP_INLINE bool UnitTest::RunOnce()
     }
 
     // グローバル環境セット
-    EnvironmentSetUp();
-
-    if( m_ad_hoc_testresult.HasFatalFailure() )
+    if( set_up_environment )
     {
-        return false;
+        EnvironmentSetUp();
     }
 
+    if( m_ad_hoc_testresult.HasFatalFailure() || m_ad_hoc_testresult.Skipped() )
+    {
+        for( iuTestSuites::iterator it=m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
+        {
+            m_current_testsuite = *it;
+            m_current_testsuite->Skip(m_ad_hoc_testresult.HasFatalFailure());
+            m_current_testsuite = NULL;
+        }
+    }
+    else
     {
         detail::iuStopWatch sw;
         sw.start();
@@ -242,12 +267,19 @@ IUTEST_IPP_INLINE bool UnitTest::RunOnce()
             m_current_testsuite = *it;
             m_current_testsuite->Run();
             m_current_testsuite = NULL;
+            if( TestFlag::IsEnableFlag(TestFlag::FAIL_FAST) && (*it)->Failed() )
+            {
+                break;
+            }
         }
         m_elapsedmsec = sw.stop();
     }
 
     // グローバル環境セット
-    EnvironmentTearDown();
+    if( tear_down_environment || (TestFlag::IsEnableFlag(TestFlag::FAIL_FAST) && !Passed()) )
+    {
+        EnvironmentTearDown();
+    }
 
     return Passed();
 }
@@ -294,7 +326,26 @@ IUTEST_IPP_INLINE void UnitTest::EnvironmentSetUp()
     listeners().OnEnvironmentsSetUpStart(*this);
     for( iuEnvironmentList::iterator it = TestEnv::environments().begin(), end=TestEnv::environments().end(); it != end; ++it )
     {
-        (*it)->SetUp();
+#if IUTEST_HAS_EXCEPTIONS
+        if( TestFlag::IsEnableFlag(TestFlag::CATCH_EXCEPTION_EACH) )
+        {
+            try
+            {
+                (*it)->SetUp();
+            }
+            catch( const TestPartResult::Type& eType )
+            {
+                if( TestPartResult::type_is_failed(eType) && TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
+                {
+                    throw;
+                }
+            }
+        }
+        else
+#endif
+        {
+            (*it)->SetUp();
+        }
     }
     listeners().OnEnvironmentsSetUpEnd(*this);
 }
@@ -347,8 +398,34 @@ IUTEST_IPP_INLINE void UnitTest::Initialize()
         return;
     }
 
+    char cwd[IUTEST_MAX_PATH] = { 0 };
+    const char* const dir = internal::posix::GetCWD(cwd, sizeof(cwd));
+    if( dir != NULL )
+    {
+        m_original_working_dir = dir;
+    }
+
 #if IUTEST_HAS_PARAM_TEST
-    m_param_testsuite_holder.RegisterTests();
+    ::std::vector< ::std::string > uninstantiated;
+    m_param_testsuite_holder.RegisterTests(uninstantiated);
+#  if IUTEST_HAS_UNINSTANTIATED_PARAMETERIZED_TEST
+    for( ::std::vector< ::std::string >::const_iterator it=uninstantiated.begin(); it != uninstantiated.end(); ++it )
+    {
+        detail::RegisterUninstantiatedParameterizedTest(*it, false);
+    }
+#  endif
+#endif
+#if IUTEST_HAS_TYPED_TEST_P && IUTEST_HAS_UNINSTANTIATED_PARAMETERIZED_TEST
+    const ::std::vector<detail::UninstantiatedParameterizedTestRegistry::TypedSuite*>& typed_suites =
+        detail::UninstantiatedParameterizedTestRegistry::GetInstance().typed_suites();
+    for( ::std::vector<detail::UninstantiatedParameterizedTestRegistry::TypedSuite*>::const_iterator it=typed_suites.begin();
+        it != typed_suites.end(); ++it )
+    {
+        if( !(*it)->instantiated )
+        {
+            detail::RegisterUninstantiatedParameterizedTest((*it)->name, true);
+        }
+    }
 #endif
 }
 

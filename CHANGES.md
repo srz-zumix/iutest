@@ -5,7 +5,10 @@
 ## Changes for 1.17.99
 
 * New
+  * char8_t 対応
   * IUTEST_*_COMPLEX_EQ アサーションを追加
+  * vcpkg ポートを追加 (projects/vcpkg)
+  * GoogleTest 互換の符号付き64ビット型 `::iutest::TimeInMillis` を追加（native gtest switch では `::testing::TimeInMillis` としても利用可能）
 
 * Improved
   * IUTEST_*_ALMOST_EQ が ::std::complex に対応
@@ -17,6 +20,10 @@
 * Changes
   * TestCase の別名 TestSuite に対応（iutest はどちらもサポートし続けます）
   * IUTEST_ASSERT_EXIT を IUTEST_TERMINATE_ON_FAILURE に変更
+  * `TimeInMillisec` と既存の時刻 getter の戻り型は互換性維持のため変更しない。
+    GoogleTest との未解消の署名差として、`UnitTest` / `TestSuite` の `start_timestamp()` / `elapsed_time()` と
+    `TestResult::elapsed_time()` は引き続き符号なしの `TimeInMillisec` を返す（GoogleTest は符号付きの `TimeInMillis`）。
+    値の代入・変換は可能だが、戻り型の厳密な一致やメンバー関数ポインターの互換性はない。
 
 * Bug fixes
   * その他いくつかの不具合を修正
@@ -42,6 +49,8 @@
   * Python2 のサポート終了
 
 * Bug fixes
+  * junit 出力に長い type_param を出力すると壊れた文字列が出力される問題を修正
+  * Google Test 旧バージョンとの互換性を修正
   * C++20 で削除された basic_ostream::operator << に対応
   * IUTEST_AP が同じ名前空間に複数定義できない問題を修正
   * Google Test 旧バージョンとの互換性を修正

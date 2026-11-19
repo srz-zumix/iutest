@@ -15,6 +15,7 @@ import codecs
 import shutil
 import tempfile
 import xml.etree.ElementTree as ET
+from urllib.parse import quote
 
 from argparse import ArgumentParser
 
@@ -120,8 +121,12 @@ def make_rootpath(xml_filename):
 
 
 def make_path(root_path, testsuite, testcase):
-    suite_name = testsuite.attrib['name'].lstrip('/')
-    case_name = testcase.attrib['name'].lstrip('/')
+    suite_name = quote(testsuite.attrib['name'], safe='')
+    case_name = quote(testcase.attrib['name'], safe='')
+    if suite_name in ('.', '..'):
+        suite_name = suite_name.replace('.', '%2E')
+    if case_name in ('.', '..'):
+        case_name = case_name.replace('.', '%2E')
     ext = '.json'
     return os.path.join(os.path.join(root_path, suite_name), case_name + ext)
 
@@ -129,7 +134,7 @@ def make_path(root_path, testsuite, testcase):
 def get_properties_node(node):
     users = {}
     for prop in node:
-        if ('name' in prop.attrib) and ('value' in prop.attrib):
+        if prop.tag == 'property' and ('name' in prop.attrib) and ('value' in prop.attrib):
             users[prop.attrib['name']] = prop.attrib['value']
     return users
 
@@ -145,10 +150,10 @@ def _get_user_properties(node, system_attributes):
 def get_user_properties(node):
     system_attributes = {
         "testsuites": [
-            "name", "tests", "failures", "disabled", "skip", "errors", "time", "timestamp", "random_seed"
+            "name", "tests", "failures", "disabled", "skip", "skipped", "errors", "time", "timestamp", "random_seed"
         ],
         "testsuite": [
-            "name", "tests", "failures", "disabled", "skip", "errors", "time", "timestamp", "random_seed"
+            "name", "tests", "failures", "disabled", "skip", "skipped", "errors", "time", "timestamp", "random_seed"
         ],
         "testcase": [
             "name", "status", "time", "classname", "type_param", "value_param"
@@ -161,7 +166,7 @@ def get_user_properties(node):
 
 
 def write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase):
-    d = testcase.attrib
+    d = dict(testcase.attrib)
     if cmdline_options.no_time:
         if 'time' in d:
             del d['time']
@@ -172,7 +177,7 @@ def write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase):
         tag = child.tag
         if tag not in d:
             d[tag] = []
-        fd = child.attrib
+        fd = dict(child.attrib)
         fd['text'] = child.text
         d[tag].append(fd)
     jt = json.dumps(d, indent=4, ensure_ascii=False)
@@ -181,13 +186,7 @@ def write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase):
 
 
 def opentree(path):
-    try:
-        with codecs.open(path, 'r', encoding=cmdline_options.encoding) as f:
-            return ET.parse(f)
-    except Exception as e:
-        loge("error: " + path + ": " + str(e))
-        xmlp = ET.XMLParser(encoding=cmdline_options.encoding)
-        return ET.parse(path, xmlp)
+    return ET.parse(path)
 
 
 def xml2file(path):
@@ -204,17 +203,19 @@ def xml2file(path):
         testsuites = root
 
         testsuites_user_attrib = get_user_properties(testsuites)
-        for testsuite in testsuites:
+        properties = testsuites.find('properties')
+        if properties is not None:
+            testsuites_user_attrib.update(get_properties_node(properties))
+        for testsuite in testsuites.findall('testsuite'):
             logv(2, "  " + testsuite.attrib['name'])
             testsuite_user_attrib = get_user_properties(testsuite)
-            for testcase in testsuite:
-                if testcase.tag == 'testcase':
-                    logv(3, "    " + testcase.attrib['name'])
-                    f = fopen(make_path(root_path, testsuite, testcase))
+            properties = testsuite.find('properties')
+            if properties is not None:
+                testsuite_user_attrib.update(get_properties_node(properties))
+            for testcase in testsuite.findall('testcase'):
+                logv(3, "    " + testcase.attrib['name'])
+                with fopen(make_path(root_path, testsuite, testcase)) as f:
                     write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase)
-                    f.close()
-                elif testcase.tag == 'properties':
-                    testsuite_user_attrib.update(get_properties_node(testcase))
     except Exception as e:
         f = fopen(os.path.join(root_path, "parser_error.txt"))
         f.write(str(e))

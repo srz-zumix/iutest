@@ -40,6 +40,7 @@ public:
     virtual void OnEnvironmentsSetUpEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
     virtual void OnTestSuiteStart(const TestSuite& test_suite) IUTEST_CXX_OVERRIDE;
     virtual void OnTestStart(const TestInfo& test_info) IUTEST_CXX_OVERRIDE;
+    virtual void OnTestDisabled(const TestInfo& test_info) IUTEST_CXX_OVERRIDE;
     virtual void OnTestPartResult(const TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE;
     virtual void OnTestRecordProperty(const TestProperty& test_property) IUTEST_CXX_OVERRIDE;
     virtual void OnTestEnd(const TestInfo& test_info) IUTEST_CXX_OVERRIDE;
@@ -52,6 +53,37 @@ public:
 
 private:
     void PrintTestResult(const TestInfo& test_info) const;
+};
+
+/**
+ * @brief   失敗と実行結果のみ出力するリスナー
+*/
+class BriefUnitTestResultPrinter : public DefaultResultPrintListener
+{
+public:
+    virtual void OnTestProgramStart(const UnitTest& /*test*/) IUTEST_CXX_OVERRIDE {}
+    virtual void OnTestIterationStart(const UnitTest& /*test*/, int /*iteration*/) IUTEST_CXX_OVERRIDE {}
+    virtual void OnEnvironmentsSetUpStart(const UnitTest& /*test*/) IUTEST_CXX_OVERRIDE {}
+    virtual void OnTestSuiteStart(const TestSuite& /*test_suite*/) IUTEST_CXX_OVERRIDE {}
+    virtual void OnTestStart(const TestInfo& /*test_info*/) IUTEST_CXX_OVERRIDE {}
+    virtual void OnTestDisabled(const TestInfo& /*test_info*/) IUTEST_CXX_OVERRIDE {}
+    virtual void OnTestRecordProperty(const TestProperty& /*test_property*/) IUTEST_CXX_OVERRIDE {}
+    virtual void OnTestPartResult(const TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE
+    {
+        if( test_part_result.failed() )
+        {
+            DefaultResultPrintListener::OnTestPartResult(test_part_result);
+        }
+    }
+    virtual void OnTestEnd(const TestInfo& test_info) IUTEST_CXX_OVERRIDE
+    {
+        if( test_info.HasFailure() )
+        {
+            DefaultResultPrintListener::OnTestEnd(test_info);
+        }
+    }
+    virtual void OnTestSuiteEnd(const TestSuite& /*test_suite*/) IUTEST_CXX_OVERRIDE {}
+    virtual void OnEnvironmentsTearDownStart(const UnitTest& /*test*/) IUTEST_CXX_OVERRIDE {}
 };
 
 }   // end of namespace iutest

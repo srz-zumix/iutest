@@ -21,6 +21,7 @@
 #include "internal/iutest_result_reporter.hpp"
 #include "internal/iutest_file.hpp"
 #include "internal/iutest_params_util.hpp"
+#include "internal/iutest_pool.hpp"
 // IWYU pragma: end_exports
 
 namespace iutest
@@ -42,6 +43,9 @@ public:
     static UnitTest* GetInstance() { return &instance(); }
 
 public:
+    /** 初回の初期化時のカレントディレクトリを取得 */
+    const char* original_working_dir() const { return m_original_working_dir.c_str(); }
+
     /**
      * @brief   テスト中の TestSuite の取得
     */
@@ -145,7 +149,7 @@ private:
     /**
      * @brief   テストの実行（１ループ）
     */
-    bool RunOnce();
+    bool RunOnce(bool set_up_environment, bool tear_down_environment);
 
 private:
     /**
@@ -224,6 +228,7 @@ private:
     int m_init_iutest_count;
     bool m_test_started;
     TimeInMillisec m_start_timestamp;
+    ::std::string m_original_working_dir;
     detail::DefaultGlobalTestPartResultReporter m_default_test_part_result_reporter;
 
     IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(UnitTest);
@@ -243,54 +248,58 @@ class TestInstance
 public:
     /** コンストラクタ */
     TestInstance(const char* testsuite, const char* name, TestTypeId id
-        , SetUpMethod setup, TearDownMethod teardown)
-        : m_mediator(AddTestSuite(testsuite, id, setup, teardown))
-        , m_info(&m_mediator, name, &m_factory)
+        , SetUpMethod setup_method, TearDownMethod teardown_method, const char* file=NULL, int line=0)
+        : m_mediator(AddTestSuite(testsuite, id, setup_method, teardown_method))
+        , m_info(&m_mediator, name, &m_factory, file, line)
     {
         UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
     }
     /** コンストラクタ */
     TestInstance(const ::std::string& testsuite, const char* name, TestTypeId id
-        , SetUpMethod setup, TearDownMethod teardown)
-        : m_mediator(AddTestSuite(testsuite, id, setup, teardown))
-        , m_info(&m_mediator, name, &m_factory)
+        , SetUpMethod setup_method, TearDownMethod teardown_method, const char* file=NULL, int line=0)
+        : m_mediator(AddTestSuite(testsuite, id, setup_method, teardown_method))
+        , m_info(&m_mediator, name, &m_factory, file, line)
     {
         UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
     }
     /** コンストラクタ */
     TestInstance(const char* testsuite, const char* name, const char*  value_params, TestTypeId id
-        , SetUpMethod setup, TearDownMethod teardown)
-        : m_mediator(AddTestSuite(testsuite, id, setup, teardown))
-        , m_info(&m_mediator, name, &m_factory)
+        , SetUpMethod setup_method, TearDownMethod teardown_method, const char* file=NULL, int line=0)
+        : m_mediator(AddTestSuite(testsuite, id, setup_method, teardown_method))
+        , m_info(&m_mediator, name, &m_factory, file, line)
     {
         m_info.set_value_param(value_params);
         UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
     }
     /** コンストラクタ */
     TestInstance(const ::std::string& testsuite, const char* name, const char*  value_params, TestTypeId id
-        , SetUpMethod setup, TearDownMethod teardown)
-        : m_mediator(AddTestSuite(testsuite, id, setup, teardown))
-        , m_info(&m_mediator, name, &m_factory)
+        , SetUpMethod setup_method, TearDownMethod teardown_method, const char* file=NULL, int line=0)
+        : m_mediator(AddTestSuite(testsuite, id, setup_method, teardown_method))
+        , m_info(&m_mediator, name, &m_factory, file, line)
     {
         m_info.set_value_param(value_params);
         UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
     }
 
 private:
-    TestSuite* AddTestSuite(const char* testsuite, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+    TestSuite* AddTestSuite(const char* testsuite, TestTypeId id
+        , SetUpMethod setup_method, TearDownMethod teardown_method)
     {
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
-        return UnitTest::instance().AddTestSuite<TestSuite>(testsuite, id, setup, teardown);
+        return UnitTest::instance().AddTestSuite<TestSuite>(testsuite, id, setup_method, teardown_method);
 #else
-        return UnitTest::instance().AddTestSuite(testsuite, id, setup, teardown, detail::explicit_type<TestSuite>());
+        return UnitTest::instance().AddTestSuite(testsuite, id, setup_method, teardown_method
+            , detail::explicit_type<TestSuite>());
 #endif
     }
-    TestSuite* AddTestSuite(const ::std::string& testsuite, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+    TestSuite* AddTestSuite(const ::std::string& testsuite, TestTypeId id
+        , SetUpMethod setup_method, TearDownMethod teardown_method)
     {
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
-        return UnitTest::instance().AddTestSuite<TestSuite>(testsuite, id, setup, teardown);
+        return UnitTest::instance().AddTestSuite<TestSuite>(testsuite, id, setup_method, teardown_method);
 #else
-        return UnitTest::instance().AddTestSuite(testsuite, id, setup, teardown, detail::explicit_type<TestSuite>());
+        return UnitTest::instance().AddTestSuite(testsuite, id, setup_method, teardown_method
+            , detail::explicit_type<TestSuite>());
 #endif
     }
 
@@ -300,7 +309,119 @@ private:
     iuFactory<Tester>   m_factory;
 };
 
+#if IUTEST_HAS_REGISTER_TEST
+template<typename Fixture>
+struct RegisteredTestSuiteResolver : Fixture
+{
+    using Fixture::SetUpTestSuite;
+    using Fixture::TearDownTestSuite;
+};
+
+template<typename Factory>
+class RegisteredTestInstance : public iuIObject, public iuFactoryBase
+{
+public:
+    RegisteredTestInstance(TestSuite* suite, const char* name, const char* value_param
+        , const char* file, int line, Factory factory)
+        : m_mediator(suite)
+        , m_factory(::std::move(factory))
+        , m_file(file != NULL ? file : "")
+        , m_info(&m_mediator, name, this, file != NULL ? m_file.c_str() : NULL, line)
+    {
+        if( value_param != NULL ) m_info.set_value_param(value_param);
+    }
+
+    virtual auto_ptr<Test> Create() IUTEST_CXX_OVERRIDE
+    {
+        return auto_ptr<Test>(m_factory());
+    }
+
+    TestInfo* info() { return &m_info; }
+
+private:
+    TestSuiteMediator m_mediator;
+    Factory m_factory;
+    ::std::string m_file;
+    TestInfo m_info;
+};
+#endif
+
+#if IUTEST_HAS_UNINSTANTIATED_PARAMETERIZED_TEST
+class UninstantiatedParameterizedTest : public Test
+{
+protected:
+    virtual void Body() IUTEST_CXX_OVERRIDE
+    {
+        IUTEST_ASSERT_FAILURE("Parameterized test suite is not instantiated. "
+            "Use IUTEST_ALLOW_UNINSTANTIATED_PARAMETERIZED_TEST to suppress this failure.");
+    }
+};
+
+class UninstantiatedParameterizedTestInstance : public iuIObject
+{
+public:
+    explicit UninstantiatedParameterizedTestInstance(const ::std::string& name)
+        : m_test("GoogleTestVerification", name.c_str(), internal::GetTestTypeId(), NULL, NULL) {}
+private:
+    TestInstance<UninstantiatedParameterizedTest> m_test;
+};
+
+inline void RegisterUninstantiatedParameterizedTest(const ::std::string& name, bool typed)
+{
+    if( UninstantiatedParameterizedTestRegistry::GetInstance().IsAllowed(name) )
+    {
+        return;
+    }
+    const ::std::string test_name = ::std::string(typed
+        ? "UninstantiatedTypeParameterizedTestSuite<"
+        : "UninstantiatedParameterizedTestSuite<") + name + ">";
+    iuPool::GetInstance().push(new UninstantiatedParameterizedTestInstance(test_name));
+}
+#endif
+
 }   // end of namespace detail
+
+#if IUTEST_HAS_REGISTER_TEST
+/**
+ * @brief   Register a test before RUN_ALL_TESTS without a test definition macro.
+ * @note    The factory's return type determines the fixture type. All tests in
+ *          the same suite must use the same fixture type.
+ * @return  The registered TestInfo, or NULL if the fixture type does not match.
+*/
+template<typename Factory>
+TestInfo* RegisterTest(const char* test_suite_name, const char* test_name
+    , const char* type_param, const char* value_param, const char* file, int line, Factory factory)
+{
+    typedef typename detail::remove_pointer<decltype(factory())>::type Fixture;
+    typedef detail::RegisteredTestSuiteResolver<Fixture> Resolver;
+    const TestTypeId id = internal::GetTypeId<Fixture>();
+    UnitTest& unit_test = UnitTest::instance();
+    bool found = false;
+    for( int i = 0; i < unit_test.total_test_suite_count(); ++i )
+    {
+        const TestSuite* suite = unit_test.GetTestSuite(i);
+        if( detail::IsStringEqual(suite->name(), test_suite_name) )
+        {
+            TestSuite::FindOp matches = { id, test_suite_name };
+            if( !matches(suite) )
+            {
+                IIUT_ADD_FAILURE_AT(file, line) << "All tests in the same test suite must use the same fixture type.";
+                return NULL;
+            }
+            found = true;
+        }
+    }
+    TestSuite* suite = unit_test.AddTestSuite<TestSuite>(test_suite_name, id
+        , IUTEST_GET_SETUP_TESTSUITE(Resolver, file, line), IUTEST_GET_TEARDOWN_TESTSUITE(Resolver, file, line));
+    if( !found ) suite->set_type_param(type_param);
+    typedef detail::RegisteredTestInstance<Factory> Instance;
+    Instance* instance = new Instance(suite, test_name, value_param, file, line, ::std::move(factory));
+    detail::iuPool::GetInstance().push(instance);
+    unit_test.AddTestInfo(suite, instance->info());
+    return instance->info();
+}
+#endif
+
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB

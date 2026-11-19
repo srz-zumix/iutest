@@ -1,0 +1,30 @@
+name: Coverity Scan
+on:
+  push:
+    branches:
+      - master
+      - 'coverity_scan/**'
+    paths-ignore:
+      - '.github/copilot-instructions.md'
+  schedule:
+    - cron: '0 20 * * 6'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  # Travis CI coverity_scan job migration
+  coverity-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: vapier/coverity-scan-action@1b6fd4eaba6651aa354c9ea7f48caa1710b4e12e # v1.9.0
+        with:
+          project: srz-zumix/iutest
+          email: ${{ secrets.COVERITY_SCAN_EMAIL }}
+          token: ${{ secrets.COVERITY_SCAN_TOKEN }}
+          build_language: cxx
+          command: make -C test -j4 coverity_scan STDFLAG=-std=c++17

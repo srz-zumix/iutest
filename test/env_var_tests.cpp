@@ -29,9 +29,16 @@ int SetUpEnvironmentImpl(void)
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "RANDOM_SEED=200") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "ALSO_RUN_DISABLED_TESTS=1") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "BREAK_ON_FAILURE=1") == -1 ) return -1;
+    if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "FAIL_FAST=1") == -1 ) return -1;
+    if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "RECREATE_ENVIRONMENTS_WHEN_REPEATING=0") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "THROW_ON_FAILURE=1") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "CATCH_EXCEPTIONS=0") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "PRINT_TIME=0") == -1 ) return -1;
+#if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01180000
+    if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "INSTALL_FAILURE_SIGNAL_HANDLER=1") == -1 ) return -1;
+    if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "PRINT_UTF8=0") == -1 ) return -1;
+#endif
+    if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "BRIEF=1") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "REPEAT=2") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "FILTER=Flag*") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "OUTPUT=test") == -1 ) return -1;
@@ -68,10 +75,21 @@ IUTEST(FlagTest, Check)
     IUTEST_ASSUME_EQ(0, g_result.setup_environment) << "\n" << lasterror << ": " << strerror(lasterror);  // putenv に失敗した場合はテストしない
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(also_run_disabled_tests) );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(break_on_failure) );
+#if !defined(IUTEST_USE_GTEST)
+    IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(fail_fast) );
+    IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(brief) );
+#endif
+#if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01120000
+    IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(recreate_environments_when_repeating) );
+#endif
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(throw_on_failure) );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(shuffle) );
     IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(catch_exceptions) );
     IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(print_time) );
+#if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01180000
+    IUTEST_EXPECT_TRUE(IUTEST_FLAG_GET(install_failure_signal_handler));
+    IUTEST_EXPECT_FALSE(IUTEST_FLAG_GET(print_utf8));
+#endif
 #if !defined(IUTEST_USE_GTEST)
     IUTEST_EXPECT_STREQ( "env_var", ::iutest::IUTEST_FLAG(default_package_name).c_str() );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(file_location_style_msvc) );
@@ -117,4 +135,3 @@ int main(int argc, char* argv[])
     }
     return 0;
 }
-

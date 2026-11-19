@@ -95,8 +95,7 @@
     namespace name {                                        \
         IIUT_PACKAGE_CURRENT_NAMESPACE_(name)               \
         IIUT_PACKAGE_PARENT_NAMESPACE_(name)                \
-    }                                                       \
-    namespace name
+    } namespace name
 
 #else
 

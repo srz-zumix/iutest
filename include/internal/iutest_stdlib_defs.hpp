@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2022, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2025, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -52,6 +52,14 @@
 
 #if IUTEST_HAS_CXX_HDR_VERSION
 #include <version>
+#endif
+
+#if IUTEST_HAS_CXX20 && !defined(IUTEST_HAS_CXX_HDR_SPAN) && defined(__has_include)
+#  if __has_include(<span>)
+#    if defined(__cpp_lib_span) && __cpp_lib_span >= 202002L
+#      define IUTEST_HAS_CXX_HDR_SPAN       1
+#    endif
+#  endif
 #endif
 // IWYU pragma: end_exports
 
@@ -211,10 +219,15 @@
 #  endif
 #  if   defined(__has_include)
 #    if !defined(IUTEST_HAS_CXX_HDR_CUCHAR) && __has_include( <cuchar> )
-#      define IUTEST_HAS_CXX_HDR_CUCHAR   1
+#      if defined(__APPLE__) && defined(_LIBCPP_VERSION)
+// https://github.com/llvm/llvm-project/issues/62573
+#        define IUTEST_HAS_CXX_HDR_CUCHAR 0
+#      else
+#        define IUTEST_HAS_CXX_HDR_CUCHAR 1
+#      endif
 #    endif
 #    if !defined(IUTEST_HAS_STD_TUPLE) && __has_include( <tuple> )
-#      define IUTEST_HAS_STD_TUPLE          1
+#      define IUTEST_HAS_STD_TUPLE        1
 #    endif
 #  endif
 #endif
@@ -447,6 +460,10 @@
 #if !defined(IUTEST_HAS_CXX_HDR_OPTIONAL)
 #  define IUTEST_HAS_CXX_HDR_OPTIONAL       0
 #endif
+//! has span header
+#if !defined(IUTEST_HAS_CXX_HDR_SPAN)
+#  define IUTEST_HAS_CXX_HDR_SPAN           0
+#endif
 //! has random header
 #if !defined(IUTEST_HAS_CXX_HDR_RANDOM)
 #  define IUTEST_HAS_CXX_HDR_RANDOM         0
@@ -519,6 +536,23 @@
 //! has to_chars
 #if !defined(IUTEST_HAS_STD_TO_CHARS)
 #  define IUTEST_HAS_STD_TO_CHARS       0
+#endif
+//! has char8_t support lib
+#if !defined(IUTEST_HAS_STD_CHAR8_T)
+#  if defined(_LIBCPP_HAS_NO_C8RTOMB_MBRTOC8)
+#    define IUTEST_HAS_STD_CHAR8_T      0
+#  elif defined(__cpp_lib_char8_t) && __cpp_lib_char8_t >= 201907
+#    define IUTEST_HAS_STD_CHAR8_T      1
+#  else
+#    define IUTEST_HAS_STD_CHAR8_T      0
+#  endif
+#endif
+#if !defined(IUTEST_NO_CHAR8_T_TYPEINFO) && IUTEST_HAS_CHAR8_T
+#  if defined(__arm64__) && defined(__APPLE__)
+#    define IUTEST_NO_CHAR8_T_TYPEINFO    1
+#  elif defined(_LIBCPP_HAS_NO_C8RTOMB_MBRTOC8)
+#    define IUTEST_NO_CHAR8_T_TYPEINFO    1
+#  endif
 #endif
 
 //! use external include tr1::tuple
@@ -667,6 +701,16 @@
 #  define IUTEST_HAS_FILE_STAT                      0
 #endif
 
+//! has ::iutest::SrcDir()
+#if !defined(IUTEST_HAS_SRCDIR)
+#  define IUTEST_HAS_SRCDIR                         1
+#endif
+
+//! has ::iutest::TempDir()
+#if !defined(IUTEST_HAS_TEMPDIR)
+#  define IUTEST_HAS_TEMPDIR                        1
+#endif
+
 //! has fileno
 #if !defined(IUTEST_HAS_FILENO)
 #  if defined(__POSIX_VISIBLE) && __POSIX_VISIBLE == 0
@@ -741,6 +785,16 @@
 #  define IUTEST_HAS_MKSTEMP                        0
 #endif
 
+#if !defined(IUTEST_NO_VSNPRINTF)
+#  if defined(__CYGWIN__) \
+        && (defined(__STRICT_ANSI__) && (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) && (__cplusplus >= 201103L))
+#    define IUTEST_NO_VSNPRINTF                     1
+#  endif
+#  if (defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)) && defined(__STRICT_ANSI__)
+#    define IUTEST_NO_VSNPRINTF                     1
+#  endif
+#endif
+
 //! size_t format macros
 #if !defined(IUPRzu)
 #  if defined(_MSC_VER) && (_MSC_VER < 1900)
@@ -770,6 +824,15 @@
 #  endif
 #endif
 
+#if !defined(IU_MB_CUR_MAX)
+#  if defined(MB_CUR_MAX)
+#    define IU_MB_CUR_MAX   MB_CUR_MAX
+#  endif
+#endif
+#if !defined(IU_MB_CUR_MAX)
+#  define IU_MB_CUR_MAX   6
+#endif
+
 //======================================================================
 // include
 // IWYU pragma: begin_exports
@@ -786,6 +849,9 @@
 #endif
 #if IUTEST_HAS_CXX_HDR_OPTIONAL
 #  include <optional>
+#endif
+#if IUTEST_HAS_CXX_HDR_SPAN
+#  include <span>
 #endif
 #if IUTEST_HAS_CXX_HDR_VARIANT
 #  include <variant>

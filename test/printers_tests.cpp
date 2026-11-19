@@ -99,6 +99,20 @@ IUTEST(PrintToTest, Bar)
 
 #if !defined(IUTEST_USE_GTEST)
 
+IUTEST(PrintToTest, StandardTypes)
+{
+    IUTEST_EXPECT_STREQ("\"ab\"", ::iutest::PrintToString(::std::string("ab")));
+    IUTEST_EXPECT_STREQ("L\"ab\"", ::iutest::PrintToString(::std::wstring(L"ab")));
+#if IUTEST_HAS_CXX_HDR_OPTIONAL
+    IUTEST_EXPECT_STREQ("(42)", ::iutest::PrintToString(::std::optional<int>(42)));
+    IUTEST_EXPECT_STREQ("(nullopt)", ::iutest::PrintToString(::std::optional<int>()));
+#endif
+#if IUTEST_HAS_CXX_HDR_ANY
+    IUTEST_EXPECT_STREQ("value of type int", ::iutest::PrintToString(::std::any(1)));
+    IUTEST_EXPECT_STREQ("no value", ::iutest::PrintToString(::std::any()));
+#endif
+}
+
 IUTEST(PrintToTest, FloatingPoint)
 {
     ::iutest::floating_point<float> f = 1.0f;
@@ -113,7 +127,7 @@ IUTEST(PrintToTest, Int128)
     IUTEST_ASSUME_EQ(16u, sizeof(i128_t));
     i128_t i128 = ::iutest::detail::numeric_min< ::iutest::internal::TypeWithSize<8>::Int >(); // -9223372036854775808
     i128 -= 1;
-    LogChecker ck("0xFFFFFFFFFFFFFFFF7FFFFFFFFFFFFFFF");
+    LogChecker ck("-9223372036854775809");
     IUTEST_PRINTTOSTRING_EQ(ck, i128);
     IUTEST_STREAMOUT_CHECK(i128);
 }
@@ -124,7 +138,7 @@ IUTEST(PrintToTest, UInt128)
     IUTEST_ASSUME_EQ(16u, sizeof(i128_t));
     i128_t i128 = ::iutest::detail::numeric_max< ::iutest::internal::TypeWithSize<8>::UInt >(); // 18446744073709551615;
     i128 += 1;
-    LogChecker ck("0x00000000000000010000000000000000");
+    LogChecker ck("18446744073709551616");
     IUTEST_PRINTTOSTRING_EQ(ck, i128);
     IUTEST_STREAMOUT_CHECK(i128);
 }
@@ -168,7 +182,7 @@ IUTEST(PrintToTest, IutestAnyString)
 {
     ::iutest::any a = "any-test";
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
-    LogChecker ck("any-test");
+    LogChecker ck("\"any-test\"");
     IUTEST_PRINTTOSTRING_EQ(ck, a);
 #else
     LogChecker ck("-Byte object");
@@ -241,33 +255,44 @@ IUTEST(PrintToTest, Null)
     IUTEST_STREAMOUT_CHECK(p);
 }
 
+IUTEST(PrintToTest, Locale)
+{
+    {
+        ::std::locale loc;
+        LogChecker ck(loc.name());
+        IUTEST_SUCCEED() << ::iutest::PrintToString(loc);
+    }
+}
+
 IUTEST(PrintToTest, String)
 {
     {
+#if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01060000
+        IUTEST_EXPECT_STREQ("\"XYZ\"", ::iutest::PrintToString("XYZ"));
+#endif
         LogChecker ck("XYZ");
-        IUTEST_PRINTTOSTRING_EQ(ck, "XYZ");
         IUTEST_STREAMOUT_CHECK("XYZ");
     }
     {
-        LogChecker ck("\\0");
+        LogChecker ck("'\\0'");
         char c = 0;
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_STREAMOUT_CHECK(c);
     }
     {
-        LogChecker ck("0x0A");
+        LogChecker ck("'\\n' (10, 0xA)");
         char c = '\n';
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_STREAMOUT_CHECK(c);
     }
     {
-        LogChecker ck("\'A\'");
+        LogChecker ck("'A' (65, 0x41)");
         char c = 'A';
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_STREAMOUT_CHECK(c);
     }
     {
-        LogChecker ck("0x80");
+        LogChecker ck("'\\x80' (128)");
         unsigned char uc = 0x80;
         char c = static_cast<char>(uc);
         IUTEST_PRINTTOSTRING_EQ(ck, c);
@@ -281,13 +306,13 @@ IUTEST(PrintToTest, String)
     }
 }
 
-#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW && (!defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01110000)
 IUTEST(PrintToTest, StringStringView)
 {
     {
-        LogChecker ck("XYZ");
         ::std::string_view view = "XYZ";
-        IUTEST_PRINTTOSTRING_EQ(ck, view);
+        IUTEST_EXPECT_STREQ("\"XYZ\"", ::iutest::PrintToString(view));
+        LogChecker ck("XYZ");
         IUTEST_STREAMOUT_CHECK(view);
     }
 }
@@ -296,24 +321,26 @@ IUTEST(PrintToTest, StringStringView)
 IUTEST(PrintToTest, WideString)
 {
     {
+#if !defined(IUTEST_USE_GTEST) || GTEST_VER >= 0x01070000
+        IUTEST_EXPECT_STREQ("L\"XYZ\"", ::iutest::PrintToString(L"XYZ"));
+#endif
         LogChecker ck("XYZ");
-        IUTEST_PRINTTOSTRING_EQ(ck, L"XYZ");
         IUTEST_STREAMOUT_CHECK(L"XYZ");
     }
     {
-        LogChecker ck("\\0");
+        LogChecker ck("L'\\0'");
         wchar_t c = 0;
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_STREAMOUT_CHECK(c);
     }
     {
-        LogChecker ck("000A");
+        LogChecker ck("L'\\n' (10, 0xA)");
         wchar_t c = L'\n';
         IUTEST_PRINTTOSTRING_CONTAIN(ck, c);
         IUTEST_STREAMOUT_CHECK(c);
     }
     {
-        LogChecker ck("\'A\'");
+        LogChecker ck("L'A' (65, 0x41)");
         wchar_t c = L'A';
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_STREAMOUT_CHECK(c);
@@ -333,27 +360,9 @@ IUTEST_PRAGMA_MSC_WARN_DISABLE(4566)
 IUTEST(PrintToTest, SurrogatePair)
 {
     const wchar_t* p = L"\U00020BB7";
-    const ::std::string s = ::iutest::PrintToString(p);
-    if( s[0] == '0' )
-    {
-        // LogChecker ck("00020BB7000091CE00005BB6");
-        LogChecker ck("00020BB7");
-        IUTEST_PRINTTOSTRING_CONTAIN(ck, s);
-        IUTEST_STREAMOUT_CHECK(p);
-    }
-    else if( s[0] == '?' )
-    {
-        // FIXME
-        IUTEST_SKIP();
-    }
-    else
-    {
-#if !defined(NO_TEST_SURROGATEPAIR)
-        LogChecker ck("\U00020BB7");
-        IUTEST_PRINTTOSTRING_EQ(ck, s);
-        IUTEST_STREAMOUT_CHECK(p);
-#endif
-    }
+    IUTEST_EXPECT_STREQ(sizeof(wchar_t) > 2 ? "L\"\\x20BB7\"" : "L\"\\xD842\\xDFB7\"",
+        ::iutest::PrintToString(p));
+    IUTEST_STREAMOUT_CHECK(p);
 }
 #endif
 
@@ -361,21 +370,9 @@ IUTEST(PrintToTest, SurrogatePair)
 IUTEST(PrintToTest, SurrogatePairChar16T)
 {
     const char16_t* p = u"\U00020BB7";
-    const ::std::string s = ::iutest::PrintToString(p);
-    if( s[0] == '?' )
-    {
-        // FIXME
-        IUTEST_SKIP();
-    }
-    else
-    {
-#if !defined(NO_TEST_SURROGATEPAIR)
-        LogChecker ck("\U00020BB7");
-        (void)ck;
-        IUTEST_PRINTTOSTRING_EQ(ck, s);
-        IUTEST_STREAMOUT_CHECK(p);
-#endif
-    }
+    LogChecker ck("u\"\\xD842\\xDFB7\"");
+    IUTEST_PRINTTOSTRING_EQ(ck, p);
+    IUTEST_STREAMOUT_CHECK(p);
 }
 
 #endif
@@ -386,11 +383,28 @@ IUTEST_PRAGMA_MSC_WARN_POP()
 IUTEST(PrintToTest, WideStringStringView)
 {
     {
-        LogChecker ck("XYZ");
+        LogChecker ck("L\"XYZ\"");
         ::std::wstring_view view = L"XYZ";
         IUTEST_PRINTTOSTRING_EQ(ck, view);
         IUTEST_STREAMOUT_CHECK(view);
     }
+}
+#endif
+
+#if IUTEST_HAS_CHAR8_T
+IUTEST(PrintToTest, U8String)
+{
+    IUTEST_SUCCEED() << ::iutest::PrintToString(u8"Test");
+    {
+        LogChecker ck("(null)");
+        char8_t* p = NULL;
+        IUTEST_SUCCEED() << ::iutest::PrintToString(p);
+    }
+}
+
+IUTEST(PrintToTest, U8StringJp)
+{
+    IUTEST_SUCCEED() << ::iutest::PrintToString(u8"テスト");
 }
 #endif
 
@@ -399,19 +413,19 @@ IUTEST(PrintToTest, U16String)
 {
 #if IUTEST_HAS_CHAR16_T_PRINTABLE
     {
-        LogChecker ck("XYZ");
+        LogChecker ck("u\"XYZ\"");
         IUTEST_PRINTTOSTRING_EQ(ck, u"XYZ");
         IUTEST_STREAMOUT_CHECK(u"XYZ");
     }
     {
-        LogChecker ck("\'A\'");
+        LogChecker ck("U+0041");
         char16_t c = u'A';
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_STREAMOUT_CHECK(c);
     }
 #endif
     {
-        LogChecker ck("\\0");
+        LogChecker ck("U+0000");
         char16_t c = 0;
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_STREAMOUT_CHECK(c);
@@ -428,11 +442,16 @@ IUTEST(PrintToTest, U16String)
 IUTEST(PrintToTest, U16StringStringView)
 {
     {
-        LogChecker ck("XYZ");
+        LogChecker ck("u\"XYZ\"");
         ::std::u16string_view view = u"XYZ";
         IUTEST_PRINTTOSTRING_EQ(ck, view);
         IUTEST_STREAMOUT_CHECK(view);
     }
+}
+
+IUTEST(PrintToTest, U16StringJp)
+{
+    IUTEST_SUCCEED() << ::iutest::PrintToString(u"テスト");
 }
 #endif
 #endif
@@ -442,19 +461,19 @@ IUTEST(PrintToTest, U32String)
 {
 #if IUTEST_HAS_CHAR32_T_PRINTABLE
     {
-        LogChecker ck("XYZ");
+        LogChecker ck("U\"XYZ\"");
         IUTEST_PRINTTOSTRING_EQ(ck, U"XYZ");
         IUTEST_STREAMOUT_CHECK(U"XYZ");
     }
     {
-        LogChecker ck("\'A\'");
+        LogChecker ck("U+0041");
         char32_t c = U'A';
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_STREAMOUT_CHECK(c);
     }
 #endif
     {
-        LogChecker ck("\\0");
+        LogChecker ck("U+0000");
         char32_t c = 0;
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_STREAMOUT_CHECK(c);
@@ -471,11 +490,16 @@ IUTEST(PrintToTest, U32String)
 IUTEST(PrintToTest, U32StringStringView)
 {
     {
-        LogChecker ck("XYZ");
+        LogChecker ck("U\"XYZ\"");
         ::std::u32string_view view = U"XYZ";
         IUTEST_PRINTTOSTRING_EQ(ck, view);
         IUTEST_STREAMOUT_CHECK(view);
     }
+}
+
+IUTEST(PrintToTest, U32StringJp)
+{
+    IUTEST_SUCCEED() << ::iutest::PrintToString(U"テスト");
 }
 #endif
 #endif
@@ -565,7 +589,7 @@ IUTEST(PrintToTest, Nullptr)
 #if IUTEST_HAS_TUPLE
 IUTEST(PrintToTest, Tuple)
 {
-    LogChecker ck("(false, 100, 'a')");
+    LogChecker ck("(false, 100, 'a' (97, 0x61))");
     ::iutest::tuples::tuple<bool, int, char> t(false, 100, 'a');
     IUTEST_PRINTTOSTRING_EQ(ck, t);
     IUTEST_STREAMOUT_CHECK(t);
@@ -600,21 +624,21 @@ struct AlwaysThrow
 IUTEST(PrintToTest, Variant)
 {
     {
-        PrintToLogChecker ck("1234");
+        PrintToLogChecker ck("(index = 0)' with value 1234)");
         ::std::variant<int, float, ::std::string> v = 1234;
-        IUTEST_PRINTTOSTRING_EQ(ck, v);
+        IUTEST_PRINTTOSTRING_CONTAIN(ck, v);
         IUTEST_STREAMOUT_CHECK(v);
     }
     {
-        PrintToLogChecker ck("test");
+        PrintToLogChecker ck("(index = 2)' with value \"test\")");
         ::std::variant<int, float, ::std::string> v("test");
-        IUTEST_PRINTTOSTRING_EQ(ck, v);
+        IUTEST_PRINTTOSTRING_CONTAIN(ck, v);
         IUTEST_STREAMOUT_CHECK(v);
     }
     {
-        PrintToLogChecker ck("monostate");
+        PrintToLogChecker ck("(index = 0)' with value (monostate))");
         ::std::variant<std::monostate, int, float, std::string> v;
-        IUTEST_PRINTTOSTRING_EQ(ck, v);
+        IUTEST_PRINTTOSTRING_CONTAIN(ck, v);
         IUTEST_STREAMOUT_CHECK(v);
     }
 #if IUTEST_HAS_EXCEPTIONS && !defined(IUTEST_USE_GTEST)
@@ -624,7 +648,7 @@ IUTEST(PrintToTest, Variant)
         ::std::variant<int, float, AlwaysThrow> v = 0.2f;
         try
         {
-            struct S { operator int() { throw 42; } };
+            struct S { IUTEST_ATTRIBUTE_NORETURN_ operator int() { throw 42; } };
             v.emplace<0>(S());
         }
         catch(...)

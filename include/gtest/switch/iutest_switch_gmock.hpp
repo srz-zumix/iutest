@@ -20,6 +20,20 @@
 //======================================================================
 // define
 
+#if IUTEST_HAS_MATCHER_MACROS
+#define MATCHER     IUTEST_MATCHER
+#define MATCHER_P   IUTEST_MATCHER_P
+#define MATCHER_P2  IUTEST_MATCHER_P2
+#define MATCHER_P3  IUTEST_MATCHER_P3
+#define MATCHER_P4  IUTEST_MATCHER_P4
+#define MATCHER_P5  IUTEST_MATCHER_P5
+#define MATCHER_P6  IUTEST_MATCHER_P6
+#define MATCHER_P7  IUTEST_MATCHER_P7
+#define MATCHER_P8  IUTEST_MATCHER_P8
+#define MATCHER_P9  IUTEST_MATCHER_P9
+#define MATCHER_P10 IUTEST_MATCHER_P10
+#endif
+
 #else // !defined(IUTEST_USE_GTEST)
 
 //======================================================================
@@ -32,6 +46,18 @@
 #undef IUTEST_ASSUME_THAT
 
 #undef IUTEST_HAS_MATCHERS
+#undef IUTEST_HAS_MATCHER_MACROS
+#undef IUTEST_MATCHER
+#undef IUTEST_MATCHER_P
+#undef IUTEST_MATCHER_P2
+#undef IUTEST_MATCHER_P3
+#undef IUTEST_MATCHER_P4
+#undef IUTEST_MATCHER_P5
+#undef IUTEST_MATCHER_P6
+#undef IUTEST_MATCHER_P7
+#undef IUTEST_MATCHER_P8
+#undef IUTEST_MATCHER_P9
+#undef IUTEST_MATCHER_P10
 #undef IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 #undef IUTEST_HAS_MATCHER_ELEMENTSARE
 #undef IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD
@@ -39,8 +65,12 @@
 #undef IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR
 #undef IUTEST_HAS_MATCHER_EACH
 #undef IUTEST_HAS_MATCHER_POINTWISE
+#undef IUTEST_HAS_MATCHER_UNORDERED_POINTWISE
 #undef IUTEST_HAS_MATCHER_VARIADIC
 #undef IUTEST_HAS_MATCHER_OPTIONAL
+#undef IUTEST_HAS_MATCHER_FIELDSARE
+#undef IUTEST_HAS_MATCHER_DISTANCEFROM
+#undef IUTEST_HAS_MATCHER_CONDITIONAL
 
 #endif
 
@@ -50,6 +80,33 @@
 #if defined(IUTEST_USE_GMOCK)
 
 #define IUTEST_HAS_MATCHERS                         1
+#define IUTEST_HAS_MATCHER_MACROS                   1
+#define IUTEST_MATCHER     MATCHER
+#define IUTEST_MATCHER_P   MATCHER_P
+#define IUTEST_MATCHER_P2  MATCHER_P2
+#define IUTEST_MATCHER_P3  MATCHER_P3
+#define IUTEST_MATCHER_P4  MATCHER_P4
+#define IUTEST_MATCHER_P5  MATCHER_P5
+#define IUTEST_MATCHER_P6  MATCHER_P6
+#define IUTEST_MATCHER_P7  MATCHER_P7
+#define IUTEST_MATCHER_P8  MATCHER_P8
+#define IUTEST_MATCHER_P9  MATCHER_P9
+#define IUTEST_MATCHER_P10 MATCHER_P10
+#if GMOCK_VER > 0x01060000
+#  define IUTEST_HAS_MATCHER_UNORDERED_POINTWISE     1
+#else
+#  define IUTEST_HAS_MATCHER_UNORDERED_POINTWISE     0
+#endif
+#if GMOCK_VER >= 0x01120000
+#  define IUTEST_HAS_MATCHER_CONDITIONAL            1
+#else
+#  define IUTEST_HAS_MATCHER_CONDITIONAL            0
+#endif
+#if GMOCK_VER >= 0x01170000 || GMOCK_LATEST
+#  define IUTEST_HAS_MATCHER_DISTANCEFROM           1
+#else
+#  define IUTEST_HAS_MATCHER_DISTANCEFROM           0
+#endif
 #define IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF          1
 #define IUTEST_HAS_MATCHER_ELEMENTSARE              1
 #define IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD  0
@@ -77,6 +134,13 @@
 #  define IUTEST_HAS_MATCHER_VARIADIC               0
 #endif
 
+#if GMOCK_VER >= 0x01110000 && IUTEST_HAS_CXX17 \
+    && defined(__cpp_structured_bindings) && __cpp_structured_bindings >= 201606L
+#  define IUTEST_HAS_MATCHER_FIELDSARE              1
+#else
+#  define IUTEST_HAS_MATCHER_FIELDSARE              0
+#endif
+
 #define IUTEST_ASSERT_THAT      ASSERT_THAT
 #define IUTEST_EXPECT_THAT      EXPECT_THAT
 #define IUTEST_INFORM_THAT      INFORM_THAT
@@ -89,6 +153,9 @@
 #else
 
 #define IUTEST_HAS_MATCHERS                         0
+#define IUTEST_HAS_MATCHER_MACROS                   0
+#define IUTEST_HAS_MATCHER_CONDITIONAL               0
+#define IUTEST_HAS_MATCHER_DISTANCEFROM              0
 #define IUTEST_HAS_MATCHER_VARIADIC                 0
 #define IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF          0
 #define IUTEST_HAS_MATCHER_ELEMENTSARE              0
@@ -96,6 +163,7 @@
 #define IUTEST_HAS_MATCHER_REGEX                    0
 #define IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR       0
 #define IUTEST_HAS_MATCHER_EACH                     0
+#define IUTEST_HAS_MATCHER_FIELDSARE                0
 
 #endif
 
@@ -222,10 +290,33 @@ AnyOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 m7, M8 m8, M9 m9, M10 m10) {
 
 #endif
 
+using ::testing::MatchResultListener;
+using ::testing::StringMatchResultListener;
+
 namespace matchers
 {
 
+    using ::testing::MatchResultListener;
+    using ::testing::StringMatchResultListener;
+    using ::testing::MatcherInterface;
+    using ::testing::Matcher;
+    using ::testing::MakeMatcher;
+    using ::testing::MakePolymorphicMatcher;
+    using ::testing::PolymorphicMatcher;
+    using ::testing::MatcherCast;
+    using ::testing::SafeMatcherCast;
+
+#if IUTEST_HAS_STD_TUPLE && IUTEST_HAS_CXX11
+    using ::testing::Args;
+    using ::testing::AllArgs;
+#endif
+    using ::testing::DescribeMatcher;
+    using ::testing::ExplainMatchResult;
+    using ::testing::Matches;
     using ::testing::Not;
+#if IUTEST_HAS_MATCHER_CONDITIONAL
+    using ::testing::Conditional;
+#endif
     using ::testing::Eq;
     using ::testing::Ne;
     using ::testing::Lt;
@@ -234,6 +325,14 @@ namespace matchers
     using ::testing::Ge;
     using ::testing::IsNull;
     using ::testing::NotNull;
+    using ::testing::Truly;
+#if GMOCK_VER >= 0x01080100
+    using ::testing::IsTrue;
+    using ::testing::IsFalse;
+#endif
+#if GMOCK_VER >= 0x01110000
+    using ::testing::IsNan;
+#endif
 
     using ::testing::DoubleEq;
     using ::testing::FloatEq;
@@ -254,14 +353,26 @@ namespace matchers
     using ::testing::HasSubstr;
     using ::testing::StartsWith;
     using ::testing::EndsWith;
+#if GMOCK_VER >= 0x01120000
+    using ::testing::WhenBase64Unescaped;
+#endif
 
     using ::testing::Contains;
     using ::testing::ContainerEq;
+    using ::testing::WhenSorted;
+    using ::testing::WhenSortedBy;
+#if GMOCK_VER >= 0x01080100
+    using ::testing::IsSubsetOf;
+    using ::testing::IsSupersetOf;
+#endif
 #if IUTEST_HAS_MATCHER_EACH
     using ::testing::Each;
 #endif
 #if IUTEST_HAS_MATCHER_POINTWISE
     using ::testing::Pointwise;
+#endif
+#if IUTEST_HAS_MATCHER_UNORDERED_POINTWISE
+    using ::testing::UnorderedPointwise;
 #endif
     using ::testing::Key;
     using ::testing::Pair;
@@ -269,10 +380,32 @@ namespace matchers
     using ::testing::Property;
 
     using ::testing::ResultOf;
+#if GMOCK_VER >= 0x01110000 && IUTEST_HAS_EXCEPTIONS
+    using ::testing::Throws;
+    using ::testing::ThrowsMessage;
+#endif
+#if IUTEST_HAS_MATCHER_DISTANCEFROM
+    using ::testing::DistanceFrom;
+#endif
     using ::testing::Pointee;
+#if IUTEST_HAS_RTTI && GTEST_HAS_RTTI && GMOCK_VER >= 0x01080000
+    using ::testing::WhenDynamicCastTo;
+#endif
+    using ::testing::Ref;
+#if GMOCK_VER >= 0x01110000
+    using ::testing::Address;
+#endif
+#if GMOCK_VER >= 0x01110000
+    using ::testing::Pointer;
+#endif
 
     using ::testing::ElementsAre;
     using ::testing::ElementsAreArray;
+    using ::testing::UnorderedElementsAre;
+    using ::testing::UnorderedElementsAreArray;
+#if IUTEST_HAS_MATCHER_FIELDSARE
+    using ::testing::FieldsAre;
+#endif
 
     using ::testing::MatchesRegex;
     using ::testing::ContainsRegex;
@@ -280,10 +413,19 @@ namespace matchers
 #if IUTEST_HAS_MATCHER_OPTIONAL
     using ::testing::Optional;
 #endif
+#if GMOCK_VER >= 0x01080100
+    using ::testing::AnyWith;
+    using ::testing::VariantWith;
+#endif
     using ::testing::AllOf;
     using ::testing::AnyOf;
+#if GMOCK_VER >= 0x01100000
+    using ::testing::AllOfArray;
+    using ::testing::AnyOfArray;
+#endif
 
     using ::testing::A;
+    using ::testing::An;
     using ::testing::_;
     using ::testing::TypedEq;
 
@@ -314,6 +456,9 @@ namespace matchers
     // gmock 1.7 or later
     using ::testing::IsEmpty;
     using ::testing::SizeIs;
+#endif
+#if GMOCK_VER >= 0x01080000
+    using ::testing::BeginEndDistanceIs;
 #endif
 
 }   // end of namespace matchers

@@ -1,69 +1,27 @@
 name: GitHub Actions
 on:
   pull_request:
-    branches:
-      - master
-      - develop
-      - 'feature/**'
-      - 'fix/**'
-      - 'gh/**'
-      - 'github/**'
-      - 'githubactions/**'
     paths-ignore:
+      - '.github/copilot-instructions.md'
       - '*.ini'
       - '*.md'
       - '*.yml'
       - '*.yaml'
-      - '.circleci/**'
-      - '.semaphore/**'
-  push:
-    branches:
-      - master
-      - develop
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
-  prepare:
-    runs-on: ubuntu-latest
-    env:
-      HEAD_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-    if: >
-      ! contains(github.event.head_commit.message, '[gh skip]') &&
-      ! contains(github.event.head_commit.message, '[skip gh]')
-    steps:
-      - run: |
-          echo "$HEAD_COMMIT_MESSAGE"
-      # dump github.event for https://github.com/nektos/act
-      - name: dump github.event
-        env:
-          GITHUB_EVENT_CONTEXT: ${{ toJson(github.event) }}
-        run: |
-          echo "${GITHUB_EVENT_CONTEXT}" > github_event.json
-      - name: store event
-        uses: actions/upload-artifact@v3
-        with:
-          name: github_event.json
-          path: github_event.json
-
-  login:
-    runs-on: ubuntu-latest
-    needs: prepare
-    steps:
-      - name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: login check
-        run: |
-          echo a | docker login
-      - name: TODO
-        run: |
-          echo "build and push"
-
   #===================================================================
   llvm-basic-test:
     runs-on: windows-latest
-    needs: prepare
+    permissions:
+      contents: read
+      checks: write
     defaults:
       run:
         shell: cmd
@@ -72,7 +30,9 @@ jobs:
       CC: clang
       OUTPUTXML: junit
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Setup Windows LLVM
         uses: ./.github/actions/composite/setup-win-llvm
       - name: info
@@ -87,18 +47,22 @@ jobs:
         uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
-        if: always()
+        if: success() || failure()
 
   mingw-basic-test:
     runs-on: windows-latest
-    needs: prepare
+    permissions:
+      contents: read
+      checks: write
     defaults:
       run:
         shell: cmd
     env:
       OUTPUTXML: junit
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: mingw build
@@ -111,20 +75,21 @@ jobs:
         uses: ./.github/actions/composite/test-report
         with:
           report_paths: test/*.xml
-        if: always()
+        if: success() || failure()
 
   cmake-basic-test:
     runs-on: ubuntu-latest
-    needs: prepare
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: cmake
         run: |
             mkdir ./cmake-build
             cd ./cmake-build
             cmake ../projects/cmake
       - name: cmake build
-        run: cmake --build cmake-build
+        run: cmake --build cmake-build --parallel 8
       - name: cmake test
         run: |
           cd cmake-build
@@ -132,33 +97,76 @@ jobs:
 
   xcodebuild-test:
     runs-on: macos-latest
-    needs: prepare
+    permissions:
+      contents: read
+      checks: write
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: cmake
         run: |
             mkdir ./cmake-build
             cd ./cmake-build
             cmake -G Xcode ../projects/cmake
       - name: cmake build
-        run: cmake --build cmake-build -- -resultBundlePath TestResults
+        run: cmake --build cmake-build --parallel 8 -- -resultBundlePath TestResults.xcresult
       - name: cmake test
         run: |
           cd cmake-build
-          ctest -C Debug -V
-      - run: ls cmake-build
-      - uses: kishikawakatsumi/xcresulttool@v1.0.3
+          ctest -C Debug -V --output-junit junit.xml
+      # xcodebuild が出力する .xcresult にはビルド結果のみが含まれる (テストは ctest で実行するため)
+      - name: xcresult summary
+        run: |
+          xcrun xcresulttool get build-results summary --path cmake-build/TestResults.xcresult --format json | jq -r '
+            "### Xcode build: \(.status)",
+            "",
+            "| errors | warnings | analyzer warnings |",
+            "| ---: | ---: | ---: |",
+            "| \(.errorCount) | \(.warningCount) | \(.analyzerWarningCount) |",
+            "",
+            ( [ (.errors[] | . + {level: "error"}), (.warnings[] | . + {level: "warning"}), (.analyzerWarnings[] | . + {level: "analyzer"}) ]
+              | if length == 0 then "No issues." else
+                ( "| level | type | message | location |", "| --- | --- | --- | --- |",
+                  (.[:50][] | "| \(.level) | \(.issueType // "-") | \(.message | gsub("\n"; " ") | gsub("\\|"; "\\\\|")) | \(.sourceURL // "-" | sub("^file://"; "") | sub("[#?].*$"; "")) |") )
+                end )
+          ' >> "${GITHUB_STEP_SUMMARY}"
+        if: success() || failure()
+      - name: report
+        uses: ./.github/actions/composite/test-report
         with:
-          path: cmake-build/TestResults.xcresult
+          report_paths: cmake-build/junit.xml
+        if: success() || failure()
+
+  macos-test:
+    runs-on: macos-latest
+    permissions:
+      contents: read
+      checks: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: info
+        uses: ./.github/actions/composite/test-info
+      - name: build
+        run: |
+          make -C test -j8
+      - name: test
+        run: |
+          make -C test test
+      - name: report
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: test/*.xml
         if: success() || failure()
 
   # # g++: fatal error: Killed signal terminated program cc1plus
   # # kill されちゃうので comment out
   # gcc-fanalyzer:
   #   runs-on: ubuntu-latest
-  #   needs: prepare
   #   container:
-  #     image: docker://gcc:11
+  #     image: gcc:11
   #     credentials:
   #       username: ${{ secrets.DOCKERHUB_USERNAME }}
   #       password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -166,7 +174,7 @@ jobs:
   #     DEFS: -fanalyzer -Wno-analyzer-possible-null-argument -Wno-analyzer-possible-null-dereference
   #     OUTPUTXML: junit
   #   steps:
-  #     - uses: actions/checkout@master
+  #     - uses: actions/checkout@v4
   #     - name: gcc info
   #       run: |
   #         make -C test clean
@@ -186,43 +194,46 @@ jobs:
   #         report_paths: test/*.xml
   #       if: always()
 
-  zapcc-basic-test:
-    runs-on: ubuntu-latest
-    needs: prepare
-    container:
-      image: docker://srzzumix/zapcc:bionic
-      credentials:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-    env:
-      OUTPUTXML: junit
-      PYTHON_VERSION: 3.8
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v2
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-      - name: Set Python environment variable
-        run: echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> "$GITHUB_ENV"
-      - name: info
-        uses: ./.github/actions/composite/test-info
-      - name: zapcc build
-        run: |
-          make -C test -j1 IUTEST_REQUIRE_PYTHON=1
-      - name: zapcc test
-        run: |
-          make -C test test
-      - name: report
-        uses: ./.github/actions/composite/test-report
-        with:
-          report_paths: test/*.xml
-        if: always()
+  # zapcc-basic-test:
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: srzzumix/zapcc:latest
+  #     credentials:
+  #       username: ${{ secrets.DOCKERHUB_USERNAME }}
+  #       password: ${{ secrets.DOCKERHUB_TOKEN }}
+  #   env:
+  #     OUTPUTXML: junit
+  #     PYTHON_VERSION: 3.8
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-python@v4
+  #       with:
+  #         python-version: ${{ env.PYTHON_VERSION }}
+  #     - name: Set Python environment variable
+  #       run: |
+  #         python --version
+  #         echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> "$GITHUB_ENV"
+  #     - name: info
+  #       uses: ./.github/actions/composite/test-info
+  #     - name: zapcc build
+  #       run: |
+  #         make -C test -j1 IUTEST_REQUIRE_PYTHON=1
+  #     - name: zapcc test
+  #       run: |
+  #         make -C test test
+  #     - name: report
+  #       uses: ./.github/actions/composite/test-report
+  #       with:
+  #         report_paths: test/*.xml
+  #       if: always()
 
   icpc-basic-test:
     runs-on: ubuntu-latest
-    needs: prepare
+    permissions:
+      contents: read
+      checks: write
     container:
-      image: docker://srzzumix/oneapi-cxx:latest
+      image: srzzumix/oneapi-cxx:latest
       credentials:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -236,7 +247,9 @@ jobs:
       run:
         shell: bash -e -o pipefail -l {0}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: set .bash_profile
         run: |
           echo ". /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
@@ -257,6 +270,9 @@ jobs:
         if: always()
 
   arm-none-eabi:
+    permissions:
+      contents: read
+      checks: write
     strategy:
       fail-fast: false
       matrix:
@@ -268,9 +284,8 @@ jobs:
           - "10-2020q4"
           - "latest"
     runs-on: ubuntu-latest
-    needs: prepare
     container:
-      image: docker://srzzumix/arm-none-eabi:${{ matrix.container-version }}
+      image: srzzumix/arm-none-eabi:${{ matrix.container-version }}
       credentials:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -281,7 +296,9 @@ jobs:
       # LIBS: gcc c m rdimon
       OUTPUTXML: junit
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: info
         uses: ./.github/actions/composite/test-info
       - name: build
@@ -295,17 +312,21 @@ jobs:
 
   arm-linux-gnueabi:
     runs-on: ubuntu-latest
-    needs: prepare
+    permissions:
+      contents: read
+      checks: write
     env:
       DEFS: --static
       OUTPUTXML: junit
     steps:
       - name: Login to DockerHub
-        uses: docker/login-action@v1
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: info
         uses: ./.github/actions/arm-linux-gnueabi
         with:
@@ -327,14 +348,16 @@ jobs:
   #===================================================================
   earthly:
     runs-on: ubuntu-latest
-    needs: prepare
     steps:
-      - uses: earthly/actions-setup@v1
+      - uses: earthly/actions-setup@43211c7a0eae5344d6d79fb4aaf209c8f8866203 # v1.0.13
         with:
           version: "latest"
-      - uses: actions/checkout@v3
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Login to DockerHub
-        uses: docker/login-action@v1
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -352,10 +375,11 @@ jobs:
   #===================================================================
   dagger:
     runs-on: ubuntu-latest
-    needs: prepare
     steps:
-      - uses: actions/checkout@v3
-      - uses: dagger/dagger-for-github@v3
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: dagger/dagger-for-github@75549c92b94513311d37a80f2732cc3399f9af86 # v3.2.0
         with:
           cmds: |
             project init
@@ -371,25 +395,37 @@ jobs:
   #===================================================================
   infer:
     runs-on: ubuntu-latest
-    needs: prepare
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
-      - uses: actions/checkout@v3
-      - uses: srz-zumix/setup-infer@v1
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: srz-zumix/setup-infer@1d525f010139bd292024e37631d250c11fb458d2 # v1.1.3
       - name: infer
         run: |
-          infer -- make -C test IUTEST_USE_PYTHON=0
+          # --jobs 1: infer runs the clang sub-commands of a compile-and-link
+          # invocation in parallel, so the link can start before the object file
+          # exists. Capture sequentially, then analyze in parallel.
+          infer capture --jobs 1 -- make -C test IUTEST_USE_PYTHON=0
+          infer analyze
       - name: Check Infer report
-        uses: srz-zumix/reviewdog-action-infer@v1
+        uses: srz-zumix/reviewdog-action-infer@67cc69fad6e2342a5a7b255b2c00268c9e1f4f70 # v1.3.0
         with:
           reporter: github-pr-review
 
   #===================================================================
   clang-tidy:
     runs-on: ubuntu-latest
-    needs: prepare
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
-      - uses: actions/checkout@v2
-      - uses: reviewdog/action-setup@v1
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: reviewdog/action-setup@d8a7baabd7f3e8544ee4dbde3ee41d0011c3a93f # v1.5.0
       - name: install clang-tidy
         run: |
           sudo apt-get install -qq -y clang-tidy
@@ -407,16 +443,17 @@ jobs:
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cmake --build cmake-build | reviewdog -reporter=github-pr-review -name="clang-tidy" -efm="%f:%l:%c: %m" -tee
+          cmake --build cmake-build --parallel 8 | reviewdog -reporter=github-pr-review -name="clang-tidy" -efm="%f:%l:%c: %m" -tee
 
 
   #===================================================================
   lint-editorconfig:
     runs-on: ubuntu-latest
-    needs: prepare
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
       - name: lint:editorconfig
         run: |
           npm install
@@ -424,13 +461,15 @@ jobs:
   iwyu:
     runs-on: ubuntu-latest
     container:
-      image: docker://srzzumix/iwyu:latest
+      image: srzzumix/iwyu:latest
       credentials:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     needs: lint-editorconfig
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: CMake
         env:
           CC: clang

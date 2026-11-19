@@ -379,12 +379,16 @@ private:
         }
     }
 
+#if IUTEST_HAS_EXCEPTIONS
+    IUTEST_ATTRIBUTE_NORETURN_ void out_of_range() const
+    {
+        throw new ::std::out_of_range("invalid string_view position");
+    }
+#else
     void out_of_range() const
     {
-#if IUTEST_HAS_EXCEPTIONS
-        throw new ::std::out_of_range("invalid string_view position");
-#endif
     }
+#endif
 
 public:
     friend bool operator == (const iu_basic_string_view lhs, const iu_basic_string_view& rhs)

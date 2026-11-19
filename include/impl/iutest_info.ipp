@@ -29,6 +29,11 @@ IUTEST_IPP_INLINE bool TestInfo::Run()
 {
     if( !should_run() )
     {
+        if( is_disabled_test() && is_reportable()
+            && !TestFlag::IsEnableFlag(TestFlag::RUN_DISABLED_TESTS) )
+        {
+            TestEnv::event_listeners().OnTestDisabled(*this);
+        }
         return true;
     }
 
@@ -40,6 +45,26 @@ IUTEST_IPP_INLINE bool TestInfo::Run()
     // テスト終了
     TestEnv::event_listeners().OnTestEnd(*this);
     return !HasFailure();
+}
+
+IUTEST_IPP_INLINE void TestInfo::Skip(bool notify)
+{
+    if( !should_run() )
+    {
+        return;
+    }
+    if( notify )
+    {
+        TestEnv::event_listeners().OnTestStart(*this);
+    }
+    m_ran = notify;
+    const TestPartResult result(file(), line(), "", TestPartResult::kSkip);
+    m_test_result.AddTestPartResult(result);
+    if( notify )
+    {
+        TestEnv::event_listeners().OnTestPartResult(result);
+        TestEnv::event_listeners().OnTestEnd(*this);
+    }
 }
 
 IUTEST_IPP_INLINE void TestInfo::RunImpl()
@@ -62,6 +87,10 @@ IUTEST_IPP_INLINE void TestInfo::RunImpl()
             p->Run(&m_mediator);
 #endif
             elapsedmsec = sw.stop();
+        }
+        catch (const AssertionException&)
+        {
+            throw;
         }
         catch (const ::std::exception& e)
         {
@@ -102,15 +131,6 @@ IUTEST_IPP_INLINE void TestInfo::RunImpl()
     }
 
     m_test_result.set_elapsed_time(elapsedmsec);
-
-    if( HasFailure() && TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
-    {
-#if IUTEST_HAS_EXCEPTIONS
-        throw HasFatalFailure() ? TestPartResult::kFatalFailure : TestPartResult::kNonFatalFailure;
-#else
-        exit(1);
-#endif
-    }
 }
 
 #if IUTEST_HAS_SEH && IUTEST_HAS_EXCEPTIONS

@@ -87,6 +87,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 // define
 
 #if !defined(GTEST_HAS_PARAM_TEST)
+//! @deprecated Use IUTEST_HAS_PARAM_TEST for feature detection.
 #  define GTEST_HAS_PARAM_TEST  1
 #endif
 #if !defined(GTEST_HAS_COMBINE)
@@ -96,6 +97,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #if defined(INCG_IRIS_IUTEST_HPP_)
 #undef IUTEST_SUCCEED
 #undef IUTEST_FAIL
+#undef IUTEST_FAIL_AT
 #undef IUTEST_ADD_FAILURE
 #undef IUTEST_ADD_FAILURE_AT
 
@@ -103,6 +105,9 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #undef IUTEST_HAS_AUTOFIXTURE_PARAM_TEST
 #undef IUTEST_HAS_ANY_PARAM_TEST
 #undef IUTEST_HAS_COMBINE
+#undef IUTEST_HAS_CONVERT_GENERATOR
+#undef IUTEST_HAS_CONVERT_GENERATOR_FUNC
+#undef IUTEST_HAS_REGISTER_TEST
 #undef IUTEST_HAS_PAIRWISE
 #undef IUTEST_HAS_CONCAT
 #undef IUTEST_HAS_CSVPARAMS
@@ -112,6 +117,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #undef IUTEST_HAS_VARIADIC_PRED
 #undef IUTEST_HAS_TYPED_TEST
 #undef IUTEST_HAS_TYPED_TEST_P
+#undef IUTEST_HAS_TYPED_TEST_NAME_GENERATOR
 #undef IUTEST_TYPED_TEST_P_STRICT
 #undef IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME
 #undef IUTEST_HAS_PARAM_TEST_PARAM_NAME_GENERATOR
@@ -144,6 +150,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #undef IUTEST_HAS_VARIADIC_TEMPLATES
 #undef IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES
 #undef IUTEST_HAS_INITIALIZER_LIST
+#undef IUTEST_HAS_CHAR8_T
 #undef IUTEST_HAS_CHAR16_T
 #undef IUTEST_HAS_CHAR32_T
 
@@ -158,6 +165,9 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 
 #undef IUTEST_HAS_STD_FILESYSTEM
 
+#undef IUTEST_HAS_SRCDIR
+#undef IUTEST_HAS_TEMPDIR
+
 #undef IUTEST_OPERAND
 #undef IUTEST_EXPRESSION
 
@@ -169,13 +179,25 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #  define IUTEST_SUCCEED()      GTEST_SUCCESS_("Succeeded")
 #endif
 #define IUTEST_FAIL             GTEST_FAIL
+#if GTEST_VER < 0x01130000
+#  define IUTEST_FAIL_AT(file, line)   return GTEST_MESSAGE_AT_(file, line, "Failed", ::testing::TestPartResult::kFatalFailure)
+#else
+#  define IUTEST_FAIL_AT         GTEST_FAIL_AT
+#endif
 #define IUTEST_ADD_FAILURE      ADD_FAILURE
+#if defined(ADD_FAILURE_AT)
 #define IUTEST_ADD_FAILURE_AT   ADD_FAILURE_AT
+#else
+#  define IUTEST_ADD_FAILURE_AT(file, line)   GTEST_MESSAGE_AT_(file, line, "Failed", ::testing::TestPartResult::kNonFatalFailure)
+#endif
 
 #define IUTEST_HAS_PARAM_TEST               GTEST_HAS_PARAM_TEST
 #define IUTEST_HAS_AUTOFIXTURE_PARAM_TEST   0
 #define IUTEST_HAS_ANY_PARAM_TEST           0
 #define IUTEST_HAS_COMBINE                  GTEST_HAS_COMBINE
+#define IUTEST_HAS_CONVERT_GENERATOR        (IUTEST_HAS_PARAM_TEST && GTEST_VER >= 0x01140000)
+#define IUTEST_HAS_CONVERT_GENERATOR_FUNC   (IUTEST_HAS_PARAM_TEST && GTEST_VER >= 0x01170000)
+#define IUTEST_HAS_REGISTER_TEST            (IUTEST_HAS_CXX11 && GTEST_VER >= 0x01100000)
 #define IUTEST_HAS_PAIRWISE                 0
 #define IUTEST_HAS_CONCAT                   0
 #define IUTEST_HAS_CSVPARAMS                0
@@ -185,6 +207,11 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #define IUTEST_HAS_VARIADIC_PRED            0
 #define IUTEST_HAS_TYPED_TEST               GTEST_HAS_TYPED_TEST
 #define IUTEST_HAS_TYPED_TEST_P             GTEST_HAS_TYPED_TEST_P
+#if GTEST_VER >= 0x01080100
+#  define IUTEST_HAS_TYPED_TEST_NAME_GENERATOR GTEST_HAS_TYPED_TEST
+#else
+#  define IUTEST_HAS_TYPED_TEST_NAME_GENERATOR 0
+#endif
 #define IUTEST_TYPED_TEST_P_STRICT          1
 
 #define IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME   0
@@ -222,12 +249,29 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 
 #define IUTEST_HAS_STD_FILESYSTEM       0
 
+// gtest added public TempDir() in 1.10.0 and SrcDir() in 1.13.0
+#if GTEST_VER < 0x01100000
+#  define IUTEST_HAS_TEMPDIR            0
+#else
+#  define IUTEST_HAS_TEMPDIR            1
+#endif
+#if GTEST_VER < 0x01130000
+#  define IUTEST_HAS_SRCDIR             0
+#else
+#  define IUTEST_HAS_SRCDIR             1
+#endif
+
 #define IUTEST_HAS_STREAM_BUFFER        0
 #define IUTEST_HAS_STREAM_CAPTURE       0
 
 #define IUTEST_HAS_VARIADIC_TEMPLATES   0
 #define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES  0
 #define IUTEST_HAS_INITIALIZER_LIST     0
+#if GTEST_VER >= 0x01110000 && defined(__cpp_char8_t) && __cpp_char8_t >= 201811L
+#  define IUTEST_HAS_CHAR8_T            1
+#else
+#  define IUTEST_HAS_CHAR8_T            0
+#endif
 #define IUTEST_HAS_CHAR16_T             0
 #define IUTEST_HAS_CHAR32_T             0
 
@@ -622,6 +666,15 @@ namespace testing
     typedef TestCase    TestSuite;
 }
 
+#endif
+
+#if IUTEST_HAS_EXCEPTIONS && defined(INCG_IRIS_IUTEST_HPP_)
+#if GTEST_VER < 0x01080100
+namespace testing
+{
+using ::iutest::AssertionException;
+}
+#endif
 #endif
 
 #if defined(INCG_IRIS_IUTEST_HPP_)

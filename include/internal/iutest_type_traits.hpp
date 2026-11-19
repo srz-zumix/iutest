@@ -348,6 +348,11 @@ template<>
 class is_integral<wchar_t> : public true_type {};
 #endif
 
+#if IUTEST_HAS_CHAR8_T
+template<>
+class is_integral<char8_t> : public true_type {};
+#endif
+
 #if IUTEST_HAS_CHAR16_T
 template<>
 class is_integral<char16_t> : public true_type {};
@@ -1124,18 +1129,24 @@ public:
     typedef typename impl< typename remove_cv<T>::type >::type type;
 };
 
+#endif // #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+
 #if IUTEST_HAS_CXX_HDR_VARIANT && IUTEST_HAS_VARIADIC_TEMPLATES
 
-template<typename T>
-struct is_variant : public false_type {};
-
+namespace is_variant_impl
+{
 template<typename ...T>
-struct is_variant< ::std::variant<T...> > : public true_type {};
+true_type IsVariant(const ::std::variant<T...>*);
+false_type IsVariant(...);
+}
 
+template<typename T>
+struct is_variant
+    : decltype(is_variant_impl::IsVariant(static_cast<const T*>(0)))
+{
+};
 
 #endif
-
-#endif // #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 }   // end of namespace iutest_type_traits
 

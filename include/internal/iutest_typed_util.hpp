@@ -279,6 +279,16 @@ struct TypeList< Types< IUTEST_PP_ENUM_PARAMS(50, T) > >
 
 #endif
 
+struct DefaultTypedTestNameGenerator {};
+
+// Let the compiler separate the optional generator from commas inside Types<...>.
+template<typename T, typename Generator = DefaultTypedTestNameGenerator>
+struct TypedTestSelector
+{
+    typedef typename TypeList<T>::type type;
+    typedef Generator NameGenerator;
+};
+
 }   // end of namespace detail
 
 #endif // #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)

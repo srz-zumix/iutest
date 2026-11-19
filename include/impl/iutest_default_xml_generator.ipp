@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2025, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -90,17 +90,50 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTest(IFile* file, co
         file->Printf("random_seed=\"%u\" ", test.random_seed());
     }
     file->Printf("name=\"AllTests\"");
-
-    // propertys
-    OnReportTestProperty(file, *test.ad_hoc_test_result(), UnitTest::ValidateTestPropertyName);
-
     file->Printf(">\n");
+
+    OnReportTestPropertyElements(file, *test.ad_hoc_test_result(), UnitTest::ValidateTestPropertyName, "  ");
 
     for( int i=0, count=test.total_test_suite_count(); i < count; ++i )
     {
         OnReportTestSuite(file, *test.GetTestSuite(i));
     }
+    if( test.ad_hoc_test_result()->Failed() )
+    {
+        OnReportNonTestSuiteFailure(file, test);
+    }
     file->Printf("</testsuites>\n");
+}
+
+IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportNonTestSuiteFailure(IFile* file, const UnitTest& test)
+{
+    const TestResult& result = *test.ad_hoc_test_result();
+    file->Printf("  <testsuite name=\"NonTestSuiteFailure\" tests=\"1\" failures=\"1\" "
+        "disabled=\"0\" skipped=\"0\" errors=\"0\" time=\"%s\" timestamp=\"%s\">\n"
+        , detail::FormatTimeInMillisecAsSecond(result.elapsed_time()).c_str()
+        , detail::FormatTimeInMillisecAsIso8601(test.start_timestamp()).c_str());
+    file->Printf("    <testcase name=\"\" status=\"run\" result=\"completed\" classname=\"\" "
+        "time=\"%s\" timestamp=\"%s\">\n"
+        , detail::FormatTimeInMillisecAsSecond(result.elapsed_time()).c_str()
+        , detail::FormatTimeInMillisecAsIso8601(test.start_timestamp()).c_str());
+    for( int i=0, count=result.total_part_count(); i < count; ++i )
+    {
+        const TestPartResult& part = result.GetTestPartResult(i);
+        if( !part.failed() )
+        {
+            continue;
+        }
+        file->Printf("      <failure ");
+        OutputXmlAttribute(file, "message", EscapeXmlAttribute(part.summary()).c_str());
+        file->Printf("type=\"\">");
+        ::std::string message = detail::FormatCompilerIndependentFileLocation(part.file_name(), part.line_number());
+        message += "\n";
+        message += detail::MultiByteStringToUTF8(part.summary());
+        OutputXmlCDataSection(file, message.c_str());
+        file->Printf("\n      </failure>\n");
+    }
+    file->Printf("    </testcase>\n");
+    file->Printf("  </testsuite>\n");
 }
 
 IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestSuite(IFile* file, const TestSuite& test_suite)
@@ -126,10 +159,10 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestSuite(IFile* fil
         , detail::FormatTimeInMillisecAsIso8601(test_suite.start_timestamp()).c_str()
         );
 
-    // propertys
-    OnReportTestProperty(file, *test_suite.ad_hoc_test_result(), TestSuite::ValidateTestPropertyName);
-
     file->Printf(">\n");
+
+    OnReportTestPropertyElements(file, *test_suite.ad_hoc_test_result()
+        , TestSuite::ValidateTestPropertyName, "    ");
 
     for( int i=0, count=test_suite.total_test_count(); i < count; ++i )
     {
@@ -147,6 +180,8 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
 
     file->Printf("    <testcase ");
     OutputXmlAttribute(file, "name", EscapeXmlAttribute(test_info.name()).c_str() );
+    OutputXmlAttribute(file, "file", EscapeXmlAttribute(test_info.file()).c_str());
+    file->Printf("line=\"%d\" ", test_info.line());
 
     {
         const char* type_param = test_info.type_param();
@@ -182,7 +217,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
     // propertys
     OnReportTestProperty(file, *test_info.result(), TestInfo::ValidateTestPropertyName);
 
-    const bool notrun = test_info.should_run() && !test_info.is_ran();
+    const bool notrun = test_info.should_run() && !test_info.is_ran() && !test_info.is_skipped();
     if( test_info.HasFailure() || notrun )
     {
         file->Printf(">\n");
@@ -283,6 +318,28 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestProperty(IFile* 
     }
 }
 
+IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestPropertyElements(IFile* file
+    , const TestResult& test_result, bool (*pfnValidate)(const ::std::string&), const char* indent)
+{
+    if( test_result.test_property_count() == 0 )
+    {
+        return;
+    }
+    file->Printf("%s<properties>\n", indent);
+    for( int i=0, count=test_result.test_property_count(); i < count; ++i )
+    {
+        const TestProperty& prop = test_result.GetTestProperty(i);
+        if( (*pfnValidate)(prop.key()) )
+        {
+            file->Printf("%s  <property name=\"%s\" value=\"%s\" />\n"
+                , indent
+                , EscapeXmlAttribute(prop.key()).c_str()
+                , EscapeXmlAttribute(prop.value()).c_str());
+        }
+    }
+    file->Printf("%s</properties>\n", indent);
+}
+
 IUTEST_IPP_INLINE bool DefaultXmlGeneratorListener::FileOpen(const char* path)
 {
     m_fp = detail::IFileSystem::New();
@@ -357,7 +414,7 @@ IUTEST_IPP_INLINE ::std::string DefaultXmlGeneratorListener::EscapeXml(const cha
                 {
 #if !defined(IUTEST_OS_WINDOWS_MOBILE)
                     wchar_t wc = 0;
-                    const int len = detail::iu_mbtowc(&wc, src, static_cast<size_t>(MB_CUR_MAX));
+                    const int len = detail::iu_mbtowc(&wc, src, static_cast<size_t>(IU_MB_CUR_MAX));
                     if( len > 1 )
                     {
                         msg += detail::AnyStringToUTF8(&wc, 1);

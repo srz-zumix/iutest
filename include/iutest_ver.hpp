@@ -83,7 +83,9 @@ modification, are permitted provided that the following conditions are met: \n
    <tr><td>--iutest_warning_into_error       </td><td>[yes|no]</td><td>Make warnings into error.</td></tr>
    <tr><td>--iutest_catch_exceptions         </td><td>&lt;yes|no&gt;</td><td>Catch exceptions enable.</td></tr>
    <tr><td>--iutest_print_time               </td><td>&lt;yes|no&gt;</td><td>Setting the display of elapsed time.</td></tr>
+   <tr><td>--iutest_print_utf8               </td><td>[0|1]</td><td>Show printable UTF-8 strings as text in diagnostics (default: 1). Also accepts --gtest_print_utf8.</td></tr>
    <tr><td>--iutest_repeat                   </td><td>&lt;count&gt;</td><td>Set the number of repetitions of the test. use a negative count to repeat forever.</td></tr>
+   <tr><td>--iutest_recreate_environments_when_repeating</td><td>[0|1]</td><td>Set up and tear down global environments on every repetition (default: 1).</td></tr>
    <tr><td>--iutest_stream_result_to         </td><td>&lt;host:port&gt;</td><td>Set stream test results server.</td></tr>
    <tr><td>--iutest_file_location            </td><td>&lt;auto|vs|gcc&gt;</td><td>Format file location messages.</td></tr>
    <tr><td>--iutest_default_package_name     </td><td>[name]</td><td>Set default root package name.</td></tr>
@@ -107,10 +109,12 @@ modification, are permitted provided that the following conditions are met: \n
    <tr><td>IUTEST_RANDOM_SEED=seed         </td><td>Set random seed.</td></tr>
    <tr><td>IUTEST_ALSO_RUN_DISABLED_TESTS  </td><td>Run disabled tests.</td></tr>
    <tr><td>IUTEST_BREAK_ON_FAILURE=0|1     </td><td>When that failed to break.</td></tr>
+   <tr><td>IUTEST_INSTALL_FAILURE_SIGNAL_HANDLER</td><td>Store the failure signal handler preference (default: 0). Only "0" disables it. Takes precedence over GTEST_INSTALL_FAILURE_SIGNAL_HANDLER.</td></tr>
    <tr><td>IUTEST_THROW_ON_FAILURE=0|1     </td><td>When that failed to throw.</td></tr>
    <tr><td>IUTEST_WARNING_INTO_ERROR=0|1   </td><td>Make warnings into error.</td></tr>
    <tr><td>IUTEST_CATCH_EXCEPTIONS=0|1     </td><td>Catch exceptions enable.</td></tr>
    <tr><td>IUTEST_PRINT_TIME=0|1           </td><td>Setting the display of elapsed time.</td></tr>
+   <tr><td>IUTEST_PRINT_UTF8=0|1           </td><td>Show printable UTF-8 text (default: 1). Only "0" disables it. Takes precedence over GTEST_PRINT_UTF8.</td></tr>
    <tr><td>IUTEST_REPEAT=count             </td><td>Set the number of repetitions of the test.</td></tr>
    <tr><td>IUTEST_FILE_LOCATION=auto|vs|gcc</td><td>Format file location messages.</td></tr>
    <tr><td>IUTEST_ROOT_PACKAGE_NAME=[name] </td><td>Set root package name.</td></tr>
@@ -118,11 +122,95 @@ modification, are permitted provided that the following conditions are met: \n
 */
 
 /**
+ * @page    internalstackframes Internal stack frame flag compatibility
+ *
+ * The boolean show_internal_stack_frames flag defaults to false. Use
+ * IUTEST_FLAG_GET/SET(show_internal_stack_frames) or, with the gtest switch
+ * header, GTEST_FLAG_GET/SET(show_internal_stack_frames). Native per-test
+ * flag saving/restoration includes this flag.
+ *
+ * Native iutest stores the preference but has no stack trace backend, so this
+ * flag does not change diagnostic output. It is not a native command-line,
+ * flagfile, or environment variable setting.
+ *
+ * In IUTEST_USE_GTEST mode, behavior follows the linked GoogleTest build.
+ * GoogleTest v1.18.0 without Abseil flags defaults to false without reading an
+ * environment variable, and its ordinary command-line parser omits this flag.
+ * Abseil flags builds may accept it through Abseil's flag handling. With an
+ * Abseil stack trace backend, false omits internal frames and true includes
+ * them. The ordinary upstream flag saver omits this flag, so callers must
+ * restore its value explicitly in that configuration.
+*/
+
+/**
+ * @page    failuresignalhandler Failure signal handler compatibility
+ *
+ * The boolean install_failure_signal_handler flag defaults to false. Use
+ * IUTEST_FLAG_GET/SET(install_failure_signal_handler) or, with the gtest switch
+ * header, GTEST_FLAG_GET/SET(install_failure_signal_handler). Native per-test
+ * flag saving/restoration includes this flag. Changing the flag does not itself
+ * install or uninstall a handler.
+ *
+ * Native iutest stores the preference but does not install a diagnostic handler,
+ * on any platform. This matches GoogleTest v1.18.0 without Abseil: existing signal
+ * dispositions are untouched even when the flag is true. No async-signal-unsafe
+ * stack tracing or exception recovery is attempted. This also keeps old
+ * compilers and platforms without signal APIs supported.
+ *
+ * Native environment variables are read at framework initialization:
+ * IUTEST_INSTALL_FAILURE_SIGNAL_HANDLER takes precedence over
+ * GTEST_INSTALL_FAILURE_SIGNAL_HANDLER. Unset means false; exactly "0" means
+ * false; every other value (including empty, "false", and "00") means true.
+ * In IUTEST_USE_GTEST mode only the upstream GTEST_ variable is used.
+ *
+ * GoogleTest v1.18.0 input/behavior matrix:
+ * <table>
+ * <tr><th>Configuration</th><th>Environment and flag API</th><th>Command line</th><th>Handler</th></tr>
+ * <tr><td>Native iutest</td><td>Supported as above</td><td>Not accepted</td><td>Not installed</td></tr>
+ * <tr><td>GoogleTest without GTEST_HAS_ABSL</td><td>Supported</td><td>Not accepted</td><td>Not installed</td></tr>
+ * <tr><td>GoogleTest with GTEST_HAS_ABSL and GTEST_NO_ABSL_FLAGS</td><td>Supported</td><td>Not accepted</td><td>Abseil</td></tr>
+ * <tr><td>GoogleTest with Abseil flags, char** initialization</td><td>Supported</td><td>--gtest_install_failure_signal_handler=true|false</td><td>Abseil</td></tr>
+ * <tr><td>GoogleTest with Abseil flags, wchar_t** initialization</td><td>Supported</td><td>Not accepted</td><td>Abseil</td></tr>
+ * </table>
+ * The ordinary upstream parser omits this flag from its explicit allowlist.
+ * Unrecognized --gtest_ options remain in argv and request help. Native
+ * --iutest_install_failure_signal_handler behaves the same way; neither spelling
+ * is a native command-line or flagfile setting.
+ *
+ * To obtain diagnostics using the upstream implementation, build GoogleTest
+ * v1.18.0 with GTEST_HAS_ABSL and its required Abseil/RE2 dependencies, select
+ * IUTEST_USE_GTEST, and enable the flag via the environment before startup or
+ * the flag API before the first IUTEST_INIT. Installation occurs once in
+ * PostFlagParsingInit (or at the first run if initialization was omitted).
+ * A later flag change or per-test flag restoration does not undo installation.
+ * The ordinary GoogleTest v1.18.0 flag saver omits this flag; unlike native
+ * iutest, that upstream configuration requires callers to restore its value.
+ * Upstream uses default absl::FailureSignalHandlerOptions: on supported POSIX
+ * platforms it uses sigaction; Windows uses signal and has no alternate stack.
+ * Exact platform support depends on the linked Abseil build. The handler emits
+ * diagnostics and terminates; it does not recover or add death-test support.
+ *
+ * IMPORTANT: upstream's default options do not chain to an existing handler.
+ * If an application already owns signal handling, leave this flag false.
+ * A native application needing diagnostics can explicitly install its chosen
+ * handler before IUTEST_INIT, with chaining/lifetime options it controls; iutest
+ * will not replace it.
+ *
+ * Reference implementation:
+ * https://github.com/google/googletest/blob/v1.18.0/googletest/src/gtest.cc
+ * (flag definition, PostFlagParsingInit, ParseGoogleTestFlag,
+ * ParseGoogleTestFlagsOnly), and
+ * https://github.com/google/googletest/blob/v1.18.0/googletest/src/gtest-port.cc
+ * (BoolFromGTestEnv).
+ */
+
+/**
  * @page    changelog   変更履歴
  * @par     Changes
  <ul>
   <li>v1.18.0.0
     <ul>
+      <li>char8_t 対応</li>
       <li>IUTEST_*_COMPLEX_EQ アサーションを追加</li>
       <li>IUTEST_*_ALMOST_EQ が ::std::complex に対応</li>
       <li>TestCase の別名 TestSuite に対応（iutest はどちらもサポートし続けます）</li>
@@ -148,6 +236,7 @@ modification, are permitted provided that the following conditions are met: \n
       <li>C++20 で削除された basic_ostream::operator &lt;&lt; に対応</li>
       <li>IUTEST_AP が同じ名前空間に複数定義できない問題を修正</li>
       <li>Google Test 旧バージョンとの互換性を修正</li>
+      <li>junit 出力に長い type_param を出力すると壊れた文字列が出力される問題を修正</li>
     </ul>
   </li>
   <li>v1.17.0.0

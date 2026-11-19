@@ -82,6 +82,7 @@ IUTEST_P(BoolParamTest_X, Test)
 
 IUTEST_INSTANTIATE_TEST_SUITE_P(A_B, BoolParamTest_X, ::iutest::Bool());
 IUTEST_INSTANTIATE_TEST_SUITE_P(A, B_BoolParamTest_X, ::iutest::Bool());
+IUTEST_ALLOW_UNINSTANTIATED_PARAMETERIZED_TEST(B_BoolParamTest_X);
 
 #endif
 
@@ -105,4 +106,3 @@ IUTEST_P(InheritanceParamTest, Test)
 IUTEST_INSTANTIATE_TEST_SUITE_P(My1, InheritanceParamTest, ::iutest::Values(0));
 
 #endif
-

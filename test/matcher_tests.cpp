@@ -15,6 +15,7 @@
 
 //======================================================================
 // include
+#include <limits>
 #include <map>
 #include <memory>
 #include "../include/gtest/iutest_spi_switch.hpp"
@@ -22,6 +23,8 @@
 #if IUTEST_HAS_MATCHERS
 
 using namespace ::iutest::matchers;
+
+struct Matchers {};  // Keep the suite name distinct from matchers::Matcher<T>.
 
 namespace {
 
@@ -51,69 +54,126 @@ X gx(1, 1);
 ::std::map<int, X> mx;
 int X2(int v) { return v*2; }
 
+#if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
+class CopyTrackedMatcher : public ::iutest::detail::IMatcher
+{
+public:
+    CopyTrackedMatcher(int expected, int* copies) : m_expected(expected), m_copies(copies) {}
+    CopyTrackedMatcher(const CopyTrackedMatcher& other)
+        : ::iutest::detail::IMatcher(other), m_expected(other.m_expected), m_copies(other.m_copies)
+    {
+        ++*m_copies;
+    }
+
+    void SetExpected(int expected) { m_expected = expected; }
+    ::iutest::AssertionResult operator ()(int actual)
+    {
+        return actual == m_expected ? ::iutest::AssertionSuccess() : ::iutest::AssertionFailure();
+    }
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return "tracked matcher"; }
+
+private:
+    int m_expected;
+    int* m_copies;
+};
+#endif
+
 }   // end of namespace
 
-IUTEST(Matcher, SuppressWarning)
+IUTEST(Matchers, SuppressWarning)
 {
     (void)gn;
 }
 
-IUTEST(Matcher, Eq)
+IUTEST(Matchers, Eq)
 {
     IUTEST_EXPECT_THAT(1, Eq(1));
 }
 
-IUTEST(Matcher, Ne)
+IUTEST(Matchers, Ne)
 {
     IUTEST_EXPECT_THAT(0, Ne(1));
 }
 
-IUTEST(Matcher, Le)
+IUTEST(Matchers, Le)
 {
     IUTEST_EXPECT_THAT(1, Le(1));
     IUTEST_EXPECT_THAT(0, Le(1));
 }
 
-IUTEST(Matcher, Lt)
+IUTEST(Matchers, Lt)
 {
     IUTEST_EXPECT_THAT(0, Lt(1));
 }
 
-IUTEST(Matcher, Ge)
+IUTEST(Matchers, Ge)
 {
     IUTEST_EXPECT_THAT(1, Ge(0));
     IUTEST_EXPECT_THAT(0, Ge(0));
 }
 
-IUTEST(Matcher, Gt)
+IUTEST(Matchers, Gt)
 {
     IUTEST_EXPECT_THAT(1, Gt(0));
 }
 
-IUTEST(Matcher, IsNull)
+IUTEST(Matchers, IsNull)
 {
     IUTEST_EXPECT_THAT(p1, IsNull());
 }
 
-IUTEST(Matcher, NotNull)
+IUTEST(Matchers, NotNull)
 {
     IUTEST_EXPECT_THAT(p2, NotNull());
 }
 
-IUTEST(Matcher, TypedEq)
+#if !defined(IUTEST_USE_GMOCK) || GMOCK_VER >= 0x01110000
+IUTEST(Matchers, IsNan)
+{
+    const float f_nan = ::std::numeric_limits<float>::quiet_NaN();
+    const double d_nan = ::std::numeric_limits<double>::quiet_NaN();
+    IUTEST_EXPECT_THAT(f_nan, IsNan());
+    IUTEST_EXPECT_THAT(d_nan, IsNan());
+    IUTEST_EXPECT_THAT(0.0f, Not(IsNan()));
+    IUTEST_EXPECT_THAT(::std::numeric_limits<double>::infinity(), Not(IsNan()));
+#if IUTEST_HAS_LONG_DOUBLE
+    const long double ld_nan = ::std::numeric_limits<long double>::quiet_NaN();
+    IUTEST_EXPECT_THAT(ld_nan, IsNan());
+    IUTEST_EXPECT_THAT(0.0l, Not(IsNan()));
+#endif
+}
+
+#if IUTEST_HAS_MATCHER_EACH || IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
+IUTEST(Matchers, IsNanComposed)
+{
+    const double nan = ::std::numeric_limits<double>::quiet_NaN();
+#if IUTEST_HAS_MATCHER_EACH
+    const double values[] = { nan, nan };
+    const double finite[] = { 0.0, 1.0 };
+    IUTEST_EXPECT_THAT(values, Each(IsNan()));
+    IUTEST_EXPECT_THAT(finite, Each(Not(IsNan())));
+#endif
+#if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
+    IUTEST_EXPECT_THAT(nan, AllOf(IsNan(), Not(DoubleEq(0.0))));
+#endif
+}
+#endif
+#endif
+
+IUTEST(Matchers, TypedEq)
 {
     int v=0;
     IUTEST_EXPECT_THAT(1, TypedEq<int>(1));
     IUTEST_EXPECT_THAT(&v, TypedEq<int*>(&v));
 }
 
-IUTEST(Matcher, FloatEq)
+IUTEST(Matchers, FloatEq)
 {
     IUTEST_EXPECT_THAT(f0, FloatEq(0.0f));
     IUTEST_EXPECT_THAT(f0, FloatingPointEq(0.0f));
 }
 
-IUTEST(Matcher, DoubleEq)
+IUTEST(Matchers, DoubleEq)
 {
     IUTEST_EXPECT_THAT(d0, DoubleEq(0.0));
     IUTEST_EXPECT_THAT(d0, FloatingPointEq(0.0));
@@ -121,7 +181,7 @@ IUTEST(Matcher, DoubleEq)
 
 #if IUTEST_HAS_LONG_DOUBLE
 
-IUTEST(Matcher, LongDoubleEq)
+IUTEST(Matchers, LongDoubleEq)
 {
     IUTEST_EXPECT_THAT(ld0, LongDoubleEq(0.0l));
     long double ldx = 0.001l;
@@ -130,14 +190,14 @@ IUTEST(Matcher, LongDoubleEq)
 
 #endif
 
-IUTEST(Matcher, NanSensitiveFloatEq)
+IUTEST(Matchers, NanSensitiveFloatEq)
 {
     IUTEST_EXPECT_THAT(f0, NanSensitiveFloatEq(0.0f));
     IUTEST_EXPECT_THAT(0.0f/f0, NanSensitiveFloatEq(0.0f/f0));
     IUTEST_EXPECT_THAT(0.0f/f0, NanSensitiveFloatingPointEq(0.0f/f0));
 }
 
-IUTEST(Matcher, NanSensitiveDoubleEq)
+IUTEST(Matchers, NanSensitiveDoubleEq)
 {
     IUTEST_EXPECT_THAT(d0, NanSensitiveDoubleEq(0.0));
     IUTEST_EXPECT_THAT(0.0/d0, NanSensitiveDoubleEq(0.0/d0));
@@ -146,7 +206,7 @@ IUTEST(Matcher, NanSensitiveDoubleEq)
 
 #if IUTEST_HAS_LONG_DOUBLE
 
-IUTEST(Matcher, NanSensitiveLongDoubleEq)
+IUTEST(Matchers, NanSensitiveLongDoubleEq)
 {
     IUTEST_EXPECT_THAT(ld0, NanSensitiveLongDoubleEq(0.0l));
     IUTEST_EXPECT_THAT(0.0l/ld0, NanSensitiveLongDoubleEq(0.0l/ld0));
@@ -158,14 +218,14 @@ IUTEST(Matcher, NanSensitiveLongDoubleEq)
 
 #if IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR
 
-IUTEST(Matcher, FloatNear)
+IUTEST(Matchers, FloatNear)
 {
     IUTEST_EXPECT_THAT(f0, FloatNear(0.0f, 0.0f));
     IUTEST_EXPECT_THAT(f0, FloatNear(1.0f, 1.0f));
     IUTEST_EXPECT_THAT(f0, FloatingPointNear(0.0f, 0.0f));
 }
 
-IUTEST(Matcher, DoubleNear)
+IUTEST(Matchers, DoubleNear)
 {
     IUTEST_EXPECT_THAT(d0, DoubleNear(0.0, 0.0));
     IUTEST_EXPECT_THAT(d0, DoubleNear(1.0, 1.0));
@@ -174,7 +234,7 @@ IUTEST(Matcher, DoubleNear)
 
 #if IUTEST_HAS_LONG_DOUBLE
 
-IUTEST(Matcher, LongDoubleNear)
+IUTEST(Matchers, LongDoubleNear)
 {
     IUTEST_EXPECT_THAT(ld0, LongDoubleNear(0.0l, 0.0l));
     long double ldx = 0.001l;
@@ -182,7 +242,7 @@ IUTEST(Matcher, LongDoubleNear)
 }
 #endif
 
-IUTEST(Matcher, NanSensitiveFloatNear)
+IUTEST(Matchers, NanSensitiveFloatNear)
 {
     IUTEST_EXPECT_THAT(f0, NanSensitiveFloatNear(0.0f, 0.0f));
     IUTEST_EXPECT_THAT(f0, NanSensitiveFloatNear(1.0f, 1.0f));
@@ -190,7 +250,7 @@ IUTEST(Matcher, NanSensitiveFloatNear)
     IUTEST_EXPECT_THAT(0.0f/f0, NanSensitiveFloatingPointNear(0.0f/f0, 0.0f));
 }
 
-IUTEST(Matcher, NanSensitiveDoubleNear)
+IUTEST(Matchers, NanSensitiveDoubleNear)
 {
     IUTEST_EXPECT_THAT(d0, NanSensitiveDoubleNear(0.0, 0.0));
     IUTEST_EXPECT_THAT(d0, NanSensitiveDoubleNear(1.0, 1.0));
@@ -200,7 +260,7 @@ IUTEST(Matcher, NanSensitiveDoubleNear)
 
 #if IUTEST_HAS_LONG_DOUBLE
 
-IUTEST(Matcher, NanSensitiveLongDoubleNear)
+IUTEST(Matchers, NanSensitiveLongDoubleNear)
 {
     IUTEST_EXPECT_THAT(ld0, NanSensitiveLongDoubleNear(0.0l, 0.0l));
     IUTEST_EXPECT_THAT(0.0l/ld0, NanSensitiveLongDoubleNear(0.0l/ld0, 0.0l));
@@ -212,7 +272,7 @@ IUTEST(Matcher, NanSensitiveLongDoubleNear)
 
 #endif
 
-IUTEST(Matcher, StrEq)
+IUTEST(Matchers, StrEq)
 {
     IUTEST_EXPECT_THAT("hoge", StrEq("hoge"));
     IUTEST_EXPECT_THAT("hoge", StrEq(hoge));
@@ -220,7 +280,7 @@ IUTEST(Matcher, StrEq)
     IUTEST_EXPECT_THAT(hoge, StrEq(hoge));
 }
 
-IUTEST(Matcher, StrNe)
+IUTEST(Matchers, StrNe)
 {
     IUTEST_EXPECT_THAT("hoga", StrNe("hoge"));
     IUTEST_EXPECT_THAT("hoga", StrNe(hoge));
@@ -228,7 +288,7 @@ IUTEST(Matcher, StrNe)
     IUTEST_EXPECT_THAT(hoge, StrNe(Hoge));
 }
 
-IUTEST(Matcher, StrCaseEq)
+IUTEST(Matchers, StrCaseEq)
 {
     IUTEST_EXPECT_THAT("hoge", StrCaseEq("Hoge"));
     IUTEST_EXPECT_THAT("hoGe", StrCaseEq(hoge));
@@ -236,7 +296,7 @@ IUTEST(Matcher, StrCaseEq)
     IUTEST_EXPECT_THAT(hoge, StrCaseEq(Hoge));
 }
 
-IUTEST(Matcher, StrCaseNe)
+IUTEST(Matchers, StrCaseNe)
 {
     IUTEST_EXPECT_THAT("hoga", StrCaseNe("hoge"));
     IUTEST_EXPECT_THAT("hoga", StrCaseNe(hoge));
@@ -244,7 +304,7 @@ IUTEST(Matcher, StrCaseNe)
     IUTEST_EXPECT_THAT(hoge, StrCaseNe(hog));
 }
 
-IUTEST(Matcher, StartsWith)
+IUTEST(Matchers, StartsWith)
 {
     IUTEST_EXPECT_THAT("hoge", StartsWith("ho"));
     IUTEST_EXPECT_THAT("hoge", StartsWith(hog));
@@ -252,7 +312,7 @@ IUTEST(Matcher, StartsWith)
     IUTEST_EXPECT_THAT(hoge, StartsWith(hog));
 }
 
-IUTEST(Matcher, HasSubstr)
+IUTEST(Matchers, HasSubstr)
 {
     IUTEST_EXPECT_THAT("hoge", HasSubstr("ho"));
     IUTEST_EXPECT_THAT("hoge", HasSubstr(oge));
@@ -260,7 +320,7 @@ IUTEST(Matcher, HasSubstr)
     IUTEST_EXPECT_THAT(hoge, HasSubstr(hog));
 }
 
-IUTEST(Matcher, EndsWith)
+IUTEST(Matchers, EndsWith)
 {
     IUTEST_EXPECT_THAT("hoge", EndsWith("ge"));
     IUTEST_EXPECT_THAT("hoge", EndsWith(oge));
@@ -268,7 +328,7 @@ IUTEST(Matcher, EndsWith)
     IUTEST_EXPECT_THAT(hoge, EndsWith(oge));
 }
 
-IUTEST(Matcher, Equals)
+IUTEST(Matchers, Equals)
 {
     IUTEST_EXPECT_THAT(0, Equals(0));
     IUTEST_EXPECT_THAT("hoge", Equals("hoge"));
@@ -277,7 +337,7 @@ IUTEST(Matcher, Equals)
     IUTEST_EXPECT_THAT(hoge, Equals(hoge));
 }
 
-IUTEST(Matcher, Contains)
+IUTEST(Matchers, Contains)
 {
     IUTEST_EXPECT_THAT(va, Contains(1));
     IUTEST_EXPECT_THAT(gb, Contains(1));
@@ -286,7 +346,7 @@ IUTEST(Matcher, Contains)
 }
 
 #if IUTEST_HAS_MATCHER_EACH
-IUTEST(Matcher, Each)
+IUTEST(Matchers, Each)
 {
     IUTEST_EXPECT_THAT(gc, Each(1));
     IUTEST_EXPECT_THAT(va, Each(Le(10)));
@@ -294,7 +354,7 @@ IUTEST(Matcher, Each)
 }
 #endif
 
-IUTEST(Matcher, ContainerEq)
+IUTEST(Matchers, ContainerEq)
 {
     IUTEST_EXPECT_THAT(ga, ContainerEq(ga));
     IUTEST_EXPECT_THAT(va, ContainerEq(va));
@@ -305,7 +365,7 @@ IUTEST(Matcher, ContainerEq)
 }
 
 #if IUTEST_HAS_MATCHER_POINTWISE
-IUTEST(Matcher, Pointwise)
+IUTEST(Matchers, Pointwise)
 {
     IUTEST_EXPECT_THAT(gn[0], Pointwise(Ne(), gn[1]));
     IUTEST_EXPECT_THAT(gn[0], Pointwise(Lt(), gn[1]));
@@ -319,12 +379,12 @@ IUTEST(Matcher, Pointwise)
 #endif
 
 #if !defined(IUTEST_USE_GMOCK) || (defined(GMOCK_VER) && GMOCK_VER >= 0x01070000)
-IUTEST(Matcher, IsEmpty)
+IUTEST(Matchers, IsEmpty)
 {
     IUTEST_ASSERT_THAT(ve, IsEmpty());
 }
 
-IUTEST(Matcher, SizeIs)
+IUTEST(Matchers, SizeIs)
 {
     IUTEST_ASSERT_THAT(ve, SizeIs(0u));
     IUTEST_ASSERT_THAT(va, SizeIs(Ge(10u)));
@@ -335,7 +395,7 @@ IUTEST(Matcher, SizeIs)
 #endif
 
 #if !defined(IUTEST_USE_GMOCK)
-IUTEST(Matcher, At)
+IUTEST(Matchers, At)
 {
     IUTEST_EXPECT_THAT(gb, At(1, 2));
     IUTEST_EXPECT_THAT(va, At(1, Gt(0)));
@@ -343,18 +403,18 @@ IUTEST(Matcher, At)
 #endif
 
 #if IUTEST_HAS_MATCHER_EACH
-IUTEST(Matcher, Key)
+IUTEST(Matchers, Key)
 {
     IUTEST_EXPECT_THAT(gm, Each(Key(Le(10))));
 }
 
-IUTEST(Matcher, Pair)
+IUTEST(Matchers, Pair)
 {
     IUTEST_EXPECT_THAT(gm, Each(Pair(Le(10), 100)));
 }
 #endif
 
-IUTEST(Matcher, Field)
+IUTEST(Matchers, Field)
 {
     IUTEST_EXPECT_THAT( gx, Field(&X::a, 1));
     IUTEST_EXPECT_THAT(&gx, Field(&X::a, 1));
@@ -363,7 +423,7 @@ IUTEST(Matcher, Field)
 #endif
 }
 
-IUTEST(Matcher, Property)
+IUTEST(Matchers, Property)
 {
     IUTEST_EXPECT_THAT( gx, Property(&X::GetA, 1));
     IUTEST_EXPECT_THAT(&gx, Property(&X::GetA, 1));
@@ -372,13 +432,13 @@ IUTEST(Matcher, Property)
 #endif
 }
 
-IUTEST(Matcher, ResultOf)
+IUTEST(Matchers, ResultOf)
 {
     IUTEST_EXPECT_THAT(1, ResultOf(X2, 2));
     IUTEST_EXPECT_THAT(1, ResultOf(X2, Gt(1)));
 }
 
-IUTEST(Matcher, Pointee)
+IUTEST(Matchers, Pointee)
 {
 #if !defined(IUTEST_USE_GMOCK)
     IUTEST_EXPECT_THAT(ga, Pointee(0));
@@ -387,27 +447,27 @@ IUTEST(Matcher, Pointee)
     IUTEST_EXPECT_THAT(p2, Pointee(IsNull()));
 }
 
-IUTEST(Matcher, _)
+IUTEST(Matchers, _)
 {
     IUTEST_EXPECT_THAT( 42, _);
     IUTEST_EXPECT_THAT( gx, _);
     IUTEST_EXPECT_THAT(&gx, _);
 }
 
-IUTEST(Matcher, Not)
+IUTEST(Matchers, Not)
 {
     IUTEST_EXPECT_THAT(42, Not(1));
     IUTEST_EXPECT_THAT(42, Not(Ne(42)));
 }
 
-IUTEST(Matcher, A)
+IUTEST(Matchers, A)
 {
     IUTEST_EXPECT_THAT( 42, A<int>());
     IUTEST_EXPECT_THAT( gx, A<X>());
     IUTEST_EXPECT_THAT(&gx, A<X*>());
 }
 
-IUTEST(Matcher, ElementsAreArray)
+IUTEST(Matchers, ElementsAreArray)
 {
     IUTEST_EXPECT_THAT(va, ElementsAreArray(ga));
     IUTEST_EXPECT_THAT(gc, ElementsAreArray(gc));
@@ -611,7 +671,7 @@ IUTEST(MatcherFailure, EndsWith)
 
 IUTEST(MatcherFailure, Equals)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", Equals("Hoge")) , "Eq: Hoge" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", Equals("Hoge")) , "Eq: \"Hoge\"" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(0, Equals(1)), "Eq: 1" );
 }
 
@@ -717,9 +777,50 @@ IUTEST(MatcherFailure, Pointee)
 
 IUTEST(MatcherFailure, Not)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(1, Not(1)), "Not: (1)");
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(1, Not(Eq(1))), "Not: (Eq: 1)");
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(1, Not(1)), "isn't equal to 1");
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(1, Not(Eq(1))), "isn't equal to 1");
 }
+
+#if !defined(IUTEST_USE_GMOCK)
+IUTEST(Matchers, Descriptions)
+{
+    ::std::ostringstream os;
+    const int five = 5;
+    const ::iutest::detail::IMatcher& gt = Gt(five);
+    IUTEST_EXPECT_EQ("Gt: 5", gt.WhichIs());
+    gt.DescribeTo(&os);
+    IUTEST_EXPECT_EQ("is > 5", os.str());
+    os.str("");
+    gt.DescribeNegationTo(&os);
+    IUTEST_EXPECT_EQ("isn't > 5", os.str());
+
+    os.str("");
+    Eq(3).DescribeTo(&os);
+    IUTEST_EXPECT_EQ("is equal to 3", os.str());
+    os.str("");
+    Eq(3).DescribeNegationTo(&os);
+    IUTEST_EXPECT_EQ("isn't equal to 3", os.str());
+    os.str("");
+    IsNull().DescribeNegationTo(&os);
+    IUTEST_EXPECT_EQ("isn't NULL", os.str());
+    os.str("");
+    IsEmpty().DescribeTo(&os);
+    IUTEST_EXPECT_EQ("is empty", os.str());
+
+    os.str("");
+    Not(Gt(5)).DescribeTo(&os);
+    IUTEST_EXPECT_EQ("isn't > 5", os.str());
+    os.str("");
+    Not(Gt(5)).DescribeNegationTo(&os);
+    IUTEST_EXPECT_EQ("is > 5", os.str());
+    os.str("");
+    Not(Not(Gt(5))).DescribeTo(&os);
+    IUTEST_EXPECT_EQ("is > 5", os.str());
+    IUTEST_EXPECT_EQ("isn't equal to 3", Not(3).WhichIs());
+    IUTEST_EXPECT_THAT(3, Not(Gt(5)));
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(6, Not(Gt(5))), "isn't > 5");
+}
+#endif
 
 IUTEST(MatcherFailure, ElementsAreArray)
 {
@@ -732,7 +833,7 @@ IUTEST(MatcherFailure, ElementsAreArray)
 
 #if IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD
 
-IUTEST(Matcher, ElementsAreArrayForward)
+IUTEST(Matchers, ElementsAreArrayForward)
 {
     IUTEST_EXPECT_THAT(va, ElementsAreArrayForward(ga));
     IUTEST_EXPECT_THAT(gc, ElementsAreArrayForward(gc));
@@ -755,7 +856,7 @@ IUTEST(MatcherFailure, ElementsAreArrayForward)
 
 #if IUTEST_HAS_MATCHER_ELEMENTSARE
 
-IUTEST(Matcher, ElementsAre)
+IUTEST(Matchers, ElementsAre)
 {
     IUTEST_EXPECT_THAT("hoge", ElementsAre('h', 'o', 'g', 'e', '\0'));
 #if !defined(IUTEST_USE_GMOCK)
@@ -781,14 +882,14 @@ IUTEST(MatcherFailure, ElementsAre)
 
 #if IUTEST_HAS_MATCHER_REGEX
 
-IUTEST(Matcher, MatchesRegex)
+IUTEST(Matchers, MatchesRegex)
 {
     ::std::string s = "greeeeeen";
     IUTEST_EXPECT_THAT(s, MatchesRegex("gre+n"));
     IUTEST_EXPECT_THAT("hogeeeeeet", MatchesRegex("hoge+t"));
 }
 
-IUTEST(Matcher, ContainsRegex)
+IUTEST(Matchers, ContainsRegex)
 {
     ::std::string s = "greeeeeen";
     IUTEST_EXPECT_THAT(s, ContainsRegex("e"));
@@ -848,7 +949,7 @@ OptionalInt opt1(1);
 OptionalIntPtr optnull(p1);
 OptionalInt optempty;
 
-IUTEST(Matcher, Optional)
+IUTEST(Matchers, Optional)
 {
     IUTEST_EXPECT_THAT(opt1, Optional(1));
     IUTEST_EXPECT_THAT(opt1, Optional(Eq(1)));
@@ -867,7 +968,7 @@ IUTEST(MatcherFailure, Optional)
 
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 
-IUTEST(Matcher, AllOf)
+IUTEST(Matchers, AllOf)
 {
     IUTEST_EXPECT_THAT("hoge", AllOf( StartsWith("ho"), EndsWith("ge")));
     IUTEST_EXPECT_THAT("9347812650", AllOf(
@@ -883,7 +984,7 @@ IUTEST(Matcher, AllOf)
     ));
 }
 
-IUTEST(Matcher, AnyOf)
+IUTEST(Matchers, AnyOf)
 {
     IUTEST_EXPECT_THAT("hoge", AnyOf( StartsWith("ho"), EndsWith("ge")));
     IUTEST_EXPECT_THAT("hoge", AnyOf( StartsWith("ho"), EndsWith("Ge")));
@@ -901,6 +1002,61 @@ IUTEST(Matcher, AnyOf)
     ));
 }
 
+#if !defined(IUTEST_USE_GTEST)
+IUTEST(Matchers, CompositeCopiesAndReferences)
+{
+#if IUTEST_HAS_MATCHER_VARIADIC
+    typedef ::iutest::detail::AnyOfMatcher<CopyTrackedMatcher, CopyTrackedMatcher> AnyPair;
+    typedef ::iutest::detail::AllOfMatcher<CopyTrackedMatcher, CopyTrackedMatcher> AllPair;
+    typedef ::iutest::detail::AnyOfMatcher<CopyTrackedMatcher&, CopyTrackedMatcher&> AnyPairRefs;
+    typedef ::iutest::detail::AllOfMatcher<CopyTrackedMatcher&, CopyTrackedMatcher&> AllPairRefs;
+#else
+    typedef ::iutest::detail::AnyOfMatcher2<CopyTrackedMatcher, CopyTrackedMatcher> AnyPair;
+    typedef ::iutest::detail::AllOfMatcher2<CopyTrackedMatcher, CopyTrackedMatcher> AllPair;
+    typedef ::iutest::detail::AnyOfMatcher2<CopyTrackedMatcher&, CopyTrackedMatcher&> AnyPairRefs;
+    typedef ::iutest::detail::AllOfMatcher2<CopyTrackedMatcher&, CopyTrackedMatcher&> AllPairRefs;
+#endif
+    int copies = 0;
+    CopyTrackedMatcher first(1, &copies);
+    CopyTrackedMatcher second(2, &copies);
+
+    AnyPair any(first, second);
+    IUTEST_EXPECT_EQ(2, copies);
+    copies = 0;
+    AllPair all(first, second);
+    IUTEST_EXPECT_EQ(2, copies);
+    IUTEST_EXPECT_TRUE(any(2));
+    IUTEST_EXPECT_FALSE(any(3));
+    IUTEST_EXPECT_FALSE(all(2));
+
+    copies = 0;
+    AnyPairRefs any_refs(first, second);
+    AllPairRefs all_refs(first, second);
+    IUTEST_EXPECT_EQ(0, copies);
+    first.SetExpected(3);
+    second.SetExpected(3);
+    IUTEST_EXPECT_TRUE(any_refs(3));
+    IUTEST_EXPECT_TRUE(all_refs(3));
+    IUTEST_EXPECT_FALSE(any(3));
+    IUTEST_EXPECT_FALSE(all(3));
+
+#if IUTEST_CPLUSPLUS >= 201703L
+    copies = 0;
+    IUTEST_EXPECT_TRUE(AnyOf(first, first, first, first, first, first, first, first, first)(3));
+    IUTEST_EXPECT_EQ(9, copies);
+    copies = 0;
+    IUTEST_EXPECT_TRUE(AnyOf(first, first, first, first, first, first, first, first, first, first)(3));
+    IUTEST_EXPECT_EQ(10, copies);
+    copies = 0;
+    IUTEST_EXPECT_TRUE(AllOf(first, first, first, first, first, first, first, first, first)(3));
+    IUTEST_EXPECT_EQ(9, copies);
+    copies = 0;
+    IUTEST_EXPECT_TRUE(AllOf(first, first, first, first, first, first, first, first, first, first)(3));
+    IUTEST_EXPECT_EQ(10, copies);
+#endif
+}
+#endif
+
 IUTEST(MatcherFailure, AllOf)
 {
     CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge"
@@ -916,12 +1072,12 @@ IUTEST(MatcherFailure, AnyOf)
 }
 
 #if IUTEST_HAS_MATCHER_EACH
-IUTEST(Matcher, EachAllOf)
+IUTEST(Matchers, EachAllOf)
 {
     IUTEST_EXPECT_THAT(va, Each(AllOf( Ge(0), Le(10) )));
 }
 
-IUTEST(Matcher, EachAnyOf)
+IUTEST(Matchers, EachAnyOf)
 {
     IUTEST_EXPECT_THAT(va, Each(AnyOf( Ge(0), Le(10) )));
 }
@@ -959,4 +1115,3 @@ int main(int argc, char* argv[])
     IUTEST_INIT(&argc, argv);
     return IUTEST_RUN_ALL_TESTS();
 }
-
