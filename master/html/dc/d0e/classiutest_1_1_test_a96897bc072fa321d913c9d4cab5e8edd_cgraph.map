@@ -1,4 +1,5 @@
 <map id="iutest::Test::IsSkipped" name="iutest::Test::IsSkipped">
-<area shape="rect" id="node1" title="スキップされたかどうか" alt="" coords="5,5,169,32"/>
-<area shape="rect" id="node2" href="$dc/d0e/classiutest_1_1_test.html#a69f141c4284b30b119c5691c7933d56f" title="実行中の Test の取得" alt="" coords="217,5,416,32"/>
+<area shape="rect" id="Node000001" title="スキップされたかどうか" alt="" coords="5,5,169,31"/>
+<area shape="rect" id="Node000002" href="$dc/d0e/classiutest_1_1_test.html#a95691dc68caff884c92f8015f275b797" title="実行中の Test の取得" alt="" coords="217,5,416,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,15,204,15,204,21,170,21"/>
 </map>

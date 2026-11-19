@@ -1,0 +1,6 @@
+<map id="iutest::matchers::ExplainMatchResult" name="iutest::matchers::ExplainMatchResult">
+<area shape="rect" id="Node000001" title="Returns whether actual matches matcher and writes its explanation to listener." alt="" coords="237,29,421,69"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="369,18,355,11,329,8,307,10,294,15,289,21,291,28,286,30,283,20,290,10,306,5,329,3,356,6,371,13"/>
+<area shape="rect" id="Node000002" href="$d6/d41/namespaceiutest_1_1matchers.html#aac80f8c613c3e1ad2555151227b4442c" title="Writes explanations to a listener, preserving its interest in output." alt="" coords="5,29,189,69"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="223,52,190,52,190,47,223,47"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="iuutil::FindTypedTestSuite" name="iuutil::FindTypedTestSuite">
+<area shape="rect" id="Node000001" title="Typed Test の TestSuite の検索" alt="" coords="5,35,192,60"/>
+<area shape="rect" id="Node000002" href="$d8/dbf/namespaceiuutil.html#a50fe9e6d5750a0912bbd4e000e494917" title="Get TestSuite by index" alt="" coords="255,5,401,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,33,241,26,242,32,193,38"/>
+<area shape="rect" id="Node000003" href="$d8/dbf/namespaceiuutil.html#a89156c3f0e37b075a1791fc1858c144a" title="Get total TestSuite count" alt="" coords="240,55,416,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="193,56,227,60,226,66,192,61"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="iutest::TestFlag::IsEnableFlag" name="iutest::TestFlag::IsEnableFlag">
+<area shape="rect" id="Node000001" title="フラグが立っているかどうか" alt="" coords="227,13,439,38"/>
+<area shape="rect" id="Node000002" href="$d6/d0f/classiutest_1_1_t_a_p_print_listener.html#a7abebe763a8728c7359a3f855973a48a" title="テストプログラム開始時に呼ばれます" alt="" coords="5,5,179,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="213,28,179,28,179,23,213,23"/>
+</map>

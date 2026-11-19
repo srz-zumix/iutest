@@ -1,6 +1,9 @@
 <map id="iutest::TestWithAny" name="iutest::TestWithAny">
-<area shape="rect" id="node1" title="any パラメータテストフィクスチャ" alt="" coords="75,185,223,212"/>
-<area shape="rect" id="node2" href="$dc/d0e/classiutest_1_1_test.html" title="テストベース" alt="" coords="18,102,111,129"/>
-<area shape="rect" id="node3" href="$d8/d3d/classiutest_1_1_test_info.html" title="テスト情報クラス" alt="" coords="5,5,124,32"/>
-<area shape="rect" id="node4" href="$df/d22/classiutest_1_1_with_param_interface.html" title=" " alt="" coords="136,95,332,136"/>
+<area shape="rect" id="Node000001" title="any パラメータテストフィクスチャ" alt="" coords="75,183,223,208"/>
+<area shape="rect" id="Node000002" href="$dc/d0e/classiutest_1_1_test.html" title="テストベース" alt="" coords="18,101,111,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,134,138,181,135,185,85,138"/>
+<area shape="rect" id="Node000003" href="$d8/d3d/classiutest_1_1_test_info.html" title="テスト情報クラス" alt="" coords="5,5,124,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="67,44,67,101,62,101,62,44"/>
+<area shape="rect" id="Node000004" href="$df/d22/classiutest_1_1_with_param_interface.html" title=" " alt="" coords="136,93,332,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="205,145,163,184,159,181,202,141"/>
 </map>

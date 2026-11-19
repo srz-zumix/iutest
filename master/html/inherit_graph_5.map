@@ -1,3 +1,7 @@
 <map id="クラス階層図" name="クラス階層図">
-<area shape="rect" id="node1" href="$d3/d17/classiutest_1_1_environment.html" title="環境セットクラス" alt="" coords="5,5,156,32"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,5,193,31"/>
+<area shape="rect" id="Node000001" href="$df/d4b/classiutest_1_1_i_u_t_e_s_t___c_x_x___f_i_n_a_l.html" title="ファイル処理クラスインターフェイス" alt="" coords="241,23,388,63"/>
+<area shape="poly" id="edge5_Node000000_Node000001" title=" " alt="" coords="208,28,242,32,241,37,207,33"/>
+<area shape="rect" id="Node000002" href="$d3/d87/classiutest_1_1_test_suite.html" title="TestSuite" alt="" coords="36,55,163,80"/>
+<area shape="poly" id="edge6_Node000002_Node000001" title=" " alt="" coords="176,56,241,49,241,54,177,61"/>
 </map>

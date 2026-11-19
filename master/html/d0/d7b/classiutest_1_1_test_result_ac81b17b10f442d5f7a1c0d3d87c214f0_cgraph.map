@@ -1,0 +1,7 @@
+<map id="iutest::TestResult::Skipped" name="iutest::TestResult::Skipped">
+<area shape="rect" id="Node000001" title="スキップしたかどうか" alt="" coords="5,5,140,45"/>
+<area shape="rect" id="Node000002" href="$d0/d7b/classiutest_1_1_test_result.html#a54b0d9258545f81f3da76aea86181071" title="成功したかどうか" alt="" coords="188,5,323,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,23,174,23,174,28,140,28"/>
+<area shape="rect" id="Node000003" href="$d0/d7b/classiutest_1_1_test_result.html#abddf109b7e5d59a6804ac22e884083e5" title="失敗したかどうか" alt="" coords="371,5,505,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="323,23,356,23,356,28,323,28"/>
+</map>

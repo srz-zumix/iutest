@@ -1,5 +1,7 @@
 <map id="internal/iutest_mfc.hpp" name="internal/iutest_mfc.hpp">
-<area shape="rect" id="node1" title="MFC support" alt="" coords="48,5,221,32"/>
-<area shape="rect" id="node2" href="$d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="5,80,139,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="163,80,234,107"/>
+<area shape="rect" id="Node000001" title="MFC support" alt="" coords="48,5,221,31"/>
+<area shape="rect" id="Node000002" href="$d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="5,79,139,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="126,33,93,70,89,66,122,29"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="163,79,234,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="147,29,181,67,177,70,143,33"/>
 </map>

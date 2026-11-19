@@ -1,4 +1,5 @@
 <map id="iutest::StdioFile::Write" name="iutest::StdioFile::Write">
-<area shape="rect" id="node1" title="書き込み" alt="" coords="221,5,352,47"/>
-<area shape="rect" id="node2" href="$d3/d61/classiutest_1_1_temp_file.html#ad158ea7f3ce53e8e86c4148b78cd575a" title="書き込み" alt="" coords="5,13,173,39"/>
+<area shape="rect" id="Node000001" title="書き込み" alt="" coords="221,5,352,45"/>
+<area shape="rect" id="Node000002" href="$d3/d61/classiutest_1_1_temp_file.html#ad158ea7f3ce53e8e86c4148b78cd575a" title="書き込み" alt="" coords="5,13,173,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,28,174,28,174,23,208,23"/>
 </map>

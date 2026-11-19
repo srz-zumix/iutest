@@ -1,14 +1,28 @@
 <map id="internal/iutest_stdlib_defs.hpp" name="internal/iutest_stdlib_defs.hpp">
-<area shape="rect" id="node1" title="stdlib detect defines" alt="" coords="366,5,522,47"/>
-<area shape="rect" id="node2" href="$d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="8,244,141,271"/>
-<area shape="rect" id="node3" href="$dc/d2f/iutest__compiler_8hpp.html" title="iris unit test compiler 依存の吸収 ファイル" alt="" coords="31,95,182,121"/>
-<area shape="rect" id="node6" title=" " alt="" coords="206,95,293,121"/>
-<area shape="rect" id="node7" title=" " alt="" coords="317,95,387,121"/>
-<area shape="rect" id="node8" title=" " alt="" coords="411,95,477,121"/>
-<area shape="rect" id="node9" title=" " alt="" coords="501,95,571,121"/>
-<area shape="rect" id="node10" title=" " alt="" coords="596,95,655,121"/>
-<area shape="rect" id="node11" title=" " alt="" coords="679,95,758,121"/>
-<area shape="rect" id="node12" title=" " alt="" coords="782,95,853,121"/>
-<area shape="rect" id="node4" href="$da/d9f/iutest__platform_8hpp.html" title="iris unit test platform detection" alt="" coords="57,169,207,196"/>
-<area shape="rect" id="node5" href="$d7/d02/iutest__pragma_8hpp.html" title="pragma macros" alt="" coords="232,169,376,196"/>
+<area shape="rect" id="Node000001" title="stdlib detect defines" alt="" coords="366,5,522,45"/>
+<area shape="rect" id="Node000002" href="$d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="8,240,141,265"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="366,30,271,34,167,45,119,53,76,64,43,78,20,95,11,110,8,127,10,145,15,163,34,198,56,228,52,231,30,201,11,165,5,146,3,127,6,108,16,92,40,74,75,59,118,48,167,39,271,29,365,25"/>
+<area shape="rect" id="Node000003" href="$dc/d2f/iutest__compiler_8hpp.html" title="iris unit test compiler 依存の吸収 ファイル" alt="" coords="31,93,182,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="366,47,169,93,168,88,365,42"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="206,93,292,119"/>
+<area shape="poly" id="edge8_Node000001_Node000006" title=" " alt="" coords="398,48,291,91,289,86,396,43"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="316,93,387,119"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="423,48,378,86,374,82,420,44"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="411,93,476,119"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="446,46,446,79,441,79,441,46"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="500,93,571,119"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="468,44,513,82,510,86,464,48"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="596,93,654,119"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="488,43,587,85,585,90,486,48"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="679,93,758,119"/>
+<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="510,43,667,87,665,92,509,48"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="782,93,852,119"/>
+<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="522,39,768,90,767,95,521,44"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="89,121,65,141,46,168,43,183,45,198,59,227,54,230,40,200,38,182,41,166,61,137,86,117"/>
+<area shape="rect" id="Node000004" href="$da/d9f/iutest__platform_8hpp.html" title="iris unit test platform detection" alt="" coords="56,167,207,192"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="113,118,126,153,121,155,108,120"/>
+<area shape="rect" id="Node000005" href="$d7/d02/iutest__pragma_8hpp.html" title="pragma macros" alt="" coords="232,167,376,192"/>
+<area shape="poly" id="edge6_Node000003_Node000005" title=" " alt="" coords="139,116,259,159,258,164,137,121"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="124,194,94,231,90,227,120,191"/>
+<area shape="poly" id="edge7_Node000005_Node000002" title=" " alt="" coords="268,195,125,238,124,233,266,189"/>
 </map>

@@ -1,8 +1,17 @@
 <map id="internal/iutest_type_traits.hpp" name="internal/iutest_type_traits.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="40,5,190,47"/>
-<area shape="rect" id="node2" href="$d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="48,244,182,271"/>
-<area shape="rect" id="node3" href="$dc/d2f/iutest__compiler_8hpp.html" title="iris unit test compiler 依存の吸収 ファイル" alt="" coords="40,95,190,121"/>
-<area shape="rect" id="node6" href="$d9/d6f/iutest__pp_8hpp.html" title="preprocessor definition" alt="" coords="277,95,388,121"/>
-<area shape="rect" id="node4" href="$da/d9f/iutest__platform_8hpp.html" title="iris unit test platform detection" alt="" coords="40,169,190,196"/>
-<area shape="rect" id="node5" href="$d7/d02/iutest__pragma_8hpp.html" title="pragma macros" alt="" coords="215,169,359,196"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="40,5,189,45"/>
+<area shape="rect" id="Node000002" href="$d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="48,240,181,265"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,47,51,68,29,95,16,120,9,143,10,165,21,191,42,215,69,232,66,237,38,219,16,193,5,166,4,142,11,119,24,92,48,64,76,43"/>
+<area shape="rect" id="Node000003" href="$dc/d2f/iutest__compiler_8hpp.html" title="iris unit test compiler 依存の吸収 ファイル" alt="" coords="39,93,190,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="117,46,117,79,112,79,112,46"/>
+<area shape="rect" id="Node000006" href="$d9/d6f/iutest__pp_8hpp.html" title="preprocessor definition" alt="" coords="276,93,387,119"/>
+<area shape="poly" id="edge8_Node000001_Node000006" title=" " alt="" coords="167,43,288,86,286,91,166,48"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="85,121,54,140,40,153,29,168,26,186,35,203,53,219,75,232,72,236,50,223,31,207,21,187,24,166,36,149,51,136,83,117"/>
+<area shape="rect" id="Node000004" href="$da/d9f/iutest__platform_8hpp.html" title="iris unit test platform detection" alt="" coords="39,167,190,192"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="117,119,117,153,112,153,112,119"/>
+<area shape="rect" id="Node000005" href="$d7/d02/iutest__pragma_8hpp.html" title="pragma macros" alt="" coords="214,167,358,192"/>
+<area shape="poly" id="edge6_Node000003_Node000005" title=" " alt="" coords="143,116,247,159,245,164,141,121"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="117,192,117,226,112,226,112,192"/>
+<area shape="poly" id="edge7_Node000005_Node000002" title=" " alt="" coords="260,194,156,237,154,232,258,190"/>
+<area shape="poly" id="edge9_Node000006_Node000002" title=" " alt="" coords="346,117,360,133,373,152,379,173,373,194,344,213,300,227,195,246,194,241,299,222,342,208,368,190,374,173,368,154,356,136,342,120"/>
 </map>

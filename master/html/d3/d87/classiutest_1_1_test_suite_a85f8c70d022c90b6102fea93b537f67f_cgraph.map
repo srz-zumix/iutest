@@ -1,6 +1,9 @@
 <map id="iutest::TestSuite::Passed" name="iutest::TestSuite::Passed">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,140,80"/>
-<area shape="rect" id="node2" href="$d3/d87/classiutest_1_1_test_suite.html#a7cec315759f615d01386508deab06eb4" title=" " alt="" coords="188,5,323,47"/>
-<area shape="rect" id="node3" href="$d0/d7b/classiutest_1_1_test_result.html#a54b0d9258545f81f3da76aea86181071" title="成功したかどうか" alt="" coords="188,71,323,112"/>
-<area shape="rect" id="node4" href="$d0/d7b/classiutest_1_1_test_result.html#abddf109b7e5d59a6804ac22e884083e5" title="失敗したかどうか" alt="" coords="371,71,505,112"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,37,140,77"/>
+<area shape="rect" id="Node000002" href="$d3/d87/classiutest_1_1_test_suite.html#a7cec315759f615d01386508deab06eb4" title=" " alt="" coords="188,5,323,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,43,174,37,175,42,140,48"/>
+<area shape="rect" id="Node000003" href="$d0/d7b/classiutest_1_1_test_result.html#a54b0d9258545f81f3da76aea86181071" title="成功したかどうか" alt="" coords="188,69,323,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="140,66,175,73,174,78,140,72"/>
+<area shape="rect" id="Node000004" href="$d0/d7b/classiutest_1_1_test_result.html#abddf109b7e5d59a6804ac22e884083e5" title="失敗したかどうか" alt="" coords="371,69,505,109"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="323,87,356,87,356,92,323,92"/>
 </map>

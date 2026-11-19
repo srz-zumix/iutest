@@ -11,8 +11,8 @@ var indexSectionsWithContent =
   8: "bcdfkmoprstvw",
   9: "au",
   10: "ai",
-  11: "acefilmoptアテ値型",
-  12: "コ変環非"
+  11: "acefgilmoptアテ値型",
+  12: "cfhisコ変環非"
 };
 
 var indexSectionNames =

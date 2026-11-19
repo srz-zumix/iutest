@@ -1,0 +1,540 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>iutest: iutest::BriefUnitTestResultPrinter クラス</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">iutest<span id="projectnumber">&#160;1.17.99.14</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></li><li class="navelem"><a class="el" href="../../df/d93/classiutest_1_1_brief_unit_test_result_printer.html">BriefUnitTestResultPrinter</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">公開メンバ関数</a> &#124;
+<a href="../../db/d8f/classiutest_1_1_brief_unit_test_result_printer-members.html">全メンバ一覧</a>  </div>
+  <div class="headertitle"><div class="title">iutest::BriefUnitTestResultPrinter クラス</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>失敗と実行結果のみ出力するリスナー  
+ <a href="../../df/d93/classiutest_1_1_brief_unit_test_result_printer.html#details">[詳解]</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d0/d81/iutest__default__printer_8hpp_source.html">iutest_default_printer.hpp</a>&gt;</code></p>
+<div class="dynheader">
+iutest::BriefUnitTestResultPrinter の継承関係図</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d7/da9/classiutest_1_1_brief_unit_test_result_printer__inherit__graph.png" border="0" usemap="#aiutest_1_1_brief_unit_test_result_printer_inherit__map" alt="Inheritance graph"/></div>
+<map name="aiutest_1_1_brief_unit_test_result_printer_inherit__map" id="aiutest_1_1_brief_unit_test_result_printer_inherit__map">
+<area shape="rect" title="失敗と実行結果のみ出力するリスナー" alt="" coords="5,167,197,207"/>
+<area shape="rect" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html" title="デフォルト出力イベントリスナー" alt="" coords="8,79,195,119"/>
+<area shape="poly" title=" " alt="" coords="104,133,104,166,99,166,99,133"/>
+<area shape="rect" href="../../dd/d01/classiutest_1_1_test_event_listener.html" title="イベントリスナー" alt="" coords="10,5,193,31"/>
+<area shape="poly" title=" " alt="" coords="104,44,104,79,99,79,99,44"/>
+</map>
+<center><span class="legend">[<a href="../../graph_legend.html">凡例</a>]</span></center></div>
+<div class="dynheader">
+iutest::BriefUnitTestResultPrinter 連携図</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d1/dcd/classiutest_1_1_brief_unit_test_result_printer__coll__graph.png" border="0" usemap="#aiutest_1_1_brief_unit_test_result_printer_coll__map" alt="Collaboration graph"/></div>
+<map name="aiutest_1_1_brief_unit_test_result_printer_coll__map" id="aiutest_1_1_brief_unit_test_result_printer_coll__map">
+<area shape="rect" title="失敗と実行結果のみ出力するリスナー" alt="" coords="5,167,197,207"/>
+<area shape="rect" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html" title="デフォルト出力イベントリスナー" alt="" coords="8,79,195,119"/>
+<area shape="poly" title=" " alt="" coords="104,133,104,166,99,166,99,133"/>
+<area shape="rect" href="../../dd/d01/classiutest_1_1_test_event_listener.html" title="イベントリスナー" alt="" coords="10,5,193,31"/>
+<area shape="poly" title=" " alt="" coords="104,44,104,79,99,79,99,44"/>
+</map>
+<center><span class="legend">[<a href="../../graph_legend.html">凡例</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+公開メンバ関数</h2></td></tr>
+<tr class="memitem:afcf266adebed29badd624c4822b73d18" id="r_afcf266adebed29badd624c4822b73d18"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d93/classiutest_1_1_brief_unit_test_result_printer.html#afcf266adebed29badd624c4822b73d18">OnTestProgramStart</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a> &amp;) <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></td></tr>
+<tr class="memdesc:afcf266adebed29badd624c4822b73d18"><td class="mdescLeft">&#160;</td><td class="mdescRight">テストプログラム開始時に呼ばれます  <br /></td></tr>
+<tr class="separator:afcf266adebed29badd624c4822b73d18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2694c1d42e0dcefe78212b59ae004146" id="r_a2694c1d42e0dcefe78212b59ae004146"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d93/classiutest_1_1_brief_unit_test_result_printer.html#a2694c1d42e0dcefe78212b59ae004146">OnTestIterationStart</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a> &amp;, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>) <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></td></tr>
+<tr class="memdesc:a2694c1d42e0dcefe78212b59ae004146"><td class="mdescLeft">&#160;</td><td class="mdescRight">単体テスト開始時に毎回呼ばれます  <br /></td></tr>
+<tr class="separator:a2694c1d42e0dcefe78212b59ae004146"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7eac47a499b2be5012655a4c41a500c7" id="r_a7eac47a499b2be5012655a4c41a500c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d93/classiutest_1_1_brief_unit_test_result_printer.html#a7eac47a499b2be5012655a4c41a500c7">OnEnvironmentsSetUpStart</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a> &amp;) <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></td></tr>
+<tr class="memdesc:a7eac47a499b2be5012655a4c41a500c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">グローバル環境設定 SetUp 前に呼ばれます  <br /></td></tr>
+<tr class="separator:a7eac47a499b2be5012655a4c41a500c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa20c67f4a6416d25a356fabf39c429e" id="r_afa20c67f4a6416d25a356fabf39c429e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d93/classiutest_1_1_brief_unit_test_result_printer.html#afa20c67f4a6416d25a356fabf39c429e">OnTestSuiteStart</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">TestSuite</a> &amp;) <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></td></tr>
+<tr class="memdesc:afa20c67f4a6416d25a356fabf39c429e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html" title="TestSuite">TestSuite</a> 開始時に呼ばれます  <br /></td></tr>
+<tr class="separator:afa20c67f4a6416d25a356fabf39c429e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9427e726ae8dafc80fd2522339e40fd7" id="r_a9427e726ae8dafc80fd2522339e40fd7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d93/classiutest_1_1_brief_unit_test_result_printer.html#a9427e726ae8dafc80fd2522339e40fd7">OnTestStart</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">TestInfo</a> &amp;) <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></td></tr>
+<tr class="memdesc:a9427e726ae8dafc80fd2522339e40fd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">テスト開始時に呼ばれます  <br /></td></tr>
+<tr class="separator:a9427e726ae8dafc80fd2522339e40fd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa10db93ac9e7f549fe47c7a77a20e95" id="r_aaa10db93ac9e7f549fe47c7a77a20e95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d93/classiutest_1_1_brief_unit_test_result_printer.html#aaa10db93ac9e7f549fe47c7a77a20e95">OnTestDisabled</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">TestInfo</a> &amp;) <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></td></tr>
+<tr class="memdesc:aaa10db93ac9e7f549fe47c7a77a20e95"><td class="mdescLeft">&#160;</td><td class="mdescRight">無効テスト時に呼ばれます  <br /></td></tr>
+<tr class="separator:aaa10db93ac9e7f549fe47c7a77a20e95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85ae55e8166950d6a28225bdccd25d49" id="r_a85ae55e8166950d6a28225bdccd25d49"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d93/classiutest_1_1_brief_unit_test_result_printer.html#a85ae55e8166950d6a28225bdccd25d49">OnTestRecordProperty</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../db/df6/classiutest_1_1_test_property.html">TestProperty</a> &amp;) <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></td></tr>
+<tr class="memdesc:a85ae55e8166950d6a28225bdccd25d49"><td class="mdescLeft">&#160;</td><td class="mdescRight">RecordProperty 時に呼ばれます  <br /></td></tr>
+<tr class="separator:a85ae55e8166950d6a28225bdccd25d49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29726d93550c54b8b5a123ea8ff14359" id="r_a29726d93550c54b8b5a123ea8ff14359"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d93/classiutest_1_1_brief_unit_test_result_printer.html#a29726d93550c54b8b5a123ea8ff14359">OnTestPartResult</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d8/d3c/classiutest_1_1_test_part_result.html">TestPartResult</a> &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">test_part_result</a>) <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></td></tr>
+<tr class="memdesc:a29726d93550c54b8b5a123ea8ff14359"><td class="mdescLeft">&#160;</td><td class="mdescRight">テスト失敗時に呼ばれます  <br /></td></tr>
+<tr class="separator:a29726d93550c54b8b5a123ea8ff14359"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49e03e615efb4aefa68f8a402bc26c9b" id="r_a49e03e615efb4aefa68f8a402bc26c9b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d93/classiutest_1_1_brief_unit_test_result_printer.html#a49e03e615efb4aefa68f8a402bc26c9b">OnTestEnd</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">TestInfo</a> &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">test_info</a>) <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></td></tr>
+<tr class="memdesc:a49e03e615efb4aefa68f8a402bc26c9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">テスト終了時にに呼ばれます  <br /></td></tr>
+<tr class="separator:a49e03e615efb4aefa68f8a402bc26c9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5da2e2ad9b12a1c107bf69f74f526970" id="r_a5da2e2ad9b12a1c107bf69f74f526970"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d93/classiutest_1_1_brief_unit_test_result_printer.html#a5da2e2ad9b12a1c107bf69f74f526970">OnTestSuiteEnd</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">TestSuite</a> &amp;) <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></td></tr>
+<tr class="memdesc:a5da2e2ad9b12a1c107bf69f74f526970"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html" title="TestSuite">TestSuite</a> 終了時にに呼ばれます  <br /></td></tr>
+<tr class="separator:a5da2e2ad9b12a1c107bf69f74f526970"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e526fe5d50b6b81fb6424d40fa57c26" id="r_a3e526fe5d50b6b81fb6424d40fa57c26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d93/classiutest_1_1_brief_unit_test_result_printer.html#a3e526fe5d50b6b81fb6424d40fa57c26">OnEnvironmentsTearDownStart</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a> &amp;) <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></td></tr>
+<tr class="memdesc:a3e526fe5d50b6b81fb6424d40fa57c26"><td class="mdescLeft">&#160;</td><td class="mdescRight">グローバル環境設定 TearDown 前に呼ばれます  <br /></td></tr>
+<tr class="separator:a3e526fe5d50b6b81fb6424d40fa57c26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classiutest_1_1_default_result_print_listener"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classiutest_1_1_default_result_print_listener')"><img src="../../closed.png" alt="-"/>&#160;基底クラス <a class="el" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html">iutest::DefaultResultPrintListener</a> に属する継承公開メンバ関数</td></tr>
+<tr class="memitem:ac2dedd47e58cd63cb5b8e93d75e4f224 inherit pub_methods_classiutest_1_1_default_result_print_listener" id="r_ac2dedd47e58cd63cb5b8e93d75e4f224"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html#ac2dedd47e58cd63cb5b8e93d75e4f224">OnEnvironmentsSetUpEnd</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a> &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">test</a>) <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></td></tr>
+<tr class="memdesc:ac2dedd47e58cd63cb5b8e93d75e4f224 inherit pub_methods_classiutest_1_1_default_result_print_listener"><td class="mdescLeft">&#160;</td><td class="mdescRight">グローバル環境設定 SetUp 後に呼ばれます  <br /></td></tr>
+<tr class="separator:ac2dedd47e58cd63cb5b8e93d75e4f224 inherit pub_methods_classiutest_1_1_default_result_print_listener"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1e02421da134495c1133dae1cfe3da2 inherit pub_methods_classiutest_1_1_default_result_print_listener" id="r_ab1e02421da134495c1133dae1cfe3da2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html#ab1e02421da134495c1133dae1cfe3da2">OnEnvironmentsTearDownEnd</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a> &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">test</a>) <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></td></tr>
+<tr class="memdesc:ab1e02421da134495c1133dae1cfe3da2 inherit pub_methods_classiutest_1_1_default_result_print_listener"><td class="mdescLeft">&#160;</td><td class="mdescRight">グローバル環境設定 TearDown 前に呼ばれます  <br /></td></tr>
+<tr class="separator:ab1e02421da134495c1133dae1cfe3da2 inherit pub_methods_classiutest_1_1_default_result_print_listener"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a833226262eea1a869f462987b85e41e3 inherit pub_methods_classiutest_1_1_default_result_print_listener" id="r_a833226262eea1a869f462987b85e41e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html#a833226262eea1a869f462987b85e41e3">OnTestIterationEnd</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a> &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">test</a>, <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">iteration</a>) <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></td></tr>
+<tr class="memdesc:a833226262eea1a869f462987b85e41e3 inherit pub_methods_classiutest_1_1_default_result_print_listener"><td class="mdescLeft">&#160;</td><td class="mdescRight">単体テスト終了時に毎回呼ばれます  <br /></td></tr>
+<tr class="separator:a833226262eea1a869f462987b85e41e3 inherit pub_methods_classiutest_1_1_default_result_print_listener"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a346e1abdbdfb3eec7beb3fe504c35c69 inherit pub_methods_classiutest_1_1_default_result_print_listener" id="r_a346e1abdbdfb3eec7beb3fe504c35c69"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html#a346e1abdbdfb3eec7beb3fe504c35c69">OnTestProgramEnd</a> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a> &amp;<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">test</a>) <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></td></tr>
+<tr class="memdesc:a346e1abdbdfb3eec7beb3fe504c35c69 inherit pub_methods_classiutest_1_1_default_result_print_listener"><td class="mdescLeft">&#160;</td><td class="mdescRight">テストプログラム終了時に呼ばれます  <br /></td></tr>
+<tr class="separator:a346e1abdbdfb3eec7beb3fe504c35c69 inherit pub_methods_classiutest_1_1_default_result_print_listener"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classiutest_1_1_test_event_listener"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classiutest_1_1_test_event_listener')"><img src="../../closed.png" alt="-"/>&#160;基底クラス <a class="el" href="../../dd/d01/classiutest_1_1_test_event_listener.html">iutest::TestEventListener</a> に属する継承公開メンバ関数</td></tr>
+<tr class="memitem:afcd5b2ed17daa8bb67e1d5a3467d6e26 inherit pub_methods_classiutest_1_1_test_event_listener" id="r_afcd5b2ed17daa8bb67e1d5a3467d6e26"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memItemRight" valign="bottom"><b>OnTestCaseStart</b> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">TestSuite</a> &amp;)</td></tr>
+<tr class="separator:afcd5b2ed17daa8bb67e1d5a3467d6e26 inherit pub_methods_classiutest_1_1_test_event_listener"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a448bce02f4a44a64d4417bf29a5321f0 inherit pub_methods_classiutest_1_1_test_event_listener" id="r_a448bce02f4a44a64d4417bf29a5321f0"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a>&#160;</td><td class="memItemRight" valign="bottom"><b>OnTestCaseEnd</b> (<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">TestSuite</a> &amp;)</td></tr>
+<tr class="separator:a448bce02f4a44a64d4417bf29a5321f0 inherit pub_methods_classiutest_1_1_test_event_listener"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<div class="textblock"><p>失敗と実行結果のみ出力するリスナー </p>
+</div><h2 class="groupheader">関数詳解</h2>
+<a id="a7eac47a499b2be5012655a4c41a500c7" name="a7eac47a499b2be5012655a4c41a500c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7eac47a499b2be5012655a4c41a500c7">&#9670;&#160;</a></span>OnEnvironmentsSetUpStart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a> iutest::BriefUnitTestResultPrinter::OnEnvironmentsSetUpStart </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a> &amp;&#160;</td>
+          <td class="paramname"><em>test</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>グローバル環境設定 SetUp 前に呼ばれます </p>
+
+<p><a class="el" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html#aca4bb40cb0c1191fbd8c29ce0ef5fdb0">iutest::DefaultResultPrintListener</a>を再実装しています。</p>
+
+</div>
+</div>
+<a id="a3e526fe5d50b6b81fb6424d40fa57c26" name="a3e526fe5d50b6b81fb6424d40fa57c26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e526fe5d50b6b81fb6424d40fa57c26">&#9670;&#160;</a></span>OnEnvironmentsTearDownStart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a> iutest::BriefUnitTestResultPrinter::OnEnvironmentsTearDownStart </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a> &amp;&#160;</td>
+          <td class="paramname"><em>test</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>グローバル環境設定 TearDown 前に呼ばれます </p>
+
+<p><a class="el" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html#a343a0dcf7665e2796b79ebb9b4e4a4de">iutest::DefaultResultPrintListener</a>を再実装しています。</p>
+
+</div>
+</div>
+<a id="aaa10db93ac9e7f549fe47c7a77a20e95" name="aaa10db93ac9e7f549fe47c7a77a20e95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa10db93ac9e7f549fe47c7a77a20e95">&#9670;&#160;</a></span>OnTestDisabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a> iutest::BriefUnitTestResultPrinter::OnTestDisabled </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">TestInfo</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>無効テスト時に呼ばれます </p>
+
+<p><a class="el" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html#ab7f9017bd3c02af3f2ccf9c65237486d">iutest::DefaultResultPrintListener</a>を再実装しています。</p>
+
+</div>
+</div>
+<a id="a49e03e615efb4aefa68f8a402bc26c9b" name="a49e03e615efb4aefa68f8a402bc26c9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49e03e615efb4aefa68f8a402bc26c9b">&#9670;&#160;</a></span>OnTestEnd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a> iutest::BriefUnitTestResultPrinter::OnTestEnd </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">TestInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>test_info</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>テスト終了時にに呼ばれます </p>
+
+<p><a class="el" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html#a852358762717cf27a453cb1515f339d1">iutest::DefaultResultPrintListener</a>を再実装しています。</p>
+<div class="dynheader">
+呼び出し関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../df/d93/classiutest_1_1_brief_unit_test_result_printer_a49e03e615efb4aefa68f8a402bc26c9b_cgraph.png" border="0" usemap="#adf/d93/classiutest_1_1_brief_unit_test_result_printer_a49e03e615efb4aefa68f8a402bc26c9b_cgraph" alt=""/></div>
+<map name="adf/d93/classiutest_1_1_brief_unit_test_result_printer_a49e03e615efb4aefa68f8a402bc26c9b_cgraph" id="adf/d93/classiutest_1_1_brief_unit_test_result_printer_a49e03e615efb4aefa68f8a402bc26c9b_cgraph">
+<area shape="rect" title="テスト終了時にに呼ばれます" alt="" coords="5,5,197,45"/>
+<area shape="rect" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html#a852358762717cf27a453cb1515f339d1" title="テスト終了時にに呼ばれます" alt="" coords="245,5,432,45"/>
+<area shape="poly" title=" " alt="" coords="197,23,232,23,232,28,197,28"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a2694c1d42e0dcefe78212b59ae004146" name="a2694c1d42e0dcefe78212b59ae004146"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2694c1d42e0dcefe78212b59ae004146">&#9670;&#160;</a></span>OnTestIterationStart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a> iutest::BriefUnitTestResultPrinter::OnTestIterationStart </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a> &amp;&#160;</td>
+          <td class="paramname"><em>test</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">int</a>&#160;</td>
+          <td class="paramname"><em>iteration</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>単体テスト開始時に毎回呼ばれます </p>
+
+<p><a class="el" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html#a70857b276bf1266ca01d13dadc3a03b1">iutest::DefaultResultPrintListener</a>を再実装しています。</p>
+
+</div>
+</div>
+<a id="a29726d93550c54b8b5a123ea8ff14359" name="a29726d93550c54b8b5a123ea8ff14359"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29726d93550c54b8b5a123ea8ff14359">&#9670;&#160;</a></span>OnTestPartResult()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a> iutest::BriefUnitTestResultPrinter::OnTestPartResult </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d8/d3c/classiutest_1_1_test_part_result.html">TestPartResult</a> &amp;&#160;</td>
+          <td class="paramname"><em>test_part_result</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>テスト失敗時に呼ばれます </p>
+
+<p><a class="el" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html#ae0bfff8d68960af35561da43514f88d9">iutest::DefaultResultPrintListener</a>を再実装しています。</p>
+<div class="dynheader">
+呼び出し関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../df/d93/classiutest_1_1_brief_unit_test_result_printer_a29726d93550c54b8b5a123ea8ff14359_cgraph.png" border="0" usemap="#adf/d93/classiutest_1_1_brief_unit_test_result_printer_a29726d93550c54b8b5a123ea8ff14359_cgraph" alt=""/></div>
+<map name="adf/d93/classiutest_1_1_brief_unit_test_result_printer_a29726d93550c54b8b5a123ea8ff14359_cgraph" id="adf/d93/classiutest_1_1_brief_unit_test_result_printer_a29726d93550c54b8b5a123ea8ff14359_cgraph">
+<area shape="rect" title="テスト失敗時に呼ばれます" alt="" coords="5,5,197,45"/>
+<area shape="rect" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html#ae0bfff8d68960af35561da43514f88d9" title="テスト失敗時に呼ばれます" alt="" coords="245,5,437,45"/>
+<area shape="poly" title=" " alt="" coords="197,23,232,23,232,28,197,28"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="afcf266adebed29badd624c4822b73d18" name="afcf266adebed29badd624c4822b73d18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcf266adebed29badd624c4822b73d18">&#9670;&#160;</a></span>OnTestProgramStart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a> iutest::BriefUnitTestResultPrinter::OnTestProgramStart </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a> &amp;&#160;</td>
+          <td class="paramname"><em>test</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>テストプログラム開始時に呼ばれます </p>
+
+<p><a class="el" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html#a0a9d528071df9833c8909043185a8ba9">iutest::DefaultResultPrintListener</a>を再実装しています。</p>
+
+</div>
+</div>
+<a id="a85ae55e8166950d6a28225bdccd25d49" name="a85ae55e8166950d6a28225bdccd25d49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85ae55e8166950d6a28225bdccd25d49">&#9670;&#160;</a></span>OnTestRecordProperty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a> iutest::BriefUnitTestResultPrinter::OnTestRecordProperty </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../db/df6/classiutest_1_1_test_property.html">TestProperty</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>RecordProperty 時に呼ばれます </p>
+
+<p><a class="el" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html#a2f3eb13b46bba81db1a86cbba72fd448">iutest::DefaultResultPrintListener</a>を再実装しています。</p>
+
+</div>
+</div>
+<a id="a9427e726ae8dafc80fd2522339e40fd7" name="a9427e726ae8dafc80fd2522339e40fd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9427e726ae8dafc80fd2522339e40fd7">&#9670;&#160;</a></span>OnTestStart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a> iutest::BriefUnitTestResultPrinter::OnTestStart </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">TestInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>test_info</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>テスト開始時に呼ばれます </p>
+
+<p><a class="el" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html#ae5b8519fad0322aae12bf01249fe9dee">iutest::DefaultResultPrintListener</a>を再実装しています。</p>
+
+</div>
+</div>
+<a id="a5da2e2ad9b12a1c107bf69f74f526970" name="a5da2e2ad9b12a1c107bf69f74f526970"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5da2e2ad9b12a1c107bf69f74f526970">&#9670;&#160;</a></span>OnTestSuiteEnd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a> iutest::BriefUnitTestResultPrinter::OnTestSuiteEnd </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">TestSuite</a> &amp;&#160;</td>
+          <td class="paramname"><em>test_suite</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html" title="TestSuite">TestSuite</a> 終了時にに呼ばれます </p>
+
+<p><a class="el" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html#a84471a5e02e9cd07e8d82dc33364d38e">iutest::DefaultResultPrintListener</a>を再実装しています。</p>
+
+</div>
+</div>
+<a id="afa20c67f4a6416d25a356fabf39c429e" name="afa20c67f4a6416d25a356fabf39c429e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa20c67f4a6416d25a356fabf39c429e">&#9670;&#160;</a></span>OnTestSuiteStart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">virtual</a> <a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">void</a> iutest::BriefUnitTestResultPrinter::OnTestSuiteStart </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9111f6c99c043c607e4c7dc8d122d6de">const</a> <a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">TestSuite</a> &amp;&#160;</td>
+          <td class="paramname"><em>test_suite</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html" title="TestSuite">TestSuite</a> 開始時に呼ばれます </p>
+
+<p><a class="el" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html#a1cd57aef05fed309063cba845f686c9e">iutest::DefaultResultPrintListener</a>を再実装しています。</p>
+
+</div>
+</div>
+<hr/>このクラス詳解は次のファイルから抽出されました:<ul>
+<li>listener/<a class="el" href="../../d0/d81/iutest__default__printer_8hpp_source.html">iutest_default_printer.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+2026年11月19日(木) 02時02分57秒作成 - iutest / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+</small></address>
+</body>
+</html>

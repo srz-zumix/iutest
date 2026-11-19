@@ -1,10 +1,18 @@
 <map id="iutest::TestResult::Failed" name="iutest::TestResult::Failed">
-<area shape="rect" id="node1" title="失敗したかどうか" alt="" coords="691,35,825,76"/>
-<area shape="rect" id="node2" href="$d8/d3d/classiutest_1_1_test_info.html#a6a48d61ecc30802312fe62ae5b22f102" title="エラーが出たかどうか" alt="" coords="448,13,643,39"/>
-<area shape="rect" id="node5" href="$d0/d7b/classiutest_1_1_test_result.html#a54b0d9258545f81f3da76aea86181071" title="成功したかどうか" alt="" coords="478,64,613,105"/>
-<area shape="rect" id="node3" href="$d6/d0f/classiutest_1_1_t_a_p_print_listener.html#a4f6c10af8ddd13cab947bbe4ae0a000e" title="TestSuite 毎の処理" alt="" coords="227,5,400,47"/>
-<area shape="rect" id="node4" href="$d6/d0f/classiutest_1_1_t_a_p_print_listener.html#a7ddbe8a0b6823eadee5ac19a07572752" title="テストプログラム終了時に呼ばれます" alt="" coords="5,5,179,47"/>
-<area shape="rect" id="node6" href="$d8/d3d/classiutest_1_1_test_info.html#ac733f26b2979fa7d7543f6f7db5bc358" title="成功したかどうか" alt="" coords="228,71,399,98"/>
-<area shape="rect" id="node7" href="$d3/d87/classiutest_1_1_test_suite.html#a85f8c70d022c90b6102fea93b537f67f" title=" " alt="" coords="246,123,381,164"/>
-<area shape="rect" id="node8" href="$d3/d87/classiutest_1_1_test_suite.html#ada6ef9dd63f6a16db920ab6c3e8e324d" title=" " alt="" coords="25,123,159,164"/>
+<area shape="rect" id="Node000001" title="失敗したかどうか" alt="" coords="835,27,969,67"/>
+<area shape="rect" id="Node000002" href="$d8/d3d/classiutest_1_1_test_info.html#a6a48d61ecc30802312fe62ae5b22f102" title="エラーが出たかどうか" alt="" coords="592,5,787,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="820,39,781,33,782,28,821,34"/>
+<area shape="rect" id="Node000003" href="$d0/d7b/classiutest_1_1_test_result.html#a54b0d9258545f81f3da76aea86181071" title="成功したかどうか" alt="" coords="622,55,757,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="821,61,757,69,756,64,820,55"/>
+<area shape="rect" id="Node000004" href="$d8/d3d/classiutest_1_1_test_info.html#ac733f26b2979fa7d7543f6f7db5bc358" title="成功したかどうか" alt="" coords="5,67,176,92"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="608,57,544,46,454,37,384,33,314,36,224,46,174,56,129,69,128,64,173,51,224,41,313,31,384,28,454,31,544,41,609,52"/>
+<area shape="rect" id="Node000005" href="$d3/d87/classiutest_1_1_test_suite.html#a85f8c70d022c90b6102fea93b537f67f" title=" " alt="" coords="409,55,544,95"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="608,78,544,78,544,73,608,73"/>
+<area shape="rect" id="Node000007" href="$d0/d7b/classiutest_1_1_test_result.html#ac81b17b10f442d5f7a1c0d3d87c214f0" title="スキップしたかどうか" alt="" coords="409,119,544,159"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="610,102,544,122,543,117,608,97"/>
+<area shape="rect" id="Node000006" href="$d3/d87/classiutest_1_1_test_suite.html#ada6ef9dd63f6a16db920ab6c3e8e324d" title=" " alt="" coords="225,55,360,95"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="395,78,360,78,360,73,395,73"/>
+<area shape="rect" id="Node000008" href="$d8/d3d/classiutest_1_1_test_info.html#af4f390eac4b8b6c1d1d249e6ec02ba3a" title=" " alt="" coords="224,119,361,159"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="395,142,362,142,362,137,395,137"/>
+<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="211,118,133,95,135,89,212,113"/>
 </map>

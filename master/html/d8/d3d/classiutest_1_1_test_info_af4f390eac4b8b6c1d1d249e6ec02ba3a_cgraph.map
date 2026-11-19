@@ -1,4 +1,9 @@
 <map id="iutest::TestInfo::is_skipped" name="iutest::TestInfo::is_skipped">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,143,47"/>
-<area shape="rect" id="node2" href="$d0/d7b/classiutest_1_1_test_result.html#ac81b17b10f442d5f7a1c0d3d87c214f0" title="スキップしたかどうか" alt="" coords="191,5,325,47"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,143,45"/>
+<area shape="rect" id="Node000002" href="$d0/d7b/classiutest_1_1_test_result.html#ac81b17b10f442d5f7a1c0d3d87c214f0" title="スキップしたかどうか" alt="" coords="191,5,325,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,23,177,23,177,28,143,28"/>
+<area shape="rect" id="Node000003" href="$d0/d7b/classiutest_1_1_test_result.html#a54b0d9258545f81f3da76aea86181071" title="成功したかどうか" alt="" coords="373,5,508,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="325,23,359,23,359,28,325,28"/>
+<area shape="rect" id="Node000004" href="$d0/d7b/classiutest_1_1_test_result.html#abddf109b7e5d59a6804ac22e884083e5" title="失敗したかどうか" alt="" coords="556,5,691,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="508,23,542,23,542,28,508,28"/>
 </map>

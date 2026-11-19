@@ -1,6 +1,14 @@
 <map id="iutest::TestResult::Passed" name="iutest::TestResult::Passed">
-<area shape="rect" id="node1" title="成功したかどうか" alt="" coords="407,27,541,69"/>
-<area shape="rect" id="node2" href="$d8/d3d/classiutest_1_1_test_info.html#ac733f26b2979fa7d7543f6f7db5bc358" title="成功したかどうか" alt="" coords="188,5,359,32"/>
-<area shape="rect" id="node3" href="$d3/d87/classiutest_1_1_test_suite.html#a85f8c70d022c90b6102fea93b537f67f" title=" " alt="" coords="206,57,341,98"/>
-<area shape="rect" id="node4" href="$d3/d87/classiutest_1_1_test_suite.html#ada6ef9dd63f6a16db920ab6c3e8e324d" title=" " alt="" coords="5,57,140,98"/>
+<area shape="rect" id="Node000001" title="成功したかどうか" alt="" coords="592,32,727,72"/>
+<area shape="rect" id="Node000002" href="$d8/d3d/classiutest_1_1_test_info.html#ac733f26b2979fa7d7543f6f7db5bc358" title="成功したかどうか" alt="" coords="5,43,176,68"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="585,31,544,22,454,12,384,8,314,12,224,22,174,32,129,46,128,40,173,27,224,17,313,6,384,3,455,6,544,17,586,25"/>
+<area shape="rect" id="Node000003" href="$d3/d87/classiutest_1_1_test_suite.html#a85f8c70d022c90b6102fea93b537f67f" title=" " alt="" coords="409,32,544,72"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="578,54,545,54,545,49,578,49"/>
+<area shape="rect" id="Node000005" href="$d0/d7b/classiutest_1_1_test_result.html#ac81b17b10f442d5f7a1c0d3d87c214f0" title="スキップしたかどうか" alt="" coords="409,96,544,136"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="590,79,535,98,533,93,588,74"/>
+<area shape="rect" id="Node000004" href="$d3/d87/classiutest_1_1_test_suite.html#ada6ef9dd63f6a16db920ab6c3e8e324d" title=" " alt="" coords="225,32,360,72"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="395,54,360,54,360,49,395,49"/>
+<area shape="rect" id="Node000006" href="$d8/d3d/classiutest_1_1_test_info.html#af4f390eac4b8b6c1d1d249e6ec02ba3a" title=" " alt="" coords="224,96,361,136"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="395,118,362,118,362,113,395,113"/>
+<area shape="poly" id="edge6_Node000006_Node000002" title=" " alt="" coords="211,94,133,71,135,66,212,89"/>
 </map>

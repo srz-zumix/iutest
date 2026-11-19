@@ -1,0 +1,7 @@
+<map id="iutest::UnitTest::current_test_info" name="iutest::UnitTest::current_test_info">
+<area shape="rect" id="Node000001" title="テスト中の TestInfo の取得" alt="" coords="5,5,180,45"/>
+<area shape="rect" id="Node000002" href="$dc/d0e/classiutest_1_1_test.html#a6f43ad9d837ad03b74f2720f9aeb430e" title="実行中の TestInfo の取得" alt="" coords="228,5,400,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,23,214,23,214,28,180,28"/>
+<area shape="rect" id="Node000003" href="$dc/d0e/classiutest_1_1_test.html#a95691dc68caff884c92f8015f275b797" title="実行中の Test の取得" alt="" coords="448,13,647,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="401,23,435,23,435,28,401,28"/>
+</map>

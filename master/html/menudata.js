@@ -25,7 +25,7 @@
 var menudata={children:[
 {text:"総合概要",url:"index.html"},
 {text:"諸情報",url:"pages.html"},
-{text:"モジュール",url:"modules.html"},
+{text:"Topics",url:"topics.html"},
 {text:"名前空間",url:"namespaces.html",children:[
 {text:"名前空間一覧",url:"namespaces.html"},
 {text:"名前空間メンバ",url:"namespacemembers.html",children:[
@@ -50,7 +50,8 @@ var menudata={children:[
 {text:"s",url:"namespacemembers.html#index_s"},
 {text:"t",url:"namespacemembers.html#index_t"},
 {text:"u",url:"namespacemembers.html#index_u"},
-{text:"v",url:"namespacemembers.html#index_v"}]},
+{text:"v",url:"namespacemembers.html#index_v"},
+{text:"w",url:"namespacemembers.html#index_w"}]},
 {text:"関数",url:"namespacemembers_func.html",children:[
 {text:"a",url:"namespacemembers_func.html#index_a"},
 {text:"b",url:"namespacemembers_func.html#index_b"},
@@ -63,6 +64,7 @@ var menudata={children:[
 {text:"i",url:"namespacemembers_func.html#index_i"},
 {text:"k",url:"namespacemembers_func.html#index_k"},
 {text:"l",url:"namespacemembers_func.html#index_l"},
+{text:"m",url:"namespacemembers_func.html#index_m"},
 {text:"n",url:"namespacemembers_func.html#index_n"},
 {text:"o",url:"namespacemembers_func.html#index_o"},
 {text:"p",url:"namespacemembers_func.html#index_p"},
@@ -70,7 +72,8 @@ var menudata={children:[
 {text:"s",url:"namespacemembers_func.html#index_s"},
 {text:"t",url:"namespacemembers_func.html#index_t"},
 {text:"u",url:"namespacemembers_func.html#index_u"},
-{text:"v",url:"namespacemembers_func.html#index_v"}]},
+{text:"v",url:"namespacemembers_func.html#index_v"},
+{text:"w",url:"namespacemembers_func.html#index_w"}]},
 {text:"変数",url:"namespacemembers_vars.html"},
 {text:"型定義",url:"namespacemembers_type.html"}]}]},
 {text:"クラス",url:"annotated.html",children:[

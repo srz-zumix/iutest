@@ -1,42 +1,103 @@
 <map id="internal/iutest_internal_defs.hpp" name="internal/iutest_internal_defs.hpp">
-<area shape="rect" id="node1" title="internal definition" alt="" coords="1299,5,1469,47"/>
-<area shape="rect" id="node2" href="$d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="863,617,996,644"/>
-<area shape="rect" id="node3" href="$d1/d84/iutest__defs_8hpp.html" title="iris unit test definition" alt="" coords="874,244,1009,271"/>
-<area shape="rect" id="node24" href="$d2/d9e/iutest__string__stream_8hpp.html" title="iris unit test iu_basic_ostream implimentaion" alt="" coords="1167,169,1351,196"/>
-<area shape="rect" id="node34" href="$d8/dc8/iutest__string__view_8hpp.html" title="string_view" alt="" coords="1375,169,1543,196"/>
-<area shape="rect" id="node36" href="$dd/dc6/iutest__tchar_8hpp.html" title="iris unit test char/wchar_t mediator" alt="" coords="1507,95,1634,121"/>
-<area shape="rect" id="node37" href="$d9/d0b/iutest__type__traits_8hpp_source.html" title=" " alt="" coords="101,393,265,420"/>
-<area shape="rect" id="node38" href="$d6/d87/iutest__compatible__defs_8hpp.html" title="internal gtest/iutest compatible definition" alt="" coords="2123,543,2325,569"/>
-<area shape="rect" id="node39" href="$d3/d8e/iutest__exception_8hpp.html" title="iris unit test exception" alt="" coords="2283,95,2442,121"/>
-<area shape="rect" id="node4" href="$dc/d2f/iutest__compiler_8hpp.html" title="iris unit test compiler 依存の吸収 ファイル" alt="" coords="333,468,537,495"/>
-<area shape="rect" id="node7" href="$d9/d6f/iutest__pp_8hpp.html" title="preprocessor definition" alt="" coords="145,468,309,495"/>
-<area shape="rect" id="node8" href="$d9/dad/iutest__stdlib_8hpp.html" title="stdlib" alt="" coords="471,319,655,345"/>
-<area shape="rect" id="node17" title=" " alt="" coords="943,319,1009,345"/>
-<area shape="rect" id="node18" title=" " alt="" coords="1034,319,1094,345"/>
-<area shape="rect" id="node19" title=" " alt="" coords="1118,319,1181,345"/>
-<area shape="rect" id="node20" title=" " alt="" coords="1205,319,1291,345"/>
-<area shape="rect" id="node21" href="$da/d86/iutest__debug_8hpp.html" title="iris unit test debug 用定義 ファイル" alt="" coords="679,319,867,345"/>
-<area shape="rect" id="node23" title=" " alt="" coords="353,319,396,345"/>
-<area shape="rect" id="node5" href="$da/d9f/iutest__platform_8hpp.html" title="iris unit test platform detection" alt="" coords="265,543,415,569"/>
-<area shape="rect" id="node6" href="$d7/d02/iutest__pragma_8hpp.html" title="pragma macros" alt="" coords="440,543,584,569"/>
-<area shape="rect" id="node9" href="$da/d92/iutest__stdlib__defs_8hpp.html" title="stdlib detect defines" alt="" coords="749,393,915,420"/>
-<area shape="rect" id="node10" title=" " alt="" coords="1225,468,1311,495"/>
-<area shape="rect" id="node11" title=" " alt="" coords="613,468,683,495"/>
-<area shape="rect" id="node12" title=" " alt="" coords="707,468,773,495"/>
-<area shape="rect" id="node13" title=" " alt="" coords="797,468,867,495"/>
-<area shape="rect" id="node14" title=" " alt="" coords="892,468,951,495"/>
-<area shape="rect" id="node15" title=" " alt="" coords="975,468,1054,495"/>
-<area shape="rect" id="node16" title=" " alt="" coords="1078,468,1149,495"/>
-<area shape="rect" id="node22" title=" " alt="" coords="939,393,1114,420"/>
-<area shape="rect" id="node25" href="$d7/d86/iutest__string_8hpp.html" title="iris unit test string utilities" alt="" coords="1515,244,1645,271"/>
-<area shape="rect" id="node33" title=" " alt="" coords="1265,244,1351,271"/>
-<area shape="rect" id="node26" title=" " alt="" coords="1544,319,1616,345"/>
-<area shape="rect" id="node27" title=" " alt="" coords="1641,319,1722,345"/>
-<area shape="rect" id="node28" title=" " alt="" coords="1747,319,1821,345"/>
-<area shape="rect" id="node29" title=" " alt="" coords="1846,319,1914,345"/>
-<area shape="rect" id="node30" title=" " alt="" coords="1939,319,1997,345"/>
-<area shape="rect" id="node31" title=" " alt="" coords="1315,319,1381,345"/>
-<area shape="rect" id="node32" title=" " alt="" coords="1406,319,1469,345"/>
-<area shape="rect" id="node35" title=" " alt="" coords="1424,244,1491,271"/>
-<area shape="rect" id="node40" title=" " alt="" coords="2401,169,2487,196"/>
+<area shape="rect" id="Node000001" title="internal definition" alt="" coords="1299,5,1469,45"/>
+<area shape="rect" id="Node000002" href="$d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="863,607,996,632"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1298,28,1045,29,710,36,539,45,380,57,245,74,143,96,93,108,49,119,32,128,19,139,11,155,8,178,8,474,11,495,18,510,29,522,44,530,82,543,127,556,189,572,270,585,471,602,680,611,849,615,849,620,680,617,471,607,270,590,188,577,126,561,81,548,42,535,26,526,13,513,5,496,3,474,3,178,6,154,15,136,29,123,47,114,92,103,142,91,244,68,380,51,539,39,710,31,1045,23,1298,23"/>
+<area shape="rect" id="Node000003" href="$d1/d84/iutest__defs_8hpp.html" title="iris unit test definition" alt="" coords="874,240,1009,265"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1348,48,977,236,975,231,1346,43"/>
+<area shape="rect" id="Node000024" href="$d2/d9e/iutest__string__stream_8hpp.html" title="iris unit test iu_basic_ostream implimentaion" alt="" coords="1167,167,1351,192"/>
+<area shape="poly" id="edge32_Node000001_Node000024" title=" " alt="" coords="1370,48,1279,158,1275,154,1366,44"/>
+<area shape="rect" id="Node000034" href="$d8/dc8/iutest__string__view_8hpp.html" title="string_view" alt="" coords="1375,167,1543,192"/>
+<area shape="poly" id="edge44_Node000001_Node000034" title=" " alt="" coords="1396,45,1449,153,1445,155,1391,47"/>
+<area shape="rect" id="Node000036" href="$dd/dc6/iutest__tchar_8hpp.html" title="iris unit test char/wchar_t mediator" alt="" coords="1507,93,1634,119"/>
+<area shape="poly" id="edge49_Node000001_Node000036" title=" " alt="" coords="1430,43,1532,85,1530,90,1428,48"/>
+<area shape="rect" id="Node000037" href="$d9/d0b/iutest__type__traits_8hpp_source.html" title=" " alt="" coords="101,387,265,412"/>
+<area shape="poly" id="edge53_Node000001_Node000037" title=" " alt="" coords="1298,30,980,37,776,46,567,60,372,79,209,105,146,120,99,138,69,158,61,168,59,178,59,254,61,274,68,293,91,327,121,356,151,377,148,382,118,360,87,331,63,295,56,275,53,254,53,178,56,165,65,154,96,133,145,115,208,99,371,73,567,54,776,41,980,32,1298,25"/>
+<area shape="rect" id="Node000038" href="$d6/d87/iutest__compatible__defs_8hpp.html" title="internal gtest/iutest compatible definition" alt="" coords="2123,533,2325,559"/>
+<area shape="poly" id="edge57_Node000001_Node000038" title=" " alt="" coords="1470,31,1668,52,1902,84,2010,103,2099,125,2159,150,2176,163,2183,177,2183,401,2186,434,2194,466,2214,520,2209,522,2189,467,2181,434,2177,401,2177,179,2172,166,2157,154,2097,130,2009,109,1901,89,1667,57,1469,37"/>
+<area shape="rect" id="Node000039" href="$d3/d8e/iutest__exception_8hpp.html" title="iris unit test exception" alt="" coords="2283,93,2442,119"/>
+<area shape="poly" id="edge59_Node000001_Node000039" title=" " alt="" coords="1470,31,2270,95,2269,100,1469,36"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="938,266,926,301,925,320,933,337,963,365,994,379,1025,383,1058,381,1131,372,1171,374,1215,384,1293,407,1323,425,1350,459,1353,472,1351,486,1348,527,1344,544,1330,561,1307,575,1274,587,1190,604,1096,614,1010,619,1009,614,1096,609,1190,599,1273,582,1304,570,1326,557,1339,541,1343,526,1345,485,1348,472,1346,461,1320,429,1291,412,1214,389,1171,379,1131,378,1059,386,1025,388,992,384,960,369,929,340,920,321,920,300,933,265"/>
+<area shape="rect" id="Node000004" href="$dc/d2f/iutest__compiler_8hpp.html" title="iris unit test compiler 依存の吸収 ファイル" alt="" coords="333,460,537,485"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="874,260,630,280,519,296,481,306,460,315,441,345,432,380,430,415,433,446,428,446,425,416,427,379,436,343,457,311,479,301,518,291,630,275,874,255"/>
+<area shape="rect" id="Node000007" href="$d9/d6f/iutest__pp_8hpp.html" title="preprocessor definition" alt="" coords="145,460,309,485"/>
+<area shape="poly" id="edge10_Node000003_Node000007" title=" " alt="" coords="874,256,745,258,589,266,513,274,443,284,385,298,343,316,319,336,306,358,296,384,278,414,248,451,244,448,274,410,291,381,301,356,314,333,340,311,383,293,442,279,512,268,589,261,745,253,874,251"/>
+<area shape="rect" id="Node000008" href="$d9/dad/iutest__stdlib_8hpp.html" title="stdlib" alt="" coords="471,313,655,339"/>
+<area shape="poly" id="edge12_Node000003_Node000008" title=" " alt="" coords="881,268,638,313,637,308,880,263"/>
+<area shape="rect" id="Node000017" title=" " alt="" coords="943,313,1009,339"/>
+<area shape="poly" id="edge24_Node000003_Node000017" title=" " alt="" coords="949,264,967,300,962,302,945,267"/>
+<area shape="rect" id="Node000018" title=" " alt="" coords="1034,313,1094,339"/>
+<area shape="poly" id="edge25_Node000003_Node000018" title=" " alt="" coords="962,263,1034,304,1031,309,960,268"/>
+<area shape="rect" id="Node000019" title=" " alt="" coords="1118,313,1181,339"/>
+<area shape="poly" id="edge26_Node000003_Node000019" title=" " alt="" coords="976,263,1106,307,1104,312,974,268"/>
+<area shape="rect" id="Node000020" title=" " alt="" coords="1205,313,1291,339"/>
+<area shape="poly" id="edge27_Node000003_Node000020" title=" " alt="" coords="991,263,1193,309,1191,314,990,268"/>
+<area shape="rect" id="Node000021" href="$da/d86/iutest__debug_8hpp.html" title="iris unit test debug 用定義 ファイル" alt="" coords="679,313,867,339"/>
+<area shape="poly" id="edge28_Node000003_Node000021" title=" " alt="" coords="915,268,814,310,812,305,913,263"/>
+<area shape="rect" id="Node000023" title=" " alt="" coords="353,313,396,339"/>
+<area shape="poly" id="edge31_Node000003_Node000023" title=" " alt="" coords="874,261,668,279,541,295,415,316,410,317,409,312,414,311,541,289,667,274,874,255"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="469,483,597,531,625,544,654,556,755,583,850,603,849,608,754,589,652,561,623,549,595,536,467,488"/>
+<area shape="rect" id="Node000005" href="$da/d9f/iutest__platform_8hpp.html" title="iris unit test platform detection" alt="" coords="265,533,415,559"/>
+<area shape="poly" id="edge6_Node000004_Node000005" title=" " alt="" coords="421,487,368,527,365,523,418,483"/>
+<area shape="rect" id="Node000006" href="$d7/d02/iutest__pragma_8hpp.html" title="pragma macros" alt="" coords="440,533,584,559"/>
+<area shape="poly" id="edge8_Node000004_Node000006" title=" " alt="" coords="449,483,491,522,487,526,445,487"/>
+<area shape="poly" id="edge7_Node000005_Node000002" title=" " alt="" coords="416,554,428,556,849,606,849,611,428,561,415,560"/>
+<area shape="poly" id="edge9_Node000006_Node000002" title=" " alt="" coords="579,556,850,602,849,607,579,561"/>
+<area shape="poly" id="edge11_Node000007_Node000002" title=" " alt="" coords="229,485,234,522,241,541,254,557,284,569,341,580,504,597,691,607,849,613,849,619,690,613,504,602,340,585,283,574,250,561,236,544,228,523,224,486"/>
+<area shape="poly" id="edge13_Node000008_Node000002" title=" " alt="" coords="565,339,565,367,569,406,581,447,602,484,628,509,657,531,721,566,788,590,850,604,849,610,787,595,719,571,654,536,624,513,598,487,576,449,564,407,560,368,559,339"/>
+<area shape="rect" id="Node000009" href="$da/d92/iutest__stdlib__defs_8hpp.html" title="stdlib detect defines" alt="" coords="749,387,915,412"/>
+<area shape="poly" id="edge14_Node000008_Node000009" title=" " alt="" coords="607,336,776,381,775,386,605,341"/>
+<area shape="poly" id="edge15_Node000009_Node000002" title=" " alt="" coords="909,409,1067,435,1131,448,1162,458,1175,484,1172,509,1156,531,1130,550,1062,582,991,605,990,600,1060,578,1127,546,1152,527,1167,507,1170,485,1158,462,1130,453,1066,440,908,415"/>
+<area shape="poly" id="edge16_Node000009_Node000004" title=" " alt="" coords="769,415,513,460,512,455,768,409"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="1225,460,1311,485"/>
+<area shape="poly" id="edge17_Node000009_Node000010" title=" " alt="" coords="907,409,1206,457,1212,458,1211,464,1205,463,906,415"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="613,460,683,485"/>
+<area shape="poly" id="edge18_Node000009_Node000011" title=" " alt="" coords="803,415,692,457,690,452,801,410"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="707,460,773,485"/>
+<area shape="poly" id="edge19_Node000009_Node000012" title=" " alt="" coords="819,414,767,454,764,449,816,410"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="797,460,867,485"/>
+<area shape="poly" id="edge20_Node000009_Node000013" title=" " alt="" coords="835,412,835,446,829,446,829,412"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="892,460,951,485"/>
+<area shape="poly" id="edge21_Node000009_Node000014" title=" " alt="" coords="848,410,898,449,894,453,845,414"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="975,460,1054,485"/>
+<area shape="poly" id="edge22_Node000009_Node000015" title=" " alt="" coords="862,410,973,452,971,457,860,415"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="1078,460,1149,485"/>
+<area shape="poly" id="edge23_Node000009_Node000016" title=" " alt="" coords="878,409,1065,457,1064,462,877,415"/>
+<area shape="poly" id="edge29_Node000021_Node000002" title=" " alt="" coords="868,336,991,355,1126,384,1187,395,1238,401,1261,407,1283,417,1304,434,1325,459,1336,480,1340,499,1338,517,1329,533,1315,547,1296,560,1248,580,1191,595,1128,606,1010,617,1009,612,1127,601,1189,590,1247,575,1294,555,1311,543,1325,530,1333,515,1335,499,1331,482,1320,461,1301,438,1281,422,1260,412,1237,406,1186,400,1125,389,990,360,867,341"/>
+<area shape="rect" id="Node000022" title=" " alt="" coords="939,387,1114,412"/>
+<area shape="poly" id="edge30_Node000021_Node000022" title=" " alt="" coords="815,336,973,380,972,385,813,341"/>
+<area shape="poly" id="edge33_Node000024_Node000002" title=" " alt="" coords="1167,184,909,193,747,205,580,223,418,249,344,265,275,284,214,306,161,330,120,358,90,388,77,413,72,436,75,459,85,480,100,501,120,521,169,556,207,568,273,579,460,596,672,607,848,613,848,619,672,612,460,601,272,584,205,574,167,561,117,525,96,505,80,483,70,460,67,436,72,411,86,385,116,354,159,326,212,301,273,279,342,260,417,243,579,217,747,199,909,188,1167,179"/>
+<area shape="rect" id="Node000025" href="$d7/d86/iutest__string_8hpp.html" title="iris unit test string utilities" alt="" coords="1515,240,1645,265"/>
+<area shape="poly" id="edge34_Node000024_Node000025" title=" " alt="" coords="1311,189,1515,234,1514,240,1310,195"/>
+<area shape="rect" id="Node000033" title=" " alt="" coords="1265,240,1351,265"/>
+<area shape="poly" id="edge43_Node000024_Node000033" title=" " alt="" coords="1269,191,1294,227,1290,230,1265,194"/>
+<area shape="poly" id="edge35_Node000025_Node000002" title=" " alt="" coords="1570,267,1552,289,1534,315,1515,355,1509,398,1509,474,1505,493,1494,511,1476,526,1452,540,1392,563,1318,582,1237,596,1154,606,1010,617,1009,612,1154,601,1236,590,1317,576,1390,558,1450,535,1473,522,1490,507,1500,491,1504,474,1504,398,1510,353,1530,312,1548,285,1566,264"/>
+<area shape="rect" id="Node000026" title=" " alt="" coords="1544,313,1616,339"/>
+<area shape="poly" id="edge36_Node000025_Node000026" title=" " alt="" coords="1583,266,1583,300,1577,300,1577,266"/>
+<area shape="rect" id="Node000027" title=" " alt="" coords="1641,313,1722,339"/>
+<area shape="poly" id="edge37_Node000025_Node000027" title=" " alt="" coords="1598,263,1655,303,1652,307,1595,268"/>
+<area shape="rect" id="Node000028" title=" " alt="" coords="1747,313,1821,339"/>
+<area shape="poly" id="edge38_Node000025_Node000028" title=" " alt="" coords="1614,263,1739,306,1737,311,1612,268"/>
+<area shape="rect" id="Node000029" title=" " alt="" coords="1846,313,1914,339"/>
+<area shape="poly" id="edge39_Node000025_Node000029" title=" " alt="" coords="1630,263,1833,311,1832,316,1628,268"/>
+<area shape="rect" id="Node000030" title=" " alt="" coords="1939,313,1997,339"/>
+<area shape="poly" id="edge40_Node000025_Node000030" title=" " alt="" coords="1646,261,1771,281,1925,311,1924,316,1770,286,1645,266"/>
+<area shape="rect" id="Node000031" title=" " alt="" coords="1315,313,1381,339"/>
+<area shape="poly" id="edge41_Node000025_Node000031" title=" " alt="" coords="1544,268,1395,313,1393,308,1542,263"/>
+<area shape="rect" id="Node000032" title=" " alt="" coords="1406,313,1469,339"/>
+<area shape="poly" id="edge42_Node000025_Node000032" title=" " alt="" coords="1558,268,1474,309,1472,305,1556,263"/>
+<area shape="poly" id="edge45_Node000034_Node000002" title=" " alt="" coords="1543,182,1688,193,1769,204,1849,218,1922,236,1982,259,2005,273,2022,289,2033,306,2037,324,2037,474,2035,485,2028,494,2002,512,1963,527,1911,541,1778,565,1618,584,1446,598,1278,608,1010,619,1010,613,1277,603,1446,592,1617,578,1777,560,1910,536,1961,522,2000,507,2024,491,2030,482,2032,474,2032,325,2028,308,2018,292,2001,277,1979,264,1920,241,1848,223,1769,209,1687,199,1543,187"/>
+<area shape="poly" id="edge46_Node000034_Node000003" title=" " alt="" coords="1376,195,1023,243,1022,238,1375,189"/>
+<area shape="poly" id="edge47_Node000034_Node000033" title=" " alt="" coords="1436,194,1346,236,1344,232,1433,190"/>
+<area shape="rect" id="Node000035" title=" " alt="" coords="1424,240,1491,265"/>
+<area shape="poly" id="edge48_Node000034_Node000035" title=" " alt="" coords="1461,192,1460,227,1455,226,1456,192"/>
+<area shape="poly" id="edge50_Node000036_Node000002" title=" " alt="" coords="1635,109,1763,123,1912,148,1980,167,2035,190,2057,203,2074,217,2084,234,2088,251,2088,474,2083,505,2070,526,2049,539,2023,546,1960,552,1891,561,1814,575,1711,587,1463,604,1209,614,1010,619,1010,614,1208,609,1463,598,1711,581,1813,570,1890,556,1959,547,2022,541,2047,534,2066,522,2078,503,2083,474,2083,252,2079,236,2070,221,2054,207,2033,194,1978,172,1911,154,1762,128,1634,114"/>
+<area shape="poly" id="edge51_Node000036_Node000025" title=" " alt="" coords="1574,119,1581,226,1576,226,1569,119"/>
+<area shape="poly" id="edge52_Node000036_Node000034" title=" " alt="" coords="1554,121,1490,161,1487,157,1551,116"/>
+<area shape="poly" id="edge54_Node000037_Node000002" title=" " alt="" coords="169,414,153,429,139,446,132,465,135,484,153,513,173,531,198,543,231,556,283,570,352,582,522,599,701,609,849,614,849,619,701,615,522,605,351,588,282,576,230,561,196,548,170,535,149,516,129,486,126,465,135,443,149,425,165,410"/>
+<area shape="poly" id="edge55_Node000037_Node000004" title=" " alt="" coords="224,409,381,454,380,459,222,415"/>
+<area shape="poly" id="edge56_Node000037_Node000007" title=" " alt="" coords="192,411,215,447,210,450,188,414"/>
+<area shape="poly" id="edge58_Node000038_Node000002" title=" " alt="" coords="2123,560,2104,561,1787,582,1475,598,1010,618,1010,612,1474,593,1786,576,2104,556,2122,555"/>
+<area shape="poly" id="edge60_Node000039_Node000002" title=" " alt="" coords="2365,119,2365,251,2365,474,2364,523,2357,542,2339,561,2318,569,2277,575,2149,587,1763,605,1333,615,1010,620,1010,615,1333,610,1763,599,2149,582,2277,570,2316,563,2336,556,2352,539,2359,522,2360,474,2360,251,2360,119"/>
+<area shape="rect" id="Node000040" title=" " alt="" coords="2401,167,2487,192"/>
+<area shape="poly" id="edge61_Node000039_Node000040" title=" " alt="" coords="2377,117,2422,156,2419,160,2374,121"/>
 </map>

@@ -1,12 +1,22 @@
 <map id="internal/iutest_stream.hpp" name="internal/iutest_stream.hpp">
-<area shape="rect" id="node1" title="io stream" alt="" coords="140,5,335,32"/>
-<area shape="rect" id="node2" href="$d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="5,155,139,181"/>
-<area shape="rect" id="node3" href="$d7/d86/iutest__string_8hpp.html" title="iris unit test string utilities" alt="" coords="337,80,468,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="163,155,235,181"/>
-<area shape="rect" id="node5" title=" " alt="" coords="259,155,341,181"/>
-<area shape="rect" id="node6" title=" " alt="" coords="365,155,440,181"/>
-<area shape="rect" id="node7" title=" " alt="" coords="465,155,533,181"/>
-<area shape="rect" id="node8" title=" " alt="" coords="557,155,616,181"/>
-<area shape="rect" id="node9" title=" " alt="" coords="640,155,707,181"/>
-<area shape="rect" id="node10" title=" " alt="" coords="731,155,794,181"/>
+<area shape="rect" id="Node000001" title="io stream" alt="" coords="140,5,335,31"/>
+<area shape="rect" id="Node000002" href="$d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="5,152,139,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="226,33,97,145,94,141,222,29"/>
+<area shape="rect" id="Node000003" href="$d7/d86/iutest__string_8hpp.html" title="iris unit test string utilities" alt="" coords="337,79,468,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="265,28,364,71,362,76,263,33"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="350,107,139,152,138,146,349,101"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="163,152,235,177"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="371,107,245,150,244,145,369,102"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="259,152,341,177"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="388,106,330,146,327,142,385,102"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="365,152,440,177"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="405,104,405,138,400,138,400,104"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="465,152,533,177"/>
+<area shape="poly" id="edge7_Node000003_Node000007" title=" " alt="" coords="420,102,473,141,470,146,417,106"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="557,152,616,177"/>
+<area shape="poly" id="edge8_Node000003_Node000008" title=" " alt="" coords="433,102,545,145,543,150,431,107"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="640,152,707,177"/>
+<area shape="poly" id="edge9_Node000003_Node000009" title=" " alt="" coords="447,101,627,148,626,154,445,107"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="731,152,794,177"/>
+<area shape="poly" id="edge10_Node000003_Node000010" title=" " alt="" coords="469,101,718,149,717,155,468,106"/>
 </map>

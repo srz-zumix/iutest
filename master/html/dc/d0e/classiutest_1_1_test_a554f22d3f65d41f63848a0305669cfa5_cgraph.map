@@ -1,4 +1,5 @@
 <map id="iutest::Test::HasFatalFailure" name="iutest::Test::HasFatalFailure">
-<area shape="rect" id="node1" title="致命的なエラーが出たかどうか" alt="" coords="5,5,205,32"/>
-<area shape="rect" id="node2" href="$dc/d0e/classiutest_1_1_test.html#a69f141c4284b30b119c5691c7933d56f" title="実行中の Test の取得" alt="" coords="253,5,452,32"/>
+<area shape="rect" id="Node000001" title="致命的なエラーが出たかどうか" alt="" coords="5,5,205,31"/>
+<area shape="rect" id="Node000002" href="$dc/d0e/classiutest_1_1_test.html#a95691dc68caff884c92f8015f275b797" title="実行中の Test の取得" alt="" coords="253,5,452,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="205,15,239,15,239,21,205,21"/>
 </map>

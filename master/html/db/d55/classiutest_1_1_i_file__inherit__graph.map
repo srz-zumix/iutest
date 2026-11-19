@@ -1,10 +1,17 @@
 <map id="iutest::IFile" name="iutest::IFile">
-<area shape="rect" id="node1" title="ファイルクラスインターフェイス" alt="" coords="240,81,335,108"/>
-<area shape="rect" id="node4" href="$de/d67/classiutest_1_1_stdio_file.html" title="標準ファイルクラス" alt="" coords="409,5,531,32"/>
-<area shape="rect" id="node6" href="$da/d94/classiutest_1_1_string_stream_file.html" title="文字列バッファ書き込み IFile インターフェースクラス" alt="" coords="383,56,557,83"/>
-<area shape="rect" id="node7" href="$d3/d61/classiutest_1_1_temp_file.html" title=" " alt="" coords="407,107,533,133"/>
-<area shape="rect" id="node8" title=" " alt="" coords="385,158,555,199"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,56,192,83"/>
-<area shape="rect" id="node3" title=" " alt="" coords="11,107,186,133"/>
-<area shape="rect" id="node5" href="$d4/d62/classiutest_1_1_std_error_file.html" title=" " alt="" coords="605,5,748,32"/>
+<area shape="rect" id="Node000001" title="ファイルクラスインターフェイス" alt="" coords="240,80,335,105"/>
+<area shape="rect" id="Node000004" href="$de/d67/classiutest_1_1_stdio_file.html" title="標準ファイルクラス" alt="" coords="409,5,531,31"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="321,71,382,41,419,28,420,33,384,46,323,75"/>
+<area shape="rect" id="Node000006" href="$da/d94/classiutest_1_1_string_stream_file.html" title="文字列バッファ書き込み IFile インターフェースクラス" alt="" coords="383,55,557,80"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="348,82,382,77,383,82,349,87"/>
+<area shape="rect" id="Node000007" href="$d3/d61/classiutest_1_1_temp_file.html" title=" " alt="" coords="407,104,533,129"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="349,98,408,106,407,111,348,103"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="385,154,555,194"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="324,110,384,140,412,151,410,156,382,144,322,114"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,55,192,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="206,79,240,84,239,89,206,84"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="11,104,186,129"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="200,101,239,96,240,101,200,106"/>
+<area shape="rect" id="Node000005" href="$d4/d62/classiutest_1_1_std_error_file.html" title=" " alt="" coords="605,5,748,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="545,15,605,15,605,21,545,21"/>
 </map>
