@@ -1497,6 +1497,122 @@ private:
 
 #if IUTEST_HAS_RANDOMVALUES
 
+template<typename T>
+struct iuRandomRangeTypeTraits
+{
+    enum
+    {
+        is_integer = ::std::numeric_limits<T>::is_integer,
+        is_signed = ::std::numeric_limits<T>::is_signed
+    };
+};
+
+#if IUTEST_HAS_INT128
+template<>
+struct iuRandomRangeTypeTraits<__int128>
+{
+    enum { is_integer = true, is_signed = true };
+};
+
+#if defined(_MSC_VER)
+template<>
+struct iuRandomRangeTypeTraits<unsigned __int128>
+#else
+template<>
+struct iuRandomRangeTypeTraits<__uint128_t>
+#endif
+{
+    enum { is_integer = true, is_signed = false };
+};
+#endif
+
+template<typename T>
+class iuRandomRangeParamGenerator
+{
+#if IUTEST_HAS_INT128
+    typedef typename iutest_type_traits::conditional<(sizeof(T) > sizeof(UInt64)),
+        unsigned __int128, UInt64>::type RandomUInt;
+#else
+    typedef UInt64 RandomUInt;
+#endif
+public:
+    iuRandomRangeParamGenerator(T min, T max, unsigned int seed)
+        : m_min(min), m_max(max), m_rnd(seed == 0 ? GetIndefiniteValue() : seed) {}
+
+    T operator ()()
+    {
+        if( m_min == m_max ) return m_min;
+        return Generate(iutest_type_traits::bool_constant< iuRandomRangeTypeTraits<T>::is_integer >());
+    }
+
+private:
+    static RandomUInt Modulo(RandomUInt value, RandomUInt divisor)
+    {
+        RandomUInt remainder = 0;
+        for(size_t i = sizeof(RandomUInt) * 8; i > 0; --i)
+        {
+            const RandomUInt bit = (value >> (i - 1)) & 1;
+            if( remainder >= divisor - remainder )
+            {
+                remainder -= divisor - remainder;
+            }
+            else
+            {
+                remainder += remainder;
+            }
+            if( bit != 0 )
+            {
+                remainder = remainder == divisor - 1 ? 0 : remainder + 1;
+            }
+        }
+        return remainder;
+    }
+
+    T Generate(iutest_type_traits::true_type)
+    {
+        const RandomUInt span = static_cast<RandomUInt>(m_max) - static_cast<RandomUInt>(m_min) + 1;
+        RandomUInt offset;
+        // Unsigned arithmetic also represents ranges spanning the entire integer domain.
+        const RandomUInt threshold = span == 0 ? 0 : Modulo(RandomUInt(0) - span, span);
+        do
+        {
+            offset = 0;
+            for(size_t i = 0; i < sizeof(RandomUInt); ++i)
+            {
+                offset = (offset << 8) | m_rnd.genrand(256u);
+            }
+        } while( offset < threshold );
+        if( span != 0 ) offset = Modulo(offset, span);
+        return AddOffset(offset, iutest_type_traits::bool_constant< iuRandomRangeTypeTraits<T>::is_signed >());
+    }
+
+    T AddOffset(RandomUInt offset, iutest_type_traits::true_type) const
+    {
+        if( m_min < 0 && offset < static_cast<RandomUInt>(-(m_min + 1)) + 1 )
+        {
+            return static_cast<T>(m_min + static_cast<T>(offset));
+        }
+        return static_cast<T>(static_cast<RandomUInt>(m_min) + offset);
+    }
+
+    T AddOffset(RandomUInt offset, iutest_type_traits::false_type) const
+    {
+        return static_cast<T>(static_cast<RandomUInt>(m_min) + offset);
+    }
+
+    T Generate(iutest_type_traits::false_type)
+    {
+        const T fraction = static_cast<T>(m_rnd.genrandf());
+        // Interpolation avoids overflowing max - min for opposite-sign bounds.
+        const T value = m_min * (static_cast<T>(1) - fraction) + m_max * fraction;
+        return value < m_min ? m_min : (m_max < value ? m_max : value);
+    }
+
+    T m_min;
+    T m_max;
+    iuRandom m_rnd;
+};
+
 /**
  * @brief   乱数パラメータ生成器
 */
