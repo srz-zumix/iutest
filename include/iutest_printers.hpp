@@ -982,7 +982,7 @@ inline void PrintTo(const ::std::filesystem::directory_iterator& value, iu_ostre
 #if IUTEST_HAS_NULLPTR
 inline void PrintTo(const ::std::nullptr_t&, iu_ostream* os)
 {
-    *os << "nullptr";
+    *os << "(nullptr)";
 }
 #endif
 
