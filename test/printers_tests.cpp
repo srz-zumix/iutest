@@ -582,7 +582,7 @@ IUTEST(PrintToTest, ThresholdContainerSizer)
 #if IUTEST_HAS_NULLPTR
 IUTEST(PrintToTest, Nullptr)
 {
-    IUTEST_PRINTTOSTRING_EQ("nullptr", nullptr);
+    IUTEST_PRINTTOSTRING_EQ("(nullptr)", nullptr);
 }
 #endif
 
