@@ -145,6 +145,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/gtest_version_tests \
 		$(OUTDIR)/gtest_param_macro_tests \
 		$(OUTDIR)/gtest_stringify_tests \
+		$(OUTDIR)/esp_platform_tests \
 		$(OUTDIR)/gtest_alias_tests \
 		$(OUTDIR)/typed_test_name_generator_tests \
 		$(OUTDIR)/time_in_millis_tests \

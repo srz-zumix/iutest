@@ -134,6 +134,10 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleTest(int* argc, wchar_t** argv)
 {
     InitIrisUnitTest(argc, argv);
 }
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleTest()
+{
+    InitIrisUnitTest();
+}
 
 #if defined(GMOCK_INCLUDE_GMOCK_GMOCK_H_)
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleMock(int* argc, char** argv)

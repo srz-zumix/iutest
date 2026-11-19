@@ -79,6 +79,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 IUTEST_IPP_INLINE const char* GetEnv(const char* name)
 {
 #if defined(IUTEST_NO_GETENV) \
+    || defined(IUTEST_OS_ESP8266) || defined(IUTEST_OS_ESP32) \
     || defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE)
     IUTEST_UNUSED_VAR(name);
     return NULL;
@@ -93,6 +94,7 @@ IUTEST_IPP_INLINE const char* GetEnv(const char* name)
 IUTEST_IPP_INLINE int PutEnv(const char* expr)
 {
 #if defined(IUTEST_NO_PUTENV) \
+    || defined(IUTEST_OS_ESP8266) || defined(IUTEST_OS_ESP32) \
     || defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE) \
     || defined(IUTEST_OS_WINDOWS_MINGW)
     IUTEST_UNUSED_VAR(expr);
@@ -115,6 +117,7 @@ IUTEST_IPP_INLINE int PutEnv(const char* expr)
 IUTEST_IPP_INLINE int SetEnv(const char* name, const char* value, int overwrite)
 {
 #if defined(IUTEST_NO_SETENV) \
+    || defined(IUTEST_OS_ESP8266) || defined(IUTEST_OS_ESP32) \
     || defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE)
     IUTEST_UNUSED_VAR(name);
     IUTEST_UNUSED_VAR(value);
@@ -151,6 +154,7 @@ IUTEST_IPP_INLINE int SetEnv(const char* name, const char* value, int overwrite)
 IUTEST_IPP_INLINE const char* GetCWD(char* buf, size_t length)
 {
 #if   defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE) \
+        || defined(IUTEST_OS_ESP8266) || defined(IUTEST_OS_ESP32) \
         || defined(IUTEST_OS_AVR32) || defined(__arm__) || defined(IUTEST_NO_GETCWD)
     if( buf == NULL || length < 3 )
     {
