@@ -16,6 +16,10 @@
 
 #include "gtest/iutest_switch.hpp"
 
+#if !defined(DEFAULT)
+#  error The Arduino DEFAULT macro must remain available
+#endif
+
 #if defined(ARDUINO_ARCH_ESP8266)
 #  if !defined(IUTEST_OS_ESP8266) || !defined(GTEST_OS_ESP8266)
 #    error ESP8266 platform detection failed
