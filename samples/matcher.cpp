@@ -26,7 +26,7 @@ namespace {
     double d0 = 0.0;
 }
 
-IUTEST(Matcher, Gernal)
+IUTEST(Matchers, Gernal)
 {
     IUTEST_EXPECT_THAT(1, Eq(1));
     IUTEST_EXPECT_THAT(0, Ne(1));
@@ -37,7 +37,7 @@ IUTEST(Matcher, Gernal)
     IUTEST_EXPECT_THAT(1, Gt(0));
 }
 
-IUTEST(Matcher, Null)
+IUTEST(Matchers, Null)
 {
     int* p1 = NULL;
     int** p2 = &p1;
@@ -48,7 +48,7 @@ IUTEST(Matcher, Null)
 
 IUTEST_PRAGMA_MSC_WARN_PUSH()
 IUTEST_PRAGMA_MSC_WARN_DISABLE(4723)
-IUTEST(Matcher, FloatingPoint)
+IUTEST(Matchers, FloatingPoint)
 {
     IUTEST_EXPECT_THAT(f0, FloatEq(0.0f));
     IUTEST_EXPECT_THAT(d0, DoubleEq(0.0));
@@ -59,7 +59,7 @@ IUTEST(Matcher, FloatingPoint)
 }
 IUTEST_PRAGMA_MSC_WARN_POP()
 
-IUTEST(Matcher, String)
+IUTEST(Matchers, String)
 {
     IUTEST_EXPECT_THAT("hoge", StrEq("hoge"));
     IUTEST_EXPECT_THAT("hoga", StrNe("hoge"));
@@ -71,7 +71,7 @@ IUTEST(Matcher, String)
     IUTEST_EXPECT_THAT("hoge", EndsWith("ge"));
 }
 
-IUTEST(Matcher, Container)
+IUTEST(Matchers, Container)
 {
     int a[2][3] ={ { 1, 2, 3 }, { 4, 5, 6 } };
     int b[3] ={ 1, 2, 3 };
@@ -80,7 +80,7 @@ IUTEST(Matcher, Container)
     IUTEST_EXPECT_THAT(a, Each(Each(Le(10))));
 }
 
-IUTEST(Matcher, Member)
+IUTEST(Matchers, Member)
 {
     X x(0, 1);
     ::std::map<int, X> m;
@@ -94,23 +94,23 @@ IUTEST(Matcher, Member)
     IUTEST_EXPECT_THAT(&x, Property(&X::GetA, 0));
 }
 
-IUTEST(Matcher, Function)
+IUTEST(Matchers, Function)
 {
     IUTEST_EXPECT_THAT(1, ResultOf(X2, 2));
 }
 
-IUTEST(Matcher, Not)
+IUTEST(Matchers, Not)
 {
     IUTEST_EXPECT_THAT(1, Not(2));
 }
 
-IUTEST(Matcher, Wildcard)
+IUTEST(Matchers, Wildcard)
 {
     IUTEST_EXPECT_THAT(42, _);
     IUTEST_EXPECT_THAT(42, A<int>());
 }
 
-IUTEST(Matcher, ElementsAreArray)
+IUTEST(Matchers, ElementsAreArray)
 {
     int a[3] ={ 0, 1, 3 };
     int b[3] ={ 0, 1, 3 };
@@ -119,7 +119,7 @@ IUTEST(Matcher, ElementsAreArray)
 
 #if IUTEST_HAS_MATCHER_ELEMENTSARE
 
-IUTEST(Matcher, ElementsAre)
+IUTEST(Matchers, ElementsAre)
 {
     int a[3] ={ 0, -1, 3 };
     IUTEST_EXPECT_THAT(a, ElementsAre(Ge(0), _, Gt(0)));
@@ -129,14 +129,14 @@ IUTEST(Matcher, ElementsAre)
 
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 
-IUTEST(Matcher, AllOf)
+IUTEST(Matchers, AllOf)
 {
     int a[3] ={ 0, 1, 3 };
     IUTEST_EXPECT_THAT("hoge", AllOf(StartsWith("ho"), EndsWith("ge")));
     IUTEST_EXPECT_THAT(a, Each(AllOf(Ge(0), Le(10))));
 }
 
-IUTEST(Matcher, AnyOf)
+IUTEST(Matchers, AnyOf)
 {
     int a[3] ={ 0, -1, 10 };
     IUTEST_EXPECT_THAT("hoge", AnyOf(StartsWith("Ho"), EndsWith("ge")));

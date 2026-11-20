@@ -183,7 +183,7 @@ IUTEST(Variant, PrintTo)
         ::std::variant<int, float, AlwaysThrow> v = 0.2f;
         try
         {
-            struct S { operator int() { throw 42; } };
+            struct S { IUTEST_ATTRIBUTE_NORETURN_ operator int() { throw 42; } };
             v.emplace<0>(S());
         }
         catch(...)

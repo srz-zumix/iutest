@@ -368,6 +368,13 @@ public:
         }
     }
 
+    /**
+     * @brief   一時ファイルを作成する
+     * @param [in]  basename    = ファイル名の接頭辞
+     * @return  成否
+     * @note POSIX では空でない TMPDIR を使い、作成に失敗しても別の場所には切り替えない。
+     *       TMPDIR が未設定または空の場合は、プラットフォーム既定のディレクトリを使う。
+    */
     bool Create(const char* basename)
     {
 #if defined(IUTEST_OS_WINDOWS)
@@ -390,16 +397,29 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 #endif
 #endif
 #else
+        const char* tmp_dir = internal::posix::GetEnv("TMPDIR");
+        ::std::string name_template;
+        if( tmp_dir != NULL && tmp_dir[0] != '\0' )
+        {
+            name_template = tmp_dir;
+            if( *name_template.rbegin() != '/' )
+            {
+                name_template += "/";
+            }
+        }
+        else
+        {
 #if   defined(IUTEST_OS_LINUX_ANDROID)
-        ::std::string name_template = "/data/local/tmp/";
+            name_template = "/data/local/tmp/";
 #elif defined(IUTEST_OS_IOS)
-        char user_temp_dir[IUTEST_MAX_PATH];
-        ::confstr(_CS_DARWIN_USER_TEMP_DIR, user_temp_dir, sizeof(user_temp_dir));
-        ::std::string name_template = user_temp_dir;
-        name_template += "/";
+            char user_temp_dir[IUTEST_MAX_PATH];
+            ::confstr(_CS_DARWIN_USER_TEMP_DIR, user_temp_dir, sizeof(user_temp_dir));
+            name_template = user_temp_dir;
+            name_template += "/";
 #else
-        ::std::string name_template = "/tmp/";
+            name_template = "/tmp/";
 #endif
+        }
         name_template += basename;
         name_template += ".XXXXXX";
         const int fd = internal::posix::Mkstemp(const_cast<char*>(name_template.data()));

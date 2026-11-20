@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2025, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -71,9 +71,14 @@ inline void iuOptionMessage::ShowHelp()
         "    --iutest_random_seed=<seed>      : Set random seed.\n"
         "    --iutest_also_run_disabled_tests : Run disabled tests.\n"
         "    --iutest_break_on_failure[=0|1]  : When that failed to break.\n"
+        "    --iutest_fail_fast[=0|1]         : Stop running tests after the first failure.\n"
+        "    --iutest_fail_if_no_test_linked[=0|1] : Fail if no tests are linked.\n"
+        "    --iutest_fail_if_no_test_selected[=0|1] : Fail if no tests are selected.\n"
         "    --iutest_throw_on_failure[=0|1]  : When that failed to throw.\n"
         "    --iutest_catch_exceptions=<0|1>  : Catch exceptions enable.\n"
         "    --iutest_print_time=<0|1>        : Setting the display of elapsed time.\n"
+        "    --iutest_print_utf8[=0|1]        : Show printable UTF-8 strings as text (default: 1).\n"
+        "    --iutest_brief[=0|1]             : Print failures and summary only.\n"
         "    --iutest_default_package_name=<name>\n"
         "            : Set default root package name.\n"
         "    --iutest_output=<xml|junit>[:path]\n"
@@ -81,6 +86,8 @@ inline void iuOptionMessage::ShowHelp()
         "    --iutest_repeat=<count>\n"
         "            : Set the number of repetitions of the test.\n"
         "              use a negative count to repeat forever.\n"
+        "    --iutest_recreate_environments_when_repeating[=0|1]\n"
+        "            : Set up and tear down global environments on every repetition (default: 1).\n"
 #if IUTEST_HAS_STREAM_RESULT
         "    --iutest_stream_result_to=<host:port>\n"
         "                                     : Set stream test results server.\n"
@@ -130,6 +137,7 @@ inline void iuOptionMessage::ShowVersion()
     m (IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF); \
     m (IUTEST_HAS_MATCHER_EACH); \
     m (IUTEST_HAS_MATCHER_ELEMENTSARE); \
+    m (IUTEST_HAS_MATCHER_FIELDSARE); \
     m (IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR);   \
     m (IUTEST_HAS_MATCHER_OPTIONAL); \
     m (IUTEST_HAS_MATCHER_POINTWISE); \
@@ -161,6 +169,7 @@ inline void iuOptionMessage::ShowVersion()
     m (IUTEST_HAS_TESTNAME_ALIAS_JP); \
     m (IUTEST_HAS_TYPED_TEST); \
     m (IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME); \
+    m (IUTEST_HAS_TYPED_TEST_NAME_GENERATOR); \
     m (IUTEST_HAS_TYPED_TEST_P); \
     m (IUTEST_HAS_VALUESGEN); \
     m (IUTEST_HAS_VARIADIC_COMBINE); \
@@ -190,6 +199,7 @@ inline void iuOptionMessage::ShowSpec()
     IIUT_SHOW_MACRO(IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY);
     IIUT_SHOW_MACRO(IUTEST_HAS_AUTO);
     IIUT_SHOW_MACRO(IUTEST_HAS_CATCH_SEH_EXCEPTION_ASSERTION);
+    IIUT_SHOW_MACRO(IUTEST_HAS_CHAR8_T);
     IIUT_SHOW_MACRO(IUTEST_HAS_CHAR16_T);
     IIUT_SHOW_MACRO(IUTEST_HAS_CHAR16_T_PRINTABLE);
     IIUT_SHOW_MACRO(IUTEST_HAS_CHAR32_T);
@@ -254,7 +264,9 @@ inline void iuOptionMessage::ShowSpec()
     IIUT_SHOW_MACRO(IUTEST_HAS_RTTI);
     IIUT_SHOW_MACRO(IUTEST_HAS_RVALUE_REFS);
     IIUT_SHOW_MACRO(IUTEST_HAS_SEH);
+    IIUT_SHOW_MACRO(IUTEST_HAS_SRCDIR);
     IIUT_SHOW_MACRO(IUTEST_HAS_STD_BEGIN_END);
+    IIUT_SHOW_MACRO(IUTEST_HAS_STD_CHAR8_T);
     IIUT_SHOW_MACRO(IUTEST_HAS_STD_DECLVAL);
     IIUT_SHOW_MACRO(IUTEST_HAS_STD_EMPLACE);
     IIUT_SHOW_MACRO(IUTEST_HAS_STD_FILESYSTEM);
@@ -264,6 +276,7 @@ inline void iuOptionMessage::ShowSpec()
     IIUT_SHOW_MACRO(IUTEST_HAS_STRINGSTREAM);
     IIUT_SHOW_MACRO(IUTEST_HAS_STRONG_ENUMS);
     IIUT_SHOW_MACRO(IUTEST_HAS_STRSTREAM);
+    IIUT_SHOW_MACRO(IUTEST_HAS_TEMPDIR);
     IIUT_SHOW_MACRO(IUTEST_HAS_TUPLE);
     IIUT_SHOW_MACRO(IUTEST_HAS_VARIADIC_TEMPLATES);
     IIUT_SHOW_MACRO(IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES);
@@ -297,6 +310,9 @@ inline void iuOptionMessage::ShowSpec()
 #endif
 #ifdef _LIBCPP_VERSION
     IIUT_SHOW_MACRO(_LIBCPP_VERSION);
+#endif
+#ifdef _LIBCPP_STD_VER
+    IIUT_SHOW_MACRO(_LIBCPP_STD_VER);
 #endif
 #ifdef __POSIX_VISIBLE
     IIUT_SHOW_MACRO(__POSIX_VISIBLE);

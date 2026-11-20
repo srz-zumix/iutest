@@ -155,9 +155,8 @@
     ::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)>          \
     IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_)(                                      \
         IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testsuite_)), IIUT_TO_NAME_STR_(testname_)     \
-        , __FILE__, __LINE__                                                                \
         , type_id_, IUTEST_GET_SETUP_TESTSUITE(parent_class_, __FILE__, __LINE__)           \
-        , IUTEST_GET_TEARDOWN_TESTSUITE(parent_class_, __FILE__, __LINE__));                \
+        , IUTEST_GET_TEARDOWN_TESTSUITE(parent_class_, __FILE__, __LINE__), __FILE__, __LINE__); \
     void IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)::Body()
 
 #if IUTEST_HAS_IGNORE_TEST
@@ -177,9 +176,8 @@
     ::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)>          \
     IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_)(                                      \
         IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testsuite_)), IIUT_TO_NAME_STR_(testname_)     \
-        , __FILE__, __LINE__                                                                \
         , type_id_, IUTEST_GET_SETUP_TESTSUITE(parent_class_, __FILE__, __LINE__)           \
-        , IUTEST_GET_TEARDOWN_TESTSUITE(parent_class_, __FILE__, __LINE__));                \
+        , IUTEST_GET_TEARDOWN_TESTSUITE(parent_class_, __FILE__, __LINE__), __FILE__, __LINE__); \
     template<typename T>void IUTEST_TEST_CLASS_NAME_(testsuite_, testname_ )::Body()
 
 #endif
@@ -215,9 +213,8 @@
     IUTEST_PP_CAT( IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_), __LINE__)(                \
         IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testsuite_))                                       \
         , IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_)::MakeTestName().c_str()            \
-        , __FILE__, __LINE__                                                                    \
         , #__VA_ARGS__, type_id_, IUTEST_GET_SETUP_TESTSUITE(parent_class_, __FILE__, __LINE__) \
-        , IUTEST_GET_TEARDOWN_TESTSUITE(parent_class_, __FILE__, __LINE__))
+        , IUTEST_GET_TEARDOWN_TESTSUITE(parent_class_, __FILE__, __LINE__), __FILE__, __LINE__)
 
 #endif
 
@@ -446,6 +443,7 @@
  * @brief   明示的な失敗
 */
 #define IIUT_FAIL()                         IUTEST_ASSERT_FAILURE("Failed.\n")
+#define IIUT_FAIL_AT(file_, line_)          IUTEST_ASSERT_FAILURE_AT("Failed.\n", file_, line_)
 #define IIUT_ADD_FAILURE()                  IUTEST_EXPECT_FAILURE("Failed.\n")
 #define IIUT_ADD_FAILURE_AT(file_, line_)   IUTEST_EXPECT_FAILURE_AT("Failed.\n", file_, line_)
 

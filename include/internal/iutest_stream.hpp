@@ -76,7 +76,7 @@ public:
             buf[size] = '\0';
             if( Read(buf, size, 1) )
             {
-                str = buf;
+                str.assign(buf, size);
             }
             delete [] buf;
         }

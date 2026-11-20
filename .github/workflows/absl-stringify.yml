@@ -1,0 +1,60 @@
+name: AbslStringify printer
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  absl-stringify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@v7
+        with:
+          repository: abseil/abseil-cpp
+          ref: '20250127.1'
+          path: abseil-cpp
+          persist-credentials: false
+      - uses: actions/checkout@v7
+        with:
+          repository: google/googletest
+          ref: 'v1.15.2'
+          path: googletest
+          persist-credentials: false
+      - uses: actions/checkout@v7
+        with:
+          repository: google/re2
+          ref: '2025-08-12'
+          path: re2
+          persist-credentials: false
+      - name: Build Abseil, RE2 and Google Test
+        run: |
+          cmake -S abseil-cpp -B "$RUNNER_TEMP/absl-build" -DABSL_ENABLE_INSTALL=ON \
+            -DCMAKE_CXX_STANDARD=17 -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+            -DCMAKE_INSTALL_PREFIX="$RUNNER_TEMP/deps"
+          cmake --build "$RUNNER_TEMP/absl-build" -j4
+          cmake --install "$RUNNER_TEMP/absl-build"
+          cmake -S re2 -B "$RUNNER_TEMP/re2-build" -DRE2_BUILD_TESTING=OFF \
+            -DCMAKE_PREFIX_PATH="$RUNNER_TEMP/deps" -DCMAKE_INSTALL_PREFIX="$RUNNER_TEMP/deps"
+          cmake --build "$RUNNER_TEMP/re2-build" -j4
+          cmake --install "$RUNNER_TEMP/re2-build"
+          cmake -S googletest -B "$RUNNER_TEMP/gtest-build" -DGTEST_HAS_ABSL=ON \
+            -DBUILD_GMOCK=OFF -DCMAKE_PREFIX_PATH="$RUNNER_TEMP/deps" \
+            -DCMAKE_INSTALL_PREFIX="$RUNNER_TEMP/deps"
+          cmake --build "$RUNNER_TEMP/gtest-build" -j4
+          cmake --install "$RUNNER_TEMP/gtest-build"
+      - name: Test both printers
+        run: |
+          export PKG_CONFIG_PATH="$RUNNER_TEMP/deps/lib/pkgconfig"
+          libs="-L$RUNNER_TEMP/deps/lib -lgtest $(pkg-config --libs --static \
+            absl_failure_signal_handler absl_stacktrace absl_symbolize absl_flags_parse \
+            absl_flags_reflection absl_flags_usage absl_strings absl_any absl_optional \
+            absl_variant re2)"
+          make -C test run_absl_stringify_tests STDFLAG=-std=c++17 \
+            DEFS="-DIUTEST_HAS_ABSL_STRINGIFY=1 -I$RUNNER_TEMP/deps/include" LDFLAGS="$libs"
+          make -C test clean
+          make -C test run_absl_stringify_tests USE_GTEST=1 STDFLAG=-std=c++17 \
+            DEFS="-DIUTEST_HAS_ABSL_STRINGIFY=1 -DGTEST_HAS_ABSL=1 -I$RUNNER_TEMP/deps/include" LDFLAGS="$libs"

@@ -38,6 +38,7 @@ IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
 #include "listener/iutest_stderr_xml_generator.hpp"
 #include "listener/iutest_streaming_listener.hpp"
 #include "internal/iutest_stream_capture.hpp"
+#include "internal/iutest_filepath.hpp"
 
 #if defined(__AFX_H__)
 #include "internal/iutest_mfc.hpp"
@@ -208,6 +209,17 @@ IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
 */
 #ifndef IUTEST_FAIL
 #  define IUTEST_FAIL()                         IIUT_FAIL()
+#endif
+
+/**
+ * @ingroup     IUTEST_UTIL
+ * @brief       明示的な失敗
+ * @details     明示的に致命的な失敗を報告します
+ * @param       file    = ファイルパス
+ * @param       line    = 行番号
+*/
+#ifndef IUTEST_FAIL_AT
+#  define IUTEST_FAIL_AT(file, line)             IIUT_FAIL_AT(file, line)
 #endif
 
 /**
@@ -653,6 +665,17 @@ IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
 */
 #ifndef IUTEST_ASSERT_FAIL
 #  define IUTEST_ASSERT_FAIL()                      IIUT_FAIL()
+#endif
+
+/**
+ * @ingroup IUTEST_ASSERT_
+ * @brief   明示的な失敗
+ * @details     明示的に致命的な失敗を報告します
+ * @param       file    = ファイルパス
+ * @param       line    = 行番号
+*/
+#ifndef IUTEST_ASSERT_FAIL_AT
+#  define IUTEST_ASSERT_FAIL_AT(file, line)         IIUT_FAIL_AT(file, line)
 #endif
 
 /**
@@ -1975,6 +1998,15 @@ public:
         }
     }
 
+    void SetUpBriefResultPrinter()
+    {
+        if( TestFlag::IsEnableFlag(TestFlag::BRIEF)
+            && TestEnv::event_listeners().default_result_printer() != NULL )
+        {
+            TestEnv::event_listeners().set_default_result_printer(new BriefUnitTestResultPrinter());
+        }
+    }
+
 private:
     void SetUpDefaultListener()
     {
@@ -1996,6 +2028,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, T argv)
     UnitTestSource::GetInstance().Initialize();
     TestEnv::ParseCommandLine(pargc, argv);
     TestEnv::LoadFlagFile();
+    UnitTestSource::GetInstance().SetUpBriefResultPrinter();
     UnitTestSource::GetInstance().SetUpDefaultXmlListener();
 }
 
@@ -2023,6 +2056,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(::std::vector< ::std::basi
     UnitTestSource::GetInstance().Initialize();
     TestEnv::ParseCommandLine(argv);
     TestEnv::LoadFlagFile();
+    UnitTestSource::GetInstance().SetUpBriefResultPrinter();
     UnitTestSource::GetInstance().SetUpDefaultXmlListener();
 }
 

@@ -33,6 +33,9 @@
  *          shuffle (bool)\n
  *          also_run_disabled_tests (bool)\n
  *          break_on_failure (bool)\n
+ *          install_failure_signal_handler (bool)\n
+ *          show_internal_stack_frames (bool)\n
+ *          fail_fast (bool)\n
  *          throw_on_failure (bool)\n
  *          warning_into_error (bool)\n
  *          catch_exceptions (bool)\n
@@ -40,11 +43,14 @@
  *          catch_exceptions_global (bool)\n
  *          random_seed (unsigned int)\n
  *          print_time (bool)\n
+ *          print_utf8 (bool)\n
+ *          brief (bool)\n
  *          color (string)\n
  *          filter (string)\n
  *          flagfile (string)\n
  *          output (string)\n
  *          repeat (int)\n
+ *          recreate_environments_when_repeating (bool)\n
  *          list_tests (bool)\n
  *          list_tests_with_where (bool)\n
  *          verbose (bool)\n
@@ -144,6 +150,12 @@ public:
         SHUFFLE_TESTS           = 0x00000001,   //!< シャッフルテスト
         RUN_DISABLED_TESTS      = 0x00000002,   //!< DISABLED テストも実行
         FILTERING_TESTS         = 0x00000004,   //!< テストのフィルタリング
+        FAIL_FAST               = 0x00000008,   //!< テスト失敗時に残りのテストを実行しない
+        FAIL_IF_NO_TEST_LINKED  = 0x00000020,   //!< リンクされたテストがない場合に失敗
+        FAIL_IF_NO_TEST_SELECTED = 0x00080000,  //!< 実行対象のテストがない場合に失敗
+        RECREATE_ENVIRONMENTS_WHEN_REPEATING = 0x00100000,
+        INSTALL_FAILURE_SIGNAL_HANDLER = 0x00400000,
+        SHOW_INTERNAL_STACK_FRAMES = 0x00800000,
 
         BREAK_ON_FAILURE        = 0x00000010,   //!< テスト失敗時にブレーク
         THROW_ON_FAILURE        = 0x00000040,   //!< 致命的な失敗時に throw する
@@ -154,6 +166,8 @@ public:
         CONSOLE_COLOR_ANSI      = 0x00000400,   //!< エスケープシーケンスで出力
 
         PRINT_TIME              = 0x00001000,   //!< 経過時間の出力
+        PRINT_UTF8              = 0x00200000,   //!< UTF-8 文字列のテキスト表示
+        BRIEF                   = 0x00008000,   //!< 失敗とまとめのみ出力
         FILELOCATION_STYLE_MSVC = 0x00002000,   //!< ファイル/行出力スタイルを Visual Studio スタイルにする
         VERBOSE                 = 0x00004000,   //!< verbose
 
@@ -176,9 +190,9 @@ public:
 
         //! デフォルト
 #if defined(_MSC_VER)
-        DEFAULT = CATCH_EXCEPTION|PRINT_TIME|FILELOCATION_STYLE_MSVC
+        DEFAULT = CATCH_EXCEPTION|PRINT_TIME|PRINT_UTF8|FILELOCATION_STYLE_MSVC|RECREATE_ENVIRONMENTS_WHEN_REPEATING
 #else
-        DEFAULT = CATCH_EXCEPTION|PRINT_TIME
+        DEFAULT = CATCH_EXCEPTION|PRINT_TIME|PRINT_UTF8|RECREATE_ENVIRONMENTS_WHEN_REPEATING
 #endif
     };
 
@@ -247,10 +261,18 @@ public:
     typedef TestFlag::Fragment<TestFlag::SHUFFLE_TESTS>         shuffle;
     typedef TestFlag::Fragment<TestFlag::RUN_DISABLED_TESTS>    also_run_disabled_tests;
     typedef TestFlag::Fragment<TestFlag::BREAK_ON_FAILURE>      break_on_failure;
+    typedef TestFlag::Fragment<TestFlag::INSTALL_FAILURE_SIGNAL_HANDLER> install_failure_signal_handler;
+    typedef TestFlag::Fragment<TestFlag::SHOW_INTERNAL_STACK_FRAMES> show_internal_stack_frames;
+    typedef TestFlag::Fragment<TestFlag::FAIL_FAST>             fail_fast;
+    typedef TestFlag::Fragment<TestFlag::RECREATE_ENVIRONMENTS_WHEN_REPEATING> recreate_environments_when_repeating;
+    typedef TestFlag::Fragment<TestFlag::FAIL_IF_NO_TEST_LINKED> fail_if_no_test_linked;
+    typedef TestFlag::Fragment<TestFlag::FAIL_IF_NO_TEST_SELECTED> fail_if_no_test_selected;
     typedef TestFlag::Fragment<TestFlag::CATCH_EXCEPTION>       catch_exceptions;
     typedef TestFlag::Fragment<TestFlag::THROW_ON_FAILURE>      throw_on_failure;
     typedef TestFlag::Fragment<TestFlag::WARNING_INTO_ERROR>    warning_into_error;
     typedef TestFlag::Fragment<TestFlag::PRINT_TIME>            print_time;
+    typedef TestFlag::Fragment<TestFlag::PRINT_UTF8>            print_utf8;
+    typedef TestFlag::Fragment<TestFlag::BRIEF>                 brief;
     typedef TestFlag::Fragment<TestFlag::SHOW_TESTS_LIST>       list_tests;
     typedef TestFlag::Fragment<TestFlag::SHOW_TESTS_LIST_WITH_WHERE> list_tests_with_where;
 
@@ -319,6 +341,7 @@ private:
             , m_before_origin_random_seed(0)
             , m_repeat_count(1)
             , m_testpartresult_reporter(NULL)
+            , m_locale_ctype("")
         {}
         unsigned int        m_random_seed;
         unsigned int        m_current_random_seed;
@@ -342,6 +365,51 @@ private:
     };
 
     static Variable& get_vars() { static Variable sVars; return sVars; }
+
+public:
+    class ScopedFlagGuard
+    {
+        IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(ScopedFlagGuard);
+
+        TestFlag::ScopedGuard m_flags;
+        unsigned int m_random_seed;
+        int m_repeat_count;
+        StateVariable< ::std::string > m_output_option;
+        ::std::string m_test_filter;
+        ::std::string m_flagfile;
+#if IUTEST_HAS_STREAM_RESULT
+        StateVariable< ::std::string > m_stream_result_to;
+#endif
+        ::std::string m_default_package_name;
+        ::std::string m_locale_ctype;
+    public:
+        ScopedFlagGuard()
+            : m_random_seed(get_vars().m_random_seed)
+            , m_repeat_count(get_vars().m_repeat_count)
+            , m_output_option(get_vars().m_output_option)
+            , m_test_filter(get_vars().m_test_filter)
+            , m_flagfile(get_vars().m_flagfile)
+#if IUTEST_HAS_STREAM_RESULT
+            , m_stream_result_to(get_vars().m_stream_result_to)
+#endif
+            , m_default_package_name(get_vars().m_default_package_name)
+            , m_locale_ctype(get_vars().m_locale_ctype)
+        {}
+        ~ScopedFlagGuard()
+        {
+            Variable& vars = get_vars();
+            vars.m_random_seed = m_random_seed;
+            vars.m_repeat_count = m_repeat_count;
+            vars.m_output_option = m_output_option;
+            vars.m_test_filter = m_test_filter;
+            vars.m_flagfile = m_flagfile;
+#if IUTEST_HAS_STREAM_RESULT
+            vars.m_stream_result_to = m_stream_result_to;
+#endif
+            vars.m_default_package_name = m_default_package_name;
+            vars.m_locale_ctype = m_locale_ctype;
+        }
+    };
 
 private:
     static const char*          get_output_option_c_str() { return get_vars().m_output_option.get().c_str(); }

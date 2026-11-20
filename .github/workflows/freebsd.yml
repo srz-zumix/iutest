@@ -1,0 +1,49 @@
+name: FreeBSD Tests
+on:
+  pull_request:
+    paths-ignore:
+      - '.github/copilot-instructions.md'
+      - '*.ini'
+      - '*.md'
+      - 'docs/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  # Cirrus CI freebsd task migration
+  freebsd-clang-test:
+    name: freebsd clang (${{ matrix.stdflag }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        stdflag:
+          - -std=c++14
+          - -std=c++17
+          - -std=c++20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: build and test
+        uses: vmactions/freebsd-vm@a2f9a41fa97f6848b8c3b791087dfcdaa5b473ff # v1.5.8
+        with:
+          envs: 'STDFLAG'
+          prepare: |
+            pkg install -y gmake
+          run: |
+            trap 'rm -f test/testdata/4gb.bin' EXIT
+            gmake --version
+            gmake -C test showcxxversion
+            gmake -C test showcxxmacros
+            gmake -C test check_stdlib showstdlbfeatures
+            gmake -C test -j4
+            gmake -C test test
+            gmake -C test report
+        env:
+          STDFLAG: ${{ matrix.stdflag }}

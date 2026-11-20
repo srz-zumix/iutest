@@ -113,6 +113,8 @@ class AssertHelperEx : public AssertHelper
 public:
     AssertHelperEx(TestPartResult::Type type, const char* file, int line, const char* message)
         : AssertHelper(type, file, line, message) {}
+    AssertHelperEx(TestPartResult::Type type, const char* file, int line, const ::std::string& message)
+        : AssertHelper(type, file, line, message.c_str()) {}
 
     void operator = (const Message& message) const
     {

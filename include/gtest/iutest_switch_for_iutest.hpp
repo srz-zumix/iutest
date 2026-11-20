@@ -32,8 +32,16 @@
 
 #if defined(GTEST_INCLUDE_GTEST_GTEST_H_)
 
-#undef SUCCEED
-#undef FAIL
+#if !(defined(GTEST_DONT_DEFINE_SUCCEED) && GTEST_DONT_DEFINE_SUCCEED)
+#  undef SUCCEED
+#endif
+#if !(defined(GTEST_DONT_DEFINE_FAIL) && GTEST_DONT_DEFINE_FAIL)
+#  undef FAIL
+#  undef FAIL_AT
+#endif
+#undef GTEST_SUCCEED
+#undef GTEST_FAIL
+#undef GTEST_FAIL_AT
 #undef ADD_FAILURE
 #undef ADD_FAILURE_AT
 
@@ -55,12 +63,21 @@
 
 #endif
 
-#define SUCCEED             IUTEST_SUCCEED
-#define FAIL                IUTEST_FAIL
+#if !(defined(GTEST_DONT_DEFINE_SUCCEED) && GTEST_DONT_DEFINE_SUCCEED)
+#  define SUCCEED           IUTEST_SUCCEED
+#endif
+#if !(defined(GTEST_DONT_DEFINE_FAIL) && GTEST_DONT_DEFINE_FAIL)
+#  define FAIL              IUTEST_FAIL
+#  define FAIL_AT           IUTEST_FAIL_AT
+#endif
+#define GTEST_SUCCEED       IUTEST_SUCCEED
+#define GTEST_FAIL          IUTEST_FAIL
+#define GTEST_FAIL_AT       IUTEST_FAIL_AT
 #define ADD_FAILURE         IUTEST_ADD_FAILURE
 #define ADD_FAILURE_AT      IUTEST_ADD_FAILURE_AT
 
 #define GTEST_HAS_DEATH_TEST    0
+//! @deprecated Use IUTEST_HAS_PARAM_TEST for feature detection.
 #define GTEST_HAS_PARAM_TEST    IUTEST_HAS_PARAM_TEST
 #define GTEST_HAS_COMBINE       IUTEST_HAS_COMBINE
 #define GTEST_HAS_TYPED_TEST    IUTEST_HAS_TYPED_TEST
@@ -73,6 +90,11 @@
 #define GTEST_HAS_SEH           IUTEST_HAS_SEH
 
 #define GTEST_IS_THREADSAFE     0
+
+#if !defined(IUTEST_NO_VARIADIC_MACROS) && !defined(GTEST_STRINGIFY_)
+#  define GTEST_STRINGIFY_(...) IIUT_GTEST_STRINGIFY_HELPER_(__VA_ARGS__, )
+#  define IIUT_GTEST_STRINGIFY_HELPER_(name, ...) #name
+#endif
 
 // IWYU pragma: begin_exports
 #include "switch/iutest_switch_port.hpp"

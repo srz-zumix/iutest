@@ -18,9 +18,52 @@
 //======================================================================
 // include
 // IWYU pragma: begin_exports
+#include <set>
+
 #include "iutest_genparams.hpp"
 #include "iutest_genparams_from_file.hpp"
 // IWYU pragma: end_exports
+
+namespace iutest {
+namespace detail {
+
+class UninstantiatedParameterizedTestRegistry
+{
+public:
+    struct TypedSuite
+    {
+        explicit TypedSuite(const ::std::string& suite) : name(suite), instantiated(false) {}
+        ::std::string name;
+        bool instantiated;
+    };
+
+    static UninstantiatedParameterizedTestRegistry& GetInstance()
+    {
+        static UninstantiatedParameterizedTestRegistry registry;
+        return registry;
+    }
+
+    int Allow(const ::std::string& name)
+    {
+        m_allowed.insert(name);
+        return 0;
+    }
+
+    bool IsAllowed(const ::std::string& name) const
+    {
+        return m_allowed.find(name) != m_allowed.end();
+    }
+
+    void AddTypedSuite(TypedSuite* suite) { m_typed_suites.push_back(suite); }
+    const ::std::vector<TypedSuite*>& typed_suites() const { return m_typed_suites; }
+
+private:
+    ::std::set< ::std::string > m_allowed;
+    ::std::vector<TypedSuite*> m_typed_suites;
+};
+
+}   // end of namespace detail
+}   // end of namespace iutest
 
 #if IUTEST_HAS_PARAM_TEST
 // IWYU pragma: begin_exports
@@ -51,7 +94,7 @@ public:
     explicit IParamTestInfoData(const char* name) : m_name(name) {}
     virtual ~IParamTestInfoData() IUTEST_CXX_DEFAULT_FUNCTION
     virtual TestSuite* MakeTestSuite(const ::std::string& , TestTypeId , SetUpMethod , TearDownMethod ) const = 0;
-    virtual EachTestBase* RegisterTest(TestSuite* , const ::std::string& , const ::std::string& , int ) const = 0;
+    virtual EachTestBase* RegisterTest(TestSuite* , const ::std::string& ) const = 0;
     const char* GetName() const { return m_name.c_str(); }
 protected:
     ::std::string m_name;
@@ -80,16 +123,19 @@ public:
     }
 
 public:
-    void RegisterTests() const
+    bool RegisterTests() const
     {
+        size_t count = 0;
         for( TestInfoContainer::const_iterator it=m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
         {
-            OnRegisterTests(*it);
+            count += OnRegisterTests(*it);
         }
+        return count == 0 && (!m_testinfos.empty() || HasInstantiations());
     }
 
     ::std::string GetTestSuiteBaseName() const { return m_testsuite_base_name; }
     ::std::string GetPackageName()      const { return m_package_name; }
+    ::std::string GetFullName() const { return m_package_name + m_testsuite_base_name; }
 
 public:
     bool is_same(const ::std::string& base_name, const ::std::string& package_name)
@@ -102,7 +148,8 @@ public:
     }
 
 private:
-    virtual void OnRegisterTests(IParamTestInfoData*) const = 0;
+    virtual size_t OnRegisterTests(IParamTestInfoData*) const = 0;
+    virtual bool HasInstantiations() const = 0;
 private:
     typedef ::std::vector<IParamTestInfoData*> TestInfoContainer;
     TestInfoContainer m_testinfos;
@@ -174,8 +221,9 @@ public:
     /**
      * @brief   テストの作成
     */
-    virtual void OnRegisterTests(IParamTestInfoData* infodata) const IUTEST_CXX_OVERRIDE
+    virtual size_t OnRegisterTests(IParamTestInfoData* infodata) const IUTEST_CXX_OVERRIDE
     {
+        size_t count = 0;
         for( typename InstantiationContainer::const_iterator gen_it=m_instantiation.begin()
             , gen_end=m_instantiation.end(); gen_it != gen_end; ++gen_it )
         {
@@ -203,13 +251,17 @@ public:
                         IUTEST_LOG_(WARNING) << testsuite_name << "." << name << " is already exist.";
                     }
 #endif
-                    EachTest* test = static_cast<EachTest*>(infodata->RegisterTest(testsuite, name, file, line));
+                    EachTest* test = static_cast<EachTest*>(infodata->RegisterTest(testsuite, name));
                     test->SetParam(p->GetCurrent());
                     ++i;
+                    ++count;
                 }
             }
         }
+        return count;
     }
+
+    virtual bool HasInstantiations() const IUTEST_CXX_OVERRIDE { return !m_instantiation.empty(); }
 
     static ::std::string DefaultParamNameFunc(const TestParamInfo<ParamType>& info)
     {
@@ -217,9 +269,26 @@ public:
     }
 
     template<typename ParamNameFunctor>
-    static ParamNameFunctor GetParamNameGen(ParamNameFunctor func)
+    class ParamNameGenerator
     {
-        return func;
+    public:
+        explicit ParamNameGenerator(ParamNameFunctor func) : m_func(func) {}
+        ::std::string operator()(const TestParamInfo<ParamType>& info)
+        {
+            const ::std::string& name = m_func(info);
+            IUTEST_CHECK_(!name.empty()
+                && name.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_")
+                    == ::std::string::npos) << "Parameterized test name '" << name << "' is invalid.";
+            return name;
+        }
+    private:
+        ParamNameFunctor m_func;
+    };
+
+    template<typename ParamNameFunctor>
+    static ParamNameGenerator<ParamNameFunctor> GetParamNameGen(ParamNameFunctor func)
+    {
+        return ParamNameGenerator<ParamNameFunctor>(func);
     }
 
     static pfnParamNameGeneratorFunc GetParamNameGen()
@@ -306,11 +375,14 @@ public:
 
 private:
     // テストを登録
-    void RegisterTests() const
+    void RegisterTests(::std::vector< ::std::string >& uninstantiated) const
     {
         for( TestSuiteInfoContainer::const_iterator it = m_testsuite_infos.begin(); it != m_testsuite_infos.end(); ++it)
         {
-            (*it)->RegisterTests();
+            if( (*it)->RegisterTests() )
+            {
+                uninstantiated.push_back((*it)->GetFullName());
+            }
         }
     }
 private:

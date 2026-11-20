@@ -1,0 +1,7 @@
+{
+  "name": "iutest-vcpkg-test",
+  "version": "0.0.0",
+  "dependencies": [
+    "iutest"
+  ]
+}

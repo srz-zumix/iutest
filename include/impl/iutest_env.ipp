@@ -200,6 +200,22 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
     {
         return ParseYesNoFlagCommandLine(str, TestFlag::BREAK_ON_FAILURE, 1);
     }
+    if( detail::IsStringForwardMatching(str, "fail_fast") )
+    {
+        return ParseYesNoFlagCommandLine(str, TestFlag::FAIL_FAST, 1);
+    }
+    if( detail::IsStringForwardMatching(str, "recreate_environments_when_repeating") )
+    {
+        return ParseYesNoFlagCommandLine(str, TestFlag::RECREATE_ENVIRONMENTS_WHEN_REPEATING, 1);
+    }
+    if( detail::IsStringForwardMatching(str, "fail_if_no_test_linked") )
+    {
+        return ParseYesNoFlagCommandLine(str, TestFlag::FAIL_IF_NO_TEST_LINKED, 1);
+    }
+    if( detail::IsStringForwardMatching(str, "fail_if_no_test_selected") )
+    {
+        return ParseYesNoFlagCommandLine(str, TestFlag::FAIL_IF_NO_TEST_SELECTED, 1);
+    }
     if( detail::IsStringForwardMatching(str, "catch_exceptions") )
     {
         return ParseYesNoFlagCommandLine(str, TestFlag::CATCH_EXCEPTION, -1);
@@ -215,6 +231,18 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
     if( detail::IsStringForwardMatching(str, "print_time") )
     {
         return ParseYesNoFlagCommandLine(str, TestFlag::PRINT_TIME, -1);
+    }
+    if( detail::IsStringEqual(str, "print_utf8")
+        || detail::IsStringForwardMatching(str, "print_utf8=") )
+    {
+        const char* option = ParseOptionSettingStr(str);
+        const bool enabled = option == NULL || (*option != '0' && *option != 'f' && *option != 'F');
+        TestFlag::SetFlag(TestFlag::PRINT_UTF8, enabled ? TestFlag::MASK : ~TestFlag::PRINT_UTF8);
+        return true;
+    }
+    if( detail::IsStringForwardMatching(str, "brief") )
+    {
+        return ParseYesNoFlagCommandLine(str, TestFlag::BRIEF, 1);
     }
     if( detail::IsStringForwardMatching(str, "repeat") )
     {
@@ -278,6 +306,20 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnvironmentVariable()
 {
 #if !defined(__WANDBOX__)
     {
+        ::std::string var;
+        if( detail::GetEnvironmentVariable("IUTEST_INSTALL_FAILURE_SIGNAL_HANDLER", var)
+            || detail::GetEnvironmentVariable("GTEST_INSTALL_FAILURE_SIGNAL_HANDLER", var) )
+        {
+            TestFlag::SetFlag(TestFlag::INSTALL_FAILURE_SIGNAL_HANDLER
+                , var != "0" ? TestFlag::MASK : ~TestFlag::INSTALL_FAILURE_SIGNAL_HANDLER);
+        }
+        if( detail::GetEnvironmentVariable("IUTEST_PRINT_UTF8", var)
+            || detail::GetEnvironmentVariable("GTEST_PRINT_UTF8", var) )
+        {
+            TestFlag::SetFlag(TestFlag::PRINT_UTF8, var != "0" ? TestFlag::MASK : ~TestFlag::PRINT_UTF8);
+        }
+    }
+    {
         int var = 0;
         if( detail::GetEnvironmentInt("IUTEST_ALSO_RUN_DISABLED_TESTS", var)
         ||  detail::GetEnvironmentInt("GTEST_ALSO_RUN_DISABLED_TESTS", var) )
@@ -308,6 +350,30 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnvironmentVariable()
             TestFlag::SetFlag(TestFlag::BREAK_ON_FAILURE
                 , var ? TestFlag::MASK : ~(TestFlag::BREAK_ON_FAILURE) );
         }
+        if( detail::GetEnvironmentInt("IUTEST_FAIL_FAST", var)
+        ||  detail::GetEnvironmentInt("GTEST_FAIL_FAST", var) )
+        {
+            TestFlag::SetFlag(TestFlag::FAIL_FAST
+                , var ? TestFlag::MASK : ~(TestFlag::FAIL_FAST) );
+        }
+        if( detail::GetEnvironmentInt("IUTEST_RECREATE_ENVIRONMENTS_WHEN_REPEATING", var)
+        ||  detail::GetEnvironmentInt("GTEST_RECREATE_ENVIRONMENTS_WHEN_REPEATING", var) )
+        {
+            TestFlag::SetFlag(TestFlag::RECREATE_ENVIRONMENTS_WHEN_REPEATING
+                , var ? TestFlag::MASK : ~(TestFlag::RECREATE_ENVIRONMENTS_WHEN_REPEATING) );
+        }
+        if( detail::GetEnvironmentInt("IUTEST_FAIL_IF_NO_TEST_LINKED", var)
+        ||  detail::GetEnvironmentInt("GTEST_FAIL_IF_NO_TEST_LINKED", var) )
+        {
+            TestFlag::SetFlag(TestFlag::FAIL_IF_NO_TEST_LINKED
+                , var ? TestFlag::MASK : ~(TestFlag::FAIL_IF_NO_TEST_LINKED) );
+        }
+        if( detail::GetEnvironmentInt("IUTEST_FAIL_IF_NO_TEST_SELECTED", var)
+        ||  detail::GetEnvironmentInt("GTEST_FAIL_IF_NO_TEST_SELECTED", var) )
+        {
+            TestFlag::SetFlag(TestFlag::FAIL_IF_NO_TEST_SELECTED
+                , var ? TestFlag::MASK : ~(TestFlag::FAIL_IF_NO_TEST_SELECTED) );
+        }
         if( detail::GetEnvironmentInt("IUTEST_THROW_ON_FAILURE", var)
         ||  detail::GetEnvironmentInt("GTEST_THROW_ON_FAILURE", var) )
         {
@@ -324,6 +390,12 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnvironmentVariable()
         {
             TestFlag::SetFlag(TestFlag::PRINT_TIME
                 , var ? TestFlag::MASK : ~(TestFlag::PRINT_TIME) );
+        }
+        if( detail::GetEnvironmentInt("IUTEST_BRIEF", var)
+        ||  detail::GetEnvironmentInt("GTEST_BRIEF", var) )
+        {
+            TestFlag::SetFlag(TestFlag::BRIEF
+                , var ? TestFlag::MASK : ~(TestFlag::BRIEF) );
         }
         if( detail::GetEnvironmentInt("IUTEST_REPEAT", var)
         ||  detail::GetEnvironmentInt("GTEST_REPEAT", var) )

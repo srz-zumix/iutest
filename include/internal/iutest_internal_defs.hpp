@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2022, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2025, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -79,6 +79,8 @@
 // https://www.cocoawithlove.com/2008/03/break-into-debugger.html
 #    if defined(__ppc64__) || defined(__ppc__)
 #      define IUTEST_BREAK()    __asm__("li r0, 20\nsc\nnop\nli r0, 37\nli r4, 2\nsc\nnop\n" : : : "memory", "r0", "r3", "r4" )
+#    elif defined(__aarch64__)
+#      define IUTEST_BREAK()    __asm__(".inst 0xd4200000")
 #    else
 #      define IUTEST_BREAK()    __asm__("int $3\n" : : )
 #    endif
@@ -309,22 +311,77 @@ struct IsContainerHelper
     typedef int  yes_t;
     typedef char no_t;
 
+#if !defined(IUTEST_NO_SFINAE) \
+    && (!defined(_MSC_VER) || _MSC_VER >= 1910) \
+    && (!defined(__GNUC__) || __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4) \
+        || (defined(__clang__) && (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 5))))
+    template<typename T>
+    static const T& MakeContainer();
+    template<typename T>
+    static typename T::const_iterator& MakeIterator();
+    template<typename T>
+    static void AcceptIterator(typename T::const_iterator);
+
+#if defined(_MSC_VER)
+    template<typename T>
+    static IUTEST_CXX_CONSTEXPR yes_t IsContainer(int IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)
+        , decltype((AcceptIterator<T>(MakeContainer<T>().begin())
+                  , AcceptIterator<T>(MakeContainer<T>().end())
+                  , static_cast<void>(++MakeIterator<T>())
+                  , static_cast<void>(*MakeIterator<T>())
+                  , static_cast<void>(MakeIterator<T>() != MakeIterator<T>() ? 0 : 1)
+                  , 0))* =NULL) { return 0; }
+#else
+    template<typename T>
+    static IUTEST_CXX_CONSTEXPR yes_t IsContainer(int IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)
+        , char (*)[sizeof((AcceptIterator<T>(MakeContainer<T>().begin())
+                        , AcceptIterator<T>(MakeContainer<T>().end())
+                        , static_cast<void>(++MakeIterator<T>())
+                        , static_cast<void>(*MakeIterator<T>())
+                        , static_cast<void>(MakeIterator<T>() != MakeIterator<T>() ? 0 : 1)
+                        , 0))] =NULL) { return 0; }
+#endif
+#else
+    // Keep the type-only check for compilers without expression SFINAE.
     template<typename T>
     static IUTEST_CXX_CONSTEXPR yes_t IsContainer(int IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)
         , typename T::iterator* =NULL, typename T::const_iterator* =NULL) { return 0; }
+#endif
 
     template<typename T>
     static IUTEST_CXX_CONSTEXPR no_t  IsContainer(long IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)) { return 0; }
 };
 
 /**
+ * @brief   GoogleTest-compatible standard library type name normalization
+*/
+inline ::std::string CanonicalizeForStdLibVersioning(::std::string name)
+{
+    // Only remove the leading inline namespace and one space after each comma.
+    if( name.compare(0, 7, "std::__") == 0 )
+    {
+        const ::std::string::size_type end = name.find("::", 7);
+        if( end != ::std::string::npos )
+        {
+            name.erase(3, end - 3);
+        }
+    }
+    ::std::string::size_type pos = 0;
+    while( (pos = name.find(", ", pos)) != ::std::string::npos )
+    {
+        name.erase(pos + 1, 1);
+        ++pos;
+    }
+    return name;
+}
+
+/**
  * @brief   型名の取得
 */
-template<typename T>
-inline ::std::string GetTypeName()
-{
 #if IUTEST_HAS_RTTI
-    const char* const name = typeid(T).name();
+inline ::std::string GetTypeName(const ::std::type_info& info)
+{
+    const char* const name = info.name();
 
 #if IUTEST_HAS_HDR_CXXABI
     using abi::__cxa_demangle;
@@ -338,17 +395,35 @@ inline ::std::string GetTypeName()
     }
 #endif
     free(read_name);
+    return CanonicalizeForStdLibVersioning(str);
+#elif defined(_MSC_VER)
+    ::std::string str = name;
+    if( str.compare(0, 7, "struct ") == 0 )
+    {
+        str.erase(0, 7);
+    }
+    else if( str.compare(0, 6, "class ") == 0 )
+    {
+        str.erase(0, 6);
+    }
     return str;
 #else
     return name;
 #endif
+}
+#endif
 
+template<typename T>
+inline ::std::string GetTypeName()
+{
+#if IUTEST_HAS_RTTI
+    return GetTypeName(typeid(T));
 #else
     return "<type>";
 #endif
 }
 
-#if !IUTEST_HAS_RTTI
+#if !IUTEST_HAS_RTTI || defined(IUTEST_NO_CHAR8_T_TYPEINFO)
 
 #define IIUT_GeTypeNameSpecialization(type) \
     template<>inline ::std::string GetTypeName<type>() { return #type; }    \
@@ -358,6 +433,14 @@ inline ::std::string GetTypeName()
     IIUT_GeTypeNameSpecialization(type)         \
     IIUT_GeTypeNameSpecialization(unsigned type)
 
+#if defined(IUTEST_NO_CHAR8_T_TYPEINFO)
+
+IIUT_GeTypeNameSpecialization(char8_t)  // NOLINT
+
+#endif
+
+#if !IUTEST_HAS_RTTI
+
 IIUT_GeTypeNameSpecialization2(char)    // NOLINT
 IIUT_GeTypeNameSpecialization2(short)   // NOLINT
 IIUT_GeTypeNameSpecialization2(int)     // NOLINT
@@ -365,6 +448,8 @@ IIUT_GeTypeNameSpecialization2(long)    // NOLINT
 IIUT_GeTypeNameSpecialization(float)    // NOLINT
 IIUT_GeTypeNameSpecialization(double)   // NOLINT
 IIUT_GeTypeNameSpecialization(bool)     // NOLINT
+
+#endif
 
 #undef IIUT_GeTypeNameSpecialization
 #undef IIUT_GeTypeNameSpecialization2

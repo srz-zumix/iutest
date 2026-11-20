@@ -1,25 +1,20 @@
 name: Coverage
 on:
   pull_request:
-    branches:
-      - master
-      - develop
-      - 'feature/**'
-      - 'fix/**'
-      - 'gh/**'
-      - 'github/**'
-      - 'githubactions/**'
     paths-ignore:
+      - '.github/copilot-instructions.md'
       - '*.ini'
       - '*.md'
+      - 'docs/**'
       - '*.yml'
       - '*.yaml'
-      - '.circleci/**'
-      - '.semaphore/**'
-  push:
-    branches:
-      - master
-      - develop
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
   codecov:
@@ -32,7 +27,9 @@ jobs:
       USE_COVERAGE: gcov
       DEFS: -DIUTEST_FORCE_COLORCONSOLE=1
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
+      with:
+        persist-credentials: false
     - name: info
       run: |
         make -C test showcxxmacros
@@ -48,14 +45,14 @@ jobs:
     - name: test
       run: |
         make -C test test
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v7
       with:
         name: test-result
         path: test/*.xml
     - name: coverage
       run: |
         make -C test coverage
-    - uses: codecov/codecov-action@v3
+    - uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
       with:
         fail_ci_if_error: true
         verbose: true
@@ -69,7 +66,9 @@ jobs:
     env:
       USE_COVERAGE: lcov
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
+      with:
+        persist-credentials: false
     - name: install dependencies
       run: |
         sudo apt-get install -qq -y lcov
@@ -88,7 +87,7 @@ jobs:
     - name: test
       run: |
         make -C test test
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v7
       with:
         name: test-result
         path: test/*.xml
@@ -96,7 +95,7 @@ jobs:
       run: |
         make -C test coverage
     - name: Coveralls
-      uses: coverallsapp/github-action@master
+      uses: coverallsapp/github-action@8d6379e14d29928660c4ba802d8e85393440b329 # v2.3.8
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: test/coverage.info

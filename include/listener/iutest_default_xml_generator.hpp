@@ -90,6 +90,8 @@ private:
     static void OnReportTestInfo(IFile* file, const TestInfo& test_info);
     static void OnReportTestProperty(IFile* file, const TestResult& test_result
         , bool (*pfnValidate)(const ::std::string&));
+    static void OnReportTestPropertyElements(IFile* file, const TestResult& test_result
+        , bool (*pfnValidate)(const ::std::string&), const char* indent);
     static void OnReportTestSkipped(IFile* file, const TestInfo& test_info);
 
 private:
@@ -97,6 +99,7 @@ private:
     virtual void FileClose();
 
 protected:
+    static void OnReportNonTestSuiteFailure(IFile* file, const UnitTest& test);
     static void OutputXmlCDataSection(IFile* file, const char* data);
     static void OutputXmlAttribute(IFile* file, const char* name, const char* value);
 

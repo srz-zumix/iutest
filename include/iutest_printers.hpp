@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2025, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -19,9 +19,19 @@
 // include
 // IWYU pragma: begin_exports
 #include "iutest_defs.hpp"
+#include "iutest_env.hpp"
 #include "internal/iutest_string_stream.hpp"
 #include "internal/iutest_string_view.hpp"
 // IWYU pragma: end_exports
+
+#if IUTEST_HAS_CXX11
+#  include <memory>
+#endif
+
+#if IUTEST_HAS_ABSL_STRINGIFY
+#  include <absl/strings/has_absl_stringify.h>
+#  include <absl/strings/str_cat.h>
+#endif
 
 #if IUTEST_USE_QUADMATH
 #  include <quadmath.h>
@@ -83,15 +93,43 @@ namespace printer_internal
 namespace formatter
 {
 
+template<typename T>
+class IsComplete
+{
+#if defined(__GNUC__) && __GNUC__ == 3 && !defined(__clang__)
+public:
+    // GCC 3 does not support sizeof-based SFINAE for incomplete types.
+    enum { value = 1 };
+#else
+    template<typename U>
+    static char Check(char (*)[sizeof(U)]);
+    template<typename U>
+    static long Check(...);
+public:
+    enum { value = sizeof(Check<T>(0)) == sizeof(char) };
+#endif
+};
+
 struct RawBytesPrinter
 {
     template<typename T>
     static void Print(const T& value, iu_ostream* os)
     {
+        Print(value, os, iutest_type_traits::bool_constant<IsComplete<T>::value>());
+    }
+private:
+    template<typename T>
+    static void Print(const T& value, iu_ostream* os, iutest_type_traits::true_type)
+    {
         const unsigned char* ptr = const_cast<const unsigned char*>(
             reinterpret_cast<const volatile unsigned char*>(&value));
         const size_t size = sizeof(T);
         PrintBytesInObjectTo(ptr, size, os);
+    }
+    template<typename T>
+    static void Print(const T&, iu_ostream* os, iutest_type_traits::false_type)
+    {
+        *os << "(incomplete type)";
     }
 };
 
@@ -138,8 +176,19 @@ public:
     template<typename T>
     static void PrintValue(const T& value, iu_ostream* os)
     {
+        PrintValue(value, os, iutest_type_traits::bool_constant<formatter::IsComplete<T>::value>());
+    }
+private:
+    template<typename T>
+    static void PrintValue(const T& value, iu_ostream* os, iutest_type_traits::true_type)
+    {
         typedef typename formatter::PrinterTypeSelecter<const T&>::type Printer;
         Printer::Print(value, os);
+    }
+    template<typename T>
+    static void PrintValue(const T& value, iu_ostream* os, iutest_type_traits::false_type)
+    {
+        formatter::RawBytesPrinter::Print(value, os);
     }
 };
 
@@ -219,7 +268,7 @@ inline void DefaultPrintTo(IsContainerHelper::yes_t
 }
 
 template<typename T>
-inline void DefaultPrintNonContainerTo(const T& value, iu_ostream* os)
+inline void DefaultPrintNonContainerToFallback(const T& value, iu_ostream* os)
 {
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     printer_internal2::DefaultPrintNonContainerTo(value, os);
@@ -227,6 +276,32 @@ inline void DefaultPrintNonContainerTo(const T& value, iu_ostream* os)
     printer_internal::formatter::RawBytesPrinter::Print(value, os);
 #endif
 }
+#if IUTEST_HAS_ABSL_STRINGIFY
+template<typename T>
+inline void DefaultPrintNonContainerTo(const T& value, iu_ostream* os, iutest_type_traits::true_type)
+{
+    *os << ::absl::StrCat(value);
+}
+
+template<typename T>
+inline void DefaultPrintNonContainerTo(const T& value, iu_ostream* os, iutest_type_traits::false_type)
+{
+    DefaultPrintNonContainerToFallback(value, os);
+}
+
+template<typename T>
+inline void DefaultPrintNonContainerTo(const T& value, iu_ostream* os)
+{
+    DefaultPrintNonContainerTo(value, os,
+        iutest_type_traits::bool_constant< ::absl::HasAbslStringify<T>::value >());
+}
+#else
+template<typename T>
+inline void DefaultPrintNonContainerTo(const T& value, iu_ostream* os)
+{
+    DefaultPrintNonContainerToFallback(value, os);
+}
+#endif
 /** @overload */
 template<typename T>
 inline void DefaultPrintTo(IsContainerHelper::no_t
@@ -277,6 +352,164 @@ inline void DefaultPrintTo(IsContainerHelper::no_t
 }
 
 
+inline const char* PrintCharPrefix(char) { return ""; }
+inline const char* PrintCharPrefix(unsigned char) { return ""; }
+inline const char* PrintCharPrefix(wchar_t) { return "L"; }
+#if IUTEST_HAS_CHAR8_T
+inline const char* PrintCharPrefix(char8_t) { return "u8"; }
+#endif
+#if IUTEST_HAS_CHAR16_T
+inline const char* PrintCharPrefix(char16_t) { return "u"; }
+#endif
+#if IUTEST_HAS_CHAR32_T
+inline const char* PrintCharPrefix(char32_t) { return "U"; }
+#endif
+
+inline ::std::string PrintHexCode(UInt32 value)
+{
+    ::std::string hex = ToHexString(value);
+    const size_t first = hex.find_first_not_of('0');
+    if( first == ::std::string::npos )
+    {
+        return "0";
+    }
+    hex.erase(0, first);
+    return hex;
+}
+
+template<typename CharT>
+inline UInt32 PrintCharCode(CharT value)
+{
+    typedef typename type_fit_t<sizeof(CharT)>::UInt Unsigned;
+    return static_cast<UInt32>(static_cast<Unsigned>(value));
+}
+
+inline bool PrintEscapedChar(UInt32 code, char quote, iu_ostream* os)
+{
+    const char* escape = IUTEST_NULLPTR;
+    switch(code)
+    {
+    case 0:    escape = "\\0"; break;
+    case '\a': escape = "\\a"; break;
+    case '\b': escape = "\\b"; break;
+    case '\f': escape = "\\f"; break;
+    case '\n': escape = "\\n"; break;
+    case '\r': escape = "\\r"; break;
+    case '\t': escape = "\\t"; break;
+    case '\v': escape = "\\v"; break;
+    case '\\': escape = "\\\\"; break;
+    default: break;
+    }
+    if( escape != IUTEST_NULLPTR )
+    {
+        *os << escape;
+    }
+    else if( code == static_cast<UInt32>(quote) )
+    {
+        *os << '\\' << quote;
+    }
+    else if( code >= 0x20 && code <= 0x7E )
+    {
+        *os << static_cast<char>(code);
+    }
+    else
+    {
+        *os << "\\x" << PrintHexCode(code);
+        return true;
+    }
+    return false;
+}
+
+template<typename CharT>
+inline bool PrintStringLiteral(const CharT* data, size_t size, iu_ostream* os)
+{
+    const char* prefix = PrintCharPrefix(CharT());
+    *os << prefix << '"';
+    bool previous_hex = false;
+    bool has_hex = false;
+    for( size_t i = 0; i < size; ++i )
+    {
+        const UInt32 code = PrintCharCode(data[i]);
+        if( previous_hex && ((code >= '0' && code <= '9') || (code >= 'a' && code <= 'f')
+            || (code >= 'A' && code <= 'F')) )
+        {
+            *os << "\" " << prefix << '"';
+        }
+        previous_hex = PrintEscapedChar(code, '"', os);
+        has_hex = has_hex || previous_hex;
+    }
+    *os << '"';
+    return has_hex;
+}
+
+inline bool IsPrintableUTF8(const char* data, size_t size)
+{
+    for( size_t i = 0; i < size; )
+    {
+        const UInt32 lead = static_cast<unsigned char>(data[i++]);
+        if( lead < 0x80 )
+        {
+            if( (lead < 0x20 && lead != '\t' && lead != '\n' && lead != '\r') || lead == 0x7F )
+            {
+                return false;
+            }
+            continue;
+        }
+        size_t trailing;
+        UInt32 code, minimum;
+        if( lead >= 0xC2 && lead <= 0xDF )
+        {
+            trailing = 1; code = lead & 0x1F; minimum = 0x80;
+        }
+        else if( lead >= 0xE0 && lead <= 0xEF )
+        {
+            trailing = 2; code = lead & 0x0F; minimum = 0x800;
+        }
+        else if( lead >= 0xF0 && lead <= 0xF4 )
+        {
+            trailing = 3; code = lead & 0x07; minimum = 0x10000;
+        }
+        else { return false; }
+        if( trailing > size - i ) { return false; }
+        for( size_t j = 0; j < trailing; ++j )
+        {
+            const UInt32 byte = static_cast<unsigned char>(data[i++]);
+            if( byte < 0x80 || byte > 0xBF ) { return false; }
+            code = (code << 6) | (byte & 0x3F);
+        }
+        if( code < minimum || code > 0x10FFFF || (code >= 0xD800 && code <= 0xDFFF) ) { return false; }
+    }
+    return true;
+}
+
+template<typename CharT>
+inline void PrintStringTo(const CharT* data, size_t size, iu_ostream* os)
+{
+    PrintStringLiteral(data, size, os);
+}
+
+inline void PrintStringTo(const char* data, size_t size, iu_ostream* os)
+{
+    if( PrintStringLiteral(data, size, os) && TestEnv::print_utf8() && IsPrintableUTF8(data, size) )
+    {
+        *os << "\n    As Text: \"" << ::std::string(data, size) << '"';
+    }
+}
+
+template<typename CharT>
+inline void PrintCStringLiteral(const CharT* str, iu_ostream* os)
+{
+    if( str == IUTEST_NULLPTR ) { *os << kStrings::Null; }
+    else { PrintStringLiteral(str, ::std::char_traits<CharT>::length(str), os); }
+}
+
+#if IUTEST_HAS_RTTI
+inline ::std::string PrintTypeName(const ::std::type_info& info)
+{
+    return GetTypeName(info);
+}
+#endif
+
 /** @private */
 template<typename T>
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const T& value, iu_ostream* os)
@@ -298,37 +531,48 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char* str, iu_ost
 template<size_t N>
 void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char(&str)[N], iu_ostream* os)
 {
-    return UniversalTersePrint(static_cast<const char*>(str), os);
+    PrintCStringLiteral(str, os);
 }
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t* str, iu_ostream* os)
 {
-    UniversalPrint(detail::ShowAnyCString(str), os);
+    PrintCStringLiteral(str, os);
 }
 template<size_t N>
 void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t(&str)[N], iu_ostream* os)
 {
-    UniversalPrint(detail::ShowAnyCString(str), os);
+    UniversalTersePrint(static_cast<const wchar_t*>(str), os);
 }
+#if IUTEST_HAS_CHAR8_T
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char8_t* str, iu_ostream* os)
+{
+    PrintCStringLiteral(str, os);
+}
+template<size_t N>
+void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char8_t(&str)[N], iu_ostream* os)
+{
+    UniversalTersePrint(static_cast<const char8_t*>(str), os);
+}
+#endif
 #if IUTEST_HAS_CHAR16_T
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char16_t* str, iu_ostream* os)
 {
-    UniversalPrint(detail::ShowAnyCString(str), os);
+    PrintCStringLiteral(str, os);
 }
 template<size_t N>
 void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char16_t(&str)[N], iu_ostream* os)
 {
-    UniversalPrint(detail::ShowAnyCString(str), os);
+    UniversalTersePrint(static_cast<const char16_t*>(str), os);
 }
 #endif
-#if IUTEST_HAS_CHAR32_T && (IUTEST_HAS_CXX_HDR_CUCHAR || IUTEST_HAS_CXX_HDR_CODECVT)
+#if IUTEST_HAS_CHAR32_T
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char32_t* str, iu_ostream* os)
 {
-    UniversalPrint(detail::ShowAnyCString(str), os);
+    PrintCStringLiteral(str, os);
 }
 template<size_t N>
 void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char32_t(&str)[N], iu_ostream* os)
 {
-    UniversalPrint(detail::ShowAnyCString(str), os);
+    UniversalTersePrint(static_cast<const char32_t*>(str), os);
 }
 #endif
 
@@ -350,18 +594,121 @@ inline void PrintTo(const char* c, iu_ostream* os)  { *os << c; }
 #if defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 inline void PrintTo(int v, iu_ostream* os)  { *os << v; }
 #endif
-inline void PrintTo(const ::std::string& str, iu_ostream* os)   { *os << str.c_str(); }
 template<typename CharT, typename Traits, typename Alloc>
-inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os) { UniversalTersePrint(str.c_str(), os); }
+inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os)
+{
+    PrintStringTo(str.data(), str.size(), os);
+}
+inline void PrintTo(const ::std::locale& l, iu_ostream* os) { *os << l.name(); }
+#if IUTEST_HAS_CXX11
+inline void PrintSmartPointerAddress(const volatile void* ptr, iu_ostream* os)
+{
+    *os << "0x" << ToHexString(reinterpret_cast<iu_uintptr_t>(ptr));
+}
+
+template<typename T, typename Ptr>
+inline void PrintSmartPointer(const Ptr& ptr, iu_ostream* os, char)
+{
+    if( !ptr )
+    {
+        *os << "(nullptr)";
+    }
+    else
+    {
+        *os << "(";
+        PrintSmartPointerAddress(ptr.get(), os);
+        *os << ")";
+    }
+}
+template<typename T, typename Ptr>
+inline typename ::std::enable_if<!::std::is_void<T>::value && !::std::is_array<T>::value>::type PrintSmartPointer(const Ptr& ptr, iu_ostream* os, int)
+{
+    if( !ptr )
+    {
+        *os << "(nullptr)";
+    }
+    else
+    {
+        *os << "(ptr = ";
+        PrintSmartPointerAddress(ptr.get(), os);
+        *os << ", value = ";
+        UniversalPrint(*ptr, os);
+        *os << ")";
+    }
+}
+template<typename T, typename D>
+inline void PrintTo(const ::std::unique_ptr<T, D>& ptr, iu_ostream* os)
+{
+    PrintSmartPointer<T>(ptr, os, 0);
+}
+template<typename T>
+inline void PrintTo(const ::std::shared_ptr<T>& ptr, iu_ostream* os)
+{
+    PrintSmartPointer<T>(ptr, os, 0);
+}
+#endif
+#if IUTEST_HAS_FULL_PRECISION_FLOAT_PRINT && IUTEST_HAS_IOMANIP
+template<typename T>
+inline int FloatingPointPrintPrecision(T value)
+{
+#if IUTEST_HAS_CXX11
+    const int full = ::std::numeric_limits<T>::max_digits10;
+#else
+    const int full = ::std::numeric_limits<T>::digits10 + 3;
+#endif
+    if( value < 0 ) { value = -value; }
+    if( value < 1000000 )
+    {
+        const T limits[] = {static_cast<T>(100000), static_cast<T>(10000), static_cast<T>(1000),
+            static_cast<T>(100), static_cast<T>(10), static_cast<T>(1), static_cast<T>(0.1),
+            static_cast<T>(0.01), static_cast<T>(0.001), static_cast<T>(0.0001)};
+        T multiplier = static_cast<T>(1);
+        for( size_t i = 0; i < sizeof(limits)/sizeof(limits[0]); ++i )
+        {
+            if( value >= limits[i] ) break;
+            multiplier *= static_cast<T>(10);
+        }
+        if( static_cast<T>(static_cast<int>(value * multiplier + static_cast<T>(0.5))) / multiplier == value ) return 6;
+    }
+    else if( value < static_cast<T>(1e10) )
+    {
+        T divisor = static_cast<T>(10);
+        if( value >= static_cast<T>(1e9) ) divisor = static_cast<T>(10000);
+        else if( value >= static_cast<T>(1e8) ) divisor = static_cast<T>(1000);
+        else if( value >= static_cast<T>(1e7) ) divisor = static_cast<T>(100);
+        if( static_cast<T>(static_cast<int>(value / divisor + static_cast<T>(0.5))) * divisor == value ) return 6;
+    }
+    return full;
+}
+
+template<typename T>
+inline void PrintFloatingPoint(T value, iu_ostream* os)
+{
+    const ::std::streamsize old_precision = os->precision(FloatingPointPrintPrecision(value));
+    *os << value;
+    os->precision(old_precision);
+}
+inline void PrintTo(float value, iu_ostream* os) { PrintFloatingPoint(value, os); }
+inline void PrintTo(double value, iu_ostream* os) { PrintFloatingPoint(value, os); }
+#endif
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+template<typename T>
+inline void PrintWrappedFloatingPoint(T value, iu_ostream* os)
+{
+#if IUTEST_HAS_IOMANIP
+    *os << ::std::setprecision(::std::numeric_limits<T>::digits10 + 2);
+#endif
+    UniversalPrint(value, os);
+}
+#if IUTEST_HAS_FULL_PRECISION_FLOAT_PRINT && IUTEST_HAS_IOMANIP
+inline void PrintWrappedFloatingPoint(float value, iu_ostream* os) { PrintTo(value, os); }
+inline void PrintWrappedFloatingPoint(double value, iu_ostream* os) { PrintTo(value, os); }
+#endif
 template<typename T>
 inline void PrintToFloatingPoint(const floating_point<T>& f, iu_ostream* os)
 {
     iu_stringstream ss;
-#if IUTEST_HAS_IOMANIP
-    ss << ::std::setprecision(::std::numeric_limits<T>::digits10 + 2);
-#endif
-    UniversalPrint(f.raw(), &ss);
+    PrintWrappedFloatingPoint(f.raw(), &ss);
     *os << ss.str() << "(0x" << ToHexString(f.bits()) << ")";
 }
 template<typename T>
@@ -386,13 +733,39 @@ inline void PrintTo(const ::std::pair<T1, T2>& value, iu_ostream* os)
 #endif
 
 #if IUTEST_HAS_INT128
-inline void PrintTo(detail::type_fit_t<16>::Int v, iu_ostream* os)
+inline void PrintTo(detail::type_fit_t<16>::UInt value, iu_ostream* os)
 {
-    *os << "0x" << ToHexString(v);
+    typedef detail::type_fit_t<16>::UInt UInt128;
+    typedef detail::type_fit_t<8>::UInt UInt64;
+    char digits[40];
+    char* end = digits + sizeof(digits);
+    *--end = '\0';
+    do
+    {
+        UInt128 quotient = 0;
+        UInt64 remainder = 0;
+        for( int shift = 96; shift >= 0; shift -= 32 )
+        {
+            const UInt64 chunk = static_cast<UInt64>(value >> shift) & 0xFFFFFFFFu;
+            const UInt64 current = (remainder << 32) | chunk;
+            quotient |= static_cast<UInt128>(current / 10) << shift;
+            remainder = current % 10;
+        }
+        *--end = static_cast<char>('0' + remainder);
+        value = quotient;
+    } while( value != 0 );
+    *os << end;
 }
-inline void PrintTo(detail::type_fit_t<16>::UInt v, iu_ostream* os)
+inline void PrintTo(detail::type_fit_t<16>::Int value, iu_ostream* os)
 {
-    *os << "0x" << ToHexString(v);
+    typedef detail::type_fit_t<16>::UInt UInt128;
+    UInt128 magnitude = static_cast<UInt128>(value);
+    if( value < 0 )
+    {
+        *os << '-';
+        magnitude = -magnitude;
+    }
+    PrintTo(magnitude, os);
 }
 #endif
 
@@ -429,39 +802,46 @@ inline void PrintTo(const long double v, iu_ostream* os)
 template<typename T>
 void PrintToChar(const T value, iu_ostream* os)
 {
-    // char or unsigned char の時に、 0 が NULL 文字にならないように修正
-    if( value == 0 )
+    *os << PrintCharPrefix(T()) << '\'';
+    const bool hex_escape = PrintEscapedChar(PrintCharCode(value), '\'', os);
+    *os << '\'';
+    if( value != 0 )
     {
-        *os << "\\0";
-    }
-    else if( static_cast<int>(value) < 0x20 )
-    {
-        *os << "0x" << ToHexString(value);
-    }
-    else
-    {
-        const T str[2] = { value, 0 };
-        *os << "\'" << detail::ShowAnyCString(str) << "\'";
+        *os << " (" << static_cast<int>(value);
+        if( !hex_escape && !(value >= 1 && value <= 9) )
+        {
+            *os << ", 0x" << PrintHexCode(static_cast<UInt32>(value));
+        }
+        *os << ")";
     }
 }
 inline void PrintTo(const char value, iu_ostream* os)
 {
-    PrintToChar(static_cast<signed char>(value), os);
+    PrintToChar(static_cast<unsigned char>(value), os);
 }
 inline void PrintTo(const wchar_t value, iu_ostream* os)
 {
     PrintToChar(value, os);
 }
+#if IUTEST_HAS_CHAR8_T
+inline void PrintTo(const char8_t value, iu_ostream* os)
+{
+    const ::std::string hex = PrintHexCode(static_cast<UInt32>(value));
+    *os << "U+" << ::std::string(hex.size() < 4 ? 4 - hex.size() : 0, '0') << hex;
+}
+#endif
 #if IUTEST_HAS_CHAR16_T
 inline void PrintTo(const char16_t value, iu_ostream* os)
 {
-    PrintToChar(value, os);
+    const ::std::string hex = PrintHexCode(static_cast<UInt32>(value));
+    *os << "U+" << ::std::string(hex.size() < 4 ? 4 - hex.size() : 0, '0') << hex;
 }
 #endif
 #if IUTEST_HAS_CHAR32_T
 inline void PrintTo(const char32_t value, iu_ostream* os)
 {
-    PrintToChar(value, os);
+    const ::std::string hex = PrintHexCode(static_cast<UInt32>(value));
+    *os << "U+" << ::std::string(hex.size() < 4 ? 4 - hex.size() : 0, '0') << hex;
 }
 #endif
 inline void PrintTo(const unsigned char value, iu_ostream* os)
@@ -472,15 +852,13 @@ inline void PrintTo(const unsigned char value, iu_ostream* os)
 template<typename CharT, typename Traits>
 inline void PrintTo(const iu_basic_string_view<CharT, Traits>& value, iu_ostream* os)
 {
-    const ::std::basic_string<CharT, Traits> str = value.data();
-    UniversalTersePrint(str.c_str(), os);
+    PrintStringTo(value.data(), value.size(), os);
 }
 #else
 template<typename CharT, typename Traits>
 inline void PrintTo(const ::std::basic_string_view<CharT, Traits>& value, iu_ostream* os)
 {
-    const ::std::basic_string<CharT, Traits> str{ value };
-    UniversalTersePrint(str.c_str(), os);
+    PrintStringTo(value.data(), value.size(), os);
 }
 #endif
 
@@ -488,6 +866,7 @@ inline void PrintTo(const ::std::basic_string_view<CharT, Traits>& value, iu_ost
 template<typename T>
 inline void PrintTo(const ::std::optional<T>& value, iu_ostream* os)
 {
+    *os << "(";
     if (value)
     {
         UniversalPrint(value.value(), os);
@@ -496,6 +875,7 @@ inline void PrintTo(const ::std::optional<T>& value, iu_ostream* os)
     {
         *os << "nullopt";
     }
+    *os << ")";
 }
 #endif
 
@@ -509,20 +889,38 @@ inline void PrintTo(const ::std::variant<Types...>& value, iu_ostream* os)
     }
     else
     {
-        ::std::visit([&os](const auto& v) { UniversalPrint(v, os); }, value);
+        ::std::visit([&os, &value](const auto& v) {
+            *os << "('";
+#if IUTEST_HAS_RTTI
+            *os << PrintTypeName(typeid(v));
+#else
+            *os << "<unknown_type>";
+#endif
+            *os << "(index = " << value.index() << ")' with value ";
+            UniversalPrint(v, os);
+            *os << ")";
+        }, value);
     }
 }
 inline void PrintTo(const ::std::monostate&, iu_ostream* os)
 {
-    *os << "monostate";
+    *os << "(monostate)";
 }
 #endif
 
 #if IUTEST_HAS_CXX_HDR_ANY
 inline void PrintTo(const ::std::any& value, iu_ostream* os)
 {
-    *os << "-Any type-name: " << value.type().name();
-    DefaultPrintNonContainerTo(value, os);
+    if( !value.has_value() ) { *os << "no value"; }
+    else
+    {
+        *os << "value of type ";
+#if IUTEST_HAS_RTTI
+        *os << PrintTypeName(value.type());
+#else
+        *os << "<unknown_type>";
+#endif
+    }
 }
 #endif
 
@@ -582,7 +980,10 @@ inline void PrintTo(const ::std::filesystem::directory_iterator& value, iu_ostre
 #endif
 
 #if IUTEST_HAS_NULLPTR
-inline void PrintTo(const ::std::nullptr_t&, iu_ostream* os) { *os << "nullptr"; }
+inline void PrintTo(const ::std::nullptr_t&, iu_ostream* os)
+{
+    *os << "nullptr";
+}
 #endif
 
 #if IUTEST_HAS_TUPLE
@@ -698,7 +1099,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const T* begin, size_t 
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const char* begin, size_t N, iu_ostream* os)
 {
     IUTEST_UNUSED_VAR(N);
-    UniversalTersePrint(begin, os);
+    PrintCStringLiteral(begin, os);
 }
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const wchar_t* begin, size_t N, iu_ostream* os)
 {
@@ -706,11 +1107,55 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const wchar_t* begin, s
     UniversalTersePrint(begin, os);
 }
 
+#if IUTEST_HAS_CXX_HDR_SPAN
+template<typename T, size_t N>
+inline void PrintTo(const ::std::span<T, N>& value, iu_ostream* os)
+{
+    const size_t kMaxCount = kValues::MaxPrintContainerCount;
+    size_t count = 0;
+    *os << "{";
+    for( const auto& elem : value )
+    {
+        if( count > 0 )
+        {
+            *os << ",";
+            if( count == kMaxCount )
+            {
+                *os << " ...";
+                break;
+            }
+        }
+        *os << " ";
+        UniversalPrint(elem, os);
+        ++count;
+    }
+    if( count > 0 )
+    {
+        *os << " ";
+    }
+    *os << "}";
+}
+#endif
+
+/** @private */
+template<typename T>
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintTo(const T& value, iu_ostream* os, iutest_type_traits::true_type)
+{
+    PrintTo(value, os);
+}
+
+/** @private */
+template<typename T>
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintTo(const T& value, iu_ostream* os, iutest_type_traits::false_type)
+{
+    printer_internal::formatter::RawBytesPrinter::Print(value, os);
+}
+
 /** @private */
 template<typename T>
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintTo(const T& value, iu_ostream* os)
 {
-    PrintTo(value, os);
+    UniversalPrintTo(value, os, iutest_type_traits::bool_constant<printer_internal::formatter::IsComplete<T>::value>());
 }
 
 //======================================================================
@@ -741,6 +1186,23 @@ public:
 
 #endif
 
+/** @private */
+template<typename T>
+class iuUniversalTersePrinter
+{
+public:
+    static void Print(const T& value, iu_ostream* os)
+    {
+        UniversalTersePrint(value, os);
+    }
+};
+
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+/** @private */
+template<size_t SIZE>
+class iuUniversalTersePrinter<char[SIZE]> : public iuUniversalPrinter<char[SIZE]> {};
+#endif
+
 //======================================================================
 // function
 /** @private */
@@ -766,7 +1228,7 @@ template<typename T>
 inline ::std::string PrintToString(const T& v)
 {
     iu_global_format_stringstream strm;
-    detail::UniversalTersePrint(v, &strm);
+    detail::iuUniversalTersePrinter<T>::Print(v, &strm);
     return strm.str();
 }
 

@@ -111,6 +111,16 @@ IUTEST_IPP_INLINE time_t GetTime()
 #endif
 }
 
+IUTEST_IPP_INLINE TimeInMillisec GetWallTimeInMillis()
+{
+#if IUTEST_HAS_CXX_HDR_CHRONO
+    return static_cast<TimeInMillisec>(::std::chrono::duration_cast< ::std::chrono::milliseconds >(
+        ::std::chrono::system_clock::now().time_since_epoch() ).count());
+#else
+    return static_cast<TimeInMillisec>(GetTime()) * 1000;
+#endif
+}
+
 IUTEST_IPP_INLINE TimeInMillisec GetTimeInMillis()
 {
 #if   defined(IUTEST_GetMillisec)

@@ -26,7 +26,7 @@
 class TestFixture : public ::iutest::Test
 {
 public:
-    virtual void SetUp() {}
+    virtual void SetUp() IUTEST_CXX_OVERRIDE {}
 };
 
 #if IUTEST_HAS_IF_EXISTS || !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) && !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)

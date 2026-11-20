@@ -12,7 +12,9 @@
 */
 //-----------------------------------------------------------------------
 //======================================================================
+#ifndef IUTEST_USE_LIB
 #define IUTEST_USE_LIB
+#endif
 
 //======================================================================
 // include
@@ -20,14 +22,25 @@
 
 #include "../include/iutest.hpp"
 
-#ifdef UNICODE
-int wmain(int argc, wchar_t** argv)
-#else
-int main(int argc, char** argv)
-#endif
+namespace {
+template<typename Char>
+int iutest_main(int argc, Char** argv)
 {
     ::std::cout << "Running main() from iutest_main.cpp" << ::std::endl;
 
     IUTEST_INIT(&argc, argv);
     return IUTEST_RUN_ALL_TESTS();
 }
+}   // namespace
+
+int main(int argc, char** argv)
+{
+    return iutest_main(argc, argv);
+}
+
+#ifdef UNICODE
+int wmain(int argc, wchar_t** argv)
+{
+    return iutest_main(argc, argv);
+}
+#endif

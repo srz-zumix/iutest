@@ -94,31 +94,65 @@ SYNTAXTESTS_TARGET=$(OUTDIR)/syntax_tests
 NAMESPACETESTS_TARGET=$(OUTDIR)/namespace_tests
 
 TEST_TARGETS= \
+		$(OUTDIR)/absl_stringify_tests \
 		$(OUTDIR)/also_run_disabled_tests \
 		$(OUTDIR)/assertion_return_tests \
 		$(OUTDIR)/assume_tests \
+		$(OUTDIR)/base64_matcher_tests \
+		$(OUTDIR)/begin_end_distance_is_matcher_tests \
+		$(OUTDIR)/logical_array_matcher_tests \
+		$(OUTDIR)/contains_times_matcher_tests \
+		$(OUTDIR)/is_subset_of_matcher_tests \
+		$(OUTDIR)/is_superset_of_matcher_tests \
+		$(OUTDIR)/unordered_elements_are_matcher_tests \
+		$(OUTDIR)/unordered_pointwise_matcher_tests \
 		$(OUTDIR)/break_on_failure_nobreak_tests \
 		$(OUTDIR)/catch_exceptions_tests \
 		$(OUTDIR)/charcode_tests \
+		$(OUTDIR)/conditional_matcher_tests \
+		$(OUTDIR)/truly_matcher_tests \
 		$(OUTDIR)/commandline_tests \
+		$(OUTDIR)/convert_generator_tests \
 		$(OUTDIR)/csvparams_invalid_file_tests \
 		$(OUTDIR)/csvparams_tests \
 		$(OUTDIR)/cxx_feature_tests \
 		$(OUTDIR)/disabled_tests \
+		$(OUTDIR)/disabled_listener_tests \
+		$(OUTDIR)/distancefrom_matcher_tests \
 		$(OUTDIR)/empty_testname_tests \
 		$(OUTDIR)/env_var_gtest_tests \
 		$(OUTDIR)/environment_tests \
+		$(OUTDIR)/environment_skip_tests \
+		$(OUTDIR)/environment_failure_tests \
 		$(OUTDIR)/exception_assertion_tests \
 		$(OUTDIR)/exception_set_up_testsuite_tests \
 		$(OUTDIR)/exception_tests \
 		$(OUTDIR)/expression_assertion_tests \
+		$(OUTDIR)/fail_if_no_test_linked_tests \
+		$(OUTDIR)/fail_if_no_test_selected_tests \
+		$(OUTDIR)/fail_fast_tests \
+		$(OUTDIR)/fail_at_tests \
 		$(OUTDIR)/file_system_tests \
+		$(OUTDIR)/fieldsare_tests \
 		$(OUTDIR)/filter_tests \
+		$(OUTDIR)/flag_restore_tests \
+		$(OUTDIR)/install_failure_signal_handler_tests \
+		$(OUTDIR)/show_internal_stack_frames_tests \
 		$(OUTDIR)/flagfile_gtest_tests \
 		$(OUTDIR)/floatingpoint_tests \
+		$(OUTDIR)/floatingpoint_printers_tests \
 		$(OUTDIR)/gtest_version_tests \
+		$(OUTDIR)/gtest_param_macro_tests \
+		$(OUTDIR)/gtest_stringify_tests \
+		$(OUTDIR)/gtest_alias_tests \
+		$(OUTDIR)/typed_test_name_generator_tests \
+		$(OUTDIR)/time_in_millis_tests \
+		$(OUTDIR)/gtest_dont_define_tests \
+		$(OUTDIR)/stream_capture_tests \
 		$(OUTDIR)/help_tests \
 		$(OUTDIR)/inform_tests \
+		$(OUTDIR)/incomplete_printers_tests \
+		$(OUTDIR)/int128_printers_tests \
 		$(OUTDIR)/internal_log_tests \
 		$(OUTDIR)/invalid_commandline_tests \
 		$(OUTDIR)/japanese_tests \
@@ -126,34 +160,80 @@ TEST_TARGETS= \
 		$(OUTDIR)/list_test_tests \
 		$(OUTDIR)/listener_tests \
 		$(OUTDIR)/matcher_tests \
+		$(OUTDIR)/comparison_matcher_tests \
+		$(OUTDIR)/matcher_cast_tests \
+		$(OUTDIR)/matcher_interface_tests \
+		$(OUTDIR)/an_matcher_tests \
+		$(OUTDIR)/args_matcher_tests \
+		$(OUTDIR)/matcher_explain_tests \
+		$(OUTDIR)/explain_match_result_tests \
+		$(OUTDIR)/match_result_listener_tests \
+		$(OUTDIR)/matches_tests \
+		$(OUTDIR)/describe_matcher_tests \
+		$(OUTDIR)/bool_matcher_tests \
+		$(OUTDIR)/gtest_style_matcher_tests \
+		$(OUTDIR)/matcher_macro_tests \
+		$(OUTDIR)/string_view_matcher_tests \
+		$(OUTDIR)/variant_matcher_tests \
+		$(OUTDIR)/any_matcher_tests \
+		$(OUTDIR)/throws_matcher_tests \
+		$(OUTDIR)/address_matcher_tests \
 		$(OUTDIR)/minimum_tests \
+		$(OUTDIR)/near_message_tests \
 		$(OUTDIR)/no_failure_fail_tests \
 		$(OUTDIR)/no_fatalfailure_tests \
 		$(OUTDIR)/no_test_tests \
+		$(OUTDIR)/original_working_dir_tests \
 		$(OUTDIR)/output_env_var_tests \
 		$(OUTDIR)/output_junit_xml_empty_tests \
 		$(OUTDIR)/output_junit_xml_tests \
+		$(OUTDIR)/output_non_test_suite_failure_tests \
 		$(OUTDIR)/output_xml_tests \
+		$(OUTDIR)/test_info_location_tests \
+		$(OUTDIR)/register_test_tests \
 		$(OUTDIR)/port_tests \
+		$(OUTDIR)/pointer_matcher_tests \
+		$(OUTDIR)/named_member_matcher_tests \
+		$(OUTDIR)/when_dynamic_cast_to_matcher_tests \
+		$(OUTDIR)/when_sorted_matcher_tests \
 		$(OUTDIR)/printers_tests \
+		$(OUTDIR)/compatible_printers_tests \
+		$(OUTDIR)/string_diff_tests \
+		$(OUTDIR)/print_utf8_tests \
+		$(OUTDIR)/container_printers_tests \
+		$(OUTDIR)/type_name_tests \
+		$(OUTDIR)/print_to_string_param_name_tests \
+		$(OUTDIR)/print_to_string_param_name_invalid_tests \
 		$(OUTDIR)/progress_tests \
 		$(OUTDIR)/quiet_result_printer_tests \
 		$(OUTDIR)/random_seed_tests \
+		$(OUTDIR)/recreate_environments_when_repeating_tests \
 		$(OUTDIR)/record_property_tests \
+		$(OUTDIR)/ref_matcher_tests \
+		$(OUTDIR)/resultof_matcher_tests \
 		$(OUTDIR)/repeat_tests \
+		$(OUTDIR)/scoped_trace_exception_tests \
 		$(OUTDIR)/scoped_trace_tests \
+		$(OUTDIR)/direct_scoped_trace_tests \
 		$(OUTDIR)/set_up_failure_tests \
 		$(OUTDIR)/set_up_global_failure_tests \
 		$(OUTDIR)/set_up_testcase_failure_tests \
+		$(OUTDIR)/set_up_testsuite_skip_on_failure_tests \
 		$(OUTDIR)/shuffle_tests \
 		$(OUTDIR)/skip_tests \
+		$(OUTDIR)/smart_pointer_printers_tests \
 		$(OUTDIR)/spec_tests \
 		$(OUTDIR)/spi_failure_tests \
+		$(OUTDIR)/srcdir_tempdir_tests \
+		$(OUTDIR)/span_printers_tests \
 		$(OUTDIR)/streaming_listener_tests \
+		$(OUTDIR)/substring_tests \
 		$(OUTDIR)/throw_on_assertion_failure_tests \
 		$(OUTDIR)/throw_on_failure_tests \
+		$(OUTDIR)/assertion_exception_tests \
 		$(OUTDIR)/tr1_tests \
 		$(OUTDIR)/uninitialize_tests \
+		$(OUTDIR)/uninstantiated_param_tests \
 		$(OUTDIR)/util_release_default_xml_generator_tests \
 		$(OUTDIR)/util_tests \
 
@@ -164,6 +244,7 @@ TARGETS_IUTEST_ONLY = \
 		$(OUTDIR)/debug_tests \
 		$(OUTDIR)/default_main_tests \
 		$(OUTDIR)/default_printer_listener_tests \
+		$(OUTDIR)/brief_tests \
 		$(OUTDIR)/env_var_tests \
 		$(OUTDIR)/exit_tests \
 		$(OUTDIR)/feature_spec_tests \
@@ -184,7 +265,6 @@ TARGETS_IUTEST_ONLY = \
 		$(OUTDIR)/param_test_name_invalid_tests \
 		$(OUTDIR)/param_test_name_tests \
 		$(OUTDIR)/no_yoda_tests \
-		$(OUTDIR)/scoped_trace_exception_tests \
 		$(OUTDIR)/tap_file_generator_listener_tests \
 		$(OUTDIR)/tap_printer_listener_tests \
 		$(OUTDIR)/type_param_register_exception_int_tests \
@@ -197,6 +277,6 @@ COMPILEERROR_TARGETS=\
 		$(OUTDIR)/check_strict_tests \
 		$(OUTDIR)/empty_testname_failure_tests \
 		$(OUTDIR)/static_assertion_failure_tests \
+		$(OUTDIR)/safe_matcher_cast_failure_tests \
 
 BUILD_ONLY = $(OUTDIR)/break_on_failure_tests \
-

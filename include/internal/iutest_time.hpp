@@ -84,6 +84,11 @@ time_t GetTime();
 /**
  * @brief   現在時刻のミリ秒取得
 */
+TimeInMillisec GetWallTimeInMillis();
+
+/**
+ * @brief   現在時刻のミリ秒取得
+ */
 TimeInMillisec GetTimeInMillis();
 
 /**

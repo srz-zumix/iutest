@@ -21,6 +21,22 @@
 
 namespace iutest
 {
+namespace detail
+{
+
+/**
+ * @brief   単数形・複数形を切り替える
+ * @param [in]  count       = 数
+ * @param [in]  singular    = 単数形の表記
+ * @param [in]  plural      = 複数形の表記
+ * @return  count に応じた表記
+*/
+IUTEST_IPP_INLINE const char* FormatCountableNoun(int count, const char* singular, const char* plural)
+{
+    return count == 1 ? singular : plural;
+}
+
+}   // end of namespace detail
 
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestProgramStart(const UnitTest& test)
 {
@@ -44,7 +60,13 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationStart(const Un
         detail::iuConsole::color_output(detail::iuConsole::yellow, "Note: Randomizing tests' orders with a seed of %u\n", test.random_seed());
     }
     detail::iuConsole::color_output(detail::iuConsole::green, "[==========] ");
-    detail::iuConsole::output("Running %d tests from %d test suites.\n", test.test_to_run_count(), test.test_suite_to_run_count() );
+    {
+        const int test_count = test.test_to_run_count();
+        const int suite_count = test.test_suite_to_run_count();
+        detail::iuConsole::output("Running %d %s from %d %s.\n"
+            , test_count, detail::FormatCountableNoun(test_count, "test", "tests")
+            , suite_count, detail::FormatCountableNoun(suite_count, "test suite", "test suites") );
+    }
 }
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnEnvironmentsSetUpStart(const UnitTest& test)
 {
@@ -60,12 +82,22 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnEnvironmentsSetUpEnd(const 
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestSuiteStart(const TestSuite& test_suite)
 {
     detail::iuConsole::color_output(detail::iuConsole::green, "[----------] ");
-    detail::iuConsole::output("%d tests from %s\n", test_suite.test_to_run_count(), test_suite.testsuite_name_with_where().c_str() );
+    const int count = test_suite.test_to_run_count();
+    detail::iuConsole::output("%d %s from %s\n", count, detail::FormatCountableNoun(count, "test", "tests")
+        , test_suite.testsuite_name_with_where().c_str() );
 }
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestStart(const TestInfo& test_info)
 {
     detail::iuConsole::color_output(detail::iuConsole::green, "[ RUN      ] ");
     detail::iuConsole::output("%s.%s\n", test_info.test_suite_name(), test_info.name());
+}
+IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestDisabled(const TestInfo& test_info)
+{
+    if( TestFlag::IsEnableFlag(TestFlag::VERBOSE) )
+    {
+        detail::iuConsole::color_output(detail::iuConsole::yellow, "[ DISABLED ] ");
+        detail::iuConsole::output("%s.%s\n", test_info.test_suite_name(), test_info.name());
+    }
 }
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestPartResult(const TestPartResult& test_part_result)
 {
@@ -113,13 +145,15 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestEnd(const TestInfo& tes
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestSuiteEnd(const TestSuite& test_suite)
 {
     detail::iuConsole::color_output(detail::iuConsole::green, "[----------] ");
-    detail::iuConsole::output("%d tests from %s", test_suite.test_to_run_count(), test_suite.name() );
+    const int count = test_suite.test_to_run_count();
+    detail::iuConsole::output("%d %s from %s", count, detail::FormatCountableNoun(count, "test", "tests")
+        , test_suite.name() );
     if( TestFlag::IsEnableFlag(TestFlag::PRINT_TIME) )
     {
 #if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
-        detail::iuConsole::output("(-- ms total)");
+        detail::iuConsole::output(" (-- ms total)");
 #else
-        detail::iuConsole::output("(%s ms total)", detail::FormatTimeInMillisec(test_suite.elapsed_time()).c_str());
+        detail::iuConsole::output(" (%s ms total)", detail::FormatTimeInMillisec(test_suite.elapsed_time()).c_str());
 #endif
     }
     detail::iuConsole::output("\n\n");
@@ -141,8 +175,13 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
     IUTEST_UNUSED_VAR(iteration);
 
     detail::iuConsole::color_output(detail::iuConsole::green, "[==========] ");
-    detail::iuConsole::output("%d tests from %d testsuite ran."
-        , test.test_to_run_count(), test.test_suite_to_run_count() );
+    {
+        const int test_count = test.test_to_run_count();
+        const int suite_count = test.test_suite_to_run_count();
+        detail::iuConsole::output("%d %s from %d %s ran."
+            , test_count, detail::FormatCountableNoun(test_count, "test", "tests")
+            , suite_count, detail::FormatCountableNoun(suite_count, "test suite", "test suites") );
+    }
     if( TestFlag::IsEnableFlag(TestFlag::PRINT_TIME) )
     {
 #if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
@@ -155,31 +194,16 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
 
     {
         {
+            const int count = test.successful_test_count();
             detail::iuConsole::color_output(detail::iuConsole::green, "[  PASSED  ] ");
-            detail::iuConsole::output("%d tests.\n", test.successful_test_count() );
+            detail::iuConsole::output("%d %s.\n", count, detail::FormatCountableNoun(count, "test", "tests") );
         }
         {
             const int count = test.reportable_disabled_test_count();
             if( !TestFlag::IsEnableFlag(TestFlag::RUN_DISABLED_TESTS) && count > 0 )
             {
                 detail::iuConsole::color_output(detail::iuConsole::yellow, "[ DISABLED ] ");
-                detail::iuConsole::output("%d tests.\n", count );
-                if( TestFlag::IsEnableFlag(TestFlag::VERBOSE) )
-                {
-                    for( int i=0, case_count=test.total_test_suite_count(); i < case_count; ++i )
-                    {
-                        const TestSuite* testsuite = test.GetTestSuite(i);
-                        for( int j=0, info_count=testsuite->total_test_count(); j < info_count; ++j )
-                        {
-                            const TestInfo* testinfo = testsuite->GetTestInfo(j);
-                            if( testinfo->is_disabled_test() )
-                            {
-                                detail::iuConsole::color_output(detail::iuConsole::yellow, "[ DISABLED ] ");
-                                detail::iuConsole::output("%s.%s\n", testinfo->test_suite_name(), testinfo->name());
-                            }
-                        }
-                    }
-                }
+                detail::iuConsole::output("%d %s.\n", count, detail::FormatCountableNoun(count, "test", "tests") );
             }
         }
         {
@@ -187,7 +211,7 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
             if( count > 0 )
             {
                 detail::iuConsole::color_output(detail::iuConsole::yellow, "[  SKIPPED ] ");
-                detail::iuConsole::output("%d tests.\n", count );
+                detail::iuConsole::output("%d %s.\n", count, detail::FormatCountableNoun(count, "test", "tests") );
                 if( TestFlag::IsEnableFlag(TestFlag::VERBOSE) )
                 {
                     for( int i=0, case_count=test.total_test_suite_count(); i < case_count; ++i )
@@ -210,8 +234,11 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
         if( !test.Passed() )
         {
             const int failed_num = test.failed_test_count();
-            detail::iuConsole::color_output(detail::iuConsole::red, "[  FAILED  ] ");
-            detail::iuConsole::output("%d %s, listed below:\n", failed_num, failed_num == 1 ? "test" : "tests" );
+            if( failed_num > 0 )
+            {
+                detail::iuConsole::color_output(detail::iuConsole::red, "[  FAILED  ] ");
+                detail::iuConsole::output("%d %s, listed below:\n", failed_num, detail::FormatCountableNoun(failed_num, "test", "tests") );
+            }
 
             for( int i=0, count=test.total_test_suite_count(); i < count; ++i )
             {
@@ -235,9 +262,12 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
             if( test.ad_hoc_test_result()->Failed() )
             {
                 detail::iuConsole::color_output(detail::iuConsole::red, "[  FAILED  ] ");
-                detail::iuConsole::output("other than\n");
+                detail::iuConsole::output("Global test environment or ad hoc test failure\n");
             }
-            detail::iuConsole::output("\n%d FAILED %s.\n", failed_num, failed_num == 1 ? "TEST" : "TESTS" );
+            if( failed_num > 0 )
+            {
+                detail::iuConsole::output("\n%d FAILED %s.\n", failed_num, detail::FormatCountableNoun(failed_num, "TEST", "TESTS") );
+            }
         }
     }
 }
@@ -247,15 +277,21 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestProgramEnd(const UnitTe
 }
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnListup(int total_test_num, const ::std::vector<TestSuite*>& tests)
 {
-    detail::iuConsole::output("%d tests from %" IUPRzu " testsuite\n", total_test_num, tests.size() );
+    size_t suite_count = 0;
     for( ::std::vector<TestSuite*>::const_iterator it = tests.begin(), end=tests.end(); it != end; ++it )
     {
+        if( (*it)->reportable_test_count() != 0 ) ++suite_count;
+    }
+    detail::iuConsole::output("%d tests from %" IUPRzu " testsuite\n", total_test_num, suite_count);
+    for( ::std::vector<TestSuite*>::const_iterator it = tests.begin(), end=tests.end(); it != end; ++it )
+    {
+        if( (*it)->reportable_test_count() == 0 ) continue;
         detail::iuConsole::output("%s.\n", (*it)->name());
 
         for( int i = 0; i < (*it)->total_test_count(); ++i )
         {
             const TestInfo* testinfo = (*it)->GetTestInfo(i);
-            detail::iuConsole::output("  %s\n", testinfo->name());
+            if( testinfo->is_reportable() ) detail::iuConsole::output("  %s\n", testinfo->name());
         }
     }
 }

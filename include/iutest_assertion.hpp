@@ -22,6 +22,9 @@
 #include "iutest_printers.hpp"
 #include "internal/iutest_list.hpp"
 // IWYU pragma: end_exports
+#include <algorithm>
+#include <cmath>
+#include <limits>
 
 namespace iutest
 {
@@ -107,6 +110,11 @@ public:
         Message msg;
         msg << value;
         m_message += msg.GetString();
+        return *this;
+    }
+    AssertionResult& operator << (const ::std::string& value)
+    {
+        m_message += value;
         return *this;
     }
 public:
@@ -221,19 +229,23 @@ public:
 #endif
     {
     public:
-        ScopedMessage(const detail::iuCodeMessage& msg) // NOLINT
+        ScopedMessage(const detail::iuCodeMessage& msg, bool save_on_exception = true) // NOLINT
             : detail::iuCodeMessage(msg)
+            , m_save_on_exception(save_on_exception)
         {
             ScopedTrace::GetInstance().list.push_back(this);
         }
         ~ScopedMessage()
         {
             ScopedTrace::GetInstance().list.remove(this);
-            if( stl::uncaught_exception() )
+            if( m_save_on_exception && stl::uncaught_exception() )
             {
                 detail::UncaughtScopedTrace::Add(*this);
             }
         }
+
+    private:
+        bool m_save_on_exception;
     };
 private:
     class ScopedTrace
@@ -392,6 +404,25 @@ private:
     IUTEST_PP_DISALLOW_MOVE_AND_COPY_AND_ASSIGN(AssertionHelper);
 };
 
+/**
+ * @ingroup IUTEST_UTIL
+ * @brief   Adds a file, line and message to assertions for this object's lifetime.
+ * @note    Unlike IUTEST_SCOPED_TRACE, unwound traces are not retained for exception reports.
+*/
+class ScopedTrace
+{
+public:
+    template<typename T>
+    ScopedTrace(const char* file, int line, const T& message)
+        : m_message(detail::iuCodeMessage(file, line, Message() << message), false)
+    {}
+
+private:
+    AssertionHelper::ScopedMessage m_message;
+
+    IUTEST_PP_DISALLOW_MOVE_AND_COPY_AND_ASSIGN(ScopedTrace);
+};
+
 }   // end of namespace iutest
 
 namespace iutest
@@ -428,6 +459,12 @@ inline ::std::string FormatForComparisonFailureMessage(const T1& value, const T2
     return PrintToString(value);
 }
 
+template<typename T1, typename T2>
+inline ::std::string FormatForStringComparisonFailureMessage(const T1& value, const T2& other)
+{
+    return FormatForComparisonFailureMessage(value, other);
+}
+
 /**
  * @brief   boolean テストの失敗メッセージの出力
 */
@@ -450,24 +487,51 @@ inline ::std::string GetBooleanAssertionFailureMessage(const AssertionResult& ar
 }
 
 /**
+ * @brief   表示済み文字列の差分を取得
+*/
+::std::string CreateStringDiff(const ::std::string& left, const ::std::string& right);
+::std::string CreateStringDiffFromStrings(const ::std::string& left, const ::std::string& right);
+
+template<typename T1, typename T2>
+inline ::std::string CreateStringDiffForComparison(const T1&, const T2&
+    , const ::std::string& expected, const ::std::string& actual, bool with_diff)
+{
+    return with_diff ? CreateStringDiff(expected, actual) : ::std::string();
+}
+
+inline ::std::string CreateStringDiffForComparison(const ::std::string& expected, const ::std::string& actual
+    , const ::std::string&, const ::std::string&, bool with_diff)
+{
+    return with_diff ? CreateStringDiffFromStrings(expected, actual) : ::std::string();
+}
+
+/**
  * @brief   Eq 系アサーション
+ * @note    Existing diagnostics are retained; multiline values append a GoogleTest-style diff.
+ *          Diff generation is omitted if the edit matrix would exceed 1048576 cells.
 */
 inline AssertionResult EqFailure(const char* expected_expression, const char* actual_expression
-    , const ::std::string& expected, const ::std::string& actual, bool ignoring_case = false)
+    , const ::std::string& expected, const ::std::string& actual, bool ignoring_case = false
+    , bool with_diff = true, const ::std::string* diff = IUTEST_NULLPTR)
 {
-    iu_global_format_stringstream strm;
-    strm << "error: Value of " << actual_expression
-        << "\n  Actual: " << actual
-        << "\nExpected: " << expected_expression;
+    ::std::string message = "error: Value of ";
+    message += actual_expression;
+    message += "\n  Actual: ";
+    message += actual;
+    message += "\nExpected: ";
+    message += expected_expression;
     if( ignoring_case )
     {
-        strm << " (ignoring case)";
+        message += " (ignoring case)";
     }
     if( !detail::IsStringEqual(expected_expression, expected.c_str()) )
     {
-        strm << "\nWhich is: " << expected;
+        message += "\nWhich is: ";
+        message += expected;
     }
-    return AssertionFailure() << strm.str();
+    const ::std::string string_diff = !with_diff ? ::std::string()
+        : (diff != IUTEST_NULLPTR ? *diff : CreateStringDiff(expected, actual));
+    return AssertionFailure() << message << string_diff;
 }
 
 template<typename T1, typename T2>
@@ -643,10 +707,13 @@ inline AssertionResult CmpHelperEQ(const char* expected_str, const char* actual_
         return AssertionSuccess();
     }
 
-    return EqFailure(expected_str, actual_str
-        , FormatForComparisonFailureMessage(expected, actual)
-        , FormatForComparisonFailureMessage(actual, expected)
-        );
+    const ::std::string expected_message = FormatForComparisonFailureMessage(expected, actual);
+    const ::std::string actual_message = FormatForComparisonFailureMessage(actual, expected);
+    const bool with_diff = !(detail::is_convertible<const T1&, const volatile void*>::value
+        && detail::is_convertible<const T2&, const volatile void*>::value);
+    const ::std::string& string_diff = CreateStringDiffForComparison(
+        expected, actual, expected_message, actual_message, with_diff);
+    return EqFailure(expected_str, actual_str, expected_message, actual_message, false, with_diff, &string_diff);
 }
 
 template<typename T>
@@ -1032,7 +1099,26 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ DoubleNearPredFormat(
     const char* expr1, const char* expr2, const char* absc
         , double val1, double val2, double abs_v)
 {
-    return CmpHelperNearFloatingPoint(expr1, expr2, absc, val1, val2, abs_v);
+    const AssertionResult result = CmpHelperNearFloatingPoint(expr1, expr2, absc, val1, val2, abs_v);
+#if IUTEST_HAS_CXX11 && (!defined(_MSC_VER) || _MSC_VER >= 1800)
+    if (result.failed() && abs_v > 0 && val1 == val1 && val2 == val2)
+    {
+        const double min_abs = (::std::min)(::std::fabs(val1), ::std::fabs(val2));
+        const double spacing = ::std::nextafter(min_abs, ::std::numeric_limits<double>::infinity()) - min_abs;
+        if (abs_v < spacing)
+        {
+            return AssertionFailure() << "The difference between " << expr1 << " and " << expr2
+                << " is " << ::std::fabs(val1 - val2) << ", where\n"
+                << expr1 << " evaluates to " << val1 << ",\n"
+                << expr2 << " evaluates to " << val2 << ".\nThe abs_error parameter "
+                << absc << " evaluates to " << abs_v
+                << ", smaller than the distance between adjacent doubles at this magnitude ("
+                << spacing << "). This EXPECT_NEAR is effectively EXPECT_EQ. "
+                << "Consider using EXPECT_DOUBLE_EQ instead.";
+        }
+    }
+#endif
+    return result;
 }
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 template<typename T, typename A>
@@ -1054,7 +1140,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(
     const char* expr1, const char* expr2, const char* absc
         , double val1, double val2, const A& abs_v)
 {
-    return CmpHelperNearFloatingPoint<double>(expr1, expr2, absc, val1, val2, static_cast<double>(abs_v));
+    return DoubleNearPredFormat(expr1, expr2, absc, val1, val2, static_cast<double>(abs_v));
 }
 #endif
 template<typename A>
@@ -1095,6 +1181,9 @@ namespace StrEqHelper
 
 IIUT_DECL_STREQ_COMPARE_HELPER_(char)
 IIUT_DECL_STREQ_COMPARE_HELPER_(wchar_t)
+#if IUTEST_HAS_CHAR8_T
+IIUT_DECL_STREQ_COMPARE_HELPER_(char8_t)
+#endif
 #if IUTEST_HAS_CHAR16_T
 IIUT_DECL_STREQ_COMPARE_HELPER_(char16_t)
 #endif
@@ -1119,8 +1208,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
     }
 
     return EqFailure(expr1, expr2
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2))
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1)));
+        , FormatForStringComparisonFailureMessage(val1, val2)
+        , FormatForStringComparisonFailureMessage(val2, val1));
 }
 
 template<typename T>
@@ -1134,8 +1223,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
     }
 
     return EqFailure(expr1, expr2
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(IUTEST_NULLPTR, val2))
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(val2, IUTEST_NULLPTR)));
+        , FormatForStringComparisonFailureMessage<T, T>(IUTEST_NULLPTR, val2)
+        , FormatForStringComparisonFailureMessage<T, T>(val2, IUTEST_NULLPTR));
 }
 
 namespace StrNeHelper
@@ -1162,8 +1251,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
     }
 
     return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
-        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))
-        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));
+        << "\n  Actual: " << FormatForStringComparisonFailureMessage(val2, val1)
+        << " vs " << FormatForStringComparisonFailureMessage(val1, val2);
 }
 
 template<typename T>
@@ -1177,8 +1266,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
     }
 
     return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
-        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(val2, IUTEST_NULLPTR))
-        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(IUTEST_NULLPTR, val2));
+        << "\n  Actual: " << FormatForStringComparisonFailureMessage<T, T>(val2, IUTEST_NULLPTR)
+        << " vs " << FormatForStringComparisonFailureMessage<T, T>(IUTEST_NULLPTR, val2);
 }
 
 template<typename T>
@@ -1192,8 +1281,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
     }
 
     return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
-        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(IUTEST_NULLPTR, val1))
-        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(val1, IUTEST_NULLPTR));
+        << "\n  Actual: " << FormatForStringComparisonFailureMessage<T, T>(IUTEST_NULLPTR, val1)
+        << " vs " << FormatForStringComparisonFailureMessage<T, T>(val1, IUTEST_NULLPTR);
 }
 
 namespace StrCaseEqHelper
@@ -1250,8 +1339,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(
     }
 
     return EqFailure(expr1, expr2
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2))
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))
+        , FormatForStringComparisonFailureMessage(val1, val2)
+        , FormatForStringComparisonFailureMessage(val2, val1)
         , true);
 }
 
@@ -1312,8 +1401,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(
     }
 
     return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2 << " (ignoring case)"
-        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))
-        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));
+        << "\n  Actual: " << FormatForStringComparisonFailureMessage(val2, val1)
+        << " vs " << FormatForStringComparisonFailureMessage(val1, val2);
 }
 
 }   // end of namespace StrCaseNeHelper
@@ -1378,7 +1467,136 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ IsHRESULTFailure(const char* exp
 
 #endif
 
+inline bool IsSubstringPred(const char* needle, const char* haystack)
+{
+    if( needle == IUTEST_NULLPTR || haystack == IUTEST_NULLPTR )
+    {
+        return needle == haystack;
+    }
+    return strstr(haystack, needle) != IUTEST_NULLPTR;
+}
+
+inline bool IsSubstringPred(const wchar_t* needle, const wchar_t* haystack)
+{
+    if( needle == IUTEST_NULLPTR || haystack == IUTEST_NULLPTR )
+    {
+        return needle == haystack;
+    }
+    return wcsstr(haystack, needle) != IUTEST_NULLPTR;
+}
+
+template<typename CharT>
+inline bool IsSubstringPred(const ::std::basic_string<CharT>& needle, const ::std::basic_string<CharT>& haystack)
+{
+    return haystack.find(needle) != ::std::basic_string<CharT>::npos;
+}
+
+inline ::std::string SubstringMessageValue(const char* value, int size = -1)
+{
+    return value == IUTEST_NULLPTR ? "(null)" : detail::AnyStringToMultiByteString(value, size);
+}
+
+inline ::std::string SubstringMessageValue(const wchar_t* value, int size = -1)
+{
+    return value == IUTEST_NULLPTR ? "(null)" : detail::AnyStringToUTF8(value, size);
+}
+
+template<typename CharT>
+inline ::std::string SubstringMessageValue(const ::std::basic_string<CharT>& value)
+{
+    ::std::string result;
+    typename ::std::basic_string<CharT>::size_type begin = 0;
+    for( typename ::std::basic_string<CharT>::size_type i = 0; i < value.size(); ++i )
+    {
+        if( value[i] == 0 )
+        {
+            result += SubstringMessageValue(value.c_str() + begin, static_cast<int>(i - begin));
+            result += "\\0";
+            begin = i + 1;
+        }
+    }
+    result += SubstringMessageValue(value.c_str() + begin, static_cast<int>(value.size() - begin));
+    return result;
+}
+
+template<typename StringType>
+inline AssertionResult IsSubstringImpl(bool expected, const char* needle_expr, const char* haystack_expr
+    , const StringType& needle, const StringType& haystack)
+{
+    if( IsSubstringPred(needle, haystack) == expected )
+    {
+        return AssertionSuccess();
+    }
+    const char* const quote = sizeof(needle[0]) > 1 ? "L\"" : "\"";
+    return AssertionFailure() << "Value of: " << needle_expr
+        << "\n  Actual: " << quote << SubstringMessageValue(needle) << "\""
+        << "\nExpected: " << (expected ? "" : "not ") << "a substring of " << haystack_expr
+        << "\nWhich is: " << quote << SubstringMessageValue(haystack) << "\"";
+}
+
 }   // end of namespace internal
+
+/**
+ * @brief   Substring predicate formatter
+ * @note    IUTEST_EXPECT_PRED_FORMAT2(::iutest::IsSubstring, needle, haystack);
+*/
+inline AssertionResult IsSubstring(const char* needle_expr, const char* haystack_expr
+    , const char* needle, const char* haystack)
+{
+    return internal::IsSubstringImpl(true, needle_expr, haystack_expr, needle, haystack);
+}
+
+/** @overload */
+inline AssertionResult IsSubstring(const char* needle_expr, const char* haystack_expr
+    , const wchar_t* needle, const wchar_t* haystack)
+{
+    return internal::IsSubstringImpl(true, needle_expr, haystack_expr, needle, haystack);
+}
+
+/** @overload */
+inline AssertionResult IsSubstring(const char* needle_expr, const char* haystack_expr
+    , const ::std::string& needle, const ::std::string& haystack)
+{
+    return internal::IsSubstringImpl(true, needle_expr, haystack_expr, needle, haystack);
+}
+
+/** @overload */
+inline AssertionResult IsSubstring(const char* needle_expr, const char* haystack_expr
+    , const ::std::wstring& needle, const ::std::wstring& haystack)
+{
+    return internal::IsSubstringImpl(true, needle_expr, haystack_expr, needle, haystack);
+}
+
+/**
+ * @brief   Negated substring predicate formatter
+ * @note    IUTEST_EXPECT_PRED_FORMAT2(::iutest::IsNotSubstring, needle, haystack);
+*/
+inline AssertionResult IsNotSubstring(const char* needle_expr, const char* haystack_expr
+    , const char* needle, const char* haystack)
+{
+    return internal::IsSubstringImpl(false, needle_expr, haystack_expr, needle, haystack);
+}
+
+/** @overload */
+inline AssertionResult IsNotSubstring(const char* needle_expr, const char* haystack_expr
+    , const wchar_t* needle, const wchar_t* haystack)
+{
+    return internal::IsSubstringImpl(false, needle_expr, haystack_expr, needle, haystack);
+}
+
+/** @overload */
+inline AssertionResult IsNotSubstring(const char* needle_expr, const char* haystack_expr
+    , const ::std::string& needle, const ::std::string& haystack)
+{
+    return internal::IsSubstringImpl(false, needle_expr, haystack_expr, needle, haystack);
+}
+
+/** @overload */
+inline AssertionResult IsNotSubstring(const char* needle_expr, const char* haystack_expr
+    , const ::std::wstring& needle, const ::std::wstring& haystack)
+{
+    return internal::IsSubstringImpl(false, needle_expr, haystack_expr, needle, haystack);
+}
 
 /**
  * @brief   Float LE Formatter
@@ -1404,5 +1622,9 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ DoubleLE(
 
 
 }   // end of namespace iutest
+
+#if !IUTEST_HAS_LIB
+#  include "impl/iutest_assertion.ipp" // IWYU pragma: export
+#endif
 
 #endif // INCG_IRIS_IUTEST_ASSERTION_HPP_E6AF3476_DA81_46F7_A961_ACCEF7363932_

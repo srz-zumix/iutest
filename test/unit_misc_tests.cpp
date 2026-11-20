@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2021, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2025, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -68,8 +68,86 @@ IUTEST(UnitRandomTest, Size64)
     IUTEST_EXPECT_NE_RANGE(x, y);
 }
 
+template<typename T>
+void CheckBoundedRandom()
+{
+    ::iutest::detail::iuTypedRandom<T> r(42);
+    const T bounds[] = { 1, 2, 3, (::std::numeric_limits<T>::max)() };
+    for( size_t i=0; i < IUTEST_PP_COUNTOF(bounds); ++i )
+    {
+        for( int j=0; j < 100; ++j )
+        {
+            const T value = r(bounds[i]);
+            IUTEST_ASSERT_GE(value, static_cast<T>(0));
+            IUTEST_ASSERT_LT(value, bounds[i]);
+        }
+    }
+}
+
+IUTEST(UnitRandomTest, BoundedInteger)
+{
+    CheckBoundedRandom<signed char>();
+    CheckBoundedRandom<short>();
+    CheckBoundedRandom<int>();
+    CheckBoundedRandom<long>();
+    CheckBoundedRandom<iutest::Int64>();
+    CheckBoundedRandom<unsigned int>();
+    CheckBoundedRandom<iutest::UInt64>();
+}
+
+IUTEST(UnitRandomTest, BoundedSigned)
+{
+    ::iutest::detail::iuRandom r(1);
+    for( int i=0; i < 1000; ++i )
+    {
+        const int value = r.genrand(3);
+        IUTEST_ASSERT_GE(value, 0);
+        IUTEST_ASSERT_LT(value, 3);
+        const iutest::Int64 value64 = r.genrand(static_cast<iutest::Int64>(3));
+        IUTEST_ASSERT_GE(value64, 0);
+        IUTEST_ASSERT_LT(value64, 3);
+    }
+}
+
 IUTEST(UnitFileLoacation, NullFilePath)
 {
     IUTEST_EXPECT_STREQ("unknown file", ::iutest::detail::FormatFileLocation(NULL, -1));
     IUTEST_EXPECT_STREQ("unknown file", ::iutest::detail::FormatCompilerIndependentFileLocation(NULL, -1));
 }
+
+#if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_REGEX && IUTEST_HAS_COMBINE
+
+class UnitLocaleTest : public ::iutest::TestWithParam<iutest::tuples::tuple<const char*, const char*>> {};
+
+IUTEST_P(UnitLocaleTest, ScopedEncoding)
+{
+    const ::std::string origin = setlocale(LC_CTYPE, IUTEST_NULLPTR);
+    {
+        ::iutest::detail::ScopedLocale loc(LC_CTYPE, GetParam<0>());
+        IUTEST_ASSUME_TRUE(loc) << "Before: " << origin;
+        IUTEST_ASSERT_STREQ(origin, loc.GetPrevLocale());
+
+        {
+            ::std::string cp = GetParam<1>();
+            ::iutest::detail::ScopedEncoding encoding(LC_CTYPE, cp.c_str());
+            if( encoding )
+            {
+                if( cp == "932" )
+                {
+                    IUTEST_EXPECT_CONTAINS_REGEXEQ("\\.932", setlocale(LC_CTYPE, NULL));
+                }
+                else if( cp == "UTF-8" )
+                {
+                    IUTEST_EXPECT_CONTAINS_REGEXEQ("\\.[Uu][Tt][Ff](8|-8)", setlocale(LC_CTYPE, NULL));
+                }
+            }
+        }
+    }
+
+    IUTEST_ASSERT_STREQ(origin, setlocale(LC_CTYPE, NULL));
+}
+
+IUTEST_INSTANTIATE_TEST_SUITE_P(My1, UnitLocaleTest
+    , ::iutest::Combine(::iutest::Values("", "C", "ja_JP.932"), ::iutest::Values("UTF-8", "932")));
+
+#endif

@@ -15,7 +15,9 @@
 
 //======================================================================
 // include
+#ifndef IUTEST_USE_LIB
 #define IUTEST_USE_LIB 1
+#endif
 #define IUTEST_HAS_EXTERN_TEMPLATE 0
 #include "../include/iutest.hpp"
 
@@ -26,6 +28,7 @@ template class ::std::vector< ::std::basic_string<char> >;
 template class ::std::vector< ::std::basic_string<wchar_t> >;
 
 // ipp
+#include "../include/impl/iutest_assertion.ipp"             // IWYU pragma: keep
 #include "../include/impl/iutest_port.ipp"                  // IWYU pragma: keep
 #include "../include/impl/iutest_body.ipp"                  // IWYU pragma: keep
 #include "../include/impl/iutest_suite.ipp"                 // IWYU pragma: keep
