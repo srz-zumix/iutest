@@ -68,7 +68,14 @@ Platforms
 * FreeBSD
 * Cygwin
 * MinGW
-* ESP8266 / ESP32 (see the ESP32 Arduino build below)
+* ESP8266 / ESP32 (see the PlatformIO and Arduino CLI builds below)
+
+### ESP8266 and ESP32 PlatformIO builds
+
+With [PlatformIO Core](https://docs.platformio.org/en/stable/core/index.html)
+installed, run `pio run --project-dir test/platformio` from the repository root.
+This compiles and links the same Google Test compatibility smoke test for both
+Arduino targets. No hardware is required, and no firmware is uploaded or run.
 
 ### ESP32 Arduino build
 
