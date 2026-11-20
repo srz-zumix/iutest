@@ -68,6 +68,51 @@ Platforms
 * FreeBSD
 * Cygwin
 * MinGW
+* ESP8266 / ESP32 (see the ESP32 Arduino build below)
+
+### ESP32 Arduino build
+
+Create `iutest_esp32/iutest_esp32.ino` with the following smoke test:
+
+```cpp
+#include <Arduino.h>
+#include "gtest/iutest_switch.hpp"
+
+#if !defined(IUTEST_OS_ESP32) || !defined(GTEST_OS_ESP32)
+#  error ESP32 platform detection failed
+#endif
+
+TEST(Esp32Smoke, Addition)
+{
+    EXPECT_EQ(4, 2 + 2);
+}
+
+void setup()
+{
+    Serial.begin(115200);
+    ::testing::InitGoogleTest();
+    Serial.printf("iutest result: %d\n", RUN_ALL_TESTS());
+}
+
+void loop() {}
+```
+
+With [Arduino CLI](https://arduino.github.io/arduino-cli/) installed, run the
+following from the repository root, with the sketch directory created there:
+
+```sh
+esp32_index=https://espressif.github.io/arduino-esp32/package_esp32_index.json
+arduino-cli core update-index --additional-urls "$esp32_index"
+arduino-cli core install esp32:esp32@2.0.17 --additional-urls "$esp32_index"
+arduino-cli compile --fqbn esp32:esp32:esp32 \
+  --build-property "compiler.cpp.extra_flags=-I\"$PWD/include\"" \
+  "$PWD/iutest_esp32"
+```
+
+A board is not required to compile and link the sketch. On a board, the final
+serial line should be `iutest result: 0`. ESP targets default to plain console
+output, without the stdio file backend, environment variables, or socket result
+streaming.
 
 Compiler
 --------------------------------------------------

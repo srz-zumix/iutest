@@ -19,7 +19,13 @@
 // define
 
 // os
-#if   defined(__CYGWIN__)
+#if defined(ESP8266) || defined(ARDUINO_ARCH_ESP8266)
+#  define IUTEST_OS_ESP8266             1
+#  define IUTEST_PLATFORM               "ESP8266"
+#elif defined(ESP32) || defined(ARDUINO_ARCH_ESP32) || defined(ESP_PLATFORM)
+#  define IUTEST_OS_ESP32               1
+#  define IUTEST_PLATFORM               "ESP32"
+#elif defined(__CYGWIN__)
 #  define IUTEST_OS_CYGWIN              1
 #  define IUTEST_PLATFORM               "CYGWIN"
 #elif defined(_WIN32) || defined(WIN32) || defined(__WIN32__) || defined(WINAPI_FAMILY)

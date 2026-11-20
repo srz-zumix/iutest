@@ -57,6 +57,8 @@
 #ifdef IUTEST_OS_NACL
 #  undef IUTEST_OS_NACL
 #endif
+#undef GTEST_OS_ESP8266
+#undef GTEST_OS_ESP32
 
 #define GTEST_ATTRIBUTE_UNUSED_         IUTEST_ATTRIBUTE_UNUSED_
 
@@ -108,6 +110,12 @@
 #endif
 #ifdef IUTEST_OS_NACL
 #  define GTEST_OS_NACL                 IUTEST_OS_NACL
+#endif
+#ifdef IUTEST_OS_ESP8266
+#  define GTEST_OS_ESP8266              IUTEST_OS_ESP8266
+#endif
+#ifdef IUTEST_OS_ESP32
+#  define GTEST_OS_ESP32                IUTEST_OS_ESP32
 #endif
 
 #else // !defined(IUTEST_USE_GTEST)

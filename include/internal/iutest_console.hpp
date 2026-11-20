@@ -34,7 +34,8 @@ namespace detail
 #endif
 
 #ifndef IUTEST_HAS_COLORCONSOLE
-#  if defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_OS_NACL)
+#  if defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_OS_NACL) \
+      || defined(IUTEST_OS_ESP8266) || defined(IUTEST_OS_ESP32)
 #    define IUTEST_HAS_COLORCONSOLE 0   //!< 色つきターミナルが使用可能かどうか
 #  else
 #    define IUTEST_HAS_COLORCONSOLE 1   //!< 色つきターミナルが使用可能かどうか
@@ -277,6 +278,10 @@ inline void iuConsole::color_output_impl(Color color, const char* fmt, va_list v
 
 inline bool iuConsole::IsShouldUseColor(bool use_color)
 {
+#if !IUTEST_HAS_COLORCONSOLE && (defined(IUTEST_OS_ESP8266) || defined(IUTEST_OS_ESP32))
+    IUTEST_UNUSED_VAR(use_color);
+    return false;
+#else
     if( IsColorModeOn() )
     {
         return true;
@@ -287,6 +292,7 @@ inline bool iuConsole::IsShouldUseColor(bool use_color)
     }
     static bool has_color = HasColorConsole();
     return use_color && has_color;
+#endif
 }
 
 inline bool iuConsole::HasColorConsole()

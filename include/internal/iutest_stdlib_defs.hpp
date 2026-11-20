@@ -403,7 +403,9 @@
 #endif
 
 #if !defined(IUTEST_HAS_HDR_UNISTD)
-#  if defined(__has_include)
+#  if defined(IUTEST_OS_ESP8266) || defined(IUTEST_OS_ESP32)
+#    define IUTEST_HAS_HDR_UNISTD           0
+#  elif defined(__has_include)
 #    if __has_include(<unistd.h>)
 #      define IUTEST_HAS_HDR_UNISTD         1
 #    endif
@@ -490,7 +492,8 @@
 #endif
 
 #if !defined(IUTEST_HAS_STD_FILESYSTEM)
-#  if   defined(ANDROID) || defined(__ANDROID__) || defined(__ARM_EABI__)
+#  if   defined(ANDROID) || defined(__ANDROID__) || defined(__ARM_EABI__) \
+      || defined(IUTEST_OS_ESP8266) || defined(IUTEST_OS_ESP32)
 #    define IUTEST_HAS_STD_FILESYSTEM       0
 #  elif defined(__INTEL_COMPILER)
 #    define IUTEST_HAS_STD_FILESYSTEM       0
@@ -686,13 +689,17 @@
 
 //! has fopen
 #if !defined(IUTEST_HAS_FOPEN)
-#  define IUTEST_HAS_FOPEN                          1
+#  if defined(IUTEST_OS_ESP8266) || defined(IUTEST_OS_ESP32)
+#    define IUTEST_HAS_FOPEN                        0
+#  else
+#    define IUTEST_HAS_FOPEN                        1
+#  endif
 #endif
 
 
 //! has file stat
 #if !defined(IUTEST_HAS_FILE_STAT)
-#  if !defined(IUTEST_OS_WINDOWS_MOBILE)
+#  if !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_ESP8266) && !defined(IUTEST_OS_ESP32)
 #    define IUTEST_HAS_FILE_STAT                    1
 #  endif
 #endif
@@ -717,7 +724,7 @@
 #    define IUTEST_HAS_FILENO                       0
 #  elif defined(IUTEST_OS_WINDOWS_MINGW) && defined(__STRICT_ANSI__)
 #    define IUTEST_HAS_FILENO                       0
-#  elif !defined(IUTEST_OS_WINDOWS_MOBILE)
+#  elif !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_ESP8266) && !defined(IUTEST_OS_ESP32)
 #    define IUTEST_HAS_FILENO                       1
 #  endif
 #endif

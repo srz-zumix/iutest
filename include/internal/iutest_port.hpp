@@ -313,6 +313,8 @@ inline iu_uint_max_t FileSizeFromPath(const char* filename)
     {
         return static_cast<iu_uint_max_t>(st.st_size);
     }
+#else
+    IUTEST_UNUSED_VAR(filename);
 #endif
     return 0;
 
