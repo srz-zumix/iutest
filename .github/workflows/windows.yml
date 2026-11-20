@@ -17,7 +17,7 @@ permissions:
 jobs:
   # AppVeyor VisualStudio job group migration
   visualstudio:
-    name: ${{ matrix.os }} ${{ matrix.platform }} ${{ matrix.configuration }}
+    name: ${{ matrix.os }} ${{ matrix.platform }} ${{ matrix.configuration }} (C++${{ matrix.cxx_standard }})
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -25,6 +25,7 @@ jobs:
         os: [windows-2022, windows-2025]
         platform: [Win32, x64]
         configuration: [Debug, Release]
+        cxx_standard: [17, 20, 23]
         include:
           - os: windows-2022
             generator: Visual Studio 17 2022
@@ -35,8 +36,9 @@ jobs:
         with:
           persist-credentials: false
       - name: cmake
-        run: |
+        run: >
           cmake -S projects/cmake -B build -G "${{ matrix.generator }}" -A ${{ matrix.platform }} -Dbuild_gtest_samples=ON
+          -DCMAKE_CXX_STANDARD=${{ matrix.cxx_standard }} -DCMAKE_CXX_STANDARD_REQUIRED=ON
       - name: build
         run: cmake --build build --config ${{ matrix.configuration }}
       - name: test
