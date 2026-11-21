@@ -15,6 +15,8 @@
 
 //======================================================================
 // include
+#include <cstdio>
+
 #include "iutest.hpp"
 #include "logger_tests.hpp"
 
@@ -55,16 +57,29 @@ class ListListener : public ::iutest::EmptyTestEventListener
 {
 public:
     ListListener() : calls(0), count(-1) {}
-    virtual void OnListup(int total_test_num, const ::std::vector< ::iutest::TestSuite*>& /*tests*/) IUTEST_CXX_OVERRIDE
+    virtual void OnListup(int total_test_num, const ::std::vector< ::iutest::TestSuite*>& tests) IUTEST_CXX_OVERRIDE
     {
         ++calls;
         count = total_test_num;
+        suites = tests;
+    }
+    bool HasAllSuites() const
+    {
+        const ::iutest::UnitTest* unit_test = ::iutest::UnitTest::GetInstance();
+        const int suite_count = unit_test->total_test_suite_count();
+        if( suites.size() != static_cast<size_t>(suite_count) ) return false;
+        for( int i = 0; i < suite_count; ++i )
+        {
+            if( suites[static_cast<size_t>(i)] != unit_test->GetTestSuite(i) ) return false;
+        }
+        return true;
     }
     int calls;
     int count;
+    ::std::vector< ::iutest::TestSuite*> suites;
 };
 
-#if IUTEST_HAS_REGISTER_TEST
+#if IUTEST_HAS_REGISTER_TEST && IUTEST_HAS_FOPEN && !defined(__WANDBOX__)
 class ListRegisteredTest : public ::iutest::Test
 {
     virtual void Body() IUTEST_CXX_OVERRIDE {}
@@ -160,6 +175,7 @@ int main(int argc, char* argv[])
         IUTEST_ASSERT_STREQ(list_test_str, logger.c_str())
             << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_EQ(1, listener->calls) << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_TRUE(listener->HasAllSuites()) << ::iutest::AssertionReturn<int>(1);
 #endif
         if( ret != 0 ) return 1;
     }
@@ -193,6 +209,7 @@ int main(int argc, char* argv[])
         IUTEST_ASSERT_STREQ("1 tests from 1 testsuite\nTest.\n  A\n", logger.c_str())
             << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_EQ(1, listener->count) << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_TRUE(listener->HasAllSuites()) << ::iutest::AssertionReturn<int>(1);
         if( ret != 0 ) return 1;
     }
     {
@@ -234,9 +251,10 @@ int main(int argc, char* argv[])
         IUTEST_ASSERT_STREQ("0 tests from 0 testsuite\n", logger.c_str())
             << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_EQ(0, listener->count) << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_TRUE(listener->HasAllSuites()) << ::iutest::AssertionReturn<int>(1);
         if( ret != 0 ) return 1;
     }
-#if !defined(__WANDBOX__)
+#if IUTEST_HAS_FOPEN && !defined(__WANDBOX__)
     {
 #if IUTEST_HAS_REGISTER_TEST
         ::iutest::RegisterTest("Escaped&Suite", "Test<Name", "type<&>", "value<&>"

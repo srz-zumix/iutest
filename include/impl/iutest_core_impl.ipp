@@ -63,11 +63,22 @@ IUTEST_IPP_INLINE bool UnitTestImpl::SkipTest()
 IUTEST_IPP_INLINE int UnitTestImpl::Listup() const
 {
     int count = 0;
+#if IUTEST_USE_OWN_LIST
+    ::std::vector<TestSuite*> testsuites;
+#endif
     for( iuTestSuites::const_iterator it = m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
     {
         count += (*it)->reportable_test_count();
+#if IUTEST_USE_OWN_LIST
+        // The list's const_iterator adds const to the stored suite pointers.
+        testsuites.push_back(const_cast<TestSuite*>(*it));
+#endif
     }
+#if IUTEST_USE_OWN_LIST
+    TestEnv::event_listeners().OnListup(count, testsuites);
+#else
     TestEnv::event_listeners().OnListup(count, m_testsuites);
+#endif
     return 0;
 }
 

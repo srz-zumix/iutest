@@ -93,8 +93,13 @@ public:
     virtual void OnTestIterationEnd(const UnitTest& test
                                     , int iteration)                = 0;    //!< 単体テスト終了時に毎回呼ばれます
     virtual void OnTestProgramEnd(const UnitTest& test)             = 0;    //!< テストプログラム終了時に呼ばれます
+    /**
+     * @brief   テストリストアップ時に呼ばれます
+     * @note    total_test_num は一覧表示対象のテスト数で、tests にはフィルター対象外のスイートも含まれます。
+     *          tests コンテナへの参照は、このコールバック中のみ有効です。
+    */
     virtual void OnListup(int /*total_test_num*/
-                          , const ::std::vector<TestSuite*>& /*tests*/) {}    //!< テストリストアップ時に呼ばれます
+                          , const ::std::vector<TestSuite*>& /*tests*/) {}
 };
 
 /**
