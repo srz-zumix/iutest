@@ -475,7 +475,7 @@ if (build_gtest_samples)
     set_tests_properties(${name} PROPERTIES LABELS gtest_samples)
   endfunction()
   add_gtest_sample_check(sample9_unittest sample9_unittest 0
-    "This test fails in order to demonstrate alternative failure messages")
+    "This test fails in order to demonstrate alternative failure messages.*1 FAILED TEST")
   add_gtest_sample_check(sample9_unittest_terse sample9_unittest 0
     "This test fails in order to demonstrate alternative failure messages.*TEST FAILED" --terse_output)
   add_gtest_sample_check(sample10_unittest_leaks sample10_unittest 1
