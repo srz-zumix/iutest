@@ -82,6 +82,7 @@ public:
         {
             p = new T (testsuite_name, id, setup, teardown);
             m_testsuites.push_back(p);
+            m_registered_testsuites.push_back(p);
         }
         return p;
     }
@@ -174,6 +175,7 @@ protected:
     TestSuite*      m_current_testsuite;//!< 現在実行中の TestSuite
     TimeInMillisec  m_elapsedmsec;      //!< テストの実行時間
     iuTestSuites    m_testsuites;       //!< TestSuite リスト
+    ::std::vector<TestSuite*> m_registered_testsuites;  //!< シャッフル前の登録順
     TestResult      m_ad_hoc_testresult;//!< テストが実行中でないときのリザルト
 };
 

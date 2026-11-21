@@ -253,6 +253,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::InitializeImpl()
 
 IUTEST_IPP_INLINE void UnitTestImpl::TerminateImpl()
 {
+    m_registered_testsuites.clear();
     for( iuTestSuites::iterator it = m_testsuites.begin(); it != m_testsuites.end(); it = m_testsuites.begin())
     {
         TestSuite* p = (*it);

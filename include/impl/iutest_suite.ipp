@@ -174,11 +174,12 @@ IUTEST_IPP_INLINE void TestSuite::clear()
     }
 }
 
-IUTEST_IPP_INLINE bool TestSuite::filter()
+IUTEST_IPP_INLINE bool TestSuite::filter(int total_shards, int shard_index, int* runnable_test_id)
 {
     m_should_run_num = 0;
     m_disable_num = 0;
-    for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
+    for( ::std::vector<TestInfo*>::iterator it = m_registered_testinfos.begin()
+        , end = m_registered_testinfos.end(); it != end; ++it )
     {
         if( m_disable )
         {
@@ -189,7 +190,7 @@ IUTEST_IPP_INLINE bool TestSuite::filter()
         {
             ++m_disable_num;
         }
-        if( (*it)->filter() )
+        if( (*it)->filter(total_shards, shard_index, runnable_test_id) )
         {
             ++m_should_run_num;
         }

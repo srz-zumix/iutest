@@ -136,6 +136,8 @@ TEST_TARGETS= \
 		$(OUTDIR)/file_system_tests \
 		$(OUTDIR)/fieldsare_tests \
 		$(OUTDIR)/filter_tests \
+		$(OUTDIR)/bazel_environment_tests \
+		$(OUTDIR)/sharding_tests \
 		$(OUTDIR)/flag_restore_tests \
 		$(OUTDIR)/install_failure_signal_handler_tests \
 		$(OUTDIR)/show_internal_stack_frames_tests \

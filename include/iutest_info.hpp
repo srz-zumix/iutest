@@ -56,6 +56,7 @@ public:
         , m_disable(detail::IsDisableTestName(name))
         , m_skip(false)
         , m_matches_filter(true)
+        , m_is_in_another_shard(false)
     {
         m_mediator.SetPointer(this);
     }
@@ -81,7 +82,9 @@ public:
     /** is skipped */
     bool            is_skipped()        const IUTEST_CXX_NOEXCEPT_SPEC { return m_skip || m_test_result.Skipped(); }
     /** is reportable */
-    bool            is_reportable()     const IUTEST_CXX_NOEXCEPT_SPEC { return m_matches_filter; }
+    bool            is_reportable()     const IUTEST_CXX_NOEXCEPT_SPEC { return m_matches_filter && !m_is_in_another_shard; }
+    /** Whether this runnable test belongs to another shard. */
+    bool            is_in_another_shard() const IUTEST_CXX_NOEXCEPT_SPEC { return m_is_in_another_shard; }
     /** テストの実行ミリ秒 */
     TimeInMillisec  elapsed_time()      const { return m_test_result.elapsed_time(); }
     /** テスト結果の取得 */
@@ -217,7 +220,7 @@ private:
      * @brief   テストのフィルタリング
      * @return  実行する場合は真
     */
-    bool filter();
+    bool filter(int total_shards = 1, int shard_index = 0, int* runnable_test_id = NULL);
 
     /**
     * @brief    テストのスキップ
@@ -268,6 +271,7 @@ private:
     bool                    m_disable;          //!< 無効真偽値
     bool                    m_skip;             //!< スキップしたかどうか
     bool                    m_matches_filter;   //!< フィルターにマッチしたかどうか
+    bool                    m_is_in_another_shard;  //!< 別のシャードで実行するか
 
     typedef ::std::vector<detail::iuCodeMessage> UncaughtMessagesType;
     UncaughtMessagesType    m_uncaught_messages;
