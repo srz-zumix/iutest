@@ -23,11 +23,19 @@
 #include "internal/iutest_stdlib.hpp"
 #include "iutest_config.hpp"
 #include <stdio.h>
+#include <climits>
+#include <cstring>
 #include <utility>
 #include <vector>
 #include <algorithm>
 #include "internal/iutest_debug.hpp"
 // IWYU pragma: end_exports
+
+#if IUTEST_HAS_CXX20 && defined(__has_include)
+#  if __has_include(<bit>)
+#    include <bit>
+#  endif
+#endif
 
 #if IUTEST_HAS_TYPED_TEST_P
 #  if IUTEST_TYPED_TEST_P_STRICT
@@ -178,6 +186,30 @@ template<>
 struct ieee754_bits<__float128> : ieee754_bits_from_mant<IUTEST_FLT128_MANT_DIG> {};
 #endif
 
+template<typename To, typename From, size_t Bytes, bool FullWidth>
+struct floating_point_bit_copy
+{
+    typedef char valid_copy_size[Bytes <= sizeof(To) && Bytes <= sizeof(From) ? 1 : -1];
+
+    static To cast(const From& value)
+    {
+        To result = To();
+        ::std::memcpy(&result, &value, Bytes);
+        return result;
+    }
+};
+
+#if IUTEST_HAS_CXX20 && defined(__cpp_lib_bit_cast) && __cpp_lib_bit_cast >= 201806L
+template<typename To, typename From, size_t Bytes>
+struct floating_point_bit_copy<To, From, Bytes, true>
+{
+    static To cast(const From& value)
+    {
+        return ::std::bit_cast<To>(value);
+    }
+};
+#endif
+
 }   // end of namespace detail
 
 /**
@@ -205,26 +237,19 @@ public:
     /**
      * @brief   コンストラクタ
     */
-    floating_point()
-    {
-        m_v.uv = 0;
-    }
+    floating_point() : m_bits(0) {}
 
     /**
      * @brief   コンストラクタ
      * @param [in]  f   = 浮動小数点数
     */
-    floating_point(RawType f)   // NOLINT
-    {
-        m_v.uv = 0;
-        m_v.fv = f;
-    }
+    floating_point(RawType f) : m_bits(ToBits::cast(f)) {}   // NOLINT
 
     /**
      * @brief   コンストラクタ
     */
     floating_point(const floating_point& rhs)
-        : m_v(rhs.m_v)
+        : m_bits(rhs.m_bits)
     {
     }
 
@@ -270,13 +295,13 @@ public:
         }
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_FLOAT_EQUAL()
-        if( m_v.fv == rhs.m_v.fv )
+        if( raw() == rhs.raw() )
         {
             return true;
         }
 IUTEST_PRAGMA_WARN_POP()
         _Myt abs = Abs(rhs);
-        if( abs.m_v.fv <= max_abs_error )
+        if( abs.raw() <= max_abs_error )
         {
             return true;
         }
@@ -302,35 +327,37 @@ IUTEST_PRAGMA_WARN_POP()
 public:
     _Myt    Abs(const _Myt& rhs) const
     {
-        if( m_v.fv > rhs.m_v.fv )
+        const RawType lhs_value = raw();
+        const RawType rhs_value = rhs.raw();
+        if( lhs_value > rhs_value )
         {
-            return _Myt(m_v.fv - rhs.m_v.fv);
+            return _Myt(lhs_value - rhs_value);
         }
         else
         {
-            return _Myt(rhs.m_v.fv - m_v.fv);
+            return _Myt(rhs_value - lhs_value);
         }
     }
 public:
     /**
      * @brief   ビット列の取得
     */
-    UInt    bits() const { return m_v.uv; }
+    UInt    bits() const { return m_bits; }
 
     /**
      * @brief   ビット列の取得
     */
-    UInt    enable_bits() const { return m_v.uv & kEnableBitMask; }
+    UInt    enable_bits() const { return bits() & kEnableBitMask; }
 
     /**
      * @brief   raw データの取得
     */
-    RawType raw() const { return m_v.fv; }
+    RawType raw() const { return ToRaw::cast(m_bits); }
 
     /**
      * @brief   exponent
     */
-    UInt    exponent_bits() const { return m_v.uv & kExpMask; }
+    UInt    exponent_bits() const { return bits() & kExpMask; }
 
     /**
      * @brief   fraction (mantissa)
@@ -340,17 +367,17 @@ public:
     /**
      * @brief   mantissa
     */
-    UInt    mantissa_bits() const { return m_v.uv & kMantMask; }
+    UInt    mantissa_bits() const { return bits() & kMantMask; }
 
     /**
      * @brief   economized mantissa
     */
-    UInt    economized_mantissa_bits() const { return m_v.uv & kEconomizedMantMask; }
+    UInt    economized_mantissa_bits() const { return bits() & kEconomizedMantMask; }
 
     /**
      * @brief   sign
     */
-    UInt    sign_bit() const { return m_v.uv & kSignMask; }
+    UInt    sign_bit() const { return bits() & kSignMask; }
 
     /**
      * @brief   is nan
@@ -366,61 +393,47 @@ public:
     //! plus inf
     static _Myt PINF()
     {
-        _Myt f;
-        f.m_v.uv = kExpMask | kDefaultMantBitMask;
-        return f;
+        return FromBits(kExpMask | kDefaultMantBitMask);
     }
     //! minus inf
     static _Myt NINF()
     {
-        _Myt f = PINF();
-        f.m_v.uv |= kSignMask;
-        return f;
+        return FromBits(PINF().bits() | kSignMask);
     }
     //! plus nan
     static _Myt PNAN()
     {
-        _Myt f;
-        f.m_v.uv = kExpMask | kDefaultMantBitMask | 1;
-        return f;
+        return FromBits(kExpMask | kDefaultMantBitMask | 1);
     }
     //! minus nan
     static _Myt NNAN()
     {
-        _Myt f = PNAN();
-        f.m_v.uv |= kSignMask;
-        return f;
+        return FromBits(PNAN().bits() | kSignMask);
     }
     //! plus qnan
     static _Myt PQNAN()
     {
-        _Myt f;
-        f.m_v.uv = ((1 << (kEXP + 1)) - 1);
-        f.m_v.uv <<= kMANT - 1;
-        f.m_v.uv |= kDefaultMantBitMask;
-        return f;
+        const UInt high_bits = (1 << (kEXP + 1)) - 1;
+        return FromBits((high_bits << (kMANT - 1)) | kDefaultMantBitMask);
     }
     //! minus qnan
     static _Myt NQNAN()
     {
-        _Myt f = PQNAN();
-        f.m_v.uv |= kSignMask;
-        return f;
+        return FromBits(PQNAN().bits() | kSignMask);
     }
 
 public:
 #if !defined(_MSC_VER) || _MSC_VER >= 1310
-    operator RawType () const   { return m_v.fv; }  //!< cast to RawType
+    operator RawType () const   { return raw(); }  //!< cast to RawType
 #else
-    operator float() const  { return m_v.fv; }
-    operator double() const { return m_v.fv; }
+    operator float() const  { return raw(); }
+    operator double() const { return raw(); }
 #endif
-    _Myt&   operator = (RawType f)  { m_v.fv = f; return *this; }   //!< 代入
-    _Myt&   operator = (const _Myt& rhs) { m_v.fv = rhs.m_v.fv; return *this; }   //!< 代入
+    _Myt&   operator = (RawType f)  { m_bits = ToBits::cast(f); return *this; }   //!< 代入
+    _Myt&   operator = (const _Myt& rhs) { m_bits = rhs.m_bits; return *this; }   //!< 代入
 
     bool    operator == (RawType rhs) const { return enable_bits() == _Myt(rhs).enable_bits(); }    //!< 比較
     bool    operator == (const _Myt& rhs) const { return enable_bits() == rhs.enable_bits(); }      //!< 比較
-    // bool    operator == (const _Myt& rhs) const { return m_v.uv == rhs.m_v.uv; }    //!< 比較
 
 public:
     static const int kEXP;
@@ -428,6 +441,29 @@ public:
     static const int kDIGITS;
 
 private:
+    typedef detail::ieee754_bits<RawType> Format;
+    enum
+    {
+        kBitCount = 1 + Format::EXP + Format::MANT,
+        kByteCount = (kBitCount + CHAR_BIT - 1) / CHAR_BIT,
+        kFullWidth = kBitCount == sizeof(RawType) * CHAR_BIT && sizeof(RawType) == sizeof(UInt)
+    };
+    typedef char valid_storage_size[kBitCount == 80 || (kByteCount == sizeof(RawType) && sizeof(RawType) == sizeof(UInt)) ? 1 : -1];
+#if defined(__BYTE_ORDER__) && defined(__ORDER_LITTLE_ENDIAN__)
+    typedef char valid_x87_byte_order[kBitCount != 80 || __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__ ? 1 : -1];
+#endif
+    // The x87 layout puts the 80 value bits first, followed by ABI padding.
+    // Only full-width formats use bit_cast; retain byte copying for the legacy double-double mapping.
+    typedef detail::floating_point_bit_copy<UInt, RawType, kByteCount, kFullWidth> ToBits;
+    typedef detail::floating_point_bit_copy<RawType, UInt, kByteCount, kFullWidth> ToRaw;
+
+    static _Myt FromBits(UInt value)
+    {
+        _Myt result;
+        result.m_bits = value;
+        return result;
+    }
+
     static UInt norm(UInt v) { return (v & kSignMask) ? (~v + 1) : (v | kSignMask); }
 
     static const UInt kSignMask;
@@ -438,7 +474,7 @@ private:
     static const UInt kEnableBitMask;
 
 private:
-    FInt m_v;
+    UInt m_bits;
 };
 
 template<typename T>

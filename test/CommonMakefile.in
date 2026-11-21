@@ -141,6 +141,7 @@ TEST_TARGETS= \
 		$(OUTDIR)/show_internal_stack_frames_tests \
 		$(OUTDIR)/flagfile_gtest_tests \
 		$(OUTDIR)/floatingpoint_tests \
+		$(OUTDIR)/floatingpoint_bits_tests \
 		$(OUTDIR)/floatingpoint_printers_tests \
 		$(OUTDIR)/gtest_version_tests \
 		$(OUTDIR)/gtest_param_macro_tests \
