@@ -15,6 +15,13 @@
   * 例外発生時にも SCOPED_TRACE のメッセージを出力するように変更
   * 空のテストスイート名・テスト名に static_assert を追加
   * GoogleTest の GTEST_REMOVE_LEGACY_TEST_CASEAPI_ に対応
+  * `samples/gtest` を [Google Test v1.18.0](https://github.com/google/googletest/tree/v1.18.0/googletest/samples) に更新
+    * iutest スイッチ、sample1〜8 の共通 `main.cc`、sample9・10 の独自 `main()` を維持。
+    * 旧コンパイラ向けの構文・型、および型付きテスト・値パラメータ化テストの機能条件分岐を維持。未対応の上流テスト API はありません。
+    * 上流の素数表で容量が 0 のときに配列外へ書き込まないよう修正。
+    * `cmake -S projects/cmake -B build -Dbuild_gtest_samples=ON -Dbuild_tests=OFF` で構成し、`cmake --build build` の後で `ctest --test-dir build -L gtest_samples --output-on-failure` を実行できます。
+      sample9 は失敗を表示して終了コード 0、sample10 は `--check_for_leaks` 指定時のみリークを報告して終了コード 1 になることを確認します。
+      sample10 の `OnTestEnd()` 内の失敗は、GoogleTest ではテスト単位、iutest ではスイート単位で集計されます。
   * Intel Compiler に対応
 
 * Changes

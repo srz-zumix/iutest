@@ -92,6 +92,8 @@ SOFTWARE.
 ----------------------------------------------------------------------
 Google Test samples and compatible code (partial) is:
 https://github.com/google/googletest/tree/master/googletest
+The samples in samples/gtest are based on Google Test v1.18.0:
+https://github.com/google/googletest/tree/v1.18.0/googletest/samples
 ----------------------------------------------------------------------
 
 Copyright 2008, Google Inc.

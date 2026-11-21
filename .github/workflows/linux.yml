@@ -173,6 +173,11 @@ jobs:
           make -C projects/make clean
       - name: clang sample run
         run: make -C projects/make CXX=clang++ run
+      - name: Google Test samples with iutest
+        run: |
+          cmake -S projects/cmake -B build-samples -Dbuild_gtest_samples=ON -Dbuild_tests=OFF
+          cmake --build build-samples --parallel 4
+          ctest --test-dir build-samples -L gtest_samples --output-on-failure --no-tests=error
 
   # minimum tests (Semaphore migration)
   minimum-tests:

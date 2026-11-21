@@ -456,6 +456,32 @@ endif()
 #
 enable_testing()
 
+if (build_gtest_samples)
+  foreach (n RANGE 1 8)
+    add_test(NAME sample${n}_unittest COMMAND sample${n}_unittest)
+    set_tests_properties(sample${n}_unittest PROPERTIES LABELS gtest_samples)
+  endforeach()
+  add_test(NAME sample10_unittest COMMAND sample10_unittest)
+  set_tests_properties(sample10_unittest PROPERTIES LABELS gtest_samples)
+
+  # Check both the exit status and the intended failure, not just any failure.
+  function(add_gtest_sample_check name target expected_exit expected_output)
+    add_test(NAME ${name} COMMAND "${CMAKE_COMMAND}"
+      "-DSAMPLE=$<TARGET_FILE:${target}>"
+      "-DEXPECTED_EXIT=${expected_exit}"
+      "-DEXPECTED_OUTPUT=${expected_output}"
+      "-DSAMPLE_ARG=${ARGN}"
+      -P "${CMAKE_CURRENT_SOURCE_DIR}/check_gtest_sample.cmake")
+    set_tests_properties(${name} PROPERTIES LABELS gtest_samples)
+  endfunction()
+  add_gtest_sample_check(sample9_unittest sample9_unittest 0
+    "This test fails in order to demonstrate alternative failure messages")
+  add_gtest_sample_check(sample9_unittest_terse sample9_unittest 0
+    "This test fails in order to demonstrate alternative failure messages.*TEST FAILED" --terse_output)
+  add_gtest_sample_check(sample10_unittest_leaks sample10_unittest 1
+    "Leaked 1 unit[(]s[)] of Water!" --check_for_leaks)
+endif()
+
 if (build_tests)
   cxx_add_test(all_tests)
   cxx_add_test(also_run_disabled_tests)
