@@ -77,6 +77,10 @@ int main(int argc, char* argv[])
     IUTEST_EXPECT_NO_THROW(::iutest::detail::IFileSystem::Free(NULL));
     IUTEST_EXPECT_TRUE(is_call_delete);
 
+    IUTEST_FLAG_SET(list_tests, true);
+    IUTEST_FLAG_SET(output, "xml:list_file_system_test.xml");
+    IUTEST_EXPECT_EQ(0, IUTEST_RUN_ALL_TESTS());
+
     return ::iutest::UnitTest::GetInstance()->Failed() ? 1 : 0;
 #else
     IUTEST_INIT(&argc, argv);

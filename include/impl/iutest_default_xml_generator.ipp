@@ -70,6 +70,48 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestProgramEnd(const UnitT
     FileClose();
 }
 
+IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnListup(int total_test_num, const ::std::vector<TestSuite*>& tests)
+{
+    if( !FileOpen(m_output_path.c_str()) )
+    {
+        return;
+    }
+    m_fp->Printf("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+    m_fp->Printf("<testsuites tests=\"%d\" name=\"AllTests\">\n", total_test_num);
+    for( ::std::vector<TestSuite*>::const_iterator it = tests.begin(), end=tests.end(); it != end; ++it )
+    {
+        if( (*it)->reportable_test_count() == 0 ) continue;
+        m_fp->Printf("  <testsuite name=\"%s\" tests=\"%d\">\n"
+            , EscapeXmlAttribute((*it)->testsuite_name_with_default_package_name()).c_str()
+            , (*it)->reportable_test_count());
+
+        for( int i = 0; i < (*it)->total_test_count(); ++i )
+        {
+            const TestInfo* testinfo = (*it)->GetTestInfo(i);
+            if( !testinfo->is_reportable() ) continue;
+            std::string value_param, type_param;
+            if ( testinfo->value_param() != NULL )
+            {
+                value_param = " value_param=\"" + EscapeXmlAttribute(testinfo->value_param()) + "\"";
+            }
+            if ( testinfo->type_param() != NULL )
+            {
+                type_param = " type_param=\"" + EscapeXmlAttribute(testinfo->type_param()) + "\"";
+            }
+            m_fp->Printf("    <testcase name=\"%s\"%s%s file=\"%s\" line=\"%d\" />\n"
+                , EscapeXmlAttribute(testinfo->name()).c_str()
+                , value_param.c_str()
+                , type_param.c_str()
+                , EscapeXmlAttribute(testinfo->file()).c_str()
+                , testinfo->line());
+        }
+
+        m_fp->Printf("  </testsuite>\n");
+    }
+    m_fp->Printf("</testsuites>\n");
+    FileClose();
+}
+
 IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTest(IFile* file, const UnitTest& test)
 {
     file->Printf("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
