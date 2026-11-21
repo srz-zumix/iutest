@@ -17,12 +17,13 @@
 !docs/**/*
 !testdata/**/*
 !stdlib_feature_tests/**
+!/platformio/platformio.ini
 
 # excludes
+/platformio/.pio/
 *.ns.cpp
 *.html
 *.png
 *.css
 benchmark/benchmark_n*.cpp
 cpplint/cpplint.py
-

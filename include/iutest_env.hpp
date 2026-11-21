@@ -116,6 +116,12 @@ private:
     virtual should_be_SetUp* Setup() IUTEST_CXX_FINAL { return NULL; }
 };
 
+// Arduino defines DEFAULT as a macro; preserve it for the rest of the sketch.
+#if defined(IUTEST_OS_ESP8266) || defined(IUTEST_OS_ESP32)
+#  pragma push_macro("DEFAULT")
+#  undef DEFAULT
+#endif
+
 /**
  * @brief   テストフラグ
 */
@@ -242,6 +248,10 @@ private:
 
     int m_test_flags;
 };
+
+#if defined(IUTEST_OS_ESP8266) || defined(IUTEST_OS_ESP32)
+#  pragma pop_macro("DEFAULT")
+#endif
 
 // declare
 class TestPartResultReporterInterface;
