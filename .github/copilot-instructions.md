@@ -28,7 +28,8 @@ consumers; users just `#include "iutest.hpp"`. Everything else in the repo (`tes
   `GTEST_HAS_DEATH_TEST` defined as `0`. Do not add death-test support or report its absence
   as a gtest compatibility gap.
 - **`fused-src/`** is generated: `make fused` (delegates to `tools/fused`) amalgamates the
-  whole `include/` tree into a single header. Do not hand-edit `fused-src/`.
+  `include/iutest.hpp` entry point and its transitive iutest includes into a single header.
+  Do not hand-edit `fused-src/`.
 
 ## Build / test / lint
 
@@ -36,15 +37,15 @@ Tests live in `test/`. There are two makefiles: **`GNUmakefile`** for GNU make (
 Cygwin/MinGW) and **`Makefile`** for Windows `nmake`. GNU make is used for local dev.
 
 - Full suite: `make -C test test` (or `make test` from repo root).
-- **Single test target**: each `*_tests.cpp` is its own executable. Build + run one with
+- **Single test target**: Build + run one with
   `make -C test run_<name>` — e.g. `make -C test run_basic_tests` builds and runs
   `basic_tests.cpp`. Use `make -C test <name>_build` to build without running.
 - Select the C++ standard with `STDFLAG` and optimization with `OPTIMIZE`
   (e.g. `make -C test run_basic_tests STDFLAG=-std=c++17`).
-- gtest-compat run: `make -C test gtest-version`.
+- gtest-compat run: `make -C test clean && make -C test test USE_GTEST=1`.
 - Emit XML/JUnit reports by setting `OUTPUTXML=1` or `OUTPUTXML=junit`.
 
-Linters (also enforced in CI via `.github/workflows/lint.yml`):
+Linters (also enforced in CI via `.github/workflows/lint.yml` and `.github/workflows/main.yml`):
 
 - **cpplint** — config in `CPPLINT.cfg` (excludes `fused-src`, dotfiles, `docs`).
 - **clang-tidy** — `.clang-tidy` (note the disabled checks; don't re-enable without reason).
