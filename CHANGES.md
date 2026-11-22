@@ -25,6 +25,7 @@
   * Intel Compiler に対応
 
 * Changes
+  * C++17 以降では、非推奨の `<codecvt>` をデフォルトで使用しない。利用可能な環境では `IUTEST_HAS_CXX_HDR_CODECVT=1` を定義すると従来どおり使用できる。
   * TestCase の別名 TestSuite に対応（iutest はどちらもサポートし続けます）
   * IUTEST_ASSERT_EXIT を IUTEST_TERMINATE_ON_FAILURE に変更
   * `TimeInMillisec` と既存の時刻 getter の戻り型は互換性維持のため変更しない。

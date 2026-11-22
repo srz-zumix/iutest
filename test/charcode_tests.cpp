@@ -15,9 +15,16 @@
 
 //======================================================================
 // include
+#if !defined(IUTEST_HAS_CXX_HDR_CODECVT)
+#  define IUTEST_TEST_DEFAULT_CODECVT
+#endif
 #include "iutest.hpp"
 
 #if !defined(IUTEST_USE_GTEST)
+
+#if defined(IUTEST_TEST_DEFAULT_CODECVT) && IUTEST_HAS_CXX17
+static_assert(IUTEST_HAS_CXX_HDR_CODECVT == 0, "<codecvt> must be opt-in in C++17 and later");
+#endif
 
 #if !IUTEST_HAS_LIB
 
@@ -47,6 +54,18 @@ IUTEST_PRAGMA_MSC_WARN_DISABLE(4566)
 IUTEST_PRAGMA_MSC_WARN_POP()
 #endif
 }
+
+#if IUTEST_HAS_CHAR16_T || IUTEST_HAS_CHAR32_T
+IUTEST(CharCodeTest, AnyStringToMultiByteString)
+{
+#if IUTEST_HAS_CHAR16_T
+    IUTEST_EXPECT_STREQ("TEST", ::iutest::detail::AnyStringToMultiByteString(u"TEST", -1));
+#endif
+#if IUTEST_HAS_CHAR32_T
+    IUTEST_EXPECT_STREQ("TEST", ::iutest::detail::AnyStringToMultiByteString(U"TEST", -1));
+#endif
+}
+#endif
 
 IUTEST(CharCodeTest, ToUTF8)
 {
