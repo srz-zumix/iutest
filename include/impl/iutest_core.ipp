@@ -89,7 +89,7 @@ public:
         if( !m_path.empty() )
         {
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)
-            for( int i = 0; i < 10; ++i )
+            for( int i = 0; i < 100; ++i )
             {
                 if( ::DeleteFileA(m_path.c_str()) )
                 {
