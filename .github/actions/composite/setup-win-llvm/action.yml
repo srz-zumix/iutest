@@ -4,11 +4,17 @@ description: 'setup windows llvm'
 runs:
   using: "composite"
   steps:
-    - name: choco-install
-      shell: cmd
+    - name: install LLVM
+      shell: pwsh
       run: |
-        choco install -y llvm || exit 1
-        call refreshenv
+        $llvmVersion = "23.1.6"
+        $installer = Join-Path $env:RUNNER_TEMP "LLVM-$llvmVersion-win64.msi"
+        $url = "https://github.com/llvm/llvm-project/releases/download/llvmorg-$llvmVersion/LLVM-$llvmVersion-win64.msi"
+        Invoke-WebRequest -Uri $url -OutFile $installer
+        $process = Start-Process -FilePath msiexec.exe -ArgumentList @("/i", $installer, "/qn", "/norestart") -Wait -PassThru
+        if ($process.ExitCode -ne 0) {
+          exit $process.ExitCode
+        }
     - name: set path
       shell: bash
       run: |
