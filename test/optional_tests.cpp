@@ -126,6 +126,7 @@ struct __declspec(align(64)) Aligned
 {
     explicit Aligned(int v) : data(v) {}
     int data;
+    char padding[60];
 };
 
 IUTEST(Optional, Alignment)
