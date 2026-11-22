@@ -25,23 +25,20 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
-// Author: vladl@google.com (Vlad Losev)
 
 // This sample shows how to use Google Test listener API to implement
 // a primitive leak checker.
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-//#include "gtest/gtest.h"
 #include "gtest/iutest_switch.hpp"
 using ::testing::EmptyTestEventListener;
 using ::testing::InitGoogleTest;
 using ::testing::Test;
 using ::testing::TestEventListeners;
 using ::testing::TestInfo;
-using ::testing::TestPartResult;
 using ::testing::UnitTest;
 
 namespace {
@@ -76,12 +73,12 @@ int Water::allocated_ = 0;
 class LeakChecker : public EmptyTestEventListener {
  private:
   // Called before a test starts.
-  virtual void OnTestStart(const TestInfo& /* test_info */) {
+  virtual void OnTestStart(const TestInfo& /* test_info */) IUTEST_CXX_OVERRIDE {
     initially_allocated_ = Water::allocated();
   }
 
   // Called after a test ends.
-  virtual void OnTestEnd(const TestInfo& /* test_info */) {
+  virtual void OnTestEnd(const TestInfo& /* test_info */) IUTEST_CXX_OVERRIDE {
     int difference = Water::allocated() - initially_allocated_;
 
     // You can generate a failure in any event handler except
@@ -102,18 +99,19 @@ TEST(ListenersTest, DoesNotLeak) {
 // specified.
 TEST(ListenersTest, LeaksWater) {
   Water* water = new Water;
-  EXPECT_TRUE(water != NULL);
+  EXPECT_TRUE(water != IUTEST_NULLPTR);
 }
 }  // namespace
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
   InitGoogleTest(&argc, argv);
 
   bool check_for_leaks = false;
-  if (argc > 1 && strcmp(argv[1], "--check_for_leaks") == 0 )
+  if (argc > 1 && strcmp(argv[1], "--check_for_leaks") == 0)
     check_for_leaks = true;
   else
-    printf("%s\n", "Run this program with --check_for_leaks to enable "
+    printf("%s\n",
+           "Run this program with --check_for_leaks to enable "
            "custom leak checking in the tests.");
 
   // If we are given the --check_for_leaks command line flag, installs the

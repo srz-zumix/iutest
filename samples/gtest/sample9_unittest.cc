@@ -25,21 +25,19 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
-// Author: vladl@google.com (Vlad Losev)
 
 // This sample shows how to use Google Test listener API to implement
 // an alternative console output and how to use the UnitTest reflection API
-// to enumerate test cases and tests and to inspect their results.
+// to enumerate test suites and tests and to inspect their results.
 
 #include <stdio.h>
+#include <string.h>
 
-//#include "gtest/gtest.h"
 #include "gtest/iutest_switch.hpp"
+
 using ::testing::EmptyTestEventListener;
 using ::testing::InitGoogleTest;
 using ::testing::Test;
-using ::testing::TestCase;
 using ::testing::TestEventListeners;
 using ::testing::TestInfo;
 using ::testing::TestPartResult;
@@ -50,39 +48,43 @@ namespace {
 class TersePrinter : public EmptyTestEventListener {
  private:
   // Called before any test activity starts.
-  virtual void OnTestProgramStart(const UnitTest& /* unit_test */) {}
+  virtual void OnTestProgramStart(const UnitTest& /* unit_test */)
+      IUTEST_CXX_OVERRIDE {}
 
   // Called after all test activities have ended.
-  virtual void OnTestProgramEnd(const UnitTest& unit_test) {
+  virtual void OnTestProgramEnd(const UnitTest& unit_test) IUTEST_CXX_OVERRIDE {
     fprintf(stdout, "TEST %s\n", unit_test.Passed() ? "PASSED" : "FAILED");
     fflush(stdout);
   }
 
   // Called before a test starts.
-  virtual void OnTestStart(const TestInfo& test_info) {
-    fprintf(stdout,
-            "*** Test %s.%s starting.\n",
-            test_info.test_case_name(),
+  virtual void OnTestStart(const TestInfo& test_info) IUTEST_CXX_OVERRIDE {
+#if IUTEST_HAS_TESTSUITE
+    fprintf(stdout, "*** Test %s.%s starting.\n", test_info.test_suite_name(),
+#else
+    fprintf(stdout, "*** Test %s.%s starting.\n", test_info.test_case_name(),
+#endif
             test_info.name());
     fflush(stdout);
   }
 
   // Called after a failed assertion or a SUCCEED() invocation.
-  virtual void OnTestPartResult(const TestPartResult& test_part_result) {
-    fprintf(stdout,
-            "%s in %s:%d\n%s\n",
+  virtual void OnTestPartResult(const TestPartResult& test_part_result)
+      IUTEST_CXX_OVERRIDE {
+    fprintf(stdout, "%s in %s:%d\n%s\n",
             test_part_result.failed() ? "*** Failure" : "Success",
-            test_part_result.file_name(),
-            test_part_result.line_number(),
+            test_part_result.file_name(), test_part_result.line_number(),
             test_part_result.summary());
     fflush(stdout);
   }
 
   // Called after a test ends.
-  virtual void OnTestEnd(const TestInfo& test_info) {
-    fprintf(stdout,
-            "*** Test %s.%s ending.\n",
-            test_info.test_case_name(),
+  virtual void OnTestEnd(const TestInfo& test_info) IUTEST_CXX_OVERRIDE {
+#if IUTEST_HAS_TESTSUITE
+    fprintf(stdout, "*** Test %s.%s ending.\n", test_info.test_suite_name(),
+#else
+    fprintf(stdout, "*** Test %s.%s ending.\n", test_info.test_case_name(),
+#endif
             test_info.name());
     fflush(stdout);
   }
@@ -102,14 +104,15 @@ TEST(CustomOutputTest, Fails) {
 }
 }  // namespace
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
   InitGoogleTest(&argc, argv);
 
   bool terse_output = false;
-  if (argc > 1 && strcmp(argv[1], "--terse_output") == 0 )
+  if (argc > 1 && strcmp(argv[1], "--terse_output") == 0)
     terse_output = true;
   else
-    printf("%s\n", "Run this program with --terse_output to change the way "
+    printf("%s\n",
+           "Run this program with --terse_output to change the way "
            "it prints its output.");
 
   UnitTest& unit_test = *UnitTest::GetInstance();
@@ -136,10 +139,15 @@ int main(int argc, char **argv) {
   // This is an example of using the UnitTest reflection API to inspect test
   // results. Here we discount failures from the tests we expected to fail.
   int unexpectedly_failed_tests = 0;
+#if IUTEST_HAS_TESTSUITE
+  for (int i = 0; i < unit_test.total_test_suite_count(); ++i) {
+    const testing::TestSuite& test_suite = *unit_test.GetTestSuite(i);
+#else
   for (int i = 0; i < unit_test.total_test_case_count(); ++i) {
-    const TestCase& test_case = *unit_test.GetTestCase(i);
-    for (int j = 0; j < test_case.total_test_count(); ++j) {
-      const TestInfo& test_info = *test_case.GetTestInfo(j);
+    const testing::TestCase& test_suite = *unit_test.GetTestCase(i);
+#endif
+    for (int j = 0; j < test_suite.total_test_count(); ++j) {
+      const TestInfo& test_info = *test_suite.GetTestInfo(j);
       // Counts failed tests that were not meant to fail (those without
       // 'Fails' in the name).
       if (test_info.result()->Failed() &&
@@ -150,8 +158,7 @@ int main(int argc, char **argv) {
   }
 
   // Test that were meant to fail should not affect the test program outcome.
-  if (unexpectedly_failed_tests == 0)
-    ret_val = 0;
+  if (unexpectedly_failed_tests == 0) ret_val = 0;
 
   return ret_val;
 }

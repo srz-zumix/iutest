@@ -28,14 +28,11 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // A sample program demonstrating using Google C++ testing framework.
-//
-// Author: wan@google.com (Zhanyong Wan)
 
-#ifndef GTEST_SAMPLES_SAMPLE2_H_
-#define GTEST_SAMPLES_SAMPLE2_H_
+#ifndef GOOGLETEST_SAMPLES_SAMPLE2_H_
+#define GOOGLETEST_SAMPLES_SAMPLE2_H_
 
 #include <string.h>
-
 
 // A simple string class.
 class MyString {
@@ -73,13 +70,10 @@ class MyString {
   // Gets the 0-terminated C string this MyString object represents.
   const char* c_string() const { return c_string_; }
 
-  size_t Length() const {
-    return c_string_ == NULL ? 0 : strlen(c_string_);
-  }
+  size_t Length() const { return c_string_ == NULL ? 0 : strlen(c_string_); }
 
   // Sets the 0-terminated C string this MyString object represents.
   void Set(const char* c_string);
 };
 
-
-#endif  // GTEST_SAMPLES_SAMPLE2_H_
+#endif  // GOOGLETEST_SAMPLES_SAMPLE2_H_

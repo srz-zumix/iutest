@@ -26,16 +26,12 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
-// Author: wan@google.com (Zhanyong Wan)
 
 // This sample shows how to test common properties of multiple
 // implementations of the same interface (aka interface tests).
 
 // The interface and its implementations are in this header.
 #include "prime_tables.h"
-
-//#include "gtest/gtest.h"
 #include "gtest/iutest_switch.hpp"
 namespace {
 // First, we define some factory functions for creating instances of
@@ -63,7 +59,7 @@ class PrimeTableTest : public testing::Test {
   // implemented by T.
   PrimeTableTest() : table_(CreatePrimeTable<T>()) {}
 
-  virtual ~PrimeTableTest() { delete table_; }
+  virtual ~PrimeTableTest() IUTEST_CXX_OVERRIDE { delete table_; }
 
   // Note that we test an implementation via the base interface
   // instead of the actual implementation class.  This is important
@@ -75,28 +71,35 @@ class PrimeTableTest : public testing::Test {
   PrimeTable* const table_;
 };
 
-#if GTEST_HAS_TYPED_TEST
+TEST(PreCalculatedPrimeTableTest, HandlesZeroCapacity) {
+  const PreCalculatedPrimeTable table(0);
+  EXPECT_FALSE(table.IsPrime(0));
+  EXPECT_EQ(-1, table.GetNextPrime(0));
+}
 
+#if GTEST_HAS_TYPED_TEST || GTEST_HAS_TYPED_TEST_P
 using testing::Types;
+#endif
 
+#if GTEST_HAS_TYPED_TEST
 // Google Test offers two ways for reusing tests for different types.
 // The first is called "typed tests".  You should use it if you
 // already know *all* the types you are gonna exercise when you write
 // the tests.
 
-// To write a typed test case, first use
+// To write a typed test suite, first use
 //
-//   TYPED_TEST_CASE(TestCaseName, TypeList);
+//   IUTEST_TYPED_TEST_SUITE(TestSuiteName, TypeList);
 //
 // to declare it and specify the type parameters.  As with TEST_F,
-// TestCaseName must match the test fixture name.
+// TestSuiteName must match the test fixture name.
 
 // The list of types we want to test.
 typedef Types<OnTheFlyPrimeTable, PreCalculatedPrimeTable> Implementations;
 
-TYPED_TEST_CASE(PrimeTableTest, Implementations);
+IUTEST_TYPED_TEST_SUITE(PrimeTableTest, Implementations);
 
-// Then use TYPED_TEST(TestCaseName, TestName) to define a typed test,
+// Then use TYPED_TEST(TestSuiteName, TestName) to define a typed test,
 // similar to TEST_F.
 TYPED_TEST(PrimeTableTest, ReturnsFalseForNonPrimes) {
   // Inside the test body, you can refer to the type parameter by
@@ -133,14 +136,12 @@ TYPED_TEST(PrimeTableTest, CanGetNextPrime) {
 }
 
 // That's it!  Google Test will repeat each TYPED_TEST for each type
-// in the type list specified in TYPED_TEST_CASE.  Sit back and be
+// in the type list specified in IUTEST_TYPED_TEST_SUITE.  Sit back and be
 // happy that you don't have to define them multiple times.
 
 #endif  // GTEST_HAS_TYPED_TEST
 
 #if GTEST_HAS_TYPED_TEST_P
-
-using testing::Types;
 
 // Sometimes, however, you don't yet know all the types that you want
 // to test when you write the tests.  For example, if you are the
@@ -159,15 +160,14 @@ using testing::Types;
 // the PrimeTableTest fixture defined earlier:
 
 template <class T>
-class PrimeTableTest2 : public PrimeTableTest<T> {
-};
+class PrimeTableTest2 : public PrimeTableTest<T> {};
 
 // Then, declare the test case.  The argument is the name of the test
 // fixture, and also the name of the test case (as usual).  The _P
 // suffix is for "parameterized" or "pattern".
-TYPED_TEST_CASE_P(PrimeTableTest2);
+IUTEST_TYPED_TEST_SUITE_P(PrimeTableTest2);
 
-// Next, use TYPED_TEST_P(TestCaseName, TestName) to define a test,
+// Next, use TYPED_TEST_P(TestSuiteName, TestName) to define a test,
 // similar to what you do with TEST_F.
 TYPED_TEST_P(PrimeTableTest2, ReturnsFalseForNonPrimes) {
   EXPECT_FALSE(this->table_->IsPrime(-5));
@@ -198,7 +198,7 @@ TYPED_TEST_P(PrimeTableTest2, CanGetNextPrime) {
 
 // Type-parameterized tests involve one extra step: you have to
 // enumerate the tests you defined:
-REGISTER_TYPED_TEST_CASE_P(
+IUTEST_REGISTER_TYPED_TEST_SUITE_P(
     PrimeTableTest2,  // The first argument is the test case name.
     // The rest of the arguments are the test names.
     ReturnsFalseForNonPrimes, ReturnsTrueForPrimes, CanGetNextPrime);
@@ -218,9 +218,8 @@ REGISTER_TYPED_TEST_CASE_P(
 // defined at the time we write the TYPED_TEST_P()s.
 typedef Types<OnTheFlyPrimeTable, PreCalculatedPrimeTable>
     PrimeTableImplementations;
-INSTANTIATE_TYPED_TEST_CASE_P(OnTheFlyAndPreCalculated,    // Instance name
-                              PrimeTableTest2,             // Test case name
-                              PrimeTableImplementations);  // Type list
-
+IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(OnTheFlyAndPreCalculated,
+                                     PrimeTableTest2, PrimeTableImplementations);
 #endif  // GTEST_HAS_TYPED_TEST_P
+
 }  // namespace

@@ -26,8 +26,6 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
-// Author: vladl@google.com (Vlad Losev)
 
 // This sample shows how to test common properties of multiple
 // implementations of an interface (aka interface tests) using
@@ -37,9 +35,8 @@
 
 // The interface and its implementations are in this header.
 #include "prime_tables.h"
-
-//#include "gtest/gtest.h"
 #include "gtest/iutest_switch.hpp"
+
 namespace {
 #if GTEST_HAS_PARAM_TEST
 
@@ -53,9 +50,7 @@ using ::testing::Values;
 // SetUp() method and delete them in TearDown() method.
 typedef PrimeTable* CreatePrimeTableFunc();
 
-PrimeTable* CreateOnTheFlyPrimeTable() {
-  return new OnTheFlyPrimeTable();
-}
+PrimeTable* CreateOnTheFlyPrimeTable() { return new OnTheFlyPrimeTable(); }
 
 template <size_t max_precalculated>
 PrimeTable* CreatePreCalculatedPrimeTable() {
@@ -68,11 +63,11 @@ PrimeTable* CreatePreCalculatedPrimeTable() {
 // create and store an instance of PrimeTable.
 class PrimeTableTestSmpl7 : public TestWithParam<CreatePrimeTableFunc*> {
  public:
-  virtual ~PrimeTableTestSmpl7() { delete table_; }
-  virtual void SetUp() { table_ = (*GetParam())(); }
-  virtual void TearDown() {
+  virtual ~PrimeTableTestSmpl7() IUTEST_CXX_OVERRIDE { delete table_; }
+  virtual void SetUp() IUTEST_CXX_OVERRIDE { table_ = (*GetParam())(); }
+  virtual void TearDown() IUTEST_CXX_OVERRIDE {
     delete table_;
-    table_ = NULL;
+    table_ = IUTEST_NULLPTR;
   }
 
  protected:
@@ -113,19 +108,11 @@ TEST_P(PrimeTableTestSmpl7, CanGetNextPrime) {
 //
 // Here, we instantiate our tests with a list of two PrimeTable object
 // factory functions:
-INSTANTIATE_TEST_CASE_P(OnTheFlyAndPreCalculated, PrimeTableTestSmpl7,
-                        Values(&CreateOnTheFlyPrimeTable,
-                               &CreatePreCalculatedPrimeTable<1000>));
-
+IUTEST_INSTANTIATE_TEST_SUITE_P(OnTheFlyAndPreCalculated, PrimeTableTestSmpl7,
+                               Values(&CreateOnTheFlyPrimeTable,
+                                      &CreatePreCalculatedPrimeTable<1000>));
 #else
-
-// Google Test may not support value-parameterized tests with some
-// compilers. If we use conditional compilation to compile out all
-// code referring to the gtest_main library, MSVC linker will not link
-// that library at all and consequently complain about missing entry
-// point defined in that library (fatal error LNK1561: entry point
-// must be defined). This dummy test keeps gtest_main linked in.
 TEST(DummyTest, ValueParameterizedTestsAreNotSupportedOnThisPlatform) {}
-
 #endif  // GTEST_HAS_PARAM_TEST
+
 }  // namespace
