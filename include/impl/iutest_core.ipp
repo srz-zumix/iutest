@@ -89,7 +89,19 @@ public:
         if( !m_path.empty() )
         {
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)
-            ::DeleteFileA(m_path.c_str());
+            for( int i = 0; i < 10; ++i )
+            {
+                if( ::DeleteFileA(m_path.c_str()) )
+                {
+                    break;
+                }
+                const DWORD error = ::GetLastError();
+                if( error != ERROR_ACCESS_DENIED && error != ERROR_SHARING_VIOLATION )
+                {
+                    break;
+                }
+                ::Sleep(1);
+            }
 #else
             remove(m_path.c_str());
 #endif
