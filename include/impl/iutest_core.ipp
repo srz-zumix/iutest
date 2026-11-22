@@ -102,7 +102,7 @@ public:
                 }
                 ::Sleep(1);
             }
-#else
+#elif IUTEST_HAS_FOPEN
             remove(m_path.c_str());
 #endif
         }
