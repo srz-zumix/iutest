@@ -20,9 +20,15 @@
 // IWYU pragma: begin_exports
 #include "iutest_stdlib_defs.hpp"
 // IWYU pragma: end_exports
+#include "iutest_type_traits.hpp"
 #include <new>
-#if IUTEST_HAS_RVALUE_REFS
+#if IUTEST_HAS_RVALUE_REFS && IUTEST_HAS_CXX_HDR_TYPE_TARITS && !defined(IUTEST_NO_SFINAE) \
+    && (!defined(IUTEST_LIBSTDCXX_VERSION) || IUTEST_LIBSTDCXX_VERSION >= 40700) \
+    && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+#  define IIUT_HAS_OPTIONAL_VALUE_MOVE_ 1
 #  include <utility>
+#else
+#  define IIUT_HAS_OPTIONAL_VALUE_MOVE_ 0
 #endif
 #if IUTEST_HAS_EXCEPTIONS
 #  include <exception>
@@ -237,8 +243,11 @@ public:
             construct(*rhs.ptr());
         }
     }
-#if IUTEST_HAS_RVALUE_REFS
-    explicit optional(T&& rhs) : m_value(NULL) { construct(::std::move(rhs)); }
+#if IIUT_HAS_OPTIONAL_VALUE_MOVE_
+    template<typename U>
+    explicit optional(U&& rhs, typename ::std::enable_if<
+        ::std::is_same<T, U>::value && ::std::is_move_constructible<T>::value>::type* = NULL)
+        : m_value(NULL) { construct(::std::move(rhs)); }
 #endif
     ~optional() { reset(); }
 
@@ -255,8 +264,11 @@ public:
         return *this;
     }
     optional& operator = (const T& rhs) { assign(rhs); return *this; }
-#if IUTEST_HAS_RVALUE_REFS
-    optional& operator = (T&& rhs) { assign(::std::move(rhs)); return *this; }
+#if IIUT_HAS_OPTIONAL_VALUE_MOVE_
+    template<typename U>
+    typename ::std::enable_if< ::std::is_same<T, U>::value
+        && ::std::is_move_constructible<T>::value && ::std::is_move_assignable<T>::value, optional&>::type
+    operator = (U&& rhs) { assign(::std::move(rhs)); return *this; }
 #endif
     optional& operator = (nullpot_t) { reset(); return *this; }
     operator bool () const { return has_value(); }
@@ -311,7 +323,7 @@ private:
     }
 
     template<typename U>
-#if IUTEST_HAS_RVALUE_REFS
+#if IIUT_HAS_OPTIONAL_VALUE_MOVE_
     void construct(U&& rhs)
 #else
     void construct(const U& rhs)
@@ -322,7 +334,7 @@ private:
 #else
         m_value = ::new
 #endif
-#if IUTEST_HAS_RVALUE_REFS
+#if IIUT_HAS_OPTIONAL_VALUE_MOVE_
             T(::std::forward<U>(rhs));
 #else
             T(rhs);
@@ -330,7 +342,7 @@ private:
     }
 
     template<typename U>
-#if IUTEST_HAS_RVALUE_REFS
+#if IIUT_HAS_OPTIONAL_VALUE_MOVE_
     void assign(U&& rhs)
     {
         if( has_value() ) {

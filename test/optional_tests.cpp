@@ -15,7 +15,7 @@
 
 #include "iutest.hpp"
 
-#if IUTEST_HAS_CXX11 && IUTEST_HAS_RVALUE_REFS
+#if IUTEST_HAS_CXX11 && IIUT_HAS_OPTIONAL_VALUE_MOVE_
 #  include <memory>
 #endif
 
@@ -190,7 +190,7 @@ IUTEST(Optional, FailedConstructionAndAssignment)
 }
 #endif
 
-#if IUTEST_HAS_CXX11 && IUTEST_HAS_RVALUE_REFS
+#if IUTEST_HAS_CXX11 && IIUT_HAS_OPTIONAL_VALUE_MOVE_
 IUTEST(Optional, MoveOnlyValue)
 {
     typedef ::std::unique_ptr<int> Pointer;
@@ -207,6 +207,29 @@ IUTEST(Optional, MoveOnlyValue)
     IUTEST_EXPECT_NULL(empty->get());
     empty.reset();
     IUTEST_EXPECT_FALSE(empty);
+}
+#endif
+
+#if IUTEST_HAS_RVALUE_REFS && IUTEST_HAS_DELETED_FUNCTIONS
+struct CopyOnly
+{
+    explicit CopyOnly(int v) : data(v) {}
+    CopyOnly(const CopyOnly& rhs) : data(rhs.data) {}
+    CopyOnly& operator = (const CopyOnly& rhs) { data = rhs.data; return *this; }
+    CopyOnly(CopyOnly&&) = delete;
+    CopyOnly& operator = (CopyOnly&&) = delete;
+    int data;
+};
+
+IUTEST(Optional, CopyOnlyTemporary)
+{
+    optional<CopyOnly> value((CopyOnly(5)));
+    IUTEST_EXPECT_EQ(5, value->data);
+    optional<CopyOnly> empty;
+    empty = CopyOnly(6);
+    IUTEST_EXPECT_EQ(6, empty->data);
+    empty = CopyOnly(7);
+    IUTEST_EXPECT_EQ(7, empty->data);
 }
 #endif
 
