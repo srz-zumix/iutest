@@ -37,7 +37,7 @@ Tests live in `test/`. There are two makefiles: **`GNUmakefile`** for GNU make (
 Cygwin/MinGW) and **`Makefile`** for Windows `nmake`. GNU make is used for local dev.
 
 - Full suite: `make -C test test` (or `make test` from repo root).
-- **Single test target**: each `*_tests.cpp` is its own executable. Build + run one with
+- **Single test target**: Build + run one with
   `make -C test run_<name>` — e.g. `make -C test run_basic_tests` builds and runs
   `basic_tests.cpp`. Use `make -C test <name>_build` to build without running.
 - Select the C++ standard with `STDFLAG` and optimization with `OPTIMIZE`
