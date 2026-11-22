@@ -45,7 +45,7 @@ Cygwin/MinGW) and **`Makefile`** for Windows `nmake`. GNU make is used for local
 - gtest-compat run: `make -C test clean && make -C test test USE_GTEST=1`.
 - Emit XML/JUnit reports by setting `OUTPUTXML=1` or `OUTPUTXML=junit`.
 
-Linters (also enforced in CI via `.github/workflows/lint.yml`):
+Linters (also enforced in CI via `.github/workflows/lint.yml` and `.github/workflows/main.yml`):
 
 - **cpplint** — config in `CPPLINT.cfg` (excludes `fused-src`, dotfiles, `docs`).
 - **clang-tidy** — `.clang-tidy` (note the disabled checks; don't re-enable without reason).
