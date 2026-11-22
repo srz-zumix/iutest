@@ -42,7 +42,7 @@ Cygwin/MinGW) and **`Makefile`** for Windows `nmake`. GNU make is used for local
   `basic_tests.cpp`. Use `make -C test <name>_build` to build without running.
 - Select the C++ standard with `STDFLAG` and optimization with `OPTIMIZE`
   (e.g. `make -C test run_basic_tests STDFLAG=-std=c++17`).
-- gtest-compat run: `make -C test gtest-version`.
+- gtest-compat run: `make -C test clean && make -C test test USE_GTEST=1`.
 - Emit XML/JUnit reports by setting `OUTPUTXML=1` or `OUTPUTXML=junit`.
 
 Linters (also enforced in CI via `.github/workflows/lint.yml`):
