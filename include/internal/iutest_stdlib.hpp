@@ -362,7 +362,14 @@ private:
     }
 #endif
 
-#if defined(__GNUC__) || defined(__clang__)
+#if defined(__GNUC__) && __GNUC__ < 4 && !defined(__clang__)
+    unsigned char m_storage[sizeof(T) + __alignof__(T) - 1];
+    void* storage()
+    {
+        const size_t misalignment = reinterpret_cast<size_t>(m_storage) % __alignof__(T);
+        return m_storage + (misalignment == 0 ? 0 : __alignof__(T) - misalignment);
+    }
+#elif defined(__GNUC__) || defined(__clang__)
     unsigned char m_storage[sizeof(T)] __attribute__((aligned(__alignof__(T))));
     void* storage() { return m_storage; }
 #elif (defined(_MSC_VER) && _MSC_VER >= 1900) || (!defined(_MSC_VER) && IUTEST_HAS_CXX11)
