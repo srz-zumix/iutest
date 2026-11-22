@@ -28,7 +28,8 @@ consumers; users just `#include "iutest.hpp"`. Everything else in the repo (`tes
   `GTEST_HAS_DEATH_TEST` defined as `0`. Do not add death-test support or report its absence
   as a gtest compatibility gap.
 - **`fused-src/`** is generated: `make fused` (delegates to `tools/fused`) amalgamates the
-  whole `include/` tree into a single header. Do not hand-edit `fused-src/`.
+  `include/iutest.hpp` entry point and its transitive iutest includes into a single header.
+  Do not hand-edit `fused-src/`.
 
 ## Build / test / lint
 
