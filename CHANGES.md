@@ -11,6 +11,8 @@
   * GoogleTest 互換の符号付き64ビット型 `::iutest::TimeInMillis` を追加（native gtest switch では `::testing::TimeInMillis` としても利用可能）
 
 * Improved
+  * 対応する C++20 プリプロセッサーでは、単一引数の `IUTEST_PP_IS_EMPTY(x)` を `__VA_OPT__` で実装し、トークン連結なしで括弧や展開後にコンマを含む入力を判定します。非対応環境では従来実装を維持します。
+    `IUTEST_INSTANTIATE_TEST_SUITE_P` は名前生成関数の省略を `GetParamNameGen()` で処理しており、引数連結や先頭括弧判定にも空トークンに応じたカンマ挿入は不要なため、これらは変更しません。
   * IUTEST_*_ALMOST_EQ が ::std::complex に対応
   * 例外発生時にも SCOPED_TRACE のメッセージを出力するように変更
   * 空のテストスイート名・テスト名に static_assert を追加

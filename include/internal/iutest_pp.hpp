@@ -16,6 +16,10 @@
 #define INCG_IRIS_IUTEST_PP_HPP_E8F72184_9C72_4E74_B581_A1F51F291F3A_
 
 //======================================================================
+// include
+#include "iutest_compiler.hpp"
+
+//======================================================================
 // define
 
 #if defined(_MSC_VER) && !defined(__clang__)
@@ -710,16 +714,23 @@
 #define IIUT_PP_IF_1(t, f)          t
 
 // IS EMPTY
+#if IUTEST_HAS_VA_OPT
+// Keep the single-argument interface; the helper handles commas produced by expansion.
+#define IUTEST_PP_IS_EMPTY(x)       IIUT_PP_IS_EMPTY_VA_OPT_(x)
+#define IIUT_PP_IS_EMPTY_VA_OPT_(...) IIUT_PP_IS_EMPTY_FIRST_(__VA_OPT__(0, ) 1, 0)
+#define IIUT_PP_IS_EMPTY_FIRST_(a, ...) a
+#else
 #define IUTEST_PP_IS_EMPTY(x)       IIUT_PP_IS_EMPTY_I(x IIUT_PP_EMPTY_TAG)
 #define IIUT_PP_IS_EMPTY_I(x)       IIUT_PP_IS_EMPTY_I_( IUTEST_PP_CAT(IIUT_PP_EMPTY_TAG_, x)() )
 #define IIUT_PP_IS_EMPTY_I_(x)      IIUT_PP_IS_EMPTY_II((x))
 #define IIUT_PP_IS_EMPTY_II(x)      IIUT_PP_IS_EMPTY_II_ x
 #define IIUT_PP_IS_EMPTY_II_(a, b)  b
+#define IIUT_PP_EMPTY_TAG() , 0
+#define IIUT_PP_EMPTY_TAG_IIUT_PP_EMPTY_TAG     1, 1 IUTEST_PP_EMPTY
+#endif
 
 #define IUTEST_PP_EMPTY()     IUTEST_PP_EMPTY_()
 #define IUTEST_PP_EMPTY_()
-#define IIUT_PP_EMPTY_TAG() , 0
-#define IIUT_PP_EMPTY_TAG_IIUT_PP_EMPTY_TAG     1, 1 IUTEST_PP_EMPTY
 
 // IF EMPTY
 #define IUTEST_PP_IF_EMPTY(x, t, f) IUTEST_PP_IF(IUTEST_PP_IS_EMPTY(x), t, f)
