@@ -50,8 +50,3 @@ default_scm: git
 git:
 	gource $(GOURCE_OPTIONS) -o gource.ppm ../../
 	ffmpeg -y -r $(FPS) -f image2pipe -vcodec ppm -i gource.ppm -vcodec libx264 $(FFMPEG_OPTIONS) -crf 1 -threads 0 -bf 0 iutest-gource.mp4
-
-svn:
-	svn log http://svn.osdn.jp/svnroot/iutest/ -r 1:HEAD --xml --verbose --quiet > log.xml
-	gource $(GOURCE_OPTIONS) -o gource.ppm log.xml
-	ffmpeg -y -r $(FPS) -f image2pipe -vcodec ppm -i gource.ppm -vcodec libx264 $(FFMPEG_OPTIONS) -crf 1 -threads 0 -bf 0 iutest-gource.mp4

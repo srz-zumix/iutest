@@ -73,10 +73,6 @@ appveyor-tools/
 # package
 package/
 
-# osdn
-.osdn.vars
-osdn_*/
-
 # npm
 node_modules/
 package-lock.json
