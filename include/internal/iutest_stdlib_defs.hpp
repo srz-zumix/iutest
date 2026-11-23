@@ -65,6 +65,12 @@
 
 //======================================================================
 // define
+
+// <codecvt> is deprecated in C++17.
+#if IUTEST_HAS_CXX17 && !defined(IUTEST_HAS_CXX_HDR_CODECVT)
+#  define IUTEST_HAS_CXX_HDR_CODECVT        0
+#endif
+
 #if   defined(__GLIBCPP__) || defined(__GLIBCXX__)
 
 // libstdc++
@@ -386,10 +392,6 @@
 #      define IUTEST_HAS_CXX_HDR_VARIANT    1
 #    endif
 #  endif
-#endif
-
-#if defined(IUTEST_HAS_CXX_HDR_CODECVT) && IUTEST_HAS_CXX_HDR_CODECVT
-// IUTEST_PRAGMA_MESSAGE("iutest use codecvt, but codecvt was deprecated. If you do not want to use this, define IUTEST_HAS_CXX_HDR_CODECVT 0")
 #endif
 
 #endif
