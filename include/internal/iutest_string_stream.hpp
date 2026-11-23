@@ -142,7 +142,7 @@ inline bool StringToValue(const ::std::string& s, double& out)
     return true;
 }
 
-#if IUTEST_HAS_LONG_DOUBLE
+#if IUTEST_HAS_LONG_DOUBLE || defined(__LONG_DOUBLE_IBM128__)
 
 inline bool StringToValue(const ::std::string& s, long double& out)
 {
@@ -152,7 +152,7 @@ inline bool StringToValue(const ::std::string& s, long double& out)
     char* endptr=NULL;
     const char* p = s.c_str();
     errno = 0;
-    const floating_point<long double> v = strtold(p, &endptr);
+    const long double v = strtold(p, &endptr);
     if(p == endptr)
     {
 #if IUTEST_HAS_EXCEPTIONS
@@ -161,7 +161,8 @@ inline bool StringToValue(const ::std::string& s, long double& out)
         return false;
 #endif
     }
-    if((errno == ERANGE) || v.is_inf() )
+    const long double inf = (::std::numeric_limits<long double>::infinity)();
+    if((errno == ERANGE) || v == inf || v == -inf )
     {
 #if IUTEST_HAS_EXCEPTIONS
         throw ::std::out_of_range(p);
@@ -373,7 +374,7 @@ IUTEST_PRAGMA_WARN_POP()
         s += a;
         return *this;
     }
-#if IUTEST_HAS_LONG_DOUBLE
+#if IUTEST_HAS_LONG_DOUBLE || defined(__LONG_DOUBLE_IBM128__)
     inline _Myt& operator<< (long double v)
     {
         _Elem a[64];

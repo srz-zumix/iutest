@@ -23,6 +23,19 @@
 namespace
 {
 
+#if defined(__LONG_DOUBLE_IBM128__)
+IUTEST(FloatingPointBitsTest, IBMDoubleDouble)
+{
+    IUTEST_EXPECT_EQ(0, IUTEST_HAS_LONG_DOUBLE);
+    long double value = 0.0L;
+    IUTEST_EXPECT_TRUE(::iutest::detail::StringToValue("1.25", value));
+    IUTEST_EXPECT_TRUE(value == 1.25L);
+    ::iutest::iu_stringstream stream;
+    stream << value;
+    IUTEST_EXPECT_STRIN("1.25", stream.str());
+}
+#endif
+
 template<typename T>
 void CheckBinaryFloat(int mantissa_width, unsigned int exponent_bias)
 {

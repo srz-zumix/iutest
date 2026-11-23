@@ -442,6 +442,9 @@ public:
 
 private:
     typedef detail::ieee754_bits<RawType> Format;
+#if defined(__LONG_DOUBLE_IBM128__)
+    typedef char ibm_double_double_is_not_supported[::std::numeric_limits<RawType>::digits != 106 ? 1 : -1];
+#endif
     enum
     {
         kBitCount = 1 + Format::EXP + Format::MANT,
@@ -453,7 +456,7 @@ private:
     typedef char valid_x87_byte_order[kBitCount != 80 || __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__ ? 1 : -1];
 #endif
     // The x87 layout puts the 80 value bits first, followed by ABI padding.
-    // Only full-width formats use bit_cast; retain byte copying for the legacy double-double mapping.
+    // Only full-width formats use bit_cast.
     typedef detail::floating_point_bit_copy<UInt, RawType, kByteCount, kFullWidth> ToBits;
     typedef detail::floating_point_bit_copy<RawType, UInt, kByteCount, kFullWidth> ToRaw;
 

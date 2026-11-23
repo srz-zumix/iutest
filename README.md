@@ -64,6 +64,11 @@ Platforms
 
 * Windows
 * Linux
+  * PowerPC: `ppc64le` (little-endian), `ppc64` and 32-bit `ppc` (big-endian).
+    CI cross-compiles with GCC on Ubuntu 24.04 and runs the tests with QEMU
+    user mode. iutest's bit-based `long double` comparisons, including the
+    dedicated assertions and matchers, do not support the IBM double-double ABI: its two
+    binary64 components do not have a single IEEE 754 bit layout.
 * MacOS
 * FreeBSD
 * Cygwin
