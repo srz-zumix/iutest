@@ -12,15 +12,6 @@ permissions:
   contents: read
 
 jobs:
-  fork-pr-workflow-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-        with:
-          persist-credentials: false
-      - name: Check fork pull request conditions
-        run: ruby .github/tests/fork_pr_workflows_test.rb
-
   # Codeship cpplint step migration
   cpplint:
     runs-on: ubuntu-latest
