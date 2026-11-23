@@ -215,6 +215,7 @@ jobs:
   docker-container-test:
     runs-on: ubuntu-latest
     needs: syntax-test
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     container:
       image: rikorose/gcc-cmake:gcc-10
       credentials:

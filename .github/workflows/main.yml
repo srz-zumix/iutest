@@ -229,6 +229,7 @@ jobs:
 
   icpc-basic-test:
     runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     permissions:
       contents: read
       checks: write
@@ -270,6 +271,7 @@ jobs:
         if: always()
 
   arm-none-eabi:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     permissions:
       contents: read
       checks: write
@@ -312,6 +314,7 @@ jobs:
 
   arm-linux-gnueabi:
     runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     permissions:
       contents: read
       checks: write
@@ -348,6 +351,7 @@ jobs:
   #===================================================================
   earthly:
     runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - uses: earthly/actions-setup@43211c7a0eae5344d6d79fb4aaf209c8f8866203 # v1.0.13
         with:
@@ -460,6 +464,7 @@ jobs:
           npm run lint:editorconfig
   iwyu:
     runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     container:
       image: srzzumix/iwyu:latest
       credentials:
