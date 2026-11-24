@@ -90,7 +90,6 @@ Documentation
 Project page
 --------------------------------------------------
 
-* [OSDN Project page](https://iutest.osdn.jp/)  
 * [GitHub](https://github.com/srz-zumix/iutest)  
 
 Support
