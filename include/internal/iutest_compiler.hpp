@@ -1131,6 +1131,29 @@
 #  endif
 #endif
 
+// __VA_OPT__ has no standard feature-test macro. Enable it on known preprocessors.
+#if !defined(IUTEST_HAS_VA_OPT)
+#  if IUTEST_CPLUSPLUS >= IUTEST_CPLUSPLUS_CXX20 && !defined(IUTEST_NO_VARIADIC_MACROS) \
+      && (!defined(_MSVC_TRADITIONAL) || !_MSVC_TRADITIONAL)
+#    if defined(__clang__)
+#      if __clang_major__ >= 12
+#        define IUTEST_HAS_VA_OPT 1
+#      endif
+#    elif defined(_MSC_VER)
+#      if _MSC_VER >= 1929 && defined(_MSVC_TRADITIONAL)
+#        define IUTEST_HAS_VA_OPT 1
+#      endif
+#    elif defined(__GNUC__) && !defined(__INTEL_COMPILER) && !defined(__NVCOMPILER)
+#      if __GNUC__ >= 10
+#        define IUTEST_HAS_VA_OPT 1
+#      endif
+#    endif
+#  endif
+#endif
+#if !defined(IUTEST_HAS_VA_OPT)
+#  define IUTEST_HAS_VA_OPT 0
+#endif
+
 //! has __COUNTER__
 #if !defined(IUTEST_HAS_COUNTER_MACRO)
 #  if   defined(_MSC_VER) && (_MSC_VER >= 1300)
