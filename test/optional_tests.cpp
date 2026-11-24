@@ -111,7 +111,8 @@ IUTEST(Optional, Lifetime)
         IUTEST_EXPECT_NULL(empty.ptr());
         IUTEST_EXPECT_EQ(3, Tracked::constructions);
         IUTEST_EXPECT_EQ(1, Tracked::destructions);
-        value = copied_empty;
+        value = optional<Tracked>();
+        IUTEST_EXPECT_FALSE(value);
         IUTEST_EXPECT_EQ(2, Tracked::destructions);
     }
     IUTEST_EXPECT_EQ(3, Tracked::destructions);

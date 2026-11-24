@@ -282,14 +282,8 @@ public:
     void reset()
     {
         if( has_value() ) {
-            T* p = m_value;
+            destroy(m_value);
             m_value = NULL;
-#if defined(IIUT_OPTIONAL_INLINE_STORAGE_)
-            p->~T();
-#else
-            // Use ordinary allocation on compilers without an alignment facility.
-            ::delete p;
-#endif
         }
     }
 
@@ -320,6 +314,16 @@ private:
             ::std::abort();
 #endif
         }
+    }
+
+    static void destroy(T* p)
+    {
+#if defined(IIUT_OPTIONAL_INLINE_STORAGE_)
+        p->~T();
+#else
+        // Use ordinary allocation on compilers without an alignment facility.
+        ::delete p;
+#endif
     }
 
     template<typename U>
