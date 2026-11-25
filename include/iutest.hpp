@@ -39,6 +39,9 @@ IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
 #include "listener/iutest_streaming_listener.hpp"
 #include "internal/iutest_stream_capture.hpp"
 #include "internal/iutest_filepath.hpp"
+#if !defined(IUTEST_USE_GTEST)
+#  include "util/iutest_util_quiet_result_printer.hpp"
+#endif
 
 #if defined(__AFX_H__)
 #include "internal/iutest_mfc.hpp"
@@ -1955,6 +1958,9 @@ public:
     int Run()
     {
         SetUpDefaultListener();
+#if !defined(IUTEST_USE_GTEST)
+        ScopedQuietResultPrinter quiet(TestEnv::event_listeners());
+#endif
         return UnitTest::instance().Run();
     }
 
@@ -2008,6 +2014,38 @@ public:
     }
 
 private:
+#if !defined(IUTEST_USE_GTEST)
+    class ScopedQuietResultPrinter
+    {
+    public:
+        explicit ScopedQuietResultPrinter(TestEventListeners& listeners)
+            : m_listeners(listeners), m_quiet(NULL)
+        {
+            TestEventListener* const original = m_listeners.default_result_printer();
+            if( original != NULL && TestFlag::IsEnableFlag(TestFlag::QUIET_PRINTER)
+                && !TestFlag::IsEnableFlag(TestFlag::BRIEF) )
+            {
+                m_quiet = new ::iuutil::QuietResultPrinter(original);
+                m_listeners.replace_default_result_printer(m_quiet);
+            }
+        }
+
+        ~ScopedQuietResultPrinter()
+        {
+            if( m_quiet != NULL && m_listeners.default_result_printer() == m_quiet )
+            {
+                m_listeners.replace_default_result_printer(m_quiet->m_default_printer);
+                m_quiet->m_default_printer = NULL;
+                delete m_quiet;
+            }
+        }
+
+    private:
+        TestEventListeners& m_listeners;
+        ::iuutil::QuietResultPrinter* m_quiet;
+    };
+#endif
+
     void SetUpDefaultListener()
     {
         SetUpDefaultXmlListener();

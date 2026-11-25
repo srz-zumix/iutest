@@ -33,6 +33,11 @@ IUTEST_IPP_INLINE TestEventListener* TestEventRepeater::Release(TestEventListene
     return listener;
 }
 
+IUTEST_IPP_INLINE void TestEventRepeater::Replace(TestEventListener* old_listener, TestEventListener* new_listener)
+{
+    ::std::replace(m_listeners.begin(), m_listeners.end(), old_listener, new_listener);
+}
+
 IUTEST_IPP_INLINE void TestEventRepeater::OnTestProgramStart(const UnitTest& test)
 {
     for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )

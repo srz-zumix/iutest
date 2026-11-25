@@ -49,11 +49,12 @@ int main(int /*argc*/, char* /*argv*/[])
         || strstr(logger.c_str(), "[       OK ] BriefTest.Pass") == NULL
         || strstr(logger.c_str(), "brief failure marker") == NULL ) return 1;
 
-    const char* brief_argv[] = { "brief_tests", "--iutest_brief=1" };
-    int brief_argc = 2;
+    const char* brief_argv[] = { "brief_tests", "--iutest_brief=1", "--gtest_quiet_printer=yes" };
+    int brief_argc = 3;
     IUTEST_INIT(&brief_argc, brief_argv);
     logger.clear();
-    if( !IUTEST_FLAG_GET(brief) || IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
+    if( brief_argc != 1 || !IUTEST_FLAG_GET(brief) || !IUTEST_FLAG_GET(quiet_printer)
+        || IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
     const char* output = logger.c_str();
     if( strstr(output, "brief failure marker") == NULL
         || strstr(output, "[  FAILED  ] BriefTest.Fail") == NULL

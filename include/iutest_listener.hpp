@@ -161,6 +161,9 @@ public:
     virtual void OnTestProgramEnd(const UnitTest& test)             IUTEST_CXX_OVERRIDE;
 
 private:
+    void Replace(TestEventListener* old_listener, TestEventListener* new_listener);
+
+    friend class TestEventListeners;
     ListenerContainer m_listeners;
 };
 
@@ -230,6 +233,11 @@ private:
 private:
     void set_default_result_printer(TestEventListener* listener);
     void set_default_xml_generator(TestEventListener* listener);
+    void replace_default_result_printer(TestEventListener* listener)
+    {
+        m_repeater.Replace(m_default_result_printer, listener);
+        m_default_result_printer = listener;
+    }
 
 private:
     friend class UnitTestSource;

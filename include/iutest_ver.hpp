@@ -84,6 +84,8 @@ modification, are permitted provided that the following conditions are met: \n
    <tr><td>--iutest_catch_exceptions         </td><td>&lt;yes|no&gt;</td><td>Catch exceptions enable.</td></tr>
    <tr><td>--iutest_print_time               </td><td>&lt;yes|no&gt;</td><td>Setting the display of elapsed time.</td></tr>
    <tr><td>--iutest_print_utf8               </td><td>[0|1]</td><td>Show printable UTF-8 strings as text in diagnostics (default: 1). Also accepts --gtest_print_utf8.</td></tr>
+   <tr><td>--iutest_brief                    </td><td>[yes|no]</td><td>Print failures and summary only.</td></tr>
+   <tr><td>--iutest_quiet_printer            </td><td>[yes|no]</td><td>Hide successful test result lines, but keep test starts, suite progress, failures, and the summary. Off by default; --iutest_brief takes precedence. The --gtest_quiet_printer alias is an iutest extension and is not supported by Google Test.</td></tr>
    <tr><td>--iutest_repeat                   </td><td>&lt;count&gt;</td><td>Set the number of repetitions of the test. use a negative count to repeat forever.</td></tr>
    <tr><td>--iutest_recreate_environments_when_repeating</td><td>[0|1]</td><td>Set up and tear down global environments on every repetition (default: 1).</td></tr>
    <tr><td>--iutest_stream_result_to         </td><td>&lt;host:port&gt;</td><td>Set stream test results server.</td></tr>
