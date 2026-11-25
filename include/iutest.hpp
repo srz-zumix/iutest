@@ -2015,6 +2015,18 @@ public:
 
 private:
 #if !defined(IUTEST_USE_GTEST)
+    static void ReplaceDefaultResultPrinter(TestEventListeners& listeners, TestEventListener* printer)
+    {
+        listeners.replace_default_result_printer(printer);
+    }
+
+    static void RestoreDefaultResultPrinter(TestEventListeners& listeners, ::iuutil::QuietResultPrinter* quiet)
+    {
+        listeners.replace_default_result_printer(quiet->m_default_printer);
+        quiet->m_default_printer = NULL;
+        delete quiet;
+    }
+
     class ScopedQuietResultPrinter
     {
     public:
@@ -2026,7 +2038,7 @@ private:
                 && !TestFlag::IsEnableFlag(TestFlag::BRIEF) )
             {
                 m_quiet = new ::iuutil::QuietResultPrinter(original);
-                m_listeners.replace_default_result_printer(m_quiet);
+                UnitTestSource::ReplaceDefaultResultPrinter(m_listeners, m_quiet);
             }
         }
 
@@ -2034,9 +2046,7 @@ private:
         {
             if( m_quiet != NULL && m_listeners.default_result_printer() == m_quiet )
             {
-                m_listeners.replace_default_result_printer(m_quiet->m_default_printer);
-                m_quiet->m_default_printer = NULL;
-                delete m_quiet;
+                UnitTestSource::RestoreDefaultResultPrinter(m_listeners, m_quiet);
             }
         }
 
