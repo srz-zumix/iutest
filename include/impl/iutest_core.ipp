@@ -32,7 +32,7 @@ IUTEST_IPP_INLINE bool ParseShardEnvironment(const char* name, const ::std::stri
     char* end = NULL;
     errno = 0;
     const long n = strtol(value.c_str(), &end, 10);
-    if( errno == ERANGE || end == value.c_str() || *end != '\0'
+    if( errno == ERANGE || end == NULL || end == value.c_str() || *end != '\0'
         || n < 0 || n > (::std::numeric_limits<int>::max)() )
     {
         iuConsole::color_output(iuConsole::red, "Invalid %s: %s\n", name, value.c_str());
