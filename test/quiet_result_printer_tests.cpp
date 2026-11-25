@@ -28,6 +28,11 @@ IUTEST(Test, NG)
 }
 
 #if !defined(IUTEST_USE_GTEST)
+IUTEST(Test, Skip)
+{
+    IUTEST_SKIP();
+}
+
 class TestEndCounter : public ::iutest::EmptyTestEventListener
 {
 public:
@@ -46,6 +51,7 @@ static bool CheckOutput(TestLogger& logger, bool show_ok, bool show_progress)
         && (strstr(output, "[----------]") != NULL) == show_progress
         && strstr(output, "quiet printer failure marker") != NULL
         && strstr(output, "[  FAILED  ] Test.NG") != NULL
+        && strstr(output, "[  SKIPPED ] Test.Skip") != NULL
         && strstr(output, "[  PASSED  ] 1 test") != NULL;
 }
 
@@ -65,7 +71,7 @@ static bool CheckQuietFlag(TestLogger& logger)
     argc = 3;
     IUTEST_INIT(&argc, quiet_argv);
     bool ok = argc == 2 && strcmp(quiet_argv[1], "remaining") == 0 && IUTEST_FLAG_GET(quiet_printer)
-        && CheckOutput(logger, false, true) && counter->count == 2
+        && CheckOutput(logger, false, true) && counter->count == 3
         && listeners.default_result_printer() == original && listeners.default_xml_generator() == xml;
     delete listeners.Release(counter);
 

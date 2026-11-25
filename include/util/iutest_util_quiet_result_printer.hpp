@@ -107,9 +107,13 @@ public:
 
     virtual void OnTestEnd(const ::iutest::TestInfo& test_info) IUTEST_CXX_OVERRIDE
     {
-        if( test_info.result()->Failed() )
+        if( test_info.result()->Failed()
+#if !defined(IUTEST_USE_GTEST)
+            || test_info.is_skipped()
+#endif
+            )
         {
-            // 失敗したときのみ出力する
+            // 成功時の結果行は出力しない
             m_default_printer->OnTestEnd(test_info);
         }
     }
