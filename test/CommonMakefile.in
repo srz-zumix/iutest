@@ -260,6 +260,7 @@ TARGETS_IUTEST_ONLY = \
 		$(OUTDIR)/invalid_both_suite_and_case_set_up_tests \
 		$(OUTDIR)/invalid_both_suite_and_case_teardown_tests \
 		$(OUTDIR)/invalid_locale_ctype_tests \
+		$(OUTDIR)/optional_tests \
 		$(OUTDIR)/ostream_formatter_tests \
 		$(OUTDIR)/output_long_type_param_tests \
 		$(OUTDIR)/output_tests \

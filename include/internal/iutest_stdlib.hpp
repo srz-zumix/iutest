@@ -20,6 +20,19 @@
 // IWYU pragma: begin_exports
 #include "iutest_stdlib_defs.hpp"
 // IWYU pragma: end_exports
+#include "iutest_type_traits.hpp"
+#include <new>
+#if IUTEST_HAS_RVALUE_REFS && IUTEST_HAS_CXX_HDR_TYPE_TARITS && !defined(IUTEST_NO_SFINAE) \
+    && (!defined(IUTEST_LIBSTDCXX_VERSION) || IUTEST_LIBSTDCXX_VERSION >= 40700) \
+    && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+#  define IIUT_HAS_OPTIONAL_VALUE_MOVE_ 1
+#  include <utility>
+#else
+#  define IIUT_HAS_OPTIONAL_VALUE_MOVE_ 0
+#endif
+#if IUTEST_HAS_EXCEPTIONS
+#  include <exception>
+#endif
 
 //======================================================================
 // declare
@@ -200,18 +213,18 @@ namespace iutest
 namespace stl
 {
 
-// #if IUTEST_HAS_CXX_HDR_OPTIONAL
-// #else
-// #endif
-
 #if IUTEST_HAS_EXCEPTIONS
 /**
- * @brief   any_cast の失敗例外
+ * @brief   Exception thrown when accessing an empty optional.
 */
 class bad_optional_access : public ::std::exception {};
 #endif
 
 class nullpot_t {};
+
+#if defined(__GNUC__) || defined(__clang__) || (defined(_MSC_VER) && _MSC_VER >= 1300) || IUTEST_HAS_CXX11
+#  define IIUT_OPTIONAL_INLINE_STORAGE_
+#endif
 
 template<typename T>
 class optional
@@ -219,56 +232,166 @@ class optional
 public:
     typedef T value_type;
 public:
-    optional() IUTEST_CXX_NOEXCEPT_SPEC : m_init(false) {}
-    explicit optional(nullpot_t) IUTEST_CXX_NOEXCEPT_SPEC : m_init(false) {}
-    explicit optional(const T& rhs) : m_init(true), m_value(rhs) {}
+    optional() IUTEST_CXX_NOEXCEPT_SPEC : m_value(NULL) {}
+    explicit optional(nullpot_t) IUTEST_CXX_NOEXCEPT_SPEC : m_value(NULL) {}
+    explicit optional(const T& rhs) : m_value(NULL) { construct(rhs); }
     template<typename U>
-    explicit optional(const U& rhs) : m_init(true), m_value(T(rhs)) {}
-    optional(const optional& rhs) : m_init(rhs.m_init), m_value(rhs.value) {}
+    explicit optional(const U& rhs) : m_value(NULL) { construct(rhs); }
+    optional(const optional& rhs) : m_value(NULL)
+    {
+        if( rhs.has_value() ) {
+            construct(*rhs.ptr());
+        }
+    }
+#if IIUT_HAS_OPTIONAL_VALUE_MOVE_
+    template<typename U>
+    explicit optional(U&& rhs, typename ::std::enable_if<
+        ::std::is_same<T, U>::value && ::std::is_move_constructible<T>::value>::type* = NULL)
+        : m_value(NULL) { construct(::std::move(rhs)); }
+#endif
+    ~optional() { reset(); }
 
 public:
-    optional& operator = (const T& rhs) { m_init = true; m_value = rhs; return *this; }
+    optional& operator = (const optional& rhs)
+    {
+        if( this != &rhs ) {
+            if( rhs.has_value() ) {
+                assign(*rhs.ptr());
+            } else {
+                reset();
+            }
+        }
+        return *this;
+    }
+    optional& operator = (const T& rhs) { assign(rhs); return *this; }
+#if IIUT_HAS_OPTIONAL_VALUE_MOVE_
+    template<typename U>
+    typename ::std::enable_if< ::std::is_same<T, U>::value
+        && ::std::is_move_constructible<T>::value && ::std::is_move_assignable<T>::value, optional&>::type
+    operator = (U&& rhs) { assign(::std::move(rhs)); return *this; }
+#endif
+    optional& operator = (nullpot_t) { reset(); return *this; }
     operator bool () const { return has_value(); }
     const T& operator * () const { return value(); }
     T& operator * () { return value(); }
-    const T* operator -> () const { return ptr(); }
-    T* operator -> () { return ptr(); }
+    const T* operator -> () const { check_value(); return ptr(); }
+    T* operator -> () { check_value(); return ptr(); }
 
 public:
-    bool has_value() const { return m_init; }
-    const T* ptr() const { return &m_value; }
-    T* ptr() { return &m_value; }
-    const T& value() const
+    bool has_value() const { return m_value != NULL; }
+    void reset()
     {
-#if IUTEST_HAS_EXCEPTIONS
-        if( !has_value() ) {
-            throw bad_optional_access();
+        if( has_value() ) {
+            destroy(m_value);
+            m_value = NULL;
         }
-#endif
-        return m_value;
     }
-    T& value()
-    {
-#if IUTEST_HAS_EXCEPTIONS
-        if( !has_value() ) {
-            throw bad_optional_access();
-        }
-#endif
-        return m_value;
-    }
+
+    //! Returns NULL when empty.
+    const T* ptr() const { return m_value; }
+    T* ptr() { return m_value; }
+
+    //! value(), operator* and operator-> throw on empty access, or abort without exceptions.
+    const T& value() const { check_value(); return *m_value; }
+    T& value() { check_value(); return *m_value; }
+
     template<typename U>
     T value_or(const U& v) const
     {
         if( !has_value() ) {
             return v;
         }
-        return m_value;
+        return *ptr();
     }
 
 private:
-    bool m_init;
-    T m_value;
+    void check_value() const
+    {
+        if( !has_value() ) {
+#if IUTEST_HAS_EXCEPTIONS
+            throw bad_optional_access();
+#else
+            ::std::abort();
+#endif
+        }
+    }
+
+    static void destroy(T* p)
+    {
+#if defined(IIUT_OPTIONAL_INLINE_STORAGE_)
+        p->~T();
+#else
+        // Use ordinary allocation on compilers without an alignment facility.
+        ::delete p;
+#endif
+    }
+
+    template<typename U>
+#if IIUT_HAS_OPTIONAL_VALUE_MOVE_
+    void construct(U&& rhs)
+#else
+    void construct(const U& rhs)
+#endif
+    {
+#if defined(IIUT_OPTIONAL_INLINE_STORAGE_)
+        m_value = ::new (storage())
+#else
+        m_value = ::new
+#endif
+#if IIUT_HAS_OPTIONAL_VALUE_MOVE_
+            T(::std::forward<U>(rhs));
+#else
+            T(rhs);
+#endif
+    }
+
+    template<typename U>
+#if IIUT_HAS_OPTIONAL_VALUE_MOVE_
+    void assign(U&& rhs)
+    {
+        if( has_value() ) {
+            *m_value = ::std::forward<U>(rhs);
+        } else {
+            construct(::std::forward<U>(rhs));
+        }
+    }
+#else
+    void assign(const U& rhs)
+    {
+        if( has_value() ) {
+            *m_value = rhs;
+        } else {
+            construct(rhs);
+        }
+    }
+#endif
+
+#if defined(__GNUC__) && __GNUC__ < 4 && !defined(__clang__)
+    unsigned char m_storage[sizeof(T) + __alignof__(T) - 1];
+    void* storage()
+    {
+        const size_t misalignment = reinterpret_cast<size_t>(m_storage) % __alignof__(T);
+        return m_storage + (misalignment == 0 ? 0 : __alignof__(T) - misalignment);
+    }
+#elif defined(__GNUC__) || defined(__clang__)
+    unsigned char m_storage[sizeof(T)] __attribute__((aligned(__alignof__(T))));
+    void* storage() { return m_storage; }
+#elif (defined(_MSC_VER) && _MSC_VER >= 1900) || (!defined(_MSC_VER) && IUTEST_HAS_CXX11)
+    alignas(T) unsigned char m_storage[sizeof(T)];
+    void* storage() { return m_storage; }
+#elif defined(_MSC_VER) && _MSC_VER >= 1300
+    // Older MSVC cannot use a dependent alignment in __declspec(align).
+    unsigned char m_storage[sizeof(T) + __alignof(T) - 1];
+    void* storage()
+    {
+        const size_t misalignment = reinterpret_cast<size_t>(m_storage) % __alignof(T);
+        return m_storage + (misalignment == 0 ? 0 : __alignof(T) - misalignment);
+    }
+#endif
+    T* m_value;
 };
+
+#undef IIUT_OPTIONAL_INLINE_STORAGE_
 
 inline bool uncaught_exception()
 {

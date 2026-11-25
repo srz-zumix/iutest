@@ -1,6 +1,20 @@
 {
   "report-block-list-spec": [
     {
+      "bug_type": "DEAD_STORE",
+      "class_name": "iutest::stl::optional<int>",
+      "procedure_name": "reset",
+      "file": "include/internal/iutest_stdlib.hpp",
+      "comment": "The saved pointer is used by the generic destructor call, which is a no-op for int. Clear engagement before destruction."
+    },
+    {
+      "bug_type": "PULSE_UNNECESSARY_COPY_ASSIGNMENT",
+      "class_name": "iu_Optional_x_iutest_x_Lifetime_Test",
+      "procedure_name": "Body",
+      "file": "test/optional_tests.cpp",
+      "comment": "Copy assignment from an empty optional intentionally verifies destruction of the previously engaged value."
+    },
+    {
       "bug_type": "PULSE_UNNECESSARY_COPY",
       "procedure_name": "",
       "file": "_tests.cpp",
