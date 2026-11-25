@@ -307,6 +307,48 @@ jobs:
           report_paths: test/*.xml
         if: always()
 
+  powerpc-test:
+    name: PowerPC (${{ matrix.arch }})
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      checks: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: ppc64le
+            triplet: powerpc64le-linux-gnu
+          - arch: ppc64
+            triplet: powerpc64-linux-gnu
+          - arch: ppc
+            triplet: powerpc-linux-gnu
+    env:
+      CXX: ${{ matrix.triplet }}-g++
+      CROSS_TRIPLET: ${{ matrix.triplet }}
+      QEMU_COMMAND: qemu-${{ matrix.arch }}-static
+      QEMU_LD_PREFIX: /usr/${{ matrix.triplet }}
+      OUTPUTXML: junit
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: install cross compiler and QEMU
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends "g++-$CROSS_TRIPLET" qemu-user-static
+      - name: info
+        run: make -C test showcxxversion showcxxmacros check_stdlib showstdlbfeatures
+      - name: build
+        run: make -C test -k -j4
+      - name: test
+        run: make -C test -k test
+      - name: report summary
+        uses: ./.github/actions/composite/test-report
+        with:
+          report_paths: test/*.xml
+        if: always()
+
   # no surrogate pair test (Peakflow migration)
   no-surrogatepair-test:
     runs-on: ubuntu-latest

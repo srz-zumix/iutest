@@ -1081,7 +1081,8 @@
 
 //! has long double
 #if !defined(IUTEST_HAS_LONG_DOUBLE)
-#  if defined(__SIZEOF_LONG_DOUBLE__)
+// IBM double-double stores two binary64 values, not one IEEE floating-point bit field.
+#  if defined(__SIZEOF_LONG_DOUBLE__) && !defined(__LONG_DOUBLE_IBM128__)
 #    if IUTEST_LONG_DOUBLE_AS_IS_DOUBLE || IUTEST_HAS_INT128
 #      define IUTEST_HAS_LONG_DOUBLE  1
 #    endif

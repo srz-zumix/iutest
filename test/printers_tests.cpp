@@ -508,7 +508,7 @@ IUTEST(PrintToTest, U32StringJp)
 
 struct Point0
 {
-    unsigned int x, y;
+    unsigned char bytes[8];
 };
 struct Point1
 {
@@ -531,7 +531,7 @@ void PrintTo(const Point2& x, ::iutest::iu_ostream* os)
 
 IUTEST(PrintToTest, Overload)
 {
-    Point0 p0 = { 0x12345678, 0x9ABCDEF0 };
+    Point0 p0 = {{ 0x78, 0x56, 0x34, 0x12, 0xF0, 0xDE, 0xBC, 0x9A }};
     Point1 p1 = {0, 0};
     Point2 p2 = {1, 1};
     {
