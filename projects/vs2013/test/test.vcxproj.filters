@@ -130,6 +130,9 @@
     <ClCompile Include="..\..\..\test\iutest_prod_tests2.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\test\iutest_prod_tests3.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\test\iutest_progress_tests.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
