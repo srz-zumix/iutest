@@ -41,7 +41,7 @@ public:
     }
 
 private:
-    void AppendParams(params_t& params, const ::std::string& data)
+    static void AppendParams(params_t& params, const ::std::string& data)
     {
         if( StringIsBlank(data) )
         {
@@ -54,7 +54,7 @@ private:
         }
         params.push_back(param);
     }
-    params_t ReadParams(const ::std::string& path, char delimiter = ',')
+    static params_t ReadParams(const ::std::string& path, char delimiter = ',')
     {
         params_t params;
         IFile* fp = detail::IFileSystem::New();
