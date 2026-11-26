@@ -174,16 +174,13 @@ int main(int argc, char* argv[])
         FileIO::s_io.clear();
     }
 
-    ::iutest::IUTEST_FLAG(output) = "xml:.";
+    ::iutest::IUTEST_FLAG(output) = "xml:./test.xml";
     {
         ::iutest::IUTEST_FLAG(filter) = "*TestEscape*";
         const int ret = IUTEST_RUN_ALL_TESTS();
 
         if( ret == 0 ) return 1;
-        ::std::string strXml = ".";
-        strXml += ::iutest::detail::GetPathSeparator();
-        strXml += ::iutest::detail::kStrings::DefaultXmlReportFileName;
-        IUTEST_ASSERT_EQ( strXml
+        IUTEST_ASSERT_EQ( "./test.xml"
             , (reinterpret_cast< ::iutest::DefaultXmlGeneratorListener*>(
                 ::iutest::TestEnv::event_listeners().default_xml_generator()
             )->GetFilePath()) ) << ::iutest::AssertionReturn<int>(1);

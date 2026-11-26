@@ -24,6 +24,8 @@
 #  include <direct.h>
 #elif defined(IUTEST_OS_FREEBSD)
 #  include <sys/sysctl.h>
+#elif defined(IUTEST_OS_MAC) || defined(IUTEST_OS_IOS)
+#  include <mach-o/dyld.h>
 #endif
 
 
@@ -239,21 +241,31 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::GetExecFilePath()
 {
 #if   defined(IUTEST_OS_WINDOWS)
     char path[IUTEST_MAX_PATH];
-    ::GetModuleFileNameA(NULL, path, sizeof(path));
+    const DWORD length = ::GetModuleFileNameA(NULL, path, sizeof(path));
+    if( length == 0 || length >= sizeof(path) )
+    {
+        return iuFilePath();
+    }
     return iuFilePath(path);
 #elif defined(IUTEST_OS_SOLARIS)
     return iuFilePath(getexecname());
 #elif defined(IUTEST_OS_FREEBSD)
     int exe_path_mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PATHNAME, getpid() };
     char buf[1024];
-    size_t length = 0;
+    size_t length = sizeof(buf);
     if( sysctl(exe_path_mib, 4, buf, &length, NULL, 0) != 0 )
     {
         return iuFilePath();
     }
     return iuFilePath(buf);
-#elif defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN)
-#if (defined(__BSD_VISIBLE) && __BSD_VISIBLE) \
+#elif defined(IUTEST_OS_MAC) || defined(IUTEST_OS_IOS)
+    char buf[IUTEST_MAX_PATH];
+    uint32_t length = sizeof(buf);
+    return ::_NSGetExecutablePath(buf, &length) == 0 ? iuFilePath(buf) : iuFilePath();
+#elif (defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN)) && IUTEST_HAS_HDR_UNISTD
+#if (defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 200112L) \
+    || (defined(_XOPEN_SOURCE) && _XOPEN_SOURCE >= 500) \
+    || (defined(__BSD_VISIBLE) && __BSD_VISIBLE) \
     || (defined(__POSIX_VISIBLE) && __POSIX_VISIBLE >= 200112) \
     || (defined(__XSI_VISIBLE) && __XSI_VISIBLE >= 4)
     char buf[1024];

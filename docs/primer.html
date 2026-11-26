@@ -607,7 +607,11 @@ IUTEST(ProdTest, Peep)
       <br />
       </li>
       <li>--iutest_output=junit[:path]<br />
-      junit 形式で XML 出力を行います。
+      junit 形式で XML 出力を行います。<br />
+      xml、junit ともに、既存のディレクトリを出力先に指定する場合は末尾にパス区切り文字を付けます
+      （例: <code>--iutest_output=xml:reports/</code>）。<br />
+      出力ファイル名は <code>実行ファイル名.xml</code> となり、同名のファイルがある場合は
+      <code>実行ファイル名_1.xml</code>、<code>実行ファイル名_2.xml</code> のように連番が付きます。
       </li>
       <li>--iutest_default_package_name<br />
       トップのパッケージ名を指定できます。

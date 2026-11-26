@@ -27,6 +27,7 @@ class DefaultXmlGeneratorListener : public EmptyTestEventListener
 {
     ::std::string m_output_path_format;
     ::std::string m_output_path;
+    bool m_output_is_directory;
 protected:
     IFile* m_fp;
 public:
@@ -35,7 +36,7 @@ public:
      * @param [in] path = 出力パス
     */
     explicit DefaultXmlGeneratorListener(const ::std::string& path)
-        : m_fp(NULL)
+        : m_output_is_directory(false), m_fp(NULL)
     {
         SetFilePath(path);
     }
@@ -54,26 +55,8 @@ private:
     /**
      * @brief   出力ファイルの設定
     */
-    void SetFilePath(const ::std::string& path)
-    {
-        if( path.empty() )
-        {
-            m_output_path_format.clear();
-            m_output_path = detail::kStrings::DefaultXmlReportFileName;
-        }
-        else
-        {
-            m_output_path_format = path;
-            const ::std::string::size_type pos = path.find('.');
-            if( pos == ::std::string::npos
-                || pos == path.length()-1 )
-            {
-                m_output_path_format += detail::GetPathSeparator();
-                m_output_path_format += detail::kStrings::DefaultXmlReportFileName;
-            }
-            m_output_path = m_output_path_format;
-        }
-    }
+    void SetFilePath(const ::std::string& path);
+    static ::std::string MakeDirectoryReportPath(const ::std::string& directory);
 
 public:
     virtual void OnTestIterationStart(const UnitTest& test, int iteration) IUTEST_CXX_OVERRIDE;
