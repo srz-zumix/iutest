@@ -28,7 +28,6 @@
 /**
  * @mainpage
  * @sa  @b  ProjectHome \n
- *          OSDN        : https://osdn.jp/projects/iutest/ \n
  *          github      : https://github.com/srz-zumix/iutest \n
  *          google group: https://groups.google.com/forum/?fromgroups#!forum/g-iutest \n
  *

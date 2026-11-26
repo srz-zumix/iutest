@@ -100,6 +100,7 @@ jobs:
   gcc-container-test:
     name: gcc container (${{ matrix.stdflag }})
     runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     permissions:
       contents: read
       checks: write
