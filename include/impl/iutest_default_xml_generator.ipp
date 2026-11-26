@@ -28,9 +28,8 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::SetFilePath(const ::std::string& path)
 {
     m_output_path_format = path;
-    const detail::iuFilePath output(path);
-    m_output_is_directory = !path.empty() && (output.IsDirectory()
-        || output.RemoveDirectoryName().GetExtension().empty());
+    m_output_is_directory = !path.empty() && (detail::iuFilePath(path).IsDirectory()
+        || path.find('.') == ::std::string::npos);
     if( !m_output_is_directory )
     {
         m_output_path = path.empty() ? detail::kStrings::DefaultXmlReportFileName : path;

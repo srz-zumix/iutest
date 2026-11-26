@@ -20,6 +20,8 @@
 #include "../internal/iutest_filepath.hpp"
 #include "../internal/iutest_string.hpp"
 
+#include <vector>
+
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
 #  include <direct.h>
 #elif defined(IUTEST_OS_FREEBSD)
@@ -268,14 +270,20 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::GetExecFilePath()
     || (defined(__BSD_VISIBLE) && __BSD_VISIBLE) \
     || (defined(__POSIX_VISIBLE) && __POSIX_VISIBLE >= 200112) \
     || (defined(__XSI_VISIBLE) && __XSI_VISIBLE >= 4)
-    char buf[1024];
-    const ssize_t len = ::readlink("/proc/self/exe", buf, sizeof(buf)-1);
-    if( len == -1 )
+    ::std::vector<char> buf(1024);
+    for( ;; )
     {
-        return iuFilePath();
+        const ssize_t len = ::readlink("/proc/self/exe", &buf[0], buf.size());
+        if( len < 0 )
+        {
+            return iuFilePath();
+        }
+        if( static_cast<size_t>(len) < buf.size() )
+        {
+            return iuFilePath(::std::string(&buf[0], static_cast<size_t>(len)));
+        }
+        buf.resize(buf.size() * 2);
     }
-    buf[len] = '\0';
-    return iuFilePath(buf);
 #else
     return iuFilePath();
 #endif
@@ -327,6 +335,15 @@ IUTEST_IPP_INLINE void iuFilePath::Normalize()
     const char* src = m_path.c_str();
     char* const dst_top = new char [length()+1];
     char* dst = dst_top;
+
+#ifdef IUTEST_OS_WINDOWS
+    // Keep the leading pair of separators in UNC paths.
+    if( length() > 2 && IsPathSeparator(src[0]) && IsPathSeparator(src[1]) && !IsPathSeparator(src[2]) )
+    {
+        *dst++ = GetPathSeparator();
+        ++src;
+    }
+#endif
 
     while(*src != '\0')
     {

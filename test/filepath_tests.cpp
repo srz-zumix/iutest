@@ -151,6 +151,10 @@ IUTEST(FilePath, MakeFileName)
     IUTEST_EXPECT_EQ("report.xml", FilePath::MakeFileName(FilePath(), base_name, 0, "xml").string());
     IUTEST_EXPECT_EQ(FilePath("path/to/dir/report_12.xml").string(),
         FilePath::MakeFileName(directory, base_name, 12, "xml").string());
+#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_USE_GTEST)
+    IUTEST_EXPECT_EQ("\\\\server\\share\\reports\\report.xml",
+        FilePath::MakeFileName(FilePath("\\\\server\\share\\reports\\"), base_name, 0, "xml").string());
+#endif
 }
 
 #if !defined(IUTEST_USE_GTEST)
