@@ -68,6 +68,24 @@ jobs:
           report_paths: test/*.xml
         if: always()
 
+  ubsan-test:
+    name: ubsan (${{ matrix.compiler }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [g++, clang++]
+    env:
+      CXX: ${{ matrix.compiler }}
+      CXXFLAGS: -fsanitize=undefined -fno-sanitize-recover=undefined
+      UBSAN_OPTIONS: print_stacktrace=1
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: build and test
+        run: make -C test -j4 test
+
   linker-test:
     name: linker (${{ matrix.compiler }}, ${{ matrix.linker }})
     runs-on: ${{ matrix.linker == 'gold' && 'ubuntu-24.04' || 'ubuntu-latest' }}
