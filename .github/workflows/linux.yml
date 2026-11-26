@@ -83,8 +83,10 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - name: build and test
-        run: make -C test -j4 test
+      - name: build
+        run: make -C test -j4
+      - name: test
+        run: make -C test test
 
   linker-test:
     name: linker (${{ matrix.compiler }}, ${{ matrix.linker }})
