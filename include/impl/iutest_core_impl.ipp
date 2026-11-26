@@ -63,24 +63,22 @@ IUTEST_IPP_INLINE bool UnitTestImpl::SkipTest()
 IUTEST_IPP_INLINE int UnitTestImpl::Listup() const
 {
     int count = 0;
-    size_t suite_count = 0;
+#if IUTEST_USE_OWN_LIST
+    ::std::vector<TestSuite*> testsuites;
+#endif
     for( iuTestSuites::const_iterator it = m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
     {
-        const int n = (*it)->reportable_test_count();
-        count += n;
-        if( n != 0 ) ++suite_count;
+        count += (*it)->reportable_test_count();
+#if IUTEST_USE_OWN_LIST
+        // The list's const_iterator adds const to the stored suite pointers.
+        testsuites.push_back(const_cast<TestSuite*>(*it));
+#endif
     }
-    detail::iuConsole::output("%d tests from %" IUPRzu " testsuite\n", count, suite_count);
-    for( iuTestSuites::const_iterator it = m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
-    {
-        if( (*it)->reportable_test_count() == 0 ) continue;
-        detail::iuConsole::output("%s\n", (*it)->name());
-
-        for( TestSuite::iuTestInfos::const_iterator it2 = (*it)->begin(), end2=(*it)->end(); it2 != end2; ++it2 )
-        {
-            if( (*it2)->is_reportable() ) detail::iuConsole::output("  %s\n", (*it2)->name());
-        }
-    }
+#if IUTEST_USE_OWN_LIST
+    TestEnv::event_listeners().OnListup(count, testsuites);
+#else
+    TestEnv::event_listeners().OnListup(count, m_testsuites);
+#endif
     return 0;
 }
 
@@ -98,7 +96,7 @@ IUTEST_IPP_INLINE int UnitTestImpl::ListupWithWhere() const
     for( iuTestSuites::const_iterator it = m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
     {
         if( (*it)->reportable_test_count() == 0 ) continue;
-        detail::iuConsole::output("%s\n", (*it)->testsuite_name_with_where().c_str());
+        detail::iuConsole::output("%s.\n", (*it)->testsuite_name_with_where().c_str());
 
         for( TestSuite::iuTestInfos::const_iterator it2 = (*it)->begin(), end2=(*it)->end(); it2 != end2; ++it2 )
         {

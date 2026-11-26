@@ -93,6 +93,13 @@ public:
     virtual void OnTestIterationEnd(const UnitTest& test
                                     , int iteration)                = 0;    //!< 単体テスト終了時に毎回呼ばれます
     virtual void OnTestProgramEnd(const UnitTest& test)             = 0;    //!< テストプログラム終了時に呼ばれます
+    /**
+     * @brief   テストリストアップ時に呼ばれます
+     * @note    total_test_num は一覧表示対象のテスト数で、tests にはフィルター対象外のスイートも含まれます。
+     *          tests コンテナへの参照は、このコールバック中のみ有効です。
+    */
+    virtual void OnListup(int /*total_test_num*/
+                          , const ::std::vector<TestSuite*>& /*tests*/) {}
 };
 
 /**
@@ -118,6 +125,8 @@ public:
     virtual void OnTestIterationEnd(const UnitTest& /*test*/
                                     , int /*iteration*/)                IUTEST_CXX_OVERRIDE {}
     virtual void OnTestProgramEnd(const UnitTest& /*test*/)             IUTEST_CXX_OVERRIDE {}
+    virtual void OnListup(int /* total_test_num */
+                          , const ::std::vector<TestSuite*>& /*tests*/) IUTEST_CXX_OVERRIDE {}
 };
 
 /**
@@ -159,6 +168,8 @@ public:
     virtual void OnTestIterationEnd(const UnitTest& test
                                     , int iteration)                IUTEST_CXX_OVERRIDE;
     virtual void OnTestProgramEnd(const UnitTest& test)             IUTEST_CXX_OVERRIDE;
+    virtual void OnListup(int total_test_num
+                          , const ::std::vector<TestSuite*>& tests) IUTEST_CXX_OVERRIDE;
 
 private:
     ListenerContainer m_listeners;
@@ -226,6 +237,9 @@ private:
     void OnEnvironmentsTearDownEnd(const UnitTest& test)            { m_repeater.OnEnvironmentsTearDownEnd(test); }
     void OnTestIterationEnd(const UnitTest& test, int iteration)    { m_repeater.OnTestIterationEnd(test, iteration); }
     void OnTestProgramEnd(const UnitTest& test)                     { m_repeater.OnTestProgramEnd(test); }
+
+    void OnListup(int total_test_num
+                  , const ::std::vector<TestSuite*>& tests)         { m_repeater.OnListup(total_test_num, tests); }
 
 private:
     void set_default_result_printer(TestEventListener* listener);

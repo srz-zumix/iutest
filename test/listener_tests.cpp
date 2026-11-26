@@ -34,6 +34,7 @@ public:
     bool called_OnEnvironmentsTearDownEnd;
     bool called_OnTestIterationEnd;
     bool called_OnTestProgramEnd;
+    bool called_OnListup;
 
 public:
     MyTestEventListener(void)
@@ -51,6 +52,7 @@ public:
     , called_OnEnvironmentsTearDownEnd(false)
     , called_OnTestIterationEnd(false)
     , called_OnTestProgramEnd(false)
+    , called_OnListup(false)
     {}
 
 public:
@@ -116,6 +118,13 @@ public:
         if( called_OnTestProgramEnd ) exit(1);
         called_OnTestProgramEnd = true;
     }
+#if !defined(IUTEST_USE_GTEST)
+    virtual void OnListup(int /*total_test_num*/
+                          , const ::std::vector< ::iutest::TestSuite*>& /*tests*/) IUTEST_CXX_OVERRIDE
+    {
+        called_OnListup = true;
+    }
+#endif
 };
 
 static MyTestEventListener* listener = NULL;
