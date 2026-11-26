@@ -15,6 +15,10 @@
 #ifndef INCG_IRIS_IUTEST_UTIL_QUIET_RESULT_PRINTER_HPP_0DF65DD7_C97C_44BA_940D_D22ED6AF9494_
 #define INCG_IRIS_IUTEST_UTIL_QUIET_RESULT_PRINTER_HPP_0DF65DD7_C97C_44BA_940D_D22ED6AF9494_
 
+#if !defined(IUTEST_USE_GTEST)
+namespace iutest { class UnitTestSource; }
+#endif
+
 namespace iuutil
 {
 
@@ -85,6 +89,16 @@ public:
     {
         m_default_printer->OnTestStart(test_info);
     }
+#if !defined(IUTEST_USE_GTEST)
+    virtual void OnTestDisabled(const ::iutest::TestInfo& test_info) IUTEST_CXX_OVERRIDE
+    {
+        m_default_printer->OnTestDisabled(test_info);
+    }
+    virtual void OnTestRecordProperty(const ::iutest::TestProperty& test_property) IUTEST_CXX_OVERRIDE
+    {
+        m_default_printer->OnTestRecordProperty(test_property);
+    }
+#endif
     virtual void OnTestPartResult(const ::iutest::TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE
     {
         m_default_printer->OnTestPartResult(test_part_result);
@@ -93,9 +107,13 @@ public:
 
     virtual void OnTestEnd(const ::iutest::TestInfo& test_info) IUTEST_CXX_OVERRIDE
     {
-        if( test_info.result()->Failed() )
+        if( test_info.result()->Failed()
+#if !defined(IUTEST_USE_GTEST)
+            || test_info.is_skipped()
+#endif
+            )
         {
-            // 失敗したときのみ出力する
+            // 成功時の結果行は出力しない
             m_default_printer->OnTestEnd(test_info);
         }
     }
@@ -127,6 +145,9 @@ public:
         m_default_printer->OnTestProgramEnd(unit_test);
     }
 private:
+#if !defined(IUTEST_USE_GTEST)
+    friend class ::iutest::UnitTestSource;
+#endif
     ::iutest::TestEventListener* m_default_printer;
 
 public:

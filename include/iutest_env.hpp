@@ -45,6 +45,7 @@
  *          print_time (bool)\n
  *          print_utf8 (bool)\n
  *          brief (bool)\n
+ *          quiet_printer (bool)\n
  *          color (string)\n
  *          filter (string)\n
  *          flagfile (string)\n
@@ -174,6 +175,7 @@ public:
         PRINT_TIME              = 0x00001000,   //!< 経過時間の出力
         PRINT_UTF8              = 0x00200000,   //!< UTF-8 文字列のテキスト表示
         BRIEF                   = 0x00008000,   //!< 失敗とまとめのみ出力
+        QUIET_PRINTER           = 0x00000800,   //!< 成功テストの結果行を抑制
         FILELOCATION_STYLE_MSVC = 0x00002000,   //!< ファイル/行出力スタイルを Visual Studio スタイルにする
         VERBOSE                 = 0x00004000,   //!< verbose
 
@@ -283,6 +285,7 @@ public:
     typedef TestFlag::Fragment<TestFlag::PRINT_TIME>            print_time;
     typedef TestFlag::Fragment<TestFlag::PRINT_UTF8>            print_utf8;
     typedef TestFlag::Fragment<TestFlag::BRIEF>                 brief;
+    typedef TestFlag::Fragment<TestFlag::QUIET_PRINTER>         quiet_printer;
     typedef TestFlag::Fragment<TestFlag::SHOW_TESTS_LIST>       list_tests;
     typedef TestFlag::Fragment<TestFlag::SHOW_TESTS_LIST_WITH_WHERE> list_tests_with_where;
 

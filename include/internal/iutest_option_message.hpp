@@ -75,6 +75,8 @@ inline void iuOptionMessage::ShowHelp()
         "    --iutest_print_time=<0|1>        : Setting the display of elapsed time.\n"
         "    --iutest_print_utf8[=0|1]        : Show printable UTF-8 strings as text (default: 1).\n"
         "    --iutest_brief[=0|1]             : Print failures and summary only.\n"
+        "    --iutest_quiet_printer[=yes|no]  : Suppress successful test result lines, but keep progress.\n"
+        "                                      --iutest_brief takes precedence.\n"
         "    --iutest_default_package_name=<name>\n"
         "            : Set default root package name.\n"
         "    --iutest_output=<xml|junit>[:path]\n"

@@ -244,6 +244,11 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
     {
         return ParseYesNoFlagCommandLine(str, TestFlag::BRIEF, 1);
     }
+    if( detail::IsStringEqual(str, "quiet_printer")
+        || detail::IsStringForwardMatching(str, "quiet_printer=") )
+    {
+        return ParseYesNoFlagCommandLine(str, TestFlag::QUIET_PRINTER, 1);
+    }
     if( detail::IsStringForwardMatching(str, "repeat") )
     {
         const char* opt = ParseOptionSettingStr(str);
