@@ -16,6 +16,7 @@ runs:
       with:
         report_paths: "${{ inputs.report_paths }}"
         token: ${{ inputs.token }}
+        annotate_only: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
       if: ${{ env.CPP_ACTIONS != 'true' }}
     - name: Test Summary
       uses: test-summary/action@v2
