@@ -18,6 +18,7 @@
 //======================================================================
 // include
 #include "../internal/iutest_filepath.hpp"
+#include "../internal/iutest_string.hpp"
 
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
 #  include <direct.h>
@@ -281,6 +282,32 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::ConcatPaths(const iuFilePath& directory
     path += GetPathSeparator();
     path += relative_path.m_path;
     return iuFilePath(path);
+}
+
+IUTEST_IPP_INLINE iuFilePath iuFilePath::MakeFileName(const iuFilePath& directory, const iuFilePath& base_name,
+    int number, const char* extension)
+{
+    ::std::string name = base_name.m_path;
+    if( number != 0 )
+    {
+        name += '_';
+        name += iu_to_string(number);
+    }
+    name += '.';
+    name += extension;
+    return ConcatPaths(directory, iuFilePath(name));
+}
+
+IUTEST_IPP_INLINE iuFilePath iuFilePath::GenerateUniqueFileName(const iuFilePath& directory, const iuFilePath& base_name,
+    const char* extension)
+{
+    int number = 0;
+    iuFilePath candidate;
+    do
+    {
+        candidate = MakeFileName(directory, base_name, number++, extension);
+    } while( candidate.FileOrDirectoryExists() );
+    return candidate;
 }
 
 IUTEST_IPP_INLINE void iuFilePath::Normalize()

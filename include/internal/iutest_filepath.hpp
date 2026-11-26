@@ -158,6 +158,19 @@ public:
     */
     static iuFilePath ConcatPaths(const iuFilePath& directory, const iuFilePath& relative_path);
 
+    /**
+     * @brief   ファイル名を作成（番号が 0 の場合は連番なし）
+     * @param [in] extension = ドットを含まない拡張子
+    */
+    static iuFilePath MakeFileName(const iuFilePath& directory, const iuFilePath& base_name,
+        int number, const char* extension);
+
+    /**
+     * @brief   既存のファイルやディレクトリと重ならないファイル名を作成
+    */
+    static iuFilePath GenerateUniqueFileName(const iuFilePath& directory, const iuFilePath& base_name,
+        const char* extension);
+
 private:
     /**
      * @brief   正規化

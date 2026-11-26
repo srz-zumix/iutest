@@ -143,6 +143,16 @@ IUTEST(FilePath, ConcatPaths)
     }
 }
 
+IUTEST(FilePath, MakeFileName)
+{
+    typedef ::iutest::internal::FilePath FilePath;
+    const FilePath directory("path/to/dir/");
+    const FilePath base_name("report");
+    IUTEST_EXPECT_EQ("report.xml", FilePath::MakeFileName(FilePath(), base_name, 0, "xml").string());
+    IUTEST_EXPECT_EQ(FilePath("path/to/dir/report_12.xml").string(),
+        FilePath::MakeFileName(directory, base_name, 12, "xml").string());
+}
+
 #if !defined(IUTEST_USE_GTEST)
 IUTEST(FilePath, GetExtention)
 {
