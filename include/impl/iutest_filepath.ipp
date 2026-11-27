@@ -18,11 +18,16 @@
 //======================================================================
 // include
 #include "../internal/iutest_filepath.hpp"
+#include "../internal/iutest_string.hpp"
+
+#include <vector>
 
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
 #  include <direct.h>
 #elif defined(IUTEST_OS_FREEBSD)
 #  include <sys/sysctl.h>
+#elif defined(IUTEST_OS_MAC) || defined(IUTEST_OS_IOS)
+#  include <mach-o/dyld.h>
 #endif
 
 
@@ -238,31 +243,47 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::GetExecFilePath()
 {
 #if   defined(IUTEST_OS_WINDOWS)
     char path[IUTEST_MAX_PATH];
-    ::GetModuleFileNameA(NULL, path, sizeof(path));
+    const DWORD length = ::GetModuleFileNameA(NULL, path, sizeof(path));
+    if( length == 0 || length >= sizeof(path) )
+    {
+        return iuFilePath();
+    }
     return iuFilePath(path);
 #elif defined(IUTEST_OS_SOLARIS)
     return iuFilePath(getexecname());
 #elif defined(IUTEST_OS_FREEBSD)
     int exe_path_mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PATHNAME, getpid() };
     char buf[1024];
-    size_t length = 0;
+    size_t length = sizeof(buf);
     if( sysctl(exe_path_mib, 4, buf, &length, NULL, 0) != 0 )
     {
         return iuFilePath();
     }
     return iuFilePath(buf);
-#elif defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN)
-#if (defined(__BSD_VISIBLE) && __BSD_VISIBLE) \
+#elif defined(IUTEST_OS_MAC) || defined(IUTEST_OS_IOS)
+    char buf[IUTEST_MAX_PATH];
+    uint32_t length = sizeof(buf);
+    return ::_NSGetExecutablePath(buf, &length) == 0 ? iuFilePath(buf) : iuFilePath();
+#elif (defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN)) && IUTEST_HAS_HDR_UNISTD
+#if (defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 200112L) \
+    || (defined(_XOPEN_SOURCE) && _XOPEN_SOURCE >= 500) \
+    || (defined(__BSD_VISIBLE) && __BSD_VISIBLE) \
     || (defined(__POSIX_VISIBLE) && __POSIX_VISIBLE >= 200112) \
     || (defined(__XSI_VISIBLE) && __XSI_VISIBLE >= 4)
-    char buf[1024];
-    const ssize_t len = ::readlink("/proc/self/exe", buf, sizeof(buf)-1);
-    if( len == -1 )
+    ::std::vector<char> buf(1024);
+    for( ;; )
     {
-        return iuFilePath();
+        const ssize_t len = ::readlink("/proc/self/exe", &buf[0], buf.size());
+        if( len < 0 )
+        {
+            return iuFilePath();
+        }
+        if( static_cast<size_t>(len) < buf.size() )
+        {
+            return iuFilePath(::std::string(&buf[0], static_cast<size_t>(len)));
+        }
+        buf.resize(buf.size() * 2);
     }
-    buf[len] = '\0';
-    return iuFilePath(buf);
 #else
     return iuFilePath();
 #endif
@@ -283,11 +304,46 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::ConcatPaths(const iuFilePath& directory
     return iuFilePath(path);
 }
 
+IUTEST_IPP_INLINE iuFilePath iuFilePath::MakeFileName(const iuFilePath& directory, const iuFilePath& base_name,
+    int number, const char* extension)
+{
+    ::std::string name = base_name.m_path;
+    if( number != 0 )
+    {
+        name += '_';
+        name += iu_to_string(number);
+    }
+    name += '.';
+    name += extension;
+    return ConcatPaths(directory, iuFilePath(name));
+}
+
+IUTEST_IPP_INLINE iuFilePath iuFilePath::GenerateUniqueFileName(const iuFilePath& directory, const iuFilePath& base_name,
+    const char* extension)
+{
+    int number = 0;
+    iuFilePath candidate;
+    do
+    {
+        candidate = MakeFileName(directory, base_name, number++, extension);
+    } while( candidate.FileOrDirectoryExists() );
+    return candidate;
+}
+
 IUTEST_IPP_INLINE void iuFilePath::Normalize()
 {
     const char* src = m_path.c_str();
     char* const dst_top = new char [length()+1];
     char* dst = dst_top;
+
+#ifdef IUTEST_OS_WINDOWS
+    // Keep the leading pair of separators in UNC paths.
+    if( length() > 2 && IsPathSeparator(src[0]) && IsPathSeparator(src[1]) && !IsPathSeparator(src[2]) )
+    {
+        *dst++ = GetPathSeparator();
+        ++src;
+    }
+#endif
 
     while(*src != '\0')
     {

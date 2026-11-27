@@ -17,12 +17,38 @@
 
 //======================================================================
 // include
+#include "../internal/iutest_filepath.hpp"
 #include "../listener/iutest_default_xml_generator.hpp"
 
 namespace iutest
 {
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+
+IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::SetFilePath(const ::std::string& path)
+{
+    m_output_path_format = path;
+    m_output_is_directory = !path.empty() && (detail::iuFilePath(path).IsDirectory()
+        || path.find('.') == ::std::string::npos);
+    if( !m_output_is_directory )
+    {
+        m_output_path = path.empty() ? detail::kStrings::DefaultXmlReportFileName : path;
+    }
+}
+
+IUTEST_IPP_INLINE ::std::string DefaultXmlGeneratorListener::MakeDirectoryReportPath(const ::std::string& directory)
+{
+    typedef detail::iuFilePath FilePath;
+    FilePath base_name = FilePath::GetExecFilePath().RemoveDirectoryName();
+#if defined(IUTEST_OS_WINDOWS) || defined(IUTEST_OS_CYGWIN)
+    base_name = base_name.RemoveExtension("exe");
+#endif
+    if( base_name.IsEmpty() )
+    {
+        base_name = FilePath(detail::kStrings::DefaultXmlReportFileName).RemoveExtension("xml");
+    }
+    return FilePath::GenerateUniqueFileName(FilePath(directory), base_name, "xml").string();
+}
 
 IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestIterationStart(const UnitTest& test, int iteration)
 {
@@ -32,14 +58,22 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestIterationStart(const U
     }
     if( !m_output_path_format.empty() )
     {
-        m_output_path = m_output_path_format;
+        ::std::string path = m_output_path_format;
         ::std::string strIte = detail::iu_to_string(iteration);
-        detail::StringReplace(m_output_path, "%d", 2, strIte.c_str());
-        detail::StringReplace(m_output_path, "{I}", 3, strIte.c_str());
-        if( m_output_path == m_output_path_format)
+        detail::StringReplace(path, "%d", 2, strIte.c_str());
+        detail::StringReplace(path, "{I}", 3, strIte.c_str());
+        if( path == m_output_path_format )
         {
-            m_output_path_format.clear();
+            if( m_output_is_directory && m_fp != NULL )
+            {
+                return;
+            }
+            if( !m_output_is_directory )
+            {
+                m_output_path_format.clear();
+            }
         }
+        m_output_path = m_output_is_directory ? MakeDirectoryReportPath(path) : path;
         if( m_fp != NULL )
         {
             OnReportTest(m_fp, test);
@@ -60,6 +94,10 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestProgramEnd(const UnitT
     }
     if( m_fp == NULL )
     {
+        if( m_output_is_directory && m_output_path.empty() )
+        {
+            m_output_path = MakeDirectoryReportPath(m_output_path_format);
+        }
         FileOpen(m_output_path.c_str());
         if( m_fp == NULL )
         {

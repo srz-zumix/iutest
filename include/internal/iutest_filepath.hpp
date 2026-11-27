@@ -12,10 +12,11 @@
 */
 //-----------------------------------------------------------------------
 //======================================================================
+#if !defined(IUTEST_USE_GTEST) || (defined(INCG_IRIS_IUTEST_HPP_) && \
+    !defined(INCG_IRIS_IUTEST_SWITCH_FOR_GTEST_HPP_5770CDF3_B5D0_46BC_AAF8_B721902F9871))
+
 #ifndef INCG_IRIS_IUTEST_FILEPATH_HPP_D69E7545_BF8A_4EDC_9493_9105C69F9378_
 #define INCG_IRIS_IUTEST_FILEPATH_HPP_D69E7545_BF8A_4EDC_9493_9105C69F9378_
-
-#if !defined(IUTEST_USE_GTEST)
 
 //======================================================================
 // include
@@ -158,6 +159,19 @@ public:
     */
     static iuFilePath ConcatPaths(const iuFilePath& directory, const iuFilePath& relative_path);
 
+    /**
+     * @brief   ファイル名を作成（番号が 0 の場合は連番なし）
+     * @param [in] extension = ドットを含まない拡張子
+    */
+    static iuFilePath MakeFileName(const iuFilePath& directory, const iuFilePath& base_name,
+        int number, const char* extension);
+
+    /**
+     * @brief   既存のファイルやディレクトリと重ならないファイル名を作成
+    */
+    static iuFilePath GenerateUniqueFileName(const iuFilePath& directory, const iuFilePath& base_name,
+        const char* extension);
+
 private:
     /**
      * @brief   正規化
@@ -175,6 +189,7 @@ inline iu_ostream& operator << (iu_ostream& os, const iuFilePath& path)
 
 }   // end of namespace detail
 
+#if !defined(IUTEST_USE_GTEST)
 namespace internal
 {
     // google test との互換性のため
@@ -205,12 +220,14 @@ namespace internal
 
 #endif
 
+#endif
+
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
 #  include "../impl/iutest_filepath.ipp" // IWYU pragma: export
 #endif
 
-#endif
-
 #endif // INCG_IRIS_IUTEST_FILEPATH_HPP_D69E7545_BF8A_4EDC_9493_9105C69F9378_
+
+#endif

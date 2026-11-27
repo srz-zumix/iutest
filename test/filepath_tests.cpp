@@ -15,6 +15,9 @@
 
 //======================================================================
 // include
+#if defined(IUTEST_USE_GTEST)
+#include "../include/internal/iutest_filepath.hpp"
+#endif
 #include "iutest.hpp"
 #include "../include/internal/iutest_filepath.hpp"
 
@@ -141,6 +144,29 @@ IUTEST(FilePath, ConcatPaths)
         IUTEST_EXPECT_EQ("path/to/dir/test.text", ::iutest::internal::FilePath::ConcatPaths(dir, file));
 #endif
     }
+}
+
+static ::std::string FilePathString(const ::iutest::internal::FilePath& path)
+{
+#if defined(IUTEST_USE_GTEST)
+    return path.c_str();
+#else
+    return path.string();
+#endif
+}
+
+IUTEST(FilePath, MakeFileName)
+{
+    typedef ::iutest::internal::FilePath FilePath;
+    const FilePath directory("path/to/dir/");
+    const FilePath base_name("report");
+    IUTEST_EXPECT_EQ("report.xml", FilePathString(FilePath::MakeFileName(FilePath(), base_name, 0, "xml")));
+    IUTEST_EXPECT_EQ(FilePathString(FilePath("path/to/dir/report_12.xml")),
+        FilePathString(FilePath::MakeFileName(directory, base_name, 12, "xml")));
+#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_USE_GTEST)
+    IUTEST_EXPECT_EQ("\\\\server\\share\\reports\\report.xml",
+        FilePath::MakeFileName(FilePath("\\\\server\\share\\reports\\"), base_name, 0, "xml").string());
+#endif
 }
 
 #if !defined(IUTEST_USE_GTEST)
