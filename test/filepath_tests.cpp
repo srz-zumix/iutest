@@ -15,6 +15,9 @@
 
 //======================================================================
 // include
+#if defined(IUTEST_USE_GTEST)
+#include "../include/internal/iutest_filepath.hpp"
+#endif
 #include "iutest.hpp"
 #include "../include/internal/iutest_filepath.hpp"
 

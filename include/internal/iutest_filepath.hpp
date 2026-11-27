@@ -12,10 +12,11 @@
 */
 //-----------------------------------------------------------------------
 //======================================================================
+#if !defined(IUTEST_USE_GTEST) || (defined(INCG_IRIS_IUTEST_HPP_) && \
+    !defined(INCG_IRIS_IUTEST_SWITCH_FOR_GTEST_HPP_5770CDF3_B5D0_46BC_AAF8_B721902F9871))
+
 #ifndef INCG_IRIS_IUTEST_FILEPATH_HPP_D69E7545_BF8A_4EDC_9493_9105C69F9378_
 #define INCG_IRIS_IUTEST_FILEPATH_HPP_D69E7545_BF8A_4EDC_9493_9105C69F9378_
-
-#if !defined(IUTEST_USE_GTEST)
 
 //======================================================================
 // include
@@ -188,6 +189,7 @@ inline iu_ostream& operator << (iu_ostream& os, const iuFilePath& path)
 
 }   // end of namespace detail
 
+#if !defined(IUTEST_USE_GTEST)
 namespace internal
 {
     // google test との互換性のため
@@ -218,12 +220,14 @@ namespace internal
 
 #endif
 
+#endif
+
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
 #  include "../impl/iutest_filepath.ipp" // IWYU pragma: export
 #endif
 
-#endif
-
 #endif // INCG_IRIS_IUTEST_FILEPATH_HPP_D69E7545_BF8A_4EDC_9493_9105C69F9378_
+
+#endif
