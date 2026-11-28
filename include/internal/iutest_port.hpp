@@ -29,6 +29,10 @@
 #  include <locale.h>
 #endif
 
+#if defined(_MSC_VER) || defined(IUTEST_OS_WINDOWS_MINGW)
+#  include <io.h>
+#endif
+
 #if IUTEST_HAS_FILE_STAT
 #  include <sys/stat.h>
 #endif
@@ -147,15 +151,12 @@ inline iu_off_t FileTell(FILE* fp)
 
 #endif
 
-#if IUTEST_HAS_HDR_UNISTD
-
 #if defined(_MSC_VER) || defined(IUTEST_OS_WINDOWS_MINGW)
 inline int FdClose(int fd) { return _close(fd); }
 inline int FdFlush(int fd) { return _commit(fd); }
-#else
+#elif IUTEST_HAS_HDR_UNISTD
 inline int FdClose(int fd) { return close(fd); }
 inline int FdFlush(int fd) { return fsync(fd); }
-#endif
 #else
 inline int FdClose(int) { return -1; }
 inline int FdFlush(int) { return -1; }

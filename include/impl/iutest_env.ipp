@@ -312,6 +312,10 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnvironmentVariable()
 #if !defined(__WANDBOX__)
     {
         ::std::string var;
+        if( detail::GetEnvironmentVariable("TESTBRIDGE_TEST_RUNNER_FAIL_FAST", var) )
+        {
+            TestFlag::SetFlag(TestFlag::FAIL_FAST, var == "1" ? TestFlag::MASK : ~TestFlag::FAIL_FAST);
+        }
         if( detail::GetEnvironmentVariable("IUTEST_INSTALL_FAILURE_SIGNAL_HANDLER", var)
             || detail::GetEnvironmentVariable("GTEST_INSTALL_FAILURE_SIGNAL_HANDLER", var) )
         {
@@ -434,10 +438,12 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
             ParseOutputOption(str);
         }
-        if( detail::GetEnvironmentVariable("IUTEST_FILTER", str, sizeof(str))
-        ||  detail::GetEnvironmentVariable("GTEST_FILTER", str, sizeof(str)) )
+        ::std::string filter;
+        if( detail::GetEnvironmentVariable("IUTEST_FILTER", filter)
+        ||  detail::GetEnvironmentVariable("GTEST_FILTER", filter)
+        ||  detail::GetEnvironmentVariable("TESTBRIDGE_TEST_ONLY", filter) )
         {
-            ParseFilterOption(str);
+            ParseFilterOption(filter.c_str());
         }
         if(detail::GetEnvironmentVariable("IUTEST_DEFAULT_PACKAGE_NAME", str, sizeof(str)))
         {

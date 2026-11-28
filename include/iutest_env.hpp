@@ -59,6 +59,15 @@
  *          default_package_name (string)\n
  *          ostream_formatter (ostream)\n
  *          locale_ctype (string)\n
+ * @details TESTBRIDGE_TEST_ONLY and TESTBRIDGE_TEST_RUNNER_FAIL_FAST are
+ *          fallbacks for filter and fail_fast, respectively. IUTEST_/GTEST_
+ *          environment settings take precedence, followed by command-line overrides.
+ *          The Bazel fail-fast variable enables fail_fast only when its value is "1".
+ *          GTEST_TOTAL_SHARDS and GTEST_SHARD_INDEX select runnable tests by their
+ *          zero-based ordinal modulo the shard count, before shuffling.
+ *          GTEST_SHARD_STATUS_FILE is created to acknowledge sharding support.
+ *          TEST_PREMATURE_EXIT_FILE is created during a run and removed when the
+ *          run returns, but remains if the process exits during test execution.
 */
 #define IUTEST_FLAG(name)   IIUT_FLAG(name)
 

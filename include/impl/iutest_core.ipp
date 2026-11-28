@@ -18,9 +18,102 @@
 //======================================================================
 // include
 #include "../iutest_core.hpp"
+#include <errno.h>
+#include <limits>
 
 namespace iutest
 {
+
+namespace detail
+{
+
+IUTEST_IPP_INLINE bool ParseShardEnvironment(const char* name, const ::std::string& value, int& result)
+{
+    char* end = NULL;
+    errno = 0;
+    const long n = strtol(value.c_str(), &end, 10);
+    if( errno == ERANGE || end == NULL || end == value.c_str() || *end != '\0'
+        || n < 0 || n > (::std::numeric_limits<int>::max)() )
+    {
+        iuConsole::color_output(iuConsole::red, "Invalid %s: %s\n", name, value.c_str());
+        return false;
+    }
+    result = static_cast<int>(n);
+    return true;
+}
+
+IUTEST_IPP_INLINE bool GetShardConfiguration(int& total_shards, int& shard_index)
+{
+    ::std::string total, index;
+    const bool has_total = GetEnvironmentVariable("GTEST_TOTAL_SHARDS", total);
+    const bool has_index = GetEnvironmentVariable("GTEST_SHARD_INDEX", index);
+    if( !has_total && !has_index )
+    {
+        return true;
+    }
+    if( has_total != has_index
+        || !ParseShardEnvironment("GTEST_TOTAL_SHARDS", total, total_shards)
+        || !ParseShardEnvironment("GTEST_SHARD_INDEX", index, shard_index)
+        || total_shards == 0 || shard_index >= total_shards )
+    {
+        iuConsole::color_output(iuConsole::red,
+            "GTEST_TOTAL_SHARDS and GTEST_SHARD_INDEX must satisfy 0 <= index < total.\n");
+        return false;
+    }
+    return true;
+}
+
+IUTEST_IPP_INLINE bool CreateRunnerFile(const char* variable, ::std::string& path)
+{
+    if( !GetEnvironmentVariable(variable, path) || path.empty() )
+    {
+        return true;
+    }
+#if IUTEST_HAS_FOPEN
+    FILE* fp = internal::posix::FileOpen(path.c_str(), "w");
+    if( fp != NULL )
+    {
+        return fclose(fp) == 0;
+    }
+#endif
+    iuConsole::color_output(iuConsole::red, "Unable to create %s: %s\n", variable, path.c_str());
+    return false;
+}
+
+class ScopedPrematureExitFile
+{
+public:
+    explicit ScopedPrematureExitFile(const ::std::string& path) : m_path(path) {}
+    ~ScopedPrematureExitFile()
+    {
+        if( !m_path.empty() )
+        {
+#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)
+            for( int i = 0; i < 1000; ++i )
+            {
+                if( ::DeleteFileA(m_path.c_str()) )
+                {
+                    break;
+                }
+                const DWORD error = ::GetLastError();
+                if( error != ERROR_ACCESS_DENIED && error != ERROR_SHARING_VIOLATION )
+                {
+                    break;
+                }
+                ::Sleep(1);
+            }
+#elif IUTEST_HAS_FOPEN
+            remove(m_path.c_str());
+#endif
+        }
+    }
+
+private:
+    const ::std::string m_path;
+    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(ScopedPrematureExitFile);
+};
+
+}   // end of namespace detail
 
 IUTEST_IPP_INLINE int UnitTest::reportable_test_count() const
 {
@@ -108,10 +201,29 @@ IUTEST_IPP_INLINE int UnitTest::Run()
         }
     }
 
+    ::std::string shard_status_file;
+    if( !detail::CreateRunnerFile("GTEST_SHARD_STATUS_FILE", shard_status_file) )
+    {
+        return 1;
+    }
+
     if( !PreRunner() )
     {
         return Passed() ? 0 : 1;
     }
+
+    int total_shards = 1;
+    int shard_index = 0;
+    if( !detail::GetShardConfiguration(total_shards, shard_index) )
+    {
+        return 1;
+    }
+    ::std::string premature_exit_file;
+    if( !detail::CreateRunnerFile("TEST_PREMATURE_EXIT_FILE", premature_exit_file) )
+    {
+        return 1;
+    }
+    const detail::ScopedPrematureExitFile premature_exit_guard(premature_exit_file);
 
 #if IUTEST_HAS_EXCEPTIONS
     if( TestFlag::IsEnableFlag(TestFlag::CATCH_EXCEPTION_GLOBAL) )
@@ -120,9 +232,9 @@ IUTEST_IPP_INLINE int UnitTest::Run()
         try
         {
 #if IUTEST_HAS_SEH
-            ret = RunOnMSC();
+            ret = RunOnMSC(total_shards, shard_index);
 #else
-            ret = RunImpl();
+            ret = RunImpl(total_shards, shard_index);
 #endif
         }
         //catch( ::std::exception& e )
@@ -135,17 +247,17 @@ IUTEST_IPP_INLINE int UnitTest::Run()
         return ret;
     }
 #endif
-    return RunImpl();
+    return RunImpl(total_shards, shard_index);
 }
 
 #if IUTEST_HAS_SEH && IUTEST_HAS_EXCEPTIONS
-IUTEST_IPP_INLINE int UnitTest::RunOnMSC()
+IUTEST_IPP_INLINE int UnitTest::RunOnMSC(int total_shards, int shard_index)
 {
     _EXCEPTION_POINTERS* ep = NULL;
     int ret = 1;
     __try
     {
-        ret = RunImpl();
+        ret = RunImpl(total_shards, shard_index);
     }
     __except (ep = GetExceptionInformation()
 #if IUTEST_HAS_MINIDUMP
@@ -159,7 +271,7 @@ IUTEST_IPP_INLINE int UnitTest::RunOnMSC()
 }
 #endif
 
-IUTEST_IPP_INLINE int UnitTest::RunImpl()
+IUTEST_IPP_INLINE int UnitTest::RunImpl(int total_shards, int shard_index)
 {
     m_repeat_counter = 0;
     int repeat = TestEnv::get_repeat_count();
@@ -168,7 +280,7 @@ IUTEST_IPP_INLINE int UnitTest::RunImpl()
     if( repeat != 0 )
     {
         m_start_timestamp = detail::GetWallTimeInMillis();
-        TestProgramStart();
+        TestProgramStart(total_shards, shard_index);
 
         while( repeat )
         {
@@ -284,7 +396,7 @@ IUTEST_IPP_INLINE bool UnitTest::RunOnce(bool set_up_environment, bool tear_down
     return Passed();
 }
 
-IUTEST_IPP_INLINE void UnitTest::TestProgramStart()
+IUTEST_IPP_INLINE void UnitTest::TestProgramStart(int total_shards, int shard_index)
 {
 //#if IUTEST_HAS_EXCEPTIONS && defined(_MSC_VER) && IUTEST_HAS_SEH
 //  // /EHa オプションが必要
@@ -298,10 +410,12 @@ IUTEST_IPP_INLINE void UnitTest::TestProgramStart()
     // フィルタリング
     m_should_run_num = 0;
     m_disable_num = 0;
-    for( iuTestSuites::iterator it = m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
+    int runnable_test_id = 0;
+    for( ::std::vector<TestSuite*>::iterator it = m_registered_testsuites.begin()
+        , end = m_registered_testsuites.end(); it != end; ++it )
     {
         TestSuite* testsuite = *it;
-        testsuite->filter();
+        testsuite->filter(total_shards, shard_index, &runnable_test_id);
         m_should_run_num += testsuite->test_to_run_count();
         m_disable_num += testsuite->disabled_test_count();
     }

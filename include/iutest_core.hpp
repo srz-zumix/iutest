@@ -142,9 +142,9 @@ protected:
 
 private:
 #if IUTEST_HAS_SEH && IUTEST_HAS_EXCEPTIONS
-    int RunOnMSC();
+    int RunOnMSC(int total_shards, int shard_index);
 #endif
-    int RunImpl();
+    int RunImpl(int total_shards, int shard_index);
 
     /**
      * @brief   テストの実行（１ループ）
@@ -155,7 +155,7 @@ private:
     /**
      * @brief   プログラムの開始
     */
-    void TestProgramStart();
+    void TestProgramStart(int total_shards, int shard_index);
 
     /**
      * @brief   イテレーション毎のセットアップ

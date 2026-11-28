@@ -321,10 +321,20 @@ IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, char* buf, size_
         return false;
     }
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)
+    if( size == 0 )
+    {
+        return false;
+    }
+    ::SetLastError(ERROR_SUCCESS);
     const DWORD ret = ::GetEnvironmentVariableA(name, buf, static_cast<DWORD>(size));
     if( ret == 0 )
     {
-        return false;
+        if( ::GetLastError() != ERROR_SUCCESS )
+        {
+            return false;
+        }
+        buf[0] = '\0';
+        return true;
     }
     if( ret > size )
     {

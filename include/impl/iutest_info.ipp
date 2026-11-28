@@ -175,7 +175,7 @@ IUTEST_IPP_INLINE void TestInfo::clear()
     m_uncaught_messages.clear();
 }
 
-IUTEST_IPP_INLINE bool TestInfo::filter()
+IUTEST_IPP_INLINE bool TestInfo::filter(int total_shards, int shard_index, int* runnable_test_id)
 {
     bool run = true;
     // 無効テストなら実行しない
@@ -194,6 +194,13 @@ IUTEST_IPP_INLINE bool TestInfo::filter()
         }
     }
     m_matches_filter = match;
+    m_is_in_another_shard = false;
+    if( run && runnable_test_id != NULL )
+    {
+        m_is_in_another_shard = (*runnable_test_id % total_shards) != shard_index;
+        ++*runnable_test_id;
+        run = !m_is_in_another_shard;
+    }
     m_should_run = run;
     return m_should_run;
 }

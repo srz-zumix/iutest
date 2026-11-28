@@ -43,6 +43,8 @@ int SetUpEnvironmentImpl(void)
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "FILTER=Flag*") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "OUTPUT=test") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv("XML_OUTPUT_FILE=hoge") == -1 ) return -1; // OUTPUT environment takes precedence
+    if( ::iutest::internal::posix::PutEnv("TESTBRIDGE_TEST_ONLY=NoMatchingTest") == -1 ) return -1;
+    if( ::iutest::internal::posix::PutEnv("TESTBRIDGE_TEST_RUNNER_FAIL_FAST=0") == -1 ) return -1;
 
     if( ::iutest::internal::posix::PutEnv("IUTEST_DEFAULT_PACKAGE_NAME=env_var") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv("IUTEST_FILE_LOCATION=vs") == -1 ) return -1;

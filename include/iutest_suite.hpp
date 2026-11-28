@@ -216,7 +216,7 @@ private:
      * @brief   テストのフィルタリング
      * @return  実行する場合は真
     */
-    bool filter();
+    bool filter(int total_shards = 1, int shard_index = 0, int* runnable_test_id = NULL);
 
 private:
     friend bool operator == (const TestSuite& lhs, const TestSuite& rhs)
@@ -224,7 +224,11 @@ private:
         return (lhs.m_id == rhs.m_id) && (strcmp(lhs.name(), rhs.name()) == 0);
     }
 
-    void push_back(TestInfo* p) { m_testinfos.push_back(p); }
+    void push_back(TestInfo* p)
+    {
+        m_testinfos.push_back(p);
+        m_registered_testinfos.push_back(p);
+    }
 
 private:
     iuTestInfos::const_iterator begin() const       { return m_testinfos.begin(); }
@@ -254,6 +258,7 @@ private:
     ::std::string   m_testsuite_name;   //!< TestSuite 名
     ::std::string   m_type_param;       //!< type param string
     iuTestInfos     m_testinfos;        //!< テスト情報リスト
+    ::std::vector<TestInfo*> m_registered_testinfos;  //!< シャッフル前の登録順
     SetUpMethod     m_setup;            //!< SetUp 関数
     TearDownMethod  m_teardown;         //!< TearDown 関数
     TestTypeId      m_id;               //!< TypeID

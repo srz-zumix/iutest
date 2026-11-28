@@ -117,6 +117,19 @@ IUTEST(TempFileUnitTest, UnsetOrEmptyTmpDirUsesDefault)
 
 #if IUTEST_HAS_FOPEN
 
+#if defined(IUTEST_OS_WINDOWS)
+IUTEST(TempFileUnitTest, CloseReleasesDescriptor)
+{
+    ::iutest::TempFile file;
+    IUTEST_ASSERT_TRUE(file.Create("iutest_close"));
+    IUTEST_EXPECT_EQ(0, ::iutest::internal::posix::FdFlush(file.GetDescriptor()));
+    const ::std::string filename = file.GetFileName();
+    file.Close();
+    IUTEST_EXPECT_EQ(0, remove(filename.c_str()));
+    file.Delete();
+}
+#endif
+
 IUTEST(StdFileUnitTest, AppendOpenedFileSize)
 {
     ::iutest::StdioFile file;
